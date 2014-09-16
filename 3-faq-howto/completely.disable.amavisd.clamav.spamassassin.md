@@ -1,5 +1,5 @@
-<http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/Completely.Disable.Amavisd.ClamAV.SpamAssassin>
-#How to completely disable amavisd/ClamAV/SpamAssassin
+# How to completely disable amavisd/ClamAV/SpamAssassin
+
 In iRedMail, Amavisd provides below features:
 
 * content-based spam scanning (invoke SpamAssassin)
@@ -14,16 +14,14 @@ In iRedMail, Amavisd provides below features:
 If you want to disable virus and spam scanning, but keep DKIM signing and disclaimer, please try this:
 
 * Keep "content_filter =" setting in Postfix main.cf.
-<pre>
-content_filter = smtp-amavis:[127.0.0.1]:10024
-</pre>
+
+    content_filter = smtp-amavis:[127.0.0.1]:10024
 
 * Find below lines in /etc/amavisd/amavisd.conf:
-
-<pre>
+```perl
 # @bypass_virus_checks_maps = (1);  # controls running of anti-virus code
 # @bypass_spam_checks_maps  = (1);  # controls running of anti-spam code
-</pre>
+```
 
 Uncomment above lines (removing "# " at the beginning of each line), and restart Amavisd service.
 
@@ -31,7 +29,13 @@ Uncomment above lines (removing "# " at the beginning of each line), and restart
 
 If you want to completely disable spam and virus scanning services, steps:
 
-1. Comment out __content\_filter = smtp-amavis:[127.0.0.1]:10024__ and __receive\_override\_options = no\_address\_mappings__ in Postfix config file __/etc/postfix/main.cf__, and restart Postfix service.
+* Comment out below two lines in Postfix config file `/etc/postfix/main.cf`, then restart Postfix service.
+
+```
+content_filter = smtp-amavis:[127.0.0.1]:10024
+receive_override_options = no_address_mappings
+```
+
 * Disable network services: Amavisd, ClamAV.
 
 Notes:
