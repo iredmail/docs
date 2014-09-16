@@ -1,8 +1,7 @@
-#
-# Syntax
-#
-#   - Link: An [text](http://url.com/ "title")
-#
+#!/usr/bin/env bash
+
+# Author: Zhang Huangbin <zhb _at_ iredmail.org>
+# Purpose: Convert markdown articles to HTML files.
 
 # TODO
 #   - describe the directory structure and how it works
