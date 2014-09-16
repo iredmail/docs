@@ -1,11 +1,6 @@
 = faq.html =
 
 
-
-
-
-
-* http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/EndUser/Howto.Configure.Thunderbird.for.iRedMail
 * http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/Store.SpamAssassin.Bayes.In.SQL
 * http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/Allow.Insecure.POP3.IMAP.Connection.without.STARTTLS
 * http://iredmail.org/wiki/index.php?title=IRedMail/FAQ/Pipe.Incoming.Email.For.Certain.User.To.External.Script
@@ -20,7 +15,7 @@
 * [DONE] http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/use.or.migrate.password.hashes
 * [DONE] http://iredmail.org/wiki/index.php?title=IRedMail/FAQ/Disable.Spam.Virus.Scanning.for.Outgoing.Mails
 *  [DONE] http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/Completely.Disable.Amavisd.ClamAV.SpamAssassin
-
+*  [DONE] http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/EndUser/Howto.Configure.Thunderbird.for.iRedMail
 
 
 
