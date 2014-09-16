@@ -1,3 +1,5 @@
+
+= faq.html =
 http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/Quarantining.Clean.Mail
 http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/Unattended.iRedMail.Installation
 http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/use.or.migrate.password.hashes
