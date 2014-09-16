@@ -14,7 +14,14 @@
 - 3-install/
 ```
 
-最后使用脚本 convert.sh 自动生成电子书的 index.html 文件。这个脚本的作用是：
+* 使用脚本 convert.sh 转换所有 Markdown 文件为 HTML 文件：
 
+```bash
+$ bash convert.sh
+```
+
+`convert.sh` 的作用是：
+
+* 自动生成包含所有文档链接的总索引文件 `index.html`
 * 将章节按照顺序排列
 * 生成完整的索引，并列出章节目录内的所有文章
