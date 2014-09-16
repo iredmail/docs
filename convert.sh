@@ -14,9 +14,10 @@ PWD="$(PWD)"
 SOURCE_DIR="${PWD}/src"
 OUTPUT_DIR="${PWD}/html"
 INDEX_MD="${OUTPUT_DIR}/index.md"
-CMD_CONVERT="python ${PWD}/tools/markdown2html.py"
 
 [ -d ${OUTPUT_DIR} ] || mkdir -p ${OUTPUT_DIR}
+
+CMD_CONVERT="python ${PWD}/tools/markdown2html.py"
 
 strip_name_prefix()
 {
@@ -88,7 +89,7 @@ done
 cd ${OUTPUT_DIR}
 
 # Generate index.html
-python ../tools/markdown2html.py ${INDEX_MD} .
+python ../tools/markdown2html.py ${INDEX_MD} ${OUTPUT_DIR}
 
 # Cleanup
 rm -f ${INDEX_MD}
