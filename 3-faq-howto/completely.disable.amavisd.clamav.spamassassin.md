@@ -9,13 +9,11 @@ In iRedMail, Amavisd provides below features:
 * SPF verification (through SpamAssassin + Perl module)
 * Disclaimer (throught AlterMIME)
 
-##Stop virus/spam scanning, keep DKIM signing/verification and Disclaimer
+### Stop virus/spam scanning, keep DKIM signing/verification and Disclaimer
 
 If you want to disable virus and spam scanning, but keep DKIM signing and disclaimer, please try this:
 
-* Keep "content_filter =" setting in Postfix main.cf.
-
-    content_filter = smtp-amavis:[127.0.0.1]:10024
+* Keep `content_filter = smtp-amavis:[127.0.0.1]:10024` in Postfix config file `/etc/postfix/main.cf`.
 
 * Find below lines in /etc/amavisd/amavisd.conf:
 ```perl
@@ -25,16 +23,16 @@ If you want to disable virus and spam scanning, but keep DKIM signing and discla
 
 Uncomment above lines (removing "# " at the beginning of each line), and restart Amavisd service.
 
-##Completely disable all features
+### Completely disable all features
 
 If you want to completely disable spam and virus scanning services, steps:
 
 * Comment out below two lines in Postfix config file `/etc/postfix/main.cf`, then restart Postfix service.
 
-```
+<pre>
 content_filter = smtp-amavis:[127.0.0.1]:10024
 receive_override_options = no_address_mappings
-```
+</pre>
 
 * Disable network services: Amavisd, ClamAV.
 

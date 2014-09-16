@@ -1,20 +1,42 @@
-<http://www.iredmail.org/wiki/index.php?title=Addition/Migrate.to.New.iRedMail.Server>
-#How to migrate a test server to production
+#How to migrate old iRedMail server to the latest stable release
 
 
-__TO BE CONTINUED.__
+`WARNING`: Please try it on a test server first. if it works well, then try it on product server.
 
-__Please try it on a test server first, if it works well, then try it on product server.__
+Since new iRedMail server will install same components as old server, you can choose what data you want to migrate. Most important data are:
 
-Since new iRedMail server will install same components as old server, you can choose what data you want to migrate. The core data are mail accounts, user mailboxes, roundcube webmail database, Policyd database, Amavisd database.
+* email accounts stored in SQL/LDAP.
+* user mailboxes. Stored under /var/vmail by default.
+* SQL database of Roundcube webmail. It stores per-user webmail preferences, and address book.
+* Policyd/Cluebringer database. It stores white/blacklists records, greylisting records, etc.
+* Amavisd database.
+    * It stores per-recipient white/blacklists in SQL tables: `mailaddr`, `policy`, `users`, `wblist`.
+    * Basic info of in/out emails are stored in SQL tables: `maddr`, `msgs`, `msgrcpt`. Quarantined emails are stored in `quarantine`, it requires other 3 tables. If you don't have any quarantined emails, it's safe to delete all records in these 4 tables.
 
-WARNING: Do not restore database "mysql" exported from old server, it contains SQL usernames/passwords for Roundcube/Amavisd/Policyd/Cluebringer used on old server. New iRedMail server has the same SQL usernames, but different passwords. So please do not restore it.
+__WARNING__: Do not restore database `mysql` exported from old server, it contains SQL usernames/passwords for Roundcube/Amavisd/Policyd/Cluebringer used on old server. New iRedMail server has the same SQL usernames, but different passwords. So please do not restore it.
 
 ##Client settings (Outlook, Thunderbird)
 
-* Since iRedMail-0.8.7, iRedMail enforces secure smtp connection, client must issue 'STARTTLS' command before authentication, so you must change your mail client program (e.g. Outlook, Thunderbird) to use TLS connection on port 587. If you want to enable smtp authentication on port 25 (again, not recommended), please comment out Postfix parameter __"smtpd\_tls\_auth\_only = yes"__ in its config file /etc/postfix/main.cf.
+Since iRedMail-0.8.7, iRedMail enforces secure POP3/IMAP/SMTP connections.
+Mail client programs must issue 'STARTTLS' command before authentication,
+so please update your mail client programs you must change your mail client
+programs (e.g. Outlook, Thunderbird) to use TLS connection.
+
+* For SMTP service, use port `587` with `STARTTLS` (or `TLS`).
+* For IMAP service, use port `143` with `STARTTLS` (or `TLS`).
+* For POP3 service, use port `110` with `STARTTLS` (or `TLS`).
+
+Addition notes:
+
+* If you want to enable smtp authentication on port `25` (again, not
+recommended), please comment out Postfix parameter `smtpd_tls_auth_only = yes`
+in its config file `/etc/postfix/main.cf`.
+
+* if you want to enable SMTPS (SMTP over SSL, port `465`) to support legency
+mail clients, please follow this tutorial: (How to enable SMTPS service)[./faq-howto/howto.enable.smtps.service].
 
 ##LDAP: migrate mail accounts
+
 Steps to migrate LDAP mail accounts:
 
 * Setup a new server with the latest iRedMail, and make iRedAdmin-Pro-LDAP work as expected.
@@ -28,10 +50,15 @@ __Note__:
 
 ##MySQL/PostgreSQL: Migrate mail accounts
 
-All mail accounts are stored in database __vmail__ by default, to migrate mail accounts, just simply export this database on old server, then import it on new server.
+All mail accounts are stored in database `vmail` by default, to migrate mail
+accounts, you can simply export this database on old server, then import it
+on new server.
 
-* __IMPORTANT NOTE__: iRedMail-0.8.7 drops several SQL columns, so before you import backup SQL database, please add them first. It's safe to drop them after you imported database.
-<pre>
+__IMPORTANT NOTE__: iRedMail-0.8.7 drops several SQL columns, so before you
+import backup SQL database, please add them first. It's safe to drop them
+after you imported old database on new server.
+
+```mysql
 mysql> USE vmail;
 
 mysql> ALTER TABLE mailbox ADD COLUMN bytes BIGINT(20) NOT NULL DEFAULT 0;
@@ -47,10 +74,12 @@ mysql> ALTER TABLE domain ADD COLUMN minpasswordlength INT(10) NOT NULL DEFAULT 
 mysql> ALTER TABLE domain ADD COLUMN maxpasswordlength INT(10) NOT NULL DEFAULT 0;
 
 mysql> ALTER TABLE alias ADD COLUMN islist TINYINT(1) NOT NULL DEFAULT 0;
-</pre>
+```
 
-After you imported backup SQL databases, please execute below commands to mark mail alias accounts and drop above newly created columns:
-<pre>
+After imported backup SQL databases, please execute below commands to mark
+mail alias accounts and drop above newly created columns:
+
+```mysql
 mysql> USE vmail;
 mysql> UPDATE alias SET islist=1 WHERE address NOT IN (SELECT username FROM mailbox);
 mysql> UPDATE alias SET islist=0 WHERE address=domain;    -- domain catch-all account
@@ -72,37 +101,23 @@ mysql> ALTER TABLE domain DROP minpasswordlength;
 mysql> ALTER TABLE domain DROP maxpasswordlength;
 mysql> ALTER TABLE domain DROP disableddomainprofiles;
 mysql> ALTER TABLE domain DROP disableduserprofiles;
-</pre>
+```
 
-* __IMPORTANT NOTE__: There might be some changes in SQL structure, please read all upgrade tutorials for your running iRedMail version, then apply SQL structure related upgradings. For example: <http://www.iredmail.org/wiki/index.php?title=Upgrade/iRedMail/0.7.4-0.8.0#Add_internal_service_required_by_Doveadm_2>
+__IMPORTANT NOTE__: There might be some changes in SQL structure, please read
+all upgrade tutorials for your current iRedMail release, then apply SQL
+structure related changes. For example:
+<http://www.iredmail.org/wiki/index.php?title=Upgrade/iRedMail/0.7.4-0.8.0#Add_internal_service_required_by_Doveadm_2>
 
-##Migrate mailboxes (in maildir format)
-* Simply copy all mailboxes (in maildir format) to new iRedMail server.
-* Set correct file owner of mailboxes. Default is owned by user __vmail__, group __vmail__.
-* Set correct file permission of mailboxes. Default is 0700.
+##Migrate mailboxes (Maildir format)
 
-WARNING: please make sure maildir path which stored/configured in LDAP
-will match the real path on file system, so that mail clients can find
-them.
+* Simply copy all mailboxes (in Maildir format) to new iRedMail server.
+* Set correct file owner of mailboxes. Default owner is `vmail`, group is `vmail`.
+* Set correct file permission of mailboxes. Default is `0700`.
 
-##Important Notes for MySQL backend
-__This section is applicable to iRedMail-0.7.3 and earlier versions, with MySQL backend. Not required in iRedMail-0.7.4 and later versions.__
-
-Please refer to this section for more details: [Store realtime mailbox quota usage in seperate SQL table](http://iredmail.org/wiki/index.php?title=Upgrade/iRedMail/0.7.3-0.7.4#Store_realtime_mailbox_quota_usage_in_seperate_SQL_table) 
+WARNING: please make sure maildir path stored in SQL/LDAP matches the mailbox
+path on file system, so that mail clients can find imported emails.
 
 ##Migrate Roundcube webmail data
 
 * Export/import roundcube webmail database, and upgrade database to work with new version of Roundcube.
 <http://trac.roundcube.net/wiki/Howto_Upgrade>
-
-__IMPORTANT NOTES__
-* Upcoming iRedMail-0.8.7 enforces secure smtp connection. client must issue 'STARTTLS' command to establish secure smtp connection before authentication, otherwise you will get __"SMTP error: Authentication failure"__ in Roundcube while sending email. To fix this error, you have to change smtp server address and port to below settings(config/config.inc.php):
-<pre>
-// Settings for Roundcube webmail 1.0.0 and later releases
-$config['smtp_server'] = 'tls://127.0.0.1';
-$config['smtp_port'] = 587;
-</pre>
-
-##Migrate Policyd database
-
-Policyd database stores blacklist/whitelist, throttling, etc. To migrate its data, simply export this database on old server, then import it on new server.

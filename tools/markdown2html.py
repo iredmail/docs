@@ -24,8 +24,19 @@ output_dir = sys.argv[2]
 # Set output file name
 output_html_file = output_dir + '/' + filename_without_ext + '.html'
 
+# Get other options and convert them to a dict.
+args = sys.argv[3:]
+cmd_opts = {}
+for arg in args:
+    if '=' in arg:
+        (var, value) = arg.split('=')
+        cmd_opts[var] = value
+
+if not 'css' in cmd_opts:
+    cmd_opts['css'] = '../../css/markdown.css'
+
 # Get article title
-title = commands.getoutput("""grep 'Title:' %s |awk -F'Title: ' '{print $2}'""" % filename)
+cmd_opts['title'] = commands.getoutput("""grep 'Title:' %s |awk -F'Title: ' '{print $2}'""" % filename)
 
 # Set HTML head
 html = """\
@@ -33,12 +44,12 @@ html = """\
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>%(title)s</title>
-        <link href="../css/markdown.css" rel="stylesheet"></head>
+        <link href="%(css)s" rel="stylesheet"></head>
     </head>
 
     <body>
     <h3>%(title)s</h3>
-    """ % {'title': title}
+    """ % cmd_opts
 
 # Read markdown file and render as HTML body
 # Handle unicode characters with web.safeunicode

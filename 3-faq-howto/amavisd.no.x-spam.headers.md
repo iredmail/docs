@@ -1,7 +1,6 @@
 # Amavisd + SpamAssassin not working, no mail header (X-Spam-*) inserted.
 
-Amavisd has below setting in its config file by default:
-File: /etc/amavisd/amavisd.conf
+Amavisd has below setting in its config file `/etc/amavisd/amavisd.conf` by default:
 
     $sa_tag_level_deflt  = 2.0;
 

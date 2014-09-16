@@ -80,7 +80,7 @@ for chapter_dir in ${all_chapter_dirs}; do
         # Get title.
         _article_title="$(head -1 ${article_file} | awk -F'#' '{print $2}')"
         #echo "article title: ${_article_title}"
-        echo "## [${_article_title}](${_output_chapter_dir}/${article_html_file})" >> ${INDEX_MD}
+        echo "* [${_article_title}](${_output_chapter_dir}/${article_html_file})" >> ${INDEX_MD}
 
         ${CMD_CONVERT} ${article_file} ${_output_chapter_dir}
     done
@@ -89,7 +89,7 @@ done
 cd ${OUTPUT_DIR}
 
 # Generate index.html
-python ../tools/markdown2html.py ${INDEX_MD} ${OUTPUT_DIR}
+python ../tools/markdown2html.py ${INDEX_MD} ${OUTPUT_DIR} css='../css/markdown.css'
 
 # Cleanup
 rm -f ${INDEX_MD}
