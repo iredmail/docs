@@ -12,7 +12,7 @@
 # Directory used to store converted html files.
 PWD="$(PWD)"
 SOURCE_DIR="${PWD}/src"
-OUTPUT_DIR="${PWD}/output"
+OUTPUT_DIR="${PWD}/html"
 INDEX_MD="${OUTPUT_DIR}/index.md"
 CMD_CONVERT="python ${PWD}/tools/markdown2html.py"
 
