@@ -2,7 +2,7 @@
 
 
 
-* http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/use.or.migrate.password.hashes
+
 * http://iredmail.org/wiki/index.php?title=IRedMail/FAQ/Disable.Spam.Virus.Scanning.for.Outgoing.Mails
 * http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/Completely.Disable.Amavisd.ClamAV.SpamAssassin
 * http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/EndUser/Howto.Configure.Thunderbird.for.iRedMail
@@ -17,7 +17,7 @@
 
 * [DONE]http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/Quarantining.Clean.Mail
 * [DONE]http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/Unattended.iRedMail.Installation
-
+* [DONE] http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/use.or.migrate.password.hashes
 
 
 
