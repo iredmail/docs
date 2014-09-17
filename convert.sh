@@ -10,7 +10,7 @@
 #   - better way to strip prefix in dir/file name: [number]- 
 
 # Directory used to store converted html files.
-PWD="$(PWD)"
+PWD="."
 SOURCE_DIR="${PWD}/src"
 OUTPUT_DIR="${PWD}/html"
 INDEX_MD="${OUTPUT_DIR}/index.md"
@@ -51,14 +51,15 @@ for chapter_dir in ${all_chapter_dirs}; do
 
     # Output directory.
     # Remove prefix '[number]-' in chapter directory name.
-    _output_chapter_dir="${OUTPUT_DIR}/$(strip_name_prefix ${chapter_dir})"
+    chapter_dir_in_article="$(strip_name_prefix ${chapter_dir})"
+    _output_chapter_dir="${OUTPUT_DIR}/${chapter_dir_in_article}"
 
     _title_md="${chapter_dir}/_title.md"
     _summary_md="${chapter_dir}/_summary.md"
 
     if [ -f ${_title_md} ]; then
         # generate index info of chapter
-        echo "# [$(cat ${_title_md})](${_output_chapter_dir}/_summary.html)" >> ${INDEX_MD}
+        echo "# [$(cat ${_title_md})](${chapter_dir_in_article}/_summary.html)" >> ${INDEX_MD}
     fi
 
     mkdir -p ${_output_chapter_dir} &>/dev/null
@@ -80,16 +81,16 @@ for chapter_dir in ${all_chapter_dirs}; do
         # Get title.
         _article_title="$(head -1 ${article_file} | awk -F'#' '{print $2}')"
         #echo "article title: ${_article_title}"
-        echo "* [${_article_title}](${_output_chapter_dir}/${article_html_file})" >> ${INDEX_MD}
+        echo "* [${_article_title}](${chapter_dir_in_article}/${article_html_file})" >> ${INDEX_MD}
 
         ${CMD_CONVERT} ${article_file} ${_output_chapter_dir}
     done
 done
 
-cd ${OUTPUT_DIR}
+#cd ${OUTPUT_DIR}
 
 # Generate index.html
-python ../tools/markdown2html.py ${INDEX_MD} ${OUTPUT_DIR} css='../css/markdown.css'
+${CMD_CONVERT} ${INDEX_MD} ${OUTPUT_DIR} css='../css/markdown.css'
 
 # Cleanup
 #rm -f ${INDEX_MD}
