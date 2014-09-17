@@ -1,7 +1,6 @@
 
 # Frequently Asked Questions
-* [ How to use or migrate password hashes](faq-howto/use.or.migrate.password.hashes.html)
-* [ Why append timestamp in maildir path](faq-howto/why.append.timestamp.in.maildir.path.html)
+* [ Why append timestamp in maildir path](faq/why.append.timestamp.in.maildir.path.html)
 # How to
 * [ How to allow user to send email without authentication](howto/allow.user.to.send.email.without.authentication.html)
 * [ Amavisd + SpamAssassin not working, no mail header (X-Spam-*) inserted.](howto/amavisd.no.x-spam.headers.html)
@@ -13,6 +12,7 @@
 * [ How to force Dovecot to recalculate mailbox quota](howto/recalculate.mailbox.quota.html)
 * [ How to store spamassassin bayes in SQL](howto/store.spamassassin.bayes.in.sql.html)
 * [ How to perform silent/unattended iRedMail installation](howto/unattended.iredmail.installation.html)
+* [ How to use or migrate password hashes](howto/use.or.migrate.password.hashes.html)
 # Backup and Restore
 * [How to migrate old iRedMail server to the latest stable release](backup-restore/migrate.to.new.iredmail.server.html)
 # Troubleshooting and Debug
