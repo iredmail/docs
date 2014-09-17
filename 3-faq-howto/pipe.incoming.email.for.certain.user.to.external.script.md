@@ -16,8 +16,8 @@ external-pipe   unix    -   n   n   -   -   pipe
 __Note__:
 
 * You can use some macros to replace with corresponding information from the
-Postfix queue manager delivery request. Refer to Postfix manual page for more
-detail: ()[http://www.postfix.org/pipe.8.html]. For example:
+Postfix queue manager delivery request. Refer to Postfix manual page
+[pipe(8)](http://www.postfix.org/pipe.8.html) for more details. For example:
 
 ```
 external-pipe   unix    -   n   n   -   -   pipe
@@ -45,11 +45,11 @@ this user will be piped to this new transport - your script.
 * If you have iRedAdmin-Pro:
 
     * For iRedAdmin-Pro-LDAP installed, please go to user profile page, under
-tab `Advanced`, set `Relay/Transport setting` to `external-pipe`. Screenshot for
-your reference: ()[http://www.iredmail.org/images/iredadmin/user_profile_relay.png]
+tab `Advanced`, set `Relay/Transport setting` to `external-pipe`.
+[Screenshot](http://www.iredmail.org/images/iredadmin/user_profile_relay.png) for your reference:
 
     * For iRedAdmin-Pro-MySQL or iRedAdmin-Pro-PGSQL installed, please go
-to user profile page, under tab `Relay`, set `/Transport setting` to
+to user profile page, under tab `Relay`, set `Relay/Transport setting` to
 `external-pipe`.
 
 * If you don't have iRedAdmin-Pro, please update LDAP/MySQL/PgSQL database to
@@ -61,9 +61,9 @@ use this new transport.
 	* For MySQL/PostgreSQL backend, please execute below command with SQL
       command line tool (Replace 'user@domain.ltd' by the real email address):
 
-```mysql
+<pre>
 sql> USE vmail;
 sql> UPDATE mailbox SET transport='external-pipe' WHERE username='user@domain.ltd';
-```
+</pre>
 
 That's all.

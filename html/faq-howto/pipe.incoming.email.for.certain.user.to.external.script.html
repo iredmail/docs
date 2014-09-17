@@ -19,8 +19,8 @@ config file <code>/etc/postfix/master.cf</code>:</p>
 <p><strong>Note</strong>:</p>
 <ul>
 <li>You can use some macros to replace with corresponding information from the
-Postfix queue manager delivery request. Refer to Postfix manual page for more
-detail: ()[http://www.postfix.org/pipe.8.html]. For example:</li>
+Postfix queue manager delivery request. Refer to Postfix manual page
+<a href="http://www.postfix.org/pipe.8.html">pipe(8)</a> for more details. For example:</li>
 </ul>
 <pre><code>external-pipe   unix    -   n   n   -   -   pipe
     flags=DRhu user=vmail:vmail argv=/path/to/your/external/script.sh -f ${sender} -d ${user}@${domain} -m ${extension}
@@ -47,12 +47,12 @@ this user will be piped to this new transport - your script.</p>
 <ul>
 <li>
 <p>For iRedAdmin-Pro-LDAP installed, please go to user profile page, under
-tab <code>Advanced</code>, set <code>Relay/Transport setting</code> to <code>external-pipe</code>. Screenshot for
-your reference: ()[http://www.iredmail.org/images/iredadmin/user_profile_relay.png]</p>
+tab <code>Advanced</code>, set <code>Relay/Transport setting</code> to <code>external-pipe</code>.
+<a href="http://www.iredmail.org/images/iredadmin/user_profile_relay.png">Screenshot</a> for your reference:</p>
 </li>
 <li>
 <p>For iRedAdmin-Pro-MySQL or iRedAdmin-Pro-PGSQL installed, please go
-to user profile page, under tab <code>Relay</code>, set <code>/Transport setting</code> to
+to user profile page, under tab <code>Relay</code>, set <code>Relay/Transport setting</code> to
 <code>external-pipe</code>.</p>
 </li>
 </ul>
@@ -72,8 +72,9 @@ use this new transport.</p>
 </ul>
 </li>
 </ul>
-<pre><code class="mysql">sql&gt; USE vmail;
-sql&gt; UPDATE mailbox SET transport='external-pipe' WHERE username='user@domain.ltd';
-</code></pre>
+<pre>
+sql> USE vmail;
+sql> UPDATE mailbox SET transport='external-pipe' WHERE username='user@domain.ltd';
+</pre>
 
 <p>That's all.</p></body></html>
