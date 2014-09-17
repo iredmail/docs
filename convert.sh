@@ -14,7 +14,7 @@ PWD="."
 SOURCE_DIR="${PWD}/src"
 OUTPUT_DIR="${PWD}/html"
 INDEX_MD="${OUTPUT_DIR}/index.md"
-README_MD="${OUTPUT_DIR}/README.md"
+README_MD="${PWD}/README.md"
 
 [ -d ${OUTPUT_DIR} ] || mkdir -p ${OUTPUT_DIR}
 
