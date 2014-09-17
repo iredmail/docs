@@ -3,7 +3,7 @@ body{
     font-family: Georgia, Palatino, serif;
     line-height: 1;
     max-width: 70%;
-    padding: 30px;
+    padding: 30px 0px 100px 0px;
 }
 h1, h2, h3, h4, h5 {
     font-weight: 500;
