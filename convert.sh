@@ -31,10 +31,10 @@ strip_name_prefix()
 
 # Get directories of chapters
 all_chapter_dirs="$(find . -d 1 -type d -iname '[0-9]*' | sort)"
-echo "* Found chapters:"
-for dl in ${all_chapter_dirs}; do
-    echo "  - $dl"
-done
+#echo "* Found chapters:"
+#for dl in ${all_chapter_dirs}; do
+#    echo "  - $dl"
+#done
 
 # Get chapter info
 #   - title: _title.md
@@ -97,7 +97,7 @@ done
 #cd ${OUTPUT_DIR}
 
 # Generate index.html
-${CMD_CONVERT} ${INDEX_MD} ${OUTPUT_DIR} css='./css/markdown.css'
+${CMD_CONVERT} ${INDEX_MD} ${OUTPUT_DIR} css='./css/markdown.css' title="iRedMail Documentations"
 
 # Cleanup
-rm -f ${INDEX_MD}
+#rm -f ${INDEX_MD}

@@ -1,1 +1,1 @@
-Frequently Asked Questions and Howto documents
+Frequently Asked Questions
