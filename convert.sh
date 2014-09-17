@@ -90,7 +90,7 @@ for chapter_dir in ${all_chapter_dirs}; do
         _article_title="$(head -1 ${article_file} | awk -F'#' '{print $2}')"
         #echo "article title: ${_article_title}"
         echo "* [${_article_title}](${chapter_dir_in_article}/${article_html_file})" >> ${INDEX_MD}
-        echo "* [${_article_title}](${chapter_dir}/${article_file})" >> ${INDEX_MD}
+        echo "* [${_article_title}](${chapter_dir}/${article_file})" >> ${README_MD}
 
         ${CMD_CONVERT} ${article_file} ${_output_chapter_dir} title="${_article_title}"
     done
