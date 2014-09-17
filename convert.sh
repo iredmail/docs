@@ -96,7 +96,7 @@ done
 #cd ${OUTPUT_DIR}
 
 # Generate index.html
-${CMD_CONVERT} ${INDEX_MD} ${OUTPUT_DIR} css='../css/markdown.css'
+${CMD_CONVERT} ${INDEX_MD} ${OUTPUT_DIR} css='./css/markdown.css'
 
 # Cleanup
 rm -f ${INDEX_MD}

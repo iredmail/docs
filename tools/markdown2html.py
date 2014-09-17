@@ -33,7 +33,7 @@ for arg in args:
         cmd_opts[var] = value
 
 if not 'css' in cmd_opts:
-    cmd_opts['css'] = '../../css/markdown.css'
+    cmd_opts['css'] = '../css/markdown.css'
 
 # Get article title
 cmd_opts['title'] = commands.getoutput("""grep 'Title:' %s |awk -F'Title: ' '{print $2}'""" % filename)
