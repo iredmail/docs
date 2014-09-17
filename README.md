@@ -1,7 +1,4 @@
-# Frequently Asked Questions
-# How to
-# Backup and Restore
-# Troubleshooting and Debug
+
 # Frequently Asked Questions
 * [ Why append timestamp in maildir path](./3-faq/./3-faq/why.append.timestamp.in.maildir.path.md)
 # How to
