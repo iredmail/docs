@@ -1,14 +1,14 @@
-#Configure Thunderbird as mail client (IMAP, SMTP and global ldap address book)
+# Configure Thunderbird as mail client (IMAP, SMTP and global ldap address book)
 
 iRedMail provides POP3S (POP3 over TLS), IMAPS (IMAP over TLS), SMTPS (SMTP over TLS) for receiving and sending emails by default.
 
-##Create new mail account
+## Create new mail account
 
 To create a new mail account with Thunderbird, please click menu: `File -> New -> Mail Account`.
 
 Add your name, email address and password in this screen.
 
-[[File:../images/thunderbird.new.mail.account.png]]
+![](images/Thunderbird.new.mail.account.png "Thunderbird.new.mail.account.png")
 
 Click continue, it will detect IMAP and SMTP server automatically.
 
@@ -19,18 +19,18 @@ Note:
 
 ![](../images/thunderbird.new.mail.account.setup.png "Thunderbird.new.mail.account.setup.png")
 
-##Configure Thunderbird as POP3 client
+## Configure Thunderbird as POP3 client
 Warning: Make sure you're using full email address as username.
 
 ![](../images/thunderbird.pop3.png "Thunderbird.pop3.png")
 
-##Configure Thunderbird as IMAP client
+## Configure Thunderbird as IMAP client
 
 Warning: Make sure you're using full email address as username.
 
 ![](../images/thunderbird.imap.png "Thunderbird.imap.png")
 
-##Configure Thunderbird to send mail via SMTP
+## Configure Thunderbird to send mail via SMTP
 
 Menu: Tools -> Account settings... -> Outgoing server (SMTP) -> Choose the server you're using.
 
@@ -38,7 +38,7 @@ Warning: Make sure you're using full email address as username.
 
 ![](../images/thunderbird.smtp.png "Thunderbird.smtp.png")
 
-##Use OpenLDAP as Global LDAP Address Book
+## Use OpenLDAP as Global LDAP Address Book
 
 __IMPORTANT NOTE__: Thunderbird won't show contacts in LDAP address book directly, but it works when you starting typing email address in recipient field while composing email.
 
