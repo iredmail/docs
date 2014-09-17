@@ -14,6 +14,7 @@ PWD="."
 SOURCE_DIR="${PWD}/src"
 OUTPUT_DIR="${PWD}/html"
 INDEX_MD="${OUTPUT_DIR}/index.md"
+README_MD="${OUTPUT_DIR}/README.md"
 
 [ -d ${OUTPUT_DIR} ] || mkdir -p ${OUTPUT_DIR}
 
@@ -61,11 +62,11 @@ for chapter_dir in ${all_chapter_dirs}; do
         # generate index info of chapter
         _chapter_title="$(cat ${_title_md})"
         echo "# ${_chapter_title}" >> ${INDEX_MD}
+        echo "# ${_chapter_title}" >> ${README_MD}
 
         if [ -f ${_summary_md} ]; then
-            echo -e "\n\n" >> ${INDEX_MD}
-            echo "$(cat ${_title_md})" >> ${INDEX_MD}
-            echo -e "\n\n" >> ${INDEX_MD}
+            echo -e "\n\n$(cat ${_title_md})\n\n" >> ${INDEX_MD}
+            echo -e "\n\n$(cat ${_title_md})\n\n" >> ${README_MD}
         fi
     fi
 
@@ -89,6 +90,7 @@ for chapter_dir in ${all_chapter_dirs}; do
         _article_title="$(head -1 ${article_file} | awk -F'#' '{print $2}')"
         #echo "article title: ${_article_title}"
         echo "* [${_article_title}](${chapter_dir_in_article}/${article_html_file})" >> ${INDEX_MD}
+        echo "* [${_article_title}](${chapter_dir}/${article_file})" >> ${INDEX_MD}
 
         ${CMD_CONVERT} ${article_file} ${_output_chapter_dir} title="${_article_title}"
     done
@@ -100,5 +102,4 @@ done
 ${CMD_CONVERT} ${INDEX_MD} ${OUTPUT_DIR} css='./css/markdown.css' title="iRedMail Documentations"
 
 # Cleanup
-#rm -f ${INDEX_MD}
-mv ${INDEX_MD} ${PWD}
+rm -f ${INDEX_MD}
