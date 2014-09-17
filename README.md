@@ -1,27 +1,35 @@
-如何用 Markdown 方便地整理和写作多章节文档。
+# wiki FAQ
 
-* 使用目录来区分各个章节
-* 章节的标题、介绍用目录里 _ 开头的文件来保存
+* http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/Ignore.Trash.Folder.in.Quota
+* http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/LDAP/Add.Mail.Forwarding.Address
+* http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/LDAP/Add.Mail.Forwarding.Address
+* http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/LDAP/Add.Maillist.with.phpLDAPadmin
+* http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/LDAP/Add.Alias.Account.with.phpLDAPadmin
+* http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/LDAP/Add.Alias.Domain
+* http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/LDAP/Turn.On.Debug.Mode.In.OpenLDAP
+* http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/LDAP/Monitor.Incoming.and.Outgoing.Mails.with.BCC
+* http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/SQL/Create.Mail.Alias
+* http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/Turn.On.Debug.Mode.In.Amavisd
 
-```
-- 1-introduction/
-    |- _title.md
-    |- _description.md
-    |- 1-what_is_iredmail.md
-    |- 2-why_choose_iredmail.md
-    |- 3-price.md
-- 2-faq/
-- 3-install/
-```
 
-* 使用脚本 convert.sh 转换所有 Markdown 文件为 HTML 文件：
+* [DONE] http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/why.iredmail.append.timestamp.in.maildir.path
+* [DONE] http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/Recalculate.Mailbox.Quota
+* [DONE] http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/Allow.User.to.Send.Email.without.Authentication
 
-```bash
-$ bash convert.sh
-```
 
-`convert.sh` 的作用是：
+# faq.html
 
-* 自动生成包含所有文档链接的总索引文件 `index.html`
-* 将章节按照顺序排列
-* 生成完整的索引，并列出章节目录内的所有文章
+* http://www.iredmail.org/forum/topic1968-enabling-ipv6-for-your-iredmail-postfixdovecot.html
+* http://www.iredmail.org/forum/topic210-iredmail-support-faq-how-to-enable-signing-disclaimer-on-outgoing-mails.html
+
+* [DONE]http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/Quarantining.Clean.Mail
+* [DONE]http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/Unattended.iRedMail.Installation
+* [DONE] http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/use.or.migrate.password.hashes
+* [DONE] http://iredmail.org/wiki/index.php?title=IRedMail/FAQ/Disable.Spam.Virus.Scanning.for.Outgoing.Mails
+*  [DONE] http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/Completely.Disable.Amavisd.ClamAV.SpamAssassin
+*  [DONE] http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/EndUser/Howto.Configure.Thunderbird.for.iRedMail
+* [DONE]http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/Store.SpamAssassin.Bayes.In.SQL
+*  [DONE]http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/Allow.Insecure.POP3.IMAP.Connection.without.STARTTLS
+* [DONE]http://iredmail.org/wiki/index.php?title=IRedMail/FAQ/Pipe.Incoming.Email.For.Certain.User.To.External.Script
+* [DONE]http://www.iredmail.org/wiki/index.php?title=Addition/Migrate.to.New.iRedMail.Server
+* [DONE]http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/Turn.On.Debug.Mode.In.Dovecot
