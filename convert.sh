@@ -92,4 +92,4 @@ cd ${OUTPUT_DIR}
 python ../tools/markdown2html.py ${INDEX_MD} ${OUTPUT_DIR} css='../css/markdown.css'
 
 # Cleanup
-rm -f ${INDEX_MD}
+#rm -f ${INDEX_MD}
