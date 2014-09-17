@@ -9,6 +9,7 @@
 * [ Configure Thunderbird as mail client (IMAP, SMTP and global ldap address book)](howto/howto.configure.thunderbird.for.iredmail.html)
 * [ How to enable SMTPS service (SMTP over SSL, port 465)](howto/howto.enable.smtps.service.html)
 * [ How to pipe incoming email for certain user to external script ](howto/pipe.incoming.email.for.certain.user.to.external.script.html)
+* [ How to quarantine clean mail into SQL database](howto/quarantining.clean.mail.html)
 * [ How to force Dovecot to recalculate mailbox quota](howto/recalculate.mailbox.quota.html)
 * [ How to store spamassassin bayes in SQL](howto/store.spamassassin.bayes.in.sql.html)
 * [ How to perform silent/unattended iRedMail installation](howto/unattended.iredmail.installation.html)
