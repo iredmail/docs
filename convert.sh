@@ -18,7 +18,8 @@ README_MD="${PWD}/README.md"
 
 [ -d ${OUTPUT_DIR} ] || mkdir -p ${OUTPUT_DIR}
 
-CMD_CONVERT="python ${PWD}/tools/markdown2html.py"
+#CMD_CONVERT="python ${PWD}/tools/markdown2html.py"
+CMD_CONVERT=":"
 
 strip_name_prefix()
 {
@@ -62,8 +63,8 @@ for chapter_dir in ${all_chapter_dirs}; do
     if [ -f ${_title_md} ]; then
         # generate index info of chapter
         _chapter_title="$(cat ${_title_md})"
-        echo "# ${_chapter_title}" >> ${INDEX_MD}
-        echo "# ${_chapter_title}" >> ${README_MD}
+        echo -e "\n# ${_chapter_title}\n" >> ${INDEX_MD}
+        echo -e "\n# ${_chapter_title}\n" >> ${README_MD}
 
         if [ -f ${_summary_md} ]; then
             echo -e "\n\n$(cat ${_title_md})\n\n" >> ${INDEX_MD}

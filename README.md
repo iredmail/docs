@@ -1,7 +1,7 @@
 
-# Frequently Asked Questions
-* [ Why append timestamp in maildir path](./10-faq/./10-faq/why.append.timestamp.in.maildir.path.md)
+
 # How to
+
 * [ How to allow user to send email without authentication](./4-howto/./4-howto/allow.user.to.send.email.without.authentication.md)
 * [ Amavisd + SpamAssassin not working, no mail header (X-Spam-*) inserted.](./4-howto/./4-howto/amavisd.no.x-spam.headers.md)
 * [ How to completely disable amavisd/ClamAV/SpamAssassin](./4-howto/./4-howto/completely.disable.amavisd.clamav.spamassassin.md)
@@ -14,7 +14,15 @@
 * [ How to store spamassassin bayes in SQL](./4-howto/./4-howto/store.spamassassin.bayes.in.sql.md)
 * [ How to perform silent/unattended iRedMail installation](./4-howto/./4-howto/unattended.iredmail.installation.md)
 * [ How to use or migrate password hashes](./4-howto/./4-howto/use.or.migrate.password.hashes.md)
+
 # Backup and Restore
+
 * [How to migrate old iRedMail server to the latest stable release](./5-backup-restore/./5-backup-restore/migrate.to.new.iredmail.server.md)
+
 # Troubleshooting and Debug
+
 * [ How to turn on debug mode in Dovecot](./9-troubleshooting/./9-troubleshooting/turn.on.debug.mode.in.dovecot.md)
+
+# Frequently Asked Questions
+
+* [ Why append timestamp in maildir path](./99-faq/./99-faq/why.append.timestamp.in.maildir.path.md)
