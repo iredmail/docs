@@ -48,7 +48,6 @@ html = """\
     </head>
 
     <body>
-    <h3>%(title)s</h3>
     """ % cmd_opts
 
 # Read markdown file and render as HTML body
