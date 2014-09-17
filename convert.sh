@@ -59,7 +59,13 @@ for chapter_dir in ${all_chapter_dirs}; do
 
     if [ -f ${_title_md} ]; then
         # generate index info of chapter
-        echo "# [$(cat ${_title_md})](${chapter_dir_in_article}/_summary.html)" >> ${INDEX_MD}
+        echo "# $(cat ${_title_md})" >> ${INDEX_MD}
+
+        if [ -f ${_summary_md} ]; then
+            echo -e "\n\n" >> ${INDEX_MD}
+            echo "$(cat ${_title_md})" >> ${INDEX_MD}
+            echo -e "\n\n" >> ${INDEX_MD}
+        fi
     fi
 
     mkdir -p ${_output_chapter_dir} &>/dev/null
