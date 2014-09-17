@@ -1,6 +1,6 @@
 
 # Frequently Asked Questions
-* [ Why append timestamp in maildir path](./3-faq/./3-faq/why.append.timestamp.in.maildir.path.md)
+* [ Why append timestamp in maildir path](./10-faq/./10-faq/why.append.timestamp.in.maildir.path.md)
 # How to
 * [ How to allow user to send email without authentication](./4-howto/./4-howto/allow.user.to.send.email.without.authentication.md)
 * [ Amavisd + SpamAssassin not working, no mail header (X-Spam-*) inserted.](./4-howto/./4-howto/amavisd.no.x-spam.headers.md)
