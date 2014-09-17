@@ -93,4 +93,4 @@ done
 ${CMD_CONVERT} ${INDEX_MD} ${OUTPUT_DIR} css='../css/markdown.css'
 
 # Cleanup
-#rm -f ${INDEX_MD}
+rm -f ${INDEX_MD}
