@@ -8,6 +8,18 @@
     <body>
     <h3></h3>
     <h1 id="how-to-migrate-old-iredmail-server-to-the-latest-stable-release">How to migrate old iRedMail server to the latest stable release</h1>
+<div class="toc">
+<ul>
+<li><a href="#how-to-migrate-old-iredmail-server-to-the-latest-stable-release">How to migrate old iRedMail server to the latest stable release</a><ul>
+<li><a href="#client-settings-outlook-thunderbird">Client settings (Outlook, Thunderbird)</a></li>
+<li><a href="#ldap-migrate-mail-accounts">LDAP: migrate mail accounts</a></li>
+<li><a href="#mysqlpostgresql-migrate-mail-accounts">MySQL/PostgreSQL: Migrate mail accounts</a></li>
+<li><a href="#migrate-mailboxes-maildir-format">Migrate mailboxes (Maildir format)</a></li>
+<li><a href="#migrate-roundcube-webmail-data">Migrate Roundcube webmail data</a></li>
+</ul>
+</li>
+</ul>
+</div>
 <p><code>WARNING</code>: Please try it on a test server first. if it works well, then try it on product server.</p>
 <p>Since new iRedMail server will install same components as old server, you can choose what data you want to migrate. Most important data are:</p>
 <ul>

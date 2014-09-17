@@ -1,5 +1,6 @@
 #How to migrate old iRedMail server to the latest stable release
 
+[TOC]
 
 `WARNING`: Please try it on a test server first. if it works well, then try it on product server.
 

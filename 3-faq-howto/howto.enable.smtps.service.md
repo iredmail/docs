@@ -1,5 +1,7 @@
 # How to enable SMTPS service (SMTP over SSL, port 465)
 
+[TOC]
+
 ### Why iRedMail doesn't enable SMTPS (SMTP over SSL) by default
 
 SMTPS is deprecated, so iRedMail disable it by default.
