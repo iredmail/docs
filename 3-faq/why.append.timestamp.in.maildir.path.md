@@ -4,7 +4,7 @@ iRedMail will append timestamp in maildir path by default, here's why.
 
 Depends on the tools/scripts you used to create mail accounts, it's tunable
 in scripts shipped within iRedMail and iRedAdmin (file `settings.py`, variable
-`MAILDIR_APPEND_TIMESTAMP = True` or `False').
+`MAILDIR_APPEND_TIMESTAMP = True` or `False`).
 
 Deleting mail accounts with iRedAdmin will not remove the mailboxes on file
 system, so that you can keep user's mailbox for some time.
