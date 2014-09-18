@@ -18,8 +18,8 @@ README_MD="${PWD}/README.md"
 
 [ -d ${OUTPUT_DIR} ] || mkdir -p ${OUTPUT_DIR}
 
-#CMD_CONVERT="python ${PWD}/tools/markdown2html.py"
-CMD_CONVERT=":"
+CMD_CONVERT="python ${PWD}/tools/markdown2html.py"
+#CMD_CONVERT=":"
 
 strip_name_prefix()
 {

@@ -29,7 +29,6 @@ Please test it first if you choose SSHA512.
 
 All mail users are stored in SQL table `vmail.mailbox`, user password is stored
 in SQL column `mailbox.password`. For example:
-
 <pre>
 sql> UPDATE mailbox SET password='$1$GfHYI7OE$vlXqMZSyJOSPXAmbXHq250' WHERE username='xx@xx';
 sql> UPDATE mailbox SET password='{SSHA}OuCrqL2yWwQIu8a9uvyOQ5V/ZKfL7LJD' WHERE username='xx@xx';
@@ -37,7 +36,6 @@ sql> UPDATE mailbox SET password='{SSHA512}FxgXDhBVYmTqoboW+ibyyzPv/wGG7y4VJtuHW
 </pre>
 
 * To store PLAIN-MD5, you have to prepend `{PLAIN-MD5}` in your password hash:
-
 <pre>
 sql> UPDATE mailbox SET password='{PLAIN-MD5}0d2bf3c712402f428d48fed691850bfc' WHERE username='xx@xx';
 </pre>
