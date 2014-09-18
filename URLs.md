@@ -1,6 +1,6 @@
 # wiki FAQ
 
-* http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/Ignore.Trash.Folder.in.Quota
+
 * http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/LDAP/Add.Mail.Forwarding.Address
 * http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/LDAP/Add.Mail.Forwarding.Address
 * http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/LDAP/Add.Maillist.with.phpLDAPadmin
@@ -11,7 +11,7 @@
 * http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/SQL/Create.Mail.Alias
 * http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/Turn.On.Debug.Mode.In.Amavisd
 
-
+* [DONE] http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/Ignore.Trash.Folder.in.Quota
 * [DONE] http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/why.iredmail.append.timestamp.in.maildir.path
 * [DONE] http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/Recalculate.Mailbox.Quota
 * [DONE] http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/Allow.User.to.Send.Email.without.Authentication
