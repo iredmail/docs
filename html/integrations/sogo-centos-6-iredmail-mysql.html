@@ -17,49 +17,45 @@
 tutorial</a>
 to enable it.</li>
 </ul>
-<pre>
-# yum repolist | grep -i 'epel'
+<pre><code># yum repolist | grep -i 'epel'
 epel              Extra Packages for Enterprise Linux 6 - x86_64          11,109
-</pre>
+</code></pre>
 
 <ul>
 <li>Add yum repo file <code>/etc/yum.repos.d/sogo.repo</code>:</li>
 </ul>
-<pre>
-[SOGo]
+<pre><code>[SOGo]
 name=Inverse SOGo Repository
 baseurl=http://inverse.ca/downloads/SOGo/RHEL6/$basearch
 gpgcheck=0
-</pre>
+</code></pre>
 
 <ul>
 <li>Install SOGo and dependences:</li>
 </ul>
-<pre>
-# yum install sogo sope49-gdl1-mysql
-</pre>
+<pre><code># yum install sogo sope49-gdl1-mysql
+</code></pre>
 
 <h2 id="create-sql-database-to-store-sogo-data">Create SQL database to store SOGo data</h2>
-<pre>
-$ mysql -u root -p
+<pre><code>$ mysql -u root -p
 
-mysql> CREATE DATABASE sogo CHARSET='UTF8';
-mysql> GRANT ALL ON sogo.* TO sogo@localhost IDENTIFIED BY 'password';
+mysql&gt; CREATE DATABASE sogo CHARSET='UTF8';
+mysql&gt; GRANT ALL ON sogo.* TO sogo@localhost IDENTIFIED BY 'password';
 
 -- TODO
-mysql> GRANT SELECT ON vmail.mailbox TO sogo@localhost;
+mysql&gt; GRANT SELECT ON vmail.mailbox TO sogo@localhost;
 
-mysql> CREATE VIEW sogo.sogo_auth (c_uid, c_name, c_password, c_cn, mail, home) AS SELECT username, username, password, name, username, maildir FROM vmail.mailbox;
-</pre>
+mysql&gt; CREATE VIEW sogo.sogo_auth (c_uid, c_name, c_password, c_cn, mail, home) AS SELECT username, username, password, name, username, maildir FROM vmail.mailbox;
+</code></pre>
 
 <h2 id="configure-sogo">Configure SOGo</h2>
 <p>Default SOGo config file is <code>/etc/sogo/sogo.conf</code>:</p>
-<pre>
-    SOGoProfileURL = "mysql://sogo:password@localhost:3306/sogo/sogo_user_profile";
-    OCSFolderInfoURL = "mysql://sogo:password@localhost:3306/sogo/sogo_folder_info";
-    OCSSessionsFolderURL = "mysql://sogo:password@localhost:3306/sogo/sogo_sessions_folder";
+<pre><code>(
+    SOGoProfileURL = &quot;mysql://sogo:password@localhost:3306/sogo/sogo_user_profile&quot;;
+    OCSFolderInfoURL = &quot;mysql://sogo:password@localhost:3306/sogo/sogo_folder_info&quot;;
+    OCSSessionsFolderURL = &quot;mysql://sogo:password@localhost:3306/sogo/sogo_sessions_folder&quot;;
 
-    SOGoIMAPServer = "127.0.0.1";
+    SOGoIMAPServer = &quot;127.0.0.1&quot;;
 
     SOGoMailingMechanism = smtp;
     SOGoSMTPServer = 127.0.0.1;
@@ -77,7 +73,7 @@ mysql> CREATE VIEW sogo.sogo_auth (c_uid, c_name, c_password, c_cn, mail, home) 
       {
         type = sql;
         id = directory;
-        viewURL = "mysql://sogo:password@127.0.0.1:3306/sogo/sogo_view";
+        viewURL = &quot;mysql://sogo:password@127.0.0.1:3306/sogo/sogo_view&quot;;
         canAuthenticate = YES;
         isAddressBook = YES;
         userPasswordAlgorithm = md5;
@@ -88,7 +84,7 @@ mysql> CREATE VIEW sogo.sogo_auth (c_uid, c_name, c_password, c_cn, mail, home) 
         //DomainFieldName = domain;
       }
     );
-</pre>
+</code></pre>
 
 <h2 id="how-to-configure-client-applications">How to configure client applications</h2>
 <h3 id="configure-apple-icalapp-for-calendar">Configure Apple iCal.app for calendar</h3>
@@ -98,9 +94,8 @@ mysql> CREATE VIEW sogo.sogo_auth (c_uid, c_name, c_password, c_cn, mail, home) 
 <ul>
 <li>Addition settings:</li>
 </ul>
-<pre>
-defaults write sogod OCSEMailAlarmsFolderURL mysql://vmail:PASSWORD@localhost:3306/vmail/sogo_alarms_folder
-defaults write sogod SOGoTimeZone "Europe/Berlin"
+<pre><code>defaults write sogod OCSEMailAlarmsFolderURL mysql://vmail:PASSWORD@localhost:3306/vmail/sogo_alarms_folder
+defaults write sogod SOGoTimeZone &quot;Europe/Berlin&quot;
 defaults write sogod SOGoAppointmentSendEMailNotifications YES
 defaults write sogod SOGoFoldersSendEMailNotifications YES
 defaults write sogod SOGoACLsSendEMailNotifications YES
@@ -117,4 +112,4 @@ defaults write sogod SOGoPasswordChangeEnabled YES
 defaults write sogod SOGoSieveScriptsEnabled YES
 defaults write sogod SOGoSieveServer sieve://127.0.0.1:4190
 defaults write sogod WOPort 127.0.0.1:20000
-</pre></body></html>
+</code></pre></body></html>
