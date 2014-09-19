@@ -84,7 +84,7 @@ for chapter_dir in ${all_chapter_dirs}; do
     for article_file in ${all_chapter_articles}; do
         article_file_basename="$(basename ${article_file})"
         article_html_file="$(strip_name_prefix ${article_file_basename})"
-        article_file_without_prefix="$(strip_name_prefix ${article_file})"
+        article_file_without_prefix="$(echo ${article_file/#\.\//})"
 
         # Replace '.md' suffix by '.html'
         article_html_file="$(echo ${article_html_file/%.md/.html})"
@@ -93,7 +93,9 @@ for chapter_dir in ${all_chapter_dirs}; do
         _article_title="$(head -1 ${article_file} | awk -F'#' '{print $2}')"
         #echo "article title: ${_article_title}"
         echo "* [${_article_title}](${chapter_dir_in_article}/${article_html_file})" >> ${INDEX_MD}
-        echo "* [${_article_title}]($(basename ${OUTPUT_DIR})/${article_file_without_prefix})" >> ${README_MD}
+
+        # 'default' is branch name in bitbucket.
+        echo "* [${_article_title}](default/${article_file_without_prefix})" >> ${README_MD}
 
         ${CMD_CONVERT} ${article_file} ${_output_chapter_dir} title="${_article_title}"
     done
