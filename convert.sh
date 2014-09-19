@@ -94,8 +94,8 @@ for chapter_dir in ${all_chapter_dirs}; do
         #echo "article title: ${_article_title}"
         echo "* [${_article_title}](${chapter_dir_in_article}/${article_html_file})" >> ${INDEX_MD}
 
-        # 'default' is branch name in bitbucket.
-        echo "* [${_article_title}](default/${article_file_without_prefix})" >> ${README_MD}
+        # 'src/default/' is path to view source file on bitbucket.org
+        echo "* [${_article_title}](src/default/${article_file_without_prefix})" >> ${README_MD}
 
         ${CMD_CONVERT} ${article_file} ${_output_chapter_dir} title="${_article_title}"
     done
