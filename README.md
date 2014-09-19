@@ -15,9 +15,13 @@
 * [ How to perform silent/unattended iRedMail installation](./4-howto/./4-howto/unattended.iredmail.installation.md)
 * [ How to use or migrate password hashes](./4-howto/./4-howto/use.or.migrate.password.hashes.md)
 
+# Third-party integrations.
+
+* [ How to install SOGo on CentOS 6 with iRedMail (MySQL backend)](./5-integrations/./5-integrations/sogo-centos-6-iredmail-mysql.md)
+
 # Backup and Restore
 
-* [How to migrate old iRedMail server to the latest stable release](./5-backup-restore/./5-backup-restore/migrate.to.new.iredmail.server.md)
+* [How to migrate old iRedMail server to the latest stable release](./7-backup-restore/./7-backup-restore/migrate.to.new.iredmail.server.md)
 
 # Troubleshooting and Debug
 

@@ -1,0 +1,120 @@
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title> How to install SOGo on CentOS 6 with iRedMail (MySQL backend)</title>
+        <link href="../css/markdown.css" rel="stylesheet"></head>
+    </head>
+
+    <body>
+    <h1 id="how-to-install-sogo-on-centos-6-with-iredmail-mysql-backend">How to install SOGo on CentOS 6 with iRedMail (MySQL backend)</h1>
+<h2 id="requirements">Requirements</h2>
+<ul>
+<li>A working iRedMail server on CentOS 6.</li>
+</ul>
+<h2 id="install-sogo">Install SOGo</h2>
+<ul>
+<li>Make sure you have EPEL repo enabled, if not, please follow <a href="https://fedoraproject.org/wiki/EPEL#How_can_I_use_these_extra_packages.3F">this wiki
+tutorial</a>
+to enable it.</li>
+</ul>
+<pre>
+# yum repolist | grep -i 'epel'
+epel              Extra Packages for Enterprise Linux 6 - x86_64          11,109
+</pre>
+
+<ul>
+<li>Add yum repo file <code>/etc/yum.repos.d/sogo.repo</code>:</li>
+</ul>
+<pre>
+[SOGo]
+name=Inverse SOGo Repository
+baseurl=http://inverse.ca/downloads/SOGo/RHEL6/$basearch
+gpgcheck=0
+</pre>
+
+<ul>
+<li>Install SOGo and dependences:</li>
+</ul>
+<pre>
+# yum install sogo sope49-gdl1-mysql
+</pre>
+
+<h2 id="create-sql-database-to-store-sogo-data">Create SQL database to store SOGo data</h2>
+<pre>
+$ mysql -u root -p
+
+mysql> CREATE DATABASE sogo CHARSET='UTF8';
+mysql> GRANT ALL ON sogo.* TO sogo@localhost IDENTIFIED BY 'password';
+
+-- TODO
+mysql> GRANT SELECT ON vmail.mailbox TO sogo@localhost;
+
+mysql> CREATE VIEW sogo.sogo_auth (c_uid, c_name, c_password, c_cn, mail, home) AS SELECT username, username, password, name, username, maildir FROM vmail.mailbox;
+</pre>
+
+<h2 id="configure-sogo">Configure SOGo</h2>
+<p>Default SOGo config file is <code>/etc/sogo/sogo.conf</code>:</p>
+<pre>
+    SOGoProfileURL = "mysql://sogo:password@localhost:3306/sogo/sogo_user_profile";
+    OCSFolderInfoURL = "mysql://sogo:password@localhost:3306/sogo/sogo_folder_info";
+    OCSSessionsFolderURL = "mysql://sogo:password@localhost:3306/sogo/sogo_sessions_folder";
+
+    SOGoIMAPServer = "127.0.0.1";
+
+    SOGoMailingMechanism = smtp;
+    SOGoSMTPServer = 127.0.0.1;
+
+
+    // Enable managesieve service
+    SOGoSieveServer = sieve://127.0.0.1:4190;
+    SOGoSieveScriptsEnabled = YES;
+
+    SOGoForceExternalLoginWithEmail = YES;
+    SOGoAppointmentSendEMailNotifications = YES;
+
+  SOGoUserSources =
+    (
+      {
+        type = sql;
+        id = directory;
+        viewURL = "mysql://sogo:password@127.0.0.1:3306/sogo/sogo_view";
+        canAuthenticate = YES;
+        isAddressBook = YES;
+        userPasswordAlgorithm = md5;
+        prependPasswordScheme = YES;
+        //LoginFieldNames = username;
+        //MailFieldNames = username;
+        //IMAPLoginFieldName = username;
+        //DomainFieldName = domain;
+      }
+    );
+</pre>
+
+<h2 id="how-to-configure-client-applications">How to configure client applications</h2>
+<h3 id="configure-apple-icalapp-for-calendar">Configure Apple iCal.app for calendar</h3>
+<p>http://[host]/SOGo/dav/[user]/</p>
+<h2 id="todo">TODO</h2>
+<h2 id="references">References:</h2>
+<ul>
+<li>Addition settings:</li>
+</ul>
+<pre>
+defaults write sogod OCSEMailAlarmsFolderURL mysql://vmail:PASSWORD@localhost:3306/vmail/sogo_alarms_folder
+defaults write sogod SOGoTimeZone "Europe/Berlin"
+defaults write sogod SOGoAppointmentSendEMailNotifications YES
+defaults write sogod SOGoFoldersSendEMailNotifications YES
+defaults write sogod SOGoACLsSendEMailNotifications YES
+
+defaults write sogod SOGoMailingMechanism smtp
+defaults write sogod SOGoSMTPServer 127.0.0.1
+defaults write sogod SOGoMemcachedHost 127.0.0.1
+
+defaults write sogod SOGoDraftsFolderName Drafts
+defaults write sogod SOGoSentFolderName Sent
+defaults write sogod SOGoTrashFolderName Trash
+defaults write sogod SOGoIMAPServer localhost
+defaults write sogod SOGoPasswordChangeEnabled YES
+defaults write sogod SOGoSieveScriptsEnabled YES
+defaults write sogod SOGoSieveServer sieve://127.0.0.1:4190
+defaults write sogod WOPort 127.0.0.1:20000
+</pre></body></html>
