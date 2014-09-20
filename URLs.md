@@ -12,6 +12,9 @@
 * http://www.iredmail.org/wiki/index.php?title=Install/iRedMail/FreeBSD.Jail
 * http://www.iredmail.org/install_iredmail_on_openbsd.html
 
+* https://code.google.com/p/iredmail/wiki/DNS_DKIM
+* https://code.google.com/p/iredmail/wiki/DNS_SPF
+
 # integrations
 
 * http://www.iredmail.org/wiki/index.php?title=Integration/Active.Directory.iRedMail
