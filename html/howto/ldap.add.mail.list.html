@@ -15,10 +15,11 @@
 <li>Login to phpLDAPadmin (httpS://[your_server]/phpldapadmin/)</li>
 <li>Expand LDAP tree in left panel, find <code>ou=Groups</code> under your domain dn.</li>
 <li>Click <code>ou=Groups</code> in left panel, then click <code>Create a child entry</code> in right
-panel. <a href="http://screenshots.iredmail.googlecode.com/hg/iredmail/phpldapadmin/create_maillist_ou_groups.png">Screenshot</a></li>
-<li>Choose <code>mailList</code> in <code>ObjectClasses</code> list, then click <code>Proceed</code>.</li>
-<li>Select <code>mail</code> as RDN, fill necessary values of attributes:</li>
+panel. Screenshot:</li>
 </ul>
+<p><a href="http://screenshots.iredmail.googlecode.com/hg/iredmail/phpldapadmin/create_maillist_ou_groups.png"></a>
+<em> Choose <code>mailList</code> in <code>ObjectClasses</code> list, then click <code>Proceed</code>.
+</em> Select <code>mail</code> as RDN, fill necessary values of attributes:</p>
 <pre><code>dn: mail=demolist@demo.iredmail.org,ou=Groups,domainName=demo.iredmail.org,o=domains,dc=iredmail,dc=org
 accountStatus: active
 cn: demolist

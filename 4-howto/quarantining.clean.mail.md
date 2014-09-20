@@ -41,5 +41,8 @@ quarantined emails with it.
 
 * Screenshot of iRedAdmin-Pro for your reference 
 
-* [View quarantined mails](http://www.iredmail.org/images/iredadmin/system_maillog_quarantined.png)
-* [Expand quarantined mail to view mail headers and body](http://www.iredmail.org/images/iredadmin/system_maillog_quarantined_expanded.png) 
+View quarantined mails
+![](http://www.iredmail.org/images/iredadmin/system_maillog_quarantined.png)
+
+Expand quarantined mail to view mail headers and body
+![](http://www.iredmail.org/images/iredadmin/system_maillog_quarantined_expanded.png) 

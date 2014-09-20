@@ -1,5 +1,33 @@
+# TODO
+
+* write a new FAQ article to describe how to force users to change password
+  in 90 days, with iRedAPD plugin.
+
+# installation guides
+
+* http://www.iredmail.org/install_iredmail_on_rhel.html
+* http://www.iredmail.org/install_iredmail_on_debian.html
+* http://www.iredmail.org/install_iredmail_on_ubuntu.html
+* http://www.iredmail.org/install_iredmail_on_freebsd.html
+* http://www.iredmail.org/wiki/index.php?title=Install/iRedMail/FreeBSD.Jail
+* http://www.iredmail.org/install_iredmail_on_openbsd.html
+
+# integrations
+
+* http://www.iredmail.org/wiki/index.php?title=Integration/Active.Directory.iRedMail
+* http://www.iredmail.org/wiki/index.php?title=Integration/PureFTPd.iRedMail.with.OpenLDAP
+* http://www.iredmail.org/wiki/index.php?title=Integration/Ejabberd.iRedMail.with.OpenLDAP
+* http://www.iredmail.org/wiki/index.php?title=Integration/OpenVPN.iRedMail.with.OpenLDAP
+* http://www.iredmail.org/wiki/index.php?title=Integration/SOGo.iRedMail.with.OpenLDAP
+* http://www.iredmail.org/wiki/index.php?title=Integration/DBMail.iRedMail.with.MySQL.backend
+
+# migrations
+
+http://www.iredmail.org/wiki/index.php?title=Migrate/iRedAdmin-Pro/OSE-Pro
+
 # wiki FAQ
 
+* http://www.iredmail.org/wiki/index.php?title=IRedAdmin-Pro/FAQ/change.default.password.policy
 * http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/Backup
 
 

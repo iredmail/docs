@@ -10,7 +10,9 @@ With iRedAdmin-Pro, you can easily add mail list account by click menu:
 * Login to phpLDAPadmin (httpS://[your_server]/phpldapadmin/)
 * Expand LDAP tree in left panel, find `ou=Groups` under your domain dn.
 * Click `ou=Groups` in left panel, then click `Create a child entry` in right
-panel. [Screenshot](http://screenshots.iredmail.googlecode.com/hg/iredmail/phpldapadmin/create_maillist_ou_groups.png)
+panel. Screenshot:
+
+[](http://screenshots.iredmail.googlecode.com/hg/iredmail/phpldapadmin/create_maillist_ou_groups.png)
 * Choose `mailList` in `ObjectClasses` list, then click `Proceed`.
 * Select `mail` as RDN, fill necessary values of attributes:
 

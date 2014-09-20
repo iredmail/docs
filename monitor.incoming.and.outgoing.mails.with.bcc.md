@@ -12,13 +12,15 @@ With iRedAdmin-Pro, you can configure BCC easily:
 
 Go to domain profile page, then you can enable sender bcc or recipient bcc in tab `BCC`.
 
-* Screenshot: <http://screenshots.iredmail.googlecode.com/hg/iredadmin/domain_profile_bcc.png>
+Screenshot:
+![](http://screenshots.iredmail.googlecode.com/hg/iredadmin/domain_profile_bcc.png)
 
 ## Per-user BCC settings
 
 Go to user profile page, then you can enable sender bcc or recipient bcc in tab 'Advanced'.
 
-* Screenshot: <http://screenshots.iredmail.googlecode.com/hg/iredadmin/user_profile_bcc.png>
+Screenshot:
+![](http://screenshots.iredmail.googlecode.com/hg/iredadmin/user_profile_bcc.png)
 
 # Configure BCC with phpLDAPadmin
 

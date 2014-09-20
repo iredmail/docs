@@ -3,7 +3,11 @@
 ## Set mail forwarding with iRedAdmin-Pro
 
 With iRedAdmin-Pro, you can simply add mail forwarding addresses in user
-profile page, under tab `Forwarding`. Screenshot: <http://www.iredmail.org/images/iredadmin/user_profile_mail_forwarding.png>
+profile page, under tab `Forwarding`.
+
+Screenshot:
+
+![](http://www.iredmail.org/images/iredadmin/user_profile_mail_forwarding.png)
 
 ## Set mail forwarding with phpLDAPadmin
 
