@@ -1,0 +1,38 @@
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title> Howto add mail alias account (LDAP backend)</title>
+        <link href="../css/markdown.css" rel="stylesheet"></head>
+    </head>
+
+    <body>
+    <h1 id="howto-add-mail-alias-account-ldap-backend">Howto add mail alias account (LDAP backend)</h1>
+<ul>
+<li>
+<p>Log into phpLDAPadmin as LDAP root dn <code>cn=Manager</code> or <code>cn=vmailadmin</code>:<br />
+<img alt="" src="http://screenshots.iredmail.googlecode.com/hg/phpldapadmin/login.png" /></p>
+</li>
+<li>
+<p>Expand LDAP tree in left panel, click <code>Create new entry here</code> under <code>ou=Aliases</code> of your domain, and select <code>Default</code> in right panel:<br />
+<img alt="" src="http://screenshots.iredmail.googlecode.com/hg/phpldapadmin/create_alias_1.png" /></p>
+</li>
+<li>
+<p>Select object class <code>mailAlias</code> in right panel:<br />
+<img alt="" src="http://screenshots.iredmail.googlecode.com/hg/phpldapadmin/create_alias_2.png" /></p>
+</li>
+<li>
+<p>Input required fields of alias account:<br />
+<img alt="" src="http://screenshots.iredmail.googlecode.com/hg/phpldapadmin/create_alias_3.png" /></p>
+</li>
+</ul>
+<p><strong>WARNING</strong>: Attribute <code>enabledService</code> requires two values: <code>mail</code>, <code>deliver</code>.</p>
+<ul>
+<li>
+<p>Confirm to create:<br />
+<img alt="" src="http://screenshots.iredmail.googlecode.com/hg/phpldapadmin/create_alias_4.png" /></p>
+</li>
+<li>
+<p>Add missing value of attribute <code>enabledService</code>, and you can add as many destination addresses as you want here (value of attribute <code>mailForwardingAddress</code>):<br />
+<img alt="" src="http://screenshots.iredmail.googlecode.com/hg/phpldapadmin/create_alias_5.png" /></p>
+</li>
+</ul></body></html>

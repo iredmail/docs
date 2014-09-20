@@ -1,0 +1,18 @@
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title> How to turn on debug mode in OpenLDAP</title>
+        <link href="../css/markdown.css" rel="stylesheet"></head>
+    </head>
+
+    <body>
+    <h1 id="how-to-turn-on-debug-mode-in-openldap">How to turn on debug mode in OpenLDAP</h1>
+<p>In OpenLDAP config file <code>slapd.conf</code>, update parameter <code>loglevel</code> to value <code>256</code>, then restart OpenLDAP service.
+    * On RHEL/CentOS and OpenBSD, it's <code>/etc/openldap/slapd.conf</code>
+    * On Debian/Ubuntu, it's <code>/etc/ldap/slapd.conf</code>
+    * On FreeBSD, it's <code>/usr/local/etc/openldap/slapd.conf</code></p>
+<pre>
+loglevel    256
+</pre>
+
+<p>OpenLDAP is configured by iRedMail to log into <code>/var/log/openldap.log</code> by default.</p></body></html>

@@ -2,7 +2,7 @@
 
 ## Requirements
 
-* A working iRedMail server on CentOS 6.
+* A working iRedMail server (MySQL backend) on CentOS 6.
 
 ## Install SOGo
 
@@ -27,7 +27,7 @@ gpgcheck=0
 * Install SOGo and dependences:
 
 ```
-# yum install sogo sope49-gdl1-mysql
+# yum install sogo sope49-gdl1-mysql sogo-activesync libwbxml
 ```
 
 ## Create SQL database to store SOGo data
@@ -55,10 +55,12 @@ Default SOGo config file is `/etc/sogo/sogo.conf`:
     OCSSessionsFolderURL = "mysql://sogo:password@localhost:3306/sogo/sogo_sessions_folder";
 
     SOGoIMAPServer = "127.0.0.1";
+    SOGoDraftsFolderName Drafts
+    SOGoSentFolderName Sent
+    SOGoTrashFolderName Trash
 
     SOGoMailingMechanism = smtp;
     SOGoSMTPServer = 127.0.0.1;
-
 
     // Enable managesieve service
     SOGoSieveServer = sieve://127.0.0.1:4190;
@@ -66,31 +68,36 @@ Default SOGo config file is `/etc/sogo/sogo.conf`:
 
     SOGoForceExternalLoginWithEmail = YES;
     SOGoAppointmentSendEMailNotifications = YES;
+    SOGoFoldersSendEMailNotifications YES
+    SOGoACLsSendEMailNotifications YES
 
-  SOGoUserSources =
+    SOGoUserSources =
     (
-      {
-        type = sql;
-        id = directory;
-        viewURL = "mysql://sogo:password@127.0.0.1:3306/sogo/sogo_view";
-        canAuthenticate = YES;
-        isAddressBook = YES;
-        userPasswordAlgorithm = md5;
-        prependPasswordScheme = YES;
-        //LoginFieldNames = username;
-        //MailFieldNames = username;
-        //IMAPLoginFieldName = username;
-        //DomainFieldName = domain;
-      }
+        {
+            type = sql;
+            id = directory;
+            viewURL = "mysql://sogo:password@127.0.0.1:3306/sogo/sogo_view";
+            canAuthenticate = YES;
+            isAddressBook = YES;
+            userPasswordAlgorithm = md5;
+            prependPasswordScheme = YES;
+        }
     );
 ```
 
+## Start SOGo and dependent services
+
+```
+service sogod start
+service httpd restart
+service memcached start
+```
 
 ## How to configure client applications
 
-### Configure Apple iCal.app for calendar
+### Apple Devices
 
-http://[host]/SOGo/dav/[user]/
+URL for calendar service: `http://[host]/SOGo/dav/[user]/`
 
 ## TODO
 
@@ -99,19 +106,13 @@ http://[host]/SOGo/dav/[user]/
 * Addition settings:
 
 ```
-defaults write sogod OCSEMailAlarmsFolderURL mysql://vmail:PASSWORD@localhost:3306/vmail/sogo_alarms_folder
+defaults write sogod OCSEMailAlarmsFolderURL mysql://sogo:password@localhost:3306/sogo/sogo_alarms_folder
 defaults write sogod SOGoTimeZone "Europe/Berlin"
-defaults write sogod SOGoAppointmentSendEMailNotifications YES
-defaults write sogod SOGoFoldersSendEMailNotifications YES
-defaults write sogod SOGoACLsSendEMailNotifications YES
 
 defaults write sogod SOGoMailingMechanism smtp
 defaults write sogod SOGoSMTPServer 127.0.0.1
 defaults write sogod SOGoMemcachedHost 127.0.0.1
 
-defaults write sogod SOGoDraftsFolderName Drafts
-defaults write sogod SOGoSentFolderName Sent
-defaults write sogod SOGoTrashFolderName Trash
 defaults write sogod SOGoIMAPServer localhost
 defaults write sogod SOGoPasswordChangeEnabled YES
 defaults write sogod SOGoSieveScriptsEnabled YES

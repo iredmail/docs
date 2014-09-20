@@ -17,7 +17,7 @@
 
 # Third-party integrations.
 
-* [ How to install SOGo on CentOS 6 with iRedMail (MySQL backend)](src/default/5-integrations/sogo-centos-6-iredmail-mysql.md)
+* [ How to install SOGo on CentOS 6 with iRedMail (MySQL backend)](src/default/5-integrations/sogo-centos-6-mysql.md)
 
 # Backup and Restore
 
@@ -25,8 +25,14 @@
 
 # Troubleshooting and Debug
 
+* [ How to turn on debug mode in Amavisd](src/default/9-troubleshooting/turn.on.debug.mode.in.amavisd.md)
 * [ How to turn on debug mode in Dovecot](src/default/9-troubleshooting/turn.on.debug.mode.in.dovecot.md)
+* [ How to turn on debug mode in OpenLDAP](src/default/9-troubleshooting/turn.on.debug.mode.in.openldap.md)
 
 # Frequently Asked Questions
 
+* [ How to add an alias domain name (LDAP backend)](src/default/99-faq/ldap.add.alias.domain.md)
+* [ Howto add mail alias account (LDAP backend)](src/default/99-faq/ldap.add.mail.alias.md)
+* [ How to forward emails to other email addresses (mail forwarding)](src/default/99-faq/ldap.add.mail.forwarding.address.md)
+* [ How to add mail list account (LDAP backend)](src/default/99-faq/ldap.add.mail.list.md)
 * [ Why append timestamp in maildir path](src/default/99-faq/why.append.timestamp.in.maildir.path.md)

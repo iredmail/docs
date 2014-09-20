@@ -1,0 +1,41 @@
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title> How to forward emails to other email addresses (mail forwarding)</title>
+        <link href="../css/markdown.css" rel="stylesheet"></head>
+    </head>
+
+    <body>
+    <h1 id="how-to-forward-emails-to-other-email-addresses-mail-forwarding">How to forward emails to other email addresses (mail forwarding)</h1>
+<h2 id="set-mail-forwarding-with-iredadmin-pro">Set mail forwarding with iRedAdmin-Pro</h2>
+<p>With iRedAdmin-Pro, you can simply add mail forwarding addresses in user
+profile page, under tab <code>Forwarding</code>. Screenshot: <a href="http://www.iredmail.org/images/iredadmin/user_profile_mail_forwarding.png">http://www.iredmail.org/images/iredadmin/user_profile_mail_forwarding.png</a></p>
+<h2 id="set-mail-forwarding-with-phpldapadmin">Set mail forwarding with phpLDAPadmin</h2>
+<p>To forward emails to other email addresses, you can add value in LDAP attribute
+<code>mailForwardingAddress</code> of user object.</p>
+<p>For example, if you want to forward all emails sent to <code>user@domain.ltd</code> to
+two addresses: <code>forward@domain.ltd</code>, <code>user@gmail.com</code>. Steps:</p>
+<ol>
+<li>
+<p>Login to phpLDAPadmin (https://[your_server]/phpldapadmin ) as LDAP root dn
+<code>cn=Manager,dc=xx,dc=xx</code> or 'cn=vmailadmin,dc=xx,dc=xx'.</p>
+</li>
+<li>
+<p>Find the LDAP object of email account which you want to forward emails in
+left panel of phpLDAPadmin, click the ldap object, phpLDAPadmin will show you
+detailed LDAP attributes/values in right panel.</p>
+</li>
+<li>
+<p>Add a new LDAP attribute <code>mailForwardingAddress</code> to this mail account, set
+value to first forwarding address <code>forward@domain.ltd</code>.</p>
+</li>
+<li>
+<p>Repeat step #3, add another email address: <code>user@gmail.com</code>.</p>
+</li>
+<li>
+<p>Save your changes.</p>
+</li>
+</ol>
+<p>Now all emails sent to <code>user@domain.ltd</code> will be forwarded to both
+<code>forward@domain.ltd</code> and <code>user@gmail.com</code>.</p>
+<p>If you want to save a copy of forwarded email, please add 'user@domain.ltd' as addition value of LDAP attribute 'mailForwardingAddress'.</p></body></html>

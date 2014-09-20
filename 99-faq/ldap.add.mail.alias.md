@@ -1,6 +1,6 @@
-<http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/LDAP/Add.Alias.Account.with.phpLDAPadmin>
-# Howto add alias account with phpLDAPadmin
-* Log into phpLDAPadmin as `cn=Manager` or `cn=vmailadmin`:  
+# Howto add mail alias account (LDAP backend)
+
+* Log into phpLDAPadmin as LDAP root dn `cn=Manager` or `cn=vmailadmin`:  
 ![](http://screenshots.iredmail.googlecode.com/hg/phpldapadmin/login.png)
 
 * Expand LDAP tree in left panel, click `Create new entry here` under `ou=Aliases` of your domain, and select `Default` in right panel:  
@@ -12,7 +12,7 @@
 * Input required fields of alias account:  
 ![](http://screenshots.iredmail.googlecode.com/hg/phpldapadmin/create_alias_3.png)
 
-	* __WARNING__: Attribute `enabledService` requires two values: `mail`, `deliver`.
+__WARNING__: Attribute `enabledService` requires two values: `mail`, `deliver`.
 
 * Confirm to create:  
 ![](http://screenshots.iredmail.googlecode.com/hg/phpldapadmin/create_alias_4.png)

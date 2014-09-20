@@ -1,0 +1,54 @@
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title> How to add an alias domain name (LDAP backend)</title>
+        <link href="../css/markdown.css" rel="stylesheet"></head>
+    </head>
+
+    <body>
+    <h1 id="how-to-add-an-alias-domain-name-ldap-backend">How to add an alias domain name (LDAP backend)</h1>
+<h2 id="what-an-alias-domain-is-used-for">What an alias domain is used for?</h2>
+<p>Let's say you have a mail domain <code>example.com</code> hosted on your iRedMail server,
+if you add domain name <code>domain.ltd</code> as an alias domain of <code>example.com</code>, all
+emails sent to <code>username@domain.ltd</code> will be delivered to user
+<code>username@example.com</code>'s mailbox.</p>
+<h2 id="add-alias-domain-with-iredadmin-pro">Add alias domain with iRedAdmin-Pro</h2>
+<p>With iRedAdmin-Pro, you can simply add alias domain name in domain profile page,
+under tab <code>Aliases</code>. Screenshot: <a href="http://www.iredmail.org/images/iredadmin/domain_profile_alias.png">http://www.iredmail.org/images/iredadmin/domain_profile_alias.png</a></p>
+<h2 id="how-to-add-an-alias-domain-with-phpldapadmin">How to add an alias domain with phpLDAPadmin:</h2>
+<ul>
+<li>
+<p>Login to phpLDAPadmin (<code>https://[your_server]/phpldapadmin</code>) as LDAP root dn
+(<code>cn=Manager,dc=xx,dc=xx</code>)</p>
+</li>
+<li>
+<p>Find the LDAP object of your mail domain which you want to add alias
+domain in left panel of phpLDAPadmin, click the ldap object, phpLDAPadmin will
+show detailed LDAP attributes/values of this domain in right panel.</p>
+</li>
+<li>
+<p>Add a new LDAP attribute <code>domainAliasName</code> to this domain account, set value
+to the alias domain (e.g. <code>domain.com</code>). Save your change.</p>
+</li>
+</ul>
+<p>Now you should add addition mail address for all mail users, lists, aliases.
+For example, if you have mail user <code>user@example.com</code>, you should add addition
+email address <code>user@domain.ltd</code> for this user. Steps:</p>
+<ul>
+<li>
+<p>Find the LDAP object of mail account which you want to add addition email
+address in left panel of phpLDAPadmin, for example, user <code>user@example.com</code>,
+click the ldap object, phpLDAPadmin will show detailed LDAP attributes/values
+in right panel.</p>
+</li>
+<li>
+<p>Add a new LDAP attribute <code>shadowAddress</code> to this mail account, set value to
+<code>user@domain.ltd</code>. <strong>WARNING</strong>: You must user the same username part as
+original email address.</p>
+</li>
+<li>
+<p>Save your change.</p>
+</li>
+</ul>
+<p>If you have several mail accounts (mail users, lists, aliases), you have to
+add addition email address for them all.</p></body></html>
