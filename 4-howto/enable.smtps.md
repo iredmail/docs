@@ -1,4 +1,4 @@
-# How to enable SMTPS service (SMTP over SSL, port 465)
+# Enable SMTPS service (SMTP over SSL, port 465)
 
 [TOC]
 

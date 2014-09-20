@@ -1,4 +1,4 @@
-# How to allow user to send email without authentication
+# Allow user to send email without authentication
 
 [TOC]
 

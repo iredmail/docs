@@ -1,4 +1,4 @@
-# How to store spamassassin bayes in SQL
+# Store SpamAssassin bayes in SQL
 
 __THIS ARTICLE IS STILL A DRAFT, DO NOT APPLY IT IN PRODUCTION SERVER.__
 

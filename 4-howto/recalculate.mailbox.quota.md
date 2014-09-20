@@ -1,4 +1,4 @@
-# How to force Dovecot to recalculate mailbox quota
+# Force Dovecot to recalculate mailbox quota
 
 iRedMail enables dict quota since iRedMail-0.7.0, dict quota is recalculated
 only if the quota goes below zero

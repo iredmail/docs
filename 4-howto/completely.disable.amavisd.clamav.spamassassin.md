@@ -1,4 +1,4 @@
-# How to completely disable amavisd/ClamAV/SpamAssassin
+# Completely disable Amavisd + ClamAV + SpamAssassin
 
 In iRedMail, Amavisd provides below features:
 

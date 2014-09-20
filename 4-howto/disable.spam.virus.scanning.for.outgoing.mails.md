@@ -1,4 +1,4 @@
-# How to disable spam virus scanning for outgoing mails
+# Disable spam virus scanning for outgoing mails
 
 To disable spam/virus scanning for outgoing mails, you can add bypass settings in Amavisd config file: `/etc/amavisd/amavisd.conf` (RHEL/CentOS/Scientific Linux) or `/etc/amavis/conf.d/50-user` (Debian/Ubuntu) or `/usr/local/etc/amavisd.conf` (FreeBSD).
 

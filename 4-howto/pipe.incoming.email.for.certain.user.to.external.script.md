@@ -1,4 +1,4 @@
-# How to pipe incoming email for certain user to external script 
+# Pipe incoming email for certain user to external script 
 
 This tutorial explains how to pipe incoming email for certain user to external script.
 

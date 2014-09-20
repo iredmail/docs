@@ -1,4 +1,4 @@
-# How to turn on debug mode in OpenLDAP
+# Turn on debug mode in OpenLDAP
 
 In OpenLDAP config file `slapd.conf`, update parameter `loglevel` to value `256`, then restart OpenLDAP service.
     * On RHEL/CentOS and OpenBSD, it's `/etc/openldap/slapd.conf`

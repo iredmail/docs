@@ -1,4 +1,4 @@
-# LDAP: How to add an alias domain
+# LDAP: Add an alias domain
 
 ## What an alias domain is used for?
 

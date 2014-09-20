@@ -1,4 +1,4 @@
-# How to turn on debug mode in Dovecot
+# Turn on debug mode in Dovecot
 
 To turn on debug mode in Dovecot, please update Dovecot config file 
 `/etc/dovecot/dovecot.conf` (Linux/OpenBSD) or

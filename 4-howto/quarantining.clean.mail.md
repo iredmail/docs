@@ -1,4 +1,4 @@
-# How to quarantine clean mail into SQL database
+# Quarantine clean mail into SQL database
 
 To quarantine clean mails into SQL database, please follow below steps:
 

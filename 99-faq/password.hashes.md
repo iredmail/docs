@@ -1,4 +1,4 @@
-# How to use or migrate password hashes
+# Password hashes
 
 ## Password hashes supported by iRedMail
 

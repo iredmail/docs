@@ -1,4 +1,4 @@
-# How to perform silent/unattended iRedMail installation
+# Perform silent/unattended iRedMail installation
 
 iRedMail will store configrations in file iRedMail-x.y.z/config during
 installation, and ask you whether to use it for installation directly

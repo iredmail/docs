@@ -2,22 +2,21 @@
 
 # How to
 
-* [ How to allow user to send email without authentication](src/default/4-howto/allow.user.to.send.email.without.authentication.md)
+* [ Allow user to send email without authentication](src/default/4-howto/allow.user.to.send.email.without.authentication.md)
 * [ Amavisd + SpamAssassin not working, no mail header (X-Spam-*) inserted.](src/default/4-howto/amavisd.no.x-spam.headers.md)
-* [ How to completely disable amavisd/ClamAV/SpamAssassin](src/default/4-howto/completely.disable.amavisd.clamav.spamassassin.md)
-* [ How to disable spam virus scanning for outgoing mails](src/default/4-howto/disable.spam.virus.scanning.for.outgoing.mails.md)
-* [ Configure Thunderbird as mail client (IMAP, SMTP and global ldap address book)](src/default/4-howto/howto.configure.thunderbird.for.iredmail.md)
-* [ How to enable SMTPS service (SMTP over SSL, port 465)](src/default/4-howto/howto.enable.smtps.service.md)
-* [ LDAP: How to add an alias domain](src/default/4-howto/ldap.add.alias.domain.md)
-* [ LDAP: How to add a mail alias account](src/default/4-howto/ldap.add.mail.alias.md)
-* [ LDAP: How to forward emails to other email addresses](src/default/4-howto/ldap.add.mail.forwarding.address.md)
-* [ LDAP: How to add a mail list account](src/default/4-howto/ldap.add.mail.list.md)
-* [ How to pipe incoming email for certain user to external script ](src/default/4-howto/pipe.incoming.email.for.certain.user.to.external.script.md)
-* [ How to quarantine clean mail into SQL database](src/default/4-howto/quarantining.clean.mail.md)
-* [ How to force Dovecot to recalculate mailbox quota](src/default/4-howto/recalculate.mailbox.quota.md)
-* [ How to store spamassassin bayes in SQL](src/default/4-howto/store.spamassassin.bayes.in.sql.md)
-* [ How to perform silent/unattended iRedMail installation](src/default/4-howto/unattended.iredmail.installation.md)
-* [ How to use or migrate password hashes](src/default/4-howto/use.or.migrate.password.hashes.md)
+* [ Completely disable Amavisd + ClamAV + SpamAssassin](src/default/4-howto/completely.disable.amavisd.clamav.spamassassin.md)
+* [ Configure Thunderbird as mail client (IMAP, SMTP and global ldap address book)](src/default/4-howto/configure.thunderbird.md)
+* [ Disable spam virus scanning for outgoing mails](src/default/4-howto/disable.spam.virus.scanning.for.outgoing.mails.md)
+* [ Enable SMTPS service (SMTP over SSL, port 465)](src/default/4-howto/enable.smtps.md)
+* [ LDAP: Add an alias domain](src/default/4-howto/ldap.add.alias.domain.md)
+* [ LDAP: Add a mail alias account](src/default/4-howto/ldap.add.mail.alias.md)
+* [ LDAP: User mail forwarding.](src/default/4-howto/ldap.add.mail.forwarding.address.md)
+* [ LDAP: Add a mail list account](src/default/4-howto/ldap.add.mail.list.md)
+* [ Pipe incoming email for certain user to external script ](src/default/4-howto/pipe.incoming.email.for.certain.user.to.external.script.md)
+* [ Quarantine clean mail into SQL database](src/default/4-howto/quarantining.clean.mail.md)
+* [ Force Dovecot to recalculate mailbox quota](src/default/4-howto/recalculate.mailbox.quota.md)
+* [ Store SpamAssassin bayes in SQL](src/default/4-howto/store.spamassassin.bayes.in.sql.md)
+* [ Perform silent/unattended iRedMail installation](src/default/4-howto/unattended.iredmail.installation.md)
 
 # Third-party integrations.
 
@@ -29,10 +28,11 @@
 
 # Troubleshooting and Debug
 
-* [ How to turn on debug mode in Amavisd](src/default/9-troubleshooting/turn.on.debug.mode.in.amavisd.md)
-* [ How to turn on debug mode in Dovecot](src/default/9-troubleshooting/turn.on.debug.mode.in.dovecot.md)
-* [ How to turn on debug mode in OpenLDAP](src/default/9-troubleshooting/turn.on.debug.mode.in.openldap.md)
+* [ Turn on debug mode in Amavisd](src/default/9-troubleshooting/turn.on.debug.mode.in.amavisd.md)
+* [ Turn on debug mode in Dovecot](src/default/9-troubleshooting/turn.on.debug.mode.in.dovecot.md)
+* [ Turn on debug mode in OpenLDAP](src/default/9-troubleshooting/turn.on.debug.mode.in.openldap.md)
 
 # Frequently Asked Questions
 
+* [ Password hashes](src/default/99-faq/password.hashes.md)
 * [ Why append timestamp in maildir path](src/default/99-faq/why.append.timestamp.in.maildir.path.md)
