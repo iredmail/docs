@@ -65,7 +65,11 @@ Default SOGo config file is `/etc/sogo/sogo.conf`:
     // Enable managesieve service
     SOGoSieveServer = sieve://127.0.0.1:4190;
     SOGoSieveScriptsEnabled = YES;
+    SOGoVacationEnabled = YES;
 
+    SOGoFirstDayOfWeek = 1;
+
+    SOGoMailMessageCheck = every_5_minutes;
     SOGoForceExternalLoginWithEmail = YES;
     SOGoAppointmentSendEMailNotifications = YES;
     SOGoFoldersSendEMailNotifications YES
