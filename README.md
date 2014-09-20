@@ -15,6 +15,7 @@
 * [ Pipe incoming email for certain user to external script ](src/default/4-howto/pipe.incoming.email.for.certain.user.to.external.script.md)
 * [ Quarantine clean mail into SQL database](src/default/4-howto/quarantining.clean.mail.md)
 * [ Force Dovecot to recalculate mailbox quota](src/default/4-howto/recalculate.mailbox.quota.md)
+* [ SQL: Create an mail alias account with SQL command line](src/default/4-howto/sql.create.mail.alias.md)
 * [ Store SpamAssassin bayes in SQL](src/default/4-howto/store.spamassassin.bayes.in.sql.md)
 * [ Perform silent/unattended iRedMail installation](src/default/4-howto/unattended.iredmail.installation.md)
 
