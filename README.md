@@ -10,8 +10,8 @@
 * [ Enable SMTPS service (SMTP over SSL, port 465)](src/default/4-howto/enable.smtps.md)
 * [ LDAP: Add an alias domain](src/default/4-howto/ldap.add.alias.domain.md)
 * [ LDAP: Add a mail alias account](src/default/4-howto/ldap.add.mail.alias.md)
-* [ LDAP: User mail forwarding.](src/default/4-howto/ldap.add.mail.forwarding.address.md)
 * [ LDAP: Add a mail list account](src/default/4-howto/ldap.add.mail.list.md)
+* [ LDAP: User mail forwarding.](src/default/4-howto/ldap.user.mail.forwarding.md)
 * [ Pipe incoming email for certain user to external script ](src/default/4-howto/pipe.incoming.email.for.certain.user.to.external.script.md)
 * [ Quarantine clean mail into SQL database](src/default/4-howto/quarantining.clean.mail.md)
 * [ Force Dovecot to recalculate mailbox quota](src/default/4-howto/recalculate.mailbox.quota.md)
