@@ -11,6 +11,24 @@
     
         // <a href="../index.html">Document Index</a>
     </div><h1 id="how-to-install-sogo-on-centos-6-with-iredmail-mysql-backend">How to install SOGo on CentOS 6 with iRedMail (MySQL backend)</h1>
+<div class="toc">
+<ul>
+<li><a href="#how-to-install-sogo-on-centos-6-with-iredmail-mysql-backend">How to install SOGo on CentOS 6 with iRedMail (MySQL backend)</a><ul>
+<li><a href="#requirements">Requirements</a></li>
+<li><a href="#install-sogo">Install SOGo</a></li>
+<li><a href="#create-sql-database-to-store-sogo-data">Create SQL database to store SOGo data</a></li>
+<li><a href="#configure-sogo">Configure SOGo</a></li>
+<li><a href="#start-sogo-and-dependent-services">Start SOGo and dependent services</a></li>
+<li><a href="#how-to-configure-client-applications">How to configure client applications</a><ul>
+<li><a href="#apple-devices">Apple Devices</a></li>
+</ul>
+</li>
+<li><a href="#todo">TODO</a></li>
+<li><a href="#references">References</a></li>
+</ul>
+</li>
+</ul>
+</div>
 <h2 id="requirements">Requirements</h2>
 <ul>
 <li>A working iRedMail server (MySQL backend) on CentOS 6.</li>
@@ -55,6 +73,8 @@ mysql&gt; CREATE VIEW sogo.sogo_users (c_uid, c_name, c_password, c_cn, mail, ho
 <h2 id="configure-sogo">Configure SOGo</h2>
 <p>Default SOGo config file is <code>/etc/sogo/sogo.conf</code>:</p>
 <pre><code>(
+    WOPort = 127.0.0.1:20000;
+
     SOGoProfileURL = &quot;mysql://sogo:password@localhost:3306/sogo/sogo_user_profile&quot;;
     OCSFolderInfoURL = &quot;mysql://sogo:password@localhost:3306/sogo/sogo_folder_info&quot;;
     OCSSessionsFolderURL = &quot;mysql://sogo:password@localhost:3306/sogo/sogo_sessions_folder&quot;;
@@ -72,13 +92,21 @@ mysql&gt; CREATE VIEW sogo.sogo_users (c_uid, c_name, c_password, c_cn, mail, ho
     SOGoSieveScriptsEnabled = YES;
     SOGoVacationEnabled = YES;
 
+    SOGoMemcachedHost = 127.0.0.1;
+
+    SOGoTimeZone = &quot;Europe/Berlin&quot;;
+
     SOGoFirstDayOfWeek = 1;
 
     SOGoMailMessageCheck = every_5_minutes;
     SOGoForceExternalLoginWithEmail = YES;
     SOGoAppointmentSendEMailNotifications = YES;
-    SOGoFoldersSendEMailNotifications YES
-    SOGoACLsSendEMailNotifications YES
+    SOGoFoldersSendEMailNotifications = YES;
+    SOGoACLsSendEMailNotifications = YES;
+
+    // OCSEMailAlarmsFolderURL = &quot;mysql://sogo:password@localhost:3306/sogo/sogo_alarms_folder&quot;;
+
+    SOGoPasswordChangeEnabled = YES;
 
     SOGoUserSources =
     (
@@ -107,20 +135,4 @@ service memcached start
 <h3 id="apple-devices">Apple Devices</h3>
 <p>URL for calendar service: <code>http://[host]/SOGo/dav/[user]/</code></p>
 <h2 id="todo">TODO</h2>
-<h2 id="references">References:</h2>
-<ul>
-<li>Addition settings:</li>
-</ul>
-<pre><code>defaults write sogod OCSEMailAlarmsFolderURL mysql://sogo:password@localhost:3306/sogo/sogo_alarms_folder
-defaults write sogod SOGoTimeZone &quot;Europe/Berlin&quot;
-
-defaults write sogod SOGoMailingMechanism smtp
-defaults write sogod SOGoSMTPServer 127.0.0.1
-defaults write sogod SOGoMemcachedHost 127.0.0.1
-
-defaults write sogod SOGoIMAPServer localhost
-defaults write sogod SOGoPasswordChangeEnabled YES
-defaults write sogod SOGoSieveScriptsEnabled YES
-defaults write sogod SOGoSieveServer sieve://127.0.0.1:4190
-defaults write sogod WOPort 127.0.0.1:20000
-</code></pre></body></html>
+<h2 id="references">References</h2></body></html>

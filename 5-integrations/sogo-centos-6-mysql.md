@@ -1,5 +1,7 @@
 # How to install SOGo on CentOS 6 with iRedMail (MySQL backend)
 
+[TOC]
+
 ## Requirements
 
 * A working iRedMail server (MySQL backend) on CentOS 6.
@@ -50,6 +52,8 @@ Default SOGo config file is `/etc/sogo/sogo.conf`:
 
 ```
 (
+    WOPort = 127.0.0.1:20000;
+
     SOGoProfileURL = "mysql://sogo:password@localhost:3306/sogo/sogo_user_profile";
     OCSFolderInfoURL = "mysql://sogo:password@localhost:3306/sogo/sogo_folder_info";
     OCSSessionsFolderURL = "mysql://sogo:password@localhost:3306/sogo/sogo_sessions_folder";
@@ -67,13 +71,21 @@ Default SOGo config file is `/etc/sogo/sogo.conf`:
     SOGoSieveScriptsEnabled = YES;
     SOGoVacationEnabled = YES;
 
+    SOGoMemcachedHost = 127.0.0.1;
+
+    SOGoTimeZone = "Europe/Berlin";
+
     SOGoFirstDayOfWeek = 1;
 
     SOGoMailMessageCheck = every_5_minutes;
     SOGoForceExternalLoginWithEmail = YES;
     SOGoAppointmentSendEMailNotifications = YES;
-    SOGoFoldersSendEMailNotifications YES
-    SOGoACLsSendEMailNotifications YES
+    SOGoFoldersSendEMailNotifications = YES;
+    SOGoACLsSendEMailNotifications = YES;
+
+    // OCSEMailAlarmsFolderURL = "mysql://sogo:password@localhost:3306/sogo/sogo_alarms_folder";
+
+    SOGoPasswordChangeEnabled = YES;
 
     SOGoUserSources =
     (
@@ -109,21 +121,5 @@ URL for calendar service: `http://[host]/SOGo/dav/[user]/`
 
 ## TODO
 
-## References:
+## References
 
-* Addition settings:
-
-```
-defaults write sogod OCSEMailAlarmsFolderURL mysql://sogo:password@localhost:3306/sogo/sogo_alarms_folder
-defaults write sogod SOGoTimeZone "Europe/Berlin"
-
-defaults write sogod SOGoMailingMechanism smtp
-defaults write sogod SOGoSMTPServer 127.0.0.1
-defaults write sogod SOGoMemcachedHost 127.0.0.1
-
-defaults write sogod SOGoIMAPServer localhost
-defaults write sogod SOGoPasswordChangeEnabled YES
-defaults write sogod SOGoSieveScriptsEnabled YES
-defaults write sogod SOGoSieveServer sieve://127.0.0.1:4190
-defaults write sogod WOPort 127.0.0.1:20000
-```
