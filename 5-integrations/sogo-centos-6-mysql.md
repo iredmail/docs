@@ -41,7 +41,7 @@ mysql> GRANT ALL ON sogo.* TO sogo@localhost IDENTIFIED BY 'password';
 -- TODO
 mysql> GRANT SELECT ON vmail.mailbox TO sogo@localhost;
 
-mysql> CREATE VIEW sogo.sogo_auth (c_uid, c_name, c_password, c_cn, mail, home) AS SELECT username, username, password, name, username, maildir FROM vmail.mailbox;
+mysql> CREATE VIEW sogo.sogo_users (c_uid, c_name, c_password, c_cn, mail, home) AS SELECT username, username, password, name, username, maildir FROM vmail.mailbox;
 ```
 
 ## Configure SOGo
@@ -80,7 +80,7 @@ Default SOGo config file is `/etc/sogo/sogo.conf`:
         {
             type = sql;
             id = directory;
-            viewURL = "mysql://sogo:password@127.0.0.1:3306/sogo/sogo_view";
+            viewURL = "mysql://sogo:password@127.0.0.1:3306/sogo/sogo_users";
             canAuthenticate = YES;
             isAddressBook = YES;
             userPasswordAlgorithm = md5;
@@ -88,6 +88,10 @@ Default SOGo config file is `/etc/sogo/sogo.conf`:
         }
     );
 ```
+
+__NOTE__: SOGo will create required SQL tables automatically
+(`sogo_user_profile`, `sogo_folder_info`, `sogo_sessions_folder`, ...),  we
+don't need to create them manually.
 
 ## Start SOGo and dependent services
 

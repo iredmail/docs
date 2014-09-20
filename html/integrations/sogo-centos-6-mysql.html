@@ -49,7 +49,7 @@ mysql&gt; GRANT ALL ON sogo.* TO sogo@localhost IDENTIFIED BY 'password';
 -- TODO
 mysql&gt; GRANT SELECT ON vmail.mailbox TO sogo@localhost;
 
-mysql&gt; CREATE VIEW sogo.sogo_auth (c_uid, c_name, c_password, c_cn, mail, home) AS SELECT username, username, password, name, username, maildir FROM vmail.mailbox;
+mysql&gt; CREATE VIEW sogo.sogo_users (c_uid, c_name, c_password, c_cn, mail, home) AS SELECT username, username, password, name, username, maildir FROM vmail.mailbox;
 </code></pre>
 
 <h2 id="configure-sogo">Configure SOGo</h2>
@@ -70,7 +70,11 @@ mysql&gt; CREATE VIEW sogo.sogo_auth (c_uid, c_name, c_password, c_cn, mail, hom
     // Enable managesieve service
     SOGoSieveServer = sieve://127.0.0.1:4190;
     SOGoSieveScriptsEnabled = YES;
+    SOGoVacationEnabled = YES;
 
+    SOGoFirstDayOfWeek = 1;
+
+    SOGoMailMessageCheck = every_5_minutes;
     SOGoForceExternalLoginWithEmail = YES;
     SOGoAppointmentSendEMailNotifications = YES;
     SOGoFoldersSendEMailNotifications YES
@@ -81,7 +85,7 @@ mysql&gt; CREATE VIEW sogo.sogo_auth (c_uid, c_name, c_password, c_cn, mail, hom
         {
             type = sql;
             id = directory;
-            viewURL = &quot;mysql://sogo:password@127.0.0.1:3306/sogo/sogo_view&quot;;
+            viewURL = &quot;mysql://sogo:password@127.0.0.1:3306/sogo/sogo_users&quot;;
             canAuthenticate = YES;
             isAddressBook = YES;
             userPasswordAlgorithm = md5;
@@ -90,6 +94,9 @@ mysql&gt; CREATE VIEW sogo.sogo_auth (c_uid, c_name, c_password, c_cn, mail, hom
     );
 </code></pre>
 
+<p><strong>NOTE</strong>: SOGo will create required SQL tables automatically
+(<code>sogo_user_profile</code>, <code>sogo_folder_info</code>, <code>sogo_sessions_folder</code>, ...),  we
+don't need to create them manually.</p>
 <h2 id="start-sogo-and-dependent-services">Start SOGo and dependent services</h2>
 <pre><code>service sogod start
 service httpd restart
