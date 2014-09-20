@@ -61,9 +61,9 @@ use this new transport.
 	* For MySQL/PostgreSQL backend, please execute below command with SQL
       command line tool (Replace 'user@domain.ltd' by the real email address):
 
-<pre>
+```
 sql> USE vmail;
 sql> UPDATE mailbox SET transport='external-pipe' WHERE username='user@domain.ltd';
-</pre>
+```
 
 That's all.

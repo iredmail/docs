@@ -43,31 +43,27 @@ running SpamAssassin-3.3.1, so what we need is this SQL template file:
 http://svn.apache.org/repos/asf/spamassassin/tags/spamassassin_release_3_3_1/sql/bayes_mysql.sql.
 If you're running different version, please find the proper SQL file here:
 <a href="http://svn.apache.org/repos/asf/spamassassin/tags/">http://svn.apache.org/repos/asf/spamassassin/tags/</a>.</p>
-<pre>
-# cd /root/
+<pre><code># cd /root/
 # wget http://svn.apache.org/repos/asf/spamassassin/tags/spamassassin_release_3_3_1/sql/bayes_mysql.sql
-</pre>
+</code></pre>
 
 <p>Create MySQL database and import SQL template file:</p>
-<pre>
-# mysql -uroot -p
-mysql> CREATE DATABASE sa_bayes;
-mysql> USE sa_bayes;
-mysql> SOURCE /root/bayes_mysql.sql;
-</pre>
+<pre><code># mysql -uroot -p
+mysql&gt; CREATE DATABASE sa_bayes;
+mysql&gt; USE sa_bayes;
+mysql&gt; SOURCE /root/bayes_mysql.sql;
+</code></pre>
 
 <p>Create a new MySQL user (with password <code>sa_user_password</code>) and grant
 permissions. <strong>IMPORTANT NOTE</strong>: Please replace password <code>sa_user_password</code>
 by your own password.</p>
-<pre>
-mysql> GRANT SELECT, INSERT, UPDATE, DELETE ON sa_bayes.* TO sa_user@localhost IDENTIFIED BY 'sa_user_password';
-mysql> FLUSH PRIVILEGES;
-</pre>
+<pre><code>mysql&gt; GRANT SELECT, INSERT, UPDATE, DELETE ON sa_bayes.* TO sa_user@localhost IDENTIFIED BY 'sa_user_password';
+mysql&gt; FLUSH PRIVILEGES;
+</code></pre>
 
 <h2 id="enable-bayes-modules-in-spamassassin">Enable Bayes modules in SpamAssassin</h2>
 <p>Edit <code>/etc/mail/spamassassin/local.cf</code>, add (or modify below settings):</p>
-<pre>
-use_bayes          1
+<pre><code>use_bayes          1
 bayes_auto_learn   1
 bayes_auto_expire  1
 
@@ -87,32 +83,29 @@ bayes_sql_password sa_user_password
 # share bayesian filter data. You can also use this config option to
 # trick sa-learn to learn data as a specific user.
 bayes_sql_override_username vmail
-</pre>
+</code></pre>
 
 <p>Make sure SpamAssassin will load bayes modules:</p>
-<pre>
-# /etc/init.d/amavisd stop
-# amavisd -c /etc/amavisd/amavisd.conf debug 2>&1 | grep -i 'bayes'
+<pre><code># /etc/init.d/amavisd stop
+# amavisd -c /etc/amavisd/amavisd.conf debug 2&gt;&amp;1 | grep -i 'bayes'
 May 16 09:59:33 ... SpamAssassin loaded plugins: ..., Bayes, ...
 May 16 10:27:38 ... extra modules loaded after daemonizing/chrooting:
     Mail/SpamAssassin/BayesStore/MySQL.pm, Mail/SpamAssassin/BayesStore/SQL.pm, ...
-</pre>
+</code></pre>
 
 <p>Looks fine. Now press <code>Ctrl-C</code> to terminate above command.</p>
 <p>Start Amavisd service:</p>
-<pre>
-# /etc/init.d/amavisd restart
-</pre>
+<pre><code># /etc/init.d/amavisd restart
+</code></pre>
 
 <p>It is required we initialize the database by learning a message. We use the
 sample spam email shipped in the RPM package provided by CentOS 6:</p>
-<pre>
-# rpm -ql spamassassin | grep 'sample-spam'
+<pre><code># rpm -ql spamassassin | grep 'sample-spam'
 /usr/share/doc/spamassassin-3.3.1/sample-spam.txt
 
 # sa-learn --spam --username=vmail /usr/share/doc/spamassassin-3.3.1/sample-spam.txt
 Learned tokens from 1 message(s) (1 message(s) examined)
-</pre>
+</code></pre>
 
 <h2 id="enable-roundcube-plugin-markasjunk2">Enable Roundcube plugin: markasjunk2</h2>
 <ul>
@@ -131,16 +124,14 @@ directory: <code>/var/www/roundcubemail/plugins/</code>. Then we get a new direc
 config file by copying its sample config file:</p>
 </li>
 </ul>
-<pre>
-# cd /var/www/roundcubemail/plugins/markasjunk2/
+<pre><code># cd /var/www/roundcubemail/plugins/markasjunk2/
 # cp config.inc.php.dist config.inc.php
-</pre>
+</code></pre>
 
 <ul>
 <li>Edit <code>roundcubemail/plugins/markasjunk2/config.inc.php</code>, update below settings:</li>
 </ul>
-<pre>
-$rcmail_config['markasjunk2_learning_driver'] = 'cmd_learn';
+<pre><code>$rcmail_config['markasjunk2_learning_driver'] = 'cmd_learn';
 $rcmail_config['markasjunk2_read_spam'] = true;
 $rcmail_config['markasjunk2_unread_ham'] = false;
 $rcmail_config['markasjunk2_move_spam'] = true;
@@ -149,28 +140,26 @@ $rcmail_config['markasjunk2_mb_toolbar'] = true;
 
 $rcmail_config['markasjunk2_spam_cmd'] = 'sa-learn --spam --username=vmail %f';
 $rcmail_config['markasjunk2_ham_cmd'] = 'sa-learn --ham --username=vmail %f';
-</pre>
+</code></pre>
 
 <ul>
 <li>Enable this plugin in Roundcube config file
 <code>/var/www/roundcubemail/config/main.inc.php</code> by appending <code>markasjunk2</code>
 in plugin list:</li>
 </ul>
-<pre>
-$rcmail_config['plugins'] = array(..., "markasjunk2");
-</pre>
+<pre><code>$rcmail_config['plugins'] = array(..., &quot;markasjunk2&quot;);
+</code></pre>
 
 <ul>
 <li>Learning driver <code>cmd_learn</code> requires PHP function <code>exec</code>, so we have to
 remove it from PHP config file <code>/etc/php.ini</code>, parameter <code>disabled_functions</code>:</li>
 </ul>
-<pre>
-# OLD SETTING
+<pre><code># OLD SETTING
 # disable_functions =show_source,system,shell_exec,passthru,exec,phpinfo,proc_open ;
 
 # NEW SETTING. exec is removed.
 disable_functions =show_source,system,shell_exec,passthru,phpinfo,proc_open ;
-</pre>
+</code></pre>
 
 <ul>
 <li>Restarting Apache web server.</li>
@@ -178,30 +167,28 @@ disable_functions =show_source,system,shell_exec,passthru,phpinfo,proc_open ;
 <p>You will see a new toolbar button after logging into Roundcube webmail:</p>
 <p><img alt="" src="../images/Markasjunk2_toolbar_button.png" /></p>
 <p>Check SQL database <code>sa_bayes</code> before we testing this plugin:</p>
-<pre>
-# mysql -uroot -p
-mysql> USE sa_bayes;
-mysql> SELECT COUNT(*) FROM bayes_token;
+<pre><code># mysql -uroot -p
+mysql&gt; USE sa_bayes;
+mysql&gt; SELECT COUNT(*) FROM bayes_token;
 +----------+
 | count(*) |
 +----------+
 |       65 |
 +----------+
-</pre>
+</code></pre>
 
 <p>Back to Roundcube webmail, select a spam email (or a testing email), click
 <code>Mark as Junk</code> button, then this email will be scanned by command <code>sa-learn</code>.
 Check database <code>sa_bayes</code> again to make sure it's working:</p>
-<pre>
-# mysql -uroot -p
-mysql> USE sa_bayes;
-mysql> SELECT COUNT(*) FROM bayes_token;
+<pre><code># mysql -uroot -p
+mysql&gt; USE sa_bayes;
+mysql&gt; SELECT COUNT(*) FROM bayes_token;
 +----------+
 | count(*) |
 +----------+
 |      143 |
 +----------+
-</pre>
+</code></pre>
 
 <p>Note: You may get different result number as shown above.</p>
 <p>So far so good. That's all we need to do.</p>

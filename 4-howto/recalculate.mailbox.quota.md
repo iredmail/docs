@@ -5,17 +5,17 @@ only if the quota goes below zero
 
 * For MySQL and PostgreSQL backend:
 
-<pre>
+```
 mysql> USE vmail;
 mysql> DELETE FROM used_quota WHERE username='user@domain.ltd';
-</pre>
+```
 
 * For OpenLDAP backend:
 
-<pre>
+```
 mysql> USE iredadmin;
 mysql> DELETE FROM used_quota WHERE username='user@domain.ltd';
-</pre>
+```
 
 Re-login via POP3/IMAP (or webmail) will trigger Dovecot to recalculate mailbox
 quota.

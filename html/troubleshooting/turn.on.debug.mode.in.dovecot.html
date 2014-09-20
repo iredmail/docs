@@ -10,16 +10,14 @@
 <p>To turn on debug mode in Dovecot, please update Dovecot config file 
 <code>/etc/dovecot/dovecot.conf</code> (Linux/OpenBSD) or
 <code>/usr/local/etc/dovecot/dovecot.conf</code> (FreeBSD), set <code>mail_debug</code> to <code>yes</code>:</p>
-<pre>
-mail_debug = yes
-</pre>
+<pre><code>mail_debug = yes
+</code></pre>
 
 <p>Restart Dovecot service.</p>
 <p>If you need authentication and password related debug message, turn on related
 settings and restart dovecot service.</p>
-<pre>
-auth_verbose = yes
+<pre><code>auth_verbose = yes
 auth_debug = yes
 auth_debug_passwords = yes
 auth_verbose_passwords = yes
-</pre></body></html>
+</code></pre></body></html>

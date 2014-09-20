@@ -10,28 +10,28 @@ To quarantine clean mails into SQL database, please follow below steps:
     * on FreeBSD, it's `/usr/local/etc/amavisd.conf`.
     * on OpenBSD, it's `/etc/amavisd.conf`.
 
-<pre>
+```
 $clean_quarantine_method = 'sql:';
 $clean_quarantine_to = 'clean-quarantine';
-</pre>
+```
 
 * Find policy bank 'MYUSERS', append two lines in this policy bank:
 
-<pre>
+```
 $policy_bank{'MYUSERS'} = {
     ...
     clean_quarantine_method => 'sql:',
     final_destiny_by_ccat => {CC_CLEAN, D_DISCARD},
 }
-</pre>
+```
 
 * Make sure you have '@storage_sql_dsn' enabled. For example:
 
-<pre>
+```
 @storage_sql_dsn = (
     ['DBI:mysql:database=amavisd;host=127.0.0.1;port=3306', 'amavisd', 'qAv9CYva0vHA1GCX0J9f23WJvqRzt7'],
 );
-</pre>
+```
 
 * Restart Amavisd service.
 

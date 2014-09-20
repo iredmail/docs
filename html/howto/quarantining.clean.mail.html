@@ -18,30 +18,27 @@
 </ul>
 </li>
 </ul>
-<pre>
-$clean_quarantine_method = 'sql:';
+<pre><code>$clean_quarantine_method = 'sql:';
 $clean_quarantine_to = 'clean-quarantine';
-</pre>
+</code></pre>
 
 <ul>
 <li>Find policy bank 'MYUSERS', append two lines in this policy bank:</li>
 </ul>
-<pre>
-$policy_bank{'MYUSERS'} = {
+<pre><code>$policy_bank{'MYUSERS'} = {
     ...
-    clean_quarantine_method => 'sql:',
-    final_destiny_by_ccat => {CC_CLEAN, D_DISCARD},
+    clean_quarantine_method =&gt; 'sql:',
+    final_destiny_by_ccat =&gt; {CC_CLEAN, D_DISCARD},
 }
-</pre>
+</code></pre>
 
 <ul>
 <li>Make sure you have '@storage_sql_dsn' enabled. For example:</li>
 </ul>
-<pre>
-@storage_sql_dsn = (
+<pre><code>@storage_sql_dsn = (
     ['DBI:mysql:database=amavisd;host=127.0.0.1;port=3306', 'amavisd', 'qAv9CYva0vHA1GCX0J9f23WJvqRzt7'],
 );
-</pre>
+</code></pre>
 
 <ul>
 <li>Restart Amavisd service.</li>

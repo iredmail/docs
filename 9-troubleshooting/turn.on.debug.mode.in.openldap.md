@@ -5,8 +5,8 @@ In OpenLDAP config file `slapd.conf`, update parameter `loglevel` to value `256`
     * On Debian/Ubuntu, it's `/etc/ldap/slapd.conf`
     * On FreeBSD, it's `/usr/local/etc/openldap/slapd.conf`
 
-<pre>
+```
 loglevel    256
-</pre>
+```
 
 OpenLDAP is configured by iRedMail to log into `/var/log/openldap.log` by default.
