@@ -10,7 +10,11 @@ emails sent to `username@domain.ltd` will be delivered to user
 ## Add alias domain with iRedAdmin-Pro
 
 With iRedAdmin-Pro, you can simply add alias domain name in domain profile page,
-under tab `Aliases`. Screenshot: <http://www.iredmail.org/images/iredadmin/domain_profile_alias.png>
+under tab `Aliases`.
+
+Screenshot:
+
+![](http://www.iredmail.org/images/iredadmin/domain_profile_alias.png)
 
 ## How to add an alias domain with phpLDAPadmin:
 
