@@ -1,4 +1,4 @@
-# How to add mail list account (LDAP backend)
+# LDAP: How to add a mail list account
 
 ## Add mail list with iRedAdmin-Pro
 

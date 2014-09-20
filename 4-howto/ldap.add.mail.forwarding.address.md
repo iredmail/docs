@@ -1,5 +1,4 @@
-# How to forward emails to other email addresses (mail forwarding)
-
+# LDAP: How to forward emails to other email addresses
 
 ## Set mail forwarding with iRedAdmin-Pro
 

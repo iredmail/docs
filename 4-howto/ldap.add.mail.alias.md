@@ -1,4 +1,4 @@
-# Howto add mail alias account (LDAP backend)
+# LDAP: How to add a mail alias account
 
 * Log into phpLDAPadmin as LDAP root dn `cn=Manager` or `cn=vmailadmin`:  
 ![](http://screenshots.iredmail.googlecode.com/hg/phpldapadmin/login.png)
