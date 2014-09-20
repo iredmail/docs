@@ -1,5 +1,7 @@
 # Configure Thunderbird as mail client (IMAP, SMTP and global ldap address book)
 
+[TOC]
+
 iRedMail provides POP3S (POP3 over TLS), IMAPS (IMAP over TLS), SMTPS (SMTP over TLS) for receiving and sending emails by default.
 
 ## Create new mail account

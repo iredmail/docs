@@ -97,7 +97,9 @@ for chapter_dir in ${all_chapter_dirs}; do
         # 'src/default/' is path to view source file on bitbucket.org
         echo "* [${_article_title}](src/default/${article_file_without_prefix})" >> ${README_MD}
 
-        ${CMD_CONVERT} ${article_file} ${_output_chapter_dir} title="${_article_title}"
+        ${CMD_CONVERT} ${article_file} ${_output_chapter_dir} \
+            title="${_article_title}" \
+            add_index_link='yes'
     done
 done
 

@@ -47,9 +47,23 @@ html = """\
         <title>%(title)s</title>
         <link href="%(css)s" rel="stylesheet"></head>
     </head>
-
     <body>
     """ % cmd_opts
+
+# Add navigation items.
+# Link to iRedMail.org
+html += """
+    <div id="navigation">
+        <a href="http://www.iredmail.org" target="_blank">iRedMail web site</a>
+    """
+
+# Add link to index page in article pages.
+if 'add_index_link' in cmd_opts:
+    html += """
+        // <a href="../index.html">Document Index</a>
+    """
+
+html += """</div>"""
 
 # Read markdown file and render as HTML body
 # Handle unicode characters with web.safeunicode
