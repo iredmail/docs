@@ -1,4 +1,4 @@
-#How to migrate old iRedMail server to the latest stable release
+# How to migrate old iRedMail server to the latest stable release
 
 [TOC]
 

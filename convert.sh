@@ -90,7 +90,8 @@ for chapter_dir in ${all_chapter_dirs}; do
         article_html_file="$(echo ${article_html_file/%.md/.html})"
 
         # Get title.
-        _article_title="$(head -1 ${article_file} | awk -F'#' '{print $2}')"
+        _article_title="$(head -1 ${article_file} | awk -F'# ' '{print $2}')"
+        #_article_title="$(head -1 ${article_file} | awk -F'Title: ' '{print $2}')"
         #echo "article title: ${_article_title}"
         echo "* [${_article_title}](${chapter_dir_in_article}/${article_html_file})" >> ${INDEX_MD}
 

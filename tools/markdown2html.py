@@ -38,6 +38,7 @@ if not 'css' in cmd_opts:
 # Get article title
 if not 'title' in cmd_opts:
     cmd_opts['title'] = commands.getoutput("""grep 'Title:' %s |awk -F'Title: ' '{print $2}'""" % filename)
+cmd_opts['title'] = cmd_opts['title'].strip()
 
 # Set HTML head
 html = """\
