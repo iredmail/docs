@@ -33,7 +33,7 @@ for arg in args:
         cmd_opts[var] = value
 
 if not 'css' in cmd_opts:
-    cmd_opts['css'] = '../css/markdown.css'
+    cmd_opts['css'] = './css/markdown.css'
 
 # Get article title
 if not 'title' in cmd_opts:

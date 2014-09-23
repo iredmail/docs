@@ -116,7 +116,7 @@ done
 #cd ${OUTPUT_DIR}
 
 # Generate index.html
-${CMD_CONVERT} ${INDEX_MD} ${OUTPUT_DIR} css='./css/markdown.css' title="iRedMail Documentations"
+${CMD_CONVERT} ${INDEX_MD} ${OUTPUT_DIR} title="iRedMail Documentations"
 
 # Cleanup
 rm -f ${INDEX_MD}
