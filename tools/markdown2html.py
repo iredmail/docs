@@ -61,7 +61,7 @@ html += """
 # Add link to index page in article pages.
 if 'add_index_link' in cmd_opts:
     html += """
-        // <a href="../index.html">Document Index</a>
+        // <a href="./index.html">Document Index</a>
     """
 
 html += """</div>"""
