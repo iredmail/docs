@@ -17,15 +17,15 @@ We're working on migrating [old wiki documents](http://www.iredmail.org/wiki) to
 * [Store SpamAssassin bayes in SQL](src/default/4-howto/store.spamassassin.bayes.in.sql.md)
 * [Perform silent/unattended iRedMail installation](src/default/4-howto/unattended.iredmail.installation.md)
 # Third-party integrations.
-* [How to install SOGo on CentOS 6 with iRedMail (MySQL backend)](src/default/5-integrations/sogo-centos-6-mysql.md)
+* [SOGo: How to install SOGo on CentOS 6 with iRedMail (MySQL backend)](src/default/5-integrations/sogo-centos-6-mysql.md)
 # Cluster solutions
 * [An Ultra-HA, full Mult-Master E-mail cluster with iRedMail, MariaDB, and IPVS  ](src/default/6-cluster/full.mult-master.iredmail.cluster.with.mariadb.and.ipvs.md)
-# Backup and Restore
-* [How to migrate old iRedMail server to the latest stable release](src/default/7-backup-restore/migrate.to.new.iredmail.server.md)
+# Backup, restore and migration
+* [How to migrate old iRedMail server to the latest stable release](src/default/7-backup-restore-migration/migrate.to.new.iredmail.server.md)
+* [Password hashes](src/default/7-backup-restore-migration/password.hashes.md)
 # Troubleshooting and Debug
 * [Turn on debug mode in Amavisd](src/default/9-troubleshooting/turn.on.debug.mode.in.amavisd.md)
 * [Turn on debug mode in Dovecot](src/default/9-troubleshooting/turn.on.debug.mode.in.dovecot.md)
 * [Turn on debug mode in OpenLDAP](src/default/9-troubleshooting/turn.on.debug.mode.in.openldap.md)
 # Frequently Asked Questions
-* [Password hashes](src/default/99-faq/password.hashes.md)
 * [Why append timestamp in maildir path](src/default/99-faq/why.append.timestamp.in.maildir.path.md)
