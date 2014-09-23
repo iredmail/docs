@@ -56,8 +56,8 @@ for chapter_dir in ${all_chapter_dirs}; do
 
     # Output directory.
     # Remove prefix '[number]-' in chapter directory name.
-    chapter_dir_in_article="$(strip_name_prefix ${chapter_dir})"
-    _output_chapter_dir="${OUTPUT_DIR}/${chapter_dir_in_article}"
+    #chapter_dir_in_article="$(strip_name_prefix ${chapter_dir})"
+    #_output_chapter_dir="${OUTPUT_DIR}/${chapter_dir_in_article}"
 
     _title_md="${chapter_dir}/_title.md"
     _summary_md="${chapter_dir}/_summary.md"
@@ -76,12 +76,12 @@ for chapter_dir in ${all_chapter_dirs}; do
         fi
     fi
 
-    mkdir -p ${_output_chapter_dir} &>/dev/null
+    #mkdir -p ${_output_chapter_dir} &>/dev/null
 
     # Create ${_output_chapter_dir}/_summary.html
-    if [ -f ${_summary_md} ]; then
-        ${CMD_CONVERT} ${_summary_md} ${_output_chapter_dir}
-    fi
+    #if [ -f ${_summary_md} ]; then
+    #    ${CMD_CONVERT} ${_summary_md} ${_output_chapter_dir}
+    #fi
 
     # Article info:
     #   - title: first line (without '#') of markdown file
@@ -98,13 +98,16 @@ for chapter_dir in ${all_chapter_dirs}; do
         _article_title="$(head -1 ${article_file} | awk -F'# ' '{print $2}')"
         #_article_title="$(head -1 ${article_file} | awk -F'Title: ' '{print $2}')"
         #echo "article title: ${_article_title}"
-        echo "* [${_article_title}](${chapter_dir_in_article}/${article_html_file})" >> ${INDEX_MD}
+        #echo "* [${_article_title}](${chapter_dir_in_article}/${article_html_file})" >> ${INDEX_MD}
+        echo "* [${_article_title}](${article_html_file})" >> ${INDEX_MD}
 
         # 'src/default/' is path to view source file on bitbucket.org
         echo "* [${_article_title}](src/default/${article_file_without_prefix_path})" >> ${README_MD}
-        echo "* [${_article_title}](${article_file_without_prefix})" >> ${GITBOOK_MD}
+        #echo "* [${_article_title}](${article_file_without_prefix})" >> ${GITBOOK_MD}
+        echo "* [${_article_title}](${article_file_basename})" >> ${GITBOOK_MD}
 
-        ${CMD_CONVERT} ${article_file} ${_output_chapter_dir} \
+        #${CMD_CONVERT} ${article_file} ${_output_chapter_dir} \
+        ${CMD_CONVERT} ${article_file} ${OUTPUT_DIR} \
             title="${_article_title}" \
             add_index_link='yes'
     done
