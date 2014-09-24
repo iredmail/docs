@@ -18,6 +18,13 @@
 </code></pre>
 
 <p>Restart Dovecot service.</p>
+<p>Dovecot is configured to log into 3 log files:</p>
+<ul>
+<li><code>/var/log/dovecot.log</code>: main log file.</li>
+<li><code>/var/log/dovecot-sieve.log</code>: sieve related log.</li>
+<li><code>/var/log/dovecot-lmtp.log</code>: lmtp related log. <strong>NOTE</strong>: old iRedMail release
+  doesn't have this file.</li>
+</ul>
 <p>If you need authentication and password related debug message, turn on related
 settings and restart dovecot service.</p>
 <pre><code>auth_verbose = yes

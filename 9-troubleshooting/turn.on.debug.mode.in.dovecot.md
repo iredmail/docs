@@ -10,6 +10,13 @@ mail_debug = yes
 
 Restart Dovecot service.
 
+Dovecot is configured to log into 3 log files:
+
+* `/var/log/dovecot.log`: main log file.
+* `/var/log/dovecot-sieve.log`: sieve related log.
+* `/var/log/dovecot-lmtp.log`: lmtp related log. __NOTE__: old iRedMail release
+  doesn't have this file.
+
 If you need authentication and password related debug message, turn on related
 settings and restart dovecot service.
 
