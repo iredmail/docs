@@ -3,14 +3,10 @@
 * write a new FAQ article to describe how to force users to change password
   in 90 days, with iRedAPD plugin.
 
-# installation guides
+# migrations
 
-* http://www.iredmail.org/install_iredmail_on_rhel.html
-* http://www.iredmail.org/install_iredmail_on_debian.html
-* http://www.iredmail.org/install_iredmail_on_ubuntu.html
-* http://www.iredmail.org/install_iredmail_on_freebsd.html
-* http://www.iredmail.org/wiki/index.php?title=Install/iRedMail/FreeBSD.Jail
-* http://www.iredmail.org/install_iredmail_on_openbsd.html
+* http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/Quarantining.SPAM
+* [DONE] http://www.iredmail.org/wiki/index.php?title=Migrate/iRedAdmin-Pro/OSE-Pro
 
 * https://code.google.com/p/iredmail/wiki/DNS_DKIM
 * https://code.google.com/p/iredmail/wiki/DNS_SPF
@@ -24,9 +20,14 @@
 * http://www.iredmail.org/wiki/index.php?title=Integration/SOGo.iRedMail.with.OpenLDAP
 * http://www.iredmail.org/wiki/index.php?title=Integration/DBMail.iRedMail.with.MySQL.backend
 
-# migrations
+# installation guides
 
-http://www.iredmail.org/wiki/index.php?title=Migrate/iRedAdmin-Pro/OSE-Pro
+* http://www.iredmail.org/install_iredmail_on_rhel.html
+* http://www.iredmail.org/install_iredmail_on_debian.html
+* http://www.iredmail.org/install_iredmail_on_ubuntu.html
+* http://www.iredmail.org/install_iredmail_on_freebsd.html
+* http://www.iredmail.org/wiki/index.php?title=Install/iRedMail/FreeBSD.Jail
+* http://www.iredmail.org/install_iredmail_on_openbsd.html
 
 # wiki FAQ
 

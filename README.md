@@ -11,6 +11,7 @@ We're working on migrating [old wiki documents](http://www.iredmail.org/wiki) to
 * [LDAP: Add a mail alias account](src/default/4-howto/ldap.add.mail.alias.md)
 * [LDAP: Add a mail list account](src/default/4-howto/ldap.add.mail.list.md)
 * [LDAP: User mail forwarding.](src/default/4-howto/ldap.user.mail.forwarding.md)
+* [Migrate iRedAdmin open source edition to iRedAdmin-Pro](src/default/4-howto/migrate.or.upgrade.iredadmin.md)
 * [Monitor incoming and outgoing mails with BCC](src/default/4-howto/monitor.incoming.and.outgoing.mails.with.bcc.md)
 * [Pipe incoming email for certain user to external script ](src/default/4-howto/pipe.incoming.email.for.certain.user.to.external.script.md)
 * [Quarantine clean mail into SQL database](src/default/4-howto/quarantining.clean.mail.md)
