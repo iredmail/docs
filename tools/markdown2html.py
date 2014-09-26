@@ -21,8 +21,6 @@ filename_without_ext = filename.split('/')[-1].replace('.md', '')
 
 # Get output directory
 output_dir = sys.argv[2]
-# Set output file name
-output_html_file = output_dir + '/' + filename_without_ext + '.html'
 
 # Get other options and convert them to a dict.
 args = sys.argv[3:]
@@ -39,6 +37,11 @@ if not 'css' in cmd_opts:
 if not 'title' in cmd_opts:
     cmd_opts['title'] = commands.getoutput("""grep 'Title:' %s |awk -F'Title: ' '{print $2}'""" % filename)
 cmd_opts['title'] = cmd_opts['title'].strip()
+
+# Set output file name
+output_html_file = output_dir + '/' + filename_without_ext + '.html'
+if 'output_filename' in cmd_opts:
+    output_html_file = output_dir + '/' + cmd_opts['output_filename']
 
 # Set HTML head
 html = """\

@@ -87,10 +87,10 @@ for chapter_dir in ${all_chapter_dirs}; do
     #   - title: first line (without '#') of markdown file
     for article_file in ${all_chapter_articles}; do
         article_file_basename="$(basename ${article_file})"
-        article_html_file="$(strip_name_prefix ${article_file_basename})"
         article_file_without_prefix_path="$(echo ${article_file/#\.\//})"
         article_file_without_prefix="$(strip_name_prefix ${article_file})"
 
+        article_html_file="$(strip_name_prefix ${article_file_basename})"
         # Replace '.md' suffix by '.html'
         article_html_file="$(echo ${article_html_file/%.md/.html})"
 
@@ -108,6 +108,7 @@ for chapter_dir in ${all_chapter_dirs}; do
 
         #${CMD_CONVERT} ${article_file} ${_output_chapter_dir} \
         ${CMD_CONVERT} ${article_file} ${OUTPUT_DIR} \
+            output_filename="${article_html_file}" \
             title="${_article_title}" \
             add_index_link='yes'
     done

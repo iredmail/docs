@@ -1,12 +1,14 @@
 We're working on migrating [old wiki documents](http://www.iredmail.org/wiki) to Markdown format for easier maintenance.
+# Install iRedMail
 * [Perform silent/unattended iRedMail installation](src/default/1-installation/unattended.iredmail.installation.md)
 # How to
+* [Completely disable Amavisd + ClamAV + SpamAssassin](src/default/4-howto/0-completely.disable.amavisd.clamav.spamassassin.md)
+* [Enable SMTPS service (SMTP over SSL, port 465)](src/default/4-howto/0-enable.smtps.md)
+* [Amavisd + SpamAssassin not working, no mail header (X-Spam-*) inserted.](src/default/4-howto/1-amavisd.no.x-spam.headers.md)
+* [Disable spam virus scanning for outgoing mails](src/default/4-howto/1-disable.spam.virus.scanning.for.outgoing.mails.md)
+* [Quarantining](src/default/4-howto/1-quarantining.md)
 * [Allow user to send email without authentication](src/default/4-howto/allow.user.to.send.email.without.authentication.md)
-* [Amavisd + SpamAssassin not working, no mail header (X-Spam-*) inserted.](src/default/4-howto/amavisd.no.x-spam.headers.md)
-* [Completely disable Amavisd + ClamAV + SpamAssassin](src/default/4-howto/completely.disable.amavisd.clamav.spamassassin.md)
 * [Configure Thunderbird as mail client (IMAP, SMTP and global ldap address book)](src/default/4-howto/configure.thunderbird.md)
-* [Disable spam virus scanning for outgoing mails](src/default/4-howto/disable.spam.virus.scanning.for.outgoing.mails.md)
-* [Enable SMTPS service (SMTP over SSL, port 465)](src/default/4-howto/enable.smtps.md)
 * [Ignore Trash folder in mailbox quota](src/default/4-howto/ignore.trash.folder.in.quota.md)
 * [LDAP: Add an alias domain](src/default/4-howto/ldap.add.alias.domain.md)
 * [LDAP: Add a mail alias account](src/default/4-howto/ldap.add.mail.alias.md)
@@ -14,7 +16,6 @@ We're working on migrating [old wiki documents](http://www.iredmail.org/wiki) to
 * [LDAP: User mail forwarding.](src/default/4-howto/ldap.user.mail.forwarding.md)
 * [Monitor incoming and outgoing mails with BCC](src/default/4-howto/monitor.incoming.and.outgoing.mails.with.bcc.md)
 * [Pipe incoming email for certain user to external script ](src/default/4-howto/pipe.incoming.email.for.certain.user.to.external.script.md)
-* [Quarantining](src/default/4-howto/quarantining.md)
 * [Force Dovecot to recalculate mailbox quota](src/default/4-howto/recalculate.mailbox.quota.md)
 * [SQL: Create an mail alias account with SQL command line](src/default/4-howto/sql.create.mail.alias.md)
 * [Store SpamAssassin bayes in SQL](src/default/4-howto/store.spamassassin.bayes.in.sql.md)
