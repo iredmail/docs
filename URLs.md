@@ -3,11 +3,7 @@
 * how to debug Cluebringer
 * how to force users to change password in 90 days, with iRedAPD plugin.
 
-# migrations
-
-* http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/Quarantining.Clean.Mail
-* ~~ http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/Quarantining.SPAM ~~
-* ~~ http://www.iredmail.org/wiki/index.php?title=Migrate/iRedAdmin-Pro/OSE-Pro ~~
+# Add proper DNS records after installation
 
 * https://code.google.com/p/iredmail/wiki/DNS_DKIM
 * https://code.google.com/p/iredmail/wiki/DNS_SPF
@@ -34,7 +30,20 @@
 
 * http://www.iredmail.org/wiki/index.php?title=IRedAdmin-Pro/FAQ/change.default.password.policy
 * http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/Backup
+* http://www.iredmail.org/forum/topic1968-enabling-ipv6-for-your-iredmail-postfixdovecot.html
+* http://www.iredmail.org/forum/topic210-iredmail-support-faq-how-to-enable-signing-disclaimer-on-outgoing-mails.html
 
+
+# Howto
+
+* ~~ http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/Quarantining.Clean.Mail ~~
+* ~~ http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/Quarantining.SPAM ~~
+
+# Migration
+
+* ~~ http://www.iredmail.org/wiki/index.php?title=Migrate/iRedAdmin-Pro/OSE-Pro ~~
+
+# FAQ
 
 * [DONE] http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/Turn.On.Debug.Mode.In.Amavisd
 * [DONE] http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/SQL/Create.Mail.Alias
@@ -51,9 +60,6 @@
 
 
 # faq.html
-
-* http://www.iredmail.org/forum/topic1968-enabling-ipv6-for-your-iredmail-postfixdovecot.html
-* http://www.iredmail.org/forum/topic210-iredmail-support-faq-how-to-enable-signing-disclaimer-on-outgoing-mails.html
 
 * [DONE]http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/Quarantining.Clean.Mail
 * [DONE]http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/Unattended.iRedMail.Installation

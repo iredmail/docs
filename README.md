@@ -28,6 +28,7 @@ We're working on migrating [old wiki documents](http://www.iredmail.org/wiki) to
 * [Password hashes](src/default/7-backup-restore-migration/password.hashes.md)
 # Troubleshooting and Debug
 * [Turn on debug mode in Amavisd](src/default/9-troubleshooting/turn.on.debug.mode.in.amavisd.md)
+* [Turn on debug mode in Cluebringer](src/default/9-troubleshooting/turn.on.debug.mode.in.cluebringer.md)
 * [Turn on debug mode in Dovecot](src/default/9-troubleshooting/turn.on.debug.mode.in.dovecot.md)
 * [Turn on debug mode in OpenLDAP](src/default/9-troubleshooting/turn.on.debug.mode.in.openldap.md)
 # Frequently Asked Questions
