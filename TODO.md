@@ -8,6 +8,6 @@ it will save a lot of time. Sample usage:
 
 Split main code to several small functions:
 
-    1. Find all articles, or get articles from command line.
-    1. Convert file names, etc.
-    1. Execute tools/markdown2html.py to convert files.
+1. Find all articles, or get articles from command line.
+1. Convert file names, etc.
+1. Execute tools/markdown2html.py to convert files.
