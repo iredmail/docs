@@ -15,7 +15,8 @@
 <ul>
 <li><a href="#monitor-incoming-and-outgoing-mails-with-bcc">Monitor incoming and outgoing mails with BCC</a><ul>
 <li><a href="#manage-bcc-settings-with-iredadmin-pro">Manage BCC settings with iRedAdmin-Pro</a></li>
-<li><a href="#manager-bcc-settings-with-phpldapadmin-or-other-ldap-client-tools">Manager BCC settings with phpLDAPadmin or other LDAP client tools</a></li>
+<li><a href="#manage-bcc-settings-with-phpldapadmin-or-other-ldap-client-tools">Manage BCC settings with phpLDAPadmin or other LDAP client tools</a></li>
+<li><a href="#screenshot-of-iredadmin-pro">Screenshot of iRedAdmin-Pro</a></li>
 </ul>
 </li>
 </ul>
@@ -25,18 +26,16 @@ to monitor incoming and outgoing mails with BCC, via iRedAdmin-Pro or phpLDAPadm
 <h2 id="manage-bcc-settings-with-iredadmin-pro">Manage BCC settings with iRedAdmin-Pro</h2>
 <p>With iRedAdmin-Pro, you can configure BCC easily.</p>
 <ul>
-<li>For per-domain BCC settings, please go to domain profile page, then you can
-manage BCC settings under tab <code>BCC</code>.</li>
+<li>
+<p>For per-domain BCC settings, please go to domain profile page, then you can
+manage BCC settings under tab <code>BCC</code>.</p>
+</li>
+<li>
+<p>For per-user BCC settings, please go to user profile page, then you can
+manage BCC settings under tab <code>BCC</code>.</p>
+</li>
 </ul>
-<p>Screenshot:
-<img alt="" src="http://www.iredmail.org/images/iredadmin/domain_profile_bcc.png" /></p>
-<ul>
-<li>For per-user BCC settings, please go to user profile page, then you can
-manage BCC settings under tab <code>BCC</code>.</li>
-</ul>
-<p>Screenshot:
-<img alt="" src="http://www.iredmail.org/images/iredadmin/user_profile_bcc.png" /></p>
-<h2 id="manager-bcc-settings-with-phpldapadmin-or-other-ldap-client-tools">Manager BCC settings with phpLDAPadmin or other LDAP client tools</h2>
+<h2 id="manage-bcc-settings-with-phpldapadmin-or-other-ldap-client-tools">Manage BCC settings with phpLDAPadmin or other LDAP client tools</h2>
 <ul>
 <li>For per-domain BCC settings, you can add below LDAP attribute/value pairs
 for domain object:</li>
@@ -61,4 +60,10 @@ userSenderBccAddress=user@domain.com
 # per-domain recipient bcc
 enabledService=recipientbcc
 userRecipientBccAddress=user@domain.com
-</code></pre><br /><p>If you found something wrong in this document, please do <a href="http://www.iredmail.org/contact.html">conect us</a> to fix it.</p></body></html>
+</code></pre>
+
+<h2 id="screenshot-of-iredadmin-pro">Screenshot of iRedAdmin-Pro</h2>
+<p>Per-domain bcc settings:
+<img alt="" src="http://www.iredmail.org/images/iredadmin/domain_profile_bcc.png" /></p>
+<p>Per-user bcc settings:
+<img alt="" src="http://www.iredmail.org/images/iredadmin/user_profile_bcc.png" /></p><br /><p>If you found something wrong in this document, please do <a href="http://www.iredmail.org/contact.html">conect us</a> to fix it.</p></body></html>

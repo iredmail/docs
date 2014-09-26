@@ -12,16 +12,10 @@ With iRedAdmin-Pro, you can configure BCC easily.
 * For per-domain BCC settings, please go to domain profile page, then you can
 manage BCC settings under tab `BCC`.
 
-Screenshot:
-![](http://www.iredmail.org/images/iredadmin/domain_profile_bcc.png)
-
 * For per-user BCC settings, please go to user profile page, then you can
 manage BCC settings under tab `BCC`.
 
-Screenshot:
-![](http://www.iredmail.org/images/iredadmin/user_profile_bcc.png)
-
-## Manager BCC settings with phpLDAPadmin or other LDAP client tools
+## Manage BCC settings with phpLDAPadmin or other LDAP client tools
 
 * For per-domain BCC settings, you can add below LDAP attribute/value pairs
 for domain object:
@@ -48,4 +42,12 @@ userSenderBccAddress=user@domain.com
 enabledService=recipientbcc
 userRecipientBccAddress=user@domain.com
 ```
+
+## Screenshot of iRedAdmin-Pro
+
+Per-domain bcc settings:
+![](http://www.iredmail.org/images/iredadmin/domain_profile_bcc.png)
+
+Per-user bcc settings:
+![](http://www.iredmail.org/images/iredadmin/user_profile_bcc.png)
 
