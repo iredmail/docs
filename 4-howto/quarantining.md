@@ -1,10 +1,11 @@
 # Quarantining
 
+[TOC]
+
+## Summary
 Since iRedMail-`0.7.0`, quarantining related settings in Amavisd are configured
 by iRedMail but disabled by default, you can easily enable quarantining with
 this tutorial.
-
-## Summary
 
 With below steps, Virus/Spam/Banned emails will be quarantined into SQL database.
 You can then manage quarantined emails with iRedAdmin-Pro.
@@ -13,6 +14,7 @@ You can then manage quarantined emails with iRedAdmin-Pro.
 
 Edit Amavisd config file, find below settings and update them. If it doesn't
 exist, please add them.
+
 * on Red Hat Enterprise Linux, CentOS, Scientific Linux, it's `/etc/amavisd/amavisd.conf`
 or `/etc/amavisd.conf`.
 * on Debian/Ubuntu, it's `/etc/amavis/conf.d/50-user`.
@@ -22,7 +24,7 @@ or `/etc/amavisd.conf`.
 ```
 # File: amavisd.conf
 
-# Change below two settings to D_DISCARD.
+# Change below 3 parameters to D_DISCARD.
 $final_virus_destiny = D_DISCARD;
 $final_spam_destiny = D_DISCARD;
 $final_banned_destiny = D_DISCARD;
@@ -42,15 +44,15 @@ $banned_files_quarantine_method = 'sql:';
 
 Also, make sure you have below lines configured in same config file:
 
-```
+```perl
 # For MySQL
 @storage_sql_dsn = (
-    ['DBI:mysql:database=amavisd;host=127.0.0.1;port=3306', 'amavisd', 'password-vHA1GCX0J9f23WJvqRzt7'],
+    ['DBI:mysql:database=amavisd;host=127.0.0.1;port=3306', 'amavisd', 'password'],
 );
 
 # For PostgreSQL
 #@storage_sql_dsn = (
-#    ['DBI:Pg:database=amavisd;host=127.0.0.1;port=5432', 'amavisd', 'password-vHA1GCX0J9f23WJvqRzt7'],
+#    ['DBI:Pg:database=amavisd;host=127.0.0.1;port=5432', 'amavisd', 'password'],
 #);
 ```
 
@@ -59,6 +61,7 @@ Restart amavisd service to make it work.
 ## Configure iRedAdmin-Pro to manage quarantined mails
 
 Update iRedAdmin-Pro config file, make sure you have correct settings for Amavisd:
+
 * on Red Hat Enterprise Linux, CentOS, Scientific Linux, it's `/var/www/iredadmin/settings.py`.
 * on Debian, Ubuntu, it's `/usr/share/apache2/iredadmin/settings.py`.
 * on FreeBSD, it's `/usr/local/www/iredadmin/settings.py`.
@@ -123,7 +126,8 @@ database.
 ## Screenshots
 
 * View quarantined mails:
-![]http://www.iredmail.org/images/iredadmin/system_maillog_quarantined.png)
+
+![](http://www.iredmail.org/images/iredadmin/system_maillog_quarantined.png)
 
 * Expand quarantined mail to view mail body and headers.
 
