@@ -11,7 +11,6 @@ With iRedAdmin-Pro, you can configure BCC easily.
 
 * For per-domain BCC settings, please go to domain profile page, then you can
 manage BCC settings under tab `BCC`.
-
 * For per-user BCC settings, please go to user profile page, then you can
 manage BCC settings under tab `BCC`.
 
