@@ -2,6 +2,8 @@
 
 [TOC]
 
+Contributed by __Joshua Boniface__, Sep 21, 2014.
+
 ## Introduction
 
 iRedMail is a very nifty piece of software. Setting up a full mail server on modern Linux is indeed possible; there are guides for every part of the system, preconfigured templates, and many-a mailing list post. However, iRedMail does something special: it makes it easy. Easy to install, easy to administer, and and easy to use. However, there are very few guides on how to deploy a *complete*, clustered iRedMail solution. Let's talk a bit about what I mean by that.
