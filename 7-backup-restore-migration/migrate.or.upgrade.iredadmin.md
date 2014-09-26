@@ -34,6 +34,5 @@ That's all. If it doesn't work for you, please post a new topic in our
 ## Addition optional steps
 
 * If you want to quarantine SPAM/Virus into SQL database and manage them with
-iRedAdmin-Pro, please follow this tutorial to update Amavisd settings: [[IRedMail/FAQ/Quarantining.SPAM |Quarantining VIRUS and SPAM into SQL database]]
-
-TODO: Fix link in above line.
+iRedAdmin-Pro, please follow this tutorial to update Amavisd settings:
+[Quarantining SPAM and Virus emails into SQL database](./quarantining.html)

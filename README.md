@@ -11,7 +11,6 @@ We're working on migrating [old wiki documents](http://www.iredmail.org/wiki) to
 * [LDAP: Add a mail alias account](src/default/4-howto/ldap.add.mail.alias.md)
 * [LDAP: Add a mail list account](src/default/4-howto/ldap.add.mail.list.md)
 * [LDAP: User mail forwarding.](src/default/4-howto/ldap.user.mail.forwarding.md)
-* [Migrate iRedAdmin open source edition to iRedAdmin-Pro](src/default/4-howto/migrate.or.upgrade.iredadmin.md)
 * [Monitor incoming and outgoing mails with BCC](src/default/4-howto/monitor.incoming.and.outgoing.mails.with.bcc.md)
 * [Pipe incoming email for certain user to external script ](src/default/4-howto/pipe.incoming.email.for.certain.user.to.external.script.md)
 * [Quarantine clean mail into SQL database](src/default/4-howto/quarantining.clean.mail.md)
@@ -25,7 +24,8 @@ We're working on migrating [old wiki documents](http://www.iredmail.org/wiki) to
 # Cluster solutions
 * [An Ultra-HA, full Mult-Master E-mail cluster with iRedMail, MariaDB, and IPVS  ](src/default/6-cluster/full.mult-master.iredmail.cluster.with.mariadb.and.ipvs.md)
 # Backup, restore and migration
-* [How to migrate old iRedMail server to the latest stable release](src/default/7-backup-restore-migration/migrate.to.new.iredmail.server.md)
+* [Migrate iRedAdmin open source edition to iRedAdmin-Pro](src/default/7-backup-restore-migration/migrate.or.upgrade.iredadmin.md)
+* [Migrate old iRedMail server to the latest stable release](src/default/7-backup-restore-migration/migrate.to.new.iredmail.server.md)
 * [Password hashes](src/default/7-backup-restore-migration/password.hashes.md)
 # Troubleshooting and Debug
 * [Turn on debug mode in Amavisd](src/default/9-troubleshooting/turn.on.debug.mode.in.amavisd.md)
