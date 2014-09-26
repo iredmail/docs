@@ -5,8 +5,9 @@
 
 # migrations
 
-* http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/Quarantining.SPAM
-* ~~http://www.iredmail.org/wiki/index.php?title=Migrate/iRedAdmin-Pro/OSE-Pro~~
+* http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/Quarantining.Clean.Mail
+* ~~ http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/Quarantining.SPAM ~~
+* ~~ http://www.iredmail.org/wiki/index.php?title=Migrate/iRedAdmin-Pro/OSE-Pro ~~
 
 * https://code.google.com/p/iredmail/wiki/DNS_DKIM
 * https://code.google.com/p/iredmail/wiki/DNS_SPF
