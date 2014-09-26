@@ -1,4 +1,5 @@
 We're working on migrating [old wiki documents](http://www.iredmail.org/wiki) to Markdown format for easier maintenance.
+* [Perform silent/unattended iRedMail installation](src/default/1-installation/unattended.iredmail.installation.md)
 # How to
 * [Allow user to send email without authentication](src/default/4-howto/allow.user.to.send.email.without.authentication.md)
 * [Amavisd + SpamAssassin not working, no mail header (X-Spam-*) inserted.](src/default/4-howto/amavisd.no.x-spam.headers.md)
@@ -17,7 +18,6 @@ We're working on migrating [old wiki documents](http://www.iredmail.org/wiki) to
 * [Force Dovecot to recalculate mailbox quota](src/default/4-howto/recalculate.mailbox.quota.md)
 * [SQL: Create an mail alias account with SQL command line](src/default/4-howto/sql.create.mail.alias.md)
 * [Store SpamAssassin bayes in SQL](src/default/4-howto/store.spamassassin.bayes.in.sql.md)
-* [Perform silent/unattended iRedMail installation](src/default/4-howto/unattended.iredmail.installation.md)
 # Third-party integrations.
 * [SOGo: How to install SOGo on CentOS 6 with iRedMail (MySQL backend)](src/default/5-integrations/sogo-centos-6-mysql.md)
 # Cluster solutions
