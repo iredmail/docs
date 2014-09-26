@@ -6,6 +6,7 @@ We're working on migrating [old wiki documents](http://www.iredmail.org/wiki) to
 * [Configure Thunderbird as mail client (IMAP, SMTP and global ldap address book)](src/default/4-howto/configure.thunderbird.md)
 * [Disable spam virus scanning for outgoing mails](src/default/4-howto/disable.spam.virus.scanning.for.outgoing.mails.md)
 * [Enable SMTPS service (SMTP over SSL, port 465)](src/default/4-howto/enable.smtps.md)
+* [Ignore Trash folder in mailbox quota](src/default/4-howto/ignore.trash.folder.in.quota.md)
 * [LDAP: Add an alias domain](src/default/4-howto/ldap.add.alias.domain.md)
 * [LDAP: Add a mail alias account](src/default/4-howto/ldap.add.mail.alias.md)
 * [LDAP: Add a mail list account](src/default/4-howto/ldap.add.mail.list.md)
