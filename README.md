@@ -13,7 +13,6 @@ We're working on migrating [old wiki documents](http://www.iredmail.org/wiki) to
 * [LDAP: User mail forwarding.](src/default/4-howto/ldap.user.mail.forwarding.md)
 * [Monitor incoming and outgoing mails with BCC](src/default/4-howto/monitor.incoming.and.outgoing.mails.with.bcc.md)
 * [Pipe incoming email for certain user to external script ](src/default/4-howto/pipe.incoming.email.for.certain.user.to.external.script.md)
-* [Quarantine clean mail into SQL database](src/default/4-howto/quarantining.clean.mail.md)
 * [Quarantining](src/default/4-howto/quarantining.md)
 * [Force Dovecot to recalculate mailbox quota](src/default/4-howto/recalculate.mailbox.quota.md)
 * [SQL: Create an mail alias account with SQL command line](src/default/4-howto/sql.create.mail.alias.md)

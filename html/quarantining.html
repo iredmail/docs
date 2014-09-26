@@ -17,7 +17,7 @@ this tutorial.</p>
 <h2 id="summary">Summary</h2>
 <p>With below steps, Virus/Spam/Banned emails will be quarantined into SQL database.
 You can then manage quarantined emails with iRedAdmin-Pro.</p>
-<h2 id="update-amavisd-config-file-to-enable-quarantining">Update Amavisd config file to enable quarantining</h2>
+<h2 id="update-amavisd-config-file-to-enable-normal-quarantining">Update Amavisd config file to enable normal quarantining</h2>
 <p>Edit Amavisd config file, find below settings and update them. If it doesn't
 exist, please add them.
 <em> on Red Hat Enterprise Linux, CentOS, Scientific Linux, it's <code>/etc/amavisd/amavisd.conf</code>
@@ -85,7 +85,35 @@ amavisd_enable_policy_lookup = True
 <p>You can now login to iRedAdmin-Pro, and manage quarantined mails via menu
 <code>System -&gt; Quarantined Mails</code>. Choose action in drop-down menu list to release
 or delete them.</p>
-<p>Screenshots:</p>
+<p>Screenshots attached at the bottom.</p>
+<h2 id="quarantine-clean-emails">Quarantine clean emails</h2>
+<p>If you want to quarantine clean emails into SQL database for further approval
+or whatever reason, please try below steps:</p>
+<ul>
+<li>Update below parameters in Amavisd config file:</li>
+</ul>
+<pre><code class="perl"># File: /etc/amavisd/amavisd.conf
+
+$clean_quarantine_method = 'sql:';
+$clean_quarantine_to = 'clean-quarantine';
+</code></pre>
+
+<ul>
+<li>Find policy bank 'MYUSERS', append two lines in this policy bank:</li>
+</ul>
+<pre><code class="perl">$policy_bank{'MYUSERS'} = {
+    ...
+    clean_quarantine_method =&gt; 'sql:',
+    final_destiny_by_ccat =&gt; {CC_CLEAN, D_DISCARD},
+}
+</code></pre>
+
+<ul>
+<li>Restart Amavisd service.</li>
+</ul>
+<p>Now all clean emails sent by your mail users will be quarantined into SQL
+database.</p>
+<h2 id="screenshots">Screenshots</h2>
 <ul>
 <li>
 <p>View quarantined mails:
@@ -95,9 +123,4 @@ or delete them.</p>
 <p>Expand quarantined mail to view mail body and headers.</p>
 </li>
 </ul>
-<p><img alt="" src="http://www.iredmail.org/images/iredadmin/system_maillog_quarantined_expanded.png" /></p>
-<h2 id="see-also">See also</h2>
-<p>If you want to quarantine clean emails into SQL database, please follow below
-tutorial:</p>
-<p>TODO: migrate document and fill link above:
-http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/Quarantining.Clean.Mail</p><br /><p>If you found something wrong in this document, please do <a href="http://www.iredmail.org/contact.html">conect us</a> to fix it.</p></body></html>
+<p><img alt="" src="http://www.iredmail.org/images/iredadmin/system_maillog_quarantined_expanded.png" /></p><br /><p>If you found something wrong in this document, please do <a href="http://www.iredmail.org/contact.html">conect us</a> to fix it.</p></body></html>

@@ -9,7 +9,7 @@ this tutorial.
 With below steps, Virus/Spam/Banned emails will be quarantined into SQL database.
 You can then manage quarantined emails with iRedAdmin-Pro.
 
-## Update Amavisd config file to enable quarantining
+## Update Amavisd config file to enable normal quarantining
 
 Edit Amavisd config file, find below settings and update them. If it doesn't
 exist, please add them.
@@ -89,7 +89,38 @@ You can now login to iRedAdmin-Pro, and manage quarantined mails via menu
 `System -> Quarantined Mails`. Choose action in drop-down menu list to release
 or delete them.
 
-Screenshots:
+Screenshots attached at the bottom.
+
+## Quarantine clean emails
+
+If you want to quarantine clean emails into SQL database for further approval
+or whatever reason, please try below steps:
+
+* Update below parameters in Amavisd config file:
+
+```perl
+# File: /etc/amavisd/amavisd.conf
+
+$clean_quarantine_method = 'sql:';
+$clean_quarantine_to = 'clean-quarantine';
+```
+
+* Find policy bank 'MYUSERS', append two lines in this policy bank:
+
+```perl
+$policy_bank{'MYUSERS'} = {
+    ...
+    clean_quarantine_method => 'sql:',
+    final_destiny_by_ccat => {CC_CLEAN, D_DISCARD},
+}
+```
+
+* Restart Amavisd service.
+
+Now all clean emails sent by your mail users will be quarantined into SQL
+database.
+
+## Screenshots
 
 * View quarantined mails:
 ![]http://www.iredmail.org/images/iredadmin/system_maillog_quarantined.png)
@@ -97,12 +128,3 @@ Screenshots:
 * Expand quarantined mail to view mail body and headers.
 
 ![](http://www.iredmail.org/images/iredadmin/system_maillog_quarantined_expanded.png)
-
-
-## See also
-
-If you want to quarantine clean emails into SQL database, please follow below
-tutorial:
-
-TODO: migrate document and fill link above:
-http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/Quarantining.Clean.Mail
