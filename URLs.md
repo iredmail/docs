@@ -1,12 +1,12 @@
 # TODO
 
-* write a new FAQ article to describe how to force users to change password
-  in 90 days, with iRedAPD plugin.
+* how to debug Cluebringer
+* how to force users to change password in 90 days, with iRedAPD plugin.
 
 # migrations
 
 * http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/Quarantining.SPAM
-* [DONE] http://www.iredmail.org/wiki/index.php?title=Migrate/iRedAdmin-Pro/OSE-Pro
+* ~~http://www.iredmail.org/wiki/index.php?title=Migrate/iRedAdmin-Pro/OSE-Pro~~
 
 * https://code.google.com/p/iredmail/wiki/DNS_DKIM
 * https://code.google.com/p/iredmail/wiki/DNS_SPF
