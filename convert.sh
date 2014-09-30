@@ -33,7 +33,15 @@ strip_name_prefix()
 }
 
 # Get directories of chapters
-all_chapter_dirs="$(find . -d 1 -type d -iname '[0-9]*' | sort)"
+#all_chapter_dirs="$(find . -d 1 -type d -iname '[0-9]*' | sort)"
+all_chapter_dirs="installation \
+    howto \
+    integrations \
+    cluster \
+    backup-restore-migration \
+    troubleshooting \
+    faq"
+
 #echo "* Found chapters:"
 #for dl in ${all_chapter_dirs}; do
 #    echo "  - $dl"
@@ -49,7 +57,7 @@ for chapter_dir in ${all_chapter_dirs}; do
     # Get articles
     all_chapter_articles="$(find ${chapter_dir} -depth 1 -type f -iname '[0-9a-z]*.md')"
 
-    echo "* ${chapter_dir} articles:"
+    echo "* ${chapter_dir}/"
     for article in ${all_chapter_articles}; do
         echo "  - ${article}"
     done
