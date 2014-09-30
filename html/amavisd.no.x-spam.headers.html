@@ -1,0 +1,25 @@
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Amavisd + SpamAssassin not working, no mail header (X-Spam-*) inserted.</title>
+        <link href="./css/markdown.css" rel="stylesheet"></head>
+    </head>
+    <body>
+    
+    <div id="navigation">
+        <a href="http://www.iredmail.org" target="_blank">iRedMail web site</a>
+    
+        // <a href="./index.html">Document Index</a>
+    </div><h1 id="amavisd-spamassassin-not-working-no-mail-header-x-spam-inserted">Amavisd + SpamAssassin not working, no mail header (X-Spam-*) inserted.</h1>
+<p>Amavisd has below setting in its config file <code>/etc/amavisd/amavisd.conf</code> by default:</p>
+<pre><code>$sa_tag_level_deflt  = 2.0;
+</code></pre>
+<p>That means Amavisd will insert <code>X-Spam-Flag</code> and other <code>X-Spam-*</code> headers when email score &gt;= 2.0. If you want to let Amavisd always insert these headers, you can set it to a low score, for example:</p>
+<pre><code>$sa_tag_level_deflt  = -999;
+</code></pre>
+<p>Amavisd's main config file is different on different Linux/BSD distributions:</p>
+<ul>
+<li>Red Hat, CentOS, OpenBSD: <code>/etc/amavisd/amavisd.conf</code></li>
+<li>Debian, Ubuntu: <code>/etc/amavis/conf.d/50-user</code> (and other config files under <code>/etc/amavs/conf.d/</code>)</li>
+<li>FreeBSD: <code>/usr/local/etc/amavisd/amavisd.conf</code></li>
+</ul><br /><p>If you found something wrong in this document, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.</p></body></html>

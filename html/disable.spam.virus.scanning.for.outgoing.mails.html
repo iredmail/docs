@@ -1,0 +1,35 @@
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Disable spam virus scanning for outgoing mails</title>
+        <link href="./css/markdown.css" rel="stylesheet"></head>
+    </head>
+    <body>
+    
+    <div id="navigation">
+        <a href="http://www.iredmail.org" target="_blank">iRedMail web site</a>
+    
+        // <a href="./index.html">Document Index</a>
+    </div><h1 id="disable-spam-virus-scanning-for-outgoing-mails">Disable spam virus scanning for outgoing mails</h1>
+<p>To disable spam/virus scanning for outgoing mails, you can add bypass settings in Amavisd config file: <code>/etc/amavisd/amavisd.conf</code> (RHEL/CentOS/Scientific Linux) or <code>/etc/amavis/conf.d/50-user</code> (Debian/Ubuntu) or <code>/usr/local/etc/amavisd.conf</code> (FreeBSD).</p>
+<ul>
+<li>bypass_spam_checks_maps</li>
+<li>bypass_virus_checks_maps</li>
+<li>bypass_header_checks_maps</li>
+<li>bypass_banned_checks_maps</li>
+</ul>
+<p>These settings can be added in setting block <code>$policy_bank{'MYUSERS'}</code>:</p>
+<pre><code class="perl">$policy_bank{'MYUSERS'} = {
+    [...OMIT OTHER SETTINGS HERE...]
+
+    # don't perform spam/virus/header check.
+    bypass_spam_checks_maps =&gt; [1],
+    bypass_virus_checks_maps =&gt; [1],
+    bypass_header_checks_maps =&gt; [1],
+
+    # allow sending any file names and types
+    bypass_banned_checks_maps =&gt; [1],
+}
+</code></pre>
+
+<p>Restarting Amavisd service is required after changing settings.</p><br /><p>If you found something wrong in this document, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.</p></body></html>

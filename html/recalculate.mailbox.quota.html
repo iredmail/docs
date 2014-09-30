@@ -1,0 +1,34 @@
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Force Dovecot to recalculate mailbox quota</title>
+        <link href="./css/markdown.css" rel="stylesheet"></head>
+    </head>
+    <body>
+    
+    <div id="navigation">
+        <a href="http://www.iredmail.org" target="_blank">iRedMail web site</a>
+    
+        // <a href="./index.html">Document Index</a>
+    </div><h1 id="force-dovecot-to-recalculate-mailbox-quota">Force Dovecot to recalculate mailbox quota</h1>
+<p>iRedMail enables dict quota since iRedMail-0.7.0, dict quota is recalculated
+only if the quota goes below zero</p>
+<ul>
+<li>For MySQL and PostgreSQL backend:</li>
+</ul>
+<pre><code>mysql&gt; USE vmail;
+mysql&gt; DELETE FROM used_quota WHERE username='user@domain.ltd';
+</code></pre>
+
+<ul>
+<li>For OpenLDAP backend:</li>
+</ul>
+<pre><code>mysql&gt; USE iredadmin;
+mysql&gt; DELETE FROM used_quota WHERE username='user@domain.ltd';
+</code></pre>
+
+<p>Re-login via POP3/IMAP (or webmail) will trigger Dovecot to recalculate mailbox
+quota.</p>
+<p><strong>TIP</strong>: it's safe to delete records in SQL table <code>used_quota</code> if mail user
+was deleted in table <code>vmail.mailbox</code> or LDAP. iRedAdmin-Pro will handle this
+for you automatically.</p><br /><p>If you found something wrong in this document, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.</p></body></html>

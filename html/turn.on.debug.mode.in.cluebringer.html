@@ -1,0 +1,29 @@
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Turn on debug mode in Cluebringer</title>
+        <link href="./css/markdown.css" rel="stylesheet"></head>
+    </head>
+    <body>
+    
+    <div id="navigation">
+        <a href="http://www.iredmail.org" target="_blank">iRedMail web site</a>
+    
+        // <a href="./index.html">Document Index</a>
+    </div><h1 id="turn-on-debug-mode-in-cluebringer">Turn on debug mode in Cluebringer</h1>
+<p>To turn on debug mode in Cluebringer, please increase its log level in
+Cluebringer config file, set what it should log, and restart Cluebringer
+service.</p>
+<ul>
+<li>on RHEL/CentOS, it's <code>/etc/policyd/cluebringer.conf</code>.</li>
+<li>on Debian/Ubuntu, it's <code>/etc/cluebringer/cluebringer.conf</code>.</li>
+<li>on FreeBSD, it's <code>/usr/local/etc/cluebringer.conf</code>.</li>
+<li>on OpenBSD: we don't have Cluebringer installed on Cluebringer.</li>
+</ul>
+<pre><code>log_level=4
+log_detail=modules,tracking,policies
+
+</code></pre>
+
+<p>Cluebringer is configured to log to <code>/var/log/cbpolicyd.log</code> by default, so
+please monitor this file to check detailed debug log.</p><br /><p>If you found something wrong in this document, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.</p></body></html>

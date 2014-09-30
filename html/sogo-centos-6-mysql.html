@@ -1,0 +1,138 @@
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>SOGo: How to install SOGo on CentOS 6 with iRedMail (MySQL backend)</title>
+        <link href="./css/markdown.css" rel="stylesheet"></head>
+    </head>
+    <body>
+    
+    <div id="navigation">
+        <a href="http://www.iredmail.org" target="_blank">iRedMail web site</a>
+    
+        // <a href="./index.html">Document Index</a>
+    </div><h1 id="sogo-how-to-install-sogo-on-centos-6-with-iredmail-mysql-backend">SOGo: How to install SOGo on CentOS 6 with iRedMail (MySQL backend)</h1>
+<div class="toc">
+<ul>
+<li><a href="#sogo-how-to-install-sogo-on-centos-6-with-iredmail-mysql-backend">SOGo: How to install SOGo on CentOS 6 with iRedMail (MySQL backend)</a><ul>
+<li><a href="#requirements">Requirements</a></li>
+<li><a href="#install-sogo">Install SOGo</a></li>
+<li><a href="#create-sql-database-to-store-sogo-data">Create SQL database to store SOGo data</a></li>
+<li><a href="#configure-sogo">Configure SOGo</a></li>
+<li><a href="#start-sogo-and-dependent-services">Start SOGo and dependent services</a></li>
+<li><a href="#how-to-configure-client-applications">How to configure client applications</a><ul>
+<li><a href="#apple-devices">Apple Devices</a></li>
+</ul>
+</li>
+<li><a href="#todo">TODO</a></li>
+<li><a href="#references">References</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<h2 id="requirements">Requirements</h2>
+<ul>
+<li>A working iRedMail server (MySQL backend) on CentOS 6.</li>
+</ul>
+<h2 id="install-sogo">Install SOGo</h2>
+<ul>
+<li>Make sure you have EPEL repo enabled, if not, please follow <a href="https://fedoraproject.org/wiki/EPEL#How_can_I_use_these_extra_packages.3F">this wiki
+tutorial</a>
+to enable it.</li>
+</ul>
+<pre><code># yum repolist | grep -i 'epel'
+epel              Extra Packages for Enterprise Linux 6 - x86_64          11,109
+</code></pre>
+
+<ul>
+<li>Add yum repo file <code>/etc/yum.repos.d/sogo.repo</code>:</li>
+</ul>
+<pre><code>[SOGo]
+name=Inverse SOGo Repository
+baseurl=http://inverse.ca/downloads/SOGo/RHEL6/$basearch
+gpgcheck=0
+</code></pre>
+
+<ul>
+<li>Install SOGo and dependences:</li>
+</ul>
+<pre><code># yum install sogo sope49-gdl1-mysql sogo-activesync libwbxml
+</code></pre>
+
+<h2 id="create-sql-database-to-store-sogo-data">Create SQL database to store SOGo data</h2>
+<pre><code>$ mysql -u root -p
+
+mysql&gt; CREATE DATABASE sogo CHARSET='UTF8';
+mysql&gt; GRANT ALL ON sogo.* TO sogo@localhost IDENTIFIED BY 'password';
+
+-- TODO
+mysql&gt; GRANT SELECT ON vmail.mailbox TO sogo@localhost;
+
+mysql&gt; CREATE VIEW sogo.sogo_users (c_uid, c_name, c_password, c_cn, mail, home) AS SELECT username, username, password, name, username, maildir FROM vmail.mailbox;
+</code></pre>
+
+<h2 id="configure-sogo">Configure SOGo</h2>
+<p>Default SOGo config file is <code>/etc/sogo/sogo.conf</code>:</p>
+<pre><code>(
+    WOPort = 127.0.0.1:20000;
+
+    SOGoProfileURL = &quot;mysql://sogo:password@localhost:3306/sogo/sogo_user_profile&quot;;
+    OCSFolderInfoURL = &quot;mysql://sogo:password@localhost:3306/sogo/sogo_folder_info&quot;;
+    OCSSessionsFolderURL = &quot;mysql://sogo:password@localhost:3306/sogo/sogo_sessions_folder&quot;;
+
+    SOGoIMAPServer = &quot;127.0.0.1&quot;;
+    SOGoDraftsFolderName Drafts
+    SOGoSentFolderName Sent
+    SOGoTrashFolderName Trash
+
+    SOGoMailingMechanism = smtp;
+    SOGoSMTPServer = 127.0.0.1;
+
+    // Enable managesieve service
+    SOGoSieveServer = sieve://127.0.0.1:4190;
+    SOGoSieveScriptsEnabled = YES;
+    SOGoVacationEnabled = YES;
+
+    SOGoMemcachedHost = 127.0.0.1;
+
+    SOGoTimeZone = &quot;Europe/Berlin&quot;;
+
+    SOGoFirstDayOfWeek = 1;
+
+    SOGoMailMessageCheck = every_5_minutes;
+    SOGoForceExternalLoginWithEmail = YES;
+    SOGoAppointmentSendEMailNotifications = YES;
+    SOGoFoldersSendEMailNotifications = YES;
+    SOGoACLsSendEMailNotifications = YES;
+
+    // OCSEMailAlarmsFolderURL = &quot;mysql://sogo:password@localhost:3306/sogo/sogo_alarms_folder&quot;;
+
+    SOGoPasswordChangeEnabled = YES;
+
+    SOGoUserSources =
+    (
+        {
+            type = sql;
+            id = directory;
+            viewURL = &quot;mysql://sogo:password@127.0.0.1:3306/sogo/sogo_users&quot;;
+            canAuthenticate = YES;
+            isAddressBook = YES;
+            userPasswordAlgorithm = md5;
+            prependPasswordScheme = YES;
+        }
+    );
+</code></pre>
+
+<p><strong>NOTE</strong>: SOGo will create required SQL tables automatically
+(<code>sogo_user_profile</code>, <code>sogo_folder_info</code>, <code>sogo_sessions_folder</code>, ...),  we
+don't need to create them manually.</p>
+<h2 id="start-sogo-and-dependent-services">Start SOGo and dependent services</h2>
+<pre><code>service sogod start
+service httpd restart
+service memcached start
+</code></pre>
+
+<h2 id="how-to-configure-client-applications">How to configure client applications</h2>
+<h3 id="apple-devices">Apple Devices</h3>
+<p>URL for calendar service: <code>http://[host]/SOGo/dav/[user]/</code></p>
+<h2 id="todo">TODO</h2>
+<h2 id="references">References</h2><br /><p>If you found something wrong in this document, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.</p></body></html>

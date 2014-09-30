@@ -12,8 +12,7 @@
 # Directory used to store converted html files.
 PWD="."
 SOURCE_DIR="${PWD}/src"
-#OUTPUT_DIR="${PWD}/html"
-OUTPUT_DIR="../web/docs"
+OUTPUT_DIR="${PWD}/html"
 INDEX_MD="${OUTPUT_DIR}/index.md"
 README_MD="${PWD}/README.md"
 GITBOOK_MD="${PWD}/SUMMARY.md"
@@ -129,3 +128,6 @@ ${CMD_CONVERT} ${INDEX_MD} ${OUTPUT_DIR} title="iRedMail Documentations"
 
 # Cleanup
 rm -f ${INDEX_MD}
+
+# Copy to local hg repo of http://www.iredmail.org/docs/
+cp -rf html/* ../web/docs/
