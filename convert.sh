@@ -12,7 +12,8 @@
 # Directory used to store converted html files.
 PWD="."
 SOURCE_DIR="${PWD}/src"
-OUTPUT_DIR="${PWD}/html"
+#OUTPUT_DIR="${PWD}/html"
+OUTPUT_DIR="../web/docs"
 INDEX_MD="${OUTPUT_DIR}/index.md"
 README_MD="${PWD}/README.md"
 GITBOOK_MD="${PWD}/SUMMARY.md"
