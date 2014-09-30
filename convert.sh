@@ -32,15 +32,14 @@ strip_name_prefix()
     echo "${name}"
 }
 
-# Get directories of chapters
-#all_chapter_dirs="$(find . -d 1 -type d -iname '[0-9]*' | sort)"
+# Chapter directories in specific order
 all_chapter_dirs="installation \
-    howto \
-    integrations \
-    cluster \
-    backup-restore-migration \
-    troubleshooting \
-    faq"
+                  howto \
+                  integrations \
+                  cluster \
+                  backup-restore-migration \
+                  troubleshooting \
+                  faq"
 
 #echo "* Found chapters:"
 #for dl in ${all_chapter_dirs}; do
