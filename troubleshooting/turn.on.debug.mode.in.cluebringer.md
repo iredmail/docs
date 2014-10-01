@@ -12,7 +12,6 @@ service.
 ```
 log_level=4
 log_detail=modules,tracking,policies
-
 ```
 
 Cluebringer is configured to log to `/var/log/cbpolicyd.log` by default, so
