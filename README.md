@@ -2,6 +2,7 @@ We're working on migrating [old wiki documents](http://www.iredmail.org/wiki) to
 # Install iRedMail
 * [Perform silent/unattended iRedMail installation](src/default/installation/unattended.iredmail.installation.md)
 # How to
+* [Change mail attachment size](src/default/howto/0-change.mail.attachment.size.md)
 * [Completely disable Amavisd + ClamAV + SpamAssassin](src/default/howto/0-completely.disable.amavisd.clamav.spamassassin.md)
 * [Enable SMTPS service (SMTP over SSL, port 465)](src/default/howto/0-enable.smtps.md)
 * [Amavisd + SpamAssassin not working, no mail header (X-Spam-*) inserted.](src/default/howto/1-amavisd.no.x-spam.headers.md)
