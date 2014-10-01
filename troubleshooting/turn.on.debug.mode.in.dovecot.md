@@ -1,8 +1,10 @@
 # Turn on debug mode in Dovecot
 
-To turn on debug mode in Dovecot, please update Dovecot config file 
-`/etc/dovecot/dovecot.conf` (Linux/OpenBSD) or
-`/usr/local/etc/dovecot/dovecot.conf` (FreeBSD), set `mail_debug` to `yes`:
+To turn on debug mode in Dovecot, please update below parameter in Dovecot
+config file `dovecot.conf`:
+
+* on Linux and OpenBSD, it's `/etc/dovecot/dovecot.conf`
+* on FreeBSD, it's `/usr/local/etc/dovecot/dovecot.conf`
 
 ```
 mail_debug = yes

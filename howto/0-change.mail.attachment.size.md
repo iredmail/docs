@@ -1,5 +1,7 @@
 # Change mail attachment size
 
+[TOC]
+
 To change mail attachment size, we have to change 3 settings.
 
 ## Change message size limit in postfix
@@ -34,7 +36,7 @@ ok to sent large attachment with above setting.
 
 If you have webmail, you have to change two more settings:
 
-1. Change PHP setting to allow to upload large attachment
+### Change PHP setting to allow to upload large attachment
 
 You should change `memory_limit`, `upload_max_filesize` and `post_max_size` in
 PHP config file `/etc/php.ini`
@@ -52,7 +54,7 @@ upload_max_filesize = 100M;
 post_max_size = 100M;
 ```
 
-2. Change Roundcube webmail settings to allow large attachment
+### Change Roundcube webmail settings to allow large attachment
 
 Change same settings in file `.htaccess` under roundcube root directory:
 
@@ -62,9 +64,9 @@ Change same settings in file `.htaccess` under roundcube root directory:
 * on OpenBSD, it's `/var/www/roundcubemail/.htaccess`
 
 ```
+php_value    memory_limit   200M
 php_value    upload_max_filesize    100M
 php_value    post_max_size  100M
-php_value    memory_limit   200M
 ```
 
 Restart Apache or Nginx web server to make it work.

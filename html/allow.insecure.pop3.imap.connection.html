@@ -1,0 +1,36 @@
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Allow insecure POP3/IMAP connection without STARTTLS</title>
+        <link href="./css/markdown.css" rel="stylesheet"></head>
+    </head>
+    <body>
+    
+    <div id="navigation">
+        <a href="http://www.iredmail.org" target="_blank">iRedMail web site</a>
+    
+        // <a href="./index.html">Document Index</a>
+    </div><h1 id="allow-insecure-pop3imap-connection-without-starttls">Allow insecure POP3/IMAP connection without STARTTLS</h1>
+<p>With default iRedMail setting, all clients are forced to use IMAPS and POPS (via
+STARTTLS) for better security by default. If your mail clients try to access
+mailbox via protocol POP3 (port 110) or IMAP (port 143) without TLS support,
+you will get error message like below:</p>
+<pre><code>Plaintext authentication disallowed on non-secure (SSL/TLS) connections
+</code></pre>
+
+<p>If you want to enable POP3/IMAPS without STARTTLS for some reason (again, not
+recommended), please update below two parameters in Dovecot config file
+<code>dovecot.conf</code> and restart Dovecot service:</p>
+<ul>
+<li>on Linux and OpenBSD, it's <code>/etc/dovecot/dovecot.conf</code></li>
+<li>on FreeBSD, it's <code>/usr/local/etc/dovecot/dovecot.conf</code></li>
+</ul>
+<pre><code>disable_plaintext_auth=no
+ssl=yes
+</code></pre>
+
+<p>Again, it's strongly recommended to use only POP3S/IMAPS for better security.</p>
+<p>Default and recommended setting configured by iRedMail is:</p>
+<pre><code>disable_plaintext_auth=yes
+ssl=required
+</code></pre><br /><p>If you found something wrong in this document, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.</p></body></html>

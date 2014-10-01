@@ -8,6 +8,7 @@ We're working on migrating [old wiki documents](http://www.iredmail.org/wiki) to
 * [Amavisd + SpamAssassin not working, no mail header (X-Spam-*) inserted.](src/default/howto/1-amavisd.no.x-spam.headers.md)
 * [Disable spam virus scanning for outgoing mails](src/default/howto/1-disable.spam.virus.scanning.for.outgoing.mails.md)
 * [Quarantining](src/default/howto/1-quarantining.md)
+* [Allow insecure POP3/IMAP connection without STARTTLS](src/default/howto/2-allow.insecure.pop3.imap.connection.md)
 * [Allow user to send email without authentication](src/default/howto/allow.user.to.send.email.without.authentication.md)
 * [Configure Thunderbird as mail client (IMAP, SMTP and global ldap address book)](src/default/howto/configure.thunderbird.md)
 * [Ignore Trash folder in mailbox quota](src/default/howto/ignore.trash.folder.in.quota.md)

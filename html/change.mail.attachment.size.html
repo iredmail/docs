@@ -11,6 +11,19 @@
     
         // <a href="./index.html">Document Index</a>
     </div><h1 id="change-mail-attachment-size">Change mail attachment size</h1>
+<div class="toc">
+<ul>
+<li><a href="#change-mail-attachment-size">Change mail attachment size</a><ul>
+<li><a href="#change-message-size-limit-in-postfix">Change message size limit in postfix</a></li>
+<li><a href="#change-upload-file-size-in-webmail">Change upload file size in webmail</a><ul>
+<li><a href="#change-php-setting-to-allow-to-upload-large-attachment">Change PHP setting to allow to upload large attachment</a></li>
+<li><a href="#change-roundcube-webmail-settings-to-allow-large-attachment">Change Roundcube webmail settings to allow large attachment</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
 <p>To change mail attachment size, we have to change 3 settings.</p>
 <h2 id="change-message-size-limit-in-postfix">Change message size limit in postfix</h2>
 <p>Postfix is MTA, so we have to change its setting to transfer mail with large
@@ -35,9 +48,7 @@ like below:</p>
 ok to sent large attachment with above setting.</p>
 <h2 id="change-upload-file-size-in-webmail">Change upload file size in webmail</h2>
 <p>If you have webmail, you have to change two more settings:</p>
-<ol>
-<li>Change PHP setting to allow to upload large attachment</li>
-</ol>
+<h3 id="change-php-setting-to-allow-to-upload-large-attachment">Change PHP setting to allow to upload large attachment</h3>
 <p>You should change <code>memory_limit</code>, <code>upload_max_filesize</code> and <code>post_max_size</code> in
 PHP config file <code>/etc/php.ini</code></p>
 <ul>
@@ -53,9 +64,7 @@ upload_max_filesize = 100M;
 post_max_size = 100M;
 </code></pre>
 
-<ol>
-<li>Change Roundcube webmail settings to allow large attachment</li>
-</ol>
+<h3 id="change-roundcube-webmail-settings-to-allow-large-attachment">Change Roundcube webmail settings to allow large attachment</h3>
 <p>Change same settings in file <code>.htaccess</code> under roundcube root directory:</p>
 <ul>
 <li>on RHEL/CentOS, it's <code>/var/www/roundcubemail/.htaccess</code></li>
@@ -63,9 +72,9 @@ post_max_size = 100M;
 <li>on FreeBSD, it's <code>/usr/local/www/roundcubemail/.htaccess</code></li>
 <li>on OpenBSD, it's <code>/var/www/roundcubemail/.htaccess</code></li>
 </ul>
-<pre><code>php_value    upload_max_filesize    100M
+<pre><code>php_value    memory_limit   200M
+php_value    upload_max_filesize    100M
 php_value    post_max_size  100M
-php_value    memory_limit   200M
 </code></pre>
 
 <p>Restart Apache or Nginx web server to make it work.</p><br /><p>If you found something wrong in this document, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.</p></body></html>
