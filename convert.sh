@@ -15,7 +15,6 @@ SOURCE_DIR="${PWD}/src"
 OUTPUT_DIR="${PWD}/html"
 INDEX_MD="${OUTPUT_DIR}/index.md"
 README_MD="${PWD}/README.md"
-GITBOOK_MD="${PWD}/SUMMARY.md"
 
 [ -d ${OUTPUT_DIR} ] || mkdir -p ${OUTPUT_DIR}
 
@@ -40,11 +39,6 @@ all_chapter_dirs="installation \
                   backup-restore-migration \
                   troubleshooting \
                   faq"
-
-#echo "* Found chapters:"
-#for dl in ${all_chapter_dirs}; do
-#    echo "  - $dl"
-#done
 
 # Get chapter info
 #   - title: _title.md
@@ -74,12 +68,10 @@ for chapter_dir in ${all_chapter_dirs}; do
         _chapter_title="$(cat ${_title_md})"
         echo -e "# ${_chapter_title}" >> ${INDEX_MD}
         echo -e "# ${_chapter_title}" >> ${README_MD}
-        echo -e "# ${_chapter_title}" >> ${GITBOOK_MD}
 
         if [ -f ${_summary_md} ]; then
             echo -e "$(cat ${_title_md})" >> ${INDEX_MD}
             echo -e "$(cat ${_title_md})" >> ${README_MD}
-            echo -e "$(cat ${_title_md})" >> ${GITBOOK_MD}
         fi
     fi
 
@@ -110,8 +102,6 @@ for chapter_dir in ${all_chapter_dirs}; do
 
         # 'src/default/' is path to view source file on bitbucket.org
         echo "* [${_article_title}](src/default/${article_file_without_prefix_path})" >> ${README_MD}
-        #echo "* [${_article_title}](${article_file_without_prefix})" >> ${GITBOOK_MD}
-        echo "* [${_article_title}](${article_file_basename})" >> ${GITBOOK_MD}
 
         #${CMD_CONVERT} ${article_file} ${_output_chapter_dir} \
         ${CMD_CONVERT} ${article_file} ${OUTPUT_DIR} \
