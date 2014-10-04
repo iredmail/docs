@@ -1,12 +1,19 @@
 # TODO
 
-* how to debug Cluebringer
-* how to force users to change password in 90 days, with iRedAPD plugin.
+# installation guides
 
-# Add proper DNS records after installation
-
+* http://www.iredmail.org/install_iredmail_on_rhel.html
+* http://www.iredmail.org/install_iredmail_on_debian.html
+* http://www.iredmail.org/install_iredmail_on_ubuntu.html
+* http://www.iredmail.org/install_iredmail_on_freebsd.html
+* http://www.iredmail.org/wiki/index.php?title=Install/iRedMail/FreeBSD.Jail
+* http://www.iredmail.org/install_iredmail_on_openbsd.html
 * https://code.google.com/p/iredmail/wiki/DNS_DKIM
 * https://code.google.com/p/iredmail/wiki/DNS_SPF
+
+# Misc
+
+* how to force users to change password in 90 days, with iRedAPD plugin.
 
 # integrations
 
@@ -16,15 +23,6 @@
 * http://www.iredmail.org/wiki/index.php?title=Integration/OpenVPN.iRedMail.with.OpenLDAP
 * http://www.iredmail.org/wiki/index.php?title=Integration/SOGo.iRedMail.with.OpenLDAP
 * http://www.iredmail.org/wiki/index.php?title=Integration/DBMail.iRedMail.with.MySQL.backend
-
-# installation guides
-
-* http://www.iredmail.org/install_iredmail_on_rhel.html
-* http://www.iredmail.org/install_iredmail_on_debian.html
-* http://www.iredmail.org/install_iredmail_on_ubuntu.html
-* http://www.iredmail.org/install_iredmail_on_freebsd.html
-* http://www.iredmail.org/wiki/index.php?title=Install/iRedMail/FreeBSD.Jail
-* http://www.iredmail.org/install_iredmail_on_openbsd.html
 
 # wiki FAQ
 
