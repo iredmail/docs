@@ -3,12 +3,6 @@
 # Author: Zhang Huangbin <zhb _at_ iredmail.org>
 # Purpose: Convert markdown articles to HTML files.
 
-# TODO
-#   - describe the directory structure and how it works
-#   - remove '1-', '2-' in html file name
-#   - incorrect CSS path in article html file
-#   - better way to strip prefix in dir/file name: [number]- 
-
 # Directory used to store converted html files.
 PWD="."
 SOURCE_DIR="${PWD}/src"
@@ -101,7 +95,7 @@ for chapter_dir in ${all_chapter_dirs}; do
         echo "* [${_article_title}](${article_html_file})" >> ${INDEX_MD}
 
         # 'src/default/' is path to view source file on bitbucket.org
-        echo "* [${_article_title}](src/default/${article_file_without_prefix_path})" >> ${README_MD}
+        echo "* [${_article_title}](https://bitbucket.org/zhb/docs.iredmail.org/src/default/${article_file_without_prefix_path})" >> ${README_MD}
 
         #${CMD_CONVERT} ${article_file} ${_output_chapter_dir} \
         ${CMD_CONVERT} ${article_file} ${OUTPUT_DIR} \
