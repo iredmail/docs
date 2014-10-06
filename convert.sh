@@ -54,6 +54,7 @@ for chapter_dir in ${all_chapter_dirs}; do
     #chapter_dir_in_article="$(strip_name_prefix ${chapter_dir})"
     #_output_chapter_dir="${OUTPUT_DIR}/${chapter_dir_in_article}"
 
+    # Get chapter title.
     _title_md="${chapter_dir}/_title.md"
     _summary_md="${chapter_dir}/_summary.md"
 
@@ -103,6 +104,15 @@ for chapter_dir in ${all_chapter_dirs}; do
             title="${_article_title}" \
             add_index_link='yes'
     done
+
+    # Append addition links at the chapter bottom on index page.
+    _links_md="${chapter_dir}/_links.md"
+
+    if [ -f ${_links_md} ]; then
+        cat ${_links_md} >> ${INDEX_MD}
+        cat ${_links_md} >> ${README_MD}
+    fi
+
 done
 
 #cd ${OUTPUT_DIR}
