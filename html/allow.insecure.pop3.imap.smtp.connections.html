@@ -1,7 +1,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title>Allow insecure POP3/IMAP connection without STARTTLS</title>
+        <title>Allow insecure POP3/IMAP/SMTP connections without STARTTLS</title>
         <link href="./css/markdown.css" rel="stylesheet"></head>
     </head>
     <body>
@@ -10,14 +10,15 @@
         <a href="http://www.iredmail.org" target="_blank">iRedMail web site</a>
     
         // <a href="./index.html">Document Index</a>
-    </div><h1 id="allow-insecure-pop3imap-connection-without-starttls">Allow insecure POP3/IMAP connection without STARTTLS</h1>
-<p>With default iRedMail setting, all clients are forced to use IMAPS and POPS (via
-STARTTLS) for better security by default. If your mail clients try to access
-mailbox via protocol POP3 (port 110) or IMAP (port 143) without TLS support,
-you will get error message like below:</p>
+    </div><h1 id="allow-insecure-pop3imapsmtp-connections-without-starttls">Allow insecure POP3/IMAP/SMTP connections without STARTTLS</h1>
+<p>With default iRedMail setting, all clients are forced to use POP3/IMAP/SMTP
+services over STARTTLS for for better security by default. If your mail clients
+try to access mailbox via protocol POP3 (port 110) or IMAP (port 143) without
+TLS support, you will get error message like below:</p>
 <pre><code>Plaintext authentication disallowed on non-secure (SSL/TLS) connections
 </code></pre>
 
+<h2 id="allow-insecure-pop3imap-connections">Allow insecure POP3/IMAP connections</h2>
 <p>If you want to enable POP3/IMAPS without STARTTLS for some reason (again, not
 recommended), please update below two parameters in Dovecot config file
 <code>dovecot.conf</code> and restart Dovecot service:</p>
@@ -33,4 +34,10 @@ ssl=yes
 <p>Default and recommended setting configured by iRedMail is:</p>
 <pre><code>disable_plaintext_auth=yes
 ssl=required
+</code></pre>
+
+<h2 id="allow-insecure-smtp-connection">Allow insecure SMTP connection</h2>
+<p>Please comment out below line in Postfix config file <code>/etc/postfix/main.cf</code>
+and reload or restart Postfix service:</p>
+<pre><code>smtpd_tls_auth_only=yes
 </code></pre><br /><p>If you found something wrong in this document, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.</p></body></html>

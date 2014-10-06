@@ -8,7 +8,7 @@ We're working on migrating [old wiki documents](http://www.iredmail.org/wiki) to
 * [Amavisd + SpamAssassin not working, no mail header (X-Spam-*) inserted.](https://bitbucket.org/zhb/docs.iredmail.org/src/default/howto/1-amavisd.no.x-spam.headers.md)
 * [Disable spam virus scanning for outgoing mails](https://bitbucket.org/zhb/docs.iredmail.org/src/default/howto/1-disable.spam.virus.scanning.for.outgoing.mails.md)
 * [Quarantining](https://bitbucket.org/zhb/docs.iredmail.org/src/default/howto/1-quarantining.md)
-* [Allow insecure POP3/IMAP connection without STARTTLS](https://bitbucket.org/zhb/docs.iredmail.org/src/default/howto/2-allow.insecure.pop3.imap.connection.md)
+* [Allow insecure POP3/IMAP/SMTP connections without STARTTLS](https://bitbucket.org/zhb/docs.iredmail.org/src/default/howto/2-allow.insecure.pop3.imap.smtp.connections.md)
 * [Allow user to send email without authentication](https://bitbucket.org/zhb/docs.iredmail.org/src/default/howto/allow.user.to.send.email.without.authentication.md)
 * [Configure Thunderbird as mail client (IMAP, SMTP and global ldap address book)](https://bitbucket.org/zhb/docs.iredmail.org/src/default/howto/configure.thunderbird.md)
 * [Ignore Trash folder in mailbox quota](https://bitbucket.org/zhb/docs.iredmail.org/src/default/howto/ignore.trash.folder.in.quota.md)
