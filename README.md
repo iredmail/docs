@@ -27,7 +27,6 @@ We're working on migrating [old wiki documents](http://www.iredmail.org/wiki) to
 * [SOGo: install SOGo on CentOS 6 with iRedMail (MySQL backend)](https://bitbucket.org/zhb/docs.iredmail.org/src/default/integrations/sogo-centos-6-mysql.md)
 * [Enabling Apache Solr 4.10 (using jetty) with Dovecot 2.2 for fulltext search results on Centos 6 (iRedMail compatible)](https://extremeshok.com/6622/enabling-apache-solr-4-10-using-jetty-with-dovecot-2-2-for-fulltext-search-results-on-centos-6-iredmail-compatible/)
 # Cluster
-* [An Ultra-HA, full Mult-Master E-mail cluster with iRedMail, MariaDB, and IPVS  ](https://bitbucket.org/zhb/docs.iredmail.org/src/default/cluster/full.mult-master.iredmail.cluster.with.mariadb.and.ipvs.md)
 * [An Ultra-HA, full Mult-Master E-mail cluster with iRedMail, MariaDB, and IPVS](http://pastebin.com/JcYeQBrX), contributed by Joshua Boniface.
 # Backup and Restore
 * [Migrate iRedAdmin open source edition to iRedAdmin-Pro](https://bitbucket.org/zhb/docs.iredmail.org/src/default/backup-restore/migrate.or.upgrade.iredadmin.md)
