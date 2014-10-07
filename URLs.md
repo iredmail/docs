@@ -13,12 +13,13 @@
 
 # integrations
 
-* http://www.iredmail.org/wiki/index.php?title=Integration/Active.Directory.iRedMail
 * http://www.iredmail.org/wiki/index.php?title=Integration/PureFTPd.iRedMail.with.OpenLDAP
 * http://www.iredmail.org/wiki/index.php?title=Integration/Ejabberd.iRedMail.with.OpenLDAP
 * http://www.iredmail.org/wiki/index.php?title=Integration/OpenVPN.iRedMail.with.OpenLDAP
 * http://www.iredmail.org/wiki/index.php?title=Integration/SOGo.iRedMail.with.OpenLDAP
 * http://www.iredmail.org/wiki/index.php?title=Integration/DBMail.iRedMail.with.MySQL.backend
+
+* ~~ http://www.iredmail.org/wiki/index.php?title=Integration/Active.Directory.iRedMail ~~
 
 # wiki FAQ
 
