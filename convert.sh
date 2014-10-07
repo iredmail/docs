@@ -30,7 +30,7 @@ all_chapter_dirs="installation \
                   howto \
                   integrations \
                   cluster \
-                  backup-restore-migration \
+                  backup-restore \
                   troubleshooting \
                   faq"
 

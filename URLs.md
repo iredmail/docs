@@ -11,10 +11,6 @@
 * https://code.google.com/p/iredmail/wiki/DNS_DKIM
 * https://code.google.com/p/iredmail/wiki/DNS_SPF
 
-# Misc
-
-* how to force users to change password in 90 days, with iRedAPD plugin.
-
 # integrations
 
 * http://www.iredmail.org/wiki/index.php?title=Integration/Active.Directory.iRedMail

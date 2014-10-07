@@ -23,14 +23,15 @@ We're working on migrating [old wiki documents](http://www.iredmail.org/wiki) to
 * [SQL: Create an mail alias account with SQL command line](https://bitbucket.org/zhb/docs.iredmail.org/src/default/howto/sql.create.mail.alias.md)
 * [Store SpamAssassin bayes in SQL](https://bitbucket.org/zhb/docs.iredmail.org/src/default/howto/store.spamassassin.bayes.in.sql.md)
 # Third-party integrations.
+* [Integrate Microsoft Active Directory in iRedMail](https://bitbucket.org/zhb/docs.iredmail.org/src/default/integrations/active.directory.md)
 * [SOGo: How to install SOGo on CentOS 6 with iRedMail (MySQL backend)](https://bitbucket.org/zhb/docs.iredmail.org/src/default/integrations/sogo-centos-6-mysql.md)
 * [Enabling Apache Solr 4.10 (using jetty) with Dovecot 2.2 for fulltext search results on Centos 6 (iRedMail compatible)](https://extremeshok.com/6622/enabling-apache-solr-4-10-using-jetty-with-dovecot-2-2-for-fulltext-search-results-on-centos-6-iredmail-compatible/)
 # Cluster solutions
 * [An Ultra-HA, full Mult-Master E-mail cluster with iRedMail, MariaDB, and IPVS  ](https://bitbucket.org/zhb/docs.iredmail.org/src/default/cluster/full.mult-master.iredmail.cluster.with.mariadb.and.ipvs.md)
 # Backup, restore and migration
-* [Migrate iRedAdmin open source edition to iRedAdmin-Pro](https://bitbucket.org/zhb/docs.iredmail.org/src/default/backup-restore-migration/migrate.or.upgrade.iredadmin.md)
-* [Migrate old iRedMail server to the latest stable release](https://bitbucket.org/zhb/docs.iredmail.org/src/default/backup-restore-migration/migrate.to.new.iredmail.server.md)
-* [Password hashes](https://bitbucket.org/zhb/docs.iredmail.org/src/default/backup-restore-migration/password.hashes.md)
+* [Migrate iRedAdmin open source edition to iRedAdmin-Pro](https://bitbucket.org/zhb/docs.iredmail.org/src/default/backup-restore/migrate.or.upgrade.iredadmin.md)
+* [Migrate old iRedMail server to the latest stable release](https://bitbucket.org/zhb/docs.iredmail.org/src/default/backup-restore/migrate.to.new.iredmail.server.md)
+* [Password hashes](https://bitbucket.org/zhb/docs.iredmail.org/src/default/backup-restore/password.hashes.md)
 # Troubleshooting and Debug
 * [Turn on debug mode in Amavisd](https://bitbucket.org/zhb/docs.iredmail.org/src/default/troubleshooting/turn.on.debug.mode.in.amavisd.md)
 * [Turn on debug mode in Cluebringer](https://bitbucket.org/zhb/docs.iredmail.org/src/default/troubleshooting/turn.on.debug.mode.in.cluebringer.md)
