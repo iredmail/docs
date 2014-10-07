@@ -1,4 +1,4 @@
-# Configure Thunderbird as mail client (IMAP, SMTP and global ldap address book)
+# Configure Thunderbird as mail client (POP3/IMAP, SMTP and global ldap address book)
 
 [TOC]
 

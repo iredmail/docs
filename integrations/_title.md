@@ -1,1 +1,1 @@
-Third-party integrations.
+Third-party integrations
