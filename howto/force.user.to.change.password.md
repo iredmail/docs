@@ -27,7 +27,6 @@ To enable this plugin, please list the plugin name in iRedAPD config file
 `/opt/iredapd/settings.py`, variable `plugins =`. For example:
 
 ```python
-
 # For SQL backends
 plugins = [..., 'sql_force_change_password_in_days']
 
