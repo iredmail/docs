@@ -312,7 +312,7 @@ address book setting added by iRedMail, and add new setting for AD like below:
 # "sql" is personal address book stored in roundcube database.
 # "example.com" is new LDAP address book with AD, we will create it below.
 #
-$rcmail_config['autocomplete_addressbooks'] = array("sql", "example.com");
+$config['autocomplete_addressbooks'] = array("sql", "example.com");
 
 #
 # Global LDAP Address Book with AD.
