@@ -124,5 +124,13 @@ ${CMD_CONVERT} ${INDEX_MD} ${OUTPUT_DIR} title="iRedMail Documentations"
 # Cleanup
 rm -f ${INDEX_MD}
 
-# Copy to local hg repo of http://www.iredmail.org/docs/
-cp -rf html/* ../web/docs/
+# Sync newly generated HTML files to local diretories.
+if echo "$@" | grep -q -- '--sync-local'; then
+    # Copy to local hg repo of http://www.iredmail.org/docs/
+    rm -rf ../web/docs/*
+    cp -rf html/* ../web/docs/
+
+    # Copy to iredmail.com/docs/
+    rm -rf /Volumes/STORAGE/Dropbox/Backup/iredmail.com/docs/*
+    cp -rf html/* /Volumes/STORAGE/Dropbox/Backup/iredmail.com/docs/
+fi
