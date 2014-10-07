@@ -11,6 +11,7 @@ We're working on migrating [old wiki documents](http://www.iredmail.org/wiki) to
 * [Allow insecure POP3/IMAP/SMTP connections without STARTTLS](https://bitbucket.org/zhb/docs.iredmail.org/src/default/howto/2-allow.insecure.pop3.imap.smtp.connections.md)
 * [Allow user to send email without authentication](https://bitbucket.org/zhb/docs.iredmail.org/src/default/howto/allow.user.to.send.email.without.authentication.md)
 * [Configure Thunderbird as mail client (IMAP, SMTP and global ldap address book)](https://bitbucket.org/zhb/docs.iredmail.org/src/default/howto/configure.thunderbird.md)
+* [Force mail user to change password in 90 days](https://bitbucket.org/zhb/docs.iredmail.org/src/default/howto/force.user.to.change.password.md)
 * [Ignore Trash folder in mailbox quota](https://bitbucket.org/zhb/docs.iredmail.org/src/default/howto/ignore.trash.folder.in.quota.md)
 * [LDAP: Add an alias domain](https://bitbucket.org/zhb/docs.iredmail.org/src/default/howto/ldap.add.alias.domain.md)
 * [LDAP: Add a mail alias account](https://bitbucket.org/zhb/docs.iredmail.org/src/default/howto/ldap.add.mail.alias.md)
