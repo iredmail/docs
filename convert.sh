@@ -25,7 +25,7 @@ strip_name_prefix()
     echo "${name}"
 }
 
-# Chapter directories in specific order
+# Chapter directories in specified order
 all_chapter_dirs="installation \
                   howto \
                   integrations \
@@ -61,12 +61,13 @@ for chapter_dir in ${all_chapter_dirs}; do
     if [ -f ${_title_md} ]; then
         # generate index info of chapter
         _chapter_title="$(cat ${_title_md})"
-        echo -e "# ${_chapter_title}" >> ${INDEX_MD}
+        echo -e "### ${_chapter_title}" >> ${INDEX_MD}
         echo -e "# ${_chapter_title}" >> ${README_MD}
 
         if [ -f ${_summary_md} ]; then
-            echo -e "$(cat ${_title_md})" >> ${INDEX_MD}
-            echo -e "$(cat ${_title_md})" >> ${README_MD}
+            _chapter_summary="$(cat ${_summary_md})"
+            echo -e "${_chapter_summary}" >> ${INDEX_MD}
+            echo -e "${_chapter_summary}" >> ${README_MD}
         fi
     fi
 

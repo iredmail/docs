@@ -1,6 +1,9 @@
-# SOGo: How to install SOGo on CentOS 6 with iRedMail (MySQL backend)
+# SOGo: install SOGo on CentOS 6 with iRedMail (MySQL backend)
 
 [TOC]
+
+
+__NOTE__: this is still a draft and incomplete tutorial.
 
 ## Requirements
 
