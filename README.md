@@ -1,4 +1,4 @@
-We're working on migrating [old wiki documents](http://www.iredmail.org/wiki) to Markdown format for easier maintenance.
+We're working on migrating [old wiki documents](http://www.iredmail.org/wiki) to Markdown format for easier maintenance, you can find converted documents [here](https://bitbucket.org/zhb/docs.iredmail.org/src).
 # Install iRedMail
 * [Perform silent/unattended iRedMail installation](https://bitbucket.org/zhb/docs.iredmail.org/src/default/installation/unattended.iredmail.installation.md)
 # How to
