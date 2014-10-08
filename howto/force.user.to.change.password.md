@@ -2,8 +2,8 @@
 
 ## How it works
 
-iRedMail configures Roundcube to store last password change date while user
-changed their password. For MySQL/MariaDB/PostgreSQL backends, it's stored in
+iRedMail configures Roundcube webmail to store last password change date while
+user changed password. For MySQL/MariaDB/PostgreSQL backends, it's stored in
 SQL database `vmail`, column `mailbox.passwordlastchange`. For LDAP backends,
 it's stored in LDAP attribute `shadowLastChange` of user account. If user
 didn't change password before, or user account is newly created, the password
@@ -16,7 +16,7 @@ iRedAPD has plugin to force mail users to change password before sending email:
 * `ldap_force_change_password_in_days`: for LDAP backends (OpenLDAP and OpenBSD
   built-in LDAP server `ldapd(8)`).
 
-When user trying to send an email, iRedAPD will invoke these plugin to 
+When user trying to send an email, iRedAPD will invoke this plugin to 
 check password last change date stored in SQL/LDAP and compare
 it with current date. if password last change date is longer than specified
 days, this plugin rejects smtp session with specified message.
