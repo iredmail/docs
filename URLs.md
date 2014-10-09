@@ -2,14 +2,15 @@
 
 # installation guides
 
-* https://code.google.com/p/iredmail/wiki/DNS_DKIM
-* https://code.google.com/p/iredmail/wiki/DNS_SPF
 * http://www.iredmail.org/install_iredmail_on_debian.html
 * http://www.iredmail.org/install_iredmail_on_ubuntu.html
 * http://www.iredmail.org/install_iredmail_on_freebsd.html
 * http://www.iredmail.org/wiki/index.php?title=Install/iRedMail/FreeBSD.Jail
 * http://www.iredmail.org/install_iredmail_on_openbsd.html
+
 * ~~ http://www.iredmail.org/install_iredmail_on_rhel.html ~~
+* ~~ https://code.google.com/p/iredmail/wiki/DNS_DKIM ~~
+* ~~ https://code.google.com/p/iredmail/wiki/DNS_SPF ~~
 
 # integrations
 
