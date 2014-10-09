@@ -34,13 +34,10 @@ plugins = [..., 'sql_force_change_password_in_days']
 plugins = [..., 'ldap_force_change_password_in_days']
 ```
 
-There're two addition settings you should set in `/opt/iredapd/settings.py`
-(it's mentioned in plugin file
-`/opt/iredapd/plugins/sql_force_change_password_in_days.py` and
-`/opt/iredapd/plugins/ldap_force_change_password_in_days`):
+There're two optional settings you can set in `/opt/iredapd/settings.py`:
 
 ```
-# User has to change password in 90 days
+# User has to change password in certain days. Default is 90 days.
 CHANGE_PASSWORD_DAYS = 90
 
 # MTA will reject user's smtp session with below message. You'd better describe
