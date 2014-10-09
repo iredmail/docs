@@ -18,7 +18,9 @@ service.</p>
 <li>on RHEL/CentOS, it's <code>/etc/policyd/cluebringer.conf</code>.</li>
 <li>on Debian/Ubuntu, it's <code>/etc/cluebringer/cluebringer.conf</code>.</li>
 <li>on FreeBSD, it's <code>/usr/local/etc/cluebringer.conf</code>.</li>
-<li>on OpenBSD: we don't have Cluebringer installed on Cluebringer.</li>
+<li>on OpenBSD: we don't have Cluebringer installed. We use built-in
+  <a href="http://www.openbsd.org/cgi-bin/man.cgi/OpenBSD-current/man8/spamd.8?query=spamd">spamd(8)</a>
+  for greylisting, whitelisting and blacklisting.</li>
 </ul>
 <pre><code>log_level=4
 log_detail=modules,tracking,policies
