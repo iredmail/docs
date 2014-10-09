@@ -1,7 +1,7 @@
 We're working on migrating [old wiki documents](http://www.iredmail.org/wiki) to Markdown format for easier maintenance, you can find converted documents [here](https://bitbucket.org/zhb/docs.iredmail.org/src).
 # Install iRedMail
 * [Install iRedMail on Red Hat Enterprise Linux, CentOS](https://bitbucket.org/zhb/docs.iredmail.org/src/default/installation/install.iredmail.on.rhel.md)
-* [Setup DNS records for your mail server](https://bitbucket.org/zhb/docs.iredmail.org/src/default/installation/setup_dns.md)
+* [Setup DNS records for your iRedMail server](https://bitbucket.org/zhb/docs.iredmail.org/src/default/installation/setup_dns.md)
 * [Perform silent/unattended iRedMail installation](https://bitbucket.org/zhb/docs.iredmail.org/src/default/installation/unattended.iredmail.installation.md)
 # How to
 * [Change mail attachment size](https://bitbucket.org/zhb/docs.iredmail.org/src/default/howto/0-change.mail.attachment.size.md)

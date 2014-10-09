@@ -1,7 +1,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title>Setup DNS records for your mail server</title>
+        <title>Setup DNS records for your iRedMail server</title>
         <link href="./css/markdown.css" rel="stylesheet"></head>
     </head>
     <body>
@@ -10,42 +10,234 @@
         <a href="http://www.iredmail.org" target="_blank">iRedMail web site</a>
     
         // <a href="./index.html">Document Index</a>
-    </div><h1 id="setup-dns-records-for-your-mail-server">Setup DNS records for your mail server</h1>
+    </div><h1 id="setup-dns-records-for-your-iredmail-server">Setup DNS records for your iRedMail server</h1>
 <div class="toc">
 <ul>
-<li><a href="#setup-dns-records-for-your-mail-server">Setup DNS records for your mail server</a><ul>
-<li><a href="#a-record-for-server-hostname">A record for server hostname</a></li>
+<li><a href="#setup-dns-records-for-your-iredmail-server">Setup DNS records for your iRedMail server</a><ul>
+<li><a href="#a-record-for-server-hostname">A record for server hostname</a><ul>
+<li><a href="#what-is-an-a-record">What is an A record</a></li>
+<li><a href="#how-to-setup-an-a-record">How to setup an A Record</a></li>
+</ul>
+</li>
 <li><a href="#reverse-ptr-record-for-server-ip-address">Reverse PTR record for server IP address</a><ul>
-<li><a href="#what-is-a-reverse-ptr-record">What Is A Reverse PTR Record?</a></li>
-<li><a href="#why-do-you-need-a-reverse-ptr-record">Why Do You Need A Reverse PTR Record?</a></li>
-<li><a href="#how-do-you-setup-a-reverse-ptr">How Do You Setup A Reverse PTR?</a></li>
+<li><a href="#what-is-a-reverse-ptr-record">What is a reverse PTR record</a></li>
+<li><a href="#why-do-you-need-a-reverse-ptr-record">Why do you need a reverse PTR record</a></li>
+<li><a href="#how-to-setup-a-reverse-ptr-record">How to setup a Reverse PTR record</a></li>
 </ul>
 </li>
 <li><a href="#mx-record-for-mail-domain-name">MX record for mail domain name</a><ul>
-<li><a href="#what-is-an-mx-record">What Is An MX Record?</a></li>
-<li><a href="#how-to-setup-the-mx-record">How To Setup The MX Record</a></li>
+<li><a href="#what-is-a-mx-record">What is a MX record</a></li>
+<li><a href="#how-to-setup-the-mx-record">How to setup the MX record</a></li>
 </ul>
 </li>
-<li><a href="#spf-record-for-your-mail-domain-name">SPF record for your mail domain name</a></li>
-<li><a href="#dkim-record-for-your-mail-domain-name">DKIM record for your mail domain name</a></li>
+<li><a href="#spf-record-for-your-mail-domain-name">SPF record for your mail domain name</a><ul>
+<li><a href="#what-is-a-spf-record">What is a SPF record</a></li>
+<li><a href="#how-to-setup-the-spf-record">How to setup the SPF record</a></li>
+</ul>
+</li>
+<li><a href="#dkim-record-for-your-mail-domain-name">DKIM record for your mail domain name</a><ul>
+<li><a href="#what-is-a-dkim-record">What is a DKIM record</a></li>
+<li><a href="#how-to-setup-the-dkim-record">How to setup the DKIM record</a></li>
+</ul>
+</li>
+<li><a href="#references">References</a></li>
 </ul>
 </li>
 </ul>
 </div>
 <p><strong>NOTE: STILL WORKING IN PROGRESS</strong></p>
+<p><strong>IMPORTANT NOTE</strong>: <code>A</code>, <code>MX</code> records are required, <code>Reverse PTR</code>, <code>SPF</code> and
+<code>DKIM</code> are optional but strongly recommended. All in all, set them all up please.</p>
 <h2 id="a-record-for-server-hostname">A record for server hostname</h2>
+<h3 id="what-is-an-a-record">What is an A record</h3>
+<p><code>A</code> records map a FQDN (fully qualified domain name) to an IP address. This is
+usually the most often used record type in any DNS system. This is the DNS
+record you should add if you want to point a domain name to a web server.</p>
+<h3 id="how-to-setup-an-a-record">How to setup an A Record</h3>
+<ul>
+<li>
+<p><code>Name</code>: This will be the host for your domain which is actually a computer
+  within your domain. Your domain name is automatically appended to your name.
+  If you are trying to make a record for the system <code>www.mydomain.com</code>. Then all
+  you enter in the textbox for the name value is <code>www</code>.</p>
+<p><strong>Note</strong>: If you leave the name field blank it will default to be the record
+for your base domain <code>mydomain.com</code>. The record for your base domain is
+called the root record or apex record.</p>
+</li>
+<li>
+<p><code>IP</code>: The IP address of your FQDN. An IP address can be thought of as
+the telephone number to your computer. It is how one computer knows how to
+reach another computer. Similar to the country codes, area codes, and phone
+number it is used to call someone.</p>
+</li>
+<li>
+<p><code>TTL</code>: The TTL (Time to Live) is the amount of time your record will stay
+in cache on systems requesting your record (resolving nameservers, browsers,
+etc.). The TTL is set in seconds, so 60 is one minute, 1800 is 30 minutes, etc..</p>
+</li>
+</ul>
+<p>Systems that have a static IP should usually have a TTL of 1800 or higher.
+Systems that have a dynamic IP should usually have a TTL of 1800 of less.</p>
+<p>The lower the TTL the more often a client will need to query the name servers
+for your host's (record's) IP address this will result in higher query traffic
+for your domain name. Where as a very high TTL can cause downtime when you
+need to switch your IPs quickly.</p>
+<p>Sample record:</p>
+<pre><code>NAME                TTL     TYPE    DATA
+
+www.mydomain.com.   1800    A       192.168.1.2
+</code></pre>
+
+<p>The end result of this record is that <code>www.mydomain.com.</code> points to <code>192.168.1.2</code>.</p>
 <h2 id="reverse-ptr-record-for-server-ip-address">Reverse PTR record for server IP address</h2>
-<h3 id="what-is-a-reverse-ptr-record">What Is A Reverse PTR Record?</h3>
-<p>PTR record or more appropriately a reverse PTR record is a process of resolving an IP address to its associated hostname. This is the exact opposite of the process of resolving a hostname to an IP address. Example, when you ping a name mail.somedomain.com it will get resolved to the ip address using the DNS to something like 192.168.1.5. Reverse PTR record does the opposite; it looks up the hostname for the given IP address. In the example above the PTR record for IP address 192.168.1.5 will get resolved to mail.somedomain.com.</p>
-<h3 id="why-do-you-need-a-reverse-ptr-record">Why Do You Need A Reverse PTR Record?</h3>
-<p>The most common use for looking up a PTR record is done by spam filters. Concept behind this idea is that fly by night spammers who send e-mails out using fake domains generally will not have the appropriate reverse PTR setup at the ISP DNS zone. This criterion is used spam filters to detect spam. If your domain does not have an appropriate reverse PTR record setup then chances are most e-mail spam filtering software will block e-mails from your mail server.</p>
-<h3 id="how-do-you-setup-a-reverse-ptr">How Do You Setup A Reverse PTR?</h3>
-<p>You would most likely need to contact your ISP and make a request to create a reverse PTR record for your mail server IP address. For example, if your mail server is mail.somedoamin.com then ask your ISP to setup a reverse PTR record 192.168.1.5 (your internet public IP address) in their revesre DNS zone. Reverse DNS zones are handled by your ISP even though you may have your own forward lookup DNS zone that you manage.</p>
+<h3 id="what-is-a-reverse-ptr-record">What is a reverse PTR record</h3>
+<p>PTR record or more appropriately a reverse PTR record is a process of resolving
+an IP address to its associated hostname. This is the exact opposite of the
+process of resolving a hostname to an IP address (<code>A</code> record). Example, when you ping a
+name <code>mail.somedomain.com</code> it will get resolved to the ip address using the DNS
+to something like <code>192.168.1.5</code>. Reverse PTR record does the opposite; it looks
+up the hostname for the given IP address. In the example above the PTR record
+for IP address <code>192.168.1.5</code> will get resolved to <code>mail.somedomain.com</code>.</p>
+<h3 id="why-do-you-need-a-reverse-ptr-record">Why do you need a reverse PTR record</h3>
+<p>The most common use for looking up a PTR record is done by spam filters.
+Concept behind this idea is that fly by night spammers who send e-mails out
+using fake domains generally will not have the appropriate reverse PTR setup
+at the ISP DNS zone. This criterion is used by spam filters to detect spam. If
+your domain does not have an appropriate reverse PTR record setup then chances
+are email spam filtering softwares <strong>MIGHT</strong> block e-mails from your mail server.</p>
+<h3 id="how-to-setup-a-reverse-ptr-record">How to setup a Reverse PTR record</h3>
+<p>You would most likely need to contact your ISP and make a request to create a
+reverse PTR record for your mail server IP address. For example, if your mail
+server hostname is <code>mail.somedoamin.com</code> then ask your ISP to setup a reverse
+PTR record 192.168.1.5 (your internet public IP address) in their revesre DNS
+zone. Reverse DNS zones are handled by your ISP even though you may have your
+own forward lookup DNS zone that you manage.</p>
 <h2 id="mx-record-for-mail-domain-name">MX record for mail domain name</h2>
-<h3 id="what-is-an-mx-record">What Is An MX Record?</h3>
-<p>Mail Exchanger Record or more commonly known as MX record is an entry in the DNS server of your domain that tells other mail servers where your mail server is located. When someone sends an e-mail to a user that exists on your mail server from the internet, MX provides the location or IP address where to send that e-mail. MX record is the location of your mail server that you have provided to the outside world via the DNS.</p>
-<p>Most mail servers generally have more than one MX record, meaning you could have more than one mail server setup to receive e-mails. Each MX record has a priority number assigned to it in the DNS. The MX record with lowest number has the highest priority and that is considered your primary MX record or your main mail server. The next lowest mx number has the next highest primary and so on. You generally have more than one mail server, one being the primary and the others as backups.</p>
-<h3 id="how-to-setup-the-mx-record">How To Setup The MX Record</h3>
-<p>If your ISP or domain name registrar is providing the DNS service, you can request them to set one up for you. If you manage your own DNS servers then you need to create the MX records in your DNS zone yourself.</p>
+<h3 id="what-is-a-mx-record">What is a MX record</h3>
+<p>Mail Exchanger Record or more commonly known as MX record is an entry in the
+DNS server of your domain that tells other mail servers where your mail server
+is located. When someone sends an e-mail to a user that exists on your mail
+server from the internet, MX provides the location or IP address where to send
+that e-mail. MX record is the location of your mail server that you have
+provided to the outside world via the DNS.</p>
+<p>Most mail servers generally have more than one MX record, meaning you could
+have more than one mail server setup to receive e-mails. Each MX record has a
+priority number assigned to it in the DNS. <strong>The MX record with lowest number
+has the highest priority</strong> and that is considered your primary MX record or
+your main mail server. The next lowest mx number has the next highest primary
+and so on. You generally have more than one mail server, one being the primary
+and the others as backups, only one MX for mail server is OK too.</p>
+<h3 id="how-to-setup-the-mx-record">How to setup the MX record</h3>
+<p>If your ISP or domain name registrar is providing the DNS service, you can
+request them to set one up for you. If you manage your own DNS servers then
+you need to create the MX records in your DNS zone yourself.</p>
 <h2 id="spf-record-for-your-mail-domain-name">SPF record for your mail domain name</h2>
-<h2 id="dkim-record-for-your-mail-domain-name">DKIM record for your mail domain name</h2><br /><p>If you found something wrong in this document, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.</p></body></html>
+<h3 id="what-is-a-spf-record">What is a SPF record</h3>
+<p>SPF is a spam and phishing scam fighting method which uses DNS SPF-records to
+define which hosts are permitted to send e-mails for a domain. For details on
+SPF, please see <a href="http://www.openspf.org/">http://www.openspf.org/</a></p>
+<p>This works by defining a DNS SPF-record for the e-mail domain name specifying
+which hosts (e-mail servers) are permitted to send e-mail from the domain name.</p>
+<p>Other e-mail servers can lookup this record when receiving an e-mail from this
+domain name to verify that sending e-mail server is connecting from a permitted
+IP address.</p>
+<h3 id="how-to-setup-the-spf-record">How to setup the SPF record</h3>
+<p>A new SPF-record type was recently added to the DNS protocol to support this
+(<a href="http://www.rfc-editor.org/rfc/rfc4408.txt">RFC4408</a>).</p>
+<p>However not all DNS and e-mail servers support this new record type yet, so
+SPF can also be configured in DNS using the TXT-record type.</p>
+<p>Examples:</p>
+<ul>
+<li>SPF record refer to MX record. It means emails sent from all servers defined
+  in MX record of <code>mydomain.com</code> are permitted by sender organization.</li>
+</ul>
+<pre><code>mydomain.com.   3600    IN  TXT &quot;v=spf1 mx mx:mydomain.com -all&quot;
+</code></pre>
+
+<ul>
+<li>or SPF record refer to IP address directly. it means emails sent from
+  specified IP address are permitted by sender organization.</li>
+</ul>
+<pre><code>mydomain.com.   3600    IN  TXT &quot;v=spf1 ip4:192.168.1.100 -all&quot;
+</code></pre>
+
+<p><code>-all</code> means prohibit all others.</p>
+<p>There're more valid mechanisms available, please check
+<a href="http://www.openspf.org/SPF_Record_Syntax">OpenSPF web site</a> for more details.</p>
+<h2 id="dkim-record-for-your-mail-domain-name">DKIM record for your mail domain name</h2>
+<h3 id="what-is-a-dkim-record">What is a DKIM record</h3>
+<p>DKIM allows an organization to take responsibility for a message in a way that
+can be verified by a recipient. The organization can be a direct handler of
+the message, such as the author's, the originating sending site's, or an
+intermediary's along the transit path. However, it can also be an indirect
+handler, such as an independent service that is providing assistance to a
+direct handler. DKIM defines a domain-level digital signature authentication
+framework for email through the use of public-key cryptography and using the
+domain name service as its key server technology
+<a href="http://www.dkim.org/specs/rfc5585.html#RFC4871">[RFC4871]</a>. It permits
+verification of the signer of a message, as well as the integrity of its
+contents. DKIM will also provide a mechanism that permits potential email
+signers to publish information about their email signing practices; this will
+permit email receivers to make additional assessments of unsigned messages.
+DKIM's authentication of email identity can assist in the global control of
+"spam" and "phishing".</p>
+<p>A person or organization has an "identity" -- that is, a constellation of
+characteristics that distinguish them from any other identity. Associated
+with this abstraction can be a label used as a reference, or "identifier".
+This is the distinction between a thing and the name of the thing. DKIM uses
+a domain name as an identifier, to refer to the identity of a responsible
+person or organization. In DKIM, this identifier is called the Signing Domain
+IDentifier (SDID) and is contained in the DKIM-Signature header fields <code>d=</code>
+tag. Note that the same identity can have multiple identifiers.</p>
+<h3 id="how-to-setup-the-dkim-record">How to setup the DKIM record</h3>
+<ul>
+<li>Run command in terminal to show your DKIM keys:</li>
+</ul>
+<pre><code class="bash"># amavisd showkeys
+dkim._domainkey.iredmail.org.   3600 TXT (
+  &quot;v=DKIM1; p=&quot;
+  &quot;MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDYArsr2BKbdhv9efugByf7LhaK&quot;
+  &quot;txFUt0ec5+1dWmcDv0WH0qZLFK711sibNN5LutvnaiuH+w3Kr8Ylbw8gq2j0UBok&quot;
+  &quot;FcMycUvOBd7nsYn/TUrOua3Nns+qKSJBy88IWSh2zHaGbjRYujyWSTjlPELJ0H+5&quot;
+  &quot;EV711qseo/omquskkwIDAQAB&quot;)
+</code></pre>
+
+<p><strong>Note</strong>: On some Linux/BSD distribution, you should use command <code>amavisd-new</code>
+instead of <code>amavisd</code>. if it complains <code>/etc/amavisd.conf not found</code>, you should
+tell amavisd the correct path of its config file. For example:</p>
+<pre><code class="shell"># amavisd -c /etc/amavisd/amavisd.conf showkeys
+</code></pre>
+
+<ul>
+<li>Copy output of above command into one line, like below. It will be the value
+  of DKIM DNS record.</li>
+</ul>
+<pre><code>v=DKIM1; p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDYArsr2BKbdhv9efugByf7LhaKtxFUt0ec5+1dWmcDv0WH0qZLFK711sibNN5LutvnaiuH+w3Kr8Ylbw8gq2j0UBokFcMycUvOBd7nsYn/TUrOua3Nns+qKSJBy88IWSh2zHaGbjRYujyWSTjlPELJ0H+5EV711qseo/omquskkwIDAQAB
+</code></pre>
+
+<p><strong>Note</strong>: BIND (<a href="http://www.isc.org/downloads/bind/">The most widely used Name Server Software</a>)
+can handle this kind of multi-line format, so you can paste it in your domain
+zone file directly.</p>
+<ul>
+<li>
+<p>Add a <code>TXT</code> type DNS record, set value to the line you copied above:
+<code>v=DKIM1; p=...</code>.</p>
+</li>
+<li>
+<p>After you added this in DNS, type below command to verify it:</p>
+</li>
+</ul>
+<pre><code class="shell"># amavisd testkeys
+TESTING: dkim._domainkey.iredmail.org      =&gt; pass
+</code></pre>
+
+<p>If it shows <code>pass</code>, it works.</p>
+<p><strong>Note</strong>: If you use DNS service provided by ISP, new DNS record might take
+some hours to be available.</p>
+<h2 id="references">References</h2>
+<ul>
+<li>http://www.emailtalk.org/MX.aspx</li>
+<li>http://en.wikipedia.org/wiki/MX_record</li>
+<li>http://www.openspf.org/RFC_4408</li>
+<li>http://www.simpledns.com/</li>
+</ul><br /><p>If you found something wrong in this document, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.</p></body></html>
