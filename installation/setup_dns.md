@@ -60,10 +60,10 @@ The end result of this record is that `www.mydomain.com.` points to `192.168.1.2
 PTR record or more appropriately a reverse PTR record is a process of resolving
 an IP address to its associated hostname. This is the exact opposite of the
 process of resolving a hostname to an IP address (`A` record). Example, when you ping a
-name `mail.somedomain.com` it will get resolved to the ip address using the DNS
+name `mail.mydomain.com` it will get resolved to the ip address using the DNS
 to something like `192.168.1.5`. Reverse PTR record does the opposite; it looks
 up the hostname for the given IP address. In the example above the PTR record
-for IP address `192.168.1.5` will get resolved to `mail.somedomain.com`.
+for IP address `192.168.1.5` will get resolved to `mail.mydomain.com`.
 
 ### Why do you need a reverse PTR record
 
@@ -165,7 +165,7 @@ handler, such as an independent service that is providing assistance to a
 direct handler. DKIM defines a domain-level digital signature authentication
 framework for email through the use of public-key cryptography and using the
 domain name service as its key server technology
-[[RFC4871]](http://www.dkim.org/specs/rfc5585.html#RFC4871). It permits
+([RFC4871](http://www.dkim.org/specs/rfc5585.html#RFC4871)). It permits
 verification of the signer of a message, as well as the integrity of its
 contents. DKIM will also provide a mechanism that permits potential email
 signers to publish information about their email signing practices; this will

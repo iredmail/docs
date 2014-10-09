@@ -94,10 +94,10 @@ www.mydomain.com.   1800    A       192.168.1.2
 <p>PTR record or more appropriately a reverse PTR record is a process of resolving
 an IP address to its associated hostname. This is the exact opposite of the
 process of resolving a hostname to an IP address (<code>A</code> record). Example, when you ping a
-name <code>mail.somedomain.com</code> it will get resolved to the ip address using the DNS
+name <code>mail.mydomain.com</code> it will get resolved to the ip address using the DNS
 to something like <code>192.168.1.5</code>. Reverse PTR record does the opposite; it looks
 up the hostname for the given IP address. In the example above the PTR record
-for IP address <code>192.168.1.5</code> will get resolved to <code>mail.somedomain.com</code>.</p>
+for IP address <code>192.168.1.5</code> will get resolved to <code>mail.mydomain.com</code>.</p>
 <h3 id="why-do-you-need-a-reverse-ptr-record">Why do you need a reverse PTR record</h3>
 <p>The most common use for looking up a PTR record is done by spam filters.
 Concept behind this idea is that fly by night spammers who send e-mails out
@@ -174,7 +174,7 @@ handler, such as an independent service that is providing assistance to a
 direct handler. DKIM defines a domain-level digital signature authentication
 framework for email through the use of public-key cryptography and using the
 domain name service as its key server technology
-<a href="http://www.dkim.org/specs/rfc5585.html#RFC4871">[RFC4871]</a>. It permits
+(<a href="http://www.dkim.org/specs/rfc5585.html#RFC4871">RFC4871</a>). It permits
 verification of the signer of a message, as well as the integrity of its
 contents. DKIM will also provide a mechanism that permits potential email
 signers to publish information about their email signing practices; this will
