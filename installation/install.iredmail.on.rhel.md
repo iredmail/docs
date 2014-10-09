@@ -14,7 +14,7 @@
 To install iRedMail, you need:
 
 * A FRESH, working RHEL or CentOS system. Supported releases are listed on
-  [Download](http://www.iredmail.org/download.html) page.
+  [Download](../download.html) page.
 
 * At least `1 GB` of memory is required for low traffic production server.
   Spam/Virus scanning will take most system resource.
@@ -86,7 +86,7 @@ Now disable it immediately without rebooting your server.
 
 ### Download the latest release of iRedMail
 
-* Visit [Download page](http://www.iredmail.org/download.html) to get the
+* Visit [Download page](../download.html) to get the
   latest stable release of iRedMail.
 
 * Upload iRedMail to your mail server via ftp or scp or whatever method you
@@ -116,11 +116,11 @@ questions, that's all steps to setup a full-featured mail server.
 
 1. Welcome and thanks for your use
 
-![](http://www.iredmail.org/images/installation/iredmail/welcome.png)
+![](../images/installation/iredmail/welcome.png)
 
 2. Specify location to store all mailboxes. Default is `/var/vmail/`.
 
-![](http://www.iredmail.org/images/installation/iredmail/location_to_store_mailboxes.png)
+![](../images/installation/iredmail/location_to_store_mailboxes.png)
 
 3. Choose backend used to store mail accounts. You can manage mail accounts
 with iRedAdmin, our web-based iRedMail admin panel.
@@ -129,29 +129,29 @@ __IMPORTANT NOTE__: There's no big difference between available backends, so
 it's strongly recommended to choose the one you're familiar with for easier
 management and maintenance after installation.
 
-![](http://www.iredmail.org/images/installation/iredmail/backend.png)
+![](../images/installation/iredmail/backend.png)
 
 4. If you choose to store mail accounts in OpenLDAP, iRedMail installer will
 ask you two questions about OpenLDAP.
 
 4.1. LDAP suffix.
 
-![](http://www.iredmail.org/images/installation/iredmail/ldap_suffix.png)
+![](../images/installation/iredmail/ldap_suffix.png)
 
 4.2. Password of LDAP root dn.
 
-![](http://www.iredmail.org/images/installation/iredmail/pw_of_ldap_root_dn.png)
+![](../images/installation/iredmail/pw_of_ldap_root_dn.png)
 
 5. Set password of MySQL or PostgreSQL admin user.
 
 __NOTE__: MySQL is used to store data of other applications (e.g. Roundcube
 webmail, Cluebringer, Amavisd-new) if you choose OpenLDAP or MySQL as backend.
 
-![](http://www.iredmail.org/images/installation/iredmail/pw_of_mysql_root_user.png)
+![](../images/installation/iredmail/pw_of_mysql_root_user.png)
 
 6. Add your first mail domain name
 
-![](http://www.iredmail.org/images/installation/iredmail/first_mail_domain.png)
+![](../images/installation/iredmail/first_mail_domain.png)
 
 7. Set password of admin account of your first mail domain.
 
@@ -159,11 +159,11 @@ __Note__: This account is an admin account and a mail user. That means you can
 login to webmail and admin panel (iRedAdmin) with this account, login username
 is full email address.
 
-![](http://www.iredmail.org/images/installation/iredmail/pw_of_domain_admin.png)
+![](../images/installation/iredmail/pw_of_domain_admin.png)
 
 8. Choose optional components
 
-![](http://www.iredmail.org/images/installation/iredmail/optional_components.png)
+![](../images/installation/iredmail/optional_components.png)
 
 
 After answered above questions, iRedMail installer will ask your confirm to
