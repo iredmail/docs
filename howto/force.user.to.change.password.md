@@ -34,8 +34,9 @@ plugins = [..., 'sql_force_change_password_in_days']
 plugins = [..., 'ldap_force_change_password_in_days']
 ```
 
-There're two addition settings available for this plugin (it's mentioned in
-plugin file `/opt/iredapd/plugins/sql_force_change_password_in_days.py` and
+There're two addition settings you should set in `/opt/iredapd/settings.py`
+(it's mentioned in plugin file
+`/opt/iredapd/plugins/sql_force_change_password_in_days.py` and
 `/opt/iredapd/plugins/ldap_force_change_password_in_days`):
 
 ```
