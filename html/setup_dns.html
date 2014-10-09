@@ -11,9 +11,41 @@
     
         // <a href="./index.html">Document Index</a>
     </div><h1 id="setup-dns-records-for-your-mail-server">Setup DNS records for your mail server</h1>
-<p><strong>WORK IN PROGRESS</strong></p>
-<h2 id="setup-a-record-for-server-hostname">setup A record for server hostname</h2>
-<h2 id="setup-reverse-dns-for-server-ip-address">setup reverse dns for server IP address</h2>
-<h2 id="setup-mx-record-for-mail-domain">setup MX record for mail domain</h2>
-<h2 id="setup-spf-record">setup SPF record</h2>
-<h2 id="setup-dns-record">setup DNS record</h2><br /><p>If you found something wrong in this document, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.</p></body></html>
+<div class="toc">
+<ul>
+<li><a href="#setup-dns-records-for-your-mail-server">Setup DNS records for your mail server</a><ul>
+<li><a href="#a-record-for-server-hostname">A record for server hostname</a></li>
+<li><a href="#reverse-ptr-record-for-server-ip-address">Reverse PTR record for server IP address</a><ul>
+<li><a href="#what-is-a-reverse-ptr-record">What Is A Reverse PTR Record?</a></li>
+<li><a href="#why-do-you-need-a-reverse-ptr-record">Why Do You Need A Reverse PTR Record?</a></li>
+<li><a href="#how-do-you-setup-a-reverse-ptr">How Do You Setup A Reverse PTR?</a></li>
+</ul>
+</li>
+<li><a href="#mx-record-for-mail-domain-name">MX record for mail domain name</a><ul>
+<li><a href="#what-is-an-mx-record">What Is An MX Record?</a></li>
+<li><a href="#how-to-setup-the-mx-record">How To Setup The MX Record</a></li>
+</ul>
+</li>
+<li><a href="#spf-record-for-your-mail-domain-name">SPF record for your mail domain name</a></li>
+<li><a href="#dkim-record-for-your-mail-domain-name">DKIM record for your mail domain name</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<p><strong>NOTE: STILL WORKING IN PROGRESS</strong></p>
+<h2 id="a-record-for-server-hostname">A record for server hostname</h2>
+<h2 id="reverse-ptr-record-for-server-ip-address">Reverse PTR record for server IP address</h2>
+<h3 id="what-is-a-reverse-ptr-record">What Is A Reverse PTR Record?</h3>
+<p>PTR record or more appropriately a reverse PTR record is a process of resolving an IP address to its associated hostname. This is the exact opposite of the process of resolving a hostname to an IP address. Example, when you ping a name mail.somedomain.com it will get resolved to the ip address using the DNS to something like 192.168.1.5. Reverse PTR record does the opposite; it looks up the hostname for the given IP address. In the example above the PTR record for IP address 192.168.1.5 will get resolved to mail.somedomain.com.</p>
+<h3 id="why-do-you-need-a-reverse-ptr-record">Why Do You Need A Reverse PTR Record?</h3>
+<p>The most common use for looking up a PTR record is done by spam filters. Concept behind this idea is that fly by night spammers who send e-mails out using fake domains generally will not have the appropriate reverse PTR setup at the ISP DNS zone. This criterion is used spam filters to detect spam. If your domain does not have an appropriate reverse PTR record setup then chances are most e-mail spam filtering software will block e-mails from your mail server.</p>
+<h3 id="how-do-you-setup-a-reverse-ptr">How Do You Setup A Reverse PTR?</h3>
+<p>You would most likely need to contact your ISP and make a request to create a reverse PTR record for your mail server IP address. For example, if your mail server is mail.somedoamin.com then ask your ISP to setup a reverse PTR record 192.168.1.5 (your internet public IP address) in their revesre DNS zone. Reverse DNS zones are handled by your ISP even though you may have your own forward lookup DNS zone that you manage.</p>
+<h2 id="mx-record-for-mail-domain-name">MX record for mail domain name</h2>
+<h3 id="what-is-an-mx-record">What Is An MX Record?</h3>
+<p>Mail Exchanger Record or more commonly known as MX record is an entry in the DNS server of your domain that tells other mail servers where your mail server is located. When someone sends an e-mail to a user that exists on your mail server from the internet, MX provides the location or IP address where to send that e-mail. MX record is the location of your mail server that you have provided to the outside world via the DNS.</p>
+<p>Most mail servers generally have more than one MX record, meaning you could have more than one mail server setup to receive e-mails. Each MX record has a priority number assigned to it in the DNS. The MX record with lowest number has the highest priority and that is considered your primary MX record or your main mail server. The next lowest mx number has the next highest primary and so on. You generally have more than one mail server, one being the primary and the others as backups.</p>
+<h3 id="how-to-setup-the-mx-record">How To Setup The MX Record</h3>
+<p>If your ISP or domain name registrar is providing the DNS service, you can request them to set one up for you. If you manage your own DNS servers then you need to create the MX records in your DNS zone yourself.</p>
+<h2 id="spf-record-for-your-mail-domain-name">SPF record for your mail domain name</h2>
+<h2 id="dkim-record-for-your-mail-domain-name">DKIM record for your mail domain name</h2><br /><p>If you found something wrong in this document, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.</p></body></html>
