@@ -49,9 +49,11 @@ Sample record:
 NAME                TTL     TYPE    DATA
 
 www.mydomain.com.   1800    A       192.168.1.2
+mail.mydomain.com.  1800    A       192.168.1.5
 ```
 
-The end result of this record is that `www.mydomain.com.` points to `192.168.1.2`.
+The end result of this record is that `www.mydomain.com` points to
+`192.168.1.2`, and `mail.mydomain.com` points to `192.168.1.5`.
 
 ## Reverse PTR record for server IP address
 
