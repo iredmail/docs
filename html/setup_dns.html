@@ -45,7 +45,6 @@
 </li>
 </ul>
 </div>
-<p><strong>NOTE: STILL WORKING IN PROGRESS</strong></p>
 <p><strong>IMPORTANT NOTE</strong>: <code>A</code>, <code>MX</code> records are required, <code>Reverse PTR</code>, <code>SPF</code> and
 <code>DKIM</code> are optional but strongly recommended. All in all, set them all up please.</p>
 <h2 id="a-record-for-server-hostname">A record for server hostname</h2>
@@ -110,8 +109,8 @@ are email spam filtering softwares <strong>MIGHT</strong> block e-mails from you
 <h3 id="how-to-setup-a-reverse-ptr-record">How to setup a Reverse PTR record</h3>
 <p>You would most likely need to contact your ISP and make a request to create a
 reverse PTR record for your mail server IP address. For example, if your mail
-server hostname is <code>mail.somedoamin.com</code> then ask your ISP to setup a reverse
-PTR record 192.168.1.5 (your internet public IP address) in their revesre DNS
+server hostname is <code>mail.mydomain.com</code> then ask your ISP to setup a reverse
+PTR record <code>192.168.1.5</code> (your internet public IP address) in their revesre DNS
 zone. Reverse DNS zones are handled by your ISP even though you may have your
 own forward lookup DNS zone that you manage.</p>
 <h2 id="mx-record-for-mail-domain-name">MX record for mail domain name</h2>
