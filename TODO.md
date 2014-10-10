@@ -3,6 +3,7 @@
 # New
 
 * How to enable per-recipient policy lookup in Amavisd (@lookup_sql_dsn).
+* How to enable DNSBL in Postfix.
 
 # installation guides
 
