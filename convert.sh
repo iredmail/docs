@@ -12,8 +12,10 @@ README_MD="${PWD}/README.md"
 
 [ -d ${OUTPUT_DIR} ] || mkdir -p ${OUTPUT_DIR}
 
-CMD_CONVERT="python ${PWD}/tools/markdown2html.py"
+CONVERTER="${PWD}/tools/markdown2html.py"
+CMD_CONVERT="python ${CONVERTER}"
 #CMD_CONVERT=":"
+CHANGED_FILES="$(hg st)"
 
 strip_name_prefix()
 {
@@ -94,11 +96,20 @@ for chapter_dir in ${all_chapter_dirs}; do
         # 'src/default/' is path to view source file on bitbucket.org
         echo "* [${_article_title}](https://bitbucket.org/zhb/docs.iredmail.org/src/default/${article_file_without_prefix_path})" >> ${README_MD}
 
-        echo "* Converting: ${article_file}"
-        ${CMD_CONVERT} ${article_file} ${OUTPUT_DIR} \
-            output_filename="${article_html_file}" \
-            title="${_article_title}" \
-            add_index_link='yes'
+        # Convert file if it was modified
+        echo ${CHANGED_FILES} | grep ${article_file} > /dev/null
+        md_changed="$?"
+
+        echo ${CHANGED_FILES} | grep $(basename ${CONVERTER}) > /dev/null
+        converter_changed="$?"
+
+        if [ X"${md_changed}" != X'0' -o X"${converter_changed}" != X'0' ]; then
+            echo "* Converting: ${article_file}"
+            ${CMD_CONVERT} ${article_file} ${OUTPUT_DIR} \
+                output_filename="${article_html_file}" \
+                title="${_article_title}" \
+                add_index_link='yes'
+        fi
     done
 
     # Append addition links at the chapter bottom on index page.

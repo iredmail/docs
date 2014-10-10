@@ -222,12 +222,13 @@ tell amavisd the correct path of its config file. For example:</p>
 <li>Copy output of above command into one line, like below. It will be the value
   of DKIM DNS record.</li>
 </ul>
-<pre><code>v=DKIM1; p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDYArsr2BKbdhv9efugByf7LhaKtxFUt0ec5+1dWmcDv0WH0qZLFK711sibNN5LutvnaiuH+w3Kr8Ylbw8gq2j0UBokFcMycUvOBd7nsYn/TUrOua3Nns+qKSJBy88IWSh2zHaGbjRYujyWSTjlPELJ0H+5EV711qseo/omquskkwIDAQAB
+<pre><code>v=DKIM1; p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDYArsr2BKbdhv9efugBy...
 </code></pre>
 
-<p><strong>Note</strong>: BIND (<a href="http://www.isc.org/downloads/bind/">The most widely used Name Server Software</a>)
+<pre><code>__Note__: BIND ([The most widely used Name Server Software](http://www.isc.org/downloads/bind/))
 can handle this kind of multi-line format, so you can paste it in your domain
-zone file directly.</p>
+zone file directly.
+</code></pre>
 <ul>
 <li>
 <p>Add a <code>TXT</code> type DNS record, set value to the line you copied above:
@@ -249,4 +250,4 @@ some hours to be available.</p>
 <li>http://en.wikipedia.org/wiki/MX_record</li>
 <li>http://www.openspf.org/</li>
 <li>http://www.dkim.org/</li>
-</ul><br /><p>If you found something wrong in this document, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.</p></body></html>
+</ul><br /><p>If you found something wrong in this document, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.</p><br /><p>&copy 2014, iRedMail</p></body></html>

@@ -95,6 +95,7 @@ html += """\
 '''
 
 html += """<br /><p>If you found something wrong in this document, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.</p>"""
+html += """<br /><p>&copy 2014, iRedMail</p>"""
 html += '</body></html>'
 
 # Write to file
