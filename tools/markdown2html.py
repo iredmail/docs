@@ -12,7 +12,7 @@ import web
 import markdown
 
 # Markdown extensions
-MD_EXTENSIONS = ['toc', 'meta', 'extra', 'footnotes', ]
+MD_EXTENSIONS = ['toc', 'meta', 'extra', 'footnotes']
 
 # Get file name
 filename = sys.argv[1]
@@ -94,8 +94,12 @@ html += """\
 """
 '''
 
-html += """<br /><p>If you found something wrong in this document, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.</p>"""
-html += """<br /><p style="text-align: center;">&copy&copy Creative Commons</p>"""
+if 'add_page_footer' in cmd_opts:
+    html += """<br /><p style="text-align: center;">If you found something wrong
+in this document, please do
+<a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.</p>"""
+
+html += """<p style="text-align: center; color: grey;">&copy&copy Creative Commons</p>"""
 html += '</body></html>'
 
 # Write to file
