@@ -10,12 +10,17 @@ OUTPUT_DIR="${PWD}/html"
 INDEX_MD="${OUTPUT_DIR}/index.md"
 README_MD="${PWD}/README.md"
 
+# Pack all converted HTML files for downloading
+PACK_NAME="iredmail-docs"
+PACK_TAR_NAME="iredmail-docs.tar.bz2"
+
 [ -d ${OUTPUT_DIR} ] || mkdir -p ${OUTPUT_DIR}
 
 CONVERTER="${PWD}/tools/markdown2html.py"
 CMD_CONVERT="python ${CONVERTER}"
 #CMD_CONVERT=":"
 CHANGED_FILES="$(hg st)"
+TODAY="$(date +%Y-%m-%d)"
 
 strip_name_prefix()
 {
@@ -39,8 +44,8 @@ all_chapter_dirs="installation \
 # Get chapter info
 #   - title: _title.md
 #   - summary: _summary.md
-echo "We're working on migrating [old wiki documents](http://www.iredmail.org/wiki) to Markdown format for easier maintenance, you can find converted documents [here](https://bitbucket.org/zhb/docs.iredmail.org/src). Documents are all licensed under [Creative Commons](http://creativecommons.org/)." > ${INDEX_MD}
-echo "We're working on migrating [old wiki documents](http://www.iredmail.org/wiki) to Markdown format for easier maintenance, you can find converted documents [here](https://bitbucket.org/zhb/docs.iredmail.org/src). Documents are all licensed under [Creative Commons](http://creativecommons.org/)." > ${README_MD}
+echo "* Documents are all licensed under [Creative Commons](http://creativecommons.org/)." > ${INDEX_MD}
+echo "* We're migrating [old wiki documents](http://www.iredmail.org/wiki) to Markdown for easier maintenance, converted documents are available [here](https://bitbucket.org/zhb/docs.iredmail.org/src). [Download all documents](iredmail-docs.tar.bz2) (HTML) for offline reading." >> ${INDEX_MD}
 
 for chapter_dir in ${all_chapter_dirs}; do
     # Get articles
@@ -118,11 +123,22 @@ done
 
 #cd ${OUTPUT_DIR}
 
-# Generate index.html
+echo "* Converting ${INDEX_MD} for index page."
 ${CMD_CONVERT} ${INDEX_MD} ${OUTPUT_DIR} title="iRedMail Documentations"
 
 # Cleanup
 rm -f ${INDEX_MD}
+
+if echo "$@" | grep -q -- '--pack'; then
+    echo "* Pack all HTML files: ${PACK_TAR_NAME}"
+
+    cd ${PWD}
+    pack_dir="${PACK_NAME}-${TODAY}"
+    mkdir -p ${pack_dir}
+    cp -rf html/* ${pack_dir}
+    tar cjf ${PACK_TAR_NAME} ${pack_dir}
+    rm -rf ${pack_dir}
+fi
 
 # Sync newly generated HTML files to local diretories.
 if echo "$@" | grep -q -- '--sync-local'; then
@@ -130,7 +146,14 @@ if echo "$@" | grep -q -- '--sync-local'; then
     rm -rf ../web/docs/*
     cp -rf html/* ../web/docs/
 
+    if [ -f ${PACK_TAR_NAME} ]; then
+        cp ${PACK_TAR_NAME} ../web/docs/
+    fi
+
     # Copy to iredmail.com/docs/
     rm -rf /Volumes/STORAGE/Dropbox/Backup/iredmail.com/docs/*
     cp -rf html/* /Volumes/STORAGE/Dropbox/Backup/iredmail.com/docs/
+    cp -f ${PACK_TAR_NAME} /Volumes/STORAGE/Dropbox/Backup/iredmail.com/docs/
+
+    rm -f ${PACK_TAR_NAME}
 fi
