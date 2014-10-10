@@ -98,7 +98,7 @@ provided to the outside world via the DNS.
 
 Most mail servers generally have more than one MX record, meaning you could
 have more than one mail server setup to receive e-mails. Each MX record has a
-priority number assigned to it in the DNS. __The MX record with lowest number
+priority number assigned to it in the DNS. The MX record with __lowest number
 has the highest priority__ and that is considered your primary MX record or
 your main mail server. The next lowest mx number has the next highest primary
 and so on. You generally have more than one mail server, one being the primary
@@ -109,6 +109,17 @@ and the others as backups, only one MX for mail server is OK too.
 If your ISP or domain name registrar is providing the DNS service, you can
 request them to set one up for you. If you manage your own DNS servers then
 you need to create the MX records in your DNS zone yourself.
+
+Sample MX record:
+
+```
+NAME            PRIORITY    TYPE    DATA
+
+mydomain.com.   10          mx      mail.mydomain.com
+```
+
+The end result of this record is, emails sent to `[user]@mydomain.com` will
+be delivered to server `mail.mydomain.com`.
 
 ## SPF record for your mail domain name
 
@@ -190,7 +201,7 @@ tag. Note that the same identity can have multiple identifiers.
 
 ```bash
 # amavisd showkeys
-dkim._domainkey.iredmail.org.   3600 TXT (
+dkim._domainkey.mydomain.com.   3600 TXT (
   "v=DKIM1; p="
   "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDYArsr2BKbdhv9efugByf7LhaK"
   "txFUt0ec5+1dWmcDv0WH0qZLFK711sibNN5LutvnaiuH+w3Kr8Ylbw8gq2j0UBok"
@@ -224,7 +235,7 @@ zone file directly.
 
 ```shell
 # amavisd testkeys
-TESTING: dkim._domainkey.iredmail.org      => pass
+TESTING: dkim._domainkey.mydomain.com       => pass
 ```
 
 If it shows `pass`, it works.
@@ -234,7 +245,6 @@ some hours to be available.
 
 ## References
 
-* http://www.emailtalk.org/MX.aspx
 * http://en.wikipedia.org/wiki/MX_record
-* http://www.openspf.org/RFC_4408
-* http://www.simpledns.com/
+* http://www.openspf.org/
+* http://www.dkim.org/

@@ -44,11 +44,6 @@ for chapter_dir in ${all_chapter_dirs}; do
     # Get articles
     all_chapter_articles="$(find ${chapter_dir} -depth 1 -type f -iname '[0-9a-z]*.md')"
 
-    echo "* ${chapter_dir}/"
-    for article in ${all_chapter_articles}; do
-        echo "  - ${article}"
-    done
-
     # Output directory.
     # Remove prefix '[number]-' in chapter directory name.
     #chapter_dir_in_article="$(strip_name_prefix ${chapter_dir})"
@@ -99,7 +94,7 @@ for chapter_dir in ${all_chapter_dirs}; do
         # 'src/default/' is path to view source file on bitbucket.org
         echo "* [${_article_title}](https://bitbucket.org/zhb/docs.iredmail.org/src/default/${article_file_without_prefix_path})" >> ${README_MD}
 
-        #${CMD_CONVERT} ${article_file} ${_output_chapter_dir} \
+        echo "* Converting: ${article_file}"
         ${CMD_CONVERT} ${article_file} ${OUTPUT_DIR} \
             output_filename="${article_html_file}" \
             title="${_article_title}" \
