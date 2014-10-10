@@ -68,13 +68,6 @@ for chapter_dir in ${all_chapter_dirs}; do
         fi
     fi
 
-    #mkdir -p ${_output_chapter_dir} &>/dev/null
-
-    # Create ${_output_chapter_dir}/_summary.html
-    #if [ -f ${_summary_md} ]; then
-    #    ${CMD_CONVERT} ${_summary_md} ${_output_chapter_dir}
-    #fi
-
     # Article info:
     #   - title: first line (without '#') of markdown file
     for article_file in ${all_chapter_articles}; do
@@ -103,7 +96,7 @@ for chapter_dir in ${all_chapter_dirs}; do
         echo ${CHANGED_FILES} | grep $(basename ${CONVERTER}) > /dev/null
         converter_changed="$?"
 
-        if [ X"${md_changed}" != X'0' -o X"${converter_changed}" != X'0' ]; then
+        if [ X"${md_changed}" == X'0' -o X"${converter_changed}" == X'0' ]; then
             echo "* Converting: ${article_file}"
             ${CMD_CONVERT} ${article_file} ${OUTPUT_DIR} \
                 output_filename="${article_html_file}" \

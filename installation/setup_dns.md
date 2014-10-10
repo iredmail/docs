@@ -245,6 +245,6 @@ some hours to be available.
 
 ## References
 
-* http://en.wikipedia.org/wiki/MX_record
-* http://www.openspf.org/
-* http://www.dkim.org/
+* [http://en.wikipedia.org/wiki/MX_record](http://en.wikipedia.org/wiki/MX_record)
+* [http://www.openspf.org/](http://www.openspf.org/)
+* [http://www.dkim.org/](http://www.dkim.org/)
