@@ -10,20 +10,18 @@ With iRedAdmin-Pro, you can easily add mail list account by click menu:
 * Login to phpLDAPadmin (httpS://[your_server]/phpldapadmin/)
 * Expand LDAP tree in left panel, find `ou=Groups` under your domain dn.
 * Click `ou=Groups` in left panel, then click `Create a child entry` in right
-panel. Screenshot:
-
-[](http://screenshots.iredmail.googlecode.com/hg/iredmail/phpldapadmin/create_maillist_ou_groups.png)
+  panel.
 * Choose `mailList` in `ObjectClasses` list, then click `Proceed`.
 * Select `mail` as RDN, fill necessary values of attributes:
 
 ```
-dn: mail=demolist@demo.iredmail.org,ou=Groups,domainName=demo.iredmail.org,o=domains,dc=iredmail,dc=org
+dn: mail=demolist@mydomain.com,ou=Groups,domainName=mydomain.com,o=domains,dc=iredmail,dc=org
 accountStatus: active
 cn: demolist
 enabledService: mail
 enabledService: deliver
 enabledService: displayedInGlobalAddressBook
-mail: demolist@demo.iredmail.org
+mail: demolist@mydomain.com
 objectClass: mailList
 ```
 
@@ -33,7 +31,7 @@ Now switch to `ou=Users` under you domain LDAP dn in left panel.
 * Find user account which you want to assign to new mail list we created above.
 * Click user account in left panel.
 * If attribute `memberOfGroup` exists in right panel:
-	* click `Add value` under it and fill mail address of our new mail list. For example: `demolist@demo.iredmail.org`
+	* click `Add value` under it and fill mail address of our new mail list. For example: `demolist@mydomain.com`
 	* Click `Update Object` to save settings.
 * If attribute `memberOfGroup` doesn't exist in right panel:
 	* Click `Add new attribute` in right panel
@@ -46,13 +44,13 @@ You can add as many `memberOfGroup=xxx` as you want, which means this user is as
 Here's sample to add external users as mail list members:
 
 ```
-dn: memberOfGroup=demolist@demo.iredmail.org,ou=Externals,domainName=demo.iredmail.org,o=domains,dc=iredmail,dc=org
+dn: memberOfGroup=demolist@mydomain.com,ou=Externals,domainName=mydomain.com,o=domains,dc=iredmail,dc=org
 accountstatus: active
 enabledservice: mail
 enabledservice: deliver
 mail: user01@external.com
 mail: user02@external.com
-memberofgroup: demolist@demo.iredmail.org
+memberofgroup: demolist@mydomain.com
 objectclass: mailExternalUser
 ```
 
@@ -69,7 +67,7 @@ Aug  1 15:45:42 mail postfix/smtpd[6024]: NOQUEUE: reject: RCPT from unknown[1.1
 You can restrict who can send email to this mailing list by adding LDAP attribute `accessPolicy`. For example:
 
 ```
-dn: mail=demolist@demo.iredmail.org,ou=Groups,domainName=demo.iredmail.org,o=domains,dc=iredmail,dc=org
+dn: mail=demolist@mydomain.com,ou=Groups,domainName=mydomain.com,o=domains,dc=iredmail,dc=org
 accesspolicy: domain
 ...
 ```

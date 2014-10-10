@@ -19,18 +19,17 @@
 <li>Login to phpLDAPadmin (httpS://[your_server]/phpldapadmin/)</li>
 <li>Expand LDAP tree in left panel, find <code>ou=Groups</code> under your domain dn.</li>
 <li>Click <code>ou=Groups</code> in left panel, then click <code>Create a child entry</code> in right
-panel. Screenshot:</li>
+  panel.</li>
+<li>Choose <code>mailList</code> in <code>ObjectClasses</code> list, then click <code>Proceed</code>.</li>
+<li>Select <code>mail</code> as RDN, fill necessary values of attributes:</li>
 </ul>
-<p><a href="http://screenshots.iredmail.googlecode.com/hg/iredmail/phpldapadmin/create_maillist_ou_groups.png"></a>
-<em> Choose <code>mailList</code> in <code>ObjectClasses</code> list, then click <code>Proceed</code>.
-</em> Select <code>mail</code> as RDN, fill necessary values of attributes:</p>
-<pre><code>dn: mail=demolist@demo.iredmail.org,ou=Groups,domainName=demo.iredmail.org,o=domains,dc=iredmail,dc=org
+<pre><code>dn: mail=demolist@mydomain.com,ou=Groups,domainName=mydomain.com,o=domains,dc=iredmail,dc=org
 accountStatus: active
 cn: demolist
 enabledService: mail
 enabledService: deliver
 enabledService: displayedInGlobalAddressBook
-mail: demolist@demo.iredmail.org
+mail: demolist@mydomain.com
 objectClass: mailList
 </code></pre>
 
@@ -40,7 +39,7 @@ objectClass: mailList
 <li>Find user account which you want to assign to new mail list we created above.</li>
 <li>Click user account in left panel.</li>
 <li>If attribute <code>memberOfGroup</code> exists in right panel:<ul>
-<li>click <code>Add value</code> under it and fill mail address of our new mail list. For example: <code>demolist@demo.iredmail.org</code></li>
+<li>click <code>Add value</code> under it and fill mail address of our new mail list. For example: <code>demolist@mydomain.com</code></li>
 <li>Click <code>Update Object</code> to save settings.</li>
 </ul>
 </li>
@@ -54,13 +53,13 @@ objectClass: mailList
 </ul>
 <p>You can add as many <code>memberOfGroup=xxx</code> as you want, which means this user is assigned to many mail lists.</p>
 <p>Here's sample to add external users as mail list members:</p>
-<pre><code>dn: memberOfGroup=demolist@demo.iredmail.org,ou=Externals,domainName=demo.iredmail.org,o=domains,dc=iredmail,dc=org
+<pre><code>dn: memberOfGroup=demolist@mydomain.com,ou=Externals,domainName=mydomain.com,o=domains,dc=iredmail,dc=org
 accountstatus: active
 enabledservice: mail
 enabledservice: deliver
 mail: user01@external.com
 mail: user02@external.com
-memberofgroup: demolist@demo.iredmail.org
+memberofgroup: demolist@mydomain.com
 objectclass: mailExternalUser
 </code></pre>
 
@@ -72,7 +71,7 @@ objectclass: mailExternalUser
 
 <h2 id="mail-list-access-policies">Mail list access policies</h2>
 <p>You can restrict who can send email to this mailing list by adding LDAP attribute <code>accessPolicy</code>. For example:</p>
-<pre><code>dn: mail=demolist@demo.iredmail.org,ou=Groups,domainName=demo.iredmail.org,o=domains,dc=iredmail,dc=org
+<pre><code>dn: mail=demolist@mydomain.com,ou=Groups,domainName=mydomain.com,o=domains,dc=iredmail,dc=org
 accesspolicy: domain
 ...
 </code></pre>
