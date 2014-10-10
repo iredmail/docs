@@ -15,7 +15,7 @@
 <ul>
 <li><a href="#quarantining">Quarantining</a><ul>
 <li><a href="#summary">Summary</a></li>
-<li><a href="#update-amavisd-config-file-to-enable-normal-quarantining">Update Amavisd config file to enable normal quarantining</a></li>
+<li><a href="#update-amavisd-config-file-to-enable-quarantining">Update Amavisd config file to enable quarantining</a></li>
 <li><a href="#configure-iredadmin-pro-to-manage-quarantined-mails">Configure iRedAdmin-Pro to manage quarantined mails</a></li>
 <li><a href="#quarantine-clean-emails">Quarantine clean emails</a></li>
 <li><a href="#screenshots">Screenshots</a></li>
@@ -29,7 +29,7 @@ by iRedMail but disabled by default, you can easily enable quarantining with
 this tutorial.</p>
 <p>With below steps, Virus/Spam/Banned emails will be quarantined into SQL database.
 You can then manage quarantined emails with iRedAdmin-Pro.</p>
-<h2 id="update-amavisd-config-file-to-enable-normal-quarantining">Update Amavisd config file to enable normal quarantining</h2>
+<h2 id="update-amavisd-config-file-to-enable-quarantining">Update Amavisd config file to enable quarantining</h2>
 <p>Edit Amavisd config file, find below settings and update them. If it doesn't
 exist, please add them.</p>
 <ul>
@@ -88,12 +88,14 @@ amavisd_db_name = 'amavisd'
 amavisd_db_user = 'amavisd'
 amavisd_db_password = 'password'
 
+# Log basic info of inbound/outbound, no mail body stored.
 amavisd_enable_logging = True
 
+# Quarantining management
 amavisd_enable_quarantine = True
 amavisd_quarantine_port = 9998
 
-# This setting is used for per-recipient spam policy
+# Per-recipient policy lookup
 amavisd_enable_policy_lookup = True
 </code></pre>
 
@@ -104,19 +106,17 @@ or delete them.</p>
 <p>Screenshots attached at the bottom.</p>
 <h2 id="quarantine-clean-emails">Quarantine clean emails</h2>
 <p>If you want to quarantine clean emails into SQL database for further approval
-or whatever reason, please try below steps:</p>
-<ul>
-<li>Update below parameters in Amavisd config file:</li>
-</ul>
-<pre><code class="perl"># File: /etc/amavisd/amavisd.conf
-
-$clean_quarantine_method = 'sql:';
+or whatever reason, please follow below steps:</p>
+<ol>
+<li>Update below parameters in Amavisd config file <code>amavisd.conf</code>:</li>
+</ol>
+<pre><code class="perl">$clean_quarantine_method = 'sql:';
 $clean_quarantine_to = 'clean-quarantine';
 </code></pre>
 
-<ul>
-<li>Find policy bank 'MYUSERS', append two lines in this policy bank:</li>
-</ul>
+<ol>
+<li>Find policy bank <code>MYUSERS</code>, append two lines in this policy bank:</li>
+</ol>
 <pre><code class="perl">$policy_bank{'MYUSERS'} = {
     ...
     clean_quarantine_method =&gt; 'sql:',
@@ -124,9 +124,9 @@ $clean_quarantine_to = 'clean-quarantine';
 }
 </code></pre>
 
-<ul>
+<ol>
 <li>Restart Amavisd service.</li>
-</ul>
+</ol>
 <p>Now all clean emails sent by your mail users will be quarantined into SQL
 database.</p>
 <h2 id="screenshots">Screenshots</h2>

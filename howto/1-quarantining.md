@@ -10,7 +10,7 @@ this tutorial.
 With below steps, Virus/Spam/Banned emails will be quarantined into SQL database.
 You can then manage quarantined emails with iRedAdmin-Pro.
 
-## Update Amavisd config file to enable normal quarantining
+## Update Amavisd config file to enable quarantining
 
 Edit Amavisd config file, find below settings and update them. If it doesn't
 exist, please add them.
@@ -76,17 +76,18 @@ amavisd_db_name = 'amavisd'
 amavisd_db_user = 'amavisd'
 amavisd_db_password = 'password'
 
+# Log basic info of inbound/outbound, no mail body stored.
 amavisd_enable_logging = True
 
+# Quarantining management
 amavisd_enable_quarantine = True
 amavisd_quarantine_port = 9998
 
-# This setting is used for per-recipient spam policy
+# Per-recipient policy lookup
 amavisd_enable_policy_lookup = True
 ```
 
 Restart Apache web server to make it work.
-
 
 You can now login to iRedAdmin-Pro, and manage quarantined mails via menu
 `System -> Quarantined Mails`. Choose action in drop-down menu list to release
@@ -97,18 +98,16 @@ Screenshots attached at the bottom.
 ## Quarantine clean emails
 
 If you want to quarantine clean emails into SQL database for further approval
-or whatever reason, please try below steps:
+or whatever reason, please follow below steps:
 
-* Update below parameters in Amavisd config file:
+1. Update below parameters in Amavisd config file `amavisd.conf`:
 
 ```perl
-# File: /etc/amavisd/amavisd.conf
-
 $clean_quarantine_method = 'sql:';
 $clean_quarantine_to = 'clean-quarantine';
 ```
 
-* Find policy bank 'MYUSERS', append two lines in this policy bank:
+2. Find policy bank `MYUSERS`, append two lines in this policy bank:
 
 ```perl
 $policy_bank{'MYUSERS'} = {
@@ -118,7 +117,7 @@ $policy_bank{'MYUSERS'} = {
 }
 ```
 
-* Restart Amavisd service.
+3. Restart Amavisd service.
 
 Now all clean emails sent by your mail users will be quarantined into SQL
 database.
