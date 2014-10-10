@@ -1,5 +1,9 @@
 # TODO
 
+# New
+
+* How to enable per-recipient policy lookup in Amavisd (@lookup_sql_dsn).
+
 # installation guides
 
 * http://www.iredmail.org/install_iredmail_on_debian.html
