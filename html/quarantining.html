@@ -107,16 +107,16 @@ or delete them.</p>
 <h2 id="quarantine-clean-emails">Quarantine clean emails</h2>
 <p>If you want to quarantine clean emails into SQL database for further approval
 or whatever reason, please follow below steps:</p>
-<ol>
+<ul>
 <li>Update below parameters in Amavisd config file <code>amavisd.conf</code>:</li>
-</ol>
+</ul>
 <pre><code class="perl">$clean_quarantine_method = 'sql:';
 $clean_quarantine_to = 'clean-quarantine';
 </code></pre>
 
-<ol>
+<ul>
 <li>Find policy bank <code>MYUSERS</code>, append two lines in this policy bank:</li>
-</ol>
+</ul>
 <pre><code class="perl">$policy_bank{'MYUSERS'} = {
     ...
     clean_quarantine_method =&gt; 'sql:',
@@ -124,9 +124,9 @@ $clean_quarantine_to = 'clean-quarantine';
 }
 </code></pre>
 
-<ol>
+<ul>
 <li>Restart Amavisd service.</li>
-</ol>
+</ul>
 <p>Now all clean emails sent by your mail users will be quarantined into SQL
 database.</p>
 <h2 id="screenshots">Screenshots</h2>

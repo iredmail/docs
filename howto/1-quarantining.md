@@ -100,14 +100,14 @@ Screenshots attached at the bottom.
 If you want to quarantine clean emails into SQL database for further approval
 or whatever reason, please follow below steps:
 
-1. Update below parameters in Amavisd config file `amavisd.conf`:
+* Update below parameters in Amavisd config file `amavisd.conf`:
 
 ```perl
 $clean_quarantine_method = 'sql:';
 $clean_quarantine_to = 'clean-quarantine';
 ```
 
-2. Find policy bank `MYUSERS`, append two lines in this policy bank:
+* Find policy bank `MYUSERS`, append two lines in this policy bank:
 
 ```perl
 $policy_bank{'MYUSERS'} = {
@@ -117,7 +117,7 @@ $policy_bank{'MYUSERS'} = {
 }
 ```
 
-3. Restart Amavisd service.
+* Restart Amavisd service.
 
 Now all clean emails sent by your mail users will be quarantined into SQL
 database.
