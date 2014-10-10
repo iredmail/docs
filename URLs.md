@@ -24,6 +24,7 @@
 
 # wiki FAQ
 
+* http://www.iredmail.org/wiki/index.php?title=Addition/MySQL/Catch-all
 * http://www.iredmail.org/wiki/index.php?title=IRedAdmin-Pro/FAQ/change.default.password.policy
 * http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/Backup
 * http://www.iredmail.org/forum/topic1968-enabling-ipv6-for-your-iredmail-postfixdovecot.html

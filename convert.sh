@@ -38,6 +38,7 @@ all_chapter_dirs="installation \
                   integrations \
                   cluster \
                   backup-restore \
+                  migrations \
                   troubleshooting \
                   faq"
 
