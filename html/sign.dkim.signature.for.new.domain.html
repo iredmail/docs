@@ -1,0 +1,95 @@
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Sign DKIM signature on outgoing emails for new mail domain</title>
+        <link href="./css/markdown.css" rel="stylesheet"></head>
+    </head>
+    <body>
+    
+    <div id="navigation">
+        <a href="http://www.iredmail.org" target="_blank">iRedMail web site</a>
+    
+        // <a href="./index.html">Document Index</a>
+    </div><h1 id="sign-dkim-signature-on-outgoing-emails-for-new-mail-domain">Sign DKIM signature on outgoing emails for new mail domain</h1>
+<blockquote>
+<p>Don't know where Amavisd config file is? check this tutorial:
+<a href="file.locations.html#amavisd">Locations of configuration and log files of mojor components</a>.</p>
+</blockquote>
+<p>iRedMail configures Amavisd to sign outgoing emails for the first mail domain
+you added during iRedMail installation. If you added new mail domain, you
+should update Amavisd config file to sign DKIM signature for it.</p>
+<p>Let's say your first mail domain added during iRedMail installation is
+<code>mydomain.com</code>, and new mail domain is <code>newdomain.com</code>, please follow below
+steps to enable DKIM signing for outgoing emails of this domain.</p>
+<ul>
+<li>Generate new DKIM key for new domain.</li>
+</ul>
+<pre><code class="shell"># amavisd-new genrsa /var/lib/dkim/newdomain.com.pem
+</code></pre>
+
+<ul>
+<li>Find below setting in Amavisd config file <code>amavisd.conf</code>:</li>
+</ul>
+<pre><code>dkim_key('mydomain.com', &quot;dkim&quot;, &quot;/var/lib/dkim/mydomain.com.pem&quot;);
+</code></pre>
+
+<p>Add one line after above line like below:</p>
+<pre><code>dkim_key('newdomain.com', &quot;dkim&quot;, &quot;/var/lib/dkim/newdomain.com.pem&quot;);
+</code></pre>
+
+<ul>
+<li>Find below setting in Amavisd config file <code>amavisd.conf</code>:</li>
+</ul>
+<pre><code>@dkim_signature_options_bysender_maps = ( {
+    ...
+    &quot;mydomain.com&quot;  =&gt; { d =&gt; &quot;mydomain.com&quot;, a =&gt; 'rsa-sha256', ttl =&gt; 10*24*3600 },
+    ...
+});
+</code></pre>
+
+<p>Add one line after <code>"mydomain.com"</code> line like below:</p>
+<pre><code>@dkim_signature_options_bysender_maps = ( {
+    ...
+    &quot;mydomain.com&quot;  =&gt; { d =&gt; &quot;mydomain.com&quot;, a =&gt; 'rsa-sha256', ttl =&gt; 10*24*3600 },
+    &quot;newdomain.com&quot;  =&gt; { d =&gt; &quot;newdomain.com&quot;, a =&gt; 'rsa-sha256', ttl =&gt; 10*24*3600 },
+    ...
+});
+</code></pre>
+
+<ul>
+<li>Restart Amavisd service.</li>
+</ul>
+<h2 id="use-one-dkim-key-for-all-mail-domains">Use one DKIM key for all mail domains</h2>
+<p>For compatibility with dkim_milter the signing domain can include a '*'
+as a wildcard - this is not recommended as this way amavisd could produce
+signatures which have no corresponding public key published in DNS.
+The proper way is to have one dkim_key entry for each mail domain.</p>
+<p>If you still want to try this, please follow below steps:</p>
+<ul>
+<li>Find below setting in Amavisd config file <code>amavisd.conf</code>:</li>
+</ul>
+<pre><code>dkim_key('mydomain.com', &quot;dkim&quot;, &quot;/var/lib/dkim/mydomain.com.pem&quot;);
+</code></pre>
+
+<ul>
+<li>Replace it by below line:</li>
+</ul>
+<pre><code>dkim_key('*', &quot;dkim&quot;, &quot;/var/lib/dkim/mydomain.com.pem&quot;);
+</code></pre>
+
+<ul>
+<li>Restart Amavisd serivce.</li>
+</ul>
+<p>With above setting, all outbound emails with be signed with this dkim key.
+And Amavisd will show a warning message when start amavisd service:</p>
+<blockquote>
+<p>dkim: wildcard in signing domain (key#1, *), may produce unverifiable
+signatures with no published public key, avoid!</p>
+</blockquote>
+<h2 id="see-also">See also</h2>
+<ul>
+<li>Don't know what DKIM is? Check our tutorial here:
+  <a href="setup_dns.html#dkim-record-for-your-mail-domain-name">What is a DKIM DNS record</a>.</li>
+</ul><br /><p style="text-align: center;">If you found something wrong
+in this document, please do
+<a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.</p><p style="text-align: center; color: grey;">&copy&copy Creative Commons</p></body></html>

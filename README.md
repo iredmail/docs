@@ -7,9 +7,10 @@
 * [Change mail attachment size](https://bitbucket.org/zhb/docs.iredmail.org/src/default/howto/0-change.mail.attachment.size.md)
 * [Completely disable Amavisd + ClamAV + SpamAssassin](https://bitbucket.org/zhb/docs.iredmail.org/src/default/howto/0-completely.disable.amavisd.clamav.spamassassin.md)
 * [Enable SMTPS service (SMTP over SSL, port 465)](https://bitbucket.org/zhb/docs.iredmail.org/src/default/howto/0-enable.smtps.md)
-* [Amavisd + SpamAssassin not working, no mail header (X-Spam-*) inserted.](https://bitbucket.org/zhb/docs.iredmail.org/src/default/howto/1-amavisd.no.x-spam.headers.md)
 * [Disable spam virus scanning for outgoing mails](https://bitbucket.org/zhb/docs.iredmail.org/src/default/howto/1-disable.spam.virus.scanning.for.outgoing.mails.md)
+* [Amavisd + SpamAssassin not working, no mail header (X-Spam-*) inserted.](https://bitbucket.org/zhb/docs.iredmail.org/src/default/howto/1-no.x-spam.headers.md)
 * [Quarantining](https://bitbucket.org/zhb/docs.iredmail.org/src/default/howto/1-quarantining.md)
+* [Sign DKIM signature on outgoing emails for new mail domain](https://bitbucket.org/zhb/docs.iredmail.org/src/default/howto/1-sign.dkim.signature.for.new.domain.md)
 * [Allow insecure POP3/IMAP/SMTP connections without STARTTLS](https://bitbucket.org/zhb/docs.iredmail.org/src/default/howto/2-allow.insecure.pop3.imap.smtp.connections.md)
 * [Allow user to send email without authentication](https://bitbucket.org/zhb/docs.iredmail.org/src/default/howto/allow.user.to.send.email.without.authentication.md)
 * [Configure Thunderbird as mail client (POP3/IMAP, SMTP and global ldap address book)](https://bitbucket.org/zhb/docs.iredmail.org/src/default/howto/configure.thunderbird.md)
@@ -40,4 +41,5 @@
 * [Turn on debug mode in Dovecot](https://bitbucket.org/zhb/docs.iredmail.org/src/default/troubleshooting/turn.on.debug.mode.in.dovecot.md)
 * [Turn on debug mode in OpenLDAP](https://bitbucket.org/zhb/docs.iredmail.org/src/default/troubleshooting/turn.on.debug.mode.in.openldap.md)
 # Frequently Asked Questions
+* [Locations of configuration and log files of mojor components](https://bitbucket.org/zhb/docs.iredmail.org/src/default/faq/file.locations.md)
 * [Why append timestamp in maildir path](https://bitbucket.org/zhb/docs.iredmail.org/src/default/faq/why.append.timestamp.in.maildir.path.md)

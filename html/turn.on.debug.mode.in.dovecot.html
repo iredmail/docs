@@ -11,23 +11,16 @@
     
         // <a href="./index.html">Document Index</a>
     </div><h1 id="turn-on-debug-mode-in-dovecot">Turn on debug mode in Dovecot</h1>
+<blockquote>
+<p>Don't know where Amavisd config file is? check this tutorial:
+<a href="file.locations.html#dovecot">Locations of configuration and log files of mojor components</a>.</p>
+</blockquote>
 <p>To turn on debug mode in Dovecot, please update below parameter in Dovecot
 config file <code>dovecot.conf</code>:</p>
-<ul>
-<li>on Linux and OpenBSD, it's <code>/etc/dovecot/dovecot.conf</code></li>
-<li>on FreeBSD, it's <code>/usr/local/etc/dovecot/dovecot.conf</code></li>
-</ul>
 <pre><code>mail_debug = yes
 </code></pre>
 
 <p>Restart Dovecot service.</p>
-<p>Dovecot is configured to log into 3 log files:</p>
-<ul>
-<li><code>/var/log/dovecot.log</code>: main log file.</li>
-<li><code>/var/log/dovecot-sieve.log</code>: sieve related log.</li>
-<li><code>/var/log/dovecot-lmtp.log</code>: lmtp related log. <strong>NOTE</strong>: old iRedMail release
-  doesn't have this file.</li>
-</ul>
 <p>If you need authentication and password related debug message, turn on related
 settings and restart dovecot service.</p>
 <pre><code>auth_verbose = yes

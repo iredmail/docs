@@ -105,7 +105,7 @@ Now disable it immediately without rebooting your server.
 It's now ready to start iRedMail installer, it will ask you several simple
 questions, that's all steps to setup a full-featured mail server.
 
-> For Chinese users: Our domain name "iredmail.org" is blocked in China mainland since Jun 04, 2011, please replace all 'iredmail.org' by its IP address "106.187.51.47" (without quotes) in /root/iRedMail-x.y.z/pkgs/get_all.sh BEFORE executing "iRedMail.sh". This is a Linode VPS hosted on Tokyo, Japan.
+> For Chinese users: Our domain name "iredmail.org" is blocked in China mainland since Jun 04, 2011, please replace all 'iredmail.org' by its IP address "106.187.51.47" (without quotes) in /root/iRedMail-x.y.z/pkgs/get_all.sh BEFORE executing "iRedMail.sh". This is a Linode VPS hosted in Tokyo, Japan.
 
 ```
 # cd /root/iRedMail-x.y.z/

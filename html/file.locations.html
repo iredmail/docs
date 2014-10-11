@@ -1,0 +1,99 @@
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Locations of configuration and log files of mojor components</title>
+        <link href="./css/markdown.css" rel="stylesheet"></head>
+    </head>
+    <body>
+    
+    <div id="navigation">
+        <a href="http://www.iredmail.org" target="_blank">iRedMail web site</a>
+    
+        // <a href="./index.html">Document Index</a>
+    </div><h1 id="locations-of-configuration-and-log-files-of-mojor-components">Locations of configuration and log files of mojor components</h1>
+<div class="toc">
+<ul>
+<li><a href="#locations-of-configuration-and-log-files-of-mojor-components">Locations of configuration and log files of mojor components</a><ul>
+<li><a href="#postfix">Postfix</a><ul>
+<li><a href="#config-files">Config files</a></li>
+<li><a href="#log-files">Log files</a></li>
+</ul>
+</li>
+<li><a href="#dovecot">Dovecot</a><ul>
+<li><a href="#config-files_1">Config files</a></li>
+<li><a href="#log-files_1">Log files</a></li>
+</ul>
+</li>
+<li><a href="#amavisd">Amavisd</a><ul>
+<li><a href="#main-config-files">Main config files</a></li>
+<li><a href="#log-files_2">Log files</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<h2 id="postfix">Postfix</h2>
+<ul>
+<li>on <code>Linux</code> and <code>OpenBSD</code>, Postfix config files are placed under <code>/etc/postfix/</code>.</li>
+<li>on <code>FreeBSD</code>, Postfix config files are placed under <code>/usr/local/etc/postfix/</code>.</li>
+</ul>
+<h3 id="config-files">Config files</h3>
+<p>Main config files:</p>
+<ul>
+<li><code>main.cf</code>: contains most configurations.</li>
+<li><code>master.cf</code>: contains transport related settings.</li>
+<li><code>aliases</code>: aliases for system accounts.</li>
+<li><code>helo_access.pcre</code>: PCRE regular expressions of HELO check rules.</li>
+<li><code>ldap/*.cf</code>: used to query mail accounts. LDAP backends only.</li>
+<li><code>mysql/*.cf</code>: used to query mail accounts. MySQL/MariaDB backends only.</li>
+<li><code>pgsql/*.cf</code>: used to query mail accounts. PostgreSQL backend only.</li>
+</ul>
+<h3 id="log-files">Log files</h3>
+<ul>
+<li>on <code>RHEL/CentOS</code>, <code>FreeBSD</code>, <code>OpenBSD</code>, it's <code>/var/log/maillog</code>.</li>
+<li>on <code>Debian</code>, <code>Ubuntu</code>, it's <code>/var/log/mail.log</code>.</li>
+</ul>
+<h2 id="dovecot">Dovecot</h2>
+<ul>
+<li>on <code>Linux</code> and <code>OpenBSD</code>, Dovecot config files are placed under <code>/etc/dovecot/</code>.</li>
+<li>on <code>FreeBSD</code>, Dovecot config files are placed under <code>/usr/local/etc/dovecot/</code>.</li>
+</ul>
+<h3 id="config-files_1">Config files</h3>
+<p>Main config file is <code>dovecot.conf</code>. It contains most configurations.</p>
+<p>Addition config files:</p>
+<ul>
+<li><code>dovecot-ldap.conf</code>: used to query mail users and passwords. LDAP backends only.</li>
+<li><code>dovecot-mysql.conf</code>: used to query mail users and passwords. MySQL/MariaDB backends only.</li>
+<li><code>dovecot-pgsql.conf</code>: used to query mail users and passwords. PostgreSQL backend only.</li>
+<li><code>dovecot-used-quota.conf</code>: used to store and query real-time per-user mailbox quota.</li>
+<li><code>dovecot-share-folder.conf</code>: used to store settings of shared IMAP mailboxes.</li>
+<li><code>dovecot-master-users-password</code>: used to store master users/passwords.</li>
+</ul>
+<h3 id="log-files_1">Log files</h3>
+<ul>
+<li><code>/var/log/dovecot.log</code>: main log file.</li>
+<li><code>/var/log/dovecot-sieve.log</code>: sieve related log. NOTE: on old iRedMail
+  releases, it's <code>/var/log/sieve.log</code>.</li>
+<li><code>/var/log/dovecot-lmtp.log</code>: LMTP related log.</li>
+</ul>
+<h2 id="amavisd">Amavisd</h2>
+<h3 id="main-config-files">Main config files</h3>
+<ul>
+<li>on <code>RHEL/CentOS</code>: it's <code>/etc/amavisd/amavisd.conf</code>.</li>
+<li>
+<p>on <code>Debian/Ubuntu</code>: it's <code>/etc/amavis/conf.d/50-user</code>.</p>
+<p>Debian/Ubuntu have some addition config files under <code>/etc/amavis/conf.d/</code>,
+but you can always override them in file <code>/etc/amavis/conf.d/50-user</code>.
+When we mention <code>amavisd.conf</code> in other tutorials, it means <code>50-user</code> on
+Debian/Ubuntu.</p>
+</li>
+<li>
+<p>on <code>FreeBSD</code>: it's <code>/usr/local/etc/amavisd.conf</code>.</p>
+</li>
+<li>on <code>OpenBSD</code>: it's <code>/etc/amavisd.conf</code>.</li>
+</ul>
+<h3 id="log-files_2">Log files</h3>
+<p>Amavisd is configured to log to <a href="#postfix">Postfix log file</a> by iRedMail.</p><br /><p style="text-align: center;">If you found something wrong
+in this document, please do
+<a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.</p><p style="text-align: center; color: grey;">&copy&copy Creative Commons</p></body></html>

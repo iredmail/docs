@@ -66,6 +66,7 @@ blockquote {
     border-left:.5em solid #eee;
     padding: 0 2em;
     margin-left:0;
+    font-style: italic;
     /*max-width: 476px;*/
 }
 blockquote  cite {
