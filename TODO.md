@@ -2,6 +2,7 @@
 
 # New
 
+* Use same DKIM PEM file for all mail domains.
 * How to enable per-recipient policy lookup in Amavisd (@lookup_sql_dsn).
 * How to enable DNSBL in Postfix.
 * ~~ How to sign DKIM signature on sent emails for new mail domain. mention how
