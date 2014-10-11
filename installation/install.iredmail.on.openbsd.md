@@ -1,4 +1,4 @@
-# Install iRedMail on Red Hat Enterprise Linux, CentOS
+# Install iRedMail on OpenBSD
 
 [TOC]
 
@@ -11,12 +11,30 @@
 > existing files/configurations althought it will backup files before modifing,
 > and it may be not working as expected.
 
-To install iRedMail on RHEL or CentOS Linux, you need:
+To install iRedMail on OpenBSD, you need:
 
-* A FRESH, working RHEL or CentOS system. Supported releases are listed on
+* A FRESH, working OpenBSD system. Supported releases are listed on
   [Download](../download.html) page.
 * At least `1 GB` of memory is required for low traffic production server.
   Spam/Virus scanning will take most system resource.
+* Required OpenBSD installation file sets are (replace `[XX]` by the real
+  OpenBSD release number):
+
+    * base[XX].tgz
+    * etc[XX].tgz
+    * comp[XX].tgz
+    * man[XX].tgz
+    * xbase[XX].tgz
+
+Notes:
+
+* All binary packages will be installed with command `pkg_add -i`.
+* Apache chroot is disabled by default, required by iRedAdmin - the web-based
+  admin panel.
+* PF is enabled by default, with basic rules for ssh and mail services.
+* System built-in [`spamd(8)`](http://www.openbsd.org/cgi-bin/man.cgi/OpenBSD-current/man8/spamd.8) is enabled by default for greylisting,
+  whitelisting, blacklisting.
+* Sendmail is disabled by default, replaced by Postfix.
 
 ## Preparations
 
@@ -32,56 +50,55 @@ $ hostname -f
 mx.example.com
 ```
 
-On RHEL/CentOS/Scientific Linux, hostname is set in two files:
+On OpenBSD, hostname is set in two files: `/etc/myname` and `/etc/hosts`.
 
-* For RHEL/CentOS/Scientific Linux 6, hostname is defined in /etc/sysconfig/network.
-
-```
-HOSTNAME=mx.example.com
-```
-
-For RHEL/CentOS/Scientific Linux 7, hostname is defined in /etc/hostname.
+* `/etc/myname`: FQDN.
 
 ```
 mx.example.com
 ```
 
-* `/etc/hosts`: hostname <=> IP address mapping. Warning: List the FQDN hostname as first item.
+* `/etc/hosts`: static table lookup for hostnames. __Warning__: Please list the
+  FQDN hostname as first item.
 
 ```
+# Part of file: /etc/hosts
 127.0.0.1   mx.example.com mx localhost localhost.localdomain
 ```
 
-Verify the FQDN hostname. If it wasn't changed, please reboot server to make it work.
+Verify the FQDN hostname. If it wasn't changed after updating above two files,
+please reboot server to make it work.
 
 ```
 $ hostname -f
 mx.example.com
 ```
 
-### Disable SELinux.
+### Choose a nearest mirror site for installing binary packages
 
-iRedMail doesn't work with SELinux, so please disable it by setting below
-value in its config file `/etc/selinux/config`.
+iRedMail will install all required binary packages with command `pkg_add -i`,
+it will check whether you have mirror site defined in `PKG_PATH` environment
+variable, if defined, `pkg_add` will install packages from defined mirror site.
+
+It's recommended to install packages from a mirror site, to reduce server
+load on OpenBSD primary servers. Also, installing package from a nearest
+mirror site will speed up package installation. You can find mirror list
+near you on OpenBSD web site:
+[Getting OpenBSD](http://www.openbsd.org/ftp.html#http).
+
+Now login to the OpenBSD server as root user, set variable `PKG_PATH` in file
+`/root/.profile` like below (use your nearest mirror site instead):
 
 ```
-SELINUX=disabled
+export PKG_PATH="http://ftp.jaist.ac.jp/pub/OpenBSD/`uname -r`/packages/`machine -a`/"
 ```
 
-Now disable it immediately without rebooting your server.
+Install Bash shell, it's required by iRedMail.
 
 ```
-# setenforce 0
+# . /root/.profile    # <- This steps is required, used to set PKG_PATH without re-login.
+# pkg_add bash
 ```
-
-### Enable yum repositories for installing new packages
-
-* For CentOS or Scientific Linux, please enable CentOS/Scientific official
-  yum repositories, and __DISABLE__ all third-party yum repositories to
-  avoid package conflict.
-
-* For Red Hat Enterprise Linux, please enable Red Hat Network to install
-  packages, or create a local yum repository with DVD/CD ISO images.
 
 ### Download the latest release of iRedMail
 
@@ -133,11 +150,11 @@ management and maintenance after installation.
 * If you choose to store mail accounts in OpenLDAP, iRedMail installer will
 ask you two questions about OpenLDAP.
 
-    * LDAP suffix.
+LDAP suffix.
 
 ![](../images/installation/iredmail/ldap_suffix.png)
 
-    * Password of LDAP root dn.
+Password of LDAP root dn.
 
 ![](../images/installation/iredmail/pw_of_ldap_root_dn.png)
 
@@ -211,3 +228,13 @@ hostname or IP address.
 Please post all issues, feedbacks, feature requests, suggestions in our [online
 support forum](http://www.iredmail.org/forum/), it's more responsible than you
 expected.
+
+## Notes about binary packages provided by iRedMail project
+
+Most binary packages in iRedMail yum repository comes from below repositories,
+packages with `-ired` flag were packed by iRedMail project.
+
+* [Dag Wieers](http://packages.sw.be/)
+* [EPEL](http://download.fedora.redhat.com/pub/epel/)
+* [ATrpms](http://atrpms.net/)
+

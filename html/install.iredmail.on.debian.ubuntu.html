@@ -1,7 +1,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title>Install iRedMail on Debian Linux</title>
+        <title>Install iRedMail on Debian or Ubuntu Linux</title>
         <link href="./css/markdown.css" rel="stylesheet"></head>
     </head>
     <body>
@@ -10,14 +10,14 @@
         <a href="http://www.iredmail.org" target="_blank">iRedMail web site</a>
     
         // <a href="./index.html">Document Index</a>
-    </div><h1 id="install-iredmail-on-debian-linux">Install iRedMail on Debian Linux</h1>
+    </div><h1 id="install-iredmail-on-debian-or-ubuntu-linux">Install iRedMail on Debian or Ubuntu Linux</h1>
 <div class="toc">
 <ul>
-<li><a href="#install-iredmail-on-debian-linux">Install iRedMail on Debian Linux</a><ul>
+<li><a href="#install-iredmail-on-debian-or-ubuntu-linux">Install iRedMail on Debian or Ubuntu Linux</a><ul>
 <li><a href="#system-requirements">System Requirements</a></li>
 <li><a href="#preparations">Preparations</a><ul>
 <li><a href="#set-a-fully-qualified-domain-name-fqdn-hostname-on-your-server">Set a fully qualified domain name (FQDN) hostname on your server</a></li>
-<li><a href="#enable-default-official-debian-apt-repositories">Enable default official Debian apt repositories</a></li>
+<li><a href="#enable-default-official-debianubuntu-apt-repositories">Enable default official Debian/Ubuntu apt repositories</a></li>
 <li><a href="#download-the-latest-release-of-iredmail">Download the latest release of iRedMail</a></li>
 </ul>
 </li>
@@ -40,14 +40,20 @@ and configure them for you automatically. Otherwise it may override your
 existing files/configurations althought it will backup files before modifing,
 and it may be not working as expected.</p>
 </blockquote>
-<p>To install iRedMail on Debian Linux, you need:</p>
+<p>To install iRedMail on Debian or Ubuntu Linux, you need:</p>
 <ul>
-<li>A FRESH, working Debian Linux. Supported releases are listed on
+<li>A FRESH, working Debian/Ubuntu Linux. Supported releases are listed on
   <a href="../download.html">Download</a> page.</li>
 <li>At least <code>1 GB</code> of memory is required for low traffic production server.
   Spam/Virus scanning will take most system resource.</li>
 </ul>
-<p>Note: All binary packages will be installed from Debian official apt repositories.</p>
+<p>Notes:</p>
+<ul>
+<li>All binary packages will be installed from Debian/Ubuntu official apt
+  repositories.</li>
+<li>If you choose Ubuntu Linux, it's recommended to use the latest Ubuntu LTS
+  (Long Term Support) release for production use.</li>
+</ul>
 <h2 id="preparations">Preparations</h2>
 <h3 id="set-a-fully-qualified-domain-name-fqdn-hostname-on-your-server">Set a fully qualified domain name (FQDN) hostname on your server</h3>
 <p>No matter your server is a testing machine or production server, it's strongly
@@ -57,7 +63,7 @@ recommended to set a fully qualified domain name (FQDN) hostname.</p>
 mx.example.com
 </code></pre>
 
-<p>On Debian, hostname is set in two files: <code>/etc/hostname</code> and <code>/etc/hosts</code>.</p>
+<p>On Debian/Ubuntu Linux, hostname is set in two files: <code>/etc/hostname</code> and <code>/etc/hosts</code>.</p>
 <ul>
 <li><code>/etc/hostname</code>: short hostname, not FQDN.</li>
 </ul>
@@ -78,9 +84,9 @@ please reboot server to make it work.</p>
 mx.example.com
 </code></pre>
 
-<h3 id="enable-default-official-debian-apt-repositories">Enable default official Debian apt repositories</h3>
+<h3 id="enable-default-official-debianubuntu-apt-repositories">Enable default official Debian/Ubuntu apt repositories</h3>
 <ul>
-<li>iRedMail needs official Debian apt repositories, please enable them in
+<li>iRedMail needs official Debian/Ubuntu apt repositories, please enable them in
   <code>/etc/apt/sources.lists</code>.</li>
 <li>Install package <code>bzip2</code> so that you can uncompress downloaded iRedMail package.</li>
 </ul>
@@ -107,11 +113,11 @@ mx.example.com
 </code></pre>
 
 <h2 id="start-iredmail-installer">Start iRedMail installer</h2>
-<p>It's now ready to start iRedMail installer, it will ask you several simple
-questions, that's all steps to setup a full-featured mail server.</p>
 <blockquote>
 <p>For Chinese users: Our domain name "iredmail.org" is blocked in China mainland since Jun 04, 2011, please replace all 'iredmail.org' by its IP address "106.187.51.47" (without quotes) in /root/iRedMail-x.y.z/pkgs/get_all.sh BEFORE executing "iRedMail.sh". This is a Linode VPS hosted in Tokyo, Japan.</p>
 </blockquote>
+<p>It's now ready to start iRedMail installer, it will ask you several simple
+questions, that's all steps to setup a full-featured mail server.</p>
 <pre><code># cd /root/iRedMail-x.y.z/
 # bash iRedMail.sh
 </code></pre>
