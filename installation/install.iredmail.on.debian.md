@@ -1,4 +1,4 @@
-# Install iRedMail on Red Hat Enterprise Linux, CentOS
+# Install iRedMail on Debian Linux
 
 [TOC]
 
@@ -11,12 +11,14 @@
 > existing files/configurations althought it will backup files before modifing,
 > and it may be not working as expected.
 
-To install iRedMail on RHEL or CentOS Linux, you need:
+To install iRedMail on Debian Linux, you need:
 
-* A FRESH, working RHEL or CentOS system. Supported releases are listed on
+* A FRESH, working Debian Linux. Supported releases are listed on
   [Download](../download.html) page.
 * At least `1 GB` of memory is required for low traffic production server.
   Spam/Virus scanning will take most system resource.
+
+Note: All binary packages will be installed from Debian official apt repositories.
 
 ## Preparations
 
@@ -32,56 +34,39 @@ $ hostname -f
 mx.example.com
 ```
 
-On RHEL/CentOS/Scientific Linux, hostname is set in two files:
+On Debian, hostname is set in two files: `/etc/hostname` and `/etc/hosts`.
 
-* For RHEL/CentOS/Scientific Linux 6, hostname is defined in /etc/sysconfig/network.
-
-```
-HOSTNAME=mx.example.com
-```
-
-For RHEL/CentOS/Scientific Linux 7, hostname is defined in /etc/hostname.
+* `/etc/hostname`: short hostname, not FQDN.
 
 ```
-mx.example.com
+mx
 ```
 
-* `/etc/hosts`: hostname <=> IP address mapping. Warning: List the FQDN hostname as first item.
+* `/etc/hosts`: static table lookup for hostnames. __Warning__: Please list the
+  FQDN hostname as first item.
 
 ```
+# Part of file: /etc/hosts
 127.0.0.1   mx.example.com mx localhost localhost.localdomain
 ```
 
-Verify the FQDN hostname. If it wasn't changed, please reboot server to make it work.
+Verify the FQDN hostname. If it wasn't changed after updating above two files,
+please reboot server to make it work.
 
 ```
 $ hostname -f
 mx.example.com
 ```
 
-### Disable SELinux.
+### Enable default official Debian apt repositories
 
-iRedMail doesn't work with SELinux, so please disable it by setting below
-value in its config file `/etc/selinux/config`.
-
-```
-SELINUX=disabled
-```
-
-Now disable it immediately without rebooting your server.
+* iRedMail needs official Debian apt repositories, please enable them in
+  `/etc/apt/sources.lists`.
+* Install package `bzip2` so that you can uncompress downloaded iRedMail package.
 
 ```
-# setenforce 0
+# sudo apt-get install bzip2
 ```
-
-### Enable yum repositories for installing new packages
-
-* For CentOS or Scientific Linux, please enable CentOS/Scientific official
-  yum repositories, and __DISABLE__ all third-party yum repositories to
-  avoid package conflict.
-
-* For Red Hat Enterprise Linux, please enable Red Hat Network to install
-  packages, or create a local yum repository with DVD/CD ISO images.
 
 ### Download the latest release of iRedMail
 
@@ -133,11 +118,11 @@ management and maintenance after installation.
 * If you choose to store mail accounts in OpenLDAP, iRedMail installer will
 ask you two questions about OpenLDAP.
 
-    * LDAP suffix.
+LDAP suffix.
 
 ![](../images/installation/iredmail/ldap_suffix.png)
 
-    * Password of LDAP root dn.
+Password of LDAP root dn.
 
 ![](../images/installation/iredmail/pw_of_ldap_root_dn.png)
 
@@ -211,3 +196,12 @@ hostname or IP address.
 Please post all issues, feedbacks, feature requests, suggestions in our [online
 support forum](http://www.iredmail.org/forum/), it's more responsible than you
 expected.
+
+## Notes about binary packages provided by iRedMail project
+
+Most binary packages in iRedMail yum repository comes from below repositories,
+packages with `-ired` flag were packed by iRedMail project.
+
+* [Dag Wieers](http://packages.sw.be/)
+* [EPEL](http://download.fedora.redhat.com/pub/epel/)
+* [ATrpms](http://atrpms.net/)

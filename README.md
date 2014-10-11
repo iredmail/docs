@@ -1,5 +1,6 @@
 * Documents are all licensed under [Creative Commons](http://creativecommons.org/).
 # Install iRedMail
+* [Install iRedMail on Debian Linux](https://bitbucket.org/zhb/docs.iredmail.org/src/default/installation/install.iredmail.on.debian.md)
 * [Install iRedMail on Red Hat Enterprise Linux, CentOS](https://bitbucket.org/zhb/docs.iredmail.org/src/default/installation/install.iredmail.on.rhel.md)
 * [Setup DNS records for your iRedMail server](https://bitbucket.org/zhb/docs.iredmail.org/src/default/installation/setup_dns.md)
 * [Perform silent/unattended iRedMail installation](https://bitbucket.org/zhb/docs.iredmail.org/src/default/installation/unattended.iredmail.installation.md)
