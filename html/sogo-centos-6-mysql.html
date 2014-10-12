@@ -18,7 +18,13 @@
 <li><a href="#install-sogo">Install SOGo</a></li>
 <li><a href="#create-sql-database-to-store-sogo-data">Create SQL database to store SOGo data</a></li>
 <li><a href="#configure-sogo">Configure SOGo</a></li>
+<li><a href="#enable-activesync-support">Enable ActiveSync support</a><ul>
+<li><a href="#apache-web-server">Apache web server</a></li>
+<li><a href="#nginx-web-server">Nginx web server</a></li>
+</ul>
+</li>
 <li><a href="#start-sogo-and-dependent-services">Start SOGo and dependent services</a></li>
+<li><a href="#access-sogo">Access SOGo</a></li>
 <li><a href="#how-to-configure-client-applications">How to configure client applications</a><ul>
 <li><a href="#apple-devices">Apple Devices</a></li>
 </ul>
@@ -65,7 +71,6 @@ gpgcheck=0
 mysql&gt; CREATE DATABASE sogo CHARSET='UTF8';
 mysql&gt; GRANT ALL ON sogo.* TO sogo@localhost IDENTIFIED BY 'password';
 
--- TODO
 mysql&gt; GRANT SELECT ON vmail.mailbox TO sogo@localhost;
 
 mysql&gt; CREATE VIEW sogo.sogo_users (c_uid, c_name, c_password, c_cn, mail, home) AS SELECT username, username, password, name, username, maildir FROM vmail.mailbox;
@@ -73,17 +78,22 @@ mysql&gt; CREATE VIEW sogo.sogo_users (c_uid, c_name, c_password, c_cn, mail, ho
 
 <h2 id="configure-sogo">Configure SOGo</h2>
 <p>Default SOGo config file is <code>/etc/sogo/sogo.conf</code>:</p>
-<pre><code>(
+<pre><code>{
     WOPort = 127.0.0.1:20000;
 
     SOGoProfileURL = &quot;mysql://sogo:password@localhost:3306/sogo/sogo_user_profile&quot;;
     OCSFolderInfoURL = &quot;mysql://sogo:password@localhost:3306/sogo/sogo_folder_info&quot;;
     OCSSessionsFolderURL = &quot;mysql://sogo:password@localhost:3306/sogo/sogo_sessions_folder&quot;;
 
-    SOGoIMAPServer = &quot;127.0.0.1&quot;;
-    SOGoDraftsFolderName Drafts
-    SOGoSentFolderName Sent
-    SOGoTrashFolderName Trash
+    // Enable email-based alarms on events and tasks.
+    SOGoEnableEMailAlarms = YES;
+    OCSEMailAlarmsFolderURL = &quot;mysql://sogo:password@localhost:3306/sogo/sogo_alarms_folder&quot;;
+
+    // Use TLS
+    SOGoIMAPServer = &quot;imaps://127.0.0.1:143/?tls=YES&quot;;
+    //SOGoDraftsFolderName = Drafts;
+    //SOGoSentFolderName = Sent;
+    //SOGoTrashFolderName = Trash;
 
     SOGoMailingMechanism = smtp;
     SOGoSMTPServer = 127.0.0.1;
@@ -105,8 +115,6 @@ mysql&gt; CREATE VIEW sogo.sogo_users (c_uid, c_name, c_password, c_cn, mail, ho
     SOGoFoldersSendEMailNotifications = YES;
     SOGoACLsSendEMailNotifications = YES;
 
-    // OCSEMailAlarmsFolderURL = &quot;mysql://sogo:password@localhost:3306/sogo/sogo_alarms_folder&quot;;
-
     SOGoPasswordChangeEnabled = YES;
 
     SOGoUserSources =
@@ -121,17 +129,89 @@ mysql&gt; CREATE VIEW sogo.sogo_users (c_uid, c_name, c_password, c_cn, mail, ho
             prependPasswordScheme = YES;
         }
     );
+}
 </code></pre>
 
 <p><strong>NOTE</strong>: SOGo will create required SQL tables automatically
 (<code>sogo_user_profile</code>, <code>sogo_folder_info</code>, <code>sogo_sessions_folder</code>, ...),  we
 don't need to create them manually.</p>
+<h2 id="enable-activesync-support">Enable ActiveSync support</h2>
+<h3 id="apache-web-server">Apache web server</h3>
+<p>SOGo installs config file <code>/etc/httpd/conf.d/SOGo.conf</code> by default, please
+open it and find below lines:</p>
+<pre><code>#ProxyPass /Microsoft-Server-ActiveSync \
+# http://127.0.0.1:20000/SOGo/Microsoft-Server-ActiveSync \
+# retry=60 connectiontimeout=5 timeout=360
+</code></pre>
+
+<p>Remove <code>#</code> at the beginning to enable ActiveSync support:</p>
+<pre><code>ProxyPass /Microsoft-Server-ActiveSync \
+ http://127.0.0.1:20000/SOGo/Microsoft-Server-ActiveSync \
+ retry=60 connectiontimeout=5 timeout=360
+</code></pre>
+
+<h3 id="nginx-web-server">Nginx web server</h3>
+<p>If you're running Nginx web server, please open file
+<code>/etc/nginx/conf.d/default.conf</code>, add some lines in <code>server {}</code> block which
+is configured for HTTPS:</p>
+<pre><code>server {
+    listen 443;
+    ...
+
+    # Add below lines for SOGo
+
+    # SOGo
+    location ^~ /SOGo {
+        proxy_pass http://127.0.0.1:20000;
+        #proxy_redirect http://127.0.0.1:20000/SOGo/ /SOGo;
+        # forward user's IP address
+        #proxy_set_header X-Real-IP $remote_addr;
+        #proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        #proxy_set_header Host $host;
+        proxy_set_header x-webobjects-server-protocol HTTP/1.0;
+        #proxy_set_header x-webobjects-remote-host 127.0.0.1;
+        #proxy_set_header x-webobjects-server-name $server_name;
+        #proxy_set_header x-webobjects-server-url $scheme://$host;
+    }
+
+    location ^~ /Microsoft-Server-ActiveSync {
+        proxy_pass http://127.0.0.1:20000/SOGo/Microsoft-Server-ActiveSync;
+        proxy_redirect http://127.0.0.1:20000/Microsoft-Server-ActiveSync /;
+    }
+
+    location ^~ /SOGo/Microsoft-Server-ActiveSync {
+        proxy_pass http://127.0.0.1:20000/SOGo/Microsoft-Server-ActiveSync;
+        proxy_redirect http://127.0.0.1:20000/SOGo/Microsoft-Server-ActiveSync /;
+    }
+
+    location /SOGo.woa/WebServerResources/ {
+        alias /usr/lib/GNUstep/SOGo/WebServerResources/;
+    }
+    location /SOGo/WebServerResources/ {
+        alias /usr/lib/GNUstep/SOGo/WebServerResources/;
+    }
+    location ^/SOGo/so/ControlPanel/Products/([^/]*)/Resources/(.*)$ {
+        alias /usr/lib/GNUstep/SOGo/$1.SOGo/Resources/$2;
+    }
+}
+</code></pre>
+
+<p><strong>Important note</strong>: You should replace directory <code>/usr/lib/GNUstep/SOGo</code> the
+the real directory which contains SOGo files:</p>
+<ul>
+<li>on RHEL/CentOS: it's <code>/usr/lib/GNUstep/SOGo</code> on x86 platform,
+  <code>/usr/lib64/GNUstep/SOGo</code> on x86_64 platform.</li>
+<li>on Debian/Ubuntu, it's <code>/usr/lib/GNUstep/SOGo</code>.</li>
+<li>on OpenBSD, it's `/</li>
+</ul>
 <h2 id="start-sogo-and-dependent-services">Start SOGo and dependent services</h2>
 <pre><code>service sogod start
 service httpd restart
 service memcached start
 </code></pre>
 
+<h2 id="access-sogo">Access SOGo</h2>
+<p>Open your favourite web browser, access URL: <code>https://[your_server]/SOGo</code>.</p>
 <h2 id="how-to-configure-client-applications">How to configure client applications</h2>
 <h3 id="apple-devices">Apple Devices</h3>
 <p>URL for calendar service: <code>http://[host]/SOGo/dav/[user]/</code></p>
