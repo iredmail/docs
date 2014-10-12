@@ -30,7 +30,7 @@
 you added during iRedMail installation. If you added new mail domain, you
 should update Amavisd config file to sign DKIM signature for it.</p>
 <p>Let's say your first mail domain added during iRedMail installation is
-<code>mydomain.com</code>, and new mail domain is <code>newdomain.com</code>, please follow below
+<code>mydomain.com</code>, and new mail domain is <code>new_domain.com</code>, please follow below
 steps to enable DKIM signing for outgoing emails of this domain.</p>
 <h2 id="use-existing-dkim-key-for-new-mail-domain">Use existing DKIM key for new mail domain</h2>
 <p>if you already have a working DKIM and valid DKIM DNS record, it's ok to
@@ -53,7 +53,7 @@ line like below:</p>
 <pre><code>@dkim_signature_options_bysender_maps = ( {
     ...
     &quot;mydomain.com&quot;  =&gt; { d =&gt; &quot;mydomain.com&quot;, a =&gt; 'rsa-sha256', ttl =&gt; 10*24*3600 },
-    &quot;newdomain.com&quot;  =&gt; { d =&gt; &quot;mydomain.com&quot;, a =&gt; 'rsa-sha256', ttl =&gt; 10*24*3600 },
+    &quot;new_domain.com&quot;  =&gt; { d =&gt; &quot;mydomain.com&quot;, a =&gt; 'rsa-sha256', ttl =&gt; 10*24*3600 },
     ...
 });
 </code></pre>
@@ -68,7 +68,7 @@ tutorial to <a href="setup_dns.html#dkim-record-for-your-mail-domain-name">add D
 <ul>
 <li>Generate new DKIM key for new domain.</li>
 </ul>
-<pre><code class="shell"># amavisd-new genrsa /var/lib/dkim/newdomain.com.pem
+<pre><code class="shell"># amavisd-new genrsa /var/lib/dkim/new_domain.com.pem
 </code></pre>
 
 <ul>
@@ -78,7 +78,7 @@ tutorial to <a href="setup_dns.html#dkim-record-for-your-mail-domain-name">add D
 </code></pre>
 
 <p>Add one line after above line like below:</p>
-<pre><code>dkim_key('newdomain.com', &quot;dkim&quot;, &quot;/var/lib/dkim/newdomain.com.pem&quot;);
+<pre><code>dkim_key('new_domain.com', &quot;dkim&quot;, &quot;/var/lib/dkim/new_domain.com.pem&quot;);
 </code></pre>
 
 <ul>
@@ -95,7 +95,7 @@ tutorial to <a href="setup_dns.html#dkim-record-for-your-mail-domain-name">add D
 <pre><code>@dkim_signature_options_bysender_maps = ( {
     ...
     &quot;mydomain.com&quot;  =&gt; { d =&gt; &quot;mydomain.com&quot;, a =&gt; 'rsa-sha256', ttl =&gt; 10*24*3600 },
-    &quot;newdomain.com&quot;  =&gt; { d =&gt; &quot;newdomain.com&quot;, a =&gt; 'rsa-sha256', ttl =&gt; 10*24*3600 },
+    &quot;new_domain.com&quot;  =&gt; { d =&gt; &quot;new_domain.com&quot;, a =&gt; 'rsa-sha256', ttl =&gt; 10*24*3600 },
     ...
 });
 </code></pre>

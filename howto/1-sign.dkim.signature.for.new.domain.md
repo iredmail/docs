@@ -10,7 +10,7 @@ you added during iRedMail installation. If you added new mail domain, you
 should update Amavisd config file to sign DKIM signature for it.
 
 Let's say your first mail domain added during iRedMail installation is
-`mydomain.com`, and new mail domain is `newdomain.com`, please follow below
+`mydomain.com`, and new mail domain is `new_domain.com`, please follow below
 steps to enable DKIM signing for outgoing emails of this domain.
 
 ## Use existing DKIM key for new mail domain
@@ -38,7 +38,7 @@ line like below:
 @dkim_signature_options_bysender_maps = ( {
     ...
     "mydomain.com"  => { d => "mydomain.com", a => 'rsa-sha256', ttl => 10*24*3600 },
-    "newdomain.com"  => { d => "mydomain.com", a => 'rsa-sha256', ttl => 10*24*3600 },
+    "new_domain.com"  => { d => "mydomain.com", a => 'rsa-sha256', ttl => 10*24*3600 },
     ...
 });
 ```
@@ -54,7 +54,7 @@ tutorial to [add DKIM DNS record](setup_dns.html#dkim-record-for-your-mail-domai
 * Generate new DKIM key for new domain.
 
 ```shell
-# amavisd-new genrsa /var/lib/dkim/newdomain.com.pem
+# amavisd-new genrsa /var/lib/dkim/new_domain.com.pem
 ```
 
 * Find below setting in Amavisd config file `amavisd.conf`:
@@ -66,7 +66,7 @@ dkim_key('mydomain.com', "dkim", "/var/lib/dkim/mydomain.com.pem");
 Add one line after above line like below:
 
 ```
-dkim_key('newdomain.com', "dkim", "/var/lib/dkim/newdomain.com.pem");
+dkim_key('new_domain.com', "dkim", "/var/lib/dkim/new_domain.com.pem");
 ```
 
 * Find below setting in Amavisd config file `amavisd.conf`:
@@ -85,7 +85,7 @@ Add one line after `"mydomain.com"` line like below:
 @dkim_signature_options_bysender_maps = ( {
     ...
     "mydomain.com"  => { d => "mydomain.com", a => 'rsa-sha256', ttl => 10*24*3600 },
-    "newdomain.com"  => { d => "newdomain.com", a => 'rsa-sha256', ttl => 10*24*3600 },
+    "new_domain.com"  => { d => "new_domain.com", a => 'rsa-sha256', ttl => 10*24*3600 },
     ...
 });
 ```
