@@ -1,22 +1,23 @@
 # LDAP: Add a mail alias account
 
-* Log into phpLDAPadmin as LDAP root dn `cn=Manager` or `cn=vmailadmin`:  
-![](http://screenshots.iredmail.googlecode.com/hg/phpldapadmin/login.png)
+## Add mail alias with iRedAdmin-Pro
 
-* Expand LDAP tree in left panel, click `Create new entry here` under `ou=Aliases` of your domain, and select `Default` in right panel:  
-![](http://screenshots.iredmail.googlecode.com/hg/phpldapadmin/create_alias_1.png)
+With iRedAdmin-Pro, please click menu in main navigation bar: `Add -> Mail Alias'.
+Screenshot:
 
-* Select object class `mailAlias` in right panel:  
-![](http://screenshots.iredmail.googlecode.com/hg/phpldapadmin/create_alias_2.png)
+![](../images/iredadmin/alias_create.png)
 
-* Input required fields of alias account:  
-![](http://screenshots.iredmail.googlecode.com/hg/phpldapadmin/create_alias_3.png)
+## Add mail alias with phpLDAPadmin
+
+* Log into phpLDAPadmin as LDAP root dn `cn=Manager` or `cn=vmailadmin`.
+* Expand LDAP tree in left panel, click `Create new entry here` under
+  `ou=Aliases` of your domain, and select `Default` in right panel.
+* Select object class `mailAlias` in right panel.
+* Input required fields of mail alias account.
 
 __WARNING__: Attribute `enabledService` requires two values: `mail`, `deliver`.
 
-* Confirm to create:  
-![](http://screenshots.iredmail.googlecode.com/hg/phpldapadmin/create_alias_4.png)
-
-* Add missing value of attribute `enabledService`, and you can add as many destination addresses as you want here (value of attribute `mailForwardingAddress`):  
-![](http://screenshots.iredmail.googlecode.com/hg/phpldapadmin/create_alias_5.png)
-
+* Confirm to create.
+* Add missing value for attribute `enabledService`:  `mail`, `deliver`.
+* Add alias members (full email address) in attribute `mailForwardingAddress`.
+  You can add as many members as you want.

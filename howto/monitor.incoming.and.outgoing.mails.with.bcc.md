@@ -45,8 +45,8 @@ userRecipientBccAddress=user@domain.com
 ## Screenshot of iRedAdmin-Pro
 
 Per-domain bcc settings:
-![](http://www.iredmail.org/images/iredadmin/domain_profile_bcc.png)
+![](../images/iredadmin/domain_profile_bcc.png)
 
 Per-user bcc settings:
-![](http://www.iredmail.org/images/iredadmin/user_profile_bcc.png)
+![](../images/iredadmin/user_profile_bcc.png)
 

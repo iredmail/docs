@@ -7,7 +7,7 @@ profile page, under tab `Forwarding`.
 
 Screenshot:
 
-![](http://www.iredmail.org/images/iredadmin/user_profile_mail_forwarding.png)
+![](../images/iredadmin/user_profile_mail_forwarding.png)
 
 ## Set mail forwarding with phpLDAPadmin
 

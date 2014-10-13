@@ -11,34 +11,24 @@
     
         // <a href="./index.html">Document Index</a>
     </div><h1 id="ldap-add-a-mail-alias-account">LDAP: Add a mail alias account</h1>
+<h2 id="add-mail-alias-with-iredadmin-pro">Add mail alias with iRedAdmin-Pro</h2>
+<p>With iRedAdmin-Pro, please click menu in main navigation bar: `Add -&gt; Mail Alias'.
+Screenshot:</p>
+<p><img alt="" src="../images/iredadmin/alias_create.png" /></p>
+<h2 id="add-mail-alias-with-phpldapadmin">Add mail alias with phpLDAPadmin</h2>
 <ul>
-<li>
-<p>Log into phpLDAPadmin as LDAP root dn <code>cn=Manager</code> or <code>cn=vmailadmin</code>:<br />
-<img alt="" src="http://screenshots.iredmail.googlecode.com/hg/phpldapadmin/login.png" /></p>
-</li>
-<li>
-<p>Expand LDAP tree in left panel, click <code>Create new entry here</code> under <code>ou=Aliases</code> of your domain, and select <code>Default</code> in right panel:<br />
-<img alt="" src="http://screenshots.iredmail.googlecode.com/hg/phpldapadmin/create_alias_1.png" /></p>
-</li>
-<li>
-<p>Select object class <code>mailAlias</code> in right panel:<br />
-<img alt="" src="http://screenshots.iredmail.googlecode.com/hg/phpldapadmin/create_alias_2.png" /></p>
-</li>
-<li>
-<p>Input required fields of alias account:<br />
-<img alt="" src="http://screenshots.iredmail.googlecode.com/hg/phpldapadmin/create_alias_3.png" /></p>
-</li>
+<li>Log into phpLDAPadmin as LDAP root dn <code>cn=Manager</code> or <code>cn=vmailadmin</code>.</li>
+<li>Expand LDAP tree in left panel, click <code>Create new entry here</code> under
+  <code>ou=Aliases</code> of your domain, and select <code>Default</code> in right panel.</li>
+<li>Select object class <code>mailAlias</code> in right panel.</li>
+<li>Input required fields of mail alias account.</li>
 </ul>
 <p><strong>WARNING</strong>: Attribute <code>enabledService</code> requires two values: <code>mail</code>, <code>deliver</code>.</p>
 <ul>
-<li>
-<p>Confirm to create:<br />
-<img alt="" src="http://screenshots.iredmail.googlecode.com/hg/phpldapadmin/create_alias_4.png" /></p>
-</li>
-<li>
-<p>Add missing value of attribute <code>enabledService</code>, and you can add as many destination addresses as you want here (value of attribute <code>mailForwardingAddress</code>):<br />
-<img alt="" src="http://screenshots.iredmail.googlecode.com/hg/phpldapadmin/create_alias_5.png" /></p>
-</li>
+<li>Confirm to create.</li>
+<li>Add missing value for attribute <code>enabledService</code>:  <code>mail</code>, <code>deliver</code>.</li>
+<li>Add alias members (full email address) in attribute <code>mailForwardingAddress</code>.
+  You can add as many members as you want.</li>
 </ul><br /><p style="text-align: center;">If you found something wrong
 in this document, please do
 <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.</p><p style="text-align: center; color: grey;">&copy&copy Creative Commons</p></body></html>

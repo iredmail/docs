@@ -126,8 +126,8 @@ database.
 
 * View quarantined mails:
 
-![](http://www.iredmail.org/images/iredadmin/system_maillog_quarantined.png)
+![](../images/iredadmin/system_maillog_quarantined.png)
 
 * Expand quarantined mail to view mail body and headers.
 
-![](http://www.iredmail.org/images/iredadmin/system_maillog_quarantined_expanded.png)
+![](../images/iredadmin/system_maillog_quarantined_expanded.png)

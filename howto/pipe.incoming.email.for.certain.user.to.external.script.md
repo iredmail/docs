@@ -45,7 +45,9 @@ this user will be piped to this new transport - your script.
 * If you have iRedAdmin-Pro:
 
     * For iRedAdmin-Pro OpenLDAP edition, please go to user profile page, under
-tab `Advanced`, set `Relay/Transport setting` to `external-pipe`. Screenshot: ![](http://www.iredmail.org/images/iredadmin/user_profile_relay.png)
+tab `Advanced`, set `Relay/Transport setting` to `external-pipe`. Screenshot:
+
+![](../images/iredadmin/user_profile_relay.png)
 
     * For iRedAdmin-Pro MySQL or PostgreSQL edition, please go to user profile
       page, under tab `Relay`, set `Relay/Transport setting` to `external-pipe`.
