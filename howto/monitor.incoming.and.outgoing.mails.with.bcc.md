@@ -2,8 +2,9 @@
 
 [TOC]
 
-This tutorial describes how to configure your iRedMail server (OpenLDAP backend)
-to monitor incoming and outgoing mails with BCC, via iRedAdmin-Pro or phpLDAPadmin.
+This tutorial describes how to configure your iRedMail server
+to monitor incoming and outgoing mails with BCC, via iRedAdmin-Pro or other
+tools.
 
 ## Manage BCC settings with iRedAdmin-Pro
 
@@ -14,7 +15,38 @@ manage BCC settings under tab `BCC`.
 * For per-user BCC settings, please go to user profile page, then you can
 manage BCC settings under tab `BCC`.
 
-## Manage BCC settings with phpLDAPadmin or other LDAP client tools
+## SQL: Manage BCC settings with SQL command line tools
+
+We take MySQL backend for example, but the SQL commands should work with
+PostgreSQL too.
+
+* To add per-domain bcc settings for domain `mydomain.com`, you can add
+  below records in SQL database `vmail`:
+
+```sql
+-- BCC outgoing emails to 'outbound@example.com'
+mysql> INSERT INTO sender_bcc_domain (username, bcc_address, domain, active, created)
+       VALUES ('mydomain.com', 'outbound@example.com', 'mydomain.com', 1, NOW());
+
+-- BCC incoming emails to 'inbound@example.com'
+mysql> INSERT INTO recipient_bcc_domain (username, bcc_address, domain, active, created)
+       VALUES ('mydomain.com', 'inbound@example.com', 'mydomain.com', 1, NOW());
+```
+
+* To add per-user bcc settings for user `user@mydomain.com`, you can add
+  below records in SQL database `vmail`:
+
+```sql
+-- BCC outgoing emails to 'outbound@example.com'
+mysql> INSERT INTO sender_bcc_user (username, bcc_address, domain, active, created)
+       VALUES ('user@mydomain.com', 'outbound@example.com', 'mydomain.com', 1, NOW());
+
+-- BCC incoming emails to 'inbound@example.com'
+mysql> INSERT INTO recipient_bcc_user (username, bcc_address, domain, active, created)
+       VALUES ('user@mydomain.com', 'inbound@example.com', 'mydomain.com', 1, NOW());
+```
+
+## LDAP: Manage BCC settings with phpLDAPadmin or other LDAP client tools
 
 * For per-domain BCC settings, you can add below LDAP attribute/value pairs
 for domain object:

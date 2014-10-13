@@ -15,14 +15,16 @@
 <ul>
 <li><a href="#monitor-incoming-and-outgoing-mails-with-bcc">Monitor incoming and outgoing mails with BCC</a><ul>
 <li><a href="#manage-bcc-settings-with-iredadmin-pro">Manage BCC settings with iRedAdmin-Pro</a></li>
-<li><a href="#manage-bcc-settings-with-phpldapadmin-or-other-ldap-client-tools">Manage BCC settings with phpLDAPadmin or other LDAP client tools</a></li>
+<li><a href="#sql-manage-bcc-settings-with-sql-command-line-tools">SQL: Manage BCC settings with SQL command line tools</a></li>
+<li><a href="#ldap-manage-bcc-settings-with-phpldapadmin-or-other-ldap-client-tools">LDAP: Manage BCC settings with phpLDAPadmin or other LDAP client tools</a></li>
 <li><a href="#screenshot-of-iredadmin-pro">Screenshot of iRedAdmin-Pro</a></li>
 </ul>
 </li>
 </ul>
 </div>
-<p>This tutorial describes how to configure your iRedMail server (OpenLDAP backend)
-to monitor incoming and outgoing mails with BCC, via iRedAdmin-Pro or phpLDAPadmin.</p>
+<p>This tutorial describes how to configure your iRedMail server
+to monitor incoming and outgoing mails with BCC, via iRedAdmin-Pro or other
+tools.</p>
 <h2 id="manage-bcc-settings-with-iredadmin-pro">Manage BCC settings with iRedAdmin-Pro</h2>
 <p>With iRedAdmin-Pro, you can configure BCC easily.</p>
 <ul>
@@ -31,7 +33,36 @@ manage BCC settings under tab <code>BCC</code>.</li>
 <li>For per-user BCC settings, please go to user profile page, then you can
 manage BCC settings under tab <code>BCC</code>.</li>
 </ul>
-<h2 id="manage-bcc-settings-with-phpldapadmin-or-other-ldap-client-tools">Manage BCC settings with phpLDAPadmin or other LDAP client tools</h2>
+<h2 id="sql-manage-bcc-settings-with-sql-command-line-tools">SQL: Manage BCC settings with SQL command line tools</h2>
+<p>We take MySQL backend for example, but the SQL commands should work with
+PostgreSQL too.</p>
+<ul>
+<li>To add per-domain bcc settings for domain <code>mydomain.com</code>, you can add
+  below records in SQL database <code>vmail</code>:</li>
+</ul>
+<pre><code class="sql">-- BCC outgoing emails to 'outbound@example.com'
+mysql&gt; INSERT INTO sender_bcc_domain (username, bcc_address, domain, active, created)
+       VALUES ('mydomain.com', 'outbound@example.com', 'mydomain.com', 1, NOW());
+
+-- BCC incoming emails to 'inbound@example.com'
+mysql&gt; INSERT INTO recipient_bcc_domain (username, bcc_address, domain, active, created)
+       VALUES ('mydomain.com', 'inbound@example.com', 'mydomain.com', 1, NOW());
+</code></pre>
+
+<ul>
+<li>To add per-user bcc settings for user <code>user@mydomain.com</code>, you can add
+  below records in SQL database <code>vmail</code>:</li>
+</ul>
+<pre><code class="sql">-- BCC outgoing emails to 'outbound@example.com'
+mysql&gt; INSERT INTO sender_bcc_user (username, bcc_address, domain, active, created)
+       VALUES ('user@mydomain.com', 'outbound@example.com', 'mydomain.com', 1, NOW());
+
+-- BCC incoming emails to 'inbound@example.com'
+mysql&gt; INSERT INTO recipient_bcc_user (username, bcc_address, domain, active, created)
+       VALUES ('user@mydomain.com', 'inbound@example.com', 'mydomain.com', 1, NOW());
+</code></pre>
+
+<h2 id="ldap-manage-bcc-settings-with-phpldapadmin-or-other-ldap-client-tools">LDAP: Manage BCC settings with phpLDAPadmin or other LDAP client tools</h2>
 <ul>
 <li>For per-domain BCC settings, you can add below LDAP attribute/value pairs
 for domain object:</li>
