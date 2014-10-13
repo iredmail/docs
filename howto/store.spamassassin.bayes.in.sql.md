@@ -174,7 +174,7 @@ disable_functions =show_source,system,shell_exec,passthru,phpinfo,proc_open ;
 
 You will see a new toolbar button after logging into Roundcube webmail:
 
-![](../images/Markasjunk2_toolbar_button.png)
+![](../images/markasjunk2_toolbar_button.png)
 
 Check SQL database `sa_bayes` before we testing this plugin:
 
