@@ -10,7 +10,7 @@ To create a new mail account with Thunderbird, please click menu: `File -> New -
 
 Add your name, email address and password in this screen.
 
-![](./images/Thunderbird.new.mail.account.png "Thunderbird.new.mail.account.png")
+![](./images/thunderbird.new.mail.account.png "Thunderbird.new.mail.account.png")
 
 Click continue, it will detect IMAP and SMTP server automatically.
 
