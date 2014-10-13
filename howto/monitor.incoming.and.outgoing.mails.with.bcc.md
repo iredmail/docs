@@ -54,11 +54,11 @@ for domain object:
 ```
 # per-domain sender bcc
 enabledService=senderbcc
-domainSenderBccAddress=user@domain.com
+domainSenderBccAddress=outbound@example.com
 
 # per-domain recipient bcc
 enabledService=recipientbcc
-domainRecipientBccAddress=user@domain.com
+domainRecipientBccAddress=inbound@example.com
 ```
 
 * For per-user BCC settings, you can add below LDAP attribute/value pairs
@@ -67,18 +67,19 @@ for user object:
 ```
 # per-domain sender bcc
 enabledService=senderbcc
-userSenderBccAddress=user@domain.com
+userSenderBccAddress=outbound@example.com
 
 # per-domain recipient bcc
 enabledService=recipientbcc
-userRecipientBccAddress=user@domain.com
+userRecipientBccAddress=inbound@example.com
 ```
 
 ## Screenshot of iRedAdmin-Pro
 
 Per-domain bcc settings:
+
 ![](../images/iredadmin/domain_profile_bcc.png)
 
 Per-user bcc settings:
-![](../images/iredadmin/user_profile_bcc.png)
 
+![](../images/iredadmin/user_profile_bcc.png)
