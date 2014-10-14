@@ -75,10 +75,15 @@ orig_content = web.safeunicode(open(filename).read())
 html += markdown.markdown(orig_content, extensions=MD_EXTENSIONS)
 
 # HTML foot
-'''
+if 'add_page_footer' in cmd_opts:
+    html += """<br /><p style="text-align: center;">If you found something wrong
+in this document, please do
+<a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.</p>"""
+
+html += """<p style="text-align: center; color: grey;">&copy&copy Creative Commons</p>"""
+
 html += """\
 <!-- Google Analytics -->
-<!--
 <script type="text/javascript">
     var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
     document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
@@ -89,17 +94,8 @@ html += """\
         pageTracker._trackPageview();
     } catch(err) {}
 </script>
--->
-<!-- End Google Analytics -->
 """
-'''
 
-if 'add_page_footer' in cmd_opts:
-    html += """<br /><p style="text-align: center;">If you found something wrong
-in this document, please do
-<a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.</p>"""
-
-html += """<p style="text-align: center; color: grey;">&copy&copy Creative Commons</p>"""
 html += '</body></html>'
 
 # Write to file
