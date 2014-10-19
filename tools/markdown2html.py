@@ -80,7 +80,8 @@ if 'add_page_footer' in cmd_opts:
 in this document, please do
 <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.</p>"""
 
-html += """<p style="text-align: center; color: grey;">&copy&copy Creative Commons</p>"""
+html += """<p style="text-align: center; color: grey;">This tutorial is published under a <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">CC BY-ND 3.0</a> license."""
+
 
 html += """\
 <!-- Google Analytics -->
