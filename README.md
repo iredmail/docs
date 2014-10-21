@@ -6,6 +6,7 @@
 * [Setup DNS records for your iRedMail server](https://bitbucket.org/zhb/docs.iredmail.org/src/default/installation/setup_dns.md)
 * [Perform silent/unattended iRedMail installation](https://bitbucket.org/zhb/docs.iredmail.org/src/default/installation/unattended.iredmail.installation.md)
 # How to
+* [Allow some users to send email as another user](https://bitbucket.org/zhb/docs.iredmail.org/src/default/howto/0-allow.certain.users.to.send.email.as.different.user.md)
 * [Change mail attachment size](https://bitbucket.org/zhb/docs.iredmail.org/src/default/howto/0-change.mail.attachment.size.md)
 * [Completely disable Amavisd + ClamAV + SpamAssassin](https://bitbucket.org/zhb/docs.iredmail.org/src/default/howto/0-completely.disable.amavisd.clamav.spamassassin.md)
 * [Enable SMTPS service (SMTP over SSL, port 465)](https://bitbucket.org/zhb/docs.iredmail.org/src/default/howto/0-enable.smtps.md)

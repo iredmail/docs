@@ -1,0 +1,64 @@
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Allow some users to send email as another user</title>
+        <link href="./css/markdown.css" rel="stylesheet"></head>
+    </head>
+    <body>
+    
+    <div id="navigation">
+        <a href="http://www.iredmail.org" target="_blank">iRedMail web site</a>
+    
+        // <a href="./index.html">Document Index</a>
+    </div><h1 id="allow-some-users-to-send-email-as-another-user">Allow some users to send email as another user</h1>
+<p>iRedMail configures Postfix to 
+reject the request when sender specifies an owner for the MAIL FROM address
+(<code>From:</code> header), but the client is not (SASL) logged in as that MAIL FROM
+address owner; or when the client is (SASL) logged in, but the client login
+name doesn't own the MAIL FROM address.</p>
+<p>Sometimes we do need to send email as another user, this tutorial describes
+how to allow certain users to do this with iRedAPD plugin
+<code>reject_sender_login_mismatch</code>.</p>
+<ul>
+<li>
+<p>Remove <code>reject_sender_login_mismatch</code> restriction rule in Postfix
+  setting <code>smtpd_sender_restrictions</code> (<code>/etc/postfix/main.cf</code>). Out iRedAPD
+  plugin will do the same restriction for you.</p>
+<p>After removed <code>reject_sender_login_mismatch</code>, Postfix setting looks like
+below:</p>
+</li>
+</ul>
+<pre><code>smtpd_sender_restrictions = permit_mynetworks, permit_sasl_authenticated
+</code></pre>
+
+<ul>
+<li>Enable plugin <code>reject_sender_login_mismatch</code> in iRedAPD config file
+  <code>/opt/iredapd/settings.py</code>:</li>
+</ul>
+<pre><code class="python">plugins = ['reject_sender_login_mismatch', ...]
+</code></pre>
+
+<ul>
+<li>List senders who are allowed to send email as different users in iRedAPD
+  config file <code>/opt/iredapd/settings.py</code>, in parameter
+  <code>ALLOWED_LOGIN_MISMATCH_SENDERS</code>. For example:</li>
+</ul>
+<pre><code class="python">ALLOWED_LOGIN_MISMATCH_SENDERS = ['user1@here.com', 'user2@here.com']
+</code></pre>
+
+<pre><code>NOTE: this parameter does not present by default, please add it manually.
+</code></pre>
+<p>Restart iRedAPD service. That's all.</p><br /><p style="text-align: center;">If you found something wrong
+in this document, please do
+<a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.</p><p style="text-align: center; color: grey;">This tutorial is published under a <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">CC BY-ND 3.0</a> license.<!-- Google Analytics -->
+<script type="text/javascript">
+    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+    try {
+        var pageTracker = _gat._getTracker("UA-3293801-14");
+        pageTracker._trackPageview();
+    } catch(err) {}
+</script>
+</body></html>
