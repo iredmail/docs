@@ -44,6 +44,7 @@
 * [Turn on debug mode in Amavisd](https://bitbucket.org/zhb/docs.iredmail.org/src/default/troubleshooting/turn.on.debug.mode.in.amavisd.md)
 * [Turn on debug mode in Cluebringer](https://bitbucket.org/zhb/docs.iredmail.org/src/default/troubleshooting/turn.on.debug.mode.in.cluebringer.md)
 * [Turn on debug mode in Dovecot](https://bitbucket.org/zhb/docs.iredmail.org/src/default/troubleshooting/turn.on.debug.mode.in.dovecot.md)
+* [Turn on debug mode in iRedAPD](https://bitbucket.org/zhb/docs.iredmail.org/src/default/troubleshooting/turn.on.debug.mode.in.iredapd.md)
 * [Turn on debug mode in OpenLDAP](https://bitbucket.org/zhb/docs.iredmail.org/src/default/troubleshooting/turn.on.debug.mode.in.openldap.md)
 # Frequently Asked Questions
 * [Locations of configuration and log files of mojor components](https://bitbucket.org/zhb/docs.iredmail.org/src/default/faq/file.locations.md)
