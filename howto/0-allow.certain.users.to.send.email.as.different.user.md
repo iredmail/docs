@@ -1,4 +1,4 @@
-# Allow some users to send email as another user
+# Allow certain users to send email as another user
 
 iRedMail configures Postfix to 
 reject the request when sender specifies an owner for the MAIL FROM address
