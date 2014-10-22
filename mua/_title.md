@@ -1,0 +1,1 @@
+Configure mail client applications

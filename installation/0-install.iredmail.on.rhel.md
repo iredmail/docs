@@ -194,6 +194,7 @@ Configuration completed.
     * Some other important and sensitive information
 
 * [Setup DNS records for your mail server](./setup_dns.html)
+* [Configure Thunderbird as mail client (POP3/IMAP, SMTP and global ldap address book)](./configure.thunderbird.html)
 
 ## Access webmail and other web applications
 

@@ -34,6 +34,7 @@ strip_name_prefix()
 
 # Chapter directories in specified order
 all_chapter_dirs="installation \
+                  mua \
                   howto \
                   integrations \
                   cluster \
