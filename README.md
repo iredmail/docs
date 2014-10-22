@@ -1,9 +1,9 @@
 * Documents are all licensed under [Creative Commons](http://creativecommons.org/).
 # Install iRedMail
-* [Install iRedMail on Debian or Ubuntu Linux](https://bitbucket.org/zhb/docs.iredmail.org/src/default/installation/install.iredmail.on.debian.ubuntu.md)
-* [Install iRedMail on FreeBSD](https://bitbucket.org/zhb/docs.iredmail.org/src/default/installation/install.iredmail.on.freebsd.md)
-* [Install iRedMail on OpenBSD](https://bitbucket.org/zhb/docs.iredmail.org/src/default/installation/install.iredmail.on.openbsd.md)
-* [Install iRedMail on Red Hat Enterprise Linux, CentOS](https://bitbucket.org/zhb/docs.iredmail.org/src/default/installation/install.iredmail.on.rhel.md)
+* [Install iRedMail on Red Hat Enterprise Linux, CentOS](https://bitbucket.org/zhb/docs.iredmail.org/src/default/installation/0-install.iredmail.on.rhel.md)
+* [Install iRedMail on Debian or Ubuntu Linux](https://bitbucket.org/zhb/docs.iredmail.org/src/default/installation/1-install.iredmail.on.debian.ubuntu.md)
+* [Install iRedMail on FreeBSD](https://bitbucket.org/zhb/docs.iredmail.org/src/default/installation/2-install.iredmail.on.freebsd.md)
+* [Install iRedMail on OpenBSD](https://bitbucket.org/zhb/docs.iredmail.org/src/default/installation/3-install.iredmail.on.openbsd.md)
 * [Setup DNS records for your iRedMail server](https://bitbucket.org/zhb/docs.iredmail.org/src/default/installation/setup_dns.md)
 * [Perform silent/unattended iRedMail installation](https://bitbucket.org/zhb/docs.iredmail.org/src/default/installation/unattended.iredmail.installation.md)
 # How to
