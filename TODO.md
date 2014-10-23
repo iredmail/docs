@@ -8,6 +8,11 @@
 # installation guides
 
 * http://www.iredmail.org/wiki/index.php?title=Install/iRedMail/FreeBSD.Jail
+* http://www.iredmail.org/admin_installation_debian.html
+* http://www.iredmail.org/admin_installation_opensuse.html
+* http://www.iredmail.org/admin_installation_freebsd.html
+* http://www.iredmail.org/admin_installation_rhel.html
+* http://www.iredmail.org/admin_installation_openbsd.html
 
 # integrations
 
