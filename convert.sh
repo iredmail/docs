@@ -45,9 +45,7 @@ all_chapter_dirs="installation \
 # Get chapter info
 #   - title: _title.md
 #   - summary: _summary.md
-echo "* Documents are all licensed under [Creative Commons](http://creativecommons.org/)." > ${INDEX_MD}
-echo "* Documents are all licensed under [Creative Commons](http://creativecommons.org/)." > ${README_MD}
-echo "* We're migrating [old wiki documents](http://www.iredmail.org/wiki) to Markdown for easier maintenance, converted documents are available [here](https://bitbucket.org/zhb/docs.iredmail.org/src)." >> ${INDEX_MD}
+echo "We're migrating [old wiki documents](http://www.iredmail.org/wiki) to Markdown format for easier maintenance, all documents are available [here](https://bitbucket.org/zhb/docs.iredmail.org/src)." >> ${INDEX_MD}
 
 for chapter_dir in ${all_chapter_dirs}; do
     # Get articles

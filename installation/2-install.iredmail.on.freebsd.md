@@ -1,4 +1,4 @@
-# Install iRedMail on FreeBSD
+# Install iRedMail on FreeBSD (without Jail)
 
 [TOC]
 
