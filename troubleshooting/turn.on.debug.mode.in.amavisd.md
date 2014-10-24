@@ -1,4 +1,4 @@
-# Turn on debug mode in Amavisd
+# Turn on debug mode in Amavisd and SpamAssassin
 
 In Amavisd config file `/etc/amavisd/amavisd.conf`, change `$log_level`, then restart amavis service.
 
