@@ -222,9 +222,9 @@ tell amavisd the correct path of its config file. For example:
 v=DKIM1; p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDYArsr2BKbdhv9efugBy...
 ```
 
-    __Note__: BIND ([The most widely used Name Server Software](http://www.isc.org/downloads/bind/))
-    can handle this kind of multi-line format, so you can paste it in your domain
-    zone file directly.
+__Note__: BIND ([The most widely used Name Server Software](http://www.isc.org/downloads/bind/))
+can handle this kind of multi-line format, so you can paste it in your domain
+zone file directly.
 
 * Add a `TXT` type DNS record, set value to the line you copied above:
 `v=DKIM1; p=...`.
