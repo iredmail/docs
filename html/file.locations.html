@@ -14,18 +14,20 @@
 <div class="toc">
 <ul>
 <li><a href="#locations-of-configuration-and-log-files-of-mojor-components">Locations of configuration and log files of mojor components</a><ul>
+<li><a href="#apache">Apache</a></li>
+<li><a href="#nginx">Nginx</a></li>
 <li><a href="#postfix">Postfix</a><ul>
-<li><a href="#config-files">Config files</a></li>
+<li><a href="#main-config-files">Main config files:</a></li>
 <li><a href="#log-files">Log files</a></li>
 </ul>
 </li>
 <li><a href="#dovecot">Dovecot</a><ul>
-<li><a href="#config-files_1">Config files</a></li>
+<li><a href="#config-files">Config files</a></li>
 <li><a href="#log-files_1">Log files</a></li>
 </ul>
 </li>
 <li><a href="#amavisd">Amavisd</a><ul>
-<li><a href="#main-config-files">Main config files</a></li>
+<li><a href="#main-config-files_1">Main config files</a></li>
 <li><a href="#log-files_2">Log files</a></li>
 </ul>
 </li>
@@ -33,13 +35,71 @@
 </li>
 </ul>
 </div>
+<h2 id="apache">Apache</h2>
+<ul>
+<li>
+<p>On <code>RHEL</code>/<code>CentOS</code>: Apache config files are placed under <code>/etc/httpd/</code>.</p>
+<ul>
+<li>Main config file is <code>/etc/httpd/conf/httpd.conf</code>.</li>
+<li>Module config files are placed under <code>/etc/httpd/conf.d/</code> (old releases)
+  or <code>/etc/httpd/conf.modules.d/</code>.</li>
+<li>Root directory used to store web applications is <code>/var/www</code>, document
+  root is <code>/var/www/html/</code>.</li>
+<li>Log files are placed under <code>/var/www/httpd/</code>.</li>
+</ul>
+</li>
+<li>
+<p>On <code>Debian</code>/<code>Ubuntu</code>: Apache config files are placed under <code>/etc/apache2</code>.</p>
+<ul>
+<li>Main config file is <code>/etc/apache2/apache2.conf</code>.</li>
+<li>Module config files are placed under <code>/etc/apache2/conf.d/</code> (old
+  releases) or <code>/etc/apache2/conf-available/</code>.</li>
+<li>Root directory used to store web applications is <code>/usr/share/apache2</code>,
+  document root is <code>/var/www/</code> (old releases) or <code>/var/www/html/</code>.</li>
+<li>Log files are placed under <code>/var/www/apache2/</code>.</li>
+</ul>
+</li>
+<li>
+<p>On <code>FreeBSD</code>: Apache config files are placed under <code>/usr/local/etc/apache2</code>.</p>
+<ul>
+<li>Main config file is <code>/usr/local/etc/apache2/httpd.conf</code>.</li>
+<li>Module config files are placed under <code>/usr/local/etc/apache2/Includes/</code>.</li>
+<li>Root directory used to store web applications is <code>/usr/local/www/</code>,
+  document root is <code>/usr/local/www/apache22/data/</code>.</li>
+<li>Log files are placed under <code>/var/log/</code>, main log files are
+  <code>/var/log/httpd-access.log</code> and <code>/var/log/httpd-error.log</code>.</li>
+</ul>
+</li>
+<li>
+<p>On <code>OpenBSD</code>: Apache (the one shipped in OpenBSD base system) config files
+  are placed under <code>/var/www/conf</code>.</p>
+<ul>
+<li>Main config file is <code>/var/www/conf/httpd.conf</code>.</li>
+<li>Module config files are placed under <code>/var/www/conf/modules/</code>.</li>
+<li>Root directory used to store web applications is <code>/var/www/</code>,
+  document root is <code>/var/www/htdocs/</code>.</li>
+<li>Log files are placed under <code>/var/www/logs/</code>.</li>
+</ul>
+</li>
+</ul>
+<h2 id="nginx">Nginx</h2>
+<ul>
+<li>On <code>Linux</code> and <code>OpenBSD</code>: Nginx config files are placed under <code>/etc/nginx/</code>,
+  uWSGI config files are placed under <code>/etc/uwsgi/</code>.</li>
+<li>On <code>FreeBSD</code>: Nginx config files are placed under <code>/usr/local/etc/nginx</code>,
+  uWSGI config files are placed under <code>/usr/local/etc/uwsgi/</code>.</li>
+</ul>
+<p>Main config files are <code>nginx.conf</code> and <code>default.conf</code>.</p>
+<ul>
+<li>On <code>Linux</code> and <code>FreeBSD</code>: log files are placed under <code>/var/log/nginx/</code>.</li>
+<li>On <code>OpenBSD</code>: log files are placed under <code>/var/www/logs/</code> (same as Apache).</li>
+</ul>
 <h2 id="postfix">Postfix</h2>
 <ul>
 <li>on <code>Linux</code> and <code>OpenBSD</code>, Postfix config files are placed under <code>/etc/postfix/</code>.</li>
 <li>on <code>FreeBSD</code>, Postfix config files are placed under <code>/usr/local/etc/postfix/</code>.</li>
 </ul>
-<h3 id="config-files">Config files</h3>
-<p>Main config files:</p>
+<h3 id="main-config-files">Main config files:</h3>
 <ul>
 <li><code>main.cf</code>: contains most configurations.</li>
 <li><code>master.cf</code>: contains transport related settings.</li>
@@ -59,7 +119,7 @@
 <li>on <code>Linux</code> and <code>OpenBSD</code>, Dovecot config files are placed under <code>/etc/dovecot/</code>.</li>
 <li>on <code>FreeBSD</code>, Dovecot config files are placed under <code>/usr/local/etc/dovecot/</code>.</li>
 </ul>
-<h3 id="config-files_1">Config files</h3>
+<h3 id="config-files">Config files</h3>
 <p>Main config file is <code>dovecot.conf</code>. It contains most configurations.</p>
 <p>Addition config files:</p>
 <ul>
@@ -78,7 +138,7 @@
 <li><code>/var/log/dovecot-lmtp.log</code>: LMTP related log.</li>
 </ul>
 <h2 id="amavisd">Amavisd</h2>
-<h3 id="main-config-files">Main config files</h3>
+<h3 id="main-config-files_1">Main config files</h3>
 <ul>
 <li>on <code>RHEL/CentOS</code>: it's <code>/etc/amavisd/amavisd.conf</code>.</li>
 <li>

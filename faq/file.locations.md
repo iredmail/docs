@@ -2,14 +2,62 @@
 
 [TOC]
 
+## Apache
+
+* On `RHEL`/`CentOS`: Apache config files are placed under `/etc/httpd/`.
+
+    * Main config file is `/etc/httpd/conf/httpd.conf`.
+    * Module config files are placed under `/etc/httpd/conf.d/` (old releases)
+      or `/etc/httpd/conf.modules.d/`.
+    * Root directory used to store web applications is `/var/www`, document
+      root is `/var/www/html/`.
+    * Log files are placed under `/var/www/httpd/`.
+
+* On `Debian`/`Ubuntu`: Apache config files are placed under `/etc/apache2`.
+
+    * Main config file is `/etc/apache2/apache2.conf`.
+    * Module config files are placed under `/etc/apache2/conf.d/` (old
+      releases) or `/etc/apache2/conf-available/`.
+    * Root directory used to store web applications is `/usr/share/apache2`,
+      document root is `/var/www/` (old releases) or `/var/www/html/`.
+    * Log files are placed under `/var/www/apache2/`.
+
+* On `FreeBSD`: Apache config files are placed under `/usr/local/etc/apache2`.
+
+    * Main config file is `/usr/local/etc/apache2/httpd.conf`.
+    * Module config files are placed under `/usr/local/etc/apache2/Includes/`.
+    * Root directory used to store web applications is `/usr/local/www/`,
+      document root is `/usr/local/www/apache22/data/`.
+    * Log files are placed under `/var/log/`, main log files are
+      `/var/log/httpd-access.log` and `/var/log/httpd-error.log`.
+
+* On `OpenBSD`: Apache (the one shipped in OpenBSD base system) config files
+  are placed under `/var/www/conf`.
+
+    * Main config file is `/var/www/conf/httpd.conf`.
+    * Module config files are placed under `/var/www/conf/modules/`.
+    * Root directory used to store web applications is `/var/www/`,
+      document root is `/var/www/htdocs/`.
+    * Log files are placed under `/var/www/logs/`.
+
+## Nginx
+
+* On `Linux` and `OpenBSD`: Nginx config files are placed under `/etc/nginx/`,
+  uWSGI config files are placed under `/etc/uwsgi/`.
+* On `FreeBSD`: Nginx config files are placed under `/usr/local/etc/nginx`,
+  uWSGI config files are placed under `/usr/local/etc/uwsgi/`.
+
+Main config files are `nginx.conf` and `default.conf`.
+
+* On `Linux` and `FreeBSD`: log files are placed under `/var/log/nginx/`.
+* On `OpenBSD`: log files are placed under `/var/www/logs/` (same as Apache).
+
 ## Postfix
 
 * on `Linux` and `OpenBSD`, Postfix config files are placed under `/etc/postfix/`.
 * on `FreeBSD`, Postfix config files are placed under `/usr/local/etc/postfix/`.
 
-### Config files
-
-Main config files:
+### Main config files:
 
 * `main.cf`: contains most configurations.
 * `master.cf`: contains transport related settings.
