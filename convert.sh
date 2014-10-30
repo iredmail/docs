@@ -45,7 +45,8 @@ all_chapter_dirs="installation \
 # Get chapter info
 #   - title: _title.md
 #   - summary: _summary.md
-echo "We're migrating [old wiki documents](http://www.iredmail.org/wiki) to Markdown format for easier maintenance, all documents are available [here](https://bitbucket.org/zhb/docs.iredmail.org/src)." >> ${INDEX_MD}
+echo "We're migrating [old wiki documents](http://www.iredmail.org/wiki) to Markdown format for easier maintenance, all documents are available [here](https://bitbucket.org/zhb/docs.iredmail.org/src)." > ${INDEX_MD}
+echo "We're migrating [old wiki documents](http://www.iredmail.org/wiki) to Markdown format for easier maintenance." > ${README_MD}
 
 for chapter_dir in ${all_chapter_dirs}; do
     # Get articles
