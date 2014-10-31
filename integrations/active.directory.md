@@ -2,9 +2,15 @@
 
 [TOC]
 
-__NOTE__: We tested this tutorial on Windows 2000, 2003, 2008 R2 server, if
-you tested it on other versions and works well, please let us know.
-[Contact us](http://www.iredmail.org/contact.html)
+__NOTES__:
+
+* iRedAdmin-Pro doesn't work with Active Directory, so if you choose to
+  authenticate mail users against Active Directory, you have to manage mail
+  accounts with Active Directory management tools, don't buy iRedAdmin-Pro.
+
+* We tested this tutorial on Windows 2000, 2003, 2008 R2 server, if
+  you tested it on other versions and works well, please let us know.
+  [Contact us](http://www.iredmail.org/contact.html)
 
 ## Summary
 
