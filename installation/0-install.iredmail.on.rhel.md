@@ -193,7 +193,7 @@ Configuration completed.
     * Location of mail serve related software configuration files
     * Some other important and sensitive information
 
-* [Setup DNS records for your mail server](./setup_dns.html)
+* [Setup DNS records for your mail server](./setup.dns.html)
 * [Configure Thunderbird as mail client (POP3/IMAP, SMTP and global ldap address book)](./configure.thunderbird.html)
 
 ## Access webmail and other web applications

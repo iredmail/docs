@@ -49,7 +49,7 @@ line like below:
 
 If you or your customer prefer to use their own DKIM key, you can generate
 a new DKIM key and ask your customer to add DKIM DNS record. Refer to our
-tutorial to [add DKIM DNS record](setup_dns.html#dkim-record-for-your-mail-domain-name).
+tutorial to [add DKIM DNS record](setup.dns.html#dkim-record-for-your-mail-domain-name).
 
 * Generate new DKIM key for new domain.
 
