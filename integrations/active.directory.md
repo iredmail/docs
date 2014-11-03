@@ -179,9 +179,9 @@ result_format   = %d/%u/Maildir/
 debuglevel      = 0
 ```
 
-__Note__: Here, we hard-code user's mailbox path to be
-`[domain]/[username]/Maildir` in `result_format` setting. for example:
-`example.com/postmaster/Maildir`.
+__Note__: Here, we hard-code user's mailbox path in
+`[domain]/[username]/Maildir/` format (`result_format` parameter). for example:
+`example.com/postmaster/Maildir/`.
 
 * Create file: `/etc/postfix/ad_virtual_group_maps.cf`:
 

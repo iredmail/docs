@@ -34,7 +34,7 @@ Notes:
 * PF is enabled by default, with basic rules for ssh and mail services.
 * System built-in [`spamd(8)`](http://www.openbsd.org/cgi-bin/man.cgi/OpenBSD-current/man8/spamd.8) is enabled by default for greylisting,
   whitelisting, blacklisting.
-* Sendmail is disabled by default, replaced by Postfix.
+* Sendmail and OpenSMTPd are disabled by default, replaced by Postfix.
 
 ## Preparations
 
