@@ -38,17 +38,15 @@ this installation guide instead:
 <a href="http://www.iredmail.org/wiki/index.php?title=Install/iRedMail/FreeBSD.Jail">Install iRedMail inside FreeBSD Jail (with ezjail)</a></p>
 </blockquote>
 <h2 id="system-requirements">System Requirements</h2>
-<blockquote>
-<p><strong>WARNING</strong>: iRedMail is designed to be deployed on a FRESH server system,
+<p><strong>IMPORTANT WARNING</strong>: iRedMail is designed to be deployed on a FRESH server system,
 which means your server does <strong>NOT</strong> have mail related components installed,
 e.g. MySQL, OpenLDAP, Postfix, Dovecot, Amavisd, etc. iRedMail will install
 and configure them for you automatically. Otherwise it may override your
 existing files/configurations althought it will backup files before modifing,
 and it may be not working as expected.</p>
-</blockquote>
 <p>To install iRedMail on FreeBSD, you need:</p>
 <ul>
-<li>A FRESH, minimal, working FreeBSD system, no addition ports or binary
+<li>A <strong>FRESH</strong>, minimal, working FreeBSD system, no addition ports or binary
   packages were installed. Supported releases are listed on
   <a href="../download.html">Download</a> page.</li>
 <li>At least <code>1 GB</code> of memory is required for low traffic production server.

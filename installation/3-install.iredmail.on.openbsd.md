@@ -4,16 +4,15 @@
 
 ## System Requirements
 
-> __WARNING__: iRedMail is designed to be deployed on a FRESH server system,
-> which means your server does __NOT__ have mail related components installed,
-> e.g. MySQL, OpenLDAP, Postfix, Dovecot, Amavisd, etc. iRedMail will install
-> and configure them for you automatically. Otherwise it may override your
-> existing files/configurations althought it will backup files before modifing,
-> and it may be not working as expected.
-
+__IMPORTANT WARNING__: iRedMail is designed to be deployed on a FRESH server system,
+which means your server does __NOT__ have mail related components installed,
+e.g. MySQL, OpenLDAP, Postfix, Dovecot, Amavisd, etc. iRedMail will install
+and configure them for you automatically. Otherwise it may override your
+existing files/configurations althought it will backup files before modifing,
+and it may be not working as expected.
 To install iRedMail on OpenBSD, you need:
 
-* A FRESH, working OpenBSD system. Supported releases are listed on
+* A __FRESH__, working OpenBSD system. Supported releases are listed on
   [Download](../download.html) page.
 * At least `1 GB` of memory is required for low traffic production server.
   Spam/Virus scanning will take most system resource.
