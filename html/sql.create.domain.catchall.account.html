@@ -1,0 +1,42 @@
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>SQL: Create domain catch-all account for SQL backend</title>
+        <link href="./css/markdown.css" rel="stylesheet"></head>
+    </head>
+    <body>
+    
+    <div id="navigation">
+        <a href="http://www.iredmail.org" target="_blank">iRedMail web site</a>
+    
+        // <a href="./index.html">Document Index</a>
+    </div><h1 id="sql-create-domain-catch-all-account-for-sql-backend">SQL: Create domain catch-all account for SQL backend</h1>
+<p>With default setting, iRedMail will reject emails sent to non-existing mail
+accounts under hosted mail domains. If you want to accept these emails, you
+need a domain catch-all account.</p>
+<p>With MySQL/MariaDB or PostgreSQL backend, you can add catch-all account for
+existing domain <code>domain.com</code> in SQL table <code>vmail.alias</code> like below:</p>
+<pre><code class="sql">sql&gt; USE vmail;
+sql&gt; INSERT INTO alias (address, goto, domain)
+                 VALUES ('domain.com', 'dest@example.com', 'domain.com');
+</code></pre>
+
+<p>This sql command creates catch-all address for domain <code>domain.com</code>, all mails
+sent to non-existing accounts under <code>domain.com</code> will be delivered to
+<code>dest@example.com</code>.</p>
+<p><strong>NOTE</strong>: With iRedAdmin-Pro, you can manage catch-all account in domain
+profile directly. Screenshot attached.</p>
+<p><img alt="" src="../images/iredadmin/domain_profile_catchall.png" /></p><br /><p style="text-align: center;">If you found something wrong
+in this document, please do
+<a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.</p><p style="text-align: center; color: grey;">This tutorial is published under a <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">CC BY-ND 3.0</a> license.<!-- Google Analytics -->
+<script type="text/javascript">
+    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+    try {
+        var pageTracker = _gat._getTracker("UA-3293801-14");
+        pageTracker._trackPageview();
+    } catch(err) {}
+</script>
+</body></html>
