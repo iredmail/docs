@@ -2,6 +2,7 @@
 
 # New
 
+* How to enable SSHA512/BCRYPT in Dovecot + Roundcubemail.
 * How to custom SpamAssassin scores
 * How to enable per-recipient policy lookup in Amavisd (@lookup_sql_dsn).
 * How to enable DNSBL in Postfix.
