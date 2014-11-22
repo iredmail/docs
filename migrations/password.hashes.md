@@ -14,13 +14,20 @@ Below password schemes are supported in iRedAdmin-Pro (which means you can add n
 * PLAIN-MD5 (unsalted MD5). e.g. `0d2bf3c712402f428d48fed691850bfc`
 * SSHA. e.g. `{SSHA}OuCrqL2yWwQIu8a9uvyOQ5V/ZKfL7LJD`
 * SSHA512. e.g. `{SSHA512}FxgXDhBVYmTqoboW+ibyyzPv/wGG7y4VJtuHWrx+wfqrs/lIH2Qxn2eA0jygXtBhMvRi7GNFmL++6aAZ0kXpcy1fxag=`
+* BCRYPT. e.g. {CRYPT}$2a$05$TKnXV39M3uJ4o.AbY1HbjeAval9bunHbxd0.6Qn782yKoBjTEBXTe
 
-__NOTE__: Dovecot claims it supports SSHA512, but I didn't get it work.
-Please test it first if you choose SSHA512.
+__NOTES__:
+
+* `BCRYPT` is only available on BSD systems, because libc shipped in Linux
+  doesn't support bcrypt.
 
 ## Default password schemes used in iRedMail
 
-* For MySQL and PostgreSQL backends: `MD5` (salted).
+* For MySQL and PostgreSQL backends:
+
+    * in iRedMail-0.8.7 and earlier versions: `MD5`
+    * in iRedMail-0.9.0 and later versions: `SSHA512`
+
 * For LDAP backend: `SSHA`.
 
 ## How to use different password hashes in iRedMail
