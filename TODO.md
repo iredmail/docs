@@ -7,6 +7,7 @@
 * How to custom SpamAssassin scores
 * How to enable per-recipient policy lookup in Amavisd (@lookup_sql_dsn).
 * How to enable DNSBL in Postfix.
+* http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/Send.out.email.from.specified.IP.address
 
 # installation guides
 
