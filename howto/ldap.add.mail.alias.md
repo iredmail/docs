@@ -19,5 +19,6 @@ __WARNING__: Attribute `enabledService` requires two values: `mail`, `deliver`.
 
 * Confirm to create.
 * Add missing value for attribute `enabledService`:  `mail`, `deliver`.
+* Add new attribute `accountStatus` with value `active`. This is required.
 * Add alias members (full email address) in attribute `mailForwardingAddress`.
   You can add as many members as you want.
