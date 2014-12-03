@@ -2,8 +2,9 @@
 
 [TOC]
 
-This tutorial describes how to migrate iRedAdmin open source edition or old
-iRedAdmin-Pro release to the latest iRedAdmin-Pro (full-featured edition).
+This tutorial describes how to update or migrate iRedAdmin (either open source
+edition or old iRedAdmin-Pro release) to the latest iRedAdmin release (again,
+either open source edition or iRedAdmin-Pro).
 
 ## Requirements
 

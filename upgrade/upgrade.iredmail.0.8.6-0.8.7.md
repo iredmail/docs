@@ -38,11 +38,12 @@ latest stable release immediately: [How to upgrade Roundcube](http://trac.roundc
 ### Upgrade iRedAPD (Postfix policy server) to the latest 1.4.3
 
 Please follow below tutorial to upgrade iRedAPD to the latest stable release:
-* [How to upgrade iRedAPD-1.4.1 or later versions to iRedAPD-1.4.3](http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/Upgrade.iRedAPD)
+[How to upgrade iRedAPD-1.4.1 or later versions to iRedAPD-1.4.3](http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/Upgrade.iRedAPD)
 
-### Upgrade iRedAdmin (open source edition) to the latest 0.3.3
+### Upgrade iRedAdmin (open source edition) to the latest stable release
 
-Please follow this tutorial to upgrade iRedAdmin open source edition to the latest stable release: [[IRedMail/FAQ/Upgrade.iRedAdmin.Open.Source.Edition |How to upgrade iRedAdmin (open source edition) to the latest stable release]]
+Please follow this tutorial to upgrade iRedAdmin open source edition to the
+latest stable release: [Upgrade iRedAdmin to the latest stable release](./migrate.or.upgrade.iredadmin.html)
 
 ### Upgrade phpMyAdmin to the latest stable release
 
@@ -69,10 +70,11 @@ Postfix service.
 
 After this change, you have to update Roundcube config file to use SMTP service
 over TLS. For example:
-* On RHEL/CentOS, it's /var/www/roundcubemail/config/main.inc.php (or config.inc.php)
-* On Debian/Ubuntu, it's /usr/share/apache2/roundcubemail/config/main.inc.php (or config.inc.php)
-* On FreeBSD, it's /usr/local/www/roundcubemail/config/main.inc.php (or config.inc.php)
-* On OpenBSD, it's /var/www/roundcubemail/config/main.inc.php (or config.inc.php)
+
+* On RHEL/CentOS, it's `/var/www/roundcubemail/config/main.inc.php` (or `config.inc.php`)
+* On Debian/Ubuntu, it's `/usr/share/apache2/roundcubemail/config/main.inc.php` (or `config.inc.php`)
+* On FreeBSD, it's `/usr/local/www/roundcubemail/config/main.inc.php` (or `config.inc.php`)
+* On OpenBSD, it's `/var/www/roundcubemail/config/main.inc.php` (or `config.inc.php`)
 
 ```
 # Part of Roundcube config file: config.inc.php
@@ -183,7 +185,8 @@ __NOTE__: For OpenBSD users, please replace `user = postfix` by
 ```
 
 * Enable logrotate service for this newly created log file:
-** on Linux, please append this new log file name in `/etc/logrotate.d/dovecot` like below:
+
+    * on Linux, please append this new log file name in `/etc/logrotate.d/dovecot` like below:
 
 ```
 # Part of file: /etc/logrotate.d/dovecot
@@ -191,14 +194,14 @@ __NOTE__: For OpenBSD users, please replace `user = postfix` by
 /var/log/dovecot.log /var/log/dovecot-lmtp.log {
 ```
 
-** on FreeBSD, please append below line in file `/etc/newsyslog.conf`:
+* on FreeBSD, please append below line in file `/etc/newsyslog.conf`:
 
 ```
 # Part of file: /etc/newsyslog.conf
 /var/log/dovecot-lmtp.log    vmail:vmail   600  7     *    24    Z    /var/run/dovecot/master.pid
 ```
 
-** on OpenBSD, please append below line in file `/etc/newsyslog.conf`:
+* on OpenBSD, please append below line in file `/etc/newsyslog.conf`:
 
 ```
 # Part of file: /etc/newsyslog.conf

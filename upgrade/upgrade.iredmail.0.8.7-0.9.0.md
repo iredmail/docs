@@ -43,8 +43,12 @@ iRedAPD-1.4.4 brings several new plugins, and works with Postfix parameter
 `smtpd_end_of_data_restrictions` (protocol state `END-OF-MESSAGE`).
 
 Please follow below tutorial to upgrade iRedAPD to the latest stable release:
-* [How to upgrade iRedAPD-1.4.1 or later versions to iRedAPD-1.4.4](http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/Upgrade.iRedAPD)
+[How to upgrade iRedAPD-1.4.1 or later versions to iRedAPD-1.4.4](http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/Upgrade.iRedAPD)
 
+### Upgrade iRedAdmin (open source edition) to the latest stable release
+
+Please follow this tutorial to upgrade iRedAdmin open source edition to the
+latest stable release: [Upgrade iRedAdmin to the latest stable release](./migrate.or.upgrade.iredadmin.html)
 
 ### Fix improper Postfix setting in both main.cf and master.cf
 
