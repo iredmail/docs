@@ -30,15 +30,8 @@
 
 * ~~ http://www.iredmail.org/wiki/index.php?title=Integration/Active.Directory.iRedMail ~~
 
-# New
-
-* ~~Use same DKIM PEM file for all mail domains.~~
-* ~~ How to sign DKIM signature on sent emails for new mail domain. mention how
-  to use one DKIM key for all domains. ~~
-
 # wiki FAQ
 
-* http://www.iredmail.org/wiki/index.php?title=Addition/MySQL/Catch-all
 * http://www.iredmail.org/wiki/index.php?title=IRedAdmin-Pro/FAQ/change.default.password.policy
 * http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/Backup
 * http://www.iredmail.org/forum/topic1968-enabling-ipv6-for-your-iredmail-postfixdovecot.html
@@ -56,11 +49,16 @@
 
 # Howto
 
+* ~~Use same DKIM PEM file for all mail domains.~~
+* ~~ How to sign DKIM signature on sent emails for new mail domain. mention how
+  to use one DKIM key for all domains. ~~
+
 * ~~ http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/Reset.password.for.mail.user ~~
 * ~~http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/LDAP/Monitor.Incoming.and.Outgoing.Mails.with.BCC~~
 * ~~http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/LDAP/Turn.On.Debug.Mode.In.OpenLDAP~~
 * ~~ http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/Quarantining.Clean.Mail ~~
 * ~~ http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/Quarantining.SPAM ~~
+* ~~ http://www.iredmail.org/wiki/index.php?title=Addition/MySQL/Catch-all ~~
 
 # Migration
 

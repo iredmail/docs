@@ -21,6 +21,7 @@ We're migrating [old wiki documents](http://www.iredmail.org/wiki) to Markdown f
 * [Allow user to send email without authentication](https://bitbucket.org/zhb/docs.iredmail.org/src/default/howto/allow.user.to.send.email.without.authentication.md)
 * [Force mail user to change password in 90 days](https://bitbucket.org/zhb/docs.iredmail.org/src/default/howto/force.user.to.change.password.md)
 * [Ignore Trash folder in mailbox quota](https://bitbucket.org/zhb/docs.iredmail.org/src/default/howto/ignore.trash.folder.in.quota.md)
+* [iRedAdmin-Pro: Default password restrictions](https://bitbucket.org/zhb/docs.iredmail.org/src/default/howto/iredadmin-pro.default.password.policy.md)
 * [LDAP: Add an alias domain](https://bitbucket.org/zhb/docs.iredmail.org/src/default/howto/ldap.add.alias.domain.md)
 * [LDAP: Add a mail alias account](https://bitbucket.org/zhb/docs.iredmail.org/src/default/howto/ldap.add.mail.alias.md)
 * [LDAP: Add a mail list account](https://bitbucket.org/zhb/docs.iredmail.org/src/default/howto/ldap.add.mail.list.md)
