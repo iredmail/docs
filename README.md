@@ -28,6 +28,7 @@ We're migrating [old wiki documents](http://www.iredmail.org/wiki) to Markdown f
 * [Monitor incoming and outgoing mails with BCC](https://bitbucket.org/zhb/docs.iredmail.org/src/default/howto/monitor.incoming.and.outgoing.mails.with.bcc.md)
 * [Pipe incoming email for certain user to external script ](https://bitbucket.org/zhb/docs.iredmail.org/src/default/howto/pipe.incoming.email.for.certain.user.to.external.script.md)
 * [Force Dovecot to recalculate mailbox quota](https://bitbucket.org/zhb/docs.iredmail.org/src/default/howto/recalculate.mailbox.quota.md)
+* [Reset user password](https://bitbucket.org/zhb/docs.iredmail.org/src/default/howto/reset.user.password.md)
 * [SQL: Create domain catch-all account for SQL backend](https://bitbucket.org/zhb/docs.iredmail.org/src/default/howto/sql.create.domain.catchall.account.md)
 * [SQL: Create an mail alias account with SQL command line](https://bitbucket.org/zhb/docs.iredmail.org/src/default/howto/sql.create.mail.alias.md)
 * [Store SpamAssassin bayes in SQL](https://bitbucket.org/zhb/docs.iredmail.org/src/default/howto/store.spamassassin.bayes.in.sql.md)

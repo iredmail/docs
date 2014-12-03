@@ -2,15 +2,14 @@
 
 # New
 
-* http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/LDAP/Monitor.Incoming.and.Outgoing.Mails.with.BCC
-* http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/LDAP/Turn.On.Debug.Mode.In.OpenLDAP
-* http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/Reset.password.for.mail.user
+* iRedMail upgrade tutorials
 * Upgrade iRedAPD: http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/Upgrade.iRedAPD
 * How to enable SSHA512/BCRYPT in Dovecot + Roundcubemail.
 * How to custom SpamAssassin scores
 * How to enable per-recipient policy lookup in Amavisd (@lookup_sql_dsn).
 * How to enable DNSBL in Postfix.
 * http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/Send.out.email.from.specified.IP.address
+
 
 # installation guides
 
@@ -57,6 +56,9 @@
 
 # Howto
 
+* ~~ http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/Reset.password.for.mail.user ~~
+* ~~http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/LDAP/Monitor.Incoming.and.Outgoing.Mails.with.BCC~~
+* ~~http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/LDAP/Turn.On.Debug.Mode.In.OpenLDAP~~
 * ~~ http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/Quarantining.Clean.Mail ~~
 * ~~ http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/Quarantining.SPAM ~~
 
