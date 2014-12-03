@@ -1,0 +1,389 @@
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Upgrade iRedMail from 0.8.6 to 0.8.7</title>
+        <link href="./css/markdown.css" rel="stylesheet"></head>
+    </head>
+    <body>
+    
+    <div id="navigation">
+        <a href="http://www.iredmail.org" target="_blank">iRedMail web site</a>
+    
+        // <a href="./index.html">Document Index</a>
+    </div><h1 id="upgrade-iredmail-from-086-to-087">Upgrade iRedMail from 0.8.6 to 0.8.7</h1>
+<h2 id="changelog">ChangeLog</h2>
+<ul>
+<li>2014-05-18: Update SQL commands to sync value of removed columns to new column 'domain.settings'.</li>
+<li>2014-05-14: Mention Roundcube setting change after you enable SMTP SASL authentication only over TLS in Postfix.</li>
+<li>2014-05-13: iRedMail-0.8.7 has been released.</li>
+<li>2014-05-06:<ul>
+<li>Allows SMTP SASL authentication ONLY over a TLS-encrypted smtp connection.</li>
+<li>Fixed issue: Postfix cannot resolve client IP address to DNS name on RHEL/CentOS.</li>
+</ul>
+</li>
+<li>2014-04-18: [MySQL/PostgreSQL] Remove unused SQL columns in table <code>vmail.domain</code>.</li>
+<li>2014-02-20:<ul>
+<li>Enable Dovecot LMTP service for local mail delivery.</li>
+<li>[OpenLDAP] Add new value for existing mail users: enabledService=lmtp.</li>
+<li>[MySQL/PostgreSQL] Create one addition SQL column in vmail database: mailbox.enablelmtp.</li>
+</ul>
+</li>
+<li>2014-02-19: Create addition SQL columns in vmail database: mailbox.settings, admin.settings, alias.islist.</li>
+</ul>
+<h2 id="general-all-backends-should-apply-these-steps">General (All backends should apply these steps)</h2>
+<h3 id="update-etciredmail-release-with-iredmail-version-number">Update /etc/iredmail-release with iRedMail version number</h3>
+<p>iRedMail stores the release version in <code>/etc/iredmail-release</code> after
+installation, it's recommended to update this file after you upgraded iRedMail,
+so that you can know which version of iRedMail you're running. For example:</p>
+<pre><code># File: /etc/iredmail-release
+
+0.8.7
+</code></pre>
+
+<h3 id="upgrade-roundcube-webmail-to-the-latest-stable-release">Upgrade Roundcube webmail to the latest stable release</h3>
+<p>Please follow Roundcube official tutorial to upgrade Roundcube webmail to the
+latest stable release immediately: <a href="http://trac.roundcube.net/wiki/Howto_Upgrade">How to upgrade Roundcube</a></p>
+<h3 id="upgrade-iredapd-postfix-policy-server-to-the-latest-143">Upgrade iRedAPD (Postfix policy server) to the latest 1.4.3</h3>
+<p>Please follow below tutorial to upgrade iRedAPD to the latest stable release:
+* <a href="http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/Upgrade.iRedAPD">How to upgrade iRedAPD-1.4.1 or later versions to iRedAPD-1.4.3</a></p>
+<h3 id="upgrade-iredadmin-open-source-edition-to-the-latest-033">Upgrade iRedAdmin (open source edition) to the latest 0.3.3</h3>
+<p>Please follow this tutorial to upgrade iRedAdmin open source edition to the latest stable release: [[IRedMail/FAQ/Upgrade.iRedAdmin.Open.Source.Edition |How to upgrade iRedAdmin (open source edition) to the latest stable release]]</p>
+<h3 id="upgrade-phpmyadmin-to-the-latest-stable-release">Upgrade phpMyAdmin to the latest stable release</h3>
+<p>Please follow this short tutorial to upgrade phpMyAdmin to the latest stable
+release: http://docs.phpmyadmin.net/en/latest/setup.html#upgrading-from-an-older-version</p>
+<p>NOTE: Since phpMyAdmin-4.2.3.0, it  enforces the minimum PHP (5.3) and MySQL (5.5) versions.</p>
+<h3 id="optional-allows-smtp-sasl-authentication-only-over-a-tls-encrypted-smtp-connection">[OPTIONAL] Allows SMTP SASL authentication ONLY over a TLS-encrypted smtp connection</h3>
+<ul>
+<li>This step is optional.</li>
+<li>WARNING: With this Postfix change, mail users must configure their mail
+  client applications (Outlook, Thunderbird, etc) to enable TLS (port 25 or
+  587) or SSL (port 465) for sending email.</li>
+</ul>
+<p>To allow SMTP SASL authentication ONLY over a TLS-encrypted smtp connection,
+just change value of parameter <code>smtpd_tls_auth_only</code> to <code>yes</code>, and reload
+Postfix service.</p>
+<pre><code># postconf -e smtpd_tls_auth_only='yes'
+# postfix reload
+</code></pre>
+
+<p>After this change, you have to update Roundcube config file to use SMTP service
+over TLS. For example:
+<em> On RHEL/CentOS, it's /var/www/roundcubemail/config/main.inc.php (or config.inc.php)
+</em> On Debian/Ubuntu, it's /usr/share/apache2/roundcubemail/config/main.inc.php (or config.inc.php)
+<em> On FreeBSD, it's /usr/local/www/roundcubemail/config/main.inc.php (or config.inc.php)
+</em> On OpenBSD, it's /var/www/roundcubemail/config/main.inc.php (or config.inc.php)</p>
+<pre><code># Part of Roundcube config file: config.inc.php
+
+// OLD settings
+//$rcmail_config['smtp_server'] = '127.0.0.1';
+//$rcmail_config['smtp_port'] = 25;
+
+// NEW settings
+$config['smtp_server'] = 'tls://127.0.0.1';                                
+$config['smtp_port'] = 587;
+</code></pre>
+
+<h3 id="optional-enable-lmtp-service-in-dovecot-2x">[OPTIONAL] Enable LMTP service in Dovecot-2.x</h3>
+<ul>
+<li>This step is optional. We already have Dovecot LDA as local mail deliver
+  agent, LMTP is just another choice. LDA and LMTP are enabled in
+  iRedMail-0.8.7 by default.</li>
+<li>WARNING: This is for Dovecot-2.x, and NOT applicable to Dovecot-1.x. You can
+  check Dovecot version with below command:</li>
+</ul>
+<pre><code># dovecot --version
+</code></pre>
+
+<p>Before we go further, there're some questions we have to answer:</p>
+<ul>
+<li><strong>What's LMTP?</strong> LMTP is a mail deliver agent like Dovecot LDA.</li>
+<li><strong>Why use LMTP (instead of LDA)?</strong> Short answer: LMTP has better performance
+  than LDA on a busy server and easier to config. The main difference between
+  LMTP and LDA is that the LDA is a short-running process, started as a binary
+  from command line, while LMTP is a long-running process started by Dovecot's
+  master process. LMTP has better performance, "the performance gains comes
+  mostly from avoiding the overhead of invoking an executable and spawning a
+  new process for each delivery." If your mail system isn't stressed, It
+  doesn't matter which one you use.</li>
+</ul>
+<p>Search "dovecot lda vs lmtp" in Google will give you more detailed info and debate.</p>
+<p><strong>NOTE</strong>: On Debian or Ubuntu, you have to install one addition package before
+we go further: <code>dovecot-lmtpd</code>.</p>
+<pre><code># apt-get install dovecot-lmtpd
+</code></pre>
+
+<ul>
+<li>To enable LMTP service, please APPEND service name <code>lmtp</code> in parameter
+  <code>protocols</code> in Dovecot config file, it's <code>/etc/dovecot/dovecot.conf</code> (on
+  Linux/OpenBSD), or <code>/usr/local/etc/dovecot/dovecot.conf</code> (on FreeBSD).</li>
+</ul>
+<pre><code># Part of file: /etc/dovecot/dovecot.conf
+
+protocols = ... lmtp
+</code></pre>
+
+<ul>
+<li>Then append below settings in Dovecot config file <code>dovecot.conf</code>:</li>
+</ul>
+<pre><code># Part of file: /etc/dovecot/dovecot.conf
+
+service lmtp {
+    user = vmail
+
+    # For higher volume sites, it may be desirable to increase the number of
+    # active listener processes. A range of 5 to 20 is probably good for most
+    # sites.
+    #process_min_avail = 5
+
+    # Logging
+    executable = lmtp -L
+
+    # Listening LMTP service on socket file and TCP
+    unix_listener /var/spool/postfix/private/dovecot-lmtp {
+        user = postfix
+        group = postfix
+        mode = 0600
+    }
+
+    inet_listener lmtp {
+        #address = 192.168.0.24 127.0.0.1 ::1
+        port = 24
+    }
+}
+
+protocol lmtp {
+    # Plugins
+    mail_plugins = quota sieve
+    postmaster_address = postmaster
+
+    lmtp_save_to_detail_mailbox = yes
+    recipient_delimiter = +
+
+    # Log file
+    info_log_path = /var/log/dovecot-lmtp.log
+}
+</code></pre>
+
+<p><strong>NOTE</strong>: For OpenBSD users, please replace <code>user = postfix</code> by
+<code>user = _postfix</code>, and replace <code>group = postfix</code> by <code>group = _postfix</code>.</p>
+<ul>
+<li>Create log file for LMTP service:</li>
+</ul>
+<pre><code># touch /var/log/dovecot-lmtp.log
+# chown vmail:vmail /var/log/dovecot-lmtp.log
+# chmod 0600 /var/log/dovecot-lmtp.log
+</code></pre>
+
+<ul>
+<li>Enable logrotate service for this newly created log file:
+** on Linux, please append this new log file name in <code>/etc/logrotate.d/dovecot</code> like below:</li>
+</ul>
+<pre><code># Part of file: /etc/logrotate.d/dovecot
+
+/var/log/dovecot.log /var/log/dovecot-lmtp.log {
+</code></pre>
+
+<p>** on FreeBSD, please append below line in file <code>/etc/newsyslog.conf</code>:</p>
+<pre><code># Part of file: /etc/newsyslog.conf
+/var/log/dovecot-lmtp.log    vmail:vmail   600  7     *    24    Z    /var/run/dovecot/master.pid
+</code></pre>
+
+<p>** on OpenBSD, please append below line in file <code>/etc/newsyslog.conf</code>:</p>
+<pre><code># Part of file: /etc/newsyslog.conf
+
+/var/log/dovecot-lmtp.log    vmail:vmail   600  7     *    24    Z &quot;/usr/local/bin/doveadm log reopen&quot;
+</code></pre>
+
+<ul>
+<li>Restarting Dovecot service is required.</li>
+</ul>
+<pre><code># ---- On Linux ----
+# /etc/init.d/dovecot restart
+
+# ---- On FreeBSD ----
+# /usr/local/etc/rc.d/dovecot restart
+
+# ---- On OpenBSD ----
+# /etc/rc.d/dovecot restart
+</code></pre>
+
+<p>That's all. You can now check whether Dovecot is listening on port 24 and
+created socket file <code>/var/spool/postfix/private/dovecot-lmtp</code> for LMTP service.</p>
+<pre><code># ---- On Linux ----
+# netstat -ntlp | grep ':24'
+# ls -l /var/spool/postfix/private/dovecot-lmtp
+</code></pre>
+
+<p>To use LMTP as local mail delivery agent, you can use either
+<code>lmtp:unix:private/dovecot-lmtp</code> (local socket) or <code>lmtp:inet:127.0.0.1:24</code>
+(network listener). Currently, default mail delivery agent is <code>dovecot</code>
+(Dovecot LDA). For example:</p>
+<ul>
+<li>For OpenLDAP backend, you can set domain transport to LMTP in domain object
+  with this attribute/value: <code>mtaTransport=lmtp:unix:private/dovecot-lmtp</code></li>
+<li>For MySQL and PostgreSQL backends, you can set with this SQL command:</li>
+</ul>
+<pre><code>mysql&gt; USE vmail;
+mysql&gt; UPDATE domain SET transport='lmtp:unix:private/dovecot-lmtp' WHERE domain='abc.com';
+</code></pre>
+
+<p><strong>IMPORTANT NOTE</strong>: it requires new LDAP value or SQL column for mail users
+mentioned in this upgrade tutorial (LDAP: <code>enabledService=lmtp</code>, SQL:
+<code>mailbox.enablelmtp=1</code>), so please finish this upgrade tutorial first, then
+you're safe to use LMTP.</p>
+<h3 id="optional-fixed-issue-postfix-cannot-resolve-client-ip-address-to-dns-name-on-rhelcentos">[OPTIONAL] Fixed issue: Postfix cannot resolve client IP address to DNS name on RHEL/CentOS</h3>
+<p>This is optional.</p>
+<p>On RHEL/CentOS, Postfix is running under chroot, it logs client IP address in
+log file, but cannot resolve IP to DNS name. You can fix it with below steps:</p>
+<pre><code># ---- For i386 ----
+# mkdir /var/spool/postfix/lib/
+# cp /lib/*nss* /lib/*reso* /var/spool/postfix/lib/
+# postfix reload
+
+# ---- For x86_64 ----
+# mkdir /var/spool/postfix/lib64/
+# cp /lib64/*nss* /lib64/*reso* /var/spool/postfix/lib64/
+# postfix reload
+</code></pre>
+
+<h2 id="openldap-backend-special">OpenLDAP backend special</h2>
+<h3 id="add-new-ldap-values-for-existing-mail-users">Add new LDAP values for existing mail users</h3>
+<p>We will add one new LDAP attribute/value pair for existing mail users:
+<code>enabledService=lmtp</code>. It's used by Dovecot LMTP server.</p>
+<ul>
+<li>Download below python script to adding new values for existing mail users.</li>
+</ul>
+<pre><code># cd /root/
+# wget https://bitbucket.org/zhb/iredmail/raw/default/extra/update/updateLDAPValues_086_to_087.py
+</code></pre>
+
+<ul>
+<li>Open downloaded file <code>updateLDAPValues_086_to_087.py</code>, set LDAP server
+related settings in file head. for example:</li>
+</ul>
+<pre><code># Part of file: updateLDAPValues_086_to_087.py
+
+uri = 'ldap://127.0.0.1:389'
+basedn = 'o=domains,dc=example,dc=com'
+bind_dn = 'cn=vmailadmin,dc=example,dc=com'
+bind_pw = 'passwd'
+</code></pre>
+
+<p>You can find required LDAP credential in iRedAdmin config file or <code>iRedMail.tips</code>
+file under your iRedMail installation directory. Using either
+<code>cn=Manager,dc=xx,dc=xx</code> or <code>cn=vmailadmin,dc=xx,dc=xx</code> as bind dn is ok.</p>
+<ul>
+<li>Execute this script, it will add required data:</li>
+</ul>
+<pre><code># python updateLDAPValues_086_to_087.py
+</code></pre>
+
+<p>That's all.</p>
+<h2 id="mysql-backend-special">MySQL backend special</h2>
+<h3 id="add-and-remove-sql-columns-in-vmail-database">Add and remove SQL columns in <code>vmail</code> database</h3>
+<p>We need 5 new SQL columns in <code>vmail</code> database:</p>
+<ul>
+<li><code>mailbox.enablelmtp</code>: used by Dovecot LMTP server.</li>
+<li><code>mailbox.settings</code>: used to store addition per-user settings, default value is empty. Used in iRedAdmin-Pro.</li>
+<li><code>domain.settings</code>: used to store per-domain settings, default is empty. Used in iRedAdmin-Pro.</li>
+<li><code>admin.settings</code>: used to store addition per-admin settings, default value is empty. Used in iRedAdmin-Pro.</li>
+<li><code>alias.islist</code>: used to mark a sql record is a mail list account, default value is <code>0</code> (means not a mail list account). This helps avoid complex SQL queries.</li>
+</ul>
+<p>Some existing columns in table <code>vmail.domain</code> are not needed anymore, they will
+be merged into our new column: <code>domain.settings</code>.</p>
+<p>Now connect to SQL server as root user, create new columns, add required
+indexes for new column <code>alias.islist</code>, and update value of <code>alias.islist</code> for
+existing accounts:</p>
+<pre><code>$ mysql -uroot -p
+mysql&gt; USE vmail;
+mysql&gt; ALTER TABLE mailbox ADD COLUMN enablelmtp TINYINT(1) NOT NULL DEFAULT 1;
+mysql&gt; ALTER TABLE mailbox ADD INDEX (enablelmtp);
+
+mysql&gt; ALTER TABLE mailbox ADD COLUMN settings TEXT;
+mysql&gt; ALTER TABLE domain ADD COLUMN settings TEXT;
+mysql&gt; ALTER TABLE admin ADD COLUMN settings TEXT;
+
+mysql&gt; ALTER TABLE alias ADD COLUMN islist TINYINT(1) NOT NULL DEFAULT 0;
+mysql&gt; ALTER TABLE alias ADD INDEX (islist);
+mysql&gt; UPDATE alias SET islist=1 WHERE address NOT IN (SELECT username FROM mailbox);
+mysql&gt; UPDATE alias SET islist=0 WHERE address=domain;    -- domain catch-all account
+
+-- Remove old columns and store their value into new column: domain.settings
+mysql&gt; UPDATE domain SET settings='';
+mysql&gt; UPDATE domain SET settings=CONCAT(settings, IF(defaultlanguage IS NULL OR defaultlanguage='', '', CONCAT('default_language:', defaultlanguage, ';')));
+mysql&gt; UPDATE domain SET settings=CONCAT(settings, IF(defaultuserquota IS NULL OR defaultuserquota=0, '', CONCAT('default_user_quota:', defaultuserquota, ';')));
+mysql&gt; UPDATE domain SET settings=CONCAT(settings, IF(defaultuseraliases IS NULL OR defaultuseraliases='', '', CONCAT('default_groups:', defaultuseraliases, ';')));
+mysql&gt; UPDATE domain SET settings=CONCAT(settings, IF(minpasswordlength IS NULL OR minpasswordlength=0, '', CONCAT('min_passwd_length:', minpasswordlength, ';')));
+mysql&gt; UPDATE domain SET settings=CONCAT(settings, IF(maxpasswordlength IS NULL OR maxpasswordlength=0, '', CONCAT('max_passwd_length:', maxpasswordlength, ';')));
+mysql&gt; UPDATE domain SET settings=CONCAT(settings, IF(disableddomainprofiles IS NULL OR disableddomainprofiles='', '', CONCAT('disabled_domain_profiles:', disableddomainprofiles, ';')));
+mysql&gt; UPDATE domain SET settings=CONCAT(settings, IF(disableduserprofiles IS NULL OR disableduserprofiles='', '', CONCAT('disabled_user_profiles:', disableduserprofiles, ';')));
+
+mysql&gt; ALTER TABLE domain DROP defaultlanguage;
+mysql&gt; ALTER TABLE domain DROP defaultuserquota;
+mysql&gt; ALTER TABLE domain DROP defaultuseraliases;
+mysql&gt; ALTER TABLE domain DROP minpasswordlength;
+mysql&gt; ALTER TABLE domain DROP maxpasswordlength;
+mysql&gt; ALTER TABLE domain DROP disableddomainprofiles;
+mysql&gt; ALTER TABLE domain DROP disableduserprofiles;
+</code></pre>
+
+<h2 id="postgresql-backend-special">PostgreSQL backend special</h2>
+<h3 id="add-and-remove-sql-columns-in-vmail-database_1">Add and remove SQL columns in <code>vmail</code> database</h3>
+<p>We need 5 new SQL columns in <code>vmail</code> database:</p>
+<ul>
+<li><code>mailbox.enablelmtp</code>: used by Dovecot LMTP server.</li>
+<li><code>mailbox.settings</code>: used to store addition per-user settings, default value is empty. Used in iRedAdmin-Pro.</li>
+<li><code>domain.settings</code>: used to store per-domain settings, default is empty. Used in iRedAdmin-Pro.</li>
+<li><code>admin.settings</code>: used to store addition per-admin settings, default value is empty. Used in iRedAdmin-Pro.</li>
+<li><code>alias.islist</code>: used to mark a sql record is a mail list account, default value is <code>0</code> (means not a mail list account). This helps avoid complex SQL queries.</li>
+</ul>
+<p>Some existing columns in table <code>vmail.domain</code> are not needed anymore, they will
+be merged into our new column: <code>domain.settings</code>.</p>
+<p>Now connect to SQL server as PostgreSQL administrator user, create new columns,
+add required indexes for new column <code>alias.islist</code>, and update value of
+<code>alias.islist</code> for existing accounts:</p>
+<pre><code># su - postgres
+$ psql -d vmail
+sql&gt; ALTER TABLE mailbox ADD COLUMN enablelmtp INT2 NOT NULL DEFAULT 1;
+sql&gt; CREATE INDEX idx_mailbox_enablelmtp ON mailbox (enablelmtp);
+
+sql&gt; ALTER TABLE mailbox ADD COLUMN settings TEXT NOT NULL DEFAULT '';
+sql&gt; ALTER TABLE domain ADD COLUMN settings TEXT NOT NULL DEFAULT '';
+sql&gt; ALTER TABLE admin ADD COLUMN settings TEXT NOT NULL DEFAULT '';
+
+sql&gt; ALTER TABLE alias ADD COLUMN islist INT2 NOT NULL DEFAULT 0;
+sql&gt; CREATE INDEX idx_alias_islist ON alias (islist);
+sql&gt; UPDATE alias SET islist=1 WHERE address NOT IN (SELECT username FROM mailbox);
+sql&gt; UPDATE alias SET islist=0 WHERE address=domain;    -- domain catch-all account
+
+-- Remove old columns and store their value into new column: domain.settings
+sql&gt; UPDATE domain SET settings='';
+sql&gt; UPDATE domain SET settings=settings || 'default_language:' || defaultlanguage || ';';
+sql&gt; UPDATE domain SET settings=settings || 'default_user_quota:' || defaultuserquota || ';';
+sql&gt; UPDATE domain SET settings=settings || 'default_groups:' || defaultuseraliases || ';';
+sql&gt; UPDATE domain SET settings=settings || 'min_passwd_length:' || minpasswordlength || ';';
+sql&gt; UPDATE domain SET settings=settings || 'max_passwd_length:' || maxpasswordlength || ';';
+sql&gt; UPDATE domain SET settings=settings || 'disabled_domain_profiles:' || disableddomainprofiles || ';';
+sql&gt; UPDATE domain SET settings=settings || 'disabled_user_profiles:' || disableduserprofiles || ';';
+
+sql&gt; ALTER TABLE domain DROP defaultlanguage;
+sql&gt; ALTER TABLE domain DROP defaultuserquota;
+sql&gt; ALTER TABLE domain DROP defaultuseraliases;
+sql&gt; ALTER TABLE domain DROP minpasswordlength;
+sql&gt; ALTER TABLE domain DROP maxpasswordlength;
+sql&gt; ALTER TABLE domain DROP disableddomainprofiles;
+sql&gt; ALTER TABLE domain DROP disableduserprofiles;
+</code></pre><br /><p style="text-align: center;">If you found something wrong
+in this document, please do
+<a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.</p><p style="text-align: center; color: grey;">This tutorial is published under a <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">CC BY-ND 3.0</a> license.<!-- Google Analytics -->
+<script type="text/javascript">
+    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+    try {
+        var pageTracker = _gat._getTracker("UA-3293801-14");
+        pageTracker._trackPageview();
+    } catch(err) {}
+</script>
+</body></html>

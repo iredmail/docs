@@ -28,6 +28,7 @@ so that you can know which version of iRedMail you're running. For example:
 
 ```
 # File: /etc/iredmail-release
+
 0.9.0
 ```
 
@@ -35,6 +36,15 @@ so that you can know which version of iRedMail you're running. For example:
 
 Please follow Roundcube official tutorial to upgrade Roundcube webmail to the
 latest stable release immediately: [How to upgrade Roundcube](http://trac.roundcube.net/wiki/Howto_Upgrade)
+
+### Upgrade iRedAPD (Postfix policy server) to the latest 1.4.4
+
+iRedAPD-1.4.4 brings several new plugins, and works with Postfix parameter
+`smtpd_end_of_data_restrictions` (protocol state `END-OF-MESSAGE`).
+
+Please follow below tutorial to upgrade iRedAPD to the latest stable release:
+* [How to upgrade iRedAPD-1.4.1 or later versions to iRedAPD-1.4.4](http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/Upgrade.iRedAPD)
+
 
 ### Fix improper Postfix setting in both main.cf and master.cf
 
@@ -168,7 +178,7 @@ You can find required LDAP credential in iRedAdmin config file or `iRedMail.tips
 file under your iRedMail installation directory. Using either
 `cn=Manager,dc=xx,dc=xx` or `cn=vmailadmin,dc=xx,dc=xx` as bind dn is ok.
 
-* Execute this script, it will fix incorrect values and add correct ones:
+* Execute this script, it will add required data:
 
 ```
 # python updateLDAPValues_087_to_090.py
