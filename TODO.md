@@ -1,17 +1,18 @@
 # TODO
 
-# New
-
 * iRedMail upgrade tutorials
 * Upgrade iRedAPD: http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/Upgrade.iRedAPD
 * How to enable SSHA512/BCRYPT in Dovecot + Roundcubemail.
 * How to custom SpamAssassin scores
 * How to enable per-recipient policy lookup in Amavisd (@lookup_sql_dsn).
 * How to enable DNSBL in Postfix.
+
 * http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/Send.out.email.from.specified.IP.address
+* http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/Backup
+* http://www.iredmail.org/forum/topic1968-enabling-ipv6-for-your-iredmail-postfixdovecot.html
+* http://www.iredmail.org/forum/topic210-iredmail-support-faq-how-to-enable-signing-disclaimer-on-outgoing-mails.html
 
-
-# installation guides
+# iRedAdmin-Pro installation guides
 
 * http://www.iredmail.org/admin_installation_debian.html
 * http://www.iredmail.org/admin_installation_opensuse.html
@@ -28,12 +29,6 @@
 * http://www.iredmail.org/wiki/index.php?title=Integration/DBMail.iRedMail.with.MySQL.backend
 
 * ~~ http://www.iredmail.org/wiki/index.php?title=Integration/Active.Directory.iRedMail ~~
-
-# wiki FAQ
-
-* http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/Backup
-* http://www.iredmail.org/forum/topic1968-enabling-ipv6-for-your-iredmail-postfixdovecot.html
-* http://www.iredmail.org/forum/topic210-iredmail-support-faq-how-to-enable-signing-disclaimer-on-outgoing-mails.html
 
 # installation guides
 
