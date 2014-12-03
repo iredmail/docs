@@ -2,8 +2,9 @@ We're migrating [old wiki documents](http://www.iredmail.org/wiki) to Markdown f
 # Install iRedMail
 * [Install iRedMail on Red Hat Enterprise Linux, CentOS](https://bitbucket.org/zhb/docs.iredmail.org/src/default/installation/0-install.iredmail.on.rhel.md)
 * [Install iRedMail on Debian or Ubuntu Linux](https://bitbucket.org/zhb/docs.iredmail.org/src/default/installation/1-install.iredmail.on.debian.ubuntu.md)
-* [Install iRedMail on FreeBSD (without Jail)](https://bitbucket.org/zhb/docs.iredmail.org/src/default/installation/2-install.iredmail.on.freebsd.md)
-* [Install iRedMail on OpenBSD](https://bitbucket.org/zhb/docs.iredmail.org/src/default/installation/3-install.iredmail.on.openbsd.md)
+* [Install iRedMail on FreeBSD](https://bitbucket.org/zhb/docs.iredmail.org/src/default/installation/2-install.iredmail.on.freebsd.md)
+* [Install iRedMail on FreeBSD inside Jail (with ezjail)](https://bitbucket.org/zhb/docs.iredmail.org/src/default/installation/3-install.iredmail.on.freebsd.with.jail.md)
+* [Install iRedMail on OpenBSD](https://bitbucket.org/zhb/docs.iredmail.org/src/default/installation/4-install.iredmail.on.openbsd.md)
 * [Setup DNS records for your iRedMail server](https://bitbucket.org/zhb/docs.iredmail.org/src/default/installation/setup.dns.md)
 * [Perform silent/unattended iRedMail installation](https://bitbucket.org/zhb/docs.iredmail.org/src/default/installation/unattended.iredmail.installation.md)
 # Configure mail client applications

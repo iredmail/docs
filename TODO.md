@@ -2,6 +2,7 @@
 
 # New
 
+* http://www.iredmail.org/wiki/index.php?title=Install/iRedMail/FreeBSD.Jail
 * iRedMail upgrade tutorials
 * Upgrade iRedAPD: http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/Upgrade.iRedAPD
 * How to enable SSHA512/BCRYPT in Dovecot + Roundcubemail.
@@ -13,7 +14,6 @@
 
 # installation guides
 
-* http://www.iredmail.org/wiki/index.php?title=Install/iRedMail/FreeBSD.Jail
 * http://www.iredmail.org/admin_installation_debian.html
 * http://www.iredmail.org/admin_installation_opensuse.html
 * http://www.iredmail.org/admin_installation_freebsd.html
@@ -32,7 +32,6 @@
 
 # wiki FAQ
 
-* http://www.iredmail.org/wiki/index.php?title=IRedAdmin-Pro/FAQ/change.default.password.policy
 * http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/Backup
 * http://www.iredmail.org/forum/topic1968-enabling-ipv6-for-your-iredmail-postfixdovecot.html
 * http://www.iredmail.org/forum/topic210-iredmail-support-faq-how-to-enable-signing-disclaimer-on-outgoing-mails.html
@@ -66,6 +65,7 @@
 
 # FAQ
 
+* ~~ http://www.iredmail.org/wiki/index.php?title=IRedAdmin-Pro/FAQ/change.default.password.policy ~~
 * ~~ http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/Turn.On.Debug.Mode.In.Amavisd ~~
 * ~~ http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/SQL/Create.Mail.Alias ~~
 * ~~ http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/LDAP/Monitor.Incoming.and.Outgoing.Mails.with.BCC ~~
