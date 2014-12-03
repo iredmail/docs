@@ -5,6 +5,7 @@ We're migrating [old wiki documents](http://www.iredmail.org/wiki) to Markdown f
 * [Install iRedMail on FreeBSD](https://bitbucket.org/zhb/docs.iredmail.org/src/default/installation/2-install.iredmail.on.freebsd.md)
 * [Install iRedMail on FreeBSD inside Jail (with ezjail)](https://bitbucket.org/zhb/docs.iredmail.org/src/default/installation/3-install.iredmail.on.freebsd.with.jail.md)
 * [Install iRedMail on OpenBSD](https://bitbucket.org/zhb/docs.iredmail.org/src/default/installation/4-install.iredmail.on.openbsd.md)
+* [Release notes and upgrade tutorials](https://bitbucket.org/zhb/docs.iredmail.org/src/default/installation/releases.md)
 * [Setup DNS records for your iRedMail server](https://bitbucket.org/zhb/docs.iredmail.org/src/default/installation/setup.dns.md)
 * [Perform silent/unattended iRedMail installation](https://bitbucket.org/zhb/docs.iredmail.org/src/default/installation/unattended.iredmail.installation.md)
 # Configure mail client applications

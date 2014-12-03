@@ -1,0 +1,292 @@
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Upgrade iRedMail from 0.8.7 to 0.9.0</title>
+        <link href="./css/markdown.css" rel="stylesheet"></head>
+    </head>
+    <body>
+    
+    <div id="navigation">
+        <a href="http://www.iredmail.org" target="_blank">iRedMail web site</a>
+    
+        // <a href="./index.html">Document Index</a>
+    </div><h1 id="upgrade-iredmail-from-087-to-090">Upgrade iRedMail from 0.8.7 to 0.9.0</h1>
+<div class="toc">
+<ul>
+<li><a href="#upgrade-iredmail-from-087-to-090">Upgrade iRedMail from 0.8.7 to 0.9.0</a><ul>
+<li><a href="#changelog">ChangeLog</a></li>
+<li><a href="#general-all-backends-should-apply-these-steps">General (All backends should apply these steps)</a><ul>
+<li><a href="#update-etciredmail-release-with-iredmail-version-number">Update /etc/iredmail-release with iRedMail version number</a></li>
+<li><a href="#upgrade-roundcube-webmail-to-the-latest-stable-release">Upgrade Roundcube webmail to the latest stable release</a></li>
+<li><a href="#fix-improper-postfix-setting-in-both-maincf-and-mastercf">Fix improper Postfix setting in both main.cf and master.cf</a></li>
+<li><a href="#fix-improper-file-permission-of-amavisd-config-file">Fix improper file permission of Amavisd config file</a></li>
+<li><a href="#fix-incorrect-setting-to-enable-daily-cron-job-to-update-spamassassin-rules">Fix incorrect setting to enable daily cron job to update SpamAssassin rules</a></li>
+</ul>
+</li>
+<li><a href="#openldap-backend-special">OpenLDAP backend special</a><ul>
+<li><a href="#fix-improper-ldap-query-command-in-domain-transport-query-file">Fix improper LDAP query command in domain transport query file</a></li>
+<li><a href="#add-new-ldap-values-for-existing-mail-users">Add new LDAP values for existing mail users</a></li>
+<li><a href="#add-index-for-sql-column-in-amavisd-database">Add index for SQL column in amavisd database</a></li>
+</ul>
+</li>
+<li><a href="#mysql-backend-special">MySQL backend special</a><ul>
+<li><a href="#fix-improper-sql-query-command-in-domain-transport-query-file">Fix improper SQL query command in domain transport query file</a></li>
+<li><a href="#add-and-remove-sql-columns-in-vmail-and-amavisd-databases">Add and remove SQL columns in vmail and amavisd databases</a></li>
+</ul>
+</li>
+<li><a href="#postgresql-backend-special">PostgreSQL backend special</a><ul>
+<li><a href="#fix-improper-sql-query-command-in-domain-transport-query-file_1">Fix improper SQL query command in domain transport query file</a></li>
+<li><a href="#add-and-remove-sql-columns-in-vmail-and-amavisd-databases_1">Add and remove SQL columns in vmail and amavisd databases</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<p><strong>STILL WORKING IN PROGRESS, DO NOT APPLY IT.</strong></p>
+<h2 id="changelog">ChangeLog</h2>
+<ul>
+<li>2014-11-13: [All backends] Add index for SQL column <code>msgs.spam_level</code> in <code>amavisd</code> database.</li>
+<li>2014-11-06: [All backends] Fix improper SQL query command in domain transport query file.</li>
+<li>2014-09-09: [All backends] Fix incorrect setting to enable daily cron job to update SpamAssassin rules.</li>
+<li>2014-09-09: [All backends] Fix improper permission of Amavisd config file.</li>
+<li>2014-07-15: [All backends] Fix improper Postfix setting in both main.cf and master.cf.</li>
+<li>2014-06-19: [All backends] Add index for SQL column <code>policy.policy_name</code> in <code>amavisd</code> database.</li>
+<li>2014-06-07:<ul>
+<li>[OpenLDAP] Add new value for existing mail users: enabledService=indexer-worker.</li>
+<li>[MySQL/PostgreSQL] New SQL column in <code>vmail</code> database: mailbox.enableindexer-worker.</li>
+</ul>
+</li>
+</ul>
+<h2 id="general-all-backends-should-apply-these-steps">General (All backends should apply these steps)</h2>
+<h3 id="update-etciredmail-release-with-iredmail-version-number">Update /etc/iredmail-release with iRedMail version number</h3>
+<p>iRedMail stores the release version in <code>/etc/iredmail-release</code> after
+installation, it's recommended to update this file after you upgraded iRedMail,
+so that you can know which version of iRedMail you're running. For example:</p>
+<pre><code># File: /etc/iredmail-release
+0.9.0
+</code></pre>
+
+<h3 id="upgrade-roundcube-webmail-to-the-latest-stable-release">Upgrade Roundcube webmail to the latest stable release</h3>
+<p>Please follow Roundcube official tutorial to upgrade Roundcube webmail to the
+latest stable release immediately: <a href="http://trac.roundcube.net/wiki/Howto_Upgrade">How to upgrade Roundcube</a></p>
+<h3 id="fix-improper-postfix-setting-in-both-maincf-and-mastercf">Fix improper Postfix setting in both main.cf and master.cf</h3>
+<p>Currently, we don't have Postfix parameter <code>receive_override_options=</code> set in
+<code>/etc/postfix/main.cf</code>, instead, we have it in transport <code>127.0.0.1:10025</code>
+(Amavisd) like this:</p>
+<pre><code># Part of file: /etc/postfix/master.cf
+
+127.0.0.1:10025 inet n  -   -   -   -  smtpd
+    ...
+    -o receive_override_options=no_header_body_checks,no_unknown_recipient_checks,no_address_mappings
+</code></pre>
+
+<p>Without <code>receive_override_options=no_address_mappings</code> in <code>main.cf</code>:</p>
+<ul>
+<li>
+<p>Postfix will enable canonical address mapping, virtual alias map expansion,
+  address masquerading, and automatic BCC (blind carbon-copy) recipients
+  <strong>BEFORE</strong> injecting emails to content filter (Amavisd, in our case). For
+  example, if you forward email to 3 email addresses, Postfix will expand the
+  original recipient to 3 recipients, then Amavisd will get 3 emails for
+  scanning. But with <code>receive_override_options=no_address_mappings</code>, Postfix
+  won't expand original recipient to 3 addresses, and Amavisd gets only 1 email
+  for scanning. It slightly improves mail server performance.</p>
+</li>
+<li>
+<p>If a blacklisted sender (stored in Amavisd SQL database, not in
+  Policyd/Cluebringer) sends email to user who forwards email to other
+  addresses, Amavisd will quarantine the one sent to original recipient, but
+  bypass emails sent to forwarded addresses.</p>
+</li>
+</ul>
+<p>Please apply below steps to fix above issues:</p>
+<ul>
+<li>Add <code>receive_override_options</code> in Postfix with below shell command:</li>
+</ul>
+<pre><code># postconf -e receive_override_options='no_address_mappings'
+</code></pre>
+
+<ul>
+<li>Open file <code>/etc/postfix/master.cf</code> (On Linux/OpenBSD) or
+  <code>/usr/local/etc/postfix/master.cf</code> (on FreeBSD), find setting for transport
+  <code>127.0.0.1:10025</code>, remove <code>no_address_mappings</code> for its
+  <code>receive_override_options</code> option:</li>
+</ul>
+<pre><code># Part of file: /etc/postfix/master.cf
+
+# ORIGINAL setting
+#    -o receive_override_options=no_header_body_checks,no_unknown_recipient_checks,no_address_mappings
+
+# MODIFIED setting
+    -o receive_override_options=no_header_body_checks,no_unknown_recipient_checks
+</code></pre>
+
+<ul>
+<li>Restart Postfix service.</li>
+</ul>
+<p><strong>IMPORTANT NOTE</strong>: If you want to disable <code>content_filter=</code> in Postfix, please
+comment out <code>receive_override_options=</code> in Postfix config file <code>main.cf</code> too,
+otherwise canonical address mapping, virtual alias map expansion, address
+masquerading, and automatic BCC (blind carbon-copy) recipients will not work.</p>
+<h3 id="fix-improper-file-permission-of-amavisd-config-file">Fix improper file permission of Amavisd config file</h3>
+<p><strong>NOTE</strong>: This step is applicable to only Red Hat/CentOS 6.</p>
+<p>Amavisd config file <code>/etc/amavisd/amavisd.conf</code> must be owned by group <code>amavis</code>,
+otherwise after you upgraded to Red Hat/CentOS 7, Amavisd service cannot start.</p>
+<pre><code># chgrp amavis /etc/amavisd/amavisd.conf
+</code></pre>
+
+<h3 id="fix-incorrect-setting-to-enable-daily-cron-job-to-update-spamassassin-rules">Fix incorrect setting to enable daily cron job to update SpamAssassin rules</h3>
+<p><strong>NOTE</strong>: This step is applicable to only Debian and Ubuntu.</p>
+<p>Please update file <code>/etc/default/spamassassin</code> to set <code>CRON=1</code>, so that
+SpamAssassin daily cron job will update SpamAssassin rules automatically.</p>
+<pre><code># Part of file: /etc/default/spamassassin
+
+CRON=1
+</code></pre>
+
+<h2 id="openldap-backend-special">OpenLDAP backend special</h2>
+<h3 id="fix-improper-ldap-query-command-in-domain-transport-query-file">Fix improper LDAP query command in domain transport query file</h3>
+<p>Please open file <code>/etc/postfix/ldap/transport_maps_domain.cf</code> (on Linux/OpenBSD)
+or <code>/usr/local/etc/postfix/ldap/transport_maps_domain.cf</code> (on FreeBSD), add
+addition LDAP filter <code>(!(domainBackupMX=yes))</code> in <code>query =</code> parameter:</p>
+<pre><code># Part of file: /etc/postfix/ldap/transport_maps_domain.cf
+
+# OLD setting
+#query_filter    = (&amp;(objectClass=mailDomain)(accountStatus=active)(enabledService=mail)(|(domainName=%s)(domainAliasName=%s)))
+
+# NEW setting
+query_filter    = (&amp;(objectClass=mailDomain)(accountStatus=active)(enabledService=mail)(|(domainName=%s)(domainAliasName=%s))(!(domainBackupMX=yes)))
+</code></pre>
+
+<p>Restarting Postfix service is required.</p>
+<h3 id="add-new-ldap-values-for-existing-mail-users">Add new LDAP values for existing mail users</h3>
+<p>We will add new LDAP attribute/value pair for existing mail users:
+<code>enabledService=indexer-worker</code>. It's used by Dovecot.</p>
+<ul>
+<li>Download below python script to adding new values for existing mail users.</li>
+</ul>
+<pre><code># cd /root/
+# wget https://bitbucket.org/zhb/iredmail/raw/default/extra/update/updateLDAPValues_087_to_090.py
+</code></pre>
+
+<ul>
+<li>Open downloaded file <code>updateLDAPValues_087_to_090.py</code>, set LDAP server related
+settings in this file. For example:</li>
+</ul>
+<pre><code># Part of file: updateLDAPValues_087_to_090.py
+
+uri = 'ldap://127.0.0.1:389'
+basedn = 'o=domains,dc=example,dc=com'
+bind_dn = 'cn=vmailadmin,dc=example,dc=com'
+bind_pw = 'passwd'
+</code></pre>
+
+<p>You can find required LDAP credential in iRedAdmin config file or <code>iRedMail.tips</code>
+file under your iRedMail installation directory. Using either
+<code>cn=Manager,dc=xx,dc=xx</code> or <code>cn=vmailadmin,dc=xx,dc=xx</code> as bind dn is ok.</p>
+<ul>
+<li>Execute this script, it will fix incorrect values and add correct ones:</li>
+</ul>
+<pre><code># python updateLDAPValues_087_to_090.py
+</code></pre>
+
+<p>That's all.</p>
+<h3 id="add-index-for-sql-column-in-amavisd-database">Add index for SQL column in <code>amavisd</code> database</h3>
+<p>We need indexes for some SQL columns in <code>amavisd</code> database:
+<code>policy.policy_name</code>, <code>msgs.spam_level</code>. Both are used by iRedAdmin-Pro.</p>
+<p>Now connect to SQL server as MySQL root user, create new columns, add required INDEX:</p>
+<pre><code>$ mysql -uroot -p
+mysql&gt; USE amavisd;
+mysql&gt; CREATE UNIQUE INDEX policy_idx_policy_name ON policy (policy_name);
+mysql&gt; CREATE INDEX msgs_idx_spam_level ON msgs (spam_level);
+</code></pre>
+
+<h2 id="mysql-backend-special">MySQL backend special</h2>
+<h3 id="fix-improper-sql-query-command-in-domain-transport-query-file">Fix improper SQL query command in domain transport query file</h3>
+<p>Please open file <code>/etc/postfix/mysql/transport_maps_domain.cf</code> (on Linux/OpenBSD)
+or <code>/usr/local/etc/postfix/mysql/transport_maps_domain.cf</code> (on FreeBSD), add
+addition SQL statement <code>AND backupmx=0</code> in <code>query =</code> parameter:</p>
+<pre><code># Part of file: /etc/postfix/mysql/transport_maps_domain.cf
+
+# OLD setting
+#query       = SELECT transport FROM domain WHERE domain='%s' AND active=1
+
+# NEW setting
+query       = SELECT transport FROM domain WHERE domain='%s' AND active=1 AND backupmx=0
+</code></pre>
+
+<p>Restarting Postfix service is required.</p>
+<h3 id="add-and-remove-sql-columns-in-vmail-and-amavisd-databases">Add and remove SQL columns in <code>vmail</code> and <code>amavisd</code> databases</h3>
+<ul>
+<li>
+<p>We need new SQL columns in <code>vmail</code> database: <code>mailbox.enableindexer-worker</code>,
+  it's used by Dovecot.</p>
+</li>
+<li>
+<p>We need new indexes for some 2 columns in <code>amavisd</code> database:
+  <code>policy.policy_name</code>, <code>msgs.spam_level</code>. Both are used by iRedAdmin-Pro.</p>
+</li>
+</ul>
+<p>Now connect to SQL server as MySQL root user, create new columns, add required
+indexes:</p>
+<pre><code>$ mysql -uroot -p
+mysql&gt; USE vmail;
+mysql&gt; ALTER TABLE mailbox ADD COLUMN `enableindexer-worker` TINYINT(1) NOT NULL DEFAULT 1;
+mysql&gt; ALTER TABLE mailbox ADD INDEX (`enableindexer-worker`);
+
+mysql&gt; USE amavisd;
+mysql&gt; CREATE UNIQUE INDEX policy_idx_policy_name ON policy (policy_name);
+mysql&gt; CREATE INDEX msgs_idx_spam_level ON msgs (spam_level);
+</code></pre>
+
+<h2 id="postgresql-backend-special">PostgreSQL backend special</h2>
+<h3 id="fix-improper-sql-query-command-in-domain-transport-query-file_1">Fix improper SQL query command in domain transport query file</h3>
+<p>Please open file <code>/etc/postfix/pgsql/transport_maps_domain.cf</code> (on Linux/OpenBSD)
+or <code>/usr/local/etc/postfix/pgsql/transport_maps_domain.cf</code> (on FreeBSD), add
+addition SQL statement <code>AND backupmx=0</code> in <code>query =</code> parameter:</p>
+<pre><code># Part of file: /etc/postfix/pgsql/transport_maps_domain.cf
+
+# OLD setting
+#query       = SELECT transport FROM domain WHERE domain='%s' AND active=1
+
+# NEW setting
+query       = SELECT transport FROM domain WHERE domain='%s' AND active=1 AND backupmx=0
+</code></pre>
+
+<p>Restarting Postfix service is required.</p>
+<h3 id="add-and-remove-sql-columns-in-vmail-and-amavisd-databases_1">Add and remove SQL columns in <code>vmail</code> and <code>amavisd</code> databases</h3>
+<ul>
+<li>
+<p>We need new SQL columns in <code>vmail</code> database: <code>mailbox.enableindexer-worker</code>,
+  it's used by Dovecot.</p>
+</li>
+<li>
+<p>We need new indexes for some 2 columns in <code>amavisd</code> database:
+  <code>policy.policy_name</code>, <code>msgs.spam_level</code>. Both are used by iRedAdmin-Pro.</p>
+</li>
+</ul>
+<p>Now connect to SQL server as PostgreSQL admin user, create new columns, add
+required indexes:</p>
+<pre><code># su - postgres
+$ psql -d vmail
+sql&gt; ALTER TABLE mailbox ADD COLUMN enableindexer-worker INT2 NOT NULL DEFAULT 1;
+sql&gt; CREATE INDEX idx_mailbox_enableindexer_worker ON mailbox (enableindexer-worker);
+
+sql&gt; \c amavisd;
+sql&gt; CREATE UNIQUE INDEX policy_idx_policy_name ON policy (policy_name);
+sql&gt; CREATE INDEX msgs_idx_spam_level ON msgs (spam_level);
+</code></pre><br /><p style="text-align: center;">If you found something wrong
+in this document, please do
+<a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.</p><p style="text-align: center; color: grey;">This tutorial is published under a <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">CC BY-ND 3.0</a> license.<!-- Google Analytics -->
+<script type="text/javascript">
+    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+    try {
+        var pageTracker = _gat._getTracker("UA-3293801-14");
+        pageTracker._trackPageview();
+    } catch(err) {}
+</script>
+</body></html>

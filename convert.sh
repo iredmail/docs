@@ -34,6 +34,7 @@ strip_name_prefix()
 
 # Chapter directories in specified order
 all_chapter_dirs="installation \
+                  upgrade \
                   mua \
                   howto \
                   integrations \
@@ -52,6 +53,10 @@ for chapter_dir in ${all_chapter_dirs}; do
     # Get articles
     all_chapter_articles="$(find ${chapter_dir} -depth 1 -type f -iname '[0-9a-z]*.md')"
 
+    # Don't show chapter title and articles in index page.
+    hide_in_index='NO'
+    [ -f ${chapter_dir}/_hide_in_index ] && hide_in_index='YES'
+
     # Output directory.
     # Remove prefix '[number]-' in chapter directory name.
     #chapter_dir_in_article="$(strip_name_prefix ${chapter_dir})"
@@ -61,16 +66,18 @@ for chapter_dir in ${all_chapter_dirs}; do
     _title_md="${chapter_dir}/_title.md"
     _summary_md="${chapter_dir}/_summary.md"
 
-    if [ -f ${_title_md} ]; then
-        # generate index info of chapter
-        _chapter_title="$(cat ${_title_md})"
-        echo -e "### ${_chapter_title}" >> ${INDEX_MD}
-        echo -e "# ${_chapter_title}" >> ${README_MD}
+    if [ X"${hide_in_index}" != X'YES' ]; then
+        if [ -f ${_title_md} ]; then
+            # generate index info of chapter
+            _chapter_title="$(cat ${_title_md})"
+            echo -e "### ${_chapter_title}" >> ${INDEX_MD}
+            echo -e "# ${_chapter_title}" >> ${README_MD}
 
-        if [ -f ${_summary_md} ]; then
-            _chapter_summary="$(cat ${_summary_md})"
-            echo -e "${_chapter_summary}" >> ${INDEX_MD}
-            echo -e "${_chapter_summary}" >> ${README_MD}
+            if [ -f ${_summary_md} ]; then
+                _chapter_summary="$(cat ${_summary_md})"
+                echo -e "${_chapter_summary}" >> ${INDEX_MD}
+                echo -e "${_chapter_summary}" >> ${README_MD}
+            fi
         fi
     fi
 
@@ -90,10 +97,12 @@ for chapter_dir in ${all_chapter_dirs}; do
         #_article_title="$(head -1 ${article_file} | awk -F'Title: ' '{print $2}')"
         #echo "article title: ${_article_title}"
         #echo "* [${_article_title}](${chapter_dir_in_article}/${article_html_file})" >> ${INDEX_MD}
-        echo "* [${_article_title}](${article_html_file})" >> ${INDEX_MD}
+        if [ X"${hide_in_index}" != X'YES' ]; then
+            echo "* [${_article_title}](${article_html_file})" >> ${INDEX_MD}
 
-        # 'src/default/' is path to view source file on bitbucket.org
-        echo "* [${_article_title}](https://bitbucket.org/zhb/docs.iredmail.org/src/default/${article_file_without_prefix_path})" >> ${README_MD}
+            # 'src/default/' is path to view source file on bitbucket.org
+            echo "* [${_article_title}](https://bitbucket.org/zhb/docs.iredmail.org/src/default/${article_file_without_prefix_path})" >> ${README_MD}
+        fi
 
         # Convert file if it was modified
         echo ${CHANGED_FILES} | grep ${article_file} > /dev/null
@@ -113,13 +122,14 @@ for chapter_dir in ${all_chapter_dirs}; do
     done
 
     # Append addition links at the chapter bottom on index page.
-    _links_md="${chapter_dir}/_links.md"
+    if [ X"${hide_in_index}" != X'YES' ]; then
+        _links_md="${chapter_dir}/_links.md"
 
-    if [ -f ${_links_md} ]; then
-        cat ${_links_md} >> ${INDEX_MD}
-        cat ${_links_md} >> ${README_MD}
+        if [ -f ${_links_md} ]; then
+            cat ${_links_md} >> ${INDEX_MD}
+            cat ${_links_md} >> ${README_MD}
+        fi
     fi
-
 done
 
 #cd ${OUTPUT_DIR}
