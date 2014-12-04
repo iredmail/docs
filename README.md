@@ -54,7 +54,6 @@ Documents contributed by iRedMail users:
 
 * [An Ultra-HA, full Mult-Master E-mail cluster with iRedMail, MariaDB, and IPVS](http://pastebin.com/JcYeQBrX), contributed by Joshua Boniface.
 # Migrations
-* [Migrate or upgrade iRedAdmin](https://bitbucket.org/zhb/docs.iredmail.org/src/default/migrations/migrate.or.upgrade.iredadmin.md)
 * [Migrate old iRedMail server to the latest stable release](https://bitbucket.org/zhb/docs.iredmail.org/src/default/migrations/migrate.to.new.iredmail.server.md)
 * [Password hashes](https://bitbucket.org/zhb/docs.iredmail.org/src/default/migrations/password.hashes.md)
 # Troubleshooting and Debug
