@@ -1,0 +1,530 @@
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Upgrade iRedMail from 0.8.4 to 0.8.5</title>
+        <link href="./css/markdown.css" rel="stylesheet"></head>
+    </head>
+    <body>
+    
+    <div id="navigation">
+        <a href="http://www.iredmail.org" target="_blank">iRedMail web site</a>
+    
+        // <a href="./index.html">Document Index</a>
+    </div><h1 id="upgrade-iredmail-from-084-to-085">Upgrade iRedMail from 0.8.4 to 0.8.5</h1>
+<div class="toc">
+<ul>
+<li><a href="#upgrade-iredmail-from-084-to-085">Upgrade iRedMail from 0.8.4 to 0.8.5</a><ul>
+<li><a href="#changelog">ChangeLog</a></li>
+<li><a href="#general-all-backends-should-apply-these-steps">General (All backends should apply these steps)</a><ul>
+<li><a href="#update-etciredmail-release-with-iredmail-version-number">Update /etc/iredmail-release with iRedMail version number</a></li>
+<li><a href="#upgrade-roundcube-webmail-to-the-latest-stable-release">Upgrade Roundcube webmail to the latest stable release</a></li>
+<li><a href="#upgrade-iredapd-postfix-policy-server-to-the-latest-stable-release">Upgrade iRedAPD (Postfix policy server) to the latest stable release</a></li>
+<li><a href="#upgrade-iredadmin-open-source-edition-to-the-latest-stable-release">Upgrade iRedAdmin (open source edition) to the latest stable release</a></li>
+</ul>
+</li>
+<li><a href="#openldap-backend-special">OpenLDAP backend special</a><ul>
+<li><a href="#use-the-latest-ldap-schema-file-provided-by-iredmail">Use the latest LDAP schema file provided by iRedMail</a></li>
+<li><a href="#fix-incorrect-acl-for-attribute-memberofgroup">Fix incorrect ACL for attribute memberOfGroup</a></li>
+<li><a href="#support-assigning-mail-listalias-as-member-of-another-mailing-list">Support assigning mail list/alias as member of another mailing list</a></li>
+<li><a href="#fix-incorrect-sql-column-name-in-amavisd-database">Fix incorrect SQL column name in Amavisd database</a></li>
+<li><a href="#add-sql-trigger-in-mysql-database-iredadmin">Add SQL trigger in MySQL database: iredadmin</a></li>
+<li><a href="#add-new-table-in-mysql-database-iredadmin">Add new table in MySQL database: iredadmin</a></li>
+</ul>
+</li>
+<li><a href="#mysql-backend-special">MySQL backend special</a><ul>
+<li><a href="#add-new-sql-columns-in-vmail-database">Add new SQL columns in vmail database</a></li>
+<li><a href="#fix-incorrect-column-name-in-amavisd-database">fix incorrect column name in Amavisd database</a></li>
+<li><a href="#add-sql-trigger-in-mysql-database-vmail">Add SQL trigger in MySQL database vmail</a></li>
+<li><a href="#add-new-table-in-mysql-database-vmail">Add new table in MySQL database: vmail</a></li>
+</ul>
+</li>
+<li><a href="#postgresql-backend-special">PostgreSQL backend special</a><ul>
+<li><a href="#add-new-sql-columns-in-vmail-database_1">Add new SQL columns in vmail database</a></li>
+<li><a href="#fix-incorrect-column-name-in-amavisd-database_1">Fix incorrect column name in Amavisd database</a></li>
+<li><a href="#add-sql-trigger-in-postgresql-database-vmail">Add SQL trigger in PostgreSQL database: vmail</a></li>
+<li><a href="#add-new-table-in-postgresql-database-vmail">Add new table in PostgreSQL database: vmail</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<h2 id="changelog">ChangeLog</h2>
+<ul>
+<li>2013-07-14: First public release.</li>
+<li>2013-06-27: [All backends] Add new SQL table: deleted_mailboxes. Used to store maildir path of removed mail user, used in iRedAdmin-Pro.</li>
+<li>2013-06-08: [All backends] Add SQL trigger for table <code>used_quota</code>.</li>
+<li>2013-06-08: [MySQL/PostgreSQL] Add 2 new columns on table <code>vmail.domain</code>: <code>disableddomainprofiles</code>, <code>disableduserprofiles</code>. Used in iRedAdmin-Pro.</li>
+<li>2013-05-17: [ldap] Support assigning mail list/alias as member of another mailing list.</li>
+<li>2013-05-12: [all backends] Fix incorrect Amavisd SQL column name: policy.unchecked_lovers_maps (incorrect one) -&gt; policy.unchecked_lover.</li>
+<li>2013-04-26: [ldap] Fix incorrect ACL for attribute <code>memberOfGroup</code>.</li>
+<li>2013-04-03: [ldap] Use the latest iRedMail LDAP schema file.</li>
+<li>2013-04-03: [MySQL/PostgreSQL] Add one new column used for store preferred language for newly created mail users.  Used in iRedAdmin-Pro.</li>
+</ul>
+<h2 id="general-all-backends-should-apply-these-steps">General (All backends should apply these steps)</h2>
+<h3 id="update-etciredmail-release-with-iredmail-version-number">Update /etc/iredmail-release with iRedMail version number</h3>
+<p>iRedMail stores the release version in <code>/etc/iredmail-release</code> after
+installation, it's recommended to update this file after you upgraded iRedMail,
+so that you can know which version of iRedMail you're running. For example:</p>
+<pre><code># File: /etc/iredmail-release
+
+0.8.5
+</code></pre>
+
+<h3 id="upgrade-roundcube-webmail-to-the-latest-stable-release">Upgrade Roundcube webmail to the latest stable release</h3>
+<p>Please follow Roundcube official tutorial to upgrade Roundcube webmail to the
+latest stable release immediately: <a href="http://trac.roundcube.net/wiki/Howto_Upgrade">How to upgrade Roundcube</a></p>
+<h3 id="upgrade-iredapd-postfix-policy-server-to-the-latest-stable-release">Upgrade iRedAPD (Postfix policy server) to the latest stable release</h3>
+<p>Please follow below tutorial to upgrade iRedAPD to the latest stable release:
+<a href="http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/Upgrade.iRedAPD">How to upgrade iRedAPD-1.4.1 or later versions to latest stable release</a></p>
+<h3 id="upgrade-iredadmin-open-source-edition-to-the-latest-stable-release">Upgrade iRedAdmin (open source edition) to the latest stable release</h3>
+<p>Please follow this tutorial to upgrade iRedAdmin open source edition to the
+latest stable release: <a href="./migrate.or.upgrade.iredadmin.html">Upgrade iRedAdmin to the latest stable release</a></p>
+<h2 id="openldap-backend-special">OpenLDAP backend special</h2>
+<h3 id="use-the-latest-ldap-schema-file-provided-by-iredmail">Use the latest LDAP schema file provided by iRedMail</h3>
+<p>With the latest LDAP schema file, we can:</p>
+<ul>
+<li>use attribute <code>preferredLanguage</code> for mail domain object, it's used to
+  storage short language code (e.g. de_DE, en_US) for newly created mail users.</li>
+<li>Assign mail list/alias as member of another mailing list.</li>
+</ul>
+<p>Steps to use the latest LDAP schema file are:</p>
+<ul>
+<li>Download the newest iRedMail ldap schema file</li>
+<li>Copy old ldap schema file as a backup copy</li>
+<li>Replace the old one</li>
+<li>Restart OpenLDAP service.</li>
+</ul>
+<p>Here we go:</p>
+<ul>
+<li>On RHEL/CentOS/Scientific Linux (both release 5.x and 6.x), openSUSE, Gentoo, OpenBSD:</li>
+</ul>
+<pre><code># cd /tmp
+# wget https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/samples/iredmail.schema
+
+# cd /etc/openldap/schema/
+# cp iredmail.schema iredmail.schema.bak
+
+# cp -f /tmp/iredmail.schema /etc/openldap/schema/
+# /etc/init.d/slapd restart       # &lt;-- Or: /etc/init.d/ldap restart
+</code></pre>
+
+<ul>
+<li>On Debian/Ubuntu:</li>
+</ul>
+<pre><code># cd /tmp
+# wget https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/samples/iredmail.schema
+
+# cd /etc/ldap/schema/
+# cp iredmail.schema iredmail.schema.bak
+
+# cp -f /tmp/iredmail.schema /etc/ldap/schema/
+# /etc/init.d/slapd restart
+</code></pre>
+
+<ul>
+<li>On FreeBSD:</li>
+</ul>
+<pre><code># cd /tmp
+# wget https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/samples/iredmail.schema
+
+# cd /usr/local/etc/ldap/schema/
+# cp iredmail.schema iredmail.schema.bak
+
+# cp -f /tmp/iredmail.schema /usr/local/etc/openldap/schema/
+# /etc/init.d/slapd restart
+</code></pre>
+
+<h3 id="fix-incorrect-acl-for-attribute-memberofgroup">Fix incorrect ACL for attribute <code>memberOfGroup</code></h3>
+<p>Permission for attribute <code>memberOfGroup</code> is not set correctly, it causes normal
+user can add himself to any mail list in LDAP. Default permission is writeable
+by self, it should be "read" by "self" instead.</p>
+<ul>
+<li>
+<p>Open OpenLDAP config file <code>slapd.conf</code>, find below lines:</p>
+<ul>
+<li>On RHEL/CentOS, openSUSE, Gentoo, OpenBSD, it's <code>/etc/openldap/slapd.conf</code>.</li>
+<li>On Debian/Ubuntu, it's <code>/etc/ldap/slapd.conf</code>.</li>
+<li>On FreeBSD, it's <code>/usr/local/etc/openldap/slapd.conf</code>.</li>
+</ul>
+</li>
+</ul>
+<pre><code># Part of file: slapd.conf
+
+# User attrs.
+access to attrs=&quot;employeeNumber, ...&quot;
+</code></pre>
+
+<ul>
+<li>Prepend attribute name <code>memberOfGroup</code> before <code>employeeNumber</code>. The final
+  result looks like below:</li>
+</ul>
+<pre><code># Part of file: slapd.conf
+
+# User attrs.
+# WARNING: No space in attr list.
+access to attrs=&quot;memberOfGroup,employeeNumber,...&quot;
+</code></pre>
+
+<ul>
+<li>
+<p>Save the config file, then restart OpenLDAP service to make it use new ACL.</p>
+<ul>
+<li>On RHEL/CentOS 5, openSUSE, please restart it with command <pre># /etc/init.d/ldap restart</pre></li>
+<li>On RHEL/CentOS 6 and other Linux distribution, please restart it with command: <pre># /etc/init.d/slapd restart</pre></li>
+<li>On FreeBSD, please restart it with command: <pre># /usr/local/etc/rc.d/slapd restart</pre></li>
+<li>On OpenBSD, please restart it with command: <pre># /etc/rc.d/slapd restart</pre></li>
+</ul>
+</li>
+</ul>
+<h3 id="support-assigning-mail-listalias-as-member-of-another-mailing-list">Support assigning mail list/alias as member of another mailing list</h3>
+<ul>
+<li>Open Postfix ldap lookup file <code>/etc/postfix/ldap/virtual_group_maps.cf</code> (or <code>/usr/local/etc/postfix/ldap/virtual_group_maps.cf</code> on FreeBSD), update the value of <code>query_filter</code> parameter to add addition LDAP objectclasses:</li>
+</ul>
+<pre><code># Part of file: /etc/postfix/ldap/virtual_group_maps.cf
+
+# OLD SETTING
+#query_filter    = (&amp;(accountStatus=active)(enabledService=mail)(enabledService=deliver)(|(memberOfGroup=%s)(shadowAddress=%s))(|(objectClass=mailUser)(objectClass=mailExternalUser)))
+
+# NEW SETTING
+query_filter    = (&amp;(accountStatus=active)(enabledService=mail)(enabledService=deliver)(|(&amp;(|(memberOfGroup=%s)(shadowAddress=%s))(objectClass=mailUser))(&amp;(memberOfGroup=%s)(!(shadowAddress=%s))(|(objectClass=mailExternalUser)(objectClass=mailList)(objectClass=mailAlias)))))
+</code></pre>
+
+<ul>
+<li>
+<p>Restart Postfix service to use our new setting.</p>
+<ul>
+<li>On Linux: <code># /etc/init.d/postfix restart</code></li>
+<li>On FreeBSD: <code># /usr/local/etc/rc.d/postfix restart</code></li>
+<li>On OpenBSD: <code># /etc/rc.d/postfix restart</code></li>
+</ul>
+</li>
+</ul>
+<h3 id="fix-incorrect-sql-column-name-in-amavisd-database">Fix incorrect SQL column name in Amavisd database</h3>
+<p>NOTE: This fix is applicable to Amavisd-new-2.7 and later versions, not
+applicable to Amavisd-new-2.6 and earlier versions.</p>
+<p>Amavisd-new-2.7.1 fixes a SQL column name <code>policy.unchecked_lover</code>, previously
+incorrectly specified as <code>policy.unchecked_lovers_maps</code>;</p>
+<p>Please login to MySQL server as root user, execute SQL commands to fix
+incorrect column name:</p>
+<pre><code># mysql -uroot -p
+mysql&gt; USE amavisd;
+mysql&gt; ALTER TABLE policy CHANGE unchecked_lovers_maps unchecked_lover CHAR(1) DEFAULT NULL;
+</code></pre>
+
+<h3 id="add-sql-trigger-in-mysql-database-iredadmin">Add SQL trigger in MySQL database: <code>iredadmin</code></h3>
+<p>With OpenLDAP backend, Dovecot stores real-time mailbox quota in MySQL table
+<code>iredadmin.used_quota</code>. But it's hard to calculate per-domain used mailbox
+quota, so we add a SQL trigger to set domain name while Dovecot inserting new
+record for mail user.</p>
+<ul>
+<li>Please save below SQL command in a plain text file. For example, <code>/root/trigger.sql</code>:</li>
+</ul>
+<pre><code>ALTER TABLE used_quota ADD COLUMN domain VARCHAR(255) NOT NULL DEFAULT '';
+ALTER TABLE used_quota ADD INDEX (domain);
+
+DELIMITER $$
+CREATE TRIGGER `after_insert_used_quota` BEFORE INSERT ON `used_quota` FOR EACH ROW
+    BEGIN
+        SET NEW.domain = SUBSTRING_INDEX(NEW.username, '@', -1);
+    END;
+$$
+DELIMITER ;
+
+UPDATE used_quota SET domain = SUBSTRING_INDEX(username, '@', -1);
+</code></pre>
+
+<ul>
+<li>Now login to MySQL database as MySQL <code>root</code> user, then execute below command
+to add required SQL trigger:</li>
+</ul>
+<pre><code># mysql -uroot -p
+mysql&gt; USE iredadmin;
+mysql&gt; SOURCE /root/trigger.sql;
+</code></pre>
+
+<p>That's all.</p>
+<h3 id="add-new-table-in-mysql-database-iredadmin">Add new table in MySQL database: <code>iredadmin</code></h3>
+<p>We need a new SQL table to store maildir path of removed mail user, so that you
+can delete his/her mailbox manually or with a cron job.</p>
+<ul>
+<li>Please save below SQL command in a plain text file. For example, <code>/root/deleted_mailboxes.sql</code>:</li>
+</ul>
+<pre><code>CREATE TABLE IF NOT EXISTS `deleted_mailboxes` (
+    `id` BIGINT(20) UNSIGNED AUTO_INCREMENT,
+    `timestamp` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    -- Email address of deleted user
+    `username` VARCHAR(255) NOT NULL DEFAULT '',
+    -- Domain part of user email address
+    domain VARCHAR(255) NOT NULL DEFAULT '',
+    -- Absolute path of user's mailbox
+    `maildir` TEXT NOT NULL DEFAULT '',
+    -- Which domain admin deleted this user
+    `admin` VARCHAR(255) NOT NULL DEFAULT '',
+    KEY id (id),
+    INDEX (timestamp),
+    INDEX (username),
+    INDEX (domain),
+    INDEX (admin)
+) ENGINE=MyISAM;
+</code></pre>
+
+<ul>
+<li>Now login to MySQL database as MySQL <code>root</code> user, then execute below command to add required SQL table:</li>
+</ul>
+<pre><code># mysql -uroot -p
+mysql&gt; USE iredadmin;
+mysql&gt; SOURCE /root/deleted_mailboxes.sql;
+</code></pre>
+
+<p>That's all.</p>
+<h2 id="mysql-backend-special">MySQL backend special</h2>
+<h3 id="add-new-sql-columns-in-vmail-database">Add new SQL columns in vmail database</h3>
+<ul>
+<li>New column <code>domain.defaultlanguage</code>, used to storage short language code (e.g. de_DE, en_US) for newly created mail users. It's used in iRedAdmin-Pro.</li>
+<li>New column <code>domain.disableddomainprofiles</code>, used to store per-domain disabled domain profiles. It's used in iRedAdmin-Pro, global admin can select which profiles are disabled in domain profile page, and normal domain admin cannot view and update disabled domain profiles in domain profile page.</li>
+<li>New column <code>domain.disableduserprofiles</code>, used to store per-domain disabled user profiles. It's used in iRedAdmin-Pro, global admin can select which profiles are disabled in domain profile page, and normal domain admin cannot view and update disabled user profiles in user profile page.</li>
+</ul>
+<p>Please login to MySQL server as root user, execute SQL commands to add required columns and indexes.</p>
+<pre><code># mysql -uroot -p
+mysql&gt; USE vmail;
+mysql&gt; ALTER TABLE domain ADD COLUMN defaultlanguage VARCHAR(5) NOT NULL DEFAULT 'en_US';
+mysql&gt; ALTER TABLE domain ADD COLUMN disableddomainprofiles VARCHAR(255) NOT NULL DEFAULT '';
+mysql&gt; ALTER TABLE domain ADD COLUMN disableduserprofiles VARCHAR(255) NOT NULL DEFAULT '';
+</code></pre>
+
+<p>No INDEX is required for those 3 new columns.</p>
+<h3 id="fix-incorrect-column-name-in-amavisd-database">fix incorrect column name in Amavisd database</h3>
+<p>NOTE: This fix is applicable to Amavisd-new-2.7 and later versions, not applicable to Amavisd-new-2.6 and earlier versions.</p>
+<p>Amavisd-new-2.7.1 fixes a SQL column name "policy.unchecked_lover", previously incorrectly specified as "policy.unchecked_lovers_maps";</p>
+<pre><code># mysql -uroot -p
+mysql&gt; USE amavisd;
+mysql&gt; ALTER TABLE policy CHANGE unchecked_lovers_maps unchecked_lover CHAR(1) DEFAULT NULL;
+</code></pre>
+
+<h3 id="add-sql-trigger-in-mysql-database-vmail">Add SQL trigger in MySQL database <code>vmail</code></h3>
+<p>With MySQL backend, Dovecot stores real-time mailbox quota in MySQL table
+<code>vmail.used_quota</code>. But it's hard to calculate per-domain used mailbox quota,
+so we add a SQL trigger to set domain name while Dovecot inserting new record
+for mail user.</p>
+<ul>
+<li>Please save below SQL command in a plain text file. For example, <code>/root/trigger.sql</code>:</li>
+</ul>
+<pre><code>ALTER TABLE used_quota ADD COLUMN domain VARCHAR(255) NOT NULL DEFAULT '';
+ALTER TABLE used_quota ADD INDEX (domain);
+
+DELIMITER $$
+CREATE TRIGGER `after_insert_used_quota` BEFORE INSERT ON `used_quota` FOR EACH ROW
+    BEGIN
+        SET NEW.domain = SUBSTRING_INDEX(NEW.username, '@', -1);
+    END;
+$$
+DELIMITER ;
+
+UPDATE used_quota SET domain = SUBSTRING_INDEX(username, '@', -1);
+</code></pre>
+
+<p>Now login to MySQL database as MySQL <code>root</code> user, then execute below command to add required SQL trigger:</p>
+<pre><code># mysql -uroot -p
+mysql&gt; USE vmail;
+mysql&gt; SOURCE /root/trigger.sql;
+</code></pre>
+
+<p>That's all.</p>
+<h3 id="add-new-table-in-mysql-database-vmail">Add new table in MySQL database: <code>vmail</code></h3>
+<p>We need a new SQL table to store maildir path of removed mail user, so that you
+can delete his/her mailbox manually or with a cron job.</p>
+<ul>
+<li>Please save below SQL command in a plain text file. For example, <code>/root/deleted_mailboxes.sql</code>:</li>
+</ul>
+<pre><code>CREATE TABLE IF NOT EXISTS `deleted_mailboxes` (
+    `id` BIGINT(20) UNSIGNED AUTO_INCREMENT,
+    `timestamp` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    -- Email address of deleted user
+    `username` VARCHAR(255) NOT NULL DEFAULT '',
+    -- Domain part of user email address
+    domain VARCHAR(255) NOT NULL DEFAULT '',
+    -- Absolute path of user's mailbox
+    `maildir` TEXT NOT NULL DEFAULT '',
+    -- Which domain admin deleted this user
+    `admin` VARCHAR(255) NOT NULL DEFAULT '',
+    KEY id (id),
+    INDEX (timestamp),
+    INDEX (username),
+    INDEX (domain),
+    INDEX (admin)
+) ENGINE=MyISAM;
+</code></pre>
+
+<ul>
+<li>Now login to MySQL database as MySQL <code>root</code> user, then execute below command
+  to add required SQL table:</li>
+</ul>
+<pre><code># mysql -uroot -p
+mysql&gt; USE vmail;
+mysql&gt; SOURCE /root/deleted_mailboxes.sql;
+</code></pre>
+
+<p>That's all.</p>
+<h2 id="postgresql-backend-special">PostgreSQL backend special</h2>
+<h3 id="add-new-sql-columns-in-vmail-database_1">Add new SQL columns in vmail database</h3>
+<ul>
+<li>New column <code>domain.defaultlanguage</code>, used to storage short language code (e.g. de_DE, en_US) for newly created mail users. It's used in iRedAdmin-Pro.</li>
+<li>New column <code>domain.disableddomainprofiles</code>, used to store per-domain disabled domain profiles. It's used in iRedAdmin-Pro, global admin can select which profiles are disabled in domain profile page, and normal domain admin cannot view and update disabled domain profiles in domain profile page.</li>
+<li>New column <code>domain.disableduserprofiles</code>, used to store per-domain disabled user profiles. It's used in iRedAdmin-Pro, global admin can select which profiles are disabled in domain profile page, and normal domain admin cannot view and update disabled user profiles in user profile page.</li>
+</ul>
+<p>Please switch to PostgreSQL daemon user, then execute SQL commands to add required columns and indexes:</p>
+<ul>
+<li>On Linux, PostgreSQL daemon user is <code>postgres</code>.</li>
+<li>On FreeBSD, PostgreSQL daemon user is <code>pgsql</code>.</li>
+<li>On OpenBSD, PostgreSQL daemon user is <code>_postgresql</code>.</li>
+</ul>
+<pre><code># su - postgres
+$ psql -d vmail
+sql&gt; ALTER TABLE domain ADD COLUMN defaultlanguage VARCHAR(5) NOT NULL DEFAULT 'en_US';
+sql&gt; ALTER TABLE domain ADD COLUMN disableddomainprofiles VARCHAR(255) NOT NULL DEFAULT '';
+sql&gt; ALTER TABLE domain ADD COLUMN disableduserprofiles VARCHAR(255) NOT NULL DEFAULT '';
+</code></pre>
+
+<p>No INDEX is required for these 3 new columns.</p>
+<h3 id="fix-incorrect-column-name-in-amavisd-database_1">Fix incorrect column name in Amavisd database</h3>
+<p>NOTE: This fix is applicable to Amavisd-new-2.7 and later versions, not
+applicable to Amavisd-new-2.6 and earlier versions.</p>
+<p>Amavisd-new-2.7.1 fixes a SQL column name <code>policy.unchecked_lover</code>, previously
+incorrectly specified as <code>policy.unchecked_lovers_maps</code>.</p>
+<pre><code># su - postgres
+$ psql -d amavisd
+sql&gt; ALTER TABLE policy RENAME unchecked_lovers_maps TO unchecked_lover;
+</code></pre>
+
+<h3 id="add-sql-trigger-in-postgresql-database-vmail">Add SQL trigger in PostgreSQL database: <code>vmail</code></h3>
+<p>With PostgreSQL backend, Dovecot stores real-time mailbox quota in PostgreSQL
+database <code>vmail</code>, table <code>used_quota</code>. But it's hard to calculate per-domain
+used mailbox quota, so we add a SQL trigger to set domain name while Dovecot
+inserting new record for mail user.</p>
+<ul>
+<li>Please save below SQL command in a plain text file. For example,
+<code>/tmp/trigger.sql</code> (This file must be readable by PostgreSQL daemon user):</li>
+</ul>
+<pre><code>ALTER TABLE used_quota ADD COLUMN domain VARCHAR(255) NOT NULL DEFAULT '';
+CREATE INDEX idx_used_quota_domain ON used_quota (domain);
+
+DROP TRIGGER mergequota ON used_quota;
+CREATE OR REPLACE FUNCTION merge_quota() RETURNS TRIGGER AS $$
+BEGIN
+    IF NEW.messages &lt; 0 OR NEW.messages IS NULL THEN
+        -- ugly kludge: we came here from this function, really do try to insert
+        IF NEW.messages IS NULL THEN
+            NEW.messages = 0;
+        ELSE
+            NEW.messages = -NEW.messages;
+        END IF;
+        return NEW;
+    END IF;
+
+    LOOP
+        UPDATE used_quota
+        SET bytes = bytes + NEW.bytes, messages = messages + NEW.messages, domain=split_part(NEW.username, '@', 2)
+        WHERE username = NEW.username;
+        IF found THEN
+            RETURN NULL;
+        END IF;
+
+        BEGIN
+            IF NEW.messages = 0 THEN
+                INSERT INTO used_quota (bytes, messages, username, domain)
+                VALUES (NEW.bytes, NULL, NEW.username, split_part(NEW.username, '@', 2));
+            ELSE
+                INSERT INTO used_quota (bytes, messages, username, domain)
+                VALUES (NEW.bytes, -NEW.messages, NEW.username, split_part(NEW.username, '@', 2));
+            END IF;
+            return NULL;
+            EXCEPTION WHEN unique_violation THEN
+            -- someone just inserted the record, update it
+        END;
+    END LOOP;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER mergequota BEFORE INSERT ON used_quota
+    FOR EACH ROW EXECUTE PROCEDURE merge_quota();
+
+UPDATE used_quota SET domain = SPLIT_PART(username, '@', 2);
+</code></pre>
+
+<ul>
+<li>
+<p>Now switch to PostgreSQL daemon user, then execute SQL commands to add
+required columns and indexes:</p>
+<ul>
+<li>On Linux, PostgreSQL daemon user is <code>postgres</code>.</li>
+<li>On FreeBSD, PostgreSQL daemon user is <code>pgsql</code>.</li>
+<li>On OpenBSD, PostgreSQL daemon user is <code>_postgresql</code>.</li>
+</ul>
+</li>
+</ul>
+<pre><code># su - postgres
+$ psql -d vmail
+sql&gt; \i /tmp/trigger.sql;
+</code></pre>
+
+<p>That's all.</p>
+<h3 id="add-new-table-in-postgresql-database-vmail">Add new table in PostgreSQL database: <code>vmail</code></h3>
+<p>We need a new SQL table to store maildir path of removed mail user, so that you
+can delete his/her mailbox manually or with a cron job.</p>
+<ul>
+<li>Please save below SQL command in a plain text file. For example,
+<code>/root/deleted_mailboxes.sql</code>:</li>
+</ul>
+<pre><code>CREATE TABLE deleted_mailboxes (
+    id SERIAL PRIMARY KEY,
+    timestamp TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    -- Email address of deleted user
+    username VARCHAR(255) NOT NULL DEFAULT '',
+    -- Domain part of user email address
+    domain VARCHAR(255) NOT NULL DEFAULT '',
+    -- Absolute path of user's mailbox
+    maildir TEXT NOT NULL DEFAULT '',
+    -- Which domain admin deleted this user
+    admin VARCHAR(255) NOT NULL DEFAULT ''
+);
+
+CREATE INDEX idx_deleted_mailboxes_timestamp ON deleted_mailboxes (timestamp);
+CREATE INDEX idx_deleted_mailboxes_username ON deleted_mailboxes (username);
+CREATE INDEX idx_deleted_mailboxes_domain ON deleted_mailboxes (domain);
+CREATE INDEX idx_deleted_mailboxes_admin ON deleted_mailboxes (admin);
+
+GRANT SELECT,UPDATE,INSERT,DELETE ON deleted_mailboxes TO vmail;
+GRANT SELECT,UPDATE,INSERT,DELETE ON deleted_mailboxes TO vmailadmin;
+</code></pre>
+
+<ul>
+<li>
+<p>Now switch to PostgreSQL daemon user, then execute SQL commands to add
+required columns and indexes:</p>
+<ul>
+<li>On Linux, PostgreSQL daemon user is <code>postgres</code>.</li>
+<li>On FreeBSD, PostgreSQL daemon user is <code>pgsql</code>.</li>
+<li>On OpenBSD, PostgreSQL daemon user is <code>_postgresql</code>.</li>
+</ul>
+</li>
+</ul>
+<pre><code># su - postgres
+$ psql -d vmail
+sql&gt; \i /tmp/deleted_mailboxes.sql;
+</code></pre>
+
+<p>That's all.</p><br /><p style="text-align: center;">If you found something wrong
+in this document, please do
+<a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.</p><p style="text-align: center; color: grey;">This tutorial is published under a <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">CC BY-ND 3.0</a> license.<!-- Google Analytics -->
+<script type="text/javascript">
+    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+    try {
+        var pageTracker = _gat._getTracker("UA-3293801-14");
+        pageTracker._trackPageview();
+    } catch(err) {}
+</script>
+</body></html>
