@@ -1,4 +1,4 @@
-# Migrate iRedAdmin open source edition to iRedAdmin-Pro
+# Migrate or upgrade iRedAdmin
 
 [TOC]
 

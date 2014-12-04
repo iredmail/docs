@@ -8,7 +8,8 @@ We're migrating [old wiki documents](http://www.iredmail.org/wiki) to Markdown f
 * [Setup DNS records for your iRedMail server](https://bitbucket.org/zhb/docs.iredmail.org/src/default/installation/setup.dns.md)
 * [Perform silent/unattended iRedMail installation](https://bitbucket.org/zhb/docs.iredmail.org/src/default/installation/unattended.iredmail.installation.md)
 # Release notes and upgrade tutorials
-* [iRedMail: release notes and upgrade tutorials](https://bitbucket.org/zhb/docs.iredmail.org/src/default/upgrade/iredmail.releases.md)
+* [iRedMail: release notes and upgrade tutorials](https://bitbucket.org/zhb/docs.iredmail.org/src/default/upgrade/1-iredmail.releases.md)
+* [iRedAdmin-Pro: release notes and upgrade tutorial](https://bitbucket.org/zhb/docs.iredmail.org/src/default/upgrade/2-iredadmin-pro.releases.md)
 # Configure mail client applications
 * [Configure Thunderbird as mail client (POP3/IMAP, SMTP and global ldap address book)](https://bitbucket.org/zhb/docs.iredmail.org/src/default/mua/configure.thunderbird.md)
 # How to
@@ -53,7 +54,7 @@ Documents contributed by iRedMail users:
 
 * [An Ultra-HA, full Mult-Master E-mail cluster with iRedMail, MariaDB, and IPVS](http://pastebin.com/JcYeQBrX), contributed by Joshua Boniface.
 # Migrations
-* [Migrate iRedAdmin open source edition to iRedAdmin-Pro](https://bitbucket.org/zhb/docs.iredmail.org/src/default/migrations/migrate.or.upgrade.iredadmin.md)
+* [Migrate or upgrade iRedAdmin](https://bitbucket.org/zhb/docs.iredmail.org/src/default/migrations/migrate.or.upgrade.iredadmin.md)
 * [Migrate old iRedMail server to the latest stable release](https://bitbucket.org/zhb/docs.iredmail.org/src/default/migrations/migrate.to.new.iredmail.server.md)
 * [Password hashes](https://bitbucket.org/zhb/docs.iredmail.org/src/default/migrations/password.hashes.md)
 # Troubleshooting and Debug
