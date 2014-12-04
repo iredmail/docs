@@ -53,10 +53,6 @@ for chapter_dir in ${all_chapter_dirs}; do
     # Get articles
     all_chapter_articles="$(find ${chapter_dir} -depth 1 -type f -iname '[0-9a-z]*.md')"
 
-    # Don't show chapter title and articles in index page.
-    hide_in_index='NO'
-    [ -f ${chapter_dir}/_hide_in_index ] && hide_in_index='YES'
-
     # Output directory.
     # Remove prefix '[number]-' in chapter directory name.
     #chapter_dir_in_article="$(strip_name_prefix ${chapter_dir})"
@@ -66,18 +62,16 @@ for chapter_dir in ${all_chapter_dirs}; do
     _title_md="${chapter_dir}/_title.md"
     _summary_md="${chapter_dir}/_summary.md"
 
-    if [ X"${hide_in_index}" != X'YES' ]; then
-        if [ -f ${_title_md} ]; then
-            # generate index info of chapter
-            _chapter_title="$(cat ${_title_md})"
-            echo -e "### ${_chapter_title}" >> ${INDEX_MD}
-            echo -e "# ${_chapter_title}" >> ${README_MD}
+    if [ -f ${_title_md} ]; then
+        # generate index info of chapter
+        _chapter_title="$(cat ${_title_md})"
+        echo -e "### ${_chapter_title}" >> ${INDEX_MD}
+        echo -e "# ${_chapter_title}" >> ${README_MD}
 
-            if [ -f ${_summary_md} ]; then
-                _chapter_summary="$(cat ${_summary_md})"
-                echo -e "${_chapter_summary}" >> ${INDEX_MD}
-                echo -e "${_chapter_summary}" >> ${README_MD}
-            fi
+        if [ -f ${_summary_md} ]; then
+            _chapter_summary="$(cat ${_summary_md})"
+            echo -e "${_chapter_summary}" >> ${INDEX_MD}
+            echo -e "${_chapter_summary}" >> ${README_MD}
         fi
     fi
 
@@ -92,12 +86,17 @@ for chapter_dir in ${all_chapter_dirs}; do
         # Replace '.md' suffix by '.html'
         article_html_file="$(echo ${article_html_file/%.md/.html})"
 
+        hide_article_in_index='NO'
+        if echo "${article_file_basename}" | grep '^0-' &>/dev/null; then
+            hide_article_in_index='YES'
+        fi
+
         # Get title.
         _article_title="$(head -1 ${article_file} | awk -F'# ' '{print $2}')"
         #_article_title="$(head -1 ${article_file} | awk -F'Title: ' '{print $2}')"
         #echo "article title: ${_article_title}"
         #echo "* [${_article_title}](${chapter_dir_in_article}/${article_html_file})" >> ${INDEX_MD}
-        if [ X"${hide_in_index}" != X'YES' ]; then
+        if [ X"${hide_article_in_index}" == X'NO' ]; then
             echo "* [${_article_title}](${article_html_file})" >> ${INDEX_MD}
 
             # 'src/default/' is path to view source file on bitbucket.org
@@ -122,13 +121,11 @@ for chapter_dir in ${all_chapter_dirs}; do
     done
 
     # Append addition links at the chapter bottom on index page.
-    if [ X"${hide_in_index}" != X'YES' ]; then
-        _links_md="${chapter_dir}/_links.md"
+    _links_md="${chapter_dir}/_links.md"
 
-        if [ -f ${_links_md} ]; then
-            cat ${_links_md} >> ${INDEX_MD}
-            cat ${_links_md} >> ${README_MD}
-        fi
+    if [ -f ${_links_md} ]; then
+        cat ${_links_md} >> ${INDEX_MD}
+        cat ${_links_md} >> ${README_MD}
     fi
 done
 
@@ -154,6 +151,7 @@ fi
 # Sync newly generated HTML files to local diretories.
 if echo "$@" | grep -q -- '--sync-local'; then
     # Copy to local hg repo of http://www.iredmail.org/docs/
+    echo "* Syncing converted HTML files."
     rm -rf ../web/docs/*
     cp -rf html/* ../web/docs/
 

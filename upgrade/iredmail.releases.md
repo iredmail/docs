@@ -1,6 +1,4 @@
-# Release notes and upgrade tutorials
-
-## iRedMail
+# iRedMail: release notes and upgrade tutorials
 
 * __0.9.0__, released on Dec ??, 2014. [Release notes](), [Upgrade from iRedMail-0.8.7](./upgrade.iredmail.0.8.7-0.9.0.html)
 * __0.8.7__, released on May 13, 2014. [Release notes](http://www.iredmail.org/forum/topic6872-news-announcements-bug-fixes-iredmail087-has-been-released.html), [Upgrade from iRedMail-0.8.6](./upgrade.iredmail.0.8.6-0.8.7.html)

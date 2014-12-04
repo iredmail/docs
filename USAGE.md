@@ -32,7 +32,12 @@
     |- 1-what_is_iredmail.md
     |- 2-why_choose_iredmail.md
     |- 3-price.md
+    ...
+    |- 0-hidden_article.md
 ```
+
+* If you don't want to show an article in index page, prepend `0-` in its
+  file name as shown above.
 
 * Run script `convert.sh` to convert Markdown files to HTML static files.
 
