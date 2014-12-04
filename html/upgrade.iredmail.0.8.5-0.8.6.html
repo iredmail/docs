@@ -1,0 +1,166 @@
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Upgrade iRedMail from 0.8.5 to 0.8.6</title>
+        <link href="./css/markdown.css" rel="stylesheet"></head>
+    </head>
+    <body>
+    
+    <div id="navigation">
+        <a href="http://www.iredmail.org" target="_blank">iRedMail web site</a>
+    
+        // <a href="./index.html">Document Index</a>
+    </div><h1 id="upgrade-iredmail-from-085-to-086">Upgrade iRedMail from 0.8.5 to 0.8.6</h1>
+<div class="toc">
+<ul>
+<li><a href="#upgrade-iredmail-from-085-to-086">Upgrade iRedMail from 0.8.5 to 0.8.6</a><ul>
+<li><a href="#changelog">ChangeLog</a></li>
+<li><a href="#general-all-backends-must-apply-these-steps">General (All backends must apply these steps)</a><ul>
+<li><a href="#update-etciredmail-release-with-iredmail-version-number">Update /etc/iredmail-release with iRedMail version number</a></li>
+<li><a href="#upgrade-roundcube-webmail-to-the-latest-stable-release">Upgrade Roundcube webmail to the latest stable release</a></li>
+<li><a href="#upgrade-iredapd-postfix-policy-server-to-the-latest-stable-release">Upgrade iRedAPD (Postfix policy server) to the latest stable release</a></li>
+<li><a href="#upgrade-iredadmin-open-source-edition-to-the-latest-stable-release">Upgrade iRedAdmin (open source edition) to the latest stable release</a></li>
+<li><a href="#upgrade-phpmyadmin-to-the-latest-stable-release">Upgrade phpMyAdmin to the latest stable release</a></li>
+<li><a href="#enable-opportunistic-tls-support-in-postfix-when-sending-mail-to-remote-smtp-server">Enable Opportunistic TLS support in Postfix when sending mail to remote SMTP server</a></li>
+<li><a href="#alter-cluebringer-database">Alter Cluebringer database</a></li>
+<li><a href="#add-cron-job-to-cleanup-cluebringer-database">Add cron job to cleanup Cluebringer database</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<p><strong>IMPORTANT NOTES</strong>: If you're running Policyd-1.8, please stay with it right now. Be patient and wait for our upgrade tutorial if you want to upgrade to Cluebringer. P.S. Policyd doesn't provide upgrade tutorial officially.</p>
+<h2 id="changelog">ChangeLog</h2>
+<ul>
+<li>2014-01-08: Remove backup mx related sections, it's wrong.</li>
+<li>2013-12-17: New section: Alter Cluebringer database.</li>
+<li>2013-12-17: public release.</li>
+<li>2013-11-30: Check whether hosted domain is backup mx or not in Postfix transport map query.</li>
+<li>2013-09-14: Add cron job to cleanup Cluebringer database.</li>
+<li>2013-09-2: Enable Opportunistic TLS support in Postfix when sending mail to remote SMTP server.</li>
+<li>2013-08-25: Upgrade Roundcube to 0.9.3.</li>
+</ul>
+<h2 id="general-all-backends-must-apply-these-steps">General (All backends must apply these steps)</h2>
+<h3 id="update-etciredmail-release-with-iredmail-version-number">Update /etc/iredmail-release with iRedMail version number</h3>
+<p>iRedMail stores the release version in <code>/etc/iredmail-release</code> after
+installation, it's recommended to update this file after you upgraded iRedMail,
+so that you can know which version of iRedMail you're running. For example:</p>
+<pre><code># File: /etc/iredmail-release
+
+0.8.6
+</code></pre>
+
+<h3 id="upgrade-roundcube-webmail-to-the-latest-stable-release">Upgrade Roundcube webmail to the latest stable release</h3>
+<p>Please follow Roundcube official tutorial to upgrade Roundcube webmail to the
+latest stable release immediately: <a href="http://trac.roundcube.net/wiki/Howto_Upgrade">How to upgrade Roundcube</a></p>
+<h3 id="upgrade-iredapd-postfix-policy-server-to-the-latest-stable-release">Upgrade iRedAPD (Postfix policy server) to the latest stable release</h3>
+<p>Please follow below tutorial to upgrade iRedAPD to the latest stable release:
+<a href="http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/Upgrade.iRedAPD">How to upgrade iRedAPD-1.4.1 or later versions to iRedAPD-1.4.3</a></p>
+<h3 id="upgrade-iredadmin-open-source-edition-to-the-latest-stable-release">Upgrade iRedAdmin (open source edition) to the latest stable release</h3>
+<p>Please follow this tutorial to upgrade iRedAdmin open source edition to the
+latest stable release: <a href="./migrate.or.upgrade.iredadmin.html">Upgrade iRedAdmin to the latest stable release</a></p>
+<h3 id="upgrade-phpmyadmin-to-the-latest-stable-release">Upgrade phpMyAdmin to the latest stable release</h3>
+<p>Please follow this short tutorial to upgrade phpMyAdmin to the latest stable
+release: http://docs.phpmyadmin.net/en/latest/setup.html#upgrading-from-an-older-version</p>
+<h3 id="enable-opportunistic-tls-support-in-postfix-when-sending-mail-to-remote-smtp-server">Enable Opportunistic TLS support in Postfix when sending mail to remote SMTP server</h3>
+<p>This feature is used to secure your mail transaction when sending email from
+your iRedMail server (Postfix) to remote SMTP server. Refer to Postfix document
+for more technical details: <a href="http://www.postfix.org/postconf.5.html#smtp_tls_security_level">smtp_tls_security_level</a></p>
+<ul>
+<li>Add required parameters in Postfix:</li>
+</ul>
+<pre><code># postconf -e smtp_tls_security_level='may'
+# postconf -e smtp_tls_CAfile='$smtpd_tls_CAfile'
+</code></pre>
+
+<ul>
+<li>Then restart Postfix service:</li>
+</ul>
+<pre><code># ---- On Linux ----
+# /etc/init.d/postfix restart
+
+# ---- On FreeBSD ----
+# /usr/local/etc/rc.d/postfix restart
+
+# ---- On OpenBSD ----
+# /etc/rc.d/postfix restart
+</code></pre>
+
+<h3 id="alter-cluebringer-database">Alter Cluebringer database</h3>
+<p><strong>IMPORTANT NOTE</strong>: This step is required if you're running Cluebringer. And
+please skip this step if you're running Policyd-1.8.</p>
+<p>For better management, we have to do some modification on Cluebringer database,
+for example, add new columns, add new indexes. We have a SQL file you can use
+to finish this in one step.</p>
+<p>Please download below two SQL files shipped in iRedMail-0.8.6, and save it as
+file /root/extra.sql, and /root/column_character_set.mysql:</p>
+<ul>
+<li>https://bitbucket.org/zhb/iredmail/raw/4d7b14fc40bb2467fb4efcc4ce08ac9fc037224c/iRedMail/samples/cluebringer/extra.sql</li>
+<li>https://bitbucket.org/zhb/iredmail/raw/4d7b14fc40bb2467fb4efcc4ce08ac9fc037224c/iRedMail/samples/cluebringer/column_character_set.mysql</li>
+</ul>
+<p>For MySQL, please login to MySQL server as <code>root</code> user and import this sql file:</p>
+<pre><code># mysql -uroot -p
+mysql&gt; USE cluebringer;
+mysql&gt; SOURCE /root/extra.sql;
+mysql&gt; SOURCE /root/column_character_set.mysql;
+</code></pre>
+
+<p>For PostgreSQL, please login to PostgreSQL admin user <code>postgres</code> and import
+this sql file:</p>
+<pre><code># su - postgres
+$ psql -d cluebringer
+sql&gt; \i /root/extra.sql;
+</code></pre>
+
+<p>That's all.</p>
+<h3 id="add-cron-job-to-cleanup-cluebringer-database">Add cron job to cleanup Cluebringer database</h3>
+<p><strong>IMPORTANT NOTE</strong>: This step is required if you're running Cluebringer. And
+please skip this step if you're running Policyd-1.8.</p>
+<p>We have to delete old/expired entries from database to keep SQL query fast.</p>
+<p>NOTE: On RHEL/CentOS and openSUSE, you must update cluebringer package to
+version '2.0.13-3' with yum first:</p>
+<pre><code># yum update cluebringer
+</code></pre>
+
+<ul>
+<li>Add cron job with command <code>crontab</code>:</li>
+</ul>
+<pre><code># crontab -e -u root
+</code></pre>
+
+<p>Now add cron job:</p>
+<ul>
+<li>On RHEL/CentOS, openSUSE</li>
+</ul>
+<pre><code>1   3   *   *   *   /usr/sbin/cbpadmin --config=/etc/policyd/cluebringer.conf --cleanup &gt; /dev/null
+</code></pre>
+
+<ul>
+<li>On Debian/Ubuntu:</li>
+</ul>
+<pre><code>1   3   *   *   *   /usr/sbin/cbpadmin --config=/etc/cluebringer/cluebringer.conf --cleanup &gt; /dev/null
+</code></pre>
+
+<ul>
+<li>On FreeBSD:</li>
+</ul>
+<pre><code>1   3   *   *   *   /usr/local/bin/cbpadmin --config=/usr/local/etc/cluebringer.conf --cleanup &gt; /dev/null
+</code></pre>
+
+<ul>
+<li>On OpenBSD: not required since OpenBSD doesn't have cluebringer package installed.</li>
+</ul><br /><p style="text-align: center;">If you found something wrong
+in this document, please do
+<a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.</p><p style="text-align: center; color: grey;">This tutorial is published under a <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">CC BY-ND 3.0</a> license.<!-- Google Analytics -->
+<script type="text/javascript">
+    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+    try {
+        var pageTracker = _gat._getTracker("UA-3293801-14");
+        pageTracker._trackPageview();
+    } catch(err) {}
+</script>
+</body></html>
