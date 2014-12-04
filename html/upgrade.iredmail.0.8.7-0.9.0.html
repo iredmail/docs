@@ -20,6 +20,12 @@
 <li><a href="#upgrade-roundcube-webmail-to-the-latest-stable-release">Upgrade Roundcube webmail to the latest stable release</a></li>
 <li><a href="#upgrade-iredapd-postfix-policy-server-to-the-latest-144">Upgrade iRedAPD (Postfix policy server) to the latest 1.4.4</a></li>
 <li><a href="#upgrade-iredadmin-open-source-edition-to-the-latest-stable-release">Upgrade iRedAdmin (open source edition) to the latest stable release</a></li>
+<li><a href="#disable-sslv3-support">Disable SSLv3 support</a><ul>
+<li><a href="#disable-sslv3-in-apache">Disable SSLv3 in Apache</a></li>
+<li><a href="#disable-sslv3-in-postfix">Disable SSLv3 in Postfix</a></li>
+<li><a href="#disable-sslv3-in-dovecot">Disable SSLv3 in Dovecot</a></li>
+</ul>
+</li>
 <li><a href="#fix-improper-postfix-setting-in-both-maincf-and-mastercf">Fix improper Postfix setting in both main.cf and master.cf</a></li>
 <li><a href="#fix-improper-file-permission-of-amavisd-config-file">Fix improper file permission of Amavisd config file</a></li>
 <li><a href="#fix-incorrect-setting-to-enable-daily-cron-job-to-update-spamassassin-rules">Fix incorrect setting to enable daily cron job to update SpamAssassin rules</a></li>
@@ -48,6 +54,7 @@
 <p><strong>STILL WORKING IN PROGRESS, DO NOT APPLY IT.</strong></p>
 <h2 id="changelog">ChangeLog</h2>
 <ul>
+<li>2014-12-04: [All backends] Disable SSL v3 in Apache, Postfix, Dovecot.</li>
 <li>2014-11-13: [All backends] Add index for SQL column <code>msgs.spam_level</code> in <code>amavisd</code> database.</li>
 <li>2014-11-06: [All backends] Fix improper SQL query command in domain transport query file.</li>
 <li>2014-09-09: [All backends] Fix incorrect setting to enable daily cron job to update SpamAssassin rules.</li>
@@ -81,6 +88,43 @@ latest stable release immediately: <a href="http://trac.roundcube.net/wiki/Howto
 <h3 id="upgrade-iredadmin-open-source-edition-to-the-latest-stable-release">Upgrade iRedAdmin (open source edition) to the latest stable release</h3>
 <p>Please follow this tutorial to upgrade iRedAdmin open source edition to the
 latest stable release: <a href="./migrate.or.upgrade.iredadmin.html">Upgrade iRedAdmin to the latest stable release</a></p>
+<h3 id="disable-sslv3-support">Disable SSLv3 support</h3>
+<p>I believe you already heard about the <code>POODLE</code> issue of SSL protocol v3.
+POODLE stands for Padding Oracle On Downgraded Legacy Encryption. This
+vulnerability allows a man-in-the-middle attacker to decrypt ciphertext using
+a padding oracle side-channel attack. More details are available in the
+upstream OpenSSL advisory: <a href="http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2014-3566">Vulnerability Summary for CVE-2014-3566</a>.</p>
+<p>The safest short-term response is to disable SSLv3 support.</p>
+<h4 id="disable-sslv3-in-apache">Disable SSLv3 in Apache</h4>
+<p>Please add or update <code>SSLProtocol</code> setting in Apache config file like below:</p>
+<ul>
+<li>on RHEL/CentOS, it's <code>/etc/httpd/conf/httpd.conf</code>.</li>
+<li>on Debian/Ubuntu, it's <code>/etc/apache2/apache2.conf</code>.</li>
+<li>on FreeBSD, it's <code>/usr/local/etc/apache2[X]/httpd.conf</code>. Please replace
+  <code>apache2[X]</code> by the real Apache version number here.</li>
+</ul>
+<pre><code>SSLProtocol ALL -SSLv2 -SSLv3
+</code></pre>
+
+<p>Restarting Apache service is required.</p>
+<h4 id="disable-sslv3-in-postfix">Disable SSLv3 in Postfix</h4>
+<p>Please execute below commands to disable SSLv3 in Postfix:</p>
+<pre><code># postconf -e smtpd_tls_protocols='!SSLv2 !SSLv3'                                
+# postconf -e smtp_tls_protocols='!SSLv2 !SSLv3'                                 
+# postconf -e lmtp_tls_protocols='!SSLv2 !SSLv3'                                 
+# postconf -e smtpd_tls_mandatory_protocols='!SSLv2 !SSLv3'                      
+# postconf -e smtp_tls_mandatory_protocols='!SSLv2 !SSLv3'                       
+# postconf -e lmtp_tls_mandatory_protocols='!SSLv2 !SSLv3'
+</code></pre>
+
+<p>Restarting Postfix service is required.</p>
+<h4 id="disable-sslv3-in-dovecot">Disable SSLv3 in Dovecot</h4>
+<p>Please add below setting in Dovecot main config file <code>/etc/dovecot/dovecot.conf</code>
+(on Linux/OpenBSD) or <code>/usr/local/etc/dovecot/dovecot.conf</code> (on FreeBSD).</p>
+<pre><code>ssl_protocols = !SSLv2 !SSLv3
+</code></pre>
+
+<p>Restarting Dovecot service is required.</p>
 <h3 id="fix-improper-postfix-setting-in-both-maincf-and-mastercf">Fix improper Postfix setting in both main.cf and master.cf</h3>
 <p>Currently, we don't have Postfix parameter <code>receive_override_options=</code> set in
 <code>/etc/postfix/main.cf</code>, instead, we have it in transport <code>127.0.0.1:10025</code>

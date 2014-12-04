@@ -8,6 +8,7 @@ __STILL WORKING IN PROGRESS, DO NOT APPLY IT.__
 
 ## ChangeLog
 
+* 2014-12-04: [All backends] Disable SSL v3 in Apache, Postfix, Dovecot.
 * 2014-11-13: [All backends] Add index for SQL column `msgs.spam_level` in `amavisd` database.
 * 2014-11-06: [All backends] Fix improper SQL query command in domain transport query file.
 * 2014-09-09: [All backends] Fix incorrect setting to enable daily cron job to update SpamAssassin rules.
@@ -49,6 +50,57 @@ Please follow below tutorial to upgrade iRedAPD to the latest stable release:
 
 Please follow this tutorial to upgrade iRedAdmin open source edition to the
 latest stable release: [Upgrade iRedAdmin to the latest stable release](./migrate.or.upgrade.iredadmin.html)
+
+### Disable SSLv3 support
+
+I believe you already heard about the `POODLE` issue of SSL protocol v3.
+POODLE stands for Padding Oracle On Downgraded Legacy Encryption. This
+vulnerability allows a man-in-the-middle attacker to decrypt ciphertext using
+a padding oracle side-channel attack. More details are available in the
+upstream OpenSSL advisory: [Vulnerability Summary for CVE-2014-3566](http://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2014-3566).
+
+The safest short-term response is to disable SSLv3 support.
+
+#### Disable SSLv3 in Apache
+
+Please add or update `SSLProtocol` setting in Apache config file like below:
+
+* on RHEL/CentOS, it's `/etc/httpd/conf/httpd.conf`.
+* on Debian/Ubuntu, it's `/etc/apache2/apache2.conf`.
+* on FreeBSD, it's `/usr/local/etc/apache2[X]/httpd.conf`. Please replace
+  `apache2[X]` by the real Apache version number here.
+
+```
+SSLProtocol ALL -SSLv2 -SSLv3
+```
+
+Restarting Apache service is required.
+
+#### Disable SSLv3 in Postfix
+
+Please execute below commands to disable SSLv3 in Postfix:
+
+```
+# postconf -e smtpd_tls_protocols='!SSLv2 !SSLv3'                                
+# postconf -e smtp_tls_protocols='!SSLv2 !SSLv3'                                 
+# postconf -e lmtp_tls_protocols='!SSLv2 !SSLv3'                                 
+# postconf -e smtpd_tls_mandatory_protocols='!SSLv2 !SSLv3'                      
+# postconf -e smtp_tls_mandatory_protocols='!SSLv2 !SSLv3'                       
+# postconf -e lmtp_tls_mandatory_protocols='!SSLv2 !SSLv3'
+```
+
+Restarting Postfix service is required.
+
+#### Disable SSLv3 in Dovecot
+
+Please add below setting in Dovecot main config file `/etc/dovecot/dovecot.conf`
+(on Linux/OpenBSD) or `/usr/local/etc/dovecot/dovecot.conf` (on FreeBSD).
+
+```
+ssl_protocols = !SSLv2 !SSLv3
+```
+
+Restarting Dovecot service is required.
 
 ### Fix improper Postfix setting in both main.cf and master.cf
 
