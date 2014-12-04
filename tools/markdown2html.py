@@ -74,13 +74,7 @@ html += """</div>"""
 orig_content = web.safeunicode(open(filename).read())
 html += markdown.markdown(orig_content, extensions=MD_EXTENSIONS)
 
-# HTML foot
-if 'add_page_footer' in cmd_opts:
-    html += """<br /><p style="text-align: center;">If you found something wrong
-in this document, please do
-<a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.</p>"""
-
-html += """<p style="text-align: center; color: grey;">This tutorial is published under a <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">CC BY-ND 3.0</a> license."""
+html += """<p style="text-align: center; color: grey;">Document published under a <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">CC BY-ND 3.0</a> license. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it."""
 
 
 html += """\

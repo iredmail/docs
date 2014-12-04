@@ -117,8 +117,7 @@ for chapter_dir in ${all_chapter_dirs}; do
             ${CMD_CONVERT} ${article_file} ${OUTPUT_DIR} \
                 output_filename="${article_html_file}" \
                 title="${_article_title}" \
-                add_index_link='yes' \
-                add_page_footer='yes'
+                add_index_link='yes'
         fi
     done
 
