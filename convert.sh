@@ -92,9 +92,11 @@ for chapter_dir in ${all_chapter_dirs}; do
         fi
 
         # Get title.
+        # title format: '# title'
         _article_title="$(head -1 ${article_file} | awk -F'# ' '{print $2}')"
-        #_article_title="$(head -1 ${article_file} | awk -F'Title: ' '{print $2}')"
-        #echo "article title: ${_article_title}"
+        # title format: '<h1>title</h1>'
+        #_article_title="$(head -1 ${article_file} | awk -F'<h1>' '{print $2}' | awk -F'</h1>' '{print $1}')"
+
         #echo "* [${_article_title}](${chapter_dir_in_article}/${article_html_file})" >> ${INDEX_MD}
         if [ X"${hide_article_in_index}" == X'NO' ]; then
             echo "* [${_article_title}](${article_html_file})" >> ${INDEX_MD}
