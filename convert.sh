@@ -11,9 +11,6 @@ OUTPUT_DIR="${PWD}/html"
 # Markdown file used to store index of chapters/articles.
 INDEX_MD="${OUTPUT_DIR}/index.md"
 
-# Markdown file used to be displayed automatically on bitbucket.
-README_MD="${PWD}/README.md"
-
 # Pack all converted HTML files for downloading
 PACK_NAME="iredmail-docs"
 PACK_TAR_NAME="iredmail-docs.tar.bz2"
@@ -51,7 +48,6 @@ all_chapter_dirs="installation \
 #   - title: _title.md
 #   - summary: _summary.md
 echo "We're migrating [old wiki documents](http://www.iredmail.org/wiki) to Markdown format for easier maintenance, all documents are available [here](https://bitbucket.org/zhb/docs.iredmail.org/src)." > ${INDEX_MD}
-echo "We're migrating [old wiki documents](http://www.iredmail.org/wiki) to Markdown format for easier maintenance." > ${README_MD}
 
 for chapter_dir in ${all_chapter_dirs}; do
     # Get articles
@@ -70,12 +66,10 @@ for chapter_dir in ${all_chapter_dirs}; do
         # generate index info of chapter
         _chapter_title="$(cat ${_title_md})"
         echo -e "### ${_chapter_title}" >> ${INDEX_MD}
-        echo -e "# ${_chapter_title}" >> ${README_MD}
 
         if [ -f ${_summary_md} ]; then
             _chapter_summary="$(cat ${_summary_md})"
             echo -e "${_chapter_summary}" >> ${INDEX_MD}
-            echo -e "${_chapter_summary}" >> ${README_MD}
         fi
     fi
 
@@ -104,9 +98,6 @@ for chapter_dir in ${all_chapter_dirs}; do
         #echo "* [${_article_title}](${chapter_dir_in_article}/${article_html_file})" >> ${INDEX_MD}
         if [ X"${hide_article_in_index}" == X'NO' ]; then
             echo "* [${_article_title}](${article_html_file})" >> ${INDEX_MD}
-
-            # 'src/default/' is path to view source file on bitbucket.org
-            echo "* [${_article_title}](https://bitbucket.org/zhb/docs.iredmail.org/src/default/${article_file_without_prefix_path})" >> ${README_MD}
         fi
 
         # Convert file if it was modified
@@ -130,7 +121,6 @@ for chapter_dir in ${all_chapter_dirs}; do
 
     if [ -f ${_links_md} ]; then
         cat ${_links_md} >> ${INDEX_MD}
-        cat ${_links_md} >> ${README_MD}
     fi
 done
 
