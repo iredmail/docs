@@ -1,0 +1,399 @@
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Upgrade iRedMail from 0.6.1 to 0.7.0</title>
+        <link href="./css/markdown.css" rel="stylesheet"></head>
+    </head>
+    <body>
+    
+    <div id="navigation">
+        <a href="http://www.iredmail.org" target="_blank">iRedMail web site</a>
+    
+        // <a href="./index.html">Document Index</a>
+    </div><h1 id="upgrade-iredmail-from-061-to-070">Upgrade iRedMail from 0.6.1 to 0.7.0</h1>
+<div class="toc">
+<ul>
+<li><a href="#upgrade-iredmail-from-061-to-070">Upgrade iRedMail from 0.6.1 to 0.7.0</a><ul>
+<li><a href="#general-all-backends-should-apply-these-steps">General (All backends should apply these steps)</a><ul>
+<li><a href="#update-postfix-setting-proxy_read_maps">Update postfix setting proxy_read_maps</a></li>
+</ul>
+</li>
+<li><a href="#openldap-backend-only">OpenLDAP backend only</a><ul>
+<li><a href="#support-alias-domain-in-mail-listalias">Support alias domain in mail list/alias</a></li>
+<li><a href="#support-imap-share-folder-in-ldap">Support IMAP share folder in LDAP</a></li>
+<li><a href="#save-date-of-password-last-change-in-roundcube">Save date of password last change in Roundcube</a></li>
+<li><a href="#add-missing-value-for-mail-users">Add missing value for mail users</a></li>
+</ul>
+</li>
+<li><a href="#mysql-backend-only">MySQL backend only</a><ul>
+<li><a href="#improve-backup-mx-support">Improve backup mx support</a></li>
+<li><a href="#check-domain-status-in-postfix-and-dovecot">Check domain status in postfix and dovecot</a></li>
+<li><a href="#make-catch-all-account-work-as-expected">Make catch-all account work as expected</a></li>
+<li><a href="#update-sql-structure-of-vmail-database">Update SQL structure of vmail database</a></li>
+<li><a href="#save-date-of-password-last-change-in-roundcube_1">Save date of password last change in Roundcube</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<h2 id="general-all-backends-should-apply-these-steps">General (All backends should apply these steps)</h2>
+<ul>
+<li><a href="http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/Upgrade.Dovecot.1.1.to.1.2">Upgrade Dovecot 1.1.x to 1.2.x</a></li>
+<li><a href="./quarantining.html">Quarantining SPAM into MySQL with Amavisd</a></li>
+</ul>
+<h3 id="update-postfix-setting-proxy_read_maps">Update postfix setting <code>proxy_read_maps</code></h3>
+<p>Execute below command as root user, it's used to append
+<code>$smtpd_sender_restrictions</code> in setting postfix <code>proxy_read_maps</code> setting.</p>
+<pre><code># postconf -e proxy_read_maps='$canonical_maps $lmtp_generic_maps $local_recipient_maps $mydestination $mynetworks $recipient_bcc_maps $recipient_canonical_maps $relay_domains $relay_recipient_maps $relocated_maps $sender_bcc_maps $sender_canonical_maps $smtp_generic_maps $smtpd_sender_login_maps $transport_maps $virtual_alias_domains $virtual_alias_maps $virtual_mailbox_domains $virtual_mailbox_maps $smtpd_sender_restrictions'
+</code></pre>
+
+<h2 id="openldap-backend-only">OpenLDAP backend only</h2>
+<h3 id="support-alias-domain-in-mail-listalias">Support alias domain in mail list/alias</h3>
+<ul>
+<li>Edit <code>/etc/postfix/ldap_virtual_group_maps.cf</code>, remove <code>domainName=%d</code> in <code>search_base</code>:</li>
+</ul>
+<pre><code># Part of file: /etc/postfix/ldap_virtual_group_maps.cf
+
+# OLD SETTING
+search_base     = domainName=%d,o=domains,dc=XXX
+
+# NEW SETTING
+search_base     = o=domains,dc=XXX
+</code></pre>
+
+<ul>
+<li>Edit <code>/etc/postfix/ldap_catch_all_maps.cf</code>, update <code>query_filter</code> to:</li>
+</ul>
+<pre><code># Part of file: /etc/postfix/ldap_catch_all_maps.cf
+
+# NEW SETTING
+query_filter     = (&amp;(objectClass=mailUser)(accountStatus=active)(|(mail=@%d)(shadowAddress=@%d)))
+</code></pre>
+
+<h3 id="support-imap-share-folder-in-ldap">Support IMAP share folder in LDAP</h3>
+<p>Dovecot IMAP share folder doesn't work with default LDAP query, so we need to
+change it.</p>
+<ul>
+<li>Edit <code>/etc/dovecot-ldap.conf</code> (RHEL/CentOS) or <code>/etc/dovecot/dovecot-ldap.conf</code>
+  (Debian/Ubuntu/openSUSE) or <code>/usr/local/etc/dovecot-ldap.conf</code> (FreeBSD), set
+  <code>user_attrs =</code> to below value:</li>
+</ul>
+<pre><code># Part of file: dovecot-ldap.conf
+
+# OLD setting
+#user_attrs      = storageBaseDirectory=home,mailMessageStore=mail=maildir:~/%$/Maildir/,mailQuota=quota_rule=*:bytes=%$
+
+# NEW setting
+user_attrs      = homeDirectory=home,mailMessageStore=mail=maildir:/var/vmail/%$/Maildir/,mailQuota=quota_rule=*:bytes=%$
+</code></pre>
+
+<p>What we changed:</p>
+<pre><code>* Replace `storageBaseDirectory=home` with `homeDirectory=home`.
+* Replace `mailMessageStore=mail=maildir:~/%$/Maildir/` with
+  `mailMessageStore=mail=maildir:/var/vmail/%$/Maildir/`, with hard-coded
+  `/var/vmail` instead of using `~` to replace `home` query. `/var/vmail`
+  is value of postfix setting `virtual_mailbox_base`, you can get it with
+  command `postconf virtual_mailbox_base`. Please make sure you have the
+  correct one.
+</code></pre>
+<h3 id="save-date-of-password-last-change-in-roundcube">Save date of password last change in Roundcube</h3>
+<p>Roundcube won't save date of password last change by default, please change
+setting of its plugin <code>"password"</code> to make it work.</p>
+<ul>
+<li>Edit config file <code>/var/www/roundcubemail/plugins/password/config.inc.php</code>
+  (RHEL/CentOS) or <code>/usr/share/apache2/roundcubemail/plugins/password/config.inc.php</code>
+  (Debian/Ubuntu) or <code>/srv/www/roundcubemail/plugins/password/config.inc.php</code>
+  (openSUSE) or <code>/usr/local/www/roundcubemail/plugins/password/config.inc.php</code>
+  (FreeBSD), find setting <code>password_ldap_lchattr</code> and set its value to
+  <code>shadowLastChange</code>:</li>
+</ul>
+<pre><code># Part of file: roundcubemail/plugins/password/config.inc.php
+
+$rcmail_config['password_ldap_lchattr'] = 'shadowLastChange';
+</code></pre>
+
+<p>Roundcube will now save date of password last change in attribute <code>shadowLastChange</code>.</p>
+<h3 id="add-missing-value-for-mail-users">Add missing value for mail users</h3>
+<p>iRedMail-0.7.0 requires <code>enabledService=smtpsecured</code> for sending mail via SMTP
+over SSL in Postfix. so we should add it if users doesn't have it.</p>
+<ul>
+<li>Download python script used to adding missing values.</li>
+</ul>
+<pre><code># cd /root/
+# wget http://iredmail.googlecode.com/hg/extra/update/updateLDAPValues_061_to_070.py
+</code></pre>
+
+<ul>
+<li>Open <code>updateLDAPValues_061_to_070.py</code>, config below parameters in file head:</li>
+</ul>
+<pre><code># Part of file: updateLDAPValues_061_to_070.py
+
+uri = 'ldap://127.0.0.1:389'
+basedn = 'o=domains,dc=iredmail,dc=org'
+bind_dn = 'cn=vmailadmin,dc=iredmail,dc=org'
+bind_pw = 'passwd'
+</code></pre>
+
+<p>You can find required LDAP credential in iRedAdmin config file or <code>iRedMail.tips</code>
+file under your iRedMail installation directory. Using either
+<code>cn=Manager,dc=xx,dc=xx</code> or <code>cn=vmailadmin,dc=xx,dc=xx</code> as bind dn is ok.</p>
+<ul>
+<li>Execute this script, it will add missing values for mail accounts:</li>
+</ul>
+<pre><code># python updateLDAPValues_061_to_070.py
+</code></pre>
+
+<h2 id="mysql-backend-only">MySQL backend only</h2>
+<h3 id="improve-backup-mx-support">Improve backup mx support</h3>
+<ul>
+<li>Edit <code>/etc/postfix/mysql_domain_alias_maps.cf</code>, change <code>query =</code> to below new setting:</li>
+</ul>
+<pre><code># Part of file: /etc/postfix/mysql_domain_alias_maps.cf
+
+query       = SELECT alias.goto FROM alias,alias_domain,domain WHERE alias_domain.alias_domain='%d' AND alias.address=CONCAT('%u', '@',     alias_domain.target_domain) AND alias_domain.target_domain=domain.domain AND alias.active=1 AND alias_domain.active=1 AND domain.backupmx=0
+</code></pre>
+
+<h3 id="check-domain-status-in-postfix-and-dovecot">Check domain status in postfix and dovecot</h3>
+<ul>
+<li>Edit postfix config file <code>/etc/postfix/mysql_virtual_mailbox_maps.cf</code>, change
+  <code>query =</code> to below new setting:</li>
+</ul>
+<pre><code># Part of file: mysql_virtual_mailbox_maps.cf
+
+query       = SELECT CONCAT(mailbox.storagenode, '/', mailbox.maildir) FROM mailbox,domain WHERE mailbox.username='%s' AND mailbox.active='1' AND mailbox.enabledeliver='1' AND domain.domain = mailbox.domain AND domain.active='1'
+</code></pre>
+
+<p><strong>WARNING</strong>: If you don't have column <code>storagenode</code> present in table
+<code>vmail.mailbox</code>, please add it with below SQL command:</p>
+<pre><code>$ mysql -uroot -p
+mysql&gt; USE vmail;
+mysql&gt; ALTER TABLE mailbox ADD COLUMN storagenode VARCHAR(255) NOT NULL DEFAULT '';
+</code></pre>
+
+<ul>
+<li>Edit postfix config file <code>/etc/postfix/mysql_virtual_alias_maps.cf</code>, change
+  <code>query =</code> to below new setting:</li>
+</ul>
+<pre><code># Part of file: mysql_virtual_alias_maps.cf
+
+query       = SELECT alias.goto FROM alias,domain WHERE alias.address='%s' AND alias.domain='%d' AND alias.domain=domain.domain AND alias.active=1 AND domain.backupmx=0 AND domain.active=1
+</code></pre>
+
+<ul>
+<li>Edit postfix config file <code>/etc/postfix/mysql_transport_maps_user.cf</code>, change
+  <code>query =</code> to below new setting:</li>
+</ul>
+<pre><code># Part of file: mysql_transport_maps_user.cf
+
+query       = SELECT mailbox.transport FROM mailbox,domain WHERE mailbox.username='%s' AND mailbox.domain='%d' AND mailbox.domain=domain.domain AND mailbox.active=1 AND mailbox.enabledeliver=1 AND domain.backupmx=0 AND domain.active=1 AND mailbox.transport&lt;&gt;''
+</code></pre>
+
+<ul>
+<li>Edit postfix config file <code>/etc/postfix/mysql_sender_login_maps.cf</code>, change
+  <code>query =</code> to below new setting:</li>
+</ul>
+<pre><code># Part of file: mysql_sender_login_maps.cf
+
+query       = SELECT mailbox.username FROM mailbox,domain WHERE mailbox.username='%s' AND mailbox.domain='%d' AND mailbox.domain=domain.domain AND mailbox.enablesmtp=1 AND mailbox.active=1 AND domain.backupmx=0 AND domain.active=1
+</code></pre>
+
+<ul>
+<li>Edit postfix config file <code>/etc/postfix/mysql_recipient_bcc_maps_user.cf</code>,
+  change <code>query =</code> to below new setting:</li>
+</ul>
+<pre><code># Part of file: mysql_recipient_bcc_maps_user.cf
+
+query       = SELECT recipient_bcc_user.bcc_address FROM recipient_bcc_user,domain WHERE recipient_bcc_user.username='%s' AND recipient_bcc_user.domain='%d' AND recipient_bcc_user.domain=domain.domain AND domain.backupmx=0 AND domain.active=1 AND recipient_bcc_user.active=1
+</code></pre>
+
+<ul>
+<li>Edit postfix config file <code>mysql_sender_bcc_maps_user.cf</code>, change <code>query =</code> to
+  below new setting:</li>
+</ul>
+<pre><code># Part of file: mysql_sender_bcc_maps_user.cf
+
+query       = SELECT sender_bcc_user.bcc_address FROM sender_bcc_user,domain WHERE sender_bcc_user.username='%s' AND sender_bcc_user.domain='%d' AND sender_bcc_user.domain=domain.domain AND domain.backupmx=0 AND domain.active=1 AND sender_bcc_user.active=1
+</code></pre>
+
+<ul>
+<li>Edit dovecot config file <code>/etc/dovecot-mysql.conf</code> (RHEL/CentOS) or
+  <code>/etc/dovecot/dovecot-mysql.conf</code> (Debian/Ubuntu/openSUSE) or
+  <code>/usr/local/etc/dovecot-mysql.conf</code> (FreeBSD):</li>
+</ul>
+<pre><code># Part of file: dovecot-mysql.conf
+
+user_query = SELECT CONCAT(mailbox.storagebasedirectory, '/', mailbox.storagenode, '/', mailbox.maildir) AS home, CONCAT('*:bytes=', mailbox.quota*1048576) AS quota_rule FROM mailbox,domain WHERE mailbox.username='%u' AND mailbox.domain='%d' AND mailbox.enable%Ls%Lc=1 AND mailbox.domain=domain.domain AND mailbox.active=1 AND domain.backupmx=0 AND domain.active=1
+</code></pre>
+
+<p>It will now check domain status, so if this domain is disabled, all users and
+aliases will be disabled too.</p>
+<p>Restart postfix and dovecot services to make it work.</p>
+<h3 id="make-catch-all-account-work-as-expected">Make catch-all account work as expected</h3>
+<p>To make catch-all account work as expected, we need two more SQL lookup files:</p>
+<pre><code>* `/etc/postfix/catchall_maps.cf`: Catch-all support for exist domains.
+* /etc/postfix/domain_alias_catchall_maps.cf: Catch-all support for alias domains.
+</code></pre>
+<p>Now edit postfix config file <code>/etc/postfix/main.cf</code> (Linux) or
+<code>/usr/local/etc/postfix/main.cf</code> (FreeBSD), append these two lookup files in
+<code>virtual_alias_maps</code> setting:</p>
+<pre><code># Part of file: main.cf
+
+virtual_alias_maps =
+    proxy:mysql:/etc/postfix/mysql/virtual_alias_maps.cf,
+    proxy:mysql:/etc/postfix/mysql/domain_alias_maps.cf,
+    proxy:mysql:/etc/postfix/catchall_maps.cf,                      # &lt;- Add this line
+    proxy:mysql:/etc/postfix/domain_alias_catchall_maps.cf        # &lt;- Add this line.
+</code></pre>
+
+<p>Now create these two new files (Note: You can create them based on exist mysql
+lookup files, copy "<code>user</code>, <code>password</code>, <code>hosts</code>, <code>port</code>, <code>dbname</code>" to new files):</p>
+<ul>
+<li><code>/etc/postfix/catchall_maps.cf</code>:</li>
+</ul>
+<pre><code># File: catchall_maps.cf
+user        = vmail
+password    = PASSWORD_OF_VMAIL
+hosts       = 127.0.0.1
+port        = 3306
+dbname      = vmail
+query       = SELECT alias.goto FROM alias,domain WHERE alias.address='%d' AND alias.address=domain.domain AND alias.active=1 AND domain.active=1 AND domain.backupmx=0
+</code></pre>
+
+<ul>
+<li><code>/etc/postfix/domain_alias_catchall_maps.cf</code>:</li>
+</ul>
+<pre><code># File: domain_alias_catchall_maps.cf
+
+user        = vmail
+password    = PASSWORD_OF_VMAIL
+hosts       = 127.0.0.1
+port        = 3306
+dbname      = vmail
+query       = SELECT alias.goto FROM alias,alias_domain,domain WHERE alias_domain.alias_domain='%d' AND alias.address=alias_domain.target_domain AND alias_domain.target_domain=domain.domain AND alias.active=1 AND alias_domain.active=1
+</code></pre>
+
+<p>Restart postfix to make it work.</p>
+<h3 id="update-sql-structure-of-vmail-database">Update SQL structure of <code>vmail</code> database</h3>
+<ul>
+<li>Add some more columns:</li>
+</ul>
+<pre><code>$ mysql -uroot -p
+USE vmail;
+
+-- enablesmtpsecured: Used for SMTP over SSL support in Postfix + Dovecot.
+ALTER TABLE mailbox ADD COLUMN enablesmtpsecured TINYINT(1) NOT NULL DEFAULT '1';
+
+-- name: Used to store common name of admin and alias account.
+ALTER TABLE admin ADD COLUMN name VARCHAR(255) DEFAULT '' COLLATE utf8_general_ci;
+ALTER TABLE alias ADD COLUMN name VARCHAR(255) DEFAULT '' COLLATE utf8_general_ci;
+
+-- passwordlastchange: Store date of password last change.
+ALTER TABLE admin ADD COLUMN passwordlastchange DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00';
+ALTER TABLE mailbox ADD COLUMN passwordlastchange DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00';
+
+-- local_part: Used for PostfixAdmin compatible.
+ALTER TABLE mailbox ADD COLUMN local_part VARCHAR(255) NOT NULL DEFAULT '';
+
+-- defaultuseraliases: Assign new user to these aliases
+ALTER TABLE domain ADD COLUMN defaultuseraliases TEXT NOT NULL DEFAULT '';
+
+-- defaultpasswordscheme: Per-domain password scheme support.
+ALTER TABLE domain ADD COLUMN defaultpasswordscheme VARCHAR(10) NOT NULL DEFAULT '';
+</code></pre>
+
+<ul>
+<li>Create indexes of some columns for better performance.</li>
+</ul>
+<pre><code>$ mysql -uroot -p
+USE vmail;
+
+-- Table: admin
+ALTER TABLE  admin ADD INDEX (passwordlastchange);
+ALTER TABLE  admin ADD INDEX (expired);
+ALTER TABLE  admin ADD INDEX (active);
+
+-- Table: alias
+ALTER TABLE  alias ADD INDEX (domain);
+ALTER TABLE  alias ADD INDEX (expired);
+ALTER TABLE  alias ADD INDEX (active);
+
+-- Table: domain
+ALTER TABLE  domain ADD INDEX (backupmx);
+ALTER TABLE  domain ADD INDEX (expired);
+ALTER TABLE  domain ADD INDEX (active);
+
+-- Table: domain_admins
+ALTER TABLE  domain_admins ADD INDEX (username);
+ALTER TABLE  domain_admins ADD INDEX (domain);
+ALTER TABLE  domain_admins ADD INDEX (active);
+
+-- Table: mailbox
+ALTER TABLE  mailbox ADD INDEX (domain);
+ALTER TABLE  mailbox ADD INDEX (department);
+ALTER TABLE  mailbox ADD INDEX (employeeid);
+ALTER TABLE  mailbox ADD INDEX (enablesmtp);
+ALTER TABLE  mailbox ADD INDEX (enablesmtpsecured);
+ALTER TABLE  mailbox ADD INDEX (enablepop3);
+ALTER TABLE  mailbox ADD INDEX (enablepop3secured);
+ALTER TABLE  mailbox ADD INDEX (enableimap);
+ALTER TABLE  mailbox ADD INDEX (enableimapsecured);
+ALTER TABLE  mailbox ADD INDEX (enablemanagesieve);
+ALTER TABLE  mailbox ADD INDEX (enablemanagesievesecured);
+ALTER TABLE  mailbox ADD INDEX (enablesieve);
+ALTER TABLE  mailbox ADD INDEX (enablesievesecured);
+ALTER TABLE  mailbox ADD INDEX (enableinternal);
+ALTER TABLE  mailbox ADD INDEX (passwordlastchange);
+ALTER TABLE  mailbox ADD INDEX (expired);
+ALTER TABLE  mailbox ADD INDEX (active);
+
+-- Table: sender_bcc_domain
+ALTER TABLE  sender_bcc_domain ADD INDEX (bcc_address);
+ALTER TABLE  sender_bcc_domain ADD INDEX (expired);
+ALTER TABLE  sender_bcc_domain ADD INDEX (active);
+
+-- Table: sender_bcc_user
+ALTER TABLE  sender_bcc_user ADD INDEX (bcc_address);
+ALTER TABLE  sender_bcc_user ADD INDEX (expired);
+ALTER TABLE  sender_bcc_user ADD INDEX (active);
+
+-- Table: recipient_bcc_domain
+ALTER TABLE  recipient_bcc_domain ADD INDEX (bcc_address);
+ALTER TABLE  recipient_bcc_domain ADD INDEX (expired);
+ALTER TABLE  recipient_bcc_domain ADD INDEX (active);
+
+-- Table: recipient_bcc_user
+ALTER TABLE  recipient_bcc_user ADD INDEX (bcc_address);
+ALTER TABLE  recipient_bcc_user ADD INDEX (expired);
+ALTER TABLE  recipient_bcc_user ADD INDEX (active);
+</code></pre>
+
+<h3 id="save-date-of-password-last-change-in-roundcube_1">Save date of password last change in Roundcube</h3>
+<p>Roundcube won't save date of password last change by default, please change
+setting of its plugin <code>password</code> to make it work.</p>
+<ul>
+<li>Edit config file <code>/var/www/roundcubemail/plugins/password/config.inc.php</code>
+  (RHEL/CentOS) or <code>/usr/share/apache2/roundcubemail/plugins/password/config.inc.php</code>
+  (Debian/Ubuntu) or <code>/srv/www/roundcubemail/plugins/password/config.inc.php</code>
+  (openSUSE) or <code>/usr/local/www/roundcubemail/plugins/password/config.inc.php</code>
+  (FreeBSD), change <code>password_query</code>, add <code>passwordlastchange=NOW()</code> in SQL command:</li>
+</ul>
+<pre><code># Part of file: roundcubemail/plugins/password/config.inc.php
+
+$rcmail_config['password_query'] = &quot;UPDATE vmail.mailbox SET password=%c,passwordlastchange=NOW() WHERE username=%u LIMIT 1&quot;;
+</code></pre>
+
+<p>Roundcube will now save date of password last change in column <code>passwordlastchange</code>.</p>
+<p>Note: If you want to force users to change their passwords in 90 days, please
+refer to this tutorial: <a href="./force.user.to.change.password.html">Force users to change password in 90 days</a>.</p><p style="text-align: center; color: grey;">Document published under a <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">CC BY-ND 3.0</a> license. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.<!-- Google Analytics -->
+<script type="text/javascript">
+    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+    try {
+        var pageTracker = _gat._getTracker("UA-3293801-14");
+        pageTracker._trackPageview();
+    } catch(err) {}
+</script>
+</body></html>
