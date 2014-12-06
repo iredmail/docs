@@ -11,6 +11,33 @@
 
 ## General (All backends should apply these upgrade steps)
 
+### Update /etc/iredmail-release with iRedMail version number
+
+iRedMail stores the release version in `/etc/iredmail-release` after
+installation, it's recommended to update this file after you upgraded iRedMail,
+so that you can know which version of iRedMail you're running. For example:
+
+```
+# File: /etc/iredmail-release
+
+0.8.1
+```
+
+### Upgrade Roundcube webmail to the latest stable release
+
+Please follow Roundcube official tutorial to upgrade Roundcube webmail to the
+latest stable release immediately: [How to upgrade Roundcube](http://trac.roundcube.net/wiki/Howto_Upgrade)
+
+### Upgrade iRedAPD (Postfix policy server) to the latest stable release
+
+Please follow below tutorial to upgrade iRedAPD to the latest stable release:
+[How to upgrade iRedAPD-1.4.1 or later versions to the latest stable release](http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/Upgrade.iRedAPD)
+
+### Upgrade iRedAdmin (open source edition) to the latest stable release
+
+Please follow this tutorial to upgrade iRedAdmin open source edition to the
+latest stable release: [Upgrade iRedAdmin to the latest stable release](./migrate.or.upgrade.iredadmin.html)
+
 ### Add missing auth service in Dovecot for Dovecot-2
 
 __NOTE__: This is applicable to only Dovecot-2.x. You can check Dovecot version
