@@ -34,8 +34,8 @@
 * [0.6.1](http://www.iredmail.org/wiki/index.php?title=Release.Notes/iRedMail/0.6.1), Aug 14, 2010. [Upgrade from iRedMail-0.6.0](./upgrade.iredmail.0.6.0-0.6.1.html)
 * [0.6.0](http://www.iredmail.org/wiki/index.php?title=Release.Notes/iRedMail/0.6.0), May 31, 2010. [Upgrade from iRedMail-0.5.1](./upgrade.iredmail.0.5.1-0.6.0.html)
 * 0.5.1, Oct 31, 2009. [Upgrade from iRedMail-0.5.1](./upgrade.iredmail.0.5.0-0.5.1.html)
-* 0.5.0, Aug 16, 2009. [Upgrade from iRedMail-0.5.1](http://code.google.com/p/iredmail/wiki/Upgrade_040_050)
-* 0.4.0, Mar 10, 2009. [Upgrade from iRedMail-0.3.2](http://code.google.com/p/iredmail/wiki/Upgrade_032_040)
+* 0.5.0, Aug 16, 2009. [Upgrade from iRedMail-0.4.0](./upgrade.iredmail.0.4.0-0.5.0.html)
+* 0.4.0, Mar 10, 2009. [Upgrade from iRedMail-0.3.2](./upgrade.iredmail.0.3.2-0.4.0.html)
 * 0.3.2, Dec 11, 2008.
 * 0.3.1, Oct 21, 2008.
 * 0.3.0, Sep 22, 2008.

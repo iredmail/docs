@@ -1,0 +1,352 @@
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Upgrade iRedMail from 0.3.2 to 0.4.0</title>
+        <link href="./css/markdown.css" rel="stylesheet"></head>
+    </head>
+    <body>
+    
+    <div id="navigation">
+        <a href="http://www.iredmail.org" target="_blank">iRedMail web site</a>
+    
+        // <a href="./index.html">Document Index</a>
+    </div><h1 id="upgrade-iredmail-from-032-to-040">Upgrade iRedMail from 0.3.2 to 0.4.0</h1>
+<div class="toc">
+<ul>
+<li><a href="#upgrade-iredmail-from-032-to-040">Upgrade iRedMail from 0.3.2 to 0.4.0</a><ul>
+<li><a href="#fixed">Fixed</a></li>
+<li><a href="#components-update-and-migration">Components Update and Migration</a><ul>
+<li><a href="#postfix">Postfix</a></li>
+<li><a href="#openldap">OpenLDAP</a></li>
+<li><a href="#apache">Apache</a></li>
+<li><a href="#update-phpldapadmin-to-1106">Update phpLDAPadmin to 1.1.0.6.</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<h2 id="fixed">Fixed</h2>
+<ul>
+<li>Fix error in root's cron job which used to punge expired mails. Thanks xcrossbow@gmail.</li>
+</ul>
+<p>Execute command <code>crontab</code>:</p>
+<pre><code># crontab -e -u root
+</code></pre>
+
+<p>Change <code>dovecot</code> to <code>/usr/sbin/dovecot</code> (absolute path):</p>
+<pre><code>1   5   *   *   *   /usr/sbin/dovecot --exec-mail ext /usr/libexec/dovecot/expire-tool
+</code></pre>
+
+<ul>
+<li>Fix incorrect crontab job for vmail user. Thanks xcrossbow@gmail.</li>
+</ul>
+<pre><code># crontab -e -u vmail
+
+1   5   *   *   *   find /var/virusmails -ctime +30 | xargs rm -rf {}
+</code></pre>
+
+<ul>
+<li>Replace incorrect parameter name <code>debug_level</code> by <code>debuglevel</code> in all
+  LDAP query tables in Postfix.</li>
+</ul>
+<pre><code># perl -pi -e 's#(.*)debug_level(.*)#${1}debuglevel${2}#' /etc/postfix/ldap_*
+</code></pre>
+
+<h2 id="components-update-and-migration">Components Update and Migration</h2>
+<h3 id="postfix">Postfix</h3>
+<ul>
+<li>Postfix was update to 2.5.6, please backup main config files before you
+update it (we assume you backup them to /opt/backup/):</li>
+</ul>
+<pre><code># cp -rfp /etc/postfix/ /opt/backup/
+# yum update postfix
+</code></pre>
+
+<ul>
+<li>
+<p>Parameters changed (Restart postfix to make it work):</p>
+<ul>
+<li>Set <code>maximal_queue_lifetime</code> and <code>bounce_queue_lifetime</code> to <code>1d</code>. Thanks muniao@gmail.</li>
+<li>Reduce postfix queue run retry time to <code>300s</code>.</li>
+<li>Disable the SMTP <code>VRFY</code> command. This stops some techniques used to harvest email addresses.</li>
+</ul>
+</li>
+</ul>
+<pre><code># postconf -e maximal_queue_lifetime='1d'
+# postconf -e bounce_queue_lifetime='1d'
+
+# postconf -e queue_run_delay='300s'
+# postconf -e minimal_backoff_time='300s'
+# postconf -e maximal_backoff_time='1800s'
+
+# postconf -e disable_vrfy_command='yes'
+</code></pre>
+
+<ul>
+<li>Reduce spam. Add one more pcre expression for smtpd helo restriction to
+  block client which use dynamic ip address. Thanks muniao@gmail.</li>
+</ul>
+<pre><code># Part of file: /etc/postfix/helo_access.pcre
+
+/\d{1,3}-\d{1,3}-\d{1,3}-\d{1,3}/   REJECT Go away  (dynamic).
+</code></pre>
+
+<h3 id="openldap">OpenLDAP</h3>
+<p>In iRedMail 0.4.0+, LDAP schema was changed, several attributes were merged:</p>
+<ul>
+<li>enableMailService=yes -&gt; enabledService=mail</li>
+<li>enableSMTP=yes -&gt; enabledService=smtp</li>
+<li>enablePOP3=yes -&gt; enabledService=pop3</li>
+<li>enableIMAP=yes -&gt; enabledService=imap</li>
+<li>enableDELIVER=yes -&gt; enabledService=deliver</li>
+<li>enableFTPService=yes -&gt; enabledService: ftp. This attribute is not used yet.</li>
+<li>enableIMService=yes -&gt; enabledService: im. This attribute is not used yet.</li>
+</ul>
+<p>Step-by-Step migration tutorial:</p>
+<ul>
+<li>Dump/Export all virtual domains and users via <code>slapcat</code>:</li>
+</ul>
+<pre><code># slapcat -b 'o=domains,dc=iredmail,dc=org' -a '(|(objectClass=mailUser)(objectClass=mailDomain))' &gt; all.ldif
+</code></pre>
+
+<ul>
+<li>Backup original copy:</li>
+</ul>
+<pre><code># cp all.ldif all.ldif.orig
+</code></pre>
+
+<ul>
+<li>Change attributes and values:</li>
+</ul>
+<pre><code># perl -pi -e 's#enableMailService: yes#enabledService: mail#' all.ldif
+# perl -pi -e 's#enableSMTP: yes#enabledService: smtp#' all.ldif
+# perl -pi -e 's#enablePOP3: yes#enabledService: pop3#' all.ldif
+# perl -pi -e 's#enableIMAP: yes#enabledService: imap#' all.ldif
+# perl -pi -e 's#enableDELIVER: yes#enabledService: deliver#' all.ldif
+# perl -pi -e 's#enableFTPService: yes#enabledService: ftp#' all.ldif
+# perl -pi -e 's#enableIMService: yes#enabledService: im#' all.ldif
+</code></pre>
+
+<ul>
+<li>Delete all entries:</li>
+</ul>
+<pre><code># ldapsearch -x \
+    -b 'o=domains,dc=iredmail,dc=org' \
+    -s sub \
+    -D 'cn=Manager,dc=iredmail,dc=org' \
+    -W \
+    &quot;(|(objectClass=mailUser)(objectClass=mailDomain))&quot; dn | \
+    grep '^dn:' | awk '{print $2}' | grep -v '^domainName' | sort -r &gt; dn.del.list
+
+# ldapdelete -x -D 'cn=Manager,dc=iredmail,dc=org' -W -f dn.del.list
+</code></pre>
+
+<ul>
+<li>Use schema file in iRedMail-0.4.0 (samples/iredmail.schema) to replace old file:</li>
+</ul>
+<pre><code># cp -f iRedMail-0.4.0/samples/iredmail.schema /etc/openldap/schema/
+</code></pre>
+
+<ul>
+<li>Restart ldap service:</li>
+</ul>
+<pre><code># /etc/init.d/ldap restart
+</code></pre>
+
+<ul>
+<li>Re-import LDIF data:</li>
+</ul>
+<pre><code># ldapadd -x -D 'cn=Manager,dc=iredmail,dc=org' -W -f all.ldif
+</code></pre>
+
+<ul>
+<li>
+<p>Change ldap search filter in all ldap enabled service:</p>
+<ul>
+<li>Dovecot: /etc/dovecot-ldap.conf</li>
+</ul>
+</li>
+</ul>
+<pre><code>user_filter     = (&amp;(mail=%u)(objectClass=mailUser)(accountStatus=active)(enabledService=mail)(enabledService=%Ls))
+</code></pre>
+
+<pre><code>* Postfix:
+    * /etc/postfix/ldap_virtual_mailbox_domains.cf
+</code></pre>
+<pre><code>query_filter    = (&amp;(objectClass=mailDomain)(domainName=%s)(domainStatus=active)(enabledService=mail))
+</code></pre>
+
+<pre><code>    * /etc/postfix/ldap_sender_login_maps.cf
+</code></pre>
+<pre><code>query_filter    = (&amp;(mail=%s)(objectClass=mailUser)(accountStatus=active)(enabledService=mail)(enabledService=smtp))
+</code></pre>
+
+<pre><code>    * /etc/postfix/ldap_accounts.cf
+</code></pre>
+<pre><code>query_filter    = (&amp;(objectClass=mailUser)(mail=%s)(accountStatus=active)(enabledService=mail))
+</code></pre>
+
+<pre><code>    * /etc/postfix/ldap_virtual_mailbox_maps.cf
+</code></pre>
+<pre><code>query_filter    = (&amp;(objectClass=mailUser)(mail=%s)(accountStatus=active)(enabledService=mail)(enabledService=deliver))
+</code></pre>
+
+<pre><code>    * /etc/postfix/ldap_sender_bcc_maps_user.cf
+</code></pre>
+<pre><code>query_filter    = (&amp;(mail=%s)(objectClass=mailUser)(accountStatus=active)(enabledService=mail))
+</code></pre>
+
+<pre><code>    * /etc/postfix/ldap_sender_bcc_maps_domain.cf
+</code></pre>
+<pre><code>query_filter    = (&amp;(domainName=%d)(objectClass=mailDomain)(domainStatus=active)(enabledService=mail))
+</code></pre>
+
+<pre><code>    * /etc/postfix/ldap_virtual_alias_maps.cf
+</code></pre>
+<pre><code>query_filter    = (&amp;(mail=%s)(objectClass=mailUser)(accountStatus=active)(enabledService=mail))
+</code></pre>
+
+<pre><code>    * /etc/postfix/ldap_recipient_bcc_maps_user.cf
+</code></pre>
+<pre><code>query_filter    = (&amp;(mail=%s)(objectClass=mailUser)(accountStatus=active)(enabledService=mail))
+</code></pre>
+
+<pre><code>    * /etc/postfix/ldap_recipient_bcc_maps_domain.cf
+</code></pre>
+<pre><code>query_filter    = (&amp;(domainName=%d)(objectClass=mailDomain)(domainStatus=active)(enabledService=mail))
+</code></pre>
+
+<pre><code>    * /etc/postfix/ldap_recipient_bcc_maps_user.cf
+</code></pre>
+<pre><code>query_filter    = (&amp;(mail=%s)(objectClass=mailUser)(accountStatus=active)(enabledService=mail))
+</code></pre>
+
+<pre><code>* Roundcube global ldap address book: /var/www/roundcubemail-x.y.z/config/main.inc.php
+</code></pre>
+<pre><code>    'filter'        =&gt; &quot;(&amp;(objectClass=mailUser)(accountStatus=active)(enabledService=mail)(enabledService=deliver))&quot;,
+</code></pre>
+
+<pre><code>* Change ldap password plugin in SquirrelMail: /var/www/squirrelmail-x.y.z/plugins/change_ldappass/config.php
+</code></pre>
+<pre><code>$ldap_filter = &quot;(&amp;(objectClass=mailUser)(accountStatus=active)(enabledService=mail))&quot;;
+</code></pre>
+
+<h3 id="apache">Apache</h3>
+<ul>
+<li>Add Directory container to disable autoindex feature in webmail directory.</li>
+<li>
+<p>Make web-based admin consoles access via https only.</p>
+<ul>
+<li>File: /etc/httpd/conf.d/horde.conf</li>
+</ul>
+</li>
+</ul>
+<pre><code># Add '-Indexes' after 'FollowSymLinks'.
+&lt;Directory /var/www/html/horde&gt;
+    Options +FollowSymLinks -Indexes
+</code></pre>
+
+<pre><code>* File: /etc/httpd/conf.d/phpldapadmin.conf
+</code></pre>
+<pre><code># Comment below lines, make it can't access via http://.
+#Alias /phpldapadmin &quot;/var/www/phpldapadmin-1.1.0.6/&quot;
+#Alias /ldap &quot;/var/www/phpldapadmin-1.1.0.6/&quot;
+
+# Add below lines.
+&lt;Directory &quot;/var/www/phpldapadmin-1.1.0.6/&quot;&gt;
+    Options -Indexes
+&lt;/Directory&gt;
+</code></pre>
+
+<pre><code>* File: /etc/httpd/conf.d/phpmyadmin.conf
+</code></pre>
+<pre><code># Comment below lines, make it can't access via http://.
+#Alias /phpmyadmin &quot;/var/www/phpMyAdmin-2.11.9.4-all-languages/&quot;
+
+# Add below lines.
+&lt;Directory &quot;/var/www/phpMyAdmin-2.11.9.4-all-languages/&quot;&gt;
+    Options -Indexes
+&lt;/Directory&gt;
+</code></pre>
+
+<pre><code>* File: /etc/httpd/conf.d/postfixadmin.conf
+</code></pre>
+<pre><code># Comment below lines, make it can't access via http://.
+#Alias /postfixadmin &quot;/var/www/postfixadmin-2.2.1.1/&quot;
+</code></pre>
+
+<pre><code>* File: /etc/httpd/conf.d/roundcubemail.conf
+</code></pre>
+<pre><code># Add below lines.
+&lt;Directory &quot;/var/www/roundcubemail-0.2-stable/&quot;&gt;
+    Options -Indexes
+&lt;/Directory&gt;
+</code></pre>
+
+<pre><code>* File: /etc/httpd/conf.d/roundcubemail.conf
+</code></pre>
+<pre><code># Add below lines.
+&lt;Directory &quot;/var/www/squirrelmail-1.4.17/&quot;&gt;
+    Options -Indexes
+&lt;/Directory&gt;
+</code></pre>
+
+<pre><code>* File: /etc/httpd/conf.d/ssl.conf
+</code></pre>
+<pre><code># Add below lines before '&lt;/VirtualHost&gt;' mark, make all web-based
+# programs can access via https://.
+
+Alias /squirrelmail /var/www/squirrelmail-1.4.17/
+Alias /squirrel /var/www/squirrelmail-1.4.17/
+Alias /mail /var/www/roundcubemail-0.2-stable/
+Alias /webmail /var/www/roundcubemail-0.2-stable/
+Alias /roundcube /var/www/roundcubemail-0.2-stable/
+Alias /phpldapadmin /var/www/phpldapadmin-1.1.0.6/
+Alias /ldap /var/www/phpldapadmin-1.1.0.6/
+Alias /phpmyadmin /var/www/phpMyAdmin-2.11.9.4-all-languages/
+</code></pre>
+
+<h3 id="update-phpldapadmin-to-1106">Update phpLDAPadmin to 1.1.0.6.</h3>
+<ul>
+<li>Backup old version (we assume you backup it to /opt/backup/).</li>
+</ul>
+<pre><code># cp -rfp /var/www/phpldapadmin-1.1.0.5/ /opt/backup/
+</code></pre>
+
+<ul>
+<li>Extract new version to /var/www/:</li>
+</ul>
+<pre><code># tar zxf phpldapadmin-1.1.0.6.tar.gz -C /var/www/
+</code></pre>
+
+<ul>
+<li>Set file permission:</li>
+</ul>
+<pre><code># chown -R root:root /var/www/phpldapadmin-1.1.0.6/
+# chmod -R 0755 /var/www/phpldapadmin-1.1.0.6/
+</code></pre>
+
+<ul>
+<li>Update /etc/httpd/conf.d/ssl.conf, replace the version number:</li>
+</ul>
+<pre><code>Alias /phpldapadmin &quot;/var/www/phpldapadmin-1.1.0.6/&quot;
+Alias /ldap &quot;/var/www/phpldapadmin-1.1.0.6/&quot;
+</code></pre>
+
+<ul>
+<li>Restart Apache:</li>
+</ul>
+<pre><code># /etc/init.d/httpd restart
+</code></pre><p style="text-align: center; color: grey;">Document published under a <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">CC BY-ND 3.0</a> license. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.<!-- Google Analytics -->
+<script type="text/javascript">
+    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+    try {
+        var pageTracker = _gat._getTracker("UA-3293801-14");
+        pageTracker._trackPageview();
+    } catch(err) {}
+</script>
+</body></html>

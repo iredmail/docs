@@ -1,0 +1,432 @@
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Upgrade iRedMail from 0.4.0 to 0.5.0</title>
+        <link href="./css/markdown.css" rel="stylesheet"></head>
+    </head>
+    <body>
+    
+    <div id="navigation">
+        <a href="http://www.iredmail.org" target="_blank">iRedMail web site</a>
+    
+        // <a href="./index.html">Document Index</a>
+    </div><h1 id="upgrade-iredmail-from-040-to-050">Upgrade iRedMail from 0.4.0 to 0.5.0</h1>
+<div class="toc">
+<ul>
+<li><a href="#upgrade-iredmail-from-040-to-050">Upgrade iRedMail from 0.4.0 to 0.5.0</a><ul>
+<li><a href="#issues-fixed-notify">Issues Fixed &amp; Notify</a><ul>
+<li><a href="#ldap-backend-only-remove-unnecessary-ldap-lookup-in-postfix-20090726">LDAP backend only: Remove unnecessary ldap lookup in postfix (2009.07.26):</a></li>
+<li><a href="#fixed-incorrect-file-permission-on-sa-update-cron-job">Fixed: incorrect file permission on sa-update cron job</a></li>
+<li><a href="#fixed-different-timezone-in-log-file">Fixed: different timezone in log file</a></li>
+<li><a href="#openldap-backend-only-use-the-latest-iredmail-ldap-schema-file">OpenLDAP backend only: Use the latest iRedMail LDAP schema file</a><ul>
+<li><a href="#userpassword-and-accountstatus-are-optional-for-objectclass-mailadmin-20080325">userPassword and accountStatus are optional for objectclass mailAdmin (2008.03.25).</a></li>
+<li><a href="#attribute-domainstatus-is-deprecated">attribute domainStatus is deprecated.</a></li>
+</ul>
+</li>
+<li><a href="#fixed-incorrect-openldap-acl-20090323">Fixed incorrect OpenLDAP ACL (2009.03.23)</a></li>
+<li><a href="#fixed-incorrect-pysieved-config-file-ownership-20090318">Fixed incorrect pysieved config file ownership. 2009.03.18</a></li>
+</ul>
+</li>
+<li><a href="#improvements-and-updates">Improvements and Updates</a><ul>
+<li><a href="#apache">Apache</a></li>
+<li><a href="#php">PHP</a></li>
+<li><a href="#mysql-backend-special">MySQL backend special</a></li>
+<li><a href="#openldap-backend-special">OpenLDAP backend special</a></li>
+<li><a href="#postfix">Postfix</a></li>
+<li><a href="#dovecot">Dovecot</a></li>
+<li><a href="#roundcube-webmail">Roundcube webmail</a></li>
+<li><a href="#disclaimer">Disclaimer</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<p><strong>NOTE</strong>: Horde webmail was removed. Users want to migrate to Roundcube webmail
+please go to our <a href="http://www.iredmail.org/forum/">online support forum</a> for help.</p>
+<h2 id="issues-fixed-notify">Issues Fixed &amp; Notify</h2>
+<h3 id="ldap-backend-only-remove-unnecessary-ldap-lookup-in-postfix-20090726">LDAP backend only: Remove unnecessary ldap lookup in postfix (2009.07.26):</h3>
+<p>Remove <code>ldap_virtual_mailbox_maps.cf</code> in Postfix <code>virtual_mailbox_maps</code>.</p>
+<pre><code># OLD setting
+#virtual_mailbox_maps = ldap:/etc/postfix/ldap_accounts.cf, ldap:/etc/postfix/ldap_virtual_mailbox_maps.cf
+
+# NEW setting
+virtual_mailbox_maps = ldap:/etc/postfix/ldap_accounts.cf
+</code></pre>
+
+<h3 id="fixed-incorrect-file-permission-on-sa-update-cron-job">Fixed: incorrect file permission on sa-update cron job</h3>
+<pre><code># chmod 0644 /etc/cron.d/sa-update
+</code></pre>
+
+<h3 id="fixed-different-timezone-in-log-file">Fixed: different timezone in log file</h3>
+<p>Copy <code>/etc/localtime</code> to <code>/var/spool/postfix/etc/</code> solves this issue:</p>
+<pre><code># cp /etc/localtime /var/spool/postfix/etc/
+</code></pre>
+
+<p>Reference: <a href="https://bugzilla.redhat.com/show_bug.cgi?id=193184">Confusing timestamp in /var/log/secure (UTC time instead of localtime)</a></p>
+<h3 id="openldap-backend-only-use-the-latest-iredmail-ldap-schema-file">OpenLDAP backend only: Use the latest iRedMail LDAP schema file</h3>
+<h4 id="userpassword-and-accountstatus-are-optional-for-objectclass-mailadmin-20080325"><code>userPassword</code> and <code>accountStatus</code> are optional for objectclass <code>mailAdmin</code> (2008.03.25).</h4>
+<p>Please use the newest schema file to replace the old one:</p>
+<ul>
+<li>Backup old schema file (we assume you backup it to /opt/backup/ directory):</li>
+</ul>
+<pre><code># cp /etc/openldap/schema/iredmail.schema /opt/backup/
+</code></pre>
+
+<ul>
+<li>Use new version to replace the old one:</li>
+</ul>
+<pre><code># cd /tmp/
+# wget http://iredmail.googlecode.com/svn/trunk/iRedMail/samples/iredmail.schema
+# rm -f /etc/openldap/schema/iredmail.schema
+# mv /tmp/iredmail.schema /etc/openldap/schema/
+# /etc/init.d/ldap restart
+</code></pre>
+
+<h4 id="attribute-domainstatus-is-deprecated">attribute <code>domainStatus</code> is deprecated.</h4>
+<ul>
+<li>Add new attribute <code>accountStatus</code> for each mail domain with phpLDAPadmin or other LDAP admin tool.</li>
+<li>
+<p>Change below files to use <code>accountStatus</code> instead.</p>
+<ul>
+<li>/etc/postfix/ldap_virtual_mailbox_domains.cf</li>
+<li>/etc/postfix/ldap_relay_domains.cf</li>
+<li>/etc/postfix/ldap_transport_maps.cf</li>
+<li>/etc/postfix/ldap_recipient_bcc_maps_domain.cf</li>
+<li>/etc/postfix/ldap_sender_bcc_maps_domain.cf</li>
+</ul>
+</li>
+<li>
+<p>Send mail to exist mail user and make sure <code>accountStatus</code> works for you.</p>
+</li>
+<li>Delete attribute <code>domainStatus</code> in each domain.</li>
+</ul>
+<h3 id="fixed-incorrect-openldap-acl-20090323">Fixed incorrect OpenLDAP ACL (2009.03.23)</h3>
+<p>Edit <code>/etc/openldap/slapd.conf</code>, add several lines like below:</p>
+<pre><code>#
+# Allow users to access their own domain subtree.
+#
+access to dn.regex=&quot;domainName=([^,]+),o=domains,dc=iredmail,dc=org$&quot;
+    by anonymous                    auth
+    by self                         write
+    by dn.exact=&quot;cn=vmail,dc=iredmail,dc=org&quot;   read
+    by dn.exact=&quot;cn=vmailadmin,dc=iredmail,dc=org&quot;  write
+    by dn.regex=&quot;mail=[^,]+,ou=Users,domainName=$1,o=domains,dc=iredmail,dc=org$&quot; read
+    by dn.regex=&quot;mail=[^,]+@$1,o=domainAdmins,dc=iredmail,dc=org$&quot; read     # &lt;-- Add this line.
+    by users                        none
+
+#
+# Enable vmail/vmailadmin. 
+#
+access to dn.subtree=&quot;o=domains,dc=iredmail,dc=org&quot;
+    by anonymous                    auth
+    by self                         write
+    by dn.exact=&quot;cn=vmail,dc=iredmail,dc=org&quot;   read
+    by dn.exact=&quot;cn=vmailadmin,dc=iredmail,dc=org&quot;  write
+    by dn.regex=&quot;mail=[^,]+,domainName=$1,o=domains,dc=iredmail,dc=org$&quot; read
+    by users                        read
+
+########################################################
+################# Add below lines ######################
+########################################################
+access to dn.subtree=&quot;o=domainAdmins,dc=iredmail,dc=org&quot;
+    by anonymous                    auth
+    by self                         write
+    by dn.exact=&quot;cn=vmail,dc=iredmail,dc=org&quot;  read
+    by dn.exact=&quot;cn=vmailadmin,dc=iredmail,dc=org&quot;  write
+    by users                        none
+</code></pre>
+
+<h3 id="fixed-incorrect-pysieved-config-file-ownership-20090318">Fixed incorrect pysieved config file ownership. 2009.03.18</h3>
+<pre><code># chown vmail:vmail /etc/pysieved.ini
+# /etc/init.d/pysieved restart
+</code></pre>
+
+<h2 id="improvements-and-updates">Improvements and Updates</h2>
+<h3 id="apache">Apache</h3>
+<ul>
+<li>Add <code>/var/www/html/robots.txt</code> file to disallow search engines. Content:</li>
+</ul>
+<pre><code>User-agent: *
+Disallow: /mail
+Disallow: /webmail
+Disallow: /roundcube
+Disallow: /phpldapadmin
+Disallow: /ldap
+Disallow: /mysql
+Disallow: /phpmyadmin
+Disallow: /awstats
+</code></pre>
+
+<h3 id="php">PHP</h3>
+<ul>
+<li>Set disable_functions in <code>/etc/php.ini</code>. Thanks david(at)knapp(dot)org.</li>
+</ul>
+<pre><code>disable_functions = show_source, system, shell_exec, passthru, exec, phpinfo, proc_open
+</code></pre>
+
+<h3 id="mysql-backend-special">MySQL backend special</h3>
+<ul>
+<li>Add column to set mail storage base directory. Warning: Please replace
+  <code>/home/vmail</code> below to fit your environment.</li>
+</ul>
+<pre><code># mysql -uroot -p vmail
+mysql&gt; ALTER TABLE mailbox ADD COLUMN storagebasedirectory VARCHAR(255) DEFAULT '/home/vmail';
+</code></pre>
+
+<ul>
+<li>Alter <code>vmail.enablesieve</code> to vmail.enablemanagesieve:</li>
+</ul>
+<pre><code># mysql -uroot -p vmail
+mysql&gt; ALTER TABLE mailbox CHANGE COLUMN enablesieve enablemanagesieve TINYINT(1);
+</code></pre>
+
+<ul>
+<li>Due to this change, you have to add one more parameter in <code>/etc/pysieved.ini</code>:</li>
+</ul>
+<pre><code>[Dovecot]
+service = managesieve
+</code></pre>
+
+<ul>
+<li>Add new columns in <code>vmail.mailbox</code> table:</li>
+</ul>
+<pre><code># mysql -uroot -p vmail
+mysql&gt; ALTER TABLE mailbox ADD COLUMN employeeid VARCHAR(255) DEFAULT NULL;
+mysql&gt; ALTER TABLE mailbox ADD COLUMN lastlogindate DATETIME NOT NULL DEFAULT '0000-00-00 00:00:00';
+mysql&gt; ALTER TABLE mailbox ADD COLUMN lastloginprotocol CHAR(255) NOT NULL DEFAULT '';
+</code></pre>
+
+<h3 id="openldap-backend-special">OpenLDAP backend special</h3>
+<ul>
+<li>Add one <code>enabledService=forward</code> in mail forwarding address lookup:
+  <code>/etc/postfix/ldap_virtual_alias_maps.cf</code>.</li>
+</ul>
+<pre><code>query_filter    = (&amp;(mail=%s)(objectClass=mailUser)(accountStatus=active)(enabledService=mail)(enabledService=forward))
+</code></pre>
+
+<ul>
+<li>Index more LDAP attributes in <code>/etc/openldap/slapd.conf</code>:</li>
+</ul>
+<pre><code>index domainAdmin,domainGlobalAdmin,domainBackupMX    eq,pres
+index listAllowedUser,accessPolicy eq,pres
+index memberOfGroup eq,pres
+</code></pre>
+
+<p>After added above line, please stop openldap and run <code>slapindex</code> in database directory:</p>
+<pre><code># /etc/init.d/ldap stop
+# cd /var/lib/ldap/iredmail.org/
+# slapindex
+# chown ldap:ldap *
+# /etc/init.d/ldap start
+</code></pre>
+
+<h3 id="postfix">Postfix</h3>
+<ul>
+<li>
+<p>LDAP backend only: Mail group/list implemented of LDAP is changed.</p>
+<ul>
+<li>objectClass <code>mailUser</code> has a new attribute: <code>memberOfGroup</code>, used to store
+  group name (a valid email address).</li>
+<li>Mail group lookup maps in postfix must be changed too. modify your <code>/etc/postfix/main.cf</code>:</li>
+</ul>
+</li>
+</ul>
+<pre><code>virtual_alias_maps =
+    ldap:/etc/postfix/ldap_virtual_alias_maps.cf,
+    ldap:/etc/postfix/ldap_virtual_group_maps.cf    # Add this lookup file.
+</code></pre>
+
+<p>Create /etc/postfix/ldap_virtual_group_maps.cf:</p>
+<pre><code>server_host     = 127.0.0.1
+server_port     = 389
+version         = 3
+bind            = yes
+start_tls       = no
+bind_dn         = cn=vmail,dc=iredmail,dc=org
+bind_pw         = KrxIkebDaRWb81yHdetBPt0UXC6NVZ
+search_base     = domainName=%d,o=domains,dc=iredmail,dc=org
+scope           = sub
+query_filter    = (&amp;(memberOfGroup=%s)(objectClass=mailUser)(accountStatus=active)(enabledService=mail)(enabledService=deliver))
+result_attribute= mail
+debuglevel      = 0
+</code></pre>
+
+<p>Remove <code>(objectClass=mailList)</code> in query_filter line in <code>/etc/postfix/ldap_virtual_alias_maps.cf</code>:</p>
+<pre><code>#query_filter    = (&amp;(mail=%s)(accountStatus=active)(enabledService=mail)(enabledService=deliver)(|(objectClass=mailList)(objectClass=mailAlias)(&amp;(objectClass=mailUser)(enabledService=forward))))
+query_filter    = (&amp;(mail=%s)(accountStatus=active)(enabledService=mail)(enabledService=deliver)(|(objectClass=mailAlias)(&amp;(objectClass=mailUser)(enabledService=forward))))
+</code></pre>
+
+<ul>
+<li>LDAP backend only: Add bcc control in bcc lookup. Warning: Do <strong>NOT</strong> forget
+  to add <code>enabledService=senderbcc</code> and <code>enabledService=recipientbcc</code> for all
+  domains/users allowed bcc feature.</li>
+</ul>
+<p>File: <code>/etc/postfix/ldap_sender_bcc_maps_domain.cf</code>.</p>
+<pre><code>query_filter    = (&amp;(domainName=%d)(objectClass=mailDomain)(domainStatus=active)(enabledService=mail)(enabledService=senderbcc))
+</code></pre>
+
+<p>File: <code>/etc/postfix/ldap_recipient_bcc_maps_domain.cf</code>.</p>
+<pre><code>query_filter    = (&amp;(domainName=%d)(objectClass=mailDomain)(domainStatus=active)(enabledService=mail)(enabledService=recipientbcc))
+</code></pre>
+
+<p>File: <code>/etc/postfix/ldap_sender_bcc_maps_user.cf</code>.</p>
+<pre><code>query_filter    = (&amp;(mail=%s)(objectClass=mailUser)(accountStatus=active)(enabledService=mail)(enabledService=senderbcc))
+</code></pre>
+
+<p>File: <code>/etc/postfix/ldap_recipient_bcc_maps_user.cf</code>.</p>
+<pre><code>query_filter    = (&amp;(mail=%s)(objectClass=mailUser)(accountStatus=active)(enabledService=mail)(enabledService=recipientbcc))
+</code></pre>
+
+<ul>
+<li>
+<p>Add backup mx control in domain lookup file:</p>
+<ul>
+<li>For MySQL backend: /etc/postfix/mysql_virtual_mailbox_domains.cf</li>
+</ul>
+</li>
+</ul>
+<pre><code>query       = SELECT domain FROM domain WHERE domain='%s' AND backupmx='0' AND active='1' AND expired &gt;= NOW()
+</code></pre>
+
+<pre><code>* For OpenLDAP backend: /etc/postfix/ldap_virtual_mailbox_domains.cf
+</code></pre>
+<pre><code>query_filter    = (&amp;(objectClass=mailDomain)(domainName=%s)(!(domainBackupMX=yes))(domainStatus=active)(enabledService=mail))
+</code></pre>
+
+<pre><code>* LDAP backend only: Add group mail and alias support for openldap backend, you have to change virtual alias lookup file: /etc/postfix/ldap_virtual_alias_maps.cf.
+</code></pre>
+<pre><code>search_base     = domainName=%d,o=domains,dc=iredmail,dc=org
+scope           = sub
+query_filter    = (&amp;(mail=%s)(accountStatus=active)(enabledService=mail)(enabledService=deliver)(|(objectClass=mailList)(objectClass=mailAlias)(&amp;(objectClass=mailUser)(enabledService=forward))))
+result_attribute= mailForwardingAddress
+</code></pre>
+
+<h3 id="dovecot">Dovecot</h3>
+<ul>
+<li>mail_location setting changed in file: /etc/dovecot.conf.</li>
+</ul>
+<pre><code>mail_location = maildir:/%Lh/:INDEX=/%Lh/
+</code></pre>
+
+<p>and dovecot-mysql.conf (if you use MySQL as backend) should be changed too:</p>
+<pre><code>user_query = SELECT CONCAT(storagebasedirectory, '/', maildir) AS home, \
+</code></pre>
+
+<p>and dovecot-ldap.conf (if you use OpenLDAP as backend) should be changed too:</p>
+<pre><code>user_attrs      = =sieve_dir=/home/vmail/sieve/%Ld/%Ln/,storageBaseDirectory=home,mailMessageStore=mail=maildir:~/%$/Maildir/,mailQuota=quota_rule=*:bytes=%$
+</code></pre>
+
+<h3 id="roundcube-webmail">Roundcube webmail</h3>
+<ul>
+<li>Change global ldap address book filter in /var/www/roundcubemail-x.y.z/config/main.inc.php. It will search mail user/group/alias for you while typing mail address in recipient field.</li>
+</ul>
+<pre><code>    'filter'        =&gt; &quot;(&amp;(accountStatus=active)(enabledService=mail)(enabledService=deliver)(|(&amp;(objectClass=mailList)(hasMember=yes))(objectClass=mailAlias)(objectClass=mailUser)))&quot;, // Search mail users, lists, aliases.
+</code></pre>
+
+<ul>
+<li>
+<p>New settings in /var/www/roundcubemail-x.y.z/config/main.inc.php:</p>
+</li>
+<li>
+<p>log_driver syslog</p>
+</li>
+<li>
+<p>syslog_id roundcube
+syslog_facility LOG_MAIL
+mime_param_folding 1
+identities_level 3
+quota_zero_as_unlimited TRUE</p>
+</li>
+<li>
+<p>LDAP backend only: Replace 'gn' by 'givenName' in global LDAP address book. (2009.03.15)</p>
+</li>
+</ul>
+<pre><code># File: /var/www/roundcubemail-x.y.z-stable/config/main.inc.php
+
+    'search_fields' =&gt; array('mail', 'cn', 'givenName', 'sn'),  // fields to search in
+    'firstname_field' =&gt; 'givenName',  // this field represents the contact's first name
+</code></pre>
+
+<h3 id="disclaimer">Disclaimer</h3>
+<p>iRedMail-0.5.0 supports automatically adding a disclaimer to all outgoing
+emails with Amavisd-new + alterMIME.</p>
+<ul>
+<li>
+<p>Install altermime from iRedMail yum repository:</p>
+<ul>
+<li>For i386:</li>
+</ul>
+</li>
+</ul>
+<pre><code># yum install altermime.i386
+</code></pre>
+
+<pre><code>* For x86_64:
+</code></pre>
+<pre><code># yum install altermime.x86_64
+</code></pre>
+
+<ul>
+<li>Create directory to store disclaimer files if not exist:</li>
+</ul>
+<pre><code># mkdir -p /etc/postfix/disclaimer/
+</code></pre>
+
+<ul>
+<li>In /etc/amavisd.conf, add <code>allow_disclaimers</code> in <code>$policy_bank{'MYNET'}</code>:</li>
+</ul>
+<pre><code>$policy_bank{'MYNETS'} = {   # mail originating from @mynetworks
+  [ ... skip other settings here ...]
+  allow_disclaimers =&gt; 1,  # enables disclaimer insertion if available
+};
+</code></pre>
+
+<ul>
+<li>Add disclaimer settings before the last line:</li>
+</ul>
+<pre><code># ------------ Disclaimer Setting ---------------
+$altermime = '/usr/bin/altermime';
+$defang_maps_by_ccat{+CC_CATCHALL} = [ 'disclaimer' ];
+
+# Disclaimer in plain text formart.
+@altermime_args_disclaimer = qw(--disclaimer=/etc/postfix/disclaimer/_OPTION_.txt);
+
+@disclaimer_options_bysender_maps = ({
+    # Per-domain disclaimer setting: /etc/postfix/disclaimer/host1.iredmail.org.txt
+    #'host1.iredmail.org' =&gt; 'host1.iredmail.org',
+
+    # Sub-domain disclaimer setting: /etc/postfix/disclaimer/iredmail.org.txt
+    #'.iredmail.org'      =&gt; 'iredmail.org',
+
+    # Per-user disclaimer setting: /etc/postfix/disclaimer/boss.iredmail.org.txt
+    #'boss@iredmail.org'  =&gt; 'boss.iredmail.org',
+
+    # Catch-all disclaimer setting: /etc/postfix/disclaimer/default.txt
+    '.' =&gt; 'default',
+},);
+# ------------ End Disclaimer Setting ---------------
+</code></pre>
+
+<ul>
+<li>Create an testing disclaimer file:</li>
+</ul>
+<pre><code># echo 'Testing disclaimer.' &gt; /etc/postfix/disclaimer/default.txt
+</code></pre>
+
+<ul>
+<li>Restart amavisd and send mail from your webmail or Outlook/Thunderbird:</li>
+</ul>
+<pre><code># /etc/init.d/amavisd restart
+</code></pre><p style="text-align: center; color: grey;">Document published under a <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">CC BY-ND 3.0</a> license. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.<!-- Google Analytics -->
+<script type="text/javascript">
+    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+    try {
+        var pageTracker = _gat._getTracker("UA-3293801-14");
+        pageTracker._trackPageview();
+    } catch(err) {}
+</script>
+</body></html>
