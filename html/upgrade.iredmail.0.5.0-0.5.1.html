@@ -1,0 +1,262 @@
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Upgrade iRedMail from 0.5.0 to 0.5.1</title>
+        <link href="./css/markdown.css" rel="stylesheet"></head>
+    </head>
+    <body>
+    
+    <div id="navigation">
+        <a href="http://www.iredmail.org" target="_blank">iRedMail web site</a>
+    
+        // <a href="./index.html">Document Index</a>
+    </div><h1 id="upgrade-iredmail-from-050-to-051">Upgrade iRedMail from 0.5.0 to 0.5.1</h1>
+<div class="toc">
+<ul>
+<li><a href="#upgrade-iredmail-from-050-to-051">Upgrade iRedMail from 0.5.0 to 0.5.1</a><ul>
+<li><a href="#changelog">ChangeLog</a></li>
+<li><a href="#general-all-backends-should-apply-these-steps">General (All backends should apply these steps)</a><ul>
+<li><a href="#apply-hotfixes">Apply hotfixes</a></li>
+<li><a href="#enable-proxymap-in-sqlldap-query-maps">Enable proxymap in SQL/LDAP query maps</a></li>
+<li><a href="#add-mynetworks-in-etcamavisconfd50-user-debianubuntu-only">Add @mynetworks in /etc/amavis/conf.d/50-user (Debian/Ubuntu only)</a></li>
+<li><a href="#convert-sql-columns-from-latin-to-utf8-in-policyd-database">Convert SQL columns from latin to utf8 in policyd database</a></li>
+</ul>
+</li>
+<li><a href="#openldap-backend-only">OpenLDAP backend only</a><ul>
+<li><a href="#replace-old-ldap-schema-file-with-the-new-one-shipped-in-iredmail-051">Replace old LDAP schema file with the new one shipped in iRedMail-0.5.1.</a></li>
+<li><a href="#use-proxymap-to-improve-performance-and-reliability-under-high-load">Use proxymap to improve performance and reliability under high load.</a></li>
+<li><a href="#restrict-pop3simaps-service-in-dovecot">Restrict POP3S/IMAPS service in Dovecot</a></li>
+<li><a href="#enable-pop3simaps-services-for-all-mail-users">Enable POP3S/IMAPS services for all mail users</a></li>
+<li><a href="#add-domain-alias-support">Add domain alias support</a></li>
+<li><a href="#add-missing-service-control-in-postfix-ldap-lookup-table">Add missing service control in Postfix LDAP lookup table</a></li>
+<li><a href="#add-missing-attributes-in-ldap-acl-and-index-control">Add missing attributes in LDAP ACL and index control</a></li>
+</ul>
+</li>
+<li><a href="#mysql-backend-only">MySQL backend only</a><ul>
+<li><a href="#add-new-columns">Add new columns</a></li>
+<li><a href="#use-proxymap-to-improve-performance-and-reliability-under-high-load-in-postfix">Use proxymap to improve performance and reliability under high load in Postfix</a></li>
+<li><a href="#restrict-pop3simaps-services-in-dovecot">Restrict POP3S/IMAPS services in Dovecot</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<h2 id="changelog">ChangeLog</h2>
+<ul>
+<li>2009-11-03: Explain why we need extra SQL columns. Thanks Rashef@forum.</li>
+<li>2009-11-03: Fix file name of LDAP schema. Thanks Bronkoo@twitter.</li>
+<li>2009-11-02: Use python script to update LDAP data. ldapsearch will wrap long line, it breaks dn value. Thanks yangbajing@bbs for report this issue.</li>
+<li>2009-11-02: Fix typo error. Thanks sdaniel@bbs.</li>
+<li>2009-11-02: Add domain alias support.</li>
+</ul>
+<h2 id="general-all-backends-should-apply-these-steps">General (All backends should apply these steps)</h2>
+<h3 id="apply-hotfixes">Apply hotfixes</h3>
+<ul>
+<li>2009-10-28: <a href="http://www.iredmail.org/forum/topic373-fixed-in-050-missed-syslog-setting-ubuntu-804-ldap-only.html">Missing syslog setting. (Ubuntu 8.04 + LDAP backend only)</a></li>
+<li>2009-09-10: <a href="http://www.iredmail.org/forum/topic236-fixed-in-050-maill-forwarding-and-bcc-are-invalid.html">Maill forwarding and bcc are invalid</a></li>
+<li>2009-08-21: <a href="http://www.iredmail.org/forum/topic182-fixed-in-050-peruser-mail-filter-setting.html">per-user mail filter setting</a></li>
+</ul>
+<h3 id="enable-proxymap-in-sqlldap-query-maps">Enable <code>proxymap</code> in SQL/LDAP query maps</h3>
+<p>Set <code>proxy_read_maps</code> in postfix, so that we can use <code>proxymap(8)</code> daemon which
+is part of postfix to reduce the number of connections to MySQL/LDAP and
+greatly reduces system load.</p>
+<pre><code># postconf -e proxy_read_maps='$canonical_maps $lmtp_generic_maps $local_recipient_maps $mydestination $mynetworks $recipient_bcc_maps $recipient_canonical_maps $relay_domains $relay_recipient_maps $relocated_maps $sender_bcc_maps $sender_canonical_maps $smtp_generic_maps $smtpd_sender_login_maps $transport_maps $virtual_alias_domains $virtual_alias_maps $virtual_mailbox_domains $virtual_mailbox_maps'
+</code></pre>
+
+<h3 id="add-mynetworks-in-etcamavisconfd50-user-debianubuntu-only">Add <code>@mynetworks</code> in <code>/etc/amavis/conf.d/50-user</code> (Debian/Ubuntu only)</h3>
+<pre><code># Part of file: /etc/amavis/conf.d/50-user
+
+@mynetworks = qw( 127.0.0.0/8 [::1] [FE80::]/10 [FEC0::]/10
+                10.0.0.0/8 172.16.0.0/12 192.168.0.0/16 );
+</code></pre>
+
+<p>NOTE: They are trusted subnets (amavisd-new default setting), mail sent from
+these subnets will be bypassed for anti-spam and anti-virus.</p>
+<h3 id="convert-sql-columns-from-latin-to-utf8-in-policyd-database">Convert SQL columns from latin to utf8 in policyd database</h3>
+<p>Convert some columns of policyd database from latin to utf8, so that we can
+add non-ascii characters in <code>description</code> column.</p>
+<pre><code>$ mysql -uroot -p policyd
+mysql&gt; ALTER TABLE blacklist MODIFY COLUMN _description CHAR(60) CHARACTER SET utf8;
+mysql&gt; ALTER TABLE blacklist_sender MODIFY COLUMN _description CHAR(60) CHARACTER SET utf8;
+mysql&gt; ALTER TABLE whitelist MODIFY COLUMN _description CHAR(60) CHARACTER SET utf8;
+mysql&gt; ALTER TABLE whitelist_dnsname MODIFY COLUMN _description CHAR(60) CHARACTER SET utf8;
+mysql&gt; ALTER TABLE whitelist_sender MODIFY COLUMN _description CHAR(60) CHARACTER SET utf8;
+</code></pre>
+
+<p>NOTE: Policyd database name is <code>policyd</code> (on RHEL/CentOS) or <code>postfixpolicyd</code>
+(on Debian/Ubuntu).</p>
+<h2 id="openldap-backend-only">OpenLDAP backend only</h2>
+<h3 id="replace-old-ldap-schema-file-with-the-new-one-shipped-in-iredmail-051">Replace old LDAP schema file with the new one shipped in iRedMail-0.5.1.</h3>
+<pre><code># --- BELOW ARE SHELL COMMANDS ----
+# cd /etc/openldap/schema/      # Note: On Debian/Ubuntu, path is /etc/ldap/schema/
+# cp iredmail.schema iredmail.schema.bak
+# cd /root
+# wget http://iredmail.googlecode.com/hg/tags/0.5.1/samples/iredmail.schema
+# mv -i /root/iredmail.schema /etc/openldap/schema/
+# /etc/init.d/ldap restart      # Note: On Debian/Ubuntu, path is /etc/init.d/slapd
+</code></pre>
+
+<p>NOTE: New LDAP schema provides several new attributes, but it's backwards
+compatibility, it's <strong>SAFE</strong> to replace the old one without addition operations.</p>
+<h3 id="use-proxymap-to-improve-performance-and-reliability-under-high-load">Use proxymap to improve performance and reliability under high load.</h3>
+<p>Prepend <code>proxy:</code> to the beginnning of all LDAP lookup table definitions in
+postfix configuration file: <code>/etc/postfix/main.cf</code>. For example:</p>
+<pre><code># Part of file: /etc/postfix/main.cf
+
+# Old setting:
+#virtual_alias_maps = ldap:/etc/postfix/ldap_virtual_alias_maps.cf
+
+# New setting. Add 'proxy:'.
+virtual_alias_maps = proxy:ldap:/etc/postfix/ldap_virtual_alias_maps.cf
+</code></pre>
+
+<h3 id="restrict-pop3simaps-service-in-dovecot">Restrict POP3S/IMAPS service in Dovecot</h3>
+<p>Update dovecot settings to restrict POP3S &amp; IMAPS in <code>/etc/dovecot-ldap.conf</code>
+(on RHEL/CentOS) or <code>/etc/dovecot/dovecot-ldap.conf</code> (on Debian/Ubuntu),
+support domain alias and user shadow address.</p>
+<pre><code># Part of file: dovecot-ldap.conf
+
+# Old setting:
+#base            = ou=Users,domainName=%d,o=domains,dc=iredmail,dc=org
+#user_filter     = (&amp;(mail=%u)(objectClass=mailUser)(accountStatus=active)(enabledService=mail)(enabledService=%Ls))
+#pass_filter     = (mail=%u)
+
+# New setting (user_filter is same as pass_filter):
+base            = o=domains,dc=iredmail,dc=org
+user_filter     = (&amp;(objectClass=mailUser)(accountStatus=active)(enabledService=mail)(enabledService=%Ls%Lc)(|(mail=%u)(&amp;(enabledService=shadowaddress)(shadowAddress=%u))))
+pass_filter     = (&amp;(objectClass=mailUser)(accountStatus=active)(enabledService=mail)(enabledService=%Ls%Lc)(|(mail=%u)(&amp;(enabledService=shadowaddress)(shadowAddress=%u))))
+</code></pre>
+
+<p>Restarting Dovecot service is required.</p>
+<h3 id="enable-pop3simaps-services-for-all-mail-users">Enable POP3S/IMAPS services for all mail users</h3>
+<ul>
+<li>Make sure you have python-ldap module installed.</li>
+</ul>
+<pre><code># python
+&gt;&gt;&gt; import ldap
+</code></pre>
+
+<p>If it raises error message <code>ImportError: No module named ldap</code>, you have to
+install python-ldap module first.</p>
+<pre><code># easy_install python-ldap==2.3.8
+</code></pre>
+
+<ul>
+<li>Download script tool to update LDAP values.</li>
+</ul>
+<pre><code># wget http://iredmail.googlecode.com/hg/extra/update/updateLDAPValues_050_to_051.py
+</code></pre>
+
+<ul>
+<li>Open downloaded file, set correct LDAP base dn, bind dn, and bind password.
+  Example:</li>
+</ul>
+<pre><code># Part of file: updateLDAPValues_050_to_051.py
+
+uri = 'ldap://127.0.0.1:389'
+basedn = 'o=domains,dc=iredmail,dc=org'
+bind_dn = 'cn=Manager,dc=iredmail,dc=org'
+bind_pw = 'passwd'
+</code></pre>
+
+<ul>
+<li>Execute the script to update LDAP data</li>
+</ul>
+<pre><code># python updateLDAPValues_050_to_051.py
+</code></pre>
+
+<h3 id="add-domain-alias-support">Add domain alias support</h3>
+<p>Add domain alias support in postfix ldap lookup table file: <code>/etc/postfix/ldap_virtual_mailbox_domains.cf</code>.</p>
+<pre><code># Part of file: /etc/postfix/ldap_virtual_mailbox_domains.cf
+
+# ---- Old setting ----
+query_filter    = (&amp;(objectClass=mailDomain)(domainName=%s)(!(domainBackupMX=yes))(accountStatus=active)(enabledService=mail))
+
+# ---- New setting ----
+query_filter    = (&amp;(objectClass=mailDomain)(|(domainName=%s)(&amp;(enabledService=domainalias)(domainAliasName=%s)))(!(domainBackupMX=yes))(accountStatus=active)(enabledService=mail))
+</code></pre>
+
+<h3 id="add-missing-service-control-in-postfix-ldap-lookup-table">Add missing service control in Postfix LDAP lookup table</h3>
+<p>Add missing service control in postfix ldap lookup table file: <code>/etc/postfix/ldap_virtual_mailbox_maps.cf</code>:</p>
+<pre><code># Part of file: /etc/postfix/ldap_virtual_mailbox_maps.cf
+
+# OLD setting
+#query_filter    = (&amp;(objectClass=mailUser)(mail=%s)(accountStatus=active)(enabledService=mail))
+
+# NEW setting
+query_filter    = (&amp;(objectClass=mailUser)(mail=%s)(accountStatus=active)(enabledService=mail)(enabledService=deliver))
+</code></pre>
+
+<h3 id="add-missing-attributes-in-ldap-acl-and-index-control">Add missing attributes in LDAP ACL and index control</h3>
+<p>Add <code>shadowAddress</code> and <code>employeeNumber</code> attribute names in
+<code>/etc/openldap/slapd.conf</code> (RHEL/CentOS) or <code>/etc/ldap/slapd.conf</code>
+(Debian/Ubuntu) for access control and index.</p>
+<pre><code># Part of file: slapd.conf
+
+# OLD setting
+#access to attrs=&quot;homeDirectory,mailMessageStore,mail,...&quot;
+
+# NEW setting
+access to attrs=&quot;shadowAddress,employeeNumber,homeDirectory,mailMessageStore,mail,...&quot;
+
+
+# OLD setting
+#index homeDirectory,mailMessageStore,mailForwardingAddress   eq,pres
+
+# NEW setting
+index homeDirectory,mailMessageStore,mailForwardingAddress,shadowAddress,employeeNumber   eq,pres
+</code></pre>
+
+<h2 id="mysql-backend-only">MySQL backend only</h2>
+<h3 id="add-new-columns">Add new columns</h3>
+<p>Add columns used for service control: pop3s, imaps, managesieve:</p>
+<pre><code># mysql -uroot -p vmail
+mysql&gt; ALTER TABLE mailbox ADD COLUMN enableimapsecured TINYINT(1) NOT NULL DEFAULT '1';
+mysql&gt; ALTER TABLE mailbox ADD COLUMN enablepop3secured TINYINT(1) NOT NULL DEFAULT '1';
+mysql&gt; ALTER TABLE mailbox ADD COLUMN enablemanagesievesecured TINYINT(1) NOT NULL DEFAULT '1';
+</code></pre>
+
+<p>Add columns used to store default user quota size, per-domain default password
+length control. Will be used in iRedAdmin.</p>
+<pre><code># mysql -uroot -p vmail
+mysql&gt; ALTER TABLE domain ADD COLUMN defaultuserquota BIGINT(20) NOT NULL DEFAULT '1024';
+mysql&gt; ALTER TABLE domain ADD COLUMN minpasswordlength INT(10) NOT NULL DEFAULT '0';
+mysql&gt; ALTER TABLE domain ADD COLUMN maxpasswordlength INT(10) NOT NULL DEFAULT '0';
+</code></pre>
+
+<h3 id="use-proxymap-to-improve-performance-and-reliability-under-high-load-in-postfix">Use <code>proxymap</code> to improve performance and reliability under high load in Postfix</h3>
+<p>Prepend <code>proxy:</code> to the beginnning of all MySQL lookup table definitions in
+postfix configuration file: <code>/etc/postfix/main.cf</code>. For example:</p>
+<pre><code># Part of file: /etc/postfix/main.cf
+
+# Old setting:
+#virtual_alias_maps = mysql:/etc/postfix/mysql_virtual_alias_maps.cf
+
+# New setting. Add 'proxy:'.
+virtual_alias_domains = proxy:mysql:/etc/postfix/mysql_virtual_alias_maps.cf
+</code></pre>
+
+<h3 id="restrict-pop3simaps-services-in-dovecot">Restrict POP3S/IMAPS services in Dovecot</h3>
+<p>Update dovecot settings in <code>/etc/dovecot-mysql.conf</code> (RHEL/CentOS) or
+<code>/etc/dovecot/dovecot-mysql.conf</code> (Debian/Ubuntu) to restrict POP3S/IMAPS
+services.</p>
+<pre><code># Part of file: dovecot-mysql.conf
+
+# Old setting:
+AND active='1' AND enable%Ls='1' AND expired &gt;= NOW()
+
+# New setting (Add '%Lc'):
+AND active='1' AND enable%Ls%Lc='1' AND expired &gt;= NOW()
+</code></pre><p style="text-align: center; color: grey;">Document published under a <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">CC BY-ND 3.0</a> license. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.<!-- Google Analytics -->
+<script type="text/javascript">
+    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+    try {
+        var pageTracker = _gat._getTracker("UA-3293801-14");
+        pageTracker._trackPageview();
+    } catch(err) {}
+</script>
+</body></html>
