@@ -1,4 +1,4 @@
-# iRedAdmin-Pro: release notes and upgrade tutorial
+# iRedAdmin-Pro release notes and upgrade tutorial
 
 [TOC]
 

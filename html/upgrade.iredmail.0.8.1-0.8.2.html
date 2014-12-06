@@ -1,0 +1,284 @@
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Upgrade iRedMail from 0.8.1 to 0.8.2</title>
+        <link href="./css/markdown.css" rel="stylesheet"></head>
+    </head>
+    <body>
+    
+    <div id="navigation">
+        <a href="http://www.iredmail.org" target="_blank">iRedMail web site</a>
+    
+        // <a href="./index.html">Document Index</a>
+    </div><h1 id="upgrade-iredmail-from-081-to-082">Upgrade iRedMail from 0.8.1 to 0.8.2</h1>
+<div class="toc">
+<ul>
+<li><a href="#upgrade-iredmail-from-081-to-082">Upgrade iRedMail from 0.8.1 to 0.8.2</a><ul>
+<li><a href="#changelog">ChangeLog</a></li>
+<li><a href="#general-all-backends-should-apply-these-upgrade-steps">General (All backends should apply these upgrade steps)</a><ul>
+<li><a href="#update-etciredmail-release-with-iredmail-version-number">Update /etc/iredmail-release with iRedMail version number</a></li>
+<li><a href="#upgrade-roundcube-webmail-to-the-latest-stable-release">Upgrade Roundcube webmail to the latest stable release</a></li>
+<li><a href="#upgrade-iredapd-postfix-policy-server-to-the-latest-stable-release">Upgrade iRedAPD (Postfix policy server) to the latest stable release</a></li>
+<li><a href="#upgrade-iredadmin-open-source-edition-to-the-latest-stable-release">Upgrade iRedAdmin (open source edition) to the latest stable release</a></li>
+<li><a href="#remove-improper-spamassassin-spf-score-settings">Remove improper SpamAssassin SPF score settings</a></li>
+<li><a href="#add-missing-log-rotate-settings-for-dovecot-log-files-on-openbsd">Add missing log rotate settings for Dovecot log files on OpenBSD</a></li>
+<li><a href="#add-missing-log-rotate-settings-for-dovecot-log-files-on-freebsd">Add missing log rotate settings for Dovecot log files on FreeBSD</a></li>
+<li><a href="#fix-incorrect-rotate-setting-for-iredapd-log-file-on-freebsd">Fix incorrect rotate setting for iRedAPD log file on FreeBSD</a></li>
+</ul>
+</li>
+<li><a href="#openldap-backend-special">OpenLDAP backend special</a><ul>
+<li><a href="#use-the-newest-schema-file">Use the newest schema file</a></li>
+<li><a href="#return-correct-maildir-path-while-using-virtual-transport">Return correct maildir path while using virtual transport</a></li>
+<li><a href="#add-checkpoint-setting-in-slapdconf-used-for-bdb-recovery">Add checkpoint setting in slapd.conf, used for BDB recovery</a></li>
+</ul>
+</li>
+<li><a href="#mysql-backend-special">MySQL backend special</a><ul>
+<li><a href="#add-3-new-columns-required-by-iredadmin">Add 3 new columns required by iRedAdmin</a></li>
+</ul>
+</li>
+<li><a href="#postgresql-backend-special">PostgreSQL backend special</a><ul>
+<li><a href="#add-3-new-columns-required-by-iredadmin_1">Add 3 new columns required by iRedAdmin</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<h2 id="changelog">ChangeLog</h2>
+<ul>
+<li>2012-09-21: Add link of upgrading iRedAdmin open source edition.</li>
+<li>2012-09-21: Add link of upgrading iRedAPD.</li>
+<li>2012-09-21: Add link of upgrading Roundcube webmail.</li>
+<li>2012-09-21: [LDAP] checkpoint setting must be added after line "suffix dc=xxx,dc=xxx". Thanks Jonathan Vomacka <jjvomacka _at_ gmail.com> for the report.</li>
+<li>2012-09-08: Add SQL changes for MySQL and PostgreSQL backend, 3 new columns are required: mailbox.isadmin, mailbox.isglobaladmin, mailbox.language.</li>
+<li>2012-09-08: Remove SpamAssassin score setting: SPF_PASS, SPF_FAIL.</li>
+<li>2012-06-22: [LDAP] Add checkpoint setting in slapd.conf, used for BDB recovery</li>
+<li>2012-06-22: [LDAP] Return correct maildir path while using virtual transport.</li>
+<li>2012-06-21: Add missing log rotate setting for Dovecot log files on OpenBSD and FreeBSD.</li>
+<li>2012-06-17: [LDAP] Use the latest iRedMail LDAP schema file.</li>
+<li>2012-06-14: Fix incorrect log rotate setting for iRedAPD on FreeBSD.</li>
+</ul>
+<h2 id="general-all-backends-should-apply-these-upgrade-steps">General (All backends should apply these upgrade steps)</h2>
+<h3 id="update-etciredmail-release-with-iredmail-version-number">Update /etc/iredmail-release with iRedMail version number</h3>
+<p>iRedMail stores the release version in <code>/etc/iredmail-release</code> after
+installation, it's recommended to update this file after you upgraded iRedMail,
+so that you can know which version of iRedMail you're running. For example:</p>
+<pre><code># File: /etc/iredmail-release
+
+0.8.2
+</code></pre>
+
+<h3 id="upgrade-roundcube-webmail-to-the-latest-stable-release">Upgrade Roundcube webmail to the latest stable release</h3>
+<p>Please follow Roundcube official tutorial to upgrade Roundcube webmail to the
+latest stable release immediately: <a href="http://trac.roundcube.net/wiki/Howto_Upgrade">How to upgrade Roundcube</a></p>
+<h3 id="upgrade-iredapd-postfix-policy-server-to-the-latest-stable-release">Upgrade iRedAPD (Postfix policy server) to the latest stable release</h3>
+<p>Please follow below tutorial to upgrade iRedAPD to the latest stable release:
+<a href="http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/Upgrade.iRedAPD">How to upgrade iRedAPD-1.4.1 or later versions to the latest stable release</a></p>
+<h3 id="upgrade-iredadmin-open-source-edition-to-the-latest-stable-release">Upgrade iRedAdmin (open source edition) to the latest stable release</h3>
+<p>Please follow this tutorial to upgrade iRedAdmin open source edition to the
+latest stable release: <a href="./migrate.or.upgrade.iredadmin.html">Upgrade iRedAdmin to the latest stable release</a></p>
+<h3 id="remove-improper-spamassassin-spf-score-settings">Remove improper SpamAssassin SPF score settings</h3>
+<p>Please remove below two settings in SpamAssassin config file:</p>
+<pre><code>* On Linux and OpenBSD, it's `/etc/mail/spamassassin/local.cf`.
+* On FreeBSD, it's `/usr/local/etc/mail/spamassassin/local.cf`.
+</code></pre>
+<pre><code># Part of file: etc/mail/spamassassin/local.cf
+
+score SPF_PASS -10.000
+score SPF_FAIL 5.00
+</code></pre>
+
+<h3 id="add-missing-log-rotate-settings-for-dovecot-log-files-on-openbsd">Add missing log rotate settings for Dovecot log files on OpenBSD</h3>
+<p><strong>NOTE</strong>: This is only applicable to OpenBSD.</p>
+<p>Please add below two lines in <code>/etc/newsyslog.conf</code> to rotate Dovecot log
+files: <code>/var/log/dovecot.log</code>, <code>/var/log/sieve.log</code>.</p>
+<pre><code># Part of file: /etc/newsyslog.conf
+
+/var/log/dovecot.log    vmail:vmail     600  7     *    24    Z &quot;doveadm log reopen&quot;
+/var/log/sieve.log      vmail:vmail     600  7     *    24    Z &quot;doveadm log reopen&quot;
+</code></pre>
+
+<h3 id="add-missing-log-rotate-settings-for-dovecot-log-files-on-freebsd">Add missing log rotate settings for Dovecot log files on FreeBSD</h3>
+<p><strong>NOTE</strong>: This fix is only applicable to FreeBSD.</p>
+<p>Please add below two lines in <code>/etc/newsyslog.conf</code> to rotate Dovecot log
+files: <code>/var/log/dovecot.log</code>, <code>/var/log/sieve.log</code>.</p>
+<pre><code># Part of file: /etc/newsyslog.conf
+
+/var/log/dovecot.log    vmail:vmail     600  7     *    24    Z    /var/run/dovecot/master.pid
+/var/log/sieve.log      vmail:vmail     600  7     *    24    Z    /var/run/dovecot/master.pid
+</code></pre>
+
+<h3 id="fix-incorrect-rotate-setting-for-iredapd-log-file-on-freebsd">Fix incorrect rotate setting for iRedAPD log file on FreeBSD</h3>
+<p><strong>NOTE</strong>: This fix is only applicable to FreeBSD.</p>
+<p>iRedMail-0.8.1 defines incorrectly path of iRedAPD PID file in
+<code>/etc/newsyslog.conf</code>, so please fix it manually by editing <code>/etc/newsyslog.conf</code>.</p>
+<ul>
+<li>Make sure you have below line in <code>/etc/newsyslog.conf</code>:</li>
+</ul>
+<pre><code># Part of file: /etc/newsyslog.conf
+
+/var/log/iredapd.log    root:wheel      640  7     *    24    Z /var/run/iredapd.pid
+</code></pre>
+
+<p>Be careful, don't use quotes around path of pid file.</p>
+<ul>
+<li>Then restart syslogd service:</li>
+</ul>
+<pre><code># /etc/rc.d/syslogd restart
+</code></pre>
+
+<h2 id="openldap-backend-special">OpenLDAP backend special</h2>
+<h3 id="use-the-newest-schema-file">Use the newest schema file</h3>
+<p>Changes in the newest LDAP schema file shipped in iRedMail-0.8.2:</p>
+<ul>
+<li>It allows normal mail user to use attribute <code>domainGlobalAdmin</code>. With this
+  attribute, you can mark mail user as a global admin to manage mail accounts
+  with iRedAdmin-Pro.</li>
+<li>It allows mail list to use <code>shadowAddress</code> for alias domain support.</li>
+</ul>
+<p>To use the newest iRedMail ldap schem file, we have to:</p>
+<ul>
+<li>Download the newest iRedMail ldap schema file</li>
+<li>Copy old ldap schema file as a backup copy</li>
+<li>Replace the old one</li>
+<li>Restart OpenLDAP service.</li>
+</ul>
+<p>Here we go:</p>
+<ul>
+<li>On RHEL/CentOS/Scientific Linux (both release 5.x and 6.x), openSUSE, Gentoo, OpenBSD:</li>
+</ul>
+<pre><code># cd /tmp
+# wget https://bitbucket.org/zhb/iredmail/raw/a4d8b730d147/iRedMail/samples/iredmail.schema
+
+# cd /etc/openldap/schema/
+# cp iredmail.schema iredmail.schema.bak
+
+# cp -f /tmp/iredmail.schema /etc/openldap/schema/
+# /etc/init.d/slapd restart       # &lt;-- Or: /etc/init.d/ldap restart
+</code></pre>
+
+<ul>
+<li>On Debian/Ubuntu:</li>
+</ul>
+<pre><code># cd /tmp
+# wget https://bitbucket.org/zhb/iredmail/raw/a4d8b730d147/iRedMail/samples/iredmail.schema
+
+# cd /etc/ldap/schema/
+# cp iredmail.schema iredmail.schema.bak
+
+# cp -f /tmp/iredmail.schema /etc/ldap/schema/
+# /etc/init.d/slapd restart
+</code></pre>
+
+<ul>
+<li>On FreeBSD:</li>
+</ul>
+<pre><code># cd /tmp
+# wget https://bitbucket.org/zhb/iredmail/raw/a4d8b730d147/iRedMail/samples/iredmail.schema
+
+# cd /usr/local/etc/ldap/schema/
+# cp iredmail.schema iredmail.schema.bak
+
+# cp -f /tmp/iredmail.schema /usr/local/etc/openldap/schema/
+# /etc/init.d/slapd restart
+</code></pre>
+
+<h3 id="return-correct-maildir-path-while-using-virtual-transport">Return correct maildir path while using <code>virtual</code> transport</h3>
+<p>Postfix setting <code>virtual_mailbox_maps</code> doesn't return correct maildir path.
+Usually, this is fine because iRedMail uses transport program provided by
+Dovecot (command name <code>deliver</code>). But if you want to use Postfix built-in
+transport program <code>virtual</code>, mails will be delivered to incorrect path.</p>
+<p>To fix it, please open <code>/etc/postfix/ldap/virtual_mailbox_maps.cf</code> (on Linux
+and OpenBSD) or <code>/usr/local/etc/postfix/ldap/virtual_mailbox_maps.cf</code> (on
+FreeBSD), append parameter <code>result_format = %s/Maildir/</code> line after line
+<code>result_attribute= mailMessageStore</code>.</p>
+<pre><code># Part of file: etc/postfix/ldap/virtual_mailbox_maps.cf
+
+result_attribute = mailMessageStore
+result_format   = %s/Maildir/
+</code></pre>
+
+<p>Restarting Postfix service is required.</p>
+<h3 id="add-checkpoint-setting-in-slapdconf-used-for-bdb-recovery">Add checkpoint setting in slapd.conf, used for BDB recovery</h3>
+<p>Add below lines in your OpenLDAP config file, <code>slapd.conf</code>, after the line
+<code>suffix dc=xxx,dc=xxx</code>. Please read comments below for more details about what
+it's used for.</p>
+<pre><code>* On RHEL/CentOS/Scientific Linux, openSUSE, Gentoo, OpenBSD, it's `/etc/openldap/slapd.conf`.
+* On Debian, Ubuntu, it's `/etc/ldap/slapd.conf`.
+* On FreeBSD, it's `/usr/local/etc/openldap/slapd.conf`.
+</code></pre>
+<pre><code># Part of file: slapd.conf
+
+# This directive specifies how often to checkpoint the BDB transaction log.
+# A checkpoint operation flushes the database buffers to disk and writes a
+# checkpoint record in the log. The checkpoint will occur if either &lt;kbyte&gt;
+# data has been written or &lt;min&gt; minutes have passed since the last checkpoint.
+# Both arguments default to zero, in which case they are ignored. When the
+# &lt;min&gt; argument is non-zero, an internal task will run every &lt;min&gt; minutes
+# to perform the checkpoint. See the Berkeley DB reference guide for more
+# details.
+#
+# OpenLDAP default is NO CHECKPOINTING.
+#
+# whenever 128kb data bytes written or 5 minutes has elapsed
+checkpoint  128 5
+</code></pre>
+
+<p>Restarting OpenLDAP service is required.</p>
+<h2 id="mysql-backend-special">MySQL backend special</h2>
+<h3 id="add-3-new-columns-required-by-iredadmin">Add 3 new columns required by iRedAdmin</h3>
+<p>New version of iRedAdmin (both open source edition and iRedAdmin-Pro) requires
+three new columns: <code>mailbox.isadmin</code>, <code>mailbox.isglobaladmin</code>,
+<code>mailbox.language</code>.</p>
+<pre><code>* With `mailbox.isadmin=1`, this user is a domain admin.
+* With `mailbox.isadmin=1` AND `mailbox.isglobaladmin=1`, this user is a
+  global admin.
+* Column `mailbox.language` is used to store short code of language. e.g.
+  de_DE for German, cs_CZ for Czech.
+</code></pre>
+<p>Please login to MySQL server as root user, execute SQL commands to add required
+columns and indexes.</p>
+<pre><code># mysql -uroot -p
+mysql&gt; USE vmail;
+mysql&gt; ALTER TABLE mailbox ADD COLUMN isadmin TINYINT(1) NOT NULL DEFAULT 0;
+mysql&gt; ALTER TABLE mailbox ADD COLUMN isglobaladmin TINYINT(1) NOT NULL DEFAULT 0;
+mysql&gt; ALTER TABLE mailbox ADD COLUMN language VARCHAR(5) NOT NULL DEFAULT 'en_US';
+mysql&gt; ALTER TABLE mailbox ADD INDEX (isadmin);
+mysql&gt; ALTER TABLE mailbox ADD INDEX (isglobaladmin);
+</code></pre>
+
+<h2 id="postgresql-backend-special">PostgreSQL backend special</h2>
+<h3 id="add-3-new-columns-required-by-iredadmin_1">Add 3 new columns required by iRedAdmin</h3>
+<p>New version of iRedAdmin (both open source edition and iRedAdmin-Pro) requires
+three new columns: <code>mailbox.isadmin</code>, <code>mailbox.isglobaladmin</code>,
+<code>mailbox.language</code>.</p>
+<pre><code>* With `mailbox.isadmin=1`, this user becomes a domain admin.
+* With `mailbox.isadmin=1` AND `mailbox.isglobaladmin=1`, this user becomes
+  a global admin.
+* Column `mailbox.language` is used to store short code of language. e.g.
+  de_DE for German, cs_CZ for Czech.
+</code></pre>
+<p>Please switch to PostgreSQL daemon user, then execute SQL commands to add required columns and indexes:</p>
+<pre><code>* On Linux, PostgreSQL daemon user is `postgres`.
+* On FreeBSD, PostgreSQL daemon user is `pgsql`.
+* On OpenBSD, PostgreSQL daemon user is `_postgresql`.
+</code></pre>
+<pre><code># su - postgres
+$ psql -d vmail
+sql&gt; ALTER TABLE mailbox ADD COLUMN isadmin INT2 NOT NULL DEFAULT 0;
+sql&gt; ALTER TABLE mailbox ADD COLUMN isglobaladmin INT2 NOT NULL DEFAULT 0;
+sql&gt; ALTER TABLE mailbox ADD COLUMN language VARCHAR(5) NOT NULL DEFAULT 'en_US';
+sql&gt; CREATE INDEX idx_mailbox_isadmin ON mailbox (isadmin);
+sql&gt; CREATE INDEX idx_mailbox_isglobaladmin ON mailbox (isglobaladmin);
+</code></pre><p style="text-align: center; color: grey;">Document published under a <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">CC BY-ND 3.0</a> license. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.<!-- Google Analytics -->
+<script type="text/javascript">
+    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+    try {
+        var pageTracker = _gat._getTracker("UA-3293801-14");
+        pageTracker._trackPageview();
+    } catch(err) {}
+</script>
+</body></html>
