@@ -1,0 +1,178 @@
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Upgrade iRedMail from 0.8.2 to 0.8.3</title>
+        <link href="./css/markdown.css" rel="stylesheet"></head>
+    </head>
+    <body>
+    
+    <div id="navigation">
+        <a href="http://www.iredmail.org" target="_blank">iRedMail web site</a>
+    
+        // <a href="./index.html">Document Index</a>
+    </div><h1 id="upgrade-iredmail-from-082-to-083">Upgrade iRedMail from 0.8.2 to 0.8.3</h1>
+<div class="toc">
+<ul>
+<li><a href="#upgrade-iredmail-from-082-to-083">Upgrade iRedMail from 0.8.2 to 0.8.3</a><ul>
+<li><a href="#changelog">ChangeLog</a></li>
+<li><a href="#general-all-backends-should-apply-these-steps">General (All backends should apply these steps)</a><ul>
+<li><a href="#update-etciredmail-release-with-iredmail-version-number">Update /etc/iredmail-release with iRedMail version number</a></li>
+<li><a href="#upgrade-roundcube-webmail-to-the-latest-stable-release">Upgrade Roundcube webmail to the latest stable release</a></li>
+<li><a href="#upgrade-iredapd-postfix-policy-server-to-the-latest-stable-release">Upgrade iRedAPD (Postfix policy server) to the latest stable release</a></li>
+<li><a href="#upgrade-iredadmin-open-source-edition-to-the-latest-stable-release">Upgrade iRedAdmin (open source edition) to the latest stable release</a></li>
+</ul>
+</li>
+<li><a href="#fix-incorrect-path-in-cron-job">Fix incorrect path in cron job</a><ul>
+<li><a href="#optional-notify-postmaster-if-users-mailbox-is-larger-than-or-equal-to-95-full">[Optional] Notify postmaster@ if user's mailbox is larger than or equal to 95% full</a></li>
+</ul>
+</li>
+<li><a href="#openldap-backend-special">OpenLDAP backend special</a><ul>
+<li><a href="#fix-incorrect-ldap-uri-in-cluebringer-config-file">Fix incorrect LDAP URI in Cluebringer config file</a></li>
+</ul>
+</li>
+<li><a href="#mysql-backend-special">MySQL backend special</a><ul>
+<li><a href="#fix-incorrect-sql-table-name-in-etcapache2confdcluebringerconf">Fix incorrect SQL table name in /etc/apache2/conf.d/cluebringer.conf</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<h2 id="changelog">ChangeLog</h2>
+<ul>
+<li>2012-10-16: [ldap] Fix incorrect LDAP URI in Cluebringer config file.</li>
+<li>2012-10-16: [Optional] Send an email to postmaster@ if user's mailbox is larger than or equal to 95% full.</li>
+<li>2012-10-10: Upgrade iRedAdmin (open source edition).</li>
+<li>2012-10-10: [RHEL/CentOS/Scientific 6 only] Fix incorrect path in cron job.</li>
+<li>2012-10-10: [Debian/Ubuntu only] Fix incorrect SQL table name in /etc/apache2/conf.d/cluebringer.conf</li>
+</ul>
+<h2 id="general-all-backends-should-apply-these-steps">General (All backends should apply these steps)</h2>
+<h3 id="update-etciredmail-release-with-iredmail-version-number">Update /etc/iredmail-release with iRedMail version number</h3>
+<p>iRedMail stores the release version in <code>/etc/iredmail-release</code> after
+installation, it's recommended to update this file after you upgraded iRedMail,
+so that you can know which version of iRedMail you're running. For example:</p>
+<pre><code># File: /etc/iredmail-release
+
+0.8.3
+</code></pre>
+
+<h3 id="upgrade-roundcube-webmail-to-the-latest-stable-release">Upgrade Roundcube webmail to the latest stable release</h3>
+<p>Please follow Roundcube official tutorial to upgrade Roundcube webmail to the
+latest stable release immediately: <a href="http://trac.roundcube.net/wiki/Howto_Upgrade">How to upgrade Roundcube</a></p>
+<h3 id="upgrade-iredapd-postfix-policy-server-to-the-latest-stable-release">Upgrade iRedAPD (Postfix policy server) to the latest stable release</h3>
+<p>Please follow below tutorial to upgrade iRedAPD to the latest stable release:
+<a href="http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/Upgrade.iRedAPD">How to upgrade iRedAPD-1.4.1 or later versions to the latest stable release</a></p>
+<h3 id="upgrade-iredadmin-open-source-edition-to-the-latest-stable-release">Upgrade iRedAdmin (open source edition) to the latest stable release</h3>
+<p>Please follow this tutorial to upgrade iRedAdmin open source edition to the
+latest stable release: <a href="./migrate.or.upgrade.iredadmin.html">Upgrade iRedAdmin to the latest stable release</a></p>
+<h2 id="fix-incorrect-path-in-cron-job">Fix incorrect path in cron job</h2>
+<p><strong>Note</strong>: This is applicable to Red Hat Enterprise Linux 6, CentOS 6,
+Scientific Linux 6. If you're running other distributions or releases, please
+skip this step.</p>
+<p>iRedMail uses incorrect path (<code>/</code>) in user <code>amavis</code>'s cron job, please change
+it to <code>/var/spool/amavisd/quarantine/</code> instead. Steps:</p>
+<ul>
+<li>Execute command <code>crontab</code> like below to edit user amavis's cron job:</li>
+</ul>
+<pre><code># crontab -e -u amavis
+</code></pre>
+
+<ul>
+<li>Find below line:</li>
+</ul>
+<pre><code># Delete virus mails which created 15 days ago.
+1   5   *   *   *   find / -ctime +15 | xargs rm -rf {}
+</code></pre>
+
+<ul>
+<li>Change the path <code>/</code> to <code>/var/spool/amavisd/quarantine/</code> like below:</li>
+</ul>
+<pre><code>1   5   *   *   *   find /var/spool/amavisd/quarantine/ -ctime +15 | xargs rm -rf {}
+</code></pre>
+
+<ul>
+<li>Save your changes and exit editor.</li>
+</ul>
+<h3 id="optional-notify-postmaster-if-users-mailbox-is-larger-than-or-equal-to-95-full">[Optional] Notify postmaster@ if user's mailbox is larger than or equal to 95% full</h3>
+<p><strong>Note</strong>: This update is optional but strongly recommended, so that you, mail
+server administrator, can deal with mailbox quota exceed issue in time.</p>
+<ul>
+<li>Append below text into <code>/usr/local/bin/dovecot-quota-warning.sh</code>:</li>
+</ul>
+<pre><code># Send a copy to postmaster@ if mailbox is greater than or equal to 95% full.
+if [ ${PERCENT} -ge 95 ]; then
+    DOMAIN=&quot;$(echo ${USER} | awk -F'@' '{print $2}')&quot;
+    cat &lt;&lt; EOF | PH_DOVECOT_DELIVER -d postmaster@${DOMAIN} -o &quot;plugin/quota=dict:User quota::noenforcing:proxy::quota&quot;
+From: no-reply@PH_HOSTNAME
+Subject: Mailbox Quota Warning: ${PERCENT}% full, ${USER}
+
+Your mailbox is now ${PERCENT}% full, please clean up some mails for
+further incoming mails.
+EOF
+fi
+</code></pre>
+
+<ul>
+<li>
+<p>Replace <code>PH_DOVECOT_DELIVER</code> above by the real path of Dovecot deliver
+  program, you can find the path in the same file: <code>/usr/local/bin/dovecot-quota-warning.sh</code>.</p>
+<ul>
+<li>On RHEL/CentOS/Scientific Linux/Gentoo, it's <code>/usr/libexec/dovecot/deliver</code>.</li>
+<li>On Debian/Ubuntu/openSUSE, it's <code>/usr/lib/dovecot/deliver</code>.</li>
+<li>On FreeBSD/OpenBSD, it's <code>/usr/local/libexec/dovecot/deliver</code>.</li>
+</ul>
+</li>
+<li>
+<p>Replace 'PH_HOSTNAME' above by your server hostname. You can get it with below command:</p>
+</li>
+</ul>
+<pre><code># hostname --fqdn
+</code></pre>
+
+<h2 id="openldap-backend-special">OpenLDAP backend special</h2>
+<h3 id="fix-incorrect-ldap-uri-in-cluebringer-config-file">Fix incorrect LDAP URI in Cluebringer config file</h3>
+<p>Note: This step is applicable if you have Cluebringer installed, which means
+you're running PostgreSQL backend, or running Debian 7 (wheezy), Ubuntu 11.10
+and later releases.</p>
+<ul>
+<li>
+<p>Open Apache config file of Cluebringer</p>
+<ul>
+<li>on RHEL/CentOS/Scientific Linux 6, it's <code>/etc/httpd/conf.d/cluebringer.conf</code>.</li>
+<li>on Debian 7 (wheezy), or Ubuntu 11.10 or later releases, it's <code>/etc/apache2/conf.d/cluebringer.conf</code>.</li>
+<li>on FreeBSD, it's <code>/usr/local/etc/apache22/Includes/cluebringer.conf</code>.</li>
+</ul>
+</li>
+<li>
+<p>Find parameter <code>AuthLDAPUrl</code> and update it:</p>
+<ul>
+<li>replace <code>o=domainAdmins</code> by <code>o=domains</code></li>
+<li>replace <code>objectclass=mailAdmin</code> by <code>objectclass=mailUser</code></li>
+</ul>
+</li>
+<li>
+<p>Save changes and restarting Apache web server.</p>
+</li>
+</ul>
+<h2 id="mysql-backend-special">MySQL backend special</h2>
+<h3 id="fix-incorrect-sql-table-name-in-etcapache2confdcluebringerconf">Fix incorrect SQL table name in <code>/etc/apache2/conf.d/cluebringer.conf</code></h3>
+<p><strong>Note</strong>: This is applicable to Debian and Ubuntu only.</p>
+<p>iRedMail uses incorrect SQL table name <code>admin</code> in
+<code>/etc/apache2/conf.d/cluebringer.conf</code>, please change it to <code>mailbox</code> like below:</p>
+<pre><code># Part of file: /etc/apache2/conf.d/cluebringer.conf
+
+    AuthMySQL_Password_Table mailbox
+</code></pre>
+
+<p>Restarting Apache service is required.</p><p style="text-align: center; color: grey;">Document published under a <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">CC BY-ND 3.0</a> license. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.<!-- Google Analytics -->
+<script type="text/javascript">
+    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+    try {
+        var pageTracker = _gat._getTracker("UA-3293801-14");
+        pageTracker._trackPageview();
+    } catch(err) {}
+</script>
+</body></html>
