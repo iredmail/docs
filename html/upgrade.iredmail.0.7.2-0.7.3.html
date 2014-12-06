@@ -1,0 +1,93 @@
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Upgrade iRedMail from 0.7.2 to 0.7.3</title>
+        <link href="./css/markdown.css" rel="stylesheet"></head>
+    </head>
+    <body>
+    
+    <div id="navigation">
+        <a href="http://www.iredmail.org" target="_blank">iRedMail web site</a>
+    
+        // <a href="./index.html">Document Index</a>
+    </div><h1 id="upgrade-iredmail-from-072-to-073">Upgrade iRedMail from 0.7.2 to 0.7.3</h1>
+<div class="toc">
+<ul>
+<li><a href="#upgrade-iredmail-from-072-to-073">Upgrade iRedMail from 0.7.2 to 0.7.3</a><ul>
+<li><a href="#changelog">ChangeLog</a></li>
+<li><a href="#general-all-backends-should-apply-these-upgrade-steps">General (All backends should apply these upgrade steps)</a></li>
+<li><a href="#openldap-backend-special">OpenLDAP backend special</a><ul>
+<li><a href="#add-enabledservicelda-required-by-dovecot-2x">Add enabledService=lda, required by Dovecot 2.x.</a></li>
+</ul>
+</li>
+<li><a href="#mysql-backend-special">MySQL backend special</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<h2 id="changelog">ChangeLog</h2>
+<ul>
+<li>2011-08-23: Add upgrade tutorial or links for iRedAdmin (open source edition), phpMyAdmin, Roundcube.</li>
+<li>2011-08-17: initial public.</li>
+</ul>
+<h2 id="general-all-backends-should-apply-these-upgrade-steps">General (All backends should apply these upgrade steps)</h2>
+<ul>
+<li>Please follow phpMyAdmin official tutorial to upgrade phpMyAdmin: http://www.phpmyadmin.net/documentation/#upgrading</li>
+<li>Please follow Roundcube official tutorial to upgrade Roundcube Webmail: http://trac.roundcube.net/wiki/Howto_Upgrade</li>
+</ul>
+<h2 id="openldap-backend-special">OpenLDAP backend special</h2>
+<h3 id="add-enabledservicelda-required-by-dovecot-2x">Add <code>enabledService=lda</code>, required by Dovecot 2.x.</h3>
+<p><strong>Note</strong>: If you're running dovecot-1.1.x, or 1.2.x, then please stay on that
+version, but it's still recommended to add this missing value for existing
+users. It won't impact current mail services.</p>
+<p><strong>Note</strong>: Dovecot-2.x is the default version on RHEL/CentOS/Scieitnfic Linux 6.x.</p>
+<p>Dovecot-2.x requires <code>enabledService=enablelda</code> for receiving email for virtual
+mail users, so we should add it if users doesn't have it.</p>
+<ul>
+<li>Download python script used to adding missing values.</li>
+</ul>
+<pre><code># cd /root/
+# wget http://iredmail.googlecode.com/hg/extra/update/updateLDAPValues_072_to_073.py
+</code></pre>
+
+<ul>
+<li>Open <code>updateLDAPValues_072_to_073.py</code>, config LDAP server related settings in file head. e.g.</li>
+</ul>
+<pre><code># Part of file: updateLDAPValues_072_to_073.py
+
+uri = 'ldap://127.0.0.1:389'
+basedn = 'o=domains,dc=iredmail,dc=org'
+bind_dn = 'cn=vmailadmin,dc=iredmail,dc=org'
+bind_pw = 'passwd'
+</code></pre>
+
+<p>You can find required LDAP credential in iRedAdmin config file or <code>iRedMail.tips</code>
+file under your iRedMail installation directory. Using either
+<code>cn=Manager,dc=xx,dc=xx</code> or <code>cn=vmailadmin,dc=xx,dc=xx</code> as bind dn is ok.</p>
+<ul>
+<li>Execute this script, it will add missing values for mail accounts:</li>
+</ul>
+<pre><code># python updateLDAPValues_072_to_073.py
+</code></pre>
+
+<h2 id="mysql-backend-special">MySQL backend special</h2>
+<ul>
+<li>Add new column: <code>mailbox.enablelda</code>, required by Dovecot 2.x, used to replace
+  <code>mailbox.enabledeliver</code>.</li>
+</ul>
+<pre><code>$ mysql -uroot -p
+mysql&gt; USE vmail;
+mysql&gt; ALTER TABLE mailbox ADD COLUMN enablelda TINYINT(1) NOT NULL DEFAULT 1;
+mysql&gt; ALTER TABLE mailbox ADD INDEX enablelda (enablelda);
+</code></pre><p style="text-align: center; color: grey;">Document published under a <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">CC BY-ND 3.0</a> license. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.<!-- Google Analytics -->
+<script type="text/javascript">
+    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+    try {
+        var pageTracker = _gat._getTracker("UA-3293801-14");
+        pageTracker._trackPageview();
+    } catch(err) {}
+</script>
+</body></html>

@@ -2,6 +2,13 @@
 
 * [WIP] iRedMail upgrade tutorials
 
+    * http://www.iredmail.org/wiki/index.php?title=Upgrade/iRedMail/0.6.1-0.7.0
+    * http://www.iredmail.org/wiki/index.php?title=Upgrade/iRedMail/0.6.0-0.6.1
+    * http://www.iredmail.org/wiki/index.php?title=Upgrade/iRedMail/0.5.1-0.6.0
+    * http://www.iredmail.org/upgrade_050_051.html
+    * https://code.google.com/p/iredmail/wiki/Upgrade_040_050
+    * https://code.google.com/p/iredmail/wiki/Upgrade_032_040
+
 * Upgrade iRedAPD: http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/Upgrade.iRedAPD
 * How to enable SSHA512/BCRYPT in Dovecot + Roundcubemail.
 * How to custom SpamAssassin scores

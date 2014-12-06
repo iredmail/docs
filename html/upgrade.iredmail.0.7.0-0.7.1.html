@@ -1,0 +1,61 @@
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Upgrade iRedMail from 0.7.0 to 0.7.1</title>
+        <link href="./css/markdown.css" rel="stylesheet"></head>
+    </head>
+    <body>
+    
+    <div id="navigation">
+        <a href="http://www.iredmail.org" target="_blank">iRedMail web site</a>
+    
+        // <a href="./index.html">Document Index</a>
+    </div><h1 id="upgrade-iredmail-from-070-to-071">Upgrade iRedMail from 0.7.0 to 0.7.1</h1>
+<div class="toc">
+<ul>
+<li><a href="#upgrade-iredmail-from-070-to-071">Upgrade iRedMail from 0.7.0 to 0.7.1</a><ul>
+<li><a href="#changelog">ChangeLog</a></li>
+<li><a href="#openldap-backend-special">OpenLDAP backend special</a><ul>
+<li><a href="#support-alias-domain-in-mail-alias-and-catch-all-account">Support alias domain in mail alias and catch-all account</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<h2 id="changelog">ChangeLog</h2>
+<ul>
+<li>2011-08-01 readability and hints in config-files</li>
+<li>2011-05-04 Remove MySQL backend special changes. Not required.</li>
+<li>2011-05-01 Initial version.</li>
+</ul>
+<h2 id="openldap-backend-special">OpenLDAP backend special</h2>
+<h3 id="support-alias-domain-in-mail-alias-and-catch-all-account">Support alias domain in mail alias and catch-all account</h3>
+<ul>
+<li>Edit both <code>/etc/postfix/ldap/catchall_maps.cf</code> and
+  <code>/etc/postfix/ldap/virtual_alias_maps.cf</code>, remove <code>domainName=%d</code> in
+  <code>search_base</code>:</li>
+</ul>
+<pre><code># Part of file: /etc/postfix/ldap/catchall_maps.cf, /etc/postfix/ldap/virtual_alias_maps.cf
+
+# OLD SETTING
+search_base     = domainName=%d,o=domains,dc=XXX
+
+# NEW SETTING
+search_base     = o=domains,dc=XXX
+</code></pre>
+
+<ul>
+<li>Restart postfix service to make it work.</li>
+</ul><p style="text-align: center; color: grey;">Document published under a <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">CC BY-ND 3.0</a> license. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.<!-- Google Analytics -->
+<script type="text/javascript">
+    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+    try {
+        var pageTracker = _gat._getTracker("UA-3293801-14");
+        pageTracker._trackPageview();
+    } catch(err) {}
+</script>
+</body></html>

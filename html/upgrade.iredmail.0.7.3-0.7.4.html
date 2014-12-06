@@ -1,0 +1,142 @@
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Upgrade iRedMail from 0.7.3 to 0.7.4</title>
+        <link href="./css/markdown.css" rel="stylesheet"></head>
+    </head>
+    <body>
+    
+    <div id="navigation">
+        <a href="http://www.iredmail.org" target="_blank">iRedMail web site</a>
+    
+        // <a href="./index.html">Document Index</a>
+    </div><h1 id="upgrade-iredmail-from-073-to-074">Upgrade iRedMail from 0.7.3 to 0.7.4</h1>
+<div class="toc">
+<ul>
+<li><a href="#upgrade-iredmail-from-073-to-074">Upgrade iRedMail from 0.7.3 to 0.7.4</a><ul>
+<li><a href="#general-all-backends-should-apply-these-upgrade-steps">General (All backends should apply these upgrade steps)</a><ul>
+<li><a href="#fix-incorrect-per-user-sieve_dir-setting-in-dovecot">Fix incorrect per-user sieve_dir setting in Dovecot</a></li>
+<li><a href="#add-indexes-for-amavisd-database">Add indexes for Amavisd database</a></li>
+<li><a href="#debian-and-ubuntu-special-assign-apache-daemon-user-to-group-adm">[Debian and Ubuntu special] Assign Apache daemon user to group adm</a></li>
+</ul>
+</li>
+<li><a href="#openldap-backend-special">OpenLDAP backend special</a><ul>
+<li><a href="#fix-incorrect-calculation-of-mailbox-quota">Fix incorrect calculation of mailbox quota</a></li>
+</ul>
+</li>
+<li><a href="#mysql-backend-special">MySQL backend special</a><ul>
+<li><a href="#store-realtime-mailbox-quota-usage-in-seperate-sql-table">Store realtime mailbox quota usage in seperate SQL table</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<h2 id="general-all-backends-should-apply-these-upgrade-steps">General (All backends should apply these upgrade steps)</h2>
+<h3 id="fix-incorrect-per-user-sieve_dir-setting-in-dovecot">Fix incorrect per-user sieve_dir setting in Dovecot</h3>
+<p><strong>Note</strong>: This fix is applicable to Dovecot-1.x, you can check Dovecot version
+with command <code>dovecot -n</code>.</p>
+<p>In <code>/etc/dovecot.conf</code> or <code>/etc/dovecot/dovecot.conf</code>, remove the last slash
+(<code>/</code>) in setting <code>sieve_dir =</code> like below:</p>
+<pre><code># Part of file: dovecot.conf
+
+# Original setting:
+#sieve_dir = /var/vmail/sieve/%Ld/%Ln/
+
+# Change to:
+sieve_dir = /var/vmail/sieve/%Ld/%Ln              # &lt;-- Remove the last slash.
+</code></pre>
+
+<h3 id="add-indexes-for-amavisd-database">Add indexes for Amavisd database</h3>
+<pre><code>$ mysql -uroot -p
+mysql&gt; USE amavisd;
+mysql&gt; ALTER TABLE maddr ADD INDEX maddr_idx_email (email);
+mysql&gt; ALTER TABLE maddr ADD INDEX maddr_idx_domain (domain);
+mysql&gt; ALTER TABLE msgs ADD INDEX msgs_idx_content (content);
+mysql&gt; ALTER TABLE msgs ADD INDEX msgs_idx_content_time_num (content, time_num);
+mysql&gt; ALTER TABLE msgs ADD INDEX msgs_idx_mail_id (mail_id);
+mysql&gt; ALTER TABLE quarantine ADD INDEX quar_idx_mail_id (mail_id);
+</code></pre>
+
+<h3 id="debian-and-ubuntu-special-assign-apache-daemon-user-to-group-adm">[Debian and Ubuntu special] Assign Apache daemon user to group <code>adm</code></h3>
+<p><strong>Note</strong>: This fix is applicable to only Debian and Ubuntu.</p>
+<p>Assign Apache daemon user to group <code>adm</code> to avoid Awstats cron job issue.</p>
+<pre><code># usermod -g adm www-data
+</code></pre>
+
+<h2 id="openldap-backend-special">OpenLDAP backend special</h2>
+<h3 id="fix-incorrect-calculation-of-mailbox-quota">Fix incorrect calculation of mailbox quota</h3>
+<p>There's a bug in iRedMail-0.7.3 and all earlier versions: Mailbox quota gets
+calculated per user and per user alias account, so both email addresses get
+their own mailbox quota usage. Here's the solution to fix it.</p>
+<ul>
+<li>Open <code>/etc/dovecot-ldap.conf</code> (on RHEL/CentOS/Scientific Linux) or
+  <code>/etc/dovecot/dovecot-ldap.conf</code> (on Debian/Ubuntu/openSUSE) or
+  <code>/usr/local/etc/dovecot-ldap.conf</code> (on FreeBSD), prepend <code>mail=user,</code> in both
+  <code>user_attrs =</code> and <code>pass_attrs =</code> like below:</li>
+</ul>
+<pre><code># Part of file: dovecot-ldap.conf
+
+# Original settings:
+#pass_attrs = userPassword=password
+#user_attrs = homeDirectory=home,[...OMIT OTHER SETTINGS HERE...]
+
+# Changed:
+pass_attrs = mail=user,userPassword=password
+user_attrs = mail=user,homeDirectory=home,[...OMIT OTHER SETTINGS HERE...]
+</code></pre>
+
+<p>Restarting Dovecot service is required.</p>
+<h2 id="mysql-backend-special">MySQL backend special</h2>
+<h3 id="store-realtime-mailbox-quota-usage-in-seperate-sql-table">Store realtime mailbox quota usage in seperate SQL table</h3>
+<p>In iRedMail-0.7.3 and some earlier versions, Dovecot stores realtime mailbox
+quota usage in MySQL database in two columns: <code>mailbox.bytes</code>,
+<code>mailbox.messages</code>, if they have invalid values (e.g. empty value, non-integer
+value), Dovecot will update them with two SQL commands:</p>
+<ol>
+<li>delete record with SQL: <code>DELETE FROM mailbox WHERE username='xxx@yyy.com'</code></li>
+<li>create a new record with current, correct quota info. SQL: <code>INSERT INTO mailbox (username, bytes, messages) VALUES ('xxx@yyy.com', xx, xx)</code></li>
+</ol>
+<p>As you can see, first sql command will delete iRedMail mail user, that's
+critial issue. So we have to store realtime mailbox quota usage in a separate
+MySQL table to avoid similar issues.</p>
+<p>Below are steps to store realtime mailbox quota usage in a separate SQL table:</p>
+<ul>
+<li>Create new SQL table <code>vmail.used_quota</code> to store mailbox quota:</li>
+</ul>
+<pre><code># mysql -uroot -p
+mysql&gt; USE vmail;
+mysql&gt; CREATE TABLE IF NOT EXISTS `used_quota` (
+    `username` VARCHAR(255) NOT NULL,
+    `bytes` BIGINT NOT NULL DEFAULT 0,
+    `messages` BIGINT NOT NULL DEFAULT 0,
+    PRIMARY KEY (`username`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+</code></pre>
+
+<ul>
+<li>
+<p>Replace <code>table = mailbox</code> with <code>table = used_quota</code> in below config file,
+  so that Dovecot will store mailbox quota in new SQL table. </p>
+<ul>
+<li>On RHEL/CentOS/Scientific Linux 5.x, please update <code>/etc/dovecot-used-quota.conf</code>, on 6.x, please update <code>/etc/dovecot/used-quota.conf</code>.</li>
+<li>On Debian/Ubuntu, please update <code>/etc/dovecot/dovecot-used-quota.conf</code>.</li>
+<li>On openSUSE, please update <code>/etc/dovecot/dovecot-used-quota.conf</code>.</li>
+<li>On FreeBSD, please update <code>/usr/local/etc/dovecot-used-quota.conf</code>.</li>
+</ul>
+</li>
+<li>
+<p>Restarting Dovecot service is required.</p>
+</li>
+</ul><p style="text-align: center; color: grey;">Document published under a <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">CC BY-ND 3.0</a> license. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.<!-- Google Analytics -->
+<script type="text/javascript">
+    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+    try {
+        var pageTracker = _gat._getTracker("UA-3293801-14");
+        pageTracker._trackPageview();
+    } catch(err) {}
+</script>
+</body></html>

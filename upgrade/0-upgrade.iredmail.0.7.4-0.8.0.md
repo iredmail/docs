@@ -48,18 +48,21 @@ __NOTE__: The file name on different Linux/BSD distributions may be different,
 it should be `dovecot-used-quota.conf` or `used-quota.conf`.
 
 * On RHEL/CentOS/Scientific Linux 5.x:
+
 ```
 # chown dovecot:dovecot /etc/dovecot-used-quota.conf
 # chmod 0500 /etc/dovecot-used-quota.conf
 ```
 
 * On RHEL/CentOS/Scientific Linux 6.x, Debian, Ubuntu, openSUSE:
+
 ```
 # chown dovecot:dovecot /etc/dovecot/used-quota.conf
 # chmod 0500 /etc/dovecot/used-quota.conf
 ```
 
 * On FreeBSD:
+
 ```
 # chown dovecot:dovecot /usr/local/etc/dovecot-used-quota.conf
 # chmod 0500 /usr/local/etc/dovecot-used-quota.conf
@@ -127,8 +130,7 @@ $rcmail_config['login_lc'] = false;
 
 Open `/etc/logrotate.d/dovecot` and `/etc/logrotate.d/sieve`, update postrotate commands:
 
-* If you're running Dovecot-1.x, please update postrotate command with below
-  value:
+* If you're running Dovecot-1.x, please update postrotate command with below value:
 
 ```
 # Part of file: /etc/logrotate.d/dovecot and /etc/logrotate.d/sieve
@@ -140,6 +142,7 @@ endscript
 
 * If you're running Dovecot-2.x, please update postrotate command with below value:
 
+```
 # Part of file: /etc/logrotate.d/dovecot, /etc/logrotate.d/sieve
 
 postrotate
@@ -204,6 +207,7 @@ To use `doveadm` command provided by Dovecot-2, please add one more value of
 attribute 'enabledService' for mail user.
 
 * Download python script used to adding missing values.
+
 ```
 # cd /root/
 # wget https://bitbucket.org/zhb/iredmail/raw/f0e7e84c4b8a/extra/update/updateLDAPValues_074_to_080.py
@@ -226,6 +230,7 @@ file under your iRedMail installation directory. Using either
 `cn=Manager,dc=xx,dc=xx` or `cn=vmailadmin,dc=xx,dc=xx` as bind dn is ok.
 
 * Execute this script, it will add missing values for mail accounts:
+
 ```
 # python updateLDAPValues_074_to_080.py
 ```
@@ -248,6 +253,7 @@ iterate_filter  = (&(objectClass=mailUser)(accountStatus=active)(enabledService=
 
 To use doveadm command provided by Dovecot-2, please add one more column in
 MySQL table `vmail.mailbox` with below command:
+
 ```
 # mysql -uroot -p
 mysql> USE vmail;

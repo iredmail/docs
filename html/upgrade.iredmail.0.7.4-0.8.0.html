@@ -24,19 +24,20 @@
 <li><a href="#enable-greylist-opt-in-and-opt-out-in-policyd">Enable greylist opt in and opt out in Policyd</a></li>
 <li><a href="#enable-case-insensitive-user-authentication-in-roundcube-webmail">Enable case insensitive user authentication in Roundcube webmail</a></li>
 <li><a href="#fix-logrotate-setting-of-dovecot-log-files">Fix logrotate setting of Dovecot log files</a></li>
+<li><a href="#optional-enforce-connections-over-https-in-roundcube-webmail">[OPTIONAL] Enforce connections over HTTPS in Roundcube webmail</a></li>
+<li><a href="#optional-enforce-connections-over-pop3simaps-in-dovecot">[OPTIONAL] Enforce connections over POP3S/IMAPS in Dovecot</a></li>
+</ul>
+</li>
+<li><a href="#openldap-backend-special">OpenLDAP backend special</a><ul>
+<li><a href="#add-internal-service-required-by-doveadm">Add internal service required by Doveadm</a></li>
+</ul>
+</li>
+<li><a href="#mysql-backend-special">MySQL backend special</a><ul>
+<li><a href="#add-internal-service-required-by-doveadm_1">Add internal service required by Doveadm</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#part-of-file-etclogrotateddovecot-etclogrotatedsieve">Part of file: /etc/logrotate.d/dovecot, /etc/logrotate.d/sieve</a></li>
-<li><a href="#part-of-file-roundcubemailconfigmainincphp">Part of file: roundcubemail/config/main.inc.php</a></li>
-<li><a href="#part-of-file-dovecotconf">Part of file: dovecot.conf</a></li>
-<li><a href="#cd-root">cd /root/</a></li>
-<li><a href="#wget-httpsbitbucketorgzhbiredmailrawf0e7e84c4b8aextraupdateupdateldapvalues_074_to_080py">wget https://bitbucket.org/zhb/iredmail/raw/f0e7e84c4b8a/extra/update/updateLDAPValues_074_to_080.py</a></li>
-<li><a href="#part-of-file-updateldapvalues_074_to_080py">Part of file: updateLDAPValues_074_to_080.py</a></li>
-<li><a href="#python-updateldapvalues_074_to_080py">python updateLDAPValues_074_to_080.py</a></li>
-<li><a href="#part-of-file-dovecot-ldapconf">Part of file: dovecot-ldap.conf</a></li>
-<li><a href="#mysql-uroot-p">mysql -uroot -p</a></li>
 </ul>
 </div>
 <h2 id="changelog">ChangeLog</h2>
@@ -143,8 +144,7 @@ $rcmail_config['login_lc'] = false;
 <h3 id="fix-logrotate-setting-of-dovecot-log-files">Fix logrotate setting of Dovecot log files</h3>
 <p>Open <code>/etc/logrotate.d/dovecot</code> and <code>/etc/logrotate.d/sieve</code>, update postrotate commands:</p>
 <ul>
-<li>If you're running Dovecot-1.x, please update postrotate command with below
-  value:</li>
+<li>If you're running Dovecot-1.x, please update postrotate command with below value:</li>
 </ul>
 <pre><code># Part of file: /etc/logrotate.d/dovecot and /etc/logrotate.d/sieve
 
@@ -156,114 +156,100 @@ endscript
 <ul>
 <li>If you're running Dovecot-2.x, please update postrotate command with below value:</li>
 </ul>
-<h1 id="part-of-file-etclogrotateddovecot-etclogrotatedsieve">Part of file: /etc/logrotate.d/dovecot, /etc/logrotate.d/sieve</h1>
-<p>postrotate
+<pre><code># Part of file: /etc/logrotate.d/dovecot, /etc/logrotate.d/sieve
+
+postrotate
     doveadm log reopen
-endscript</p>
-<pre><code>
-### [OPTIONAL] Enforce connections over HTTPS in Roundcube webmail
+endscript
+</code></pre>
 
-This step is optional but highly recommended for better security.
-
-Please update below parameter in Roundcube config file
-`roundcubemail/config/main.inc.php` to enforce connections over https for
+<h3 id="optional-enforce-connections-over-https-in-roundcube-webmail">[OPTIONAL] Enforce connections over HTTPS in Roundcube webmail</h3>
+<p>This step is optional but highly recommended for better security.</p>
+<p>Please update below parameter in Roundcube config file
+<code>roundcubemail/config/main.inc.php</code> to enforce connections over https for
 better security. With this option enabled, all non-secure connections will be
-redirected to httpS://.
+redirected to httpS://.</p>
+<pre><code>* On RHEL/CentOS/Scientific Linux, Gentoo, OpenBSD, it's `/var/www/roundcubemail/config/main.inc.php`.
+* On Debian/Ubuntu, it's `/usr/share/apache2/roundcubemail/config/main.inc.php`.
+* On openSUSE, it's `/srv/www/roundcubemail/config/main.inc.php`.
+* On FreeBSD, it's `/usr/local/www/roundcubemail/config/main.inc.php`.
+</code></pre>
+<pre><code># Part of file: roundcubemail/config/main.inc.php
 
-    * On RHEL/CentOS/Scientific Linux, Gentoo, OpenBSD, it's `/var/www/roundcubemail/config/main.inc.php`.
-    * On Debian/Ubuntu, it's `/usr/share/apache2/roundcubemail/config/main.inc.php`.
-    * On openSUSE, it's `/srv/www/roundcubemail/config/main.inc.php`.
-    * On FreeBSD, it's `/usr/local/www/roundcubemail/config/main.inc.php`.
-
+$rcmail_config['force_https'] = true;
 </code></pre>
 
-<h1 id="part-of-file-roundcubemailconfigmainincphp">Part of file: roundcubemail/config/main.inc.php</h1>
-<p>$rcmail_config['force_https'] = true;</p>
-<pre><code>
-Restarting Apache web server is required.
-
-### [OPTIONAL] Enforce connections over POP3S/IMAPS in Dovecot
-
-This step is OPTIONAL but highly recommended for better security. Since it may
+<p>Restarting Apache web server is required.</p>
+<h3 id="optional-enforce-connections-over-pop3simaps-in-dovecot">[OPTIONAL] Enforce connections over POP3S/IMAPS in Dovecot</h3>
+<p>This step is OPTIONAL but highly recommended for better security. Since it may
 requires update on your mail users' MUA (e.g. Thunderbird, Outlook), please
-notify your mail users before this change.
-
-Since iRedMail-0.8.0, all clients are forced to use IMAPS and POPS (via
+notify your mail users before this change.</p>
+<p>Since iRedMail-0.8.0, all clients are forced to use IMAPS and POPS (via
 STARTTLS) for better security by default. To enable this feature, please update
-below parameters in your Dovecot config file, `dovecot.conf`.
+below parameters in your Dovecot config file, <code>dovecot.conf</code>.</p>
+<pre><code>* On RHEL/CentOS/Scientific Linux 5.x, it's `/etc/dovecot.conf`.
+* On RHEL/CentOS/Scientific Linux 6.x, it's `/etc/dovecot/dovecot.conf`.
+* On Debian/Ubuntu, it's `/etc/dovecot/dovecot.conf`.
+* On openSUSE, it's `/etc/dovecot/dovecot.conf`.
+* On FreeBSD, it's `/usr/local/etc/dovecot/dovecot.conf`.
+</code></pre>
+<pre><code># Part of file: dovecot.conf
 
-    * On RHEL/CentOS/Scientific Linux 5.x, it's `/etc/dovecot.conf`.
-    * On RHEL/CentOS/Scientific Linux 6.x, it's `/etc/dovecot/dovecot.conf`.
-    * On Debian/Ubuntu, it's `/etc/dovecot/dovecot.conf`.
-    * On openSUSE, it's `/etc/dovecot/dovecot.conf`.
-    * On FreeBSD, it's `/usr/local/etc/dovecot/dovecot.conf`.
-
+ssl = required
+disable_plaintext_auth = yes
 </code></pre>
 
-<h1 id="part-of-file-dovecotconf">Part of file: dovecot.conf</h1>
-<p>ssl = required
-disable_plaintext_auth = yes</p>
-<pre><code>
-Restarting Dovecot service is required.
-
-## OpenLDAP backend special
-
-### Add internal service required by Doveadm
-
-__NOTE__: This step is applicable to both Dovecot-1.x and Dovecot-2.x.
-
-To use `doveadm` command provided by Dovecot-2, please add one more value of
-attribute 'enabledService' for mail user.
-
-* Download python script used to adding missing values.
+<p>Restarting Dovecot service is required.</p>
+<h2 id="openldap-backend-special">OpenLDAP backend special</h2>
+<h3 id="add-internal-service-required-by-doveadm">Add internal service required by Doveadm</h3>
+<p><strong>NOTE</strong>: This step is applicable to both Dovecot-1.x and Dovecot-2.x.</p>
+<p>To use <code>doveadm</code> command provided by Dovecot-2, please add one more value of
+attribute 'enabledService' for mail user.</p>
+<ul>
+<li>Download python script used to adding missing values.</li>
+</ul>
+<pre><code># cd /root/
+# wget https://bitbucket.org/zhb/iredmail/raw/f0e7e84c4b8a/extra/update/updateLDAPValues_074_to_080.py
 </code></pre>
 
-<h1 id="cd-root">cd /root/</h1>
-<h1 id="wget-httpsbitbucketorgzhbiredmailrawf0e7e84c4b8aextraupdateupdateldapvalues_074_to_080py">wget https://bitbucket.org/zhb/iredmail/raw/f0e7e84c4b8a/extra/update/updateLDAPValues_074_to_080.py</h1>
-<pre><code>
-* Open `updateLDAPValues_074_to_080.py`, config LDAP server related settings in
-  file head. e.g.
+<ul>
+<li>Open <code>updateLDAPValues_074_to_080.py</code>, config LDAP server related settings in
+  file head. e.g.</li>
+</ul>
+<pre><code># Part of file: updateLDAPValues_074_to_080.py
 
-</code></pre>
-
-<h1 id="part-of-file-updateldapvalues_074_to_080py">Part of file: updateLDAPValues_074_to_080.py</h1>
-<p>uri = 'ldap://127.0.0.1:389'
+uri = 'ldap://127.0.0.1:389'
 basedn = 'o=domains,dc=example,dc=com'
 bind_dn = 'cn=vmailadmin,dc=example,dc=com'
-bind_pw = 'passwd'</p>
-<pre><code>
-You can find required LDAP credential in iRedAdmin config file or `iRedMail.tips`
+bind_pw = 'passwd'
+</code></pre>
+
+<p>You can find required LDAP credential in iRedAdmin config file or <code>iRedMail.tips</code>
 file under your iRedMail installation directory. Using either
-`cn=Manager,dc=xx,dc=xx` or `cn=vmailadmin,dc=xx,dc=xx` as bind dn is ok.
-
-* Execute this script, it will add missing values for mail accounts:
+<code>cn=Manager,dc=xx,dc=xx</code> or <code>cn=vmailadmin,dc=xx,dc=xx</code> as bind dn is ok.</p>
+<ul>
+<li>Execute this script, it will add missing values for mail accounts:</li>
+</ul>
+<pre><code># python updateLDAPValues_074_to_080.py
 </code></pre>
 
-<h1 id="python-updateldapvalues_074_to_080py">python updateLDAPValues_074_to_080.py</h1>
-<pre><code>
-It will print progress message in the terminal, just be patient.
+<p>It will print progress message in the terminal, just be patient.</p>
+<p>If you're running Dovecot-2, please add below lines in <code>dovecot-ldap.conf</code> to
+make command <code>doveadm mailbox</code> work as expected:</p>
+<pre><code># Part of file: dovecot-ldap.conf
 
-If you're running Dovecot-2, please add below lines in `dovecot-ldap.conf` to
-make command `doveadm mailbox` work as expected:
-
+iterate_attrs   = mail=user
+iterate_filter  = (&amp;(objectClass=mailUser)(accountStatus=active)(enabledService=mail))
 </code></pre>
 
-<h1 id="part-of-file-dovecot-ldapconf">Part of file: dovecot-ldap.conf</h1>
-<p>iterate_attrs   = mail=user
-iterate_filter  = (&amp;(objectClass=mailUser)(accountStatus=active)(enabledService=mail))</p>
-<pre><code>
-## MySQL backend special
-
-### Add internal service required by Doveadm
-
-To use doveadm command provided by Dovecot-2, please add one more column in
-MySQL table `vmail.mailbox` with below command:
-</code></pre>
-
-<h1 id="mysql-uroot-p">mysql -uroot -p</h1>
-<p>mysql&gt; USE vmail;
+<h2 id="mysql-backend-special">MySQL backend special</h2>
+<h3 id="add-internal-service-required-by-doveadm_1">Add internal service required by Doveadm</h3>
+<p>To use doveadm command provided by Dovecot-2, please add one more column in
+MySQL table <code>vmail.mailbox</code> with below command:</p>
+<pre><code># mysql -uroot -p
+mysql&gt; USE vmail;
 mysql&gt; ALTER TABLE mailbox ADD COLUMN enabledoveadm TINYINT(1) NOT NULL DEFAULT 1;
-```</p><p style="text-align: center; color: grey;">Document published under a <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">CC BY-ND 3.0</a> license. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.<!-- Google Analytics -->
+</code></pre><p style="text-align: center; color: grey;">Document published under a <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">CC BY-ND 3.0</a> license. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.<!-- Google Analytics -->
 <script type="text/javascript">
     var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
     document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
