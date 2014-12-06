@@ -3,11 +3,15 @@
 # Author: Zhang Huangbin <zhb _at_ iredmail.org>
 # Purpose: Convert markdown articles to HTML files.
 
-# Directory used to store converted html files.
 PWD="."
-SOURCE_DIR="${PWD}/src"
+
+# Directory used to store converted html files.
 OUTPUT_DIR="${PWD}/html"
+
+# Markdown file used to store index of chapters/articles.
 INDEX_MD="${OUTPUT_DIR}/index.md"
+
+# Markdown file used to be displayed automatically on bitbucket.
 README_MD="${PWD}/README.md"
 
 # Pack all converted HTML files for downloading
