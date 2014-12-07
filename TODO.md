@@ -1,18 +1,11 @@
 # TODO
 
-* [WIP] iRedMail upgrade tutorials
-
-    * http://www.iredmail.org/wiki/index.php?title=Upgrade/iRedMail/0.6.1-0.7.0
-    * http://www.iredmail.org/wiki/index.php?title=Upgrade/iRedMail/0.6.0-0.6.1
-    * http://www.iredmail.org/wiki/index.php?title=Upgrade/iRedMail/0.5.1-0.6.0
-    * http://www.iredmail.org/upgrade_050_051.html
-    * https://code.google.com/p/iredmail/wiki/Upgrade_040_050
-    * https://code.google.com/p/iredmail/wiki/Upgrade_032_040
-
+* How to enable per-recipient policy lookup in Amavisd (@lookup_sql_dsn).
 * Upgrade iRedAPD: http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/Upgrade.iRedAPD
+* http://www.iredmail.org/wiki/index.php?title=Integration/PureFTPd.iRedMail.with.OpenLDAP
+
 * How to enable SSHA512/BCRYPT in Dovecot + Roundcubemail.
 * How to custom SpamAssassin scores
-* How to enable per-recipient policy lookup in Amavisd (@lookup_sql_dsn).
 * How to enable DNSBL in Postfix.
 
 * http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/Send.out.email.from.specified.IP.address
@@ -30,7 +23,6 @@
 
 # integrations
 
-* http://www.iredmail.org/wiki/index.php?title=Integration/PureFTPd.iRedMail.with.OpenLDAP
 * http://www.iredmail.org/wiki/index.php?title=Integration/Ejabberd.iRedMail.with.OpenLDAP
 * http://www.iredmail.org/wiki/index.php?title=Integration/OpenVPN.iRedMail.with.OpenLDAP
 * http://www.iredmail.org/wiki/index.php?title=Integration/SOGo.iRedMail.with.OpenLDAP

@@ -36,11 +36,11 @@ strip_name_prefix()
 # Chapter directories in specified order
 all_chapter_dirs="installation \
                   upgrade \
+                  migrations \
                   mua \
                   howto \
                   integrations \
                   cluster \
-                  migrations \
                   troubleshooting \
                   faq"
 
