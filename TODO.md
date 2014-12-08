@@ -1,6 +1,5 @@
 # TODO
 
-* How to enable per-recipient policy lookup in Amavisd (@lookup_sql_dsn).
 * Upgrade iRedAPD: http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/Upgrade.iRedAPD
 * http://www.iredmail.org/wiki/index.php?title=Integration/PureFTPd.iRedMail.with.OpenLDAP
 
@@ -43,6 +42,7 @@
 
 # Howto
 
+* ~~ How to enable per-recipient policy lookup in Amavisd (@lookup_sql_dsn). ~~
 * ~~Use same DKIM PEM file for all mail domains.~~
 * ~~ How to sign DKIM signature on sent emails for new mail domain. mention how
   to use one DKIM key for all domains. ~~

@@ -31,6 +31,8 @@
 <li><a href="#log-files_2">Log files</a></li>
 </ul>
 </li>
+<li><a href="#iredapd">iRedAPD</a></li>
+<li><a href="#iredadmin">iRedAdmin</a></li>
 </ul>
 </li>
 </ul>
@@ -38,7 +40,7 @@
 <h2 id="apache">Apache</h2>
 <ul>
 <li>
-<p>On <code>RHEL</code>/<code>CentOS</code>: Apache config files are placed under <code>/etc/httpd/</code>.</p>
+<p>On RHEL/CentOS: Apache config files are placed under <code>/etc/httpd/</code>.</p>
 <ul>
 <li>Main config file is <code>/etc/httpd/conf/httpd.conf</code>.</li>
 <li>Module config files are placed under <code>/etc/httpd/conf.d/</code> (old releases)
@@ -49,7 +51,7 @@
 </ul>
 </li>
 <li>
-<p>On <code>Debian</code>/<code>Ubuntu</code>: Apache config files are placed under <code>/etc/apache2</code>.</p>
+<p>On Debian/Ubuntu: Apache config files are placed under <code>/etc/apache2</code>.</p>
 <ul>
 <li>Main config file is <code>/etc/apache2/apache2.conf</code>.</li>
 <li>Module config files are placed under <code>/etc/apache2/conf.d/</code> (old
@@ -60,7 +62,7 @@
 </ul>
 </li>
 <li>
-<p>On <code>FreeBSD</code>: Apache config files are placed under <code>/usr/local/etc/apache2</code>.</p>
+<p>On FreeBSD: Apache config files are placed under <code>/usr/local/etc/apache2</code>.</p>
 <ul>
 <li>Main config file is <code>/usr/local/etc/apache2/httpd.conf</code>.</li>
 <li>Module config files are placed under <code>/usr/local/etc/apache2/Includes/</code>.</li>
@@ -71,7 +73,7 @@
 </ul>
 </li>
 <li>
-<p>On <code>OpenBSD</code>: Apache (the one shipped in OpenBSD base system) config files
+<p>On OpenBSD: Apache (the one shipped in OpenBSD base system) config files
   are placed under <code>/var/www/conf</code>.</p>
 <ul>
 <li>Main config file is <code>/var/www/conf/httpd.conf</code>.</li>
@@ -84,20 +86,20 @@
 </ul>
 <h2 id="nginx">Nginx</h2>
 <ul>
-<li>On <code>Linux</code> and <code>OpenBSD</code>: Nginx config files are placed under <code>/etc/nginx/</code>,
+<li>On <code>Linux</code> and OpenBSD: Nginx config files are placed under <code>/etc/nginx/</code>,
   uWSGI config files are placed under <code>/etc/uwsgi/</code>.</li>
-<li>On <code>FreeBSD</code>: Nginx config files are placed under <code>/usr/local/etc/nginx</code>,
+<li>On FreeBSD: Nginx config files are placed under <code>/usr/local/etc/nginx</code>,
   uWSGI config files are placed under <code>/usr/local/etc/uwsgi/</code>.</li>
 </ul>
 <p>Main config files are <code>nginx.conf</code> and <code>default.conf</code>.</p>
 <ul>
-<li>On <code>Linux</code> and <code>FreeBSD</code>: log files are placed under <code>/var/log/nginx/</code>.</li>
-<li>On <code>OpenBSD</code>: log files are placed under <code>/var/www/logs/</code> (same as Apache).</li>
+<li>On <code>Linux</code> and FreeBSD: log files are placed under <code>/var/log/nginx/</code>.</li>
+<li>On OpenBSD: log files are placed under <code>/var/www/logs/</code> (same as Apache).</li>
 </ul>
 <h2 id="postfix">Postfix</h2>
 <ul>
-<li>on <code>Linux</code> and <code>OpenBSD</code>, Postfix config files are placed under <code>/etc/postfix/</code>.</li>
-<li>on <code>FreeBSD</code>, Postfix config files are placed under <code>/usr/local/etc/postfix/</code>.</li>
+<li>on <code>Linux</code> and OpenBSD, Postfix config files are placed under <code>/etc/postfix/</code>.</li>
+<li>on FreeBSD, Postfix config files are placed under <code>/usr/local/etc/postfix/</code>.</li>
 </ul>
 <h3 id="main-config-files">Main config files:</h3>
 <ul>
@@ -111,13 +113,13 @@
 </ul>
 <h3 id="log-files">Log files</h3>
 <ul>
-<li>on <code>RHEL/CentOS</code>, <code>FreeBSD</code>, <code>OpenBSD</code>, it's <code>/var/log/maillog</code>.</li>
-<li>on <code>Debian</code>, <code>Ubuntu</code>, it's <code>/var/log/mail.log</code>.</li>
+<li>on RHEL/CentOS, FreeBSD, OpenBSD, it's <code>/var/log/maillog</code>.</li>
+<li>on Debian, Ubuntu, it's <code>/var/log/mail.log</code>.</li>
 </ul>
 <h2 id="dovecot">Dovecot</h2>
 <ul>
-<li>on <code>Linux</code> and <code>OpenBSD</code>, Dovecot config files are placed under <code>/etc/dovecot/</code>.</li>
-<li>on <code>FreeBSD</code>, Dovecot config files are placed under <code>/usr/local/etc/dovecot/</code>.</li>
+<li>on <code>Linux</code> and OpenBSD, Dovecot config files are placed under <code>/etc/dovecot/</code>.</li>
+<li>on FreeBSD, Dovecot config files are placed under <code>/usr/local/etc/dovecot/</code>.</li>
 </ul>
 <h3 id="config-files">Config files</h3>
 <p>Main config file is <code>dovecot.conf</code>. It contains most configurations.</p>
@@ -140,21 +142,34 @@
 <h2 id="amavisd">Amavisd</h2>
 <h3 id="main-config-files_1">Main config files</h3>
 <ul>
-<li>on <code>RHEL/CentOS</code>: it's <code>/etc/amavisd/amavisd.conf</code>.</li>
+<li>on RHEL/CentOS: it's <code>/etc/amavisd/amavisd.conf</code>.</li>
 <li>
-<p>on <code>Debian/Ubuntu</code>: it's <code>/etc/amavis/conf.d/50-user</code>.</p>
+<p>on Debian/Ubuntu: it's <code>/etc/amavis/conf.d/50-user</code>.</p>
 <p>Debian/Ubuntu have some addition config files under <code>/etc/amavis/conf.d/</code>,
-but you can always override them in file <code>/etc/amavis/conf.d/50-user</code>.
-When we mention <code>amavisd.conf</code> in other tutorials, it means <code>50-user</code> on
-Debian/Ubuntu.</p>
+but you can always override them in <code>/etc/amavis/conf.d/50-user</code>.
+When we mention <code>amavisd.conf</code> in other documents, it always means <code>50-user</code>
+on Debian/Ubuntu.</p>
 </li>
 <li>
-<p>on <code>FreeBSD</code>: it's <code>/usr/local/etc/amavisd.conf</code>.</p>
+<p>on FreeBSD: it's <code>/usr/local/etc/amavisd.conf</code>.</p>
 </li>
-<li>on <code>OpenBSD</code>: it's <code>/etc/amavisd.conf</code>.</li>
+<li>on OpenBSD: it's <code>/etc/amavisd.conf</code>.</li>
 </ul>
 <h3 id="log-files_2">Log files</h3>
-<p>Amavisd is configured to log to <a href="#postfix">Postfix log file</a> by iRedMail.</p><p style="text-align: center; color: grey;">Document published under a <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">CC BY-ND 3.0</a> license. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.<!-- Google Analytics -->
+<p>Amavisd is configured to log to <a href="#postfix">Postfix log file</a> by iRedMail.</p>
+<h2 id="iredapd">iRedAPD</h2>
+<p>Main config file is <code>/opt/iredapd/settings.py</code> on all Linux/BSD distributions.</p>
+<h2 id="iredadmin">iRedAdmin</h2>
+<p>Main config file:</p>
+<ul>
+<li>on RHEL/CentOS, it's <code>/var/www/iredadmin/settings.py</code>.</li>
+<li>on Debian/Ubuntu, it's <code>/usr/share/apache2/iredadmin/settings.py</code>.</li>
+<li>on FreeBSD, it's <code>/usr/local/www/iredadmin/settings.py</code>.</li>
+<li>on OpenBSD, it's <code>/var/www/iredadmin/settings.py</code>.</li>
+</ul>
+<p>iRedAdmin is a web application, when debug mode is turned on, it will log error
+message to Apache/Nginx log file.
+It logs to <code>/var/log/iredapd.log</code> by default.</p><p style="text-align: center; color: grey;">Document published under a <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">CC BY-ND 3.0</a> license. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.<!-- Google Analytics -->
 <script type="text/javascript">
     var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
     document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
