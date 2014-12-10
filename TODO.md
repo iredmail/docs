@@ -42,6 +42,7 @@
 
 # Howto
 
+* ~~ http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/MySQL/per-user.send.receive.restrictions ~~
 * ~~ How to enable per-recipient policy lookup in Amavisd (@lookup_sql_dsn). ~~
 * ~~Use same DKIM PEM file for all mail domains.~~
 * ~~ How to sign DKIM signature on sent emails for new mail domain. mention how

@@ -1,0 +1,96 @@
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>SQL: Per-user inbound and outbound restrictions</title>
+        <link href="./css/markdown.css" rel="stylesheet"></head>
+    </head>
+    <body>
+    
+    <div id="navigation">
+        <a href="http://www.iredmail.org" target="_blank">iRedMail web site</a>
+    
+        // <a href="./index.html">Document Index</a>
+    </div><h1 id="sql-per-user-inbound-and-outbound-restrictions">SQL: Per-user inbound and outbound restrictions</h1>
+<blockquote>
+<p>This tutorial is applicable to all SQL backends: MySQL, MariaDB, PostgreSQL.</p>
+<p>There's another way to achieve per-user inbound/outbound restriction, it's
+called per-user white/blacklists (stored in SQL table <code>amavisd.wblist</code>,
+implemented by iRedAPD plugin <code>amavisd_wblist</code>), but per-user white/blacklists
+are manageable by user themselves.</p>
+</blockquote>
+<p>iRedAPD (a simple Postfix policy server developed by iRedMail team) provides
+for per-user plugin <code>sql_user_restrictions</code> for per-user inbound/outbound
+restrictions.</p>
+<p>Please make sure plugin <code>sql_user_restrictions</code> is enabled in iRedAPD config
+file <code>/opt/iredapd/settings.py</code> like below:</p>
+<pre><code># Part of file: /opt/iredapd/settings.py
+
+plugins = [..., 'sql_user_restrictions']
+</code></pre>
+
+<p>Restarting iRedAPD service is required if you modified <code>/opt/iredapd/settings.py</code>.</p>
+<p>You can store allowed or disallowed senders in 4 SQL columns in <code>vmail</code> database:</p>
+<ul>
+<li><code>mailbox.rejectedsenders</code>: disallowed to receive email from listed senders.</li>
+<li><code>mailbox.allowedsenders</code>: allowed to receive email from listed senders.</li>
+<li><code>mailbox.rejectedrecipients</code>: disallow user to send email to listed recipients.</li>
+<li><code>mailbox.allowedrecipients</code>: allow user to send email to listed recipients.</li>
+</ul>
+<p>Valid sender/recipient formats are:</p>
+<ul>
+<li><code>@.</code>: all addresses (user, domain, sub-domain). Be careful: There's a dot after <code>@</code>.</li>
+<li><code>@domain.com</code>: entire domain.</li>
+<li><code>@.domain.com</code>: entire domain and all its sub-domains. Be careful: There's a dot after <code>@</code>.</li>
+<li><code>user@domain.com</code>:  single email address</li>
+</ul>
+<p>NOTES:</p>
+<ul>
+<li>Multiple senders/recipients must be separated by comma (<code>,</code>).</li>
+<li><code>mailbox.allowedsenders</code> has higher priority than <code>mailbox.rejectedsenders</code>.</li>
+<li><code>mailbox.allowedrecipients</code> has higher priority than <code>mailbox.rejectedrecipients</code>.</li>
+</ul>
+<p>Sample usage:</p>
+<ul>
+<li>allow local mail user <code>user@example.com</code> to send to and receive from the same
+  domain (<code>example.com</code>) and <code>gmail.com</code>, but not others.</li>
+</ul>
+<pre><code>sql&gt; USE vmail;
+sql&gt; UPDATE mailbox \
+     SET \
+         rejectedsenders='@.', \
+         allowedsenders='@example.com,@gmail.com', \
+         rejectedrecipients='@.' \
+         allowedrecipients='@example.com,@gmail.com', \
+     WHERE \
+          username='user@example.com';
+</code></pre>
+
+<h2 id="openldap-backend-special">OpenLDAP backend special</h2>
+<p>OpenLDAP backend requires iRedAPD plugin <code>ldap_amavisd_block_blacklisted_senders</code>.</p>
+<ul>
+<li>
+<p>If you have iRedAdmin-Pro, you can manage this restriction in user profile page.</p>
+</li>
+<li>
+<p>If you don't have iRedAdmin-Pro, you can manage it with phpLDAPadmin or other
+  LDAP management tools. Related LDAP attributes are:</p>
+<ul>
+<li><code>mailWhitelistRecipient</code>: same as SQL <code>mailbox.allowedrecipients</code></li>
+<li><code>mailBlacklistRecipient</code>: same as <code>mailbox.rejectedrecipients</code></li>
+<li><code>amavisWhitelistSender</code>: same as <code>mailbox.allowedsenders</code></li>
+<li><code>amavisBlacklistSender</code>: same as <code>mailbox.rejectedsenders</code></li>
+</ul>
+</li>
+</ul>
+<p>Values for these LDAP attributes use the same format as mentioned above.</p><p style="text-align: center; color: grey;">Document published under a <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">CC BY-ND 3.0</a> license. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.<!-- Google Analytics -->
+<script type="text/javascript">
+    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+    try {
+        var pageTracker = _gat._getTracker("UA-3293801-14");
+        pageTracker._trackPageview();
+    } catch(err) {}
+</script>
+</body></html>
