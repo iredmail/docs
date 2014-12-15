@@ -2,6 +2,11 @@
 
 * Upgrade iRedAPD: http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/Upgrade.iRedAPD
 * http://www.iredmail.org/wiki/index.php?title=Integration/PureFTPd.iRedMail.with.OpenLDAP
+* which config files must be update if i want to change hostname
+
+    * ssl cert/key
+    * /etc/postfix/main.cf
+    * /etc/amavisd/amavisd.conf
 
 * How to enable SSHA512/BCRYPT in Dovecot + Roundcubemail.
 * How to custom SpamAssassin scores

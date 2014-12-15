@@ -2,6 +2,10 @@
 
 [TOC]
 
+> Don't know what DKIM is? Check our tutorial here:
+>  [What is a DKIM DNS record](setup_dns.html#dkim-record-for-your-mail-domain-name).
+
+
 > Don't know where Amavisd config file is? check this tutorial:
 > [Locations of configuration and log files of mojor components](file.locations.html#amavisd).
 
@@ -16,8 +20,9 @@ steps to enable DKIM signing for outgoing emails of this domain.
 ## Use existing DKIM key for new mail domain
 
 if you already have a working DKIM and valid DKIM DNS record, it's ok to
-use this existing DKIM key. This way, you don't need to ask your customer
-who owns this new domain to add DKIM DNS record.
+use this existing DKIM key to sign emails sent by other hosted mail domains.
+This way, you don't need to ask your customer who owns this new domain to add
+DKIM DNS record.
 
 * Find below setting in Amavisd config file `amavisd.conf`:
 
@@ -122,8 +127,3 @@ And Amavisd will show a warning message when start amavisd service:
 
 > dkim: wildcard in signing domain (key#1, *), may produce unverifiable
 > signatures with no published public key, avoid!
-
-## See also
-
-* Don't know what DKIM is? Check our tutorial here:
-  [What is a DKIM DNS record](setup_dns.html#dkim-record-for-your-mail-domain-name).
