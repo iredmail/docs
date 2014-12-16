@@ -1,0 +1,62 @@
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Upgrade iRedAPD</title>
+        <link href="./css/markdown.css" rel="stylesheet"></head>
+    </head>
+    <body>
+    
+    <div id="navigation">
+        <a href="http://www.iredmail.org" target="_blank">iRedMail web site</a>
+    
+        // <a href="./index.html">Document Index</a>
+    </div><h1 id="upgrade-iredapd">Upgrade iRedAPD</h1>
+<blockquote>
+<p>iRedAPD source code is hosted on <a href="https://bitbucket.org/zhb/iredapd/overview">BitBucket</a>.</p>
+</blockquote>
+<p>This tutorial describes how to upgrade iRedAPD from <code>1.4.0</code> or later releases
+to the latest stable release. It's applicable on all Linux/BSD distributions
+supported by iRedMail.</p>
+<ul>
+<li>Download the latest stable release here: <a href="http://www.iredmail.org/yum/misc/">http://www.iredmail.org/yum/misc/</a>
+  For example, iRedAPD-1.4.4.tar.bz2.</li>
+<li>Upload it to your iRedMail server. Assume it's <code>/root/iRedAPD-1.4.4.tar.bz2</code>.</li>
+<li>Extract downloaded package and execute upgrade script:</li>
+</ul>
+<pre><code># cd /root
+# tar xjf iRedAPD-1.4.4.tar.bz2
+# cd iRedAPD-1.4.4/tools/
+# bash upgrade_iredapd.sh
+</code></pre>
+
+<p>That's all.</p>
+<p>Notes:</p>
+<ul>
+<li>
+<p>It's recommended to enable plugin <code>reject_null_sender</code> in iRedAPD-1.4.4 or
+  newer releases to prevent authenticated user sending spam as null sender.</p>
+</li>
+<li>
+<p>Since version 1.4.4, iRedAPD supports Postfix smtp protocol state
+  <code>END-OF-MESSAGE</code>, so you can enable iRedAPD in Postfix parameter
+  <code>smtpd_end_of_data_restrictions</code> like below:</p>
+<p><code>smtpd_end_of_data_restrictions = check_policy_service inet:127.0.0.1:7777, ...</code></p>
+<p>Currently, only plugin <code>amavisd_message_size_limit</code> works in <code>END-OF-MESSAGE</code>
+state, other plugins work in <code>RCPT</code> state.</p>
+</li>
+<li>
+<p>If you want to develop your own plugin for iRedAPD, please read document
+  <code>README_PLUGINS.md</code> in iRedAPD source code.</p>
+</li>
+</ul><p style="text-align: center; color: grey;">Document published under a <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">CC BY-ND 3.0</a> license. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.<!-- Google Analytics -->
+<script type="text/javascript">
+    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+    try {
+        var pageTracker = _gat._getTracker("UA-3293801-14");
+        pageTracker._trackPageview();
+    } catch(err) {}
+</script>
+</body></html>
