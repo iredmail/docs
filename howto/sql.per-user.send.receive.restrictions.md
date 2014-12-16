@@ -35,6 +35,7 @@ Valid sender/recipient formats are:
 * `@domain.com`: entire domain.
 * `@.domain.com`: entire domain and all its sub-domains. Be careful: There's a dot after `@`.
 * `user@domain.com`:  single email address
+* empty value means no restriction.
 
 NOTES:
 
@@ -53,7 +54,7 @@ sql> UPDATE mailbox \
      SET \
          rejectedsenders='@.', \
          allowedsenders='@example.com,@gmail.com', \
-         rejectedrecipients='@.' \
+         rejectedrecipients='' \
          allowedrecipients='@example.com,@gmail.com', \
      WHERE \
           username='user@example.com';
