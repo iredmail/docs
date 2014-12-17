@@ -209,7 +209,7 @@ Open your favourite web browser, access URL: `https://[your_server]/SOGo`.
 
 ### Apple Devices
 
-URL for calendar service: `http://[host]/SOGo/dav/[user]/`
+URL for calendar service: `http://[host]/SOGo/dav/[full email address]/`
 
 ## TODO
 
