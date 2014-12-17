@@ -1,7 +1,7 @@
-# Mac OS X: Add calendar account in iCalendar.app
+# Mac OS X: Add calendar (CalDAV) and task (Reminders) service in iCalendar.app
 
-> To use calendar service (CalDAV protocol), you must choose to install
-> SOGo groupware during iRedMail installation.
+> To use calendar and task service, you must choose to install SOGo groupware
+> during iRedMail installation.
 
 1: Open application `System Preferences`:
 
@@ -30,3 +30,8 @@
 * Use SSL: checked
 
 ![](./images/sogo/macosx.add.caldav.account.png)
+
+6: Click `Create` button to create account. You can also enable Reminders (task
+   service) if you want.
+
+![](./images/sogo/macosx.add.reminder.png)

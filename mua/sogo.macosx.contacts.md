@@ -1,4 +1,4 @@
-# Mac OS X: Add contact account in Contacts.app
+# Mac OS X: Add contact service (CardDAV) in Contacts.app
 
 > To use contact service (CardDAV protocol), you must choose to install
 > SOGo groupware during iRedMail installation.
