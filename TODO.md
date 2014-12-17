@@ -1,7 +1,5 @@
 # TODO
 
-* Upgrade iRedAPD: http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/Upgrade.iRedAPD
-* http://www.iredmail.org/wiki/index.php?title=Integration/PureFTPd.iRedMail.with.OpenLDAP
 * which config files must be update if i want to change hostname
 
     * re-generate ssl cert/key
@@ -33,6 +31,7 @@
 * http://www.iredmail.org/wiki/index.php?title=Integration/OpenVPN.iRedMail.with.OpenLDAP
 * http://www.iredmail.org/wiki/index.php?title=Integration/SOGo.iRedMail.with.OpenLDAP
 * http://www.iredmail.org/wiki/index.php?title=Integration/DBMail.iRedMail.with.MySQL.backend
+* http://www.iredmail.org/wiki/index.php?title=Integration/PureFTPd.iRedMail.with.OpenLDAP
 
 * ~~ http://www.iredmail.org/wiki/index.php?title=Integration/Active.Directory.iRedMail ~~
 
@@ -49,6 +48,7 @@
 
 # Howto
 
+* ~ Upgrade iRedAPD: http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/Upgrade.iRedAPD ~
 * ~~ http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/MySQL/per-user.send.receive.restrictions ~~
 * ~~ How to enable per-recipient policy lookup in Amavisd (@lookup_sql_dsn). ~~
 * ~~Use same DKIM PEM file for all mail domains.~~
