@@ -2,7 +2,7 @@
 
 [TOC]
 
-## Summary
+
 Since iRedMail-`0.7.0`, quarantining related settings in Amavisd are configured
 by iRedMail but disabled by default, you can easily enable quarantining with
 this tutorial.
@@ -10,7 +10,7 @@ this tutorial.
 With below steps, Virus/Spam/Banned emails will be quarantined into SQL database.
 You can then manage quarantined emails with iRedAdmin-Pro.
 
-## Update Amavisd config file to enable quarantining
+## Quarantining spam, virus and banned messages
 
 Edit Amavisd config file, find below settings and update them. If it doesn't
 exist, please add them.
@@ -22,9 +22,10 @@ or `/etc/amavisd.conf`.
 * on OpenBSD, it's `/etc/amavisd.conf`.
 
 ```
-# File: amavisd.conf
+# Part of file: /etc/amavisd/amavisd.conf
 
-# Change below 3 parameters to D_DISCARD.
+# Change values of below 3 parameters to D_DISCARD.
+# Detected spams/virus/banned messages will not be delivered to user's mailbox.
 $final_virus_destiny = D_DISCARD;
 $final_spam_destiny = D_DISCARD;
 $final_banned_destiny = D_DISCARD;
@@ -37,7 +38,7 @@ $spam_quarantine_method = 'sql:';
 $virus_quarantine_to = 'virus-quarantine';
 $virus_quarantine_method = 'sql:';
 
-# Quarantine BANNED emails into SQL server.
+# Quarantine BANNED message into SQL server.
 $banned_quarantine_to = 'banned-quarantine';
 $banned_files_quarantine_method = 'sql:';
 ```
@@ -45,7 +46,7 @@ $banned_files_quarantine_method = 'sql:';
 Also, make sure you have below lines configured in same config file:
 
 ```perl
-# For MySQL
+# For MySQL/MariaDB/OpenLDAP backends
 @storage_sql_dsn = (
     ['DBI:mysql:database=amavisd;host=127.0.0.1;port=3306', 'amavisd', 'password'],
 );
@@ -56,7 +57,7 @@ Also, make sure you have below lines configured in same config file:
 #);
 ```
 
-Restart amavisd service to make it work.
+Restarting amavisd service is required.
 
 ## Configure iRedAdmin-Pro to manage quarantined mails
 
@@ -87,9 +88,10 @@ amavisd_quarantine_port = 9998
 amavisd_enable_policy_lookup = True
 ```
 
-Restart Apache web server to make it work.
+Restarting Apache web server or `uwsgi` service (if you're running Nginx as
+web server) is required.
 
-You can now login to iRedAdmin-Pro, and manage quarantined mails via menu
+You can now login to iRedAdmin-Pro, and manage quarantined messages via menu
 `System -> Quarantined Mails`. Choose action in drop-down menu list to release
 or delete them.
 
