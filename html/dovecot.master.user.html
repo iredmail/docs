@@ -1,0 +1,73 @@
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Dovecot Master User</title>
+        <link href="./css/markdown.css" rel="stylesheet"></head>
+    </head>
+    <body>
+    
+    <div id="navigation">
+        <a href="http://www.iredmail.org" target="_blank">iRedMail web site</a>
+    
+        // <a href="./index.html">Document Index</a>
+    </div><h1 id="dovecot-master-user">Dovecot Master User</h1>
+<p>iRedMail-0.8.6 and later releases have Dovecot Master User enabled for all
+backends (OpenLDAP, MySQL/MariaDB, PostgreSQL) by default, what you need to do
+is adding new master user.</p>
+<p>iRedMail configures Dovecot to query master user accounts from config file
+<code>/etc/dovecot/dovecot-master-users-password</code> (or <code>dovecot-master-users</code>) by
+default, you can modify this file to add or remove master user.</p>
+<p>The format is simple:</p>
+<pre><code>username:password
+</code></pre>
+
+<p>You can generate a password supported by Dovecot first. for example, SSHA512.
+Let's generate password hash for our password <code>my_master_password</code>:</p>
+<pre><code># doveadm pw -s SSHA512
+Enter new password: my_master_password
+Retype new password: my_master_password
+{SSHA512}B0VHomJaMk6aLXOPglgNgJtCUA8JRnOweAwJxRW6NPWSNZ25rG/L6T05DJXH+t8WCQkemBilgkcEi6mq4Kadssivtts=
+</code></pre>
+
+<p>You can now pick up any username you like, for example,
+<code>my_master_user@non-exist.com</code>. Now add new master user in file
+<code>/etc/dovecot/dovecot-master-users-passwords</code> like below:</p>
+<pre><code>my_master_user@non-exist.com:{SSHA512}B0VHomJaMk6aLXOPglgNgJtCU...
+</code></pre>
+
+<p>WARNING: Make sure file <code>dovecot-master-users-password</code> is owned by Dovecot
+daemon user and group, with file permission <code>0500</code>, so that others cannot view
+the file content.</p>
+<blockquote>
+<ul>
+<li>on Linux/FreeBSD, Dovecot daemon user/group is <code>dovecot/dovecot</code>.</li>
+<li>on OpenBSD, Dovecot daemon user/group is <code>_dovecot/_dovecot</code>.</li>
+</ul>
+</blockquote>
+<p>Then you can access user@domain.ltd's mailbox (via either IMAP or POP3
+protocol) as <code>user@domain.ltd*my_master_user@non-exist.com</code> with password
+<code>my_master_password</code>.</p>
+<p>Notes:</p>
+<ul>
+<li>master user name must be in valid email address format. e.g. user@domain.com.
+  this email address doesn't need to exist.</li>
+</ul>
+<h2 id="troubleshooting">Troubleshooting</h2>
+<p>If it doesn't work for you, please enable debug mode in Dovecot and check
+its log file. If you don't understand what the log says, please create a new
+topic in our forum and paste related log:</p>
+<ul>
+<li><a href="./debug.dovecot.html">Debug Dovecot</a></li>
+<li><a href="http://www.iredmail.org/forum/">iRedMail online support forum</a></li>
+</ul><p style="text-align: center; color: grey;">Document published under a <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">CC BY-ND 3.0</a> license. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.<!-- Google Analytics -->
+<script type="text/javascript">
+    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+    try {
+        var pageTracker = _gat._getTracker("UA-3293801-14");
+        pageTracker._trackPageview();
+    } catch(err) {}
+</script>
+</body></html>

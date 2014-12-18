@@ -88,7 +88,7 @@ Addition config files:
 * `dovecot-pgsql.conf`: used to query mail users and passwords. PostgreSQL backend only.
 * `dovecot-used-quota.conf`: used to store and query real-time per-user mailbox quota.
 * `dovecot-share-folder.conf`: used to store settings of shared IMAP mailboxes.
-* `dovecot-master-users-password`: used to store master users/passwords.
+* `dovecot-master-users-password` or `dovecot-master-users`: used to store Dovecot master user accounts.
 
 ### Log files
 
