@@ -68,8 +68,10 @@ for chapter_dir in ${all_chapter_dirs}; do
         echo -e "### ${_chapter_title}" >> ${INDEX_MD}
 
         if [ -f ${_summary_md} ]; then
-            _chapter_summary="$(cat ${_summary_md})"
-            echo -e "${_chapter_summary}" >> ${INDEX_MD}
+            cat ${_summary_md} >> ${INDEX_MD}
+
+            # Insert an empty line to not mess up other formats like list.
+            echo '' >> ${INDEX_MD}
         fi
     fi
 
