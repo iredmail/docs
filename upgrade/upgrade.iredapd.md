@@ -20,7 +20,10 @@ supported by iRedMail.
 
 That's all.
 
-Notes:
+Important notes:
+
+* Plugin `amavisd_wblist` is required if you manage white/blacklists with
+  iRedAdmin-Pro.
 
 * It's recommended to enable plugin `reject_null_sender` in iRedAPD-1.4.4 or
   newer releases to prevent authenticated user sending spam as null sender.

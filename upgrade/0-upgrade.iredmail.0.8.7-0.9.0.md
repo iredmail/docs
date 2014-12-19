@@ -43,6 +43,9 @@ latest stable release immediately: [How to upgrade Roundcube](http://trac.roundc
 iRedAPD-1.4.4 brings several new plugins, and works with Postfix parameter
 `smtpd_end_of_data_restrictions` (protocol state `END-OF-MESSAGE`).
 
+Important note: If you want to manage white/blacklists with iRedAdmin-Pro,
+you have to enable plugin `amavisd_wblist`.
+
 Please follow below tutorial to upgrade iRedAPD to the latest stable release:
 [How to upgrade iRedAPD-1.4.0 or later versions to the latest stable release](./upgrade.iredapd.html)
 
