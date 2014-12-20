@@ -1,7 +1,14 @@
 # TODO
 
-* http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/Dovecot.Master.User
-* which config files must be update if i want to change hostname
+* iRedAdmin-Pro installation guides
+
+    * http://www.iredmail.org/admin_installation_debian.html
+    * http://www.iredmail.org/admin_installation_opensuse.html
+    * http://www.iredmail.org/admin_installation_freebsd.html
+    * http://www.iredmail.org/admin_installation_rhel.html
+    * http://www.iredmail.org/admin_installation_openbsd.html
+
+* New tutorial: which config files must be update if i want to change hostname
 
     * re-generate ssl cert/key
     * /etc/postfix/main.cf
@@ -17,14 +24,6 @@
 * http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/Backup
 * http://www.iredmail.org/forum/topic1968-enabling-ipv6-for-your-iredmail-postfixdovecot.html
 * http://www.iredmail.org/forum/topic210-iredmail-support-faq-how-to-enable-signing-disclaimer-on-outgoing-mails.html
-
-# iRedAdmin-Pro installation guides
-
-* http://www.iredmail.org/admin_installation_debian.html
-* http://www.iredmail.org/admin_installation_opensuse.html
-* http://www.iredmail.org/admin_installation_freebsd.html
-* http://www.iredmail.org/admin_installation_rhel.html
-* http://www.iredmail.org/admin_installation_openbsd.html
 
 # integrations
 
@@ -49,7 +48,8 @@
 
 # Howto
 
-* ~ Upgrade iRedAPD: http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/Upgrade.iRedAPD ~
+* ~~ http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/Dovecot.Master.User ~~
+* ~~ Upgrade iRedAPD: http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/Upgrade.iRedAPD ~~
 * ~~ http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/MySQL/per-user.send.receive.restrictions ~~
 * ~~ How to enable per-recipient policy lookup in Amavisd (@lookup_sql_dsn). ~~
 * ~~Use same DKIM PEM file for all mail domains.~~
