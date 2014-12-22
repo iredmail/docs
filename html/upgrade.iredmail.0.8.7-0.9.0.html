@@ -81,8 +81,36 @@ so that you can know which version of iRedMail you're running. For example:</p>
 <p>Please follow Roundcube official tutorial to upgrade Roundcube webmail to the
 latest stable release immediately: <a href="http://trac.roundcube.net/wiki/Howto_Upgrade">How to upgrade Roundcube</a></p>
 <h3 id="upgrade-iredapd-postfix-policy-server-to-the-latest-144">Upgrade iRedAPD (Postfix policy server) to the latest 1.4.4</h3>
-<p>iRedAPD-1.4.4 brings several new plugins, and works with Postfix parameter
-<code>smtpd_end_of_data_restrictions</code> (protocol state <code>END-OF-MESSAGE</code>).</p>
+<blockquote>
+<p>Note: it's strongly recommended to enable plugin <code>reject_null_sender</code> to
+prevent spam.</p>
+</blockquote>
+<p>iRedAPD-1.4.4 fixes several issues and brings some new features:</p>
+<ul>
+<li>
+<p>New plugins:</p>
+<ul>
+<li><code>reject_null_sender</code>: prevent authenticated user to send spam as null
+  sender (<code>from=&lt;&gt;</code> in Postfix log file).</li>
+<li>
+<p><code>amavisd_wblist</code>: it uses per-recipient white/blacklists stored in
+  Amavisd SQL database to reject emails sent from blacklisted senders and
+  bypass whitelisted senders.</p>
+<p>White/blacklist could be global (server-wide) setting, per-domain setting,
+or per-user setting. Priority: per-user &gt; per-domain &gt; global.</p>
+</li>
+<li>
+<p><code>amavisd_message_size_limit</code>: limit size of single incoming mail.</p>
+<p>Message size limit could be global (server-wide) setting, per-domain setting,
+or per-user setting. Priority: per-user &gt; per-domain &gt; global.</p>
+</li>
+</ul>
+</li>
+<li>
+<p>iRedAPD now works with Postfix parameter <code>smtpd_end_of_data_restrictions</code>
+  (smtp protocol state <code>END-OF-MESSAGE</code>).</p>
+</li>
+</ul>
 <p>Important note: If you want to manage white/blacklists with iRedAdmin-Pro,
 you have to enable plugin <code>amavisd_wblist</code>.</p>
 <p>Please follow below tutorial to upgrade iRedAPD to the latest stable release:

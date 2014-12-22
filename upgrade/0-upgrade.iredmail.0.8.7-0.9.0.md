@@ -40,8 +40,28 @@ latest stable release immediately: [How to upgrade Roundcube](http://trac.roundc
 
 ### Upgrade iRedAPD (Postfix policy server) to the latest 1.4.4
 
-iRedAPD-1.4.4 brings several new plugins, and works with Postfix parameter
-`smtpd_end_of_data_restrictions` (protocol state `END-OF-MESSAGE`).
+> Note: it's strongly recommended to enable plugin `reject_null_sender` to
+> prevent spam.
+
+iRedAPD-1.4.4 fixes several issues and brings some new features:
+
+* New plugins:
+    * `reject_null_sender`: prevent authenticated user to send spam as null
+      sender (`from=<>` in Postfix log file).
+    * `amavisd_wblist`: it uses per-recipient white/blacklists stored in
+      Amavisd SQL database to reject emails sent from blacklisted senders and
+      bypass whitelisted senders.
+
+        White/blacklist could be global (server-wide) setting, per-domain setting,
+        or per-user setting. Priority: per-user > per-domain > global.
+
+    * `amavisd_message_size_limit`: limit size of single incoming mail.
+
+        Message size limit could be global (server-wide) setting, per-domain setting,
+        or per-user setting. Priority: per-user > per-domain > global.
+
+* iRedAPD now works with Postfix parameter `smtpd_end_of_data_restrictions`
+  (smtp protocol state `END-OF-MESSAGE`).
 
 Important note: If you want to manage white/blacklists with iRedAdmin-Pro,
 you have to enable plugin `amavisd_wblist`.
