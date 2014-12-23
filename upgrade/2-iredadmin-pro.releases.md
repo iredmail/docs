@@ -2,11 +2,15 @@
 
 [TOC]
 
+## Upgrade iRedAdmin-Pro
+
 With the latest iRedAdmin-Pro, you can simply upgrade old releases by following
 this tutorial with just one shell command:
 [Migrate or upgrade iRedAdmin](./migrate.or.upgrade.iredadmin.html)
 
-## iRedAdmin-Pro-LDAP (for OpenLDAP backend)
+## Release Notes
+
+### iRedAdmin-Pro-LDAP (for OpenLDAP backend)
 
 * 2.2.0, 2014-12-??
 * [2.1.2](http://www.iredmail.org/forum/topic6925-news-announcements-bug-fixes-iredadminproldap212-has-been-released.html), 2014-05-16
@@ -26,7 +30,7 @@ this tutorial with just one shell command:
 * [1.3.0](http://www.iredmail.org/wiki/index.php?title=Release.Notes/iRedAdmin-Pro/LDAP/1.3.0), 2010-10-01
 * [1.2.0](http://www.iredmail.org/wiki/index.php?title=Release.Notes/iRedAdmin-Pro/LDAP/1.2.0), 2010-06-18
 
-## iRedAdmin-Pro-MySQL (for MySQL/MariaDB backend)
+### iRedAdmin-Pro-MySQL (for MySQL/MariaDB backend)
 
 * 1.9.0, 2014-12-??
 * [1.8.2](http://www.iredmail.org/forum/topic6924-news-announcements-bug-fixes-irdadminpromysql182-has-been-released.html), 2014-05-16.
@@ -43,7 +47,7 @@ this tutorial with just one shell command:
 * [1.1.0](http://www.iredmail.org/wiki/index.php?title=Release.Notes/iRedAdmin-Pro/MySQL/1.1.0), 2011-05-03
 * [1.0](http://www.iredmail.org/wiki/index.php?title=Release.Notes/iRedAdmin-Pro/MySQL/1.0), 2011-02-01
 
-## iRedAdmin-Pro-PGSQL (for PostgreSQL backend)
+### iRedAdmin-Pro-PGSQL (for PostgreSQL backend)
 
 * 1.5.0, 2014-12-??
 * [1.4.2](http://www.iredmail.org/forum/topic6926-news-announcements-bug-fixes-iredadminpropgsql142-has-been-released.html), 2014-05-16.
