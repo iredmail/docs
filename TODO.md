@@ -1,6 +1,5 @@
 # TODO
 
-* how to translate iRedAdmin-Pro: http://www.iredmail.org/forum/topic378-faq-how-to-translate-iredadmin-to-your-language.html
 * iRedAdmin-Pro installation guides
 
     * http://www.iredmail.org/admin_installation_debian.html
@@ -70,6 +69,7 @@
 
 # FAQ
 
+* ~~ http://www.iredmail.org/forum/topic378-faq-how-to-translate-iredadmin-to-your-language.html ~~
 * ~~ http://www.iredmail.org/wiki/index.php?title=IRedAdmin-Pro/FAQ/change.default.password.policy ~~
 * ~~ http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/Turn.On.Debug.Mode.In.Amavisd ~~
 * ~~ http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/SQL/Create.Mail.Alias ~~
