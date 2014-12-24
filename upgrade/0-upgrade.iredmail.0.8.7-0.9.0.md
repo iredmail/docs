@@ -8,6 +8,7 @@ __STILL WORKING IN PROGRESS, DO NOT APPLY IT.__
 
 ## ChangeLog
 
+* 2014-12-24: [All backends] Modify type of SQL column `policy.policy_name` to VARCHAR(255).
 * 2014-12-04: [All backends] Disable SSL v3 in Apache, Postfix, Dovecot.
 * 2014-11-13: [All backends] Add index for SQL column `msgs.spam_level` in `amavisd` database.
 * 2014-11-06: [All backends] Fix improper SQL query command in domain transport query file.
@@ -275,6 +276,7 @@ Now connect to SQL server as MySQL root user, create new columns, add required I
 ```
 $ mysql -uroot -p
 mysql> USE amavisd;
+mysql> ALTER TABLE policy MODIFY COLUMN policy_name VARCHAR(255) NOT NULL DEFAULT '';
 mysql> CREATE UNIQUE INDEX policy_idx_policy_name ON policy (policy_name);
 mysql> CREATE INDEX msgs_idx_spam_level ON msgs (spam_level);
 ```
@@ -317,6 +319,7 @@ mysql> ALTER TABLE mailbox ADD COLUMN `enableindexer-worker` TINYINT(1) NOT NULL
 mysql> ALTER TABLE mailbox ADD INDEX (`enableindexer-worker`);
 
 mysql> USE amavisd;
+mysql> ALTER TABLE policy MODIFY COLUMN policy_name VARCHAR(255) NOT NULL DEFAULT '';
 mysql> CREATE UNIQUE INDEX policy_idx_policy_name ON policy (policy_name);
 mysql> CREATE INDEX msgs_idx_spam_level ON msgs (spam_level);
 ```
@@ -359,6 +362,7 @@ sql> ALTER TABLE mailbox ADD COLUMN enableindexer-worker INT2 NOT NULL DEFAULT 1
 sql> CREATE INDEX idx_mailbox_enableindexer_worker ON mailbox (enableindexer-worker);
 
 sql> \c amavisd;
+sql> ALTER TABLE policy ALTER COLUMN policy_name TYPE varchar(255);
 sql> CREATE UNIQUE INDEX policy_idx_policy_name ON policy (policy_name);
 sql> CREATE INDEX msgs_idx_spam_level ON msgs (spam_level);
 ```

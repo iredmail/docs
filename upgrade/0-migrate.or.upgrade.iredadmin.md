@@ -33,17 +33,8 @@ example, please replace x.y.z by the real file name. For example,
   server as root user (for MySQL/MariaDB, it's `root` user, for PostgreSQL,
   it's `postgres` user) to alter SQL table `iredadmin.log` with below SQL command:
 
-    * For MySQL/MariaDB:
-```
-sql> ALTER TABLE log MODIFY COLUMN ip VARCHAR(40) NOT NULL DEFAULT '';
-```
-
-    * For PostgreSQL:
-
-```
-sql> ALTER TABLE log ALTER COLUMN ip TYPE varchar(40);
-```
-
+    * For MySQL/MariaDB: <pre>sql> ALTER TABLE log MODIFY COLUMN ip VARCHAR(40) NOT NULL DEFAULT '';</pre>
+    * For PostgreSQL: <pre>sql> ALTER TABLE log ALTER COLUMN ip TYPE varchar(40);</pre>
 
 That's all. If it doesn't work for you, please post a new topic in our
 [online support forum](http://www.iredmail.org/forum/).

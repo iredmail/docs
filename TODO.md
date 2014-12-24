@@ -1,5 +1,6 @@
 # TODO
 
+* how to translate iRedAdmin-Pro: http://www.iredmail.org/forum/topic378-faq-how-to-translate-iredadmin-to-your-language.html
 * iRedAdmin-Pro installation guides
 
     * http://www.iredmail.org/admin_installation_debian.html
