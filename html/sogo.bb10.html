@@ -1,7 +1,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title>BlackBerry 10: Add calendar (CalDAV) and contact (CardDAV) services</title>
+        <title>Setup mail account on BlackBerry 10 OS (Microsoft Exchange ActiveSync)</title>
         <link href="./css/markdown.css" rel="stylesheet"></head>
     </head>
     <body>
@@ -10,10 +10,9 @@
         <a href="http://www.iredmail.org" target="_blank">iRedMail web site</a>
     
         // <a href="./index.html">Document Index</a>
-    </div><h1 id="blackberry-10-add-calendar-caldav-and-contact-carddav-services">BlackBerry 10: Add calendar (CalDAV) and contact (CardDAV) services</h1>
+    </div><h1 id="setup-mail-account-on-blackberry-10-os-microsoft-exchange-activesync">Setup mail account on BlackBerry 10 OS (Microsoft Exchange ActiveSync)</h1>
 <blockquote>
-<p>To use calendar service (CalDAV protocol) and contact service (CardDAV
-protocol), you must choose to install SOGo groupware during iRedMail installation.</p>
+<p>NOTE: you must choose to install SOGo groupware during iRedMail installation.</p>
 </blockquote>
 <p>1: Open application <code>Settings</code>:</p>
 <p><img alt="" src="./images/sogo/bb10.settings.png" /></p>
@@ -23,18 +22,21 @@ protocol), you must choose to install SOGo groupware during iRedMail installatio
 <p><img alt="" src="./images/sogo/bb10.settings.accounts.list.png" /></p>
 <p>4: Click <code>Advanced</code> at the bottom:</p>
 <p><img alt="" src="./images/sogo/bb10.settings.add.account.png" /></p>
-<p>5: To add calendar service, please chose <code>CalDAV</code>. To add contact service,
-   please choose <code>CardDAV</code>. They have same settings.</p>
-<p><img alt="" src="./images/sogo/bb10.settings.add.account.advanced.png" /></p>
+<p>5: Choose <code>Microsoft Exchange ActiveSync</code>.</p>
+<p><img alt="" src="./images/sogo/bb10.add.exchange.png" /></p>
 <p>6: Fill up the form with your server address and email account credential</p>
 <ul>
-<li>Description: <code>you can type anything here as description for this service</code></li>
+<li>Description: <code>you can type anything here</code></li>
+<li>Domain: <code>you can type anything here</code></li>
 <li>Username: <code>your full email address</code></li>
 <li>Email Address: <code>your full email address</code></li>
 <li>Password: <code>password of your email account</code></li>
-<li>Server Address: <code>https://[server name or IP address]/SOGo/dav/[your full email address]</code></li>
+<li>Server Address: <code>your server name or IP address</code></li>
+<li>Port: <code>443</code></li>
+<li>Use SSL: checked</li>
 </ul>
-<p><img alt="" src="./images/sogo/bb10.caldav.png" /></p><p style="text-align: center; color: grey;">Document published under a <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">CC BY-ND 3.0</a> license. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.<!-- Google Analytics -->
+<p><img alt="" src="./images/sogo/bb10.exchange.1.png" />
+<img alt="" src="./images/sogo/bb10.exchange.2.png" /></p><p style="text-align: center; color: grey;">Document published under a <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">CC BY-ND 3.0</a> license. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.<!-- Google Analytics -->
 <script type="text/javascript">
     var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
     document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
