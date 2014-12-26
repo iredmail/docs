@@ -8,14 +8,6 @@
     * http://www.iredmail.org/admin_installation_rhel.html
     * http://www.iredmail.org/admin_installation_openbsd.html
 
-* New tutorial: which config files must be update if i want to change hostname
-
-    * re-generate ssl cert/key
-    * /etc/postfix/main.cf
-    * /etc/amavisd/amavisd.conf
-    * /etc/hosts, /var/spool/postfix/etc/hosts
-    * /usr/local/bin/dovecot-quota-warning.sh (old iredmail release)
-
 * How to enable SSHA512/BCRYPT in Dovecot + Roundcubemail.
 * How to custom SpamAssassin scores
 * How to enable DNSBL in Postfix.
@@ -48,6 +40,7 @@
 
 # Howto
 
+* ~~ New tutorial: which config files must be update if i want to change hostname ~~
 * ~~ http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/Dovecot.Master.User ~~
 * ~~ Upgrade iRedAPD: http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/Upgrade.iRedAPD ~~
 * ~~ http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/MySQL/per-user.send.receive.restrictions ~~
