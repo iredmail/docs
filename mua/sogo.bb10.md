@@ -1,4 +1,4 @@
-# Setup mail account on BlackBerry 10 OS (Microsoft Exchange ActiveSync)
+# Setup on BlackBerry 10 OS (Microsoft Exchange ActiveSync)
 
 > NOTE: you must choose to install SOGo groupware during iRedMail installation.
 
