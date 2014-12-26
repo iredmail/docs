@@ -1,0 +1,40 @@
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Change server hostname</title>
+        <link href="./css/markdown.css" rel="stylesheet"></head>
+    </head>
+    <body>
+    
+    <div id="navigation">
+        <a href="http://www.iredmail.org" target="_blank">iRedMail web site</a>
+    
+        // <a href="./index.html">Document Index</a>
+    </div><h1 id="change-server-hostname">Change server hostname</h1>
+<p>If you want to change server hostname, please replace old hostname in below
+files:</p>
+<ul>
+<li>Update Postfix config file <code>/etc/postfix/main.cf</code>.</li>
+<li>Amavisd config file <code>/etc/amavisd/amavisd.conf</code> or <code>/etc/amavis/conf.d/50-user</code> (Debian/Ubuntu).</li>
+<li><code>/etc/hosts</code></li>
+<li><code>/var/spool/postfix/etc/hosts</code></li>
+<li>
+<p><code>/usr/local/bin/dovecot-quota-warning.sh</code>, required only if you're running
+  iRedMail-0.8.7 or earlier releases.</p>
+</li>
+<li>
+<p>Re-generate ssl cert and key with script <code>tools/generate_ssl_keys.sh</code> shipped
+  in iRedMail.</p>
+</li>
+</ul><p style="text-align: center; color: grey;">Document published under a <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">CC BY-ND 3.0</a> license. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.<!-- Google Analytics -->
+<script type="text/javascript">
+    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+    try {
+        var pageTracker = _gat._getTracker("UA-3293801-14");
+        pageTracker._trackPageview();
+    } catch(err) {}
+</script>
+</body></html>
