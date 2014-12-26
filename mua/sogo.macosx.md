@@ -1,4 +1,4 @@
-# Setup on Mac OS X (Microsoft Exchange ActiveSync)
+# Setup Mac OS X (Microsoft Exchange ActiveSync)
 
 > Requirements:
 >
