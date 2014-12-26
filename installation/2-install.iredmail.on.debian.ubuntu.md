@@ -184,7 +184,12 @@ Configuration completed.
     * Some other important and sensitive information
 
 * [Setup DNS records for your mail server](./setup.dns.html)
-* [Configure Thunderbird as mail client (POP3/IMAP, SMTP and global ldap address book)](./configure.thunderbird.html)
+* [How to configure your mail clients](./index.html#configure-mail-client-applications)
+* It's highly recommended to purchase a SSL cert to avoid annonying warning
+  message in web browser or mail clients when accessing mailbox via
+  HTTPS/IMAPS/POP3/SMTPS. Or, you can use
+  [free SSL cert offerred by StartSSL.com](http://www.startssl.com/?app=1).
+
 
 ## Access webmail and other web applications
 
