@@ -1,6 +1,9 @@
 # Setup on Mac OS X (Microsoft Exchange ActiveSync)
 
-> NOTE: you must choose to install SOGo groupware during iRedMail installation.
+> Requirements:
+>
+> * iRedMail-0.9.0 or later releases is required.
+> * You must choose to install SOGo groupware during iRedMail installation.
 
 1: Open application `System Preferences`:
 
