@@ -1,13 +1,5 @@
 # TODO
 
-* iRedAdmin-Pro installation guides
-
-    * http://www.iredmail.org/admin_installation_debian.html
-    * http://www.iredmail.org/admin_installation_opensuse.html
-    * http://www.iredmail.org/admin_installation_freebsd.html
-    * http://www.iredmail.org/admin_installation_rhel.html
-    * http://www.iredmail.org/admin_installation_openbsd.html
-
 * How to enable SSHA512/BCRYPT in Dovecot + Roundcubemail.
 * How to custom SpamAssassin scores
 * How to enable DNSBL in Postfix.
@@ -28,6 +20,14 @@
 * ~~ http://www.iredmail.org/wiki/index.php?title=Integration/Active.Directory.iRedMail ~~
 
 # installation guides
+
+* ~~ iRedAdmin-Pro installation guides ~~
+
+    * ~~ http://www.iredmail.org/admin_installation_debian.html ~~
+    * http://www.iredmail.org/admin_installation_opensuse.html
+    * ~~ http://www.iredmail.org/admin_installation_freebsd.html ~~
+    * ~~ http://www.iredmail.org/admin_installation_rhel.html ~~
+    * ~~ http://www.iredmail.org/admin_installation_openbsd.html ~~
 
 * ~~http://www.iredmail.org/install_iredmail_on_debian.html~~
 * ~~http://www.iredmail.org/install_iredmail_on_ubuntu.html~~

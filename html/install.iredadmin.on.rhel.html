@@ -1,0 +1,157 @@
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Install iRedAdmin on Red Hat Enterprise Linux, CentOS, Scientific Linux</title>
+        <link href="./css/markdown.css" rel="stylesheet"></head>
+    </head>
+    <body>
+    
+    <div id="navigation">
+        <a href="http://www.iredmail.org" target="_blank">iRedMail web site</a>
+    
+        // <a href="./index.html">Document Index</a>
+    </div><h1 id="install-iredadmin-on-red-hat-enterprise-linux-centos-scientific-linux">Install iRedAdmin on Red Hat Enterprise Linux, CentOS, Scientific Linux</h1>
+<blockquote>
+<p>This tutorial is used to install iRedAdmin from scratch, running under Apache
+web server.</p>
+<p>If you already have iRedAdmin open source edition or old iRedAdmin-Pro release
+installed, you can simply migrate it to the latest iRedAdmin by follow our short
+tutorial: <a href="./migrate.or.upgrade.iredadmin.html">Migrate or upgrade iRedAdmin</a>.</p>
+</blockquote>
+<h2 id="requirements">Requirements</h2>
+<blockquote>
+<p>iRedMail will install all required packages for you, you don't need to
+install them manually.</p>
+</blockquote>
+<ul>
+<li>
+<p><code>Apache</code> 2.2+. Web server.</p>
+<ul>
+<li><code>mod_wsgi</code> 2.1+. Apache module used to host Python application which supports the Python WSGI interface.</li>
+</ul>
+</li>
+<li>
+<p><code>Python</code> 2.4+, core programming language. Warning: Python 3.x is not supported yet.</p>
+<ul>
+<li><code>web.py</code>, 0.32+. A python-powered web framework.</li>
+<li><code>MySQLdb</code>: A thread-compatible interface to the popular MySQL database server that provides the Python database API. Required if you store mail accounts in OpenLDAP, MySQL or MariaDB.</li>
+<li><code>Python-LDAP</code> 2.3.7+: An object-oriented API to access LDAP directory servers from Python programs. Required if you store mail accounts in OpenLDAP.</li>
+<li><code>Python-psycopg2</code>: interface to the PostgreSQL database server from Python programs. Required if you store mail accounts in PostgreSQL.</li>
+</ul>
+</li>
+</ul>
+<h2 id="download-iredadmin-and-configure-apache-web-server">Download iRedAdmin and configure Apache web server</h2>
+<ul>
+<li>
+<p>Download iRedAdmin open source edition <a href="http://www.iredmail.org/yum/misc/">here</a>.
+  If you're trying to install iRedAdmin-Pro, please <a href="../contact.html">contact us</a>
+  to get download link of iRedAdmin-Pro.</p>
+</li>
+<li>
+<p>Copy iRedAdmin to <code>/var/www/</code>, set correct file permissions, and create symbol link.</p>
+</li>
+</ul>
+<pre><code># tar xjf iRedAdmin-x.y.z.tar.bz2 -C /var/www/
+# cd /var/www/
+# chown -R iredadmin:iredadmin iRedAdmin-x.y.z
+# chmod -R 0555 iRedAdmin-x.y.z
+# ln -s iRedAdmin-x.y.z iredadmin
+</code></pre>
+
+<ul>
+<li>Add apache configure file: <code>/etc/httpd/conf.d/iredadmin.conf</code>:</li>
+</ul>
+<pre><code>WSGISocketPrefix /var/run/wsgi
+WSGIDaemonProcess iredadmin user=iredadmin threads=15
+WSGIProcessGroup iredadmin
+
+AddType text/html .py
+
+&lt;Directory /var/www/iredadmin/&gt;
+    Order deny,allow
+    Allow from all
+&lt;/Directory&gt;
+</code></pre>
+
+<ul>
+<li>Edit <code>/etc/httpd/conf.d/ssl.conf</code>, make iredadmin accessible via HTTPS.
+  Add below lines before <code>&lt;/VirtualHost&gt;</code>:</li>
+</ul>
+<pre><code>WSGIScriptAlias /iredadmin /var/www/iredadmin/iredadmin.py/
+Alias /iredadmin/static /var/www/iredadmin/static/
+</code></pre>
+
+<ul>
+<li>Restart apache to enable mod_wsgi:</li>
+</ul>
+<pre><code># /etc/init.d/httpd restart
+</code></pre>
+
+<h2 id="create-required-mysql-database-and-grant-privileges">Create required MySQL database and grant privileges</h2>
+<ul>
+<li>Create MySQL database: <code>iredadmin</code>.</li>
+</ul>
+<pre><code># mysql -uroot -p
+mysql&gt; CREATE DATABASE iredadmin DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+mysql&gt; USE iredadmin;
+mysql&gt; SOURCE /var/www/iredadmin/docs/samples/iredadmin.sql;
+</code></pre>
+
+<ul>
+<li>Grant privileges to iredadmin user and set password for it. WARNING: Here we
+  use 'secret_passwd' as password of iredadmin user, please replace it with
+  your own password.</li>
+</ul>
+<pre><code># mysql -uroot -p
+mysql&gt; GRANT SELECT,INSERT,UPDATE,DELETE ON iredadmin.* TO iredadmin@localhost IDENTIFIED BY 'secret_passwd';
+mysql&gt; FLUSH PRIVILEGES;
+</code></pre>
+
+<h2 id="configure-iredadmin">Configure iRedAdmin</h2>
+<ul>
+<li>
+<p>Copy sample config file, and make it not world-writeable.</p>
+<ul>
+<li>settings.py.ldap.sample: sample config file for OpenLDAP backend</li>
+<li>settings.py.mysql.sample: sample config file for MySQL/MariaDB backend</li>
+<li>settings.py.pgsql.sample: sample config file for PostgreSQL backend</li>
+</ul>
+</li>
+</ul>
+<pre><code># cd /var/www/iredadmin/
+# cp settings.py.[backend].sample settings.py
+# chown iredadmin:iredadmin settings.py
+# chmod 0400 settings.py
+</code></pre>
+
+<ul>
+<li>
+<p>Update settings.py with correct values. Please read <code>settings.py</code> for more
+  information, it's self-documented.</p>
+</li>
+<li>
+<p>Restart apache web server.</p>
+</li>
+</ul>
+<pre><code># /etc/init.d/httpd restart
+</code></pre>
+
+<h2 id="access-iredadmin">Access iRedAdmin</h2>
+<p>Open your web browser to access iRedAdmin: <code>httpS://your_server_ip_address/iredadmin/</code></p>
+<p>Make sure you use <code>HTTPS://</code> instead of <code>HTTP://</code>.</p>
+<h2 id="troubleshooting-debug">Troubleshooting &amp; Debug</h2>
+<p>If iRedAdmin doesn't work as expected, you can simplily set <code>DEBUG = True</code> in
+<code>settings.py</code>, restart apache web server, use your favourite web browser to
+access it again, create a new <a href="http://www.iredmail.org/forum/">forum</a> topic and
+paste error message in your forum topic.</p><p style="text-align: center; color: grey;">Document published under a <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">CC BY-ND 3.0</a> license. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.<!-- Google Analytics -->
+<script type="text/javascript">
+    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+    try {
+        var pageTracker = _gat._getTracker("UA-3293801-14");
+        pageTracker._trackPageview();
+    } catch(err) {}
+</script>
+</body></html>
