@@ -4,7 +4,9 @@
 >
 > * iRedMail-0.9.0 doesn't integrate [OpenChange](http://www.openchange.org) and
 >   [Samba4](http://www.samba.org), so SOGo groupware in iRedMail can NOT
->   provide full support for Microsoft Outlook clients.
+>   provide full support for Microsoft Outlook clients, Mac OS X Mail.app and
+>   all iOS devices, don't try to add your mail account as an `Exchange`
+>   account in these mail clients.
 
 ## Requirements
 
