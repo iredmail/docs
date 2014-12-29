@@ -58,16 +58,17 @@
 <h2 id="general-all-backends-should-apply-these-steps">General (All backends should apply these steps)</h2>
 <h3 id="apply-hotfix-for-iredmail-051">Apply hotfix for iRedMail-0.5.1</h3>
 <ul>
-<li>[Incorrect crontab job of vmail user] (http://www.iredmail.org/forum/topic418-fixed-in-051-incorrect-crontab-job-of-vmail-user.html)</li>
+<li><a href="http://www.iredmail.org/forum/topic418-fixed-in-051-incorrect-crontab-job-of-vmail-user.html">Incorrect crontab job of vmail user</a></li>
 <li><a href="http://www.iredmail.org/forum/topic398-fixed-in-iredadmin011-not-all-arguments-converted.html">iRedAdmin-0.1.1 (shipped in iRedMail-0.5.1): not all arguments converted during string formatting</a></li>
 </ul>
 <h3 id="add-missing-mysql-table-debianubuntu-only">Add missing MySQL table (Debian/Ubuntu only)</h3>
 <p><strong>Note</strong>: This step is applicable to only Debian/Ubuntu.</p>
 <p>You should manually import another MySQL table if you are using below distributions:</p>
-<pre><code>* Debian 5
-* Ubuntu 8.04
-* Ubuntu 9.04
-</code></pre>
+<ul>
+<li>Debian 5</li>
+<li>Ubuntu 8.04</li>
+<li>Ubuntu 9.04</li>
+</ul>
 <pre><code>$ mysql -uroot -p postfixpolicyd
 mysql&gt; SOURCE /usr/share/dbconfig-common/data/postfix-policyd/upgrade/mysql/1.73-1;
 mysql&gt; GRANT SELECT,INSERT,UPDATE,DELETE ON postfixpolicyd.* TO postfix-policyd@localhost;
@@ -500,11 +501,13 @@ attribute manually now.</p>
 </ul>
 <p>Both <code>enabledService=sieve</code> and <code>enabledService=sievesecured</code> are used in
 Dovecot-1.2.x, for builtin managesieve service. <code>enabledService=internal</code> is
-used for shared IMAP folder. 'objectClass=amavisAccount' is used for
+used for shared IMAP folder. <code>objectClass=amavisAccount</code> is used for
 Amavisd-new integration, for example, per-user anti-spam settings, anti-virus
 control.</p>
-<p>Steps:
-* Download python script used to adding missing values.</p>
+<p>Steps:</p>
+<ul>
+<li>Download python script used to adding missing values.</li>
+</ul>
 <pre><code># cd /root/
 # wget http://iredmail.googlecode.com/hg/extra/update/updateLDAPValues_051_to_060.py
 </code></pre>

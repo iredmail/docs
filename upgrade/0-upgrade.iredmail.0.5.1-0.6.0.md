@@ -14,7 +14,7 @@
 
 ### Apply hotfix for iRedMail-0.5.1
 
-* [Incorrect crontab job of vmail user] (http://www.iredmail.org/forum/topic418-fixed-in-051-incorrect-crontab-job-of-vmail-user.html)
+* [Incorrect crontab job of vmail user](http://www.iredmail.org/forum/topic418-fixed-in-051-incorrect-crontab-job-of-vmail-user.html)
 * [iRedAdmin-0.1.1 (shipped in iRedMail-0.5.1): not all arguments converted during string formatting](http://www.iredmail.org/forum/topic398-fixed-in-iredadmin011-not-all-arguments-converted.html)
 
 ### Add missing MySQL table (Debian/Ubuntu only)
@@ -23,9 +23,9 @@ __Note__: This step is applicable to only Debian/Ubuntu.
 
 You should manually import another MySQL table if you are using below distributions:
 
-    * Debian 5
-    * Ubuntu 8.04
-    * Ubuntu 9.04
+* Debian 5
+* Ubuntu 8.04
+* Ubuntu 9.04
 
 ```
 $ mysql -uroot -p postfixpolicyd
@@ -472,11 +472,12 @@ iRedMail-0.6.0 requires some more values of attribute `enabledService` and `obje
 
 Both `enabledService=sieve` and `enabledService=sievesecured` are used in
 Dovecot-1.2.x, for builtin managesieve service. `enabledService=internal` is
-used for shared IMAP folder. 'objectClass=amavisAccount' is used for
+used for shared IMAP folder. `objectClass=amavisAccount` is used for
 Amavisd-new integration, for example, per-user anti-spam settings, anti-virus
 control.
 
 Steps:
+
 * Download python script used to adding missing values.
 ```
 # cd /root/

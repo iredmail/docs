@@ -1,9 +1,17 @@
 # Setup BlackBerry 10 OS (Microsoft Exchange ActiveSync)
 
-> Requirements:
+> Important note:
 >
-> * iRedMail-0.9.0 or later releases is required.
-> * You must choose to install SOGo groupware during iRedMail installation.
+> * iRedMail-0.9.0 doesn't integrate [OpenChange](http://www.openchange.org) and
+>   [Samba4](http://www.samba.org), so SOGo groupware in iRedMail can NOT
+>   provide full support for Microsoft Outlook clients.
+
+## Requirements
+
+* iRedMail-0.9.0 or later releases is required.
+* You must choose to install SOGo groupware during iRedMail installation.
+
+## Steps
 
 1: Open application `Settings`:
 
