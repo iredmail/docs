@@ -1,6 +1,5 @@
 # TODO
 
-* How to enable SSHA512/BCRYPT in Dovecot + Roundcubemail.
 * How to custom SpamAssassin scores
 * How to enable DNSBL in Postfix.
 

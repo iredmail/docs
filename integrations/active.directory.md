@@ -8,7 +8,7 @@ __NOTES__:
   authenticate mail users against Active Directory, you have to manage mail
   accounts with Active Directory management tools, don't buy iRedAdmin-Pro.
 
-* We tested this tutorial on Windows 2000, 2003, 2008 R2 server, if
+* This tutorial has been verified on Windows 2000, 2003, 2008, 2012 server, if
   you tested it on other versions and works well, please let us know.
   [Contact us](http://www.iredmail.org/contact.html)
 
