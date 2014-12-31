@@ -19,7 +19,7 @@
 
 #### Release notes and upgrade tutorials
 
-* [0.9.0](), Dec ??, 2014. [Upgrade from iRedMail-0.8.7](./upgrade.iredmail.0.8.7-0.9.0.html)
+* [0.9.0](), Dec 31, 2014. [Upgrade from iRedMail-0.8.7](./upgrade.iredmail.0.8.7-0.9.0.html)
 * [0.8.7](http://www.iredmail.org/forum/topic6872-news-announcements-bug-fixes-iredmail087-has-been-released.html), May 13, 2014. [Upgrade from iRedMail-0.8.6](./upgrade.iredmail.0.8.6-0.8.7.html)
 * [0.8.6](http://www.iredmail.org/forum/topic5831-iredmail086-has-been-released.html), Dec 16, 2013. [Upgrade from iRedMail-0.8.5](./upgrade.iredmail.0.8.5-0.8.6.html)
 * [0.8.5](http://www.iredmail.org/forum/topic5167-news-announcements-bug-fixes-iredmail085-has-been-released.html), Jul 16, 2013. [Upgrade from iRedMail-0.8.4](./upgrade.iredmail.0.8.4-0.8.5.html)
