@@ -34,7 +34,7 @@ recommended), please comment out Postfix parameter `smtpd_tls_auth_only = yes`
 in its config file `/etc/postfix/main.cf`.
 
 * if you want to enable SMTPS (SMTP over SSL, port `465`) to support legency
-mail clients, please follow this tutorial: (How to enable SMTPS service)[./faq-howto/howto.enable.smtps.service].
+mail clients, please follow this tutorial: [How to enable SMTPS service](./enable.smtps.html).
 
 ##LDAP: migrate mail accounts
 
