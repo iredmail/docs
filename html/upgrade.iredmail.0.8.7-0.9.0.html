@@ -88,6 +88,10 @@ prevent spam.</p>
 <p>iRedAPD-1.4.4 fixes several issues and brings some new features:</p>
 <ul>
 <li>
+<p>iRedAPD now works with Postfix parameter <code>smtpd_end_of_data_restrictions</code>
+  (smtp protocol state <code>END-OF-MESSAGE</code>).</p>
+</li>
+<li>
 <p>New plugins:</p>
 <ul>
 <li><code>reject_null_sender</code>: prevent authenticated user to send spam as null
@@ -107,8 +111,10 @@ or per-user setting. Priority: per-user &gt; per-domain &gt; global.</p>
 </ul>
 </li>
 <li>
-<p>iRedAPD now works with Postfix parameter <code>smtpd_end_of_data_restrictions</code>
-  (smtp protocol state <code>END-OF-MESSAGE</code>).</p>
+<p>Plugin <code>reject_sender_login_mismatch</code> now will allow user to send as their
+  own alias addresses by default. You can still set
+  <code>ALLOWED_LOGIN_MISMATCH_STRICTLY = False</code> to allow user to send as any sender
+  if you want.</p>
 </li>
 </ul>
 <p>Important note: If you want to manage white/blacklists with iRedAdmin-Pro,

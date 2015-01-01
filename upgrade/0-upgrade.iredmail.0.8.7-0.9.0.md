@@ -42,6 +42,9 @@ latest stable release immediately: [How to upgrade Roundcube](http://trac.roundc
 
 iRedAPD-1.4.4 fixes several issues and brings some new features:
 
+* iRedAPD now works with Postfix parameter `smtpd_end_of_data_restrictions`
+  (smtp protocol state `END-OF-MESSAGE`).
+
 * New plugins:
     * `reject_null_sender`: prevent authenticated user to send spam as null
       sender (`from=<>` in Postfix log file).
@@ -57,8 +60,10 @@ iRedAPD-1.4.4 fixes several issues and brings some new features:
         Message size limit could be global (server-wide) setting, per-domain setting,
         or per-user setting. Priority: per-user > per-domain > global.
 
-* iRedAPD now works with Postfix parameter `smtpd_end_of_data_restrictions`
-  (smtp protocol state `END-OF-MESSAGE`).
+* Plugin `reject_sender_login_mismatch` now will allow user to send as their
+  own alias addresses by default. You can still set
+  `ALLOWED_LOGIN_MISMATCH_STRICTLY = False` to allow user to send as any sender
+  if you want.
 
 Important note: If you want to manage white/blacklists with iRedAdmin-Pro,
 you have to enable plugin `amavisd_wblist`.
