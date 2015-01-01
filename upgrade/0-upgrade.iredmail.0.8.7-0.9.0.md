@@ -2,10 +2,6 @@
 
 [TOC]
 
-
-__STILL WORKING IN PROGRESS, DO NOT APPLY IT.__
-
-
 ## ChangeLog
 
 * 2014-12-24: [All backends] Modify type of SQL column `policy.policy_name` to VARCHAR(255).
