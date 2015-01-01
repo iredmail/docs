@@ -363,8 +363,8 @@ query       = SELECT transport FROM domain WHERE domain='%s' AND active=1 AND ba
 required indexes:</p>
 <pre><code># su - postgres
 $ psql -d vmail
-sql&gt; ALTER TABLE mailbox ADD COLUMN enableindexer-worker INT2 NOT NULL DEFAULT 1;
-sql&gt; CREATE INDEX idx_mailbox_enableindexer_worker ON mailbox (enableindexer-worker);
+sql&gt; ALTER TABLE mailbox ADD COLUMN &quot;enableindexer-worker&quot; INT2 NOT NULL DEFAULT 1;
+sql&gt; CREATE INDEX idx_mailbox_enableindexer_worker ON mailbox (&quot;enableindexer-worker&quot;);
 
 sql&gt; \c amavisd;
 sql&gt; ALTER TABLE policy ALTER COLUMN policy_name TYPE varchar(255);

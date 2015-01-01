@@ -359,8 +359,8 @@ required indexes:
 ```
 # su - postgres
 $ psql -d vmail
-sql> ALTER TABLE mailbox ADD COLUMN enableindexer-worker INT2 NOT NULL DEFAULT 1;
-sql> CREATE INDEX idx_mailbox_enableindexer_worker ON mailbox (enableindexer-worker);
+sql> ALTER TABLE mailbox ADD COLUMN "enableindexer-worker" INT2 NOT NULL DEFAULT 1;
+sql> CREATE INDEX idx_mailbox_enableindexer_worker ON mailbox ("enableindexer-worker");
 
 sql> \c amavisd;
 sql> ALTER TABLE policy ALTER COLUMN policy_name TYPE varchar(255);
