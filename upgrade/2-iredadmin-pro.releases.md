@@ -2,6 +2,8 @@
 
 [TOC]
 
+> [Upcoming license term changes of iRedAdmin-Pro, occurs on Feb 1, 2015: close source, no more NEW lifetime license.](http://www.iredmail.org/forum/topic8450.html)
+
 ## Upgrade iRedAdmin
 
 With the latest iRedAdmin, you can simply upgrade old releases by following
