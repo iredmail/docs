@@ -90,7 +90,7 @@ The safest short-term response is to disable SSLv3 support.
 
 Please add or update `SSLProtocol` setting in Apache config file like below:
 
-* on RHEL/CentOS, it's `/etc/httpd/conf/httpd.conf`.
+* on RHEL/CentOS, it's `/etc/httpd/conf.d/ssl.conf`.
 * on Debian/Ubuntu, it's `/etc/apache2/apache2.conf`.
 * on FreeBSD, it's `/usr/local/etc/apache2[X]/httpd.conf`. Please replace
   `apache2[X]` by the real Apache version number here.
