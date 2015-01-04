@@ -10,6 +10,7 @@ e.g. MySQL, OpenLDAP, Postfix, Dovecot, Amavisd, etc. iRedMail will install
 and configure them for you automatically. Otherwise it may override your
 existing files/configurations althought it will backup files before modifing,
 and it may be not working as expected.
+
 To install iRedMail on OpenBSD, you need:
 
 * A __FRESH__, working OpenBSD system. Supported releases are listed on
@@ -27,7 +28,12 @@ To install iRedMail on OpenBSD, you need:
 
 Notes:
 
-* All binary packages will be installed with command `pkg_add -i`.
+* All binary packages will be installed with command `pkg_add -i`. It will
+  prompt you to choose different versions of binary packages, please choose
+  the one described below:
+
+    * choose `p5-Mail-SPF`, NOT `p5-Mail-SPF-Query`
+
 * Apache chroot is disabled by default, required by iRedAdmin - the web-based
   admin panel.
 * PF is enabled by default, with basic rules for ssh and mail services.
