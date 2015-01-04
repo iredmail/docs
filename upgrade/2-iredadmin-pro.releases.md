@@ -10,18 +10,6 @@ With the latest iRedAdmin, you can simply upgrade old releases by following
 this tutorial with just one shell command:
 [Migrate or upgrade iRedAdmin](./migrate.or.upgrade.iredadmin.html)
 
-#### How to download the latest iRedAdmin-Pro
-
-All customers can get download link of new release by following below steps:
-
-* Login to iRedAdmin-Pro as global admin.
-* Click `License` button on the top-right corner. it will show you basic
-  license info and a `Download` button if new version is available.
-* Click `Download` button, your mailbox (license owner) will receive an email
-  with download link in a short time. Note: if your mail server has greylisting
-  enabled, it may take longer, please be patient and don't request download
-  link again and again.
-
 ## Install iRedAdmin from scratch
 
 * [Install iRedAdmin on Red Hat Enterprise Linux, CentOS, Scientific Linux](./install.iredadmin.on.rhel.html)

@@ -8,8 +8,25 @@ either open source edition or iRedAdmin-Pro).
 
 ## Requirements
 
-* You __MUST__ have iRedAdmin open source edition or old iRedAdmin-Pro release
+You __MUST__ have iRedAdmin open source edition or old iRedAdmin-Pro release
 installed and running on your server before upgrading.
+
+## Download the latest iRedAdmin
+
+* iRedAdmin (open source edition) is available for download [here](http://www.iredmail.org/yum/misc/).
+* How to download the latest iRedAdmin-Pro
+
+    All customers can get download link of new release by following below steps:
+
+    * Login to iRedAdmin-Pro as global admin.
+    * Click `License` button on the top-right corner. it will show you basic
+      license info and a `Download` button if new version is available.
+    * Click `Download` button, your mailbox (license owner) will receive an email
+      with download link in a short time. Note: if your mail server has greylisting
+      enabled, it may take longer, please be patient and don't request download
+      link again and again.
+
+    if you cannot download iRedAdmin-Pro for some reason, [contact us](../contact.html) directly.
 
 ## Upgrade Steps
 

@@ -1,7 +1,10 @@
 # TODO
 
+* How to install and configure SOGo groupware
+* How to install and configure Nginx
 * How to custom SpamAssassin scores
 * How to enable DNSBL in Postfix.
+* How to install and configure mlmmj (mailing list management tool)
 
 * http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/Send.out.email.from.specified.IP.address
 * http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/Backup
