@@ -280,7 +280,7 @@ $rcmail_config['plugins'] = array("password", "managesieve",);
 
 ### Upgrade phpMyAdmin to 2.11.10
 
-phpMyAdmin doesn't require addition config, you can simply download new version
+phpMyAdmin doesn't require additional config, you can simply download new version
 and copy old config file into new version.
 
 * Download new version and uncompress it:
@@ -331,7 +331,7 @@ and copy old config file into new version.
 ### Use newest schema file
 
 NOTE: New LDAP schema provides several new attributes, but it's backwards
-compatibility, it's __SAFE__ to replace the old one without addition operations.
+compatibility, it's __SAFE__ to replace the old one without additional operations.
 
 To use the newest iRedMail ldap schem file, we have to:
 * Download the newest iRedMail ldap schema file
@@ -419,7 +419,7 @@ index shadowAddress eq,pres,sub
 ```
 
 If `shadowAddress` already exists in `slapd.conf`, you don't need to do
-addition operations. If you add them now, you have to initially index this
+additional operations. If you add them now, you have to initially index this
 attribute manually now.
 
 * Stop OpenLDAP service first.
@@ -639,7 +639,7 @@ $rcmail_config['password_ldap_force_replace'] = false;
 
 ### Upgrade phpLDAPadmin to 1.2.0.5
 
-phpLDAPadmin doesn't require addition config, you can simply download new
+phpLDAPadmin doesn't require additional config, you can simply download new
 version and copy sample config file to make it work.
 
 * Download new version and uncompress it:

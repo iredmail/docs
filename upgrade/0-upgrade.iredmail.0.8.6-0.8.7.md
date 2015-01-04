@@ -12,8 +12,8 @@
 * 2014-02-20:
     * Enable Dovecot LMTP service for local mail delivery.
     * [OpenLDAP] Add new value for existing mail users: enabledService=lmtp.
-    * [MySQL/PostgreSQL] Create one addition SQL column in vmail database: mailbox.enablelmtp.
-* 2014-02-19: Create addition SQL columns in vmail database: mailbox.settings, admin.settings, alias.islist.
+    * [MySQL/PostgreSQL] Create one additional SQL column in vmail database: mailbox.enablelmtp.
+* 2014-02-19: Create additional SQL columns in vmail database: mailbox.settings, admin.settings, alias.islist.
 
 ## General (All backends should apply these steps)
 
@@ -114,7 +114,7 @@ Before we go further, there're some questions we have to answer:
 
 Search "dovecot lda vs lmtp" in Google will give you more detailed info and debate.
 
-__NOTE__: On Debian or Ubuntu, you have to install one addition package before
+__NOTE__: On Debian or Ubuntu, you have to install one additional package before
 we go further: `dovecot-lmtpd`.
 
 ```
@@ -314,9 +314,9 @@ That's all.
 We need 5 new SQL columns in `vmail` database:
 
 * `mailbox.enablelmtp`: used by Dovecot LMTP server.
-* `mailbox.settings`: used to store addition per-user settings, default value is empty. Used in iRedAdmin-Pro.
+* `mailbox.settings`: used to store additional per-user settings, default value is empty. Used in iRedAdmin-Pro.
 * `domain.settings`: used to store per-domain settings, default is empty. Used in iRedAdmin-Pro.
-* `admin.settings`: used to store addition per-admin settings, default value is empty. Used in iRedAdmin-Pro.
+* `admin.settings`: used to store additional per-admin settings, default value is empty. Used in iRedAdmin-Pro.
 * `alias.islist`: used to mark a sql record is a mail list account, default value is `0` (means not a mail list account). This helps avoid complex SQL queries.
 
 Some existing columns in table `vmail.domain` are not needed anymore, they will
@@ -367,9 +367,9 @@ mysql> ALTER TABLE domain DROP disableduserprofiles;
 We need 5 new SQL columns in `vmail` database:
 
 * `mailbox.enablelmtp`: used by Dovecot LMTP server.
-* `mailbox.settings`: used to store addition per-user settings, default value is empty. Used in iRedAdmin-Pro.
+* `mailbox.settings`: used to store additional per-user settings, default value is empty. Used in iRedAdmin-Pro.
 * `domain.settings`: used to store per-domain settings, default is empty. Used in iRedAdmin-Pro.
-* `admin.settings`: used to store addition per-admin settings, default value is empty. Used in iRedAdmin-Pro.
+* `admin.settings`: used to store additional per-admin settings, default value is empty. Used in iRedAdmin-Pro.
 * `alias.islist`: used to mark a sql record is a mail list account, default value is `0` (means not a mail list account). This helps avoid complex SQL queries.
 
 Some existing columns in table `vmail.domain` are not needed anymore, they will

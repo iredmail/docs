@@ -28,11 +28,11 @@ show detailed LDAP attributes/values of this domain in right panel.
 * Add a new LDAP attribute `domainAliasName` to this domain account, set value
 to the alias domain (e.g. `domain.com`). Save your change.
 
-Now you should add addition mail address for all mail users, lists, aliases.
-For example, if you have mail user `user@example.com`, you should add addition
+Now you should add additional mail address for all mail users, lists, aliases.
+For example, if you have mail user `user@example.com`, you should add additional
 email address `user@domain.ltd` for this user. Steps:
 
-* Find the LDAP object of mail account which you want to add addition email
+* Find the LDAP object of mail account which you want to add additional email
 address in left panel of phpLDAPadmin, for example, user `user@example.com`,
 click the ldap object, phpLDAPadmin will show detailed LDAP attributes/values
 in right panel.
@@ -44,4 +44,4 @@ original email address.
 * Save your change.
 
 If you have several mail accounts (mail users, lists, aliases), you have to
-add addition email address for them all.
+add additional email address for them all.

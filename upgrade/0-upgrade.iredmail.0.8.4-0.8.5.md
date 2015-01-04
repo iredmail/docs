@@ -138,7 +138,7 @@ access to attrs="memberOfGroup,employeeNumber,..."
 
 ### Support assigning mail list/alias as member of another mailing list
 
-* Open Postfix ldap lookup file `/etc/postfix/ldap/virtual_group_maps.cf` (or `/usr/local/etc/postfix/ldap/virtual_group_maps.cf` on FreeBSD), update the value of `query_filter` parameter to add addition LDAP objectclasses:
+* Open Postfix ldap lookup file `/etc/postfix/ldap/virtual_group_maps.cf` (or `/usr/local/etc/postfix/ldap/virtual_group_maps.cf` on FreeBSD), update the value of `query_filter` parameter to add additional LDAP objectclasses:
 
 ```
 # Part of file: /etc/postfix/ldap/virtual_group_maps.cf

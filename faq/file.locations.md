@@ -81,7 +81,7 @@ Main config files are `nginx.conf` and `default.conf`.
 
 Main config file is `dovecot.conf`. It contains most configurations.
 
-Addition config files:
+Additional config files:
 
 * `dovecot-ldap.conf`: used to query mail users and passwords. LDAP backends only.
 * `dovecot-mysql.conf`: used to query mail users and passwords. MySQL/MariaDB backends only.
@@ -104,7 +104,7 @@ Addition config files:
 * on RHEL/CentOS: it's `/etc/amavisd/amavisd.conf`.
 * on Debian/Ubuntu: it's `/etc/amavis/conf.d/50-user`.
 
-    Debian/Ubuntu have some addition config files under `/etc/amavis/conf.d/`,
+    Debian/Ubuntu have some additional config files under `/etc/amavis/conf.d/`,
     but you can always override them in `/etc/amavis/conf.d/50-user`.
     When we mention `amavisd.conf` in other documents, it always means `50-user`
     on Debian/Ubuntu.

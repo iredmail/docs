@@ -27,7 +27,7 @@ programs (e.g. Outlook, Thunderbird) to use TLS connection.
 * For IMAP service, use port `143` with `STARTTLS` (or `TLS`).
 * For POP3 service, use port `110` with `STARTTLS` (or `TLS`).
 
-Addition notes:
+Additional notes:
 
 * If you want to enable smtp authentication on port `25` (again, not
 recommended), please comment out Postfix parameter `smtpd_tls_auth_only = yes`

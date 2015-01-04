@@ -56,7 +56,7 @@ example, please replace x.y.z by the real file name. For example,
 That's all. If it doesn't work for you, please post a new topic in our
 [online support forum](http://www.iredmail.org/forum/).
 
-## Addition steps
+## Additional steps
 
 * To quarantine SPAM/Virus into SQL database and manage them with
   iRedAdmin-Pro, please follow this tutorial to update Amavisd settings:

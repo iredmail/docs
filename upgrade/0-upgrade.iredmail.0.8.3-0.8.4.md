@@ -186,7 +186,7 @@ query_filter    = (&(|(mail=%s)(&(enabledService=shadowaddress)(shadowAddress=%s
 
 Restarting Postfix service is required.
 
-### Create addition SQL index for Amavisd database
+### Create additional SQL index for Amavisd database
 
 We need one new SQL index for Amavisd database, it's used to speed up
 performance of viewing quarantined mails.
@@ -240,7 +240,7 @@ Multiple senders/recipients must be separated by comma, for example:
 sql> INSERT INTO mailbox SET allowedsenders='@gmail.com,user@example.com';
 ```
 
-### Create addition SQL index for Amavisd database
+### Create additional SQL index for Amavisd database
 
 We need one new SQL index for Amavisd database, it's used to speed up
 performance of viewing quarantined mails.
@@ -297,7 +297,7 @@ Multiple senders/recipients must be separated by comma, for example:
 sql> INSERT INTO mailbox SET allowedsenders='@gmail.com,user@example.com';
 ```
 
-### Create addition SQL index for Amavisd database
+### Create additional SQL index for Amavisd database
 
 We need one new SQL index for Amavisd database, it's used to speed up
 performance of viewing quarantined mails.

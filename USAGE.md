@@ -5,12 +5,12 @@
   complex/unnecessary way to order them.
 * Chapter title is defined in file `_title.md` under chapter folder.
 * Chapter summary is defined in file `_summary.md` under chapter folder.
-* Addition links stored in file `_links.md` will be appended to chapter.
+* Additional links stored in file `_links.md` will be appended to chapter.
 
 ```
 - chapter_name_1/
     |- _title.md: Chapter title. REQUIRED
-    |- _links.md: Addition links, will be appended to chapter. OPTIONAL
+    |- _links.md: Additional links, will be appended to chapter. OPTIONAL
     |- _summary.md: Summary text of this chapter, will be displayed under
                     chapter title. OPTIONAL
     |- what_is_iredmail.md

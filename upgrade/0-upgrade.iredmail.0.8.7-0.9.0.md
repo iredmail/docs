@@ -221,7 +221,7 @@ CRON=1
 
 Please open file `/etc/postfix/ldap/transport_maps_domain.cf` (on Linux/OpenBSD)
 or `/usr/local/etc/postfix/ldap/transport_maps_domain.cf` (on FreeBSD), add
-addition LDAP filter `(!(domainBackupMX=yes))` in `query =` parameter:
+additional LDAP filter `(!(domainBackupMX=yes))` in `query =` parameter:
 
 ```
 # Part of file: /etc/postfix/ldap/transport_maps_domain.cf
@@ -292,7 +292,7 @@ mysql> CREATE INDEX msgs_idx_spam_level ON msgs (spam_level);
 
 Please open file `/etc/postfix/mysql/transport_maps_domain.cf` (on Linux/OpenBSD)
 or `/usr/local/etc/postfix/mysql/transport_maps_domain.cf` (on FreeBSD), add
-addition SQL statement `AND backupmx=0` in `query =` parameter:
+additional SQL statement `AND backupmx=0` in `query =` parameter:
 
 ```
 # Part of file: /etc/postfix/mysql/transport_maps_domain.cf
@@ -335,7 +335,7 @@ mysql> CREATE INDEX msgs_idx_spam_level ON msgs (spam_level);
 
 Please open file `/etc/postfix/pgsql/transport_maps_domain.cf` (on Linux/OpenBSD)
 or `/usr/local/etc/postfix/pgsql/transport_maps_domain.cf` (on FreeBSD), add
-addition SQL statement `AND backupmx=0` in `query =` parameter:
+additional SQL statement `AND backupmx=0` in `query =` parameter:
 
 ```
 # Part of file: /etc/postfix/pgsql/transport_maps_domain.cf

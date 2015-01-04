@@ -72,7 +72,7 @@ NOTE: Policyd database name is `policyd` (on RHEL/CentOS) or `postfixpolicyd`
 ```
 
 NOTE: New LDAP schema provides several new attributes, but it's backwards
-compatibility, it's __SAFE__ to replace the old one without addition operations.
+compatibility, it's __SAFE__ to replace the old one without additional operations.
 
 ### Use proxymap to improve performance and reliability under high load.
 
