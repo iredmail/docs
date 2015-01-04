@@ -37,11 +37,15 @@ latest stable release immediately: [How to upgrade Roundcube](http://trac.roundc
 
 ### Upgrade iRedAPD (Postfix policy server) to the latest 1.4.4
 
-> Note: it's strongly recommended to enable plugin `reject_null_sender` to
-> prevent spam.
-
 Please follow below tutorial to upgrade iRedAPD to the latest stable release:
 [How to upgrade iRedAPD-1.4.0 or later versions to the latest stable release](./upgrade.iredapd.html)
+
+Important notes: 
+
+* in iRedMail-0.9.0 and future iRedMail releases, we will use white/blacklists
+  stored in Amavisd database in Amavisd (after-queue) and iRedAPD (before-queue),
+  so you must enable iRedAPD plugin `amavisd_wblist`.
+* it's strongly recommended to enable plugin `reject_null_sender` to prevent spam.
 
 iRedAPD-1.4.4 fixes several issues and brings some new features:
 
@@ -65,8 +69,8 @@ iRedAPD-1.4.4 fixes several issues and brings some new features:
 
 * Plugin `reject_sender_login_mismatch` now will allow user to send as their
   own alias addresses by default. You can still set
-  `ALLOWED_LOGIN_MISMATCH_STRICTLY = False` to allow user to send as any sender
-  if you want.
+  `ALLOWED_LOGIN_MISMATCH_STRICTLY = False` in iRedAPD config file
+  (`/opt/iredapd/settings.py`) to allow user to send as any sender if you want.
 
 Important note: If you want to manage white/blacklists with iRedAdmin-Pro,
 you have to enable plugin `amavisd_wblist`.
