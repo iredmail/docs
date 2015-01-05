@@ -29,6 +29,7 @@
 <li><a href="#fix-improper-postfix-setting-in-both-maincf-and-mastercf">Fix improper Postfix setting in both main.cf and master.cf</a></li>
 <li><a href="#fix-improper-file-permission-of-amavisd-config-file">Fix improper file permission of Amavisd config file</a></li>
 <li><a href="#fix-incorrect-setting-to-enable-daily-cron-job-to-update-spamassassin-rules">Fix incorrect setting to enable daily cron job to update SpamAssassin rules</a></li>
+<li><a href="#optional-enable-global-sieve-script-in-dovecot-to-move-spam-to-junk-folder-by-default">[OPTIONAL] Enable global sieve script in Dovecot to move spam to Junk folder by default</a></li>
 </ul>
 </li>
 <li><a href="#openldap-backend-special">OpenLDAP backend special</a><ul>
@@ -52,6 +53,10 @@
 </ul>
 </div>
 <h2 id="changelog">ChangeLog</h2>
+<ul>
+<li>2015-01-05: [All backends] [OPTIONAL] Enable global sieve script in Dovecot to move spam to Junk folder by default.</li>
+</ul>
+<hr />
 <ul>
 <li>2014-12-24: [All backends] Modify type of SQL column <code>policy.policy_name</code> to VARCHAR(255).</li>
 <li>2014-12-04: [All backends] Disable SSL v3 in Apache, Postfix, Dovecot.</li>
@@ -239,11 +244,42 @@ SpamAssassin daily cron job will update SpamAssassin rules automatically.</p>
 CRON=1
 </code></pre>
 
+<h3 id="optional-enable-global-sieve-script-in-dovecot-to-move-spam-to-junk-folder-by-default">[OPTIONAL] Enable global sieve script in Dovecot to move spam to Junk folder by default</h3>
+<p>Note: this is an optional step.</p>
+<p>To move detected spam to user's Junk folder, you need to enable global sieve
+script in Dovecot.</p>
+<p>You can find sample sieve rule file <code>/var/vmail/sieve/dovecot.sieve.sample</code>
+if you chose <code>/var/vmail</code> to store mailboxes during iRedMail installation.
+If you have a custom mailbox storage directory, the sample sieve rule file
+should be <code>sieve/dovecot.sieve.sample</code> under that directory. If you cannot
+find it, you can still download one from iRedMail project:
+<a href="https://bitbucket.org/zhb/iredmail/src/default/iRedMail/samples/dovecot/dovecot.sieve">here</a></p>
+<p>This file must be owned by user <code>vmail</code> and group <code>vmail</code>, permission <code>0500</code>.</p>
+<p>Now open Dovecot config file <code>/etc/dovecot/dovecot.conf</code> (on Linux/OpenBSD)
+or <code>/usr/local/etc/dovecot/dovecot.conf</code> (FreeBSD), find parameter <code>sieve_before =</code>
+like below:</p>
+<pre><code># Part of file: /etc/dovecot/dovecot.conf
+
+plugin {
+    ...
+    #sieve_before = 
+    ...
+}
+</code></pre>
+
+<p>Uncomment it and set its value to <code>/var/vmail/sieve/dovecot.sieve</code> (Note:
+use the correct path on your server).</p>
+<pre><code>    sieve_before = /var/vmail/sieve/dovecot.sieve
+</code></pre>
+
+<p>Restart Dovecot service to enable it.</p>
+<p>Note: we don't use <code>sieve_default =</code> for global sieve script, because it
+will be ignored if users have their own personal sieve rule files.</p>
 <h2 id="openldap-backend-special">OpenLDAP backend special</h2>
 <h3 id="fix-improper-ldap-query-command-in-domain-transport-query-file">Fix improper LDAP query command in domain transport query file</h3>
 <p>Please open file <code>/etc/postfix/ldap/transport_maps_domain.cf</code> (on Linux/OpenBSD)
 or <code>/usr/local/etc/postfix/ldap/transport_maps_domain.cf</code> (on FreeBSD), add
-addition LDAP filter <code>(!(domainBackupMX=yes))</code> in <code>query =</code> parameter:</p>
+additional LDAP filter <code>(!(domainBackupMX=yes))</code> in <code>query =</code> parameter:</p>
 <pre><code># Part of file: /etc/postfix/ldap/transport_maps_domain.cf
 
 # OLD setting
@@ -301,7 +337,7 @@ mysql&gt; CREATE INDEX msgs_idx_spam_level ON msgs (spam_level);
 <h3 id="fix-improper-sql-query-command-in-domain-transport-query-file">Fix improper SQL query command in domain transport query file</h3>
 <p>Please open file <code>/etc/postfix/mysql/transport_maps_domain.cf</code> (on Linux/OpenBSD)
 or <code>/usr/local/etc/postfix/mysql/transport_maps_domain.cf</code> (on FreeBSD), add
-addition SQL statement <code>AND backupmx=0</code> in <code>query =</code> parameter:</p>
+additional SQL statement <code>AND backupmx=0</code> in <code>query =</code> parameter:</p>
 <pre><code># Part of file: /etc/postfix/mysql/transport_maps_domain.cf
 
 # OLD setting
@@ -340,7 +376,7 @@ mysql&gt; CREATE INDEX msgs_idx_spam_level ON msgs (spam_level);
 <h3 id="fix-improper-sql-query-command-in-domain-transport-query-file_1">Fix improper SQL query command in domain transport query file</h3>
 <p>Please open file <code>/etc/postfix/pgsql/transport_maps_domain.cf</code> (on Linux/OpenBSD)
 or <code>/usr/local/etc/postfix/pgsql/transport_maps_domain.cf</code> (on FreeBSD), add
-addition SQL statement <code>AND backupmx=0</code> in <code>query =</code> parameter:</p>
+additional SQL statement <code>AND backupmx=0</code> in <code>query =</code> parameter:</p>
 <pre><code># Part of file: /etc/postfix/pgsql/transport_maps_domain.cf
 
 # OLD setting
