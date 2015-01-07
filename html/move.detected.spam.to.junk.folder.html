@@ -1,0 +1,53 @@
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Move detected spam to Junk folder</title>
+        <link href="./css/markdown.css" rel="stylesheet"></head>
+    </head>
+    <body>
+    
+    <div id="navigation">
+        <a href="http://www.iredmail.org" target="_blank">iRedMail web site</a>
+    
+        // <a href="./index.html">Document Index</a>
+    </div><h1 id="move-detected-spam-to-junk-folder">Move detected spam to Junk folder</h1>
+<p>To move detected spam to user's Junk folder, you need to enable global sieve
+script in Dovecot.</p>
+<p>You can find sample sieve rule file <code>/var/vmail/sieve/dovecot.sieve.sample</code>
+if you chose <code>/var/vmail</code> to store mailboxes during iRedMail installation.
+If you have a custom mailbox storage directory, the sample sieve rule file
+should be <code>sieve/dovecot.sieve.sample</code> under that directory. If you cannot
+find it, you can still download one from iRedMail project:
+<a href="https://bitbucket.org/zhb/iredmail/src/default/iRedMail/samples/dovecot/dovecot.sieve">here</a></p>
+<p>This file must be owned by user <code>vmail</code> and group <code>vmail</code>, permission <code>0500</code>.</p>
+<p>Now open Dovecot config file <code>/etc/dovecot/dovecot.conf</code> (on Linux/OpenBSD)
+or <code>/usr/local/etc/dovecot/dovecot.conf</code> (FreeBSD), find parameter <code>sieve_before =</code>
+like below:</p>
+<pre><code># Part of file: /etc/dovecot/dovecot.conf
+
+plugin {
+    ...
+    #sieve_before = 
+    ...
+}
+</code></pre>
+
+<p>Uncomment it and set its value to <code>/var/vmail/sieve/dovecot.sieve</code> (Note:
+use the correct path on your server).</p>
+<pre><code>    sieve_before = /var/vmail/sieve/dovecot.sieve
+</code></pre>
+
+<p>Restart Dovecot service to enable it.</p>
+<p>Note: we don't use <code>sieve_default =</code> for global sieve script, because it
+will be ignored if users have their own personal sieve rule files.</p><p style="text-align: center; color: grey;">Document published under a <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">CC BY-ND 3.0</a> license. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.<!-- Google Analytics -->
+<script type="text/javascript">
+    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+    try {
+        var pageTracker = _gat._getTracker("UA-3293801-14");
+        pageTracker._trackPageview();
+    } catch(err) {}
+</script>
+</body></html>
