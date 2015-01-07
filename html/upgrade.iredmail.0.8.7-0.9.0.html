@@ -93,7 +93,8 @@ latest stable release immediately: <a href="http://trac.roundcube.net/wiki/Howto
 <li>in iRedMail-0.9.0 and future iRedMail releases, we will use white/blacklists
   stored in Amavisd database in Amavisd (after-queue) and iRedAPD (before-queue),
   so you must enable iRedAPD plugin <code>amavisd_wblist</code>.</li>
-<li>it's strongly recommended to enable plugin <code>reject_null_sender</code> to prevent spam.</li>
+<li>it's strongly recommended to enable plugin <code>reject_null_sender</code> (as first
+  plugin listed in iRedAPD parameter <code>plugins =</code>) to prevent spam.</li>
 </ul>
 <p>iRedAPD-1.4.4 fixes several issues and brings some new features:</p>
 <ul>
@@ -104,8 +105,10 @@ latest stable release immediately: <a href="http://trac.roundcube.net/wiki/Howto
 <li>
 <p>New plugins:</p>
 <ul>
-<li><code>reject_null_sender</code>: prevent authenticated user to send spam as null
-  sender (<code>from=&lt;&gt;</code> in Postfix log file).</li>
+<li>
+<p><code>reject_null_sender</code>: prevent authenticated user to send spam as null
+  sender (<code>from=&lt;&gt;</code> in Postfix log file).</p>
+</li>
 <li>
 <p><code>amavisd_wblist</code>: it uses per-recipient white/blacklists stored in
   Amavisd SQL database to reject emails sent from blacklisted senders and
@@ -125,6 +128,7 @@ or per-user setting. Priority: per-user &gt; per-domain &gt; global.</p>
   own alias addresses by default. You can still set
   <code>ALLOWED_LOGIN_MISMATCH_STRICTLY = False</code> in iRedAPD config file
   (<code>/opt/iredapd/settings.py</code>) to allow user to send as any sender if you want.</p>
+<p>It's recommended to enable this plugin right after plugin <code>reject_null_sender</code>.</p>
 </li>
 </ul>
 <p>Important note: If you want to manage white/blacklists with iRedAdmin-Pro,

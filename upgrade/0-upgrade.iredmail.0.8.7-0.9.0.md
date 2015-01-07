@@ -49,7 +49,8 @@ Important notes:
 * in iRedMail-0.9.0 and future iRedMail releases, we will use white/blacklists
   stored in Amavisd database in Amavisd (after-queue) and iRedAPD (before-queue),
   so you must enable iRedAPD plugin `amavisd_wblist`.
-* it's strongly recommended to enable plugin `reject_null_sender` to prevent spam.
+* it's strongly recommended to enable plugin `reject_null_sender` (as first
+  plugin listed in iRedAPD parameter `plugins =`) to prevent spam.
 
 iRedAPD-1.4.4 fixes several issues and brings some new features:
 
@@ -59,6 +60,7 @@ iRedAPD-1.4.4 fixes several issues and brings some new features:
 * New plugins:
     * `reject_null_sender`: prevent authenticated user to send spam as null
       sender (`from=<>` in Postfix log file).
+
     * `amavisd_wblist`: it uses per-recipient white/blacklists stored in
       Amavisd SQL database to reject emails sent from blacklisted senders and
       bypass whitelisted senders.
@@ -75,6 +77,8 @@ iRedAPD-1.4.4 fixes several issues and brings some new features:
   own alias addresses by default. You can still set
   `ALLOWED_LOGIN_MISMATCH_STRICTLY = False` in iRedAPD config file
   (`/opt/iredapd/settings.py`) to allow user to send as any sender if you want.
+
+    It's recommended to enable this plugin right after plugin `reject_null_sender`.
 
 Important note: If you want to manage white/blacklists with iRedAdmin-Pro,
 you have to enable plugin `amavisd_wblist`.
