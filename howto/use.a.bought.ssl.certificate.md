@@ -10,6 +10,8 @@ annoying message, you have to buy a SSL certificate from SSL certificate
 provider. Search `buy ssl certificate` in Google will give you many SSL
 providers, choose the one you prefer.
 
+> [StartSSL.com offers free one-year certificate](http://www.startssl.com/?app=1).
+
 ## Generate SSL private key and buy one SSL certificate
 
 First of all, you need to generate a new SSL certificate on your server
