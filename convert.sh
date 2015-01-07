@@ -20,7 +20,7 @@ PACK_TAR_NAME="iredmail-docs.tar.bz2"
 CONVERTER="${PWD}/tools/markdown2html.py"
 CMD_CONVERT="python ${CONVERTER}"
 #CMD_CONVERT=":"
-CHANGED_FILES="$(hg st)"
+CHANGED_FILES="$(hg st | grep '\.md$')"
 TODAY="$(date +%Y-%m-%d)"
 
 strip_name_prefix()
@@ -79,8 +79,6 @@ for chapter_dir in ${all_chapter_dirs}; do
     #   - title: first line (without '#') of markdown file
     for article_file in ${all_chapter_articles}; do
         article_file_basename="$(basename ${article_file})"
-        article_file_without_prefix_path="$(echo ${article_file/#\.\//})"
-        article_file_without_prefix="$(strip_name_prefix ${article_file})"
 
         article_html_file="$(strip_name_prefix ${article_file_basename})"
         # Replace '.md' suffix by '.html'
@@ -102,7 +100,7 @@ for chapter_dir in ${all_chapter_dirs}; do
             echo "* [${_article_title}](${article_html_file})" >> ${INDEX_MD}
         fi
 
-        # Convert file if it was modified
+        # Convert modified file
         echo ${CHANGED_FILES} | grep ${article_file} > /dev/null
         md_changed="$?"
 
@@ -110,11 +108,13 @@ for chapter_dir in ${all_chapter_dirs}; do
         converter_changed="$?"
 
         if [ X"${md_changed}" == X'0' -o X"${converter_changed}" == X'0' ]; then
-            echo "* Converting: ${article_file}"
+            echo -e "\n* Converting: ${article_file}"
             ${CMD_CONVERT} ${article_file} ${OUTPUT_DIR} \
                 output_filename="${article_html_file}" \
                 title="${_article_title}" \
                 add_index_link='yes'
+        else
+            echo -n '.'
         fi
     done
 
@@ -128,7 +128,7 @@ done
 
 #cd ${OUTPUT_DIR}
 
-echo "* Converting ${INDEX_MD} for index page."
+echo -e "\n* Converting ${INDEX_MD} for index page."
 ${CMD_CONVERT} ${INDEX_MD} ${OUTPUT_DIR} title="iRedMail Documentations"
 
 # Cleanup
