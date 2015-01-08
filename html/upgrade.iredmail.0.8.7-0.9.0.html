@@ -61,10 +61,10 @@
 <li>2014-12-24: [All backends] Modify type of SQL column <code>policy.policy_name</code> to VARCHAR(255).</li>
 <li>2014-12-04: [All backends] Disable SSL v3 in Apache, Postfix, Dovecot.</li>
 <li>2014-11-13: [All backends] Add index for SQL column <code>msgs.spam_level</code> in <code>amavisd</code> database.</li>
-<li>2014-11-06: [All backends] Fix improper SQL query command in domain transport query file.</li>
+<li>2014-11-06: <strike>[All backends] Fix improper SQL query command in domain transport query file.</strike></li>
 <li>2014-09-09: [All backends] Fix incorrect setting to enable daily cron job to update SpamAssassin rules.</li>
 <li>2014-09-09: [All backends] Fix improper permission of Amavisd config file.</li>
-<li>2014-07-15: [All backends] Fix improper Postfix setting in both main.cf and master.cf.</li>
+<li>2014-07-15: <strike>[All backends] Fix improper Postfix setting in both main.cf and master.cf.</strike></li>
 <li>2014-06-19: [All backends] Add index for SQL column <code>policy.policy_name</code> in <code>amavisd</code> database.</li>
 <li>2014-06-07:<ul>
 <li>[OpenLDAP] Add new value for existing mail users: enabledService=indexer-worker.</li>
@@ -174,7 +174,12 @@ upstream OpenSSL advisory: <a href="http://web.nvd.nist.gov/view/vuln/detail?vul
 
 <p>Restarting Dovecot service is required.</p>
 <h3 id="fix-improper-postfix-setting-in-both-maincf-and-mastercf">Fix improper Postfix setting in both main.cf and master.cf</h3>
-<p>Currently, we don't have Postfix parameter <code>receive_override_options=</code> set in
+<p>NOTE: This step is wrong, please do not apply it. If you already applied it,
+please revert your changes.</p>
+<p>if you send email to user <code>user@domain.com</code> and mail list/alias <code>list@domain.com</code>,
+and <code>user@</code> is member of <code>list@</code>, then <code>user@</code> will receive duplicate email.</p>
+<p><strike>
+Currently, we don't have Postfix parameter <code>receive_override_options=</code> set in
 <code>/etc/postfix/main.cf</code>, instead, we have it in transport <code>127.0.0.1:10025</code>
 (Amavisd) like this:</p>
 <pre><code># Part of file: /etc/postfix/master.cf
@@ -231,7 +236,8 @@ upstream OpenSSL advisory: <a href="http://web.nvd.nist.gov/view/vuln/detail?vul
 <p><strong>IMPORTANT NOTE</strong>: If you want to disable <code>content_filter=</code> in Postfix, please
 comment out <code>receive_override_options=</code> in Postfix config file <code>main.cf</code> too,
 otherwise canonical address mapping, virtual alias map expansion, address
-masquerading, and automatic BCC (blind carbon-copy) recipients will not work.</p>
+masquerading, and automatic BCC (blind carbon-copy) recipients will not work.
+</strike></p>
 <h3 id="fix-improper-file-permission-of-amavisd-config-file">Fix improper file permission of Amavisd config file</h3>
 <p><strong>NOTE</strong>: This step is applicable to only Red Hat/CentOS 6.</p>
 <p>Amavisd config file <code>/etc/amavisd/amavisd.conf</code> must be owned by group <code>amavis</code>,
@@ -253,7 +259,10 @@ CRON=1
 <p>Please follow our separate tutorial <a href="./move.detected.spam.to.junk.folder.html">here</a>.</p>
 <h2 id="openldap-backend-special">OpenLDAP backend special</h2>
 <h3 id="fix-improper-ldap-query-command-in-domain-transport-query-file">Fix improper LDAP query command in domain transport query file</h3>
-<p>Please open file <code>/etc/postfix/ldap/transport_maps_domain.cf</code> (on Linux/OpenBSD)
+<p>NOTE: This step is wrong, please do not apply it. If you already applied it,
+please revert your changes.</p>
+<p><strike>
+Please open file <code>/etc/postfix/ldap/transport_maps_domain.cf</code> (on Linux/OpenBSD)
 or <code>/usr/local/etc/postfix/ldap/transport_maps_domain.cf</code> (on FreeBSD), add
 additional LDAP filter <code>(!(domainBackupMX=yes))</code> in <code>query =</code> parameter:</p>
 <pre><code># Part of file: /etc/postfix/ldap/transport_maps_domain.cf
@@ -265,7 +274,8 @@ additional LDAP filter <code>(!(domainBackupMX=yes))</code> in <code>query =</co
 query_filter    = (&amp;(objectClass=mailDomain)(accountStatus=active)(enabledService=mail)(|(domainName=%s)(domainAliasName=%s))(!(domainBackupMX=yes)))
 </code></pre>
 
-<p>Restarting Postfix service is required.</p>
+<p>Restarting Postfix service is required.
+</strike></p>
 <h3 id="add-new-ldap-values-for-existing-mail-users">Add new LDAP values for existing mail users</h3>
 <p>We will add new LDAP attribute/value pair for existing mail users:
 <code>enabledService=indexer-worker</code>. It's used by Dovecot.</p>
@@ -311,7 +321,10 @@ mysql&gt; CREATE INDEX msgs_idx_spam_level ON msgs (spam_level);
 
 <h2 id="mysql-backend-special">MySQL backend special</h2>
 <h3 id="fix-improper-sql-query-command-in-domain-transport-query-file">Fix improper SQL query command in domain transport query file</h3>
-<p>Please open file <code>/etc/postfix/mysql/transport_maps_domain.cf</code> (on Linux/OpenBSD)
+<p>NOTE: This step is wrong, please do not apply it. If you already applied it,
+please revert your changes.</p>
+<p><strike>
+Please open file <code>/etc/postfix/mysql/transport_maps_domain.cf</code> (on Linux/OpenBSD)
 or <code>/usr/local/etc/postfix/mysql/transport_maps_domain.cf</code> (on FreeBSD), add
 additional SQL statement <code>AND backupmx=0</code> in <code>query =</code> parameter:</p>
 <pre><code># Part of file: /etc/postfix/mysql/transport_maps_domain.cf
@@ -323,7 +336,8 @@ additional SQL statement <code>AND backupmx=0</code> in <code>query =</code> par
 query       = SELECT transport FROM domain WHERE domain='%s' AND active=1 AND backupmx=0
 </code></pre>
 
-<p>Restarting Postfix service is required.</p>
+<p>Restarting Postfix service is required.
+</strike></p>
 <h3 id="add-and-remove-sql-columns-in-vmail-and-amavisd-databases">Add and remove SQL columns in <code>vmail</code> and <code>amavisd</code> databases</h3>
 <ul>
 <li>
@@ -350,7 +364,10 @@ mysql&gt; CREATE INDEX msgs_idx_spam_level ON msgs (spam_level);
 
 <h2 id="postgresql-backend-special">PostgreSQL backend special</h2>
 <h3 id="fix-improper-sql-query-command-in-domain-transport-query-file_1">Fix improper SQL query command in domain transport query file</h3>
-<p>Please open file <code>/etc/postfix/pgsql/transport_maps_domain.cf</code> (on Linux/OpenBSD)
+<p>NOTE: This step is wrong, please do not apply it. If you already applied it,
+please revert your changes.</p>
+<p><strike>
+Please open file <code>/etc/postfix/pgsql/transport_maps_domain.cf</code> (on Linux/OpenBSD)
 or <code>/usr/local/etc/postfix/pgsql/transport_maps_domain.cf</code> (on FreeBSD), add
 additional SQL statement <code>AND backupmx=0</code> in <code>query =</code> parameter:</p>
 <pre><code># Part of file: /etc/postfix/pgsql/transport_maps_domain.cf
@@ -362,7 +379,8 @@ additional SQL statement <code>AND backupmx=0</code> in <code>query =</code> par
 query       = SELECT transport FROM domain WHERE domain='%s' AND active=1 AND backupmx=0
 </code></pre>
 
-<p>Restarting Postfix service is required.</p>
+<p>Restarting Postfix service is required.
+</strike></p>
 <h3 id="add-and-remove-sql-columns-in-vmail-and-amavisd-databases_1">Add and remove SQL columns in <code>vmail</code> and <code>amavisd</code> databases</h3>
 <ul>
 <li>

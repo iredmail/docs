@@ -11,10 +11,10 @@
 * 2014-12-24: [All backends] Modify type of SQL column `policy.policy_name` to VARCHAR(255).
 * 2014-12-04: [All backends] Disable SSL v3 in Apache, Postfix, Dovecot.
 * 2014-11-13: [All backends] Add index for SQL column `msgs.spam_level` in `amavisd` database.
-* 2014-11-06: [All backends] Fix improper SQL query command in domain transport query file.
+* 2014-11-06: <strike>[All backends] Fix improper SQL query command in domain transport query file.</strike>
 * 2014-09-09: [All backends] Fix incorrect setting to enable daily cron job to update SpamAssassin rules.
 * 2014-09-09: [All backends] Fix improper permission of Amavisd config file.
-* 2014-07-15: [All backends] Fix improper Postfix setting in both main.cf and master.cf.
+* 2014-07-15: <strike>[All backends] Fix improper Postfix setting in both main.cf and master.cf.</strike>
 * 2014-06-19: [All backends] Add index for SQL column `policy.policy_name` in `amavisd` database.
 * 2014-06-07:
     * [OpenLDAP] Add new value for existing mail users: enabledService=indexer-worker.
@@ -141,6 +141,13 @@ Restarting Dovecot service is required.
 
 ### Fix improper Postfix setting in both main.cf and master.cf
 
+NOTE: This step is wrong, please do not apply it. If you already applied it,
+please revert your changes.
+
+if you send email to user `user@domain.com` and mail list/alias `list@domain.com`,
+and `user@` is member of `list@`, then `user@` will receive duplicate email.
+
+<strike>
 Currently, we don't have Postfix parameter `receive_override_options=` set in
 `/etc/postfix/main.cf`, instead, we have it in transport `127.0.0.1:10025`
 (Amavisd) like this:
@@ -198,6 +205,7 @@ __IMPORTANT NOTE__: If you want to disable `content_filter=` in Postfix, please
 comment out `receive_override_options=` in Postfix config file `main.cf` too,
 otherwise canonical address mapping, virtual alias map expansion, address
 masquerading, and automatic BCC (blind carbon-copy) recipients will not work.
+</strike>
 
 ### Fix improper file permission of Amavisd config file
 
@@ -233,6 +241,10 @@ Please follow our separate tutorial [here](./move.detected.spam.to.junk.folder.h
 
 ### Fix improper LDAP query command in domain transport query file
 
+NOTE: This step is wrong, please do not apply it. If you already applied it,
+please revert your changes.
+
+<strike>
 Please open file `/etc/postfix/ldap/transport_maps_domain.cf` (on Linux/OpenBSD)
 or `/usr/local/etc/postfix/ldap/transport_maps_domain.cf` (on FreeBSD), add
 additional LDAP filter `(!(domainBackupMX=yes))` in `query =` parameter:
@@ -248,6 +260,7 @@ query_filter    = (&(objectClass=mailDomain)(accountStatus=active)(enabledServic
 ```
 
 Restarting Postfix service is required.
+</strike>
 
 ### Add new LDAP values for existing mail users
 
@@ -304,6 +317,10 @@ mysql> CREATE INDEX msgs_idx_spam_level ON msgs (spam_level);
 
 ### Fix improper SQL query command in domain transport query file
 
+NOTE: This step is wrong, please do not apply it. If you already applied it,
+please revert your changes.
+
+<strike>
 Please open file `/etc/postfix/mysql/transport_maps_domain.cf` (on Linux/OpenBSD)
 or `/usr/local/etc/postfix/mysql/transport_maps_domain.cf` (on FreeBSD), add
 additional SQL statement `AND backupmx=0` in `query =` parameter:
@@ -319,6 +336,7 @@ query       = SELECT transport FROM domain WHERE domain='%s' AND active=1 AND ba
 ```
 
 Restarting Postfix service is required.
+</strike>
 
 ### Add and remove SQL columns in `vmail` and `amavisd` databases
 
@@ -347,6 +365,10 @@ mysql> CREATE INDEX msgs_idx_spam_level ON msgs (spam_level);
 
 ### Fix improper SQL query command in domain transport query file
 
+NOTE: This step is wrong, please do not apply it. If you already applied it,
+please revert your changes.
+
+<strike>
 Please open file `/etc/postfix/pgsql/transport_maps_domain.cf` (on Linux/OpenBSD)
 or `/usr/local/etc/postfix/pgsql/transport_maps_domain.cf` (on FreeBSD), add
 additional SQL statement `AND backupmx=0` in `query =` parameter:
@@ -362,6 +384,7 @@ query       = SELECT transport FROM domain WHERE domain='%s' AND active=1 AND ba
 ```
 
 Restarting Postfix service is required.
+</strike>
 
 ### Add and remove SQL columns in `vmail` and `amavisd` databases
 
