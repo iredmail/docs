@@ -68,4 +68,6 @@ That's all. If it doesn't work for you, please post a new topic in our
   [Amavisd: Enable per-recipient policy lookup](./amavisd.per-recipient.policy.lookup.html)
 
     Note: Cluebringer still provides white/blacklists, but iRedAdmin-Pro
-    doesn't manage them anymore after iRedMail-0.9.0 release.
+    doesn't manage them anymore after iRedMail-0.9.0 release. So please
+    migreate Cluebringer white/blacklists to Amavisd database by following
+    this [forum post](http://www.iredmail.org/forum/post35480.html#p35480).

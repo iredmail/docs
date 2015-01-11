@@ -17,7 +17,7 @@
 <li><a href="#requirements">Requirements</a></li>
 <li><a href="#download-the-latest-iredadmin">Download the latest iRedAdmin</a></li>
 <li><a href="#upgrade-steps">Upgrade Steps</a></li>
-<li><a href="#addition-steps">Addition steps</a></li>
+<li><a href="#additional-steps">Additional steps</a></li>
 </ul>
 </li>
 </ul>
@@ -79,7 +79,7 @@ example, please replace x.y.z by the real file name. For example,
 </ul>
 <p>That's all. If it doesn't work for you, please post a new topic in our
 <a href="http://www.iredmail.org/forum/">online support forum</a>.</p>
-<h2 id="addition-steps">Addition steps</h2>
+<h2 id="additional-steps">Additional steps</h2>
 <ul>
 <li>
 <p>To quarantine SPAM/Virus into SQL database and manage them with
@@ -92,7 +92,9 @@ example, please replace x.y.z by the real file name. For example,
   in iRedAPD config file (<code>/opt/iredapd/settings.py</code>, parameter <code>plugins =</code>):
   <a href="./amavisd.per-recipient.policy.lookup.html">Amavisd: Enable per-recipient policy lookup</a></p>
 <p>Note: Cluebringer still provides white/blacklists, but iRedAdmin-Pro
-doesn't manage them anymore after iRedMail-0.9.0 release.</p>
+doesn't manage them anymore after iRedMail-0.9.0 release. So please
+migreate Cluebringer white/blacklists to Amavisd database by following
+this <a href="http://www.iredmail.org/forum/post35480.html#p35480">forum post</a>.</p>
 </li>
 </ul><p style="text-align: center; color: grey;">Document published under a <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">CC BY-ND 3.0</a> license. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.<!-- Google Analytics -->
 <script type="text/javascript">
