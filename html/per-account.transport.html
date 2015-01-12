@@ -1,0 +1,55 @@
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Per-domain or per-user transport (relay)</title>
+        <link href="./css/markdown.css" rel="stylesheet"></head>
+    </head>
+    <body>
+    
+    <div id="navigation">
+        <a href="http://www.iredmail.org" target="_blank">iRedMail web site</a>
+    
+        // <a href="./index.html">Document Index</a>
+    </div><h1 id="per-domain-or-per-user-transport-relay">Per-domain or per-user transport (relay)</h1>
+<p>With OpenLDAP backend, per-domain transport is set in domain account with
+attribute <code>mtaTransport</code>, per-user transport is set in user account with
+the same attribute. For example:</p>
+<pre><code>mtaTransport: dovecot
+</code></pre>
+
+<p>With SQL backends, per-domain transport is set in SQL table <code>vmail.domain</code>,
+column <code>transport</code>. For example:</p>
+<pre><code>sql&gt; USE vmail;
+
+-- Check current transport settings
+sql&gt; SELECT domain,transport from domain LIMIT 10;
+
+-- Update transport setting for domain 'my_domain.com'
+sql&gt; UPDATE domain SET transport='[new_transport_here]' WHERE domain='my_domain.com';
+</code></pre>
+
+<p>Per-user transport is set in table <code>vmail.mailbox</code>, column <code>transport</code>.</p>
+<p>Per-user transport has higher priority. If no per-user transport is set
+for your mail user, per-domain transport will be used.</p>
+<p>If you have our advanced web admin panel iRedAdmin-Pro installed, you can
+easily manage per-domain or per-user transport in account profile page.
+Screenshots:</p>
+<ul>
+<li>Per-domain transport/relay:</li>
+</ul>
+<p><img alt="" src="../images/iredadmin/domain_profile_relay.png" /></p>
+<ul>
+<li>Per-user transport/relay:</li>
+</ul>
+<p><img alt="" src="../images/iredadmin/user_profile_relay.png" /></p><p style="text-align: center; color: grey;">Document published under a <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">CC BY-ND 3.0</a> license. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.<!-- Google Analytics -->
+<script type="text/javascript">
+    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+    try {
+        var pageTracker = _gat._getTracker("UA-3293801-14");
+        pageTracker._trackPageview();
+    } catch(err) {}
+</script>
+</body></html>
