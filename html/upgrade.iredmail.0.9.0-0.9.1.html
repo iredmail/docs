@@ -1,0 +1,79 @@
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Upgrade iRedMail from 0.9.0 to 0.9.1</title>
+        <link href="./css/markdown.css" rel="stylesheet"></head>
+    </head>
+    <body>
+    
+    <div id="navigation">
+        <a href="http://www.iredmail.org" target="_blank">iRedMail web site</a>
+    
+        // <a href="./index.html">Document Index</a>
+    </div><h1 id="upgrade-iredmail-from-090-to-091">Upgrade iRedMail from 0.9.0 to 0.9.1</h1>
+<div class="toc">
+<ul>
+<li><a href="#upgrade-iredmail-from-090-to-091">Upgrade iRedMail from 0.9.0 to 0.9.1</a><ul>
+<li><a href="#changelog">ChangeLog</a></li>
+<li><a href="#mysqlmariadb-backend-special">MySQL/MariaDB backend special</a><ul>
+<li><a href="#fixed-not-apply-service-restriction-in-dovecot-sql-query-file-while-acting-as-sasl-server">Fixed: Not apply service restriction in Dovecot SQL query file while acting as SASL server</a></li>
+</ul>
+</li>
+<li><a href="#postgresql-backend-special">PostgreSQL backend special</a><ul>
+<li><a href="#fixed-not-apply-service-restriction-in-dovecot-sql-query-file-while-acting-as-sasl-server_1">Fixed: Not apply service restriction in Dovecot SQL query file while acting as SASL server</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<p>WARNING: This is still a working in progress draft document, do <strong>NOT</strong> apply it.</p>
+<h2 id="changelog">ChangeLog</h2>
+<ul>
+<li>2015-01-12: [SQL backends] Fixed: Not apply service restriction in Dovecot SQL query file while acting as SASL server.</li>
+</ul>
+<h2 id="mysqlmariadb-backend-special">MySQL/MariaDB backend special</h2>
+<h3 id="fixed-not-apply-service-restriction-in-dovecot-sql-query-file-while-acting-as-sasl-server">Fixed: Not apply service restriction in Dovecot SQL query file while acting as SASL server</h3>
+<p>Please open Dovecot config file <code>/etc/dovecot/dovecot-mysql.conf</code>
+(Linux/OpenBSD) or <code>/usr/local/etc/dovecot/dovecot-mysql.conf</code> (FreeBSD), find
+below line:</p>
+<pre><code># Part of file: /etc/dovecot/dovecot-mysql.conf
+
+password_query = SELECT password FROM mailbox WHERE username='%u' AND active='1'
+</code></pre>
+
+<p>Add additional query <code>AND enable%Ls%Lc=1</code> like below:</p>
+<pre><code># Part of file: /etc/dovecot/dovecot-mysql.conf
+
+password_query = SELECT password FROM mailbox WHERE username='%u' AND enable%Ls%Lc=1 AND active='1'
+</code></pre>
+
+<p>Save your change and restart Dovecot service.</p>
+<h2 id="postgresql-backend-special">PostgreSQL backend special</h2>
+<h3 id="fixed-not-apply-service-restriction-in-dovecot-sql-query-file-while-acting-as-sasl-server_1">Fixed: Not apply service restriction in Dovecot SQL query file while acting as SASL server</h3>
+<p>Please open Dovecot config file <code>/etc/dovecot/dovecot-pgsql.conf</code>
+(Linux/OpenBSD) or <code>/usr/local/etc/dovecot/dovecot-pgsql.conf</code> (FreeBSD), find
+below line:</p>
+<pre><code># Part of file: /etc/dovecot/dovecot-pgsql.conf
+
+password_query = SELECT password FROM mailbox WHERE username='%u' AND active='1'
+</code></pre>
+
+<p>Add additional query like below:</p>
+<pre><code># Part of file: /etc/dovecot/dovecot-pgsql.conf
+
+password_query = SELECT password FROM mailbox WHERE username='%u' AND enable%Ls%Lc=1 AND active='1'
+</code></pre>
+
+<p>Save your change and restart Dovecot service.</p><p style="text-align: center; color: grey;">Document published under a <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">CC BY-ND 3.0</a> license. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.<!-- Google Analytics -->
+<script type="text/javascript">
+    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+    try {
+        var pageTracker = _gat._getTracker("UA-3293801-14");
+        pageTracker._trackPageview();
+    } catch(err) {}
+</script>
+</body></html>
