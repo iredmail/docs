@@ -116,6 +116,30 @@ Additional config files:
 
 Amavisd is configured to log to [Postfix log file](#postfix) by iRedMail.
 
+## Roundcube webmail
+
+Roundcube webmail is installed under below directory by default:
+
+* RHEL/CentOS: `/var/www/roundcubemail`. It's a symbol link to
+  `/var/www/roundcubemail-x.y.z`.
+* Debian/Ubuntu: `/usr/share/apache2/roundcubemail`. It's a symbol link of
+  `/usr/share/apache2/roundcubemail-x.y.z/`.
+* FreeBSD: `/usr/local/www/roundcube`.
+* OpenBSD: `/var/www/roundcubemail`. It's a symbol link to
+  `/var/www/roundcubemail-x.y.z/`.
+
+Config files:
+
+* Main config file is `config/config.inc.php` under Roundcube webmail
+  directory.
+
+    If you're running old Roundcube webmail (0.9.x and earlier
+    releases), it has two separate config files: `config/db.inc.php` and
+    `config/main.inc.php`.
+
+* Config files of plugins are placed under plugin directory. for example,
+  config file of `password` plugin is `plugins/password/config.inc.php`.
+
 ## iRedAPD
 
 Main config file is `/opt/iredapd/settings.py` on all Linux/BSD distributions.
@@ -130,5 +154,7 @@ Main config file:
 * on OpenBSD, it's `/var/www/iredadmin/settings.py`.
 
 iRedAdmin is a web application, when debug mode is turned on, it will log error
-message to Apache/Nginx log file.
-It logs to `/var/log/iredapd.log` by default.
+message to Apache/Nginx ssl error log file.
+
+Note: If you modified any iRedAdmin files (not just config file), please restart
+Apache or uwsgi service (if you're running Nginx) to reload modified files.

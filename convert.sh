@@ -49,6 +49,9 @@ all_chapter_dirs="installation \
 #   - summary: _summary.md
 echo "We're migrating [old wiki documents](http://www.iredmail.org/wiki) to Markdown format for easier maintenance, all documents are available [here](https://bitbucket.org/zhb/docs.iredmail.org/src)." > ${INDEX_MD}
 
+article_counter=0
+echo -n "* Processing Markdown files: "
+
 for chapter_dir in ${all_chapter_dirs}; do
     # Get articles
     all_chapter_articles="$(find ${chapter_dir} -depth 1 -type f -iname '[0-9a-z]*.md')"
@@ -78,6 +81,8 @@ for chapter_dir in ${all_chapter_dirs}; do
     # Article info:
     #   - title: first line (without '#') of markdown file
     for article_file in ${all_chapter_articles}; do
+        article_counter="$((article_counter+1))"
+
         article_file_basename="$(basename ${article_file})"
 
         article_html_file="$(strip_name_prefix ${article_file_basename})"
@@ -126,9 +131,10 @@ for chapter_dir in ${all_chapter_dirs}; do
     fi
 done
 
-#cd ${OUTPUT_DIR}
+echo ''
+echo "* ${article_counter} files total."
 
-echo -e "\n* Converting ${INDEX_MD} for index page."
+echo "* Converting ${INDEX_MD} for index page."
 ${CMD_CONVERT} ${INDEX_MD} ${OUTPUT_DIR} title="iRedMail Documentations"
 
 # Cleanup

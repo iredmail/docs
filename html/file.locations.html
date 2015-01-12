@@ -31,6 +31,7 @@
 <li><a href="#log-files_2">Log files</a></li>
 </ul>
 </li>
+<li><a href="#roundcube-webmail">Roundcube webmail</a></li>
 <li><a href="#iredapd">iRedAPD</a></li>
 <li><a href="#iredadmin">iRedAdmin</a></li>
 </ul>
@@ -123,7 +124,7 @@
 </ul>
 <h3 id="config-files">Config files</h3>
 <p>Main config file is <code>dovecot.conf</code>. It contains most configurations.</p>
-<p>Addition config files:</p>
+<p>Additional config files:</p>
 <ul>
 <li><code>dovecot-ldap.conf</code>: used to query mail users and passwords. LDAP backends only.</li>
 <li><code>dovecot-mysql.conf</code>: used to query mail users and passwords. MySQL/MariaDB backends only.</li>
@@ -145,7 +146,7 @@
 <li>on RHEL/CentOS: it's <code>/etc/amavisd/amavisd.conf</code>.</li>
 <li>
 <p>on Debian/Ubuntu: it's <code>/etc/amavis/conf.d/50-user</code>.</p>
-<p>Debian/Ubuntu have some addition config files under <code>/etc/amavis/conf.d/</code>,
+<p>Debian/Ubuntu have some additional config files under <code>/etc/amavis/conf.d/</code>,
 but you can always override them in <code>/etc/amavis/conf.d/50-user</code>.
 When we mention <code>amavisd.conf</code> in other documents, it always means <code>50-user</code>
 on Debian/Ubuntu.</p>
@@ -157,6 +158,31 @@ on Debian/Ubuntu.</p>
 </ul>
 <h3 id="log-files_2">Log files</h3>
 <p>Amavisd is configured to log to <a href="#postfix">Postfix log file</a> by iRedMail.</p>
+<h2 id="roundcube-webmail">Roundcube webmail</h2>
+<p>Roundcube webmail is installed under below directory by default:</p>
+<ul>
+<li>RHEL/CentOS: <code>/var/www/roundcubemail</code>. It's a symbol link to
+  <code>/var/www/roundcubemail-x.y.z</code>.</li>
+<li>Debian/Ubuntu: <code>/usr/share/apache2/roundcubemail</code>. It's a symbol link of
+  <code>/usr/share/apache2/roundcubemail-x.y.z/</code>.</li>
+<li>FreeBSD: <code>/usr/local/www/roundcube</code>.</li>
+<li>OpenBSD: <code>/var/www/roundcubemail</code>. It's a symbol link to
+  <code>/var/www/roundcubemail-x.y.z/</code>.</li>
+</ul>
+<p>Config files:</p>
+<ul>
+<li>
+<p>Main config file is <code>config/config.inc.php</code> under Roundcube webmail
+  directory.</p>
+<p>If you're running old Roundcube webmail (0.9.x and earlier
+releases), it has two separate config files: <code>config/db.inc.php</code> and
+<code>config/main.inc.php</code>.</p>
+</li>
+<li>
+<p>Config files of plugins are placed under plugin directory. for example,
+  config file of <code>password</code> plugin is <code>plugins/password/config.inc.php</code>.</p>
+</li>
+</ul>
 <h2 id="iredapd">iRedAPD</h2>
 <p>Main config file is <code>/opt/iredapd/settings.py</code> on all Linux/BSD distributions.</p>
 <h2 id="iredadmin">iRedAdmin</h2>
@@ -168,8 +194,9 @@ on Debian/Ubuntu.</p>
 <li>on OpenBSD, it's <code>/var/www/iredadmin/settings.py</code>.</li>
 </ul>
 <p>iRedAdmin is a web application, when debug mode is turned on, it will log error
-message to Apache/Nginx log file.
-It logs to <code>/var/log/iredapd.log</code> by default.</p><p style="text-align: center; color: grey;">Document published under a <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">CC BY-ND 3.0</a> license. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.<!-- Google Analytics -->
+message to Apache/Nginx ssl error log file.</p>
+<p>Note: If you modified any iRedAdmin files (not just config file), please restart
+Apache or uwsgi service (if you're running Nginx) to reload modified files.</p><p style="text-align: center; color: grey;">Document published under a <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">CC BY-ND 3.0</a> license. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.<!-- Google Analytics -->
 <script type="text/javascript">
     var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
     document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
