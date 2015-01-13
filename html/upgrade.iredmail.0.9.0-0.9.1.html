@@ -15,6 +15,10 @@
 <ul>
 <li><a href="#upgrade-iredmail-from-090-to-091">Upgrade iRedMail from 0.9.0 to 0.9.1</a><ul>
 <li><a href="#changelog">ChangeLog</a></li>
+<li><a href="#general-all-backends-should-apply-these-steps">General (All backends should apply these steps)</a><ul>
+<li><a href="#fixed-incorrect-path-of-command-sogo-tool-on-openbsd">Fixed: Incorrect path of command 'sogo-tool' on OpenBSD</a></li>
+</ul>
+</li>
 <li><a href="#mysqlmariadb-backend-special">MySQL/MariaDB backend special</a><ul>
 <li><a href="#fixed-not-apply-service-restriction-in-dovecot-sql-query-file-while-acting-as-sasl-server">Fixed: Not apply service restriction in Dovecot SQL query file while acting as SASL server</a></li>
 </ul>
@@ -30,8 +34,17 @@
 <p>WARNING: This is still a working in progress draft document, do <strong>NOT</strong> apply it.</p>
 <h2 id="changelog">ChangeLog</h2>
 <ul>
+<li>2015-01-13: [All backends] Fixed: Incorrect path of command 'sogo-tool' on OpenBSD.</li>
 <li>2015-01-12: [SQL backends] Fixed: Not apply service restriction in Dovecot SQL query file while acting as SASL server.</li>
 </ul>
+<h2 id="general-all-backends-should-apply-these-steps">General (All backends should apply these steps)</h2>
+<h3 id="fixed-incorrect-path-of-command-sogo-tool-on-openbsd">Fixed: Incorrect path of command 'sogo-tool' on OpenBSD</h3>
+<p>Note: this step is applicable to only OpenBSD.</p>
+<p>Please check user <code>_sogo</code>'s cron job, make sure path to <code>sogo-tool</code> command is
+<code>/usr/local/sbin/sogo-tool</code>:</p>
+<pre><code># crontab -l -u _sogo
+</code></pre>
+
 <h2 id="mysqlmariadb-backend-special">MySQL/MariaDB backend special</h2>
 <h3 id="fixed-not-apply-service-restriction-in-dovecot-sql-query-file-while-acting-as-sasl-server">Fixed: Not apply service restriction in Dovecot SQL query file while acting as SASL server</h3>
 <p>Please open Dovecot config file <code>/etc/dovecot/dovecot-mysql.conf</code>

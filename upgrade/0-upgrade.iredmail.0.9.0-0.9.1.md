@@ -8,7 +8,21 @@ WARNING: This is still a working in progress draft document, do __NOT__ apply it
 
 ## ChangeLog
 
+* 2015-01-13: [All backends] Fixed: Incorrect path of command 'sogo-tool' on OpenBSD.
 * 2015-01-12: [SQL backends] Fixed: Not apply service restriction in Dovecot SQL query file while acting as SASL server.
+
+## General (All backends should apply these steps)
+
+### Fixed: Incorrect path of command 'sogo-tool' on OpenBSD
+
+Note: this step is applicable to only OpenBSD.
+
+Please check user `_sogo`'s cron job, make sure path to `sogo-tool` command is
+`/usr/local/sbin/sogo-tool`:
+
+```
+# crontab -l -u _sogo
+```
 
 ## MySQL/MariaDB backend special
 
