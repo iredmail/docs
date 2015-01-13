@@ -45,6 +45,11 @@
 <pre><code># crontab -l -u _sogo
 </code></pre>
 
+<p>If it's not <code>/usr/local/sbin/sogo-tool</code>, please edit its cron job with below
+command and fix it:</p>
+<pre><code># crontab -e -u _sogo
+</code></pre>
+
 <h2 id="mysqlmariadb-backend-special">MySQL/MariaDB backend special</h2>
 <h3 id="fixed-not-apply-service-restriction-in-dovecot-sql-query-file-while-acting-as-sasl-server">Fixed: Not apply service restriction in Dovecot SQL query file while acting as SASL server</h3>
 <p>Please open Dovecot config file <code>/etc/dovecot/dovecot-mysql.conf</code>

@@ -24,6 +24,13 @@ Please check user `_sogo`'s cron job, make sure path to `sogo-tool` command is
 # crontab -l -u _sogo
 ```
 
+If it's not `/usr/local/sbin/sogo-tool`, please edit its cron job with below
+command and fix it:
+
+```
+# crontab -e -u _sogo
+```
+
 ## MySQL/MariaDB backend special
 
 ### Fixed: Not apply service restriction in Dovecot SQL query file while acting as SASL server
