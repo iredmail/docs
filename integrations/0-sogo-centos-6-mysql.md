@@ -1,4 +1,4 @@
-# SOGo: install SOGo on CentOS 6 with iRedMail (MySQL backend)
+# Install SOGo groupware on CentOS 6 with iRedMail (MySQL backend)
 
 [TOC]
 
@@ -29,10 +29,28 @@ gpgcheck=0
 * Install SOGo and dependences:
 
 ```
-# yum install sogo sope49-gdl1-mysql sogo-activesync libwbxml
+# yum install sogo sope49-gdl1-mysql sogo-activesync sogo-ealarms-notify sogo-tool
 ```
 
-## Create SQL database to store SOGo data
+* Append an alias entry in Postfix config file `/etc/postfix/aliases`, so that
+  notifications of cron jobs will be sent to mail server administrator.
+
+```
+# Part of file: /etc/postfix/aliases
+
+sogo: root
+```
+
+Execute command to update alias db:
+
+```
+# postalias /etc/postfix/aliases
+```
+
+## Create required SQL database
+
+SOGo will store some data (e.g. user preferences, sieve rules) in SQL database,
+so we need to create a database for it.
 
 ```
 $ mysql -u root -p
@@ -42,32 +60,78 @@ mysql> GRANT ALL ON sogo.* TO sogo@localhost IDENTIFIED BY 'password';
 
 mysql> GRANT SELECT ON vmail.mailbox TO sogo@localhost;
 
-mysql> CREATE VIEW sogo.users (c_uid, c_name, c_password, c_cn, mail, home) AS SELECT username, username, password, name, username, maildir FROM vmail.mailbox;
+mysql> CREATE VIEW sogo.users (c_uid, c_name, c_password, c_cn, mail, home) AS SELECT username, username, password, name, username, CONCAT(storagebasedirectory, '/', storagenode, '/', maildir) FROM vmail.mailbox WHERE active=1;
 ```
+
+Note: SOGo will create required SQL tables automatically, we don't need to
+create them manually.
 
 ## Configure SOGo
 
-Default SOGo config file is `/etc/sogo/sogo.conf`:
+Default SOGo config file is `/etc/sogo/sogo.conf`. We have a sample config file
+for you, just replace MySQL username/password in this file, then it's done.
+
+With below config file, SOGo will listen on address `127.0.0.1`, port `20000`.
 
 ```
 {
+    // Official SOGo documents:
+    //  - http://www.sogo.nu/english/support/documentation.html
+    //  - http://wiki.sogo.nu
+    //
+    // Mailing list:
+    //  - http://www.sogo.nu/english/support/community.html
+
+    // Enable verbose logging. Reference:
+    // http://www.sogo.nu/nc/support/faq/article/how-to-enable-more-verbose-logging-in-sogo.html
+    //ImapDebugEnabled = YES;
+    //LDAPDebugEnabled = YES;
+    //MySQL4DebugEnabled = YES;
+    //PGDebugEnabled = YES;
+
+    // Daemon address and port
     WOPort = 127.0.0.1:20000;
 
-    SOGoProfileURL = "mysql://sogo:password@localhost:3306/sogo/user_profiles";
-    OCSFolderInfoURL = "mysql://sogo:password@localhost:3306/sogo/folders";
-    OCSSessionsFolderURL = "mysql://sogo:password@localhost:3306/sogo/sessions";
+    // PID file
+    //WOPidFile = /var/log/sogo/sogo.log;
+
+    // IMAP connection pool.
+    // Your performance will slightly increase, as you won't open a new
+    // connection for every access to your IMAP server.
+    // But you will get a lot of simultaneous open connections to your IMAP
+    // server, so make sure he can handle them.
+    // For debugging it is reasonable to turn pooling off.
+    //NGImap4DisableIMAP4Pooling = NO;
+
+    SOGoProfileURL = "mysql://sogo:password@127.0.0.1:3306/sogo/sogo_user_profile";
+    OCSFolderInfoURL = "mysql://sogo:password@127.0.0.1:3306/sogo/sogo_folder_info";
+    OCSSessionsFolderURL = "mysql://sogo:password@127.0.0.1:3306/sogo/sogo_sessions_folder";
+
+    // Default language in the web interface
+    SOGoLanguage = English;
+
+    // Specify which module to show after login: Calendar, Mail, Contacts.
+    SOGoLoginModule = Mail;
+
+    // Must login with full email address
+    SOGoForceExternalLoginWithEmail = YES;
+
+    // Allow user to change full name and email address.
+    SOGoMailCustomFromEnabled = YES;
 
     // Enable email-based alarms on events and tasks.
     SOGoEnableEMailAlarms = YES;
-    OCSEMailAlarmsFolderURL = "mysql://sogo:password@localhost:3306/sogo/alarms";
+    OCSEMailAlarmsFolderURL = "mysql://sogo:password@127.0.0.1:3306/sogo/sogo_alarms_folder";
 
-    // Use TLS
+    // IMAP server
     //SOGoIMAPServer = "imaps://127.0.0.1:143/?tls=YES";
     // Local connection is considered as secure by Dovecot.
     SOGoIMAPServer = "imap://127.0.0.1:143/";
 
+    // SMTP server
     SOGoMailingMechanism = smtp;
     SOGoSMTPServer = 127.0.0.1;
+    //SOGoSMTPAuthenticationType = PLAIN;
 
     // Enable managesieve service
     //
@@ -75,45 +139,49 @@ Default SOGo config file is `/etc/sogo/sogo.conf`:
     //          webmail, don't use sieve service in both webmails, otherwise
     //          it will be messy.
     //
-    //SOGoSieveServer = sieve://PH_MANAGESIEVE_BIND_HOST:PH_MANAGESIEVE_PORT;
+    //SOGoSieveServer = sieve://127.0.0.1:4190;
     //SOGoSieveScriptsEnabled = YES;
     //SOGoVacationEnabled = YES;
     //SOGoForwardEnabled = YES;
 
+    // Memcached
     SOGoMemcachedHost = 127.0.0.1;
 
-    SOGoTimeZone = "Europe/Berlin";
+    SOGoTimeZone = "America/New_York";
+
     SOGoFirstDayOfWeek = 1;
-    SOGoMailMessageCheck = every_5_minutes;
-    SOGoForceExternalLoginWithEmail = YES;
+
+    SOGoRefreshViewCheck = every_5_minutes;
+    SOGoMailReplyPlacement = below;
+
     SOGoAppointmentSendEMailNotifications = YES;
     SOGoFoldersSendEMailNotifications = YES;
     SOGoACLsSendEMailNotifications = YES;
 
+    // PostgreSQL cannot update view
     SOGoPasswordChangeEnabled = YES;
 
-    // User authentication
-    SOGoUserSources =
-    (
+    // Authentication using SQL
+    SOGoUserSources = (
         {
             type = sql;
-            id = directory;
+            id = vmail_mailbox;
             viewURL = "mysql://sogo:password@127.0.0.1:3306/sogo/users";
-
             canAuthenticate = YES;
-            userPasswordAlgorithm = md5;
+
+            // Default algorithm used when changing passwords.
+            userPasswordAlgorithm = ssha;
             prependPasswordScheme = YES;
 
-            // SOGo can use SQL database as address book, but it's able to
-            // query ALL mail accounts. Enable it on your own.
-            isAddressBook = NO;
+            // Use vmail.mailbox as global address book.
+            // WARNING: This will search all user accounts, not just accounts
+            // under same domain as login user.
+            //isAddressBook = YES;
+            //displayName = "Global Address Book";
         }
     );
 }
 ```
-
-__NOTE__: SOGo will create required SQL tables automatically (`user_profiles`,
-`folder`, `sessions`, ...),  we don't need to create them manually.
 
 ## Enable ActiveSync support
 
@@ -138,9 +206,9 @@ ProxyPass /Microsoft-Server-ActiveSync \
 
 ### Nginx web server
 
-If you're running Nginx web server, please open file
-`/etc/nginx/conf.d/default.conf`, add some lines in `server {}` block which
-is configured for HTTPS:
+If you're running Nginx web server configured by iRedMail, please open file
+`/etc/nginx/conf.d/default.conf`, add some lines in `server {}` configured for
+HTTPS:
 
 ```
 server {
@@ -148,8 +216,16 @@ server {
     ...
 
     # Add below lines for SOGo
-
     # SOGo
+    location ~ ^/sogo { rewrite ^ https://$host/SOGo; }
+    location ~ ^/SOGO { rewrite ^ https://$host/SOGo; }
+
+    # For IOS 7
+    location = /principals/ {
+        rewrite ^ https://$server_name/SOGo/dav;
+        allow all;
+    }
+
     location ^~ /SOGo {
         proxy_pass http://127.0.0.1:20000;
         #proxy_redirect http://127.0.0.1:20000/SOGo/ /SOGo;
@@ -174,44 +250,40 @@ server {
     }
 
     location /SOGo.woa/WebServerResources/ {
-        alias /usr/lib/GNUstep/SOGo/WebServerResources/;
+        alias /usr/lib64/GNUstep/SOGo/WebServerResources/;
     }
     location /SOGo/WebServerResources/ {
-        alias /usr/lib/GNUstep/SOGo/WebServerResources/;
+        alias /usr/lib64/GNUstep/SOGo/WebServerResources/;
     }
     location ^/SOGo/so/ControlPanel/Products/([^/]*)/Resources/(.*)$ {
-        alias /usr/lib/GNUstep/SOGo/$1.SOGo/Resources/$2;
+        alias /usr/lib64/GNUstep/SOGo/$1.SOGo/Resources/$2;
     }
 }
 ```
 
-__Important note__: You should replace directory `/usr/lib/GNUstep/SOGo` the
+__Important note__: You must replace path `/usr/lib/GNUstep/SOGo` with
 the real directory which contains SOGo files:
 
-* on RHEL/CentOS: it's `/usr/lib/GNUstep/SOGo` on x86 platform,
-  `/usr/lib64/GNUstep/SOGo` on x86_64 platform.
-* on Debian/Ubuntu, it's `/usr/lib/GNUstep/SOGo`.
-* on OpenBSD, it's `/
+* on i386 platform, it's `/usr/lib/GNUstep/SOGo`.
+* on x86_64, it's `/usr/lib64/GNUstep/SOGo`.
 
 ## Start SOGo and dependent services
 
 ```
-service sogod start
-service httpd restart
-service memcached start
+# service sogod restart
+# service httpd restart     # <- restart 'nginx' service if you're running Nginx
+# service memcached restart
 ```
 
-## Access SOGo
+## Access SOGo from web browser
 
-Open your favourite web browser, access URL: `https://[your_server]/SOGo`.
+Open your favourite web browser, access URL: `https://[your_server]/SOGo` (the
+word `SOGo` is case-sensitive), you can login with your email account credential.
 
-## How to configure client applications
+## Configure your mail clients or mobile devices to use CalDav/CardDAV services
 
-### Apple Devices
-
-URL for calendar service: `http://[host]/SOGo/dav/[full email address]/`
-
-## TODO
+Please check our documents [here](./index.html#configure-mail-client-applications)
+to configure your mail clients or mobile devices.
 
 ## References
 

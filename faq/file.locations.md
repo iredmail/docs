@@ -116,6 +116,12 @@ Additional config files:
 
 Amavisd is configured to log to [Postfix log file](#postfix) by iRedMail.
 
+## Fail2ban
+
+Main config file is `/etc/fail2ban/jail.local`. All custom settings should be
+placed in `jail.local`, and don't touch `jail.conf`, so that upgrading
+Fail2ban binary package won't override your custom settings.
+
 ## Roundcube webmail
 
 Roundcube webmail is installed under below directory by default:

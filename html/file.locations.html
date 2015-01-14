@@ -31,6 +31,7 @@
 <li><a href="#log-files_2">Log files</a></li>
 </ul>
 </li>
+<li><a href="#fail2ban">Fail2ban</a></li>
 <li><a href="#roundcube-webmail">Roundcube webmail</a></li>
 <li><a href="#iredapd">iRedAPD</a></li>
 <li><a href="#iredadmin">iRedAdmin</a></li>
@@ -158,6 +159,10 @@ on Debian/Ubuntu.</p>
 </ul>
 <h3 id="log-files_2">Log files</h3>
 <p>Amavisd is configured to log to <a href="#postfix">Postfix log file</a> by iRedMail.</p>
+<h2 id="fail2ban">Fail2ban</h2>
+<p>Main config file is <code>/etc/fail2ban/jail.local</code>. All custom settings should be
+placed in <code>jail.local</code>, and don't touch <code>jail.conf</code>, so that upgrading
+Fail2ban binary package won't override your custom settings.</p>
 <h2 id="roundcube-webmail">Roundcube webmail</h2>
 <p>Roundcube webmail is installed under below directory by default:</p>
 <ul>
