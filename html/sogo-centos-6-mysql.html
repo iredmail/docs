@@ -18,15 +18,17 @@
 <li><a href="#install-sogo">Install SOGo</a></li>
 <li><a href="#create-required-sql-database">Create required SQL database</a></li>
 <li><a href="#configure-sogo">Configure SOGo</a></li>
-<li><a href="#enable-activesync-support">Enable ActiveSync support</a><ul>
+<li><a href="#configure-web-server">Configure web server</a><ul>
 <li><a href="#apache-web-server">Apache web server</a></li>
 <li><a href="#nginx-web-server">Nginx web server</a></li>
 </ul>
 </li>
 <li><a href="#start-sogo-and-dependent-services">Start SOGo and dependent services</a></li>
+<li><a href="#add-dovecot-master-user-used-for-vacation-message-expiration">Add Dovecot Master User, used for vacation message expiration</a></li>
+<li><a href="#add-required-cron-jobs">Add required cron jobs</a></li>
 <li><a href="#access-sogo-from-web-browser">Access SOGo from web browser</a></li>
 <li><a href="#configure-your-mail-clients-or-mobile-devices-to-use-caldavcarddav-services">Configure your mail clients or mobile devices to use CalDav/CardDAV services</a></li>
-<li><a href="#references">References</a></li>
+<li><a href="#todo">TODO</a></li>
 </ul>
 </li>
 </ul>
@@ -201,7 +203,9 @@ for you, just replace MySQL username/password in this file, then it's done.</p>
 }
 </code></pre>
 
-<h2 id="enable-activesync-support">Enable ActiveSync support</h2>
+<h2 id="configure-web-server">Configure web server</h2>
+<p>To access SOGo groupware (webmail/calendar/contact), we need to configure
+web server.</p>
 <h3 id="apache-web-server">Apache web server</h3>
 <p>SOGo installs config file <code>/etc/httpd/conf.d/SOGo.conf</code> by default, please
 open it and find below lines:</p>
@@ -277,9 +281,26 @@ the real directory which contains SOGo files:</p>
 <li>on x86_64, it's <code>/usr/lib64/GNUstep/SOGo</code>.</li>
 </ul>
 <h2 id="start-sogo-and-dependent-services">Start SOGo and dependent services</h2>
-<pre><code># service sogod restart
-# service httpd restart     # &lt;- restart 'nginx' service if you're running Nginx
+<pre><code># service httpd restart     # &lt;- restart 'nginx' service if you're running Nginx
 # service memcached restart
+# service sogod restart
+</code></pre>
+
+<h2 id="add-dovecot-master-user-used-for-vacation-message-expiration">Add Dovecot Master User, used for vacation message expiration</h2>
+<h2 id="add-required-cron-jobs">Add required cron jobs</h2>
+<p>Please add below cron jobs for SOGo daemon user <code>sogo</code>. You can add them with
+command: <code>crontab -l -u sogo</code></p>
+<pre><code># iRedMail: SOGo email reminder, should be run every minute.
+*   *   *   *   *   /usr/sbin/sogo-ealarms-notify
+
+# iRedMail: SOGo session cleanup, should be run every minute.
+# Ajust the [X]Minutes parameter to suit your needs
+# Example: Sessions without activity since 30 minutes will be dropped:
+*   *   *   *   *   /usr/sbin/sogo-tool expire-sessions 30
+
+# iRedMail: SOGo vacation messages expiration
+# The credentials file should contain the sieve admin credentials (username:passwd)
+0   0   *   *   *   /usr/sbin/sogo-tool expire-autoreply -p /etc/sogo/sieve.cred
 </code></pre>
 
 <h2 id="access-sogo-from-web-browser">Access SOGo from web browser</h2>
@@ -288,7 +309,10 @@ word <code>SOGo</code> is case-sensitive), you can login with your email account
 <h2 id="configure-your-mail-clients-or-mobile-devices-to-use-caldavcarddav-services">Configure your mail clients or mobile devices to use CalDav/CardDAV services</h2>
 <p>Please check our documents <a href="./index.html#configure-mail-client-applications">here</a>
 to configure your mail clients or mobile devices.</p>
-<h2 id="references">References</h2><p style="text-align: center; color: grey;">Document published under a <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">CC BY-ND 3.0</a> license. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.<!-- Google Analytics -->
+<h2 id="todo">TODO</h2>
+<ul>
+<li>Add Dovecot Master User, for vacation message expiration</li>
+</ul><p style="text-align: center; color: grey;">Document published under a <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">CC BY-ND 3.0</a> license. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.<!-- Google Analytics -->
 <script type="text/javascript">
     var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
     document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));

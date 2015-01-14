@@ -10,7 +10,7 @@ To create a new mail account with Thunderbird, please click menu: `File -> New -
 
 Add your name, email address and password in this screen.
 
-![](./images/thunderbird.new.mail.account.png "Thunderbird.new.mail.account.png")
+![](./images/thunderbird/new.mail.account.png)
 
 Click continue, it will detect IMAP and SMTP server automatically.
 
@@ -19,18 +19,18 @@ Note:
 * Login username must be full email address. You may want to click `Edit` to ensure it is correct.
 * If you want to use POP3 instead of IMAP, click "Edit" and change it to POP3 in this screen with port `110`, `STARTTLS`.
 
-![](./images/thunderbird.new.mail.account.setup.png "Thunderbird.new.mail.account.setup.png")
+![](./images/thunderbird/new.mail.account.setup.png)
 
 ## Configure Thunderbird as POP3 client
 Warning: Make sure you are using full email address as username.
 
-![](./images/thunderbird.pop3.png "Thunderbird.pop3.png")
+![](./images/thunderbird/pop3.png)
 
 ## Configure Thunderbird as IMAP client
 
 Warning: Make sure you are using full email address as username.
 
-![](./images/thunderbird.imap.png "Thunderbird.imap.png")
+![](./images/thunderbird/imap.png)
 
 ## Configure Thunderbird to send mail via SMTP
 
@@ -38,7 +38,7 @@ Menu: Tools -> Account settings... -> Outgoing server (SMTP) -> Choose the serve
 
 Warning: Make sure you are using full email address as username.
 
-![](./images/thunderbird.smtp.png "Thunderbird.smtp.png")
+![](./images/thunderbird/smtp.png)
 
 ## Use OpenLDAP as Global LDAP Address Book
 

@@ -183,7 +183,10 @@ With below config file, SOGo will listen on address `127.0.0.1`, port `20000`.
 }
 ```
 
-## Enable ActiveSync support
+## Configure web server
+
+To access SOGo groupware (webmail/calendar/contact), we need to configure
+web server.
 
 ### Apache web server
 
@@ -270,9 +273,29 @@ the real directory which contains SOGo files:
 ## Start SOGo and dependent services
 
 ```
-# service sogod restart
 # service httpd restart     # <- restart 'nginx' service if you're running Nginx
 # service memcached restart
+# service sogod restart
+```
+
+## Add Dovecot Master User, used for vacation message expiration
+
+## Add required cron jobs
+Please add below cron jobs for SOGo daemon user `sogo`. You can add them with
+command: `crontab -l -u sogo`
+
+```
+# iRedMail: SOGo email reminder, should be run every minute.
+*   *   *   *   *   /usr/sbin/sogo-ealarms-notify
+
+# iRedMail: SOGo session cleanup, should be run every minute.
+# Ajust the [X]Minutes parameter to suit your needs
+# Example: Sessions without activity since 30 minutes will be dropped:
+*   *   *   *   *   /usr/sbin/sogo-tool expire-sessions 30
+
+# iRedMail: SOGo vacation messages expiration
+# The credentials file should contain the sieve admin credentials (username:passwd)
+0   0   *   *   *   /usr/sbin/sogo-tool expire-autoreply -p /etc/sogo/sieve.cred
 ```
 
 ## Access SOGo from web browser
@@ -285,5 +308,7 @@ word `SOGo` is case-sensitive), you can login with your email account credential
 Please check our documents [here](./index.html#configure-mail-client-applications)
 to configure your mail clients or mobile devices.
 
-## References
+## TODO
+
+* Add Dovecot Master User, for vacation message expiration
 
