@@ -80,6 +80,12 @@ iRedAPD-1.4.4 fixes several issues and brings some new features:
 
     It's recommended to enable this plugin right after plugin `reject_null_sender`.
 
+Suggested order of above 3 plugins are (if you enabled them):
+
+```
+plugins = ['reject_null_sender', 'reject_sender_login_mismatch', 'amavisd_wblist', ...]
+```
+
 Important note: If you want to manage white/blacklists with iRedAdmin-Pro,
 you have to enable plugin `amavisd_wblist`.
 
