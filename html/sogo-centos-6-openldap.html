@@ -1,7 +1,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title>Install SOGo groupware on CentOS 6 with iRedMail (MySQL backend)</title>
+        <title>Install SOGo groupware on CentOS 6 with iRedMail (OpenLDAP backend)</title>
         <link href="./css/markdown.css" rel="stylesheet"></head>
     </head>
     <body>
@@ -10,10 +10,10 @@
         <a href="http://www.iredmail.org" target="_blank">iRedMail web site</a>
     
         // <a href="./index.html">Document Index</a>
-    </div><h1 id="install-sogo-groupware-on-centos-6-with-iredmail-mysql-backend">Install SOGo groupware on CentOS 6 with iRedMail (MySQL backend)</h1>
+    </div><h1 id="install-sogo-groupware-on-centos-6-with-iredmail-openldap-backend">Install SOGo groupware on CentOS 6 with iRedMail (OpenLDAP backend)</h1>
 <div class="toc">
 <ul>
-<li><a href="#install-sogo-groupware-on-centos-6-with-iredmail-mysql-backend">Install SOGo groupware on CentOS 6 with iRedMail (MySQL backend)</a><ul>
+<li><a href="#install-sogo-groupware-on-centos-6-with-iredmail-openldap-backend">Install SOGo groupware on CentOS 6 with iRedMail (OpenLDAP backend)</a><ul>
 <li><a href="#requirements">Requirements</a></li>
 <li><a href="#install-sogo">Install SOGo</a></li>
 <li><a href="#create-required-sql-database">Create required SQL database</a></li>
@@ -34,7 +34,7 @@
 </div>
 <h2 id="requirements">Requirements</h2>
 <ul>
-<li>A working iRedMail server (MySQL backend) on CentOS 6.</li>
+<li>A working iRedMail server (OpenLDAP backend) on CentOS 6.</li>
 </ul>
 <h2 id="install-sogo">Install SOGo</h2>
 <ul>
@@ -58,7 +58,7 @@ gpgcheck=0
 <ul>
 <li>Install SOGo and dependences:</li>
 </ul>
-<pre><code># yum install sogo sope49-gdl1-mysql sogo-activesync sogo-ealarms-notify sogo-tool
+<pre><code># yum install sogo sope49-gdl1-mysql sope49-ldap sogo-activesync libwbxml sogo-ealarms-notify sogo-tool
 </code></pre>
 
 <ul>
@@ -81,17 +81,14 @@ so we need to create a database for it.</p>
 
 mysql&gt; CREATE DATABASE sogo CHARSET='UTF8';
 mysql&gt; GRANT ALL ON sogo.* TO sogo@localhost IDENTIFIED BY 'password';
-
-mysql&gt; GRANT SELECT ON vmail.mailbox TO sogo@localhost;
-
-mysql&gt; CREATE VIEW sogo.users (c_uid, c_name, c_password, c_cn, mail, home) AS SELECT username, username, password, name, username, CONCAT(storagebasedirectory, '/', storagenode, '/', maildir) FROM vmail.mailbox WHERE active=1;
 </code></pre>
 
 <p>Note: SOGo will create required SQL tables automatically, we don't need to
 create them manually.</p>
 <h2 id="configure-sogo">Configure SOGo</h2>
 <p>Default SOGo config file is <code>/etc/sogo/sogo.conf</code>. We have a sample config file
-for you, just replace MySQL username/password in this file, then it's done.</p>
+for you, just replace MySQL username/password for sogo SQL database and LDAP
+basedn, bind dn/passwordthen in this file, then it's done.</p>
 <p>With below config file, SOGo will listen on address <code>127.0.0.1</code>, port <code>20000</code>.</p>
 <pre><code>{
     // Official SOGo documents:
@@ -180,33 +177,56 @@ for you, just replace MySQL username/password in this file, then it's done.</p>
     // PostgreSQL cannot update view
     SOGoPasswordChangeEnabled = YES;
 
-    // Authentication using SQL
+    // Authentication using LDAP
     SOGoUserSources = (
         {
-            type = sql;
-            id = vmail_mailbox;
-            viewURL = &quot;mysql://sogo:password@127.0.0.1:3306/sogo/users&quot;;
-            canAuthenticate = YES;
+            type = ldap;
+            hostname = &quot;ldap://127.0.0.1:389&quot;;
+            baseDN = &quot;o=domains,dc=example,dc=com&quot;;
+            //bindAsCurrentUser = YES;
+            bindDN = &quot;cn=vmailadmin,dc=example,dc=com&quot;;
+            bindPassword = &quot;SLNHxbNmFwSd55gpZACnvZdTT10zSX&quot;;
+            filter = &quot;objectClass=mailUser AND accountStatus=active AND enabledService=mail&quot;;
+            scope = SUB;
 
-            // Default algorithm used when changing passwords.
+            // The algorithm used for password encryption when changing
+            // passwords without Password Policies enabled.
+            // Possible values are: plain, crypt, md5-crypt, ssha.
             userPasswordAlgorithm = ssha;
-            prependPasswordScheme = YES;
 
-            // Use vmail.mailbox as global address book.
-            // WARNING: This will search all user accounts, not just accounts
-            // under same domain as login user.
-            //isAddressBook = YES;
-            //displayName = &quot;Global Address Book&quot;;
+            IDFieldName = mail;
+            bindFields = (mail);
+            CNFieldName = cn;
+            // value of UID field must be unique on whole server.
+            UIDFieldName = mail;
+            IMAPLoginFieldName = mail;
+            SearchFieldNames = (cn, sn, displayName, telephoneNumber, mail, shadowAddress);
+            canAuthenticate = YES;
+            displayName = &quot;Global Address Book&quot;;
+            id = ldap_auth;
+            isAddressBook = YES;
         }
     );
 }
 </code></pre>
 
-<p>Important note: sieve rules generated by SOGo is not compatible with Roundcube
-webmail, so if you're running both Roundcube and SOGo, you must disable sieve
-support (including forwarding and vacation support) in one of them to avoid
-incompatible sieve rules. if you choose to run only SOGo, you can enable sieve
-support by removing comment mark of below lines in above configuration:</p>
+<p>Important note:</p>
+<ul>
+<li>
+<p>LDAP bind dn must have privilege to read and write mail accounts stored in
+  LDAP server, so that it can modify user password. <code>cn=vmailadmin,dc=xx,dc=xx</code>
+  is recommended, do <strong>NOT</strong> use <code>cn=Manager,dc=xx,dc=xx</code>. You can find
+  <code>cn=vmailadmin,dc=xx,dc=xx</code> in iRedAdmin config file
+  (<code>/var/www/iredadmin/settings.py</code>).</p>
+</li>
+<li>
+<p>sieve rules generated by SOGo is not compatible with Roundcube
+  webmail, so if you're running both Roundcube and SOGo, you must disable sieve
+  support (including forwarding and vacation support) in one of them to avoid
+  incompatible sieve rules. if you choose to run only SOGo, you can enable sieve
+  support by removing comment mark of below lines in above configuration:</p>
+</li>
+</ul>
 <pre><code>    SOGoSieveServer = sieve://127.0.0.1:4190;
     SOGoSieveScriptsEnabled = YES;
     SOGoVacationEnabled = YES;
