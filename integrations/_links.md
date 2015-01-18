@@ -1,3 +1,6 @@
+* Install SOGo groupware on:
+
+    * CentOS 6: [MySQL](./sogo-centos-6-mysql.html)
 
 Documents contributed by iRedMail users:
 
