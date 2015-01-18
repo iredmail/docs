@@ -62,13 +62,21 @@ mx.example.com
 ### Disable SELinux.
 
 iRedMail doesn't work with SELinux, so please disable it by setting below
-value in its config file `/etc/selinux/config`.
+value in its config file `/etc/selinux/config`. After server reboot, SELinux
+will be completely disabled.
 
 ```
 SELINUX=disabled
 ```
 
-Now disable it immediately without rebooting your server.
+If you prefer to let SELinux prints warnings instead of enforcing, you can
+set below value instead:
+
+```
+SELINUX=permissive
+```
+
+Disable it immediately without rebooting your server.
 
 ```
 # setenforce 0
