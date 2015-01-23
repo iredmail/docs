@@ -1,5 +1,7 @@
 # Upgrade iRedMail from 0.8.6 to 0.8.7
 
+[TOC]
+
 ## ChangeLog
 
 * 2014-05-18: Update SQL commands to sync value of removed columns to new column 'domain.settings'.

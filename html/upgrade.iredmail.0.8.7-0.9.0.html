@@ -135,8 +135,26 @@ or per-user setting. Priority: per-user &gt; per-domain &gt; global.</p>
 <pre><code>plugins = ['reject_null_sender', 'reject_sender_login_mismatch', 'amavisd_wblist', ...]
 </code></pre>
 
-<p>Important note: If you want to manage white/blacklists with iRedAdmin-Pro,
-you have to enable plugin <code>amavisd_wblist</code>.</p>
+<p>Important notes:</p>
+<ul>
+<li>
+<p>If you want to manage white/blacklists with the latest iRedAdmin-Pro, you
+  have to enable plugin <code>amavisd_wblist</code>.</p>
+</li>
+<li>
+<p>Plugin <code>amavisd_wblist</code> and <code>amavisd_message_size_limit</code> requires additional
+  database related settings in iRedAPD config file, please set correct values
+  for them. You can find SQL database settings in Amavisd config file,
+  in parameter <code>@lookup_sql_dsn =</code>.</p>
+</li>
+</ul>
+<pre><code>amavisd_db_server = '127.0.0.1'
+amavisd_db_port = 3306
+amavisd_db_name = 'amavisd'
+amavisd_db_user = 'amavisd'
+amavisd_db_password = 'password'
+</code></pre>
+
 <h3 id="upgrade-iredadmin-open-source-edition-to-the-latest-stable-release">Upgrade iRedAdmin (open source edition) to the latest stable release</h3>
 <p>Please follow this tutorial to upgrade iRedAdmin open source edition to the
 latest stable release: <a href="./migrate.or.upgrade.iredadmin.html">Upgrade iRedAdmin to the latest stable release</a></p>

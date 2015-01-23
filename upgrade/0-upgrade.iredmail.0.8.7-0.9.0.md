@@ -86,8 +86,23 @@ Suggested order of above 3 plugins are (if you enabled them):
 plugins = ['reject_null_sender', 'reject_sender_login_mismatch', 'amavisd_wblist', ...]
 ```
 
-Important note: If you want to manage white/blacklists with iRedAdmin-Pro,
-you have to enable plugin `amavisd_wblist`.
+Important notes:
+
+* If you want to manage white/blacklists with the latest iRedAdmin-Pro, you
+  have to enable plugin `amavisd_wblist`.
+
+* Plugin `amavisd_wblist` and `amavisd_message_size_limit` requires additional
+  database related settings in iRedAPD config file, please set correct values
+  for them. You can find SQL database settings in Amavisd config file,
+  in parameter `@lookup_sql_dsn =`.
+
+```
+amavisd_db_server = '127.0.0.1'
+amavisd_db_port = 3306
+amavisd_db_name = 'amavisd'
+amavisd_db_user = 'amavisd'
+amavisd_db_password = 'password'
+```
 
 ### Upgrade iRedAdmin (open source edition) to the latest stable release
 

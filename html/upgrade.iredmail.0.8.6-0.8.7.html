@@ -11,6 +11,37 @@
     
         // <a href="./index.html">Document Index</a>
     </div><h1 id="upgrade-iredmail-from-086-to-087">Upgrade iRedMail from 0.8.6 to 0.8.7</h1>
+<div class="toc">
+<ul>
+<li><a href="#upgrade-iredmail-from-086-to-087">Upgrade iRedMail from 0.8.6 to 0.8.7</a><ul>
+<li><a href="#changelog">ChangeLog</a></li>
+<li><a href="#general-all-backends-should-apply-these-steps">General (All backends should apply these steps)</a><ul>
+<li><a href="#update-etciredmail-release-with-iredmail-version-number">Update /etc/iredmail-release with iRedMail version number</a></li>
+<li><a href="#upgrade-roundcube-webmail-to-the-latest-stable-release">Upgrade Roundcube webmail to the latest stable release</a></li>
+<li><a href="#upgrade-iredapd-postfix-policy-server-to-the-latest-143">Upgrade iRedAPD (Postfix policy server) to the latest 1.4.3</a></li>
+<li><a href="#upgrade-iredadmin-open-source-edition-to-the-latest-stable-release">Upgrade iRedAdmin (open source edition) to the latest stable release</a></li>
+<li><a href="#upgrade-phpmyadmin-to-the-latest-stable-release">Upgrade phpMyAdmin to the latest stable release</a></li>
+<li><a href="#optional-allows-smtp-sasl-authentication-only-over-a-tls-encrypted-smtp-connection">[OPTIONAL] Allows SMTP SASL authentication ONLY over a TLS-encrypted smtp connection</a></li>
+<li><a href="#optional-enable-lmtp-service-in-dovecot-2x">[OPTIONAL] Enable LMTP service in Dovecot-2.x</a></li>
+<li><a href="#optional-fixed-issue-postfix-cannot-resolve-client-ip-address-to-dns-name-on-rhelcentos">[OPTIONAL] Fixed issue: Postfix cannot resolve client IP address to DNS name on RHEL/CentOS</a></li>
+</ul>
+</li>
+<li><a href="#openldap-backend-special">OpenLDAP backend special</a><ul>
+<li><a href="#add-new-ldap-values-for-existing-mail-users">Add new LDAP values for existing mail users</a></li>
+</ul>
+</li>
+<li><a href="#mysql-backend-special">MySQL backend special</a><ul>
+<li><a href="#add-and-remove-sql-columns-in-vmail-database">Add and remove SQL columns in vmail database</a></li>
+</ul>
+</li>
+<li><a href="#postgresql-backend-special">PostgreSQL backend special</a><ul>
+<li><a href="#add-and-remove-sql-columns-in-vmail-database_1">Add and remove SQL columns in vmail database</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
 <h2 id="changelog">ChangeLog</h2>
 <ul>
 <li>2014-05-18: Update SQL commands to sync value of removed columns to new column 'domain.settings'.</li>
@@ -25,10 +56,10 @@
 <li>2014-02-20:<ul>
 <li>Enable Dovecot LMTP service for local mail delivery.</li>
 <li>[OpenLDAP] Add new value for existing mail users: enabledService=lmtp.</li>
-<li>[MySQL/PostgreSQL] Create one addition SQL column in vmail database: mailbox.enablelmtp.</li>
+<li>[MySQL/PostgreSQL] Create one additional SQL column in vmail database: mailbox.enablelmtp.</li>
 </ul>
 </li>
-<li>2014-02-19: Create addition SQL columns in vmail database: mailbox.settings, admin.settings, alias.islist.</li>
+<li>2014-02-19: Create additional SQL columns in vmail database: mailbox.settings, admin.settings, alias.islist.</li>
 </ul>
 <h2 id="general-all-backends-should-apply-these-steps">General (All backends should apply these steps)</h2>
 <h3 id="update-etciredmail-release-with-iredmail-version-number">Update /etc/iredmail-release with iRedMail version number</h3>
@@ -110,7 +141,7 @@ $config['smtp_port'] = 587;
   doesn't matter which one you use.</li>
 </ul>
 <p>Search "dovecot lda vs lmtp" in Google will give you more detailed info and debate.</p>
-<p><strong>NOTE</strong>: On Debian or Ubuntu, you have to install one addition package before
+<p><strong>NOTE</strong>: On Debian or Ubuntu, you have to install one additional package before
 we go further: <code>dovecot-lmtpd</code>.</p>
 <pre><code># apt-get install dovecot-lmtpd
 </code></pre>
@@ -295,9 +326,9 @@ file under your iRedMail installation directory. Using either
 <p>We need 5 new SQL columns in <code>vmail</code> database:</p>
 <ul>
 <li><code>mailbox.enablelmtp</code>: used by Dovecot LMTP server.</li>
-<li><code>mailbox.settings</code>: used to store addition per-user settings, default value is empty. Used in iRedAdmin-Pro.</li>
+<li><code>mailbox.settings</code>: used to store additional per-user settings, default value is empty. Used in iRedAdmin-Pro.</li>
 <li><code>domain.settings</code>: used to store per-domain settings, default is empty. Used in iRedAdmin-Pro.</li>
-<li><code>admin.settings</code>: used to store addition per-admin settings, default value is empty. Used in iRedAdmin-Pro.</li>
+<li><code>admin.settings</code>: used to store additional per-admin settings, default value is empty. Used in iRedAdmin-Pro.</li>
 <li><code>alias.islist</code>: used to mark a sql record is a mail list account, default value is <code>0</code> (means not a mail list account). This helps avoid complex SQL queries.</li>
 </ul>
 <p>Some existing columns in table <code>vmail.domain</code> are not needed anymore, they will
@@ -343,9 +374,9 @@ mysql&gt; ALTER TABLE domain DROP disableduserprofiles;
 <p>We need 5 new SQL columns in <code>vmail</code> database:</p>
 <ul>
 <li><code>mailbox.enablelmtp</code>: used by Dovecot LMTP server.</li>
-<li><code>mailbox.settings</code>: used to store addition per-user settings, default value is empty. Used in iRedAdmin-Pro.</li>
+<li><code>mailbox.settings</code>: used to store additional per-user settings, default value is empty. Used in iRedAdmin-Pro.</li>
 <li><code>domain.settings</code>: used to store per-domain settings, default is empty. Used in iRedAdmin-Pro.</li>
-<li><code>admin.settings</code>: used to store addition per-admin settings, default value is empty. Used in iRedAdmin-Pro.</li>
+<li><code>admin.settings</code>: used to store additional per-admin settings, default value is empty. Used in iRedAdmin-Pro.</li>
 <li><code>alias.islist</code>: used to mark a sql record is a mail list account, default value is <code>0</code> (means not a mail list account). This helps avoid complex SQL queries.</li>
 </ul>
 <p>Some existing columns in table <code>vmail.domain</code> are not needed anymore, they will
