@@ -78,11 +78,17 @@ mx.example.com
 
 <h3 id="disable-selinux">Disable SELinux.</h3>
 <p>iRedMail doesn't work with SELinux, so please disable it by setting below
-value in its config file <code>/etc/selinux/config</code>.</p>
+value in its config file <code>/etc/selinux/config</code>. After server reboot, SELinux
+will be completely disabled.</p>
 <pre><code>SELINUX=disabled
 </code></pre>
 
-<p>Now disable it immediately without rebooting your server.</p>
+<p>If you prefer to let SELinux prints warnings instead of enforcing, you can
+set below value instead:</p>
+<pre><code>SELINUX=permissive
+</code></pre>
+
+<p>Disable it immediately without rebooting your server.</p>
 <pre><code># setenforce 0
 </code></pre>
 

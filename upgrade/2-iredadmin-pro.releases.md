@@ -38,6 +38,7 @@ this tutorial with just one shell command:
 * [1.4.0](http://www.iredmail.org/wiki/index.php?title=Release.Notes/iRedAdmin-Pro/LDAP/1.4.0), 2011-02-01
 * [1.3.0](http://www.iredmail.org/wiki/index.php?title=Release.Notes/iRedAdmin-Pro/LDAP/1.3.0), 2010-10-01
 * [1.2.0](http://www.iredmail.org/wiki/index.php?title=Release.Notes/iRedAdmin-Pro/LDAP/1.2.0), 2010-06-18
+* [1.0], 2009-11-01
 
 ### iRedAdmin-Pro-MySQL (for MySQL/MariaDB backend)
 

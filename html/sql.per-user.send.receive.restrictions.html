@@ -42,6 +42,7 @@ plugins = [..., 'sql_user_restrictions']
 <li><code>@domain.com</code>: entire domain.</li>
 <li><code>@.domain.com</code>: entire domain and all its sub-domains. Be careful: There's a dot after <code>@</code>.</li>
 <li><code>user@domain.com</code>:  single email address</li>
+<li>empty value means no restriction.</li>
 </ul>
 <p>NOTES:</p>
 <ul>
@@ -59,7 +60,7 @@ sql&gt; UPDATE mailbox \
      SET \
          rejectedsenders='@.', \
          allowedsenders='@example.com,@gmail.com', \
-         rejectedrecipients='@.' \
+         rejectedrecipients='' \
          allowedrecipients='@example.com,@gmail.com', \
      WHERE \
           username='user@example.com';

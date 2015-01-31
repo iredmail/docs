@@ -31,17 +31,17 @@
 </ul>
 </li>
 <li><a href="#supports-alias-domains-in-postfix-per-user-bcc-lookup-files">Supports alias domains in Postfix per-user bcc lookup files</a></li>
-<li><a href="#create-addition-sql-index-for-amavisd-database">Create addition SQL index for Amavisd database</a></li>
+<li><a href="#create-additional-sql-index-for-amavisd-database">Create additional SQL index for Amavisd database</a></li>
 </ul>
 </li>
 <li><a href="#mysql-backend-special">MySQL backend special</a><ul>
 <li><a href="#add-4-new-columns-used-for-per-user-restriction">Add 4 new columns used for per-user restriction</a></li>
-<li><a href="#create-addition-sql-index-for-amavisd-database_1">Create addition SQL index for Amavisd database</a></li>
+<li><a href="#create-additional-sql-index-for-amavisd-database_1">Create additional SQL index for Amavisd database</a></li>
 </ul>
 </li>
 <li><a href="#postgresql-backend-special">PostgreSQL backend special</a><ul>
 <li><a href="#add-4-new-columns-used-for-per-user-restriction_1">Add 4 new columns used for per-user restriction</a></li>
-<li><a href="#create-addition-sql-index-for-amavisd-database_2">Create addition SQL index for Amavisd database</a></li>
+<li><a href="#create-additional-sql-index-for-amavisd-database_2">Create additional SQL index for Amavisd database</a></li>
 </ul>
 </li>
 </ul>
@@ -203,7 +203,7 @@ query_filter    = (&amp;(|(mail=%s)(&amp;(enabledService=shadowaddress)(shadowAd
 </code></pre>
 
 <p>Restarting Postfix service is required.</p>
-<h3 id="create-addition-sql-index-for-amavisd-database">Create addition SQL index for Amavisd database</h3>
+<h3 id="create-additional-sql-index-for-amavisd-database">Create additional SQL index for Amavisd database</h3>
 <p>We need one new SQL index for Amavisd database, it's used to speed up
 performance of viewing quarantined mails.</p>
 <p><strong>Note</strong>: It may take long time if you have many records in sql table <code>amavisd.msgs</code>.</p>
@@ -246,7 +246,7 @@ mysql&gt; ALTER TABLE mailbox ADD COLUMN rejectedrecipients TEXT NOT NULL DEFAUL
 <pre><code>sql&gt; INSERT INTO mailbox SET allowedsenders='@gmail.com,user@example.com';
 </code></pre>
 
-<h3 id="create-addition-sql-index-for-amavisd-database_1">Create addition SQL index for Amavisd database</h3>
+<h3 id="create-additional-sql-index-for-amavisd-database_1">Create additional SQL index for Amavisd database</h3>
 <p>We need one new SQL index for Amavisd database, it's used to speed up
 performance of viewing quarantined mails.</p>
 <p><strong>Note</strong>: It may take long time if you have many records in sql table <code>amavisd.msgs</code>.</p>
@@ -294,7 +294,7 @@ sql&gt; ALTER TABLE mailbox ADD COLUMN rejectedrecipients TEXT NOT NULL DEFAULT 
 <pre><code>sql&gt; INSERT INTO mailbox SET allowedsenders='@gmail.com,user@example.com';
 </code></pre>
 
-<h3 id="create-addition-sql-index-for-amavisd-database_2">Create addition SQL index for Amavisd database</h3>
+<h3 id="create-additional-sql-index-for-amavisd-database_2">Create additional SQL index for Amavisd database</h3>
 <p>We need one new SQL index for Amavisd database, it's used to speed up
 performance of viewing quarantined mails.</p>
 <p><strong>Note</strong>: It may take long time if you have many records in sql table <code>amavisd.msgs</code>.</p>

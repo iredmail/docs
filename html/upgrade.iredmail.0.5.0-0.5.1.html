@@ -98,7 +98,7 @@ mysql&gt; ALTER TABLE whitelist_sender MODIFY COLUMN _description CHAR(60) CHARA
 </code></pre>
 
 <p>NOTE: New LDAP schema provides several new attributes, but it's backwards
-compatibility, it's <strong>SAFE</strong> to replace the old one without addition operations.</p>
+compatibility, it's <strong>SAFE</strong> to replace the old one without additional operations.</p>
 <h3 id="use-proxymap-to-improve-performance-and-reliability-under-high-load">Use proxymap to improve performance and reliability under high load.</h3>
 <p>Prepend <code>proxy:</code> to the beginnning of all LDAP lookup table definitions in
 postfix configuration file: <code>/etc/postfix/main.cf</code>. For example:</p>
