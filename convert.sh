@@ -106,21 +106,21 @@ for chapter_dir in ${all_chapter_dirs}; do
         fi
 
         # Convert modified file
-        #echo ${CHANGED_FILES} | grep ${article_file} > /dev/null
-        #md_changed="$?"
+        echo ${CHANGED_FILES} | grep ${article_file} > /dev/null
+        md_changed="$?"
 
-        #echo ${CHANGED_FILES} | grep $(basename ${CONVERTER}) > /dev/null
-        #converter_changed="$?"
+        echo ${CHANGED_FILES} | grep $(basename ${CONVERTER}) > /dev/null
+        converter_changed="$?"
 
-        #if [ X"${md_changed}" == X'0' -o X"${converter_changed}" == X'0' ]; then
+        if [ X"${md_changed}" == X'0' -o X"${converter_changed}" == X'0' ]; then
             echo -e "\n* Converting: ${article_file}"
             ${CMD_CONVERT} ${article_file} ${OUTPUT_DIR} \
                 output_filename="${article_html_file}" \
                 title="${_article_title}" \
                 add_index_link='yes'
-        #else
-        #    echo -n '.'
-        #fi
+        else
+            echo -n '.'
+        fi
     done
 
     # Append addition links at the chapter bottom on index page.

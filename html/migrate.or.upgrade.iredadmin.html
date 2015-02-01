@@ -72,8 +72,10 @@ example, please replace x.y.z by the real file name. For example,
   server as root user (for MySQL/MariaDB, it's <code>root</code> user, for PostgreSQL,
   it's <code>postgres</code> user) to alter SQL table <code>iredadmin.log</code> with below SQL command:</p>
 <ul>
-<li>For MySQL/MariaDB: <pre>sql&gt; ALTER TABLE log MODIFY COLUMN ip VARCHAR(40) NOT NULL DEFAULT '';</pre></li>
-<li>For PostgreSQL: <pre>sql&gt; ALTER TABLE log ALTER COLUMN ip TYPE varchar(40);</pre></li>
+<li>For MySQL/MariaDB: <pre>sql&gt; ALTER TABLE log MODIFY COLUMN ip VARCHAR(40) NOT NULL DEFAULT '';
+sql&gt; ALTER TABLE log MODIFY COLUMN event VARCHAR(20) NOT NULL DEFAULT '';</pre></li>
+<li>For PostgreSQL: <pre>sql&gt; ALTER TABLE log ALTER COLUMN ip TYPE VARCHAR(40);
+sql&gt; ALTER TABLE log ALTER COLUMN event TYPE VARCHAR(20);</pre></li>
 </ul>
 </li>
 </ul>
