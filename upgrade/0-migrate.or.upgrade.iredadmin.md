@@ -50,9 +50,11 @@ example, please replace x.y.z by the real file name. For example,
   server as root user (for MySQL/MariaDB, it's `root` user, for PostgreSQL,
   it's `postgres` user) to alter SQL table `iredadmin.log` with below SQL command:
 
-    * For MySQL/MariaDB: <pre>sql> ALTER TABLE log MODIFY COLUMN ip VARCHAR(40) NOT NULL DEFAULT '';
+    * For OpenLDAP/MySQL/MariaDB backends: <pre>sql> USE iredadmin;
+sql> ALTER TABLE log MODIFY COLUMN ip VARCHAR(40) NOT NULL DEFAULT '';
 sql> ALTER TABLE log MODIFY COLUMN event VARCHAR(20) NOT NULL DEFAULT '';</pre>
-    * For PostgreSQL: <pre>sql> ALTER TABLE log ALTER COLUMN ip TYPE VARCHAR(40);
+    * For PostgreSQL: <pre>sql> \c iredadmin;
+sql> ALTER TABLE log ALTER COLUMN ip TYPE VARCHAR(40);
 sql> ALTER TABLE log ALTER COLUMN event TYPE VARCHAR(20);</pre>
 
 That's all. If it doesn't work for you, please post a new topic in our
