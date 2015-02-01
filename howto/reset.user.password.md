@@ -36,6 +36,14 @@ With OpenLDAP backend, you can reset it with phpLDAPadmin or other LDAP client
 tools, `SSHA` is preferred if you have other applications to authenticate
 users against OpenLDAP.
 
+It's ok to use plain password temporarily, then login to Roundcube webmail
+or iRedAdmin-Pro (with self-service enabled) to reset password immediately.
+For example:
+
+```
+sql> UPDATE mailbox SET password='{PLAIN}123456' WHERE username='user@domain.ltd';
+```
+
 ## See also
 
 * [Password hashes used/supported by iRedMail](./password.hashes.html)

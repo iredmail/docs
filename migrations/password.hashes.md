@@ -30,14 +30,11 @@ __NOTES__:
 
 * For LDAP backend: `SSHA`.
 
-    OpenLDAP does not support SHA-2 password hash formats directly, so it
-    cannot verify `SSHA512`/`BCRYPT` password itself.
-    That's why iRedMail still use `SSHA` as default passwod hash algorithm in LDAP.
-    Read [more](http://www.openldap.org/faq/data/cache/1467.html) on OpenLDAP
-    web site.
+    OpenLDAP's builtin password verification doesn't support SHA-2 password
+    hash formats directly, so if you have third-party applications which need
+    OpenLDAP's builtin password verification, you'd better use `SSHA` hash.
 
-    But if you don't have third-party application which needs OpenLDAP's
-    builtin password verification, it's ok to store `SSHA512/BCRYPT` password
+    But if you don't have this concern, it's ok to store `SSHA512/BCRYPT`
     hash as mail user password, then set `ldap_bind = no` in
     `/etc/dovecot/dovecot.conf`. SMTP/IMAP/POP3 services work with it, but
     Apache basic auth doesn't.
@@ -55,12 +52,16 @@ sql> UPDATE mailbox SET password='{SSHA512}FxgXDhBVYmTqoboW+ibyyzPv/wGG7y4VJtuHW
 ```
 
 * To store PLAIN-MD5, you have to prepend `{PLAIN-MD5}` in your password hash:
+
 ```
 sql> UPDATE mailbox SET password='{PLAIN-MD5}0d2bf3c712402f428d48fed691850bfc' WHERE username='xx@xx';
 ```
 
 * To store plain password, you have to prepend `{PLAIN}`:
-```sql> UPDATE mailbox SET password='{PLAIN}123456' WHERE username='xx@xx';```
+
+```
+sql> UPDATE mailbox SET password='{PLAIN}123456' WHERE username='xx@xx';
+```
 
 ### For LDAP backends
 
@@ -79,3 +80,7 @@ userPassword: {SSHA512}FxgXDhBVYmTqoboW+ibyyzPv/wGG7y4VJtuHWrx+wfqrs/lIH2Qxn2eA0
 
 __IMPORTANT NOTE__: If you want to input password hash with phpLDAPadmin,
 please choose `clear` in the password hash list, then input password hash.
+
+## See also
+
+* [Reset user password](./reset.user.password.html)
