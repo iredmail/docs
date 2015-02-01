@@ -1,9 +1,13 @@
 # LDAP: Add a mail list account
 
+[TOC]
+
 ## Add mail list with iRedAdmin-Pro
 
 With iRedAdmin-Pro, you can easily add mail list account by click menu:
 `Add -> Mail List` in main navigation bar.
+
+![](../images/iredadmin/maillist_create.png)
 
 ## Add mail list with phpLDAPadmin
 
@@ -72,14 +76,23 @@ accesspolicy: domain
 ...
 ```
 
-This access restriction is implemented in iRedAPD (a simple Postfix policy
-server), iRedMail has it enabled by default.
-
 Available access policies are:
 
 * `public`: no restrictions.
 * `domain`: all users under same domain are allowed to send email to this mail list.
 * `subdomain`: all users under same domain and sub-domains are allowed to send email to this mail list.
 * `membersOnly`: only members of this mail list are allowd.
-* `moderatorsOnly`: only moderators of this mail list are allowed.
+* `moderatorsOnly`: only moderators of this mail list are allowed. Moderators
+  are email addresses stored in SQL column `alias.moderators`. With iRedAPD-1.4.5,
+  it's ok to use `*@domain.com` as (one of) moderator for all users under
+  mail domain 'domain.com'.
 * `memebersAndModeratorsOnly`: only members and moderators of this mail list are allowed.
+
+Access restriction is implemented in iRedAPD (a simple Postfix policy server),
+iRedMail has it enabled by default. You'd better check its config file
+`/opt/iredapd/settings.py` to make sure plugin `sql_alias_access_policy` is
+enabled in parameter `plugins = []`.
+
+## See also
+
+* [Create mailing list (mail alias account) for SQL backend (MySQL/MariaDB/PostgreSQL)](./ldap.add.mail.list.html)

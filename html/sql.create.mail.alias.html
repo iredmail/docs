@@ -1,7 +1,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title>SQL: Create an mail alias account with SQL command line</title>
+        <title>SQL: Add a mail alias account</title>
         <link href="./css/markdown.css" rel="stylesheet"></head>
     </head>
     <body>
@@ -10,7 +10,23 @@
         <a href="http://www.iredmail.org" target="_blank">iRedMail web site</a>
     
         // <a href="./index.html">Document Index</a>
-    </div><h1 id="sql-create-an-mail-alias-account-with-sql-command-line">SQL: Create an mail alias account with SQL command line</h1>
+    </div><h1 id="sql-add-a-mail-alias-account">SQL: Add a mail alias account</h1>
+<div class="toc">
+<ul>
+<li><a href="#sql-add-a-mail-alias-account">SQL: Add a mail alias account</a><ul>
+<li><a href="#create-mail-alias-account-with-iredadmin-pro">Create mail alias account with iRedAdmin-Pro</a></li>
+<li><a href="#create-mail-alias-account-with-sql-command-line">Create mail alias account with SQL command line</a></li>
+<li><a href="#access-policy">Access policy</a></li>
+<li><a href="#see-also">See also</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<h2 id="create-mail-alias-account-with-iredadmin-pro">Create mail alias account with iRedAdmin-Pro</h2>
+<p>With iRedAdmin-Pro, you can easily add mail list account by click menu:
+<code>Add -&gt; Mail List</code> in main navigation bar.</p>
+<p><img alt="" src="../images/iredadmin/maillist_create.png" /></p>
+<h2 id="create-mail-alias-account-with-sql-command-line">Create mail alias account with SQL command line</h2>
 <p>To create an mail alias account, you can simply insert a SQL record in table
 <code>vmail.alias</code>. For example:</p>
 <pre><code class="mysql">sql&gt; USE vmail;
@@ -27,6 +43,33 @@ sql&gt; INSERT INTO alias (address, goto, domain) \
 <li>If destination address is a user under domain which is hosted on localhost,
   it must exist. Otherwise emails sent to alias account will be bounced after
   expanded to destination addresses.</li>
+</ul>
+<h2 id="access-policy">Access policy</h2>
+<p>You can restrict which senders are allowed to send email to this mail alias
+account by adding proper policy name in SQL column <code>alias.accesspolicy</code>.
+For example:</p>
+<pre><code>sql&gt; UPDATE alias SET accesspolicy='domain' WHERE address='original@example.com';
+</code></pre>
+
+<p>Available access policies are:</p>
+<ul>
+<li><code>public</code>: no restrictions.</li>
+<li><code>domain</code>: all users under same domain are allowed to send email to this mail list.</li>
+<li><code>subdomain</code>: all users under same domain and sub-domains are allowed to send email to this mail list.</li>
+<li><code>membersOnly</code>: only members of this mail list are allowd.</li>
+<li><code>moderatorsOnly</code>: only moderators of this mail list are allowed. Moderators
+  are email addresses stored in SQL column <code>alias.moderators</code>. With iRedAPD-1.4.5,
+  it's ok to use <code>*@domain.com</code> as (one of) moderator for all users under
+  mail domain 'domain.com'.</li>
+<li><code>memebersAndModeratorsOnly</code>: only members and moderators of this mail list are allowed.</li>
+</ul>
+<p>Access restriction is implemented in iRedAPD (a simple Postfix policy server),
+iRedMail has it enabled by default. You'd better check its config file
+<code>/opt/iredapd/settings.py</code> to make sure plugin <code>sql_alias_access_policy</code> is
+enabled in parameter <code>plugins = []</code>.</p>
+<h2 id="see-also">See also</h2>
+<ul>
+<li><a href="./ldap.add.mail.list.html">Create mailing list for OpenLDAP backend</a></li>
 </ul><p style="text-align: center; color: grey;">Document published under a <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">CC BY-ND 3.0</a> license. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.<!-- Google Analytics -->
 <script type="text/javascript">
     var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");

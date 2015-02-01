@@ -11,9 +11,21 @@
     
         // <a href="./index.html">Document Index</a>
     </div><h1 id="ldap-add-a-mail-list-account">LDAP: Add a mail list account</h1>
+<div class="toc">
+<ul>
+<li><a href="#ldap-add-a-mail-list-account">LDAP: Add a mail list account</a><ul>
+<li><a href="#add-mail-list-with-iredadmin-pro">Add mail list with iRedAdmin-Pro</a></li>
+<li><a href="#add-mail-list-with-phpldapadmin">Add mail list with phpLDAPadmin</a></li>
+<li><a href="#mail-list-access-policies">Mail list access policies</a></li>
+<li><a href="#see-also">See also</a></li>
+</ul>
+</li>
+</ul>
+</div>
 <h2 id="add-mail-list-with-iredadmin-pro">Add mail list with iRedAdmin-Pro</h2>
 <p>With iRedAdmin-Pro, you can easily add mail list account by click menu:
 <code>Add -&gt; Mail List</code> in main navigation bar.</p>
+<p><img alt="" src="../images/iredadmin/maillist_create.png" /></p>
 <h2 id="add-mail-list-with-phpldapadmin">Add mail list with phpLDAPadmin</h2>
 <ul>
 <li>Login to phpLDAPadmin (httpS://[your_server]/phpldapadmin/)</li>
@@ -76,16 +88,25 @@ accesspolicy: domain
 ...
 </code></pre>
 
-<p>This access restriction is implemented in iRedAPD (a simple Postfix policy
-server), iRedMail has it enabled by default.</p>
 <p>Available access policies are:</p>
 <ul>
 <li><code>public</code>: no restrictions.</li>
 <li><code>domain</code>: all users under same domain are allowed to send email to this mail list.</li>
 <li><code>subdomain</code>: all users under same domain and sub-domains are allowed to send email to this mail list.</li>
 <li><code>membersOnly</code>: only members of this mail list are allowd.</li>
-<li><code>moderatorsOnly</code>: only moderators of this mail list are allowed.</li>
+<li><code>moderatorsOnly</code>: only moderators of this mail list are allowed. Moderators
+  are email addresses stored in SQL column <code>alias.moderators</code>. With iRedAPD-1.4.5,
+  it's ok to use <code>*@domain.com</code> as (one of) moderator for all users under
+  mail domain 'domain.com'.</li>
 <li><code>memebersAndModeratorsOnly</code>: only members and moderators of this mail list are allowed.</li>
+</ul>
+<p>Access restriction is implemented in iRedAPD (a simple Postfix policy server),
+iRedMail has it enabled by default. You'd better check its config file
+<code>/opt/iredapd/settings.py</code> to make sure plugin <code>sql_alias_access_policy</code> is
+enabled in parameter <code>plugins = []</code>.</p>
+<h2 id="see-also">See also</h2>
+<ul>
+<li><a href="./ldap.add.mail.list.html">Create mailing list (mail alias account) for SQL backend (MySQL/MariaDB/PostgreSQL)</a></li>
 </ul><p style="text-align: center; color: grey;">Document published under a <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">CC BY-ND 3.0</a> license. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.<!-- Google Analytics -->
 <script type="text/javascript">
     var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
