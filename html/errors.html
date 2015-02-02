@@ -1,0 +1,52 @@
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Errors you may see while maintaining iRedMail server</title>
+        <link href="./css/markdown.css" rel="stylesheet"></head>
+    </head>
+    <body>
+    
+    <div id="navigation">
+        <a href="http://www.iredmail.org" target="_blank">iRedMail web site</a>
+    
+        // <a href="./index.html">Document Index</a>
+    </div><h1 id="errors-you-may-see-while-maintaining-iredmail-server">Errors you may see while maintaining iRedMail server</h1>
+<div class="toc">
+<ul>
+<li><a href="#errors-you-may-see-while-maintaining-iredmail-server">Errors you may see while maintaining iRedMail server</a><ul>
+<li><a href="#amavisd">Amavisd</a><ul>
+<li><a href="#connect-to-12700112700110024-connection-refused">connect to 127.0.0.1[127.0.0.1]:10024: Connection refused</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<h2 id="amavisd">Amavisd</h2>
+<h3 id="connect-to-12700112700110024-connection-refused">connect to 127.0.0.1[127.0.0.1]:10024: Connection refused</h3>
+<p>This error means Amavisd service is not running, please try to start it first.</p>
+<ul>
+<li>RHEL/CentOS/FreeBSD/OpenBSD: <code># service amavisd restart</code></li>
+<li>Debian/Ubuntu: <code># service amavis restart</code></li>
+</ul>
+<p>After restarted amavisd service, please check its
+<a href="./file.locations.html#amavisd">log file</a> to make sure it's running.</p>
+<p>Notes:</p>
+<ul>
+<li>At least 1GB memory is required for a low traffic mail server. If your
+  server doesn't have enough memory, Amavisd may stop running automatically after
+  running for a while. If it's just a testing server, you can follow
+  <a href="./completely.disable.amavisd.clamav.spamassassin.html">our tutorial</a>
+  to disable some features of Amavisd to keep it running, or disable it completely.</li>
+</ul><p style="text-align: center; color: grey;">Document published under a <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">CC BY-ND 3.0</a> license. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.<!-- Google Analytics -->
+<script type="text/javascript">
+    var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+    document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+    try {
+        var pageTracker = _gat._getTracker("UA-3293801-14");
+        pageTracker._trackPageview();
+    } catch(err) {}
+</script>
+</body></html>
