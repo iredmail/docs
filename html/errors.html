@@ -14,6 +14,10 @@
 <div class="toc">
 <ul>
 <li><a href="#errors-you-may-see-while-maintaining-iredmail-server">Errors you may see while maintaining iRedMail server</a><ul>
+<li><a href="#postfix">Postfix</a><ul>
+<li><a href="#sender-address-rejected-not-owned-by-user-userdomainltd">Sender address rejected: not owned by user user@domain.ltd</a></li>
+</ul>
+</li>
 <li><a href="#amavisd">Amavisd</a><ul>
 <li><a href="#connect-to-12700112700110024-connection-refused">connect to 127.0.0.1[127.0.0.1]:10024: Connection refused</a></li>
 </ul>
@@ -22,6 +26,32 @@
 </li>
 </ul>
 </div>
+<h2 id="postfix">Postfix</h2>
+<h3 id="sender-address-rejected-not-owned-by-user-userdomainltd">Sender address rejected: not owned by user user@domain.ltd</h3>
+<p>This error is caused by restriction rule <code>reject_sender_login_mismatch</code> in
+Postfix parameter <code>smtpd_recipient_restrictions</code>, in file <code>/etc/postfix/main.cf</code>:</p>
+<pre><code>smtpd_recipient_restrictions =
+    ...
+    reject_sender_login_mismatch,
+    ...
+</code></pre>
+
+<p>It will reject the request when $smtpd_sender_login_maps specifies an owner
+for the MAIL FROM address, but the client is not (SASL) logged in as that MAIL
+FROM address owner; or when the client is (SASL) logged in, but the client
+login name doesn't own the MAIL FROM address according to $smtpd_sender_login_maps.
+Check <a href="http://www.postfix.org/postconf.5.html#reject_sender_login_mismatch">manual page of Postfix configuration file</a> for more details.</p>
+<p>Removing <code>reject_sender_login_mismatch</code> and restarting Postfix service fixes
+this issue.</p>
+<blockquote>
+<p>If you want to allow some users to send as other users, or allow all users
+to send as their alias addresses, or allow member of mail list/alias to send
+as mail list/alias, you should try iRedAPD plugin <code>reject_sender_login_mismatch</code>
+instead (requires iRedAPD-1.4.4 or later releases).</p>
+<p>Read comments in file <code>/opt/iredapd/plugins/reject_sender_login_mismatch.py</code>,
+then enable it in iRedAPD config file <code>/opt/iredapd/settings.py</code> (<code>plugins =</code>),
+restart iRedAPD service. That's all.</p>
+</blockquote>
 <h2 id="amavisd">Amavisd</h2>
 <h3 id="connect-to-12700112700110024-connection-refused">connect to 127.0.0.1[127.0.0.1]:10024: Connection refused</h3>
 <p>This error means Amavisd service is not running, please try to start it first.</p>
