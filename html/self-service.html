@@ -11,19 +11,40 @@
     
         // <a href="./index.html">Document Index</a>
     </div><h1 id="iredadmin-pro-enable-self-service-to-allow-users-to-manage-their-own-preferences-and-more">iRedAdmin-Pro: Enable self-service to allow users to manage their own preferences and more</h1>
+<div class="toc">
+<ul>
+<li><a href="#iredadmin-pro-enable-self-service-to-allow-users-to-manage-their-own-preferences-and-more">iRedAdmin-Pro: Enable self-service to allow users to manage their own preferences and more</a><ul>
+<li><a href="#introduction">Introduction</a></li>
+<li><a href="#enable-self-service-in-iredadmin-pro">Enable self-service in iRedAdmin-Pro</a></li>
+<li><a href="#screenshots">Screenshots</a><ul>
+<li><a href="#update-name-preferred-language">Update name, preferred language</a></li>
+<li><a href="#change-password">Change password</a></li>
+<li><a href="#mail-forwarding-control">Mail forwarding control</a></li>
+<li><a href="#manager-per-user-whitelists-blacklists">Manager per-user whitelists &amp; blacklists</a></li>
+<li><a href="#manage-quarantined-mails">Manage quarantined mails</a></li>
+<li><a href="#check-received-mails-and-blacklist-certain-senders-if-theyre-spammers">Check received mails and blacklist certain senders if they're spammers.</a></li>
+<li><a href="#manage-spam-policy">Manage spam policy</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<h2 id="introduction">Introduction</h2>
 <p>The latest iRedAdmin-Pro release provides self-service, but it's disabled by
 default. You can enable it to allow users to manage their own data:</p>
 <ul>
-<li>Update full name</li>
+<li>Update full name, preferred language</li>
 <li>Change password</li>
 <li>Mail forwarding control</li>
 <li>Manager per-user whitelists &amp; blacklists</li>
 <li>Manage quarantined mails</li>
 <li>Check received mails and blacklist certain senders if they're spammers.</li>
+<li>Manage basic spam policy</li>
 </ul>
 <p>As a domain admin, you can control which data are allowed to be updated by
 users themselves in domain profile page, under tab <code>Advanced</code>.</p>
-<h3 id="enable-self-service-in-iredadmin-pro">Enable self-service in iRedAdmin-Pro</h3>
+<h2 id="enable-self-service-in-iredadmin-pro">Enable self-service in iRedAdmin-Pro</h2>
 <p>Please add below setting in iRedAdmin config file <code>settings.py</code>, then restart
 Apache service or <code>uwsgi</code> service if you're running Nginx.</p>
 <pre><code>ENABLE_SELF_SERVICE = True
@@ -31,7 +52,23 @@ Apache service or <code>uwsgi</code> service if you're running Nginx.</p>
 
 <p>You can find exact path of <code>settings.py</code> on your server by checking this short
 tutorial:
-<a href="./file.locations.html#iredadmin">Locations of configuration and log files of mojor components</a></p><p style="text-align: center; color: grey;">Document published under a <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">CC BY-ND 3.0</a> license. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.<!-- Google Analytics -->
+<a href="./file.locations.html#iredadmin">Locations of configuration and log files of mojor components</a></p>
+<h2 id="screenshots">Screenshots</h2>
+<h3 id="update-name-preferred-language">Update name, preferred language</h3>
+<p><img alt="" src="../images/iredadmin/self-service.preferences.general.png" /></p>
+<h3 id="change-password">Change password</h3>
+<p><img alt="" src="../images/iredadmin/self-service.preferences.password.png" /></p>
+<h3 id="mail-forwarding-control">Mail forwarding control</h3>
+<p><img alt="" src="../images/iredadmin/self-service.preferences.forwarding.png" /></p>
+<h3 id="manager-per-user-whitelists-blacklists">Manager per-user whitelists &amp; blacklists</h3>
+<p><img alt="" src="../images/iredadmin/self-service.wblist.png" /></p>
+<h3 id="manage-quarantined-mails">Manage quarantined mails</h3>
+<p><img alt="" src="../images/iredadmin/self-service.quarantined.png" /></p>
+<p><img alt="" src="../images/iredadmin/self-service.quarantined.2.png" /></p>
+<h3 id="check-received-mails-and-blacklist-certain-senders-if-theyre-spammers">Check received mails and blacklist certain senders if they're spammers.</h3>
+<p><img alt="" src="../images/iredadmin/self-service.received.png" /></p>
+<h3 id="manage-spam-policy">Manage spam policy</h3>
+<p><img alt="" src="../images/iredadmin/self-service.spampolicy.png" /></p><p style="text-align: center; color: grey;">Document published under a <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">CC BY-ND 3.0</a> license. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.<!-- Google Analytics -->
 <script type="text/javascript">
     var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
     document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
