@@ -1,7 +1,5 @@
 # Allow user to send email without authentication
 
-[TOC]
-
 Create a plain text file: `/etc/postfix/accepted_unauth_senders`:
 
 ```

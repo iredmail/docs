@@ -8,12 +8,13 @@ WARNING: This is still a working in progress draft document, do __NOT__ apply it
 
 ## ChangeLog
 
-* 2015-01-13: [All backends] Fixed: Incorrect path of command 'sogo-tool' on OpenBSD.
+* 2015-02-02: [All backends] Fixed: Not backup SOGo database. Note: this step is not applicable if you don't use SOGo groupware.
+* 2015-01-13: [All backends] Fixed: Incorrect path of command 'sogo-tool` on OpenBSD.
 * 2015-01-12: [SQL backends] Fixed: Not apply service restriction in Dovecot SQL query file while acting as SASL server.
 
 ## General (All backends should apply these steps)
 
-### Fixed: Incorrect path of command 'sogo-tool' on OpenBSD
+### Fixed: Incorrect path of command `sogo-tool` on OpenBSD
 
 Note: this step is applicable to only OpenBSD.
 
@@ -30,6 +31,21 @@ command and fix it:
 ```
 # crontab -e -u _sogo
 ```
+
+## OpenLDAP backend special
+
+### Fixed: not backup SOGo database
+
+Note: this step is not applicable if you don't use SOGo groupware.
+
+Open backup script `/var/vmail/backup/backup_mysql.sh`, append SOGo SQL
+database name in variable `DATABASES=`. For example:
+
+```
+DATABASES='... sogo'
+```
+
+Save your change and that's all.
 
 ## MySQL/MariaDB backend special
 
@@ -55,6 +71,19 @@ password_query = SELECT password FROM mailbox WHERE username='%u' AND enable%Ls%
 
 Save your change and restart Dovecot service.
 
+### Fixed: not backup SOGo database
+
+Note: this step is not applicable if you don't use SOGo groupware.
+
+Open backup script `/var/vmail/backup/backup_mysql.sh`, append SOGo SQL
+database name in variable `DATABASES=`. For example:
+
+```
+DATABASES='... sogo'
+```
+
+Save your change and that's all.
+
 ## PostgreSQL backend special
 
 ### Fixed: Not apply service restriction in Dovecot SQL query file while acting as SASL server
@@ -78,3 +107,16 @@ password_query = SELECT password FROM mailbox WHERE username='%u' AND enable%Ls%
 ```
 
 Save your change and restart Dovecot service.
+
+### Fixed: not backup SOGo database
+
+Note: this step is not applicable if you don't use SOGo groupware.
+
+Open backup script `/var/vmail/backup/backup_mysql.sh`, append SOGo SQL
+database name in variable `DATABASES=`. For example:
+
+```
+DATABASES='... sogo'
+```
+
+Save your change and that's all.
