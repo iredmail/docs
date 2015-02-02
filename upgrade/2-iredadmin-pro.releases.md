@@ -19,6 +19,7 @@ this tutorial with just one shell command:
 
 ### iRedAdmin-Pro-LDAP (for OpenLDAP backend)
 
+* [2.2.2](http://www.iredmail.org/forum/topic8635.html), Feb 2, 2015. bugfix release.
 * [2.2.0](http://www.iredmail.org/forum/topic8447.html), Jan 1, 2015. self-service, deeper Amavisd integration, SSHA512/BCRYPT password hashes support.
 * [2.1.2](http://www.iredmail.org/forum/topic6925-news-announcements-bug-fixes-iredadminproldap212-has-been-released.html), 2014-05-16
 * [2.1.1](http://www.iredmail.org/forum/topic5911.html), 2013-12-30
@@ -40,6 +41,7 @@ this tutorial with just one shell command:
 
 ### iRedAdmin-Pro-MySQL (for MySQL/MariaDB backend)
 
+* [1.9.2](http://www.iredmail.org/forum/topic8636.html), Feb 2, 2015. bugfix release.
 * [1.9.0](http://www.iredmail.org/forum/topic8448.html), Jan 1, 2015. self-service, deeper Amavisd integration, SSHA512/BCRYPT password hashes support.
 * [1.8.2](http://www.iredmail.org/forum/topic6924.html), 2014-05-16.
 * [1.8.1](http://www.iredmail.org/forum/topic5912.html), 2013-12-30
@@ -57,6 +59,7 @@ this tutorial with just one shell command:
 
 ### iRedAdmin-Pro-PGSQL (for PostgreSQL backend)
 
+* [1.9.2](http://www.iredmail.org/forum/topic8637.html), Feb 2, 2015. bugfix release.
 * [1.5.0](http://www.iredmail.org/forum/topic8449.html), Jan 1, 2015. self-service, deeper Amavisd integration, SSHA512/BCRYPT password hashes support.
 * [1.4.2](http://www.iredmail.org/forum/topic6926.html), 2014-05-16.
 * [1.4.1](http://www.iredmail.org/forum/topic5913.html), 2013-12-30.
