@@ -41,7 +41,7 @@
 <li>Comment out below two lines in Postfix config file <code>/etc/postfix/main.cf</code>, then restart Postfix service.</li>
 </ul>
 <pre><code class="perl">content_filter = smtp-amavis:[127.0.0.1]:10024
-receive_override_options = no_address_mappings
+receive_override_options = no_address_mappings  # &lt;- it's ok if you don't have this line
 </code></pre>
 
 <ul>

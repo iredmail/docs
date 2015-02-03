@@ -31,7 +31,7 @@ If you want to completely disable spam and virus scanning services, steps:
 
 ```perl
 content_filter = smtp-amavis:[127.0.0.1]:10024
-receive_override_options = no_address_mappings
+receive_override_options = no_address_mappings  # <- it's ok if you don't have this line
 ```
 
 * Disable network services: Amavisd, ClamAV.
