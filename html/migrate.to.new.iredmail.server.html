@@ -66,9 +66,11 @@ mail clients, please follow this tutorial: <a href="./enable.smtps.html">How to 
 <li>Export mail accounts from LDAP on OLD mail server.</li>
 </ul>
 <p>Normally, LDAP data can be exported into LDIF format. Here's backup/export script: <a href="http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/Backup">http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/Backup</a></p>
-<p><strong>Note</strong>:
-<em> There might be some changes in LDAP schema, please find scripts <a href="https://bitbucket.org/zhb/iredmail/src/default/extra/update/">here</a> to apply all required changes.
-</em> Here are all <a href="http://www.iredmail.org/docs/iredmail.releases.html">upgrade tutorials for iRedMail</a>.</p>
+<p>Notes:</p>
+<ul>
+<li>There might be some changes in LDAP schema, please find scripts <a href="https://bitbucket.org/zhb/iredmail/src/default/extra/update/">here</a> to apply all required changes.</li>
+<li>Here are all <a href="http://www.iredmail.org/docs/iredmail.releases.html">upgrade tutorials for iRedMail</a>.</li>
+</ul>
 <h2 id="mysqlpostgresql-migrate-mail-accounts">MySQL/PostgreSQL: Migrate mail accounts</h2>
 <p>All mail accounts are stored in database <code>vmail</code> by default, to migrate mail
 accounts, you can simply export this database on old server, then import it
@@ -129,6 +131,20 @@ structure related changes. Check <a href="./iredmail.releases.html">upgrade tuto
 </ul>
 <p>WARNING: please make sure maildir path stored in SQL/LDAP matches the mailbox
 path on file system, so that mail clients can find imported emails.</p>
+<ul>
+<li>With SQL backends, you can get full maildir path of user with below SQL command:</li>
+</ul>
+<pre><code>mysql&gt; USE vmail;
+mysql&gt; SELECT CONCAT(storagebasedirectory, '/', storagenode, '/', maildir) FROM mailbox WHERE username='user@domain.com';
+</code></pre>
+
+<ul>
+<li>With OpenLDAP backend, full maildir path is stored in LDAP attribute
+  <code>homeDirectory</code> of mail user object. You can query with <code>ldapsearch</code> command:</li>
+</ul>
+<pre><code>$ ldapsearch -x -D 'cn=Manager,dc=xx,dc=xx' -b 'o=domains,dc=xx,dc=xx' -W &quot;(mail=user@domain.com)&quot; homeDirectory
+</code></pre>
+
 <h2 id="migrate-roundcube-webmail-data">Migrate Roundcube webmail data</h2>
 <ul>
 <li>Export/import roundcube webmail database, and upgrade database to work with new version of Roundcube.

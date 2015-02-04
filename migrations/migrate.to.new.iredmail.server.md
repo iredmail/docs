@@ -45,7 +45,8 @@ Steps to migrate LDAP mail accounts:
 
 Normally, LDAP data can be exported into LDIF format. Here's backup/export script: <http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/Backup>
 
-__Note__:
+Notes:
+
 * There might be some changes in LDAP schema, please find scripts [here](https://bitbucket.org/zhb/iredmail/src/default/extra/update/) to apply all required changes.
 * Here are all [upgrade tutorials for iRedMail](http://www.iredmail.org/docs/iredmail.releases.html).
 
@@ -116,6 +117,20 @@ structure related changes. Check [upgrade tutorials for iRedMail](./iredmail.rel
 
 WARNING: please make sure maildir path stored in SQL/LDAP matches the mailbox
 path on file system, so that mail clients can find imported emails.
+
+* With SQL backends, you can get full maildir path of user with below SQL command:
+
+```
+mysql> USE vmail;
+mysql> SELECT CONCAT(storagebasedirectory, '/', storagenode, '/', maildir) FROM mailbox WHERE username='user@domain.com';
+```
+
+* With OpenLDAP backend, full maildir path is stored in LDAP attribute
+  `homeDirectory` of mail user object. You can query with `ldapsearch` command:
+
+```
+$ ldapsearch -x -D 'cn=Manager,dc=xx,dc=xx' -b 'o=domains,dc=xx,dc=xx' -W "(mail=user@domain.com)" homeDirectory
+```
 
 ## Migrate Roundcube webmail data
 
