@@ -16,7 +16,7 @@ Since new iRedMail server will install same components as old server, you can ch
 
 __WARNING__: Do not restore database `mysql` exported from old server, it contains SQL usernames/passwords for Roundcube/Amavisd/Policyd/Cluebringer used on old server. New iRedMail server has the same SQL usernames, but different passwords. So please do not restore it.
 
-##Client settings (Outlook, Thunderbird)
+## Client settings (Outlook, Thunderbird)
 
 Since iRedMail-0.8.7, iRedMail enforces secure POP3/IMAP/SMTP connections.
 Mail client programs must issue 'STARTTLS' command before authentication,
@@ -36,7 +36,7 @@ in its config file `/etc/postfix/main.cf`.
 * if you want to enable SMTPS (SMTP over SSL, port `465`) to support legency
 mail clients, please follow this tutorial: [How to enable SMTPS service](./enable.smtps.html).
 
-##LDAP: migrate mail accounts
+## LDAP: migrate mail accounts
 
 Steps to migrate LDAP mail accounts:
 
@@ -46,10 +46,10 @@ Steps to migrate LDAP mail accounts:
 Normally, LDAP data can be exported into LDIF format. Here's backup/export script: <http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/Backup>
 
 __Note__:
-* There might be some changes in LDAP schema, please find scripts in below URL to apply all required changes: <https://bitbucket.org/zhb/iredmail/src/default/extra/update/>
-* You can find all upgrade tutorials of iRedMail here: <http://www.iredmail.org/doc.html#upgrade_tutorial>
+* There might be some changes in LDAP schema, please find scripts [here](https://bitbucket.org/zhb/iredmail/src/default/extra/update/) to apply all required changes.
+* Here are all [upgrade tutorials for iRedMail](http://www.iredmail.org/docs/iredmail.releases.html).
 
-##MySQL/PostgreSQL: Migrate mail accounts
+## MySQL/PostgreSQL: Migrate mail accounts
 
 All mail accounts are stored in database `vmail` by default, to migrate mail
 accounts, you can simply export this database on old server, then import it
@@ -106,10 +106,9 @@ mysql> ALTER TABLE domain DROP disableduserprofiles;
 
 __IMPORTANT NOTE__: There might be some changes in SQL structure, please read
 all upgrade tutorials for your current iRedMail release, then apply SQL
-structure related changes. For example:
-<http://www.iredmail.org/wiki/index.php?title=Upgrade/iRedMail/0.7.4-0.8.0#Add_internal_service_required_by_Doveadm_2>
+structure related changes. Check [upgrade tutorials for iRedMail](./iredmail.releases.html).
 
-##Migrate mailboxes (Maildir format)
+## Migrate mailboxes (Maildir format)
 
 * Simply copy all mailboxes (in Maildir format) to new iRedMail server.
 * Set correct file owner of mailboxes. Default owner is `vmail`, group is `vmail`.
@@ -118,7 +117,7 @@ structure related changes. For example:
 WARNING: please make sure maildir path stored in SQL/LDAP matches the mailbox
 path on file system, so that mail clients can find imported emails.
 
-##Migrate Roundcube webmail data
+## Migrate Roundcube webmail data
 
 * Export/import roundcube webmail database, and upgrade database to work with new version of Roundcube.
 <http://trac.roundcube.net/wiki/Howto_Upgrade>

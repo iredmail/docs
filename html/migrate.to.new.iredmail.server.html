@@ -67,8 +67,8 @@ mail clients, please follow this tutorial: <a href="./enable.smtps.html">How to 
 </ul>
 <p>Normally, LDAP data can be exported into LDIF format. Here's backup/export script: <a href="http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/Backup">http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/Backup</a></p>
 <p><strong>Note</strong>:
-<em> There might be some changes in LDAP schema, please find scripts in below URL to apply all required changes: <a href="https://bitbucket.org/zhb/iredmail/src/default/extra/update/">https://bitbucket.org/zhb/iredmail/src/default/extra/update/</a>
-</em> You can find all upgrade tutorials of iRedMail here: <a href="http://www.iredmail.org/doc.html#upgrade_tutorial">http://www.iredmail.org/doc.html#upgrade_tutorial</a></p>
+<em> There might be some changes in LDAP schema, please find scripts <a href="https://bitbucket.org/zhb/iredmail/src/default/extra/update/">here</a> to apply all required changes.
+</em> Here are all <a href="http://www.iredmail.org/docs/iredmail.releases.html">upgrade tutorials for iRedMail</a>.</p>
 <h2 id="mysqlpostgresql-migrate-mail-accounts">MySQL/PostgreSQL: Migrate mail accounts</h2>
 <p>All mail accounts are stored in database <code>vmail</code> by default, to migrate mail
 accounts, you can simply export this database on old server, then import it
@@ -120,8 +120,7 @@ mysql&gt; ALTER TABLE domain DROP disableduserprofiles;
 
 <p><strong>IMPORTANT NOTE</strong>: There might be some changes in SQL structure, please read
 all upgrade tutorials for your current iRedMail release, then apply SQL
-structure related changes. For example:
-<a href="http://www.iredmail.org/wiki/index.php?title=Upgrade/iRedMail/0.7.4-0.8.0#Add_internal_service_required_by_Doveadm_2">http://www.iredmail.org/wiki/index.php?title=Upgrade/iRedMail/0.7.4-0.8.0#Add_internal_service_required_by_Doveadm_2</a></p>
+structure related changes. Check <a href="./iredmail.releases.html">upgrade tutorials for iRedMail</a>.</p>
 <h2 id="migrate-mailboxes-maildir-format">Migrate mailboxes (Maildir format)</h2>
 <ul>
 <li>Simply copy all mailboxes (in Maildir format) to new iRedMail server.</li>

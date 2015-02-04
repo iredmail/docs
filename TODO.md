@@ -6,8 +6,8 @@
 * How to enable DNSBL in Postfix.
 * How to install and configure mlmmj (mailing list management tool)
 
-* http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/Send.out.email.from.specified.IP.address
 * http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/Backup
+* http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/Send.out.email.from.specified.IP.address
 * http://www.iredmail.org/forum/topic1968-enabling-ipv6-for-your-iredmail-postfixdovecot.html
 * http://www.iredmail.org/forum/topic210-iredmail-support-faq-how-to-enable-signing-disclaimer-on-outgoing-mails.html
 
