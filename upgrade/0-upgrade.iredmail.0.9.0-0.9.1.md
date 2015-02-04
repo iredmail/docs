@@ -8,11 +8,44 @@ WARNING: This is still a working in progress draft document, do __NOT__ apply it
 
 ## ChangeLog
 
-* 2015-02-02: [All backends] Fixed: Not backup SOGo database. Note: this step is not applicable if you don't use SOGo groupware.
+* 2015-02-04: [All backends] [__OPTIONAL__] Fixed: return receipt response rejected
+              by iRedAPD plugin `reject_null_sender`.
+* 2015-02-02: [All backends] Fixed: Not backup SOGo database. Note: this step
+              is not applicable if you don't use SOGo groupware.
 * 2015-01-13: [All backends] Fixed: Incorrect path of command 'sogo-tool` on OpenBSD.
-* 2015-01-12: [SQL backends] Fixed: Not apply service restriction in Dovecot SQL query file while acting as SASL server.
+* 2015-01-12: [SQL backends] Fixed: Not apply service restriction in Dovecot
+              SQL query file while acting as SASL server.
 
 ## General (All backends should apply these steps)
+
+### [OPTIONAL] Fixed: return receipt response rejected by iRedAPD plugin `reject_null_sender`
+
+Note: this is applicable if you want to keep iRedAPD plugin `reject_null_sender`
+but still able to send return receipt with Roundcube webmail.
+
+According to RFC2298, return receipt envelope sender address must be empty. If
+you have iRedAPD plugin `reject_null_sender` enabled, it will reject return
+receipt response. To particularly solve this issue, you can set below setting
+in Roundcube config file `config/config.inc.php`:
+
+* on RHEL/CentOS/OpenBSD, it's `/var/www/roundcubemail/config/config.inc.php`.
+* on Debian/Ubuntu, it's `/usr/share/apache2/roundcubemail/config/config.inc.php`.
+* on FreeBSD, it's `/usr/local/www/roundcube/config/config.inc.php`.
+
+```
+$config['mdn_use_from'] = true;
+```
+
+Note: if other mail client applications don't set smtp authentication user as
+envelope sender of return receipt, same issue will occurs. You must disable
+iRedAPD plugin `reject_null_sender` in `/opt/iredapd/settings.py` to make all
+mail clients work.
+
+iRedAPD plugin `reject_null_sender` rejects message submitted by sasl
+authenticated user but with null sender in `From:` header (`from=<>` in Postfix
+log). If your user's password was cracked by spammer, spammer can use this
+account to bypass smtp authentication, but with a null sender in `From:`
+header, throttling won't be triggered.
 
 ### Fixed: Incorrect path of command `sogo-tool` on OpenBSD
 
