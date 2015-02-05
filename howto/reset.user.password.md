@@ -1,6 +1,6 @@
 # Reset user password
 
-> * SSHA512 is recommended for SQL backends, don't use MD5 unless you have too.
+> * SSHA512 is recommended for SQL backends, don't use MD5 unless you have a reason.
 > * BCRYPT is recommended for SQL backens on BSD systems.
 
 With MySQL or PostgreSQL backends, you can generate a password hash with
