@@ -17,6 +17,8 @@
   iRedMail release, there's an alternative solution:
   [Migrating to a new iRedMail server](./migrate.to.new.iredmail.server.html).
 
+* We provide remote upgrade service, check [the price](../support.html) and [contact us](../contact.html).
+
 #### Release notes and upgrade tutorials
 
 * [0.9.0](http://www.iredmail.org/forum/topic8443.html), Dec 31, 2014. [Upgrade from iRedMail-0.8.7](./upgrade.iredmail.0.8.7-0.9.0.html)
