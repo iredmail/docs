@@ -16,7 +16,9 @@
 <li><a href="#upgrade-iredmail-from-090-to-091">Upgrade iRedMail from 0.9.0 to 0.9.1</a><ul>
 <li><a href="#changelog">ChangeLog</a></li>
 <li><a href="#general-all-backends-should-apply-these-steps">General (All backends should apply these steps)</a><ul>
+<li><a href="#optional-add-one-more-fail2ban-filter-to-help-catch-spam">[OPTIONAL] Add one more Fail2ban filter to help catch spam</a></li>
 <li><a href="#optional-fixed-return-receipt-response-rejected-by-iredapd-plugin-reject_null_sender">[OPTIONAL] Fixed: return receipt response rejected by iRedAPD plugin reject_null_sender</a></li>
+<li><a href="#fixed-cannot-run-php-script-under-web-document-root-with-nginx">Fixed: Cannot run PHP script under web document root with Nginx.</a></li>
 <li><a href="#fixed-incorrect-path-of-command-sogo-tool-on-openbsd">Fixed: Incorrect path of command sogo-tool on OpenBSD</a></li>
 </ul>
 </li>
@@ -38,18 +40,40 @@
 </li>
 </ul>
 </div>
-<p>WARNING: This is still a working in progress draft document, do <strong>NOT</strong> apply it.</p>
+<p><strong>WARNING: Still working in progress, do <em>NOT</em> apply it.</strong></p>
 <h2 id="changelog">ChangeLog</h2>
 <ul>
+<li>2015-02-11: [All backends] Fixed: Cannot run PHP script under web document root with Nginx.</li>
+<li>2015-02-09: [All backends] [<strong>OPTIONAL</strong>] Add one more Fail2ban filter to help catch spam.</li>
 <li>2015-02-04: [All backends] [<strong>OPTIONAL</strong>] Fixed: return receipt response rejected
               by iRedAPD plugin <code>reject_null_sender</code>.</li>
 <li>2015-02-02: [All backends] Fixed: Not backup SOGo database. Note: this step
               is not applicable if you don't use SOGo groupware.</li>
-<li>2015-01-13: [All backends] Fixed: Incorrect path of command 'sogo-tool` on OpenBSD.</li>
+<li>2015-01-13: [All backends] Fixed: Incorrect path of command <code>sogo-tool</code> on OpenBSD.</li>
 <li>2015-01-12: [SQL backends] Fixed: Not apply service restriction in Dovecot
               SQL query file while acting as SASL server.</li>
 </ul>
 <h2 id="general-all-backends-should-apply-these-steps">General (All backends should apply these steps)</h2>
+<h3 id="optional-add-one-more-fail2ban-filter-to-help-catch-spam">[OPTIONAL] Add one more Fail2ban filter to help catch spam</h3>
+<p>We have a new Fail2ban filter to help catch spam, it will scan HELO rejections
+in Postfix log file and invoke iptables to ban client IP address.</p>
+<p>Open file <code>/etc/fail2ban/filters.d/postfix.iredmail.conf</code> or
+<code>/usr/local/etc/fail2ban/filters.d/postfix.iredmail.conf</code> (on FreeBSD), append
+below line under <code>[Definition]</code> section:</p>
+<pre><code>            reject: RCPT from (.*)\[&lt;HOST&gt;\]: 504 5.5.2 (.*) Helo command rejected: need fully-qualified hostname
+</code></pre>
+
+<p>After modification, the whole content is:</p>
+<pre><code>[Definition]
+failregex = \[&lt;HOST&gt;\]: SASL (PLAIN|LOGIN) authentication failed
+            lost connection after AUTH from (.*)\[&lt;HOST&gt;\]
+            reject: RCPT from (.*)\[&lt;HOST&gt;\]: 550 5.1.1
+            reject: RCPT from (.*)\[&lt;HOST&gt;\]: 450 4.7.1
+            reject: RCPT from (.*)\[&lt;HOST&gt;\]: 554 5.7.1
+            reject: RCPT from (.*)\[&lt;HOST&gt;\]: 504 5.5.2 (.*) Helo command rejected: need fully-qualified hostname
+ignoreregex =
+</code></pre>
+
 <h3 id="optional-fixed-return-receipt-response-rejected-by-iredapd-plugin-reject_null_sender">[OPTIONAL] Fixed: return receipt response rejected by iRedAPD plugin <code>reject_null_sender</code></h3>
 <p>Note: this is applicable if you want to keep iRedAPD plugin <code>reject_null_sender</code>
 but still able to send return receipt with Roundcube webmail.</p>
@@ -74,6 +98,42 @@ authenticated user but with null sender in <code>From:</code> header (<code>from
 log). If your user's password was cracked by spammer, spammer can use this
 account to bypass smtp authentication, but with a null sender in <code>From:</code>
 header, throttling won't be triggered.</p>
+<h3 id="fixed-cannot-run-php-script-under-web-document-root-with-nginx">Fixed: Cannot run PHP script under web document root with Nginx.</h3>
+<p>With previous release of iRedMail, Nginx won't run PHP scripts under
+sub-directories of web document root, this step will fix it.</p>
+<ul>
+<li>Open Nginx config file <code>/etc/nginx/conf.d/default.conf</code> (on Linux/OpenBSD)
+or <code>/usr/local/etc/nginx/conf.d/default.conf</code>, add one more setting in
+configuration block <code>location ~ \.php$ {}</code> like below:</li>
+</ul>
+<pre><code>...
+root /var/www/html;
+...
+location ~ \.php$ {
+    ...
+    fastcgi_param SCRIPT_FILENAME /var/www/html$fastcgi_script_name;    # &lt;- Add this line
+}
+</code></pre>
+
+<ul>
+<li>Save your changes and restart Nginx service.</li>
+</ul>
+<p>Notes:</p>
+<ul>
+<li>There're two <code>location ~ \.php$ {}</code> blocks, please update both of them.</li>
+<li>
+<p>You must replace <code>/var/www/html</code> in above sample code to the value of <code>root</code>
+  setting defined in same config file.</p>
+<ul>
+<li>on RHEL/CentOS, it's <code>/var/www/html</code>.</li>
+<li>on Debian/Ubuntu, it's <code>/var/www</code>.</li>
+<li>on FreeBSD, it's <code>/usr/local/www/apache22/data</code>.
+  Note: if you're running Apache-2.4, the directory name should be
+  <code>apache24</code>, not <code>apache22</code>.</li>
+<li>on OpenBSD, it's <code>/var/www/htdocs</code>.</li>
+</ul>
+</li>
+</ul>
 <h3 id="fixed-incorrect-path-of-command-sogo-tool-on-openbsd">Fixed: Incorrect path of command <code>sogo-tool</code> on OpenBSD</h3>
 <p>Note: this step is applicable to only OpenBSD.</p>
 <p>Please check user <code>_sogo</code>'s cron job, make sure path to <code>sogo-tool</code> command is

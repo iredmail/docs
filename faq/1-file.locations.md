@@ -118,9 +118,14 @@ Amavisd is configured to log to [Postfix log file](#postfix) by iRedMail.
 
 ## Fail2ban
 
-Main config file is `/etc/fail2ban/jail.local`. All custom settings should be
-placed in `jail.local`, and don't touch `jail.conf`, so that upgrading
-Fail2ban binary package won't override your custom settings.
+* Main config file is `/etc/fail2ban/jail.local`. All custom settings should be
+  placed in `/etc/fail2ban/jail.local`, and don't touch `jail.conf`, so that
+  upgrading Fail2ban binary package won't override your custom settings.
+
+* All filter rules are defined in files under `/etc/fail2ban/filters.d/`.
+* Actions are defined in files under `/etc/fail2ban/actions.d/`.
+
+FreeBSD system is `/usr/local/etc/fail2ban/`.
 
 ## Roundcube webmail
 

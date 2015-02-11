@@ -3,20 +3,47 @@
 [TOC]
 
 
-WARNING: This is still a working in progress draft document, do __NOT__ apply it.
-
+__WARNING: Still working in progress, do _NOT_ apply it.__
 
 ## ChangeLog
 
+* 2015-02-11: [All backends] Fixed: Cannot run PHP script under web document root with Nginx.
+* 2015-02-09: [All backends] [__OPTIONAL__] Add one more Fail2ban filter to help catch spam.
 * 2015-02-04: [All backends] [__OPTIONAL__] Fixed: return receipt response rejected
               by iRedAPD plugin `reject_null_sender`.
 * 2015-02-02: [All backends] Fixed: Not backup SOGo database. Note: this step
               is not applicable if you don't use SOGo groupware.
-* 2015-01-13: [All backends] Fixed: Incorrect path of command 'sogo-tool` on OpenBSD.
+* 2015-01-13: [All backends] Fixed: Incorrect path of command `sogo-tool` on OpenBSD.
 * 2015-01-12: [SQL backends] Fixed: Not apply service restriction in Dovecot
               SQL query file while acting as SASL server.
 
 ## General (All backends should apply these steps)
+
+### [OPTIONAL] Add one more Fail2ban filter to help catch spam
+
+We have a new Fail2ban filter to help catch spam, it will scan HELO rejections
+in Postfix log file and invoke iptables to ban client IP address.
+
+Open file `/etc/fail2ban/filters.d/postfix.iredmail.conf` or
+`/usr/local/etc/fail2ban/filters.d/postfix.iredmail.conf` (on FreeBSD), append
+below line under `[Definition]` section:
+
+```
+            reject: RCPT from (.*)\[<HOST>\]: 504 5.5.2 (.*) Helo command rejected: need fully-qualified hostname
+```
+
+After modification, the whole content is:
+
+```
+[Definition]
+failregex = \[<HOST>\]: SASL (PLAIN|LOGIN) authentication failed
+            lost connection after AUTH from (.*)\[<HOST>\]
+            reject: RCPT from (.*)\[<HOST>\]: 550 5.1.1
+            reject: RCPT from (.*)\[<HOST>\]: 450 4.7.1
+            reject: RCPT from (.*)\[<HOST>\]: 554 5.7.1
+            reject: RCPT from (.*)\[<HOST>\]: 504 5.5.2 (.*) Helo command rejected: need fully-qualified hostname
+ignoreregex =
+```
 
 ### [OPTIONAL] Fixed: return receipt response rejected by iRedAPD plugin `reject_null_sender`
 
@@ -46,6 +73,40 @@ authenticated user but with null sender in `From:` header (`from=<>` in Postfix
 log). If your user's password was cracked by spammer, spammer can use this
 account to bypass smtp authentication, but with a null sender in `From:`
 header, throttling won't be triggered.
+
+### Fixed: Cannot run PHP script under web document root with Nginx.
+
+With previous release of iRedMail, Nginx won't run PHP scripts under
+sub-directories of web document root, this step will fix it.
+
+* Open Nginx config file `/etc/nginx/conf.d/default.conf` (on Linux/OpenBSD)
+or `/usr/local/etc/nginx/conf.d/default.conf`, add one more setting in
+configuration block `location ~ \.php$ {}` like below:
+
+```
+...
+root /var/www/html;
+...
+location ~ \.php$ {
+    ...
+    fastcgi_param SCRIPT_FILENAME /var/www/html$fastcgi_script_name;    # <- Add this line
+}
+```
+
+* Save your changes and restart Nginx service.
+
+Notes:
+
+* There're two `location ~ \.php$ {}` blocks, please update both of them.
+* You must replace `/var/www/html` in above sample code to the value of `root`
+  setting defined in same config file.
+
+    * on RHEL/CentOS, it's `/var/www/html`.
+    * on Debian/Ubuntu, it's `/var/www`.
+    * on FreeBSD, it's `/usr/local/www/apache22/data`.
+      Note: if you're running Apache-2.4, the directory name should be
+      `apache24`, not `apache22`.
+    * on OpenBSD, it's `/var/www/htdocs`.
 
 ### Fixed: Incorrect path of command `sogo-tool` on OpenBSD
 
