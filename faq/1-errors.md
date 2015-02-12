@@ -28,11 +28,31 @@ this issue.
 > to send as their alias addresses, or allow member of mail list/alias to send
 > as mail list/alias, you should try iRedAPD plugin `reject_sender_login_mismatch`
 > instead (requires iRedAPD-1.4.4 or later releases).
-> 
+>
 > Read comments in file `/opt/iredapd/plugins/reject_sender_login_mismatch.py`,
 > then enable it in iRedAPD config file `/opt/iredapd/settings.py` (`plugins = `),
 > restart iRedAPD service. That's all.
 
+### unreasonable virtual_alias_maps map expansion size for user@domain.com
+
+Error message in Postfix log file:
+
+> Feb 11 19:59:06 mail postfix/cleanup[30575]: warning: 23C334232FB3:
+> unreasonable virtual_alias_maps map expansion size for user@domain.com
+> -- deferring delivery
+
+It means the maximal number of addresses that virtual alias expansion produces
+from each original recipient exceeds hard limit, please either increase the
+hard limit (default is 1000), or reduce alias members.
+
+To increase the limit to, for example, 1500, please add below setting in
+Postfix config file `/etc/postfix/main.cf`:
+
+```
+virtual_alias_expansion_limit = 1500
+```
+
+Reference: [Postfix Configuration Parameters](http://www.postfix.org/postconf.5.html#virtual_alias_expansion_limit)
 
 ## Amavisd
 

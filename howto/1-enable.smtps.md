@@ -5,7 +5,7 @@
 ### Why iRedMail doesn't enable SMTPS (SMTP over SSL) by default
 
 SMTPS is deprecated, so iRedMail disable it by default.
-Quote from (wikipedia.org)[http://en.wikipedia.org/wiki/SMTPS]
+Quote from [wikipedia.org](http://en.wikipedia.org/wiki/SMTPS)
 
 > Originally, in early 1997, the Internet Assigned Numbers Authority registered 465 for SMTPS. By the end of 1998, this was revoked when STARTTLS has been specified. With STARTTLS, the same port can be used with or without TLS. SMTP was seen as particularly important, because clients of this protocol are often other mail servers, which can not know whether a server they wish to communicate with will have a separate port for TLS. The port 465 is now registered for Source-Specific Multicast audio and video.
 
