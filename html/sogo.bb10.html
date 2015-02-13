@@ -12,13 +12,23 @@
         // <a href="./index.html">Document Index</a>
     </div><h1 id="setup-blackberry-10-os-microsoft-exchange-activesync">Setup BlackBerry 10 OS (Microsoft Exchange ActiveSync)</h1>
 <blockquote>
-<p>Important note:</p>
+<p>Important notes:</p>
 <ul>
+<li>SOGo provides <strong>EAS (Exchange ActiveSync)</strong> support, but not <strong>EWS
+  (Exchange Web Service)</strong>.</li>
+<li>BlackBerry 10 supports EAS, so it works very well with SOGo, it syncs
+  mails, calendars, contacts, tasks, memos.</li>
+<li>Apple Mail.app, and Outlook 2008/2011 for Mac support EWS. But not EAS.</li>
+<li>Outlook 2010 for Windows supports MAPI.</li>
+<li>Outlook 2013 for Windows supports MAPI to talk to MS Exchange and EAS to
+  talk to Hotmail/Outlook.com, but don't support EAS to talk to non-Exchange
+  servers.</li>
 <li>iRedMail-0.9.0 doesn't integrate <a href="http://www.openchange.org">OpenChange</a> and
-  <a href="http://www.samba.org">Samba4</a>, so SOGo groupware in iRedMail can NOT
-  provide full support for Microsoft Outlook clients, Mac OS X Mail.app and
-  all iOS devices, don't try to add your mail account as an <code>Exchange</code>
-  account in these mail clients.</li>
+  <a href="http://www.samba.org">Samba4</a> for native MAPI support, so SOGo groupware
+  in iRedMail doesn't provide full support for Microsoft Outlook clients,
+  Mac OS X Mail.app and all iOS devices, don't try to add your mail account
+  as an <code>Exchange</code> account in these mail clients. You have to add separate
+  POP3/IMAP account, caldav/carddav account instead.</li>
 </ul>
 </blockquote>
 <h2 id="requirements">Requirements</h2>
@@ -26,7 +36,7 @@
 <li>iRedMail-0.9.0 or later releases is required.</li>
 <li>You must choose to install SOGo groupware during iRedMail installation.</li>
 </ul>
-<h2 id="steps">Steps</h2>
+<h2 id="step-by-step-configuration">Step-by-step configuration</h2>
 <p>1: Open application <code>Settings</code>:</p>
 <p><img alt="" src="./images/sogo/bb10.settings.png" /></p>
 <p>2: Click <code>Accounts</code>:</p>

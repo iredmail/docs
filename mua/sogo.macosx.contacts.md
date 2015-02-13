@@ -1,7 +1,30 @@
 # Mac OS X: Add contact service (CardDAV) in Contacts.app
 
-> To use contact service (CardDAV protocol), you must choose to install
-> SOGo groupware during iRedMail installation.
+> Important notes:
+>
+> * SOGo provides __EAS (Exchange ActiveSync)__ support, but not __EWS
+>   (Exchange Web Service)__.
+> * BlackBerry 10 supports EAS, so it works very well with SOGo, it syncs
+>   mails, calendars, contacts, tasks, memos.
+> * Apple Mail.app, and Outlook 2008/2011 for Mac support EWS. But not EAS.
+> * Outlook 2010 for Windows supports MAPI.
+> * Outlook 2013 for Windows supports MAPI to talk to MS Exchange and EAS to
+>   talk to Hotmail/Outlook.com, but don't support EAS to talk to non-Exchange
+>   servers.
+> * iRedMail-0.9.0 doesn't integrate [OpenChange](http://www.openchange.org) and
+>   [Samba4](http://www.samba.org) for native MAPI support, so SOGo groupware
+>   in iRedMail doesn't provide full support for Microsoft Outlook clients,
+>   Mac OS X Mail.app and all iOS devices, don't try to add your mail account
+>   as an `Exchange` account in these mail clients. You have to add separate
+>   POP3/IMAP account, caldav/carddav account instead.
+
+## Requirements
+
+* iRedMail-0.9.0 or later releases is required.
+* To use contact service (CardDAV protocol), you must choose to install
+  SOGo groupware during iRedMail installation.
+
+## Step-by-step configuration
 
 1: Open application `System Preferences`:
 
