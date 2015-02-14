@@ -4,8 +4,12 @@
 >
 > * SOGo provides __EAS (Exchange ActiveSync)__ support, but not __EWS
 >   (Exchange Web Service)__.
-> * BlackBerry 10 supports EAS, so it works very well with SOGo, it syncs
->   mails, calendars, contacts, tasks, memos.
+> * Below mobile devices works well with EAS, they will sync mails, calendars,
+>   contacts, tasks, memos/notes.
+>
+>       * BlackBerry 10
+>       * iOS devices (iPad, iPhone). Tested with iOS 8.1.3.
+>
 > * Apple Mail.app, and Outlook 2008/2011 for Mac support EWS. But not EAS.
 > * Outlook 2010 for Windows supports MAPI.
 > * Outlook 2013 for Windows supports MAPI to talk to MS Exchange and EAS to
