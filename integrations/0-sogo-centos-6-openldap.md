@@ -90,7 +90,10 @@ With below config file, SOGo will listen on address `127.0.0.1`, port `20000`.
     WOPort = 127.0.0.1:20000;
 
     // PID file
-    //WOPidFile = /var/log/sogo/sogo.log;
+    //WOPidFile = /var/run/sogo/sogo.log;
+
+    // Log file
+    //WOLogFile = /var/log/sogo/sogo.log;
 
     // IMAP connection pool.
     // Your performance will slightly increase, as you won't open a new
