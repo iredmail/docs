@@ -10,7 +10,13 @@ Dovecot wiki page
 Below password schemes are supported in iRedAdmin-Pro (which means you can add new mail user with either one):
 
 * Plain text. e.g. `123456`
-* MD5 (salted). e.g. `$1$GfHYI7OE$vlXqMZSyJOSPXAmbXHq250`.
+* MD5 (salted). For example:
+
+    * (RECOMMENDED) with a prefix: `{CRYPT}$1$GfHYI7OE$vlXqMZSyJOSPXAmbXHq250`
+    * without a prefix: `$1$GfHYI7OE$vlXqMZSyJOSPXAmbXHq250`
+
+    Note: Looks like SOGo requires `{CRYPT}` prefix.
+
 * PLAIN-MD5 (unsalted MD5). e.g. `0d2bf3c712402f428d48fed691850bfc`
 * SSHA. e.g. `{SSHA}OuCrqL2yWwQIu8a9uvyOQ5V/ZKfL7LJD`
 * SSHA512. e.g. `{SSHA512}FxgXDhBVYmTqoboW+ibyyzPv/wGG7y4VJtuHWrx+wfqrs/lIH2Qxn2eA0jygXtBhMvRi7GNFmL++6aAZ0kXpcy1fxag=`

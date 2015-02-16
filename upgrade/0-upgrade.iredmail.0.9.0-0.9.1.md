@@ -20,6 +20,39 @@ __WARNING: Still working in progress, do _NOT_ apply it.__
 
 ## General (All backends should apply these steps)
 
+### Upgrade Roundcube webmail to the latest stable release
+
+Additional notes before upgrading Roundcube webmail 1.1.0 (or later releases):
+
+* for RHEL/CentOS users, please install package `php-pear-Net-IDNA2`, then
+  restart Apache service or php5-fpm service (if you're running Nginx):
+
+```
+# yum install php-pear-Net-IDNA2
+# service httpd restart       # <- OR: service php-fpm restart
+```
+
+* for Debian/Ubuntu users, please install package `php-pear` and `php5-intl`,
+  enable `intl` module for PHP, then restart Apache service or `php5_fpm`
+  service (if you're running Nginx):
+
+```
+# apt-get install php-pear php5-intl
+# php5enmod intl
+```
+
+* for OpenBSD users, please install package `php-intl`, then
+  restart `php_fpm` service:
+
+```
+# pkg_add -r php-intl
+# /etc/rc.d/php_fpm restart
+```
+
+After you have additional packages installed, please follow Roundcube official
+tutorial to upgrade Roundcube webmail to the latest stable release:
+[How to upgrade Roundcube](http://trac.roundcube.net/wiki/Howto_Upgrade)
+
 ### [__OPTIONAL__] Setup Fail2ban to monitor password failures in SOGo log file
 
 To improve server security, we'd better block clients which have too many
