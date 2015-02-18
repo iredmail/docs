@@ -222,7 +222,7 @@ web server.
 
 ### Apache web server
 
-SOGo installs config file `/etc/httpd/conf.d/SOGo.conf` by default, please
+SOGo installs Apache config file `/etc/httpd/conf.d/SOGo.conf` by default, please
 open it and find below lines:
 
 ```
@@ -238,6 +238,10 @@ ProxyPass /Microsoft-Server-ActiveSync \
  http://127.0.0.1:20000/SOGo/Microsoft-Server-ActiveSync \
  retry=60 connectiontimeout=5 timeout=360
 ```
+
+* Find string `yourhostname` in the same file, replace all `yourhostname` by
+your FQDN server hostname. (Tip: you can get your FQDN hostname with command
+`hostname -f`.)
 
 ### Nginx web server
 

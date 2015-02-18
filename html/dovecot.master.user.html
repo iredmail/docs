@@ -29,10 +29,10 @@ Retype new password: my_master_password
 {SSHA512}B0VHomJaMk6aLXOPglgNgJtCUA8JRnOweAwJxRW6NPWSNZ25rG/L6T05DJXH+t8WCQkemBilgkcEi6mq4Kadssivtts=
 </code></pre>
 
-<p>You can now pick up any username you like, for example,
-<code>my_master_user@non-exist.com</code>. Now add new master user in file
+<p>You can now pick up any username you like, for example, <code>my_master_user</code>.
+Now add new master user in file
 <code>/etc/dovecot/dovecot-master-users-passwords</code> like below:</p>
-<pre><code>my_master_user@non-exist.com:{SSHA512}B0VHomJaMk6aLXOPglgNgJtCU...
+<pre><code>my_master_user:{SSHA512}B0VHomJaMk6aLXOPglgNgJtCU...
 </code></pre>
 
 <p>WARNING: Make sure file <code>dovecot-master-users-password</code> is owned by Dovecot
@@ -45,13 +45,8 @@ the file content.</p>
 </ul>
 </blockquote>
 <p>Then you can access user@domain.ltd's mailbox (via either IMAP or POP3
-protocol) as <code>user@domain.ltd*my_master_user@non-exist.com</code> with password
+protocol) as <code>user@domain.ltd*my_master_user</code> with password
 <code>my_master_password</code>.</p>
-<p>Notes:</p>
-<ul>
-<li>master user name must be in valid email address format. e.g. user@domain.com.
-  this email address doesn't need to exist.</li>
-</ul>
 <h2 id="troubleshooting">Troubleshooting</h2>
 <p>If it doesn't work for you, please enable debug mode in Dovecot and check
 its log file. If you don't understand what the log says, please create a new

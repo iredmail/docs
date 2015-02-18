@@ -22,12 +22,12 @@ Retype new password: my_master_password
 {SSHA512}B0VHomJaMk6aLXOPglgNgJtCUA8JRnOweAwJxRW6NPWSNZ25rG/L6T05DJXH+t8WCQkemBilgkcEi6mq4Kadssivtts=
 ```
 
-You can now pick up any username you like, for example,
-`my_master_user@non-exist.com`. Now add new master user in file
+You can now pick up any username you like, for example, `my_master_user`.
+Now add new master user in file
 `/etc/dovecot/dovecot-master-users-passwords` like below:
 
 ```
-my_master_user@non-exist.com:{SSHA512}B0VHomJaMk6aLXOPglgNgJtCU...
+my_master_user:{SSHA512}B0VHomJaMk6aLXOPglgNgJtCU...
 ```
 
 WARNING: Make sure file `dovecot-master-users-password` is owned by Dovecot
@@ -38,14 +38,8 @@ the file content.
 > * on OpenBSD, Dovecot daemon user/group is `_dovecot/_dovecot`.
 
 Then you can access user@domain.ltd's mailbox (via either IMAP or POP3
-protocol) as `user@domain.ltd*my_master_user@non-exist.com` with password
+protocol) as `user@domain.ltd*my_master_user` with password
 `my_master_password`.
-
-
-Notes:
-
-* master user name must be in valid email address format. e.g. user@domain.com.
-  this email address doesn't need to exist.
 
 ## Troubleshooting
 

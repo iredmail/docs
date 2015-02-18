@@ -240,7 +240,7 @@ basedn, bind dn/passwordthen in this file, then it's done.</p>
 <p>To access SOGo groupware (webmail/calendar/contact), we need to configure
 web server.</p>
 <h3 id="apache-web-server">Apache web server</h3>
-<p>SOGo installs config file <code>/etc/httpd/conf.d/SOGo.conf</code> by default, please
+<p>SOGo installs Apache config file <code>/etc/httpd/conf.d/SOGo.conf</code> by default, please
 open it and find below lines:</p>
 <pre><code>#ProxyPass /Microsoft-Server-ActiveSync \
 # http://127.0.0.1:20000/SOGo/Microsoft-Server-ActiveSync \
@@ -253,6 +253,11 @@ open it and find below lines:</p>
  retry=60 connectiontimeout=5 timeout=360
 </code></pre>
 
+<ul>
+<li>Find string <code>yourhostname</code> in the same file, replace all <code>yourhostname</code> by
+your FQDN server hostname. (Tip: you can get your FQDN hostname with command
+<code>hostname -f</code>.)</li>
+</ul>
 <h3 id="nginx-web-server">Nginx web server</h3>
 <p>If you're running Nginx web server configured by iRedMail, please open file
 <code>/etc/nginx/conf.d/default.conf</code>, add some lines in <code>server {}</code> configured for

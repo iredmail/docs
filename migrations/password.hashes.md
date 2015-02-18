@@ -15,7 +15,9 @@ Below password schemes are supported in iRedAdmin-Pro (which means you can add n
     * (RECOMMENDED) with a prefix: `{CRYPT}$1$GfHYI7OE$vlXqMZSyJOSPXAmbXHq250`
     * without a prefix: `$1$GfHYI7OE$vlXqMZSyJOSPXAmbXHq250`
 
-    Note: Looks like SOGo requires `{CRYPT}` prefix.
+    __Important note__: SOGo groupware doesn't support MD5 without a prefix, so
+    if you're going to migrate MD5 password hash from old mail server, please
+    prepend `{CRYPT}` prefix in password hash.
 
 * PLAIN-MD5 (unsalted MD5). e.g. `0d2bf3c712402f428d48fed691850bfc`
 * SSHA. e.g. `{SSHA}OuCrqL2yWwQIu8a9uvyOQ5V/ZKfL7LJD`

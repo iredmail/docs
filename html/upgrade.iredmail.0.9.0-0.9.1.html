@@ -17,11 +17,11 @@
 <li><a href="#changelog">ChangeLog</a></li>
 <li><a href="#general-all-backends-should-apply-these-steps">General (All backends should apply these steps)</a><ul>
 <li><a href="#upgrade-roundcube-webmail-to-the-latest-stable-release">Upgrade Roundcube webmail to the latest stable release</a></li>
-<li><a href="#optional-setup-fail2ban-to-monitor-password-failures-in-sogo-log-file">[OPTIONAL] Setup Fail2ban to monitor password failures in SOGo log file</a></li>
-<li><a href="#optional-add-one-more-fail2ban-filter-to-help-catch-spam">[OPTIONAL] Add one more Fail2ban filter to help catch spam</a></li>
-<li><a href="#optional-fixed-return-receipt-response-rejected-by-iredapd-plugin-reject_null_sender">[OPTIONAL] Fixed: return receipt response rejected by iRedAPD plugin reject_null_sender</a></li>
+<li><a href="#fixed-return-receipt-response-rejected-by-iredapd-plugin-reject_null_sender">Fixed: return receipt response rejected by iRedAPD plugin reject_null_sender</a></li>
 <li><a href="#fixed-cannot-run-php-script-under-web-document-root-with-nginx">Fixed: Cannot run PHP script under web document root with Nginx.</a></li>
 <li><a href="#fixed-incorrect-path-of-command-sogo-tool-on-openbsd">Fixed: Incorrect path of command sogo-tool on OpenBSD</a></li>
+<li><a href="#optional-setup-fail2ban-to-monitor-password-failures-in-sogo-log-file">[OPTIONAL] Setup Fail2ban to monitor password failures in SOGo log file</a></li>
+<li><a href="#optional-add-one-more-fail2ban-filter-to-help-catch-spam">[OPTIONAL] Add one more Fail2ban filter to help catch spam</a></li>
 </ul>
 </li>
 <li><a href="#openldap-backend-special">OpenLDAP backend special</a><ul>
@@ -45,11 +45,11 @@
 <p><strong>WARNING: Still working in progress, do <em>NOT</em> apply it.</strong></p>
 <h2 id="changelog">ChangeLog</h2>
 <ul>
+<li>2015-02-17: [All backends ] Upgrade Roundcube webmail to the latest stable release</li>
 <li>2015-02-11: [All backends] [<strong>OPTIONAL</strong>] Setup Fail2ban to monitor password failures in SOGo log file.</li>
 <li>2015-02-11: [All backends] Fixed: Cannot run PHP script under web document root with Nginx.</li>
 <li>2015-02-09: [All backends] [<strong>OPTIONAL</strong>] Add one more Fail2ban filter to help catch spam.</li>
-<li>2015-02-04: [All backends] [<strong>OPTIONAL</strong>] Fixed: return receipt response rejected
-              by iRedAPD plugin <code>reject_null_sender</code>.</li>
+<li>2015-02-04: [All backends] Fixed: return receipt response rejected by iRedAPD plugin <code>reject_null_sender</code>.</li>
 <li>2015-02-02: [All backends] Fixed: Not backup SOGo database. Note: this step
               is not applicable if you don't use SOGo groupware.</li>
 <li>2015-01-13: [All backends] Fixed: Incorrect path of command <code>sogo-tool</code> on OpenBSD.</li>
@@ -87,43 +87,7 @@
 <p>After you have additional packages installed, please follow Roundcube official
 tutorial to upgrade Roundcube webmail to the latest stable release:
 <a href="http://trac.roundcube.net/wiki/Howto_Upgrade">How to upgrade Roundcube</a></p>
-<h3 id="optional-setup-fail2ban-to-monitor-password-failures-in-sogo-log-file">[<strong>OPTIONAL</strong>] Setup Fail2ban to monitor password failures in SOGo log file</h3>
-<p>To improve server security, we'd better block clients which have too many
-failed login attempts from SOGo.</p>
-<p>Please append below lines in Fail2ban main config file <code>/etc/fail2ban/jail.local</code>:</p>
-<pre><code>[SOGo]
-enabled     = true
-filter      = sogo-auth
-port        = http, https
-# without proxy this would be:
-# port    = 20000
-action      = iptables-multiport[name=SOGo, port=&quot;http,https&quot;, protocol=tcp]
-logpath     = /var/log/sogo/sogo.log
-</code></pre>
-
-<p>Restarting Fail2ban service is required.</p>
-<h3 id="optional-add-one-more-fail2ban-filter-to-help-catch-spam">[OPTIONAL] Add one more Fail2ban filter to help catch spam</h3>
-<p>We have a new Fail2ban filter to help catch spam, it will scan HELO rejections
-in Postfix log file and invoke iptables to ban client IP address.</p>
-<p>Open file <code>/etc/fail2ban/filters.d/postfix.iredmail.conf</code> or
-<code>/usr/local/etc/fail2ban/filters.d/postfix.iredmail.conf</code> (on FreeBSD), append
-below line under <code>[Definition]</code> section:</p>
-<pre><code>            reject: RCPT from (.*)\[&lt;HOST&gt;\]: 504 5.5.2 (.*) Helo command rejected: need fully-qualified hostname
-</code></pre>
-
-<p>After modification, the whole content is:</p>
-<pre><code>[Definition]
-failregex = \[&lt;HOST&gt;\]: SASL (PLAIN|LOGIN) authentication failed
-            lost connection after AUTH from (.*)\[&lt;HOST&gt;\]
-            reject: RCPT from (.*)\[&lt;HOST&gt;\]: 550 5.1.1
-            reject: RCPT from (.*)\[&lt;HOST&gt;\]: 450 4.7.1
-            reject: RCPT from (.*)\[&lt;HOST&gt;\]: 554 5.7.1
-            reject: RCPT from (.*)\[&lt;HOST&gt;\]: 504 5.5.2 (.*) Helo command rejected: need fully-qualified hostname
-ignoreregex =
-</code></pre>
-
-<p>Restarting Fail2ban service is required.</p>
-<h3 id="optional-fixed-return-receipt-response-rejected-by-iredapd-plugin-reject_null_sender">[OPTIONAL] Fixed: return receipt response rejected by iRedAPD plugin <code>reject_null_sender</code></h3>
+<h3 id="fixed-return-receipt-response-rejected-by-iredapd-plugin-reject_null_sender">Fixed: return receipt response rejected by iRedAPD plugin <code>reject_null_sender</code></h3>
 <p>Note: this is applicable if you want to keep iRedAPD plugin <code>reject_null_sender</code>
 but still able to send return receipt with Roundcube webmail.</p>
 <p>According to RFC2298, return receipt envelope sender address must be empty. If
@@ -195,6 +159,42 @@ command and fix it:</p>
 <pre><code># crontab -e -u _sogo
 </code></pre>
 
+<h3 id="optional-setup-fail2ban-to-monitor-password-failures-in-sogo-log-file">[<strong>OPTIONAL</strong>] Setup Fail2ban to monitor password failures in SOGo log file</h3>
+<p>To improve server security, we'd better block clients which have too many
+failed login attempts from SOGo.</p>
+<p>Please append below lines in Fail2ban main config file <code>/etc/fail2ban/jail.local</code>:</p>
+<pre><code>[SOGo]
+enabled     = true
+filter      = sogo-auth
+port        = http, https
+# without proxy this would be:
+# port    = 20000
+action      = iptables-multiport[name=SOGo, port=&quot;http,https&quot;, protocol=tcp]
+logpath     = /var/log/sogo/sogo.log
+</code></pre>
+
+<p>Restarting Fail2ban service is required.</p>
+<h3 id="optional-add-one-more-fail2ban-filter-to-help-catch-spam">[OPTIONAL] Add one more Fail2ban filter to help catch spam</h3>
+<p>We have a new Fail2ban filter to help catch spam, it will scan HELO rejections
+in Postfix log file and invoke iptables to ban client IP address.</p>
+<p>Open file <code>/etc/fail2ban/filters.d/postfix.iredmail.conf</code> or
+<code>/usr/local/etc/fail2ban/filters.d/postfix.iredmail.conf</code> (on FreeBSD), append
+below line under <code>[Definition]</code> section:</p>
+<pre><code>            reject: RCPT from (.*)\[&lt;HOST&gt;\]: 504 5.5.2 (.*) Helo command rejected: need fully-qualified hostname
+</code></pre>
+
+<p>After modification, the whole content is:</p>
+<pre><code>[Definition]
+failregex = \[&lt;HOST&gt;\]: SASL (PLAIN|LOGIN) authentication failed
+            lost connection after AUTH from (.*)\[&lt;HOST&gt;\]
+            reject: RCPT from (.*)\[&lt;HOST&gt;\]: 550 5.1.1
+            reject: RCPT from (.*)\[&lt;HOST&gt;\]: 450 4.7.1
+            reject: RCPT from (.*)\[&lt;HOST&gt;\]: 554 5.7.1
+            reject: RCPT from (.*)\[&lt;HOST&gt;\]: 504 5.5.2 (.*) Helo command rejected: need fully-qualified hostname
+ignoreregex =
+</code></pre>
+
+<p>Restarting Fail2ban service is required.</p>
 <h2 id="openldap-backend-special">OpenLDAP backend special</h2>
 <h3 id="fixed-not-backup-sogo-database">Fixed: not backup SOGo database</h3>
 <p>Note: this step is not applicable if you don't use SOGo groupware.</p>
