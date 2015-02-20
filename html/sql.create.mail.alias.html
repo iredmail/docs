@@ -30,17 +30,18 @@
 <p>To create an mail alias account, you can simply insert a SQL record in table
 <code>vmail.alias</code>. For example:</p>
 <pre><code class="mysql">sql&gt; USE vmail;
-sql&gt; INSERT INTO alias (address, goto, domain) \
+sql&gt; INSERT INTO alias (address, goto, domain, isalias) \
      VALUES ('original@example.com', \
              'user1@example.com,user2@example.com,user1@test.com', \
-             'example.com');
+             'example.com', \
+             1);
 </code></pre>
 
 <p><strong>NOTES</strong>:</p>
 <ul>
 <li>Please always use lower cases for email addresses.</li>
-<li>Please separated multiple destination addresses by comma.</li>
-<li>If destination address is a user under domain which is hosted on localhost,
+<li>Multiple destination addresses must be separated by comma.</li>
+<li>If destination address is a mail user under domain hosted on localhost,
   it must exist. Otherwise emails sent to alias account will be bounced after
   expanded to destination addresses.</li>
 </ul>
