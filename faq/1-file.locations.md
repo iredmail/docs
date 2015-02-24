@@ -97,6 +97,21 @@ Additional config files:
   releases, it's `/var/log/sieve.log`.
 * `/var/log/dovecot-lmtp.log`: LMTP related log.
 
+## OpenLDAP
+
+Main config file:
+
+* on RHEL/CentOS: it's `/etc/openldap/slapd.conf`.
+* on Debian/Ubuntu: it's `/etc/ldap/slapd.conf`.
+* on FreeBSD: it's `/usr/local/etc/openldap/slapd.conf`.
+* on OpenBSD: it's `/etc/openldap/slapd.conf`.
+
+Schema files are stored under `schema/` directory (same directory as `slapd.conf`).
+
+OpenLDAP is configured to log to `/var/log/openldap.log` by default, if it's
+empty, please check normal syslog log file `/var/log/messages` or
+`/var/log/syslog` instead.
+
 ## Amavisd
 
 ### Main config files

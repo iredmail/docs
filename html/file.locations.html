@@ -26,6 +26,7 @@
 <li><a href="#log-files_1">Log files</a></li>
 </ul>
 </li>
+<li><a href="#openldap">OpenLDAP</a></li>
 <li><a href="#amavisd">Amavisd</a><ul>
 <li><a href="#main-config-files_1">Main config files</a></li>
 <li><a href="#log-files_2">Log files</a></li>
@@ -141,6 +142,18 @@
   releases, it's <code>/var/log/sieve.log</code>.</li>
 <li><code>/var/log/dovecot-lmtp.log</code>: LMTP related log.</li>
 </ul>
+<h2 id="openldap">OpenLDAP</h2>
+<p>Main config file:</p>
+<ul>
+<li>on RHEL/CentOS: it's <code>/etc/openldap/slapd.conf</code>.</li>
+<li>on Debian/Ubuntu: it's <code>/etc/ldap/slapd.conf</code>.</li>
+<li>on FreeBSD: it's <code>/usr/local/etc/openldap/slapd.conf</code>.</li>
+<li>on OpenBSD: it's <code>/etc/openldap/slapd.conf</code>.</li>
+</ul>
+<p>Schema files are stored under <code>schema/</code> directory (same directory as <code>slapd.conf</code>).</p>
+<p>OpenLDAP is configured to log to <code>/var/log/openldap.log</code> by default, if it's
+empty, please check normal syslog log file <code>/var/log/messages</code> or
+<code>/var/log/syslog</code> instead.</p>
 <h2 id="amavisd">Amavisd</h2>
 <h3 id="main-config-files_1">Main config files</h3>
 <ul>
