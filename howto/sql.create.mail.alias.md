@@ -16,7 +16,7 @@ To create an mail alias account, you can simply insert a SQL record in table
 
 ```mysql
 sql> USE vmail;
-sql> INSERT INTO alias (address, goto, domain, isalias) \
+sql> INSERT INTO alias (address, goto, domain, islist) \
      VALUES ('original@example.com', \
              'user1@example.com,user2@example.com,user1@test.com', \
              'example.com', \
