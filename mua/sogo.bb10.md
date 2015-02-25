@@ -4,6 +4,9 @@
 >
 > * SOGo provides __EAS (Exchange ActiveSync)__ support, but not __EWS
 >   (Exchange Web Service)__.
+>
+> * Outlook 2013 for Windows works well with EAS.
+>
 > * Below mobile devices works well with EAS, they will sync mails, calendars,
 >   contacts, tasks, memos/notes.
 >
@@ -12,9 +15,6 @@
 >
 > * Apple Mail.app, and Outlook 2008/2011 for Mac support EWS. But not EAS.
 > * Outlook 2010 for Windows supports MAPI.
-> * Outlook 2013 for Windows supports MAPI to talk to MS Exchange and EAS to
->   talk to Hotmail/Outlook.com, but don't support EAS to talk to non-Exchange
->   servers.
 > * iRedMail-0.9.0 doesn't integrate [OpenChange](http://www.openchange.org) and
 >   [Samba4](http://www.samba.org) for native MAPI support, so SOGo groupware
 >   in iRedMail doesn't provide full support for Microsoft Outlook clients,
