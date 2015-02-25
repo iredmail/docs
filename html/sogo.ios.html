@@ -1,0 +1,83 @@
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Setup iOS devices (Microsoft Exchange ActiveSync)</title>
+        <link href="./css/markdown.css" rel="stylesheet"></head>
+    </head>
+    <body>
+    
+    <div id="navigation">
+        <a href="http://www.iredmail.org" target="_blank">iRedMail web site</a>
+    
+        // <a href="./index.html">Document Index</a>
+    </div><h1 id="setup-ios-devices-microsoft-exchange-activesync">Setup iOS devices (Microsoft Exchange ActiveSync)</h1>
+<blockquote>
+<p>Important notes:</p>
+<ul>
+<li>
+<p>SOGo provides <strong>EAS (Exchange ActiveSync)</strong> support, but not <strong>EWS
+  (Exchange Web Service)</strong>.</p>
+</li>
+<li>
+<p>Outlook 2013 for Windows works well with EAS.</p>
+</li>
+<li>
+<p>Below mobile devices works well with EAS, they will sync mails, calendars,
+  contacts, tasks, memos/notes.</p>
+<ul>
+<li>BlackBerry 10</li>
+<li>iOS devices (iPad, iPhone). Tested with iOS 8.1.3.</li>
+</ul>
+</li>
+<li>
+<p>Apple Mail.app, and Outlook 2008/2011 for Mac support EWS. But not EAS.</p>
+</li>
+<li>Outlook 2010 for Windows supports MAPI.</li>
+<li>iRedMail-0.9.0 doesn't integrate <a href="http://www.openchange.org">OpenChange</a> and
+  <a href="http://www.samba.org">Samba4</a> for native MAPI support, so SOGo groupware
+  in iRedMail doesn't provide full support for Microsoft Outlook clients,
+  Mac OS X Mail.app and all iOS devices, don't try to add your mail account
+  as an <code>Exchange</code> account in these mail clients. You have to add separate
+  POP3/IMAP account, caldav/carddav account instead.</li>
+</ul>
+</blockquote>
+<h2 id="requirements">Requirements</h2>
+<ul>
+<li>iRedMail-0.9.0 or later releases is required.</li>
+<li>You must choose to install SOGo groupware during iRedMail installation.</li>
+</ul>
+<h2 id="step-by-step-configuration">Step-by-step configuration</h2>
+<p>1: Open application <code>Settings</code> on home screen:</p>
+<p><img alt="" src="./images/sogo/ios.settings.png" /></p>
+<p>2: Click <code>Mails , Contacts, Calendars</code>:</p>
+<p><img alt="" src="./images/sogo/ios.settings.accounts.png" /></p>
+<p>3: Click <code>Add Account</code>:</p>
+<p><img alt="" src="./images/sogo/ios.settings.accounts.add.png" /></p>
+<p>4: Choose <code>Exchange</code>.</p>
+<p><img alt="" src="./images/sogo/ios.settings.accounts.add.exchange.png" /></p>
+<p>5: Fill up the form with your server address and email account credential</p>
+<ul>
+<li>Email: <code>your full email address</code></li>
+<li>Password: <code>password of your email account</code></li>
+<li>Description: <code>you can type anything here</code></li>
+</ul>
+<p><img alt="" src="./images/sogo/ios.exchange.1.png" /></p>
+<p>6: If it cannot auto discover server settings, you should fill up the form
+   with server address and username.</p>
+<ul>
+<li>Server: <code>your server name or IP address</code></li>
+<li>Username: <code>your full email address</code></li>
+</ul>
+<p><img alt="" src="./images/sogo/ios.exchange.2.png" /></p>
+<p>7: Choose items you want to sync to this mobile device:</p>
+<p><img alt="" src="./images/sogo/ios.exchange.sync.items.png" /></p>
+<p>That's all.</p><p style="text-align: center; color: grey;">Document published under a <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">CC BY-ND 3.0</a> license. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-3293801-21', 'auto');
+  ga('send', 'pageview');
+</script>
+</body></html>
