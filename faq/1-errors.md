@@ -3,6 +3,23 @@
 [TOC]
 
 ## Postfix
+
+### Sender address rejected: not logged in
+
+Sample error message in Postfix log file:
+
+> Jun 24 11:57:13 mx1 postfix/smtpd[2667]: NOQUEUE: reject: RCPT from
+> mail.mydomain.com[1.2.3.4]: 553 5.7.1 <sombody@my-domain.com\>: Sender address
+> rejected: not logged in; from=<sombody@my-domain.com\>
+> to=<receipent@receipentdomain.com\> proto=ESMTP helo=<client_helo.com\>
+
+This error is caused by incorrectly configured mail client application, not a
+server issue.
+
+All mail users are forced to perform SMTP auth before sending email, so you
+must configure your mail client applications (Outlook, Thunderbird, ...) to
+enable SMTP authentication.
+
 ### Sender address rejected: not owned by user user@domain.ltd
 
 This error is caused by restriction rule `reject_sender_login_mismatch` in
@@ -35,7 +52,7 @@ this issue.
 
 ### unreasonable virtual_alias_maps map expansion size for user@domain.com
 
-Error message in Postfix log file:
+Sample error message in Postfix log file:
 
 > Feb 11 19:59:06 mail postfix/cleanup[30575]: warning: 23C334232FB3:
 > unreasonable virtual_alias_maps map expansion size for user@domain.com

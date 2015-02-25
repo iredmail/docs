@@ -15,6 +15,7 @@
 <ul>
 <li><a href="#errors-you-may-see-while-maintaining-iredmail-server">Errors you may see while maintaining iRedMail server</a><ul>
 <li><a href="#postfix">Postfix</a><ul>
+<li><a href="#sender-address-rejected-not-logged-in">Sender address rejected: not logged in</a></li>
 <li><a href="#sender-address-rejected-not-owned-by-user-userdomainltd">Sender address rejected: not owned by user user@domain.ltd</a></li>
 <li><a href="#unreasonable-virtual_alias_maps-map-expansion-size-for-userdomaincom">unreasonable virtual_alias_maps map expansion size for user@domain.com</a></li>
 </ul>
@@ -28,6 +29,19 @@
 </ul>
 </div>
 <h2 id="postfix">Postfix</h2>
+<h3 id="sender-address-rejected-not-logged-in">Sender address rejected: not logged in</h3>
+<p>Sample error message in Postfix log file:</p>
+<blockquote>
+<p>Jun 24 11:57:13 mx1 postfix/smtpd[2667]: NOQUEUE: reject: RCPT from
+mail.mydomain.com[1.2.3.4]: 553 5.7.1 &lt;sombody@my-domain.com>: Sender address
+rejected: not logged in; from=&lt;sombody@my-domain.com>
+to=&lt;receipent@receipentdomain.com> proto=ESMTP helo=&lt;client_helo.com></p>
+</blockquote>
+<p>This error is caused by incorrectly configured mail client application, not a
+server issue.</p>
+<p>All mail users are forced to perform SMTP auth before sending email, so you
+must configure your mail client applications (Outlook, Thunderbird, ...) to
+enable SMTP authentication.</p>
 <h3 id="sender-address-rejected-not-owned-by-user-userdomainltd">Sender address rejected: not owned by user user@domain.ltd</h3>
 <p>This error is caused by restriction rule <code>reject_sender_login_mismatch</code> in
 Postfix parameter <code>smtpd_recipient_restrictions</code>, in file <code>/etc/postfix/main.cf</code>:</p>
@@ -54,7 +68,7 @@ then enable it in iRedAPD config file <code>/opt/iredapd/settings.py</code> (<co
 restart iRedAPD service. That's all.</p>
 </blockquote>
 <h3 id="unreasonable-virtual_alias_maps-map-expansion-size-for-userdomaincom">unreasonable virtual_alias_maps map expansion size for user@domain.com</h3>
-<p>Error message in Postfix log file:</p>
+<p>Sample error message in Postfix log file:</p>
 <blockquote>
 <p>Feb 11 19:59:06 mail postfix/cleanup[30575]: warning: 23C334232FB3:
 unreasonable virtual_alias_maps map expansion size for user@domain.com
