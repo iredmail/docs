@@ -7,7 +7,9 @@ __WARNING: Still working in progress, do _NOT_ apply it.__
 
 ## ChangeLog
 
-* 2015-02-17: [All backends ] Upgrade Roundcube webmail to the latest stable release
+* 2015-02-25: [All backends] [__OPTIONAL__] Bypass greylisting for some big ISPs.
+* 2015-02-25: [All backends] [__OPTIONAL__] Add one more Fail2ban filter to help catch spam (POP3/IMAP flood).
+* 2015-02-17: [All backends ] Upgrade Roundcube webmail to the latest stable release.
 * 2015-02-11: [All backends] [__OPTIONAL__] Setup Fail2ban to monitor password failures in SOGo log file.
 * 2015-02-11: [All backends] Fixed: Cannot run PHP script under web document root with Nginx.
 * 2015-02-09: [All backends] [__OPTIONAL__] Add one more Fail2ban filter to help catch spam.
@@ -154,12 +156,16 @@ logpath     = /var/log/sogo/sogo.log
 
 Restarting Fail2ban service is required.
 
-### [OPTIONAL] Add one more Fail2ban filter to help catch spam
+### [OPTIONAL] Add two more Fail2ban filter regular expressios to help catch spam
 
-We have a new Fail2ban filter to help catch spam, it will scan HELO rejections
-in Postfix log file and invoke iptables to ban client IP address.
+We have two new Fail2ban filters to help catch spam:
 
-Open file `/etc/fail2ban/filters.d/postfix.iredmail.conf` or
+1. first one will scan HELO rejections in Postfix log file.
+1. second one will scan aborded pop3/imap login in Dovecot log file.
+
+Steps:
+
+1. Open file `/etc/fail2ban/filters.d/postfix.iredmail.conf` or
 `/usr/local/etc/fail2ban/filters.d/postfix.iredmail.conf` (on FreeBSD), append
 below line under `[Definition]` section:
 
@@ -180,6 +186,23 @@ failregex = \[<HOST>\]: SASL (PLAIN|LOGIN) authentication failed
 ignoreregex =
 ```
 
+2. Open file `/etc/fail2ban/filters.d/dovecot.iredmail.conf` or
+`/usr/local/etc/fail2ban/filters.d/dovecot.iredmail.conf` (on FreeBSD), append
+below line under `[Definition]` section:
+
+```
+            Aborted login \(no auth attempts in .* rip=<HOST>
+```
+
+After modification, the whole content is:
+
+```
+[Definition]
+failregex = (?: pop3-login|imap-login): .*(?:Authentication failure|Aborted login \(auth failed|Aborted login \(tried to use disabled|Disconnected \(auth failed).*rip=(?P<host>\S*),.*
+            Aborted login \(no auth attempts in .* rip=<HOST>
+ignoreregex =
+```
+
 Restarting Fail2ban service is required.
 
 ## OpenLDAP backend special
@@ -196,6 +219,28 @@ DATABASES='... sogo'
 ```
 
 Save your change and that's all.
+
+### [__OPTIONAL__] Bypass greylisting for some big ISPs
+
+ISPs' mail servers send out spams, but also normal business mails. Applying
+greylisting on them is helpless.
+
+* Download SQL template file:
+
+```
+# cd /tmp
+# wget https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/samples/cluebringer/greylisting-whitelist.sql
+```
+
+* Login to MySQL database and import this file:
+
+```
+$ mysql -uroot -p
+mysql> USE cluebringer;
+mysql> SOURCE /tmp/greylisting-whitelist.sql;
+```
+
+That's all.
 
 ## MySQL/MariaDB backend special
 
@@ -234,6 +279,28 @@ DATABASES='... sogo'
 
 Save your change and that's all.
 
+### [__OPTIONAL__] Bypass greylisting for some big ISPs
+
+ISPs' mail servers send out spams, but also normal business mails. Applying
+greylisting on them is helpless.
+
+* Download SQL template file:
+
+```
+# cd /tmp
+# wget https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/samples/cluebringer/greylisting-whitelist.sql
+```
+
+* Login to MySQL database and import this file:
+
+```
+$ mysql -uroot -p
+mysql> USE cluebringer;
+mysql> SOURCE /tmp/greylisting-whitelist.sql;
+```
+
+That's all.
+
 ## PostgreSQL backend special
 
 ### Fixed: Not apply service restriction in Dovecot SQL query file while acting as SASL server
@@ -270,3 +337,29 @@ DATABASES='... sogo'
 ```
 
 Save your change and that's all.
+
+### [__OPTIONAL__] Bypass greylisting for some big ISPs
+
+ISPs' mail servers send out spams, but also normal business mails. Applying
+greylisting on them is helpless.
+
+* Download SQL template file:
+
+```
+# cd /tmp
+# wget https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/samples/cluebringer/greylisting-whitelist.sql
+```
+
+* Switch to PostgreSQL daemon user, then execute SQL commands to import it:
+
+    * On Linux, PostgreSQL daemon user is `postgres`.
+    * On FreeBSD, PostgreSQL daemon user is `pgsql`.
+    * On OpenBSD, PostgreSQL daemon user is `_postgresql`.
+
+```
+# su - postgres
+$ psql -d cluebringer
+sql> \i /tmp/greylisting-whitelist.sql;
+```
+
+That's all.

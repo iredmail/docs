@@ -21,21 +21,24 @@
 <li><a href="#fixed-cannot-run-php-script-under-web-document-root-with-nginx">Fixed: Cannot run PHP script under web document root with Nginx.</a></li>
 <li><a href="#fixed-incorrect-path-of-command-sogo-tool-on-openbsd">Fixed: Incorrect path of command sogo-tool on OpenBSD</a></li>
 <li><a href="#optional-setup-fail2ban-to-monitor-password-failures-in-sogo-log-file">[OPTIONAL] Setup Fail2ban to monitor password failures in SOGo log file</a></li>
-<li><a href="#optional-add-one-more-fail2ban-filter-to-help-catch-spam">[OPTIONAL] Add one more Fail2ban filter to help catch spam</a></li>
+<li><a href="#optional-add-two-more-fail2ban-filter-regular-expressios-to-help-catch-spam">[OPTIONAL] Add two more Fail2ban filter regular expressios to help catch spam</a></li>
 </ul>
 </li>
 <li><a href="#openldap-backend-special">OpenLDAP backend special</a><ul>
 <li><a href="#fixed-not-backup-sogo-database">Fixed: not backup SOGo database</a></li>
+<li><a href="#optional-bypass-greylisting-for-some-big-isps">[OPTIONAL] Bypass greylisting for some big ISPs</a></li>
 </ul>
 </li>
 <li><a href="#mysqlmariadb-backend-special">MySQL/MariaDB backend special</a><ul>
 <li><a href="#fixed-not-apply-service-restriction-in-dovecot-sql-query-file-while-acting-as-sasl-server">Fixed: Not apply service restriction in Dovecot SQL query file while acting as SASL server</a></li>
 <li><a href="#fixed-not-backup-sogo-database_1">Fixed: not backup SOGo database</a></li>
+<li><a href="#optional-bypass-greylisting-for-some-big-isps_1">[OPTIONAL] Bypass greylisting for some big ISPs</a></li>
 </ul>
 </li>
 <li><a href="#postgresql-backend-special">PostgreSQL backend special</a><ul>
 <li><a href="#fixed-not-apply-service-restriction-in-dovecot-sql-query-file-while-acting-as-sasl-server_1">Fixed: Not apply service restriction in Dovecot SQL query file while acting as SASL server</a></li>
 <li><a href="#fixed-not-backup-sogo-database_2">Fixed: not backup SOGo database</a></li>
+<li><a href="#optional-bypass-greylisting-for-some-big-isps_2">[OPTIONAL] Bypass greylisting for some big ISPs</a></li>
 </ul>
 </li>
 </ul>
@@ -45,7 +48,9 @@
 <p><strong>WARNING: Still working in progress, do <em>NOT</em> apply it.</strong></p>
 <h2 id="changelog">ChangeLog</h2>
 <ul>
-<li>2015-02-17: [All backends ] Upgrade Roundcube webmail to the latest stable release</li>
+<li>2015-02-25: [All backends] [<strong>OPTIONAL</strong>] Bypass greylisting for some big ISPs.</li>
+<li>2015-02-25: [All backends] [<strong>OPTIONAL</strong>] Add one more Fail2ban filter to help catch spam (POP3/IMAP flood).</li>
+<li>2015-02-17: [All backends ] Upgrade Roundcube webmail to the latest stable release.</li>
 <li>2015-02-11: [All backends] [<strong>OPTIONAL</strong>] Setup Fail2ban to monitor password failures in SOGo log file.</li>
 <li>2015-02-11: [All backends] Fixed: Cannot run PHP script under web document root with Nginx.</li>
 <li>2015-02-09: [All backends] [<strong>OPTIONAL</strong>] Add one more Fail2ban filter to help catch spam.</li>
@@ -174,12 +179,18 @@ logpath     = /var/log/sogo/sogo.log
 </code></pre>
 
 <p>Restarting Fail2ban service is required.</p>
-<h3 id="optional-add-one-more-fail2ban-filter-to-help-catch-spam">[OPTIONAL] Add one more Fail2ban filter to help catch spam</h3>
-<p>We have a new Fail2ban filter to help catch spam, it will scan HELO rejections
-in Postfix log file and invoke iptables to ban client IP address.</p>
-<p>Open file <code>/etc/fail2ban/filters.d/postfix.iredmail.conf</code> or
+<h3 id="optional-add-two-more-fail2ban-filter-regular-expressios-to-help-catch-spam">[OPTIONAL] Add two more Fail2ban filter regular expressios to help catch spam</h3>
+<p>We have two new Fail2ban filters to help catch spam:</p>
+<ol>
+<li>first one will scan HELO rejections in Postfix log file.</li>
+<li>second one will scan aborded pop3/imap login in Dovecot log file.</li>
+</ol>
+<p>Steps:</p>
+<ol>
+<li>Open file <code>/etc/fail2ban/filters.d/postfix.iredmail.conf</code> or
 <code>/usr/local/etc/fail2ban/filters.d/postfix.iredmail.conf</code> (on FreeBSD), append
-below line under <code>[Definition]</code> section:</p>
+below line under <code>[Definition]</code> section:</li>
+</ol>
 <pre><code>            reject: RCPT from (.*)\[&lt;HOST&gt;\]: 504 5.5.2 (.*) Helo command rejected: need fully-qualified hostname
 </code></pre>
 
@@ -194,6 +205,21 @@ failregex = \[&lt;HOST&gt;\]: SASL (PLAIN|LOGIN) authentication failed
 ignoreregex =
 </code></pre>
 
+<ol>
+<li>Open file <code>/etc/fail2ban/filters.d/dovecot.iredmail.conf</code> or
+<code>/usr/local/etc/fail2ban/filters.d/dovecot.iredmail.conf</code> (on FreeBSD), append
+below line under <code>[Definition]</code> section:</li>
+</ol>
+<pre><code>            Aborted login \(no auth attempts in .* rip=&lt;HOST&gt;
+</code></pre>
+
+<p>After modification, the whole content is:</p>
+<pre><code>[Definition]
+failregex = (?: pop3-login|imap-login): .*(?:Authentication failure|Aborted login \(auth failed|Aborted login \(tried to use disabled|Disconnected \(auth failed).*rip=(?P&lt;host&gt;\S*),.*
+            Aborted login \(no auth attempts in .* rip=&lt;HOST&gt;
+ignoreregex =
+</code></pre>
+
 <p>Restarting Fail2ban service is required.</p>
 <h2 id="openldap-backend-special">OpenLDAP backend special</h2>
 <h3 id="fixed-not-backup-sogo-database">Fixed: not backup SOGo database</h3>
@@ -204,6 +230,25 @@ database name in variable <code>DATABASES=</code>. For example:</p>
 </code></pre>
 
 <p>Save your change and that's all.</p>
+<h3 id="optional-bypass-greylisting-for-some-big-isps">[<strong>OPTIONAL</strong>] Bypass greylisting for some big ISPs</h3>
+<p>ISPs' mail servers send out spams, but also normal business mails. Applying
+greylisting on them is helpless.</p>
+<ul>
+<li>Download SQL template file:</li>
+</ul>
+<pre><code># cd /tmp
+# wget https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/samples/cluebringer/greylisting-whitelist.sql
+</code></pre>
+
+<ul>
+<li>Login to MySQL database and import this file:</li>
+</ul>
+<pre><code>$ mysql -uroot -p
+mysql&gt; USE cluebringer;
+mysql&gt; SOURCE /tmp/greylisting-whitelist.sql;
+</code></pre>
+
+<p>That's all.</p>
 <h2 id="mysqlmariadb-backend-special">MySQL/MariaDB backend special</h2>
 <h3 id="fixed-not-apply-service-restriction-in-dovecot-sql-query-file-while-acting-as-sasl-server">Fixed: Not apply service restriction in Dovecot SQL query file while acting as SASL server</h3>
 <p>Please open Dovecot config file <code>/etc/dovecot/dovecot-mysql.conf</code>
@@ -229,6 +274,25 @@ database name in variable <code>DATABASES=</code>. For example:</p>
 </code></pre>
 
 <p>Save your change and that's all.</p>
+<h3 id="optional-bypass-greylisting-for-some-big-isps_1">[<strong>OPTIONAL</strong>] Bypass greylisting for some big ISPs</h3>
+<p>ISPs' mail servers send out spams, but also normal business mails. Applying
+greylisting on them is helpless.</p>
+<ul>
+<li>Download SQL template file:</li>
+</ul>
+<pre><code># cd /tmp
+# wget https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/samples/cluebringer/greylisting-whitelist.sql
+</code></pre>
+
+<ul>
+<li>Login to MySQL database and import this file:</li>
+</ul>
+<pre><code>$ mysql -uroot -p
+mysql&gt; USE cluebringer;
+mysql&gt; SOURCE /tmp/greylisting-whitelist.sql;
+</code></pre>
+
+<p>That's all.</p>
 <h2 id="postgresql-backend-special">PostgreSQL backend special</h2>
 <h3 id="fixed-not-apply-service-restriction-in-dovecot-sql-query-file-while-acting-as-sasl-server_1">Fixed: Not apply service restriction in Dovecot SQL query file while acting as SASL server</h3>
 <p>Please open Dovecot config file <code>/etc/dovecot/dovecot-pgsql.conf</code>
@@ -253,7 +317,33 @@ database name in variable <code>DATABASES=</code>. For example:</p>
 <pre><code>DATABASES='... sogo'
 </code></pre>
 
-<p>Save your change and that's all.</p><p style="text-align: center; color: grey;">Document published under a <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">CC BY-ND 3.0</a> license. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.<script>
+<p>Save your change and that's all.</p>
+<h3 id="optional-bypass-greylisting-for-some-big-isps_2">[<strong>OPTIONAL</strong>] Bypass greylisting for some big ISPs</h3>
+<p>ISPs' mail servers send out spams, but also normal business mails. Applying
+greylisting on them is helpless.</p>
+<ul>
+<li>Download SQL template file:</li>
+</ul>
+<pre><code># cd /tmp
+# wget https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/samples/cluebringer/greylisting-whitelist.sql
+</code></pre>
+
+<ul>
+<li>
+<p>Switch to PostgreSQL daemon user, then execute SQL commands to import it:</p>
+<ul>
+<li>On Linux, PostgreSQL daemon user is <code>postgres</code>.</li>
+<li>On FreeBSD, PostgreSQL daemon user is <code>pgsql</code>.</li>
+<li>On OpenBSD, PostgreSQL daemon user is <code>_postgresql</code>.</li>
+</ul>
+</li>
+</ul>
+<pre><code># su - postgres
+$ psql -d cluebringer
+sql&gt; \i /tmp/greylisting-whitelist.sql;
+</code></pre>
+
+<p>That's all.</p><p style="text-align: center; color: grey;">Document published under a <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">CC BY-ND 3.0</a> license. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.<script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
   m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
