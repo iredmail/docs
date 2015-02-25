@@ -10,10 +10,10 @@
 > * Below mobile devices works well with EAS, they will sync mails, calendars,
 >   contacts, tasks, memos/notes.
 >
->       * BlackBerry 10
+>       * BlackBerry 10 devices
 >       * iOS devices (iPad, iPhone). Tested with iOS 8.1.3.
 >
-> * Apple Mail.app, and Outlook 2008/2011 for Mac support EWS. But not EAS.
+> * Apple Mail.app, and Outlook for Mac support EWS. But not EAS.
 > * Outlook 2010 for Windows supports MAPI.
 > * iRedMail-0.9.0 doesn't integrate [OpenChange](http://www.openchange.org) and
 >   [Samba4](http://www.samba.org) for native MAPI support, so SOGo groupware
@@ -53,3 +53,5 @@
 * Server Address: `https://[server name or IP address]/SOGo/dav/[your full email address]`
 
 ![](./images/sogo/macosx.add.carddav.account.png)
+
+That's all.

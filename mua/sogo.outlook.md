@@ -1,4 +1,4 @@
-# Mac OS X: Add calendar (CalDAV) and task (Reminders) service in iCalendar.app
+# Setup Outlook 2013 for Windows (Microsoft Exchange ActiveSync)
 
 > Important notes:
 >
@@ -25,42 +25,39 @@
 ## Requirements
 
 * iRedMail-0.9.0 or later releases is required.
-* To use calendar and task service, you must choose to install SOGo groupware
-  during iRedMail installation.
+* You must choose to install SOGo groupware during iRedMail installation.
+* Outlook 2013 for Windows. Earlier releases of Outlook for Windows doesn't work.
 
 ## Step-by-step configuration
 
-1: Open application `System Preferences`:
+1: Open application `Outlook 2013`:
 
-![](./images/sogo/macosx.system.preferences.png)
+![](./images/sogo/outlook.2013.app.png)
 
-2: Click `Internet Accounts`:
+2: Add a new account in Outlook, in `Auto Account Setup` page, please choose `Manual setup
+   or additional server types`, then click `Next`:
 
-![](./images/sogo/macosx.internet.accounts.png)
+![](./images/sogo/outlook.add.account.png)
 
-3: on right panel, click `Add Other Account` at the bottom
+3: In `Choose Service` page, please choose `Outlook.com or Exchange ActiveSync
+   compatible service`, then click `Next`:
 
-![](./images/sogo/macosx.add.other.account.png)
+![](./images/sogo/outlook.choose.service.png)
 
-4: choose `Add a CalDAV account` in popup window
+4: In `Server Settings` page, fill up the form with your server address and
+   email account credential, then click `Next`:
 
-![](./images/sogo/macosx.choose.account.type.caldav.png)
-
-5: Fill up the form with your server address and email account credential
-
-* Account Type: `Advanced`
+* Your Name: `your full name`
+* E-mail Address: `your full email address`
+* Mail server: `your server name or IP address`
 * User Name: `your full email address`
 * Password: `password of your email account`
-* Server Address: `server name or IP address`
-* Server Path: `/SOGo/dav/[your full email address]`
-* Port: `443`
-* Use SSL: checked
 
-![](./images/sogo/macosx.add.caldav.account.png)
+![](./images/sogo/outlook.server.settings.png)
 
-6: Click `Create` button to create account. You can also enable Reminders (task
-   service) if you want.
+After you click `Next`, Outlook will start verifying your email account, please
+wait and you will see below screen after verified:
 
-![](./images/sogo/macosx.add.reminder.png)
+![](./images/sogo/outlook.test.account.settings.png)
 
 That's all.

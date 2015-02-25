@@ -1,7 +1,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title>Mac OS X: Add contact service (CardDAV) in Contacts.app</title>
+        <title>Setup Outlook 2013 for Windows (Microsoft Exchange ActiveSync)</title>
         <link href="./css/markdown.css" rel="stylesheet"></head>
     </head>
     <body>
@@ -10,7 +10,7 @@
         <a href="http://www.iredmail.org" target="_blank">iRedMail web site</a>
     
         // <a href="./index.html">Document Index</a>
-    </div><h1 id="mac-os-x-add-contact-service-carddav-in-contactsapp">Mac OS X: Add contact service (CardDAV) in Contacts.app</h1>
+    </div><h1 id="setup-outlook-2013-for-windows-microsoft-exchange-activesync">Setup Outlook 2013 for Windows (Microsoft Exchange ActiveSync)</h1>
 <blockquote>
 <p>Important notes:</p>
 <ul>
@@ -44,25 +44,31 @@
 <h2 id="requirements">Requirements</h2>
 <ul>
 <li>iRedMail-0.9.0 or later releases is required.</li>
-<li>To use contact service (CardDAV protocol), you must choose to install
-  SOGo groupware during iRedMail installation.</li>
+<li>You must choose to install SOGo groupware during iRedMail installation.</li>
+<li>Outlook 2013 for Windows. Earlier releases of Outlook for Windows doesn't work.</li>
 </ul>
 <h2 id="step-by-step-configuration">Step-by-step configuration</h2>
-<p>1: Open application <code>System Preferences</code>:</p>
-<p><img alt="" src="./images/sogo/macosx.system.preferences.png" /></p>
-<p>2: Click <code>Internet Accounts</code>:</p>
-<p><img alt="" src="./images/sogo/macosx.internet.accounts.png" /></p>
-<p>3: on right panel, click <code>Add Other Account</code> at the bottom</p>
-<p><img alt="" src="./images/sogo/macosx.add.other.account.png" /></p>
-<p>4: choose <code>Add a CardDAV account</code> in popup window</p>
-<p><img alt="" src="./images/sogo/macosx.choose.account.type.carddav.png" /></p>
-<p>5: Fill up the form with your server address and email account credential</p>
+<p>1: Open application <code>Outlook 2013</code>:</p>
+<p><img alt="" src="./images/sogo/outlook.2013.app.png" /></p>
+<p>2: Add a new account in Outlook, in <code>Auto Account Setup</code> page, please choose <code>Manual setup
+   or additional server types</code>, then click <code>Next</code>:</p>
+<p><img alt="" src="./images/sogo/outlook.add.account.png" /></p>
+<p>3: In <code>Choose Service</code> page, please choose <code>Outlook.com or Exchange ActiveSync
+   compatible service</code>, then click <code>Next</code>:</p>
+<p><img alt="" src="./images/sogo/outlook.choose.service.png" /></p>
+<p>4: In <code>Server Settings</code> page, fill up the form with your server address and
+   email account credential, then click <code>Next</code>:</p>
 <ul>
+<li>Your Name: <code>your full name</code></li>
+<li>E-mail Address: <code>your full email address</code></li>
+<li>Mail server: <code>your server name or IP address</code></li>
 <li>User Name: <code>your full email address</code></li>
 <li>Password: <code>password of your email account</code></li>
-<li>Server Address: <code>https://[server name or IP address]/SOGo/dav/[your full email address]</code></li>
 </ul>
-<p><img alt="" src="./images/sogo/macosx.add.carddav.account.png" /></p>
+<p><img alt="" src="./images/sogo/outlook.server.settings.png" /></p>
+<p>After you click <code>Next</code>, Outlook will start verifying your email account, please
+wait and you will see below screen after verified:</p>
+<p><img alt="" src="./images/sogo/outlook.test.account.settings.png" /></p>
 <p>That's all.</p><p style="text-align: center; color: grey;">Document published under a <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">CC BY-ND 3.0</a> license. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.<script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
