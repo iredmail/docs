@@ -1,4 +1,4 @@
-# Setup BlackBerry 10 OS (Microsoft Exchange ActiveSync)
+# Exchange ActiveSync: Setup BlackBerry 10 devices
 
 > Important notes:
 >

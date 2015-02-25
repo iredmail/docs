@@ -1,4 +1,4 @@
-# Setup Outlook 2013 for Windows (Microsoft Exchange ActiveSync)
+# Exchange ActiveSync: Setup Outlook 2013 for Windows
 
 > Important notes:
 >

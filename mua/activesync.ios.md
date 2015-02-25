@@ -1,4 +1,4 @@
-# Setup iOS devices (Microsoft Exchange ActiveSync)
+# Exchange ActiveSync: Setup iOS devices
 
 > Important notes:
 >
