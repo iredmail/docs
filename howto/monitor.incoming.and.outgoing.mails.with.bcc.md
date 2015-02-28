@@ -29,12 +29,12 @@ PostgreSQL too.
 
 ```sql
 -- BCC outgoing emails to 'outbound@example.com'
-mysql> INSERT INTO sender_bcc_domain (username, bcc_address, domain, active, created)
-       VALUES ('mydomain.com', 'outbound@example.com', 'mydomain.com', 1, NOW());
+mysql> INSERT INTO sender_bcc_domain (domain, bcc_address, active, created)
+       VALUES ('mydomain.com', 'outbound@example.com', 1, NOW());
 
 -- BCC incoming emails to 'inbound@example.com'
-mysql> INSERT INTO recipient_bcc_domain (username, bcc_address, domain, active, created)
-       VALUES ('mydomain.com', 'inbound@example.com', 'mydomain.com', 1, NOW());
+mysql> INSERT INTO recipient_bcc_domain (domain, bcc_address, active, created)
+       VALUES ('mydomain.com', 'inbound@example.com', 1, NOW());
 ```
 
 * To add per-user bcc settings for user `user@mydomain.com`, you can add

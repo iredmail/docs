@@ -44,12 +44,12 @@ PostgreSQL too.</p>
   below records in SQL database <code>vmail</code>:</li>
 </ul>
 <pre><code class="sql">-- BCC outgoing emails to 'outbound@example.com'
-mysql&gt; INSERT INTO sender_bcc_domain (username, bcc_address, domain, active, created)
-       VALUES ('mydomain.com', 'outbound@example.com', 'mydomain.com', 1, NOW());
+mysql&gt; INSERT INTO sender_bcc_domain (domain, bcc_address, active, created)
+       VALUES ('mydomain.com', 'outbound@example.com', 1, NOW());
 
 -- BCC incoming emails to 'inbound@example.com'
-mysql&gt; INSERT INTO recipient_bcc_domain (username, bcc_address, domain, active, created)
-       VALUES ('mydomain.com', 'inbound@example.com', 'mydomain.com', 1, NOW());
+mysql&gt; INSERT INTO recipient_bcc_domain (domain, bcc_address, active, created)
+       VALUES ('mydomain.com', 'inbound@example.com', 1, NOW());
 </code></pre>
 
 <ul>
