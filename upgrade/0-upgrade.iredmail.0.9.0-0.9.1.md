@@ -41,6 +41,7 @@ Additional notes before upgrading Roundcube webmail 1.1.0 (or later releases):
 ```
 # apt-get install php-pear php5-intl
 # php5enmod intl
+# service apache2 resart    # <- OR: service php5_fpm restart
 ```
 
 * for OpenBSD users, please install package `php-intl`, then
