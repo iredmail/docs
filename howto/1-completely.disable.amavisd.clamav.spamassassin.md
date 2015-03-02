@@ -1,5 +1,7 @@
 # Completely disable Amavisd + ClamAV + SpamAssassin
 
+[TOC]
+
 In iRedMail, Amavisd provides below features:
 
 * content-based spam scanning (invoke SpamAssassin)
