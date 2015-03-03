@@ -12,6 +12,7 @@
 >
 >       * BlackBerry 10 devices
 >       * iOS devices (iPad, iPhone). Tested with iOS 8.1.3.
+>       * Android devices. Tested with OS v4.0.
 >
 > * Apple Mail.app, and Outlook for Mac support EWS. But not EAS.
 > * Outlook 2010 for Windows supports MAPI.

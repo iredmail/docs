@@ -1,4 +1,4 @@
-# Exchange ActiveSync: Setup Outlook 2013 for Windows
+# Exchange ActiveSync: Setup Android devices
 
 > Important notes:
 >
@@ -27,38 +27,39 @@
 
 * iRedMail-0.9.0 or later releases is required.
 * You must choose to install SOGo groupware during iRedMail installation.
-* Outlook 2013 for Windows. Earlier releases of Outlook for Windows doesn't work.
 
 ## Step-by-step configuration
 
-1: Open application `Outlook 2013`:
+1: Open application `Mail` on home screen:
 
-![](./images/sogo/outlook.2013.app.png)
+![](./images/sogo/android.mail.png)
 
-2: Add a new account in Outlook, in `Auto Account Setup` page, please choose `Manual setup
-   or additional server types`, then click `Next`:
+2: Fill your full email address and password in `Account Setup` page:
 
-![](./images/sogo/outlook.add.account.png)
+![](./images/sogo/android.account.setup.png)
 
-3: In `Choose Service` page, please choose `Outlook.com or Exchange ActiveSync
-   compatible service`, then click `Next`:
+3: If it asks you to choose `Account Type`, please choose `Exchange`:
 
-![](./images/sogo/outlook.choose.service.png)
+![](./images/sogo/android.account.type.png)
 
-4: In `Server Settings` page, fill up the form with your server address and
-   email account credential, then click `Next`:
+4: In detailed account setup page, fill up the form with your server address
+   and email account credential
 
-* Your Name: `your full name`
-* E-mail Address: `your full email address`
-* Mail server: `your server name or IP address`
-* User Name: `your full email address`
+* Domain\Username: `your full email address`
 * Password: `password of your email account`
+* Server: `your server name or IP address`
+* Port: `443`
 
-![](./images/sogo/outlook.server.settings.png)
+Please also check `Use secure connection (SSL)` and `Accept all SSL certificates`:
 
-After you click `Next`, Outlook will start verifying your email account, please
-wait and you will see below screen after verified:
+![](./images/sogo/android.account.details.png)
 
-![](./images/sogo/outlook.test.account.settings.png)
+5: In `Account Settings` page, you can choose Push. it's all up to you.
 
-That's all.
+![](./images/sogo/android.account.settings.png)
+
+6: Choose a name for your Exchange account.
+
+![](./images/sogo/android.account.name.png)
+
+Click `Next` to finish account setup. That's all.
