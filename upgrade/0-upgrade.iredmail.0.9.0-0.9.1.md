@@ -56,6 +56,10 @@ After you have additional packages installed, please follow Roundcube official
 tutorial to upgrade Roundcube webmail to the latest stable release:
 [How to upgrade Roundcube](http://trac.roundcube.net/wiki/Howto_Upgrade)
 
+Note: it's recommended to download the `Complete` edition (e.g.
+`roundcubemail-1.1.0-complete.tar.gz` instead of `Dependent` edition (e.g.
+`roundcubemail-1.1.0.tar.gz`).
+
 ### Fixed: return receipt response rejected by iRedAPD plugin `reject_null_sender`
 
 Note: this is applicable if you want to keep iRedAPD plugin `reject_null_sender`
