@@ -1,0 +1,58 @@
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Send out email from specified IP address</title>
+        <link href="./css/markdown.css" rel="stylesheet"></head>
+    </head>
+    <body>
+    
+    <div id="navigation">
+        <a href="http://www.iredmail.org" target="_blank">iRedMail web site</a>
+    
+        // <a href="./index.html">Document Index</a>
+    </div><h1 id="send-out-email-from-specified-ip-address">Send out email from specified IP address</h1>
+<p>If you have multiple IP addresses available on your iRedMail server, and would like to send from different IP Addresses for different domains, follow the steps below.</p>
+<h3 id="requirement">Requirement</h3>
+<p>This can only be set up on Postfix version<code>&gt;=2.7.x</code>, because the parameter we need <code>sender_dependent_default_transport_maps</code> is available in Postfix-2.7 and later releases.</p>
+<p>To check your Postfix version run:</p>
+<pre><code># postconf mail_version
+</code></pre>
+
+<p>Which would return something like: <code>mail_version = 2.10.3</code></p>
+<h3 id="steps">Steps</h3>
+<ul>
+<li>Add Postfix setting <code>sender_dependent_default_transport_maps</code> to the end of <code>/etc/postfix/main.cf</code> like below:</li>
+</ul>
+<pre><code>sender_dependent_default_transport_maps = pcre:/etc/postfix/sdd_transport.pcre
+</code></pre>
+
+<ul>
+<li>Add file <code>/etc/postfix/sdd_transport.pcre</code> with below content. NOTE: I use domain 'example.com' for testing, it will use transport 'sample-smtp' - see examples.</li>
+</ul>
+<pre><code>/@example\.com$/   sample-smtp:
+</code></pre>
+
+<ul>
+<li>Create new outgoing SMTP transports in <code>/etc/postfix/master.cf</code> like below. Note: you must replace our sample IP address <code>172.16.244.159</code> with your IP address.</li>
+</ul>
+<pre><code>sample-smtp     unix -       -       n       -       -       smtp
+    -o smtp_bind_address=172.16.244.159
+#    -o smtp_helo_name=example.com
+#    -o syslog_name=postfix-example-com
+</code></pre>
+
+<p>Option <code>smtp_helo_name</code> and <code>syslog_name</code> are optional.</p>
+<p>After this restart the Postfix Service to apply your changes,</p>
+<pre><code># /etc/init.d/postfix restart
+</code></pre>
+
+<p>Note: any unmatched domains will continue using the server's primary IP address just as before.</p><p style="text-align: center; color: grey;">Document published under a <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">CC BY-ND 3.0</a> license. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-3293801-21', 'auto');
+  ga('send', 'pageview');
+</script>
+</body></html>
