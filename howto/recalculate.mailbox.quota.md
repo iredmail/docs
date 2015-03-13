@@ -1,7 +1,26 @@
 # Force Dovecot to recalculate mailbox quota
 
+## Dovecot-2.x
+
+Dovecot provides command line tool `doveadm` to recalcuate mailbox quota.
+Sample usage:
+
+* Recalculate ALL mail accounts:
+```
+# doveadm quota recalc -A
+```
+
+* Recalculate one mailbox:
+```
+# doveadm quota recalc -u user@domain.ltd
+```
+
+Reference: (http://wiki2.dovecot.org/Tools/Doveadm/Quota)[Doveadm-Quota]
+
+## Dovecot-1.x and Dovecot-2.x
+
 iRedMail enables dict quota since iRedMail-0.7.0, dict quota is recalculated
-only if the quota goes below zero
+only if the quota goes below zero.
 
 * For MySQL and PostgreSQL backend:
 

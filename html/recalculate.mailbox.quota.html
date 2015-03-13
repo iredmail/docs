@@ -11,8 +11,25 @@
     
         // <a href="./index.html">Document Index</a>
     </div><h1 id="force-dovecot-to-recalculate-mailbox-quota">Force Dovecot to recalculate mailbox quota</h1>
+<h2 id="dovecot-2x">Dovecot-2.x</h2>
+<p>Dovecot provides command line tool <code>doveadm</code> to recalcuate mailbox quota.
+Sample usage:</p>
+<ul>
+<li>Recalculate ALL mail accounts:</li>
+</ul>
+<pre><code># doveadm quota recalc -A
+</code></pre>
+
+<ul>
+<li>Recalculate one mailbox:</li>
+</ul>
+<pre><code># doveadm quota recalc -u user@domain.ltd
+</code></pre>
+
+<p>Reference: (http://wiki2.dovecot.org/Tools/Doveadm/Quota)[Doveadm-Quota]</p>
+<h2 id="dovecot-1x-and-dovecot-2x">Dovecot-1.x and Dovecot-2.x</h2>
 <p>iRedMail enables dict quota since iRedMail-0.7.0, dict quota is recalculated
-only if the quota goes below zero</p>
+only if the quota goes below zero.</p>
 <ul>
 <li>For MySQL and PostgreSQL backend:</li>
 </ul>
