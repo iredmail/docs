@@ -17,6 +17,7 @@
 <li><a href="#changelog">ChangeLog</a></li>
 <li><a href="#general-all-backends-should-apply-these-steps">General (All backends should apply these steps)</a><ul>
 <li><a href="#upgrade-roundcube-webmail-to-the-latest-stable-release">Upgrade Roundcube webmail to the latest stable release</a></li>
+<li><a href="#upgrade-iredapd-postfix-policy-server-to-the-latest-145">Upgrade iRedAPD (Postfix policy server) to the latest 1.4.5</a></li>
 <li><a href="#fixed-return-receipt-response-rejected-by-iredapd-plugin-reject_null_sender">Fixed: return receipt response rejected by iRedAPD plugin reject_null_sender</a></li>
 <li><a href="#fixed-cannot-run-php-script-under-web-document-root-with-nginx">Fixed: Cannot run PHP script under web document root with Nginx.</a></li>
 <li><a href="#fixed-incorrect-path-of-command-sogo-tool-on-openbsd">Fixed: Incorrect path of command sogo-tool on OpenBSD</a></li>
@@ -48,6 +49,7 @@
 <p><strong>WARNING: Still working in progress, do <em>NOT</em> apply it.</strong></p>
 <h2 id="changelog">ChangeLog</h2>
 <ul>
+<li>2015-02-25: [All backends] Upgrade iRedAPD to 1.4.5.</li>
 <li>2015-02-25: [All backends] [<strong>OPTIONAL</strong>] Bypass greylisting for some big ISPs.</li>
 <li>2015-02-25: [All backends] [<strong>OPTIONAL</strong>] Add one more Fail2ban filter to help catch spam (POP3/IMAP flood).</li>
 <li>2015-02-17: [All backends ] Upgrade Roundcube webmail to the latest stable release.</li>
@@ -96,6 +98,25 @@ tutorial to upgrade Roundcube webmail to the latest stable release:
 <p>Note: it's recommended to download the <code>Complete</code> edition (e.g.
 <code>roundcubemail-1.1.0-complete.tar.gz</code> instead of <code>Dependent</code> edition (e.g.
 <code>roundcubemail-1.1.0.tar.gz</code>).</p>
+<h3 id="upgrade-iredapd-postfix-policy-server-to-the-latest-145">Upgrade iRedAPD (Postfix policy server) to the latest 1.4.5</h3>
+<p>Please follow below tutorial to upgrade iRedAPD to the latest stable release:
+<a href="./upgrade.iredapd.html">How to upgrade iRedAPD-1.4.0 or later versions to the latest stable release</a></p>
+<p>Note: </p>
+<p>iRedAPD-1.4.5 is able to log rejection and other non-DUNNO actions in iRedAdmin
+database, admin can view the log under menu <code>System -&gt; Admin Log</code> of iRedAdmin.
+If you want to log these actions, please add below new parameters in iRedAPD
+config file <code>/opt/iredapd/settings.py</code>:</p>
+<pre><code># Log reject (and other non-DUNNO) action in iRedAdmin SQL database
+log_action_in_db = True
+log_db_server = '127.0.0.1'
+log_db_port = '3306'
+log_db_name = 'iredadmin'
+log_db_user = 'iredadmin'
+log_db_password = 'password'
+</code></pre>
+
+<p>You can find SQL username/password of iRedAdmin database in iRedAdmin config
+file.</p>
 <h3 id="fixed-return-receipt-response-rejected-by-iredapd-plugin-reject_null_sender">Fixed: return receipt response rejected by iRedAPD plugin <code>reject_null_sender</code></h3>
 <p>Note: this is applicable if you want to keep iRedAPD plugin <code>reject_null_sender</code>
 but still able to send return receipt with Roundcube webmail.</p>
