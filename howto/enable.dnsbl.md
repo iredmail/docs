@@ -20,7 +20,7 @@ specified order.
 
 ## References
 
-* [Postfix Configuration Parameters: reject_rbl_client](http://www.iredmail.org/postconf.5.html#reject_rbl_client)
+* [Postfix Configuration Parameters: reject_rbl_client](http://www.postfix.org/postconf.5.html#reject_rbl_client)
 * [Spamhaus website](http://www.spamhaus.org)
 
     * [Spamhaus DNSBL Usage Terms](https://www.spamhaus.org/organization/dnsblusage/)
