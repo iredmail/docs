@@ -23,7 +23,6 @@
 <li><a href="#fixed-incorrect-path-of-command-sogo-tool-on-openbsd">Fixed: Incorrect path of command sogo-tool on OpenBSD</a></li>
 <li><a href="#optional-setup-fail2ban-to-monitor-password-failures-in-sogo-log-file">[OPTIONAL] Setup Fail2ban to monitor password failures in SOGo log file</a></li>
 <li><a href="#optional-add-two-more-fail2ban-filter-regular-expressios-to-help-catch-spam">[OPTIONAL] Add two more Fail2ban filter regular expressios to help catch spam</a></li>
-<li><a href="#optional-enable-dnsbl-service-zenspamhausorg-in-postfix-to-reduce-spam">[OPTIONAL] Enable DNSBL service zen.spamhaus.org in Postfix to reduce spam</a></li>
 </ul>
 </li>
 <li><a href="#openldap-backend-special">OpenLDAP backend special</a><ul>
@@ -247,22 +246,6 @@ ignoreregex =
 </code></pre>
 
 <p>Restarting Fail2ban service is required.</p>
-<h3 id="optional-enable-dnsbl-service-zenspamhausorg-in-postfix-to-reduce-spam">[OPTIONAL] Enable DNSBL service zen.spamhaus.org in Postfix to reduce spam</h3>
-<p>Note: this is optional. It's enabled by default since iRedMail-0.9.1.</p>
-<ul>
-<li>Open Postfix config file <code>/etc/postfix/main.cf</code> or
-<code>/usr/local/etc/postfix/main.cf</code> (on FreeBSD), append
-<code>reject_rbl_client zen.spamhaus.org</code> to parameter <code>smtpd_recipient_restrictions</code>.
-Final setting looks like below:</li>
-</ul>
-<pre><code>smtpd_recipient_restrictions = ..., reject_unauth_destination, reject_rbl_client zen.spamhaus.org
-</code></pre>
-
-<ul>
-<li>Restart or reload Postfix service.</li>
-</ul>
-<p>You can read <a href="http://www.spamhaus.org">spamhaus.org</a> for more details about its
-RBL service.</p>
 <h2 id="openldap-backend-special">OpenLDAP backend special</h2>
 <h3 id="fixed-not-backup-sogo-database">Fixed: not backup SOGo database</h3>
 <p>Note: this step is not applicable if you don't use SOGo groupware.</p>

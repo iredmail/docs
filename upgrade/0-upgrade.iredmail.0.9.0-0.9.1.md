@@ -235,24 +235,6 @@ ignoreregex =
 
 Restarting Fail2ban service is required.
 
-### [OPTIONAL] Enable DNSBL service zen.spamhaus.org in Postfix to reduce spam
-
-Note: this is optional. It's enabled by default since iRedMail-0.9.1.
-
-* Open Postfix config file `/etc/postfix/main.cf` or
-`/usr/local/etc/postfix/main.cf` (on FreeBSD), append
-`reject_rbl_client zen.spamhaus.org` to parameter `smtpd_recipient_restrictions`.
-Final setting looks like below:
-
-```
-smtpd_recipient_restrictions = ..., reject_unauth_destination, reject_rbl_client zen.spamhaus.org
-```
-
-* Restart or reload Postfix service.
-
-You can read [spamhaus.org](http://www.spamhaus.org) for more details about its
-RBL service.
-
 ## OpenLDAP backend special
 
 ### Fixed: not backup SOGo database
