@@ -15,11 +15,12 @@
 <ul>
 <li><a href="#change-mail-attachment-size">Change mail attachment size</a><ul>
 <li><a href="#change-message-size-limit-in-postfix">Change message size limit in postfix</a></li>
-<li><a href="#change-upload-file-size-in-webmail">Change upload file size in webmail</a><ul>
+<li><a href="#change-upload-file-size-in-roundcube-webmail">Change upload file size in Roundcube webmail</a><ul>
 <li><a href="#change-php-setting-to-allow-to-upload-large-attachment">Change PHP setting to allow to upload large attachment</a></li>
 <li><a href="#change-roundcube-webmail-settings-to-allow-large-attachment">Change Roundcube webmail settings to allow large attachment</a></li>
 </ul>
 </li>
+<li><a href="#change-upload-size-in-nginx">Change upload size in Nginx</a></li>
 </ul>
 </li>
 </ul>
@@ -46,8 +47,8 @@ like below:</p>
 </ul>
 <p>If you use mail clients such as Outlook, thunderbird to send mails, it's now
 ok to sent large attachment with above setting.</p>
-<h2 id="change-upload-file-size-in-webmail">Change upload file size in webmail</h2>
-<p>If you have webmail, you have to change two more settings:</p>
+<h2 id="change-upload-file-size-in-roundcube-webmail">Change upload file size in Roundcube webmail</h2>
+<p>If you have Roundcube webmail, please change two more settings:</p>
 <h3 id="change-php-setting-to-allow-to-upload-large-attachment">Change PHP setting to allow to upload large attachment</h3>
 <p>You should change <code>memory_limit</code>, <code>upload_max_filesize</code> and <code>post_max_size</code> in
 PHP config file <code>/etc/php.ini</code></p>
@@ -72,12 +73,23 @@ post_max_size = 100M;
 <li>on FreeBSD, it's <code>/usr/local/www/roundcubemail/.htaccess</code></li>
 <li>on OpenBSD, it's <code>/var/www/roundcubemail/.htaccess</code></li>
 </ul>
+<p>Note: this <code>.htaccess</code> file may not exist on some Linux/BSD distributions,
+if it doesn't exist, you can skip this step.</p>
 <pre><code>php_value    memory_limit   200M
 php_value    upload_max_filesize    100M
 php_value    post_max_size  100M
 </code></pre>
 
-<p>Restart Apache or Nginx web server to make it work.</p><p style="text-align: center; color: grey;">Document published under a <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">CC BY-ND 3.0</a> license. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.<script>
+<p>Restart Apache or Nginx web server to make it work.</p>
+<h2 id="change-upload-size-in-nginx">Change upload size in Nginx</h2>
+<p>Find setting <code>client_max_body_size</code> in Nginx config file
+<code>/etc/nginx/nginx.conf</code>, change it to a proper value to match your need.</p>
+<p>```
+http {
+    ...
+    client_max_body_size 100m;
+    ...
+}</p><p style="text-align: center; color: grey;">Document published under a <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">CC BY-ND 3.0</a> license. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.<script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
   m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)

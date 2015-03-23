@@ -32,9 +32,9 @@ __NOTES__:
 If you use mail clients such as Outlook, thunderbird to send mails, it's now
 ok to sent large attachment with above setting.
 
-## Change upload file size in webmail
+## Change upload file size in Roundcube webmail
 
-If you have webmail, you have to change two more settings:
+If you have Roundcube webmail, please change two more settings:
 
 ### Change PHP setting to allow to upload large attachment
 
@@ -63,6 +63,9 @@ Change same settings in file `.htaccess` under roundcube root directory:
 * on FreeBSD, it's `/usr/local/www/roundcubemail/.htaccess`
 * on OpenBSD, it's `/var/www/roundcubemail/.htaccess`
 
+Note: this `.htaccess` file may not exist on some Linux/BSD distributions,
+if it doesn't exist, you can skip this step.
+
 ```
 php_value    memory_limit   200M
 php_value    upload_max_filesize    100M
@@ -70,3 +73,15 @@ php_value    post_max_size  100M
 ```
 
 Restart Apache or Nginx web server to make it work.
+
+## Change upload size in Nginx
+
+Find setting `client_max_body_size` in Nginx config file
+`/etc/nginx/nginx.conf`, change it to a proper value to match your need.
+
+```
+http {
+    ...
+    client_max_body_size 100m;
+    ...
+}

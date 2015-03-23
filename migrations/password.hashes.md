@@ -77,10 +77,12 @@ User password is stored in attribute `userPassword` of user object.
 
 * To store plain password, SSHA, SSHA512 password hash, just store them in
 original format. For example:
+
 ```
 userPassword: 123456
 userPassword: {SSHA}OuCrqL2yWwQIu8a9uvyOQ5V/ZKfL7LJD
-userPassword: {SSHA512}FxgXDhBVYmTqoboW+ibyyzPv/wGG7y4VJtuHWrx+wfqrs/lIH2Qxn2eA0jygXtBhMvRi7GNFmL++6aAZ0kXpcy1fxag=```
+userPassword: {SSHA512}FxgXDhBVYmTqoboW+ibyyzPv/wGG7y4VJtuHWrx+wfqrs...
+```
 
 * To store standard MD5 password (salted MD5 hash), please prepend `{CRYPT}`
 (case insensitive) in your password hash. For example:
