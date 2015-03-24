@@ -20,6 +20,16 @@ improper items. Mail the translated file to email address
 translated languages under <code>i18n/</code> directory. If you are about to translate
 it to a new language, you can copy file <code>i18n/iredadmin.po</code>, translate it,
 and mail translated file to us.</p>
+<p>To verify translated items, you can translate the items first (e.g.
+<code>i18n/es_ES/LC_MESSAGES/iredadmin.po</code> for Spainish), then run script to compile
+it:</p>
+<pre><code># cd /path/to/iRedAdmin-Pro/
+# cd i18n/
+# bash translation.sh es_ES     # &lt;- Update Spainish language (es_ES)
+</code></pre>
+
+<p>Restarting Apache or uwsgi (if you're running Nginx) service is required to
+reload new translation.</p>
 <p>Your help is greatly appreciated.</p><p style="text-align: center; color: grey;">Document published under a <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">CC BY-ND 3.0</a> license. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.<script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),

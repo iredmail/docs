@@ -106,13 +106,15 @@ for chapter_dir in ${all_chapter_dirs}; do
         fi
 
         # Convert modified file
-        echo ${CHANGED_FILES} | grep ${article_file} > /dev/null
-        md_changed="$?"
+        if echo ${CHANGED_FILES} | grep ${article_file} > /dev/null; then
+            compile_this_file='YES'
+        fi
 
-        echo ${CHANGED_FILES} | grep $(basename ${CONVERTER}) > /dev/null
-        converter_changed="$?"
+        if echo "$@" | grep -q -- '--all'; then
+            compile_all='YES'
+        fi
 
-        if [ X"${md_changed}" == X'0' -o X"${converter_changed}" == X'0' ]; then
+        if [ X"${compile_this_file}" == X'YES' -o X"${compile_all}" == X'YES' ]; then
             echo -e "\n* Converting: ${article_file}"
             ${CMD_CONVERT} ${article_file} ${OUTPUT_DIR} \
                 output_filename="${article_html_file}" \
