@@ -49,6 +49,11 @@ all_chapter_dirs="installation \
 #   - summary: _summary.md
 echo "We're migrating [old wiki documents](http://www.iredmail.org/wiki) to Markdown format for easier maintenance, all documents are available [here](https://bitbucket.org/zhb/docs.iredmail.org/src)." > ${INDEX_MD}
 
+# Compile all Markdown files.
+if echo "$@" | grep -q -- '--all' &>/dev/null; then
+    compile_all='YES'
+fi
+
 article_counter=0
 echo -n "* Processing Markdown files: "
 
@@ -106,15 +111,10 @@ for chapter_dir in ${all_chapter_dirs}; do
         fi
 
         # Convert modified file
-        if echo ${CHANGED_FILES} | grep ${article_file} > /dev/null; then
-            compile_this_file='YES'
-        fi
+        echo ${CHANGED_FILES} | grep ${article_file} &> /dev/null
+        compile_this_file="$?"
 
-        if echo "$@" | grep -q -- '--all'; then
-            compile_all='YES'
-        fi
-
-        if [ X"${compile_this_file}" == X'YES' -o X"${compile_all}" == X'YES' ]; then
+        if [ X"${compile_this_file}" == X'0' -o X"${compile_all}" == X'YES' ]; then
             echo -e "\n* Converting: ${article_file}"
             ${CMD_CONVERT} ${article_file} ${OUTPUT_DIR} \
                 output_filename="${article_html_file}" \

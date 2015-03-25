@@ -7,6 +7,9 @@ __WARNING: Still working in progress, do _NOT_ apply it.__
 
 ## ChangeLog
 
+* 2015-02-25: [All backends] Add new LDAP attribute `allowNets` and SQL column
+              `mailbox.allow_nets`, which used to restrict mail user to login
+              from specified IP addresses or networks.
 * 2015-02-25: [All backends] Upgrade iRedAPD to 1.4.5.
 * 2015-02-25: [All backends] [__OPTIONAL__] Bypass greylisting for some big ISPs.
 * 2015-02-25: [All backends] [__OPTIONAL__] Add one more Fail2ban filter to help catch spam (POP3/IMAP flood).
@@ -237,6 +240,88 @@ Restarting Fail2ban service is required.
 
 ## OpenLDAP backend special
 
+### Use the latest LDAP schema file provided by iRedMail
+
+We have a new attribute `allowNets` for mail user in the latest LDAP schema
+file. With this new attribute, you can restrict mail users to login from
+specified IP addresses or networks, multiple IP/nets must be separated by
+comma.
+
+Steps to use the latest LDAP schema file are:
+
+* Download the newest iRedMail ldap schema file
+* Copy old ldap schema file as a backup copy
+* Replace the old one
+* Restart OpenLDAP service.
+
+Here we go:
+
+* On RHEL/CentOS, OpenBSD:
+
+```
+# cd /tmp
+# wget https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/samples/iredmail.schema
+
+# cd /etc/openldap/schema/
+# cp iredmail.schema iredmail.schema.bak
+
+# cp -f /tmp/iredmail.schema /etc/openldap/schema/
+# /etc/init.d/slapd restart
+```
+
+* On Debian/Ubuntu:
+```
+# cd /tmp
+# wget https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/samples/iredmail.schema
+
+# cd /etc/ldap/schema/
+# cp iredmail.schema iredmail.schema.bak
+
+# cp -f /tmp/iredmail.schema /etc/ldap/schema/
+# /etc/init.d/slapd restart
+```
+
+* On FreeBSD:
+
+```
+# cd /tmp
+# wget https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/samples/iredmail.schema
+
+# cd /usr/local/etc/ldap/schema/
+# cp iredmail.schema iredmail.schema.bak
+
+# cp -f /tmp/iredmail.schema /usr/local/etc/openldap/schema/
+# /etc/init.d/slapd restart
+```
+
+### Restrict mail user to login from specified IP addresses or networks
+
+With the latest LDAP schema file, it's able to restrict mail users to login
+from specified IP/networks.
+
+Open Dovecot config file `/etc/dovecot/dovecot-ldap.conf` (Linux/OpenBSD) or
+`/usr/local/etc/dovecot/dovecot-ldap.conf` (FreeBSD), append
+`allowNets=allow_nets` in parameter `pass_attrs`. The final setting should be:
+
+```
+pass_attrs      = mail=user,userPassword=password,allowNets=allow_nets             
+```
+
+Restarting Dovecot service is required.
+
+Sample usage: allow user `user@domain.com` to login from IP `172.16.244.1` and
+network `192.168.1.0/24`:
+
+```
+dn: mail=user@domain.com,ou=Users,domainName=domain.com,o=domains,dc=xx,dc=xx
+objectClass: mailUser
+mail: user@domain.com
+allowNets: 192.168.1.10,192.168.1.0/24
+...
+```
+
+To remove this restriction, just remove attribute `allowNets` for this user.
+
 ### Fixed: not backup SOGo database
 
 Note: this step is not applicable if you don't use SOGo groupware.
@@ -274,27 +359,51 @@ That's all.
 
 ## MySQL/MariaDB backend special
 
-### Fixed: Not apply service restriction in Dovecot SQL query file while acting as SASL server
+### Add new SQL column in `vmail` database
 
-Please open Dovecot config file `/etc/dovecot/dovecot-mysql.conf`
-(Linux/OpenBSD) or `/usr/local/etc/dovecot/dovecot-mysql.conf` (FreeBSD), find
-below line:
+We have a new SQL column `mailbox.allow_nets` in `vmail` database, it's used
+to restrict mail users to login from specified IP addresses or networks,
+multiple IP/nets must be separated by comma.
 
-```
-# Part of file: /etc/dovecot/dovecot-mysql.conf
-
-password_query = SELECT password FROM mailbox WHERE username='%u' AND active='1'
-```
-
-Add additional query `AND enable%Ls%Lc=1` like below:
+Connect to SQL server as MySQL root user, create new column:
 
 ```
-# Part of file: /etc/dovecot/dovecot-mysql.conf
-
-password_query = SELECT password FROM mailbox WHERE username='%u' AND enable%Ls%Lc=1 AND active='1'
+$ mysql -uroot -p
+mysql> USE vmail;
+mysql> ALTER TABLE mailbox ADD COLUMN `allow_nets` TEXT DEFAULT NULL;
 ```
 
-Save your change and restart Dovecot service.
+### Restrict mail user to login from specified IP addresses or networks, and apply service restriction while acting as SASL server
+
+* With new SQL column `mailbox.allow_nets`, it's able to restrict mail users to
+  login from specified IP/networks. We have sample usage below.
+
+* With new service restriction, it's able to enable or disable smtp service for
+  mail users.
+
+Open Dovecot config file `/etc/dovecot/dovecot-mysql.conf` (Linux/OpenBSD) or
+`/usr/local/etc/dovecot/dovecot-mysql.conf` (FreeBSD), then:
+
+* append `allow_nets` in parameter `password_query`
+* append `AND enable%Ls%Lc=1` in `WHERE` statement
+
+The final setting should be:
+
+```
+password_query = SELECT password, allow_nets FROM mailbox WHERE username='%u' AND enable%Ls%Lc=1 AND active='1'
+```
+
+Restarting Dovecot service is required.
+
+Sample usage: allow user `user@domain.com` to login from IP `172.16.244.1` and
+network `192.168.1.0/24`:
+
+```
+sql> USE vmail;
+sql> UPDATE mailbox SET allow_nets='172.16.244.1,192.168.1.0/24';
+```
+
+To remove this restriction, just set `mailbox.allow_nets` to `NULL`, not empty string.
 
 ### Fixed: not backup SOGo database
 
@@ -333,27 +442,51 @@ That's all.
 
 ## PostgreSQL backend special
 
-### Fixed: Not apply service restriction in Dovecot SQL query file while acting as SASL server
+### Add new SQL column in `vmail` database
 
-Please open Dovecot config file `/etc/dovecot/dovecot-pgsql.conf`
-(Linux/OpenBSD) or `/usr/local/etc/dovecot/dovecot-pgsql.conf` (FreeBSD), find
-below line:
+We have a new SQL column `mailbox.allow_nets` in `vmail` database, it's used
+to restrict mail users to login from specified IP addresses or networks,
+multiple IP/nets must be separated by comma.
 
-```
-# Part of file: /etc/dovecot/dovecot-pgsql.conf
-
-password_query = SELECT password FROM mailbox WHERE username='%u' AND active='1'
-```
-
-Add additional query like below:
+Now connect to PostgreSQL server as admin user, create new column:
 
 ```
-# Part of file: /etc/dovecot/dovecot-pgsql.conf
-
-password_query = SELECT password FROM mailbox WHERE username='%u' AND enable%Ls%Lc=1 AND active='1'
+# su - postgres
+$ psql -d vmail
+sql> ALTER TABLE mailbox ADD COLUMN allow_nets TEXT DEFAULT NULL;
 ```
 
-Save your change and restart Dovecot service.
+### Restrict mail user to login from specified IP addresses or networks, and apply service restriction while acting as SASL server
+
+* With new SQL column `mailbox.allow_nets`, it's able to restrict mail users to
+  login from specified IP/networks. We have sample usage below.
+
+* With new service restriction, it's able to enable or disable smtp service for
+  mail users.
+
+Open Dovecot config file `/etc/dovecot/dovecot-pgsql.conf` (Linux/OpenBSD) or
+`/usr/local/etc/dovecot/dovecot-pgsql.conf` (FreeBSD), then:
+
+* append `allow_nets` in parameter `password_query`
+* append `AND enable%Ls%Lc=1` in `WHERE` statement
+
+The final setting should be:
+
+```
+password_query = SELECT password, allow_nets FROM mailbox WHERE username='%u' AND enable%Ls%Lc=1 AND active='1'
+```
+
+Restarting Dovecot service is required.
+
+Sample usage: allow user `user@domain.com` to login from IP `172.16.244.1` and
+network `192.168.1.0/24`:
+
+```
+sql> \c vmail;
+sql> UPDATE mailbox SET allow_nets='172.16.244.1,192.168.1.0/24';
+```
+
+To remove this restriction, just set `mailbox.allow_nets` to `NULL`, not empty string.
 
 ### Fixed: not backup SOGo database
 

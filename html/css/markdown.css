@@ -57,6 +57,7 @@ code {
     line-height: 1.5;
     font-size: 13px;
 }
+h3 code { font-size: 18px; }
 aside {
     display: block;
     float: right;
