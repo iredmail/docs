@@ -56,13 +56,35 @@ Additional notes before upgrading Roundcube webmail 1.1.0 (or later releases):
 # /etc/rc.d/php_fpm restart
 ```
 
+It's recommended to download the `Complete` edition (e.g.
+`roundcubemail-1.1.0-complete.tar.gz` instead of `Dependent` edition (e.g.
+`roundcubemail-1.1.0.tar.gz`).
+
 After you have additional packages installed, please follow Roundcube official
 tutorial to upgrade Roundcube webmail to the latest stable release:
 [How to upgrade Roundcube](http://trac.roundcube.net/wiki/Howto_Upgrade)
 
-Note: it's recommended to download the `Complete` edition (e.g.
-`roundcubemail-1.1.0-complete.tar.gz` instead of `Dependent` edition (e.g.
-`roundcubemail-1.1.0.tar.gz`).
+Notes:
+
+* If you're going to update PHP to 5.6, you should add below settings in
+  Roundcube config file (`config/config.inc.php`) to avoid ssl certificate issue:
+
+```
+// Required if you're running PHP 5.6
+$config['imap_conn_options'] = array(
+    'ssl' => array(
+        'verify_peer'  => false,
+        'verify_peer_name' => false,
+    ),
+);
+
+$config['smtp_conn_options'] = array(
+    'ssl' => array(
+        'verify_peer'      => false,
+        'verify_peer_name' => false,
+    ),
+);
+```
 
 ### Upgrade iRedAPD (Postfix policy server) to the latest 1.4.5
 

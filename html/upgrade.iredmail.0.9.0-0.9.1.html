@@ -99,12 +99,33 @@
 # /etc/rc.d/php_fpm restart
 </code></pre>
 
+<p>It's recommended to download the <code>Complete</code> edition (e.g.
+<code>roundcubemail-1.1.0-complete.tar.gz</code> instead of <code>Dependent</code> edition (e.g.
+<code>roundcubemail-1.1.0.tar.gz</code>).</p>
 <p>After you have additional packages installed, please follow Roundcube official
 tutorial to upgrade Roundcube webmail to the latest stable release:
 <a href="http://trac.roundcube.net/wiki/Howto_Upgrade">How to upgrade Roundcube</a></p>
-<p>Note: it's recommended to download the <code>Complete</code> edition (e.g.
-<code>roundcubemail-1.1.0-complete.tar.gz</code> instead of <code>Dependent</code> edition (e.g.
-<code>roundcubemail-1.1.0.tar.gz</code>).</p>
+<p>Notes:</p>
+<ul>
+<li>If you're going to update PHP to 5.6, you should add below settings in
+  Roundcube config file (<code>config/config.inc.php</code>) to avoid ssl certificate issue:</li>
+</ul>
+<pre><code>// Required if you're running PHP 5.6
+$config['imap_conn_options'] = array(
+    'ssl' =&gt; array(
+        'verify_peer'  =&gt; false,
+        'verify_peer_name' =&gt; false,
+    ),
+);
+
+$config['smtp_conn_options'] = array(
+    'ssl' =&gt; array(
+        'verify_peer'      =&gt; false,
+        'verify_peer_name' =&gt; false,
+    ),
+);
+</code></pre>
+
 <h3 id="upgrade-iredapd-postfix-policy-server-to-the-latest-145">Upgrade iRedAPD (Postfix policy server) to the latest 1.4.5</h3>
 <p>Please follow below tutorial to upgrade iRedAPD to the latest stable release:
 <a href="./upgrade.iredapd.html">How to upgrade iRedAPD-1.4.0 or later versions to the latest stable release</a></p>
