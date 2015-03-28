@@ -7,7 +7,8 @@ __WARNING: Still working in progress, do _NOT_ apply it.__
 
 ## ChangeLog
 
-* 2015-02-25: [All backends] Add new LDAP attribute `allowNets` and SQL column
+* 2015-02-28: [LDAP, MySQL] Drop retired column in Amavisd database: `policy.spam_modifies_subj`.
+* 2015-02-27: [All backends] Add new LDAP attribute `allowNets` and SQL column
               `mailbox.allow_nets`, which used to restrict mail user to login
               from specified IP addresses or networks.
 * 2015-02-25: [All backends] Upgrade iRedAPD to 1.4.5.
@@ -357,6 +358,20 @@ DATABASES='... sogo'
 
 Save your change and that's all.
 
+### Fixed: drop retired column in Amavisd database: `policy.spam_modifies_subj`
+
+Note: This is applicable to Amavisd-new-2.7.0 and later releases.
+
+Amavisd drops column `policy.spam_modifies_subj` since amavisd-new-2.7.0
+release, we'd better remove this column.
+
+Login to MySQL server as root user, then execute below SQL commands to drop it:
+
+```
+mysql> USE amavisd;
+mysql> ALTER TABLE policy DROP COLUMN spam_modifies_subj;
+```
+
 ### [__OPTIONAL__] Bypass greylisting for some big ISPs
 
 ISPs' mail servers send out spams, but also normal business mails. Applying
@@ -440,6 +455,20 @@ DATABASES='... sogo'
 
 Save your change and that's all.
 
+### Fixed: drop retired column in Amavisd database: `policy.spam_modifies_subj`
+
+Note: This is applicable to Amavisd-new-2.7.0 and later releases.
+
+Amavisd drops column `policy.spam_modifies_subj` since amavisd-new-2.7.0
+release, we'd better remove this column.
+
+Login to MySQL server as root user, then execute below SQL commands to drop it:
+
+```
+mysql> USE amavisd;
+mysql> ALTER TABLE policy DROP COLUMN spam_modifies_subj;
+```
+
 ### [__OPTIONAL__] Bypass greylisting for some big ISPs
 
 ISPs' mail servers send out spams, but also normal business mails. Applying
@@ -522,6 +551,20 @@ DATABASES='... sogo'
 ```
 
 Save your change and that's all.
+
+### Fixed: drop retired column in Amavisd database: `policy.spam_modifies_subj`
+
+Note: This is applicable to Amavisd-new-2.7.0 and later releases.
+
+Amavisd drops column `policy.spam_modifies_subj` since amavisd-new-2.7.0
+release, we'd better remove this column.
+
+Login to PostgreSQL server as admin user, then execute below SQL commands to drop it:
+
+```
+sql> \c amavisd;
+sql> ALTER TABLE policy DROP COLUMN spam_modifies_subj;
+```
 
 ### [__OPTIONAL__] Bypass greylisting for some big ISPs
 

@@ -29,6 +29,7 @@
 <li><a href="#use-the-latest-ldap-schema-file-provided-by-iredmail">Use the latest LDAP schema file provided by iRedMail</a></li>
 <li><a href="#restrict-mail-user-to-login-from-specified-ip-addresses-or-networks">Restrict mail user to login from specified IP addresses or networks</a></li>
 <li><a href="#fixed-not-backup-sogo-database">Fixed: not backup SOGo database</a></li>
+<li><a href="#fixed-drop-retired-column-in-amavisd-database-policyspam_modifies_subj">Fixed: drop retired column in Amavisd database: policy.spam_modifies_subj</a></li>
 <li><a href="#optional-bypass-greylisting-for-some-big-isps">[OPTIONAL] Bypass greylisting for some big ISPs</a></li>
 </ul>
 </li>
@@ -36,6 +37,7 @@
 <li><a href="#add-new-sql-column-in-vmail-database">Add new SQL column in vmail database</a></li>
 <li><a href="#restrict-mail-user-to-login-from-specified-ip-addresses-or-networks-and-apply-service-restriction-while-acting-as-sasl-server">Restrict mail user to login from specified IP addresses or networks, and apply service restriction while acting as SASL server</a></li>
 <li><a href="#fixed-not-backup-sogo-database_1">Fixed: not backup SOGo database</a></li>
+<li><a href="#fixed-drop-retired-column-in-amavisd-database-policyspam_modifies_subj_1">Fixed: drop retired column in Amavisd database: policy.spam_modifies_subj</a></li>
 <li><a href="#optional-bypass-greylisting-for-some-big-isps_1">[OPTIONAL] Bypass greylisting for some big ISPs</a></li>
 </ul>
 </li>
@@ -43,6 +45,7 @@
 <li><a href="#add-new-sql-column-in-vmail-database_1">Add new SQL column in vmail database</a></li>
 <li><a href="#restrict-mail-user-to-login-from-specified-ip-addresses-or-networks-and-apply-service-restriction-while-acting-as-sasl-server_1">Restrict mail user to login from specified IP addresses or networks, and apply service restriction while acting as SASL server</a></li>
 <li><a href="#fixed-not-backup-sogo-database_2">Fixed: not backup SOGo database</a></li>
+<li><a href="#fixed-drop-retired-column-in-amavisd-database-policyspam_modifies_subj_2">Fixed: drop retired column in Amavisd database: policy.spam_modifies_subj</a></li>
 <li><a href="#optional-bypass-greylisting-for-some-big-isps_2">[OPTIONAL] Bypass greylisting for some big ISPs</a></li>
 </ul>
 </li>
@@ -53,7 +56,8 @@
 <p><strong>WARNING: Still working in progress, do <em>NOT</em> apply it.</strong></p>
 <h2 id="changelog">ChangeLog</h2>
 <ul>
-<li>2015-02-25: [All backends] Add new LDAP attribute <code>allowNets</code> and SQL column
+<li>2015-02-28: [LDAP, MySQL] Drop retired column in Amavisd database: <code>policy.spam_modifies_subj</code>.</li>
+<li>2015-02-27: [All backends] Add new LDAP attribute <code>allowNets</code> and SQL column
               <code>mailbox.allow_nets</code>, which used to restrict mail user to login
               from specified IP addresses or networks.</li>
 <li>2015-02-25: [All backends] Upgrade iRedAPD to 1.4.5.</li>
@@ -355,6 +359,15 @@ database name in variable <code>DATABASES=</code>. For example:</p>
 </code></pre>
 
 <p>Save your change and that's all.</p>
+<h3 id="fixed-drop-retired-column-in-amavisd-database-policyspam_modifies_subj">Fixed: drop retired column in Amavisd database: <code>policy.spam_modifies_subj</code></h3>
+<p>Note: This is applicable to Amavisd-new-2.7.0 and later releases.</p>
+<p>Amavisd drops column <code>policy.spam_modifies_subj</code> since amavisd-new-2.7.0
+release, we'd better remove this column.</p>
+<p>Login to MySQL server as root user, then execute below SQL commands to drop it:</p>
+<pre><code>mysql&gt; USE amavisd;
+mysql&gt; ALTER TABLE policy DROP COLUMN spam_modifies_subj;
+</code></pre>
+
 <h3 id="optional-bypass-greylisting-for-some-big-isps">[<strong>OPTIONAL</strong>] Bypass greylisting for some big ISPs</h3>
 <p>ISPs' mail servers send out spams, but also normal business mails. Applying
 greylisting on them is helpless.</p>
@@ -422,6 +435,15 @@ database name in variable <code>DATABASES=</code>. For example:</p>
 </code></pre>
 
 <p>Save your change and that's all.</p>
+<h3 id="fixed-drop-retired-column-in-amavisd-database-policyspam_modifies_subj_1">Fixed: drop retired column in Amavisd database: <code>policy.spam_modifies_subj</code></h3>
+<p>Note: This is applicable to Amavisd-new-2.7.0 and later releases.</p>
+<p>Amavisd drops column <code>policy.spam_modifies_subj</code> since amavisd-new-2.7.0
+release, we'd better remove this column.</p>
+<p>Login to MySQL server as root user, then execute below SQL commands to drop it:</p>
+<pre><code>mysql&gt; USE amavisd;
+mysql&gt; ALTER TABLE policy DROP COLUMN spam_modifies_subj;
+</code></pre>
+
 <h3 id="optional-bypass-greylisting-for-some-big-isps_1">[<strong>OPTIONAL</strong>] Bypass greylisting for some big ISPs</h3>
 <p>ISPs' mail servers send out spams, but also normal business mails. Applying
 greylisting on them is helpless.</p>
@@ -489,6 +511,15 @@ database name in variable <code>DATABASES=</code>. For example:</p>
 </code></pre>
 
 <p>Save your change and that's all.</p>
+<h3 id="fixed-drop-retired-column-in-amavisd-database-policyspam_modifies_subj_2">Fixed: drop retired column in Amavisd database: <code>policy.spam_modifies_subj</code></h3>
+<p>Note: This is applicable to Amavisd-new-2.7.0 and later releases.</p>
+<p>Amavisd drops column <code>policy.spam_modifies_subj</code> since amavisd-new-2.7.0
+release, we'd better remove this column.</p>
+<p>Login to PostgreSQL server as admin user, then execute below SQL commands to drop it:</p>
+<pre><code>sql&gt; \c amavisd;
+sql&gt; ALTER TABLE policy DROP COLUMN spam_modifies_subj;
+</code></pre>
+
 <h3 id="optional-bypass-greylisting-for-some-big-isps_2">[<strong>OPTIONAL</strong>] Bypass greylisting for some big ISPs</h3>
 <p>ISPs' mail servers send out spams, but also normal business mails. Applying
 greylisting on them is helpless.</p>
