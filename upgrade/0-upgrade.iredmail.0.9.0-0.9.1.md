@@ -7,6 +7,7 @@ __WARNING: Still working in progress, do _NOT_ apply it.__
 
 ## ChangeLog
 
+* 2015-04-03: [MySQL, PostgreSQL] Fixed: user+extension@domain.com doesn't work with per-domain catch-all.
 * 2015-02-28: [LDAP, MySQL] Drop retired column in Amavisd database: `policy.spam_modifies_subj`.
 * 2015-02-27: [All backends] Add new LDAP attribute `allowNets` and SQL column
               `mailbox.allow_nets`, which used to restrict mail user to login
@@ -442,6 +443,28 @@ sql> UPDATE mailbox SET allow_nets='172.16.244.1,192.168.1.0/24';
 
 To remove this restriction, just set `mailbox.allow_nets` to `NULL`, not empty string.
 
+### Fixed: user+extension@domain.com doesn't work with per-domain catch-all
+
+With iRedMail-0.9.0 and earlier versions, if you have per-domain catch-all
+enabled, email sent to `user+extension@domain.com` will be delivered to
+catch-all address instead of `user@domain.com`. Below steps fix this issue.
+
+* Open file `/etc/postfix/mysql/catchall_maps.cf` (Linux/OpenBSD) or
+  `/usr/local/etc/postfix/mysql/catchall_maps.cf` (FreeBSD), find below line:
+
+```
+query = ... WHERE alias.address='%d' AND alias.address=domain.domain ...
+```
+
+* Append one more statement after `alias.address='%d'`, the final setting
+  should be:
+
+```
+query = ... WHERE alias.address='%d' AND '%u' NOT LIKE '%%+%%' AND alias.address=domain.domain ...
+```
+
+* Save your change and restart Postfix service.
+
 ### Fixed: not backup SOGo database
 
 Note: this step is not applicable if you don't use SOGo groupware.
@@ -538,6 +561,28 @@ sql> UPDATE mailbox SET allow_nets='172.16.244.1,192.168.1.0/24';
 ```
 
 To remove this restriction, just set `mailbox.allow_nets` to `NULL`, not empty string.
+
+### Fixed: user+extension@domain.com doesn't work with per-domain catch-all
+
+With iRedMail-0.9.0 and earlier versions, if you have per-domain catch-all
+enabled, email sent to `user+extension@domain.com` will be delivered to
+catch-all address instead of `user@domain.com`. Below steps fix this issue.
+
+* Open file `/etc/postfix/pgsql/catchall_maps.cf` (Linux/OpenBSD) or
+  `/usr/local/etc/postfix/pgsql/catchall_maps.cf` (FreeBSD), find below line:
+
+```
+query = ... WHERE alias.address='%d' AND alias.address=domain.domain ...
+```
+
+* Append one more statement after `alias.address='%d'`, the final setting
+  should be:
+
+```
+query = ... WHERE alias.address='%d' AND '%u' NOT LIKE '%%+%%' AND alias.address=domain.domain ...
+```
+
+* Save your change and restart Postfix service.
 
 ### Fixed: not backup SOGo database
 
