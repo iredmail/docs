@@ -7,7 +7,9 @@ __WARNING: Still working in progress, do _NOT_ apply it.__
 
 ## ChangeLog
 
-* 2015-04-03: [MySQL, PostgreSQL] Fixed: user+extension@domain.com doesn't work with per-domain catch-all.
+* 2015-04-03: [MySQL, PostgreSQL] Fixed: user+extension@domain.com doesn't work
+              with per-domain catch-all. Note: OpenLDAP backend still has this
+              issue and we have no solution yet.
 * 2015-02-28: [LDAP, MySQL] Drop retired column in Amavisd database: `policy.spam_modifies_subj`.
 * 2015-02-27: [All backends] Add new LDAP attribute `allowNets` and SQL column
               `mailbox.allow_nets`, which used to restrict mail user to login
