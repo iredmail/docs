@@ -72,20 +72,23 @@ __Notes__:
   be used anymore. We will give you SQL command to delete it later.
 
 If you tried to install iRedMail with this remote MySQL server before, please
-drop existing databases and MySQL users which will be created by iRedMail on
-remote MySQL server:
+backup existing databases __on remote MySQL server first__, then drop them and
+delete related MySQL users, because they will be created by iRedMail
+automatically on remote MySQL server:
 
 ```
 mysql> DROP DATABASE amavisd;
 mysql> DROP DATABASE cluebringer;
 mysql> DROP DATABASE iredadmin;
 mysql> DROP DATABASE roundcubemail;
+mysql> DROP DATABASE sogo;
 mysql> DROP DATABASE vmail;
 
 mysql> DROP USER 'amavisd'@'192.168.1.200';
 mysql> DROP USER 'cluebringer'@'192.168.1.200';
 mysql> DROP USER 'iredadmin'@'192.168.1.200';
 mysql> DROP USER 'roundcube'@'192.168.1.200';
+mysql> DROP USER 'sogo'@'192.168.1.200';
 mysql> DROP USER 'vmail'@'192.168.1.200';
 mysql> DROP USER 'vmailadmin'@'192.168.1.200';
 ```
