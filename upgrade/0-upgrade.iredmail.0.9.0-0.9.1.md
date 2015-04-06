@@ -7,6 +7,7 @@ __WARNING: Still working in progress, do _NOT_ apply it.__
 
 ## ChangeLog
 
+* 2015-04-06: [All backends] Make Dovecot subscribe newly created folder automatically.
 * 2015-04-03: [MySQL, PostgreSQL] Fixed: user+extension@domain.com doesn't work
               with per-domain catch-all. Note: OpenLDAP backend still has this
               issue and we have no solution yet.
@@ -194,6 +195,34 @@ command and fix it:
 ```
 # crontab -e -u _sogo
 ```
+
+### [__OPTIONAL__] Make Dovecot subscribe newly created folder automatically
+
+With default iRedMail setting, Dovecot will create folder automatically (for
+example, send email to `user+extension@domain.com` will create folder
+`extension` in `user@domain.com`'s mailbox), but not subscribe it. Below change
+will make it subscribe to new folder automatically.
+
+* Open Dovecot config file `/etc/dovecot/dovecot.conf` (Linux/OpenBSD) or
+  `/usr/local/etc/dovecot/dovecot.conf` (FreeBSD), find block `protocol lda {}`
+  like below:
+
+```
+protocol lda {
+    ...
+}
+```
+
+* Add one more setting in this block:
+
+```
+protocol lda {
+    ...
+    lda_mailbox_autosubscribe = yes
+}
+```
+
+* Restarting Dovecot service.
 
 ### [__OPTIONAL__] Setup Fail2ban to monitor password failures in SOGo log file
 

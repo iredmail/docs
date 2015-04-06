@@ -21,6 +21,7 @@
 <li><a href="#fixed-return-receipt-response-rejected-by-iredapd-plugin-reject_null_sender">Fixed: return receipt response rejected by iRedAPD plugin reject_null_sender</a></li>
 <li><a href="#fixed-cannot-run-php-script-under-web-document-root-with-nginx">Fixed: Cannot run PHP script under web document root with Nginx.</a></li>
 <li><a href="#fixed-incorrect-path-of-command-sogo-tool-on-openbsd">Fixed: Incorrect path of command sogo-tool on OpenBSD</a></li>
+<li><a href="#optional-make-dovecot-subscribe-newly-created-folder-automatically">[OPTIONAL] Make Dovecot subscribe newly created folder automatically</a></li>
 <li><a href="#optional-setup-fail2ban-to-monitor-password-failures-in-sogo-log-file">[OPTIONAL] Setup Fail2ban to monitor password failures in SOGo log file</a></li>
 <li><a href="#optional-add-two-more-fail2ban-filter-regular-expressios-to-help-catch-spam">[OPTIONAL] Add two more Fail2ban filter regular expressios to help catch spam</a></li>
 </ul>
@@ -58,6 +59,7 @@
 <p><strong>WARNING: Still working in progress, do <em>NOT</em> apply it.</strong></p>
 <h2 id="changelog">ChangeLog</h2>
 <ul>
+<li>2015-04-06: [All backends] Make Dovecot subscribe newly created folder automatically.</li>
 <li>2015-04-03: [MySQL, PostgreSQL] Fixed: user+extension@domain.com doesn't work
               with per-domain catch-all. Note: OpenLDAP backend still has this
               issue and we have no solution yet.</li>
@@ -226,6 +228,33 @@ command and fix it:</p>
 <pre><code># crontab -e -u _sogo
 </code></pre>
 
+<h3 id="optional-make-dovecot-subscribe-newly-created-folder-automatically">[<strong>OPTIONAL</strong>] Make Dovecot subscribe newly created folder automatically</h3>
+<p>With default iRedMail setting, Dovecot will create folder automatically (for
+example, send email to <code>user+extension@domain.com</code> will create folder
+<code>extension</code> in <code>user@domain.com</code>'s mailbox), but not subscribe it. Below change
+will make it subscribe to new folder automatically.</p>
+<ul>
+<li>Open Dovecot config file <code>/etc/dovecot/dovecot.conf</code> (Linux/OpenBSD) or
+  <code>/usr/local/etc/dovecot/dovecot.conf</code> (FreeBSD), find block <code>protocol lda {}</code>
+  like below:</li>
+</ul>
+<pre><code>protocol lda {
+    ...
+}
+</code></pre>
+
+<ul>
+<li>Add one more setting in this block:</li>
+</ul>
+<pre><code>protocol lda {
+    ...
+    lda_mailbox_autosubscribe = yes
+}
+</code></pre>
+
+<ul>
+<li>Restarting Dovecot service.</li>
+</ul>
 <h3 id="optional-setup-fail2ban-to-monitor-password-failures-in-sogo-log-file">[<strong>OPTIONAL</strong>] Setup Fail2ban to monitor password failures in SOGo log file</h3>
 <p>To improve server security, we'd better block clients which have too many
 failed login attempts from SOGo.</p>
