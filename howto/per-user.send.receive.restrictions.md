@@ -1,6 +1,4 @@
-# SQL: Per-user inbound and outbound restrictions
-
-> This tutorial is applicable to all SQL backends: MySQL, MariaDB, PostgreSQL.
+# Per-user inbound and outbound restrictions
 
 > There's another way to achieve per-user inbound/outbound restriction, it's
 > called per-user white/blacklists (stored in SQL table `amavisd.wblist`,
