@@ -469,7 +469,7 @@ network `192.168.1.0/24`:
 
 ```
 sql> USE vmail;
-sql> UPDATE mailbox SET allow_nets='172.16.244.1,192.168.1.0/24';
+sql> UPDATE mailbox SET allow_nets='172.16.244.1,192.168.1.0/24' WHERE username='user@domain.com`;
 ```
 
 To remove this restriction, just set `mailbox.allow_nets` to `NULL`, not empty string.
@@ -588,7 +588,7 @@ network `192.168.1.0/24`:
 
 ```
 sql> \c vmail;
-sql> UPDATE mailbox SET allow_nets='172.16.244.1,192.168.1.0/24';
+sql> UPDATE mailbox SET allow_nets='172.16.244.1,192.168.1.0/24' WHERE username='user@domain.com`;
 ```
 
 To remove this restriction, just set `mailbox.allow_nets` to `NULL`, not empty string.

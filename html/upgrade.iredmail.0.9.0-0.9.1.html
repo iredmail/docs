@@ -457,7 +457,7 @@ mysql&gt; ALTER TABLE mailbox ADD COLUMN `allow_nets` TEXT DEFAULT NULL;
 <p>Sample usage: allow user <code>user@domain.com</code> to login from IP <code>172.16.244.1</code> and
 network <code>192.168.1.0/24</code>:</p>
 <pre><code>sql&gt; USE vmail;
-sql&gt; UPDATE mailbox SET allow_nets='172.16.244.1,192.168.1.0/24';
+sql&gt; UPDATE mailbox SET allow_nets='172.16.244.1,192.168.1.0/24' WHERE username='user@domain.com`;
 </code></pre>
 
 <p>To remove this restriction, just set <code>mailbox.allow_nets</code> to <code>NULL</code>, not empty string.</p>
@@ -554,7 +554,7 @@ sql&gt; ALTER TABLE mailbox ADD COLUMN allow_nets TEXT DEFAULT NULL;
 <p>Sample usage: allow user <code>user@domain.com</code> to login from IP <code>172.16.244.1</code> and
 network <code>192.168.1.0/24</code>:</p>
 <pre><code>sql&gt; \c vmail;
-sql&gt; UPDATE mailbox SET allow_nets='172.16.244.1,192.168.1.0/24';
+sql&gt; UPDATE mailbox SET allow_nets='172.16.244.1,192.168.1.0/24' WHERE username='user@domain.com`;
 </code></pre>
 
 <p>To remove this restriction, just set <code>mailbox.allow_nets</code> to <code>NULL</code>, not empty string.</p>

@@ -1,0 +1,51 @@
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Restrict mail user to login from specified IP addresses or networks</title>
+        <link href="./css/markdown.css" rel="stylesheet"></head>
+    </head>
+    <body>
+    
+    <div id="navigation">
+        <a href="http://www.iredmail.org" target="_blank">iRedMail web site</a>
+    
+        // <a href="./index.html">Document Index</a>
+    </div><h1 id="restrict-mail-user-to-login-from-specified-ip-addresses-or-networks">Restrict mail user to login from specified IP addresses or networks</h1>
+<p>Since iRedMail-0.9.1, it's able to restrict mail users to login from specified
+IP addresses or networks.</p>
+<p>Below sample usage shows how to restrict mail user <code>user@domaim.com</code> to login
+from only IP address <code>172.16.244.1</code> or network <code>192.168.1.0/24</code>.</p>
+<h2 id="sql-backends">SQL backends</h2>
+<pre><code>sql&gt; USE vmail;
+sql&gt; UPDATE mailbox SET allow_nets='172.16.244.1,192.168.1.0/24' WHERE username='user@domain.com';
+</code></pre>
+
+<p>To remove this restriction (allow to login from anywhere), just set
+value of SQL column <code>mailbox.allow_nets</code> to NULL. WARNING: It must be NULL,
+not empty string.</p>
+<h2 id="how-to-restrict-with-openldap-backend">How to restrict with OpenLDAP backend</h2>
+<p>To allow user <code>user@domain.com</code> to login from IP <code>172.16.244.1</code> and network
+<code>192.168.1.0/24</code>, please add new attribute <code>allowNets</code> to this user:</p>
+<pre><code>allowNets: 192.168.1.10,192.168.1.0/24
+</code></pre>
+
+<p>To remove this restriction, just remove attribute <code>allowNets</code> for this user.</p>
+<h1 id="references">References</h1>
+<ul>
+<li>
+<p>This feature is implemented in iRedMail-0.9.1, and mentioned in iRedMail
+  [upgrade tutorial for iRedMail-0.9.0](./upgrade.iredmail.0.9.0-0.9.1.html]</p>
+</li>
+<li>
+<p>Dovecot document: <a href="http://wiki2.dovecot.org/PasswordDatabase/ExtraFields/AllowNets">AllowNets</a></p>
+</li>
+</ul><p style="text-align: center; color: grey;">Document published under a <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">CC BY-ND 3.0</a> license. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-3293801-21', 'auto');
+  ga('send', 'pageview');
+</script>
+</body></html>
