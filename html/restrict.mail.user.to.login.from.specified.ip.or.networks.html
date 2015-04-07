@@ -23,7 +23,7 @@ sql&gt; UPDATE mailbox SET allow_nets='172.16.244.1,192.168.1.0/24' WHERE userna
 <p>To remove this restriction (allow to login from anywhere), just set
 value of SQL column <code>mailbox.allow_nets</code> to NULL. WARNING: It must be NULL,
 not empty string.</p>
-<h2 id="how-to-restrict-with-openldap-backend">How to restrict with OpenLDAP backend</h2>
+<h2 id="openldap-backend">OpenLDAP backend</h2>
 <p>To allow user <code>user@domain.com</code> to login from IP <code>172.16.244.1</code> and network
 <code>192.168.1.0/24</code>, please add new attribute <code>allowNets</code> to this user:</p>
 <pre><code>allowNets: 192.168.1.10,192.168.1.0/24

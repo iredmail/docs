@@ -17,7 +17,7 @@ To remove this restriction (allow to login from anywhere), just set
 value of SQL column `mailbox.allow_nets` to NULL. WARNING: It must be NULL,
 not empty string.
 
-## How to restrict with OpenLDAP backend
+## OpenLDAP backend
 
 To allow user `user@domain.com` to login from IP `172.16.244.1` and network
 `192.168.1.0/24`, please add new attribute `allowNets` to this user:
