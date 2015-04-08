@@ -10,7 +10,7 @@ this tutorial.
 With below steps, Virus/Spam/Banned emails will be quarantined into SQL database.
 You can then manage quarantined emails with iRedAdmin-Pro.
 
-## Quarantining spam, virus and banned messages
+## Quarantining spam, virus, banned and bad header messages
 
 Edit Amavisd config file, find below settings and update them. If it doesn't
 exist, please add them.
@@ -24,11 +24,12 @@ or `/etc/amavisd.conf`.
 ```
 # Part of file: /etc/amavisd/amavisd.conf
 
-# Change values of below 3 parameters to D_DISCARD.
+# Change values of below parameters to D_DISCARD.
 # Detected spams/virus/banned messages will not be delivered to user's mailbox.
 $final_virus_destiny = D_DISCARD;
 $final_spam_destiny = D_DISCARD;
 $final_banned_destiny = D_DISCARD;
+$final_bad_header_destiny = D_DISCARD;
 
 # Quarantine SPAM into SQL server.
 $spam_quarantine_to = 'spam-quarantine';
@@ -41,6 +42,10 @@ $virus_quarantine_method = 'sql:';
 # Quarantine BANNED message into SQL server.
 $banned_quarantine_to = 'banned-quarantine';
 $banned_files_quarantine_method = 'sql:';
+
+# Quarantine Bad Header message into SQL server.
+$bad_header_quarantine_method = 'sql:';
+$bad_header_quarantine_to = 'bad-header-quarantine';
 ```
 
 Also, make sure you have below lines configured in same config file:

@@ -14,7 +14,7 @@
 <div class="toc">
 <ul>
 <li><a href="#quarantining">Quarantining</a><ul>
-<li><a href="#quarantining-spam-virus-and-banned-messages">Quarantining spam, virus and banned messages</a></li>
+<li><a href="#quarantining-spam-virus-banned-and-bad-header-messages">Quarantining spam, virus, banned and bad header messages</a></li>
 <li><a href="#configure-iredadmin-pro-to-manage-quarantined-mails">Configure iRedAdmin-Pro to manage quarantined mails</a></li>
 <li><a href="#quarantine-clean-emails">Quarantine clean emails</a></li>
 <li><a href="#screenshots">Screenshots</a></li>
@@ -27,7 +27,7 @@ by iRedMail but disabled by default, you can easily enable quarantining with
 this tutorial.</p>
 <p>With below steps, Virus/Spam/Banned emails will be quarantined into SQL database.
 You can then manage quarantined emails with iRedAdmin-Pro.</p>
-<h2 id="quarantining-spam-virus-and-banned-messages">Quarantining spam, virus and banned messages</h2>
+<h2 id="quarantining-spam-virus-banned-and-bad-header-messages">Quarantining spam, virus, banned and bad header messages</h2>
 <p>Edit Amavisd config file, find below settings and update them. If it doesn't
 exist, please add them.</p>
 <ul>
@@ -39,11 +39,12 @@ or <code>/etc/amavisd.conf</code>.</li>
 </ul>
 <pre><code># Part of file: /etc/amavisd/amavisd.conf
 
-# Change values of below 3 parameters to D_DISCARD.
+# Change values of below parameters to D_DISCARD.
 # Detected spams/virus/banned messages will not be delivered to user's mailbox.
 $final_virus_destiny = D_DISCARD;
 $final_spam_destiny = D_DISCARD;
 $final_banned_destiny = D_DISCARD;
+$final_bad_header_destiny = D_DISCARD;
 
 # Quarantine SPAM into SQL server.
 $spam_quarantine_to = 'spam-quarantine';
@@ -56,6 +57,10 @@ $virus_quarantine_method = 'sql:';
 # Quarantine BANNED message into SQL server.
 $banned_quarantine_to = 'banned-quarantine';
 $banned_files_quarantine_method = 'sql:';
+
+# Quarantine Bad Header message into SQL server.
+$bad_header_quarantine_method = 'sql:';
+$bad_header_quarantine_to = 'bad-header-quarantine';
 </code></pre>
 
 <p>Also, make sure you have below lines configured in same config file:</p>

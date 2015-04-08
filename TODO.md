@@ -1,12 +1,13 @@
 # TODO
 
+* which ports are open: http://www.iredmail.org/forum/topic209-iredmail-support-faq-iredmail-opens-which-network-service-ports.html
+
 * How to install and configure SOGo groupware
 * How to install and configure Nginx
 * How to custom SpamAssassin scores
 * How to enable DNSBL in Postfix.
 * How to install and configure mlmmj (mailing list management tool)
 
-* http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/MySQL/install.iredmail.with.remote.mysql.server
 * http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/Backup
 * http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/Send.out.email.from.specified.IP.address
 * http://www.iredmail.org/forum/topic1968-enabling-ipv6-for-your-iredmail-postfixdovecot.html
@@ -40,6 +41,7 @@
 * ~~ http://www.iredmail.org/install_iredmail_on_rhel.html ~~
 * ~~ https://code.google.com/p/iredmail/wiki/DNS_DKIM ~~
 * ~~ https://code.google.com/p/iredmail/wiki/DNS_SPF ~~
+* ~~ http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/MySQL/install.iredmail.with.remote.mysql.server ~~
 
 # Howto
 
