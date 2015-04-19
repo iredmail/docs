@@ -1,0 +1,80 @@
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>iRedAPD release notes and upgrade tutorials</title>
+        <link href="./css/markdown.css" rel="stylesheet"></head>
+    </head>
+    <body>
+    
+    <div id="navigation">
+        <a href="http://www.iredmail.org" target="_blank">iRedMail web site</a>
+    
+        // <a href="./index.html">Document Index</a>
+    </div><h1 id="iredapd-release-notes-and-upgrade-tutorials">iRedAPD release notes and upgrade tutorials</h1>
+<div class="toc">
+<ul>
+<li><a href="#iredapd-release-notes-and-upgrade-tutorials">iRedAPD release notes and upgrade tutorials</a><ul>
+<li><a href="#upgrade-iredapd">Upgrade iRedAPD</a></li>
+<li><a href="#release-notes">Release Notes</a><ul>
+<li><a href="#145">1.4.5</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<blockquote>
+<p>iRedAPD source code is hosted on <a href="https://bitbucket.org/zhb/iredapd/">BitBucket</a>.</p>
+<p>Download the <a href="https://bitbucket.org/zhb/iredapd/downloads">latest iRedAPD stable release</a>.</p>
+</blockquote>
+<h2 id="upgrade-iredapd">Upgrade iRedAPD</h2>
+<p><a href="./upgrade.iredapd.html">How to upgrade iRedAPD-1.4.0 or later versions to the latest stable release</a></p>
+<h2 id="release-notes">Release Notes</h2>
+<h3 id="145">1.4.5</h3>
+<ul>
+<li>
+<p>Improvements:</p>
+<ul>
+<li>Log non-DUNNO actions in iredadmin database (with setting
+  <code>log_action_in_db = True</code> in iRedAPD config file).</li>
+<li>plugin/amavisd_wblist.py: able to use <code>user@*</code> as white/blacklist sender.</li>
+<li>plugin/sql_alias_access_policy.py, plugin/ldap_maillist_access_policy:
+  able to use <code>*@domain.com</code> (all senders from <code>domain.com</code>) as moderator.</li>
+<li>
+<p>plugin/reject_sender_login_mismatch.py:</p>
+<ul>
+<li>
+<p>New optional setting <code>ALLOWED_LOGIN_MISMATCH_LIST_MEMBER</code>, used to
+  allow member of mail list/alias to send as mail list/alias.
+  Default is False.</p>
+</li>
+<li>
+<p>Setting <code>ALLOWED_LOGIN_MISMATCH_SENDERS</code> is now optional.</p>
+</li>
+</ul>
+</li>
+<li>
+<p>Log smtp protocol state in log file.</p>
+</li>
+</ul>
+</li>
+<li>
+<p>Fixed issues:</p>
+<ul>
+<li>plugin/amavisd_message_size_limit.py: just use the first valid
+  policy (with highest priority) and skip rest.</li>
+<li>plugin/reject_sender_login_mismatch.py: not reject email if sender
+  is forged address (sender domain is hosted locally).</li>
+<li>Not close sql connection explicitly.</li>
+</ul>
+</li>
+</ul><p style="text-align: center; color: grey;">Document published under a <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">CC BY-ND 3.0</a> license. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-3293801-21', 'auto');
+  ga('send', 'pageview');
+</script>
+</body></html>

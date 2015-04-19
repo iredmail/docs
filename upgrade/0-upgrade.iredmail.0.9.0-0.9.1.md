@@ -96,7 +96,9 @@ $config['smtp_conn_options'] = array(
 Please follow below tutorial to upgrade iRedAPD to the latest stable release:
 [How to upgrade iRedAPD-1.4.0 or later versions to the latest stable release](./upgrade.iredapd.html)
 
-Note: 
+Detailed release notes are available here: [iRedAPD release notes](./iredapd.releases.html).
+
+Note:
 
 iRedAPD-1.4.5 is able to log rejection and other non-DUNNO actions in iRedAdmin
 database, admin can view the log under menu `System -> Admin Log` of iRedAdmin.
