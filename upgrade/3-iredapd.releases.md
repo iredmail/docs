@@ -1,4 +1,4 @@
-# iRedAPD release notes and upgrade tutorials
+# iRedAPD (Postfix Access Policy Daemon) release notes and upgrade tutorials
 
 > iRedAPD source code is hosted on [BitBucket](https://bitbucket.org/zhb/iredapd/).
 

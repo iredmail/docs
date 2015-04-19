@@ -1,4 +1,4 @@
-# iRedAdmin-Pro release notes and upgrade tutorials
+# iRedAdmin-Pro (web-based admin panel) release notes and upgrade tutorials
 
 [TOC]
 
