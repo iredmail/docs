@@ -180,6 +180,36 @@ Notes:
       `apache24`, not `apache22`.
     * on OpenBSD, it's `/var/www/htdocs`.
 
+### Fixed: Incorrect log file and owner/group in logrotate config file: `/etc/logrotate.d/policyd`
+
+Note: This is applicable to Linux and OpenBSD, we don't have Cluebringer
+installed on OpenBSD.
+
+iRedMail-0.9.0 generates logrotate config file `/etc/logrotate.d/policyd` with
+incorrect log file name and owner/group.
+
+The original setting looks like below:
+
+```
+/var/log/amavisd.log {
+    ...
+    create 0600 amavis amavis
+    ...
+}
+```
+
+Please change the log file name and owner/group to below settings:
+
+```
+/var/log/cbpolicyd.log {
+    ...
+    create 0600 cluebringer cluebringer
+    ...
+}
+```
+
+Note: on FreeBSD, the owner/group name is `policyd`, not `cluebringer`.
+
 ### Fixed: Incorrect path of command `sogo-tool` on OpenBSD
 
 Note: this step is applicable to only OpenBSD.

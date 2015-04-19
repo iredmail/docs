@@ -20,6 +20,7 @@
 <li><a href="#upgrade-iredapd-postfix-policy-server-to-the-latest-145">Upgrade iRedAPD (Postfix policy server) to the latest 1.4.5</a></li>
 <li><a href="#fixed-return-receipt-response-rejected-by-iredapd-plugin-reject_null_sender">Fixed: return receipt response rejected by iRedAPD plugin reject_null_sender</a></li>
 <li><a href="#fixed-cannot-run-php-script-under-web-document-root-with-nginx">Fixed: Cannot run PHP script under web document root with Nginx.</a></li>
+<li><a href="#fixed-incorrect-log-file-and-ownergroup-in-logrotate-config-file-etclogrotatedpolicyd">Fixed: Incorrect log file and owner/group in logrotate config file: /etc/logrotate.d/policyd</a></li>
 <li><a href="#fixed-incorrect-path-of-command-sogo-tool-on-openbsd">Fixed: Incorrect path of command sogo-tool on OpenBSD</a></li>
 <li><a href="#optional-make-dovecot-subscribe-newly-created-folder-automatically">[OPTIONAL] Make Dovecot subscribe newly created folder automatically</a></li>
 <li><a href="#optional-setup-fail2ban-to-monitor-password-failures-in-sogo-log-file">[OPTIONAL] Setup Fail2ban to monitor password failures in SOGo log file</a></li>
@@ -217,6 +218,28 @@ location ~ \.php$ {
 </ul>
 </li>
 </ul>
+<h3 id="fixed-incorrect-log-file-and-ownergroup-in-logrotate-config-file-etclogrotatedpolicyd">Fixed: Incorrect log file and owner/group in logrotate config file: <code>/etc/logrotate.d/policyd</code></h3>
+<p>Note: This is applicable to Linux and OpenBSD, we don't have Cluebringer
+installed on OpenBSD.</p>
+<p>iRedMail-0.9.0 generates logrotate config file <code>/etc/logrotate.d/policyd</code> with
+incorrect log file name and owner/group.</p>
+<p>The original setting looks like below:</p>
+<pre><code>/var/log/amavisd.log {
+    ...
+    create 0600 amavis amavis
+    ...
+}
+</code></pre>
+
+<p>Please change the log file name and owner/group to below settings:</p>
+<pre><code>/var/log/cbpolicyd.log {
+    ...
+    create 0600 cluebringer cluebringer
+    ...
+}
+</code></pre>
+
+<p>Note: on FreeBSD, the owner/group name is <code>policyd</code>, not <code>cluebringer</code>.</p>
 <h3 id="fixed-incorrect-path-of-command-sogo-tool-on-openbsd">Fixed: Incorrect path of command <code>sogo-tool</code> on OpenBSD</h3>
 <p>Note: this step is applicable to only OpenBSD.</p>
 <p>Please check user <code>_sogo</code>'s cron job, make sure path to <code>sogo-tool</code> command is
