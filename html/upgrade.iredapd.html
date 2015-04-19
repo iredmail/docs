@@ -12,7 +12,8 @@
         // <a href="./index.html">Document Index</a>
     </div><h1 id="upgrade-iredapd">Upgrade iRedAPD</h1>
 <blockquote>
-<p>iRedAPD source code is hosted on <a href="https://bitbucket.org/zhb/iredapd/overview">BitBucket</a>.</p>
+<p>iRedAPD source code is hosted on <a href="https://bitbucket.org/zhb/iredapd/">BitBucket</a>.</p>
+<p>Release Notes are available here: <a href="./iredapd.releases.html">iRedAPD Release Notes</a>.</p>
 </blockquote>
 <p>This tutorial describes how to upgrade iRedAPD from <code>1.4.0</code> or later releases
 to the latest stable release. It's applicable on all Linux/BSD distributions
@@ -30,27 +31,40 @@ supported by iRedMail.</p>
 </code></pre>
 
 <p>That's all.</p>
+<hr />
 <p>Important notes:</p>
+<ul>
+<li>
+<p>It's recommended to enable plugin <code>reject_null_sender</code> in iRedAPD-1.4.4 or
+  newer releases to prevent authenticated user sending spam as null sender.</p>
+</li>
+<li>
+<p>Plugin <code>amavisd_wblist</code> and <code>amavisd_message_size_limit</code> requires access
+  to Amavisd SQL database, if you're upgrading iRedAPD from iRedAPD-1.4.3
+  or older releases, don't forget to copy <code>amavisd_db_*</code> settings from
+  sample config file and set correct values:</p>
+</li>
+</ul>
+<pre><code># For Amavisd policy lookup
+amavisd_db_server = '127.0.0.1'
+amavisd_db_port = '3306'
+amavisd_db_name = 'amavisd'
+amavisd_db_user = 'amavisd'
+amavisd_db_password = 'password'
+</code></pre>
+
 <ul>
 <li>
 <p>Plugin <code>amavisd_wblist</code> is required if you manage white/blacklists with
   iRedAdmin-Pro.</p>
 </li>
 <li>
-<p>It's recommended to enable plugin <code>reject_null_sender</code> in iRedAPD-1.4.4 or
-  newer releases to prevent authenticated user sending spam as null sender.</p>
-</li>
-<li>
-<p>Since version 1.4.4, iRedAPD supports Postfix smtp protocol state
-  <code>END-OF-MESSAGE</code>, so you can enable iRedAPD in Postfix parameter
+<p>Since version 1.4.4, iRedAPD supports other Postfix smtp protocol states,
+  e.g. <code>END-OF-MESSAGE</code>, so you can enable iRedAPD in Postfix setting
   <code>smtpd_end_of_data_restrictions</code> like below:</p>
 <p><code>smtpd_end_of_data_restrictions = check_policy_service inet:127.0.0.1:7777, ...</code></p>
 <p>Currently, only plugin <code>amavisd_message_size_limit</code> works in <code>END-OF-MESSAGE</code>
 state, other plugins work in <code>RCPT</code> state.</p>
-</li>
-<li>
-<p>If you want to develop your own plugin for iRedAPD, please read document
-  <code>README_PLUGINS.md</code> in iRedAPD source code.</p>
 </li>
 </ul><p style="text-align: center; color: grey;">Document published under a <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">CC BY-ND 3.0</a> license. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.<script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
