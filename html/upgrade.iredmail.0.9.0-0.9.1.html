@@ -19,6 +19,7 @@
 <li><a href="#upgrade-roundcube-webmail-to-the-latest-stable-release">Upgrade Roundcube webmail to the latest stable release</a></li>
 <li><a href="#upgrade-iredapd-postfix-policy-server-to-the-latest-145">Upgrade iRedAPD (Postfix policy server) to the latest 1.4.5</a></li>
 <li><a href="#fixed-return-receipt-response-rejected-by-iredapd-plugin-reject_null_sender">Fixed: return receipt response rejected by iRedAPD plugin reject_null_sender</a></li>
+<li><a href="#fixed-amavisd-cannot-detect-exe-file-in-rar-compressed-attachment">Fixed: Amavisd cannot detect .exe file in rar compressed attachment.</a></li>
 <li><a href="#fixed-cannot-run-php-script-under-web-document-root-with-nginx">Fixed: Cannot run PHP script under web document root with Nginx.</a></li>
 <li><a href="#fixed-incorrect-log-file-and-ownergroup-in-logrotate-config-file-etclogrotatedpolicyd">Fixed: Incorrect log file and owner/group in logrotate config file: /etc/logrotate.d/policyd</a></li>
 <li><a href="#fixed-incorrect-path-of-command-sogo-tool-on-openbsd">Fixed: Incorrect path of command sogo-tool on OpenBSD</a></li>
@@ -60,6 +61,8 @@
 <p><strong>WARNING: Still working in progress, do <em>NOT</em> apply it.</strong></p>
 <h2 id="changelog">ChangeLog</h2>
 <ul>
+<li>2015-04-21: [All backends] [Debian/Ubuntu] Fixed: Amavisd cannot detect <code>.exe</code> file in rar compressed attachment.</li>
+<li>2015-04-21: [All backends] Fixed: Incorrect log file and owner/group in logrotate config file: /etc/logrotate.d/policyd.</li>
 <li>2015-04-06: [All backends] Make Dovecot subscribe newly created folder automatically.</li>
 <li>2015-04-03: [MySQL, PostgreSQL] Fixed: user+extension@domain.com doesn't work
               with per-domain catch-all. Note: OpenLDAP backend still has this
@@ -182,6 +185,41 @@ authenticated user but with null sender in <code>From:</code> header (<code>from
 log). If your user's password was cracked by spammer, spammer can use this
 account to bypass smtp authentication, but with a null sender in <code>From:</code>
 header, throttling won't be triggered.</p>
+<h3 id="fixed-amavisd-cannot-detect-exe-file-in-rar-compressed-attachment">Fixed: Amavisd cannot detect <code>.exe</code> file in rar compressed attachment.</h3>
+<p>Note: This fix is applicable to RHEL/CentOS, Debian and Ubuntu.</p>
+<ul>
+<li>On RHEL/CentOS, iRedMail doesn't install <code>unrar</code>.</li>
+<li>On Debian/Ubuntu, iRedMail installs package <code>unrar-free</code> as unarchiver to
+  uncompress <code>.rar</code> attachment, but Amavisd cannot correctly detect <code>.exe</code> file
+  in rar compressed file.</li>
+</ul>
+<p>Steps to fix this issue on RHEL/CentOS:</p>
+<pre><code># yum clean metadata
+# yum install unrar
+# service amavisd restart
+</code></pre>
+
+<p>Steps to fix this issue on Debian/Ubuntu:</p>
+<ul>
+<li>Delete package <code>unrar-free</code>, and install package <code>unrar</code>.</li>
+</ul>
+<pre><code># apt-get remove --purge unrar-free
+# apt-get install unrar
+</code></pre>
+
+<ul>
+<li>Add below setting in Amavisd config file <code>/etc/amavis/conf.d/50-user</code> to ask
+  Amavisd to use <code>unrar-nonfree</code> as unarchiver:</li>
+</ul>
+<pre><code>$unrar = ['unrar-nonfree'];
+</code></pre>
+
+<ul>
+<li>Restart Amavisd service:</li>
+</ul>
+<pre><code># service amavis restart
+</code></pre>
+
 <h3 id="fixed-cannot-run-php-script-under-web-document-root-with-nginx">Fixed: Cannot run PHP script under web document root with Nginx.</h3>
 <p>With previous release of iRedMail, Nginx won't run PHP scripts under
 sub-directories of web document root, this step will fix it.</p>

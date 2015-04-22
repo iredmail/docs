@@ -7,6 +7,8 @@ __WARNING: Still working in progress, do _NOT_ apply it.__
 
 ## ChangeLog
 
+* 2015-04-21: [All backends] [Debian/Ubuntu] Fixed: Amavisd cannot detect `.exe` file in rar compressed attachment.
+* 2015-04-21: [All backends] Fixed: Incorrect log file and owner/group in logrotate config file: /etc/logrotate.d/policyd.
 * 2015-04-06: [All backends] Make Dovecot subscribe newly created folder automatically.
 * 2015-04-03: [MySQL, PostgreSQL] Fixed: user+extension@domain.com doesn't work
               with per-domain catch-all. Note: OpenLDAP backend still has this
@@ -145,6 +147,45 @@ authenticated user but with null sender in `From:` header (`from=<>` in Postfix
 log). If your user's password was cracked by spammer, spammer can use this
 account to bypass smtp authentication, but with a null sender in `From:`
 header, throttling won't be triggered.
+
+### Fixed: Amavisd cannot detect `.exe` file in rar compressed attachment.
+
+Note: This fix is applicable to RHEL/CentOS, Debian and Ubuntu.
+
+* On RHEL/CentOS, iRedMail doesn't install `unrar`.
+* On Debian/Ubuntu, iRedMail installs package `unrar-free` as unarchiver to
+  uncompress `.rar` attachment, but Amavisd cannot correctly detect `.exe` file
+  in rar compressed file.
+
+Steps to fix this issue on RHEL/CentOS:
+
+```
+# yum clean metadata
+# yum install unrar
+# service amavisd restart
+```
+
+Steps to fix this issue on Debian/Ubuntu:
+
+* Delete package `unrar-free`, and install package `unrar`.
+
+```
+# apt-get remove --purge unrar-free
+# apt-get install unrar
+```
+
+* Add below setting in Amavisd config file `/etc/amavis/conf.d/50-user` to ask
+  Amavisd to use `unrar-nonfree` as unarchiver:
+
+```
+$unrar = ['unrar-nonfree'];
+```
+
+* Restart Amavisd service:
+
+```
+# service amavis restart
+```
 
 ### Fixed: Cannot run PHP script under web document root with Nginx.
 
