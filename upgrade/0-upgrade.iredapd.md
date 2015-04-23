@@ -35,7 +35,7 @@ Important notes:
   sample config file and set correct values:
 
 ```
-# For Amavisd policy lookup
+# For Amavisd policy lookup and white/blacklists.
 amavisd_db_server = '127.0.0.1'
 amavisd_db_port = '3306'
 amavisd_db_name = 'amavisd'
