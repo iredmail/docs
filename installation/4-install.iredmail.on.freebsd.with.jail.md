@@ -22,7 +22,7 @@ which means your server does __NOT__ have mail related components installed,
 e.g. MySQL, OpenLDAP, Postfix, Dovecot, Amavisd, etc. iRedMail will install
 and configure them for you automatically. Otherwise it may override your
 existing files/configurations althought it will backup files before modifing,
-and it may be not working as expected.
+and it may not be working as expected.
 
 * The latest stable release of iRedMail. You can download it here: http://www.iredmail.org/download.html
 * Port `sysutils/ezjail` for FreeBSD.
