@@ -131,6 +131,15 @@ empty, please check normal syslog log file `/var/log/messages` or
 
 Amavisd is configured to log to [Postfix log file](#postfix) by iRedMail.
 
+## Cluebringer
+
+Main config file:
+
+* RHEL/CentOS: `/etc/policyd/cluebringer.conf`, `/etc/policyd/webui.confi (web admin panel).
+* Debian/Ubuntu: `/etc/cluebringer/cluebringer.conf`, `/etc/cluebringer/cluebringer-webui.conf` (web admin panel).
+* FreeBSD: `/usr/local/etc/cluebringer.conf`, `/usr/local/etc/apache24/cluebringer.conf` (web admin panel).
+* OpenBSD: Not applicable, cluebringer is not available on OpenBSD.
+
 ## Fail2ban
 
 * Main config file is `/etc/fail2ban/jail.local`. All custom settings should be

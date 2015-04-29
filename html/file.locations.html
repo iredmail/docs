@@ -32,6 +32,7 @@
 <li><a href="#log-files_2">Log files</a></li>
 </ul>
 </li>
+<li><a href="#cluebringer">Cluebringer</a></li>
 <li><a href="#fail2ban">Fail2ban</a></li>
 <li><a href="#roundcube-webmail">Roundcube webmail</a></li>
 <li><a href="#iredapd">iRedAPD</a></li>
@@ -172,6 +173,14 @@ on Debian/Ubuntu.</p>
 </ul>
 <h3 id="log-files_2">Log files</h3>
 <p>Amavisd is configured to log to <a href="#postfix">Postfix log file</a> by iRedMail.</p>
+<h2 id="cluebringer">Cluebringer</h2>
+<p>Main config file:</p>
+<ul>
+<li>RHEL/CentOS: <code>/etc/policyd/cluebringer.conf</code>, `/etc/policyd/webui.confi (web admin panel).</li>
+<li>Debian/Ubuntu: <code>/etc/cluebringer/cluebringer.conf</code>, <code>/etc/cluebringer/cluebringer-webui.conf</code> (web admin panel).</li>
+<li>FreeBSD: <code>/usr/local/etc/cluebringer.conf</code>, <code>/usr/local/etc/apache24/cluebringer.conf</code> (web admin panel).</li>
+<li>OpenBSD: Not applicable, cluebringer is not available on OpenBSD.</li>
+</ul>
 <h2 id="fail2ban">Fail2ban</h2>
 <ul>
 <li>
