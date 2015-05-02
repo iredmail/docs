@@ -63,9 +63,8 @@ Additional notes before upgrading Roundcube webmail 1.1.0 (or later releases):
 # /etc/rc.d/php_fpm restart
 ```
 
-It's recommended to download the `Complete` edition (e.g.
-`roundcubemail-1.1.0-complete.tar.gz` instead of `Dependent` edition (e.g.
-`roundcubemail-1.1.0.tar.gz`).
+Please download the `Complete` edition (e.g. `roundcubemail-1.1.1-complete.tar.gz`)
+instead of `Dependent` edition (e.g. `roundcubemail-1.1.1.tar.gz`).
 
 After you have additional packages installed, please follow Roundcube official
 tutorial to upgrade Roundcube webmail to the latest stable release:
@@ -74,7 +73,9 @@ tutorial to upgrade Roundcube webmail to the latest stable release:
 Notes:
 
 * If you're going to update PHP to 5.6, you should add below settings in
-  Roundcube config file (`config/config.inc.php`) to avoid ssl certificate issue:
+  Roundcube config file (`config/config.inc.php`) to avoid ssl certificate issue.
+  If you don't know the location of this config file, check our tutorial here:
+  [Locations of configuration and log files of mojor components](./file.locations.html#roundcube-webmail).
 
 ```
 // Required if you're running PHP 5.6

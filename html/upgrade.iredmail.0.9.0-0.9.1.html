@@ -114,16 +114,17 @@
 # /etc/rc.d/php_fpm restart
 </code></pre>
 
-<p>It's recommended to download the <code>Complete</code> edition (e.g.
-<code>roundcubemail-1.1.0-complete.tar.gz</code> instead of <code>Dependent</code> edition (e.g.
-<code>roundcubemail-1.1.0.tar.gz</code>).</p>
+<p>Please download the <code>Complete</code> edition (e.g. <code>roundcubemail-1.1.1-complete.tar.gz</code>)
+instead of <code>Dependent</code> edition (e.g. <code>roundcubemail-1.1.1.tar.gz</code>).</p>
 <p>After you have additional packages installed, please follow Roundcube official
 tutorial to upgrade Roundcube webmail to the latest stable release:
 <a href="http://trac.roundcube.net/wiki/Howto_Upgrade">How to upgrade Roundcube</a></p>
 <p>Notes:</p>
 <ul>
 <li>If you're going to update PHP to 5.6, you should add below settings in
-  Roundcube config file (<code>config/config.inc.php</code>) to avoid ssl certificate issue:</li>
+  Roundcube config file (<code>config/config.inc.php</code>) to avoid ssl certificate issue.
+  If you don't know the location of this config file, check our tutorial here:
+  <a href="./file.locations.html#roundcube-webmail">Locations of configuration and log files of mojor components</a>.</li>
 </ul>
 <pre><code>// Required if you're running PHP 5.6
 $config['imap_conn_options'] = array(

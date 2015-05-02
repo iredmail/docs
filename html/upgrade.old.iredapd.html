@@ -1,0 +1,140 @@
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Upgrade iRedAPD from v1.3.x or earlier versions to latest release</title>
+        <link href="./css/markdown.css" rel="stylesheet"></head>
+    </head>
+    <body>
+    
+    <div id="navigation">
+        <a href="http://www.iredmail.org" target="_blank">iRedMail web site</a>
+    
+        // <a href="./index.html">Document Index</a>
+    </div><h1 id="upgrade-iredapd-from-v13x-or-earlier-versions-to-latest-release">Upgrade iRedAPD from v1.3.x or earlier versions to latest release</h1>
+<blockquote>
+<p>iRedAPD source code is hosted on <a href="https://bitbucket.org/zhb/iredapd/">BitBucket</a>.</p>
+<p>Release Notes are available here: <a href="./iredapd.releases.html">iRedAPD Release Notes</a>.</p>
+<p>If you're trying to upgrade iRedAPD-1.4.0 or later releases to the latest
+iRedAPD, please check this tutorial instead: <a href="./upgrade.iredapd.html">Upgrade iRedAPD</a></p>
+</blockquote>
+<p>This tutorial describes how to upgrade iRedAPD from v1.3.x or earlier versions
+to the later releases, it's applicable on all Linux/BSD distributions supported
+by iRedMail.</p>
+<p>Important notes:</p>
+<ul>
+<li>Since iRedAPD-<code>1.4.0</code>, we use Python source file as config file, not <code>.ini</code>
+  format anymore.</li>
+<li>We don't need second instance <code>iredapd-rr</code> anymore (it listens on port <code>7778</code>),
+  just one instance, one listen port <code>7777</code> is required.</li>
+</ul>
+<p>Steps to upgrade iRedAPD-1.3.x or earlier versions:</p>
+<ul>
+<li>Download the latest stable release here: <a href="http://iredmail.org/yum/misc/">http://iredmail.org/yum/misc/</a>
+  For example, iRedAPD-1.4.4.tar.bz2.</li>
+<li>Upload it to your iRedMail server. Assume it's <code>/root/iRedAPD-1.4.4.tar.bz2</code>
+  on the server.</li>
+<li>Extract downloaded package and move to <code>/opt/</code>, set correct owner and permission:</li>
+</ul>
+<pre><code># tar xjf /root/iRedAPD-1.4.4.tar.bz2 -C /opt/
+# cd /opt
+# chown -R iredapd:iredapd iRedAPD-1.4.4
+# chmod -R 0700 iRedAPD-1.4.4
+</code></pre>
+
+<ul>
+<li>Generate new config file from sample file, and set correct file owner and permission.</li>
+</ul>
+<pre><code># cd /opt/iRedAPD-1.4.4/
+# cp settings.py.sample settings.py
+# chown -R iredapd:iredapd settings.py
+# chmod -R 0400 settings.py
+</code></pre>
+
+<p><strong>WARNING</strong>: Config file <code>/opt/iredapd/settings.py</code> contains sensitive infomation
+(username, password), please don't make it world-readable. Permission 0400 is
+the best.</p>
+<ul>
+<li>
+<p>Open iRedAPD config file <code>/opt/iredapd/settings.py</code>, and sync settings with
+  old iRedAPD config file <code>/opt/iRedAPD-[OLD-VERSION]/etc/iredapd.ini</code>.</p>
+<ul>
+<li>In old version, parameters under <code>[ldap]</code> section are now new parameters
+  start with <code>ldap_</code>.</li>
+<li>In old version, all parameters under <code>[sql]</code> (or <code>[mysql]</code>) section are
+  now new parameters start with <code>sql_</code>.</li>
+</ul>
+</li>
+<li>
+<p>Remove symbol link of old release:</p>
+</li>
+</ul>
+<pre><code># rm -i /opt/iredapd               # &lt;- Don't not end with '/'.
+</code></pre>
+
+<ul>
+<li>
+<p>Copy new RC script. We have scripts for different Linux/BSD distributions,
+  please copy the correct one for your distribution:</p>
+<ul>
+<li><code>/opt/iredapd/rc_scripts/iredapd.rhel</code>: For Red Hat, CentOS, Scientific Linux.</li>
+<li><code>/opt/iredapd/rc_scripts/iredapd.debian</code>: For Debian and Ubuntu.</li>
+<li><code>/opt/iredapd/rc_scripts/iredapd.freebsd</code>: For FreeBSD. Please copy to <code>/usr/local/etc/rc.d/</code>.</li>
+<li><code>/opt/iredapd/rc_scripts/iredapd.openbsd</code>: For OpenBSD. Please copy to <code>/etc/rc.d/</code>.</li>
+</ul>
+</li>
+</ul>
+<pre><code># cp /opt/iredapd/rc_scripts/iredapd.rhel /etc/init.d/iredapd
+# chmod +x /etc/init.d/iredapd
+</code></pre>
+
+<ul>
+<li>Create symbol link to the latest release:</li>
+</ul>
+<pre><code># cd /opt/
+# ln -s iRedAPD-1.4.4 iredapd
+</code></pre>
+
+<ul>
+<li>Restart iRedAPD service:</li>
+</ul>
+<pre><code>#
+# ---- On Linux ----
+#
+# /etc/init.d/iredapd restart
+
+#
+# ---- On FreeBSD ----
+#
+# /usr/local/etc/rc.d/iredapd restart
+
+#
+# ---- On OpenBSD ----
+#
+# /etc/rc.d/iredapd restart
+</code></pre>
+
+<ul>
+<li>If you don't have file <code>/etc/init.d/iredapd-rr</code> (on Linux), or
+  <code>/etc/rc.d/iredapd-rr</code> (on OpenBSD), or <code>/usr/local/etc/rc.d/iredapd-rr</code>
+  (on FreeBSD), it's safe to ignore below steps. But if you have it, please
+  stop service <code>iredapd-rr</code>, then move all enabled plugin names listed in
+  <code>/opt/iRedAPD-[OLD_VERSION]/etc/iredapd-rr.ini</code> to new config file
+  <code>/opt/iredapd/settings.py</code>, in parameter <code>plugins =</code>.</li>
+</ul>
+<pre><code># /etc/init.d/iredapd-rr stop
+# rm /etc/init.d/iredapd-rr
+</code></pre>
+
+<p>Check whether you have <code>check_policy_service inet:127.0.0.1:__7778__</code> in Postfix
+config file <code>/etc/postfix/main.cf</code> (Linux/OpenBSD) or
+<code>/usr/local/etc/postfix/main.cf</code> (FreeBSD), if you have it, please remove it,
+then restart Postfix service.</p><p style="text-align: center; color: grey;">Document published under a <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">CC BY-ND 3.0</a> license. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-3293801-21', 'auto');
+  ga('send', 'pageview');
+</script>
+</body></html>

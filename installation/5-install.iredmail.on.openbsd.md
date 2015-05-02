@@ -32,8 +32,7 @@ Notes:
   prompt you to choose different versions of binary packages, please choose
   the one described below:
 
-    * choose `php-5.6.x`, `php-fpm-5.6.x`. Version number `5.6.x` is hard-coded
-      in iRedMail, so if you choose other version, iRedMail will fail.
+    * `php-5.6.x` is recommended, but it's ok if you want to use another version
     * choose `postfix-2.11.x`
     * choose `p5-Mail-SPF`, NOT `p5-Mail-SPF-Query`
 
