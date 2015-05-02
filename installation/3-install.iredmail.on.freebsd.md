@@ -185,7 +185,7 @@ Configuration completed.
 * Read file `/root/iRedMail-x.y.z/iRedMail.tips` first, it contains:
 
     * URLs, usernames and passwords of web-based applications
-    * Location of mail serve related software configuration files
+    * Location of mail service related software configuration files
     * Some other important and sensitive information
 
 * [Setup DNS records for your mail server](./setup.dns.html)
