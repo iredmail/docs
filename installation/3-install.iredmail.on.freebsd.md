@@ -211,14 +211,3 @@ hostname or IP address.
 Please post all issues, feedbacks, feature requests, suggestions in our [online
 support forum](http://www.iredmail.org/forum/), it's more responsible than you
 expected.
-
-## Notes about binary packages provided by iRedMail project
-
-Most binary packages in iRedMail yum repository comes from below repositories,
-packages with `-ired` flag were packed by iRedMail project.
-
-* [Dag Wieers](http://packages.sw.be/)
-* [EPEL](http://download.fedora.redhat.com/pub/epel/)
-* [ATrpms](http://atrpms.net/)
-
-
