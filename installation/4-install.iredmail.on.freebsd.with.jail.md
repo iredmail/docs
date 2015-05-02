@@ -262,7 +262,6 @@ hostname or IP address.
 
 * __Roundcube webmail__: [https://your_server/mail/](https://your_server/mail/)
 * __Web admin panel (iRedAdmin)__: [httpS://your_server/iredadmin/](httpS://your_server/iredadmin/)
-* __phpLDAPadmin__ (available if you choose LDAP backend): [httpS://your_server/phpldapadmin/](httpS://your_server/phpldapadmin/)
 * __Awstats__: [httpS://your_server/awstats/awstats.pl?config=web](httpS://your_server/awstats/awstats.pl?config=web) (or ?config=smtp)
 
 ## Get technical support

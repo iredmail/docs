@@ -79,8 +79,8 @@ and it may not be working as expected.</p>
 <h3 id="set-a-fully-qualified-domain-name-fqdn-hostname-on-your-server">Set a fully qualified domain name (FQDN) hostname on your server</h3>
 <p>No matter your server is a testing machine or production server, it's strongly
 recommended to set a fully qualified domain name (FQDN) hostname.</p>
-<p>Enter command <code>hostname -f</code> to view the current hostname:</p>
-<pre><code class="shell">$ hostname -f
+<p>Enter command <code>hostname</code> to view the current hostname:</p>
+<pre><code class="shell">$ hostname
 mx.example.com
 </code></pre>
 
@@ -101,7 +101,7 @@ mx.example.com
 
 <p>Verify the FQDN hostname. If it wasn't changed after updating above two files,
 please reboot server to make it work.</p>
-<pre><code>$ hostname -f
+<pre><code>$ hostname
 mx.example.com
 </code></pre>
 
@@ -247,7 +247,6 @@ hostname or IP address.</p>
 <ul>
 <li><strong>Roundcube webmail</strong>: <a href="https://your_server/mail/">https://your_server/mail/</a></li>
 <li><strong>Web admin panel (iRedAdmin)</strong>: <a href="httpS://your_server/iredadmin/">httpS://your_server/iredadmin/</a></li>
-<li><strong>phpLDAPadmin</strong> (available if you choose LDAP backend): <a href="httpS://your_server/phpldapadmin/">httpS://your_server/phpldapadmin/</a></li>
 <li><strong>Awstats</strong>: <a href="httpS://your_server/awstats/awstats.pl?config=web">httpS://your_server/awstats/awstats.pl?config=web</a> (or ?config=smtp)</li>
 </ul>
 <h2 id="get-technical-support">Get technical support</h2>

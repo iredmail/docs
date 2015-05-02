@@ -32,6 +32,9 @@ Notes:
   prompt you to choose different versions of binary packages, please choose
   the one described below:
 
+    * choose `php-5.6.x`, `php-fpm-5.6.x`. Version number `5.6.x` is hard-coded
+      in iRedMail, so if you choose other version, iRedMail will fail.
+    * choose `postfix-2.11.x`
     * choose `p5-Mail-SPF`, NOT `p5-Mail-SPF-Query`
 
 * Apache chroot is disabled by default, required by iRedAdmin - the web-based
@@ -48,10 +51,10 @@ Notes:
 No matter your server is a testing machine or production server, it's strongly
 recommended to set a fully qualified domain name (FQDN) hostname.
 
-Enter command `hostname -f` to view the current hostname:
+Enter command `hostname` to view the current hostname:
 
 ```shell
-$ hostname -f
+$ hostname
 mx.example.com
 ```
 
@@ -75,7 +78,7 @@ Verify the FQDN hostname. If it wasn't changed after updating above two files,
 please reboot server to make it work.
 
 ```
-$ hostname -f
+$ hostname
 mx.example.com
 ```
 
@@ -231,7 +234,6 @@ hostname or IP address.
 
 * __Roundcube webmail__: [https://your_server/mail/](https://your_server/mail/)
 * __Web admin panel (iRedAdmin)__: [httpS://your_server/iredadmin/](httpS://your_server/iredadmin/)
-* __phpLDAPadmin__ (available if you choose LDAP backend): [httpS://your_server/phpldapadmin/](httpS://your_server/phpldapadmin/)
 * __Awstats__: [httpS://your_server/awstats/awstats.pl?config=web](httpS://your_server/awstats/awstats.pl?config=web) (or ?config=smtp)
 
 ## Get technical support
