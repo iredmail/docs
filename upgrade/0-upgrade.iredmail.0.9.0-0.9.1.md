@@ -7,6 +7,7 @@ __WARNING: Still working in progress, do _NOT_ apply it.__
 
 ## ChangeLog
 
+* 2015-05-03: [All backends] Fixed: Amavisd cannot detect `.exe` file in zipped attachment.
 * 2015-04-21: [All backends] [Debian/Ubuntu] Fixed: Amavisd cannot detect `.exe` file in rar compressed attachment.
 * 2015-04-21: [All backends] Fixed: Incorrect log file and owner/group in logrotate config file: /etc/logrotate.d/policyd.
 * 2015-04-06: [All backends] Make Dovecot subscribe newly created folder automatically.
@@ -148,6 +149,48 @@ authenticated user but with null sender in `From:` header (`from=<>` in Postfix
 log). If your user's password was cracked by spammer, spammer can use this
 account to bypass smtp authentication, but with a null sender in `From:`
 header, throttling won't be triggered.
+
+### Fixed: Amavisd cannot detect `.exe` file in zipped attachment.
+
+Amavisd on some Linux/BSD distribution use `$banned_namepath_re`
+instead of `$banned_filename_re` to check banned files, but it
+(`$banned_namepath_re`) was not defined, so we define some blocked file
+types here.
+
+Please append below settings in Amavisd config file, above the last line
+(`1;  # insure a defined return`) in the same file:
+
+* On RHEL/CentOS, OpenBSD, it's `/etc/amavisd/amavisd.conf`.
+* On Debian/Ubuntu, it's `/etc/amavis/conf.d/50-user`.
+* On FreeBSD, it's `/usr/local/etc/amavisd.conf`.
+
+```
+# Amavisd on some Linux/BSD distribution use \$banned_namepath_re
+# instead of \$banned_filename_re, so we define some blocked file
+# types here.
+#
+# Sample input for $banned_namepath_re:
+#
+#   P=p003\tL=1\tM=multipart/mixed\nP=p002\tL=1/2\tM=application/octet-stream\tT=dat\tN=my_docum.zip
+#
+# What it means:
+#   - T: type. e.g. zip archive.
+#   - M: MIME type. e.g. application/octet-stream.
+#   - N: suggested (MIME) name. e.g. my_docum.zip.
+
+$banned_namepath_re = new_RE(
+   [qr'T=(exe|exe-ms|dat|lha|cab|dll)\t'xmi => 'DISCARD'],   # banned file(1) types
+   [qr'T=(pif|scr)\t'xmi => 'DISCARD'],                      # banned extensions - rudimentary
+   [qr'T=ani\t'xmi => 'DISCARD'],                            # banned animated cursor file(1) type
+   [qr'T=(mim|b64|bhx|hqx|xxe|uu|uue)\t'xmi => 'DISCARD'],   # banned extension - WinZip vulnerab.
+   [qr'M=application/x-msdownload\t'xmi => 'DISCARD'],       # block these MIME types
+   [qr'M=application/x-msdos-program\t'xmi => 'DISCARD'],
+   [qr'M=application/hta\t'xmi => 'DISCARD'],
+   [qr'M=(application/x-msmetafile|image/x-wmf)\t'xmi => 'DISCARD'],  # Windows Metafile MIME type
+);
+```
+
+Restarting Amavisd service is required.
 
 ### Fixed: Amavisd cannot detect `.exe` file in rar compressed attachment.
 
