@@ -20,7 +20,7 @@
       releases) or `/etc/apache2/conf-available/`.
     * Root directory used to store web applications is `/usr/share/apache2`,
       document root is `/var/www/` (old releases) or `/var/www/html/`.
-    * Log files are placed under `/var/www/apache2/`.
+    * Log files are placed under `/var/log/apache2/`.
 
 * On FreeBSD: Apache config files are placed under `/usr/local/etc/apache2`.
 
