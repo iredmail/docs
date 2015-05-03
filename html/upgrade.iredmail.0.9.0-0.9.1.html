@@ -19,7 +19,7 @@
 <li><a href="#upgrade-roundcube-webmail-to-the-latest-stable-release">Upgrade Roundcube webmail to the latest stable release</a></li>
 <li><a href="#upgrade-iredapd-postfix-policy-server-to-the-latest-145">Upgrade iRedAPD (Postfix policy server) to the latest 1.4.5</a></li>
 <li><a href="#fixed-return-receipt-response-rejected-by-iredapd-plugin-reject_null_sender">Fixed: return receipt response rejected by iRedAPD plugin reject_null_sender</a></li>
-<li><a href="#fixed-amavisd-cannot-detect-exe-file-in-zipped-attachment">Fixed: Amavisd cannot detect .exe file in zipped attachment.</a></li>
+<li><a href="#fixed-amavisd-cannot-ban-zipped-exe-attachment-file">Fixed: Amavisd cannot ban zipped .exe attachment file.</a></li>
 <li><a href="#fixed-amavisd-cannot-detect-exe-file-in-rar-compressed-attachment">Fixed: Amavisd cannot detect .exe file in rar compressed attachment.</a></li>
 <li><a href="#fixed-cannot-run-php-script-under-web-document-root-with-nginx">Fixed: Cannot run PHP script under web document root with Nginx.</a></li>
 <li><a href="#fixed-incorrect-log-file-and-ownergroup-in-logrotate-config-file-etclogrotatedpolicyd">Fixed: Incorrect log file and owner/group in logrotate config file: /etc/logrotate.d/policyd</a></li>
@@ -62,7 +62,7 @@
 <p><strong>WARNING: Still working in progress, do <em>NOT</em> apply it.</strong></p>
 <h2 id="changelog">ChangeLog</h2>
 <ul>
-<li>2015-05-03: [All backends] Fixed: Amavisd cannot detect <code>.exe</code> file in zipped attachment.</li>
+<li>2015-05-03: [All backends] Fixed: Amavisd cannot ban zipped <code>.exe</code> attachment file.</li>
 <li>2015-04-21: [All backends] [Debian/Ubuntu] Fixed: Amavisd cannot detect <code>.exe</code> file in rar compressed attachment.</li>
 <li>2015-04-21: [All backends] Fixed: Incorrect log file and owner/group in logrotate config file: /etc/logrotate.d/policyd.</li>
 <li>2015-04-06: [All backends] Make Dovecot subscribe newly created folder automatically.</li>
@@ -188,12 +188,12 @@ authenticated user but with null sender in <code>From:</code> header (<code>from
 log). If your user's password was cracked by spammer, spammer can use this
 account to bypass smtp authentication, but with a null sender in <code>From:</code>
 header, throttling won't be triggered.</p>
-<h3 id="fixed-amavisd-cannot-detect-exe-file-in-zipped-attachment">Fixed: Amavisd cannot detect <code>.exe</code> file in zipped attachment.</h3>
-<p>Amavisd on some Linux/BSD distribution use <code>$banned_namepath_re</code>
-instead of <code>$banned_filename_re</code> to check banned files, but it
+<h3 id="fixed-amavisd-cannot-ban-zipped-exe-attachment-file">Fixed: Amavisd cannot ban zipped <code>.exe</code> attachment file.</h3>
+<p>Amavisd on some Linux/BSD distribution uses <code>$banned_namepath_re</code>
+instead of <code>$banned_filename_re</code> to check banned file types, but it
 (<code>$banned_namepath_re</code>) was not defined, so we define some blocked file
 types here.</p>
-<p>Please append below settings in Amavisd config file, above the last line
+<p>Please append below settings in Amavisd config file, before the last line
 (<code>1;  # insure a defined return</code>) in the same file:</p>
 <ul>
 <li>On RHEL/CentOS, OpenBSD, it's <code>/etc/amavisd/amavisd.conf</code>.</li>

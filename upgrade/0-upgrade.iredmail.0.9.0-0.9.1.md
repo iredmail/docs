@@ -7,7 +7,7 @@ __WARNING: Still working in progress, do _NOT_ apply it.__
 
 ## ChangeLog
 
-* 2015-05-03: [All backends] Fixed: Amavisd cannot detect `.exe` file in zipped attachment.
+* 2015-05-03: [All backends] Fixed: Amavisd cannot ban zipped `.exe` attachment file.
 * 2015-04-21: [All backends] [Debian/Ubuntu] Fixed: Amavisd cannot detect `.exe` file in rar compressed attachment.
 * 2015-04-21: [All backends] Fixed: Incorrect log file and owner/group in logrotate config file: /etc/logrotate.d/policyd.
 * 2015-04-06: [All backends] Make Dovecot subscribe newly created folder automatically.
@@ -150,14 +150,14 @@ log). If your user's password was cracked by spammer, spammer can use this
 account to bypass smtp authentication, but with a null sender in `From:`
 header, throttling won't be triggered.
 
-### Fixed: Amavisd cannot detect `.exe` file in zipped attachment.
+### Fixed: Amavisd cannot ban zipped `.exe` attachment file.
 
-Amavisd on some Linux/BSD distribution use `$banned_namepath_re`
-instead of `$banned_filename_re` to check banned files, but it
+Amavisd on some Linux/BSD distribution uses `$banned_namepath_re`
+instead of `$banned_filename_re` to check banned file types, but it
 (`$banned_namepath_re`) was not defined, so we define some blocked file
 types here.
 
-Please append below settings in Amavisd config file, above the last line
+Please append below settings in Amavisd config file, before the last line
 (`1;  # insure a defined return`) in the same file:
 
 * On RHEL/CentOS, OpenBSD, it's `/etc/amavisd/amavisd.conf`.
