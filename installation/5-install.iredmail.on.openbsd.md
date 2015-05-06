@@ -32,16 +32,13 @@ Notes:
   prompt you to choose different versions of binary packages, please choose
   the one described below:
 
-    * `php-5.6.x` is recommended, but it's ok if you want to use another version
-    * choose `postfix-2.11.x`
     * choose `p5-Mail-SPF`, NOT `p5-Mail-SPF-Query`
 
-* Apache chroot is disabled by default, required by iRedAdmin - the web-based
-  admin panel.
+* Nginx is used as web server.
 * PF is enabled by default, with basic rules for ssh and mail services.
 * System built-in [`spamd(8)`](http://www.openbsd.org/cgi-bin/man.cgi/OpenBSD-current/man8/spamd.8) is enabled by default for greylisting,
   whitelisting, blacklisting.
-* Sendmail and OpenSMTPd are disabled by default, replaced by Postfix.
+* OpenSMTPd are disabled by default, replaced by Postfix.
 
 ## Preparations
 

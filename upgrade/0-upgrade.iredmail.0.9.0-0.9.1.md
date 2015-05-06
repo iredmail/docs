@@ -7,7 +7,7 @@ __WARNING: Still working in progress, do _NOT_ apply it.__
 
 ## ChangeLog
 
-* 2015-05-03: [All backends] Fixed: Amavisd cannot ban zipped `.exe` attachment file.
+* 2015-05-03: [All backends] [RHEL/CentOS] Fixed: Amavisd cannot ban zipped `.exe` attachment file.
 * 2015-04-21: [All backends] [Debian/Ubuntu] Fixed: Amavisd cannot detect `.exe` file in rar compressed attachment.
 * 2015-04-21: [All backends] Fixed: Incorrect log file and owner/group in logrotate config file: /etc/logrotate.d/policyd.
 * 2015-04-06: [All backends] Make Dovecot subscribe newly created folder automatically.
@@ -152,6 +152,8 @@ header, throttling won't be triggered.
 
 ### Fixed: Amavisd cannot ban zipped `.exe` attachment file.
 
+Note: this is applicable to only RHEL/CentOS.
+
 Amavisd on some Linux/BSD distribution uses `$banned_namepath_re`
 instead of `$banned_filename_re` to check banned file types, but it
 (`$banned_namepath_re`) was not defined, so we define some blocked file
@@ -179,7 +181,7 @@ Please append below settings in Amavisd config file, before the last line
 #   - N: suggested (MIME) name. e.g. my_docum.zip.
 
 $banned_namepath_re = new_RE(
-   [qr'T=(exe|exe-ms|dat|lha|cab|dll)\t'xmi => 'DISCARD'],   # banned file(1) types
+   [qr'T=(exe|exe-ms|lha|cab|dll)\t'xmi => 'DISCARD'],   # banned file(1) types
    [qr'T=(pif|scr)\t'xmi => 'DISCARD'],                      # banned extensions - rudimentary
    [qr'T=ani\t'xmi => 'DISCARD'],                            # banned animated cursor file(1) type
    [qr'T=(mim|b64|bhx|hqx|xxe|uu|uue)\t'xmi => 'DISCARD'],   # banned extension - WinZip vulnerab.

@@ -62,7 +62,7 @@
 <p><strong>WARNING: Still working in progress, do <em>NOT</em> apply it.</strong></p>
 <h2 id="changelog">ChangeLog</h2>
 <ul>
-<li>2015-05-03: [All backends] Fixed: Amavisd cannot ban zipped <code>.exe</code> attachment file.</li>
+<li>2015-05-03: [All backends] [RHEL/CentOS] Fixed: Amavisd cannot ban zipped <code>.exe</code> attachment file.</li>
 <li>2015-04-21: [All backends] [Debian/Ubuntu] Fixed: Amavisd cannot detect <code>.exe</code> file in rar compressed attachment.</li>
 <li>2015-04-21: [All backends] Fixed: Incorrect log file and owner/group in logrotate config file: /etc/logrotate.d/policyd.</li>
 <li>2015-04-06: [All backends] Make Dovecot subscribe newly created folder automatically.</li>
@@ -189,6 +189,7 @@ log). If your user's password was cracked by spammer, spammer can use this
 account to bypass smtp authentication, but with a null sender in <code>From:</code>
 header, throttling won't be triggered.</p>
 <h3 id="fixed-amavisd-cannot-ban-zipped-exe-attachment-file">Fixed: Amavisd cannot ban zipped <code>.exe</code> attachment file.</h3>
+<p>Note: this is applicable to only RHEL/CentOS.</p>
 <p>Amavisd on some Linux/BSD distribution uses <code>$banned_namepath_re</code>
 instead of <code>$banned_filename_re</code> to check banned file types, but it
 (<code>$banned_namepath_re</code>) was not defined, so we define some blocked file
@@ -214,7 +215,7 @@ types here.</p>
 #   - N: suggested (MIME) name. e.g. my_docum.zip.
 
 $banned_namepath_re = new_RE(
-   [qr'T=(exe|exe-ms|dat|lha|cab|dll)\t'xmi =&gt; 'DISCARD'],   # banned file(1) types
+   [qr'T=(exe|exe-ms|lha|cab|dll)\t'xmi =&gt; 'DISCARD'],   # banned file(1) types
    [qr'T=(pif|scr)\t'xmi =&gt; 'DISCARD'],                      # banned extensions - rudimentary
    [qr'T=ani\t'xmi =&gt; 'DISCARD'],                            # banned animated cursor file(1) type
    [qr'T=(mim|b64|bhx|hqx|xxe|uu|uue)\t'xmi =&gt; 'DISCARD'],   # banned extension - WinZip vulnerab.

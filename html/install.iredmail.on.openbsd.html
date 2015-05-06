@@ -62,19 +62,16 @@ and it may not be working as expected.</p>
   prompt you to choose different versions of binary packages, please choose
   the one described below:</p>
 <ul>
-<li><code>php-5.6.x</code> is recommended, but it's ok if you want to use another version</li>
-<li>choose <code>postfix-2.11.x</code></li>
 <li>choose <code>p5-Mail-SPF</code>, NOT <code>p5-Mail-SPF-Query</code></li>
 </ul>
 </li>
 <li>
-<p>Apache chroot is disabled by default, required by iRedAdmin - the web-based
-  admin panel.</p>
+<p>Nginx is used as web server.</p>
 </li>
 <li>PF is enabled by default, with basic rules for ssh and mail services.</li>
 <li>System built-in <a href="http://www.openbsd.org/cgi-bin/man.cgi/OpenBSD-current/man8/spamd.8"><code>spamd(8)</code></a> is enabled by default for greylisting,
   whitelisting, blacklisting.</li>
-<li>Sendmail and OpenSMTPd are disabled by default, replaced by Postfix.</li>
+<li>OpenSMTPd are disabled by default, replaced by Postfix.</li>
 </ul>
 <h2 id="preparations">Preparations</h2>
 <h3 id="set-a-fully-qualified-domain-name-fqdn-hostname-on-your-server">Set a fully qualified domain name (FQDN) hostname on your server</h3>
