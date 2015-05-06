@@ -34,7 +34,7 @@ mx.example.com
 
 On RHEL/CentOS/Scientific Linux, hostname is set in two files:
 
-* For RHEL/CentOS/Scientific Linux 6, hostname is defined in /etc/sysconfig/network.
+* For RHEL/CentOS/Scientific Linux 6, hostname is defined in `/etc/sysconfig/network`:
 
 ```
 HOSTNAME=mx.example.com
