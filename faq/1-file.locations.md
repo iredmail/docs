@@ -189,7 +189,9 @@ Main config file:
 * on OpenBSD, it's `/var/www/iredadmin/settings.py`.
 
 iRedAdmin is a web application, when debug mode is turned on, it will log error
-message to Apache/Nginx ssl error log file.
+message to Apache ssl error log file, or uwsgi log file (if you're running
+Nginx). Usually uwsgi log file is `/var/log/uwsgi/`, but it's `/var/www/logs/`
+on OpenBSD.
 
 Note: If you modified any iRedAdmin files (not just config file), please restart
 Apache or uwsgi service (if you're running Nginx) to reload modified files.
