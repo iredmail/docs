@@ -175,6 +175,11 @@ Config files:
 * Config files of plugins are placed under plugin directory. for example,
   config file of `password` plugin is `plugins/password/config.inc.php`.
 
+## SOGo Groupware
+
+* Main config file is `/etc/sogo/sogo.conf`.
+* Log file is `/var/log/sogo/sogo.log`.
+
 ## iRedAPD
 
 Main config file is `/opt/iredapd/settings.py` on all Linux/BSD distributions.
