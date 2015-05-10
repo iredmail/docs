@@ -132,7 +132,7 @@ server {
     listen 443;
     ...
     ssl on;
-    ssl_certificate /etc/pki/tls/server.crt;
+    ssl_certificate /etc/pki/tls/certs/server.crt;
     ssl_certificate_key /etc/pki/tls/private/server.key;
     ...
 }
@@ -155,7 +155,7 @@ certificates in the combined file:
 
 Then update `ssl_certificate` parameter in `/etc/nginx/conf.d/default.conf`:
 ```
-    ssl_certificate /etc/pki/tls/server.chained.crt;
+    ssl_certificate /etc/pki/tls/certs/server.chained.crt;
 ```
 
 Restarting Nginx service is required.
