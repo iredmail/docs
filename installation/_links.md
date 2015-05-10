@@ -1,0 +1,10 @@
+* Install iRedMail on:
+
+    * [Red Hat Enterprise Linux, CentOS](./install.iredmail.on.rhel.html)
+    * [Debian, Ubuntu](./install.iredmail.on.debian.ubuntu.html)
+    * [FreeBSD (without Jail)](./install.iredmail.on.freebsd.html), [FreeBSD with Jail (ezjail)](./install.iredmail.on.freebsd.with.jail.html)
+    * [OpenBSD](./install.iredmail.on.openbsd.html)
+
+* [Setup DNS records for your iRedMail server](./setup.dns.html)
+* [Install iRedMail with a remote MySQL server](./install.iredmail.with.remote.mysql.server.html)
+* [Perform silent/unattended iRedMail installation](./unattended.iredmail.installation.html)
