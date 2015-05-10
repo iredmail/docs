@@ -112,6 +112,16 @@ OpenLDAP is configured to log to `/var/log/openldap.log` by default, if it's
 empty, please check normal syslog log file `/var/log/messages` or
 `/var/log/syslog` instead.
 
+## MySQL, MariaDB
+
+Main config file:
+
+* on RHEL/CentOS: `/etc/my.cnf.
+* on Debian/Ubuntu, it's `/etc/mysql/my.cnf`. If you're running MariaDB, it's
+  `/etc/mysql/mariadb.conf.d/mysqld.cnf`.
+* on FreeBSD: `/var/db/mysql/my.cnf`.
+* on OpenBSD: `/etc/my.cnf.
+
 ## Amavisd
 
 ### Main config files

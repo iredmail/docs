@@ -99,13 +99,9 @@ for chapter_dir in ${all_chapter_dirs}; do
             hide_article_in_index='YES'
         fi
 
-        # Get title.
-        # title format: '# title'
+        # Get title in markdown file: '# title'
         _article_title="$(head -1 ${article_file} | awk -F'# ' '{print $2}')"
-        # title format: '<h1>title</h1>'
-        #_article_title="$(head -1 ${article_file} | awk -F'<h1>' '{print $2}' | awk -F'</h1>' '{print $1}')"
 
-        #echo "* [${_article_title}](${chapter_dir_in_article}/${article_html_file})" >> ${INDEX_MD}
         if [ X"${hide_article_in_index}" == X'NO' ]; then
             echo "* [${_article_title}](${article_html_file})" >> ${INDEX_MD}
         fi
@@ -115,7 +111,7 @@ for chapter_dir in ${all_chapter_dirs}; do
         compile_this_file="$?"
 
         if [ X"${compile_this_file}" == X'0' -o X"${compile_all}" == X'YES' ]; then
-            echo -e "\n* Converting: ${article_file}"
+            echo -e "\n* Converting (#${article_counter}): ${article_file}"
             ${CMD_CONVERT} ${article_file} ${OUTPUT_DIR} \
                 output_filename="${article_html_file}" \
                 title="${_article_title}" \

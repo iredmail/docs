@@ -27,6 +27,7 @@
 </ul>
 </li>
 <li><a href="#openldap">OpenLDAP</a></li>
+<li><a href="#mysql-mariadb">MySQL, MariaDB</a></li>
 <li><a href="#amavisd">Amavisd</a><ul>
 <li><a href="#main-config-files_1">Main config files</a></li>
 <li><a href="#log-files_2">Log files</a></li>
@@ -156,6 +157,15 @@
 <p>OpenLDAP is configured to log to <code>/var/log/openldap.log</code> by default, if it's
 empty, please check normal syslog log file <code>/var/log/messages</code> or
 <code>/var/log/syslog</code> instead.</p>
+<h2 id="mysql-mariadb">MySQL, MariaDB</h2>
+<p>Main config file:</p>
+<ul>
+<li>on RHEL/CentOS: `/etc/my.cnf.</li>
+<li>on Debian/Ubuntu, it's <code>/etc/mysql/my.cnf</code>. If you're running MariaDB, it's
+  <code>/etc/mysql/mariadb.conf.d/mysqld.cnf</code>.</li>
+<li>on FreeBSD: <code>/var/db/mysql/my.cnf</code>.</li>
+<li>on OpenBSD: `/etc/my.cnf.</li>
+</ul>
 <h2 id="amavisd">Amavisd</h2>
 <h3 id="main-config-files_1">Main config files</h3>
 <ul>

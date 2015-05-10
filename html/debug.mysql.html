@@ -1,0 +1,35 @@
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Log executed SQL commands in MySQL/MariaDB</title>
+        <link href="./css/markdown.css" rel="stylesheet"></head>
+    </head>
+    <body>
+    
+    <div id="navigation">
+        <a href="http://www.iredmail.org" target="_blank">iRedMail web site</a>
+    
+        // <a href="./index.html">Document Index</a>
+    </div><h1 id="log-executed-sql-commands-in-mysqlmariadb">Log executed SQL commands in MySQL/MariaDB</h1>
+<blockquote>
+<p>Don't know where MySQL config file is? check this tutorial:
+<a href="file.locations.html#mysql-mariadb">Locations of configuration and log files of mojor components</a>.</p>
+</blockquote>
+<p>To log executed SQL commands, please add below two settings in MySQL/MariaDB
+config file <code>my.cnf</code>:</p>
+<pre><code>[mysqld]
+general_log = 1
+general_log_file = /var/log/mysql.log
+</code></pre>
+
+<p>Then restart MySQL/MariaDB service.</p>
+<p>Note: MySQL/MariaDB daemon user must have permission to write this log file.</p><p style="text-align: center; color: grey;">Document published under a <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">CC BY-ND 3.0</a> license. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-3293801-21', 'auto');
+  ga('send', 'pageview');
+</script>
+</body></html>
