@@ -1,4 +1,4 @@
-# iRedAdmin: Translate iRedAdmin to your local language
+# iRedAdmin-Pro: Translate iRedAdmin to your local language
 
 If you want to help translate iRedAdmin to your local language, please contact
 us to get the latest file which contains all translation items. You can open

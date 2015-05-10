@@ -5,17 +5,17 @@
 Dovecot provides command line tool `doveadm` to recalcuate mailbox quota.
 Sample usage:
 
-* Recalculate ALL mail accounts:
-```
-# doveadm quota recalc -A
-```
-
 * Recalculate one mailbox:
 ```
 # doveadm quota recalc -u user@domain.ltd
 ```
 
-Reference: (http://wiki2.dovecot.org/Tools/Doveadm/Quota)[Doveadm-Quota]
+* Recalculate ALL mail accounts:
+```
+# doveadm quota recalc -A
+```
+
+Reference: [Doveadm-Quota](http://wiki2.dovecot.org/Tools/Doveadm/Quota)
 
 ## Dovecot-1.x and Dovecot-2.x
 

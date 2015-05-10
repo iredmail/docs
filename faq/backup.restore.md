@@ -40,6 +40,11 @@ Notes:
   with command `bunzip2`. for example, `bunzip file_name.bz2`.
 * It's ok to run the backup scripts manually.
 
+### Backup additional data
+
+* DKIM keys. They're stored under `/var/lib/dkim/` by default.
+
+
 ## Restore
 
 ### How to restore SQL databases

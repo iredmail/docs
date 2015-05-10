@@ -16,6 +16,7 @@
 <li><a href="#backup-and-restore">Backup and restore</a><ul>
 <li><a href="#backup">Backup</a><ul>
 <li><a href="#backup-mail-accounts">Backup mail accounts</a></li>
+<li><a href="#backup-additional-data">Backup additional data</a></li>
 </ul>
 </li>
 <li><a href="#restore">Restore</a><ul>
@@ -59,6 +60,10 @@ defined as cron jobs with below commands:</p>
 <li>Backup files are compressed with <code>bzip2</code> by default, you can decompress them
   with command <code>bunzip2</code>. for example, <code>bunzip file_name.bz2</code>.</li>
 <li>It's ok to run the backup scripts manually.</li>
+</ul>
+<h3 id="backup-additional-data">Backup additional data</h3>
+<ul>
+<li>DKIM keys. They're stored under <code>/var/lib/dkim/</code> by default.</li>
 </ul>
 <h2 id="restore">Restore</h2>
 <h3 id="how-to-restore-sql-databases">How to restore SQL databases</h3>
