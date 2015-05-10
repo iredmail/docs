@@ -15,18 +15,19 @@ providers, choose the one you prefer.
 ## Generate SSL private key and buy one SSL certificate
 
 First of all, you need to generate a new SSL certificate on your server
-with `openssl` command. WARNING: do NOT use key length smaller than `2048` bit,
+with `openssl` command. __WARNING__: do NOT use key length smaller than `2048` bit,
 it's insecure.
 
 ```
-openssl req -new -newkey rsa:2048 -nodes -keyout server.key -out server.csr
+# openssl req -new -newkey rsa:2048 -nodes -keyout server.key -out server.csr
 ```
 
 This command will generate two files:
 
 * `server.key`: the private key for the decryption of your SSL certificate.
 * `server.csr`: the certificate signing request (CSR) file used to apply
-  for your SSL certificate. 
+  for your SSL certificate. __This file is the one required by SSL certificate
+  provider.__
 
 The openssl command will prompt for the following X.509 attributes of the
 certificate:

@@ -1,5 +1,7 @@
 # Which network ports are open by iRedMail
 
+[TOC]
+
 ## Web server (Apache or Nginx)
 
 * 80: normal web service port
