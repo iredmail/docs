@@ -1,0 +1,74 @@
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Which network ports are open by iRedMail</title>
+        <link href="./css/markdown.css" rel="stylesheet"></head>
+    </head>
+    <body>
+    
+    <div id="navigation">
+        <a href="http://www.iredmail.org" target="_blank">iRedMail web site</a>
+    
+        // <a href="./index.html">Document Index</a>
+    </div><h1 id="which-network-ports-are-open-by-iredmail">Which network ports are open by iRedMail</h1>
+<h2 id="web-server-apache-or-nginx">Web server (Apache or Nginx)</h2>
+<ul>
+<li>80: normal web service port</li>
+<li>443: HTTPS (http over SSL, secure connection)</li>
+</ul>
+<p>SOGo groupware provides Exchange ActiveSync (EAS) support through port 443.</p>
+<h2 id="smtp-postfix">SMTP (Postfix)</h2>
+<ul>
+<li>25: normal smtp port, used for server-to-server communication.</li>
+<li>587: Submission (SMTP over TLS), used for mail clients to send email.</li>
+<li>465: smtps (SMTP over SSL). Deprecated, and disabled by default, please use
+  port 587 instead.</li>
+</ul>
+<h2 id="mysql">MySQL</h2>
+<ul>
+<li>3306: default listen port. Listening on IP address <code>127.0.0.1</code> by default.</li>
+</ul>
+<h2 id="postgresql">PostgreSQL</h2>
+<ul>
+<li>5432: default listen port. Listening on IP address <code>127.0.0.1</code> by default.</li>
+</ul>
+<h2 id="openldap">OpenLDAP</h2>
+<ul>
+<li>389: normal LDAP port, supports STARTTLS for secure connection.</li>
+<li>636: LDAP over SSL. Deprecated, recommended to use port 387 with STARTTLS for
+  secure connection.</li>
+</ul>
+<p>Listening on all available network interfaces by default, but access from
+external network is blocked by firewall (iptables, pf).</p>
+<h2 id="pop3imap-dovecot">POP3/IMAP (Dovecot)</h2>
+<ul>
+<li>110: POP3 service, insecure connection. Supports STARTTLS for secure connection.</li>
+<li>995: POP3S (Secure POP3 over SSL). Deprecated, recommended to use port 110 with STARTTLS.</li>
+<li>143: IMAP service, insecure connection. Supports STARTTLS for secure connection.</li>
+<li>993: IMAPS (Secure IMAP over SSL). Deprecated,  recommended to use port 143 with STARTTLS.</li>
+<li>2000: managesieve service. (Refuse connections from external network in iptables be default)</li>
+</ul>
+<h2 id="amavisd-new">Amavisd-new</h2>
+<ul>
+<li>10024: main port used for Postfix to inject incoming/outgoing
+  emails for spam/virus scanning, DKIM signing/verification, etc.</li>
+<li>9998: port used to manage quarantined emails.</li>
+</ul>
+<p>All ports are listening on <code>127.0.0.1</code> by default.</p>
+<h2 id="policyd-or-cluebringer-postfix-policy-server">Policyd or Cluebringer (Postfix policy server)</h2>
+<ul>
+<li>10031: default listen port. Listening on IP address <code>127.0.0.1</code> by default.</li>
+</ul>
+<h2 id="iredapd-postfix-policy-server">iRedAPD (Postfix policy server)</h2>
+<ul>
+<li>7777: default listen port. Listening on IP address <code>127.0.0.1</code> by default.</li>
+</ul><p style="text-align: center; color: grey;">Document published under a <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">CC BY-ND 3.0</a> license. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-3293801-21', 'auto');
+  ga('send', 'pageview');
+</script>
+</body></html>
