@@ -40,10 +40,17 @@ Notes:
   with command `bunzip2`. for example, `bunzip file_name.bz2`.
 * It's ok to run the backup scripts manually.
 
-### Backup additional data
+### Backup additional data manually
 
-* DKIM keys. They're stored under `/var/lib/dkim/` by default.
+* DKIM keys. They're stored under `/var/lib/dkim/` by default. If you don't
+  backup them, it's ok to generate new keys and you must update DNS record
+  (`dkim._domainkey.[YOUR_MAIL_DOMAIN]`) with new DKIM key.
 
+* OpenLDAP backend:
+
+    * If you enabled additional LDAP schema files in OpenLDAP, you should
+      backup them, copy them to new server and enable them. Otherwise you
+      cannot import backup LDIF file due to missing required LDAP attributes.
 
 ## Restore
 
@@ -159,6 +166,12 @@ __Important note__:  There's only __ONE__ colon after `userPassword` string
 ```
 # /etc/init.d/ldap stop
 ```
+
+* If you enabled additional LDAP schema files on old server, you `MUST` copy
+  these schema files to new server, and enable them in OpenLDAP on new server,
+  also add new indexes for attributes defined in these additional LDAP schema
+  files if necessary. Otherwise you may not be able to import backup LDIF file
+  due to missing required attributes.
 
 * Remove all files under OpenLDAP data directory defined in LDAP config file
   `slapd.conf` except one file (`DB_CONFIG`). For example:

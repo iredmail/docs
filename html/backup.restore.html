@@ -16,7 +16,7 @@
 <li><a href="#backup-and-restore">Backup and restore</a><ul>
 <li><a href="#backup">Backup</a><ul>
 <li><a href="#backup-mail-accounts">Backup mail accounts</a></li>
-<li><a href="#backup-additional-data">Backup additional data</a></li>
+<li><a href="#backup-additional-data-manually">Backup additional data manually</a></li>
 </ul>
 </li>
 <li><a href="#restore">Restore</a><ul>
@@ -61,9 +61,21 @@ defined as cron jobs with below commands:</p>
   with command <code>bunzip2</code>. for example, <code>bunzip file_name.bz2</code>.</li>
 <li>It's ok to run the backup scripts manually.</li>
 </ul>
-<h3 id="backup-additional-data">Backup additional data</h3>
+<h3 id="backup-additional-data-manually">Backup additional data manually</h3>
 <ul>
-<li>DKIM keys. They're stored under <code>/var/lib/dkim/</code> by default.</li>
+<li>
+<p>DKIM keys. They're stored under <code>/var/lib/dkim/</code> by default. If you don't
+  backup them, it's ok to generate new keys and you must update DNS record
+  (<code>dkim._domainkey.[YOUR_MAIL_DOMAIN]</code>) with new DKIM key.</p>
+</li>
+<li>
+<p>OpenLDAP backend:</p>
+<ul>
+<li>If you enabled additional LDAP schema files in OpenLDAP, you should
+  backup them, copy them to new server and enable them. Otherwise you
+  cannot import backup LDIF file due to missing required LDAP attributes.</li>
+</ul>
+</li>
 </ul>
 <h2 id="restore">Restore</h2>
 <h3 id="how-to-restore-sql-databases">How to restore SQL databases</h3>
@@ -179,8 +191,17 @@ userPassword: {SSHA}lWt6zjOOUq+2WUmiAea2FXLB4oHMYvIb
 </code></pre>
 
 <ul>
-<li>Remove all files under OpenLDAP data directory defined in LDAP config file
-  <code>slapd.conf</code> except one file (<code>DB_CONFIG</code>). For example:</li>
+<li>
+<p>If you enabled additional LDAP schema files on old server, you <code>MUST</code> copy
+  these schema files to new server, and enable them in OpenLDAP on new server,
+  also add new indexes for attributes defined in these additional LDAP schema
+  files if necessary. Otherwise you may not be able to import backup LDIF file
+  due to missing required attributes.</p>
+</li>
+<li>
+<p>Remove all files under OpenLDAP data directory defined in LDAP config file
+  <code>slapd.conf</code> except one file (<code>DB_CONFIG</code>). For example:</p>
+</li>
 </ul>
 <pre><code># File: /etc/openldap/slapd.conf
 
