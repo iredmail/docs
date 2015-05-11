@@ -110,7 +110,7 @@ OpenLDAP:
 # slappasswd -h '{ssha}' -s 'py2BQwM0zoRM5nciK68AlP8dyu2Mq6'    # <- cn=vmail's password
 {SSHA}eJEO2yGVryVw+mZ/Qd2HMSyrl6u9WDhd
 
-# slappasswd -h '{ssha}' -s 'py2BQwM0zoRM5nciK68AlP8dyu2Mq6'    # <- cn=vmailadmin's password
+# slappasswd -h '{ssha}' -s '9wr0mHeVYz2uaxSAGBLucVkOgYPSBB'    # <- cn=vmailadmin's password
 {SSHA}lWt6zjOOUq+2WUmiAea2FXLB4oHMYvIb
 ```
 
