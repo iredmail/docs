@@ -39,6 +39,7 @@ all_chapter_dirs="installation \
                   upgrade \
                   migrations \
                   howto \
+                  performance.tunning \
                   integrations \
                   cluster \
                   troubleshooting \

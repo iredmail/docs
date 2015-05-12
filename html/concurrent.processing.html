@@ -1,0 +1,70 @@
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Amavisd: process more emails concurrently</title>
+        <link href="./css/markdown.css" rel="stylesheet"></head>
+    </head>
+    <body>
+    
+    <div id="navigation">
+        <a href="http://www.iredmail.org" target="_blank">iRedMail web site</a>
+    
+        // <a href="./index.html">Document Index</a>
+    </div><h1 id="amavisd-process-more-emails-concurrently">Amavisd: process more emails concurrently</h1>
+<p>Amavisd-new is content filter, it will invoke SpamAssassin and ClamAV for
+spam/virus scanning, it also offers additional features like DKIM signing and
+verification.</p>
+<p>In <a href="./file.location.html#amavisd">Amavisd config file</a>, <code>$max_servers</code> sets
+the number of concurrent Amavisd processes and it must match the number set
+in <code>/etc/postfix/master.cf</code> <code>maxproc</code> column for the <code>smtp-amavis</code> service.
+Sample settings:</p>
+<pre><code># File: /etc/amavisd/amavisd.conf
+
+$max_servers = 4;
+</code></pre>
+
+<pre><code># File: /etc/postfix/master.cf
+
+smtp-amavis unix -  -   -   -   4  smtp
+    ...
+</code></pre>
+
+<p>Both values should be identical for two reasons: If Amavisd offers more
+processes than Postfix will ever use, Amavisd wastes resources. On the other
+hand, if Postfix starts more dedicated transports than amavisd can handle
+simultaneously, e-mail transport will be refused and logged as error.</p>
+<p>If many emails stalled in mail queue (check with command <code>postqueue -p</code>), and
+your server has powerful CPU and memory, you can increase the number of
+concurrent Amavisd processes, so that it can process more emails at the same
+time. Sample setting:</p>
+<pre><code># File: /etc/amavisd/amavisd.conf
+
+$max_servers = 10;
+</code></pre>
+
+<p>Restarting Amavisd service is required.</p>
+<pre><code># File: /etc/postfix/master.cf
+
+smtp-amavis unix -  -   -   -   10  smtp
+    ...
+</code></pre>
+
+<p>Note: If you don't want to modify <code>/etc/postfix/master.cf</code>, it's ok to set
+<code>smtp-amavis_destination_concurrency_limit = 10</code> in <code>/etc/postfix/main.cf</code>
+instead.</p>
+<p>Restarting Postfix service is required if you modified <code>/etc/postfix/master.cf</code>,
+reloading OR restarting is required if you modified <code>/etc/postfix/main.cf</code>.</p>
+<p>References:</p>
+<ul>
+<li><a href="http://www.amavis.org">Amavisd web site</a></li>
+<li><a href="http://www.ijs.si/software/amavisd/README.postfix.html">Integrating amavisd-new in Postfix</a></li>
+</ul><p style="text-align: center; color: grey;">Document published under a <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">CC BY-ND 3.0</a> license. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-3293801-21', 'auto');
+  ga('send', 'pageview');
+</script>
+</body></html>
