@@ -19,6 +19,10 @@ this tutorial with just one shell command:
 
 ### iRedAdmin-Pro-LDAP (for OpenLDAP backend)
 
+* [2.3.0](http://www.iredmail.org/forum/topic9145.html), May 15, 2015. Provides some basic hooks (hook is just like plugin).
+
+----
+
 * [2.2.2](http://www.iredmail.org/forum/topic8635.html), Feb 2, 2015. bugfix release.
 * [2.2.0](http://www.iredmail.org/forum/topic8447.html), Jan 1, 2015. self-service, deeper Amavisd integration, SSHA512/BCRYPT password hashes support.
 * [2.1.2](http://www.iredmail.org/forum/topic6925-news-announcements-bug-fixes-iredadminproldap212-has-been-released.html), 2014-05-16
@@ -39,7 +43,14 @@ this tutorial with just one shell command:
 * [1.2.0](http://www.iredmail.org/wiki/index.php?title=Release.Notes/iRedAdmin-Pro/LDAP/1.2.0), 2010-06-18
 * [1.0], 2009-11-01
 
-### iRedAdmin-Pro-MySQL (for MySQL/MariaDB backend)
+### iRedAdmin-Pro-SQL (For MySQL, MariaDB, PostgreSQL backends)
+
+* [2.0](http://www.iredmail.org/forum/topic9146.html), May 15, 2015.
+
+----
+
+iRedAdmin-Pro-MySQL and iRedAdmin-Pro-PGSQL were merged into one edition:
+iRedAdmin-Pro-SQL. Below are changelog of old iRedAdmin-Pro-MySQL editions.
 
 * [1.9.2](http://www.iredmail.org/forum/topic8636.html), Feb 2, 2015. bugfix release.
 * [1.9.0](http://www.iredmail.org/forum/topic8448.html), Jan 1, 2015. self-service, deeper Amavisd integration, SSHA512/BCRYPT password hashes support.
@@ -57,7 +68,8 @@ this tutorial with just one shell command:
 * [1.1.0](http://www.iredmail.org/wiki/index.php?title=Release.Notes/iRedAdmin-Pro/MySQL/1.1.0), 2011-05-03
 * [1.0](http://www.iredmail.org/wiki/index.php?title=Release.Notes/iRedAdmin-Pro/MySQL/1.0), 2011-02-01
 
-### iRedAdmin-Pro-PGSQL (for PostgreSQL backend)
+iRedAdmin-Pro-MySQL and iRedAdmin-Pro-PGSQL were merged into one edition:
+iRedAdmin-Pro-SQL. Below are changelog of old iRedAdmin-Pro-PGSQL editions.
 
 * [1.9.2](http://www.iredmail.org/forum/topic8637.html), Feb 2, 2015. bugfix release.
 * [1.5.0](http://www.iredmail.org/forum/topic8449.html), Jan 1, 2015. self-service, deeper Amavisd integration, SSHA512/BCRYPT password hashes support.
