@@ -70,7 +70,7 @@ $config['smtp_conn_options'] = array(
 );
 ```
 
-### Upgrade iRedAPD (Postfix policy server) to the latest 1.4.5
+### Upgrade iRedAPD (Postfix policy server) to the latest 1.5.0
 
 Please follow below tutorial to upgrade iRedAPD to the latest stable release:
 [How to upgrade iRedAPD-1.4.0 or later versions to the latest stable release](./upgrade.iredapd.html)
@@ -79,7 +79,7 @@ Detailed release notes are available here: [iRedAPD release notes](./iredapd.rel
 
 Note:
 
-iRedAPD-1.4.5 is able to log rejection and other non-DUNNO actions in iRedAdmin
+iRedAPD-1.5.0 is able to log rejection and other non-DUNNO actions in iRedAdmin
 database, admin can view the log under menu `System -> Admin Log` of iRedAdmin.
 If you want to log these actions, please add below new parameters in iRedAPD
 config file `/opt/iredapd/settings.py`:

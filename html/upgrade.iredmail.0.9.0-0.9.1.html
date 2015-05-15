@@ -17,7 +17,7 @@
 <li><a href="#changelog">ChangeLog</a></li>
 <li><a href="#general-all-backends-should-apply-these-steps">General (All backends should apply these steps)</a><ul>
 <li><a href="#upgrade-roundcube-webmail-to-the-latest-stable-release">Upgrade Roundcube webmail to the latest stable release</a></li>
-<li><a href="#upgrade-iredapd-postfix-policy-server-to-the-latest-145">Upgrade iRedAPD (Postfix policy server) to the latest 1.4.5</a></li>
+<li><a href="#upgrade-iredapd-postfix-policy-server-to-the-latest-150">Upgrade iRedAPD (Postfix policy server) to the latest 1.5.0</a></li>
 <li><a href="#fixed-return-receipt-response-rejected-by-iredapd-plugin-reject_null_sender">Fixed: return receipt response rejected by iRedAPD plugin reject_null_sender</a></li>
 <li><a href="#fixed-amavisd-cannot-ban-zipped-exe-attachment-file">Fixed: Amavisd cannot ban zipped .exe attachment file.</a></li>
 <li><a href="#fixed-amavisd-cannot-detect-exe-file-in-rar-compressed-attachment">Fixed: Amavisd cannot detect .exe file in rar compressed attachment.</a></li>
@@ -120,12 +120,12 @@ $config['smtp_conn_options'] = array(
 );
 </code></pre>
 
-<h3 id="upgrade-iredapd-postfix-policy-server-to-the-latest-145">Upgrade iRedAPD (Postfix policy server) to the latest 1.4.5</h3>
+<h3 id="upgrade-iredapd-postfix-policy-server-to-the-latest-150">Upgrade iRedAPD (Postfix policy server) to the latest 1.5.0</h3>
 <p>Please follow below tutorial to upgrade iRedAPD to the latest stable release:
 <a href="./upgrade.iredapd.html">How to upgrade iRedAPD-1.4.0 or later versions to the latest stable release</a></p>
 <p>Detailed release notes are available here: <a href="./iredapd.releases.html">iRedAPD release notes</a>.</p>
 <p>Note:</p>
-<p>iRedAPD-1.4.5 is able to log rejection and other non-DUNNO actions in iRedAdmin
+<p>iRedAPD-1.5.0 is able to log rejection and other non-DUNNO actions in iRedAdmin
 database, admin can view the log under menu <code>System -&gt; Admin Log</code> of iRedAdmin.
 If you want to log these actions, please add below new parameters in iRedAPD
 config file <code>/opt/iredapd/settings.py</code>:</p>
