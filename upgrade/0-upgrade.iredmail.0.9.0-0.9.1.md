@@ -3,34 +3,9 @@
 [TOC]
 
 
-__WARNING: Still working in progress, do _NOT_ apply it.__
-
 ## ChangeLog
 
-* 2015-05-03: [All backends] [RHEL/CentOS] Fixed: Amavisd cannot ban zipped `.exe` attachment file.
-* 2015-04-21: [All backends] [Debian/Ubuntu] Fixed: Amavisd cannot detect `.exe` file in rar compressed attachment.
-* 2015-04-21: [All backends] Fixed: Incorrect log file and owner/group in logrotate config file: /etc/logrotate.d/policyd.
-* 2015-04-06: [All backends] Make Dovecot subscribe newly created folder automatically.
-* 2015-04-03: [MySQL, PostgreSQL] Fixed: user+extension@domain.com doesn't work
-              with per-domain catch-all. Note: OpenLDAP backend still has this
-              issue and we have no solution yet.
-* 2015-02-28: [LDAP, MySQL] Drop retired column in Amavisd database: `policy.spam_modifies_subj`.
-* 2015-02-27: [All backends] Add new LDAP attribute `allowNets` and SQL column
-              `mailbox.allow_nets`, which used to restrict mail user to login
-              from specified IP addresses or networks.
-* 2015-02-25: [All backends] Upgrade iRedAPD to 1.4.5.
-* 2015-02-25: [All backends] [__OPTIONAL__] Bypass greylisting for some big ISPs.
-* 2015-02-25: [All backends] [__OPTIONAL__] Add one more Fail2ban filter to help catch spam (POP3/IMAP flood).
-* 2015-02-17: [All backends ] Upgrade Roundcube webmail to the latest stable release.
-* 2015-02-11: [All backends] [__OPTIONAL__] Setup Fail2ban to monitor password failures in SOGo log file.
-* 2015-02-11: [All backends] Fixed: Cannot run PHP script under web document root with Nginx.
-* 2015-02-09: [All backends] [__OPTIONAL__] Add one more Fail2ban filter to help catch spam.
-* 2015-02-04: [All backends] Fixed: return receipt response rejected by iRedAPD plugin `reject_null_sender`.
-* 2015-02-02: [All backends] Fixed: Not backup SOGo database. Note: this step
-              is not applicable if you don't use SOGo groupware.
-* 2015-01-13: [All backends] Fixed: Incorrect path of command `sogo-tool` on OpenBSD.
-* 2015-01-12: [SQL backends] Fixed: Not apply service restriction in Dovecot
-              SQL query file while acting as SASL server.
+* 2015-05-15: Initial public.
 
 ## General (All backends should apply these steps)
 

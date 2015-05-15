@@ -26,7 +26,7 @@ This command will generate two files:
 
 * `server.key`: the private key for the decryption of your SSL certificate.
 * `server.csr`: the certificate signing request (CSR) file used to apply
-  for your SSL certificate. __This file is the one required by SSL certificate
+  for your SSL certificate. __This file is required by SSL certificate
   provider.__
 
 The openssl command will prompt for the following X.509 attributes of the

@@ -59,33 +59,9 @@
 </li>
 </ul>
 </div>
-<p><strong>WARNING: Still working in progress, do <em>NOT</em> apply it.</strong></p>
 <h2 id="changelog">ChangeLog</h2>
 <ul>
-<li>2015-05-03: [All backends] [RHEL/CentOS] Fixed: Amavisd cannot ban zipped <code>.exe</code> attachment file.</li>
-<li>2015-04-21: [All backends] [Debian/Ubuntu] Fixed: Amavisd cannot detect <code>.exe</code> file in rar compressed attachment.</li>
-<li>2015-04-21: [All backends] Fixed: Incorrect log file and owner/group in logrotate config file: /etc/logrotate.d/policyd.</li>
-<li>2015-04-06: [All backends] Make Dovecot subscribe newly created folder automatically.</li>
-<li>2015-04-03: [MySQL, PostgreSQL] Fixed: user+extension@domain.com doesn't work
-              with per-domain catch-all. Note: OpenLDAP backend still has this
-              issue and we have no solution yet.</li>
-<li>2015-02-28: [LDAP, MySQL] Drop retired column in Amavisd database: <code>policy.spam_modifies_subj</code>.</li>
-<li>2015-02-27: [All backends] Add new LDAP attribute <code>allowNets</code> and SQL column
-              <code>mailbox.allow_nets</code>, which used to restrict mail user to login
-              from specified IP addresses or networks.</li>
-<li>2015-02-25: [All backends] Upgrade iRedAPD to 1.4.5.</li>
-<li>2015-02-25: [All backends] [<strong>OPTIONAL</strong>] Bypass greylisting for some big ISPs.</li>
-<li>2015-02-25: [All backends] [<strong>OPTIONAL</strong>] Add one more Fail2ban filter to help catch spam (POP3/IMAP flood).</li>
-<li>2015-02-17: [All backends ] Upgrade Roundcube webmail to the latest stable release.</li>
-<li>2015-02-11: [All backends] [<strong>OPTIONAL</strong>] Setup Fail2ban to monitor password failures in SOGo log file.</li>
-<li>2015-02-11: [All backends] Fixed: Cannot run PHP script under web document root with Nginx.</li>
-<li>2015-02-09: [All backends] [<strong>OPTIONAL</strong>] Add one more Fail2ban filter to help catch spam.</li>
-<li>2015-02-04: [All backends] Fixed: return receipt response rejected by iRedAPD plugin <code>reject_null_sender</code>.</li>
-<li>2015-02-02: [All backends] Fixed: Not backup SOGo database. Note: this step
-              is not applicable if you don't use SOGo groupware.</li>
-<li>2015-01-13: [All backends] Fixed: Incorrect path of command <code>sogo-tool</code> on OpenBSD.</li>
-<li>2015-01-12: [SQL backends] Fixed: Not apply service restriction in Dovecot
-              SQL query file while acting as SASL server.</li>
+<li>2015-05-15: Initial public.</li>
 </ul>
 <h2 id="general-all-backends-should-apply-these-steps">General (All backends should apply these steps)</h2>
 <h3 id="upgrade-roundcube-webmail-to-the-latest-stable-release">Upgrade Roundcube webmail to the latest stable release</h3>
