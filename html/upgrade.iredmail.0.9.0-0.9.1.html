@@ -67,14 +67,6 @@
 <h3 id="upgrade-roundcube-webmail-to-the-latest-stable-release">Upgrade Roundcube webmail to the latest stable release</h3>
 <p>Additional notes before upgrading Roundcube webmail 1.1.0 (or later releases):</p>
 <ul>
-<li>for RHEL/CentOS users, please install package <code>php-pear-Net-IDNA2</code>, then
-  restart Apache service or php5-fpm service (if you're running Nginx):</li>
-</ul>
-<pre><code># yum install php-pear-Net-IDNA2
-# service httpd restart       # &lt;- OR: service php-fpm restart
-</code></pre>
-
-<ul>
 <li>for Debian/Ubuntu users, please install package <code>php-pear</code> and <code>php5-intl</code>,
   enable <code>intl</code> module for PHP, then restart Apache service or <code>php5_fpm</code>
   service (if you're running Nginx):</li>

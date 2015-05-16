@@ -13,14 +13,6 @@
 
 Additional notes before upgrading Roundcube webmail 1.1.0 (or later releases):
 
-* for RHEL/CentOS users, please install package `php-pear-Net-IDNA2`, then
-  restart Apache service or php5-fpm service (if you're running Nginx):
-
-```
-# yum install php-pear-Net-IDNA2
-# service httpd restart       # <- OR: service php-fpm restart
-```
-
 * for Debian/Ubuntu users, please install package `php-pear` and `php5-intl`,
   enable `intl` module for PHP, then restart Apache service or `php5_fpm`
   service (if you're running Nginx):
