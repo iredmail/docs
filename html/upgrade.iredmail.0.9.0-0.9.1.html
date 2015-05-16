@@ -194,7 +194,7 @@ $banned_namepath_re = new_RE(
 
 <p>Restarting Amavisd service is required.</p>
 <h3 id="fixed-amavisd-cannot-detect-exe-file-in-rar-compressed-attachment">Fixed: Amavisd cannot detect <code>.exe</code> file in rar compressed attachment.</h3>
-<p>Note: This fix is applicable to RHEL/CentOS and Ubuntu.</p>
+<p>Note: This fix is applicable to RHEL/CentOS, Debian and Ubuntu.</p>
 <ul>
 <li>On RHEL/CentOS, iRedMail doesn't install <code>unrar</code>.</li>
 <li>On Debian/Ubuntu, iRedMail installs package <code>unrar-free</code> as unarchiver to
@@ -208,7 +208,29 @@ $banned_namepath_re = new_RE(
 </code></pre>
 
 <hr />
+<p>Steps to fix this issue on Debian:</p>
+<ul>
+<li>Install package <code>unrar-free</code>, restart Amavisd service.</li>
+</ul>
+<pre><code># apt-get install unrar-free
+# service amavis restart
+</code></pre>
+
+<hr />
 <p>Steps to fix this issue on Ubuntu:</p>
+<ul>
+<li>Make sure you have <code>multiverse</code> section enabled in <code>/etc/apt/sources.list</code>.
+  for example:</li>
+</ul>
+<pre><code># For Ubuntu 14.04 LTS
+deb http://[ubuntu_mirror_site]/ubuntu/ trusty main restricted universe multiverse
+deb http://[ubuntu_mirror_site]/ubuntu/ trusty-updates main restricted universe multiverse
+
+# For Ubuntu 15.04
+deb http://[ubuntu_mirror_site]/ubuntu/ vivid main restricted universe multiverse
+deb http://[ubuntu_mirror_site]/ubuntu/ vivid-updates main restricted universe multiverse
+</code></pre>
+
 <ul>
 <li>Delete package <code>unrar-free</code>, install package <code>unrar</code>.</li>
 </ul>

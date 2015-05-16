@@ -192,6 +192,19 @@ Steps to fix this issue on Debian:
 
 Steps to fix this issue on Ubuntu:
 
+* Make sure you have `multiverse` section enabled in `/etc/apt/sources.list`.
+  for example:
+
+```
+# For Ubuntu 14.04 LTS
+deb http://[ubuntu_mirror_site]/ubuntu/ trusty main restricted universe multiverse
+deb http://[ubuntu_mirror_site]/ubuntu/ trusty-updates main restricted universe multiverse
+
+# For Ubuntu 15.04
+deb http://[ubuntu_mirror_site]/ubuntu/ vivid main restricted universe multiverse
+deb http://[ubuntu_mirror_site]/ubuntu/ vivid-updates main restricted universe multiverse
+```
+
 * Delete package `unrar-free`, install package `unrar`.
 
 ```
