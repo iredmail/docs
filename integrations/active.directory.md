@@ -39,7 +39,7 @@ To integrate Microsoft Active Directory with iRedMail, you should have:
 
 ## Install iRedMail
 
-Please follow [iRedMail installaion guides](http://iredmail.org/doc.html#installation_guide)
+Please follow [iRedMail installaion guides](./index.html)
 to install iRedMail on Linux/BSD with OpenLDAP backend first, we will
 achieve this AD integration by simply modifying some configure files.
 
