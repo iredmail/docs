@@ -162,13 +162,8 @@ header, throttling won't be triggered.</p>
 instead of <code>$banned_filename_re</code> to check banned file types, but it
 (<code>$banned_namepath_re</code>) was not defined, so we define some blocked file
 types here.</p>
-<p>Please append below settings in Amavisd config file, before the last line
-(<code>1;  # insure a defined return</code>) in the same file:</p>
-<ul>
-<li>On RHEL/CentOS, OpenBSD, it's <code>/etc/amavisd/amavisd.conf</code>.</li>
-<li>On Debian/Ubuntu, it's <code>/etc/amavis/conf.d/50-user</code>.</li>
-<li>On FreeBSD, it's <code>/usr/local/etc/amavisd.conf</code>.</li>
-</ul>
+<p>Please append below settings in Amavisd config file <code>/etc/amavisd/amavisd.conf</code>,
+before the last line (<code>1;  # insure a defined return</code>) in the same file:</p>
 <pre><code># Amavisd on some Linux/BSD distribution use \$banned_namepath_re
 # instead of \$banned_filename_re, so we define some blocked file
 # types here.

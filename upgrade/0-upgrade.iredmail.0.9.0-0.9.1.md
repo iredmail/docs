@@ -126,12 +126,8 @@ instead of `$banned_filename_re` to check banned file types, but it
 (`$banned_namepath_re`) was not defined, so we define some blocked file
 types here.
 
-Please append below settings in Amavisd config file, before the last line
-(`1;  # insure a defined return`) in the same file:
-
-* On RHEL/CentOS, OpenBSD, it's `/etc/amavisd/amavisd.conf`.
-* On Debian/Ubuntu, it's `/etc/amavis/conf.d/50-user`.
-* On FreeBSD, it's `/usr/local/etc/amavisd.conf`.
+Please append below settings in Amavisd config file `/etc/amavisd/amavisd.conf`,
+before the last line (`1;  # insure a defined return`) in the same file:
 
 ```
 # Amavisd on some Linux/BSD distribution use \$banned_namepath_re
