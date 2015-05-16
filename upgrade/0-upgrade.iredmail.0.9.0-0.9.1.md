@@ -177,9 +177,22 @@ Steps to fix this issue on RHEL/CentOS:
 # service amavisd restart
 ```
 
-Steps to fix this issue on Debian/Ubuntu:
+----
 
-* Delete package `unrar-free`, and install package `unrar`.
+Steps to fix this issue on Debian:
+
+* Install package `unrar-free`, restart Amavisd service.
+
+```
+# apt-get install unrar-free
+# service amavis restart
+```
+
+----
+
+Steps to fix this issue on Ubuntu:
+
+* Delete package `unrar-free`, install package `unrar`.
 
 ```
 # apt-get remove --purge unrar-free
