@@ -3,7 +3,7 @@
 [TOC]
 
 > Don't know what DKIM is? Check our tutorial here:
->  [What is a DKIM DNS record](setup_dns.html#dkim-record-for-your-mail-domain-name).
+>  [What is a DKIM DNS record](./setup.dns.html#dkim-record-for-your-mail-domain-name).
 
 
 > Don't know where Amavisd config file is? check this tutorial:
