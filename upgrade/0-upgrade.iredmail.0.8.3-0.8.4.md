@@ -4,6 +4,8 @@
 
 ## ChangeLog
 
+> We provide remote upgrade service, check [the price](../support.html) and [contact us](../contact.html).
+
 * 2013-03-28: Update /etc/iredmail-release with iRedMail version number.
 * 2013-03-28: Upgrade Roundcube webmail to the latest 0.8.6.
 * 2013-03-25: [ldap] Fix incorrect LDAP query filter in Postfix.

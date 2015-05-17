@@ -4,6 +4,8 @@
 
 ## ChangeLog
 
+> We provide remote upgrade service, check [the price](../support.html) and [contact us](../contact.html).
+
 * 2009-11-03: Explain why we need extra SQL columns. Thanks Rashef@forum.
 * 2009-11-03: Fix file name of LDAP schema. Thanks Bronkoo@twitter.
 * 2009-11-02: Use python script to update LDAP data. ldapsearch will wrap long line, it breaks dn value. Thanks yangbajing@bbs for report this issue.

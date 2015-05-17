@@ -2,6 +2,8 @@
 
 [TOC]
 
+> We provide remote upgrade service, check [the price](../support.html) and [contact us](../contact.html).
+
 This tutorial describes how to update or migrate iRedAdmin (either open source
 edition or old iRedAdmin-Pro release) to the latest iRedAdmin release (again,
 either open source edition or iRedAdmin-Pro).

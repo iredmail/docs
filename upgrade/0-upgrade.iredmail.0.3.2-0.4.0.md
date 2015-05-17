@@ -2,6 +2,8 @@
 
 [TOC]
 
+> We provide remote upgrade service, check [the price](../support.html) and [contact us](../contact.html).
+
 ## Fixed
 
 * Fix error in root's cron job which used to punge expired mails. Thanks xcrossbow@gmail.

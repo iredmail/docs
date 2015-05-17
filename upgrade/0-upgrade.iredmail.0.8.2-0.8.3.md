@@ -4,6 +4,8 @@
 
 ## ChangeLog
 
+> We provide remote upgrade service, check [the price](../support.html) and [contact us](../contact.html).
+
 * 2012-10-16: [ldap] Fix incorrect LDAP URI in Cluebringer config file.
 * 2012-10-16: [Optional] Send an email to postmaster@ if user's mailbox is larger than or equal to 95% full.
 * 2012-10-10: Upgrade iRedAdmin (open source edition).

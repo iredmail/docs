@@ -4,6 +4,8 @@
 
 ## ChangeLog
 
+> We provide remote upgrade service, check [the price](../support.html) and [contact us](../contact.html).
+
 * 2014-05-18: Update SQL commands to sync value of removed columns to new column 'domain.settings'.
 * 2014-05-14: Mention Roundcube setting change after you enable SMTP SASL authentication only over TLS in Postfix.
 * 2014-05-13: iRedMail-0.8.7 has been released.

@@ -6,6 +6,8 @@
 
 #### Upgrading iRedMail
 
+> We provide remote upgrade service, check [the price](../support.html) and [contact us](../contact.html).
+
 * Usually, upgrading iRedMail is just updating some config files to achieve new
   features or fix bugs, you do __NOT__ need to download the latest iRedMail and
   run the script.
@@ -16,8 +18,6 @@
 * If you're looking for upgrading a very old iRedMail server to the latest
   iRedMail release, there's an alternative solution:
   [Migrating to a new iRedMail server](./migrate.to.new.iredmail.server.html).
-
-* We provide remote upgrade service, check [the price](../support.html) and [contact us](../contact.html).
 
 #### Release notes and upgrade tutorials
 

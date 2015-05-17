@@ -6,6 +6,8 @@ __IMPORTANT NOTES__: If you're running Policyd-1.8, please stay with it right no
 
 ## ChangeLog
 
+> We provide remote upgrade service, check [the price](../support.html) and [contact us](../contact.html).
+
 * 2014-01-08: Remove backup mx related sections, it's wrong.
 * 2013-12-17: New section: Alter Cluebringer database.
 * 2013-12-17: public release.

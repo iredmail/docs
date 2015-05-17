@@ -4,6 +4,8 @@
 
 ## ChangeLog
 
+> We provide remote upgrade service, check [the price](../support.html) and [contact us](../contact.html).
+
 * 2011-08-01 readability and hints in config-files
 * 2011-05-04 Remove MySQL backend special changes. Not required.
 * 2011-05-01 Initial version.

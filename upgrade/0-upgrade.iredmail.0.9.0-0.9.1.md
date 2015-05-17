@@ -2,8 +2,9 @@
 
 [TOC]
 
-
 ## ChangeLog
+
+> We provide remote upgrade service, check [the price](../support.html) and [contact us](../contact.html).
 
 * 2015-05-15: Initial public.
 

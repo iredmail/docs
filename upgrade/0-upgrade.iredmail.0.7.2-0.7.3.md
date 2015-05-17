@@ -4,6 +4,8 @@
 
 ## ChangeLog
 
+> We provide remote upgrade service, check [the price](../support.html) and [contact us](../contact.html).
+
 * 2011-08-23: Add upgrade tutorial or links for iRedAdmin (open source edition), phpMyAdmin, Roundcube.
 * 2011-08-17: initial public.
 

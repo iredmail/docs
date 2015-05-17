@@ -2,6 +2,8 @@
 
 [TOC]
 
+> We provide remote upgrade service, check [the price](../support.html) and [contact us](../contact.html).
+
 ## General (All backends should apply these upgrade steps)
 
 ### Update Fail2ban filter

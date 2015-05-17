@@ -4,6 +4,8 @@
 
 ## ChangeLog
 
+> We provide remote upgrade service, check [the price](../support.html) and [contact us](../contact.html).
+
 * 2010-06-19: Fixed: Add new column in MySQL database after upgarding PostfixAdmin.
 * 2010-06-18: [OpenLDAP] New: Index missed LDAP attributes.
 * 2010-06-03: Fixed: Forget to add new parameter to enable domain alias management in PostfixAdmin.

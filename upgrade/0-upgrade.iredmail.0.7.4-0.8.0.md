@@ -4,6 +4,8 @@
 
 ## ChangeLog
 
+> We provide remote upgrade service, check [the price](../support.html) and [contact us](../contact.html).
+
 * 2012-07-12: [OPTIONAL] Enforce connections over HTTPS in Roundcube webmail
 * 2012-07-12: [OPTIONAL] Enforce connections over POP3S/IMAPS in Dovecot
 * 2012-05-10: Initial release.

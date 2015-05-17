@@ -4,6 +4,8 @@
 
 ## ChangeLog
 
+> We provide remote upgrade service, check [the price](../support.html) and [contact us](../contact.html).
+
 * 2015-01-05: [All backends] [OPTIONAL] Enable global sieve script in Dovecot to move spam to Junk folder by default.
 
 ----

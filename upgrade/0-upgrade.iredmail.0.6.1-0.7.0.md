@@ -2,6 +2,8 @@
 
 [TOC]
 
+> We provide remote upgrade service, check [the price](../support.html) and [contact us](../contact.html).
+
 ## General (All backends should apply these steps)
 
 * [Upgrade Dovecot 1.1.x to 1.2.x](http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/Upgrade.Dovecot.1.1.to.1.2)

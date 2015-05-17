@@ -2,6 +2,8 @@
 
 [TOC]
 
+> We provide remote upgrade service, check [the price](../support.html) and [contact us](../contact.html).
+
 ## General (All backends should apply these steps)
 
 ### Apply hotfix for iRedMail-0.6.0

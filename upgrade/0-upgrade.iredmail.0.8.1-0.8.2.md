@@ -4,6 +4,8 @@
 
 ## ChangeLog
 
+> We provide remote upgrade service, check [the price](../support.html) and [contact us](../contact.html).
+
 * 2012-09-21: Add link of upgrading iRedAdmin open source edition.
 * 2012-09-21: Add link of upgrading iRedAPD.
 * 2012-09-21: Add link of upgrading Roundcube webmail.

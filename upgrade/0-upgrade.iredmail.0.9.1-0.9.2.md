@@ -5,6 +5,8 @@
 
 ## ChangeLog
 
+> We provide remote upgrade service, check [the price](../support.html) and [contact us](../contact.html).
+
 * 2015-05-16: [OPTIONAL][All backends] Update one Fail2ban filter regular expressio to help catch DoS attacks to SMTP service
 
 ## General (All backends should apply these steps)

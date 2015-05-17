@@ -4,6 +4,8 @@
 
 ## ChangeLog
 
+> We provide remote upgrade service, check [the price](../support.html) and [contact us](../contact.html).
+
 * 2012-06-14: Fix incorrect logrotate setting for iRedAPD on FreeBSD. Thanks openbsdnoob <w-chi _at_ gmx.de> for the report.
 * 2012-06-06: Add new column `mailbox.language` in MySQL & PGSQL backends, used by iRedAdmin.
 * 2012-05-22: Make per-user BCC settings have higher priority than per-domain settings.

@@ -8,6 +8,8 @@
 > iRedAPD, please check this tutorial instead: 
 > [Upgrade iRedAPD from v1.3.x or earlier versions to latest release](./upgrade.old.iredapd.html).
 
+> We provide remote upgrade service, check [the price](../support.html) and [contact us](../contact.html).
+
 This tutorial describes how to upgrade iRedAPD from `1.4.0` or later releases
 to the latest stable release. It's applicable on all Linux/BSD distributions
 supported by iRedMail.

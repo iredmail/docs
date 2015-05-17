@@ -3,6 +3,9 @@
 [TOC]
 
 ## ChangeLog
+
+> We provide remote upgrade service, check [the price](../support.html) and [contact us](../contact.html).
+
 * 2013-07-14: First public release.
 * 2013-06-27: [All backends] Add new SQL table: deleted_mailboxes. Used to store maildir path of removed mail user, used in iRedAdmin-Pro.
 * 2013-06-08: [All backends] Add SQL trigger for table `used_quota`.
