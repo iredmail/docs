@@ -19,7 +19,43 @@
 </blockquote>
 <h2 id="upgrade-iredapd">Upgrade iRedAPD</h2>
 <p><a href="./upgrade.iredapd.html">How to upgrade iRedAPD-1.4.0 or later versions to the latest stable release</a></p>
-<h2 id="release-notes">Release Notes</h2>
+<h2 id="changelog">ChangeLog</h2>
+<h3 id="150">1.5.0</h3>
+<ul>
+<li>
+<p>Improvements:</p>
+<ul>
+<li>Use sql connection pool provided by SQLAlchemy for better performance.</li>
+<li>Log reject and other non-DUNNO actions in iredadmin database (<code>log_action_in_db = True</code>).</li>
+<li>Plugin <code>amavisd_wblist</code>: able to use <code>user@*</code> as white/blacklist sender.</li>
+<li>Plugin <code>sql_alias_access_policy</code> and <code>ldap_maillist_access_policy</code>:
+  able to use <code>*@domain.com</code> (all senders from <code>domain.com</code>) as
+  moderator.</li>
+<li>
+<p>Plugin <code>reject_sender_login_mismatch</code>:</p>
+<ul>
+<li>New optional setting <code>ALLOWED_LOGIN_MISMATCH_LIST_MEMBER</code>, used to
+  allow member of mail list/alias to send as mail list/alias.
+  Default is False.</li>
+<li>Setting <code>ALLOWED_LOGIN_MISMATCH_SENDERS</code> is now optional.</li>
+</ul>
+</li>
+<li>
+<p>Log smtp protocol state in log file (<code>RCPT</code>, <code>END-OF-MESSAGE</code>).</p>
+</li>
+</ul>
+</li>
+<li>
+<p>Fixed issues:</p>
+<ul>
+<li>Plugin <code>amavisd_message_size_limit</code>: just use the first valid
+  policy (with highest priority) and skip rest.</li>
+<li>Plugin <code>reject_sender_login_mismatch</code>: not reject email if sender
+  is forged address (sender domain is hosted locally).</li>
+<li>Not close sql connection explicitly.</li>
+</ul>
+</li>
+</ul>
 <h3 id="145">1.4.5</h3>
 <ul>
 <li>
