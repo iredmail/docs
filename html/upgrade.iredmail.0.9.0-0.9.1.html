@@ -73,7 +73,7 @@
 </ul>
 <pre><code># apt-get install php-pear php5-intl
 # php5enmod intl
-# service apache2 resart    # &lt;- OR: service php5_fpm restart
+# service apache2 restart    # &lt;- OR: `service php5_fpm restart` if you're running Nginx
 </code></pre>
 
 <ul>
@@ -288,7 +288,7 @@ location ~ \.php$ {
 </li>
 </ul>
 <h3 id="fixed-incorrect-log-file-and-ownergroup-in-logrotate-config-file-etclogrotatedpolicyd">Fixed: Incorrect log file and owner/group in logrotate config file: <code>/etc/logrotate.d/policyd</code></h3>
-<p>Note: This is applicable to Linux and OpenBSD, we don't have Cluebringer
+<p>Note: This is applicable to Linux and FreeBSD, we don't have Cluebringer
 installed on OpenBSD.</p>
 <p>iRedMail-0.9.0 generates logrotate config file <code>/etc/logrotate.d/policyd</code> with
 incorrect log file name and owner/group.</p>
@@ -371,8 +371,8 @@ logpath     = /var/log/sogo/sogo.log
 </ol>
 <p>Steps:</p>
 <ol>
-<li>Open file <code>/etc/fail2ban/filters.d/postfix.iredmail.conf</code> or
-<code>/usr/local/etc/fail2ban/filters.d/postfix.iredmail.conf</code> (on FreeBSD), append
+<li>Open file <code>/etc/fail2ban/filter.d/postfix.iredmail.conf</code> or
+<code>/usr/local/etc/fail2ban/filter.d/postfix.iredmail.conf</code> (on FreeBSD), append
 below line under <code>[Definition]</code> section:</li>
 </ol>
 <pre><code>            reject: RCPT from (.*)\[&lt;HOST&gt;\]: 504 5.5.2 (.*) Helo command rejected: need fully-qualified hostname
@@ -390,8 +390,8 @@ ignoreregex =
 </code></pre>
 
 <ol>
-<li>Open file <code>/etc/fail2ban/filters.d/dovecot.iredmail.conf</code> or
-<code>/usr/local/etc/fail2ban/filters.d/dovecot.iredmail.conf</code> (on FreeBSD), append
+<li>Open file <code>/etc/fail2ban/filter.d/dovecot.iredmail.conf</code> or
+<code>/usr/local/etc/fail2ban/filter.d/dovecot.iredmail.conf</code> (on FreeBSD), append
 below line under <code>[Definition]</code> section:</li>
 </ol>
 <pre><code>            Aborted login \(no auth attempts in .* rip=&lt;HOST&gt;

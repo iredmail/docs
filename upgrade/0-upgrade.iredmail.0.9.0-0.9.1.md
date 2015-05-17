@@ -20,7 +20,7 @@ Additional notes before upgrading Roundcube webmail 1.1.0 (or later releases):
 ```
 # apt-get install php-pear php5-intl
 # php5enmod intl
-# service apache2 resart    # <- OR: service php5_fpm restart
+# service apache2 restart    # <- OR: `service php5_fpm restart` if you're running Nginx
 ```
 
 * for OpenBSD users, please install package `php-intl`, then
@@ -261,7 +261,7 @@ Notes:
 
 ### Fixed: Incorrect log file and owner/group in logrotate config file: `/etc/logrotate.d/policyd`
 
-Note: This is applicable to Linux and OpenBSD, we don't have Cluebringer
+Note: This is applicable to Linux and FreeBSD, we don't have Cluebringer
 installed on OpenBSD.
 
 iRedMail-0.9.0 generates logrotate config file `/etc/logrotate.d/policyd` with
@@ -364,8 +364,8 @@ We have two new Fail2ban filters to help catch spam:
 
 Steps:
 
-1. Open file `/etc/fail2ban/filters.d/postfix.iredmail.conf` or
-`/usr/local/etc/fail2ban/filters.d/postfix.iredmail.conf` (on FreeBSD), append
+1. Open file `/etc/fail2ban/filter.d/postfix.iredmail.conf` or
+`/usr/local/etc/fail2ban/filter.d/postfix.iredmail.conf` (on FreeBSD), append
 below line under `[Definition]` section:
 
 ```
@@ -385,8 +385,8 @@ failregex = \[<HOST>\]: SASL (PLAIN|LOGIN) authentication failed
 ignoreregex =
 ```
 
-2. Open file `/etc/fail2ban/filters.d/dovecot.iredmail.conf` or
-`/usr/local/etc/fail2ban/filters.d/dovecot.iredmail.conf` (on FreeBSD), append
+2. Open file `/etc/fail2ban/filter.d/dovecot.iredmail.conf` or
+`/usr/local/etc/fail2ban/filter.d/dovecot.iredmail.conf` (on FreeBSD), append
 below line under `[Definition]` section:
 
 ```
