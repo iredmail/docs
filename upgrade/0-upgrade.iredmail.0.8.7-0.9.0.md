@@ -141,11 +141,11 @@ Restarting Apache service is required.
 Please execute below commands to disable SSLv3 in Postfix:
 
 ```
-# postconf -e smtpd_tls_protocols='!SSLv2 !SSLv3'                                
-# postconf -e smtp_tls_protocols='!SSLv2 !SSLv3'                                 
-# postconf -e lmtp_tls_protocols='!SSLv2 !SSLv3'                                 
-# postconf -e smtpd_tls_mandatory_protocols='!SSLv2 !SSLv3'                      
-# postconf -e smtp_tls_mandatory_protocols='!SSLv2 !SSLv3'                       
+# postconf -e smtpd_tls_protocols='!SSLv2 !SSLv3'
+# postconf -e smtp_tls_protocols='!SSLv2 !SSLv3'
+# postconf -e lmtp_tls_protocols='!SSLv2 !SSLv3'
+# postconf -e smtpd_tls_mandatory_protocols='!SSLv2 !SSLv3'
+# postconf -e smtp_tls_mandatory_protocols='!SSLv2 !SSLv3'
 # postconf -e lmtp_tls_mandatory_protocols='!SSLv2 !SSLv3'
 ```
 

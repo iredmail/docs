@@ -52,7 +52,7 @@ latest stable release: [Upgrade iRedAdmin to the latest stable release](./migrat
 ### Upgrade phpMyAdmin to the latest stable release
 
 Please follow this short tutorial to upgrade phpMyAdmin to the latest stable
-release: http://docs.phpmyadmin.net/en/latest/setup.html#upgrading-from-an-older-version
+release: [http://docs.phpmyadmin.net/en/latest/setup.html#upgrading-from-an-older-version](http://docs.phpmyadmin.net/en/latest/setup.html#upgrading-from-an-older-version)
 
 NOTE: Since phpMyAdmin-4.2.3.0, it  enforces the minimum PHP (5.3) and MySQL (5.5) versions.
 
