@@ -16,6 +16,7 @@
 <li><a href="#upgrade-iredmail-from-091-to-092">Upgrade iRedMail from 0.9.1 to 0.9.2</a><ul>
 <li><a href="#changelog">ChangeLog</a></li>
 <li><a href="#general-all-backends-should-apply-these-steps">General (All backends should apply these steps)</a><ul>
+<li><a href="#dont-ban-applicationoctet-stream-dat-files-in-amavisd">Don't ban 'application/octet-stream, dat' files in Amavisd</a></li>
 <li><a href="#optional-update-one-fail2ban-filter-regular-expressio-to-help-catch-dos-attacks-to-smtp-service">[OPTIONAL] Update one Fail2ban filter regular expressio to help catch DoS attacks to SMTP service</a></li>
 </ul>
 </li>
@@ -28,9 +29,40 @@
 <p>We provide remote upgrade service, check <a href="../support.html">the price</a> and <a href="../contact.html">contact us</a>.</p>
 </blockquote>
 <ul>
-<li>2015-05-16: [OPTIONAL][All backends] Update one Fail2ban filter regular expressio to help catch DoS attacks to SMTP service</li>
+<li>2015-05-16: [All backends][RHEL/CentOS] Don't ban 'application/octet-stream,
+              dat' files in Amavisd. It catches too many normal file types.</li>
+<li>2015-05-16: [OPTIONAL][All backends] Update one Fail2ban filter regular
+              expressio to help catch DoS attacks to SMTP service</li>
 </ul>
 <h2 id="general-all-backends-should-apply-these-steps">General (All backends should apply these steps)</h2>
+<h3 id="dont-ban-applicationoctet-stream-dat-files-in-amavisd">Don't ban 'application/octet-stream, dat' files in Amavisd</h3>
+<p>Note: This is only applicable to RHEL/CentOS.</p>
+<ul>
+<li>Find below lines in Amavisd config file <code>/etc/amavisd/amavisd.conf</code>:</li>
+</ul>
+<pre><code>$banned_namepath_re = new_RE(
+    # Unknown binary files.
+    [qr'M=application/(zip|rar|arc|arj|zoo|gz|bz2|octet-stream)(,|\t).*T=dat(,|\t)'xmi =&gt; 'DISCARD'],
+    ...
+);
+</code></pre>
+
+<ul>
+<li>Remove <code>|octet-stream</code> in 3rd line. After modified, it's:</li>
+</ul>
+<pre><code>$banned_namepath_re = new_RE(
+    # Unknown binary files.
+    [qr'M=application/(zip|rar|arc|arj|zoo|gz|bz2)(,|\t).*T=dat(,|\t)'xmi =&gt; 'DISCARD'],
+    ...
+);
+</code></pre>
+
+<ul>
+<li>Restart Amavisd service.</li>
+</ul>
+<pre><code># service amavisd restart
+</code></pre>
+
 <h3 id="optional-update-one-fail2ban-filter-regular-expressio-to-help-catch-dos-attacks-to-smtp-service">[OPTIONAL] Update one Fail2ban filter regular expressio to help catch DoS attacks to SMTP service</h3>
 <ol>
 <li>Open file <code>/etc/fail2ban/filters.d/postfix.iredmail.conf</code> or
