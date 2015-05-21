@@ -14,6 +14,18 @@
 
 ## General (All backends should apply these steps)
 
+### Update `/etc/iredmail-release` with new iRedMail version number
+
+iRedMail stores the release version in `/etc/iredmail-release` after
+installation, it's recommended to update this file after you upgraded iRedMail,
+so that you can know which version of iRedMail you're running. For example:
+
+```
+# File: /etc/iredmail-release
+
+0.9.2
+```
+
 ### Don't ban 'application/octet-stream, dat' files in Amavisd
 
 Note: This is only applicable to RHEL/CentOS.
