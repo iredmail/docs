@@ -246,9 +246,9 @@ releases), it has two separate config files: <code>config/db.inc.php</code> and
 <li>on OpenBSD, it's <code>/var/www/iredadmin/settings.py</code>.</li>
 </ul>
 <p>iRedAdmin is a web application, when debug mode is turned on, it will log error
-message to Apache ssl error log file, or uwsgi log file (if you're running
-Nginx). Usually uwsgi log file is <code>/var/log/uwsgi/</code>, but it's <code>/var/www/logs/</code>
-on OpenBSD.</p>
+message to <a href="#apache">Apache ssl error log file</a>, or uwsgi log file (if you're running
+Nginx). uwsgi log file is under <code>/var/log/uwsgi/</code> on Linux/FreeBSD, and
+<code>/var/www/logs/</code> on OpenBSD.</p>
 <p>Note: If you modified any iRedAdmin files (not just config file), please restart
 Apache or uwsgi service (if you're running Nginx) to reload modified files.</p><p style="text-align: center; color: grey;">Document published under a <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">CC BY-ND 3.0</a> license. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.<script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
