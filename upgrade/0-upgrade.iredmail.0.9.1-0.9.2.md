@@ -26,9 +26,31 @@ so that you can know which version of iRedMail you're running. For example:
 0.9.2
 ```
 
-### Don't ban 'application/octet-stream, dat' files in Amavisd
+### [RHEL/CentOS 7] Update Cluebringer package to avoid database connection failure
 
-Note: This is only applicable to RHEL/CentOS.
+Note: This is applicable to only RHEL/CentOS 7.
+
+With old Cluebringer RPM package, Cluebringer starts before SQL database starts,
+this causes Cluebringer cannot connect to SQL database, and all your Cluebringer
+settings is not applied at all. Updating Cluebringer package to version
+`2.0.14-5` fixes this issue.
+
+How to update package:
+
+```
+# yum clean metadata
+# yum update cluebringer
+# systemctl enable cbpolicyd
+```
+
+New package will remove old SysV script `/etc/init.d/cbpolicyd`, and install
+`/usr/lib/systemd/system/cbpolicyd.service` for service control. You have to
+manage it (start, stop, restart) with `systemctl` command.
+
+
+### [RHEL/CentOS] Don't ban `application/octet-stream, dat` file types in Amavisd
+
+Note: This is applicable to only RHEL/CentOS.
 
 * Find below lines in Amavisd config file `/etc/amavisd/amavisd.conf`:
 
