@@ -16,6 +16,17 @@
 <li><a href="#upgrade-iredmail-from-091-to-092">Upgrade iRedMail from 0.9.1 to 0.9.2</a><ul>
 <li><a href="#changelog">ChangeLog</a></li>
 <li><a href="#general-all-backends-should-apply-these-steps">General (All backends should apply these steps)</a><ul>
+<li><a href="#fix-the-logjam-attack">Fix 'The Logjam Attack'</a><ul>
+<li><a href="#generating-a-unique-dh-group">Generating a Unique DH Group</a></li>
+<li><a href="#update-apache-setting">Update Apache setting</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#note-this-step-is-applicable-if-you-have-apache-running-on-your-server">Note: This step is applicable if you have Apache running on your server.</a><ul>
+<li><a href="#update-nginx-setting">Update Nginx setting</a></li>
+<li><a href="#update-dovecot-setting">Update Dovecot setting</a></li>
+<li><a href="#update-postfix-setting">Update Postfix setting</a></li>
 <li><a href="#update-etciredmail-release-with-new-iredmail-version-number">Update /etc/iredmail-release with new iRedMail version number</a></li>
 <li><a href="#rhelcentos-7-update-cluebringer-package-to-avoid-database-connection-failure">[RHEL/CentOS 7] Update Cluebringer package to avoid database connection failure</a></li>
 <li><a href="#rhelcentos-dont-ban-applicationoctet-stream-dat-file-types-in-amavisd">[RHEL/CentOS] Don't ban application/octet-stream, dat file types in Amavisd</a></li>
@@ -31,12 +42,131 @@
 <p>We provide remote upgrade service, check <a href="../support.html">the price</a> and <a href="../contact.html">contact us</a>.</p>
 </blockquote>
 <ul>
+<li>2015-05-23: [All backends] Fix the Logjam attack.</li>
+<li>2015-05-22: [All backends][RHEL/CentOS 7] Update Cluebringer package to avoid database connection failure</li>
 <li>2015-05-16: [All backends][RHEL/CentOS] Don't ban 'application/octet-stream,
               dat' files in Amavisd. It catches too many normal file types.</li>
 <li>2015-05-16: [OPTIONAL][All backends] Update one Fail2ban filter regular
               expressio to help catch DoS attacks to SMTP service</li>
 </ul>
 <h2 id="general-all-backends-should-apply-these-steps">General (All backends should apply these steps)</h2>
+<h3 id="fix-the-logjam-attack">Fix 'The Logjam Attack'</h3>
+<p>For more details about The Logjam Attack, please visit this web site:
+<a href="https://weakdh.org">The Logjam Attack</a>. It also provides a detailed
+<a href="https://weakdh.org/sysadmin.html">tutorial</a> to help you fix this issue. We
+show you how to fix it on your iRedMail server based on that tutorial.</p>
+<h4 id="generating-a-unique-dh-group">Generating a Unique DH Group</h4>
+<ul>
+<li>On RHEL/CentOS: </li>
+</ul>
+<pre><code># openssl dhparam -out /etc/pki/tls/dhparams.pem 2048
+</code></pre>
+
+<ul>
+<li>On Debian, Ubuntu, FreeBSD, OpenBSD:</li>
+</ul>
+<pre><code># openssl dhparam -out /etc/ssl/dhparams.pem 2048
+</code></pre>
+
+<h4 id="update-apache-setting">Update Apache setting</h4>
+<h2 id="note-this-step-is-applicable-if-you-have-apache-running-on-your-server">Note: This step is applicable if you have Apache running on your server.</h2>
+<ul>
+<li>Check your Apache version first:</li>
+</ul>
+<pre><code># apachectl -v
+</code></pre>
+
+<ul>
+<li>
+<p>Find below settings in Apache SSL config file and update them to below
+values. If they don't exist, please add them.</p>
+<ul>
+<li>on RHEL/CentOS, it's <code>/etc/httpd/conf.d/ssl.conf</code>.</li>
+<li>on Debian/Ubuntu, it's <code>/etc/apache2/sites-available/default-ssl</code> (or <code>default-ssl.conf</code>).</li>
+<li>on FreeBSD, it's <code>/usr/local/etc/apache2*/extra/httpd-ssl.conf</code>.</li>
+<li>on OpenBSD, it's not applicable since we don't have Apache installed.</li>
+</ul>
+</li>
+</ul>
+<pre><code>SSLProtocol all -SSLv2 -SSLv3
+
+SSLCipherSuite ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES256-GCM-SHA384:DHE-RSA-AES128-GCM-SHA256:DHE-DSS-AES128-GCM-SHA256:kEDH+AESGCM:ECDHE-RSA-AES128-SHA256:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA:ECDHE-ECDSA-AES128-SHA:ECDHE-RSA-AES256-SHA384:ECDHE-ECDSA-AES256-SHA384:ECDHE-RSA-AES256-SHA:ECDHE-ECDSA-AES256-SHA:DHE-RSA-AES128-SHA256:DHE-RSA-AES128-SHA:DHE-DSS-AES128-SHA256:DHE-RSA-AES256-SHA256:DHE-DSS-AES256-SHA:DHE-RSA-AES256-SHA:AES128-GCM-SHA256:AES256-GCM-SHA384:AES128-SHA256:AES256-SHA256:AES128-SHA:AES256-SHA:AES:CAMELLIA:DES-CBC3-SHA:!aNULL:!eNULL:!EXPORT:!DES:!RC4:!MD5:!PSK:!aECDH:!EDH-DSS-DES-CBC3-SHA:!EDH-RSA-DES-CBC3-SHA:!KRB5-DES-CBC3-SHA
+
+SSLHonorCipherOrder on
+</code></pre>
+
+<ul>
+<li>
+<p>If you're running Apache-2.4.8 or later releases, please add one additional
+  setting:</p>
+<ul>
+<li>on RHEL/CentOS: <code>SSLOpenSSLConfCmd DHParameters /etc/pki/tls/dhparams.pem</code></li>
+<li>on Debian/Ubuntu/FreeBSD: <code>SSLOpenSSLConfCmd DHParameters /etc/ssl/dhparams.pem</code></li>
+</ul>
+</li>
+<li>
+<p>If you're running Apache older than version 2.4.8, please append the DHparams
+generated above to the end of the certificate file.</p>
+<ul>
+<li>On RHEL/CentOS: <code># cat /etc/pki/tls/dhparams.pem &gt;&gt; /etc/pki/tls/certs/iRedMail.crt</code></li>
+<li>Debian/Ubuntu: <code># cat /etc/ssl/dhparams.pem &gt;&gt; /etc/ssl/certs/iRedMail.crt</code></li>
+</ul>
+</li>
+<li>
+<p>Reloading or restarting Apache service is required:</p>
+</li>
+</ul>
+<pre><code># service httpd restart
+</code></pre>
+
+<h4 id="update-nginx-setting">Update Nginx setting</h4>
+<p>Add or update below settings in <code>/etc/nginx/conf.d/default.conf</code> (Linux/OpenBSD)
+or <code>/usr/local/etc/nginx/conf.d/default.conf</code> (FreeBSD):</p>
+<pre><code>ssl_ciphers 'ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES256-GCM-SHA384:DHE-RSA-AES128-GCM-SHA256:DHE-DSS-AES128-GCM-SHA256:kEDH+AESGCM:ECDHE-RSA-AES128-SHA256:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA:ECDHE-ECDSA-AES128-SHA:ECDHE-RSA-AES256-SHA384:ECDHE-ECDSA-AES256-SHA384:ECDHE-RSA-AES256-SHA:ECDHE-ECDSA-AES256-SHA:DHE-RSA-AES128-SHA256:DHE-RSA-AES128-SHA:DHE-DSS-AES128-SHA256:DHE-RSA-AES256-SHA256:DHE-DSS-AES256-SHA:DHE-RSA-AES256-SHA:AES128-GCM-SHA256:AES256-GCM-SHA384:AES128-SHA256:AES256-SHA256:AES128-SHA:AES256-SHA:AES:CAMELLIA:DES-CBC3-SHA:!aNULL:!eNULL:!EXPORT:!DES:!RC4:!MD5:!PSK:!aECDH:!EDH-DSS-DES-CBC3-SHA:!EDH-RSA-DES-CBC3-SHA:!KRB5-DES-CBC3-SHA';
+
+ssl_prefer_server_ciphers on;
+ssl_dhparam /etc/ssl/dhparams.pem;
+</code></pre>
+
+<p>Note: on RHEL/CentOS, the path to <code>dhparams.pem</code> is <code>/etc/pki/tls/dhparams.pem</code>.</p>
+<p>Reloading or restarting Nginx service is required:</p>
+<pre><code># service nginx restart
+</code></pre>
+
+<h4 id="update-dovecot-setting">Update Dovecot setting</h4>
+<p>Check Dovecot version number first:</p>
+<pre><code># dovecot --version
+</code></pre>
+
+<p>Update Dovecot config file <code>/etc/dovecot/dovecot.conf</code> (Linux/OpenBSD) or
+<code>/usr/local/etc/dovecot/dovecot.conf</code> (FreeBSD):</p>
+<pre><code>ssl_cipher_list = ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-AES256-GCM-SHA384:DHE-RSA-AES128-GCM-SHA256:DHE-DSS-AES128-GCM-SHA256:kEDH+AESGCM:ECDHE-RSA-AES128-SHA256:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA:ECDHE-ECDSA-AES128-SHA:ECDHE-RSA-AES256-SHA384:ECDHE-ECDSA-AES256-SHA384:ECDHE-RSA-AES256-SHA:ECDHE-ECDSA-AES256-SHA:DHE-RSA-AES128-SHA256:DHE-RSA-AES128-SHA:DHE-DSS-AES128-SHA256:DHE-RSA-AES256-SHA256:DHE-DSS-AES256-SHA:DHE-RSA-AES256-SHA:AES128-GCM-SHA256:AES256-GCM-SHA384:AES128-SHA256:AES256-SHA256:AES128-SHA:AES256-SHA:AES:CAMELLIA:DES-CBC3-SHA:!aNULL:!eNULL:!EXPORT:!DES:!RC4:!MD5:!PSK:!aECDH:!EDH-DSS-DES-CBC3-SHA:!EDH-RSA-DES-CBC3-SHA:!KRB5-DES-CBC3-SHA
+</code></pre>
+
+<p>If you're running Dovecot-2.2.6 or later releases, please add some additional
+settings in <code>dovecot.conf</code>:</p>
+<pre><code>ssl_prefer_server_ciphers = yes (Dovecot 2.2.6 or greater)
+
+# Dovecot will regenerate dhparams.pem itself, here we ask it to regenerate
+# with 2048 key length.
+ssl_dh_parameters_length = 2048
+</code></pre>
+
+<p>Reloading or restarting Dovecot service is required:</p>
+<pre><code># service dovecot restart
+</code></pre>
+
+<h4 id="update-postfix-setting">Update Postfix setting</h4>
+<p>Update Postfix settings with below commands:</p>
+<pre><code># postconf -e smtpd_tls_exclude_ciphers='aNULL, eNULL, EXPORT, DES, RC4, MD5, PSK, aECDH, EDH-DSS-DES-CBC3-SHA, EDH-RSA-DES-CDC3-SHA, KRB5-DE5, CBC3-SHA'
+# postconf -e smtpd_tls_dh1024_param_file='/etc/ssl/dhparams.pem'
+</code></pre>
+
+<p>Note: on RHEL/CentOS, the path to <code>dhparams.pem</code> is <code>/etc/pki/tls/dhparams.pem</code>.</p>
+<p>Reloading or restarting Postfix service is required:</p>
+<pre><code># service postfix restart
+</code></pre>
+
 <h3 id="update-etciredmail-release-with-new-iredmail-version-number">Update <code>/etc/iredmail-release</code> with new iRedMail version number</h3>
 <p>iRedMail stores the release version in <code>/etc/iredmail-release</code> after
 installation, it's recommended to update this file after you upgraded iRedMail,
