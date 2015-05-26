@@ -13,6 +13,15 @@
 
 ## ChangeLog
 
+### 1.6.0
+
+* New setting: `MYNETWORKS`. used to set trusted or internal networks.
+* Plugin `ldap_domain_wblist` was removed, we didn't use it at all.
+* Plugin `ldap_recipient_restrictions` is marked as deprecated, and will be
+  removed in next release (1.7.0). please use `amavisd_wblist` instead.
+* Fixed issues:
+    * iRedAPD daemon exits with error `(9, 'Bad file descriptor')`.
+
 ### 1.5.0
 
 * Improvements:

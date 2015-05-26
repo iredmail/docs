@@ -2,6 +2,10 @@
 
 [TOC]
 
+TODO
+
+* updating /etc/iredmail-release
+* upgrade iRedAPD 
 
 ## ChangeLog
 
@@ -12,9 +16,21 @@
 * 2015-05-16: [All backends][RHEL/CentOS] Don't ban 'application/octet-stream,
               dat' files in Amavisd. It catches too many normal file types.
 * 2015-05-16: [OPTIONAL][All backends] Update one Fail2ban filter regular
-              expressio to help catch DoS attacks to SMTP service
+              expression to help catch DoS attacks to SMTP service
 
 ## General (All backends should apply these steps)
+
+### Update `/etc/iredmail-release` with new iRedMail version number
+
+iRedMail stores the release version in `/etc/iredmail-release` after
+installation, it's recommended to update this file after you upgraded iRedMail,
+so that you can know which version of iRedMail you're running. For example:
+
+```
+# File: /etc/iredmail-release
+
+0.9.2
+```
 
 ### Fix 'The Logjam Attack'
 
@@ -40,6 +56,7 @@ show you how to fix it on your iRedMail server based on that tutorial.
 #### Update Apache setting
 
 Note: This step is applicable if you have Apache running on your server.
+
 ----
 
 * Check your Apache version first:
@@ -151,17 +168,12 @@ Reloading or restarting Postfix service is required:
 # service postfix restart
 ```
 
-### Update `/etc/iredmail-release` with new iRedMail version number
+### Upgrade iRedAPD (Postfix policy server) to the latest 1.6.0
 
-iRedMail stores the release version in `/etc/iredmail-release` after
-installation, it's recommended to update this file after you upgraded iRedMail,
-so that you can know which version of iRedMail you're running. For example:
+Please follow below tutorial to upgrade iRedAPD to the latest stable release:
+[How to upgrade iRedAPD-1.4.0 or later versions to the latest stable release](./upgrade.iredapd.html)
 
-```
-# File: /etc/iredmail-release
-
-0.9.2
-```
+Detailed release notes are available here: [iRedAPD release notes](./iredapd.releases.html).
 
 ### [RHEL/CentOS 7] Update Cluebringer package to avoid database connection failure
 
@@ -215,7 +227,7 @@ $banned_namepath_re = new_RE(
 # service amavisd restart
 ```
 
-### [OPTIONAL] Update one Fail2ban filter regular expressio to help catch DoS attacks to SMTP service
+### [OPTIONAL] Update one Fail2ban filter regular expression to help catch DoS attacks to SMTP service
 
 1. Open file `/etc/fail2ban/filters.d/postfix.iredmail.conf` or
 `/usr/local/etc/fail2ban/filters.d/postfix.iredmail.conf` (on FreeBSD), find
