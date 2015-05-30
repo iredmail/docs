@@ -11,6 +11,8 @@ TODO
 
 > We provide remote upgrade service, check [the price](../support.html) and [contact us](../contact.html).
 
+* TODO: fix uwsgi issue on RHEL/CentOS.
+
 * 2015-05-23: [All backends] Fix the Logjam attack.
 * 2015-05-22: [All backends][RHEL/CentOS 7] Update Cluebringer package to avoid database connection failure
 * 2015-05-16: [All backends][RHEL/CentOS] Don't ban 'application/octet-stream,

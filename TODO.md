@@ -1,5 +1,7 @@
 # TODO
 
+* http://www.iredmail.org/wiki/index.php?title=Addition/OpenLDAP/Catch-all
+
 * How to install and configure SOGo groupware
 * How to install and configure Nginx
 * How to custom SpamAssassin scores
