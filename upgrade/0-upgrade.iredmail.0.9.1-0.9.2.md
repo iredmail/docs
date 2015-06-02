@@ -230,7 +230,7 @@ It will create file `/etc/uwsgi.ini` and directory `/etc/uwsgi.d/`.
 # rmdir /etc/uwsgi
 ```
 
-Note: if you don't have `/etc/uwsgi/iredadmin.ini, it's ok to use below
+Note: if you don't have `/etc/uwsgi/iredadmin.ini`, it's ok to use below
 one. Be careful, if your web server is running as different daemon user and
 group, you must update `chown-socket =` line with correct daemon user/group
 name.
