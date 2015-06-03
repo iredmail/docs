@@ -45,10 +45,8 @@ all_chapter_dirs="installation \
                   troubleshooting \
                   faq"
 
-# Get chapter info
-#   - title: _title.md
-#   - summary: _summary.md
-echo "We're migrating [old wiki documents](http://www.iredmail.org/wiki) to Markdown format for easier maintenance, all documents are available [here](https://bitbucket.org/zhb/docs.iredmail.org/src)." > ${INDEX_MD}
+# Initial index file.
+echo '' > ${INDEX_MD}
 
 # Compile all Markdown files.
 if echo "$@" | grep -q -- '--all' &>/dev/null; then
@@ -58,6 +56,9 @@ fi
 article_counter=0
 echo -n "* Processing Markdown files: "
 
+# Get chapter info
+#   - chapter summary: _summary.md
+#   - article title: _title.md
 for chapter_dir in ${all_chapter_dirs}; do
     # Get articles
     all_chapter_articles="$(find ${chapter_dir} -depth 1 -type f -iname '[0-9a-z]*.md')"
