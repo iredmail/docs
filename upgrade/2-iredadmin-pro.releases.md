@@ -19,6 +19,7 @@ this tutorial with just one shell command:
 
 ### iRedAdmin-Pro-LDAP (for OpenLDAP backend)
 
+* [2.3.1](http://www.iredmail.org/forum/topic9281.html), Jun 3, 2015. Bug fixes.
 * [2.3.0](http://www.iredmail.org/forum/topic9145.html), May 15, 2015. Provides some basic hooks (hook is just like plugin).
 
 ----
@@ -45,6 +46,7 @@ this tutorial with just one shell command:
 
 ### iRedAdmin-Pro-SQL (For MySQL, MariaDB, PostgreSQL backends)
 
+* [2.1](http://www.iredmail.org/forum/topic9282.html), Jun 3, 2015. Bug fixes.
 * [2.0](http://www.iredmail.org/forum/topic9146.html), May 15, 2015.
 
 ----

@@ -1,6 +1,6 @@
 # TODO
 
-* http://www.iredmail.org/wiki/index.php?title=Addition/OpenLDAP/Catch-all
+* http://doc.samplezone.ch/iredmail/
 
 * How to install and configure SOGo groupware
 * How to install and configure Nginx

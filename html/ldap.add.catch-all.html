@@ -1,0 +1,48 @@
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>LDAP: Add per-domain catch-all account</title>
+        <link href="./css/markdown.css" rel="stylesheet"></head>
+    </head>
+    <body>
+    
+    <div id="navigation">
+        <a href="http://www.iredmail.org" target="_blank">iRedMail web site</a>
+    
+        // <a href="./index.html">Document Index</a>
+    </div><h1 id="ldap-add-per-domain-catch-all-account">LDAP: Add per-domain catch-all account</h1>
+<p>With default setting, iRedMail will reject emails sent to non-existing mail
+accounts under hosted mail domains. If you want to accept these emails, you
+need a per-domain catch-all account.</p>
+<p>With OpenLDAP backend, you can add an catch-all account for mail domain
+<code>example.com</code> like below:</p>
+<pre><code>dn: mail=@example.com,ou=Users,domainName=example.com,o=domains,dc=iredmail,dc=org
+accountstatus: active
+cn: catch-all
+mail: @example.com
+mailForwardingAddress: user_1@example.com
+mailForwardingAddress: user_2@example.com
+objectclass: inetOrgPerson
+objectclass: mailUser
+sn: catch-all
+uid: catch-all
+</code></pre>
+
+<p>With above catch-all account, emails sent to non-existing addresses will be
+forwarded to both <code>user_1@example.com</code> and <code>user_2@example.com</code>.</p>
+<p><strong>NOTE</strong>: With iRedAdmin-Pro, you can manage catch-all account in domain
+profile directly. Screenshot attached.</p>
+<p><img alt="" src="../images/iredadmin/domain_profile_catchall.png" /></p>
+<h2 id="see-also">See also</h2>
+<ul>
+<li><a href="./sql.add.catch-all.html">Add per-domain catch-all account for MySQL/MariaDB/PostgreSQL backends</a></li>
+</ul><p style="text-align: center; color: grey;">Document published under a <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">CC BY-ND 3.0</a> license. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-3293801-21', 'auto');
+  ga('send', 'pageview');
+</script>
+</body></html>

@@ -1,7 +1,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title>SQL: Add domain catch-all account</title>
+        <title>SQL: Add per-domain catch-all account</title>
         <link href="./css/markdown.css" rel="stylesheet"></head>
     </head>
     <body>
@@ -10,7 +10,7 @@
         <a href="http://www.iredmail.org" target="_blank">iRedMail web site</a>
     
         // <a href="./index.html">Document Index</a>
-    </div><h1 id="sql-add-domain-catch-all-account">SQL: Add domain catch-all account</h1>
+    </div><h1 id="sql-add-per-domain-catch-all-account">SQL: Add per-domain catch-all account</h1>
 <p>With default setting, iRedMail will reject emails sent to non-existing mail
 accounts under hosted mail domains. If you want to accept these emails, you
 need a domain catch-all account.</p>
@@ -26,7 +26,11 @@ sent to non-existing accounts under <code>domain.com</code> will be delivered to
 <code>dest@example.com</code>.</p>
 <p><strong>NOTE</strong>: With iRedAdmin-Pro, you can manage catch-all account in domain
 profile directly. Screenshot attached.</p>
-<p><img alt="" src="../images/iredadmin/domain_profile_catchall.png" /></p><p style="text-align: center; color: grey;">Document published under a <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">CC BY-ND 3.0</a> license. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.<script>
+<p><img alt="" src="../images/iredadmin/domain_profile_catchall.png" /></p>
+<h2 id="see-also">See also</h2>
+<ul>
+<li><a href="./ldap.add.catch-all.html">Add per-domain catch-all account for OpenLDAP backends</a></li>
+</ul><p style="text-align: center; color: grey;">Document published under a <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">CC BY-ND 3.0</a> license. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.<script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
   m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)

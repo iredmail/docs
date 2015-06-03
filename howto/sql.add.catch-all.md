@@ -1,4 +1,4 @@
-# SQL: Add domain catch-all account
+# SQL: Add per-domain catch-all account
 
 With default setting, iRedMail will reject emails sent to non-existing mail
 accounts under hosted mail domains. If you want to accept these emails, you
@@ -22,3 +22,6 @@ profile directly. Screenshot attached.
 
 ![](../images/iredadmin/domain_profile_catchall.png)
 
+## See also
+
+* [Add per-domain catch-all account for OpenLDAP backends](./ldap.add.catch-all.html)
