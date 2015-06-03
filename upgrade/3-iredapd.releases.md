@@ -20,7 +20,14 @@
 * Plugin `ldap_recipient_restrictions` is marked as deprecated, and will be
   removed in next release (1.7.0). please use `amavisd_wblist` instead.
 * Fixed issues:
-    * iRedAPD daemon exits with error `(9, 'Bad file descriptor')`.
+
+    * plugin/ldap_maillist_access_policy.py: not use correct ldap
+      connection cursor. this causes access policy not work.
+    * plugin/reject_sender_login_mismatch.py: Not return correct value for
+      allowed senders.
+    * Not correctly fetch SQL query result with SQLAlchemy.
+    * Doesn't work with PostgreSQL backend.
+    * iRedAPD daemon exits with error (9, 'Bad file descriptor').
 
 ### 1.5.0
 
