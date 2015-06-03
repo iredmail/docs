@@ -6,15 +6,7 @@
 
 > We provide remote upgrade service, check [the price](../support.html) and [contact us](../contact.html).
 
-* 2015-06-02: [OpenLDAP backend] Fixed: catch-all support doesn't work with email address which contains address extension
-* 2015-06-02: [All backends] Update SOGo to 2.3.0.
-* 2015-06-02: [All backends] [RHEL/CentOS] Update uwsgi config file to make it work with new uwsgi package.
-* 2015-05-23: [All backends] Fix the Logjam attack.
-* 2015-05-22: [All backends][RHEL/CentOS 7] Update Cluebringer package to avoid database connection failure
-* 2015-05-16: [All backends][RHEL/CentOS] Don't ban 'application/octet-stream,
-              dat' files in Amavisd. It catches too many normal file types.
-* 2015-05-16: [OPTIONAL][All backends] Update one Fail2ban filter regular
-              expression to help catch DoS attacks to SMTP service
+* 2015-06-03: Initial release.
 
 ## General (All backends should apply these steps)
 
