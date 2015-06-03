@@ -46,6 +46,10 @@
 <p>We provide remote upgrade service, check <a href="../support.html">the price</a> and <a href="../contact.html">contact us</a>.</p>
 </blockquote>
 <ul>
+<li>2015-06-03: Fixed: <code>SSLOpenSSLConfCmd</code> is used on Ubuntu 14.04 and later releases, not on other Linux/BSD distributions.</li>
+</ul>
+<hr />
+<ul>
 <li>2015-06-03: Initial release.</li>
 </ul>
 <h2 id="general-all-backends-should-apply-these-steps">General (All backends should apply these steps)</h2>
@@ -104,15 +108,11 @@ SSLCipherSuite ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-R
 SSLHonorCipherOrder on
 </code></pre>
 
+<p>On Ubuntu 14.04 and later releases, please add one additional setting:</p>
+<pre><code>SSLOpenSSLConfCmd DHParameters /etc/ssl/dhparams.pem
+</code></pre>
+
 <ul>
-<li>
-<p>If you're running Apache-2.4.8 or later releases, please add one additional
-  setting:</p>
-<ul>
-<li>on RHEL/CentOS: <code>SSLOpenSSLConfCmd DHParameters /etc/pki/tls/dhparams.pem</code></li>
-<li>on Debian/Ubuntu/FreeBSD: <code>SSLOpenSSLConfCmd DHParameters /etc/ssl/dhparams.pem</code></li>
-</ul>
-</li>
 <li>
 <p>If you're running Apache older than version 2.4.8, please append the DHparams
 generated above to the end of the certificate file.</p>

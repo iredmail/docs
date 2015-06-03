@@ -6,6 +6,10 @@
 
 > We provide remote upgrade service, check [the price](../support.html) and [contact us](../contact.html).
 
+* 2015-06-03: Fixed: `SSLOpenSSLConfCmd` is used on Ubuntu 14.04 and later releases, not on other Linux/BSD distributions.
+
+----
+
 * 2015-06-03: Initial release.
 
 ## General (All backends should apply these steps)
@@ -71,11 +75,11 @@ SSLCipherSuite ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-R
 SSLHonorCipherOrder on
 ```
 
-* If you're running Apache-2.4.8 or later releases, please add one additional
-  setting:
+On Ubuntu 14.04 and later releases, please add one additional setting:
 
-    * on RHEL/CentOS: ```SSLOpenSSLConfCmd DHParameters /etc/pki/tls/dhparams.pem```
-    * on Debian/Ubuntu/FreeBSD: ```SSLOpenSSLConfCmd DHParameters /etc/ssl/dhparams.pem```
+```
+SSLOpenSSLConfCmd DHParameters /etc/ssl/dhparams.pem
+```
 
 * If you're running Apache older than version 2.4.8, please append the DHparams
 generated above to the end of the certificate file.
