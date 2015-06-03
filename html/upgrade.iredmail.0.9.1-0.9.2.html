@@ -363,7 +363,7 @@ is fixed with below steps.</p>
   <code>/usr/local/etc/postfix/ldap/catchall_maps.cf</code> (on FreeBSD), replace all
   <code>%d</code> by <code>%s</code>:</li>
 </ul>
-<pre><code># perl -pi -e 's#%d#%s#g' /etc/postfix/ldap/catchall_maps.cf
+<pre><code># perl -pi -e 's#@%d#%s#g' /etc/postfix/ldap/catchall_maps.cf
 </code></pre>
 
 <ul>

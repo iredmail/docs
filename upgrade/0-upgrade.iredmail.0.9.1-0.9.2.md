@@ -369,7 +369,7 @@ is fixed with below steps.
   `%d` by `%s`:
 
 ```
-# perl -pi -e 's#%d#%s#g' /etc/postfix/ldap/catchall_maps.cf
+# perl -pi -e 's#@%d#%s#g' /etc/postfix/ldap/catchall_maps.cf
 ```
 
 * Restart Postfix service is required.
