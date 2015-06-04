@@ -46,6 +46,7 @@ this tutorial with just one shell command:
 
 ### iRedAdmin-Pro-SQL (For MySQL, MariaDB, PostgreSQL backends)
 
+* 2.1.1, Jun 4, 2015. Fixes a small bug.
 * [2.1](http://www.iredmail.org/forum/topic9282.html), Jun 3, 2015. Bug fixes.
 * [2.0](http://www.iredmail.org/forum/topic9146.html), May 15, 2015.
 
