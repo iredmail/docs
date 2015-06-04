@@ -1,4 +1,4 @@
-# Major components used in iRedMail
+# Major open source softwares used in iRedMail
 
 <table cellpadding="4px;">
 <thead>
