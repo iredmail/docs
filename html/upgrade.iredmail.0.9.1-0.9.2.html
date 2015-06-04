@@ -115,11 +115,14 @@ SSLHonorCipherOrder on
 <p>If you're running Apache older than version 2.4.8, please append the DHparams
 generated above to the end of the certificate file. Note: if you use a bought
 SSL certificate, append it to your cert file.</p>
-<pre><code>* On RHEL/CentOS: ```# cat /etc/pki/tls/dhparams.pem &gt;&gt; /etc/pki/tls/certs/iRedMail.crt```
-* Debian/Ubuntu: ```# cat /etc/ssl/dhparams.pem &gt;&gt; /etc/ssl/certs/iRedMail.crt```
-</code></pre>
 <ul>
-<li>Reloading or restarting Apache service is required:</li>
+<li>On RHEL/CentOS: <code># cat /etc/pki/tls/dhparams.pem &gt;&gt; /etc/pki/tls/certs/iRedMail.crt</code></li>
+<li>
+<p>Debian/Ubuntu: <code># cat /etc/ssl/dhparams.pem &gt;&gt; /etc/ssl/certs/iRedMail.crt</code></p>
+</li>
+<li>
+<p>Reloading or restarting Apache service is required:</p>
+</li>
 </ul>
 <pre><code># service httpd restart
 </code></pre>
@@ -150,7 +153,8 @@ ssl_dhparam /etc/ssl/dhparams.pem;
 
 <p>If you're running Dovecot-2.2.6 or later releases, please add some additional
 settings in <code>dovecot.conf</code>:</p>
-<pre><code>ssl_prefer_server_ciphers = yes (Dovecot 2.2.6 or greater)
+<pre><code># Dovecot 2.2.6 or later releases
+ssl_prefer_server_ciphers = yes
 
 # Dovecot will regenerate dhparams.pem itself, here we ask it to regenerate
 # with 2048 key length.
@@ -357,7 +361,7 @@ is fixed with below steps.</p>
 <ul>
 <li>Open file <code>/etc/postfix/ldap/catchall_maps.cf</code> (on Linux/OpenBSD) or
   <code>/usr/local/etc/postfix/ldap/catchall_maps.cf</code> (on FreeBSD), replace all
-  <code>%d</code> by <code>%s</code>:</li>
+  <code>@%d</code> by <code>%s</code>:</li>
 </ul>
 <pre><code># perl -pi -e 's#@%d#%s#g' /etc/postfix/ldap/catchall_maps.cf
 </code></pre>

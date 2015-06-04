@@ -85,8 +85,8 @@ If you're running Apache older than version 2.4.8, please append the DHparams
 generated above to the end of the certificate file. Note: if you use a bought
 SSL certificate, append it to your cert file.
 
-    * On RHEL/CentOS: ```# cat /etc/pki/tls/dhparams.pem >> /etc/pki/tls/certs/iRedMail.crt```
-    * Debian/Ubuntu: ```# cat /etc/ssl/dhparams.pem >> /etc/ssl/certs/iRedMail.crt```
+* On RHEL/CentOS: ```# cat /etc/pki/tls/dhparams.pem >> /etc/pki/tls/certs/iRedMail.crt```
+* Debian/Ubuntu: ```# cat /etc/ssl/dhparams.pem >> /etc/ssl/certs/iRedMail.crt```
 
 * Reloading or restarting Apache service is required:
 
@@ -372,7 +372,7 @@ is fixed with below steps.
 
 * Open file `/etc/postfix/ldap/catchall_maps.cf` (on Linux/OpenBSD) or
   `/usr/local/etc/postfix/ldap/catchall_maps.cf` (on FreeBSD), replace all
-  `%d` by `%s`:
+  `@%d` by `%s`:
 
 ```
 # perl -pi -e 's#@%d#%s#g' /etc/postfix/ldap/catchall_maps.cf
