@@ -156,8 +156,8 @@ Main config file:
   placed in `/etc/fail2ban/jail.local`, and don't touch `jail.conf`, so that
   upgrading Fail2ban binary package won't override your custom settings.
 
-* All filter rules are defined in files under `/etc/fail2ban/filters.d/`.
-* Actions are defined in files under `/etc/fail2ban/actions.d/`.
+* All filter rules are defined in files under `/etc/fail2ban/filter.d/`.
+* Actions are defined in files under `/etc/fail2ban/action.d/`.
 
 FreeBSD system is `/usr/local/etc/fail2ban/`.
 
