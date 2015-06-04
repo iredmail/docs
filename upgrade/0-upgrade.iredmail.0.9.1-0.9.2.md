@@ -133,7 +133,8 @@ If you're running Dovecot-2.2.6 or later releases, please add some additional
 settings in `dovecot.conf`:
 
 ```
-ssl_prefer_server_ciphers = yes (Dovecot 2.2.6 or greater)
+# Dovecot 2.2.6 or later releases
+ssl_prefer_server_ciphers = yes
 
 # Dovecot will regenerate dhparams.pem itself, here we ask it to regenerate
 # with 2048 key length.
