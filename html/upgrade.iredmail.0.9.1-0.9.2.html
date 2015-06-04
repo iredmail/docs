@@ -46,7 +46,7 @@
 <p>We provide remote upgrade service, check <a href="../support.html">the price</a> and <a href="../contact.html">contact us</a>.</p>
 </blockquote>
 <ul>
-<li>2015-06-03: Fixed: <code>SSLOpenSSLConfCmd</code> is used on Ubuntu 14.04 and later releases, not on other Linux/BSD distributions.</li>
+<li>2015-06-03: Fixed: <code>SSLOpenSSLConfCmd</code> is used on Ubuntu 15.04 and later releases, not on other Linux/BSD distributions.</li>
 </ul>
 <hr />
 <ul>
@@ -108,22 +108,18 @@ SSLCipherSuite ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-R
 SSLHonorCipherOrder on
 </code></pre>
 
-<p>On Ubuntu 14.04 and later releases, please add one additional setting:</p>
+<p>On Ubuntu 15.04 and later releases, please add one additional setting:</p>
 <pre><code>SSLOpenSSLConfCmd DHParameters /etc/ssl/dhparams.pem
 </code></pre>
 
-<ul>
-<li>
 <p>If you're running Apache older than version 2.4.8, please append the DHparams
-generated above to the end of the certificate file.</p>
+generated above to the end of the certificate file. Note: if you use a bought
+SSL certificate, append it to your cert file.</p>
+<pre><code>* On RHEL/CentOS: ```# cat /etc/pki/tls/dhparams.pem &gt;&gt; /etc/pki/tls/certs/iRedMail.crt```
+* Debian/Ubuntu: ```# cat /etc/ssl/dhparams.pem &gt;&gt; /etc/ssl/certs/iRedMail.crt```
+</code></pre>
 <ul>
-<li>On RHEL/CentOS: <code># cat /etc/pki/tls/dhparams.pem &gt;&gt; /etc/pki/tls/certs/iRedMail.crt</code></li>
-<li>Debian/Ubuntu: <code># cat /etc/ssl/dhparams.pem &gt;&gt; /etc/ssl/certs/iRedMail.crt</code></li>
-</ul>
-</li>
-<li>
-<p>Reloading or restarting Apache service is required:</p>
-</li>
+<li>Reloading or restarting Apache service is required:</li>
 </ul>
 <pre><code># service httpd restart
 </code></pre>

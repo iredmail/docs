@@ -6,7 +6,7 @@
 
 > We provide remote upgrade service, check [the price](../support.html) and [contact us](../contact.html).
 
-* 2015-06-03: Fixed: `SSLOpenSSLConfCmd` is used on Ubuntu 14.04 and later releases, not on other Linux/BSD distributions.
+* 2015-06-03: Fixed: `SSLOpenSSLConfCmd` is used on Ubuntu 15.04 and later releases, not on other Linux/BSD distributions.
 
 ----
 
@@ -75,14 +75,15 @@ SSLCipherSuite ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-R
 SSLHonorCipherOrder on
 ```
 
-On Ubuntu 14.04 and later releases, please add one additional setting:
+On Ubuntu 15.04 and later releases, please add one additional setting:
 
 ```
 SSLOpenSSLConfCmd DHParameters /etc/ssl/dhparams.pem
 ```
 
-* If you're running Apache older than version 2.4.8, please append the DHparams
-generated above to the end of the certificate file.
+If you're running Apache older than version 2.4.8, please append the DHparams
+generated above to the end of the certificate file. Note: if you use a bought
+SSL certificate, append it to your cert file.
 
     * On RHEL/CentOS: ```# cat /etc/pki/tls/dhparams.pem >> /etc/pki/tls/certs/iRedMail.crt```
     * Debian/Ubuntu: ```# cat /etc/ssl/dhparams.pem >> /etc/ssl/certs/iRedMail.crt```

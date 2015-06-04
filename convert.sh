@@ -34,7 +34,8 @@ strip_name_prefix()
 }
 
 # Chapter directories in specified order
-all_chapter_dirs="installation \
+all_chapter_dirs="overview \
+                  installation \
                   mua \
                   upgrade \
                   migrations \
@@ -46,7 +47,7 @@ all_chapter_dirs="installation \
                   faq"
 
 # Initial index file.
-echo '' > ${INDEX_MD}
+echo "All articles are written in Markdown format, you can download them for offline reading, contribute new articles or update existing ones in [BitBucket repository](https://bitbucket.org/zhb/docs.iredmail.org/)." > ${INDEX_MD}
 
 # Compile all Markdown files.
 if echo "$@" | grep -q -- '--all' &>/dev/null; then

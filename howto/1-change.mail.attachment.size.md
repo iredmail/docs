@@ -59,7 +59,8 @@ post_max_size = 100M;
 Change same settings in file `.htaccess` under roundcube root directory:
 
 * on RHEL/CentOS, it's `/var/www/roundcubemail/.htaccess`
-* on Debian/Ubuntu, it's `/usr/share/apache2/roundcubemail/.htaccess`
+* on Debian/Ubuntu, it's `/usr/share/apache2/roundcubemail/.htaccess` or
+  `/opt/www/roundcubemail/.htaccess`.
 * on FreeBSD, it's `/usr/local/www/roundcubemail/.htaccess`
 * on OpenBSD, it's `/var/www/roundcubemail/.htaccess`
 

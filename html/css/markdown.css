@@ -299,3 +299,5 @@ pre>code {
 #navigation a:hover {
     color: #0099ff;
 } 
+
+th { font-style: bold; text-align: left; }
