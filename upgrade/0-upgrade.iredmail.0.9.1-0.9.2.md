@@ -343,8 +343,8 @@ update SQL database and exit silently.
 
 ### [OPTIONAL] Update one Fail2ban filter regular expression to help catch DoS attacks to SMTP service
 
-1. Open file `/etc/fail2ban/filters.d/postfix.iredmail.conf` or
-`/usr/local/etc/fail2ban/filters.d/postfix.iredmail.conf` (on FreeBSD), find
+1. Open file `/etc/fail2ban/filter.d/postfix.iredmail.conf` or
+`/usr/local/etc/fail2ban/filter.d/postfix.iredmail.conf` (on FreeBSD), find
 below line under `[Definition]` section:
 
 ```
