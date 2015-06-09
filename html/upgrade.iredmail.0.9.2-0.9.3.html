@@ -1,0 +1,81 @@
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Upgrade iRedMail from 0.9.2 to 0.9.3</title>
+        <link href="./css/markdown.css" rel="stylesheet"></head>
+    </head>
+    <body>
+    
+    <div id="navigation">
+        <a href="http://www.iredmail.org" target="_blank">iRedMail web site</a>
+    
+        // <a href="./index.html">Document Index</a>
+    </div><h1 id="upgrade-iredmail-from-092-to-093">Upgrade iRedMail from 0.9.2 to 0.9.3</h1>
+<div class="toc">
+<ul>
+<li><a href="#upgrade-iredmail-from-092-to-093">Upgrade iRedMail from 0.9.2 to 0.9.3</a><ul>
+<li><a href="#changelog">ChangeLog</a></li>
+<li><a href="#general-all-backends-should-apply-these-steps">General (All backends should apply these steps)</a><ul>
+<li><a href="#update-etciredmail-release-with-new-iredmail-version-number">Update /etc/iredmail-release with new iRedMail version number</a></li>
+<li><a href="#upgrade-iredapd-postfix-policy-server-to-the-latest-170">Upgrade iRedAPD (Postfix policy server) to the latest 1.7.0</a></li>
+<li><a href="#optional-fixed-not-preserve-the-case-of-extension-while-delivering-message-to-mailbox">[OPTIONAL] Fixed: Not preserve the case of ${extension} while delivering message to mailbox</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<p><strong>This is still a DRAFT document, do NOT apply it.</strong></p>
+<h2 id="changelog">ChangeLog</h2>
+<blockquote>
+<p>We provide remote upgrade service, check <a href="../support.html">the price</a> and <a href="../contact.html">contact us</a>.</p>
+</blockquote>
+<ul>
+<li>2015-06-09: [OPTIONAL] Fixed: Not preserve the case of ${extension} while delivering message to mailbox.</li>
+</ul>
+<h2 id="general-all-backends-should-apply-these-steps">General (All backends should apply these steps)</h2>
+<h3 id="update-etciredmail-release-with-new-iredmail-version-number">Update <code>/etc/iredmail-release</code> with new iRedMail version number</h3>
+<p>iRedMail stores the release version in <code>/etc/iredmail-release</code> after
+installation, it's recommended to update this file after you upgraded iRedMail,
+so that you can know which version of iRedMail you're running. For example:</p>
+<pre><code># File: /etc/iredmail-release
+
+0.9.3
+</code></pre>
+
+<h3 id="upgrade-iredapd-postfix-policy-server-to-the-latest-170">Upgrade iRedAPD (Postfix policy server) to the latest 1.7.0</h3>
+<p>Please follow below tutorial to upgrade iRedAPD to the latest stable release:
+<a href="./upgrade.iredapd.html">How to upgrade iRedAPD-1.4.0 or later versions to the latest stable release</a></p>
+<p>Detailed release notes are available here: <a href="./iredapd.releases.html">iRedAPD release notes</a>.</p>
+<h3 id="optional-fixed-not-preserve-the-case-of-extension-while-delivering-message-to-mailbox">[OPTIONAL] Fixed: Not preserve the case of <code>${extension}</code> while delivering message to mailbox</h3>
+<p>With iRedMail-0.9.2 and earlier releases, email sent to user
+<code>username+Ext@domain.com</code> (upper case <code>E</code>) will be delivered to folder
+<code>ext</code> (lower case <code>e</code>) of <code>username@domain.com</code>'s mailbox. This fix will
+preserve the case of address extension.</p>
+<ul>
+<li>Open file <code>/etc/postfix/master.cf</code> (Linux/OpenBSD) or
+  <code>/usr/local/etc/postfix/master.cf</code> (FreeBSD), find below lines:</li>
+</ul>
+<pre><code># Use dovecot deliver program as LDA.
+dovecot unix    -       n       n       -       -      pipe
+    flags=DRhu ...
+</code></pre>
+
+<ul>
+<li>Replace <code>flags=DRhu</code> by <code>flags=DRh</code> (remove <code>u</code>) in the third line:</li>
+</ul>
+<pre><code>    flags=DRh ...
+</code></pre>
+
+<ul>
+<li>Save your change and restart Postfix service.</li>
+</ul><p style="text-align: center; color: grey;">Document published under a <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">CC BY-ND 3.0</a> license. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-3293801-21', 'auto');
+  ga('send', 'pageview');
+</script>
+</body></html>
