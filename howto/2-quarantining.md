@@ -69,7 +69,7 @@ Restarting amavisd service is required.
 Update iRedAdmin-Pro config file, make sure you have correct settings for Amavisd:
 
 * on Red Hat Enterprise Linux, CentOS, Scientific Linux, it's `/var/www/iredadmin/settings.py`.
-* on Debian, Ubuntu, it's `/usr/share/apache2/iredadmin/settings.py`.
+* on Debian, Ubuntu, it's `/opt/www/iredadmin/settings.py` or `/usr/share/apache2/iredadmin/settings.py`.
 * on FreeBSD, it's `/usr/local/www/iredadmin/settings.py`.
 * on OpenBSD, it's `/var/www/iredadmin/settings.py`.
 
