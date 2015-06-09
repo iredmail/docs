@@ -104,6 +104,10 @@ Screenshots attached at the bottom.
 
 ## Quarantine clean emails
 
+Note: If you just want to quarantine clean emails sent from/to certain local
+user, please refer to this document instead:
+[Quarantine clean emails sent from/to certain local user](./quarantine.clean.mails.per-user.html)
+
 If you want to quarantine clean emails into SQL database for further approval
 or whatever reason, please follow below steps:
 
