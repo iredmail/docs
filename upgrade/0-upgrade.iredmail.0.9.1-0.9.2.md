@@ -367,12 +367,13 @@ Restarting Fail2ban service is required.
 
 In iRedMail-0.9.1 and earlier versions, there's a known bug that per-domain
 catch-all support doesn't work with email address which contains address
-extension. for example, email address `username+extension@domain.com`. This
-is fixed with below steps.
+extension. for example, email address `username+extension@domain.com`. Below
+command fixes this issue.
 
-* Open file `/etc/postfix/ldap/catchall_maps.cf` (on Linux/OpenBSD) or
-  `/usr/local/etc/postfix/ldap/catchall_maps.cf` (on FreeBSD), replace all
-  `@%d` by `%s`:
+Notes:
+
+* on Linux/OpenBSD, it's `/etc/postfix/ldap/catchall_maps.cf`.
+* on FreeBSD, it's `/usr/local/etc/postfix/ldap/catchall_maps.cf`
 
 ```
 # perl -pi -e 's#@%d#%s#g' /etc/postfix/ldap/catchall_maps.cf

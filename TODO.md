@@ -1,5 +1,6 @@
 # TODO
 
+* http://doc.samplezone.ch/iredmail/version-0-9-1/programs/program-sockets/
 * http://doc.samplezone.ch/iredmail/
 
 * How to install and configure SOGo groupware

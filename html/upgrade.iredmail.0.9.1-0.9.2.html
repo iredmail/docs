@@ -356,12 +356,12 @@ below line under <code>[Definition]</code> section:</li>
 <h3 id="fixed-catch-all-support-doesnt-work-with-email-address-which-contains-address-extension">Fixed: catch-all support doesn't work with email address which contains address extension</h3>
 <p>In iRedMail-0.9.1 and earlier versions, there's a known bug that per-domain
 catch-all support doesn't work with email address which contains address
-extension. for example, email address <code>username+extension@domain.com</code>. This
-is fixed with below steps.</p>
+extension. for example, email address <code>username+extension@domain.com</code>. Below
+command fixes this issue.</p>
+<p>Notes:</p>
 <ul>
-<li>Open file <code>/etc/postfix/ldap/catchall_maps.cf</code> (on Linux/OpenBSD) or
-  <code>/usr/local/etc/postfix/ldap/catchall_maps.cf</code> (on FreeBSD), replace all
-  <code>@%d</code> by <code>%s</code>:</li>
+<li>on Linux/OpenBSD, it's <code>/etc/postfix/ldap/catchall_maps.cf</code>.</li>
+<li>on FreeBSD, it's <code>/usr/local/etc/postfix/ldap/catchall_maps.cf</code></li>
 </ul>
 <pre><code># perl -pi -e 's#@%d#%s#g' /etc/postfix/ldap/catchall_maps.cf
 </code></pre>

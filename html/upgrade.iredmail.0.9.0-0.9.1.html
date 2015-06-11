@@ -404,16 +404,16 @@ ignoreregex =
 
 <ol>
 <li>Open file <code>/etc/fail2ban/filter.d/dovecot.iredmail.conf</code> or
-<code>/usr/local/etc/fail2ban/filter.d/dovecot.iredmail.conf</code> (on FreeBSD), append
-below line under <code>[Definition]</code> section:</li>
+<code>/usr/local/etc/fail2ban/filter.d/dovecot.iredmail.conf</code> (on FreeBSD), replace
+its content by below text:</li>
 </ol>
-<pre><code>            Aborted login \(no auth attempts in .* rip=&lt;HOST&gt;
-</code></pre>
-
-<p>After modification, the whole content is:</p>
 <pre><code>[Definition]
-failregex = (?: pop3-login|imap-login): .*(?:Authentication failure|Aborted login \(auth failed|Aborted login \(tried to use disabled|Disconnected \(auth failed).*rip=(?P&lt;host&gt;\S*),.*
+failregex = Authentication failure.* rip=&lt;HOST&gt;
             Aborted login \(no auth attempts in .* rip=&lt;HOST&gt;
+            Aborted login \(auth failed.* rip=&lt;HOST&gt;
+            Aborted login \(tried to use disallowed .* rip=&lt;HOST&gt;
+            Aborted login \(tried to use disabled .* rip=&lt;HOST&gt;
+
 ignoreregex =
 </code></pre>
 
