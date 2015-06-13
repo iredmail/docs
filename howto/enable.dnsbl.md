@@ -2,8 +2,8 @@
 
 > Important note: if you're running a high-traffic mail server, you'd better
 > setup a local DNS server to cache DNS queries, because free RBL services
-> like zen.spamhaus.org may improperly reply if your server exceed the limit
-> DNS queries. Also, mail service higly relies on DNS queries, so a local
+> like zen.spamhaus.org may improperly reply if your server exceed the 
+> DNS query limit. Also, mail service higly relies on DNS queries, so a local
 > DNS server speeds up the mail flow.
 
 You can enable additional DNSBL services in Postfix to reduce spam. We use
