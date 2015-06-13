@@ -11,6 +11,13 @@
     
         // <a href="./index.html">Document Index</a>
     </div><h1 id="enable-dnsbl-service-in-postfix-to-reduce-spam">Enable DNSBL service in Postfix to reduce spam</h1>
+<blockquote>
+<p>Important note: if you're running a high-traffic mail server, you'd better
+setup a local DNS server to cache DNS queries, because free RBL services
+like zen.spamhaus.org may improperly reply if your server exceed the limit
+DNS queries. Also, mail service higly relies on DNS queries, so a local
+DNS server speeds up the mail flow.</p>
+</blockquote>
 <p>You can enable additional DNSBL services in Postfix to reduce spam. We use
 <code>zen.spamhaus.org</code> for example below.</p>
 <ul>
