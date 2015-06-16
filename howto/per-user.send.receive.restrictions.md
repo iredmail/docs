@@ -46,15 +46,15 @@ Sample usage:
 * allow local mail user `user@example.com` to send to and receive from the same
   domain (`example.com`) and `gmail.com`, but not others.
 
-```
+```sql
 sql> USE vmail;
-sql> UPDATE mailbox \
-     SET \
-         rejectedsenders='@.', \
-         allowedsenders='@example.com,@gmail.com', \
-         rejectedrecipients='' \
-         allowedrecipients='@example.com,@gmail.com', \
-     WHERE \
+sql> UPDATE mailbox
+     SET
+         rejectedsenders='@.',
+         allowedsenders='@example.com,@gmail.com',
+         rejectedrecipients='',
+         allowedrecipients='@example.com,@gmail.com'
+     WHERE
           username='user@example.com';
 ```
 

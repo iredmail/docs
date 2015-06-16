@@ -54,14 +54,14 @@ plugins = [..., 'sql_user_restrictions']
 <li>allow local mail user <code>user@example.com</code> to send to and receive from the same
   domain (<code>example.com</code>) and <code>gmail.com</code>, but not others.</li>
 </ul>
-<pre><code>sql&gt; USE vmail;
-sql&gt; UPDATE mailbox \
-     SET \
-         rejectedsenders='@.', \
-         allowedsenders='@example.com,@gmail.com', \
-         rejectedrecipients='' \
-         allowedrecipients='@example.com,@gmail.com', \
-     WHERE \
+<pre><code class="sql">sql&gt; USE vmail;
+sql&gt; UPDATE mailbox
+     SET
+         rejectedsenders='@.',
+         allowedsenders='@example.com,@gmail.com',
+         rejectedrecipients='',
+         allowedrecipients='@example.com,@gmail.com'
+     WHERE
           username='user@example.com';
 </code></pre>
 
