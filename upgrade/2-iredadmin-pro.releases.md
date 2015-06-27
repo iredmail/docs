@@ -48,6 +48,7 @@ this tutorial with just one shell command:
 
 * [2.1](http://www.iredmail.org/forum/topic9282.html), Jun 3, 2015. Bug fixes.
 
+    * 2.1.3, Jun 27, 2015. Fixes a bug, improved command line tool used to manage white/blacklists.
     * 2.1.2, Jun 17, 2015. Fixes two bugs, updates Spain (es_ES) and Germany (de_DE) translations.
     * 2.1.1, Jun 4, 2015. Fixes a small bug.
 
