@@ -1,7 +1,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title>Per-user inbound and outbound restrictions</title>
+        <title>Per-user outbound restrictions</title>
         <link href="./css/markdown.css" rel="stylesheet"></head>
     </head>
     <body>
@@ -10,28 +10,24 @@
         <a href="http://www.iredmail.org" target="_blank">iRedMail web site</a>
     
         // <a href="./index.html">Document Index</a>
-    </div><h1 id="per-user-inbound-and-outbound-restrictions">Per-user inbound and outbound restrictions</h1>
+    </div><h1 id="per-user-outbound-restrictions">Per-user outbound restrictions</h1>
 <blockquote>
-<p>There's another way to achieve per-user inbound/outbound restriction, it's
-called per-user white/blacklists (stored in SQL table <code>amavisd.wblist</code>,
-implemented by iRedAPD plugin <code>amavisd_wblist</code>), but per-user white/blacklists
-are manageable by user themselves.</p>
+<p>Note: if you're looking for whitelisting or blacklisting incoming email,
+please use iRedAPD plugin <code>amavisd_wblist</code> instead.</p>
 </blockquote>
+<h2 id="sql-backends">SQL backends</h2>
 <p>iRedAPD (a simple Postfix policy server developed by iRedMail team) provides
-for per-user plugin <code>sql_user_restrictions</code> for per-user inbound/outbound
-restrictions.</p>
+plugin <code>sql_user_restrictions</code> for per-user inbound/outbound restrictions.</p>
 <p>Please make sure plugin <code>sql_user_restrictions</code> is enabled in iRedAPD config
 file <code>/opt/iredapd/settings.py</code> like below:</p>
-<pre><code># Part of file: /opt/iredapd/settings.py
+<pre><code class="python"># Part of file: /opt/iredapd/settings.py
 
 plugins = [..., 'sql_user_restrictions']
 </code></pre>
 
 <p>Restarting iRedAPD service is required if you modified <code>/opt/iredapd/settings.py</code>.</p>
-<p>You can store allowed or disallowed senders in 4 SQL columns in <code>vmail</code> database:</p>
+<p>You can store allowed or disallowed recipient in 2 SQL columns in <code>vmail</code> database:</p>
 <ul>
-<li><code>mailbox.rejectedsenders</code>: disallowed to receive email from listed senders.</li>
-<li><code>mailbox.allowedsenders</code>: allowed to receive email from listed senders.</li>
 <li><code>mailbox.rejectedrecipients</code>: disallow user to send email to listed recipients.</li>
 <li><code>mailbox.allowedrecipients</code>: allow user to send email to listed recipients.</li>
 </ul>
@@ -43,23 +39,16 @@ plugins = [..., 'sql_user_restrictions']
 <li><code>user@domain.com</code>:  single email address</li>
 <li>empty value means no restriction.</li>
 </ul>
-<p>NOTES:</p>
-<ul>
-<li>Multiple senders/recipients must be separated by comma (<code>,</code>).</li>
-<li><code>mailbox.allowedsenders</code> has higher priority than <code>mailbox.rejectedsenders</code>.</li>
-<li><code>mailbox.allowedrecipients</code> has higher priority than <code>mailbox.rejectedrecipients</code>.</li>
-</ul>
+<p>NOTE: Multiple recipients must be separated by comma (<code>,</code>).</p>
 <p>Sample usage:</p>
 <ul>
-<li>allow local mail user <code>user@example.com</code> to send to and receive from the same
-  domain (<code>example.com</code>) and <code>gmail.com</code>, but not others.</li>
+<li>allow local mail user <code>user@example.com</code> to send to domain (<code>example.com</code>)
+  and <code>gmail.com</code>, but not others.</li>
 </ul>
 <pre><code class="sql">sql&gt; USE vmail;
 sql&gt; UPDATE mailbox
      SET
-         rejectedsenders='@.',
-         allowedsenders='@example.com,@gmail.com',
-         rejectedrecipients='',
+         rejectedrecipients='@.',
          allowedrecipients='@example.com,@gmail.com'
      WHERE
           username='user@example.com';
@@ -77,12 +66,15 @@ sql&gt; UPDATE mailbox
 <ul>
 <li><code>mailWhitelistRecipient</code>: same as SQL <code>mailbox.allowedrecipients</code></li>
 <li><code>mailBlacklistRecipient</code>: same as <code>mailbox.rejectedrecipients</code></li>
-<li><code>amavisWhitelistSender</code>: same as <code>mailbox.allowedsenders</code></li>
-<li><code>amavisBlacklistSender</code>: same as <code>mailbox.rejectedsenders</code></li>
 </ul>
 </li>
 </ul>
-<p>Values for these LDAP attributes use the same format as mentioned above.</p><p style="text-align: center; color: grey;">Document published under a <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">CC BY-ND 3.0</a> license. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.<script>
+<p>Values for these LDAP attributes use the same format as mentioned above.</p>
+<p>Note: multiple recipients must be stored in multiple attributes like below:</p>
+<pre><code>mailWhitelistRecipient: @example.com
+mailWhitelistRecipient: @gmail.com
+mailWhitelistRecipient: @iredmail.org
+</code></pre><p style="text-align: center; color: grey;">Document published under a <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">CC BY-ND 3.0</a> license. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.<script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
   m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)

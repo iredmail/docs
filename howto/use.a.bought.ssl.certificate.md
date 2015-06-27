@@ -161,4 +161,6 @@ Then update `ssl_certificate` parameter in `/etc/nginx/conf.d/default.conf`:
 
 Restarting Nginx service is required.
 
-Reference: [Configuring HTTPS servers](http://nginx.org/en/docs/http/configuring_https_servers.html)
+## Reference
+
+* [Configuring HTTPS servers](http://nginx.org/en/docs/http/configuring_https_servers.html)

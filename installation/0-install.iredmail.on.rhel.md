@@ -209,6 +209,7 @@ Configuration completed.
   message in web browser or mail clients when accessing mailbox via
   HTTPS/IMAPS/POP3/SMTPS. Or, you can use
   [free SSL cert offerred by StartSSL.com](http://www.startssl.com/?app=1).
+  We have a document for you to [use a bought SSL certificate](http://www.iredmail.org/docs/use.a.bought.ssl.certificate.html).
 
 
 ## Access webmail and other web applications
