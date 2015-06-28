@@ -8,7 +8,7 @@ __This is still a DRAFT document, do NOT apply it.__
 
 > We provide remote upgrade service, check [the price](../support.html) and [contact us](../contact.html).
 
-* 2015-06-09: [OPTIONAL] Fixed: Not preserve the case of ${extension} while delivering message to mailbox.
+* 2015-06-09: [OPTIONAL] Fixed: Not preserve the case of `${extension}` while delivering message to mailbox.
 
 ## General (All backends should apply these steps)
 
@@ -30,6 +30,11 @@ Please follow below tutorial to upgrade iRedAPD to the latest stable release:
 [How to upgrade iRedAPD-1.4.0 or later versions to the latest stable release](./upgrade.iredapd.html)
 
 Detailed release notes are available here: [iRedAPD release notes](./iredapd.releases.html).
+
+### Upgrade Roundcube webmail to the latest stable release
+
+Please follow Roundcube official tutorial to upgrade Roundcube webmail to the
+latest stable release immediately: [How to upgrade Roundcube](http://trac.roundcube.net/wiki/Howto_Upgrade)
 
 ### [OPTIONAL] Fixed: Not preserve the case of `${extension}` while delivering message to mailbox
 

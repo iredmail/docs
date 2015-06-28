@@ -20,7 +20,7 @@ To install iRedMail on FreeBSD, you need:
 * A __FRESH__, minimal, working FreeBSD system, no additional ports or binary
   packages were installed. Supported releases are listed on
   [Download](../download.html) page.
-* At least `1 GB` of memory is required for low traffic production server.
+* `2 GB` of memory is recommended for a low traffic production server.
   Spam/Virus scanning will take most system resource.
 
 Note: All packages will be installed from ports tree.

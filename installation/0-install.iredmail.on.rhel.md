@@ -15,7 +15,7 @@ To install iRedMail on RHEL or CentOS Linux, you need:
 
 * A __FRESH__, working RHEL or CentOS system. Supported releases are listed on
   [Download](../download.html) page.
-* At least `1 GB` of memory is required for low traffic production server.
+* `2 GB` of memory is recommended for a low traffic production server.
   Spam/Virus scanning will take most system resource.
 
 ## Preparations
