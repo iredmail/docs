@@ -11,43 +11,44 @@
     
         // <a href="./index.html">Document Index</a>
     </div><h1 id="change-server-hostname">Change server hostname</h1>
-<p>If you want to change server hostname, please also update below files to
-replace old hostname by the new one:</p>
+<p>To change server hostname after iRedMail installation, please update below
+files to replace old hostname by the new one:</p>
 <h2 id="system-config-files">System config files</h2>
 <ul>
 <li>
-<p>/etc/hosts</p>
+<p><code>/etc/hosts</code></p>
 </li>
 <li>
-<p>Debian/Ubuntu: /etc/hostname</p>
+<p>Debian/Ubuntu: <code>/etc/hostname</code></p>
 </li>
-<li>Debian/Ubuntu: /etc/mailname</li>
+<li>Debian/Ubuntu: <code>/etc/mailname</code></li>
 </ul>
 <h2 id="postfix">Postfix</h2>
 <ul>
-<li>/var/spool/postfix/etc/hosts</li>
-<li>/etc/postfix/main.cf (Linux/OpenBSD) or /usr/local/etc/postfix/main.cf (FreeBSD)</li>
+<li><code>/var/spool/postfix/etc/hosts</code></li>
+<li><code>/etc/postfix/main.cf</code> (Linux/OpenBSD) or <code>/usr/local/etc/postfix/main.cf</code> (FreeBSD)</li>
 </ul>
 <h2 id="awstats">Awstats</h2>
 <ul>
-<li>/etc/awstats/awstats.{web,smtp}.conf</li>
+<li><code>/etc/awstats/awstats.web.conf</code></li>
+<li><code>/etc/awstats/awstats.smtp.conf</code></li>
 </ul>
 <h2 id="apache">Apache</h2>
 <ul>
-<li>RHEL/CentOS: /etc/httpd/conf/httpd.conf</li>
-<li>Debian/Ubuntu: /etc/apache2/apache.conf</li>
+<li>RHEL/CentOS: <code>/etc/httpd/conf/httpd.conf</code></li>
+<li>Debian/Ubuntu: <code>/etc/apache2/apache.conf</code></li>
 </ul>
 <h2 id="amavisd">Amavisd</h2>
 <ul>
-<li>RHEL/CentOS, OpenBSD: /etc/amavisd/amavisd.conf</li>
-<li>Debian/Ubuntu: /etc/amavis/conf.d/50-user</li>
-<li>FreeBSD: /usr/local/etc/amavisd.conf</li>
+<li>RHEL/CentOS, OpenBSD: <code>/etc/amavisd/amavisd.conf</code></li>
+<li>Debian/Ubuntu: <code>/etc/amavis/conf.d/50-user</code></li>
+<li>FreeBSD: <code>/usr/local/etc/amavisd.conf</code></li>
 </ul>
 <h2 id="sogo">SOGO</h2>
 <ul>
-<li>/etc/httpd/conf.d/SOGo.conf</li>
-<li>/etc/apache2/conf.d/SOGo.conf</li>
-<li>/etc/apache2/conf-available/SOGo.conf</li>
+<li><code>/etc/httpd/conf.d/SOGo.conf</code></li>
+<li><code>/etc/apache2/conf.d/SOGo.conf</code></li>
+<li><code>/etc/apache2/conf-available/SOGo.conf</code></li>
 </ul><p style="text-align: center; color: grey;">Document published under a <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">CC BY-ND 3.0</a> license. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.<script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
