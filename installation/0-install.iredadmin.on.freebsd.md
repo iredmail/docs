@@ -12,6 +12,9 @@
 > iRedMail will install all required packages for you, you don't need to
 > install them manually.
 
+* The latest iRedMail release. [Download the latest iRedMail](../download.html).
+  NOTE: You must have iRedMail installed on server first.
+
 * `Apache` 2.2+. Web server.
 
     * `mod_wsgi` 2.1+. Apache module used to host Python application which supports the Python WSGI interface.

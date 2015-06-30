@@ -17,6 +17,9 @@ NOTE: This tutorial must be rewritten to use Nginx as web server since OpenBSD
 > iRedMail will install all required packages for you, you don't need to
 > install them manually.
 
+* The latest iRedMail release. [Download the latest iRedMail](../download.html).
+  NOTE: You must have iRedMail installed on server first.
+
 * `Apache` 1.3+, the built-in Apache web server in base system.
 * `Python` 2.4+, core programming language. Warning: Python 3.x is not supported yet.
 
