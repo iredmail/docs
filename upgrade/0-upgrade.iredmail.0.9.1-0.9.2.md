@@ -81,6 +81,12 @@ On Ubuntu 15.04 and later releases, please add one additional setting:
 SSLOpenSSLConfCmd DHParameters /etc/ssl/dhparams.pem
 ```
 
+----
+
+Applicable to all Linux/BSD distributions:
+
+----
+
 If you're running Apache older than version 2.4.8, please append the DHparams
 generated above to the end of the certificate file. Note: if you use a bought
 SSL certificate, append it to your cert file.
