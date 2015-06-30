@@ -248,7 +248,7 @@ button::-moz-focus-inner {
 pre, code {
     background: #f5f5f5;
     border: 1px solid #ccc;
-    border-radius: 3px;
+    /*border-radius: 3px;*/
     overflow-x: auto;
     padding: 5px 10px 5px 10px;
     word-wrap: normal;
@@ -301,3 +301,7 @@ pre>code {
 } 
 
 th { font-style: bold; text-align: left; }
+
+/*
+code.bash { background-color: green; color: white; }
+*/

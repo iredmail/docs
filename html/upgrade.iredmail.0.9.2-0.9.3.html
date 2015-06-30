@@ -19,6 +19,7 @@
 <li><a href="#update-etciredmail-release-with-new-iredmail-version-number">Update /etc/iredmail-release with new iRedMail version number</a></li>
 <li><a href="#upgrade-iredapd-postfix-policy-server-to-the-latest-170">Upgrade iRedAPD (Postfix policy server) to the latest 1.7.0</a></li>
 <li><a href="#upgrade-roundcube-webmail-to-the-latest-stable-release">Upgrade Roundcube webmail to the latest stable release</a></li>
+<li><a href="#dovecot-22-add-more-special-folders-as-alias-folders">Dovecot-2.2: Add more special folders as alias folders</a></li>
 <li><a href="#optional-fixed-not-preserve-the-case-of-extension-while-delivering-message-to-mailbox">[OPTIONAL] Fixed: Not preserve the case of ${extension} while delivering message to mailbox</a></li>
 </ul>
 </li>
@@ -32,6 +33,7 @@
 <p>We provide remote upgrade service, check <a href="../support.html">the price</a> and <a href="../contact.html">contact us</a>.</p>
 </blockquote>
 <ul>
+<li>2015-06-30: Dovecot-2.2: Add more special folders as alias folders.</li>
 <li>2015-06-09: [OPTIONAL] Fixed: Not preserve the case of <code>${extension}</code> while delivering message to mailbox.</li>
 </ul>
 <h2 id="general-all-backends-should-apply-these-steps">General (All backends should apply these steps)</h2>
@@ -51,6 +53,51 @@ so that you can know which version of iRedMail you're running. For example:</p>
 <h3 id="upgrade-roundcube-webmail-to-the-latest-stable-release">Upgrade Roundcube webmail to the latest stable release</h3>
 <p>Please follow Roundcube official tutorial to upgrade Roundcube webmail to the
 latest stable release immediately: <a href="http://trac.roundcube.net/wiki/Howto_Upgrade">How to upgrade Roundcube</a></p>
+<h3 id="dovecot-22-add-more-special-folders-as-alias-folders">Dovecot-2.2: Add more special folders as alias folders</h3>
+<p>Note: This is applicable to Dovecot-2.2.x. if you're running Dovecot-2.1.x or
+earlier versions, please skip this step. Check Dovecot version number with
+below command:</p>
+<pre><code class="bash"># dovecot --version
+</code></pre>
+
+<p>Open Dovecot config file <code>/etc/dovecot/dovecot.conf</code> (Linux/OpenBSD) or
+<code>/usr/local/etc/dovecot/dovecot.conf</code> (FreeBSD), find below setting:</p>
+<pre><code>namespace {
+    type = private
+    ...
+    inbox = yes
+    ...
+}
+</code></pre>
+
+<p>Add below alias folders inside the same <code>namespace {}</code> block:</p>
+<pre><code>    mailbox &quot;Sent Items&quot; {
+        auto = no
+        special_use = \Sent
+    }
+
+    mailbox &quot;Deleted Messages&quot; {
+        auto = no
+        special_use = \Trash
+    }
+
+    mailbox &quot;Deleted Messages&quot; {
+        auto = no
+        special_use = \Trash
+    }
+
+    # Archive
+    mailbox Archive {
+        auto = subscribe
+        special_use = \Archive
+    }
+    mailbox Archives {
+        auto = no
+        special_use = \Archive
+    }
+</code></pre>
+
+<p>Restart Dovecot service is required.</p>
 <h3 id="optional-fixed-not-preserve-the-case-of-extension-while-delivering-message-to-mailbox">[OPTIONAL] Fixed: Not preserve the case of <code>${extension}</code> while delivering message to mailbox</h3>
 <p>With iRedMail-0.9.2 and earlier releases, email sent to user
 <code>username+Ext@domain.com</code> (upper case <code>E</code>) will be delivered to folder

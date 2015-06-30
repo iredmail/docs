@@ -8,6 +8,7 @@ __This is still a DRAFT document, do NOT apply it.__
 
 > We provide remote upgrade service, check [the price](../support.html) and [contact us](../contact.html).
 
+* 2015-06-30: Dovecot-2.2: Add more special folders as alias folders.
 * 2015-06-09: [OPTIONAL] Fixed: Not preserve the case of `${extension}` while delivering message to mailbox.
 
 ## General (All backends should apply these steps)
@@ -35,6 +36,59 @@ Detailed release notes are available here: [iRedAPD release notes](./iredapd.rel
 
 Please follow Roundcube official tutorial to upgrade Roundcube webmail to the
 latest stable release immediately: [How to upgrade Roundcube](http://trac.roundcube.net/wiki/Howto_Upgrade)
+
+### Dovecot-2.2: Add more special folders as alias folders
+
+Note: This is applicable to Dovecot-2.2.x. if you're running Dovecot-2.1.x or
+earlier versions, please skip this step. Check Dovecot version number with
+below command:
+
+```bash
+# dovecot --version
+```
+
+Open Dovecot config file `/etc/dovecot/dovecot.conf` (Linux/OpenBSD) or
+`/usr/local/etc/dovecot/dovecot.conf` (FreeBSD), find below setting:
+
+```
+namespace {
+    type = private
+    ...
+    inbox = yes
+    ...
+}
+```
+
+Add below alias folders inside the same `namespace {}` block:
+
+```
+    mailbox "Sent Items" {
+        auto = no
+        special_use = \Sent
+    }
+
+    mailbox "Deleted Messages" {
+        auto = no
+        special_use = \Trash
+    }
+
+    mailbox "Deleted Messages" {
+        auto = no
+        special_use = \Trash
+    }
+
+    # Archive
+    mailbox Archive {
+        auto = subscribe
+        special_use = \Archive
+    }
+    mailbox Archives {
+        auto = no
+        special_use = \Archive
+    }
+```
+
+Restart Dovecot service is required.
 
 ### [OPTIONAL] Fixed: Not preserve the case of `${extension}` while delivering message to mailbox
 
