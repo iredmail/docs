@@ -11,10 +11,6 @@ OUTPUT_DIR="${PWD}/html"
 # Markdown file used to store index of chapters/articles.
 INDEX_MD="${OUTPUT_DIR}/index.md"
 
-# Pack all converted HTML files for downloading
-PACK_NAME="iredmail-docs"
-PACK_TAR_NAME="iredmail-docs.tar.bz2"
-
 [ -d ${OUTPUT_DIR} ] || mkdir -p ${OUTPUT_DIR}
 
 CONVERTER="${PWD}/tools/markdown2html.py"
@@ -141,17 +137,6 @@ ${CMD_CONVERT} ${INDEX_MD} ${OUTPUT_DIR} title="iRedMail Documentations"
 # Cleanup
 rm -f ${INDEX_MD}
 
-if echo "$@" | grep -q -- '--pack'; then
-    echo "* Pack all HTML files: ${PACK_TAR_NAME}"
-
-    cd ${PWD}
-    pack_dir="${PACK_NAME}-${TODAY}"
-    mkdir -p ${pack_dir}
-    cp -rf html/* ${pack_dir}
-    tar cjf ${PACK_TAR_NAME} ${pack_dir}
-    rm -rf ${pack_dir}
-fi
-
 # Sync newly generated HTML files to local diretories.
 if echo "$@" | grep -q -- '--sync-local'; then
     # Copy to local hg repo of http://www.iredmail.org/docs/
@@ -159,16 +144,7 @@ if echo "$@" | grep -q -- '--sync-local'; then
     rm -rf ../web/docs/*
     cp -rf html/* ../web/docs/
 
-    if [ -f ${PACK_TAR_NAME} ]; then
-        cp ${PACK_TAR_NAME} ../web/docs/
-    fi
-
     # Copy to iredmail.com/docs/
     rm -rf /Volumes/STORAGE/Dropbox/Backup/iredmail.com/docs/*
     cp -rf html/* /Volumes/STORAGE/Dropbox/Backup/iredmail.com/docs/
-    if [ -f ${PACK_TAR_NAME} ]; then
-        cp -f ${PACK_TAR_NAME} /Volumes/STORAGE/Dropbox/Backup/iredmail.com/docs/
-    fi
-
-    rm -f ${PACK_TAR_NAME}
 fi
