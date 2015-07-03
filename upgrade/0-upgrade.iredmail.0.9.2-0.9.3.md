@@ -8,6 +8,7 @@ __This is still a DRAFT document, do NOT apply it.__
 
 > We provide remote upgrade service, check [the price](../support.html) and [contact us](../contact.html).
 
+* 2015-07-03: Dovecot: Fix incorrect quota warning priorities
 * 2015-06-30: Dovecot-2.2: Add more special folders as alias folders.
 * 2015-06-09: [OPTIONAL] Fixed: Not preserve the case of `${extension}` while delivering message to mailbox.
 
@@ -37,11 +38,61 @@ Detailed release notes are available here: [iRedAPD release notes](./iredapd.rel
 Please follow Roundcube official tutorial to upgrade Roundcube webmail to the
 latest stable release immediately: [How to upgrade Roundcube](http://trac.roundcube.net/wiki/Howto_Upgrade)
 
+### [TODO] Amavisd: Fix incorrect setting which signs DKIM on inbound messages
+
+* Add `$interface_policy{'10026'} = 'ORIGINATING';` in amavisd.conf
+* Remove '$originating = 1;'
+* Update transport `submission` in `/etc/postfix/master.cf` to use
+  `content_filter=smtp-amavis:[127.0.0.1]:10026` as content filter.
+
+With these changes, Amavisd will aply policy bank 'ORIGINATING' to emails
+submitted through port 587 by smtp authenticated user. This way we clearly
+separate emails submitted by smtp authenticated users and inbound message sent
+by others, and Amavisd won't sign DKIM on inbound message anymore.
+
+### Dovecot: Fix incorrect quota warning priorities
+
+iRedMail configures Dovecot to send warning message to local user when the
+mailbox quota is 85%, 90% or 95% full, but the priorities is wrong. Please
+fix it with steps below.
+
+* Find below setting in Dovecot config file `/etc/dovecot/dovecot.conf`
+  (Linux/OpenBSD) or `/usr/local/etc/dovecot/dovecot.conf` (FreeBSD):
+
+```
+    quota_warning = storage=85%% quota-warning 85 %u
+    quota_warning2 = storage=90%% quota-warning 90 %u
+    quota_warning3 = storage=95%% quota-warning 95 %u
+```
+
+`quota_warning` has the highest priority, `quota_warning3` has the lowest
+priority. Only the command for the first exceeded limit is executed, so we must
+configure the highest limit first.
+
+With above setting, when the mailbox quota goes from 70% to 98% directly, it
+sends warning message to notify user that the quota is 85% full, this is wrong,
+it's expected to be warned as 95% full instead.
+
+* Update them to below ones to fix it. Please pay close attention to the percent
+  numbers:
+
+```
+    quota_warning = storage=95%% quota-warning 95 %u
+    quota_warning2 = storage=90%% quota-warning 90 %u
+    quota_warning3 = storage=85%% quota-warning 85 %u
+```
+
+Restart Dovecot service is required.
+
+For more details, please read Dovecot document:
+[Quota Configuration](http://wiki2.dovecot.org/Quota/Configuration)
+
 ### Dovecot-2.2: Add more special folders as alias folders
 
 Note: This is applicable to Dovecot-2.2.x. if you're running Dovecot-2.1.x or
-earlier versions, please skip this step. Check Dovecot version number with
-below command:
+earlier versions, please skip this step.
+
+Check Dovecot version number with below command first:
 
 ```bash
 # dovecot --version
