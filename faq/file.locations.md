@@ -199,7 +199,9 @@ Main config file is `/opt/iredapd/settings.py` on all Linux/BSD distributions.
 Main config file:
 
 * on RHEL/CentOS, it's `/var/www/iredadmin/settings.py`.
-* on Debian/Ubuntu, it's `/usr/share/apache2/iredadmin/settings.py`.
+* on Debian/Ubuntu, it's `/opt/www/iredadmin/settings.py` (in recent iRedMail
+  releases) or `/usr/share/apache2/iredadmin/settings.py` (in old iRedMail
+  releases).
 * on FreeBSD, it's `/usr/local/www/iredadmin/settings.py`.
 * on OpenBSD, it's `/var/www/iredadmin/settings.py`.
 
