@@ -75,6 +75,14 @@ quarantined mails.
 '$originating = 1;'
 ```
 
+* Comment out the whole `$policy_bank{'MYUSERS'}` block:
+
+```
+#$policy_blank{'MYUSERS'} = {
+#   ...
+#}
+```
+
 * Restart Amavisd service.
 
 * Open Postfix config file `/etc/postfix/master.cf` (Linux/OpenBSD) or

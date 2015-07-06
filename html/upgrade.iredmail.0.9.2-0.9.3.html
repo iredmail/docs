@@ -106,6 +106,14 @@ quarantined mails.</p>
 </code></pre>
 
 <ul>
+<li>Comment out the whole <code>$policy_bank{'MYUSERS'}</code> block:</li>
+</ul>
+<pre><code>#$policy_blank{'MYUSERS'} = {
+#   ...
+#}
+</code></pre>
+
+<ul>
 <li>
 <p>Restart Amavisd service.</p>
 </li>
