@@ -8,6 +8,8 @@ __This is still a DRAFT document, do NOT apply it.__
 
 > We provide remote upgrade service, check [the price](../support.html) and [contact us](../contact.html).
 
+* 2015-07-06: Add new SQL table `outbound_wblist` in `amavisd` database
+* 2015-07-06: Amavisd: Fix incorrect setting which signs DKIM on inbound messages
 * 2015-07-03: Dovecot: Fix incorrect quota warning priorities
 * 2015-06-30: Dovecot-2.2: Add more special folders as alias folders.
 * 2015-06-09: [OPTIONAL] Fixed: Not preserve the case of `${extension}` while delivering message to mailbox.
@@ -38,17 +40,55 @@ Detailed release notes are available here: [iRedAPD release notes](./iredapd.rel
 Please follow Roundcube official tutorial to upgrade Roundcube webmail to the
 latest stable release immediately: [How to upgrade Roundcube](http://trac.roundcube.net/wiki/Howto_Upgrade)
 
-### [TODO] Amavisd: Fix incorrect setting which signs DKIM on inbound messages
+### Amavisd: Fix incorrect setting which signs DKIM on inbound messages
 
-* Add `$interface_policy{'10026'} = 'ORIGINATING';` in amavisd.conf
-* Remove '$originating = 1;'
-* Update transport `submission` in `/etc/postfix/master.cf` to use
-  `content_filter=smtp-amavis:[127.0.0.1]:10026` as content filter.
+In iRedMail-0.9.2 and earlier releases, Amavisd will signing DKIM on inbound
+message, this is wrong. Please follow steps below to fix it.
 
-With these changes, Amavisd will aply policy bank 'ORIGINATING' to emails
-submitted through port 587 by smtp authenticated user. This way we clearly
-separate emails submitted by smtp authenticated users and inbound message sent
-by others, and Amavisd won't sign DKIM on inbound message anymore.
+With below changes, Amavisd will aply policy bank 'ORIGINATING' to emails
+submitted through submission (port 587) by smtp authenticated user. This way
+we clearly separate emails submitted by authenticated users and inbound message
+sent by others, and Amavisd won't sign DKIM on inbound message anymore.
+
+* Open Amavisd config file, make sure you have below settings. If they don't
+  exist, please add them.
+
+    * on RHEL/CentOS: it's `/etc/amavisd/amavisd.conf`.
+    * on Debian/Ubuntu: it's `/etc/amavis/conf.d/50-user`.
+    * on FreeBSD: it's `/usr/local/etc/amavisd.conf`.
+    * on OpenBSD: it's `/etc/amavisd.conf`.
+
+```
+$inet_socket_port = [10024, 10026, 9998];
+$interface_policy{'10026'} = 'ORIGINATING';
+```
+
+We will configure Postfix to pipe email submitted by authenticated user through
+port 10026, others through port 10024. And port 9998 is used to manage
+quarantined mails.
+
+* Comment out below line in Amavisd config file:
+
+    __WARNING: Do NOT remove `originating => 1,` in other `policy_bank` blocks.__
+
+```
+'$originating = 1;'
+```
+
+* Restart Amavisd service.
+
+* Open Postfix config file `/etc/postfix/master.cf` (Linux/OpenBSD) or
+  `/usr/local/etc/postfix/master.cf` (FreeBSD), update transport `submission`
+  to use `content_filter=smtp-amavis:[127.0.0.1]:10026` as content filter like
+  below:
+
+```
+submission inet n       -       n       -       -       smtpd
+  ... [omit other settings here] ...
+  -o content_filter=smtp-amavis:[127.0.0.1]:10026
+```
+
+* Restart Postfix service.
 
 ### Dovecot: Fix incorrect quota warning priorities
 
@@ -164,3 +204,61 @@ dovecot unix    -       n       n       -       -      pipe
 ```
 
 * Save your change and restart Postfix service.
+
+## OpenLDAP backend special
+
+### Add new SQL table `outbound_wblist` in `amavisd` database
+
+We need a new SQL table `outbound_wblist` in `amavisd` database, it's used
+to store white/blacklists for outbound message, required by iRedAPD plugin
+`amavisd_wblist`.
+
+Please connect to MySQL server as MySQL root user, create new table:
+
+```
+$ mysql -uroot -p
+mysql> USE amavisd;
+mysql> CREATE TABLE outbound_wblist (rid integer unsigned NOT NULL, sid integer unsigned NOT NULL, wb varchar(10) NOT NULL, PRIMARY KEY (rid,sid));
+```
+
+After table created, please restart iRedAPD service.
+
+## MySQL/MariaDB backend special
+
+### Add new SQL table `outbound_wblist` in `amavisd` database
+
+We need a new SQL table `outbound_wblist` in `amavisd` database, it's used
+to store white/blacklists for outbound message, required by iRedAPD plugin
+`amavisd_wblist`.
+
+Please connect to MySQL server as MySQL root user, create new table:
+
+```
+$ mysql -uroot -p
+mysql> USE amavisd;
+mysql> CREATE TABLE outbound_wblist (rid integer unsigned NOT NULL, sid integer unsigned NOT NULL, wb varchar(10) NOT NULL, PRIMARY KEY (rid,sid));
+```
+
+After table created, please restart iRedAPD service.
+
+## PostgreSQL backend special
+
+### Add new SQL table `outbound_wblist` in `amavisd` database
+
+We need a new SQL table `outbound_wblist` in `amavisd` database, it's used
+to store white/blacklists for outbound message, required by iRedAPD plugin
+`amavisd_wblist`.
+
+Please switch to PostgreSQL daemon user, then execute SQL commands to import it:
+
+    * On Linux, PostgreSQL daemon user is `postgres`.
+    * On FreeBSD, PostgreSQL daemon user is `pgsql`.
+    * On OpenBSD, PostgreSQL daemon user is `_postgresql`.
+
+```
+# su - postgres
+$ psql -d cluebringer -d amavisd
+sql> CREATE TABLE outbound_wblist (rid integer NOT NULL CHECK (rid >= 0), sid integer NOT NULL CHECK (sid >= 0), wb varchar(10) NOT NULL, PRIMARY KEY (rid,sid));
+```
+
+After table created, please restart iRedAPD service.
