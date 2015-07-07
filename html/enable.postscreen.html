@@ -11,22 +11,40 @@
     
         // <a href="./index.html">Document Index</a>
     </div><h1 id="enable-postscreen-service">Enable postscreen service</h1>
+<div class="toc">
+<ul>
+<li><a href="#enable-postscreen-service">Enable postscreen service</a><ul>
+<li><a href="#enable-postscreen-service_1">Enable postscreen service</a></li>
+<li><a href="#see-also">See Also</a></li>
+<li><a href="#references">References</a></li>
+</ul>
+</li>
+</ul>
+</div>
 <p><strong>WARNING</strong>: With postscreen service enabled, your users must use port 587 to
 send email, port 25 will be used by postscreen service instead of normal smtp
 service.</p>
+<h2 id="enable-postscreen-service_1">Enable postscreen service</h2>
 <p>iRedMail ships a script to enable postscreen. You can enable it with steps below:</p>
-<ul>
-<li>Download script <code>enable_postscreen.sh</code> from <a href="https://bitbucket.org/zhb/iredmail/src/default/iRedMail/tools/?at=default">iRedMail source code repository</a></li>
-<li>Upload this script to your iRedMail server, then below command to enable
-  postscreen:</li>
-</ul>
+<ol>
+<li>Download script <code>enable_postscreen.sh</code> from <a href="https://bitbucket.org/zhb/iredmail/src/default/iRedMail/tools/?at=default">iRedMail source code
+   repository</a></li>
+<li>Upload this script to your iRedMail server, then execute it to enable
+   postscreen service:</li>
+</ol>
 <pre><code># bash enable_postscreen.sh
 </code></pre>
 
-<p>It uses several DNSBL servers by default, you'd better open
-<code>/etc/postfix/main.cf</code> (Linux/OpenBSD) or <code>/usr/local/etc/postfix/main.cf</code>
-(FreeBSD) to check the DNSBL servers it enabled, you're free to remove some
-DNSBL servers if you want.</p>
+<p>That's all.</p>
+<p>Important notes:</p>
+<ul>
+<li>It will backup <code>/etc/postfix/main.cf</code> and <code>/etc/postfix/master.cf</code> first,
+  if postscreen doesn't work, you can restore these 2 files.</li>
+<li>It uses several DNSBL servers by default, you'd better open
+  <code>/etc/postfix/main.cf</code> (Linux/OpenBSD) or <code>/usr/local/etc/postfix/main.cf</code>
+  (FreeBSD) to check the DNSBL servers it enabled, you're free to remove some
+  of them (or add new ones) if you want.</li>
+</ul>
 <h2 id="see-also">See Also</h2>
 <p>If you don't want to use postscreen service, you can <a href="./enable.dnsbl.html">enable DNSBL service</a>
 instead, it helps a lot too, but less effective than postscreen service.</p>
