@@ -70,7 +70,13 @@ tutorial to <a href="setup.dns.html#dkim-record-for-your-mail-domain-name">add D
 <ul>
 <li>Generate new DKIM key for new domain.</li>
 </ul>
-<pre><code class="shell"># amavisd-new genrsa /var/lib/dkim/new_domain.com.pem
+<pre><code class="shell"># amavisd-new genrsa /var/lib/dkim/new_domain.com.pem 2048
+</code></pre>
+
+<p><code>2048</code> is key length.</p>
+<p>Note: if you're running CentOS, you may need to specify its config file on
+command line. For example:</p>
+<pre><code># amavisd -c /etc/amavisd/amavisd.conf genrsa /var/lib/dkim/new_domain.com.pem 2048
 </code></pre>
 
 <ul>
