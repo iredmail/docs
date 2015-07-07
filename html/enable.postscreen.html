@@ -1,0 +1,46 @@
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Enable postscreen service</title>
+        <link href="./css/markdown.css" rel="stylesheet"></head>
+    </head>
+    <body>
+    
+    <div id="navigation">
+        <a href="http://www.iredmail.org" target="_blank">iRedMail web site</a>
+    
+        // <a href="./index.html">Document Index</a>
+    </div><h1 id="enable-postscreen-service">Enable postscreen service</h1>
+<p><strong>WARNING</strong>: With postscreen service enabled, your users must use port 587 to
+send email, port 25 will be used by postscreen service instead of normal smtp
+service.</p>
+<p>iRedMail ships a script to enable postscreen. You can enable it with steps below:</p>
+<ul>
+<li>Download script <code>enable_postscreen.sh</code> from <a href="https://bitbucket.org/zhb/iredmail/src/default/iRedMail/tools/?at=default">iRedMail source code repository</a></li>
+<li>Upload this script to your iRedMail server, then below command to enable
+  postscreen:</li>
+</ul>
+<pre><code># bash enable_postscreen.sh
+</code></pre>
+
+<p>It uses several DNSBL servers by default, you'd better open
+<code>/etc/postfix/main.cf</code> (Linux/OpenBSD) or <code>/usr/local/etc/postfix/main.cf</code>
+(FreeBSD) to check the DNSBL servers it enabled, you're free to remove some
+DNSBL servers if you want.</p>
+<h2 id="see-also">See Also</h2>
+<p>If you don't want to use postscreen service, you can <a href="./enable.dnsbl.html">enable DNSBL service</a>
+instead, it helps a lot too, but less effective than postscreen service.</p>
+<h2 id="references">References</h2>
+<ul>
+<li><a href="http://www.postfix.org/POSTSCREEN_README.html">Postfix Postscreen Howto</a></li>
+<li><a href="http://www.postfix.org/postscreen.8.html">Postfix manual page: postscreen(8)</a></li>
+</ul><p style="text-align: center; color: grey;">Document published under a <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">CC BY-ND 3.0</a> license. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-3293801-21', 'auto');
+  ga('send', 'pageview');
+</script>
+</body></html>

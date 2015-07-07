@@ -5,6 +5,13 @@
     * [FreeBSD (without Jail)](./install.iredmail.on.freebsd.html), [FreeBSD with Jail (ezjail)](./install.iredmail.on.freebsd.with.jail.html)
     * [OpenBSD](./install.iredmail.on.openbsd.html)
 
-* [Setup DNS records for your iRedMail server](./setup.dns.html)
-* [Install iRedMail with a remote MySQL server](./install.iredmail.with.remote.mysql.server.html)
-* [Perform silent/unattended iRedMail installation](./unattended.iredmail.installation.html)
+* After installtion:
+
+    * [Setup DNS records for your iRedMail server](./setup.dns.html)
+
+* Additional installation tips
+
+    * [Install iRedMail with a remote MySQL server](./install.iredmail.with.remote.mysql.server.html)
+    * [Perform silent/unattended iRedMail installation](./unattended.iredmail.installation.html)
+
+* [Performance tuning for a busy server](./performance.tuning.html)

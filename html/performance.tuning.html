@@ -1,0 +1,48 @@
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Performance tuning</title>
+        <link href="./css/markdown.css" rel="stylesheet"></head>
+    </head>
+    <body>
+    
+    <div id="navigation">
+        <a href="http://www.iredmail.org" target="_blank">iRedMail web site</a>
+    
+        // <a href="./index.html">Document Index</a>
+    </div><h1 id="performance-tuning">Performance tuning</h1>
+<div class="toc">
+<ul>
+<li><a href="#performance-tuning">Performance tuning</a><ul>
+<li><a href="#setup-a-dns-server-in-lan-or-localhost-to-cache-dns-queries">Setup a DNS server in LAN or localhost to cache DNS queries</a></li>
+<li><a href="#enable-postscreen-service-to-help-reduce-spam">Enable postscreen service to help reduce spam</a></li>
+<li><a href="#update-amavisd-postfix-config-files-to-process-more-emails-concurrently">Update Amavisd + Postfix config files to process more emails concurrently</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<p>If you're running a busy mail server (many inbound/outbound emails every day),
+you can follow below suggestions for better performance.</p>
+<h3 id="setup-a-dns-server-in-lan-or-localhost-to-cache-dns-queries">Setup a DNS server in LAN or localhost to cache DNS queries</h3>
+<p>Mail services heavily rely on DNS service and perform many many DNS queries,
+a cache DNS server in LAN or localhost helps a lot.</p>
+<h3 id="enable-postscreen-service-to-help-reduce-spam">Enable postscreen service to help reduce spam</h3>
+<ul>
+<li><a href="./enable.postscreen.html">Enable postscreen service</a></li>
+</ul>
+<p>If you don't want to use postscreen service, you can <a href="./enable.dnsbl.html">enable DNSBL service</a>
+instead, it helps a lot too, but less effective than postscreen service.</p>
+<p>postscreen and DNSBL service help catch a lot spam, save much system resource.</p>
+<h3 id="update-amavisd-postfix-config-files-to-process-more-emails-concurrently">Update Amavisd + Postfix config files to process more emails concurrently</h3>
+<ul>
+<li><a href="./concurrent.processing.html">Process more emails concurrently</a></li>
+</ul><p style="text-align: center; color: grey;">Document published under a <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">CC BY-ND 3.0</a> license. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-3293801-21', 'auto');
+  ga('send', 'pageview');
+</script>
+</body></html>
