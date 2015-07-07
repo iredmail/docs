@@ -25,7 +25,12 @@
 you can follow below suggestions for better performance.</p>
 <h3 id="setup-a-dns-server-in-lan-or-localhost-to-cache-dns-queries">Setup a DNS server in LAN or localhost to cache DNS queries</h3>
 <p>Mail services heavily rely on DNS service and perform many many DNS queries,
-a cache DNS server in LAN or localhost helps a lot.</p>
+a cache DNS server in LAN or localhost helps a lot:</p>
+<ul>
+<li>It speeds up DNS queries. This helps a lot.</li>
+<li>It reduces DNS queries to DNSBL servers, so that you can continue using their
+  excellent service without exceeding the max query limit.</li>
+</ul>
 <h3 id="enable-postscreen-service-to-help-reduce-spam">Enable postscreen service to help reduce spam</h3>
 <ul>
 <li><a href="./enable.postscreen.html">Enable postscreen service</a></li>
