@@ -136,3 +136,7 @@ And Amavisd will show a warning message when start amavisd service:
 
 > dkim: wildcard in signing domain (key#1, *), may produce unverifiable
 > signatures with no published public key, avoid!
+
+## References
+
+* Amavisd official document: [Setting up DKIM mail signing and verification](http://www.ijs.si/software/amavisd/amavisd-new-docs.html#dkim)
