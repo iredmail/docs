@@ -1,0 +1,99 @@
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Explanation of Amavisd SQL database structure</title>
+        <link href="./css/markdown.css" rel="stylesheet"></head>
+    </head>
+    <body>
+    
+    <div id="navigation">
+        <a href="http://www.iredmail.org" target="_blank">iRedMail web site</a>
+    
+        // <a href="./index.html">Document Index</a>
+    </div><h1 id="explanation-of-amavisd-sql-database-structure">Explanation of Amavisd SQL database structure</h1>
+<div class="toc">
+<ul>
+<li><a href="#explanation-of-amavisd-sql-database-structure">Explanation of Amavisd SQL database structure</a><ul>
+<li><a href="#summary">Summary</a></li>
+<li><a href="#details">Details</a><ul>
+<li><a href="#lookup_sql_dsn">@lookup_sql_dsn</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<h2 id="summary">Summary</h2>
+<p>Amavisd has two settings to use its SQL tables:</p>
+<ul>
+<li>
+<p><code>@storage_sql_dsn</code>: used to store:</p>
+<ul>
+<li>basic info of inbound and outbound message. e.g. mail subject,
+  sender address, recipient address, timestamp, etc. Note: no mail body.</li>
+<li>quarantined mails. Note: it stores full message of quarantined mail,
+  including mail body.</li>
+</ul>
+<p><code>@storage_sql_dsn</code> uses 4 sql tables: <code>msgs</code>, <code>msgrcpt</code>, <code>maddr</code>, <code>quarantine</code>.</p>
+</li>
+<li>
+<p><code>@lookup_sql_dsn</code>: used to store:</p>
+<ul>
+<li>per-account spam policy</li>
+<li>per-account white/blacklists</li>
+</ul>
+<p><code>@lookup_sql_dsn</code> uses 4 sql tables: <code>mailaddr</code>, <code>policy</code>, <code>users</code>, <code>wblist</code>.</p>
+</li>
+</ul>
+<h2 id="details">Details</h2>
+<h3 id="lookup_sql_dsn"><code>@lookup_sql_dsn</code></h3>
+<ul>
+<li>
+<p>Table <code>amavisd.mailaddr</code> stores email addresses <strong>NOT</strong> hosted on your server.
+  Note: value of column <code>mailaddr.email</code> could be something like below:</p>
+<ul>
+<li><code>@.</code>: a catch-all address.</li>
+<li><code>@domain.com</code>: entire domain.</li>
+<li><code>@.domain.com</code>: entire domain and all its sub-domains.</li>
+<li><code>user@domain.com</code>: a single email address.</li>
+<li><code>user@*</code>: email addresses start with <code>user@</code>. Note: This is used by iRedAPD, not Amavisd.</li>
+<li><code>192.168.1.2</code>: a single IP address. Note: This is used by iRedAPD, not Amavisd.</li>
+<li><code>192.168.*.2</code>: wildcard IP address. Note: This is used by iRedAPD, not Amavisd.</li>
+</ul>
+<p>The addresses are used in several tables:</p>
+<ul>
+<li><code>amavisd.wblist</code>: used by Amavisd. If sender (of inbound message) is
+  blacklisted, Amavisd will quarantine this email.</li>
+<li><code>amavisd.outbound_wblist</code>. New in iRedMail-0.9.3, used by iRedAPD plugin
+  <code>amavisd_wblist</code> for white/blacklisting for outbound message.</li>
+</ul>
+</li>
+<li>
+<p><code>amavisd.users</code> stores mail addresses hosted on your server. Value of column
+  <code>users.email</code> uses same format as <code>amavisd.mailaddr</code> mentioned above.</p>
+</li>
+<li>
+<p><code>amavisd.wblist</code> stores white/blacklists for inbound message. <code>wblist.sid</code>
+  (sender id) refers to <code>mailaddr.id</code>, <code>wblist.rid</code> (recipient id) refers to
+  <code>users.id</code>.</p>
+</li>
+<li>
+<p><code>amavisd.outbound_wblist</code> stores white/blacklists for outbound message.
+  <code>outbound_wblist.sid</code> (sender id) refers to <code>users.id</code>, <code>outbound_wblist.rid</code>
+  (recipient id) refers to <code>mailaddr.id</code>.</p>
+<p>Note: this table is used by iRedAPD, not Amavisd.</p>
+</li>
+<li>
+<p><code>amavisd.policy</code>: used to define per-recipient spam policy, and max message
+  size limit.</p>
+</li>
+</ul><p style="text-align: center; color: grey;">Document published under a <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">CC BY-ND 3.0</a> license. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-3293801-21', 'auto');
+  ga('send', 'pageview');
+</script>
+</body></html>
