@@ -13,14 +13,24 @@ Amavisd has two settings to use its SQL tables:
     * quarantined mails. Note: it stores full message of quarantined mail,
       including mail body.
 
-    `@storage_sql_dsn` uses 4 sql tables: `msgs`, `msgrcpt`, `maddr`, `quarantine`.
+    `@storage_sql_dsn` uses 4 sql tables:
+    
+    * `msgs`
+    * `msgrcpt`
+    * `maddr`
+    * `quarantine`
 
 * `@lookup_sql_dsn`: used to store:
 
     * per-account spam policy
     * per-account white/blacklists
 
-    `@lookup_sql_dsn` uses 4 sql tables: `mailaddr`, `policy`, `users`, `wblist`.
+    `@lookup_sql_dsn` uses 4 sql tables:
+    
+    * `mailaddr`
+    * `policy`
+    * `users`
+    * `wblist`
 
 ## Details
 
@@ -59,3 +69,15 @@ Amavisd has two settings to use its SQL tables:
 
 * `amavisd.policy`: used to define per-recipient spam policy, and max message
   size limit.
+
+### TODO: `@storage_sql_dsn`
+
+* `maddr`
+* `msgs`
+* `msgrcpt`
+* `quarantine`
+
+Since Amavisd will store basic info of every inbound/outbound email, the SQL
+database will grow bigger and bigger, iRedMail setups a daily cron job to
+clean up old records with script shipped in iRedAdmin (available in both
+iRedAdmin open source edition and iRedAdmin-Pro): `tools/cleanup_amavisd_db.py`.
