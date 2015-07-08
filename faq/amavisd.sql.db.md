@@ -1,4 +1,4 @@
-# Explanation of Amavisd SQL database structure
+# Explanation of Amavisd SQL database
 
 [TOC]
 
