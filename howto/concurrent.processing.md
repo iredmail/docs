@@ -58,4 +58,5 @@ reloading OR restarting is required if you modified `/etc/postfix/main.cf`.
 References:
 
 * [Amavisd web site](http://www.amavis.org)
+* [Tuning: Maximum Number of Concurrent Processes](http://www.ijs.si/software/amavisd/README.postfix.html#d0e1231)
 * [Integrating amavisd-new in Postfix](http://www.ijs.si/software/amavisd/README.postfix.html)
