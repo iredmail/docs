@@ -62,8 +62,8 @@
 <h3 id="lookup_sql_dsn"><code>@lookup_sql_dsn</code></h3>
 <ul>
 <li>
-<p>Table <code>amavisd.mailaddr</code> stores email addresses <strong>NOT</strong> hosted on your server.
-  Note: value of column <code>mailaddr.email</code> could be something like below:</p>
+<p>Table <code>amavisd.mailaddr</code> stores email addresses <strong>NOT</strong> hosted on your server.</p>
+<p>Note: value of column <code>mailaddr.email</code> could be something like below:</p>
 <ul>
 <li><code>@.</code>: a catch-all address.</li>
 <li><code>@domain.com</code>: entire domain.</li>
@@ -76,14 +76,18 @@
 <p>The addresses are used in several tables:</p>
 <ul>
 <li><code>amavisd.wblist</code>: used by Amavisd. If sender (of inbound message) is
-  blacklisted, Amavisd will quarantine this email.</li>
+  blacklisted, Amavisd will quarantine this email. But if you have iRedAPD
+  plugin <code>amavisd_wblist</code> enabled, this smtp session will be rejected before
+  queued by Postfix, so Amavisd doesn't know this rejected message at all.</li>
 <li><code>amavisd.outbound_wblist</code>. New in iRedMail-0.9.3, used by iRedAPD plugin
   <code>amavisd_wblist</code> for white/blacklisting for outbound message.</li>
 </ul>
 </li>
 <li>
-<p><code>amavisd.users</code> stores mail addresses hosted on your server. Value of column
-  <code>users.email</code> uses same format as <code>amavisd.mailaddr</code> mentioned above.</p>
+<p><code>amavisd.users</code> stores mail addresses hosted on your server. <strong>NOTE</strong>: you
+  don't need to sync all existing mail users in this table, just add mail users
+  you want to define a per-account spam policy in this table.</p>
+<p>Value of column <code>users.email</code> uses same format as <code>amavisd.mailaddr</code> mentioned above.</p>
 </li>
 <li>
 <p><code>amavisd.wblist</code> stores white/blacklists for inbound message. <code>wblist.sid</code>

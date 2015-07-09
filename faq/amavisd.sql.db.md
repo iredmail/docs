@@ -37,7 +37,8 @@ Amavisd has two settings to use its SQL tables:
 ### `@lookup_sql_dsn`
 
 * Table `amavisd.mailaddr` stores email addresses __NOT__ hosted on your server.
-  Note: value of column `mailaddr.email` could be something like below:
+
+    Note: value of column `mailaddr.email` could be something like below:
   
     * `@.`: a catch-all address.
     * `@domain.com`: entire domain.
@@ -50,12 +51,17 @@ Amavisd has two settings to use its SQL tables:
     The addresses are used in several tables:
   
     * `amavisd.wblist`: used by Amavisd. If sender (of inbound message) is
-      blacklisted, Amavisd will quarantine this email.
+      blacklisted, Amavisd will quarantine this email. But if you have iRedAPD
+      plugin `amavisd_wblist` enabled, this smtp session will be rejected before
+      queued by Postfix, so Amavisd doesn't know this rejected message at all.
     * `amavisd.outbound_wblist`. New in iRedMail-0.9.3, used by iRedAPD plugin
       `amavisd_wblist` for white/blacklisting for outbound message.
 
-* `amavisd.users` stores mail addresses hosted on your server. Value of column
-  `users.email` uses same format as `amavisd.mailaddr` mentioned above.
+* `amavisd.users` stores mail addresses hosted on your server. __NOTE__: you
+  don't need to sync all existing mail users in this table, just add mail users
+  you want to define a per-account spam policy in this table.
+
+    Value of column `users.email` uses same format as `amavisd.mailaddr` mentioned above.
 
 * `amavisd.wblist` stores white/blacklists for inbound message. `wblist.sid`
   (sender id) refers to `mailaddr.id`, `wblist.rid` (recipient id) refers to
