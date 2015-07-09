@@ -223,8 +223,8 @@ It will create file `/etc/uwsgi.ini` and directory `/etc/uwsgi.d/`.
 # wget https://bitbucket.org/zhb/iredmail/raw/1e45afade3af2b214fe7b1dbee2b753cee27a52a/iRedMail/samples/nginx/uwsgi.ini
 # mv /etc/uwsgi.ini /etc/uwsgi.ini.bak
 # mv /tmp/uwsgi.ini /etc/uwsgi.ini
-# mkdir /var/log/sogo
-# chown sogo:sogo /var/log/sogo
+# mkdir /var/log/uwsgi
+# chown root:root /var/log/uwsgi
 ```
 
 * Now copy old uwsgi instance config file of iRedAdmin to new directory:
