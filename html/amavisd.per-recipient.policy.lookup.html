@@ -18,7 +18,7 @@ senders and bypass whitelisted senders during smtp session to save system
 resource (implemented via iRedAPD plugin <code>amavisd_wblist</code>, new in iRedAPD-1.4.4.).</p>
 <p>iRedMail has <code>@storage_sql_dsn</code> enabled in Amavisd config file by default, so
 it's very easy to enable per-recipient policy lookup. Just add one line after
-<code>@storage_sqn_dsn</code> like below:</p>
+<code>@storage_sql_dsn</code> like below:</p>
 <pre><code># Part of file: amavisd.conf
 
 @storage_sql_dsn = [...]

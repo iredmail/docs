@@ -8,7 +8,7 @@ resource (implemented via iRedAPD plugin `amavisd_wblist`, new in iRedAPD-1.4.4.
 
 iRedMail has `@storage_sql_dsn` enabled in Amavisd config file by default, so
 it's very easy to enable per-recipient policy lookup. Just add one line after
-`@storage_sqn_dsn` like below:
+`@storage_sql_dsn` like below:
 
 ```
 # Part of file: amavisd.conf
