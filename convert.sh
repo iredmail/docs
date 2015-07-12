@@ -47,7 +47,7 @@ echo -n "* Processing Markdown files: "
 for lang in ${all_languages}; do
     src_dir="${ROOTDIR}/docs/${lang}"
     if [ ! -d ${src_dir} ]; then
-        echo "[SKIP] No translation for ${lang} (${src_dir})."
+        echo "* [SKIP] No translation for ${lang} (${src_dir})."
         break
     fi
 
@@ -71,10 +71,17 @@ for lang in ${all_languages}; do
         echo '' > ${INDEX_MD}
     fi
 
+    # Used for prettier printing
+    break_line='NO'
+
     # Get chapter info
     #   - chapter summary: _summary.md
     #   - article title: _title.md
     for chapter_dir in ${all_chapter_dirs}; do
+        if [ ! -d ${chapter_dir} ]; then
+            break
+        fi
+
         # Get articles
         all_chapter_articles="$(find ${chapter_dir} -depth 1 -type f -iname '[0-9a-z]*.md')"
 
@@ -99,9 +106,6 @@ for lang in ${all_languages}; do
                 echo '' >> ${INDEX_MD}
             fi
         fi
-
-        # Used to prettier print
-        break_line='NO'
 
         # Article info:
         #   - title: first line (without '#') of markdown file
@@ -162,16 +166,17 @@ for lang in ${all_languages}; do
             cat ${_links_md} >> ${INDEX_MD}
         fi
     done
+
+    echo ''
+    echo "* ${article_counter} files total for ${lang}."
+
+    echo "* Converting ${INDEX_MD} for index page."
+    ${CMD_CONVERT} ${INDEX_MD} ${OUTPUT_DIR} title="iRedMail Documentations"
+
+    # Cleanup and reset variables
+    rm -f ${INDEX_MD}
+    article_counter=0
 done
-
-echo ''
-echo "* ${article_counter} files total."
-
-echo "* Converting ${INDEX_MD} for index page."
-${CMD_CONVERT} ${INDEX_MD} ${OUTPUT_DIR} title="iRedMail Documentations"
-
-# Cleanup
-rm -f ${INDEX_MD}
 
 # Sync newly generated HTML files to local diretories.
 if echo "$@" | grep -q -- '--sync-local'; then

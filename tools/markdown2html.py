@@ -93,5 +93,5 @@ html += '</body></html>'
 
 # Write to file
 f = open(output_html_file, 'w')
-f.write(html)
+f.write(html.encode('utf-8'))
 f.close()
