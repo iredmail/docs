@@ -19,6 +19,7 @@
 <li><a href="#mysqlpostgresql-migrate-mail-accounts">MySQL/PostgreSQL: Migrate mail accounts</a></li>
 <li><a href="#migrate-mailboxes-maildir-format">Migrate mailboxes (Maildir format)</a></li>
 <li><a href="#migrate-roundcube-webmail-data">Migrate Roundcube webmail data</a></li>
+<li><a href="#migrate-dkim-keys">Migrate DKIM keys</a></li>
 </ul>
 </li>
 </ul>
@@ -149,7 +150,14 @@ mysql&gt; SELECT CONCAT(storagebasedirectory, '/', storagenode, '/', maildir) FR
 <ul>
 <li>Export/import roundcube webmail database, and upgrade database to work with new version of Roundcube.
 <a href="http://trac.roundcube.net/wiki/Howto_Upgrade">http://trac.roundcube.net/wiki/Howto_Upgrade</a></li>
-</ul><p style="text-align: center; color: grey;">Document published under a <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">CC BY-ND 3.0</a> license. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.<script>
+</ul>
+<h2 id="migrate-dkim-keys">Migrate DKIM keys</h2>
+<p>Amavisd will read DKIM keys and sign outgoing emails. DKIM keys are stored
+under <code>/var/lib/dkim</code> by default, you can copy all keys under this directory to
+new server, and make sure they have correct file owner <code>amavis:amavis</code> and
+permission <code>0600</code>.</p>
+<p>If you prefer generating new DKIM keys on new server, don't forget to update
+DNS records for mail domain names.</p><p style="text-align: center; color: grey;">Document published under a <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">CC BY-ND 3.0</a> license. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.<script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
   m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)

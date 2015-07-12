@@ -136,3 +136,13 @@ $ ldapsearch -x -D 'cn=Manager,dc=xx,dc=xx' -b 'o=domains,dc=xx,dc=xx' -W "(mail
 
 * Export/import roundcube webmail database, and upgrade database to work with new version of Roundcube.
 <http://trac.roundcube.net/wiki/Howto_Upgrade>
+
+## Migrate DKIM keys
+
+Amavisd will read DKIM keys and sign outgoing emails. DKIM keys are stored
+under `/var/lib/dkim` by default, you can copy all keys under this directory to
+new server, and make sure they have correct file owner `amavis:amavis` and
+permission `0600`.
+
+If you prefer generating new DKIM keys on new server, don't forget to update
+DNS records for mail domain names.

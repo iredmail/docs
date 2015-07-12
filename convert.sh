@@ -22,7 +22,7 @@ strip_name_prefix()
 }
 
 # Available translations
-all_languages='en_US zh_CN'
+all_languages='en_US'
 
 # Chapter directories in specified order
 all_chapter_dirs="overview \
@@ -45,7 +45,7 @@ article_counter=0
 echo -n "* Processing Markdown files: "
 
 for lang in ${all_languages}; do
-    src_dir="${ROOTDIR}/docs/${lang}"
+    src_dir="${ROOTDIR}/${lang}"
     if [ ! -d ${src_dir} ]; then
         echo "* [SKIP] No translation for ${lang} (${src_dir})."
         break
