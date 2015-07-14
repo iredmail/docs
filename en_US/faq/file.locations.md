@@ -145,10 +145,17 @@ Amavisd is configured to log to [Postfix log file](#postfix) by iRedMail.
 
 Main config file:
 
-* RHEL/CentOS: `/etc/policyd/cluebringer.conf`, `/etc/policyd/webui.confi (web admin panel).
+* RHEL/CentOS: `/etc/policyd/cluebringer.conf`, `/etc/policyd/webui.conf` (web admin panel).
 * Debian/Ubuntu: `/etc/cluebringer/cluebringer.conf`, `/etc/cluebringer/cluebringer-webui.conf` (web admin panel).
 * FreeBSD: `/usr/local/etc/cluebringer.conf`, `/usr/local/etc/apache24/cluebringer.conf` (web admin panel).
 * OpenBSD: Not applicable, cluebringer is not available on OpenBSD.
+
+Init script:
+
+* RHEL/CentOS: `/etc/init.d/cbpolicyd`
+* Debian/Ubuntu: `/etc/init.d/postfix-cluebringer`
+* FreeBSD: `/usr/local/etc/rc.d/cluebringer`
+* OpenBSD: N/A. we don't have Cluebringer installed on OpenBSD.
 
 ## Fail2ban
 
