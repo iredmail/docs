@@ -80,7 +80,7 @@ sent by others, and Amavisd won't sign DKIM on inbound message anymore.</p>
 <ul>
 <li>
 <p>Open Amavisd config file, make sure you have below settings. If they don't
-  exist, please add them.</p>
+  exist, please add them or update them.</p>
 <ul>
 <li>on RHEL/CentOS: it's <code>/etc/amavisd/amavisd.conf</code>.</li>
 <li>on Debian/Ubuntu: it's <code>/etc/amavis/conf.d/50-user</code>.</li>
@@ -97,12 +97,19 @@ $interface_policy{'10026'} = 'ORIGINATING';
 port 10026, others through port 10024. And port 9998 is used to manage
 quarantined mails.</p>
 <ul>
+<li>Find <code>$policy_bank{'ORIGINATING'} = {</code> block, comment out <code>forward_method</code>
+  line in the block:</li>
+</ul>
+<pre><code>  #forward_method =&gt; 'smtp:[127.0.0.1]:10027',
+</code></pre>
+
+<ul>
 <li>
 <p>Comment out below line in Amavisd config file:</p>
-<p><strong>WARNING: Do NOT remove <code>originating =&gt; 1,</code> in other <code>policy_bank</code> blocks.</strong></p>
+<p><strong>WARNING: Do NOT remove <code>originating =&gt; 1,</code> in other <code>$policy_bank</code> blocks.</strong></p>
 </li>
 </ul>
-<pre><code>'$originating = 1;'
+<pre><code>$originating = 1;
 </code></pre>
 
 <ul>

@@ -51,7 +51,7 @@ we clearly separate emails submitted by authenticated users and inbound message
 sent by others, and Amavisd won't sign DKIM on inbound message anymore.
 
 * Open Amavisd config file, make sure you have below settings. If they don't
-  exist, please add them.
+  exist, please add them or update them.
 
     * on RHEL/CentOS: it's `/etc/amavisd/amavisd.conf`.
     * on Debian/Ubuntu: it's `/etc/amavis/conf.d/50-user`.
@@ -67,12 +67,19 @@ We will configure Postfix to pipe email submitted by authenticated user through
 port 10026, others through port 10024. And port 9998 is used to manage
 quarantined mails.
 
-* Comment out below line in Amavisd config file:
-
-    __WARNING: Do NOT remove `originating => 1,` in other `policy_bank` blocks.__
+* Find `$policy_bank{'ORIGINATING'} = {` block, comment out `forward_method`
+  line in the block:
 
 ```
-'$originating = 1;'
+  #forward_method => 'smtp:[127.0.0.1]:10027',
+```
+
+* Comment out below line in Amavisd config file:
+
+    __WARNING: Do NOT remove `originating => 1,` in other `$policy_bank` blocks.__
+
+```
+$originating = 1;
 ```
 
 * Comment out the whole `$policy_bank{'MYUSERS'}` block:
