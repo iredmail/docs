@@ -37,9 +37,9 @@ the file content.
 * on Linux/FreeBSD, Dovecot daemon user/group is `dovecot/dovecot`.
 * on OpenBSD, Dovecot daemon user/group is `_dovecot/_dovecot`.
 
-Then you can access `user@domain.ltd`'s mailbox (via either IMAP or POP3
+Now you can access `user@domain.ltd`'s mailbox (via either IMAP or POP3
 protocol) as user `user@domain.ltd*my_master_user` with password
-`my_master_password`.
+`my_master_password`, with Roundcube webmail (it should work with other MUAs).
 
 ## Troubleshooting
 
