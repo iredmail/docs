@@ -38,14 +38,12 @@ Now add new master user in file
 <p>WARNING: Make sure file <code>dovecot-master-users-password</code> is owned by Dovecot
 daemon user and group, with file permission <code>0500</code>, so that others cannot view
 the file content.</p>
-<blockquote>
 <ul>
 <li>on Linux/FreeBSD, Dovecot daemon user/group is <code>dovecot/dovecot</code>.</li>
 <li>on OpenBSD, Dovecot daemon user/group is <code>_dovecot/_dovecot</code>.</li>
 </ul>
-</blockquote>
-<p>Then you can access user@domain.ltd's mailbox (via either IMAP or POP3
-protocol) as <code>user@domain.ltd*my_master_user</code> with password
+<p>Then you can access <code>user@domain.ltd</code>'s mailbox (via either IMAP or POP3
+protocol) as user <code>user@domain.ltd*my_master_user</code> with password
 <code>my_master_password</code>.</p>
 <h2 id="troubleshooting">Troubleshooting</h2>
 <p>If it doesn't work for you, please enable debug mode in Dovecot and check

@@ -34,11 +34,11 @@ WARNING: Make sure file `dovecot-master-users-password` is owned by Dovecot
 daemon user and group, with file permission `0500`, so that others cannot view
 the file content.
 
-> * on Linux/FreeBSD, Dovecot daemon user/group is `dovecot/dovecot`.
-> * on OpenBSD, Dovecot daemon user/group is `_dovecot/_dovecot`.
+* on Linux/FreeBSD, Dovecot daemon user/group is `dovecot/dovecot`.
+* on OpenBSD, Dovecot daemon user/group is `_dovecot/_dovecot`.
 
-Then you can access user@domain.ltd's mailbox (via either IMAP or POP3
-protocol) as `user@domain.ltd*my_master_user` with password
+Then you can access `user@domain.ltd`'s mailbox (via either IMAP or POP3
+protocol) as user `user@domain.ltd*my_master_user` with password
 `my_master_password`.
 
 ## Troubleshooting
