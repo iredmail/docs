@@ -1,4 +1,4 @@
-# Dovecot Master User
+# Dovecot Master User: Access user's mailbox without owner's password.
 
 iRedMail-0.8.6 and later releases have Dovecot Master User enabled for all
 backends (OpenLDAP, MySQL/MariaDB, PostgreSQL) by default, what you need to do
