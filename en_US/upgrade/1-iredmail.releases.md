@@ -4,9 +4,14 @@
 
 > Download the [latest iRedMail stable release](../download.html).
 
-#### Upgrading iRedMail
+### Why keep your iRedMail server up to date
 
-> We provide remote upgrade service, check [the price](../support.html) and [contact us](../contact.html).
+* The latest iRedMail release brings new features or improvements.
+* The latest iRedMail release fixes bugs.
+* If you plan to migrate to a new iRedMail server someday, migrating iRedMail
+  to another server which runs the same release is the easiest path.
+
+### How upgrading iRedMail works
 
 * Usually, upgrading iRedMail is just updating some config files to achieve new
   features or fix bugs, you do __NOT__ need to download the latest iRedMail and
@@ -19,7 +24,9 @@
   iRedMail release, there's an alternative solution:
   [Migrating to a new iRedMail server](./migrate.to.new.iredmail.server.html).
 
-#### Release notes and upgrade tutorials
+### Release notes and upgrade tutorials
+
+> We provide remote upgrade support, check [the price](../support.html) and [contact us](../contact.html).
 
 * [0.9.2](http://www.iredmail.org/forum/topic9280.html), Jun 3, 2015. [Upgrade from iRedMail-0.9.1](./upgrade.iredmail.0.9.1-0.9.2.html)
 * [0.9.1](http://www.iredmail.org/forum/topic9144.html), May 15, 2015. [Upgrade from iRedMail-0.9.0](./upgrade.iredmail.0.9.0-0.9.1.html)
