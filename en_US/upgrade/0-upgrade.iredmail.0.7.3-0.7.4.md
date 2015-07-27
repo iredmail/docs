@@ -92,7 +92,8 @@ MySQL table to avoid similar issues.
 
 Below are steps to store realtime mailbox quota usage in a separate SQL table:
 
-* Create new SQL table `vmail.used_quota` to store mailbox quota:
+* Create new SQL table `vmail.used_quota` to store real-time mailbox quota and
+  drop unused SQL columns: `mailbox.bytes`, `mailbox.messages`:
 ```
 # mysql -uroot -p
 mysql> USE vmail;
@@ -102,6 +103,7 @@ mysql> CREATE TABLE IF NOT EXISTS `used_quota` (
     `messages` BIGINT NOT NULL DEFAULT 0,
     PRIMARY KEY (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 mysql> ALTER TABLE mailbox DROP COLUMN bytes;
 mysql> ALTER TABLE mailbox DROP COLUMN messages;
 ```
