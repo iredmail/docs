@@ -102,6 +102,8 @@ mysql> CREATE TABLE IF NOT EXISTS `used_quota` (
     `messages` BIGINT NOT NULL DEFAULT 0,
     PRIMARY KEY (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+mysql> ALTER TABLE mailbox DROP COLUMN bytes;
+mysql> ALTER TABLE mailbox DROP COLUMN messages;
 ```
 
 * Replace `table = mailbox` with `table = used_quota` in below config file,
