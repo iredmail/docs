@@ -115,6 +115,8 @@ mysql&gt; CREATE TABLE IF NOT EXISTS `used_quota` (
     `messages` BIGINT NOT NULL DEFAULT 0,
     PRIMARY KEY (`username`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+mysql&gt; ALTER TABLE mailbox DROP COLUMN bytes;
+mysql&gt; ALTER TABLE mailbox DROP COLUMN messages;
 </code></pre>
 
 <ul>
