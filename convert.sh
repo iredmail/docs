@@ -189,3 +189,7 @@ if echo "$@" | grep -q -- '--sync-local'; then
     rm -rf /Volumes/STORAGE/Dropbox/Backup/iredmail.com/docs/*
     cp -rf ${ROOTDIR}/html/* /Volumes/STORAGE/Dropbox/Backup/iredmail.com/docs/
 fi
+
+# Show changed files.
+echo "* Changed files:"
+hg st

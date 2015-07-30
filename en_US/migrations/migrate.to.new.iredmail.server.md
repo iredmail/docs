@@ -111,7 +111,7 @@ structure related changes. Check [upgrade tutorials for iRedMail](./iredmail.rel
 
 ## Migrate mailboxes (Maildir format)
 
-* Simply copy all mailboxes (in Maildir format) to new iRedMail server.
+* Copy all mailboxes (in Maildir format) to new iRedMail server with tools like `rsync`.
 * Set correct file owner of mailboxes. Default owner is `vmail`, group is `vmail`.
 * Set correct file permission of mailboxes. Default is `0700`.
 
