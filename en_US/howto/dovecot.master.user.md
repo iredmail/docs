@@ -49,3 +49,7 @@ topic in our forum and paste related log:
 
 * [Debug Dovecot](./debug.dovecot.html)
 * [iRedMail online support forum](http://www.iredmail.org/forum/)
+
+## References
+
+* Dovecot wiki: [Master users/passwords](http://wiki2.dovecot.org/Authentication/MasterUsers)

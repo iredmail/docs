@@ -26,6 +26,7 @@
 </ul>
 </li>
 <li><a href="#openldap-backend-special">OpenLDAP backend special</a><ul>
+<li><a href="#fixed-dovecot-master-user-doesnt-work-with-acl-plugin">Fixed: Dovecot Master User doesn't work with ACL plugin</a></li>
 <li><a href="#add-new-sql-table-outbound_wblist-in-amavisd-database">Add new SQL table outbound_wblist in amavisd database</a></li>
 </ul>
 </li>
@@ -239,6 +240,28 @@ dovecot unix    -       n       n       -       -      pipe
 <li>Save your change and restart Postfix service.</li>
 </ul>
 <h2 id="openldap-backend-special">OpenLDAP backend special</h2>
+<h3 id="fixed-dovecot-master-user-doesnt-work-with-acl-plugin">Fixed: Dovecot Master User doesn't work with ACL plugin</h3>
+<p>iRedMail has both Dovecot Master User and Dovecot <code>acl</code> plugin enabled by
+default, if <code>acl</code> plugin is enabled, the Master User is still subject to ACLs
+just like any other user, which means that by default the Master User has no
+access to any mailboxes of the user. Please fix this issue by following steps
+below.</p>
+<ul>
+<li>Open file <code>/etc/dovecot/dovecot-ldap.conf</code> (Linux/OpenBSD) or
+  <code>/usr/local/etc/dovecot/dovecot-ldap.conf</code> (FreeBSD), find below line:</li>
+</ul>
+<pre><code>user_attrs      = mail=user, ...
+</code></pre>
+
+<ul>
+<li>Add new setting <code>mail=master_user</code> in <code>user_attrs</code> like below:</li>
+</ul>
+<pre><code>user_attrs      = mail=master_user,mail=user, ...
+</code></pre>
+
+<ul>
+<li>Restart Dovecot service.</li>
+</ul>
 <h3 id="add-new-sql-table-outbound_wblist-in-amavisd-database">Add new SQL table <code>outbound_wblist</code> in <code>amavisd</code> database</h3>
 <p>We need a new SQL table <code>outbound_wblist</code> in <code>amavisd</code> database, it's used
 to store white/blacklists for outbound message, required by iRedAPD plugin
