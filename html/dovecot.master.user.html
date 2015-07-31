@@ -50,9 +50,10 @@ protocol) as user <code>user@domain.ltd*my_master_user@not-exist.com</code> with
 </ul>
 </li>
 <li>
-<p>If you don't append a (non-exist) mail domain name, Dovecot will use the
-  domain name of your login username. For example, if your real user is
-  <code>myuser@mydomain.com</code>, login as <code>myuser@mydomain.com*my_master_user</code> will
+<p>If you don't append a (non-exist) mail domain name in Dovecot Master User
+  account, Dovecot will use the domain name of your login username. For example,
+  if your real user is <code>myuser@mydomain.com</code>, when you try to access this user's
+  mailbox as Dovecot Master User <code>myuser@mydomain.com*my_master_user</code>, it will
   trigger Dovecot to verify user <code>my_master_user@mydomain.com</code> which doesn't
   exist on your server, then this login attempt fails.</p>
 </li>

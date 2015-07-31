@@ -43,9 +43,10 @@ WARNING:
     * on Linux/FreeBSD, Dovecot daemon user/group is `dovecot/dovecot`.
     * on OpenBSD, Dovecot daemon user/group is `_dovecot/_dovecot`.
 
-* If you don't append a (non-exist) mail domain name, Dovecot will use the
-  domain name of your login username. For example, if your real user is
-  `myuser@mydomain.com`, login as `myuser@mydomain.com*my_master_user` will
+* If you don't append a (non-exist) mail domain name in Dovecot Master User
+  account, Dovecot will use the domain name of your login username. For example,
+  if your real user is `myuser@mydomain.com`, when you try to access this user's
+  mailbox as Dovecot Master User `myuser@mydomain.com*my_master_user`, it will
   trigger Dovecot to verify user `my_master_user@mydomain.com` which doesn't
   exist on your server, then this login attempt fails.
 

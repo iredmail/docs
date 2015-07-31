@@ -8,9 +8,11 @@ __This is still a DRAFT document, do NOT apply it.__
 
 > We provide remote upgrade service, check [the price](../support.html) and [contact us](../contact.html).
 
-* 2015-07-06: Add new SQL table `outbound_wblist` in `amavisd` database
-* 2015-07-06: Amavisd: Fix incorrect setting which signs DKIM on inbound messages
-* 2015-07-03: Dovecot: Fix incorrect quota warning priorities
+* 2015-07-31: SOGo: The Dovecot Master User used by SOGo doesn't work due to incorrect username.
+* 2015-07-31: [LDAP] Fixed: Dovecot Master User doesn't work with ACL plugin.
+* 2015-07-06: Add new SQL table `outbound_wblist` in `amavisd` database.
+* 2015-07-06: Amavisd: Fix incorrect setting which signs DKIM on inbound messages.
+* 2015-07-03: Dovecot: Fix incorrect quota warning priorities.
 * 2015-06-30: Dovecot-2.2: Add more special folders as alias folders.
 * 2015-06-09: [OPTIONAL] Fixed: Not preserve the case of `${extension}` while delivering message to mailbox.
 
@@ -195,6 +197,47 @@ Add below alias folders inside the same `namespace {}` block:
 ```
 
 Restart Dovecot service is required.
+
+### SOGo: The Dovecot Master User used by SOGo doesn't work due to incorrect username.
+
+Note: you can skip this step if you don't run SOGo groupware, and iRedMail
+doesn't install SOGo on FreeBSD due to missing required ports in official ports
+tree.
+
+The Dovecot Master User created by iRedMail and used by SOGo doesn't contain
+a mail domain name, this will cause login failure.
+
+If you don't append a (non-exist) mail domain name in Dovecot Master User
+account, Dovecot will use the domain name of your login username. For example,
+if your real user is `myuser@mydomain.com`, when you try to access this user's
+mailbox as Dovecot Master User `myuser@mydomain.com*my_master_user`, it will
+trigger Dovecot to verify user `my_master_user@mydomain.com` which doesn't
+exist on your server, then this login attempt fails.
+
+Please follow steps below to fix it.
+
+* Open file `/etc/dovecot/dovecot-master-users` (Linux/OpenBSD),
+  find the account used by SOGo:
+
+```
+sogo_sieve_master:...
+```
+
+* Append any mail domain name which is not hosted on your server to this
+  account, save your change. for example:
+
+```
+sogo_sieve_master@not-exist.com:...
+```
+
+* Open file `/etc/sogo/sieve.cred`, append the same mail domain name for the
+  sieve account:
+
+```
+sogo_sieve_master@not-exist.com:...
+```
+
+That's all.
 
 ### [OPTIONAL] Fixed: Not preserve the case of `${extension}` while delivering message to mailbox
 
