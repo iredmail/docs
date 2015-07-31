@@ -22,24 +22,32 @@ Retype new password: my_master_password
 {SSHA512}B0VHomJaMk6aLXOPglgNgJtCUA8JRnOweAwJxRW6NPWSNZ25rG/L6T05DJXH+t8WCQkemBilgkcEi6mq4Kadssivtts=
 ```
 
-You can now pick up any username you like, for example, `my_master_user`.
+You can now pick up any username you like, for example, `my_master_user@not-exist.com`.
 Now add new master user in file
 `/etc/dovecot/dovecot-master-users-passwords` like below:
 
 ```
-my_master_user:{SSHA512}B0VHomJaMk6aLXOPglgNgJtCU...
+my_master_user@not-exist.com:{SSHA512}B0VHomJaMk6aLXOPglgNgJtCU...
 ```
 
-WARNING: Make sure file `dovecot-master-users-password` is owned by Dovecot
-daemon user and group, with file permission `0500`, so that others cannot view
-the file content.
-
-* on Linux/FreeBSD, Dovecot daemon user/group is `dovecot/dovecot`.
-* on OpenBSD, Dovecot daemon user/group is `_dovecot/_dovecot`.
-
 Now you can access `user@domain.ltd`'s mailbox (via either IMAP or POP3
-protocol) as user `user@domain.ltd*my_master_user` with password
-`my_master_password`, with Roundcube webmail (it should work with other MUAs).
+protocol) as user `user@domain.ltd*my_master_user@not-exist.com` with password
+`my_master_password` with Roundcube webmail (it should work with other MUAs).
+
+WARNING:
+
+* Make sure file `dovecot-master-users-password` is owned by Dovecot
+  daemon user and group, with file permission `0500`, so that others cannot view
+  the file content.
+
+    * on Linux/FreeBSD, Dovecot daemon user/group is `dovecot/dovecot`.
+    * on OpenBSD, Dovecot daemon user/group is `_dovecot/_dovecot`.
+
+* If you don't append a (non-exist) mail domain name, Dovecot will use the
+  domain name of your login username. For example, if your real user is
+  `myuser@mydomain.com`, login as `myuser@mydomain.com*my_master_user` will
+  trigger Dovecot to verify user `my_master_user@mydomain.com` which doesn't
+  exist on your server, then this login attempt fails.
 
 ## Troubleshooting
 

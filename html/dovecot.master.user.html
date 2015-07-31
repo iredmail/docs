@@ -29,22 +29,34 @@ Retype new password: my_master_password
 {SSHA512}B0VHomJaMk6aLXOPglgNgJtCUA8JRnOweAwJxRW6NPWSNZ25rG/L6T05DJXH+t8WCQkemBilgkcEi6mq4Kadssivtts=
 </code></pre>
 
-<p>You can now pick up any username you like, for example, <code>my_master_user</code>.
+<p>You can now pick up any username you like, for example, <code>my_master_user@not-exist.com</code>.
 Now add new master user in file
 <code>/etc/dovecot/dovecot-master-users-passwords</code> like below:</p>
-<pre><code>my_master_user:{SSHA512}B0VHomJaMk6aLXOPglgNgJtCU...
+<pre><code>my_master_user@not-exist.com:{SSHA512}B0VHomJaMk6aLXOPglgNgJtCU...
 </code></pre>
 
-<p>WARNING: Make sure file <code>dovecot-master-users-password</code> is owned by Dovecot
-daemon user and group, with file permission <code>0500</code>, so that others cannot view
-the file content.</p>
+<p>Now you can access <code>user@domain.ltd</code>'s mailbox (via either IMAP or POP3
+protocol) as user <code>user@domain.ltd*my_master_user@not-exist.com</code> with password
+<code>my_master_password</code> with Roundcube webmail (it should work with other MUAs).</p>
+<p>WARNING:</p>
+<ul>
+<li>
+<p>Make sure file <code>dovecot-master-users-password</code> is owned by Dovecot
+  daemon user and group, with file permission <code>0500</code>, so that others cannot view
+  the file content.</p>
 <ul>
 <li>on Linux/FreeBSD, Dovecot daemon user/group is <code>dovecot/dovecot</code>.</li>
 <li>on OpenBSD, Dovecot daemon user/group is <code>_dovecot/_dovecot</code>.</li>
 </ul>
-<p>Now you can access <code>user@domain.ltd</code>'s mailbox (via either IMAP or POP3
-protocol) as user <code>user@domain.ltd*my_master_user</code> with password
-<code>my_master_password</code>, with Roundcube webmail (it should work with other MUAs).</p>
+</li>
+<li>
+<p>If you don't append a (non-exist) mail domain name, Dovecot will use the
+  domain name of your login username. For example, if your real user is
+  <code>myuser@mydomain.com</code>, login as <code>myuser@mydomain.com*my_master_user</code> will
+  trigger Dovecot to verify user <code>my_master_user@mydomain.com</code> which doesn't
+  exist on your server, then this login attempt fails.</p>
+</li>
+</ul>
 <h2 id="troubleshooting">Troubleshooting</h2>
 <p>If it doesn't work for you, please enable debug mode in Dovecot and check
 its log file. If you don't understand what the log says, please create a new
