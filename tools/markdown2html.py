@@ -49,7 +49,7 @@ html = """\
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>%(title)s</title>
-        <link href="%(css)s" rel="stylesheet"></head>
+        <link rel="stylesheet" type="text/css" href="%(css)s" />
     </head>
     <body>
     """ % cmd_opts
