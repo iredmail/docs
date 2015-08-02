@@ -81,7 +81,7 @@ Main config files are `nginx.conf` and `default.conf`.
 
 Main config file is `dovecot.conf`. It contains most configurations.
 
-Additional config files:
+Additional config files under `/etc/dovecot/`:
 
 * `dovecot-ldap.conf`: used to query mail users and passwords. LDAP backends only.
 * `dovecot-mysql.conf`: used to query mail users and passwords. MySQL/MariaDB backends only.
@@ -92,10 +92,14 @@ Additional config files:
 
 ### Log files
 
-* `/var/log/dovecot.log`: main log file.
-* `/var/log/dovecot-sieve.log`: sieve related log. NOTE: on old iRedMail
+* `/var/log/dovecot.log`: main log file. IMAP/POP3 sessions, login, lotout,
+  some error messages will be logged in this file.
+* `/var/log/dovecot-sieve.log`: sieve LDA (Local Delivery Agent) related log.
+  Mail delivery related log will be logged in this file. NOTE: on old iRedMail
   releases, it's `/var/log/sieve.log`.
-* `/var/log/dovecot-lmtp.log`: LMTP related log.
+* `/var/log/dovecot-lmtp.log`: LMTP related log. Mail delivery (via LMTP)
+  related log will be logged in this file. Note: there's no such file on
+  iRedMail-0.8.6 and old iRedMail releases.
 
 ## OpenLDAP
 

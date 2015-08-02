@@ -129,7 +129,7 @@
 </ul>
 <h3 id="config-files">Config files</h3>
 <p>Main config file is <code>dovecot.conf</code>. It contains most configurations.</p>
-<p>Additional config files:</p>
+<p>Additional config files under <code>/etc/dovecot/</code>:</p>
 <ul>
 <li><code>dovecot-ldap.conf</code>: used to query mail users and passwords. LDAP backends only.</li>
 <li><code>dovecot-mysql.conf</code>: used to query mail users and passwords. MySQL/MariaDB backends only.</li>
@@ -140,10 +140,14 @@
 </ul>
 <h3 id="log-files_1">Log files</h3>
 <ul>
-<li><code>/var/log/dovecot.log</code>: main log file.</li>
-<li><code>/var/log/dovecot-sieve.log</code>: sieve related log. NOTE: on old iRedMail
+<li><code>/var/log/dovecot.log</code>: main log file. IMAP/POP3 sessions, login, lotout,
+  some error messages will be logged in this file.</li>
+<li><code>/var/log/dovecot-sieve.log</code>: sieve LDA (Local Delivery Agent) related log.
+  Mail delivery related log will be logged in this file. NOTE: on old iRedMail
   releases, it's <code>/var/log/sieve.log</code>.</li>
-<li><code>/var/log/dovecot-lmtp.log</code>: LMTP related log.</li>
+<li><code>/var/log/dovecot-lmtp.log</code>: LMTP related log. Mail delivery (via LMTP)
+  related log will be logged in this file. Note: there's no such file on
+  iRedMail-0.8.6 and old iRedMail releases.</li>
 </ul>
 <h2 id="openldap">OpenLDAP</h2>
 <p>Main config file:</p>
