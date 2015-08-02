@@ -5,7 +5,8 @@
 ## Create mail alias account with iRedAdmin-Pro
 
 With iRedAdmin-Pro, you can easily add mail list account by click menu:
-`Add -> Mail List` in main navigation bar.
+`Add -> Mail List` (or `Add -> Mail Alias` for SQL backends) in main
+navigation bar.
 
 ![](../images/iredadmin/maillist_create.png)
 
