@@ -6,7 +6,7 @@
 
 ## General (All backends should apply these steps)
 
-* [Upgrade Dovecot 1.1.x to 1.2.x](http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/Upgrade.Dovecot.1.1.to.1.2)
+* [Upgrade Dovecot 1.1.x to 1.2.x](./upgrade.dovecot.1.1.to.1.2.html)
 * [Quarantining SPAM into MySQL with Amavisd](./quarantining.html)
 
 ### Update postfix setting `proxy_read_maps`

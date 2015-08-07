@@ -43,7 +43,7 @@ Steps to migrate LDAP mail accounts:
 * Setup a new server with the latest iRedMail, and make iRedAdmin-Pro-LDAP work as expected.
 * Export mail accounts from LDAP on OLD mail server.
 
-Normally, LDAP data can be exported into LDIF format. Here's backup/export script: <http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/Backup>
+Normally, LDAP data can be exported into LDIF format. Here's backup/restore procedure: [Backup and Restore](./backup.restore.html).
 
 Notes:
 

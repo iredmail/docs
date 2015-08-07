@@ -8,6 +8,7 @@ __This is still a DRAFT document, do NOT apply it.__
 
 > We provide remote upgrade service, check [the price](../support.html) and [contact us](../contact.html).
 
+* TODO [SQL backends] New SQL column `alias.isuseralias`.
 * 2015-07-31: SOGo: The Dovecot Master User used by SOGo doesn't work due to incorrect username.
 * 2015-07-31: [LDAP] Fixed: Dovecot Master User doesn't work with ACL plugin.
 * 2015-07-06: Add new SQL table `outbound_wblist` in `amavisd` database.

@@ -1,0 +1,122 @@
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Upgrade Dovecot from 1.1 to 1.2 on RHEL/CentOS 5.x, Debian 5.</title>
+        <link rel="stylesheet" type="text/css" href="./css/markdown.css" />
+    </head>
+    <body>
+    
+    <div id="navigation">
+        <a href="http://www.iredmail.org" target="_blank">iRedMail web site</a>
+    
+        // <a href="./index.html">Document Index</a>
+    </div><h1 id="upgrade-dovecot-from-11-to-12-on-rhelcentos-5x-debian-5">Upgrade Dovecot from 1.1 to 1.2 on RHEL/CentOS 5.x, Debian 5.</h1>
+<p>This tutorial is for only RHEL/CentOS 5.x, Debian 5.</p>
+<h2 id="install-dovecot-12">Install Dovecot 1.2</h2>
+<h3 id="on-rhelcentos-5">on RHEL/CentOS 5</h3>
+<p>Dovecot 1.2 is available in <a href="http://iredmail.org/yum/rpms/dovecot/">another iRedMail yum repository</a>, you should append below lines in <code>/etc/yum.repos.d/iRedMail.repo</code> to enable it:</p>
+<pre><code>[iRedMail-Dovecot-12]
+name=iRedMail-Dovecot-12
+baseurl=http://iredmail.org/yum/rpms/dovecot/rhel5/
+enabled=1
+gpgcheck=0
+priority=1
+</code></pre>
+
+<p>Note: Because iRedMail-0.6.1 and earlier versions doesn't support dovecot-1.2, so we can't add this package in default yum repository, otherwise new installation of iRedMail (&lt;=0.6.1) will be failed.</p>
+<p>Remove dovecot-1.1. Be aware of below steps, we will update dovecot config based on config file of <code>dovecot-1.1</code>.</p>
+<pre><code># cp /etc/dovecot.conf /etc/dovecot-1.1.conf
+# rpm -e dovecot dovecot-sieve
+warning: /etc/logrotate.d/dovecot saved as /etc/logrotate.d/dovecot.rpmsave
+warning: /etc/dovecot.conf saved as /etc/dovecot.conf.rpmsave
+</code></pre>
+
+<p>Install dovecot-1.2.</p>
+<pre><code># yum install dovecot dovecot-sieve dovecot-managesieve
+# cp /etc/dovecot.conf /etc/dovecot-1.2.conf
+# cp /etc/dovecot-1.1.conf /etc/dovecot.conf
+</code></pre>
+
+<p>Package <code>dovecot-managesieve</code> provides <code>managesieve</code> service, so we don't need <code>pysieved</code> anymore. Disable it:</p>
+<pre><code># chkconfig --level 345 pysieved off
+# /etc/init.d/pysieved stop
+</code></pre>
+
+<h3 id="on-debian-5">on Debian 5</h3>
+<p>Append below line to <code>/etc/apt/sources.list</code>:</p>
+<pre><code>deb http://backports.debian.org/debian-backports lenny-backports main
+</code></pre>
+
+<p>Install Dovecot 1.2:</p>
+<pre><code>$ sudo apt-get -t lenny-backports update
+$ sudo apt-get -t lenny-backports upgrade dovecot-imapd dovecot-pop3d
+</code></pre>
+
+<h2 id="update-dovecot-configure">Update Dovecot configure</h2>
+<p>We need to update Dovecot config file <code>dovecot.conf</code>, it's <code>/etc/dovecot.conf</code> on RHEL/CentOS, <code>/etc/dovecot/dovecot.conf</code> on Debian 5.</p>
+<ul>
+<li>Remove setting <code>umask =</code>. It wasn't really used anywhere anymore.</li>
+<li>Remove <code>zlib</code> from all <code>mail_plugins =</code> settings. This plugin is buggy in 1.x and will be fixed only in 2.x.</li>
+<li>Change sieve plugin name <code>cmusieve</code> to <code>sieve</code> in <code>protocol lda {}</code> section.</li>
+<li>
+<p>Change <code>ssl_disable=no</code> to <code>ssl=yes</code>.</p>
+</li>
+<li>
+<p><code>[For MySQL backend]</code> Add two more columns in <code>vmail.mailbox</code> if not present:</p>
+</li>
+</ul>
+<pre><code>$ mysql -uroot -p
+mysql&gt; USE vmail;
+mysql&gt; ALTER TABLE mailbox ADD COLUMN enablesieve TINYINT(1) NOT NULL DEFAULT '1';
+mysql&gt; ALTER TABLE mailbox ADD COLUMN enablesievesecured TINYINT(1) NOT NULL DEFAULT '1';
+</code></pre>
+
+<ul>
+<li><code>[For RHEL/CentOS]</code> Append <code>managesieve</code> service related config in <code>dovecot.conf</code>:</li>
+</ul>
+<pre><code># ManageSieve service. http://wiki.dovecot.org/ManageSieve
+protocol managesieve {
+    listen = 127.0.0.1:2000
+}
+
+# Plugin: sieve. ttp://wiki.dovecot.org/LDA/Sieve
+plugin {
+    #sieve_global_path =
+    #sieve_global_dir = 
+    #sieve_before = /var/vmail/sieve/dovecot.sieve
+    #sieve_after =
+    sieve = /var/vmail/sieve/%Ld/%Ln/dovecot.sieve
+    sieve_dir = /var/vmail/sieve/%Ld/%Ln/
+}
+</code></pre>
+
+<p>Append <code>managesieve</code> in <code>protocols =</code> section in <code>dovecot.conf</code>, like this:</p>
+<pre><code>protocols = pop3 pop3s imap imaps managesieve
+</code></pre>
+
+<ul>
+<li><code>[For Debian 5 (lenny)]</code> In <code>dovecot.conf</code>, move <code>sieve =</code> and <code>sieve_storage =</code> from section <code>protocol managesieve {}</code> to section <code>plugin {}</code>, and rename <code>sieve_storage</code> to <code>sieve_dir</code>:</li>
+</ul>
+<pre><code>plugin {
+    sieve = /var/vmail/sieve/%Ld/%Ln/dovecot.sieve
+    sieve_dir = /var/vmail/sieve/%Ld/%Ln/
+    # ... SKIP OTHER SETTINGS HERE ...
+}
+</code></pre>
+
+<h2 id="re-enable-roundcube-sieve-rules">Re-enable RoundCube sieve rules</h2>
+<p>This is needed so your users will not loose all their RoundCube sieve rules.
+You need to run the following commands to mass rename the RoundCube rules and repair their links:</p>
+<pre><code>find /var/vmail/sieve/ -type l -name 'dovecot.sieve' -exec rm -f '{}' \;
+find /var/vmail/sieve/ -type f -name 'roundcube' -exec rename 'roundcube' 'roundcube.sieve' '{}' \;
+find /var/vmail/sieve/ -type f -name 'roundcube.sieve' -execdir ln -s '{}' dovecot.sieve \;
+</code></pre><p style="text-align: center; color: grey;">Document published under a <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">CC BY-ND 3.0</a> license. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-3293801-21', 'auto');
+  ga('send', 'pageview');
+</script>
+</body></html>

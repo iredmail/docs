@@ -1,0 +1,228 @@
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Install Pure-FTPd with OpenLDAP backend on RHEL/CentOS</title>
+        <link rel="stylesheet" type="text/css" href="./css/markdown.css" />
+    </head>
+    <body>
+    
+    <div id="navigation">
+        <a href="http://www.iredmail.org" target="_blank">iRedMail web site</a>
+    
+        // <a href="./index.html">Document Index</a>
+    </div><h1 id="install-pure-ftpd-with-openldap-backend-on-rhelcentos">Install Pure-FTPd with OpenLDAP backend on RHEL/CentOS</h1>
+<div class="toc">
+<ul>
+<li><a href="#install-pure-ftpd-with-openldap-backend-on-rhelcentos">Install Pure-FTPd with OpenLDAP backend on RHEL/CentOS</a><ul>
+<li><a href="#install-pure-ftpd">Install Pure-FTPd</a></li>
+<li><a href="#use-a-proper-ldap-bind-dnpassword-to-query-accounts">Use a proper LDAP bind dn/password to query accounts</a></li>
+<li><a href="#configure-the-ldap-setting-for-pureftpd">Configure the LDAP setting for PureFTPD</a></li>
+<li><a href="#config-openldap">Config OpenLDAP</a></li>
+<li><a href="#create-ftp-home-directory">Create FTP Home Directory</a></li>
+<li><a href="#restart-openldap-and-pure-ftpd-service">Restart OpenLDAP and Pure-FTPD Service</a></li>
+<li><a href="#add-ldap-ftp-attributes-and-values-for-new-user">Add LDAP FTP attributes and values for new user</a></li>
+<li><a href="#configure-iptables">Configure iptables</a></li>
+<li><a href="#testing">Testing</a></li>
+<li><a href="#troubleshooting">Troubleshooting</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<h2 id="install-pure-ftpd">Install Pure-FTPd</h2>
+<p>Install PureFTPD from EPEL yum repo:</p>
+<pre><code># yum install pure-ftpd
+</code></pre>
+
+<h2 id="use-a-proper-ldap-bind-dnpassword-to-query-accounts">Use a proper LDAP bind dn/password to query accounts</h2>
+<p>iRedMail generates a LDAP bind dn <code>cn=vmail,dc=xxx,dc=xxx</code> with read-only
+access to all mail accounts, we use it in ejabberd to query accounts.</p>
+<p>Password of <code>cn=vmail,dc=xxx,dc=xxx</code> was generated randomly during iRedMail
+installation, you can find the full dn and password in
+<code>/etc/postfix/ldap/catchall_maps.cf</code>:</p>
+<pre><code># grep 'bind_' /etc/postfix/ldap/catchall_maps.cf
+bind_dn         = cn=vmail,dc=example,dc=com
+bind_pw         = InYTi8qGjamTb6Me2ESwbb6rxQUs5y
+</code></pre>
+
+<h2 id="configure-the-ldap-setting-for-pureftpd">Configure the LDAP setting for PureFTPD</h2>
+<ul>
+<li>Open <code>/etc/pure-ftpd/pureftpd-ldap.conf</code> and update below parameters:</li>
+</ul>
+<pre><code>LDAPServer localhost
+LDAPPort 389
+LDAPBaseDN o=domains,dc=example,dc=com
+LDAPBindDN cn=vmail,dc=example,dc=com
+LDAPBindPW InYTi8qGjamTb6Me2ESwbb6rxQUs5y       # cn=vmail password 
+LDAPDefaultUID 2000                             # &lt;- UID of `vmail` user.
+LDAPDefaultGID 2000                             # &lt;- GID of `vmail` user.
+LDAPFilter (&amp;(objectClass=PureFTPdUser)(mail=\L)(FTPStatus=enabled))
+LDAPHomeDir FTPHomeDir                          # &lt;- New LDAP attribute, we will add it later.
+LDAPVersion 3
+</code></pre>
+
+<h2 id="config-openldap">Config OpenLDAP</h2>
+<ul>
+<li>Get the schema modify by iredmail</li>
+</ul>
+<pre><code># wget https://bitbucket.org/zhb/iredmail/raw/default/extra/samples/pureftpd.schema
+# mv pureftpd.schema /etc/openldap/schema/ 
+</code></pre>
+
+<ul>
+<li>Open <code>/etc/openldap/slapd.conf</code>, include <code>pureftpd.schema</code> after <code>iredmail.schema</code>:</li>
+</ul>
+<pre><code>include /etc/openldap/schema/iredmail.schema
+include /etc/openldap/schema/pureftpd.schema    # &lt;-- Add this line.
+</code></pre>
+
+<ul>
+<li>Open <code>/etc/openldap/slapd.conf</code>, append required indexes for attributes
+  defined in <code>pureftpd.schema</code>:</li>
+</ul>
+<pre><code># Indexes for Pure-FTPd LDAP attributes.
+index FTPQuotaFiles,FTPQuotaMBytes eq,pres
+index FTPUploadRatio,FTPDownloadRatio eq,pres
+index FTPUploadBandwidth,FTPDownloadBandwidth eq,pres
+index FTPStatus,FTPuid,FTPgid,FTPHomeDir eq,pres
+</code></pre>
+
+<h2 id="create-ftp-home-directory">Create FTP Home Directory</h2>
+<p>We're going to store all FTP data under <code>/home/ftp/</code> directory, so let's create
+<code>/home/ftp/</code> now, owner must be <code>root</code> user.</p>
+<pre><code># mkdir /home/ftp/
+# ls -dl /home/ftp
+drwxr-xr-x 3 root root 4096 Jun  7 20:18 /home/ftp/
+</code></pre>
+
+<h2 id="restart-openldap-and-pure-ftpd-service">Restart OpenLDAP and Pure-FTPD Service</h2>
+<p>Make sure pure-ftpd is running:</p>
+<pre><code># /etc/init.d/ldap restart
+# /etc/init.d/pure-ftpd restart 
+
+# netstat -ntlp | grep pure-ftpd
+tcp 0   0 0.0.0.0:21    0.0.0.0:*   LISTEN  2062/pure-ftpd (SERVER)
+tcp 0   0 :::21         :::*        LISTEN  2062/pure-ftpd (SERVER)
+</code></pre>
+
+<h2 id="add-ldap-ftp-attributes-and-values-for-new-user">Add LDAP FTP attributes and values for new user</h2>
+<p>use the iredmail tools quick create the user include the PureFTP attributes and values.</p>
+<ul>
+<li>Open <code>/iRedMail-x.y.z/tools/create_mail_user_OpenLDAP.sh</code> and set correct values:</li>
+</ul>
+<pre><code>LDAP_SUFFIX=&quot;dc=example,dc=com&quot; # &lt;- Change the LDAP suffix 
+BINDPW='passwd'                 # &lt;- Password for the bind dn `cn=Manager,dc=example,dc=com`
+PUREFTPD_INTEGRATION='YES'      # &lt;- Change to YES, enable the pureftp inteegration
+</code></pre>
+
+<ul>
+<li>Run the script to create a new user <code>user1@example.com</code>. The default password is same as user name (<code>user1</code>) by default.</li>
+</ul>
+<pre><code># bash create_mail_user_OpenLDAP.sh example.com user1
+
+adding new entry &quot;ou=Users,domainName=example.com,o=domains,dc=example,dc=com&quot;
+ldapadd: Already exists (68)
+adding new entry &quot;ou=Groups,domainName=example.com,o=domains,dc=example,dc=com&quot;
+ldapadd: Already exists (68)
+adding new entry &quot;ou=Aliases,domainName=example.com,o=domains,dc=example,dc=com&quot;
+ldapadd: Already exists (68)
+adding new entry &quot;mail=user1@example.com,ou=Users,domainName=example.com,o=domains,dc=example,dc=com&quot;
+</code></pre>
+
+<h2 id="configure-iptables">Configure iptables</h2>
+<p>iRedMail doesn't open port 20 and 21 by default, you must open them first.</p>
+<ul>
+<li>Open <code>/etc/sysconfig/iptables</code> and set correct values:</li>
+</ul>
+<pre><code>-A INPUT -p tcp --dport 20 -j ACCEPT
+-A INPUT -p tcp --dport 21 -j ACCEPT
+</code></pre>
+
+<ul>
+<li>Restart the iptables service</li>
+</ul>
+<pre><code># /etc/init.d/iptables restart 
+</code></pre>
+
+<h2 id="testing">Testing</h2>
+<p>You can use windows FTP client or Linux ftp client (e.g. command line ftp client <code>lftp</code> or GUI client <code>FileZilla</code>) for testing.</p>
+<pre><code>$ lftp localhost
+localhost:~&gt; debug 4
+localhost:~&gt; login user1@example.com user1 # &lt;-- input the username and password
+user1@example.com@localhost:~&gt; ls 
+---- Connecting to localhost (127.0.0.1) port 21
+&lt;--- 220---------- Welcome to Pure-FTPd [privsep] [TLS] ----------
+&lt;--- 220-You are user number 1 of 50 allowed.
+&lt;--- 220-Local time is now 16:25. Server port: 21.
+&lt;--- 220-IPv6 connections are also welcome on this server.
+&lt;--- 220 You will be disconnected after 15 minutes of inactivity.
+&lt;--- 211-Extensions supported:
+&lt;---  EPRT
+&lt;---  IDLE
+&lt;---  MDTM
+&lt;---  SIZE
+&lt;---  REST STREAM
+&lt;---  MLST type*;size*;sizd*;modify*;UNIX.mode*;UNIX.uid*;UNIX.gid*;unique*;
+&lt;---  MLSD
+&lt;---  ESTP
+&lt;---  PASV
+&lt;---  EPSV
+&lt;---  SPSV
+&lt;---  ESTA
+&lt;---  AUTH TLS
+&lt;---  PBSZ
+&lt;---  PROT
+&lt;---  UTF8
+&lt;--- 211 End.
+&lt;--- 500 This security scheme is not implemented
+&lt;--- 200 OK, UTF-8 enabled
+&lt;--- 200  MLST OPTS type;size;sizd;modify;UNIX.mode;UNIX.uid;UNIX.gid;unique;
+&lt;--- 331 User user1@example.com OK. Password required
+&lt;--- 230-Your bandwidth usage is restricted
+&lt;--- 230-User user1@example.com has group access to:  vmail   
+&lt;--- 230-You must respect a 1:5 (UL/DL) ratio
+&lt;--- 230-OK. Current restricted directory is /
+&lt;--- 230-0 files used (0%) - authorized: 50 files
+&lt;--- 230 0 Kbytes used (0%) - authorized: 10240 Kb
+&lt;--- 257 &quot;/&quot; is your current location
+&lt;--- 227 Entering Passive Mode (127,0,0,1,32,58)
+&lt;--- 150 Accepted data connection
+drwxr-xr-x    2 500      vmail        4096 Jun 10 16:16 .
+drwxr-xr-x    2 500      vmail        4096 Jun 10 16:16 ..
+-rw-------    1 500      vmail           0 Jun 10 16:16 .ftpquota
+</code></pre>
+
+<h2 id="troubleshooting">Troubleshooting</h2>
+<p>Enable verbose log in pure-ftpd</p>
+<ul>
+<li>Open <code>/etc/pure-ftpd/pure-ftpd.conf</code>  and set correct values:</li>
+</ul>
+<pre><code>VerboseLog                  yes # &lt;-- change form no to yes 
+</code></pre>
+
+<ul>
+<li>Open <code>/etc/syslog.conf</code> and set correct values:</li>
+</ul>
+<pre><code>ftp.*                       -/var/log/pureftpd.log # &lt;-- Add entry
+</code></pre>
+
+<ul>
+<li>Restart services</li>
+</ul>
+<pre><code>#/etc/init.d/pure-ftpd restart
+#/etc/init.d/syslog restart
+</code></pre>
+
+<p>Monitor <code>/var/log/pureftpd.log</code> for troubleshooting:</p>
+<pre><code># tail -0f /var/log/pureftpd.log
+</code></pre>
+
+<p>If you need to debug OpenLDAP, please refer to another document:  <a href="./debug.openldap.html">Debug OpenLDAP</a>.</p><p style="text-align: center; color: grey;">Document published under a <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">CC BY-ND 3.0</a> license. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-3293801-21', 'auto');
+  ga('send', 'pageview');
+</script>
+</body></html>

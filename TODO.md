@@ -11,11 +11,3 @@
 * http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/Send.out.email.from.specified.IP.address
 * http://www.iredmail.org/forum/topic1968-enabling-ipv6-for-your-iredmail-postfixdovecot.html
 * http://www.iredmail.org/forum/topic210-iredmail-support-faq-how-to-enable-signing-disclaimer-on-outgoing-mails.html
-
-# integrations
-
-* http://www.iredmail.org/wiki/index.php?title=Integration/Ejabberd.iRedMail.with.OpenLDAP
-* http://www.iredmail.org/wiki/index.php?title=Integration/OpenVPN.iRedMail.with.OpenLDAP
-* http://www.iredmail.org/wiki/index.php?title=Integration/SOGo.iRedMail.with.OpenLDAP
-* http://www.iredmail.org/wiki/index.php?title=Integration/DBMail.iRedMail.with.MySQL.backend
-* http://www.iredmail.org/wiki/index.php?title=Integration/PureFTPd.iRedMail.with.OpenLDAP
