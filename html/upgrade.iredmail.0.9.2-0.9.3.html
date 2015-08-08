@@ -32,10 +32,12 @@
 </ul>
 </li>
 <li><a href="#mysqlmariadb-backend-special">MySQL/MariaDB backend special</a><ul>
+<li><a href="#add-new-sql-columns-in-vmail-database-aliasis_alias-aliasalias_to">Add new SQL columns in vmail database: alias.is_alias, alias.alias_to</a></li>
 <li><a href="#add-new-sql-table-outbound_wblist-in-amavisd-database_1">Add new SQL table outbound_wblist in amavisd database</a></li>
 </ul>
 </li>
 <li><a href="#postgresql-backend-special">PostgreSQL backend special</a><ul>
+<li><a href="#add-new-sql-columns-in-vmail-database-aliasis_alias-aliasalias_to_1">Add new SQL columns in vmail database: alias.is_alias, alias.alias_to</a></li>
 <li><a href="#add-new-sql-table-outbound_wblist-in-amavisd-database_2">Add new SQL table outbound_wblist in amavisd database</a></li>
 </ul>
 </li>
@@ -49,7 +51,7 @@
 <p>We provide remote upgrade service, check <a href="../support.html">the price</a> and <a href="../contact.html">contact us</a>.</p>
 </blockquote>
 <ul>
-<li>TODO [SQL backends] New SQL column <code>alias.isuseralias</code>.</li>
+<li>2015-08-08: [SQL backends] Add new SQL columns in <code>vmail</code> database: <code>alias.is_alias</code>, <code>alias.alias_to</code>.</li>
 <li>2015-07-31: SOGo: The Dovecot Master User used by SOGo doesn't work due to incorrect username.</li>
 <li>2015-07-31: [LDAP] Fixed: Dovecot Master User doesn't work with ACL plugin.</li>
 <li>2015-07-06: Add new SQL table <code>outbound_wblist</code> in <code>amavisd</code> database.</li>
@@ -313,6 +315,29 @@ mysql&gt; CREATE TABLE outbound_wblist (rid integer unsigned NOT NULL, sid integ
 
 <p>After table created, please restart iRedAPD service.</p>
 <h2 id="mysqlmariadb-backend-special">MySQL/MariaDB backend special</h2>
+<h3 id="add-new-sql-columns-in-vmail-database-aliasis_alias-aliasalias_to">Add new SQL columns in <code>vmail</code> database: <code>alias.is_alias</code>, <code>alias.alias_to</code></h3>
+<p>iRedMail-0.9.3 offers per-user alias address support, that means mail user
+<code>john.smith@domain.com</code> can have additional email addresses like
+<code>john@domain.com</code>, <code>js@domain.com</code> and more, all emails sent to these addresses
+will be delivered to same mailbox. With per-user alias address support, you
+don't need to create many mail alias accounts anymore.</p>
+<p>Per-user alias address requires 2 new SQL columns:</p>
+<ul>
+<li><code>alias.is_alias</code>: this column marks a SQL record is a per-user alias account.</li>
+<li><code>alias.alias_to</code>: this column stores the target address (it's
+  <code>john.smith@domain.com</code> as described above). Its value is same as <code>alias.goto</code>
+  when this sql record is a per-user alias, but <code>alias.goto</code> is not good for
+  indexed searching, so we create <code>alias.alias_to</code> as an alternative.</li>
+</ul>
+<p>Please follow steps below to create required SQL columns:</p>
+<pre><code>$ mysql -uroot -p
+sql&gt; USE vmail;
+sql&gt; ALTER TABLE alias ADD COLUMN is_alias TINYINT(1) NOT NULL DEFAULT 0;
+sql&gt; ALTER TABLE alias ADD COLUMN alias_to VARCHAR(255) NOT NULL DEFAULT '';
+sql&gt; ALTER TABLE alias ADD INDEX (is_alias);
+sql&gt; ALTER TABLE alias ADD INDEX (alias_to);
+</code></pre>
+
 <h3 id="add-new-sql-table-outbound_wblist-in-amavisd-database_1">Add new SQL table <code>outbound_wblist</code> in <code>amavisd</code> database</h3>
 <p>We need a new SQL table <code>outbound_wblist</code> in <code>amavisd</code> database, it's used
 to store white/blacklists for outbound message, required by iRedAPD plugin
@@ -325,6 +350,29 @@ mysql&gt; CREATE TABLE outbound_wblist (rid integer unsigned NOT NULL, sid integ
 
 <p>After table created, please restart iRedAPD service.</p>
 <h2 id="postgresql-backend-special">PostgreSQL backend special</h2>
+<h3 id="add-new-sql-columns-in-vmail-database-aliasis_alias-aliasalias_to_1">Add new SQL columns in <code>vmail</code> database: <code>alias.is_alias</code>, <code>alias.alias_to</code></h3>
+<p>iRedMail-0.9.3 offers per-user alias address support, that means mail user
+<code>john.smith@domain.com</code> can have additional email addresses like
+<code>john@domain.com</code>, <code>js@domain.com</code> and more, all emails sent to these addresses
+will be delivered to same mailbox. With per-user alias address support, you
+don't need to create many mail alias accounts anymore.</p>
+<p>Per-user alias address requires 2 new SQL columns:</p>
+<ul>
+<li><code>alias.is_alias</code>: this column marks a SQL record is a per-user alias account.</li>
+<li><code>alias.alias_to</code>: this column stores the target address (it's
+  <code>john.smith@domain.com</code> as described above). Its value is same as <code>alias.goto</code>
+  when this sql record is a per-user alias, but <code>alias.goto</code> is not good for
+  indexed searching, so we create <code>alias.alias_to</code> as an alternative.</li>
+</ul>
+<p>Please follow steps below to create required SQL columns:</p>
+<pre><code># su - postgres
+$ psql -d vmail
+sql&gt; ALTER TABLE alias ADD COLUMN is_alias INT2 NOT NULL DEFAULT 0;
+sql&gt; ALTER TABLE alias ADD COLUMN alias_to alias_to VARCHAR(255) NOT NULL DEFAULT '';
+sql&gt; CREATE INDEX idx_alias_is_alias ON alias (is_alias);
+sql&gt; CREATE INDEX idx_alias_alias_to ON alias (alias_to);
+</code></pre>
+
 <h3 id="add-new-sql-table-outbound_wblist-in-amavisd-database_2">Add new SQL table <code>outbound_wblist</code> in <code>amavisd</code> database</h3>
 <p>We need a new SQL table <code>outbound_wblist</code> in <code>amavisd</code> database, it's used
 to store white/blacklists for outbound message, required by iRedAPD plugin

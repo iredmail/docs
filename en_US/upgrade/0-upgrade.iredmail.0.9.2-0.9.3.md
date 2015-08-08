@@ -8,7 +8,7 @@ __This is still a DRAFT document, do NOT apply it.__
 
 > We provide remote upgrade service, check [the price](../support.html) and [contact us](../contact.html).
 
-* TODO [SQL backends] New SQL column `alias.isuseralias`.
+* 2015-08-08: [SQL backends] Add new SQL columns in `vmail` database: `alias.is_alias`, `alias.alias_to`.
 * 2015-07-31: SOGo: The Dovecot Master User used by SOGo doesn't work due to incorrect username.
 * 2015-07-31: [LDAP] Fixed: Dovecot Master User doesn't work with ACL plugin.
 * 2015-07-06: Add new SQL table `outbound_wblist` in `amavisd` database.
@@ -307,6 +307,33 @@ After table created, please restart iRedAPD service.
 
 ## MySQL/MariaDB backend special
 
+### Add new SQL columns in `vmail` database: `alias.is_alias`, `alias.alias_to`
+
+iRedMail-0.9.3 offers per-user alias address support, that means mail user
+`john.smith@domain.com` can have additional email addresses like
+`john@domain.com`, `js@domain.com` and more, all emails sent to these addresses
+will be delivered to same mailbox. With per-user alias address support, you
+don't need to create many mail alias accounts anymore.
+
+Per-user alias address requires 2 new SQL columns:
+
+* `alias.is_alias`: this column marks a SQL record is a per-user alias account.
+* `alias.alias_to`: this column stores the target address (it's
+  `john.smith@domain.com` as described above). Its value is same as `alias.goto`
+  when this sql record is a per-user alias, but `alias.goto` is not good for
+  indexed searching, so we create `alias.alias_to` as an alternative.
+
+Please follow steps below to create required SQL columns:
+
+```
+$ mysql -uroot -p
+sql> USE vmail;
+sql> ALTER TABLE alias ADD COLUMN is_alias TINYINT(1) NOT NULL DEFAULT 0;
+sql> ALTER TABLE alias ADD COLUMN alias_to VARCHAR(255) NOT NULL DEFAULT '';
+sql> ALTER TABLE alias ADD INDEX (is_alias);
+sql> ALTER TABLE alias ADD INDEX (alias_to);
+```
+
 ### Add new SQL table `outbound_wblist` in `amavisd` database
 
 We need a new SQL table `outbound_wblist` in `amavisd` database, it's used
@@ -324,6 +351,33 @@ mysql> CREATE TABLE outbound_wblist (rid integer unsigned NOT NULL, sid integer 
 After table created, please restart iRedAPD service.
 
 ## PostgreSQL backend special
+
+### Add new SQL columns in `vmail` database: `alias.is_alias`, `alias.alias_to`
+
+iRedMail-0.9.3 offers per-user alias address support, that means mail user
+`john.smith@domain.com` can have additional email addresses like
+`john@domain.com`, `js@domain.com` and more, all emails sent to these addresses
+will be delivered to same mailbox. With per-user alias address support, you
+don't need to create many mail alias accounts anymore.
+
+Per-user alias address requires 2 new SQL columns:
+
+* `alias.is_alias`: this column marks a SQL record is a per-user alias account.
+* `alias.alias_to`: this column stores the target address (it's
+  `john.smith@domain.com` as described above). Its value is same as `alias.goto`
+  when this sql record is a per-user alias, but `alias.goto` is not good for
+  indexed searching, so we create `alias.alias_to` as an alternative.
+
+Please follow steps below to create required SQL columns:
+
+```
+# su - postgres
+$ psql -d vmail
+sql> ALTER TABLE alias ADD COLUMN is_alias INT2 NOT NULL DEFAULT 0;
+sql> ALTER TABLE alias ADD COLUMN alias_to alias_to VARCHAR(255) NOT NULL DEFAULT '';
+sql> CREATE INDEX idx_alias_is_alias ON alias (is_alias);
+sql> CREATE INDEX idx_alias_alias_to ON alias (alias_to);
+```
 
 ### Add new SQL table `outbound_wblist` in `amavisd` database
 
