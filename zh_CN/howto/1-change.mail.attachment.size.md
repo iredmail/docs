@@ -54,7 +54,7 @@ post_max_size = 100M;
 * 在 Debian/Ubuntu 系统上，此文件路径为 `/usr/share/apache2/roundcubemail/.htaccess` 或者
   `/opt/www/roundcubemail/.htaccess`.
 * 在 FreeBSD 系统上，此文件路径为 `/usr/local/www/roundcubemail/.htaccess`
-* 在 OpenBSD 系统上，紫文件路径为 `/var/www/roundcubemail/.htaccess`
+* 在 OpenBSD 系统上，此文件路径为 `/var/www/roundcubemail/.htaccess`
 
 注意:某些 Linux/BSD 发行版本可能没有 `.htaccess` 文件，此时你可以忽略此步骤。
 
