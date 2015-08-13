@@ -64,7 +64,7 @@ php_value    upload_max_filesize    100M
 php_value    post_max_size  100M
 ```
 
-重启 Apache 或 Nginx 服务以使修改生效。
+至此，重启 Apache 或 Nginx 服务以使上述修改生效。
 
 ## 修改 Nginx 上传大小
 
