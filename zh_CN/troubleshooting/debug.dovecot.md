@@ -1,6 +1,6 @@
 # 开启 Dovecot 调试模式
 
-> 不知道Dovecot的配置文件在哪个目录？请查阅这个教程：
+> 不知道 Dovecot 的配置文件在哪个目录？请查阅这个教程：
 > [iRedMail 主要组件的配置文件和日志文件路径](file.locations.html#dovecot).
 
 要调试 Dovecot，请修改 `dovecot.conf` 的如下参数：
