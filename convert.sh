@@ -192,4 +192,6 @@ fi
 
 # Show changed files.
 echo "* Changed files:"
+echo "---------------"
 hg st
+echo "---------------"

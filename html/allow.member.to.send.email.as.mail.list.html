@@ -1,0 +1,37 @@
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Allow member to send email as mailing list or mail alias</title>
+        <link rel="stylesheet" type="text/css" href="./css/markdown.css" />
+    </head>
+    <body>
+    
+    <div id="navigation">
+        <a href="http://www.iredmail.org" target="_blank">iRedMail web site</a>
+    
+        // <a href="./index.html">Document Index</a>
+    </div><h1 id="allow-member-to-send-email-as-mailing-list-or-mail-alias">Allow member to send email as mailing list or mail alias</h1>
+<p>To allow member of mailing list (or mail alias) account to send email as this
+mailing list (or mail alias), please follw steps below:</p>
+<ul>
+<li>Remove <code>reject_sender_login_mismatch</code> in Postfix config file <code>/etc/postfix/main.cf</code>.</li>
+<li>Enable iRedAPD plugin <code>reject_sender_login_mismatch</code> in iRedAPD config file
+  <code>/opt/iredapd/settings.py</code>.</li>
+<li>Add new setting in <code>/opt/iredapd/settings.py</code> to allow member to send email
+  as mail list or mail alias:</li>
+</ul>
+<pre><code>ALLOWED_LOGIN_MISMATCH_LIST_MEMBER = True
+</code></pre>
+
+<ul>
+<li>Restart both Postfix and iRedAPD services.</li>
+</ul><p style="text-align: center; color: grey;">Document published under a <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">CC BY-ND 3.0</a> license. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-3293801-21', 'auto');
+  ga('send', 'pageview');
+</script>
+</body></html>
