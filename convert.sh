@@ -22,7 +22,7 @@ strip_name_prefix()
 }
 
 # Available translations
-all_languages='en_US'
+all_languages='en_US zh_CN'
 
 # Chapter directories in specified order
 all_chapter_dirs="overview \
