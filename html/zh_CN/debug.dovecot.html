@@ -1,0 +1,43 @@
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>开启 Dovecot 调试模式</title>
+        <link rel="stylesheet" type="text/css" href="../css/markdown.css" />
+    </head>
+    <body>
+    
+    <div id="navigation">
+        <a href="http://www.iredmail.org" target="_blank">iRedMail web site</a>
+    
+        // <a href="./index.html">Document Index</a>
+    </div><h1 id="dovecot">开启 Dovecot 调试模式</h1>
+<blockquote>
+<p>不知道Dovecot的配置文件在哪个目录？请查阅这个教程：
+<a href="file.locations.html#dovecot">iRedMail 主要组件的配置文件和日志文件路径</a>.</p>
+</blockquote>
+<p>要调试 Dovecot，请修改 <code>dovecot.conf</code> 的如下参数：</p>
+<pre><code>mail_debug = yes
+</code></pre>
+
+<p>之后重启 Dovecot 服务。</p>
+<p>如果需要查看验证和密码相关的调试信息，请修改如下参数并重启 Dovecot 服务：</p>
+<pre><code>auth_verbose = yes
+auth_debug = yes
+auth_debug_passwords = yes
+auth_verbose_passwords = yes
+</code></pre>
+
+<p>如果重启 Dovecot 服务时看到很多错误信息（例如：<code>dovecot fails, spawning too
+quickly</code>），可能是由于 Dovecot 配置文件中有某种错误导致的。请在命令行手动重启
+Dovecot 服务，它会报告配置文件的错误：</p>
+<pre><code># dovecot -c /etc/dovecot/dovecot.conf
+</code></pre><p style="text-align: center; color: grey;">Document published under a <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">CC BY-ND 3.0</a> license. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-3293801-21', 'auto');
+  ga('send', 'pageview');
+</script>
+</body></html>
