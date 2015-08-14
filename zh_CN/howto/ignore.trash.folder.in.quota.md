@@ -24,7 +24,7 @@ plugin {
 
 因此，要忽略配额中的 `Trash` 目录，你可以在 `/etc/dovecot/dovecot.conf` 或者 `/etc/dovecot/dovecot-{mysql,pgsql,ldap}.conf` 中增加新的配额规则（quota_rule）。
 
-* 示例设置 #1:
+* 配置示例 #1:
 
 ```
 # File: /etc/dovecot/dovecot.conf
@@ -39,7 +39,7 @@ plugin {
 }
 ```
 
-* 示例设置 #2:
+* 配置示例 #2:
 
 ```
 # File: /etc/dovecot/dovecot-ldap.conf
