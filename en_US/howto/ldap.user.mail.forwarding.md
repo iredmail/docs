@@ -1,4 +1,6 @@
-# LDAP: User mail forwarding.
+# LDAP: User mail forwarding
+
+[TOC]
 
 ## Set mail forwarding with iRedAdmin-Pro
 

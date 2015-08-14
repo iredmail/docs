@@ -2,7 +2,7 @@ Please visit [http://www.iredmail.org/docs/](http://www.iredmail.org/docs/)
 to read converted documents in HTML format, get support in our forum:
 [http://www.iredmail.org/forum/](http://www.iredmail.org/forum/).
 
-= How to translate and contribute
+# How to translate and contribute
 
 * Create a new directory and name it to the short language code. e.g. for
   Germany, please name it `de_DE`.
