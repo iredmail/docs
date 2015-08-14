@@ -9,7 +9,7 @@ To change mail attachment size, we have to change 3 settings.
 Postfix is MTA, so we have to change its setting to transfer mail with large
 attachment.
 
-To allow mail with 100Mb attachment, please change 'message_size_limit' setting
+For example, to allow mail with 100Mb attachment, please change `message_size_limit` setting
 like below:
 
 ```
@@ -73,9 +73,9 @@ php_value    upload_max_filesize    100M
 php_value    post_max_size  100M
 ```
 
-Restart Apache or Nginx web server to make it work.
+Restart Apache or php-fpm service to make it work.
 
-## Change upload size in Nginx
+## Change upload file size in Nginx
 
 Find setting `client_max_body_size` in Nginx config file
 `/etc/nginx/nginx.conf`, change it to a proper value to match your need.

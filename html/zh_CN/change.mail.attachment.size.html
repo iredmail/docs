@@ -1,0 +1,93 @@
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>修改邮件附件大小</title>
+        <link rel="stylesheet" type="text/css" href="../css/markdown.css" />
+    </head>
+    <body>
+    
+    <div id="navigation">
+        <a href="http://www.iredmail.org" target="_blank">iRedMail web site</a>
+    
+        // <a href="./index.html">Document Index</a>
+    </div><h1 id="_1">修改邮件附件大小</h1>
+<div class="toc">
+<ul>
+<li><a href="#_1">修改邮件附件大小</a><ul>
+<li><a href="#postfix">修改 postfix 中邮件大小的设置</a></li>
+<li><a href="#roundcube">修改 Roundcube 网页邮箱的附件上传大小</a><ul>
+<li><a href="#php">修改 PHP 设置允许上传大附件</a></li>
+<li><a href="#roundcube_1">修改 Roundcube 网页邮箱设置以允许上传大附件</a></li>
+</ul>
+</li>
+<li><a href="#nginx">修改 Nginx 上传文件大小</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<p>要修改邮件附件大小，需要修改三个地方。</p>
+<h2 id="postfix">修改 postfix 中邮件大小的设置</h2>
+<p>Postfix 是一个邮件传送代理（MTA），因此，要修改配置以使它能传送大附件的邮件。</p>
+<p>假设要修改附件大小为 100MB，需对 <code>message_size_limit</code> 做如下修改：</p>
+<pre><code># postconf -e message_size_limit='104857600'
+</code></pre>
+
+<p>之后重启 Postfix 服务，使上述修改生效:</p>
+<pre><code># /etc/init.d/postfix restart
+</code></pre>
+
+<p><strong>注意</strong>:</p>
+<ul>
+<li><code>104857600</code> 是由 100 (MB) x 1024 (KB) x 1024 (Bit) 计算得到的结果。</li>
+<li>邮件在发送前会被客户端（Outlook，Thunderbird等）重新编码，导致邮件大小会超过
+  100MB，所以建议将上述设置中的邮件大小改为 110MB 或 120MB 即可。</li>
+</ul>
+<p>这样你就可以通过客户端正常发送邮件了。</p>
+<h2 id="roundcube">修改 Roundcube 网页邮箱的附件上传大小</h2>
+<p>如果使用 Roundcube 网页邮箱，需要额外更改两个地方：</p>
+<h3 id="php">修改 PHP 设置允许上传大附件</h3>
+<p>修改 PHP 配置文件 <code>/etc/php.ini</code> 中的 <code>memory_limit</code>， <code>upload_max_filesize</code> 和 <code>post_max_size</code> 三个参数：</p>
+<ul>
+<li>在 RHEL/CentOS 系统上: 配置文件路径是 <code>/etc/php.ini</code></li>
+<li>在 Debian/Ubuntu 系统上，配置文件路径是 <code>/etc/php5/apache2/php.ini</code></li>
+<li>在 FreeBSD 系统上，配置文件路径是 <code>/usr/local/etc/php.ini</code> （Apache），或者是 <code>/etc/php5/fpm/php.ini</code> （Nginx）。</li>
+<li>在 OpenBSD 系统上，配置文件路径是 <code>/etc/php-5.4.ini</code>。如果你运行的 PHP 版本号为 5.4 ，路径将会不一样。</li>
+</ul>
+<pre><code>memory_limit = 200M;
+upload_max_filesize = 100M;
+post_max_size = 100M;
+</code></pre>
+
+<h3 id="roundcube_1">修改 Roundcube 网页邮箱设置以允许上传大附件</h3>
+<p>修改 roundcube 目录下的 <code>.htaccess</code> 文件:</p>
+<ul>
+<li>在 RHEL/CentOS 系统上，此文件路径为 <code>/var/www/roundcubemail/.htaccess</code></li>
+<li>在 Debian/Ubuntu 系统上，此文件路径为 <code>/usr/share/apache2/roundcubemail/.htaccess</code> 或者
+  <code>/opt/www/roundcubemail/.htaccess</code>.</li>
+<li>在 FreeBSD 系统上，此文件路径为 <code>/usr/local/www/roundcubemail/.htaccess</code></li>
+<li>在 OpenBSD 系统上，此文件路径为 <code>/var/www/roundcubemail/.htaccess</code></li>
+</ul>
+<p>注意:某些 Linux/BSD 发行版本可能没有 <code>.htaccess</code> 文件，此时你可以忽略此步骤。</p>
+<pre><code>php_value    memory_limit   200M
+php_value    upload_max_filesize    100M
+php_value    post_max_size  100M
+</code></pre>
+
+<p>重启 Apache 或 php-fpm 服务以使上述修改生效。</p>
+<h2 id="nginx">修改 Nginx 上传文件大小</h2>
+<p>在配置文件 <code>/etc/nginx/nginx.conf</code> 中找到参数 <code>client_max_body_size</code>  ，按需要修改大小：</p>
+<p>```
+http {
+    ...
+    client_max_body_size 100m;
+    ...
+}</p><p style="text-align: center; color: grey;">Document published under a <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">CC BY-ND 3.0</a> license. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-3293801-21', 'auto');
+  ga('send', 'pageview');
+</script>
+</body></html>

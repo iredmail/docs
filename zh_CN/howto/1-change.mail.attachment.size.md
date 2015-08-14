@@ -8,7 +8,7 @@
 
 Postfix 是一个邮件传送代理（MTA），因此，要修改配置以使它能传送大附件的邮件。
 
-假设要修改附件大小为100MB，只需对 'message_size_limit' 做如下修改：
+假设要修改附件大小为 100MB，需对 `message_size_limit` 做如下修改：
 
 ```
 # postconf -e message_size_limit='104857600'
@@ -23,7 +23,8 @@ Postfix 是一个邮件传送代理（MTA），因此，要修改配置以使它
 __注意__:
 
 * `104857600` 是由 100 (MB) x 1024 (KB) x 1024 (Bit) 计算得到的结果。
-* 邮件在发送前会被客户端（Outlook，Thunderbird等）重新编码，导致邮件大小会超过 100MB，你只需将上述设置中的大小改为 110MB 或 120MB 即可。
+* 邮件在发送前会被客户端（Outlook，Thunderbird等）重新编码，导致邮件大小会超过
+  100MB，所以建议将上述设置中的邮件大小改为 110MB 或 120MB 即可。
 
 这样你就可以通过客户端正常发送邮件了。
 
@@ -64,9 +65,9 @@ php_value    upload_max_filesize    100M
 php_value    post_max_size  100M
 ```
 
-至此，重启 Apache 或 Nginx 服务以使上述修改生效。
+重启 Apache 或 php-fpm 服务以使上述修改生效。
 
-## 修改 Nginx 上传大小
+## 修改 Nginx 上传文件大小
 
 在配置文件 `/etc/nginx/nginx.conf` 中找到参数 `client_max_body_size`  ，按需要修改大小：
 

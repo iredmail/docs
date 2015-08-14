@@ -20,7 +20,7 @@
 <li><a href="#change-roundcube-webmail-settings-to-allow-large-attachment">Change Roundcube webmail settings to allow large attachment</a></li>
 </ul>
 </li>
-<li><a href="#change-upload-size-in-nginx">Change upload size in Nginx</a></li>
+<li><a href="#change-upload-file-size-in-nginx">Change upload file size in Nginx</a></li>
 </ul>
 </li>
 </ul>
@@ -29,7 +29,7 @@
 <h2 id="change-message-size-limit-in-postfix">Change message size limit in postfix</h2>
 <p>Postfix is MTA, so we have to change its setting to transfer mail with large
 attachment.</p>
-<p>To allow mail with 100Mb attachment, please change 'message_size_limit' setting
+<p>For example, to allow mail with 100Mb attachment, please change <code>message_size_limit</code> setting
 like below:</p>
 <pre><code># postconf -e message_size_limit='104857600'
 </code></pre>
@@ -81,8 +81,8 @@ php_value    upload_max_filesize    100M
 php_value    post_max_size  100M
 </code></pre>
 
-<p>Restart Apache or Nginx web server to make it work.</p>
-<h2 id="change-upload-size-in-nginx">Change upload size in Nginx</h2>
+<p>Restart Apache or php-fpm service to make it work.</p>
+<h2 id="change-upload-file-size-in-nginx">Change upload file size in Nginx</h2>
 <p>Find setting <code>client_max_body_size</code> in Nginx config file
 <code>/etc/nginx/nginx.conf</code>, change it to a proper value to match your need.</p>
 <p>```
