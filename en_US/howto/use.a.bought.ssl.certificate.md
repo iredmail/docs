@@ -45,7 +45,7 @@ certificate:
 * `A challenge password []`: type a password for this ssl certificate.
 * `An optional company name []`: an optional company name.
 
-NOTE: Some certificates can only be used on web servers using the `Common Name`
+__NOTE__: Some certificates can only be used on web servers using the `Common Name`
 specified during enrollment. For example, a certificate for the domain
 `domain.com` will receive a warning if accessing a site named `www.domain.com`
 or `secure.domain.com`, because `www.domain.com` and `secure.domain.com` are
@@ -72,7 +72,7 @@ store them in any directory you like, recommended directories are:
 ## Configure Postfix/Dovecot/Apache/Nginx to use bought SSL certificate
 
 We use CentOS for example in below tutorial, please adjust the file to correct
-one on your server.
+one on your server according to above description.
 
 ### Postfix (SMTP server)
 

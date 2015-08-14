@@ -36,8 +36,11 @@ a cache DNS server in LAN or localhost helps a lot:</p>
 <li><a href="./enable.postscreen.html">Enable postscreen service</a></li>
 </ul>
 <p>If you don't want to use postscreen service, you can <a href="./enable.dnsbl.html">enable DNSBL service</a>
-instead, it helps a lot too, but less effective than postscreen service.</p>
-<p>postscreen and DNSBL service help catch a lot spam, save much system resource.</p>
+instead, it helps a lot too. Although both <code>postscreen</code> and pure DNSBL services
+uses the same DNSBL servers, but <code>postscreen</code> offers additional solutions to
+reduce spam, so postscreen is better.</p>
+<p>postscreen and DNSBL service help catch a lot spam before putting the spams
+in local mail queue, so they save much system resource.</p>
 <h3 id="update-amavisd-postfix-config-files-to-process-more-emails-concurrently">Update Amavisd + Postfix config files to process more emails concurrently</h3>
 <ul>
 <li><a href="./concurrent.processing.html">Process more emails concurrently</a></li>

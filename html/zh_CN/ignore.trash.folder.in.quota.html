@@ -1,0 +1,76 @@
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>在邮箱配额中忽略垃圾箱目录</title>
+        <link rel="stylesheet" type="text/css" href="../css/markdown.css" />
+    </head>
+    <body>
+    
+    <div id="navigation">
+        <a href="http://www.iredmail.org" target="_blank">iRedMail web site</a>
+    
+        // <a href="./index.html">Document Index</a>
+    </div><h1 id="_1">在邮箱配额中忽略垃圾箱目录</h1>
+<p>在 Dovecot 中，针对单个用户的邮箱配额限制定义在下列文件之一：</p>
+<ul>
+<li><code>/etc/dovecot/dovecot-mysql.conf</code>: MySQL 后端</li>
+<li><code>/etc/dovecot/dovecot-pgsql.conf</code>: PostgreSQL 后端</li>
+</ul>
+<p>如果没有针对单个用户的邮箱配额限制，Dovecot 将使用 <code>/etc/dovecot/dovecot.conf</code>
+文件中的 <code>quota_rule[X]</code> 设置。例如：</p>
+<pre><code># File: /etc/dovecot/dovecot.conf
+
+plugin {                                                                        
+
+    quota = dict:user::proxy::quotadict
+    quota_rule = *:storage=1G
+    #quota_rule2 = *:messages=0
+    #quota_rule3 = Trash:storage=1G
+    #quota_rule4 = Junk:ignore
+
+    ...
+}
+</code></pre>
+
+<p>因此，要忽略 <code>Trash</code> 目录的邮箱容量，可以在 <code>/etc/dovecot/dovecot.conf</code> 或
+<code>/etc/dovecot/dovecot-{mysql,pgsql,ldap}.conf</code> 中增加新的配额规则（quota_rule）。</p>
+<ul>
+<li>配置示例 1：</li>
+</ul>
+<pre><code># File: /etc/dovecot/dovecot.conf
+
+plugin {                                                                        
+
+    quota = dict:user::proxy::quotadict
+    quota_rule = *:storage=1G
+    quota_rule2 = Trash:ignore      # &lt;- 新配额规则：忽略 Trash 目录
+
+    ...
+}
+</code></pre>
+
+<ul>
+<li>配置示例 2:</li>
+</ul>
+<p>OpenLDAP 后端：</p>
+<pre><code># File: /etc/dovecot/dovecot-ldap.conf
+
+user_attrs      = ...,mailQuota=quota_rule=*:bytes=%$,=quota_rule2=Trash:ignore
+</code></pre>
+
+<p>MySQL 或 PostgreSQL 后端：</p>
+<h1 id="file-etcdovecotdovecot-mysqlconf-or-dovecot-pgsqlconf">File: /etc/dovecot/dovecot-mysql.conf, or dovecot-pgsql.conf</h1>
+<p>user_query = SELECT ... \
+                   CONCAT('<em>:bytes=', mailbox.quota</em>1048576) AS quota_rule \
+                   'Trash:ignore' AS quota_rule2 \      -- 新配额规则：忽略 Trash 目录
+                   FROM ...
+```</p><p style="text-align: center; color: grey;">Document published under a <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">CC BY-ND 3.0</a> license. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-3293801-21', 'auto');
+  ga('send', 'pageview');
+</script>
+</body></html>
