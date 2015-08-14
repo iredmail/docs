@@ -1,11 +1,11 @@
 # 在邮箱配额中忽略垃圾箱目录
 
-在 Dovecot 中每用户邮箱配额规格是由以下列明的其中一个配置文件决定的：
+在 Dovecot 中针对单个用户的邮箱配额规格是由以下列明的其中一个配置文件决定的：
 
 * `/etc/dovecot/dovecot-mysql.conf`: MySQL 后台
 * `/etc/dovecot/dovecot-pgsql.conf`: PostgreSQL 后台
 
-如果没有找到每用户邮箱配额设置， Dovecot 将会调用 `/etc/dovecot/dovecot.conf` 文件中的 'quota_rule[X]' 参数来替代，例如：
+如果没有找到针对单个用户的邮箱配额文件， Dovecot 将会调用 `/etc/dovecot/dovecot.conf` 文件中的 'quota_rule[X]' 参数来替代，例如：
 
 ```
 # File: /etc/dovecot/dovecot.conf
