@@ -22,7 +22,7 @@ strip_name_prefix()
 }
 
 # Available translations
-all_languages='en_US'
+all_languages='en_US zh_CN'
 
 # Chapter directories in specified order
 all_chapter_dirs="overview \
@@ -55,8 +55,10 @@ for lang in ${all_languages}; do
 
     # Directory used to store converted html files.
     OUTPUT_DIR="${ROOTDIR}/html"
+    CSS_FILE='./css/markdown.css'
     if [ X"${lang}" != X'en_US' ]; then
         OUTPUT_DIR="${ROOTDIR}/html/${lang}"
+        CSS_FILE='../css/markdown.css'
     fi
 
     # Markdown file used to store index of chapters/articles.
@@ -79,7 +81,7 @@ for lang in ${all_languages}; do
     #   - article title: _title.md
     for chapter_dir in ${all_chapter_dirs}; do
         if [ ! -d ${chapter_dir} ]; then
-            break
+            continue
         fi
 
         # Get articles
@@ -144,7 +146,8 @@ for lang in ${all_languages}; do
                                ${OUTPUT_DIR} \
                                output_filename="${article_html_file}" \
                                title="${_article_title}" \
-                               add_index_link='yes'
+                               add_index_link='yes' \
+                               css="${CSS_FILE}"
 
                 if [ X"$?" == X'0' ]; then
                     echo -e ' [DONE]'
@@ -171,7 +174,7 @@ for lang in ${all_languages}; do
     echo "* ${article_counter} files total for ${lang}."
 
     echo "* Converting ${INDEX_MD} for index page."
-    ${CMD_CONVERT} ${INDEX_MD} ${OUTPUT_DIR} title="iRedMail Documentations"
+    ${CMD_CONVERT} ${INDEX_MD} ${OUTPUT_DIR} title="iRedMail Documentations" css="${CSS_FILE}"
 
     # Cleanup and reset variables
     rm -f ${INDEX_MD}

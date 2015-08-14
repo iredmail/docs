@@ -69,6 +69,9 @@ if 'add_index_link' in cmd_opts:
 
 html += """</div>"""
 
+# Convert to unicode first.
+html = web.safeunicode(html)
+
 # Read markdown file and render as HTML body
 # Handle unicode characters with web.safeunicode
 orig_content = web.safeunicode(open(filename).read())

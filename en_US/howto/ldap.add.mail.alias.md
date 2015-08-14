@@ -1,5 +1,7 @@
 # LDAP: Add a mail alias account
 
+[TOC]
+
 ## Add mail alias with iRedAdmin-Pro
 
 With iRedAdmin-Pro, please click menu in main navigation bar: `Add -> Mail Alias'.
