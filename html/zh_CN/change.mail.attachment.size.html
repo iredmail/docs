@@ -28,8 +28,10 @@
 <p>要修改邮件附件大小，需要修改三个地方。</p>
 <h2 id="postfix">修改 postfix 中邮件大小的设置</h2>
 <p>Postfix 是一个邮件传送代理（MTA），因此，要修改配置以使它能传送大附件的邮件。</p>
-<p>假设要修改附件大小为 100MB，需对 <code>message_size_limit</code> 做如下修改：</p>
+<p>假设要修改附件大小为 100MB，需对 <code>message_size_limit</code> 和 <code>mailbox_size_limit</code>
+做如下修改：</p>
 <pre><code># postconf -e message_size_limit='104857600'
+# postconf -e mailbox_size_limit='104857600'
 </code></pre>
 
 <p>之后重启 Postfix 服务，使上述修改生效:</p>
@@ -41,6 +43,9 @@
 <li><code>104857600</code> 是由 100 (MB) x 1024 (KB) x 1024 (Bit) 计算得到的结果。</li>
 <li>邮件在发送前会被客户端（Outlook，Thunderbird等）重新编码，导致邮件大小会超过
   100MB，所以建议将上述设置中的邮件大小改为 110MB 或 120MB 即可。</li>
+<li>如果 <code>mailbox_size_limit</code> 的值比 <code>message_size_limit</code> 小，你会在 Postfix 日志
+  文件里看到这样的错误信息：<code>fatal: main.cf configuration error:
+  mailbox_size_limit is smaller than message_size_limit</code>.</li>
 </ul>
 <p>这样你就可以通过客户端正常发送邮件了。</p>
 <h2 id="roundcube">修改 Roundcube 网页邮箱的附件上传大小</h2>

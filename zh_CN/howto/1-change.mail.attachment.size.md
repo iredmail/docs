@@ -8,10 +8,12 @@
 
 Postfix 是一个邮件传送代理（MTA），因此，要修改配置以使它能传送大附件的邮件。
 
-假设要修改附件大小为 100MB，需对 `message_size_limit` 做如下修改：
+假设要修改附件大小为 100MB，需对 `message_size_limit` 和 `mailbox_size_limit`
+做如下修改：
 
 ```
 # postconf -e message_size_limit='104857600'
+# postconf -e mailbox_size_limit='104857600'
 ```
 
 之后重启 Postfix 服务，使上述修改生效:
@@ -25,6 +27,9 @@ __注意__:
 * `104857600` 是由 100 (MB) x 1024 (KB) x 1024 (Bit) 计算得到的结果。
 * 邮件在发送前会被客户端（Outlook，Thunderbird等）重新编码，导致邮件大小会超过
   100MB，所以建议将上述设置中的邮件大小改为 110MB 或 120MB 即可。
+* 如果 `mailbox_size_limit` 的值比 `message_size_limit` 小，你会在 Postfix 日志
+  文件里看到这样的错误信息：`fatal: main.cf configuration error:
+  mailbox_size_limit is smaller than message_size_limit`.
 
 这样你就可以通过客户端正常发送邮件了。
 
