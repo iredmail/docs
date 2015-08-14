@@ -5,7 +5,7 @@
 * `/etc/dovecot/dovecot-mysql.conf`: MySQL 后台
 * `/etc/dovecot/dovecot-pgsql.conf`: PostgreSQL 后台
 
-如果没有进行找到每用户邮箱配额设置， Dovecot 将会调用 `/etc/dovecot/dovecot.conf` 文件中的 'quota_rule[X]' 参数来替代，例如：
+如果没有找到每用户邮箱配额设置， Dovecot 将会调用 `/etc/dovecot/dovecot.conf` 文件中的 'quota_rule[X]' 参数来替代，例如：
 
 ```
 # File: /etc/dovecot/dovecot.conf
