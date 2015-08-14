@@ -1,4 +1,4 @@
-# Amavisd + SpamAssassin 失效，无 (X-Spam-*) 邮件头插入
+# Amavisd + SpamAssassin 失效，邮件头无 (X-Spam-*) 信息插入
 
 在 Amavisd 的配置文件 `/etc/amavisd/amavisd.conf` 中有如下默认设置：
 
