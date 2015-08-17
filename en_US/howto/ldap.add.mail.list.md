@@ -95,4 +95,4 @@ enabled in parameter `plugins = []`.
 
 ## See also
 
-* [Create mailing list (mail alias account) for SQL backend (MySQL/MariaDB/PostgreSQL)](./ldap.add.mail.list.html)
+* [Create mailing list (mail alias account) for SQL backend (MySQL/MariaDB/PostgreSQL)](./sql.create.mail.alias.html)

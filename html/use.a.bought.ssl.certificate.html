@@ -67,7 +67,7 @@ certificate:</p>
 <li><code>A challenge password []</code>: type a password for this ssl certificate.</li>
 <li><code>An optional company name []</code>: an optional company name.</li>
 </ul>
-<p>NOTE: Some certificates can only be used on web servers using the <code>Common Name</code>
+<p><strong>NOTE</strong>: Some certificates can only be used on web servers using the <code>Common Name</code>
 specified during enrollment. For example, a certificate for the domain
 <code>domain.com</code> will receive a warning if accessing a site named <code>www.domain.com</code>
 or <code>secure.domain.com</code>, because <code>www.domain.com</code> and <code>secure.domain.com</code> are
@@ -91,7 +91,7 @@ store them in any directory you like, recommended directories are:</p>
 </ul>
 <h2 id="configure-postfixdovecotapachenginx-to-use-bought-ssl-certificate">Configure Postfix/Dovecot/Apache/Nginx to use bought SSL certificate</h2>
 <p>We use CentOS for example in below tutorial, please adjust the file to correct
-one on your server.</p>
+one on your server according to above description.</p>
 <h3 id="postfix-smtp-server">Postfix (SMTP server)</h3>
 <p>We can use <code>postconf</code> command to update SSL related settings directly:</p>
 <pre><code>postconf -e smtpd_use_tls='yes'

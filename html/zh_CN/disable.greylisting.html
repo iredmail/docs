@@ -1,0 +1,31 @@
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>禁用 Clubbringer 提供的灰名单服务</title>
+        <link rel="stylesheet" type="text/css" href="../css/markdown.css" />
+    </head>
+    <body>
+    
+    <div id="navigation">
+        <a href="http://www.iredmail.org" target="_blank">iRedMail web site</a>
+    
+        // <a href="./index.html">Document Index</a>
+    </div><h1 id="clubbringer">禁用 Clubbringer 提供的灰名单服务</h1>
+<ul>
+<li>先查阅文档来确认 Cluebringer 配置文件 <code>cluebringer.conf</code> 的具体路径：<a href="./file.locations.html#cluebringer">iRedMail 主要组件的配置文件和日志文件路径</a></li>
+<li>在配置文件 <code>cluebringer.conf</code> 中查找以下行：</li>
+</ul>
+<pre><code>[Greylisting]
+enable=1
+</code></pre>
+
+<p>要禁用灰名单，把 <code>enabled=1</code> 改为 <code>enabled=0</code>，并重启 Cluebringer 服务即可。</p><p style="text-align: center; color: grey;">Document published under a <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">CC BY-ND 3.0</a> license. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-3293801-21', 'auto');
+  ga('send', 'pageview');
+</script>
+</body></html>
