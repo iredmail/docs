@@ -24,6 +24,10 @@ specified order.
 
 * Restart or reload Postfix service is required.
 
+## See also
+
+* [Enable postscreen service](./enable.postscreen.html)
+
 ## References
 
 * [Postfix Configuration Parameters: reject_rbl_client](http://www.postfix.org/postconf.5.html#reject_rbl_client)
