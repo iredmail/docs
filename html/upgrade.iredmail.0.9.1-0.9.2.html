@@ -46,6 +46,7 @@
 <p>We provide remote upgrade service, check <a href="../support.html">the price</a> and <a href="../contact.html">contact us</a>.</p>
 </blockquote>
 <ul>
+<li>2015-08-19: Mention that ssl cert file name on old iRedMail releases is <code>iRedMail_CA.pem</code>, not <code>iRedMail.crt</code>.</li>
 <li>2015-06-03: Fixed: <code>SSLOpenSSLConfCmd</code> is used on Ubuntu 15.04 and later releases, not on other Linux/BSD distributions.</li>
 </ul>
 <hr />
@@ -117,7 +118,9 @@ SSLHonorCipherOrder on
 <hr />
 <p>If you're running Apache older than version 2.4.8, please append the DHparams
 generated above to the end of the certificate file. Note: if you use a bought
-SSL certificate, append it to your cert file.</p>
+SSL certificate, append it to your cert file. <strong>Note</strong>: if you upgraded
+iRedMail from an old release, the file name will be <code>iRedMail_CA.pem</code> instead
+of <code>iRedMail.crt</code>.</p>
 <ul>
 <li>On RHEL/CentOS: <code># cat /etc/pki/tls/dhparams.pem &gt;&gt; /etc/pki/tls/certs/iRedMail.crt</code></li>
 <li>

@@ -6,6 +6,7 @@
 
 > We provide remote upgrade service, check [the price](../support.html) and [contact us](../contact.html).
 
+* 2015-08-19: Mention that ssl cert file name on old iRedMail releases is `iRedMail_CA.pem`, not `iRedMail.crt`.
 * 2015-06-03: Fixed: `SSLOpenSSLConfCmd` is used on Ubuntu 15.04 and later releases, not on other Linux/BSD distributions.
 
 ----
@@ -89,7 +90,9 @@ Applicable to all Linux/BSD distributions:
 
 If you're running Apache older than version 2.4.8, please append the DHparams
 generated above to the end of the certificate file. Note: if you use a bought
-SSL certificate, append it to your cert file.
+SSL certificate, append it to your cert file. __Note__: if you upgraded
+iRedMail from an old release, the file name will be `iRedMail_CA.pem` instead
+of `iRedMail.crt`.
 
 * On RHEL/CentOS: ```# cat /etc/pki/tls/dhparams.pem >> /etc/pki/tls/certs/iRedMail.crt```
 * Debian/Ubuntu: ```# cat /etc/ssl/dhparams.pem >> /etc/ssl/certs/iRedMail.crt```
