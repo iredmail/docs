@@ -6,7 +6,11 @@
 
 > We provide remote upgrade service, check [the price](../support.html) and [contact us](../contact.html).
 
-* 2015-01-05: [All backends] [OPTIONAL] Enable global sieve script in Dovecot to move spam to Junk folder by default.
+* 2015-08-19: [All backends] If `@lookup_sql_dsn` is disabled in Amavisd, you
+              can use SQL username/password defined in `@storage_sql_dsn`
+              instead.
+* 2015-01-05: [All backends] [OPTIONAL] Enable global sieve script in Dovecot
+              to move spam to Junk folder by default.
 
 ----
 
@@ -96,7 +100,8 @@ Important notes:
 * Plugin `amavisd_wblist` and `amavisd_message_size_limit` requires additional
   database related settings in iRedAPD config file, please set correct values
   for them. You can find SQL database settings in Amavisd config file,
-  in parameter `@lookup_sql_dsn =`.
+  in parameter `@lookup_sql_dsn =`, if `@lookup_sql_dsn` is disabled, you can
+  find them in `@storage_sql_dsn =`.
 
 ```
 amavisd_db_server = '127.0.0.1'
