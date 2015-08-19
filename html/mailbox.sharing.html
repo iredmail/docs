@@ -12,11 +12,11 @@
         // <a href="./index.html">Document Index</a>
     </div><h1 id="mailbox-sharing-sharing-imap-folder-with-other-users">Mailbox sharing (Sharing IMAP folder with other users)</h1>
 <blockquote>
-<p>Since iRedMail-<code>0.7.0</code>, mailbox sharing related settings are configured in
-Dovecot but not enabled, what you need to do is enabling "acl" plugin as
-mentioned below.</p>
 <p>Since iRedMail-<code>0.9.0</code>, mailbox sharing are enabled by default, you don't need
 to modify any config file.</p>
+<p>Since iRedMail-<code>0.7.0</code>, mailbox sharing related settings are configured in
+Dovecot but not enabled, what you need to do is enabling <code>acl</code> plugin as
+mentioned below.</p>
 <p>Do not mistake "shared folders" for "public folders". For shared folders,
 users must select which folder they want to share and with who, using an
 interface, like IMAP command line or the ones available with Roundcube
@@ -53,9 +53,9 @@ protocol imap {
 
 <p>Restarting Dovecot service is required.</p>
 <h2 id="test-shared-folder">Test shared folder</h2>
-<p>Example: share from@domain.ltd's <code>Sent</code> folder to user <code>testing@domain.ltd</code>.</p>
+<p>Example: share <code>from@domain.ltd</code>'s <code>Sent</code> folder to user <code>testing@domain.ltd</code>.</p>
 <blockquote>
-<p>WARNING: Do not forget the dot before IMAP command.</p>
+<p>Attention: Do not forget the dot before IMAP command.</p>
 </blockquote>
 <pre><code># telnet localhost 143                # &lt;- Type this.
 * OK [...] Dovecot ready.

@@ -1,8 +1,8 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title>Allow user to send email without smtp authentication</title>
-        <link rel="stylesheet" type="text/css" href="./css/markdown.css" />
+        <title>允许用户无需身份验证发送邮件</title>
+        <link rel="stylesheet" type="text/css" href="../css/markdown.css" />
     </head>
     <body>
     
@@ -10,24 +10,23 @@
         <a href="http://www.iredmail.org" target="_blank">iRedMail web site</a>
     
         // <a href="./index.html">Document Index</a>
-    </div><h1 id="allow-user-to-send-email-without-smtp-authentication">Allow user to send email without smtp authentication</h1>
-<p>Create a plain text file: <code>/etc/postfix/accepted_unauth_senders</code>, list all
-users' email addresses which are allowed to send email without smtp
-authentication. We use user email address <code>user@example.com</code> for example:</p>
+    </div><h1 id="_1">允许用户无需身份验证发送邮件</h1>
+<p>创建文本文件 <code>/etc/postfix/accepted_unauth_senders</code>，列出无需身份验证就可以
+发送邮件的用户邮件地址。下面以用户 <code>user@example.com</code> 为例：</p>
 <pre><code>user@example.com OK
 </code></pre>
 
-<p>Create hash db file with <code>postmap</code> command:</p>
+<p>使用 <code>postmap</code> 命令建立哈希数据库文件：</p>
 <pre><code># postmap hash:/etc/postfix/accepted_unauth_senders
 </code></pre>
 
-<p>Modify Postfix config file <code>/etc/postfix/main.cf</code> to use this text file:</p>
-<pre><code>smtpd_sender_restrictions = 
+<p>修改 Postfix 配置文件 <code>/etc/postfix/main.cf</code> 以使用该文件：</p>
+<pre><code>smtpd_sender_restrictions =
     check_sender_access hash:/etc/postfix/accepted_unauth_senders,
     [...OTHER RESTRICTIONS HERE...]
 </code></pre>
 
-<p>Restart/reload postfix to make it work:</p>
+<p>重启 postfix 服务以使设置生效：</p>
 <pre><code># /etc/init.d/postfix restart
 </code></pre><p style="text-align: center; color: grey;">Document published under a <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">CC BY-ND 3.0</a> license. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.<script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){

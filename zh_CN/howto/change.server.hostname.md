@@ -1,6 +1,6 @@
-# 更改邮件服务器主机名
+# 修改服务器主机名
 
-要在 iRedMail 被安装后更改服务器的主机名，要将以下文件中的主机名更改为新主机名：
+要在安装 iRedMail 后修改服务器的主机名，请将以下文件中的旧主机名改为新主机名：
 
 ## 系统配置文件
 
@@ -35,4 +35,3 @@
 * `/etc/httpd/conf.d/SOGo.conf`
 * `/etc/apache2/conf.d/SOGo.conf`
 * `/etc/apache2/conf-available/SOGo.conf`
-

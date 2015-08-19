@@ -36,4 +36,3 @@ files to replace old hostname by the new one:
 * `/etc/httpd/conf.d/SOGo.conf`
 * `/etc/apache2/conf.d/SOGo.conf`
 * `/etc/apache2/conf-available/SOGo.conf`
-

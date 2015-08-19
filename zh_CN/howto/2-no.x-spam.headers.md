@@ -1,15 +1,23 @@
-# Amavisd + SpamAssassin 失效，邮件头无 (X-Spam-*) 信息插入
+# Amavisd + SpamAssassin 无效，邮件头无 X-Spam-* 信息插入
 
 在 Amavisd 的配置文件 `/etc/amavisd/amavisd.conf` 中有如下默认设置：
 
-    $sa_tag_level_deflt  = 2.0;
+```
+$sa_tag_level_deflt  = 2.0;
+```
 
-即 Amavisd 将在邮件评分 >= 2.0 时在邮件头插入 `X-Spam-Flag` 及其他的 `X-Spam-*` 信息。假如想让 Amavisd 总是在邮件头插入前述信息，将参数评分设成一个更低的值即可，例如：
+该设置表示 Amavisd 在邮件评分 >= 2.0 时会在邮件头（mail header）里插入
+`X-Spam-Flag` 及其它的 `X-Spam-*` 信息。要让 Amavisd 总是插入 `X-Spam-*` 邮件头，
+将上面的参数设成一个更低的值即可。例如：
 
-    $sa_tag_level_deflt  = -999;
+```
+$sa_tag_level_deflt  = -999;
+```
 
-Amavisd 的主配置文件在不同版本的 Linux/BSD 系统上分布路径如下：
+修改后需要重启 Amavisd 服务。
+
+Amavisd 的主配置文件在不同的 Linux/BSD 系统上路径不同：
 
 * Red Hat, CentOS, OpenBSD: `/etc/amavisd/amavisd.conf`
-* Debian, Ubuntu: `/etc/amavis/conf.d/50-user` (and other config files under `/etc/amavs/conf.d/`)
+* Debian, Ubuntu: `/etc/amavis/conf.d/50-user` （其它配置文件均在 `/etc/amavs/conf.d/` 目录下)
 * FreeBSD: `/usr/local/etc/amavisd/amavisd.conf`

@@ -3,38 +3,41 @@
 ## Password hashes supported by iRedMail
 
 iRedMail configures Postfix to use Dovecot as SASL authenticate server, so all
-password schemes supported by Dovecot can be used in iRedMail. Please refer to
+password schemes supported by Dovecot can be used in Postfix. Please refer to
 Dovecot wiki page
-[`Password Schemes`](http://wiki2.dovecot.org/Authentication/PasswordSchemes) for more details.
+[`Password Schemes`](http://wiki2.dovecot.org/Authentication/PasswordSchemes)
+for more details.
 
 Below password schemes are supported in iRedAdmin-Pro (which means you can add new mail user with either one):
 
-* Plain text. e.g. `123456`
-* MD5 (salted). For example:
+1. SSHA512. e.g. `{SSHA512}FxgXDhBVYmTqoboW+ibyyzPv/wGG7y4VJtuHWrx+wfqrs/lIH2Qxn2eA0jygXtBhMvRi7GNFmL++6aAZ0kXpcy1fxag=`
+1. BCRYPT. e.g. `{CRYPT}$2a$05$TKnXV39M3uJ4o.AbY1HbjeAval9bunHbxd0.6Qn782yKoBjTEBXTe`
+1. SSHA. e.g. `{SSHA}OuCrqL2yWwQIu8a9uvyOQ5V/ZKfL7LJD`
+1. MD5 (salted). For example:
 
-    * (RECOMMENDED) with a prefix: `{CRYPT}$1$GfHYI7OE$vlXqMZSyJOSPXAmbXHq250`
+    * with a prefix: `{CRYPT}$1$GfHYI7OE$vlXqMZSyJOSPXAmbXHq250`
     * without a prefix: `$1$GfHYI7OE$vlXqMZSyJOSPXAmbXHq250`
 
     __Important note__: SOGo groupware doesn't support MD5 without a prefix, so
     if you're going to migrate MD5 password hash from old mail server, please
     prepend `{CRYPT}` prefix in password hash.
 
-* PLAIN-MD5 (unsalted MD5). e.g. `0d2bf3c712402f428d48fed691850bfc`
-* SSHA. e.g. `{SSHA}OuCrqL2yWwQIu8a9uvyOQ5V/ZKfL7LJD`
-* SSHA512. e.g. `{SSHA512}FxgXDhBVYmTqoboW+ibyyzPv/wGG7y4VJtuHWrx+wfqrs/lIH2Qxn2eA0jygXtBhMvRi7GNFmL++6aAZ0kXpcy1fxag=`
-* BCRYPT. e.g. `{CRYPT}$2a$05$TKnXV39M3uJ4o.AbY1HbjeAval9bunHbxd0.6Qn782yKoBjTEBXTe`
+1. PLAIN-MD5 (without a salt). e.g. `0d2bf3c712402f428d48fed691850bfc`
+1. Plain text. e.g. `123456`
+
+__WARNING__: MD5, PLAIN-MD5 and plain password are weak, please don't use them.
 
 __NOTES__:
 
-* `BCRYPT` is only available on BSD systems, because libc shipped in Linux
+* `BCRYPT` is only available on BSD systems, because `libc` shipped in Linux
   doesn't support bcrypt.
 
 ## Default password schemes used in iRedMail
 
 * For MySQL and PostgreSQL backends:
 
-    * in iRedMail-0.8.7 and earlier versions: `MD5`
     * in iRedMail-0.9.0 and later versions: `SSHA512`
+    * in iRedMail-0.8.7 and earlier versions: `salted MD5`
 
 * For LDAP backend: `SSHA`.
 
@@ -53,6 +56,7 @@ __NOTES__:
 
 All mail users are stored in SQL table `vmail.mailbox`, user password is stored
 in SQL column `mailbox.password`. For example:
+
 ```
 sql> UPDATE mailbox SET password='$1$GfHYI7OE$vlXqMZSyJOSPXAmbXHq250' WHERE username='xx@xx';
 sql> UPDATE mailbox SET password='{SSHA}OuCrqL2yWwQIu8a9uvyOQ5V/ZKfL7LJD' WHERE username='xx@xx';
@@ -71,7 +75,7 @@ sql> UPDATE mailbox SET password='{PLAIN-MD5}0d2bf3c712402f428d48fed691850bfc' W
 sql> UPDATE mailbox SET password='{PLAIN}123456' WHERE username='xx@xx';
 ```
 
-### For LDAP backends
+### For OpenLDAP backend
 
 User password is stored in attribute `userPassword` of user object.
 

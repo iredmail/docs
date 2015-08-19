@@ -1,18 +1,20 @@
-# Allow user to send email without authentication
+# Allow user to send email without smtp authentication
 
-Create a plain text file: `/etc/postfix/accepted_unauth_senders`:
+Create a plain text file: `/etc/postfix/accepted_unauth_senders`, list all
+users' email addresses which are allowed to send email without smtp
+authentication. We use user email address `user@example.com` for example:
 
 ```
-fax-machine-12@mydomain.tld OK
+user@example.com OK
 ```
 
-Use postmap to create hash db file:
+Create hash db file with `postmap` command:
 
 ```
 # postmap hash:/etc/postfix/accepted_unauth_senders
 ```
 
-Modify Postfix to use this text file: `/etc/postfix/main.cf`
+Modify Postfix config file `/etc/postfix/main.cf` to use this text file:
 
 ```
 smtpd_sender_restrictions = 
