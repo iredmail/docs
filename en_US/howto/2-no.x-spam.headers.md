@@ -11,5 +11,5 @@ That means Amavisd will insert `X-Spam-Flag` and other `X-Spam-*` headers when e
 Amavisd's main config file is different on different Linux/BSD distributions:
 
 * Red Hat, CentOS, OpenBSD: `/etc/amavisd/amavisd.conf`
-* Debian, Ubuntu: `/etc/amavis/conf.d/50-user` (and other config files under `/etc/amavs/conf.d/`)
+* Debian, Ubuntu: `/etc/amavis/conf.d/50-user` (and other config files under `/etc/amavis/conf.d/`)
 * FreeBSD: `/usr/local/etc/amavisd/amavisd.conf`
