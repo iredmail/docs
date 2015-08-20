@@ -58,7 +58,7 @@ defined as cron jobs with below commands:</p>
   in backup scripts, default is <code>/var/vmail/backup</code>.</li>
 <li>SQL backup is plain SQL file, LDAP backup is plain LDIF file.</li>
 <li>Backup files are compressed with <code>bzip2</code> by default, you can decompress them
-  with command <code>bunzip2</code>. for example, <code>bunzip file_name.bz2</code>.</li>
+  with command <code>bunzip2</code>. for example, <code>bunzip2 file_name.bz2</code>.</li>
 <li>It's ok to run the backup scripts manually.</li>
 </ul>
 <h3 id="backup-additional-data-manually">Backup additional data manually</h3>
@@ -66,7 +66,9 @@ defined as cron jobs with below commands:</p>
 <li>
 <p>DKIM keys. They're stored under <code>/var/lib/dkim/</code> by default. If you don't
   backup them, it's ok to generate new keys and you must update DNS record
-  (<code>dkim._domainkey.[YOUR_MAIL_DOMAIN]</code>) with new DKIM key.</p>
+  (<code>dkim._domainkey.[YOUR_MAIL_DOMAIN]</code>) with new DKIM key. Refer to another
+  document to generate DKIM key and update DNS record:
+  <a href="./sign.dkim.signature.for.new.domain.html">Sign DKIM signature on outgoing emails for new mail domain</a>.</p>
 </li>
 <li>
 <p>OpenLDAP backend:</p>

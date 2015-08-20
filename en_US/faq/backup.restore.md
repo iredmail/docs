@@ -37,14 +37,16 @@ Notes:
   in backup scripts, default is `/var/vmail/backup`.
 * SQL backup is plain SQL file, LDAP backup is plain LDIF file.
 * Backup files are compressed with `bzip2` by default, you can decompress them
-  with command `bunzip2`. for example, `bunzip file_name.bz2`.
+  with command `bunzip2`. for example, `bunzip2 file_name.bz2`.
 * It's ok to run the backup scripts manually.
 
 ### Backup additional data manually
 
 * DKIM keys. They're stored under `/var/lib/dkim/` by default. If you don't
   backup them, it's ok to generate new keys and you must update DNS record
-  (`dkim._domainkey.[YOUR_MAIL_DOMAIN]`) with new DKIM key.
+  (`dkim._domainkey.[YOUR_MAIL_DOMAIN]`) with new DKIM key. Refer to another
+  document to generate DKIM key and update DNS record:
+  [Sign DKIM signature on outgoing emails for new mail domain](./sign.dkim.signature.for.new.domain.html).
 
 * OpenLDAP backend:
 
