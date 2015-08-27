@@ -53,6 +53,7 @@ __注意__:
 `mailbox.password` 字段中。例如：
 
 ```
+sql> USE vmail;
 sql> UPDATE mailbox SET password='$1$GfHYI7OE$vlXqMZSyJOSPXAmbXHq250' WHERE username='xx@xx';
 sql> UPDATE mailbox SET password='{SSHA}OuCrqL2yWwQIu8a9uvyOQ5V/ZKfL7LJD' WHERE username='xx@xx';
 sql> UPDATE mailbox SET password='{SSHA512}FxgXDhBVYmTqoboW+ibyyzPv/wGG7y4VJtuHWrx+wfqrs/lIH2Qxn2eA0jygXtBhMvRi7GNFmL++6aAZ0kXpcy1fxag=' WHERE username='xx@xx';
@@ -61,12 +62,14 @@ sql> UPDATE mailbox SET password='{SSHA512}FxgXDhBVYmTqoboW+ibyyzPv/wGG7y4VJtuHW
 * 要保存 PLAIN-MD5 ，需要加上 `{PLAIN-MD5}` 前缀：
 
 ```
+sql> USE vmail;
 sql> UPDATE mailbox SET password='{PLAIN-MD5}0d2bf3c712402f428d48fed691850bfc' WHERE username='xx@xx';
 ```
 
 * 要保存明文密码，需要加上 `{PLAIN}` 前缀：
 
 ```
+sql> USE vmail;
 sql> UPDATE mailbox SET password='{PLAIN}123456' WHERE username='xx@xx';
 ```
 

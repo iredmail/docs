@@ -30,6 +30,7 @@ or iRedAdmin-Pro (with self-service enabled) to reset password immediately.
 For example:
 
 ```
+sql> USE vmail;
 sql> UPDATE mailbox SET password='{PLAIN}123456' WHERE username='user@domain.ltd';
 ```
 

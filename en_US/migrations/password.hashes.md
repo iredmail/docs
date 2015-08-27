@@ -58,6 +58,8 @@ All mail users are stored in SQL table `vmail.mailbox`, user password is stored
 in SQL column `mailbox.password`. For example:
 
 ```
+sql> USE vmail;
+
 sql> UPDATE mailbox SET password='$1$GfHYI7OE$vlXqMZSyJOSPXAmbXHq250' WHERE username='xx@xx';
 sql> UPDATE mailbox SET password='{SSHA}OuCrqL2yWwQIu8a9uvyOQ5V/ZKfL7LJD' WHERE username='xx@xx';
 sql> UPDATE mailbox SET password='{SSHA512}FxgXDhBVYmTqoboW+ibyyzPv/wGG7y4VJtuHWrx+wfqrs/lIH2Qxn2eA0jygXtBhMvRi7GNFmL++6aAZ0kXpcy1fxag=' WHERE username='xx@xx';
@@ -66,12 +68,14 @@ sql> UPDATE mailbox SET password='{SSHA512}FxgXDhBVYmTqoboW+ibyyzPv/wGG7y4VJtuHW
 * To store PLAIN-MD5, you have to prepend `{PLAIN-MD5}` in your password hash:
 
 ```
+sql> USE vmail;
 sql> UPDATE mailbox SET password='{PLAIN-MD5}0d2bf3c712402f428d48fed691850bfc' WHERE username='xx@xx';
 ```
 
 * To store plain password, you have to prepend `{PLAIN}`:
 
 ```
+sql> USE vmail;
 sql> UPDATE mailbox SET password='{PLAIN}123456' WHERE username='xx@xx';
 ```
 

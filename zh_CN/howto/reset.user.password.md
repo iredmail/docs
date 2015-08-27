@@ -29,6 +29,7 @@ SSHA512。
 例如：
 
 ```
+sql> USE vmail;
 sql> UPDATE mailbox SET password='{PLAIN}123456' WHERE username='user@domain.ltd';
 ```
 
