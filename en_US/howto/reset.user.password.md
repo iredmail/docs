@@ -14,6 +14,16 @@ $ doveadm pw -s 'ssha512' -p '123456'
 {SSHA512}jOcGSlKEz95VeuLGecbL0MwJKy0yWY9foj6UlUVfZ2O2SNkEExU3n42YJLXDbLnu3ghnIRBkwDMsM31q7OI0jY5B/5E=
 ```
 
+To generate a salted MD5 password hash, you can use `doveadm` or `openssl`:
+
+```
+# doveadm pw -s 'MD5' -p '123456'
+{MD5}$1$TDG8oXHb$6YB9NO5NZaZxku0xv6RsW0         # <- Please remove '{MD5}' prefix
+
+# openssl passwd -1 123456
+$1$fnWOb5X8$Ed6FYg9CLuWuUQplnwOQK/
+```
+
 * Reset password for user `user@domain.ltd`:
 
 ```
