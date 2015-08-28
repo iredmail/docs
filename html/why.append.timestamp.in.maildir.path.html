@@ -15,8 +15,10 @@
 <p>Depends on the tools/scripts you used to create mail accounts, it's tunable
 in scripts shipped within iRedMail and iRedAdmin (file <code>settings.py</code>, variable
 <code>MAILDIR_APPEND_TIMESTAMP = True</code> or <code>False</code>).</p>
-<p>Deleting mail accounts with iRedAdmin will not remove the mailboxes on file
-system, so that you can keep user's mailbox for some time.</p>
+<blockquote>
+<p>Note: Deleting mail accounts with iRedAdmin will not remove the mailboxes on
+file system, so that you can keep user's mailbox for some time.</p>
+</blockquote>
 <p>Think about this situation:</p>
 <ul>
 <li>
@@ -27,19 +29,18 @@ in maildir path, the maildir path of his mailbox looks like
 <li>
 <p>Michael left company, and your company deleted his mail account. With
 iRedAdmin, it just deletes mail accounts stored in LDAP/SQL server, not delete
-his mailbox on file system (<code>var/vmail/vmail1/domain.ltd/mj</code>).</p>
+his mailbox on file system (<code>/var/vmail/vmail1/domain.ltd/mj</code>).</p>
 </li>
 <li>
-<p>A new talent joined in, his name is Mike Jackson, and he want to use
+<p>A new talent, Mike Jackson, joined your company, and he want to use
 <code>mj@domain.ltd</code> since <code>mj@</code> is not used by others. And you created it for him.
 Without timestamp in maildir path, the maildir path of Mike's mailbox is the
-same as Michael's <code>/var/vmail/vmail1/domain.ltd/mj/</code>.</p>
+same as Michael's <code>/var/vmail/vmail1/domain.ltd/mj/</code>. iRedAdmin doesn't remove
+the mailboxes on file system, so Mike will see all emails in Michael's mailbox
+if Michael didn't delete them. To avoid this, we append a timestamp in maildir
+path to make sure all users will be assigned an unique maildir paths.</p>
 </li>
-</ul>
-<p>iRedAdmin doesn't remove the mailboxes on file system, so Mike will see all
-emails in Michael's mailbox if Michael didn't delete them. To avoid this, we
-append a timestamp in maildir path to make sure all users will be assigned
-a unique maildir paths.</p><p style="text-align: center; color: grey;">Document published under a <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">CC BY-ND 3.0</a> license. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.<script>
+</ul><p style="text-align: center; color: grey;">Document published under a <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">CC BY-ND 3.0</a> license. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.<script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
   m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
