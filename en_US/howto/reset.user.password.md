@@ -24,6 +24,11 @@ To generate a salted MD5 password hash, you can use `doveadm` or `openssl`:
 $1$fnWOb5X8$Ed6FYg9CLuWuUQplnwOQK/
 ```
 
+> __Important note__: SOGo groupware doesn't support MD5 without a prefix, so
+> if you're going to migrate MD5 password hash from old mail server, please
+> prepend `{CRYPT}` prefix in password hash. For example,
+> `{CRYPT}$1$TDG8oXHb$6YB9NO5NZaZxku0xv6RsW0`.
+
 * Reset password for user `user@domain.ltd`:
 
 ```

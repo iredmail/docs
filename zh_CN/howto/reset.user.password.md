@@ -20,8 +20,12 @@ $ doveadm pw -s 'ssha512' -p '123456'
 {MD5}$1$TDG8oXHb$6YB9NO5NZaZxku0xv6RsW0         # <- 请移除 '{MD5}' 前缀
 
 # openssl passwd -1 123456
-$1$fnWOb5X8$Ed6FYg9CLuWuUQplnwOQK/
+$1$TDG8oXHb$6YB9NO5NZaZxku0xv6RsW0
 ```
+
+> __注意__: SOGo groupware 不支持没有带前缀的 md5 密码，所以如果要兼容 SOGo，
+> 请在 MD5 密码前添加一个 `{CRYPT}` 前缀。例如：
+> `{CRYPT}$1$TDG8oXHb$6YB9NO5NZaZxku0xv6RsW0`.
 
 * 为用户 `user@domain.ltd` 重置密码：
 
