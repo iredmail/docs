@@ -55,7 +55,8 @@ __NOTES__:
 ### For MySQL and PostgreSQL backends
 
 All mail users are stored in SQL table `vmail.mailbox`, user password is stored
-in SQL column `mailbox.password`. For example:
+in SQL column `mailbox.password`. For example (Note: you should replace `xx@xx`
+with your real email address):
 
 ```
 sql> USE vmail;

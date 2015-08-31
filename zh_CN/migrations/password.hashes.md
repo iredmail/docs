@@ -50,7 +50,7 @@ __注意__:
 ### 对于采用 MySQL 和 PostgreSQL 后端的用户
 
 所有的邮箱用户账户存放于 SQL 表 `vmail.mailbox` 中，用户密码则存放于
-`mailbox.password` 字段中。例如：
+`mailbox.password` 字段中。例如（注意：你需要将 `xx@xx` 替换为实际的邮件地址）：
 
 ```
 sql> USE vmail;
