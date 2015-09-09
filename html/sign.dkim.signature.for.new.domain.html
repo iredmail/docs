@@ -69,12 +69,11 @@ line like below:</p>
 a new DKIM key and ask your customer to add DKIM DNS record. Refer to our
 tutorial to <a href="setup.dns.html#dkim-record-for-your-mail-domain-name">add DKIM DNS record</a>.</p>
 <ul>
-<li>Generate new DKIM key for new domain.</li>
+<li>Generate new DKIM key (key length <code>2048</code>) for new domain.</li>
 </ul>
 <pre><code class="shell"># amavisd-new genrsa /var/lib/dkim/new_domain.com.pem 2048
 </code></pre>
 
-<p><code>2048</code> is key length.</p>
 <p>Note: if you're running CentOS, you may need to specify its config file on
 command line. For example:</p>
 <pre><code># amavisd -c /etc/amavisd/amavisd.conf genrsa /var/lib/dkim/new_domain.com.pem 2048
@@ -112,7 +111,11 @@ command line. For example:</p>
 <ul>
 <li>Restart Amavisd service.</li>
 </ul>
-<p>Again, don't forget to ask your customer to add DKIM DNS record.</p>
+<p>Again, don't forget to ask your customer to add DKIM DNS record. The value of
+DKIM record can be checked with command below:</p>
+<pre><code class="shell"># amavisd-new showkeys
+</code></pre>
+
 <h2 id="use-one-dkim-key-for-all-mail-domains-without-updating-amavisd-config-file">Use one DKIM key for all mail domains without updating Amavisd config file</h2>
 <p>For compatibility with dkim_milter the signing domain can include a '*'
 as a wildcard - this is not recommended as this way amavisd could produce
