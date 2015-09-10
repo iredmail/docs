@@ -22,6 +22,7 @@
 <li><a href="#amavisd-fix-incorrect-setting-which-signs-dkim-on-inbound-messages">Amavisd: Fix incorrect setting which signs DKIM on inbound messages</a></li>
 <li><a href="#dovecot-fix-incorrect-quota-warning-priorities">Dovecot: Fix incorrect quota warning priorities</a></li>
 <li><a href="#dovecot-22-add-more-special-folders-as-alias-folders">Dovecot-2.2: Add more special folders as alias folders</a></li>
+<li><a href="#roundcube-webmail-add-daily-cron-job-to-cleanup-roundcube-sql-database">Roundcube webmail: Add daily cron job to cleanup Roundcube SQL database</a></li>
 <li><a href="#sogo-the-dovecot-master-user-used-by-sogo-doesnt-work-due-to-incorrect-username">SOGo: The Dovecot Master User used by SOGo doesn't work due to incorrect username.</a></li>
 <li><a href="#optional-fixed-not-preserve-the-case-of-extension-while-delivering-message-to-mailbox">[OPTIONAL] Fixed: Not preserve the case of ${extension} while delivering message to mailbox</a></li>
 </ul>
@@ -51,6 +52,7 @@
 <p>We provide remote upgrade service, check <a href="../support.html">the price</a> and <a href="../contact.html">contact us</a>.</p>
 </blockquote>
 <ul>
+<li>2015-09-10: Add new daily cron job to cleanup Roundcube SQL database.</li>
 <li>2015-08-08: [SQL backends] Add new SQL columns in <code>vmail</code> database: <code>alias.is_alias</code>, <code>alias.alias_to</code>.</li>
 <li>2015-07-31: SOGo: The Dovecot Master User used by SOGo doesn't work due to incorrect username.</li>
 <li>2015-07-31: [LDAP] Fixed: Dovecot Master User doesn't work with ACL plugin.</li>
@@ -222,6 +224,44 @@ earlier versions, please skip this step.</p>
 </code></pre>
 
 <p>Restart Dovecot service is required.</p>
+<h3 id="roundcube-webmail-add-daily-cron-job-to-cleanup-roundcube-sql-database">Roundcube webmail: Add daily cron job to cleanup Roundcube SQL database</h3>
+<p>It's recommended to setup a daily cron job to keep Roundcube SQL database slick
+and clean, it removes all records that are marked as deleted.</p>
+<p>Please add cron job for user <code>root</code> with command:</p>
+<pre><code># crontab -e -u root
+</code></pre>
+
+<p>Then add cron job below:</p>
+<ul>
+<li>RHEL/CentOS:</li>
+</ul>
+<pre><code># Cleanup Roundcube SQL database.
+2   2   *   *   *   php /var/www/roundcubemail/bin/cleandb.sh &gt;/dev/null
+</code></pre>
+
+<ul>
+<li>Debian/Ubuntu:</li>
+</ul>
+<pre><code># Cleanup Roundcube SQL database.
+2   2   *   *   *   php /opt/www/roundcubemail/bin/cleandb.sh &gt;/dev/null
+</code></pre>
+
+<p><strong>WARNING</strong>: with old iRedMail release, Roundcube directory is
+<code>/usr/share/apache2/roundcubemail</code>, please use the correct one on your server.</p>
+<ul>
+<li>FreeBSD:</li>
+</ul>
+<pre><code># Cleanup Roundcube SQL database.
+2   2   *   *   *   php /usr/local/www/roundcube/bin/cleandb.sh &gt;/dev/null
+</code></pre>
+
+<ul>
+<li>OpenBSD:</li>
+</ul>
+<pre><code># Cleanup Roundcube SQL database.
+2   2   *   *   *   php /var/www/roundcubemail/bin/cleandb.sh &gt;/dev/null
+</code></pre>
+
 <h3 id="sogo-the-dovecot-master-user-used-by-sogo-doesnt-work-due-to-incorrect-username">SOGo: The Dovecot Master User used by SOGo doesn't work due to incorrect username.</h3>
 <p>Note: you can skip this step if you don't run SOGo groupware, and iRedMail
 doesn't install SOGo on FreeBSD due to missing required ports in official ports

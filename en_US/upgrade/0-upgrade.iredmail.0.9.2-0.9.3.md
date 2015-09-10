@@ -8,6 +8,7 @@ __This is still a DRAFT document, do NOT apply it.__
 
 > We provide remote upgrade service, check [the price](../support.html) and [contact us](../contact.html).
 
+* 2015-09-10: Add new daily cron job to cleanup Roundcube SQL database.
 * 2015-08-08: [SQL backends] Add new SQL columns in `vmail` database: `alias.is_alias`, `alias.alias_to`.
 * 2015-07-31: SOGo: The Dovecot Master User used by SOGo doesn't work due to incorrect username.
 * 2015-07-31: [LDAP] Fixed: Dovecot Master User doesn't work with ACL plugin.
@@ -198,6 +199,49 @@ Add below alias folders inside the same `namespace {}` block:
 ```
 
 Restart Dovecot service is required.
+
+### Roundcube webmail: Add daily cron job to cleanup Roundcube SQL database
+
+It's recommended to setup a daily cron job to keep Roundcube SQL database slick
+and clean, it removes all records that are marked as deleted.
+
+Please add cron job for user `root` with command:
+```
+# crontab -e -u root
+```
+
+Then add cron job below:
+
+* RHEL/CentOS:
+
+```
+# Cleanup Roundcube SQL database.
+2   2   *   *   *   php /var/www/roundcubemail/bin/cleandb.sh >/dev/null
+```
+
+* Debian/Ubuntu:
+
+```
+# Cleanup Roundcube SQL database.
+2   2   *   *   *   php /opt/www/roundcubemail/bin/cleandb.sh >/dev/null
+```
+
+__WARNING__: with old iRedMail release, Roundcube directory is
+`/usr/share/apache2/roundcubemail`, please use the correct one on your server.
+
+* FreeBSD:
+
+```
+# Cleanup Roundcube SQL database.
+2   2   *   *   *   php /usr/local/www/roundcube/bin/cleandb.sh >/dev/null
+```
+
+* OpenBSD:
+
+```
+# Cleanup Roundcube SQL database.
+2   2   *   *   *   php /var/www/roundcubemail/bin/cleandb.sh >/dev/null
+```
 
 ### SOGo: The Dovecot Master User used by SOGo doesn't work due to incorrect username.
 
