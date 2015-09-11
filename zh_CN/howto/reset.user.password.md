@@ -16,14 +16,14 @@ $ doveadm pw -s 'ssha512' -p '123456'
 要生成 MD5 密码，可以使用 `doveadm` 或 `openssl` 命令：
 
 ```
-# doveadm pw -s 'MD5' -p '123456'
-{MD5}$1$TDG8oXHb$6YB9NO5NZaZxku0xv6RsW0         # <- 请移除 '{MD5}' 前缀
+# doveadm pw -s 'MD5' -p '123456' | awk -F'{MD5}' '{print $2}'
+$1$TDG8oXHb$6YB9NO5NZaZxku0xv6RsW0
 
 # openssl passwd -1 123456
 $1$TDG8oXHb$6YB9NO5NZaZxku0xv6RsW0
 ```
 
-> __注意__: SOGo groupware 不支持没有带前缀的 md5 密码，所以如果要兼容 SOGo，
+> __注意__: SOGo groupware 不支持不带前缀的 md5 密码，所以如果要兼容 SOGo，
 > 请在 MD5 密码前添加一个 `{CRYPT}` 前缀。例如：
 > `{CRYPT}$1$TDG8oXHb$6YB9NO5NZaZxku0xv6RsW0`.
 
