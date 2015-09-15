@@ -146,3 +146,9 @@ permission `0600`.
 
 If you prefer generating new DKIM keys on new server, don't forget to update
 DNS records for mail domain names.
+
+# References
+
+* [Password hashes](./password.hashes.html)
+* [Reset user password](./reset.user.password.html)
+* [Why append timestamp in maildir path](./why.append.timestamp.in.maildir.path.html)

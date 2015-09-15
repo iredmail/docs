@@ -22,6 +22,7 @@
 <li><a href="#migrate-dkim-keys">Migrate DKIM keys</a></li>
 </ul>
 </li>
+<li><a href="#references">References</a></li>
 </ul>
 </div>
 <p><code>WARNING</code>: Please try it on a test server first. if it works well, then try it on product server.</p>
@@ -157,7 +158,13 @@ under <code>/var/lib/dkim</code> by default, you can copy all keys under this di
 new server, and make sure they have correct file owner <code>amavis:amavis</code> and
 permission <code>0600</code>.</p>
 <p>If you prefer generating new DKIM keys on new server, don't forget to update
-DNS records for mail domain names.</p><p style="text-align: center; color: grey;">Document published under a <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">CC BY-ND 3.0</a> license. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.<script>
+DNS records for mail domain names.</p>
+<h1 id="references">References</h1>
+<ul>
+<li><a href="./password.hashes.html">Password hashes</a></li>
+<li><a href="./reset.user.password.html">Reset user password</a></li>
+<li><a href="./why.append.timestamp.in.maildir.path.html">Why append timestamp in maildir path</a></li>
+</ul><p style="text-align: center; color: grey;">Document published under a <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">CC BY-ND 3.0</a> license. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.<script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
   m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
