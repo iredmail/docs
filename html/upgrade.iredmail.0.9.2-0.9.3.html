@@ -383,8 +383,8 @@ sql&gt; ALTER TABLE alias ADD INDEX (alias_to);
 existing user <code>user@domain.com</code>:</p>
 </blockquote>
 <pre><code>sql&gt; USE vmail;
-sql&gt; INSERT INTO alias (address, goto, is_alias, alias_to, domain) VALUES
-                       ('extra@domain.com', 'user@domain.com', 1, 'user@domain.com', 'domain.com');
+sql&gt; INSERT INTO alias (address, goto, is_alias, alias_to, domain)
+                VALUES ('extra@domain.com', 'user@domain.com', 1, 'user@domain.com', 'domain.com');
 </code></pre>
 
 <blockquote>
@@ -435,8 +435,8 @@ sql&gt; CREATE INDEX idx_alias_alias_to ON alias (alias_to);
 existing user <code>user@domain.com</code>:</p>
 </blockquote>
 <pre><code>sql&gt; USE vmail;
-sql&gt; INSERT INTO alias (address, goto, is_alias, alias_to, domain) VALUES
-                       ('extra@domain.com', 'user@domain.com', 1, 'user@domain.com', 'domain.com');
+sql&gt; INSERT INTO alias (address, goto, is_alias, alias_to, domain)
+                VALUES ('extra@domain.com', 'user@domain.com', 1, 'user@domain.com', 'domain.com');
 </code></pre>
 
 <blockquote>
