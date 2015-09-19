@@ -391,7 +391,7 @@ sql> INSERT INTO alias (address, goto, is_alias, alias_to, domain)
 > 
 > * Values of column `alias.goto` and `alias.alias_to` are the same.
 > * You can add as many additional email addresses as you want.
-> * In above sample, `extra@domain.com` can be email address belong to your alias domain.
+> * In above sample, `extra@domain.com` can be an email address belong to your alias domain.
 
 ### Add new SQL table `outbound_wblist` in `amavisd` database
 
@@ -451,7 +451,7 @@ sql> INSERT INTO alias (address, goto, is_alias, alias_to, domain)
 > 
 > * Values of column `alias.goto` and `alias.alias_to` are the same.
 > * You can add as many additional email addresses as you want.
-> * In above sample, `extra@domain.com` can be email address belong to your alias domain.
+> * In above sample, `extra@domain.com` can be an email address belong to your alias domain.
 
 ### Add new SQL table `outbound_wblist` in `amavisd` database
 
