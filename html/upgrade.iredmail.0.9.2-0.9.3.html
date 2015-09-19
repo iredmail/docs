@@ -378,6 +378,23 @@ sql&gt; ALTER TABLE alias ADD INDEX (is_alias);
 sql&gt; ALTER TABLE alias ADD INDEX (alias_to);
 </code></pre>
 
+<blockquote>
+<p><strong>Sample usage</strong>: add additional email addresses <code>extra@domain.com</code> for
+existing user <code>user@domain.com</code>:</p>
+</blockquote>
+<pre><code>sql&gt; USE vmail;
+sql&gt; INSERT INTO alias (address, goto, is_alias, alias_to, domain) VALUES
+                       ('extra@domain.com', 'user@domain.com', 1, 'user@domain.com', 'domain.com');
+</code></pre>
+
+<blockquote>
+<p>Notes:</p>
+<ul>
+<li>Values of column <code>alias.goto</code> and <code>alias.alias_to</code> are the same.</li>
+<li>You can add as many additional email addresses as you want.</li>
+<li>In above sample, <code>extra@domain.com</code> can be email address belong to your alias domain.</li>
+</ul>
+</blockquote>
 <h3 id="add-new-sql-table-outbound_wblist-in-amavisd-database_1">Add new SQL table <code>outbound_wblist</code> in <code>amavisd</code> database</h3>
 <p>We need a new SQL table <code>outbound_wblist</code> in <code>amavisd</code> database, it's used
 to store white/blacklists for outbound message, required by iRedAPD plugin
@@ -413,6 +430,23 @@ sql&gt; CREATE INDEX idx_alias_is_alias ON alias (is_alias);
 sql&gt; CREATE INDEX idx_alias_alias_to ON alias (alias_to);
 </code></pre>
 
+<blockquote>
+<p><strong>Sample usage</strong>: add additional email addresses <code>extra@domain.com</code> for
+existing user <code>user@domain.com</code>:</p>
+</blockquote>
+<pre><code>sql&gt; USE vmail;
+sql&gt; INSERT INTO alias (address, goto, is_alias, alias_to, domain) VALUES
+                       ('extra@domain.com', 'user@domain.com', 1, 'user@domain.com', 'domain.com');
+</code></pre>
+
+<blockquote>
+<p>Notes:</p>
+<ul>
+<li>Values of column <code>alias.goto</code> and <code>alias.alias_to</code> are the same.</li>
+<li>You can add as many additional email addresses as you want.</li>
+<li>In above sample, <code>extra@domain.com</code> can be email address belong to your alias domain.</li>
+</ul>
+</blockquote>
 <h3 id="add-new-sql-table-outbound_wblist-in-amavisd-database_2">Add new SQL table <code>outbound_wblist</code> in <code>amavisd</code> database</h3>
 <p>We need a new SQL table <code>outbound_wblist</code> in <code>amavisd</code> database, it's used
 to store white/blacklists for outbound message, required by iRedAPD plugin
