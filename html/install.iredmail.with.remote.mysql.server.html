@@ -110,6 +110,10 @@ mysql&gt; DROP USER 'vmailadmin'@'192.168.1.200';
 <h2 id="install-iredmail">Install iRedMail</h2>
 <p>Please follow iRedMail installation guide strictly, but start iRedMail
 installer with below command instead of the original one (<code>bash iRedMail.sh</code>):</p>
+<blockquote>
+<p>WARNING: the variable names (<code>MYSQL_SERVER</code>, <code>MYSQL_ROOT_USER</code>,
+<code>MYSQL_GRANT_HOST</code>) are <strong>CASE SENSITIVE</strong>.</p>
+</blockquote>
 <pre><code># MYSQL_SERVER='192.168.1.100' MYSQL_ROOT_USER='admin_iredmail' MYSQL_GRANT_HOST='192.168.1.200' bash iRedMail.sh
 </code></pre>
 
