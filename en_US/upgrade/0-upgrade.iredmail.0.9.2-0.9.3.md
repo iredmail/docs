@@ -6,7 +6,7 @@ __This is still a DRAFT document, do NOT apply it.__
 
 ## ChangeLog
 
-> We provide remote upgrade service, check [the price](../support.html) and [contact us](../contact.html).
+> We offer remote upgrade service, check [the price](../support.html) and [contact us](../contact.html).
 
 * 2015-09-10: Add new daily cron job to cleanup Roundcube SQL database.
 * 2015-08-08: [SQL backends] Add new SQL columns in `vmail` database: `alias.is_alias`, `alias.alias_to`.
@@ -34,8 +34,11 @@ so that you can know which version of iRedMail you're running. For example:
 
 ### Upgrade iRedAPD (Postfix policy server) to the latest 1.7.0
 
+> Note: iRedAPD-1.7.0 requires a new SQL database, please create it by
+> following upgrade tutorial.
+
 Please follow below tutorial to upgrade iRedAPD to the latest stable release:
-[How to upgrade iRedAPD-1.4.0 or later versions to the latest stable release](./upgrade.iredapd.html)
+[Upgrade iRedAPD to the latest stable release](./upgrade.iredapd.html)
 
 Detailed release notes are available here: [iRedAPD release notes](./iredapd.releases.html).
 
