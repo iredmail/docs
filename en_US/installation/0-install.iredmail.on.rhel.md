@@ -91,13 +91,14 @@ Disable it immediately without rebooting your server.
 * For Red Hat Enterprise Linux, please enable Red Hat Network to install
   packages, or create a local yum repository with DVD/CD ISO images.
 
-> Note: since official RHEL/CentOS and
-> [EPEL repository](http://fedoraproject.org/wiki/EPEL) don't have all required
-> packages, so iRedMail has one small repository for missing packages and it's
-> enabled by default. You can view all available packages
+> __NOTE__: Since official RHEL/CentOS and EPEL repositories don't have all
+> required packages with the needed features, iRedMail team has built these
+> packages and made them available trough the iRedMail repository enabled by
+> default at installation time. You can view all available packages
 > [here](http://www.iredmail.org/yum/rpms/), please check `README` and
 > `ChangeLog` files under each directory for more details. Source RPMs (srpm)
-> built by iRedMail team are available [here](http://www.iredmail.org/yum/srpms/).
+> used by iRedMail team to build the binary packages are available
+> [here](http://www.iredmail.org/yum/srpms/).
 
 ### Download the latest release of iRedMail
 
