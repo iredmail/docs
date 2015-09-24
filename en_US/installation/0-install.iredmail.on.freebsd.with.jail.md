@@ -241,7 +241,7 @@ Configuration completed.
 ## Important things you __MUST__ know after installation
 
 > The weakest part of a mail server is user's weak password. Spammers don't
-> want to hack your servers, they just want to send spam from your server.
+> want to hack your server, they just want to send spam from your server.
 > Please __ALWAYS ALWAYS ALWAYS__ force users to use a strong password.
 
 * Read file `/root/iRedMail-x.y.z/iRedMail.tips` first, it contains:
