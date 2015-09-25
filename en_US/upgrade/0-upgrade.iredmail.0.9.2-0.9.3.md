@@ -83,7 +83,7 @@ quarantined mails.
 
 * Comment out below line in Amavisd config file:
 
-    __WARNING: Do NOT remove `originating => 1,` in other `$policy_bank` blocks.__
+    __WARNING: Do NOT remove `originating => 1,` in ALL `$policy_bank` blocks.__
 
 ```
 $originating = 1;
