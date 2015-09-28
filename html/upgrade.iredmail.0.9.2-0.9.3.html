@@ -24,6 +24,9 @@
 <li><a href="#dovecot-22-add-more-special-folders-as-alias-folders">Dovecot-2.2: Add more special folders as alias folders</a></li>
 <li><a href="#roundcube-webmail-add-daily-cron-job-to-cleanup-roundcube-sql-database">Roundcube webmail: Add daily cron job to cleanup Roundcube SQL database</a></li>
 <li><a href="#sogo-the-dovecot-master-user-used-by-sogo-doesnt-work-due-to-incorrect-username">SOGo: The Dovecot Master User used by SOGo doesn't work due to incorrect username.</a></li>
+<li><a href="#sogo-cron-jobs-which-run-every-minute-must-be-grouped-in-one-job">SOGo: cron jobs which run every minute must be grouped in one job.</a></li>
+<li><a href="#rhelcentos-7-remove-daemonze-line-in-etcuwsgiini">[RHEL/CentOS 7] Remove daemonze = line in /etc/uwsgi.ini</a></li>
+<li><a href="#rhelcentos-7-fix-incorrect-default-firewall-zone-name">[RHEL/CentOS 7] Fix incorrect default firewall zone name</a></li>
 <li><a href="#optional-fixed-not-preserve-the-case-of-extension-while-delivering-message-to-mailbox">[OPTIONAL] Fixed: Not preserve the case of ${extension} while delivering message to mailbox</a></li>
 </ul>
 </li>
@@ -52,6 +55,9 @@
 <p>We offer remote upgrade service, check <a href="../support.html">the price</a> and <a href="../contact.html">contact us</a>.</p>
 </blockquote>
 <ul>
+<li>2015-09-28: SOGo: cron jobs which run every minute must be grouped in one job.</li>
+<li>2015-09-28: [RHEL/CentOS 7] Fix incorrect default firewall zone name</li>
+<li>2015-09-28: [RHEL/CentOS 7] Remove <code>daemonze =</code> line in <code>/etc/uwsgi.ini</code>.</li>
 <li>2015-09-10: Add new daily cron job to cleanup Roundcube SQL database.</li>
 <li>2015-08-08: [SQL backends] Add new SQL columns in <code>vmail</code> database: <code>alias.is_alias</code>, <code>alias.alias_to</code>.</li>
 <li>2015-07-31: SOGo: The Dovecot Master User used by SOGo doesn't work due to incorrect username.</li>
@@ -301,6 +307,75 @@ exist on your server, then this login attempt fails.</p>
 </code></pre>
 
 <p>That's all.</p>
+<h3 id="sogo-cron-jobs-which-run-every-minute-must-be-grouped-in-one-job">SOGo: cron jobs which run every minute must be grouped in one job.</h3>
+<p>Note: this is applicable to iRedMail server which has SOGo groupware installed
+and running.</p>
+<p>iRedMail sets up 3 cron jobs for SOGo, 2 of them are running every minute. You
+can check the cron jobs with command below. Note:</p>
+<ul>
+<li>SOGo daemon user is <code>sogo</code> on all Linux distributions.</li>
+<li>SOGo daemon user is <code>_sogo</code> on OpenBSD.</li>
+<li>with iRedMail-0.9.2 and earlier releases, there's no SOGo support on FreeBSD.</li>
+</ul>
+<pre><code># crontab -u sogo -l
+
+*   *   *   *   *   /usr/sbin/sogo-tool expire-sessions 30
+*   *   *   *   *   /usr/sbin/sogo-ealarms-notify
+</code></pre>
+
+<p>It always complains with error message like below:</p>
+<blockquote>
+<p>sogo-tool[27443] Failed to create lock directory '/var/lib/sogo/GNUstep/Defaults/.lck/.GNUstepDefaults.lck'</p>
+<p>sogo-ealarms-notify[27790] Warning ... someone broke our lock (/var/lib/sogo/GNUstep/Defaults/.lck/.GNUstepDefaults.lck) ... and may have interfered with updating defaults data in file.</p>
+</blockquote>
+<p>According to
+<a href="http://marc.info/?l=sogo-users&amp;m=144307619805703&amp;w=2">SOGo mailing list</a>,
+replied by SOGo developer <strong>Christian Mack</strong>, <code>This is a known problem, but
+harmless, as the lock is not really needed here. The work around is to use one
+cron entry only for both (jobs).</code></p>
+<p>Please edit the cron job with command below:</p>
+<pre><code># crontab -u sogo -e
+</code></pre>
+
+<p>Then group those 2 jobs into one cron job like below (note, use semicolon <code>;</code>
+to separate jobs):</p>
+<pre><code>*   *   *   *   *   /usr/sbin/sogo-tool expire-sessions 30; /usr/sbin/sogo-ealarms-notify
+</code></pre>
+
+<p>That's all.</p>
+<h3 id="rhelcentos-7-remove-daemonze-line-in-etcuwsgiini">[RHEL/CentOS 7] Remove <code>daemonze =</code> line in <code>/etc/uwsgi.ini</code></h3>
+<p>NOTE: this is required by RHEL/CentOS 7, and not applicable to other Linux/BSD
+distributions.</p>
+<p><code>daemonze =</code> line set in <code>/etc/uwsgi.ini</code> is required by RHEL/CentOS 6, but
+not RHEL/CentOS 7, and it will cause <code>uwsgi</code> service fail. Please <strong>remove or
+comment out this line</strong> and restart <code>uwsgi</code> service.</p>
+<h3 id="rhelcentos-7-fix-incorrect-default-firewall-zone-name">[RHEL/CentOS 7] Fix incorrect default firewall zone name</h3>
+<p>NOTE: this is required by RHEL/CentOS 7, and not applicable to other Linux/BSD
+distributions.</p>
+<p>iRedMail-0.9.2 and earlier versions won't set default firewall zone if you
+didn't choose to restart firewall immediately, so after iRedMail installation,
+you must set the default firewall zone manually with steps below.</p>
+<ul>
+<li>Open file <code>/etc/firewalld/firewalld.conf</code>, find parameter <code>DefaultZone=</code>. If
+  it's not set by iRedMail installer, it will be <code>DefaultZone=public</code>:</li>
+</ul>
+<pre><code>DefaultZone=public
+</code></pre>
+
+<ul>
+<li>Please replace <code>public</code> by <code>iredmail</code>, it will open ports required by ssh and
+  mail services. The zone file is <code>/etc/firewalld/zones/iredmail.xml</code>, please
+  make sure you have correct ssh port number in this file.</li>
+</ul>
+<pre><code>DefaultZone=iredmail
+</code></pre>
+
+<ul>
+<li>Reload firewall rules with command below:</li>
+</ul>
+<pre><code>firewall-cmd --complete-reload
+</code></pre>
+
 <h3 id="optional-fixed-not-preserve-the-case-of-extension-while-delivering-message-to-mailbox">[OPTIONAL] Fixed: Not preserve the case of <code>${extension}</code> while delivering message to mailbox</h3>
 <p>With iRedMail-0.9.2 and earlier releases, email sent to user
 <code>username+Ext@domain.com</code> (upper case <code>E</code>) will be delivered to folder

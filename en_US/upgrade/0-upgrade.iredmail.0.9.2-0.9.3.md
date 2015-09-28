@@ -8,6 +8,9 @@ __This is still a DRAFT document, do NOT apply it.__
 
 > We offer remote upgrade service, check [the price](../support.html) and [contact us](../contact.html).
 
+* 2015-09-28: SOGo: cron jobs which run every minute must be grouped in one job.
+* 2015-09-28: [RHEL/CentOS 7] Fix incorrect default firewall zone name
+* 2015-09-28: [RHEL/CentOS 7] Remove `daemonze =` line in `/etc/uwsgi.ini`.
 * 2015-09-10: Add new daily cron job to cleanup Roundcube SQL database.
 * 2015-08-08: [SQL backends] Add new SQL columns in `vmail` database: `alias.is_alias`, `alias.alias_to`.
 * 2015-07-31: SOGo: The Dovecot Master User used by SOGo doesn't work due to incorrect username.
@@ -286,6 +289,91 @@ sogo_sieve_master@not-exist.com:...
 ```
 
 That's all.
+
+### SOGo: cron jobs which run every minute must be grouped in one job.
+
+Note: this is applicable to iRedMail server which has SOGo groupware installed
+and running.
+
+iRedMail sets up 3 cron jobs for SOGo, 2 of them are running every minute. You
+can check the cron jobs with command below. Note:
+
+* SOGo daemon user is `sogo` on all Linux distributions.
+* SOGo daemon user is `_sogo` on OpenBSD.
+* with iRedMail-0.9.2 and earlier releases, there's no SOGo support on FreeBSD.
+
+```
+# crontab -u sogo -l
+
+*   *   *   *   *   /usr/sbin/sogo-tool expire-sessions 30
+*   *   *   *   *   /usr/sbin/sogo-ealarms-notify
+```
+
+It always complains with error message like below:
+
+> sogo-tool[27443] Failed to create lock directory '/var/lib/sogo/GNUstep/Defaults/.lck/.GNUstepDefaults.lck'
+
+> sogo-ealarms-notify[27790] Warning ... someone broke our lock (/var/lib/sogo/GNUstep/Defaults/.lck/.GNUstepDefaults.lck) ... and may have interfered with updating defaults data in file.
+
+According to
+[SOGo mailing list](http://marc.info/?l=sogo-users&m=144307619805703&w=2),
+replied by SOGo developer __Christian Mack__, `This is a known problem, but
+harmless, as the lock is not really needed here. The work around is to use one
+cron entry only for both (jobs).`
+
+Please edit the cron job with command below:
+
+```
+# crontab -u sogo -e
+```
+
+Then group those 2 jobs into one cron job like below (note, use semicolon `;`
+to separate jobs):
+
+```
+*   *   *   *   *   /usr/sbin/sogo-tool expire-sessions 30; /usr/sbin/sogo-ealarms-notify
+```
+
+That's all.
+
+### [RHEL/CentOS 7] Remove `daemonze =` line in `/etc/uwsgi.ini`
+
+NOTE: this is required by RHEL/CentOS 7, and not applicable to other Linux/BSD
+distributions.
+
+`daemonze =` line set in `/etc/uwsgi.ini` is required by RHEL/CentOS 6, but
+not RHEL/CentOS 7, and it will cause `uwsgi` service fail. Please __remove or
+comment out this line__ and restart `uwsgi` service.
+
+### [RHEL/CentOS 7] Fix incorrect default firewall zone name
+
+NOTE: this is required by RHEL/CentOS 7, and not applicable to other Linux/BSD
+distributions.
+
+iRedMail-0.9.2 and earlier versions won't set default firewall zone if you
+didn't choose to restart firewall immediately, so after iRedMail installation,
+you must set the default firewall zone manually with steps below.
+
+* Open file `/etc/firewalld/firewalld.conf`, find parameter `DefaultZone=`. If
+  it's not set by iRedMail installer, it will be `DefaultZone=public`:
+
+```
+DefaultZone=public
+```
+
+* Please replace `public` by `iredmail`, it will open ports required by ssh and
+  mail services. The zone file is `/etc/firewalld/zones/iredmail.xml`, please
+  make sure you have correct ssh port number in this file.
+
+```
+DefaultZone=iredmail
+```
+
+* Reload firewall rules with command below:
+
+```
+firewall-cmd --complete-reload
+```
 
 ### [OPTIONAL] Fixed: Not preserve the case of `${extension}` while delivering message to mailbox
 
