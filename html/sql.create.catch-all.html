@@ -16,7 +16,8 @@ accounts under hosted mail domains. If you want to accept these emails, you
 need a domain catch-all account.</p>
 <p>With MySQL/MariaDB or PostgreSQL backend, you can add catch-all account for
 existing domain <code>domain.com</code> in SQL table <code>vmail.alias</code> like below:</p>
-<pre><code class="sql">sql&gt; USE vmail;
+<pre><code class="sql">$ mysql -u root -p
+sql&gt; USE vmail;
 sql&gt; INSERT INTO alias (address, goto, domain)
                  VALUES ('domain.com', 'dest@example.com', 'domain.com');
 </code></pre>

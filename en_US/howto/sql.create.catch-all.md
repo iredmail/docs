@@ -8,6 +8,7 @@ With MySQL/MariaDB or PostgreSQL backend, you can add catch-all account for
 existing domain `domain.com` in SQL table `vmail.alias` like below:
 
 ```sql
+$ mysql -u root -p
 sql> USE vmail;
 sql> INSERT INTO alias (address, goto, domain)
                  VALUES ('domain.com', 'dest@example.com', 'domain.com');
