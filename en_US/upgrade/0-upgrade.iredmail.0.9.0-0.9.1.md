@@ -535,7 +535,7 @@ greylisting on them is helpless.
 
 ```
 # cd /tmp
-# wget https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/samples/cluebringer/greylisting-whitelist.sql
+# wget https://bitbucket.org/zhb/iredmail/raw/40b98d7dde0178d54498e170c8b5165c0316dc96/iRedMail/samples/cluebringer/greylisting-whitelist.sql
 ```
 
 * Login to MySQL database and import this file:
@@ -654,7 +654,7 @@ greylisting on them is helpless.
 
 ```
 # cd /tmp
-# wget https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/samples/cluebringer/greylisting-whitelist.sql
+# wget https://bitbucket.org/zhb/iredmail/raw/40b98d7dde0178d54498e170c8b5165c0316dc96/iRedMail/samples/cluebringer/greylisting-whitelist.sql
 ```
 
 * Login to MySQL database and import this file:
@@ -773,7 +773,7 @@ greylisting on them is helpless.
 
 ```
 # cd /tmp
-# wget https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/samples/cluebringer/greylisting-whitelist.sql
+# wget https://bitbucket.org/zhb/iredmail/raw/40b98d7dde0178d54498e170c8b5165c0316dc96/iRedMail/samples/cluebringer/greylisting-whitelist.sql
 ```
 
 * Switch to PostgreSQL daemon user, then execute SQL commands to import it:

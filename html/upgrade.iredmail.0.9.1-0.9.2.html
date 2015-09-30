@@ -287,8 +287,9 @@ enable-threads = true
 <p><strong>Note: this step is required if you're running SOGo on RHEL/CentOS, Debian/Ubuntu.</strong></p>
 <p>SOGo team released new stable version v2.3.0 on Jun 2, it requires system
 admin to run a shell script to update SQL structure manually if you're currently
-running an old version of SOGo.
-http://www.sogo.nu/files/docs/SOGo%20Installation%20Guide.pdf</p>
+running an old version of SOGo. We suggest you read SOGo official upgrade
+tutorial in <code>Upgrading</code> section of
+<a href="http://www.sogo.nu/files/docs/SOGo%20Installation%20Guide.pdf">Installation Guide</a>.</p>
 <p>SOGo-2.3.0 ships this update script, please find it with your package management
 tool like <code>yum</code>, <code>dpkg</code>.</p>
 <ul>
@@ -309,21 +310,21 @@ tool like <code>yum</code>, <code>dpkg</code>.</p>
 <li>on RHEL/CentOS:</li>
 </ul>
 <pre><code># rpm -ql sogo | grep 'sql-update-2.2.17'
-/usr/share/doc/sogo-2.3.0/sql-update-2.1.17_to_2.3.0-mysql.sh   # &lt;- for MySQL
-/usr/share/doc/sogo-2.3.0/sql-update-2.1.17_to_2.3.0.sh         # &lt;- for PostgreSQL
+/usr/share/doc/sogo-2.3.0/sql-update-2.2.17_to_2.3.0-mysql.sh   # &lt;- for MySQL
+/usr/share/doc/sogo-2.3.0/sql-update-2.2.17_to_2.3.0.sh         # &lt;- for PostgreSQL
 </code></pre>
 
 <ul>
 <li>on Debian/Ubuntu:</li>
 </ul>
 <pre><code># dpkg -L sogo | grep 'sql-update-2.2.17'
-/usr/share/doc/sogo/sql-update-2.1.17_to_2.3.0-mysql.sh     # &lt;- for MySQL
-/usr/share/doc/sogo/sql-update-2.1.17_to_2.3.0.sh           # &lt;- for PostgreSQL
+/usr/share/doc/sogo/sql-update-2.2.17_to_2.3.0-mysql.sh     # &lt;- for MySQL
+/usr/share/doc/sogo/sql-update-2.2.17_to_2.3.0.sh           # &lt;- for PostgreSQL
 </code></pre>
 
 <p>Please pick the one for your SQL server. here we use the one for MySQL
 backend on CentOS for example:</p>
-<pre><code># bash /usr/share/doc/sogo-2.3.0/sql-update-2.1.17_to_2.3.0-mysql.sh
+<pre><code># bash /usr/share/doc/sogo-2.3.0/sql-update-2.2.17_to_2.3.0-mysql.sh
 Username (root): root                                
 Hostname (127.0.0.1): 
 Database (root): sogo

@@ -297,8 +297,9 @@ __Note: this step is required if you're running SOGo on RHEL/CentOS, Debian/Ubun
 
 SOGo team released new stable version v2.3.0 on Jun 2, it requires system
 admin to run a shell script to update SQL structure manually if you're currently
-running an old version of SOGo.
-http://www.sogo.nu/files/docs/SOGo%20Installation%20Guide.pdf
+running an old version of SOGo. We suggest you read SOGo official upgrade
+tutorial in `Upgrading` section of
+[Installation Guide](http://www.sogo.nu/files/docs/SOGo%20Installation%20Guide.pdf).
 
 SOGo-2.3.0 ships this update script, please find it with your package management
 tool like `yum`, `dpkg`.
@@ -318,23 +319,23 @@ Find the update script shipped in SOGo-2.3.0 and run it:
 
 ```
 # rpm -ql sogo | grep 'sql-update-2.2.17'
-/usr/share/doc/sogo-2.3.0/sql-update-2.1.17_to_2.3.0-mysql.sh   # <- for MySQL
-/usr/share/doc/sogo-2.3.0/sql-update-2.1.17_to_2.3.0.sh         # <- for PostgreSQL
+/usr/share/doc/sogo-2.3.0/sql-update-2.2.17_to_2.3.0-mysql.sh   # <- for MySQL
+/usr/share/doc/sogo-2.3.0/sql-update-2.2.17_to_2.3.0.sh         # <- for PostgreSQL
 ```
 
 * on Debian/Ubuntu:
 
 ```
 # dpkg -L sogo | grep 'sql-update-2.2.17'
-/usr/share/doc/sogo/sql-update-2.1.17_to_2.3.0-mysql.sh     # <- for MySQL
-/usr/share/doc/sogo/sql-update-2.1.17_to_2.3.0.sh           # <- for PostgreSQL
+/usr/share/doc/sogo/sql-update-2.2.17_to_2.3.0-mysql.sh     # <- for MySQL
+/usr/share/doc/sogo/sql-update-2.2.17_to_2.3.0.sh           # <- for PostgreSQL
 ```
 
 Please pick the one for your SQL server. here we use the one for MySQL
 backend on CentOS for example:
 
 ```
-# bash /usr/share/doc/sogo-2.3.0/sql-update-2.1.17_to_2.3.0-mysql.sh
+# bash /usr/share/doc/sogo-2.3.0/sql-update-2.2.17_to_2.3.0-mysql.sh
 Username (root): root                                
 Hostname (127.0.0.1): 
 Database (root): sogo
