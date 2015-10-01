@@ -203,7 +203,11 @@ Config files:
 
 ## iRedAPD
 
-Main config file is `/opt/iredapd/settings.py` on all Linux/BSD distributions.
+* Main config file is `/opt/iredapd/settings.py` on all Linux/BSD distributions.
+* Log file:
+
+    * With iRedAPD-1.7.0 and later releases, log file is `/var/log/iredapd/iredapd.log`.
+    * With iRedAPD-1.6.0 and older releases, log file is `/var/log/iredapd.log`.
 
 ## iRedAdmin
 
