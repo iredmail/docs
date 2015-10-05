@@ -85,8 +85,9 @@ After restarted amavisd service, please check its
 
 Notes:
 
-* At least 1GB memory is required for a low traffic mail server. If your
-  server doesn't have enough memory, Amavisd may stop running automatically after
-  running for a while. If it's just a testing server, you can follow
-  [our tutorial](./completely.disable.amavisd.clamav.spamassassin.html)
-  to disable some features of Amavisd to keep it running, or disable it completely.
+* At least 2GB memory is required for a low traffic mail server. If your
+  server doesn't have enough memory, Amavisd and ClamAV may be not able to
+  start, or stop running automatically after running for a while. If it's just
+  a testing server, you can follow
+  [our tutorial](./completely.disable.amavisd.clamav.spamassassin.html) to
+  disable some features of Amavisd to keep it running, or disable it completely.

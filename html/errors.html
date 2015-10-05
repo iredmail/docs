@@ -94,11 +94,12 @@ Postfix config file <code>/etc/postfix/main.cf</code>:</p>
 <a href="./file.locations.html#amavisd">log file</a> to make sure it's running.</p>
 <p>Notes:</p>
 <ul>
-<li>At least 1GB memory is required for a low traffic mail server. If your
-  server doesn't have enough memory, Amavisd may stop running automatically after
-  running for a while. If it's just a testing server, you can follow
-  <a href="./completely.disable.amavisd.clamav.spamassassin.html">our tutorial</a>
-  to disable some features of Amavisd to keep it running, or disable it completely.</li>
+<li>At least 2GB memory is required for a low traffic mail server. If your
+  server doesn't have enough memory, Amavisd and ClamAV may be not able to
+  start, or stop running automatically after running for a while. If it's just
+  a testing server, you can follow
+  <a href="./completely.disable.amavisd.clamav.spamassassin.html">our tutorial</a> to
+  disable some features of Amavisd to keep it running, or disable it completely.</li>
 </ul><p style="text-align: center; color: grey;">Document published under a <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">CC BY-ND 3.0</a> license. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.<script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
