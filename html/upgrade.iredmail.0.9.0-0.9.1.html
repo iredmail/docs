@@ -481,8 +481,10 @@ from specified IP/networks.</p>
 </code></pre>
 
 <p>Restarting Dovecot service is required.</p>
-<p>Sample usage: allow user <code>user@domain.com</code> to login from IP <code>172.16.244.1</code> and
-network <code>192.168.1.0/24</code>:</p>
+<blockquote>
+<p>Sample usage: allow user <code>user@domain.com</code> to login from IP <code>172.16.244.1</code>
+and network <code>192.168.1.0/24</code>:</p>
+</blockquote>
 <pre><code>dn: mail=user@domain.com,ou=Users,domainName=domain.com,o=domains,dc=xx,dc=xx
 objectClass: mailUser
 mail: user@domain.com
@@ -490,7 +492,9 @@ allowNets: 192.168.1.10,192.168.1.0/24
 ...
 </code></pre>
 
+<blockquote>
 <p>To remove this restriction, just remove attribute <code>allowNets</code> for this user.</p>
+</blockquote>
 <h3 id="fixed-not-backup-sogo-database">Fixed: not backup SOGo database</h3>
 <p>Note: this step is not applicable if you don't use SOGo groupware.</p>
 <p>Open backup script <code>/var/vmail/backup/backup_mysql.sh</code>, append SOGo SQL
@@ -560,13 +564,17 @@ mysql&gt; ALTER TABLE mailbox ADD COLUMN `allow_nets` TEXT DEFAULT NULL;
 </code></pre>
 
 <p>Restarting Dovecot service is required.</p>
-<p>Sample usage: allow user <code>user@domain.com</code> to login from IP <code>172.16.244.1</code> and
-network <code>192.168.1.0/24</code>:</p>
+<blockquote>
+<p>Sample usage: allow user <code>user@domain.com</code> to login from IP <code>172.16.244.1</code>
+and network <code>192.168.1.0/24</code>:</p>
+</blockquote>
 <pre><code>sql&gt; USE vmail;
 sql&gt; UPDATE mailbox SET allow_nets='172.16.244.1,192.168.1.0/24' WHERE username='user@domain.com`;
 </code></pre>
 
+<blockquote>
 <p>To remove this restriction, just set <code>mailbox.allow_nets</code> to <code>NULL</code>, not empty string.</p>
+</blockquote>
 <h3 id="fixed-userextensiondomaincom-doesnt-work-with-per-domain-catch-all">Fixed: user+extension@domain.com doesn't work with per-domain catch-all</h3>
 <p>With iRedMail-0.9.0 and earlier versions, if you have per-domain catch-all
 enabled, email sent to <code>user+extension@domain.com</code> will be delivered to
@@ -657,13 +665,17 @@ sql&gt; ALTER TABLE mailbox ADD COLUMN allow_nets TEXT DEFAULT NULL;
 </code></pre>
 
 <p>Restarting Dovecot service is required.</p>
-<p>Sample usage: allow user <code>user@domain.com</code> to login from IP <code>172.16.244.1</code> and
-network <code>192.168.1.0/24</code>:</p>
+<blockquote>
+<p>Sample usage: allow user <code>user@domain.com</code> to login from IP <code>172.16.244.1</code>
+and network <code>192.168.1.0/24</code>:</p>
+</blockquote>
 <pre><code>sql&gt; \c vmail;
 sql&gt; UPDATE mailbox SET allow_nets='172.16.244.1,192.168.1.0/24' WHERE username='user@domain.com`;
 </code></pre>
 
+<blockquote>
 <p>To remove this restriction, just set <code>mailbox.allow_nets</code> to <code>NULL</code>, not empty string.</p>
+</blockquote>
 <h3 id="fixed-userextensiondomaincom-doesnt-work-with-per-domain-catch-all_1">Fixed: user+extension@domain.com doesn't work with per-domain catch-all</h3>
 <p>With iRedMail-0.9.0 and earlier versions, if you have per-domain catch-all
 enabled, email sent to <code>user+extension@domain.com</code> will be delivered to

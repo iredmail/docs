@@ -486,9 +486,9 @@ pass_attrs      = mail=user,userPassword=password,allowNets=allow_nets
 
 Restarting Dovecot service is required.
 
-Sample usage: allow user `user@domain.com` to login from IP `172.16.244.1` and
-network `192.168.1.0/24`:
-
+> Sample usage: allow user `user@domain.com` to login from IP `172.16.244.1`
+> and network `192.168.1.0/24`:
+>
 ```
 dn: mail=user@domain.com,ou=Users,domainName=domain.com,o=domains,dc=xx,dc=xx
 objectClass: mailUser
@@ -496,8 +496,8 @@ mail: user@domain.com
 allowNets: 192.168.1.10,192.168.1.0/24
 ...
 ```
-
-To remove this restriction, just remove attribute `allowNets` for this user.
+>
+>To remove this restriction, just remove attribute `allowNets` for this user.
 
 ### Fixed: not backup SOGo database
 
@@ -586,15 +586,15 @@ password_query = SELECT password, allow_nets FROM mailbox WHERE username='%u' AN
 
 Restarting Dovecot service is required.
 
-Sample usage: allow user `user@domain.com` to login from IP `172.16.244.1` and
-network `192.168.1.0/24`:
-
+> Sample usage: allow user `user@domain.com` to login from IP `172.16.244.1`
+> and network `192.168.1.0/24`:
+>
 ```
 sql> USE vmail;
 sql> UPDATE mailbox SET allow_nets='172.16.244.1,192.168.1.0/24' WHERE username='user@domain.com`;
 ```
-
-To remove this restriction, just set `mailbox.allow_nets` to `NULL`, not empty string.
+>
+>To remove this restriction, just set `mailbox.allow_nets` to `NULL`, not empty string.
 
 ### Fixed: user+extension@domain.com doesn't work with per-domain catch-all
 
@@ -705,15 +705,15 @@ password_query = SELECT password, allow_nets FROM mailbox WHERE username='%u' AN
 
 Restarting Dovecot service is required.
 
-Sample usage: allow user `user@domain.com` to login from IP `172.16.244.1` and
-network `192.168.1.0/24`:
-
+> Sample usage: allow user `user@domain.com` to login from IP `172.16.244.1`
+> and network `192.168.1.0/24`:
+>
 ```
 sql> \c vmail;
 sql> UPDATE mailbox SET allow_nets='172.16.244.1,192.168.1.0/24' WHERE username='user@domain.com`;
 ```
-
-To remove this restriction, just set `mailbox.allow_nets` to `NULL`, not empty string.
+>
+> To remove this restriction, just set `mailbox.allow_nets` to `NULL`, not empty string.
 
 ### Fixed: user+extension@domain.com doesn't work with per-domain catch-all
 
