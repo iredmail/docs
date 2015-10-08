@@ -8,6 +8,7 @@ __This is still a DRAFT document, do NOT apply it.__
 
 > We offer remote upgrade service, check [the price](../support.html) and [contact us](../contact.html).
 
+* 2015-10-08: OpenLDAP: Fix improper ACL control.
 * 2015-09-28: SOGo: cron jobs which run every minute must be grouped in one job.
 * 2015-09-28: [RHEL/CentOS 7] Fix incorrect default firewall zone name
 * 2015-09-28: [RHEL/CentOS 7] Remove `daemonze =` line in `/etc/uwsgi.ini`.
@@ -400,6 +401,45 @@ dovecot unix    -       n       n       -       -      pipe
 * Save your change and restart Postfix service.
 
 ## OpenLDAP backend special
+
+### Fixed: improper ACL control
+
+With default OpenLDAP ACL control set by iRedMail, every mail user has
+permission to query the whole LDAP tree (although cannot query sensitive info
+like password), we'd better remove this ACL control due to security concern.
+
+* Please open OpenLDAP config file `slapd.conf`, and find below lines:
+
+    * on RHEL/CentOS: it's `/etc/openldap/slapd.conf`.
+    * on Debian/Ubuntu: it's `/etc/ldap/slapd.conf`.
+    * on FreeBSD: it's `/usr/local/etc/openldap/slapd.conf`.
+    * on OpenBSD: it's `/etc/openldap/slapd.conf`.
+
+```
+access to dn.subtree="o=domains,dc=example,dc=com"
+    by anonymous                    auth
+    by self                         write
+    by dn.exact="cn=vmail,dc=example,dc=com"   read
+    by dn.exact="cn=vmailadmin,dc=example,dc=com"  write
+    by dn.regex="mail=[^,]+,ou=Users,domainName=$1,o=domains,dc=example,dc=com$" read
+    by users                        read
+```
+
+The LDAP suffix `dc=example,dc=com` might be different on your server.
+
+* Remove the 6th line (`by dn.regex="mail=..."`), and replace the line `by users read`
+  by `by users none`.
+
+```
+access to dn.subtree="o=domains,dc=example,dc=com"
+    by anonymous                    auth
+    by self                         write
+    by dn.exact="cn=vmail,dc=example,dc=com"   read
+    by dn.exact="cn=vmailadmin,dc=example,dc=com"  write
+    by users                        none
+```
+
+* Save your change and restart OpenLDAP service.
 
 ### Fixed: Dovecot Master User doesn't work with ACL plugin
 
