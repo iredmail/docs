@@ -36,6 +36,9 @@ all_chapter_dirs="overview \
                   troubleshooting \
                   faq"
 
+# Additional directories which stores scripts or other non-Markdown files.
+additional_dirs=""
+
 # Compile all Markdown files.
 if echo "$@" | grep -q -- '--all' &>/dev/null; then
     compile_all='YES'
@@ -168,6 +171,11 @@ for lang in ${all_languages}; do
         if [ -f ${_links_md} ]; then
             cat ${_links_md} >> ${INDEX_MD}
         fi
+    done
+
+    # Copy additional directories.
+    for d in ${additional_dirs}; do
+        cp -rf ${d} ${OUTPUT_DIR} &>/dev/null
     done
 
     echo ''
