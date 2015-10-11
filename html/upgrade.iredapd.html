@@ -35,59 +35,6 @@ supported by iRedMail.</p>
 
 <p>That's all.</p>
 <hr />
-<p>If you're upgrading iRedAPD-1.6.0 (or older release) to iRedAPD-1.7.0 (or newer
-release), please create new SQL database <code>iredapd</code> with sql commands below:</p>
-<blockquote>
-<p>Note: You can create a strong password for SQL user with command:
-<code>eval &lt;/dev/urandom tr -dc A-Za-z0-9 | (head -c $1 &amp;&gt;/dev/null || head -c 30)</code></p>
-</blockquote>
-<ul>
-<li>For OpenLDAP, MySQL, MariaDB backends, please login to SQL server as <code>root</code>
-  user, then create required database (replace sample password <code>passwd</code> in
-  sql command by the strong password you generated):</li>
-</ul>
-<pre><code>$ mysql -u root -p
-
-sql&gt; CREATE DATABASE IF NOT EXISTS iredapd DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
-sql&gt; USE iredapd;
-sql&gt; SOURCE /opt/iredapd/SQL/iredapd.mysql;
-sql&gt; GRANT ALL ON iredapd.* TO &quot;iredapd&quot;@&quot;localhost&quot; IDENTIFIED BY &quot;passwd&quot;;
-sql&gt; FLUSH PRIVILEGES;
-</code></pre>
-
-<p>Now update iRedAPD SQL database name, sql user name, and password in iRedAPD
-config file <code>/opt/iredapd/settings.py</code> (all parameters start with <code>iredapd_db_</code>).</p>
-<ul>
-<li>For PostgreSQL backend, please copy <code>/opt/iredapd/SQL/iredapd.pgsql</code> to <code>/tmp</code>
-  first, then switch to system user <code>postgres</code> (It's <code>_postgresql</code> on OpenBSD)
-  with <code>su</code> command, execute sql commands below:</li>
-</ul>
-<pre><code># cp /opt/iredapd/SQL/iredapd.pgsql /tmp/
-# chmod 0755 /tmp/iredapd.pgsql
-
----- Switch to system user `postgres` here ----
-
-$ psql
-
--- Create database
-sql&gt; CREATE DATABASE iredapd WITH TEMPLATE template0 ENCODING 'UTF8';
-
--- Create user
-sql&gt; CREATE USER iredapd WITH ENCRYPTED PASSWORD 'passwd' NOSUPERUSER NOCREATEDB NOCREATEROLE;
-sql&gt; ALTER DATABASE iredapd OWNER TO iredapd;
-
--- Import SQL template
-sql&gt; \c iredapd;
-sql&gt; \i /tmp/iredapd.pgsql;
-
--- Grant permissions
-sql&gt; GRANT ALL ON throttle,throttle_tracking TO iredapd;
-sql&gt; GRANT ALL ON throttle_id_seq,throttle_tracking_id_seq TO iredapd;
-</code></pre>
-
-<p>Now update iRedAPD SQL database name, sql user name, and password in iRedAPD
-config file <code>/opt/iredapd/settings.py</code> (all parameters start with <code>iredapd_db_</code>).</p>
-<hr />
 <p>Important notes:</p>
 <ul>
 <li>
