@@ -62,12 +62,15 @@ tutorial to [add DKIM DNS record](setup.dns.html#dkim-record-for-your-mail-domai
 # amavisd-new genrsa /var/lib/dkim/new_domain.com.pem 2048
 ```
 
-Note: if you're running CentOS, you may need to specify its config file on
-command line. For example:
+> * if you're running CentOS, you may need to specify its config file on
+>   command line. For example:
+> 
+> `# amavisd -c /etc/amavisd/amavisd.conf genrsa /var/lib/dkim/new_domain.com.pem 2048`
 
-```
-# amavisd -c /etc/amavisd/amavisd.conf genrsa /var/lib/dkim/new_domain.com.pem 2048
-```
+> * Some DNS provider doesn't support long value for TXT type DNS record, you
+>   need to create a shorter key with key length `1024`. For example:
+> 
+> `# amavisd-new genrsa /var/lib/dkim/new_domain.com.pem 1024`
 
 * Find below setting in Amavisd config file `amavisd.conf`:
 

@@ -241,6 +241,10 @@ If it shows `pass`, it works.
 __Note__: If you use DNS service provided by ISP, new DNS record might take
 some hours to be available.
 
+If you want to re-generate DKIM key, or need to generate one for new mail
+domain, please check our another tutorial:
+[Sign DKIM signature on outgoing emails for new mail domain](./sign.dkim.signature.for.new.domain.html).
+
 ## References
 
 * [http://en.wikipedia.org/wiki/MX_record](http://en.wikipedia.org/wiki/MX_record)
