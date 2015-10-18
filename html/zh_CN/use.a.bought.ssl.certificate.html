@@ -20,6 +20,7 @@
 <li><a href="#dovecot-pop3imap">Dovecot (POP3/IMAP 服务器)</a></li>
 <li><a href="#apache">Apache 网页服务器</a></li>
 <li><a href="#nginx">Nginx (网页服务器)</a></li>
+<li><a href="#openldap">OpenLDAP</a></li>
 </ul>
 </li>
 <li><a href="#_1">参考资料</a></li>
@@ -142,6 +143,19 @@ SSLCertificateChainFile /etc/pki/tls/certs/server.ca-bundle
 </code></pre>
 
 <p>修改后需重启 Nginx 服务。</p>
+<h3 id="openldap">OpenLDAP</h3>
+<ul>
+<li>Red Hat/CentOS，配置文件为 <code>/etc/openldap/slapd.conf</code>。</li>
+<li>Debian/Ubuntu，配置文件为 <code>/etc/ldap/slapd.conf</code>。</li>
+<li>FreeBSD，配置文件为 <code>/usr/local/etc/openldap/slapd.conf</code>。</li>
+<li>OpenBSD，配置文件为 <code>/etc/openldap/slapd.conf</code>。</li>
+</ul>
+<pre><code>TLSCACertificateFile /etc/pki/tls/certs/server.ca-bundle
+TLSCertificateFile /etc/pki/tls/certs/server.crt
+TLSCertificateKeyFile /etc/pki/tls/private/server.key
+</code></pre>
+
+<p>修改后需重启 OpenLDAP 服务。</p>
 <h2 id="_1">参考资料</h2>
 <ul>
 <li><a href="http://nginx.org/en/docs/http/configuring_https_servers.html">HTTPS 服务器配置</a></li>

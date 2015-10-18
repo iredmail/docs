@@ -161,6 +161,21 @@ Then update `ssl_certificate` parameter in `/etc/nginx/conf.d/default.conf`:
 
 Restarting Nginx service is required.
 
+### OpenLDAP
+
+* On Red Hat and CentOS, it's defined in `/etc/openldap/slapd.conf`.
+* On Debian and Ubuntu, it's defined in `/etc/ldap/slapd.conf`.
+* On FreeBSD, it's defined in `/usr/local/etc/openldap/slapd.conf`.
+* On OpenBSD, it's defined in `/etc/openldap/slapd.conf`.
+
+```
+TLSCACertificateFile /etc/pki/tls/certs/server.ca-bundle
+TLSCertificateFile /etc/pki/tls/certs/server.crt
+TLSCertificateKeyFile /etc/pki/tls/private/server.key
+```
+
+Restarting OpenLDAP service is required.
+
 ## Reference
 
 * [Configuring HTTPS servers](http://nginx.org/en/docs/http/configuring_https_servers.html)

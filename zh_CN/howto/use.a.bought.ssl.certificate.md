@@ -141,6 +141,21 @@ server {
 
 修改后需重启 Nginx 服务。
 
+### OpenLDAP
+
+* Red Hat/CentOS，配置文件为 `/etc/openldap/slapd.conf`。
+* Debian/Ubuntu，配置文件为 `/etc/ldap/slapd.conf`。
+* FreeBSD，配置文件为 `/usr/local/etc/openldap/slapd.conf`。
+* OpenBSD，配置文件为 `/etc/openldap/slapd.conf`。
+
+```
+TLSCACertificateFile /etc/pki/tls/certs/server.ca-bundle
+TLSCertificateFile /etc/pki/tls/certs/server.crt
+TLSCertificateKeyFile /etc/pki/tls/private/server.key
+```
+
+修改后需重启 OpenLDAP 服务。
+
 ## 参考资料
 
 * [HTTPS 服务器配置](http://nginx.org/en/docs/http/configuring_https_servers.html)

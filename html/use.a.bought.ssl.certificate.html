@@ -20,6 +20,7 @@
 <li><a href="#dovecot-pop3imap-server">Dovecot (POP3/IMAP server)</a></li>
 <li><a href="#apache-web-server">Apache (web server)</a></li>
 <li><a href="#nginx-web-server">Nginx (web server)</a></li>
+<li><a href="#openldap">OpenLDAP</a></li>
 </ul>
 </li>
 <li><a href="#reference">Reference</a></li>
@@ -164,6 +165,19 @@ certificates in the combined file:</p>
 </code></pre>
 
 <p>Restarting Nginx service is required.</p>
+<h3 id="openldap">OpenLDAP</h3>
+<ul>
+<li>On Red Hat and CentOS, it's defined in <code>/etc/openldap/slapd.conf</code>.</li>
+<li>On Debian and Ubuntu, it's defined in <code>/etc/ldap/slapd.conf</code>.</li>
+<li>On FreeBSD, it's defined in <code>/usr/local/etc/openldap/slapd.conf</code>.</li>
+<li>On OpenBSD, it's defined in <code>/etc/openldap/slapd.conf</code>.</li>
+</ul>
+<pre><code>TLSCACertificateFile /etc/pki/tls/certs/server.ca-bundle
+TLSCertificateFile /etc/pki/tls/certs/server.crt
+TLSCertificateKeyFile /etc/pki/tls/private/server.key
+</code></pre>
+
+<p>Restarting OpenLDAP service is required.</p>
 <h2 id="reference">Reference</h2>
 <ul>
 <li><a href="http://nginx.org/en/docs/http/configuring_https_servers.html">Configuring HTTPS servers</a></li>
