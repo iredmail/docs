@@ -226,14 +226,29 @@ __Note__: BIND ([The most widely used Name Server Software](http://www.isc.org/d
 can handle this kind of multi-line format, so you can paste it in your domain
 zone file directly.
 
-* Add a `TXT` type DNS record for domain name `dkim._domainkey.mydomain.com`,
+* Add `TXT` type DNS record for domain name `dkim._domainkey.mydomain.com`,
   set value to the line you copied above: `v=DKIM1; p=...`.
 
     > WARNING: A usual mistake is adding this DKIM record to domain name
     > `mydomain.com`, this is wrong. Please make sure you added to domain name
     > `dkim._domainkey.mydomain.com`.
 
-* After you added this in DNS, type below command to verify it:
+* After you added this in DNS, verify it with `dig` or `nslookup`:
+
+```
+$ dig -t txt dkim._domainkey.mydomain.com
+
+$ nslookup -type=txt dkim._domainkey.foodmall.com
+```
+
+Sample output:
+
+```
+dkim._domainkey.mydomain.com. 600 IN TXT	"v=DKIM1\;p=..."
+
+```
+
+And verify it with Amavisd:
 
 ```shell
 # amavisd testkeys

@@ -229,7 +229,7 @@ can handle this kind of multi-line format, so you can paste it in your domain
 zone file directly.</p>
 <ul>
 <li>
-<p>Add a <code>TXT</code> type DNS record for domain name <code>dkim._domainkey.mydomain.com</code>,
+<p>Add <code>TXT</code> type DNS record for domain name <code>dkim._domainkey.mydomain.com</code>,
   set value to the line you copied above: <code>v=DKIM1; p=...</code>.</p>
 <blockquote>
 <p>WARNING: A usual mistake is adding this DKIM record to domain name
@@ -238,9 +238,20 @@ zone file directly.</p>
 </blockquote>
 </li>
 <li>
-<p>After you added this in DNS, type below command to verify it:</p>
+<p>After you added this in DNS, verify it with <code>dig</code> or <code>nslookup</code>:</p>
 </li>
 </ul>
+<pre><code>$ dig -t txt dkim._domainkey.mydomain.com
+
+$ nslookup -type=txt dkim._domainkey.foodmall.com
+</code></pre>
+
+<p>Sample output:</p>
+<pre><code>dkim._domainkey.mydomain.com. 600 IN TXT    &quot;v=DKIM1\;p=...&quot;
+
+</code></pre>
+
+<p>And verify it with Amavisd:</p>
 <pre><code class="shell"># amavisd testkeys
 TESTING: dkim._domainkey.mydomain.com       =&gt; pass
 </code></pre>
