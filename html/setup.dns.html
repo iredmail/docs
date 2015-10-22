@@ -229,8 +229,13 @@ can handle this kind of multi-line format, so you can paste it in your domain
 zone file directly.</p>
 <ul>
 <li>
-<p>Add a <code>TXT</code> type DNS record, set value to the line you copied above:
-<code>v=DKIM1; p=...</code>.</p>
+<p>Add a <code>TXT</code> type DNS record for domain name <code>dkim._domainkey.mydomain.com</code>,
+  set value to the line you copied above: <code>v=DKIM1; p=...</code>.</p>
+<blockquote>
+<p>WARNING: A usual mistake is adding this DKIM record to domain name
+<code>mydomain.com</code>, this is wrong. Please make sure you added to domain name
+<code>dkim._domainkey.mydomain.com</code>.</p>
+</blockquote>
 </li>
 <li>
 <p>After you added this in DNS, type below command to verify it:</p>
