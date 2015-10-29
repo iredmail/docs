@@ -120,11 +120,12 @@ empty, please check normal syslog log file `/var/log/messages` or
 
 Main config file:
 
-* on RHEL/CentOS: `/etc/my.cnf.
+* on RHEL/CentOS: `/etc/my.cnf`.
 * on Debian/Ubuntu, it's `/etc/mysql/my.cnf`. If you're running MariaDB, it's
   `/etc/mysql/mariadb.conf.d/mysqld.cnf`.
 * on FreeBSD: `/var/db/mysql/my.cnf`.
-* on OpenBSD: `/etc/my.cnf.
+* on OpenBSD: `/etc/my.cnf`.
+
 
 ## Amavisd
 
