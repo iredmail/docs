@@ -83,13 +83,13 @@ defined as cron jobs with below commands:</p>
 <h3 id="how-to-restore-sql-databases">How to restore SQL databases</h3>
 <p>You can simply restore plain SQL files backed up by above backup scripts.</p>
 <blockquote>
-<p><strong>WARNING: Do not restore database <code>mysql</code> on a new iRedMail server.</strong></p>
 <p>If you're restoring on a <strong>NEW</strong> iRedMail server, do <em>NOT</em>
-restore database <code>mysql</code> exported from old server, it contains SQL usernames
-and passwords used in many components (e.g. Postfix, Dovecot, Roundcube
-webmail) on old server. New iRedMail server already has the same SQL accounts
-with different passwords, so please do not restore <code>mysql</code> database,
-otherwise almost all services won't work due to incorrect SQL credentials.</p>
+restore the database which is named <code>mysql</code> exported from old server, it
+contains SQL usernames and passwords used in many components (e.g. Postfix,
+Dovecot, Roundcube webmail) on old server. New iRedMail server already has
+the same SQL accounts with different passwords, so please do not restore
+<code>mysql</code> database, otherwise almost all services won't work due to incorrect
+SQL credentials.</p>
 </blockquote>
 <h3 id="how-to-restore-ldap-backup">How to restore LDAP backup</h3>
 <p>Backup script runs command <code>slapcat</code> to dump whole LDAP tree as a backup, it
