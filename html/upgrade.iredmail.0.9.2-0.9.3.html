@@ -39,11 +39,13 @@
 <li><a href="#mysqlmariadb-backend-special">MySQL/MariaDB backend special</a><ul>
 <li><a href="#add-new-sql-columns-in-vmail-database-aliasis_alias-aliasalias_to">Add new SQL columns in vmail database: alias.is_alias, alias.alias_to</a></li>
 <li><a href="#add-new-sql-table-outbound_wblist-in-amavisd-database_1">Add new SQL table outbound_wblist in amavisd database</a></li>
+<li><a href="#optional-sogo-enable-isolated-per-domain-global-address-book">[OPTIONAL] SOGo: enable isolated per-domain global address book</a></li>
 </ul>
 </li>
 <li><a href="#postgresql-backend-special">PostgreSQL backend special</a><ul>
 <li><a href="#add-new-sql-columns-in-vmail-database-aliasis_alias-aliasalias_to_1">Add new SQL columns in vmail database: alias.is_alias, alias.alias_to</a></li>
 <li><a href="#add-new-sql-table-outbound_wblist-in-amavisd-database_2">Add new SQL table outbound_wblist in amavisd database</a></li>
+<li><a href="#optional-sogo-enable-isolated-per-domain-global-address-book_1">[OPTIONAL] SOGo: enable isolated per-domain global address book</a></li>
 </ul>
 </li>
 </ul>
@@ -56,6 +58,7 @@
 <p>We offer remote upgrade service, check <a href="../support.html">the price</a> and <a href="../contact.html">contact us</a>.</p>
 </blockquote>
 <ul>
+<li>2015-11-03: SOGo: enable isolated per-domain global address book.</li>
 <li>2015-10-08: OpenLDAP: Fix improper ACL control.</li>
 <li>2015-09-28: SOGo: cron jobs which run every minute must be grouped in one job.</li>
 <li>2015-09-28: [RHEL/CentOS 7] Fix incorrect default firewall zone name</li>
@@ -527,6 +530,45 @@ mysql&gt; CREATE TABLE outbound_wblist (rid integer unsigned NOT NULL, sid integ
 </code></pre>
 
 <p>After table created, please restart iRedAPD service.</p>
+<h3 id="optional-sogo-enable-isolated-per-domain-global-address-book">[OPTIONAL] SOGo: enable isolated per-domain global address book</h3>
+<p>iRedMail doesn't enable global address book by default, this step will help
+you enable isolated per-domain global address book.</p>
+<p>iRedMail creates a SQL VIEW <code>sogo.users</code> in SOGo SQL database, but it doesn't
+contain a <code>domain</code> column, if you enable global address book, every user is
+able to search ALL mail accounts hosted on iRedMail server, so we need to drop
+existing SQL VIEW, then re-create it with <code>domain</code> column for isolated
+per-domain global address book.</p>
+<p>Now connect to MySQL server as <code>root</code> user, drop existing SQL VIEW
+<code>sogo.users</code>, then re-create it:</p>
+<pre><code>$ mysql -uroot -p
+sql&gt; USE sogo;
+sql&gt; DROP VIEW users;
+sql&gt; CREATE VIEW sogo.users (c_uid, c_name, c_password, c_cn, mail, domain) AS SELECT username, username, password, name, username, domain FROM vmail.mailbox WHERE active=1;
+</code></pre>
+
+<p>Open SOGo config file <code>/etc/sogo/sogo.conf</code> (Linux, OpenBSD) or
+<code>/usr/local/etc/sogo/sogo.conf</code> (FreeBSD), find the <code>SOGoUserSources</code> block
+defined for SQL backend. for example:</p>
+<pre><code>    // Authentication using SQL
+    SOGoUserSources = (
+        {
+            ...
+
+            //isAddressBook = YES;
+            //displayName = &quot;Global Address Book&quot;;
+        }
+    );
+</code></pre>
+
+<p>Uncomment <code>isAddressBook</code> and <code>displayName</code> lines, and add two new parameters
+like below:</p>
+<pre><code>            isAddressBook = YES;
+            displayName = &quot;Global Address Book&quot;;
+            SOGoEnableDomainBasedUID = YES;
+            DomainFieldName = &quot;domain&quot;;
+</code></pre>
+
+<p>Restart SOGo service is required.</p>
 <h2 id="postgresql-backend-special">PostgreSQL backend special</h2>
 <h3 id="add-new-sql-columns-in-vmail-database-aliasis_alias-aliasalias_to_1">Add new SQL columns in <code>vmail</code> database: <code>alias.is_alias</code>, <code>alias.alias_to</code></h3>
 <p>iRedMail-0.9.3 offers per-user alias address support, that means mail user
@@ -582,7 +624,62 @@ $ psql -d cluebringer -d amavisd
 sql&gt; CREATE TABLE outbound_wblist (rid integer NOT NULL CHECK (rid &gt;= 0), sid integer NOT NULL CHECK (sid &gt;= 0), wb varchar(10) NOT NULL, PRIMARY KEY (rid,sid));
 </code></pre>
 
-<p>After table created, please restart iRedAPD service.</p><p style="text-align: center; color: grey;">Document published under a <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">CC BY-ND 3.0</a> license. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.<script>
+<p>After table created, please restart iRedAPD service.</p>
+<h3 id="optional-sogo-enable-isolated-per-domain-global-address-book_1">[OPTIONAL] SOGo: enable isolated per-domain global address book</h3>
+<p>iRedMail doesn't enable global address book by default, this step will help
+you enable isolated per-domain global address book.</p>
+<p>iRedMail creates a SQL VIEW <code>sogo.users</code> in SOGo SQL database, but it doesn't
+contain a <code>domain</code> column, if you enable global address book, every user is
+able to search ALL mail accounts hosted on iRedMail server, so we need to drop
+existing SQL VIEW, then re-create it with <code>domain</code> column for isolated
+per-domain global address book.</p>
+<p>Before we go further, we must find the SQL username/password used to query
+<code>vmail</code> SQL database in <code>/etc/postfix/pgsql/*.cf</code> (on FreeBSD, it's
+<code>/usr/local/etc/postfix/pgsql/*.cf</code>). for example:</p>
+<pre><code>hosts       = 127.0.0.1
+port        = 3306
+user        = vmail
+password    = NGtLm0jFiwwOH5AeQtTsSAkScUMdFc
+dbname      = vmail
+</code></pre>
+
+<p>We need SQL server address, port, user, password and database name.</p>
+<p>Now connect to PostgreSQL server as admin user, drop existing SQL VIEW
+<code>sogo.users</code>, and re-create it.</p>
+<blockquote>
+<p><strong>WARNING</strong>: You must replace the <code>vmail</code> database username and password by
+the real ones found in <code>/etc/postfix/pgsql/*.cf</code>.</p>
+</blockquote>
+<pre><code># su - postgres
+$ psql -d sogo
+sql&gt; DROP TABLE users;
+sql&gt; CREATE VIEW users AS SELECT * FROM dblink('host=127.0.0.1 port=5432 user=vmail password=NGtLm0jFiwwOH5AeQtTsSAkScUMdFc dbname=vmail', 'SELECT username AS c_uid, username AS c_name, password AS c_password, name AS c_cn, username AS mail, domain AS domain FROM mailbox WHERE active=1') AS users (c_uid VARCHAR(255), c_name VARCHAR(255), c_password VARCHAR(255), c_cn VARCHAR(255), mail VARCHAR(255), domain VARCHAR(255));
+sql&gt; ALTER TABLE users OWNER TO sogo;
+</code></pre>
+
+<p>Open SOGo config file <code>/etc/sogo/sogo.conf</code> (Linux, OpenBSD) or
+<code>/usr/local/etc/sogo/sogo.conf</code> (FreeBSD), find the <code>SOGoUserSources</code> block
+defined for SQL backend. for example:</p>
+<pre><code>    // Authentication using SQL
+    SOGoUserSources = (
+        {
+            ...
+
+            //isAddressBook = YES;
+            //displayName = &quot;Global Address Book&quot;;
+        }
+    );
+</code></pre>
+
+<p>Uncomment <code>isAddressBook</code> and <code>displayName</code> lines, and add two new parameters
+like below:</p>
+<pre><code>            isAddressBook = YES;
+            displayName = &quot;Global Address Book&quot;;
+            SOGoEnableDomainBasedUID = YES;
+            DomainFieldName = &quot;domain&quot;;
+</code></pre>
+
+<p>Restart SOGo service is required.</p><p style="text-align: center; color: grey;">Document published under a <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">CC BY-ND 3.0</a> license. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.<script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
   m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)

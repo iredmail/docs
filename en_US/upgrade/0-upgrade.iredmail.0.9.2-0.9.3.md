@@ -8,6 +8,7 @@ __This is still a DRAFT document, do NOT apply it.__
 
 > We offer remote upgrade service, check [the price](../support.html) and [contact us](../contact.html).
 
+* 2015-11-03: SOGo: enable isolated per-domain global address book.
 * 2015-10-08: OpenLDAP: Fix improper ACL control.
 * 2015-09-28: SOGo: cron jobs which run every minute must be grouped in one job.
 * 2015-09-28: [RHEL/CentOS 7] Fix incorrect default firewall zone name
@@ -540,6 +541,55 @@ mysql> CREATE TABLE outbound_wblist (rid integer unsigned NOT NULL, sid integer 
 
 After table created, please restart iRedAPD service.
 
+### [OPTIONAL] SOGo: enable isolated per-domain global address book
+
+iRedMail doesn't enable global address book by default, this step will help
+you enable isolated per-domain global address book.
+
+iRedMail creates a SQL VIEW `sogo.users` in SOGo SQL database, but it doesn't
+contain a `domain` column, if you enable global address book, every user is
+able to search ALL mail accounts hosted on iRedMail server, so we need to drop
+existing SQL VIEW, then re-create it with `domain` column for isolated
+per-domain global address book.
+
+Now connect to MySQL server as `root` user, drop existing SQL VIEW
+`sogo.users`, then re-create it:
+
+```
+$ mysql -uroot -p
+sql> USE sogo;
+sql> DROP VIEW users;
+sql> CREATE VIEW sogo.users (c_uid, c_name, c_password, c_cn, mail, domain) AS SELECT username, username, password, name, username, domain FROM vmail.mailbox WHERE active=1;
+```
+
+Open SOGo config file `/etc/sogo/sogo.conf` (Linux, OpenBSD) or
+`/usr/local/etc/sogo/sogo.conf` (FreeBSD), find the `SOGoUserSources` block
+defined for SQL backend. for example:
+
+```
+    // Authentication using SQL
+    SOGoUserSources = (
+        {
+            ...
+
+            //isAddressBook = YES;
+            //displayName = "Global Address Book";
+        }
+    );
+```
+
+Uncomment `isAddressBook` and `displayName` lines, and add two new parameters
+like below:
+
+```
+            isAddressBook = YES;
+            displayName = "Global Address Book";
+            SOGoEnableDomainBasedUID = YES;
+            DomainFieldName = "domain";
+```
+
+Restart SOGo service is required.
+
 ## PostgreSQL backend special
 
 ### Add new SQL columns in `vmail` database: `alias.is_alias`, `alias.alias_to`
@@ -603,3 +653,70 @@ sql> CREATE TABLE outbound_wblist (rid integer NOT NULL CHECK (rid >= 0), sid in
 ```
 
 After table created, please restart iRedAPD service.
+
+### [OPTIONAL] SOGo: enable isolated per-domain global address book
+
+iRedMail doesn't enable global address book by default, this step will help
+you enable isolated per-domain global address book.
+
+iRedMail creates a SQL VIEW `sogo.users` in SOGo SQL database, but it doesn't
+contain a `domain` column, if you enable global address book, every user is
+able to search ALL mail accounts hosted on iRedMail server, so we need to drop
+existing SQL VIEW, then re-create it with `domain` column for isolated
+per-domain global address book.
+
+Before we go further, we must find the SQL username/password used to query
+`vmail` SQL database in `/etc/postfix/pgsql/*.cf` (on FreeBSD, it's
+`/usr/local/etc/postfix/pgsql/*.cf`). for example:
+
+```
+hosts       = 127.0.0.1
+port        = 3306
+user        = vmail
+password    = NGtLm0jFiwwOH5AeQtTsSAkScUMdFc
+dbname      = vmail
+```
+
+We need SQL server address, port, user, password and database name.
+
+Now connect to PostgreSQL server as admin user, drop existing SQL VIEW
+`sogo.users`, and re-create it.
+
+> __WARNING__: You must replace the `vmail` database username and password by
+> the real ones found in `/etc/postfix/pgsql/*.cf`.
+
+```
+# su - postgres
+$ psql -d sogo
+sql> DROP TABLE users;
+sql> CREATE VIEW users AS SELECT * FROM dblink('host=127.0.0.1 port=5432 user=vmail password=NGtLm0jFiwwOH5AeQtTsSAkScUMdFc dbname=vmail', 'SELECT username AS c_uid, username AS c_name, password AS c_password, name AS c_cn, username AS mail, domain AS domain FROM mailbox WHERE active=1') AS users (c_uid VARCHAR(255), c_name VARCHAR(255), c_password VARCHAR(255), c_cn VARCHAR(255), mail VARCHAR(255), domain VARCHAR(255));
+sql> ALTER TABLE users OWNER TO sogo;
+```
+
+Open SOGo config file `/etc/sogo/sogo.conf` (Linux, OpenBSD) or
+`/usr/local/etc/sogo/sogo.conf` (FreeBSD), find the `SOGoUserSources` block
+defined for SQL backend. for example:
+
+```
+    // Authentication using SQL
+    SOGoUserSources = (
+        {
+            ...
+
+            //isAddressBook = YES;
+            //displayName = "Global Address Book";
+        }
+    );
+```
+
+Uncomment `isAddressBook` and `displayName` lines, and add two new parameters
+like below:
+
+```
+            isAddressBook = YES;
+            displayName = "Global Address Book";
+            SOGoEnableDomainBasedUID = YES;
+            DomainFieldName = "domain";
+```
+
+Restart SOGo service is required.
