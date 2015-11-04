@@ -1,5 +1,7 @@
 # Store SpamAssassin bayes in SQL
 
+[TOC]
+
 __THIS ARTICLE IS STILL A DRAFT, DO NOT APPLY IT IN PRODUCTION SERVER.__
 
 ## Summary
