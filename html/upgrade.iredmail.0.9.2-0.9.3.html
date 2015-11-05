@@ -25,6 +25,7 @@
 <li><a href="#roundcube-webmail-add-daily-cron-job-to-cleanup-roundcube-sql-database">Roundcube webmail: Add daily cron job to cleanup Roundcube SQL database</a></li>
 <li><a href="#sogo-the-dovecot-master-user-used-by-sogo-doesnt-work-due-to-incorrect-username">SOGo: The Dovecot Master User used by SOGo doesn't work due to incorrect username.</a></li>
 <li><a href="#sogo-cron-jobs-which-run-every-minute-must-be-grouped-in-one-job">SOGo: cron jobs which run every minute must be grouped in one job.</a></li>
+<li><a href="#sogo-use-correct-sieve-folder-encoding">SOGo: Use correct sieve folder encoding</a></li>
 <li><a href="#rhelcentos-7-remove-daemonze-line-in-etcuwsgiini">[RHEL/CentOS 7] Remove daemonze = line in /etc/uwsgi.ini</a></li>
 <li><a href="#rhelcentos-7-fix-incorrect-default-firewall-zone-name">[RHEL/CentOS 7] Fix incorrect default firewall zone name</a></li>
 <li><a href="#optional-fixed-not-preserve-the-case-of-extension-while-delivering-message-to-mailbox">[OPTIONAL] Fixed: Not preserve the case of ${extension} while delivering message to mailbox</a></li>
@@ -348,6 +349,16 @@ to separate jobs):</p>
 </code></pre>
 
 <p>That's all.</p>
+<h3 id="sogo-use-correct-sieve-folder-encoding">SOGo: Use correct sieve folder encoding</h3>
+<p>SOGo uses <code>UTF-7</code> as sieve folder encoding by default, this is improper, we
+must use <code>UTF-8</code> instead, otherwise mail folder names with non-ASCII characters
+cannot be correctly created or displayed.</p>
+<p>To fix this, please add below setting in SOGo config file <code>/etc/sogo/sogo.conf</code>
+(Linux/OpenBSD) or <code>/usr/local/etc/sogo/sogo.conf</code> (FreeBSD):</p>
+<pre><code>    SOGoSieveFolderEncoding = UTF-8;
+</code></pre>
+
+<p>Restarting SOGo service is required.</p>
 <h3 id="rhelcentos-7-remove-daemonze-line-in-etcuwsgiini">[RHEL/CentOS 7] Remove <code>daemonze =</code> line in <code>/etc/uwsgi.ini</code></h3>
 <p>NOTE: this is required by RHEL/CentOS 7, and not applicable to other Linux/BSD
 distributions.</p>

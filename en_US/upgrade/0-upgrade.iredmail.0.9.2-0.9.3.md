@@ -338,6 +338,21 @@ to separate jobs):
 
 That's all.
 
+### SOGo: Use correct sieve folder encoding
+
+SOGo uses `UTF-7` as sieve folder encoding by default, this is improper, we
+must use `UTF-8` instead, otherwise mail folder names with non-ASCII characters
+cannot be correctly created or displayed.
+
+To fix this, please add below setting in SOGo config file `/etc/sogo/sogo.conf`
+(Linux/OpenBSD) or `/usr/local/etc/sogo/sogo.conf` (FreeBSD):
+
+```
+    SOGoSieveFolderEncoding = UTF-8;
+```
+
+Restarting SOGo service is required.
+
 ### [RHEL/CentOS 7] Remove `daemonze =` line in `/etc/uwsgi.ini`
 
 NOTE: this is required by RHEL/CentOS 7, and not applicable to other Linux/BSD
