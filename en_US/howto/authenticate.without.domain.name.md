@@ -4,23 +4,27 @@ With default settings, client must use full email address as username for
 POP3/IMAP/SMTP/webmail login, if you want to login without domain name part in
 email address, please follow below steps.
 
-* Open Dovecot config file `/etc/dovecot/dovecot.conf` (Linux/OpenBSD) or
-  `/usr/local/etc/dovecot/dovecot.conf` (FreeBSD), find parameter
-  `auth_default_realm`, set the domain name you want to allow user to login
-  without domain name part in email address. For example:
+### Dovecot
+
+Open Dovecot config file `/etc/dovecot/dovecot.conf` (Linux/OpenBSD) or
+`/usr/local/etc/dovecot/dovecot.conf` (FreeBSD), find parameter
+`auth_default_realm`, set the domain name you want to allow user to login
+without domain name part in email address. For example:
 
 ```
 auth_default_realm = mydomain.com
 ```
 
-  Restarting Dovecot is required. After restarted Dovecot, user logins as
-  `john.smith` will be rewritten to `john.smith@mydomain.com` by Dovecot.
-  This works for POP3/IMAP/SMTP services.
+Restarting Dovecot is required. After restarted Dovecot, user logins as
+`john.smith` will be rewritten to `john.smith@mydomain.com` by Dovecot.
+This works for POP3/IMAP/SMTP services.
 
-* [OPTIONAL] Open Roundcube webmail
-  [config file `config/main.inc.php`](./file.locations.html#roundcube-webmail),
-  find parameter `$config['username_domain']`, list your domain name
-  in this parameter. For example:
+### [OPTIONAL] Roundcube Webmail
+
+Open Roundcube webmail
+[config file `config/main.inc.php`](./file.locations.html#roundcube-webmail),
+find parameter `$config['username_domain']`, list your domain name
+in this parameter. For example:
 
 ```
 // Automatically add this domain to user names for login
@@ -36,4 +40,4 @@ auth_default_realm = mydomain.com
 $config['username_domain'] = 'mydomain.com';
 ```
 
-  Restarting Apache web server is recommended.
+Restarting web server (Apache or php-fpm) is recommended.
