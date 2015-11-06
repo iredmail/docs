@@ -349,3 +349,13 @@ word `SOGo` is case-sensitive), you can login with your email account credential
 
 Please check our documents [here](./index.html#configure-mail-client-applications)
 to configure your mail clients or mobile devices.
+
+
+## References
+
+* [SOGo web site](http://sogo.nu)
+* Outlook plugins:
+
+    * [Outlook CalDav Synchronizer](https://github.com/aluxnimm/outlookcaldavsynchronizer)
+
+        > Outlook Plugin, which synchronizes events, tasks and contacts(beta) between Outlook and Google, SOGo, Horde or any other CalDAV or CardDAV server. Supported Outlook versions are 2016, 2013, 2010 and 2007.
