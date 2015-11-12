@@ -52,6 +52,34 @@ Detailed release notes are available here: [iRedAPD release notes](./iredapd.rel
 Please follow Roundcube official tutorial to upgrade Roundcube webmail to the
 latest stable release immediately: [How to upgrade Roundcube](http://trac.roundcube.net/wiki/Howto_Upgrade)
 
+### Postfix: Add additional aliases
+
+We need 2 new alias accounts in Postfix to deliver notification emails:
+
+1. New iRedAPD release (1.7.0) has a cron job which may generate notification
+   email to the daemon user.
+
+2. ClamAV may detect virus in email, notification will be sent to system
+   account `virusalert`.
+
+Steps to add alias accounts:
+
+* For Linux and OpenBSD:
+
+```shell
+echo 'iredapd: root' >> /etc/postfix/aliases
+echo 'virusalert: root' >> /etc/postfix/aliases
+postalias /etc/postfix/aliases
+```
+
+* For FreeBSD:
+
+```shell
+echo 'iredapd: root' >> /usr/local/etc/postfix/aliases
+echo 'virusalert: root' >> /usr/local/etc/postfix/aliases
+postalias /usr/local/etc/postfix/aliases
+```
+
 ### Amavisd: Fix incorrect setting which signs DKIM on inbound messages
 
 In iRedMail-0.9.2 and earlier releases, Amavisd will signing DKIM on inbound

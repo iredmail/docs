@@ -19,6 +19,7 @@
 <li><a href="#update-etciredmail-release-with-new-iredmail-version-number">Update /etc/iredmail-release with new iRedMail version number</a></li>
 <li><a href="#upgrade-iredapd-postfix-policy-server-to-the-latest-170">Upgrade iRedAPD (Postfix policy server) to the latest 1.7.0</a></li>
 <li><a href="#upgrade-roundcube-webmail-to-the-latest-stable-release">Upgrade Roundcube webmail to the latest stable release</a></li>
+<li><a href="#postfix-add-additional-aliases">Postfix: Add additional aliases</a></li>
 <li><a href="#amavisd-fix-incorrect-setting-which-signs-dkim-on-inbound-messages">Amavisd: Fix incorrect setting which signs DKIM on inbound messages</a></li>
 <li><a href="#dovecot-fix-incorrect-quota-warning-priorities">Dovecot: Fix incorrect quota warning priorities</a></li>
 <li><a href="#dovecot-22-add-more-special-folders-as-alias-folders">Dovecot-2.2: Add more special folders as alias folders</a></li>
@@ -95,6 +96,35 @@ following upgrade tutorial.</p>
 <h3 id="upgrade-roundcube-webmail-to-the-latest-stable-release">Upgrade Roundcube webmail to the latest stable release</h3>
 <p>Please follow Roundcube official tutorial to upgrade Roundcube webmail to the
 latest stable release immediately: <a href="http://trac.roundcube.net/wiki/Howto_Upgrade">How to upgrade Roundcube</a></p>
+<h3 id="postfix-add-additional-aliases">Postfix: Add additional aliases</h3>
+<p>We need 2 new alias accounts in Postfix to deliver notification emails:</p>
+<ol>
+<li>
+<p>New iRedAPD release (1.7.0) has a cron job which may generate notification
+   email to the daemon user.</p>
+</li>
+<li>
+<p>ClamAV may detect virus in email, notification will be sent to system
+   account <code>virusalert</code>.</p>
+</li>
+</ol>
+<p>Steps to add alias accounts:</p>
+<ul>
+<li>For Linux and OpenBSD:</li>
+</ul>
+<pre><code class="shell">echo 'iredapd: root' &gt;&gt; /etc/postfix/aliases
+echo 'virusalert: root' &gt;&gt; /etc/postfix/aliases
+postalias /etc/postfix/aliases
+</code></pre>
+
+<ul>
+<li>For FreeBSD:</li>
+</ul>
+<pre><code class="shell">echo 'iredapd: root' &gt;&gt; /usr/local/etc/postfix/aliases
+echo 'virusalert: root' &gt;&gt; /usr/local/etc/postfix/aliases
+postalias /usr/local/etc/postfix/aliases
+</code></pre>
+
 <h3 id="amavisd-fix-incorrect-setting-which-signs-dkim-on-inbound-messages">Amavisd: Fix incorrect setting which signs DKIM on inbound messages</h3>
 <p>In iRedMail-0.9.2 and earlier releases, Amavisd will signing DKIM on inbound
 message, this is wrong. Please follow steps below to fix it.</p>
