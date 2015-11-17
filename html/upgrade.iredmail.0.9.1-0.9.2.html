@@ -346,15 +346,17 @@ update SQL database and exit silently.</p>
 </li>
 </ul>
 <h3 id="optional-update-one-fail2ban-filter-regular-expression-to-help-catch-dos-attacks-to-smtp-service">[OPTIONAL] Update one Fail2ban filter regular expression to help catch DoS attacks to SMTP service</h3>
-<ol>
+<ul>
 <li>Open file <code>/etc/fail2ban/filter.d/postfix.iredmail.conf</code> or
-<code>/usr/local/etc/fail2ban/filter.d/postfix.iredmail.conf</code> (on FreeBSD), find
-below line under <code>[Definition]</code> section:</li>
-</ol>
+  <code>/usr/local/etc/fail2ban/filter.d/postfix.iredmail.conf</code> (on FreeBSD), find
+  below line under <code>[Definition]</code> section:</li>
+</ul>
 <pre><code>            lost connection after AUTH from (.*)\[&lt;HOST&gt;\]
 </code></pre>
 
-<p>Update above line to below one:</p>
+<ul>
+<li>Update above line to below one:</li>
+</ul>
 <pre><code>            lost connection after (AUTH|UNKNOWN|EHLO) from (.*)\[&lt;HOST&gt;\]
 </code></pre>
 

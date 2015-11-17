@@ -443,6 +443,21 @@ dovecot unix    -       n       n       -       -      pipe
     flags=DRh ...
 ```
 
+### [OPTIONAL] Update one Fail2ban filter regular expression to catch postscreen log
+
+We added one new regular expression to catch postscreen log to help reduce
+spam, please follow steps below to add it.
+
+Open file `/etc/fail2ban/filter.d/postfix.iredmail.conf` or
+`/usr/local/etc/fail2ban/filter.d/postfix.iredmail.conf` (on FreeBSD), append
+below line under `[Definition]` section:
+
+```
+            reject: RCPT from (.*)\[<HOST>\]:([0-9]{4,5}:)? 550
+```
+
+Restarting Fail2ban service is required.
+
 * Save your change and restart Postfix service.
 
 ## OpenLDAP backend special

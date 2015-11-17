@@ -30,6 +30,7 @@
 <li><a href="#rhelcentos-7-remove-daemonze-line-in-etcuwsgiini">[RHEL/CentOS 7] Remove daemonze = line in /etc/uwsgi.ini</a></li>
 <li><a href="#rhelcentos-7-fix-incorrect-default-firewall-zone-name">[RHEL/CentOS 7] Fix incorrect default firewall zone name</a></li>
 <li><a href="#optional-fixed-not-preserve-the-case-of-extension-while-delivering-message-to-mailbox">[OPTIONAL] Fixed: Not preserve the case of ${extension} while delivering message to mailbox</a></li>
+<li><a href="#optional-update-one-fail2ban-filter-regular-expression-to-catch-postscreen-log">[OPTIONAL] Update one Fail2ban filter regular expression to catch postscreen log</a></li>
 </ul>
 </li>
 <li><a href="#openldap-backend-special">OpenLDAP backend special</a><ul>
@@ -443,6 +444,16 @@ dovecot unix    -       n       n       -       -      pipe
 <pre><code>    flags=DRh ...
 </code></pre>
 
+<h3 id="optional-update-one-fail2ban-filter-regular-expression-to-catch-postscreen-log">[OPTIONAL] Update one Fail2ban filter regular expression to catch postscreen log</h3>
+<p>We added one new regular expression to catch postscreen log to help reduce
+spam, please follow steps below to add it.</p>
+<p>Open file <code>/etc/fail2ban/filter.d/postfix.iredmail.conf</code> or
+<code>/usr/local/etc/fail2ban/filter.d/postfix.iredmail.conf</code> (on FreeBSD), append
+below line under <code>[Definition]</code> section:</p>
+<pre><code>            reject: RCPT from (.*)\[&lt;HOST&gt;\]:([0-9]{4,5}:)? 550
+</code></pre>
+
+<p>Restarting Fail2ban service is required.</p>
 <ul>
 <li>Save your change and restart Postfix service.</li>
 </ul>
