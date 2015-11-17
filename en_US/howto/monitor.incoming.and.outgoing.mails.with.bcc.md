@@ -6,9 +6,12 @@ This tutorial describes how to configure your iRedMail server
 to monitor incoming and outgoing mails with BCC, via iRedAdmin-Pro or other
 tools.
 
-__Important note__: the destination email address used to store emails
-must exist. In this tutorial, they're `outbound@example.com` and
-`inboud@example.com`.
+__Important notes__:
+
+* the destination email address used to store emails must exist. In this
+  tutorial, they're `outbound@example.com` and `inboud@example.com`.
+
+* Multiple BCC destination addresses are __NOT__ supported by Postfix.
 
 ## Manage BCC settings with iRedAdmin-Pro
 

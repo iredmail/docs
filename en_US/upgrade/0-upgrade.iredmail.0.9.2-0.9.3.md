@@ -80,10 +80,11 @@ echo 'virusalert: root' >> /usr/local/etc/postfix/aliases
 postalias /usr/local/etc/postfix/aliases
 ```
 
-### Amavisd: Fix incorrect setting which signs DKIM on inbound messages
+### Amavisd: Fix incorrect setting which treats external sender as internal user
 
-In iRedMail-0.9.2 and earlier releases, Amavisd will signing DKIM on inbound
-message, this is wrong. Please follow steps below to fix it.
+In iRedMail-0.9.2 and earlier releases, Amavisd was incorrectly configured
+which causes it treats external sender as internal user, and it (incorrectly)
+signs DKIM on inbound message. This is wrong. Please follow steps below to fix it.
 
 With below changes, Amavisd will aply policy bank 'ORIGINATING' to emails
 submitted through submission (port 587) by smtp authenticated user. This way
