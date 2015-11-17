@@ -8,6 +8,8 @@ __This is still a DRAFT document, do NOT apply it.__
 
 > We offer remote upgrade service, check [the price](../support.html) and [contact us](../contact.html).
 
+* 2015-11-17: [OPTIONAL] Remove one non-spam HELO identity in Postfix helo restriction
+* 2015-11-17: [OPTIONAL] Update one Fail2ban filter regular expression to catch postscreen log
 * 2015-11-03: SOGo: enable isolated per-domain global address book.
 * 2015-10-08: OpenLDAP: Fix improper ACL control.
 * 2015-09-28: SOGo: cron jobs which run every minute must be grouped in one job.
@@ -459,6 +461,20 @@ below line under `[Definition]` section:
 Restarting Fail2ban service is required.
 
 * Save your change and restart Postfix service.
+
+### [OPTIONAL] Remove one non-spam HELO identity in Postfix helo restriction
+
+iRedMail ships a Postfix HELO rule file, `/etc/postfix/helo_access.pcre`, it
+contains some HELO identities which were treated as spammers by analizing
+Postfix log files, and one of them, `bezeqint.net` is not spammer and we should
+remove it.
+
+Please find below line in `/etc/postfix/helo_access.pcre` (Linux and OpenBSD)
+or `/usr/local/etc/postfix/helo_access.pcre` (FreeBSD), and remove it.
+
+```
+/(bezeqint\.net)$/ REJECT ACCESS DENIED. Your email was rejected because the sending mail server does not identify itself correctly (${1})
+```
 
 ## OpenLDAP backend special
 

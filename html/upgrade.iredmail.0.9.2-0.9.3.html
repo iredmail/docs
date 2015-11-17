@@ -31,6 +31,7 @@
 <li><a href="#rhelcentos-7-fix-incorrect-default-firewall-zone-name">[RHEL/CentOS 7] Fix incorrect default firewall zone name</a></li>
 <li><a href="#optional-fixed-not-preserve-the-case-of-extension-while-delivering-message-to-mailbox">[OPTIONAL] Fixed: Not preserve the case of ${extension} while delivering message to mailbox</a></li>
 <li><a href="#optional-update-one-fail2ban-filter-regular-expression-to-catch-postscreen-log">[OPTIONAL] Update one Fail2ban filter regular expression to catch postscreen log</a></li>
+<li><a href="#optional-remove-one-non-spam-helo-identity-in-postfix-helo-restriction">[OPTIONAL] Remove one non-spam HELO identity in Postfix helo restriction</a></li>
 </ul>
 </li>
 <li><a href="#openldap-backend-special">OpenLDAP backend special</a><ul>
@@ -61,6 +62,8 @@
 <p>We offer remote upgrade service, check <a href="../support.html">the price</a> and <a href="../contact.html">contact us</a>.</p>
 </blockquote>
 <ul>
+<li>2015-11-17: [OPTIONAL] Remove one non-spam HELO identity in Postfix helo restriction</li>
+<li>2015-11-17: [OPTIONAL] Update one Fail2ban filter regular expression to catch postscreen log</li>
 <li>2015-11-03: SOGo: enable isolated per-domain global address book.</li>
 <li>2015-10-08: OpenLDAP: Fix improper ACL control.</li>
 <li>2015-09-28: SOGo: cron jobs which run every minute must be grouped in one job.</li>
@@ -457,6 +460,16 @@ below line under <code>[Definition]</code> section:</p>
 <ul>
 <li>Save your change and restart Postfix service.</li>
 </ul>
+<h3 id="optional-remove-one-non-spam-helo-identity-in-postfix-helo-restriction">[OPTIONAL] Remove one non-spam HELO identity in Postfix helo restriction</h3>
+<p>iRedMail ships a Postfix HELO rule file, <code>/etc/postfix/helo_access.pcre</code>, it
+contains some HELO identities which were treated as spammers by analizing
+Postfix log files, and one of them, <code>bezeqint.net</code> is not spammer and we should
+remove it.</p>
+<p>Please find below line in <code>/etc/postfix/helo_access.pcre</code> (Linux and OpenBSD)
+or <code>/usr/local/etc/postfix/helo_access.pcre</code> (FreeBSD), and remove it.</p>
+<pre><code>/(bezeqint\.net)$/ REJECT ACCESS DENIED. Your email was rejected because the sending mail server does not identify itself correctly (${1})
+</code></pre>
+
 <h2 id="openldap-backend-special">OpenLDAP backend special</h2>
 <h3 id="fixed-improper-acl-control">Fixed: improper ACL control</h3>
 <p>With default OpenLDAP ACL control set by iRedMail, every mail user has
