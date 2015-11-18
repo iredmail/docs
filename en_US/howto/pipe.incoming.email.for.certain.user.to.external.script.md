@@ -10,7 +10,7 @@ config file `/etc/postfix/master.cf`:
 
 ```
 external-pipe   unix    -   n   n   -   -   pipe
-    flags= user=vmail:vmail argv=/path/to/your/external/script.sh
+    flags=DRhu user=vmail:vmail argv=/path/to/your/external/script.sh
 ```
 
 __Note__:

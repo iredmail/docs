@@ -17,7 +17,7 @@
 as Postfix transport program. Please add below line at the bottom of Postfix
 config file <code>/etc/postfix/master.cf</code>:</p>
 <pre><code>external-pipe   unix    -   n   n   -   -   pipe
-    flags= user=vmail:vmail argv=/path/to/your/external/script.sh
+    flags=DRhu user=vmail:vmail argv=/path/to/your/external/script.sh
 </code></pre>
 
 <p><strong>Note</strong>:</p>
