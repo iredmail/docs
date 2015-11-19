@@ -197,6 +197,8 @@ Config files:
 * Config files of plugins are placed under plugin directory. for example,
   config file of `password` plugin is `plugins/password/config.inc.php`.
 
+Roundcube is configured to log to [Postfix log](#postfix) file by default.
+
 ## SOGo Groupware
 
 * Main config file is `/etc/sogo/sogo.conf`.
