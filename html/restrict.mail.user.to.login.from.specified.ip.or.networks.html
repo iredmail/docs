@@ -13,6 +13,9 @@
     </div><h1 id="restrict-mail-user-to-login-from-specified-ip-addresses-or-networks">Restrict mail user to login from specified IP addresses or networks</h1>
 <p>Since iRedMail-0.9.1, it's able to restrict mail users to login from specified
 IP addresses or networks.</p>
+<p>Allowed IP/networks must be separated by comma. If the user tries to log in
+elsewhere, the authentication will fail the same way as if a wrong password
+was given.</p>
 <p>Below sample usage shows how to restrict mail user <code>user@domaim.com</code> to login
 from only IP address <code>172.16.244.1</code> or network <code>192.168.1.0/24</code>.</p>
 <h2 id="sql-backends">SQL backends</h2>
