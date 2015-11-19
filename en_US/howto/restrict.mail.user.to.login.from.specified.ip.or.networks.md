@@ -35,6 +35,6 @@ To remove this restriction, just remove attribute `allowNets` for this user.
 # References
 
 * This feature is implemented in iRedMail-0.9.1, and mentioned in iRedMail
-  [upgrade tutorial for iRedMail-0.9.0](./upgrade.iredmail.0.9.0-0.9.1.html]
+  [upgrade tutorial for iRedMail-0.9.0](./upgrade.iredmail.0.9.0-0.9.1.html)
 
 * Dovecot document: [AllowNets](http://wiki2.dovecot.org/PasswordDatabase/ExtraFields/AllowNets)
