@@ -96,10 +96,15 @@ mx.example.com
 
 ## Start iRedMail installer
 
-> For Chinese users: Our domain name "iredmail.org" is blocked in China mainland since Jun 04, 2011, please replace all 'iredmail.org' by its IP address "106.187.51.47" (without quotes) in /root/iRedMail-x.y.z/pkgs/get_all.sh BEFORE executing "iRedMail.sh". This is a Linode VPS hosted in Tokyo, Japan.
-
 It's now ready to start iRedMail installer, it will ask you several simple
 questions, that's all steps to setup a full-featured mail server.
+
+> For Chinese users: Our domain name `iredmail.org` is blocked in mainland
+> China since Jun 04, 2011, please run below command with a nearest mirror
+> site. For example: `IREDMAIL_MIRROR='http://42.159.241.31' bash iRedMail.sh`.
+> 
+> * `http://42.159.241.31` is a mirror in mainland China. recommended.
+> * `http://106.187.51.47` is a Linode VPS hosted in Tokyo, Japan.
 
 ```
 # cd /root/iRedMail-x.y.z/
