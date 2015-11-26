@@ -153,7 +153,7 @@ nameserver 172.16.122.2
 ## Start iRedMail installer
 
 It's now ready to start iRedMail installer inside Jail, it will ask you several simple
-questions, that's all steps to setup a full-featured mail server.
+questions, that's all required to setup a full-featured mail server.
 
 > For Chinese users: Our domain name `iredmail.org` is blocked in mainland
 > China since Jun 04, 2011, please run below command with a nearest mirror
