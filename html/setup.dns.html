@@ -40,6 +40,7 @@
 <li><a href="#how-to-setup-the-dkim-record">How to setup the DKIM record</a></li>
 </ul>
 </li>
+<li><a href="#optional-register-your-mail-domain-in-google-postmaster-tools">[OPTIONAL] Register your mail domain in Google Postmaster Tools</a></li>
 <li><a href="#references">References</a></li>
 </ul>
 </li>
@@ -262,6 +263,28 @@ some hours to be available.</p>
 <p>If you want to re-generate DKIM key, or need to generate one for new mail
 domain, please check our another tutorial:
 <a href="./sign.dkim.signature.for.new.domain.html">Sign DKIM signature on outgoing emails for new mail domain</a>.</p>
+<h2 id="optional-register-your-mail-domain-in-google-postmaster-tools">[OPTIONAL] Register your mail domain in Google Postmaster Tools</h2>
+<p>Google Postmaster Tools web site: <a href="https://postmaster.google.com">https://postmaster.google.com</a>, and
+<a href="https://support.google.com/mail/answer/6258950">Postmaster Tools FAQs</a>.</p>
+<p>It's very simple: just register your mail domain there, and they'll give you a
+text record for your DNS so that they can validate the ownership of the domain.</p>
+<p>Why use Google Postmaster Tools? Quote from
+<a href="https://support.google.com/mail/answer/6227174">Google Postmaster Tools help page</a>:</p>
+<blockquote>
+<p>If you send a large volume of emails to Gmail users, you can use Postmaster Tools to see:</p>
+<ul>
+<li>If users are marking your emails as spam</li>
+<li>Whether you’re following Gmail's best practices</li>
+<li>Why your emails might not be delivered</li>
+<li>If your emails are being sent securely</li>
+</ul>
+</blockquote>
+<p>It <em><strong>MIGHT</strong></em> also help to get you out of the <code>Junk</code> mailbox.</p>
+<p>If you have trouble in sending email to Gmail (or Google Apps), Google offers
+some information on best practices to ensure that their mail is delivered to
+Gmail users: <a href="https://support.google.com/mail/answer/81126?hl=en">Bulk Senders Guidelines</a>.</p>
+<p>You may also submit this form to contact Google:
+<a href="https://support.google.com/mail/contact/bulk_send_new?rd=1">Bulk Sender Contact Form</a></p>
 <h2 id="references">References</h2>
 <ul>
 <li><a href="http://en.wikipedia.org/wiki/MX_record">http://en.wikipedia.org/wiki/MX_record</a></li>

@@ -264,6 +264,33 @@ If you want to re-generate DKIM key, or need to generate one for new mail
 domain, please check our another tutorial:
 [Sign DKIM signature on outgoing emails for new mail domain](./sign.dkim.signature.for.new.domain.html).
 
+## [OPTIONAL] Register your mail domain in Google Postmaster Tools
+
+Google Postmaster Tools web site: <https://postmaster.google.com>, and
+[Postmaster Tools FAQs](https://support.google.com/mail/answer/6258950).
+
+It's very simple: just register your mail domain there, and they'll give you a
+text record for your DNS so that they can validate the ownership of the domain.
+
+Why use Google Postmaster Tools? Quote from
+[Google Postmaster Tools help page](https://support.google.com/mail/answer/6227174):
+
+> If you send a large volume of emails to Gmail users, you can use Postmaster Tools to see:
+>
+> * If users are marking your emails as spam
+> * Whether you’re following Gmail's best practices
+> * Why your emails might not be delivered
+> * If your emails are being sent securely
+
+It *__MIGHT__* also help to get you out of the `Junk` mailbox.
+
+If you have trouble in sending email to Gmail (or Google Apps), Google offers
+some information on best practices to ensure that their mail is delivered to
+Gmail users: [Bulk Senders Guidelines](https://support.google.com/mail/answer/81126?hl=en).
+
+You may also submit this form to contact Google:
+[Bulk Sender Contact Form](https://support.google.com/mail/contact/bulk_send_new?rd=1)
+
 ## References
 
 * [http://en.wikipedia.org/wiki/MX_record](http://en.wikipedia.org/wiki/MX_record)
