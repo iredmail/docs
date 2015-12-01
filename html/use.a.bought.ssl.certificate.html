@@ -21,6 +21,7 @@
 <li><a href="#apache-web-server">Apache (web server)</a></li>
 <li><a href="#nginx-web-server">Nginx (web server)</a></li>
 <li><a href="#openldap">OpenLDAP</a></li>
+<li><a href="#mysql-mariadb">MySQL, MariaDB</a></li>
 </ul>
 </li>
 <li><a href="#reference">Reference</a></li>
@@ -166,6 +167,10 @@ certificates in the combined file:</p>
 
 <p>Restarting Nginx service is required.</p>
 <h3 id="openldap">OpenLDAP</h3>
+<blockquote>
+<p>If OpenLDAP is listening on localhost and not accessible from external
+network, this could be optional setup.</p>
+</blockquote>
 <ul>
 <li>On Red Hat and CentOS, it's defined in <code>/etc/openldap/slapd.conf</code>.</li>
 <li>On Debian and Ubuntu, it's defined in <code>/etc/ldap/slapd.conf</code>.</li>
@@ -178,6 +183,27 @@ TLSCertificateKeyFile /etc/pki/tls/private/server.key
 </code></pre>
 
 <p>Restarting OpenLDAP service is required.</p>
+<h3 id="mysql-mariadb">MySQL, MariaDB</h3>
+<blockquote>
+<p>If MySQL/MariaDB is listening on localhost and not accessible from external
+network, this could be optional setup.</p>
+</blockquote>
+<ul>
+<li>On Red Hat and CentOS, it's defined in <code>/etc/my.cnf</code></li>
+<li>On Debian and Ubuntu, it's defined in <code>/etc/mysql/my.cnf</code>.<ul>
+<li>Since Ubuntu 15.04, it's defined in <code>/etc/mysql/mariadb.conf.d/mysqld.cnf</code>.</li>
+</ul>
+</li>
+<li>On FreeBSD, it's defined in <code>/usr/local/etc/my.cnf</code>.</li>
+<li>On OpenBSD, it's defined in <code>/etc/my.cnf</code>.</li>
+</ul>
+<pre><code>[mysqld]
+
+ssl-ca = /etc/pki/tls/certs/server.ca-bundle
+ssl-cert = /etc/pki/tls/certs/server.crt
+ssl-key = /etc/pki/tls/private/server.key
+</code></pre>
+
 <h2 id="reference">Reference</h2>
 <ul>
 <li><a href="http://nginx.org/en/docs/http/configuring_https_servers.html">Configuring HTTPS servers</a></li>

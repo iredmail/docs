@@ -163,6 +163,9 @@ Restarting Nginx service is required.
 
 ### OpenLDAP
 
+> If OpenLDAP is listening on localhost and not accessible from external
+> network, this could be optional setup.
+
 * On Red Hat and CentOS, it's defined in `/etc/openldap/slapd.conf`.
 * On Debian and Ubuntu, it's defined in `/etc/ldap/slapd.conf`.
 * On FreeBSD, it's defined in `/usr/local/etc/openldap/slapd.conf`.
@@ -175,6 +178,25 @@ TLSCertificateKeyFile /etc/pki/tls/private/server.key
 ```
 
 Restarting OpenLDAP service is required.
+
+### MySQL, MariaDB
+
+> If MySQL/MariaDB is listening on localhost and not accessible from external
+> network, this could be optional setup.
+
+* On Red Hat and CentOS, it's defined in `/etc/my.cnf`
+* On Debian and Ubuntu, it's defined in `/etc/mysql/my.cnf`.
+    * Since Ubuntu 15.04, it's defined in `/etc/mysql/mariadb.conf.d/mysqld.cnf`.
+* On FreeBSD, it's defined in `/usr/local/etc/my.cnf`.
+* On OpenBSD, it's defined in `/etc/my.cnf`.
+
+```
+[mysqld]
+
+ssl-ca = /etc/pki/tls/certs/server.ca-bundle
+ssl-cert = /etc/pki/tls/certs/server.crt
+ssl-key = /etc/pki/tls/private/server.key
+```
 
 ## Reference
 
