@@ -1,0 +1,41 @@
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Turn on debug mode in Roundcube webmail</title>
+        <link rel="stylesheet" type="text/css" href="./css/markdown.css" />
+    </head>
+    <body>
+    
+    <div id="navigation">
+        <a href="http://www.iredmail.org" target="_blank">iRedMail web site</a>
+    
+        // <a href="./index.html">Document Index</a>
+    </div><h1 id="turn-on-debug-mode-in-roundcube-webmail">Turn on debug mode in Roundcube webmail</h1>
+<p>Please follow the tutorial to find Roundcube config file
+(<code>config/config.inc.php</code>) first: 
+<a href="./file.locations.html#roundcube-webmail">Locations of configuration and log files of mojor components</a></p>
+<p>Then add below settings in <code>config/config.inc.php</code>:</p>
+<pre><code>// system error reporting, sum of: 1 = log; 4 = show
+$config['debug_level'] = 1;
+
+// Log SQL queries
+$config['sql_debug'] = true;
+
+// Log IMAP conversation
+$config['imap_debug'] = true;
+
+// Log LDAP conversation
+$config['ldap_debug'] = true;
+
+// Log SMTP conversation
+$config['smtp_debug'] = true;
+</code></pre><p style="text-align: center; color: grey;">Document published under a <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">CC BY-ND 3.0</a> license. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-3293801-21', 'auto');
+  ga('send', 'pageview');
+</script>
+</body></html>

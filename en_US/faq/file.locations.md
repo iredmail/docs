@@ -187,6 +187,11 @@ Roundcube webmail is installed under below directory by default:
 
 Config files:
 
+> Roundcube stores all default settings in `config/defaults.inc.php`, please do
+> not modify it, instead, you should copy the settings you want to modify from
+> `config/defaults.inc.php` to `config/config.inc.php`, then modify the one in
+> `config/config.inc.php`.
+
 * Main config file is `config/config.inc.php` under Roundcube webmail
   directory.
 

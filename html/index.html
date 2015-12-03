@@ -8,10 +8,7 @@
     
     <div id="navigation">
         <a href="http://www.iredmail.org" target="_blank">iRedMail web site</a>
-    </div><p>If you cannot find an answer, feel free to <a href="../contact.html">ask us to write one</a>.
-All articles are written in Markdown format, you can download them for offline
-reading, contribute new articles or update existing ones in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket
-repository</a>.</p>
+    </div><p>All documents are available in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket repository</a>.</p>
 <h3 id="overview">Overview</h3>
 <ul>
 <li><a href="./why.build.your.own.mail.server.html">Why build your own mail server instead of outsourcing to external entities</a></li>
@@ -47,13 +44,17 @@ repository</a>.</p>
 </li>
 </ul>
 <h3 id="configure-mail-client-applications">Configure mail client applications</h3>
-<p>If you're using different mail clients, please help write documents to guide other users to setup the mail clients.</p>
+<blockquote>
+<p>POP3 service: port 110 over TLS (recommended), or port 995 with SSL.</p>
+<p>IMAP service: port 143 over TLS (recommended), or port 993 with SSL.</p>
+<p>SMTP service: port 587 over TLS.</p>
+</blockquote>
 <ul>
 <li><a href="activesync.android.html">Exchange ActiveSync: Setup Android devices</a></li>
 <li><a href="activesync.bb10.html">Exchange ActiveSync: Setup BlackBerry 10 devices</a></li>
 <li><a href="activesync.ios.html">Exchange ActiveSync: Setup iOS devices</a></li>
 <li><a href="activesync.outlook.html">Exchange ActiveSync: Setup Outlook 2013 for Windows</a></li>
-<li><a href="configure.thunderbird.html">Configure Thunderbird as mail client (POP3/IMAP, SMTP and global ldap address book)</a></li>
+<li><a href="configure.thunderbird.html">Setup Thunderbird: POP3/IMAP, SMTP and global ldap address book</a></li>
 <li><a href="sogo.macosx.contacts.html">Mac OS X: Add contact service (CardDAV) in Contacts.app</a></li>
 <li><a href="sogo.macosx.icalendar.html">Mac OS X: Add calendar (CalDAV) and task (Reminders) service in iCalendar.app</a></li>
 </ul>
@@ -153,6 +154,7 @@ repository</a>.</p>
 <li><a href="debug.iredapd.html">Turn on debug mode in iRedAPD</a></li>
 <li><a href="debug.mysql.html">Log executed SQL commands in MySQL/MariaDB</a></li>
 <li><a href="debug.openldap.html">Turn on debug mode in OpenLDAP</a></li>
+<li><a href="debug.roundcubemail.html">Turn on debug mode in Roundcube webmail</a></li>
 </ul>
 <h3 id="frequently-asked-questions">Frequently Asked Questions</h3>
 <ul>

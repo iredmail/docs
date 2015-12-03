@@ -8,6 +8,8 @@ __This is still a DRAFT document, do NOT apply it.__
 
 > We offer remote upgrade service, check [the price](../support.html) and [contact us](../contact.html).
 
+* 2015-12-03: Web server: Enable HSTS (HTTP Strict Transport Security) support
+* 2015-12-01: SOGo: Fix improper settings in Apache/Nginx config file
 * 2015-11-17: [OPTIONAL] Remove one non-spam HELO identity in Postfix helo restriction
 * 2015-11-17: [OPTIONAL] Update one Fail2ban filter regular expression to catch postscreen log
 * 2015-11-03: SOGo: enable isolated per-domain global address book.
@@ -244,7 +246,7 @@ Restart Dovecot service is required.
 It's recommended to setup a daily cron job to keep Roundcube SQL database slick
 and clean, it removes all records that are marked as deleted.
 
-Please add cron job for user `root` with command:
+Please edit `root`'s cron job with command below:
 ```
 # crontab -e -u root
 ```
@@ -266,7 +268,8 @@ Then add cron job below:
 ```
 
 __WARNING__: with old iRedMail release, Roundcube directory is
-`/usr/share/apache2/roundcubemail`, please use the correct one on your server.
+`/usr/share/apache2/roundcubemail`, please make sure you're using the correct
+one on your server.
 
 * FreeBSD:
 
@@ -280,6 +283,83 @@ __WARNING__: with old iRedMail release, Roundcube directory is
 ```
 # Cleanup Roundcube SQL database.
 2   2   *   *   *   php /var/www/roundcubemail/bin/cleandb.sh >/dev/null
+```
+
+### Web server: Enable HSTS (HTTP Strict Transport Security) support
+
+HTTP Strict Transport Security (often abbreviated as HSTS) is a security
+feature that lets a web site tell browsers that it should only be communicated
+with using HTTPS, instead of using HTTP.
+
+For more details, please read this article:
+[HTTP Strict Transport Security](https://developer.mozilla.org/en-US/docs/Web/Security/HTTP_strict_transport_security)
+
+<h4>Apache</h4>
+
+For Apache, please edit its config file which manages SSL related settings,
+and append below settings right after `SSLEngine on` line:
+
+* On RHEL/CentOS, it's `/etc/httpd/conf.d/ssl.conf`.
+* On Debian/Ubuntu, it's `/etc/apache2/sites-enabled/default-ssl` or `default-ssl.conf`.
+* On FreeBSD: it's `/usr/local/etc/apache24/extra/httpd-ssl.conf`.
+
+```
+# Use HTTP Strict Transport Security to force client to use secure connections only.
+# Reference:
+# https://developer.mozilla.org/en-US/docs/Web/Security/HTTP_strict_transport_security
+# Module mod_headers is required. 15768000 seconds = 6 months.
+Header always set Strict-Transport-Security "max-age=15768000; includeSubdomains"
+```
+
+<h4>Nginx</h4>
+
+For Nginx, please edit its config file which manages SSL related settings,
+and append below settings right after `ssl on` line:
+
+* On Linux and OpenBSD, it's `/etc/nginx/conf.d/default.conf`.
+* On FreeBSD, it's `/usr/local/etc/nginx/conf.d/default.conf`.
+
+```
+# Use HTTP Strict Transport Security to force client to use secure connections only.
+# Reference:
+# https://developer.mozilla.org/en-US/docs/Web/Security/HTTP_strict_transport_security
+add_header Strict-Transport-Security "max-age=15768000; includeSubdomains";
+```
+
+### SOGo: Fix improper settings in Apache/Nginx config file
+
+iRedMail-0.9.2 has improper settings in Apache/Nginx config files, when you
+try to view attachment in email, it will redirect the URL to
+`https://127.0.0.1/...`.
+
+<h4>Apache</h4>
+
+For Apache: Please make sure below settings are commented out in Apache
+config file, then restart Apache service.
+
+* On RHEL/CentOS, it's `/etc/httpd/conf.d/SOGo.conf`.
+* On Debian/Ubuntu, it's `/etc/apache2/conf-available/SOGo.conf`.
+* FreeBSD: iRedMail-0.9.2 and earlier releases doesn't support SOGo
+  on FreeBSD, so it's not appliable on FreeBSD.
+
+```
+#RequestHeader set "x-webobjects-server-port" "443"
+#RequestHeader set "x-webobjects-server-name" "yourhostname"
+#RequestHeader set "x-webobjects-server-url" "https://yourhostname"
+```
+
+<h4>Nginx</h4>
+
+For Nginx: Please make sure below settings are commented out in Nginx config
+file, then restart or reload Nginx service.
+
+* On Linux and OpenBSD, it's `/etc/nginx/conf.d/default.conf`.
+* On FreeBSD, it's `/usr/local/etc/nginx/conf.d/default.conf`.
+
+```
+#proxy_set_header x-webobjects-remote-host 127.0.0.1;
+#proxy_set_header x-webobjects-server-name $server_name;
+#proxy_set_header x-webobjects-server-url $scheme://$host;
 ```
 
 ### SOGo: The Dovecot Master User used by SOGo doesn't work due to incorrect username.
@@ -689,7 +769,7 @@ Please follow steps below to create required SQL columns:
 # su - postgres
 $ psql -d vmail
 sql> ALTER TABLE alias ADD COLUMN is_alias INT2 NOT NULL DEFAULT 0;
-sql> ALTER TABLE alias ADD COLUMN alias_to alias_to VARCHAR(255) NOT NULL DEFAULT '';
+sql> ALTER TABLE alias ADD COLUMN alias_to VARCHAR(255) NOT NULL DEFAULT '';
 sql> CREATE INDEX idx_alias_is_alias ON alias (is_alias);
 sql> CREATE INDEX idx_alias_alias_to ON alias (alias_to);
 ```
