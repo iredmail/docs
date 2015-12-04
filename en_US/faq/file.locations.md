@@ -159,7 +159,7 @@ Init script:
 
 * RHEL/CentOS: `/etc/init.d/cbpolicyd`
 * Debian/Ubuntu: `/etc/init.d/postfix-cluebringer`
-* FreeBSD: `/usr/local/etc/rc.d/cluebringer`
+* FreeBSD: `/usr/local/etc/rc.d/policyd2`
 * OpenBSD: N/A. we don't have Cluebringer installed on OpenBSD.
 
 ## Fail2ban

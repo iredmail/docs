@@ -1,0 +1,152 @@
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Migrate from Cluebringer to iRedAPD</title>
+        <link rel="stylesheet" type="text/css" href="./css/markdown.css" />
+    </head>
+    <body>
+    
+    <div id="navigation">
+        <a href="http://www.iredmail.org" target="_blank">iRedMail web site</a>
+    
+        // <a href="./index.html">Document Index</a>
+    </div><h1 id="migrate-from-cluebringer-to-iredapd">Migrate from Cluebringer to iRedAPD</h1>
+<div class="toc">
+<ul>
+<li><a href="#migrate-from-cluebringer-to-iredapd">Migrate from Cluebringer to iRedAPD</a><ul>
+<li><a href="#summary">Summary</a></li>
+<li><a href="#migrate-to-iredapd">Migrate to iRedAPD</a><ul>
+<li><a href="#upgrade-iredapd-to-170-or-later-releases">Upgrade iRedAPD to 1.7.0 or later releases</a></li>
+<li><a href="#migrate-cluebringer-to-iredapd">Migrate Cluebringer to iRedAPD</a></li>
+<li><a href="#after-migration">After migration</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<h2 id="summary">Summary</h2>
+<p>iRedMail-0.9.3 and later releases drop Cluebringer, and replace it by iRedAPD,
+because:</p>
+<ul>
+<li>Cluebringer is not under active development anymore.</li>
+<li>No new Cluebringer release since 2013 (the latest stable release doesn't
+  support IPv6).</li>
+<li>Cluebringer is not available in Debian (jessie) official repositories
+  anymore, developers didn't bring it back.</li>
+</ul>
+<p>Not all Cluebringer features are implemented in iRedAPD, but the most important
+2 features have been implemented:</p>
+<ul>
+<li>throttling</li>
+<li>greylisting</li>
+</ul>
+<p>If you need other Cluebringer features, please stay with Cluebringer and let
+us know which features you need, so that we can implement it in future release
+of iRedAPD.</p>
+<h2 id="migrate-to-iredapd">Migrate to iRedAPD</h2>
+<h3 id="upgrade-iredapd-to-170-or-later-releases">Upgrade iRedAPD to 1.7.0 or later releases</h3>
+<p>Please Make sure you're running iRedAPD-1.7.0 or later release, you can check
+the version number with command below:</p>
+<pre><code>grep '__version__' /opt/iredapd/libs/__init__.py
+</code></pre>
+
+<p>If you're not running iRedAPD-1.7.0 or later release, please follow our
+tutorial to upgrade it: <a href="./upgrade.iredapd.html">Upgrade iRedAPD</a>.</p>
+<h3 id="migrate-cluebringer-to-iredapd">Migrate Cluebringer to iRedAPD</h3>
+<p>iRedAPD-1.7.0 and later release ship two scripts to migrate greylisting and
+throttling settings from Cluebringer:</p>
+<ul>
+<li><code>/opt/iredapd/tools/migrate_cluebringer_greylisting.py</code>: used to migrate
+  greylisting settings.</li>
+<li><code>/opt/iredapd/tools/migrate_cluebringer_throttle.py</code>: used to migrate
+  throttling settings.</li>
+</ul>
+<p>Please open above two files, update below parameters with correct SQL server
+address, port, database name, username and password for your existing
+Cluebringer database. You can find them in files below:</p>
+<ul>
+<li>On RHEL/CentOS, it's <code>/etc/policyd/cluebringer.conf</code>.</li>
+<li>Debian/Ubuntu: it's <code>/etc/cluebringer/cluebringer.conf</code>.</li>
+<li>FreeBSD: it's <code>/usr/local/etc/cluebringer.conf</code>.</li>
+<li>OpenBSD: Not applicable, cluebringer is not available on OpenBSD.</li>
+</ul>
+<pre><code>cluebringer_db_host = '127.0.0.1'
+cluebringer_db_port = 3306
+cluebringer_db_name = 'cluebringer'
+cluebringer_db_user = 'root'
+cluebringer_db_password = ''
+</code></pre>
+
+<p>Then run below commands to migrate greylisting and throttling settings:</p>
+<pre><code># cd /opt/iredapd/tools/
+# python migrate_cluebringer_greylisting.py
+# python migrate_cluebringer_throttle.py
+</code></pre>
+
+<p>That's it.</p>
+<h3 id="after-migration">After migration</h3>
+<p>After migrated to iRedAPD, we need to update Postfix config file
+<code>/etc/postfix/main.cf</code> (Linux) or <code>/usr/local/etc/postfix/main.cf</code> (FreeBSD)
+to remove Cluebringer settings:</p>
+<ul>
+<li>Remove all <code>check_policy_service inet:127.0.0.1:10031</code> in <code>main.cf</code>, like below:</li>
+</ul>
+<pre><code>smtpd_recipient_restrictions =
+    reject_unknown_recipient_domain
+    reject_non_fqdn_recipient
+    reject_unlisted_recipient
+    check_policy_service inet:127.0.0.1:7777
+    check_policy_service inet:127.0.0.1:10031       # &lt;- Remove this line
+    permit_mynetworks
+    permit_sasl_authenticated
+    reject_unauth_destination
+
+smtpd_end_of_data_restrictions =
+    check_policy_service inet:127.0.0.1:7777
+    check_policy_service inet:127.0.0.1:10031       # &lt;- Remove this line
+</code></pre>
+
+<ul>
+<li>
+<p>Restart Postfix service:</p>
+<ul>
+<li>On Linux/FreeBSD: <code># service postfix restart</code></li>
+<li>On OpenBSD: <code># /etc/rc.d/postfix restart</code></li>
+</ul>
+</li>
+<li>
+<p>Stop Cluebringer service, and optionally, remove cluebringer packages.</p>
+<ul>
+<li>On RHEL/CentOS:
+  <code># service cbpolicyd stop &amp;&amp; yum remove cluebringer</code></li>
+<li>On Debian/Ubuntu:
+  <code># service postfix-cluebringer stop &amp;&amp; apt-get remove --purge postfix-cluebringer</code></li>
+<li>On FreeBSD:
+  <code># service policyd2 stop &amp;&amp; cd /usr/ports/mail/policyd2/ &amp;&amp; make deinstall</code></li>
+</ul>
+</li>
+<li>
+<p>Edit root user's cron job, remove the one used to clean up Cluebringer SQL
+  database:</p>
+<ul>
+<li>Run command to edit root user's cron job: <code># crontab -e -u root</code></li>
+<li>Find cron job like below, remove it or comment out it:</li>
+</ul>
+</li>
+</ul>
+<pre><code>3   3   *   *   *   /usr/sbin/cbpadmin --config=/etc/policyd/cluebringer.conf --cleanup &gt;/dev/null
+</code></pre>
+
+<ul>
+<li>Optionally, you can drop its SQL database <code>cluebringer</code> also.</li>
+</ul><p style="text-align: center; color: grey;">Document published under a <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">CC BY-ND 3.0</a> license. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-3293801-21', 'auto');
+  ga('send', 'pageview');
+</script>
+</body></html>

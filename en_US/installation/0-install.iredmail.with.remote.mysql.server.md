@@ -100,13 +100,13 @@ installer with below command instead of the original one (`bash iRedMail.sh`):
 
 > WARNING:
 >
-> * The variable names (`MYSQL_SERVER`, `MYSQL_ROOT_USER`, `MYSQL_GRANT_HOST`)
->   are __CASE SENSITIVE__.
-> * With iRedMail-0.9.3 and later releases, it's `MYSQL_SERVER_ADDRESS`, not
->   `MYSQL_SERVER`.
+> * The variable names (`MYSQL_SERVER_ADDRESS`, `MYSQL_SERVER_PORT`,
+>   `MYSQL_ROOT_USER`, `MYSQL_GRANT_HOST`) are __CASE SENSITIVE__.
+> * With `iRedMail-0.9.2` and earlier releases, it's `MYSQL_SERVER`, not
+>   `MYSQL_SERVER_ADDRESS`.
 
 ```
-# MYSQL_SERVER='192.168.1.100' MYSQL_ROOT_USER='admin_iredmail' MYSQL_GRANT_HOST='192.168.1.200' bash iRedMail.sh
+# MYSQL_SERVER_ADDRESS='192.168.1.100' MYSQL_SERVER_PORT='3306' MYSQL_ROOT_USER='admin_iredmail' MYSQL_GRANT_HOST='192.168.1.200' bash iRedMail.sh
 ```
 
 It will launch iRedMail installation wizard as usual. When it asks MySQL root
@@ -115,7 +115,8 @@ on remote MySQL server.
 
 Parameters we used in above command line:
 
-* `MYSQL_SERVER`: Remote MySQL server address.
+* `MYSQL_SERVER_ADDRESS`: Remote MySQL server address.
+* `MYSQL_SERVER_PORT`: Remote MySQL server port. Default is `3306`.
 * `MYSQL_ROOT_USER`: MySQL user name we created on remote MySQL server before installing iRedMail.
 * `MYSQL_GRANT_HOST`: Hostname or IP address of iRedMail server.
 
