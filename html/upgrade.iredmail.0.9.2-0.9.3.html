@@ -355,10 +355,17 @@ add_header Strict-Transport-Security &quot;max-age=15768000; includeSubdomains&q
 </code></pre>
 
 <h3 id="sogo-fix-improper-settings-in-apachenginx-config-file">SOGo: Fix improper settings in Apache/Nginx config file</h3>
-<p>iRedMail-0.9.2 has improper settings in Apache/Nginx config files, when you
-try to view attachment in email, it will redirect the URL to
-<code>https://127.0.0.1/...</code>.</p>
+<p>iRedMail-0.9.2 has improper settings in Apache/Nginx config files:</p>
+<ul>
+<li>when you try to view attachment in email, it will redirect the URL to
+  <code>https://127.0.0.1/...</code>.</li>
+<li>iOS mobile devices will try to access web url
+  <code>https://.../.well-known/carddav</code>, but it's not defined in Apache/Nginx
+  config files.</li>
+</ul>
 <h4>Apache</h4>
+
+<h5>1: Comment out incorrect settings</h5>
 
 <p>For Apache: Please make sure below settings are commented out in Apache
 config file, then restart Apache service.</p>
@@ -373,7 +380,21 @@ config file, then restart Apache service.</p>
 #RequestHeader set &quot;x-webobjects-server-url&quot; &quot;https://yourhostname&quot;
 </code></pre>
 
+<h5>2: Redirect `/.well-known/carddav` access to SOGo</h5>
+
+<p>Find below line in <code>SOGo.conf</code>:</p>
+<pre><code>  RewriteRule ^/.well-known/caldav/?$ /SOGo/dav [R=301]
+</code></pre>
+
+<p>Add a new line right after above line:</p>
+<pre><code>  RewriteRule ^/.well-known/caldav/?$ /SOGo/dav [R=301]
+  RewriteRule ^/.well-known/carddav/?$ /SOGo/dav [R=301]
+</code></pre>
+
+<p>Restarting Apache service is required.</p>
 <h4>Nginx</h4>
+
+<h5>1: Comment out incorrect settings</h5>
 
 <p>For Nginx: Please make sure below settings are commented out in Nginx config
 file, then restart or reload Nginx service.</p>
@@ -386,6 +407,18 @@ file, then restart or reload Nginx service.</p>
 #proxy_set_header x-webobjects-server-url $scheme://$host;
 </code></pre>
 
+<h5>2: Redirect `/.well-known/carddav` access to SOGo</h5>
+
+<p>Find below line in <code>default.conf</code>:</p>
+<pre><code>rewrite ^/.well-known/caldav    /SOGo/dav permanent;
+</code></pre>
+
+<p>Add a new line right after above line:</p>
+<pre><code>rewrite ^/.well-known/caldav    /SOGo/dav permanent;
+rewrite ^/.well-known/carddav   /SOGo/dav permanent;
+</code></pre>
+
+<p>Restarting Nginx service is required.</p>
 <h3 id="sogo-the-dovecot-master-user-used-by-sogo-doesnt-work-due-to-incorrect-username">SOGo: The Dovecot Master User used by SOGo doesn't work due to incorrect username.</h3>
 <p>Note: you can skip this step if you don't run SOGo groupware, and iRedMail
 doesn't install SOGo on FreeBSD due to missing required ports in official ports

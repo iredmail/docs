@@ -328,11 +328,17 @@ add_header Strict-Transport-Security "max-age=15768000; includeSubdomains";
 
 ### SOGo: Fix improper settings in Apache/Nginx config file
 
-iRedMail-0.9.2 has improper settings in Apache/Nginx config files, when you
-try to view attachment in email, it will redirect the URL to
-`https://127.0.0.1/...`.
+iRedMail-0.9.2 has improper settings in Apache/Nginx config files:
+
+* when you try to view attachment in email, it will redirect the URL to
+  `https://127.0.0.1/...`.
+* iOS mobile devices will try to access web url
+  `https://.../.well-known/carddav`, but it's not defined in Apache/Nginx
+  config files.
 
 <h4>Apache</h4>
+
+<h5>1: Comment out incorrect settings</h5>
 
 For Apache: Please make sure below settings are commented out in Apache
 config file, then restart Apache service.
@@ -348,7 +354,26 @@ config file, then restart Apache service.
 #RequestHeader set "x-webobjects-server-url" "https://yourhostname"
 ```
 
+<h5>2: Redirect `/.well-known/carddav` access to SOGo</h5>
+
+Find below line in `SOGo.conf`:
+
+```
+  RewriteRule ^/.well-known/caldav/?$ /SOGo/dav [R=301]
+```
+
+Add a new line right after above line:
+
+```
+  RewriteRule ^/.well-known/caldav/?$ /SOGo/dav [R=301]
+  RewriteRule ^/.well-known/carddav/?$ /SOGo/dav [R=301]
+```
+
+Restarting Apache service is required.
+
 <h4>Nginx</h4>
+
+<h5>1: Comment out incorrect settings</h5>
 
 For Nginx: Please make sure below settings are commented out in Nginx config
 file, then restart or reload Nginx service.
@@ -361,6 +386,23 @@ file, then restart or reload Nginx service.
 #proxy_set_header x-webobjects-server-name $server_name;
 #proxy_set_header x-webobjects-server-url $scheme://$host;
 ```
+
+<h5>2: Redirect `/.well-known/carddav` access to SOGo</h5>
+
+Find below line in `default.conf`:
+
+```
+rewrite ^/.well-known/caldav    /SOGo/dav permanent;
+```
+
+Add a new line right after above line:
+
+```
+rewrite ^/.well-known/caldav    /SOGo/dav permanent;
+rewrite ^/.well-known/carddav   /SOGo/dav permanent;
+```
+
+Restarting Nginx service is required.
 
 ### SOGo: The Dovecot Master User used by SOGo doesn't work due to incorrect username.
 
