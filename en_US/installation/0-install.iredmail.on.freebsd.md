@@ -219,9 +219,10 @@ After installation successfully completed, you can access web-based programs
 if you choose to install them. Replace `your_server` below by your real server
 hostname or IP address.
 
-* __Roundcube webmail__: [https://your_server/mail/](https://your_server/mail/)
-* __Web admin panel (iRedAdmin)__: [httpS://your_server/iredadmin/](httpS://your_server/iredadmin/)
-* __Awstats__: [httpS://your_server/awstats/awstats.pl?config=web](httpS://your_server/awstats/awstats.pl?config=web) (or ?config=smtp)
+* __Roundcube webmail__: <https://your_server/mail/>
+* __SOGo Groupware__: <https://your_server/SOGo>
+* __Web admin panel (iRedAdmin)__: <httpS://your_server/iredadmin/>
+* __Awstats__: <httpS://your_server/awstats/awstats.pl?config=web> (or `?config=smtp` for SMTP log)
 
 ## Get technical support
 
