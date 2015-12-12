@@ -41,17 +41,20 @@
 <li><a href="#fixed-improper-acl-control">Fixed: improper ACL control</a></li>
 <li><a href="#fixed-dovecot-master-user-doesnt-work-with-acl-plugin">Fixed: Dovecot Master User doesn't work with ACL plugin</a></li>
 <li><a href="#add-new-sql-table-outbound_wblist-in-amavisd-database">Add new SQL table outbound_wblist in amavisd database</a></li>
+<li><a href="#add-new-column-delete_date-in-sql-table-iredadmindeleted_mailboxes">Add new column delete_date in SQL table iredadmin.deleted_mailboxes</a></li>
 </ul>
 </li>
 <li><a href="#mysqlmariadb-backend-special">MySQL/MariaDB backend special</a><ul>
 <li><a href="#add-new-sql-columns-in-vmail-database-aliasis_alias-aliasalias_to">Add new SQL columns in vmail database: alias.is_alias, alias.alias_to</a></li>
 <li><a href="#add-new-sql-table-outbound_wblist-in-amavisd-database_1">Add new SQL table outbound_wblist in amavisd database</a></li>
+<li><a href="#add-new-column-delete_date-in-sql-table-vmaildeleted_mailboxes">Add new column delete_date in SQL table vmail.deleted_mailboxes</a></li>
 <li><a href="#optional-sogo-enable-isolated-per-domain-global-address-book">[OPTIONAL] SOGo: enable isolated per-domain global address book</a></li>
 </ul>
 </li>
 <li><a href="#postgresql-backend-special">PostgreSQL backend special</a><ul>
 <li><a href="#add-new-sql-columns-in-vmail-database-aliasis_alias-aliasalias_to_1">Add new SQL columns in vmail database: alias.is_alias, alias.alias_to</a></li>
 <li><a href="#add-new-sql-table-outbound_wblist-in-amavisd-database_2">Add new SQL table outbound_wblist in amavisd database</a></li>
+<li><a href="#add-new-column-delete_date-in-sql-table-vmaildeleted_mailboxes_1">Add new column delete_date in SQL table vmail.deleted_mailboxes</a></li>
 <li><a href="#optional-sogo-enable-isolated-per-domain-global-address-book_1">[OPTIONAL] SOGo: enable isolated per-domain global address book</a></li>
 </ul>
 </li>
@@ -65,6 +68,9 @@
 <p>We offer remote upgrade service, check <a href="../support.html">the price</a> and <a href="../contact.html">contact us</a>.</p>
 </blockquote>
 <ul>
+<li>2015-12-12: Add new column <code>delete_date</code> in SQL table
+              <code>iredadmin.deleted_mailboxes</code> (LDAP backends) or
+              <code>vmail.deleted_mailboxes</code> (SQL backends).</li>
 <li>2015-12-12: [OPTIONAL] Postfix: Remove one non-spam HELO identity in helo restriction</li>
 <li>2015-12-03: Web server: Enable HSTS (HTTP Strict Transport Security) support</li>
 <li>2015-12-01: SOGo: Fix improper settings in Apache/Nginx config file</li>
@@ -691,6 +697,18 @@ mysql&gt; CREATE TABLE outbound_wblist (rid integer unsigned NOT NULL, sid integ
 </code></pre>
 
 <p>After table created, please restart iRedAPD service.</p>
+<h3 id="add-new-column-delete_date-in-sql-table-iredadmindeleted_mailboxes">Add new column <code>delete_date</code> in SQL table <code>iredadmin.deleted_mailboxes</code></h3>
+<p>We need a SQL column to store the date we schedule to delete the mailbox after
+removing mail account. This new column might be used by iRedAdmin and other
+scripts used to delete mailboxes.</p>
+<p>Please connect to MySQL server as MySQL root user, create new table:</p>
+<pre><code>$ mysql -uroot -p
+sql&gt; USE iredadmin;
+sql&gt; ALTER TABLE deleted_mailbox ADD COLUMN delete_date DATE NOT NULL DEFAULT '0000-00-00';
+sql&gt; CREATE INDEX idx_delete_date ON deleted_mailboxes (delete_date);
+</code></pre>
+
+<p>That's it.</p>
 <h2 id="mysqlmariadb-backend-special">MySQL/MariaDB backend special</h2>
 <h3 id="add-new-sql-columns-in-vmail-database-aliasis_alias-aliasalias_to">Add new SQL columns in <code>vmail</code> database: <code>alias.is_alias</code>, <code>alias.alias_to</code></h3>
 <p>iRedMail-0.9.3 offers per-user alias address support, that means mail user
@@ -743,6 +761,17 @@ mysql&gt; CREATE TABLE outbound_wblist (rid integer unsigned NOT NULL, sid integ
 </code></pre>
 
 <p>After table created, please restart iRedAPD service.</p>
+<h3 id="add-new-column-delete_date-in-sql-table-vmaildeleted_mailboxes">Add new column <code>delete_date</code> in SQL table <code>vmail.deleted_mailboxes</code></h3>
+<p>We need a SQL column to store the date we schedule to delete the mailbox after
+removing mail account. This new column might be used by iRedAdmin and other
+scripts used to delete mailboxes.</p>
+<p>Please connect to MySQL server as MySQL root user, create new table:</p>
+<pre><code>$ mysql -uroot -p
+sql&gt; USE vmail;
+sql&gt; ALTER TABLE deleted_mailbox ADD COLUMN delete_date DATE NOT NULL DEFAULT '0000-00-00';
+sql&gt; CREATE INDEX idx_delete_date ON deleted_mailboxes (delete_date);
+</code></pre>
+
 <h3 id="optional-sogo-enable-isolated-per-domain-global-address-book">[OPTIONAL] SOGo: enable isolated per-domain global address book</h3>
 <p>iRedMail doesn't enable global address book by default, this step will help
 you enable isolated per-domain global address book.</p>
@@ -828,16 +857,34 @@ sql&gt; INSERT INTO alias (address, goto, is_alias, alias_to, domain)
 to store white/blacklists for outbound message, required by iRedAPD plugin
 <code>amavisd_wblist</code>.</p>
 <p>Please switch to PostgreSQL daemon user, then execute SQL commands to import it:</p>
-<pre><code>* On Linux, PostgreSQL daemon user is `postgres`.
-* On FreeBSD, PostgreSQL daemon user is `pgsql`.
-* On OpenBSD, PostgreSQL daemon user is `_postgresql`.
-</code></pre>
+<ul>
+<li>On Linux, PostgreSQL daemon user is <code>postgres</code>.</li>
+<li>On FreeBSD, PostgreSQL daemon user is <code>pgsql</code>.</li>
+<li>On OpenBSD, PostgreSQL daemon user is <code>_postgresql</code>.</li>
+</ul>
 <pre><code># su - postgres
 $ psql -d cluebringer -d amavisd
 sql&gt; CREATE TABLE outbound_wblist (rid integer NOT NULL CHECK (rid &gt;= 0), sid integer NOT NULL CHECK (sid &gt;= 0), wb varchar(10) NOT NULL, PRIMARY KEY (rid,sid));
 </code></pre>
 
 <p>After table created, please restart iRedAPD service.</p>
+<h3 id="add-new-column-delete_date-in-sql-table-vmaildeleted_mailboxes_1">Add new column <code>delete_date</code> in SQL table <code>vmail.deleted_mailboxes</code></h3>
+<p>We need a SQL column to store the date we schedule to delete the mailbox after
+removing mail account. This new column might be used by iRedAdmin and other
+scripts used to delete mailboxes.</p>
+<p>Please switch to PostgreSQL daemon user, then execute SQL commands to import it:</p>
+<ul>
+<li>On Linux, PostgreSQL daemon user is <code>postgres</code>.</li>
+<li>On FreeBSD, PostgreSQL daemon user is <code>pgsql</code>.</li>
+<li>On OpenBSD, PostgreSQL daemon user is <code>_postgresql</code>.</li>
+</ul>
+<pre><code># su - postgres
+$ psql -d vmail
+sql&gt; ALTER TABLE deleted_mailbox ADD COLUMN delete_date DATE NOT NULL DEFAULT '0000-00-00';
+sql&gt; CREATE INDEX idx_delete_date ON deleted_mailboxes (delete_date);
+</code></pre>
+
+<p>That's it.</p>
 <h3 id="optional-sogo-enable-isolated-per-domain-global-address-book_1">[OPTIONAL] SOGo: enable isolated per-domain global address book</h3>
 <p>iRedMail doesn't enable global address book by default, this step will help
 you enable isolated per-domain global address book.</p>

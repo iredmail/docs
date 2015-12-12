@@ -8,6 +8,9 @@ __This is still a DRAFT document, do NOT apply it.__
 
 > We offer remote upgrade service, check [the price](../support.html) and [contact us](../contact.html).
 
+* 2015-12-12: Add new column `delete_date` in SQL table
+              `iredadmin.deleted_mailboxes` (LDAP backends) or
+              `vmail.deleted_mailboxes` (SQL backends).
 * 2015-12-12: [OPTIONAL] Postfix: Remove one non-spam HELO identity in helo restriction
 * 2015-12-03: Web server: Enable HSTS (HTTP Strict Transport Security) support
 * 2015-12-01: SOGo: Fix improper settings in Apache/Nginx config file
@@ -720,6 +723,23 @@ mysql> CREATE TABLE outbound_wblist (rid integer unsigned NOT NULL, sid integer 
 
 After table created, please restart iRedAPD service.
 
+### Add new column `delete_date` in SQL table `iredadmin.deleted_mailboxes`
+
+We need a SQL column to store the date we schedule to delete the mailbox after
+removing mail account. This new column might be used by iRedAdmin and other
+scripts used to delete mailboxes.
+
+Please connect to MySQL server as MySQL root user, create new table:
+
+```
+$ mysql -uroot -p
+sql> USE iredadmin;
+sql> ALTER TABLE deleted_mailbox ADD COLUMN delete_date DATE NOT NULL DEFAULT '0000-00-00';
+sql> CREATE INDEX idx_delete_date ON deleted_mailboxes (delete_date);
+```
+
+That's it.
+
 ## MySQL/MariaDB backend special
 
 ### Add new SQL columns in `vmail` database: `alias.is_alias`, `alias.alias_to`
@@ -779,6 +799,21 @@ mysql> CREATE TABLE outbound_wblist (rid integer unsigned NOT NULL, sid integer 
 ```
 
 After table created, please restart iRedAPD service.
+
+### Add new column `delete_date` in SQL table `vmail.deleted_mailboxes`
+
+We need a SQL column to store the date we schedule to delete the mailbox after
+removing mail account. This new column might be used by iRedAdmin and other
+scripts used to delete mailboxes.
+
+Please connect to MySQL server as MySQL root user, create new table:
+
+```
+$ mysql -uroot -p
+sql> USE vmail;
+sql> ALTER TABLE deleted_mailbox ADD COLUMN delete_date DATE NOT NULL DEFAULT '0000-00-00';
+sql> CREATE INDEX idx_delete_date ON deleted_mailboxes (delete_date);
+```
 
 ### [OPTIONAL] SOGo: enable isolated per-domain global address book
 
@@ -881,9 +916,9 @@ to store white/blacklists for outbound message, required by iRedAPD plugin
 
 Please switch to PostgreSQL daemon user, then execute SQL commands to import it:
 
-    * On Linux, PostgreSQL daemon user is `postgres`.
-    * On FreeBSD, PostgreSQL daemon user is `pgsql`.
-    * On OpenBSD, PostgreSQL daemon user is `_postgresql`.
+* On Linux, PostgreSQL daemon user is `postgres`.
+* On FreeBSD, PostgreSQL daemon user is `pgsql`.
+* On OpenBSD, PostgreSQL daemon user is `_postgresql`.
 
 ```
 # su - postgres
@@ -893,6 +928,26 @@ sql> CREATE TABLE outbound_wblist (rid integer NOT NULL CHECK (rid >= 0), sid in
 
 After table created, please restart iRedAPD service.
 
+### Add new column `delete_date` in SQL table `vmail.deleted_mailboxes`
+
+We need a SQL column to store the date we schedule to delete the mailbox after
+removing mail account. This new column might be used by iRedAdmin and other
+scripts used to delete mailboxes.
+
+Please switch to PostgreSQL daemon user, then execute SQL commands to import it:
+
+* On Linux, PostgreSQL daemon user is `postgres`.
+* On FreeBSD, PostgreSQL daemon user is `pgsql`.
+* On OpenBSD, PostgreSQL daemon user is `_postgresql`.
+
+```
+# su - postgres
+$ psql -d vmail
+sql> ALTER TABLE deleted_mailbox ADD COLUMN delete_date DATE NOT NULL DEFAULT '0000-00-00';
+sql> CREATE INDEX idx_delete_date ON deleted_mailboxes (delete_date);
+```
+
+That's it.
 ### [OPTIONAL] SOGo: enable isolated per-domain global address book
 
 iRedMail doesn't enable global address book by default, this step will help
