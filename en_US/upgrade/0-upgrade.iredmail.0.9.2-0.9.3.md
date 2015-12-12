@@ -8,10 +8,11 @@ __This is still a DRAFT document, do NOT apply it.__
 
 > We offer remote upgrade service, check [the price](../support.html) and [contact us](../contact.html).
 
+* 2015-12-12: [OPTIONAL] Postfix: Remove one non-spam HELO identity in helo restriction
 * 2015-12-03: Web server: Enable HSTS (HTTP Strict Transport Security) support
 * 2015-12-01: SOGo: Fix improper settings in Apache/Nginx config file
-* 2015-11-17: [OPTIONAL] Remove one non-spam HELO identity in Postfix helo restriction
-* 2015-11-17: [OPTIONAL] Update one Fail2ban filter regular expression to catch postscreen log
+* 2015-11-17: [OPTIONAL] Postfix: Remove one non-spam HELO identity in helo restriction
+* 2015-11-17: [OPTIONAL] Fail2ban: Update regular expression to catch postscreen log
 * 2015-11-03: SOGo: enable isolated per-domain global address book.
 * 2015-10-08: OpenLDAP: Fix improper ACL control.
 * 2015-09-28: SOGo: cron jobs which run every minute must be grouped in one job.
@@ -567,7 +568,7 @@ dovecot unix    -       n       n       -       -      pipe
     flags=DRh ...
 ```
 
-### [OPTIONAL] Update one Fail2ban filter regular expression to catch postscreen log
+### [OPTIONAL] Fail2ban: Update regular expression to catch postscreen log
 
 We added one new regular expression to catch postscreen log to help reduce
 spam, please follow steps below to add it.
@@ -584,7 +585,7 @@ Restarting Fail2ban service is required.
 
 * Save your change and restart Postfix service.
 
-### [OPTIONAL] Remove one non-spam HELO identity in Postfix helo restriction
+### [OPTIONAL] Postfix: Remove one non-spam HELO identity in helo restriction
 
 iRedMail ships a Postfix HELO rule file, `/etc/postfix/helo_access.pcre`, it
 contains some HELO identities which were treated as spammers by analizing
@@ -597,6 +598,47 @@ or `/usr/local/etc/postfix/helo_access.pcre` (FreeBSD), and remove it.
 ```
 /(bezeqint\.net)$/ REJECT ACCESS DENIED. Your email was rejected because the sending mail server does not identify itself correctly (${1})
 ```
+
+### [OPTIONAL] Postfix: add some more restriction methods
+
+> Note: this is an optional operation, not required but recommended.
+
+If you need flexible rules to restrict senders, this change will be helpful.
+for example, reject spammer whom sends emails with different domain names.
+
+Please open Postfix config file `main.cf`, add below 2 settings:
+
+* On Linux and OpenBSD, it's `/etc/postfix/main.cf`.
+* On FreeBSD, it's `/usr/local/etc/postfix/main.cf`. WARNING: in below settings,
+  all new files must be placed under `/usr/local/etc/postfix/`.
+
+```
+header_checks = pcre:/etc/postfix/header_checks
+body_checks = pcre:/etc/postfix/body_checks.pcre
+```
+
+* In `main.cf`, find parameter `smtpd_sender_restrictions =`, add a new setting
+  `check_sender_access pcre:/etc/postfix/sender_access.pcre` right before
+  `permit_mynetworks` like below:
+
+```
+smtpd_sender_restrictions =
+    ...
+    check_sender_access pcre:/etc/postfix/sender_access.pcre
+    permit_mynetworks
+    ...
+```
+
+* Create required files:
+
+```
+# touch /etc/postfix/{header_checks,body_checks.pcre,sender_access.pcre}
+```
+
+* Reloading or restarting Postfix service is required.
+
+Note: each time you changed the pcre file, you should reload (not restart)
+Postfix service so that Postfix can read the changes.
 
 ## OpenLDAP backend special
 
