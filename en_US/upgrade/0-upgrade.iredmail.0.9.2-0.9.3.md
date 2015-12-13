@@ -627,8 +627,8 @@ body_checks = pcre:/etc/postfix/body_checks.pcre
 ```
 smtpd_sender_restrictions =
     ...
+    permit_sasl_authenticated
     check_sender_access pcre:/etc/postfix/sender_access.pcre
-    permit_mynetworks
     ...
 ```
 
@@ -734,7 +734,7 @@ Please connect to MySQL server as MySQL root user, create new table:
 ```
 $ mysql -uroot -p
 sql> USE iredadmin;
-sql> ALTER TABLE deleted_mailbox ADD COLUMN delete_date DATE NOT NULL DEFAULT '0000-00-00';
+sql> ALTER TABLE deleted_mailbox ADD COLUMN delete_date DATE DEFAULT NULL;
 sql> CREATE INDEX idx_delete_date ON deleted_mailboxes (delete_date);
 ```
 
@@ -811,7 +811,7 @@ Please connect to MySQL server as MySQL root user, create new table:
 ```
 $ mysql -uroot -p
 sql> USE vmail;
-sql> ALTER TABLE deleted_mailbox ADD COLUMN delete_date DATE NOT NULL DEFAULT '0000-00-00';
+sql> ALTER TABLE deleted_mailbox ADD COLUMN delete_date DATE DEFAULT NULL;
 sql> CREATE INDEX idx_delete_date ON deleted_mailboxes (delete_date);
 ```
 
@@ -943,7 +943,7 @@ Please switch to PostgreSQL daemon user, then execute SQL commands to import it:
 ```
 # su - postgres
 $ psql -d vmail
-sql> ALTER TABLE deleted_mailbox ADD COLUMN delete_date DATE NOT NULL DEFAULT '0000-00-00';
+sql> ALTER TABLE deleted_mailbox ADD COLUMN delete_date DATE DEFAULT NULL;
 sql> CREATE INDEX idx_delete_date ON deleted_mailboxes (delete_date);
 ```
 

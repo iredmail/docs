@@ -704,7 +704,7 @@ scripts used to delete mailboxes.</p>
 <p>Please connect to MySQL server as MySQL root user, create new table:</p>
 <pre><code>$ mysql -uroot -p
 sql&gt; USE iredadmin;
-sql&gt; ALTER TABLE deleted_mailbox ADD COLUMN delete_date DATE NOT NULL DEFAULT '0000-00-00';
+sql&gt; ALTER TABLE deleted_mailbox ADD COLUMN delete_date DATE DEFAULT NULL;
 sql&gt; CREATE INDEX idx_delete_date ON deleted_mailboxes (delete_date);
 </code></pre>
 
@@ -768,7 +768,7 @@ scripts used to delete mailboxes.</p>
 <p>Please connect to MySQL server as MySQL root user, create new table:</p>
 <pre><code>$ mysql -uroot -p
 sql&gt; USE vmail;
-sql&gt; ALTER TABLE deleted_mailbox ADD COLUMN delete_date DATE NOT NULL DEFAULT '0000-00-00';
+sql&gt; ALTER TABLE deleted_mailbox ADD COLUMN delete_date DATE DEFAULT NULL;
 sql&gt; CREATE INDEX idx_delete_date ON deleted_mailboxes (delete_date);
 </code></pre>
 
@@ -880,7 +880,7 @@ scripts used to delete mailboxes.</p>
 </ul>
 <pre><code># su - postgres
 $ psql -d vmail
-sql&gt; ALTER TABLE deleted_mailbox ADD COLUMN delete_date DATE NOT NULL DEFAULT '0000-00-00';
+sql&gt; ALTER TABLE deleted_mailbox ADD COLUMN delete_date DATE DEFAULT NULL;
 sql&gt; CREATE INDEX idx_delete_date ON deleted_mailboxes (delete_date);
 </code></pre>
 
