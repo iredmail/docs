@@ -129,6 +129,12 @@ for lang in ${all_languages}; do
 
             # Get title in markdown file: '# title'
             _article_title="$(head -1 ${article_file} | awk -F'# ' '{print $2}')"
+            #
+            # Get title in markdown file: 'Title: title'
+            #_article_title="$(grep '^Title: ' ${article_file} | head -1 | awk -F'Title: ' '{print $2}')"
+            #
+            # Get title in markdown file: '<h1>title</h1>'
+            #_article_title="$(head -1 ${article_file} | awk -F'[<|>]' '{print $3}')"
 
             if [ X"${hide_article_in_index}" == X'NO' ]; then
                 echo "* [${_article_title}](${article_html_file})" >> ${INDEX_MD}

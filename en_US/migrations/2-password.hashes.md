@@ -1,5 +1,7 @@
 # Password hashes
 
+[TOC]
+
 ## Password hashes supported by iRedMail
 
 iRedMail configures Postfix to use Dovecot as SASL authenticate server, so all

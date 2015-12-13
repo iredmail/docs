@@ -11,7 +11,12 @@
 
 [How to upgrade iRedAPD-1.4.0 or later versions to the latest stable release](./upgrade.iredapd.html)
 
-## ChangeLog
+## Migrate from Cluebringer
 
-Please check [ChangeLog](https://bitbucket.org/zhb/iredapd/src/default/ChangeLog)
-file in iRedAPD source code to check full, detailed changes in each release.
+If you're looking for migrating from Cluebringer to iRedAPD, please check our
+tutorial: [Migrate from Cluebringer to iRedAPD](./cluebringer.to.iredapd.html).
+
+## See also
+
+* Please check [ChangeLog](https://bitbucket.org/zhb/iredapd/src/default/ChangeLog)
+  file in iRedAPD source code to check full, detailed changes in each release.

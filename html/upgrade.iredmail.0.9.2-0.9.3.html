@@ -607,8 +607,8 @@ body_checks = pcre:/etc/postfix/body_checks.pcre
 </ul>
 <pre><code>smtpd_sender_restrictions =
     ...
+    permit_sasl_authenticated
     check_sender_access pcre:/etc/postfix/sender_access.pcre
-    permit_mynetworks
     ...
 </code></pre>
 
