@@ -76,6 +76,8 @@ That's it.
 
 ### After migration
 
+#### Disable Cluebringer in Postfix
+
 After migrated to iRedAPD, we need to update Postfix config file
 `/etc/postfix/main.cf` (Linux) or `/usr/local/etc/postfix/main.cf` (FreeBSD)
 to remove Cluebringer settings:
@@ -123,3 +125,9 @@ smtpd_end_of_data_restrictions =
 ```
 
 * Optionally, you can drop its SQL database `cluebringer` also.
+
+#### Disable Cluebringer in iRedAdmin-Pro
+
+To disable Cluebringer integration in iRedAdmin-Pro, please set
+`policyd_enabled = False` in iRedAdmin-Pro config file, then restart Apache
+or uwsgi (if you're running Nginx) service.

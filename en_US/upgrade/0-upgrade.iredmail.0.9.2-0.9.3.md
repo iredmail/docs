@@ -66,7 +66,7 @@ In iRedMail-0.9.2 and earlier releases, Amavisd was incorrectly configured
 which causes it treats external sender as internal user, and it (incorrectly)
 signs DKIM on inbound message. This is wrong. Please follow steps below to fix it.
 
-With below changes, Amavisd will aply policy bank 'ORIGINATING' to emails
+With below changes, Amavisd will apply policy bank 'ORIGINATING' to emails
 submitted through submission (port 587) by smtp authenticated user. This way
 we clearly separate emails submitted by authenticated users and inbound message
 sent by others, and Amavisd won't sign DKIM on inbound message anymore.

@@ -18,7 +18,11 @@
 <li><a href="#migrate-to-iredapd">Migrate to iRedAPD</a><ul>
 <li><a href="#upgrade-iredapd-to-170-or-later-releases">Upgrade iRedAPD to 1.7.0 or later releases</a></li>
 <li><a href="#migrate-cluebringer-to-iredapd">Migrate Cluebringer to iRedAPD</a></li>
-<li><a href="#after-migration">After migration</a></li>
+<li><a href="#after-migration">After migration</a><ul>
+<li><a href="#disable-cluebringer-in-postfix">Disable Cluebringer in Postfix</a></li>
+<li><a href="#disable-cluebringer-in-iredadmin-pro">Disable Cluebringer in iRedAdmin-Pro</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -86,6 +90,7 @@ cluebringer_db_password = ''
 
 <p>That's it.</p>
 <h3 id="after-migration">After migration</h3>
+<h4 id="disable-cluebringer-in-postfix">Disable Cluebringer in Postfix</h4>
 <p>After migrated to iRedAPD, we need to update Postfix config file
 <code>/etc/postfix/main.cf</code> (Linux) or <code>/usr/local/etc/postfix/main.cf</code> (FreeBSD)
 to remove Cluebringer settings:</p>
@@ -140,7 +145,11 @@ smtpd_end_of_data_restrictions =
 
 <ul>
 <li>Optionally, you can drop its SQL database <code>cluebringer</code> also.</li>
-</ul><p style="text-align: center; color: grey;">All documents are available in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.<script>
+</ul>
+<h4 id="disable-cluebringer-in-iredadmin-pro">Disable Cluebringer in iRedAdmin-Pro</h4>
+<p>To disable Cluebringer integration in iRedAdmin-Pro, please set
+<code>policyd_enabled = False</code> in iRedAdmin-Pro config file, then restart Apache
+or uwsgi (if you're running Nginx) service.</p><p style="text-align: center; color: grey;">All documents are available in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.<script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
   m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
