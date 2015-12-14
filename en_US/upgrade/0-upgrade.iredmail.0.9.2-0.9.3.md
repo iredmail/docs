@@ -25,13 +25,10 @@ so that you can know which version of iRedMail you're running. For example:
 
 ### Upgrade iRedAPD (Postfix policy server) to the latest 1.7.0
 
-> Note: iRedAPD-1.7.0 requires a new SQL database, please create it by
-> following upgrade tutorial.
-
 Please follow below tutorial to upgrade iRedAPD to the latest stable release:
 [Upgrade iRedAPD to the latest stable release](./upgrade.iredapd.html)
 
-Detailed release notes are available here: [iRedAPD release notes](./iredapd.releases.html).
+Detailed release notes are available [here](./iredapd.releases.html).
 
 ### Upgrade Roundcube webmail to the latest stable release
 
