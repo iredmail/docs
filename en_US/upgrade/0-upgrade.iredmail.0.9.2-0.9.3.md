@@ -8,28 +8,7 @@ __This is still a DRAFT document, do NOT apply it.__
 
 > We offer remote upgrade service, check [the price](../support.html) and [contact us](../contact.html).
 
-* 2015-12-12: Add new column `delete_date` in SQL table
-              `iredadmin.deleted_mailboxes` (LDAP backends) or
-              `vmail.deleted_mailboxes` (SQL backends).
-* 2015-12-12: [OPTIONAL] Postfix: Remove one non-spam HELO identity in helo restriction
-* 2015-12-03: Web server: Enable HSTS (HTTP Strict Transport Security) support
-* 2015-12-01: SOGo: Fix improper settings in Apache/Nginx config file
-* 2015-11-17: [OPTIONAL] Postfix: Remove one non-spam HELO identity in helo restriction
-* 2015-11-17: [OPTIONAL] Fail2ban: Update regular expression to catch postscreen log
-* 2015-11-03: SOGo: enable isolated per-domain global address book.
-* 2015-10-08: OpenLDAP: Fix improper ACL control.
-* 2015-09-28: SOGo: cron jobs which run every minute must be grouped in one job.
-* 2015-09-28: [RHEL/CentOS 7] Fix incorrect default firewall zone name
-* 2015-09-28: [RHEL/CentOS 7] Remove `daemonze =` line in `/etc/uwsgi.ini`.
-* 2015-09-10: Add new daily cron job to cleanup Roundcube SQL database.
-* 2015-08-08: [SQL backends] Add new SQL columns in `vmail` database: `alias.is_alias`, `alias.alias_to`.
-* 2015-07-31: SOGo: The Dovecot Master User used by SOGo doesn't work due to incorrect username.
-* 2015-07-31: [LDAP] Fixed: Dovecot Master User doesn't work with ACL plugin.
-* 2015-07-06: Add new SQL table `outbound_wblist` in `amavisd` database.
-* 2015-07-06: Amavisd: Fix incorrect setting which signs DKIM on inbound messages.
-* 2015-07-03: Dovecot: Fix incorrect quota warning priorities.
-* 2015-06-30: Dovecot-2.2: Add more special folders as alias folders.
-* 2015-06-09: [OPTIONAL] Fixed: Not preserve the case of `${extension}` while delivering message to mailbox.
+* 2015-12-14: Initial release.
 
 ## General (All backends should apply these steps)
 

@@ -68,28 +68,7 @@
 <p>We offer remote upgrade service, check <a href="../support.html">the price</a> and <a href="../contact.html">contact us</a>.</p>
 </blockquote>
 <ul>
-<li>2015-12-12: Add new column <code>delete_date</code> in SQL table
-              <code>iredadmin.deleted_mailboxes</code> (LDAP backends) or
-              <code>vmail.deleted_mailboxes</code> (SQL backends).</li>
-<li>2015-12-12: [OPTIONAL] Postfix: Remove one non-spam HELO identity in helo restriction</li>
-<li>2015-12-03: Web server: Enable HSTS (HTTP Strict Transport Security) support</li>
-<li>2015-12-01: SOGo: Fix improper settings in Apache/Nginx config file</li>
-<li>2015-11-17: [OPTIONAL] Postfix: Remove one non-spam HELO identity in helo restriction</li>
-<li>2015-11-17: [OPTIONAL] Fail2ban: Update regular expression to catch postscreen log</li>
-<li>2015-11-03: SOGo: enable isolated per-domain global address book.</li>
-<li>2015-10-08: OpenLDAP: Fix improper ACL control.</li>
-<li>2015-09-28: SOGo: cron jobs which run every minute must be grouped in one job.</li>
-<li>2015-09-28: [RHEL/CentOS 7] Fix incorrect default firewall zone name</li>
-<li>2015-09-28: [RHEL/CentOS 7] Remove <code>daemonze =</code> line in <code>/etc/uwsgi.ini</code>.</li>
-<li>2015-09-10: Add new daily cron job to cleanup Roundcube SQL database.</li>
-<li>2015-08-08: [SQL backends] Add new SQL columns in <code>vmail</code> database: <code>alias.is_alias</code>, <code>alias.alias_to</code>.</li>
-<li>2015-07-31: SOGo: The Dovecot Master User used by SOGo doesn't work due to incorrect username.</li>
-<li>2015-07-31: [LDAP] Fixed: Dovecot Master User doesn't work with ACL plugin.</li>
-<li>2015-07-06: Add new SQL table <code>outbound_wblist</code> in <code>amavisd</code> database.</li>
-<li>2015-07-06: Amavisd: Fix incorrect setting which signs DKIM on inbound messages.</li>
-<li>2015-07-03: Dovecot: Fix incorrect quota warning priorities.</li>
-<li>2015-06-30: Dovecot-2.2: Add more special folders as alias folders.</li>
-<li>2015-06-09: [OPTIONAL] Fixed: Not preserve the case of <code>${extension}</code> while delivering message to mailbox.</li>
+<li>2015-12-14: Initial release.</li>
 </ul>
 <h2 id="general-all-backends-should-apply-these-steps">General (All backends should apply these steps)</h2>
 <h3 id="update-etciredmail-release-with-new-iredmail-version-number">Update <code>/etc/iredmail-release</code> with new iRedMail version number</h3>
