@@ -13,8 +13,8 @@ to the latest stable release. It's applicable on all Linux/BSD distributions
 supported by iRedMail.
 
 1. Download the latest stable release here: <http://www.iredmail.org/yum/misc/>.
-   For example, iRedAPD-1.6.0.tar.bz2.
-1. Upload it to your iRedMail server. Assume it's `/root/iRedAPD-1.6.0.tar.bz2`.
+   For example, iRedAPD-1.7.0.tar.bz2.
+1. Upload it to your iRedMail server. Assume it's `/root/iRedAPD-1.7.0.tar.bz2`.
 1. Extract downloaded package and execute upgrade script:
 
 > Note: If you're running iRedMail with OpenLDAP or MySQL/MariaDB backend,
@@ -24,8 +24,8 @@ supported by iRedMail.
 
 ```
 # cd /root
-# tar xjf iRedAPD-1.6.0.tar.bz2
-# cd iRedAPD-1.6.0/tools/
+# tar xjf iRedAPD-1.7.0.tar.bz2
+# cd iRedAPD-1.7.0/tools/
 # bash upgrade_iredapd.sh
 ```
 
