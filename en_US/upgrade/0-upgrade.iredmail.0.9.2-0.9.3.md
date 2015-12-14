@@ -2,8 +2,6 @@
 
 [TOC]
 
-__This is still a DRAFT document, do NOT apply it.__
-
 ## ChangeLog
 
 > We offer remote upgrade service, check [the price](../support.html) and [contact us](../contact.html).
