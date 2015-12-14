@@ -10,15 +10,26 @@ either open source edition or iRedAdmin-Pro).
 
 ## Requirements
 
-You __MUST__ have iRedAdmin open source edition or old iRedAdmin-Pro release
-installed and running on your server before upgrading.
+1. The latest iRedAdmin-Pro always requires the latest iRedMail stable release,
+   so you __MUST__ upgrade iRedMail to the latest stable release before
+   upgrading iRedAdmin-Pro.
+
+    > If you run the latest iRedAdmin-Pro with old iRedMail release, you may
+    > get error due to missing some required ldap attribute/value pairs
+    > (OpenLDAP backend), or missing some required SQL columns.
+    >
+    > If you run the latest iRedMail with old iRedAdmin-Pro, you may get error
+    > due to missing dropped SQL columns, or created accounts may miss some
+    > properties required by the latest iRedMail.
+
+1. You __MUST__ have iRedAdmin open source edition or old iRedAdmin-Pro release
+   installed and running on your server before upgrading.
 
 ## Download the latest iRedAdmin
 
-* iRedAdmin (open source edition) is available for download [here](http://www.iredmail.org/yum/misc/).
-* How to download the latest iRedAdmin-Pro
-
-    All customers can get download link of new release by following below steps:
+* iRedAdmin open source edition is available for download [here](http://www.iredmail.org/yum/misc/).
+* iRedAdmin-Pro customers can get download link of new release by following
+  steps below:
 
     * Login to iRedAdmin-Pro as global admin.
     * Click `License` button on the top-right corner. it will show you basic
@@ -28,16 +39,16 @@ installed and running on your server before upgrading.
       enabled, it may take longer, please be patient and don't request download
       link again and again.
 
-    if you cannot download iRedAdmin-Pro for some reason, [contact us](../contact.html) directly.
+    If you cannot download iRedAdmin-Pro for some reason, please [contact us](../contact.html).
 
 ## Upgrade Steps
 
 * Upload or copy the latest iRedAdmin to your server which has iRedAdmin
-open source edition or old iRedAdmin-Pro release running. We assume you
-uploaded it to `/root/iRedAdmin-{BACKEND}-x.y.z.tar.bz2` ({BACKEND} is one
-of `LDAP`, `MySQL`, `PGSQL`). We will use iRedAdmin-x.y.z below for
-example, please replace x.y.z by the real file name. For example,
-`iRedAdmin-Pro-LDAP-2.1.2.tar.bz2`.
+  open source edition or old iRedAdmin-Pro release running. We assume you
+  uploaded it to `/root/iRedAdmin-{BACKEND}-x.y.z.tar.bz2` (`{BACKEND}` is one
+  of `LDAP`, `MySQL`, `PGSQL`). We will use iRedAdmin-x.y.z below for
+  example, please replace x.y.z by the real file name. For example,
+  `iRedAdmin-Pro-LDAP-2.4.0.tar.bz2`.
 
 * Uncompress and upgrade iRedAdmin:
 
@@ -47,17 +58,6 @@ example, please replace x.y.z by the real file name. For example,
 # cd iRedAdmin-x.y.z/tools/
 # bash upgrade_iredadmin.sh
 ```
-
-* If you're running iRedMail-`0.8.7` or earlier version, please login to SQL
-  server as root user (for MySQL/MariaDB, it's `root` user, for PostgreSQL,
-  it's `postgres` user) to alter SQL table `iredadmin.log` with below SQL command:
-
-    * For OpenLDAP/MySQL/MariaDB backends: <pre>sql> USE iredadmin;
-sql> ALTER TABLE log MODIFY COLUMN ip VARCHAR(40) NOT NULL DEFAULT '';
-sql> ALTER TABLE log MODIFY COLUMN event VARCHAR(20) NOT NULL DEFAULT '';</pre>
-    * For PostgreSQL: <pre>sql> \c iredadmin;
-sql> ALTER TABLE log ALTER COLUMN ip TYPE VARCHAR(40);
-sql> ALTER TABLE log ALTER COLUMN event TYPE VARCHAR(20);</pre>
 
 That's all. If it doesn't work for you, please post a new topic in our
 [online support forum](http://www.iredmail.org/forum/).

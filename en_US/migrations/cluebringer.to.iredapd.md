@@ -131,3 +131,15 @@ smtpd_end_of_data_restrictions =
 To disable Cluebringer integration in iRedAdmin-Pro, please set
 `policyd_enabled = False` in iRedAdmin-Pro config file, then restart Apache
 or uwsgi (if you're running Nginx) service.
+
+Optionally, you can remove all parameters which start with `policyd_` in
+iRedAdmin-Pro config file, for example:
+
+```
+policyd_enabled =
+policyd_db_host =
+policyd_db_port =
+policyd_db_name =
+policyd_db_user =
+policyd_db_password =
+```

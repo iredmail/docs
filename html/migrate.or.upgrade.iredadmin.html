@@ -29,14 +29,31 @@
 edition or old iRedAdmin-Pro release) to the latest iRedAdmin release (again,
 either open source edition or iRedAdmin-Pro).</p>
 <h2 id="requirements">Requirements</h2>
+<ol>
+<li>
+<p>The latest iRedAdmin-Pro always requires the latest iRedMail stable release,
+   so you <strong>MUST</strong> upgrade iRedMail to the latest stable release before
+   upgrading iRedAdmin-Pro.</p>
+<blockquote>
+<p>If you run the latest iRedAdmin-Pro with old iRedMail release, you may
+get error due to missing some required ldap attribute/value pairs
+(OpenLDAP backend), or missing some required SQL columns.</p>
+<p>If you run the latest iRedMail with old iRedAdmin-Pro, you may get error
+due to missing dropped SQL columns, or created accounts may miss some
+properties required by the latest iRedMail.</p>
+</blockquote>
+</li>
+<li>
 <p>You <strong>MUST</strong> have iRedAdmin open source edition or old iRedAdmin-Pro release
-installed and running on your server before upgrading.</p>
+   installed and running on your server before upgrading.</p>
+</li>
+</ol>
 <h2 id="download-the-latest-iredadmin">Download the latest iRedAdmin</h2>
 <ul>
-<li>iRedAdmin (open source edition) is available for download <a href="http://www.iredmail.org/yum/misc/">here</a>.</li>
+<li>iRedAdmin open source edition is available for download <a href="http://www.iredmail.org/yum/misc/">here</a>.</li>
 <li>
-<p>How to download the latest iRedAdmin-Pro</p>
-<p>All customers can get download link of new release by following below steps:</p>
+<p>iRedAdmin-Pro customers can get download link of new release by following
+  steps below:</p>
 <ul>
 <li>Login to iRedAdmin-Pro as global admin.</li>
 <li>Click <code>License</code> button on the top-right corner. it will show you basic
@@ -46,18 +63,18 @@ installed and running on your server before upgrading.</p>
   enabled, it may take longer, please be patient and don't request download
   link again and again.</li>
 </ul>
-<p>if you cannot download iRedAdmin-Pro for some reason, <a href="../contact.html">contact us</a> directly.</p>
+<p>If you cannot download iRedAdmin-Pro for some reason, please <a href="../contact.html">contact us</a>.</p>
 </li>
 </ul>
 <h2 id="upgrade-steps">Upgrade Steps</h2>
 <ul>
 <li>
 <p>Upload or copy the latest iRedAdmin to your server which has iRedAdmin
-open source edition or old iRedAdmin-Pro release running. We assume you
-uploaded it to <code>/root/iRedAdmin-{BACKEND}-x.y.z.tar.bz2</code> ({BACKEND} is one
-of <code>LDAP</code>, <code>MySQL</code>, <code>PGSQL</code>). We will use iRedAdmin-x.y.z below for
-example, please replace x.y.z by the real file name. For example,
-<code>iRedAdmin-Pro-LDAP-2.1.2.tar.bz2</code>.</p>
+  open source edition or old iRedAdmin-Pro release running. We assume you
+  uploaded it to <code>/root/iRedAdmin-{BACKEND}-x.y.z.tar.bz2</code> (<code>{BACKEND}</code> is one
+  of <code>LDAP</code>, <code>MySQL</code>, <code>PGSQL</code>). We will use iRedAdmin-x.y.z below for
+  example, please replace x.y.z by the real file name. For example,
+  <code>iRedAdmin-Pro-LDAP-2.4.0.tar.bz2</code>.</p>
 </li>
 <li>
 <p>Uncompress and upgrade iRedAdmin:</p>
@@ -69,21 +86,6 @@ example, please replace x.y.z by the real file name. For example,
 # bash upgrade_iredadmin.sh
 </code></pre>
 
-<ul>
-<li>
-<p>If you're running iRedMail-<code>0.8.7</code> or earlier version, please login to SQL
-  server as root user (for MySQL/MariaDB, it's <code>root</code> user, for PostgreSQL,
-  it's <code>postgres</code> user) to alter SQL table <code>iredadmin.log</code> with below SQL command:</p>
-<ul>
-<li>For OpenLDAP/MySQL/MariaDB backends: <pre>sql&gt; USE iredadmin;
-sql&gt; ALTER TABLE log MODIFY COLUMN ip VARCHAR(40) NOT NULL DEFAULT '';
-sql&gt; ALTER TABLE log MODIFY COLUMN event VARCHAR(20) NOT NULL DEFAULT '';</pre></li>
-<li>For PostgreSQL: <pre>sql&gt; \c iredadmin;
-sql&gt; ALTER TABLE log ALTER COLUMN ip TYPE VARCHAR(40);
-sql&gt; ALTER TABLE log ALTER COLUMN event TYPE VARCHAR(20);</pre></li>
-</ul>
-</li>
-</ul>
 <p>That's all. If it doesn't work for you, please post a new topic in our
 <a href="http://www.iredmail.org/forum/">online support forum</a>.</p>
 <h2 id="additional-steps">Additional steps</h2>
