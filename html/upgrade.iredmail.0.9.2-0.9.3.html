@@ -91,32 +91,25 @@ following upgrade tutorial.</p>
 <p>Please follow Roundcube official tutorial to upgrade Roundcube webmail to the
 latest stable release immediately: <a href="http://trac.roundcube.net/wiki/Howto_Upgrade">How to upgrade Roundcube</a></p>
 <h3 id="postfix-add-additional-aliases">Postfix: Add additional aliases</h3>
-<p>We need 2 new alias accounts in Postfix to deliver notification emails:</p>
-<ol>
-<li>
-<p>New iRedAPD release (1.7.0) has a cron job which may generate notification
-   email to the daemon user.</p>
-</li>
-<li>
-<p>ClamAV may detect virus in email, notification will be sent to system
-   account <code>virusalert</code>.</p>
-</li>
-</ol>
+<p>ClamAV may detect virus in email, notification will be sent to system account
+<code>virusalert</code>.</p>
 <p>Steps to add alias accounts:</p>
 <ul>
-<li>For Linux and OpenBSD:</li>
+<li>For Linux and OpenBSD: please open file <code>/etc/postfix/aliases</code>, if you
+  already have line <code>virusalert: root</code>, please ignore this step. if not, please
+  run commands below to add it.</li>
 </ul>
-<pre><code class="shell">echo 'iredapd: root' &gt;&gt; /etc/postfix/aliases
-echo 'virusalert: root' &gt;&gt; /etc/postfix/aliases
-postalias /etc/postfix/aliases
+<pre><code class="cfg"># echo 'virusalert: root' &gt;&gt; /etc/postfix/aliases
+# postalias /etc/postfix/aliases
 </code></pre>
 
 <ul>
-<li>For FreeBSD:</li>
+<li>For FreeBSD: please open file <code>/usr/local/etc/postfix/aliases</code>, if you
+  already have line <code>virusalert: root</code>, please ignore this step. if not, please
+  run commands below to add it.</li>
 </ul>
-<pre><code class="shell">echo 'iredapd: root' &gt;&gt; /usr/local/etc/postfix/aliases
-echo 'virusalert: root' &gt;&gt; /usr/local/etc/postfix/aliases
-postalias /usr/local/etc/postfix/aliases
+<pre><code class="shell"># echo 'virusalert: root' &gt;&gt; /usr/local/etc/postfix/aliases
+# postalias /usr/local/etc/postfix/aliases
 </code></pre>
 
 <h3 id="amavisd-fix-incorrect-setting-which-treats-external-sender-as-internal-user">Amavisd: Fix incorrect setting which treats external sender as internal user</h3>
@@ -366,7 +359,7 @@ config file, then restart Apache service.</p>
 #RequestHeader set &quot;x-webobjects-server-url&quot; &quot;https://yourhostname&quot;
 </code></pre>
 
-<h5>2: Redirect `/.well-known/carddav` access to SOGo</h5>
+<h5>2: Redirect /.well-known/carddav access to SOGo</h5>
 
 <p>Find below line in <code>SOGo.conf</code>:</p>
 <pre><code>  RewriteRule ^/.well-known/caldav/?$ /SOGo/dav [R=301]
@@ -393,7 +386,7 @@ file, then restart or reload Nginx service.</p>
 #proxy_set_header x-webobjects-server-url $scheme://$host;
 </code></pre>
 
-<h5>2: Redirect `/.well-known/carddav` access to SOGo</h5>
+<h5>2: Redirect /.well-known/carddav access to SOGo</h5>
 
 <p>Find below line in <code>default.conf</code>:</p>
 <pre><code>rewrite ^/.well-known/caldav    /SOGo/dav permanent;
@@ -682,7 +675,7 @@ scripts used to delete mailboxes.</p>
 <p>Please connect to MySQL server as MySQL root user, create new table:</p>
 <pre><code>$ mysql -uroot -p
 sql&gt; USE iredadmin;
-sql&gt; ALTER TABLE deleted_mailbox ADD COLUMN delete_date DATE DEFAULT NULL;
+sql&gt; ALTER TABLE deleted_mailboxes ADD COLUMN delete_date DATE DEFAULT NULL;
 sql&gt; CREATE INDEX idx_delete_date ON deleted_mailboxes (delete_date);
 </code></pre>
 
@@ -746,7 +739,7 @@ scripts used to delete mailboxes.</p>
 <p>Please connect to MySQL server as MySQL root user, create new table:</p>
 <pre><code>$ mysql -uroot -p
 sql&gt; USE vmail;
-sql&gt; ALTER TABLE deleted_mailbox ADD COLUMN delete_date DATE DEFAULT NULL;
+sql&gt; ALTER TABLE deleted_mailboxes ADD COLUMN delete_date DATE DEFAULT NULL;
 sql&gt; CREATE INDEX idx_delete_date ON deleted_mailboxes (delete_date);
 </code></pre>
 
@@ -858,7 +851,7 @@ scripts used to delete mailboxes.</p>
 </ul>
 <pre><code># su - postgres
 $ psql -d vmail
-sql&gt; ALTER TABLE deleted_mailbox ADD COLUMN delete_date DATE DEFAULT NULL;
+sql&gt; ALTER TABLE deleted_mailboxes ADD COLUMN delete_date DATE DEFAULT NULL;
 sql&gt; CREATE INDEX idx_delete_date ON deleted_mailboxes (delete_date);
 </code></pre>
 

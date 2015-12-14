@@ -39,30 +39,27 @@ latest stable release immediately: [How to upgrade Roundcube](http://trac.roundc
 
 ### Postfix: Add additional aliases
 
-We need 2 new alias accounts in Postfix to deliver notification emails:
-
-1. New iRedAPD release (1.7.0) has a cron job which may generate notification
-   email to the daemon user.
-
-2. ClamAV may detect virus in email, notification will be sent to system
-   account `virusalert`.
+ClamAV may detect virus in email, notification will be sent to system account
+`virusalert`.
 
 Steps to add alias accounts:
 
-* For Linux and OpenBSD:
+* For Linux and OpenBSD: please open file `/etc/postfix/aliases`, if you
+  already have line `virusalert: root`, please ignore this step. if not, please
+  run commands below to add it.
 
-```shell
-echo 'iredapd: root' >> /etc/postfix/aliases
-echo 'virusalert: root' >> /etc/postfix/aliases
-postalias /etc/postfix/aliases
+```cfg
+# echo 'virusalert: root' >> /etc/postfix/aliases
+# postalias /etc/postfix/aliases
 ```
 
-* For FreeBSD:
+* For FreeBSD: please open file `/usr/local/etc/postfix/aliases`, if you
+  already have line `virusalert: root`, please ignore this step. if not, please
+  run commands below to add it.
 
 ```shell
-echo 'iredapd: root' >> /usr/local/etc/postfix/aliases
-echo 'virusalert: root' >> /usr/local/etc/postfix/aliases
-postalias /usr/local/etc/postfix/aliases
+# echo 'virusalert: root' >> /usr/local/etc/postfix/aliases
+# postalias /usr/local/etc/postfix/aliases
 ```
 
 ### Amavisd: Fix incorrect setting which treats external sender as internal user
@@ -335,7 +332,7 @@ config file, then restart Apache service.
 #RequestHeader set "x-webobjects-server-url" "https://yourhostname"
 ```
 
-<h5>2: Redirect `/.well-known/carddav` access to SOGo</h5>
+<h5>2: Redirect /.well-known/carddav access to SOGo</h5>
 
 Find below line in `SOGo.conf`:
 
@@ -368,7 +365,7 @@ file, then restart or reload Nginx service.
 #proxy_set_header x-webobjects-server-url $scheme://$host;
 ```
 
-<h5>2: Redirect `/.well-known/carddav` access to SOGo</h5>
+<h5>2: Redirect /.well-known/carddav access to SOGo</h5>
 
 Find below line in `default.conf`:
 
@@ -711,7 +708,7 @@ Please connect to MySQL server as MySQL root user, create new table:
 ```
 $ mysql -uroot -p
 sql> USE iredadmin;
-sql> ALTER TABLE deleted_mailbox ADD COLUMN delete_date DATE DEFAULT NULL;
+sql> ALTER TABLE deleted_mailboxes ADD COLUMN delete_date DATE DEFAULT NULL;
 sql> CREATE INDEX idx_delete_date ON deleted_mailboxes (delete_date);
 ```
 
@@ -788,7 +785,7 @@ Please connect to MySQL server as MySQL root user, create new table:
 ```
 $ mysql -uroot -p
 sql> USE vmail;
-sql> ALTER TABLE deleted_mailbox ADD COLUMN delete_date DATE DEFAULT NULL;
+sql> ALTER TABLE deleted_mailboxes ADD COLUMN delete_date DATE DEFAULT NULL;
 sql> CREATE INDEX idx_delete_date ON deleted_mailboxes (delete_date);
 ```
 
@@ -920,7 +917,7 @@ Please switch to PostgreSQL daemon user, then execute SQL commands to import it:
 ```
 # su - postgres
 $ psql -d vmail
-sql> ALTER TABLE deleted_mailbox ADD COLUMN delete_date DATE DEFAULT NULL;
+sql> ALTER TABLE deleted_mailboxes ADD COLUMN delete_date DATE DEFAULT NULL;
 sql> CREATE INDEX idx_delete_date ON deleted_mailboxes (delete_date);
 ```
 

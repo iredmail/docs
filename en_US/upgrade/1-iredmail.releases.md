@@ -6,8 +6,7 @@
 
 ### Why keep your iRedMail server up to date
 
-* The latest iRedMail release brings new features or improvements.
-* The latest iRedMail release fixes bugs.
+* The latest iRedMail release brings new features, improvements, and bug fixes.
 * If you plan to migrate to a new iRedMail server someday, migrating iRedMail
   to another server which runs the same release is the easiest path.
 
