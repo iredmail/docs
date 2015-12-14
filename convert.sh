@@ -34,8 +34,7 @@ all_chapter_dirs="overview \
                   integrations \
                   cluster \
                   troubleshooting \
-                  faq \
-                  misc"
+                  faq"
 
 # Additional directories which stores scripts or other non-Markdown files.
 additional_dirs=""

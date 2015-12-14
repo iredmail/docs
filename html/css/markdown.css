@@ -64,8 +64,8 @@ aside {
     /*width: 390px;*/
 }
 blockquote {
-    border-left:.5em solid #eee;
-    padding: 0 2em;
+    border-left: 0.5em solid #eee;
+    padding: 0 1em;
     margin-left:0;
     font-style: italic;
     /*max-width: 476px;*/
@@ -305,3 +305,5 @@ th { font-style: bold; text-align: left; }
 /*
 code.bash { background-color: green; color: white; }
 */
+
+blockquote ul { padding-left: 5px; }
