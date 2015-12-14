@@ -67,6 +67,7 @@
 <p>We offer remote upgrade service, check <a href="../support.html">the price</a> and <a href="../contact.html">contact us</a>.</p>
 </blockquote>
 <ul>
+<li>2015-12-14: Fix duplicate folder name in section <code>Dovecot-2.2: Add more special folders as alias folders</code>.</li>
 <li>2015-12-14: Initial release.</li>
 </ul>
 <h2 id="general-all-backends-should-apply-these-steps">General (All backends should apply these steps)</h2>
@@ -241,7 +242,7 @@ earlier versions, please skip this step.</p>
         special_use = \Trash
     }
 
-    mailbox &quot;Deleted Messages&quot; {
+    mailbox &quot;Deleted Items&quot; {
         auto = no
         special_use = \Trash
     }

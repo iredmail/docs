@@ -6,6 +6,7 @@
 
 > We offer remote upgrade service, check [the price](../support.html) and [contact us](../contact.html).
 
+* 2015-12-14: Fix duplicate folder name in section `Dovecot-2.2: Add more special folders as alias folders`.
 * 2015-12-14: Initial release.
 
 ## General (All backends should apply these steps)
@@ -201,7 +202,7 @@ Add below alias folders inside the same `namespace {}` block:
         special_use = \Trash
     }
 
-    mailbox "Deleted Messages" {
+    mailbox "Deleted Items" {
         auto = no
         special_use = \Trash
     }
