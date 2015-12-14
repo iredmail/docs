@@ -17,7 +17,9 @@
 <li><a href="#changelog">ChangeLog</a></li>
 <li><a href="#general-all-backends-should-apply-these-steps">General (All backends should apply these steps)</a><ul>
 <li><a href="#update-etciredmail-release-with-new-iredmail-version-number">Update /etc/iredmail-release with new iRedMail version number</a></li>
+<li><a href="#upgrade-iredadmin-open-source-edition-to-the-latest-stable-release">Upgrade iRedAdmin (open source edition) to the latest stable release</a></li>
 <li><a href="#upgrade-iredapd-postfix-policy-server-to-the-latest-170">Upgrade iRedAPD (Postfix policy server) to the latest 1.7.0</a></li>
+<li><a href="#migrate-from-cluebringer-to-iredapd">Migrate from Cluebringer to iRedAPD</a></li>
 <li><a href="#upgrade-roundcube-webmail-to-the-latest-stable-release">Upgrade Roundcube webmail to the latest stable release</a></li>
 <li><a href="#postfix-add-additional-aliases">Postfix: Add additional aliases</a></li>
 <li><a href="#amavisd-fix-incorrect-setting-which-treats-external-sender-as-internal-user">Amavisd: Fix incorrect setting which treats external sender as internal user</a></li>
@@ -67,6 +69,7 @@
 <p>We offer remote upgrade service, check <a href="../support.html">the price</a> and <a href="../contact.html">contact us</a>.</p>
 </blockquote>
 <ul>
+<li>2015-12-14: New section: <code>Migrate from Cluebringer to iRedAPD</code>.</li>
 <li>2015-12-14: Fix duplicate folder name in section <code>Dovecot-2.2: Add more special folders as alias folders</code>.</li>
 <li>2015-12-14: Initial release.</li>
 </ul>
@@ -80,10 +83,27 @@ so that you can know which version of iRedMail you're running. For example:</p>
 0.9.3
 </code></pre>
 
+<h3 id="upgrade-iredadmin-open-source-edition-to-the-latest-stable-release">Upgrade iRedAdmin (open source edition) to the latest stable release</h3>
+<p>Please follow this tutorial to upgrade iRedAdmin open source edition to the
+latest stable release:
+<a href="./migrate.or.upgrade.iredadmin.html">Upgrade iRedAdmin to the latest stable release</a></p>
 <h3 id="upgrade-iredapd-postfix-policy-server-to-the-latest-170">Upgrade iRedAPD (Postfix policy server) to the latest 1.7.0</h3>
 <p>Please follow below tutorial to upgrade iRedAPD to the latest stable release:
 <a href="./upgrade.iredapd.html">Upgrade iRedAPD to the latest stable release</a></p>
 <p>Detailed release notes are available <a href="./iredapd.releases.html">here</a>.</p>
+<h3 id="migrate-from-cluebringer-to-iredapd">Migrate from Cluebringer to iRedAPD</h3>
+<p>In iRedMail-0.9.3, Cluebringer has been removed and replaced by iRedAPD.
+Cluebringer is not under active development and no new release since 2013 (the
+latest stable release doesn't support IPv6). iRedAPD offers greylisting and
+throttling supports, please follow tutorial below to migrate greylisting and
+throttling settings from Cluebringer to iRedAPD:</p>
+<ul>
+<li><a href="./cluebringer.to.iredapd.html">Migrate from Cluebringer to iRedAPD</a></li>
+</ul>
+<blockquote>
+<p>Note: We also plan to completely remove code of Policyd/Cluebringer support
+in next iRedAdmin-Pro release.</p>
+</blockquote>
 <h3 id="upgrade-roundcube-webmail-to-the-latest-stable-release">Upgrade Roundcube webmail to the latest stable release</h3>
 <p>Please follow Roundcube official tutorial to upgrade Roundcube webmail to the
 latest stable release immediately: <a href="http://trac.roundcube.net/wiki/Howto_Upgrade">How to upgrade Roundcube</a></p>

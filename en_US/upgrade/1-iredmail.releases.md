@@ -1,5 +1,7 @@
 # iRedMail release notes and upgrade tutorials
 
+[TOC]
+
 > iRedMail source code is hosted on [BitBucket](https://bitbucket.org/zhb/iredmail/overview).
 
 > Download the [latest iRedMail stable release](../download.html).
@@ -10,7 +12,7 @@
 * If you plan to migrate to a new iRedMail server someday, migrating iRedMail
   to another server which runs the same release is the easiest path.
 
-### How upgrading iRedMail works
+### How upgrading works
 
 * Usually, upgrading iRedMail is just updating some config files to achieve new
   features or fix bugs, you do __NOT__ need to download the latest iRedMail and

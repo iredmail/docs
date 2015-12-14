@@ -7,8 +7,8 @@ you can follow below suggestions for better performance.
 
 ###  Setup a DNS server in LAN or localhost to cache DNS queries
 
-Mail services heavily rely on DNS service and perform many many DNS queries,
-a cache DNS server in LAN or localhost helps a lot:
+Mail services __heavily__ rely on DNS service and perform many many DNS queries,
+a cache DNS server in LAN or localhost helps __A LOT__:
 
 * It speeds up DNS queries. This helps a lot.
 * It reduces DNS queries to DNSBL servers, so that you can continue using their

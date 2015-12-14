@@ -6,6 +6,7 @@
 
 > We offer remote upgrade service, check [the price](../support.html) and [contact us](../contact.html).
 
+* 2015-12-14: New section: `Migrate from Cluebringer to iRedAPD`.
 * 2015-12-14: Fix duplicate folder name in section `Dovecot-2.2: Add more special folders as alias folders`.
 * 2015-12-14: Initial release.
 
@@ -23,12 +24,31 @@ so that you can know which version of iRedMail you're running. For example:
 0.9.3
 ```
 
+### Upgrade iRedAdmin (open source edition) to the latest stable release
+
+Please follow this tutorial to upgrade iRedAdmin open source edition to the
+latest stable release:
+[Upgrade iRedAdmin to the latest stable release](./migrate.or.upgrade.iredadmin.html)
+
 ### Upgrade iRedAPD (Postfix policy server) to the latest 1.7.0
 
 Please follow below tutorial to upgrade iRedAPD to the latest stable release:
 [Upgrade iRedAPD to the latest stable release](./upgrade.iredapd.html)
 
 Detailed release notes are available [here](./iredapd.releases.html).
+
+### Migrate from Cluebringer to iRedAPD
+
+In iRedMail-0.9.3, Cluebringer has been removed and replaced by iRedAPD.
+Cluebringer is not under active development and no new release since 2013 (the
+latest stable release doesn't support IPv6). iRedAPD offers greylisting and
+throttling supports, please follow tutorial below to migrate greylisting and
+throttling settings from Cluebringer to iRedAPD:
+
+* [Migrate from Cluebringer to iRedAPD](./cluebringer.to.iredapd.html)
+
+> Note: We also plan to completely remove code of Policyd/Cluebringer support
+> in next iRedAdmin-Pro release.
 
 ### Upgrade Roundcube webmail to the latest stable release
 
