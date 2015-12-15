@@ -39,3 +39,6 @@ Now all emails sent to `user@domain.ltd` will be forwarded to both
 If you want to save a copy of forwarded email, please add `user@domain.ltd` as
 additional value of LDAP attribute `mailForwardingAddress`.
 
+## Related tutorial
+
+* [SQL: user mail forwarding](./sql.user.mail.forwarding.html)

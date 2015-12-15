@@ -16,6 +16,7 @@
 <li><a href="#sql-user-mail-forwarding">SQL: User mail forwarding</a><ul>
 <li><a href="#set-mail-forwarding-with-iredadmin-pro">Set mail forwarding with iRedAdmin-Pro</a></li>
 <li><a href="#set-mail-forwarding-with-sql-command-line">Set mail forwarding with SQL command line</a></li>
+<li><a href="#related-tutorial">Related tutorial</a></li>
 </ul>
 </li>
 </ul>
@@ -42,7 +43,12 @@ addresses with comma like below:</p>
 <p>To save a copy of forwarded email in mailbox, please add your own email address
 as a forwarding destination like below:</p>
 <pre><code>sql&gt; UPDATE alias SET goto='user@domain.com,forward_1@example.com' WHERE username='user@domain.com';
-</code></pre><p style="text-align: center; color: grey;">All documents are available in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.<script>
+</code></pre>
+
+<h2 id="related-tutorial">Related tutorial</h2>
+<ul>
+<li><a href="./ldap.user.mail.forwarding.html">LDAP: user mail forwarding</a></li>
+</ul><p style="text-align: center; color: grey;">All documents are available in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.<script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
   m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)

@@ -36,3 +36,7 @@ as a forwarding destination like below:
 ```
 sql> UPDATE alias SET goto='user@domain.com,forward_1@example.com' WHERE username='user@domain.com';
 ```
+
+## Related tutorial
+
+* [LDAP: user mail forwarding](./ldap.user.mail.forwarding.html)
