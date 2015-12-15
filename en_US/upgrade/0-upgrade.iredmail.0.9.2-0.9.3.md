@@ -385,13 +385,9 @@ file, then restart or reload Nginx service.
 
 <h5>2: Redirect /.well-known/carddav access to SOGo</h5>
 
-Find below line in `default.conf`:
-
-```
-rewrite ^/.well-known/caldav    /SOGo/dav permanent;
-```
-
-Add a new line right after above line:
+iRedMail doesn't have `/.well-known` redirection in Nginx by default, so
+please add lines below in the `server { listen 443; ...}` block,
+in file `default.conf`:
 
 ```
 rewrite ^/.well-known/caldav    /SOGo/dav permanent;
