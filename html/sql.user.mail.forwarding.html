@@ -1,0 +1,54 @@
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>SQL: User mail forwarding</title>
+        <link rel="stylesheet" type="text/css" href="./css/markdown.css" />
+    </head>
+    <body>
+    
+    <div id="navigation">
+        <a href="http://www.iredmail.org" target="_blank">iRedMail web site</a>
+    
+        // <a href="./index.html">Document Index</a>
+    </div><h1 id="sql-user-mail-forwarding">SQL: User mail forwarding</h1>
+<div class="toc">
+<ul>
+<li><a href="#sql-user-mail-forwarding">SQL: User mail forwarding</a><ul>
+<li><a href="#set-mail-forwarding-with-iredadmin-pro">Set mail forwarding with iRedAdmin-Pro</a></li>
+<li><a href="#set-mail-forwarding-with-sql-command-line">Set mail forwarding with SQL command line</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<h2 id="set-mail-forwarding-with-iredadmin-pro">Set mail forwarding with iRedAdmin-Pro</h2>
+<p>With iRedAdmin-Pro, you can manage mail forwarding addresses in user
+profile page, under tab <code>Forwarding</code>.</p>
+<p>Screenshot:</p>
+<p><img alt="" src="../images/iredadmin/user_profile_mail_forwarding.png" /></p>
+<h2 id="set-mail-forwarding-with-sql-command-line">Set mail forwarding with SQL command line</h2>
+<p>Let's say you have an existing mail user <code>user@domain.com</code>, and you want to
+forward all received emails to another address <code>forward@example.com</code>,
+to achieve this, you can login to SQL server and update <code>vmail</code> database like
+below:</p>
+<pre><code>sql&gt; USE vmail;
+sql&gt; UPDATE alias SET goto='forward@example.com' WHERE username='user@domain.com';
+</code></pre>
+
+<p>If you want to forward email to multiple destinations, please separate
+addresses with comma like below:</p>
+<pre><code>sql&gt; UPDATE alias SET goto='forward_1@example.com,forward_2@example.com,forward_3@example.com' WHERE username='user@domain.com';
+</code></pre>
+
+<p>To save a copy of forwarded email in mailbox, please add your own email address
+as a forwarding destination like below:</p>
+<pre><code>sql&gt; UPDATE alias SET goto='user@domain.com,forward_1@example.com' WHERE username='user@domain.com';
+</code></pre><p style="text-align: center; color: grey;">All documents are available in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-3293801-21', 'auto');
+  ga('send', 'pageview');
+</script>
+</body></html>

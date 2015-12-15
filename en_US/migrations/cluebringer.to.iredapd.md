@@ -86,18 +86,14 @@ to remove Cluebringer settings:
 
 ```
 smtpd_recipient_restrictions =
-    reject_unknown_recipient_domain
-    reject_non_fqdn_recipient
-    reject_unlisted_recipient
-    check_policy_service inet:127.0.0.1:7777
+    ...
     check_policy_service inet:127.0.0.1:10031       # <- Remove this line
-    permit_mynetworks
-    permit_sasl_authenticated
-    reject_unauth_destination
+    ...
 
 smtpd_end_of_data_restrictions =
-    check_policy_service inet:127.0.0.1:7777
+    ...
     check_policy_service inet:127.0.0.1:10031       # <- Remove this line
+    ...
 ```
 
 * Restart Postfix service:
