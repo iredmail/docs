@@ -76,6 +76,33 @@ That's it.
 
 ## After migration
 
+### Enable required plugins, remove old plugins
+
+> Restarting iRedAPD service is required if you changed its config file.
+
+* To enable whitelists, blacklists, greylisting and throttling offered by
+  iRedAPD, please enable plugins `amavisd_wblist`, `greylisting` and `throttle`
+  in iRedAPD config file like below:
+
+```
+# File: /opt/iredapd/settings.py
+
+plugins = [..., 'amavisd_wblist', 'greylisting', 'throttle']
+```
+
+The order of plugin names doesn't matter.
+
+* Several plugins in old iRedAPD have been removed, you should remove them
+  from parameter `plugins =` in iRedAPD config file:
+
+    * ldap_amavisd_block_blacklisted_senders
+    * ldap_recipient_restrictions
+    * sql_user_restrictions
+    * amavisd_message_size_limit
+
+    First 3 plugins are replaced by `amavisd_wblist', last one is replaced by
+    plugin `throttle`.
+
 ### Disable Cluebringer in Postfix
 
 After migrated to iRedAPD, we need to update Postfix config file
