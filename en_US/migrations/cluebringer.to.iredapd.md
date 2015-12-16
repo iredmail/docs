@@ -74,9 +74,9 @@ Then run below commands to migrate greylisting and throttling settings:
 
 That's it.
 
-### After migration
+## After migration
 
-#### Disable Cluebringer in Postfix
+### Disable Cluebringer in Postfix
 
 After migrated to iRedAPD, we need to update Postfix config file
 `/etc/postfix/main.cf` (Linux) or `/usr/local/etc/postfix/main.cf` (FreeBSD)
@@ -122,15 +122,17 @@ smtpd_end_of_data_restrictions =
 
 * Optionally, you can drop its SQL database `cluebringer` also.
 
-#### Disable Cluebringer in iRedAdmin-Pro
+### Disable Cluebringer in iRedAdmin-Pro
 
 To disable Cluebringer integration in iRedAdmin-Pro, please set
 `policyd_enabled = False` in iRedAdmin-Pro config file, then restart Apache
 or uwsgi (if you're running Nginx) service.
 
-Optionally, you can __REMOVE__ or __COMMENT OUT__ all parameters which start
-with `policyd_` in iRedAdmin-Pro config file, for example:
-
+> After you upgraded to the latest iRedAdmin-Pro release (at least
+> iRedAdmin-Pro-LDAP-2.4.0, or iRedAdmin-Pro-SQL-2.2.0, both released on Dec 14,
+> 2015), you can either __COMMENT OUT__ or __REMOVE__ all parameters which start
+> with `policyd_` in iRedAdmin-Pro config file, for example:
+ 
 ```
 policyd_enabled
 policyd_db_host

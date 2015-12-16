@@ -18,11 +18,11 @@
 <li><a href="#migrate-to-iredapd">Migrate to iRedAPD</a><ul>
 <li><a href="#upgrade-iredapd-to-170-or-later-releases">Upgrade iRedAPD to 1.7.0 or later releases</a></li>
 <li><a href="#migrate-cluebringer-to-iredapd">Migrate Cluebringer to iRedAPD</a></li>
+</ul>
+</li>
 <li><a href="#after-migration">After migration</a><ul>
 <li><a href="#disable-cluebringer-in-postfix">Disable Cluebringer in Postfix</a></li>
 <li><a href="#disable-cluebringer-in-iredadmin-pro">Disable Cluebringer in iRedAdmin-Pro</a></li>
-</ul>
-</li>
 </ul>
 </li>
 </ul>
@@ -89,8 +89,8 @@ cluebringer_db_password = ''
 </code></pre>
 
 <p>That's it.</p>
-<h3 id="after-migration">After migration</h3>
-<h4 id="disable-cluebringer-in-postfix">Disable Cluebringer in Postfix</h4>
+<h2 id="after-migration">After migration</h2>
+<h3 id="disable-cluebringer-in-postfix">Disable Cluebringer in Postfix</h3>
 <p>After migrated to iRedAPD, we need to update Postfix config file
 <code>/etc/postfix/main.cf</code> (Linux) or <code>/usr/local/etc/postfix/main.cf</code> (FreeBSD)
 to remove Cluebringer settings:</p>
@@ -142,12 +142,16 @@ smtpd_end_of_data_restrictions =
 <ul>
 <li>Optionally, you can drop its SQL database <code>cluebringer</code> also.</li>
 </ul>
-<h4 id="disable-cluebringer-in-iredadmin-pro">Disable Cluebringer in iRedAdmin-Pro</h4>
+<h3 id="disable-cluebringer-in-iredadmin-pro">Disable Cluebringer in iRedAdmin-Pro</h3>
 <p>To disable Cluebringer integration in iRedAdmin-Pro, please set
 <code>policyd_enabled = False</code> in iRedAdmin-Pro config file, then restart Apache
 or uwsgi (if you're running Nginx) service.</p>
-<p>Optionally, you can <strong>REMOVE</strong> or <strong>COMMENT OUT</strong> all parameters which start
+<blockquote>
+<p>After you upgraded to the latest iRedAdmin-Pro release (at least
+iRedAdmin-Pro-LDAP-2.4.0, or iRedAdmin-Pro-SQL-2.2.0, both released on Dec 14,
+2015), you can either <strong>COMMENT OUT</strong> or <strong>REMOVE</strong> all parameters which start
 with <code>policyd_</code> in iRedAdmin-Pro config file, for example:</p>
+</blockquote>
 <pre><code>policyd_enabled
 policyd_db_host
 policyd_db_port
