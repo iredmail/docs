@@ -69,6 +69,8 @@
 <p>We offer remote upgrade service, check <a href="../support.html">the price</a> and <a href="../contact.html">contact us</a>.</p>
 </blockquote>
 <ul>
+<li>2015-12-16: Mention how to enable greylisting in iRedAPD.</li>
+<li>2015-12-14: New section: <code>Upgrade iRedAdmin (open source edition) to the latest stable release</code>.</li>
 <li>2015-12-14: New section: <code>Migrate from Cluebringer to iRedAPD</code>.</li>
 <li>2015-12-14: Fix duplicate folder name in section <code>Dovecot-2.2: Add more special folders as alias folders</code>.</li>
 <li>2015-12-14: Initial release.</li>
@@ -90,6 +92,13 @@ latest stable release:
 <h3 id="upgrade-iredapd-postfix-policy-server-to-the-latest-170">Upgrade iRedAPD (Postfix policy server) to the latest 1.7.0</h3>
 <p>Please follow below tutorial to upgrade iRedAPD to the latest stable release:
 <a href="./upgrade.iredapd.html">Upgrade iRedAPD to the latest stable release</a></p>
+<p><strong>Note</strong>: iRedAPD-1.7.0 doesn't enable greylisting by default, please enable
+plugin <code>greylisting</code> in iRedAPD config file (<code>/opt/iredapd/settings.py</code>), then
+execute SQL command below to enable server-wide greylisting:</p>
+<pre><code>sql&gt; USE iredapd;
+sql&gt; INSERT INTO greylisting (account, priority, sender, sender_priority, active) VALUES ('@.', 0, '@.', 0, 1);
+</code></pre>
+
 <p>Detailed release notes are available <a href="./iredapd.releases.html">here</a>.</p>
 <h3 id="migrate-from-cluebringer-to-iredapd">Migrate from Cluebringer to iRedAPD</h3>
 <p>In iRedMail-0.9.3, Cluebringer has been removed and replaced by iRedAPD.

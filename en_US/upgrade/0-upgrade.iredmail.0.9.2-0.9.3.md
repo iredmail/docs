@@ -6,6 +6,8 @@
 
 > We offer remote upgrade service, check [the price](../support.html) and [contact us](../contact.html).
 
+* 2015-12-16: Mention how to enable greylisting in iRedAPD.
+* 2015-12-14: New section: `Upgrade iRedAdmin (open source edition) to the latest stable release`.
 * 2015-12-14: New section: `Migrate from Cluebringer to iRedAPD`.
 * 2015-12-14: Fix duplicate folder name in section `Dovecot-2.2: Add more special folders as alias folders`.
 * 2015-12-14: Initial release.
@@ -34,6 +36,15 @@ latest stable release:
 
 Please follow below tutorial to upgrade iRedAPD to the latest stable release:
 [Upgrade iRedAPD to the latest stable release](./upgrade.iredapd.html)
+
+__Note__: iRedAPD-1.7.0 doesn't enable greylisting by default, please enable
+plugin `greylisting` in iRedAPD config file (`/opt/iredapd/settings.py`), then
+execute SQL command below to enable server-wide greylisting:
+
+```
+sql> USE iredapd;
+sql> INSERT INTO greylisting (account, priority, sender, sender_priority, active) VALUES ('@.', 0, '@.', 0, 1);
+```
 
 Detailed release notes are available [here](./iredapd.releases.html).
 

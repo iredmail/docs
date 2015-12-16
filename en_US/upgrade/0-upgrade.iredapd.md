@@ -35,6 +35,15 @@ That's all.
 
 Important notes:
 
+* iRedAPD-1.7.0 doesn't enable greylisting by default, please enable plugin
+  `greylisting` in iRedAPD config file (`/opt/iredapd/settings.py`), then
+  execute SQL command below to enable server-wide greylisting:
+
+```
+sql> USE iredapd;
+sql> INSERT INTO greylisting (account, priority, sender, sender_priority, active) VALUES ('@.', 0, '@.', 0, 1);
+```
+
 * It's recommended to enable plugin `reject_null_sender` in iRedAPD-1.4.4 or
   later releases to prevent authenticated user sending spam as null sender.
 
