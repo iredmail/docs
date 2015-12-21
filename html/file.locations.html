@@ -14,6 +14,7 @@
 <div class="toc">
 <ul>
 <li><a href="#locations-of-configuration-and-log-files-of-mojor-components">Locations of configuration and log files of mojor components</a><ul>
+<li><a href="#ssl-certificate">SSL certificate</a></li>
 <li><a href="#apache">Apache</a></li>
 <li><a href="#nginx">Nginx</a></li>
 <li><a href="#postfix">Postfix</a><ul>
@@ -43,6 +44,38 @@
 </li>
 </ul>
 </div>
+<h2 id="ssl-certificate">SSL certificate</h2>
+<p>The self-signed SSL certificate generated during iRedMail installation:</p>
+<ul>
+<li>
+<p>on RHEL/CentOS:</p>
+<ul>
+<li><code>/etc/pki/tls/certs/iRedMail.crt</code></li>
+<li>Private key: <code>/etc/pki/tls/private/iRedMail.key</code></li>
+</ul>
+</li>
+<li>
+<p>on Debian/Ubuntu:</p>
+<ul>
+<li><code>/etc/ssl/certs/iRedMail.crt</code></li>
+<li>Private key: <code>/etc/ssl/private/iRedMail.key</code></li>
+</ul>
+</li>
+<li>
+<p>on FreeBSD:</p>
+<ul>
+<li><code>/etc/ssl/certs/iRedMail.crt</code></li>
+<li>Private key: <code>/etc/ssl/private/iRedMail.key</code></li>
+</ul>
+</li>
+<li>
+<p>on OpenBSD:</p>
+<ul>
+<li><code>/etc/ssl/iRedMail.crt</code></li>
+<li>Private key: <code>/etc/ssl/iRedMail.key</code></li>
+</ul>
+</li>
+</ul>
 <h2 id="apache">Apache</h2>
 <ul>
 <li>

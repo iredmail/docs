@@ -2,6 +2,30 @@
 
 [TOC]
 
+## SSL certificate
+
+The self-signed SSL certificate generated during iRedMail installation:
+
+* on RHEL/CentOS:
+
+    * `/etc/pki/tls/certs/iRedMail.crt`
+    * Private key: `/etc/pki/tls/private/iRedMail.key`
+
+* on Debian/Ubuntu:
+
+    * `/etc/ssl/certs/iRedMail.crt`
+    * Private key: `/etc/ssl/private/iRedMail.key`
+
+* on FreeBSD:
+
+    * `/etc/ssl/certs/iRedMail.crt`
+    * Private key: `/etc/ssl/private/iRedMail.key`
+
+* on OpenBSD:
+
+    * `/etc/ssl/iRedMail.crt`
+    * Private key: `/etc/ssl/iRedMail.key`
+
 ## Apache
 
 * On RHEL/CentOS: Apache config files are placed under `/etc/httpd/`.
