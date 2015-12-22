@@ -155,7 +155,7 @@ To disable Cluebringer integration in iRedAdmin-Pro, please set
 `policyd_enabled = False` in iRedAdmin-Pro config file, then restart Apache
 or uwsgi (if you're running Nginx) service.
 
-> After you upgraded to the latest iRedAdmin-Pro release (at least
+> After you have upgraded to the latest iRedAdmin-Pro release (at least
 > iRedAdmin-Pro-LDAP-2.4.0, or iRedAdmin-Pro-SQL-2.2.0, both released on Dec 14,
 > 2015), you can either __COMMENT OUT__ or __REMOVE__ all parameters which start
 > with `policyd_` in iRedAdmin-Pro config file, for example:
