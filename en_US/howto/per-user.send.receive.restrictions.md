@@ -1,7 +1,6 @@
-# Per-user outbound restrictions
+# [DEPRECATED] Per-user outbound restrictions
 
-> Note: if you're looking for whitelisting or blacklisting incoming email,
-> please use iRedAPD plugin `amavisd_wblist` instead.
+__WARNING: THIS DOCUMENT IS *DEPRECATED*, PLEASE DO NOT APPLY IT.__
 
 ## SQL backends
 
