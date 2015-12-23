@@ -6,6 +6,7 @@
 
 > We offer remote upgrade service, check [the price](../support.html) and [contact us](../contact.html).
 
+* 2015-12-23: Run `a2enmod headers` on Debian/Ubuntu to make sure required Apache module is enabled.
 * 2015-12-16: Mention how to enable greylisting in iRedAPD.
 * 2015-12-14: New section: `Upgrade iRedAdmin (open source edition) to the latest stable release`.
 * 2015-12-14: New section: `Migrate from Cluebringer to iRedAPD`.
@@ -316,6 +317,14 @@ and append below settings right after `SSLEngine on` line:
 # https://developer.mozilla.org/en-US/docs/Web/Security/HTTP_strict_transport_security
 # Module mod_headers is required. 15768000 seconds = 6 months.
 Header always set Strict-Transport-Security "max-age=15768000; includeSubdomains"
+```
+
+On Debian 8 and Ubuntu, run command below to make sure Apache module `headers`
+is enabled:
+
+```
+a2enmod headers
+service apache2 restart
 ```
 
 <h4>Nginx</h4>
