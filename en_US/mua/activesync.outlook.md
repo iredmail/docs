@@ -16,7 +16,7 @@
 >
 > * Apple Mail.app, and Outlook for Mac support EWS. But not EAS.
 > * Outlook 2010 for Windows supports MAPI.
-> * iRedMail-0.9.0 doesn't integrate [OpenChange](http://www.openchange.org) and
+> * iRedMail doesn't integrate [OpenChange](http://www.openchange.org) and
 >   [Samba4](http://www.samba.org) for native MAPI support, so SOGo groupware
 >   in iRedMail doesn't provide full support for Microsoft Outlook clients,
 >   Mac OS X Mail.app and all iOS devices, don't try to add your mail account
