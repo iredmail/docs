@@ -119,17 +119,16 @@ installer with below command instead of the original one (<code>bash iRedMail.sh
   <code>MYSQL_SERVER_ADDRESS</code>.</li>
 </ul>
 </blockquote>
-<pre><code># MYSQL_SERVER_ADDRESS='192.168.1.100' MYSQL_SERVER_PORT='3306' MYSQL_ROOT_USER='admin_iredmail' MYSQL_GRANT_HOST='192.168.1.200' bash iRedMail.sh
+<pre><code># MYSQL_SERVER_ADDRESS='192.168.1.100' MYSQL_SERVER_PORT='3306' MYSQL_ROOT_USER='admin_iredmail' MYSQL_ROOT_PASSWD='admin_password' MYSQL_GRANT_HOST='192.168.1.200' bash iRedMail.sh
 </code></pre>
 
-<p>It will launch iRedMail installation wizard as usual. When it asks MySQL root
-password, please input the password (<code>admin_password</code> in our case) we created
-on remote MySQL server.</p>
+<p>It will launch iRedMail installation wizard as usual.</p>
 <p>Parameters we used in above command line:</p>
 <ul>
 <li><code>MYSQL_SERVER_ADDRESS</code>: Remote MySQL server address.</li>
 <li><code>MYSQL_SERVER_PORT</code>: Remote MySQL server port. Default is <code>3306</code>.</li>
 <li><code>MYSQL_ROOT_USER</code>: MySQL user name we created on remote MySQL server before installing iRedMail.</li>
+<li><code>MYSQL_ROOT_PASSWD</code>: MySQL password that we created on remote MySQL server before installing iRedMail.</li>
 <li><code>MYSQL_GRANT_HOST</code>: Hostname or IP address of iRedMail server.</li>
 </ul>
 <p>iRedMail will create new SQL users for applications like Postfix, Amavisd,

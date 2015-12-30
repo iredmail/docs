@@ -594,8 +594,6 @@ below line under `[Definition]` section:
 
 Restarting Fail2ban service is required.
 
-* Save your change and restart Postfix service.
-
 ### [OPTIONAL] Postfix: Remove one non-spam HELO identity in helo restriction
 
 iRedMail ships a Postfix HELO rule file, `/etc/postfix/helo_access.pcre`, it
