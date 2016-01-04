@@ -51,6 +51,8 @@ Detailed release notes are available [here](./iredapd.releases.html).
 
 ### Migrate from Cluebringer to iRedAPD
 
+> NOTE: If your server doesn't have Cluebringer installed, please ignore this step.
+
 In iRedMail-0.9.3, Cluebringer has been removed and replaced by iRedAPD.
 Cluebringer is not under active development and no new release since 2013 (the
 latest stable release doesn't support IPv6). iRedAPD offers greylisting and
@@ -66,6 +68,8 @@ throttling settings from Cluebringer to iRedAPD:
 
 Please follow Roundcube official tutorial to upgrade Roundcube webmail to the
 latest stable release immediately: [How to upgrade Roundcube](http://trac.roundcube.net/wiki/Howto_Upgrade)
+
+Note: package `rsync` must be installed on your server before upgrading.
 
 ### Postfix: Add additional aliases
 
@@ -147,8 +151,8 @@ $originating = 1;
 
 * Open Postfix config file `/etc/postfix/master.cf` (Linux/OpenBSD) or
   `/usr/local/etc/postfix/master.cf` (FreeBSD), update transport `submission`
-  to use `content_filter=smtp-amavis:[127.0.0.1]:10026` as content filter like
-  below:
+  to uncomment `content_filter=smtp-amavis:[127.0.0.1]:10026` line, so that we
+  can use Amavisd with policy bank `ORIGINATING` as content filter. like below:
 
 ```
 submission inet n       -       n       -       -       smtpd

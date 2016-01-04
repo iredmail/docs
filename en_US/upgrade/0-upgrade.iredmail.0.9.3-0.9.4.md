@@ -40,3 +40,4 @@ Detailed release notes are available [here](./iredapd.releases.html).
 Please follow Roundcube official tutorial to upgrade Roundcube webmail to the
 latest stable release immediately: [How to upgrade Roundcube](http://trac.roundcube.net/wiki/Howto_Upgrade)
 
+Note: package `rsync` must be installed on your server before upgrading.

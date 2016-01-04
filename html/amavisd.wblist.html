@@ -1,0 +1,83 @@
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Whitelists and Blacklists</title>
+        <link rel="stylesheet" type="text/css" href="./css/markdown.css" />
+    </head>
+    <body>
+    
+    <div id="navigation">
+        <a href="http://www.iredmail.org" target="_blank">iRedMail web site</a>
+    
+        // <a href="./index.html">Document Index</a>
+    </div><h1 id="whitelists-and-blacklists">Whitelists and Blacklists</h1>
+<div class="toc">
+<ul>
+<li><a href="#whitelists-and-blacklists">Whitelists and Blacklists</a><ul>
+<li><a href="#manage-whitelists-and-blacklists-with-iredadmin-pro">Manage whitelists and blacklists with iRedAdmin-Pro</a></li>
+<li><a href="#manage-whitelists-and-blacklists-with-sql-commands">Manage whitelists and blacklists with SQL commands</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<p>This tutorial shows you how to whitelist and blacklist senders or recipients
+with iRedAdmin-Pro and script shipped in iRedAPD (since iRedAPD-1.7.1).</p>
+<h2 id="manage-whitelists-and-blacklists-with-iredadmin-pro">Manage whitelists and blacklists with iRedAdmin-Pro</h2>
+<p>With iRedAdmin-Pro, you can manage several levels of whitelists and blacklists:</p>
+<ul>
+<li>Global white/blacklists: under menu <code>System -&gt; Anti Spam -&gt; Whitelists &amp; Blacklists</code>.</li>
+<li>Per-domain white/blacklists: in domain profile page, under tab <code>Whitelists and Blacklists</code>.</li>
+<li>Per-user white/blacklists: in user profile page, under tab <code>Whitelists and Blacklists</code>.</li>
+</ul>
+<p>Screenshot attached below.</p>
+<h2 id="manage-whitelists-and-blacklists-with-sql-commands">Manage whitelists and blacklists with SQL commands</h2>
+<p>Since iRedAPD-1.7.1, iRedAPD ships script <code>tools/wblist_admin.py</code> to help you
+manage white/blacklists. To get full usage message, please run this script
+without argument like this:</p>
+<pre><code># cd /opt/iredapd/tools/
+# python wblist_admin.py
+</code></pre>
+
+<p>Sample usages:</p>
+<ul>
+<li>Add server-wide whitelisted or blacklisted senders:</li>
+</ul>
+<pre><code># python wblist_admin.py --add --whitelist 202.96.134.133 john@example.com @test.com @.abc.com
+# python wblist_admin.py --add --blacklist 202.96.134.133 john@example.com @test.com @.abc.com
+</code></pre>
+
+<ul>
+<li>Show server-wide whitelisted and blacklisted senders:</li>
+</ul>
+<pre><code># python wblist_admin.py --list --whitelist
+# python wblist_admin.py --list --blacklist
+</code></pre>
+
+<ul>
+<li>For per-domain or per-user white/blacklists, please add argument <code>--account</code>.
+  like below:</li>
+</ul>
+<pre><code># python wblist_admin.py --account mydomain.com --add --whitelist 202.96.134.133
+# python wblist_admin.py --account user@mydomain.com --add --blacklist 202.96.134.133
+
+# python wblist_admin.py --account mydomain.com --list --whitelist
+# python wblist_admin.py --account user@mydomain.com --list --blacklist
+</code></pre>
+
+<ul>
+<li>For outbound messages, please add argument <code>--outbound</code>. like below:</li>
+</ul>
+<pre><code># python wblist_admin.py --outbound --account mydomain.com --add --whitelist 202.96.134.133
+</code></pre>
+
+<p>Screenshot of iRedAdmin-Pro:</p>
+<p><img alt="" src="http://www.iredmail.org/images/iredadmin/system_wblist.png" /></p><p style="text-align: center; color: grey;">All documents are available in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-3293801-21', 'auto');
+  ga('send', 'pageview');
+</script>
+</body></html>
