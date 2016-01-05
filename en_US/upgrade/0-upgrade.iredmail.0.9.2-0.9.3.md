@@ -27,12 +27,6 @@ so that you can know which version of iRedMail you're running. For example:
 0.9.3
 ```
 
-### Upgrade iRedAdmin (open source edition) to the latest stable release
-
-Please follow this tutorial to upgrade iRedAdmin open source edition to the
-latest stable release:
-[Upgrade iRedAdmin to the latest stable release](./migrate.or.upgrade.iredadmin.html)
-
 ### Upgrade iRedAPD (Postfix policy server) to the latest 1.7.0
 
 Please follow below tutorial to upgrade iRedAPD to the latest stable release:
@@ -63,6 +57,12 @@ throttling settings from Cluebringer to iRedAPD:
 
 > Note: We also plan to completely remove code of Policyd/Cluebringer support
 > in next iRedAdmin-Pro release.
+
+### Upgrade iRedAdmin (open source edition) to the latest stable release
+
+Please follow this tutorial to upgrade iRedAdmin open source edition to the
+latest stable release:
+[Upgrade iRedAdmin to the latest stable release](./migrate.or.upgrade.iredadmin.html)
 
 ### Upgrade Roundcube webmail to the latest stable release
 

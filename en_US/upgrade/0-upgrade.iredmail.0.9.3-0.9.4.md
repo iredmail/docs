@@ -22,18 +22,18 @@ so that you can know which version of iRedMail you're running. For example:
 0.9.4
 ```
 
-### Upgrade iRedAdmin (open source edition) to the latest stable release
-
-Please follow this tutorial to upgrade iRedAdmin open source edition to the
-latest stable release:
-[Upgrade iRedAdmin to the latest stable release](./migrate.or.upgrade.iredadmin.html)
-
 ### Upgrade iRedAPD (Postfix policy server) to the latest 1.7.1
 
 Please follow below tutorial to upgrade iRedAPD to the latest stable release:
 [Upgrade iRedAPD to the latest stable release](./upgrade.iredapd.html)
 
 Detailed release notes are available [here](./iredapd.releases.html).
+
+### Upgrade iRedAdmin (open source edition) to the latest stable release
+
+Please follow this tutorial to upgrade iRedAdmin open source edition to the
+latest stable release:
+[Upgrade iRedAdmin to the latest stable release](./migrate.or.upgrade.iredadmin.html)
 
 ### Upgrade Roundcube webmail to the latest stable release
 
