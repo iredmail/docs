@@ -29,13 +29,20 @@ Uncomment above lines (removing "# " at the beginning of each line), and restart
 
 If you want to completely disable spam and virus scanning services, steps:
 
-* Comment out below two lines in Postfix config file `/etc/postfix/main.cf`, then restart Postfix service.
+* Comment out below two lines in Postfix config file `/etc/postfix/main.cf`:
 
-```perl
+```cfg
 content_filter = smtp-amavis:[127.0.0.1]:10024
 receive_override_options = no_address_mappings  # <- it's ok if you don't have this line
 ```
 
+* Comment out below line in Postfix config file `/etc/postfix/master.cf`,
+
+```cfg
+  -o content_filter=smtp-amavis:[127.0.0.1]:10026
+```
+
+* Restarting Postfix service is required.
 * Disable network services: Amavisd, ClamAV.
 
 Notes:
