@@ -18,8 +18,8 @@
   features or fix bugs, you do __NOT__ need to download the latest iRedMail and
   run the script.
 
-* Upgrades are only supported from one release to the release immediately
-  following it. Do __NOT__ skip releases.
+* __Do NOT skip releases__. Upgrades are only supported from one release to the
+  release immediately following it.
 
 * If you're looking for upgrading a very old iRedMail server to the latest
   iRedMail release, there's an alternative solution:

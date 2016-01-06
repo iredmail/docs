@@ -9,5 +9,10 @@ service.
 log_level = 'debug'
 ```
 
-iRedAPD is configured to log to `/var/log/iredapd.log` by default, so
-please monitor this file to check detailed debug log.
+### Log File
+
+Log file is configured in `/opt/iredapd/settings.py`, parameter `log_file =`.
+Please monitor its log file to check detailed debug log.
+
+* iRedAPD-1.7.0 and later: `/var/log/iredapd/iredapd.log`
+* iRedAPD-1.6.0 and earlier: `/var/log/iredapd.log`
