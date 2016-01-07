@@ -128,11 +128,23 @@ structure related changes. Check <a href="./iredmail.releases.html">upgrade tuto
 <h2 id="migrate-mailboxes-maildir-format">Migrate mailboxes (Maildir format)</h2>
 <ul>
 <li>Copy all mailboxes (in Maildir format) to new iRedMail server with tools like <code>rsync</code>.</li>
-<li>Set correct file owner of mailboxes. Default owner is <code>vmail</code>, group is <code>vmail</code>.</li>
-<li>Set correct file permission of mailboxes. Default is <code>0700</code>.</li>
+<li>Set correct file owner and permission of mailboxes. Default owner is <code>vmail</code>,
+  group is <code>vmail</code>, permission is <code>0700</code>.</li>
 </ul>
-<p>WARNING: please make sure maildir path stored in SQL/LDAP matches the mailbox
-path on file system, so that mail clients can find imported emails.</p>
+<blockquote>
+<p>WARNING:</p>
+<ul>
+<li>
+<p>please make sure maildir path stored in SQL/LDAP matches the mailbox
+  path on file system, so that mail clients can find imported emails.</p>
+</li>
+<li>
+<p>After migrated mailboxes, you may want to recalculate mailbox quota by
+  following our tutorial:
+  <a href="./recalculate.mailbox.quota.html">Force Dovecot to recalculate mailbox quota</a></p>
+</li>
+</ul>
+</blockquote>
 <ul>
 <li>With SQL backends, you can get full maildir path of user with below SQL command:</li>
 </ul>

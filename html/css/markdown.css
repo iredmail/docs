@@ -308,3 +308,4 @@ th { font-style: bold; text-align: left; }
 /*
 code.bash { background-color: green; color: white; }
 */
+pre { margin-left: 30px; }
