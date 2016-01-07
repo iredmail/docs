@@ -178,11 +178,14 @@ quarantined mails.</p>
 </code></pre>
 
 <ul>
-<li>
-<p>Comment out below line in Amavisd config file:</p>
-<p><strong>WARNING: Do NOT remove <code>originating =&gt; 1,</code> in ALL <code>$policy_bank</code> blocks.</strong></p>
-</li>
+<li>Comment out below line in Amavisd config file:</li>
 </ul>
+<blockquote>
+<p>WARNING:</p>
+<p>There're several <code>$originating =1;</code> in amavisd config file, but there's only
+one of them is <strong>NOT</strong> defined inside any <code>$policy_bank = {}</code> block, and this
+is the one we need to comment out.</p>
+</blockquote>
 <pre><code>$originating = 1;
 </code></pre>
 

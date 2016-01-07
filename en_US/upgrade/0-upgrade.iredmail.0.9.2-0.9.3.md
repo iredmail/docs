@@ -133,7 +133,11 @@ quarantined mails.
 
 * Comment out below line in Amavisd config file:
 
-    __WARNING: Do NOT remove `originating => 1,` in ALL `$policy_bank` blocks.__
+> WARNING:
+>
+> There're several `$originating =1;` in amavisd config file, but there's only
+> one of them is __NOT__ defined inside any `$policy_bank = {}` block, and this
+> is the one we need to comment out.
 
 ```
 $originating = 1;
