@@ -608,8 +608,8 @@ body_checks = pcre:/etc/postfix/body_checks.pcre
 
 <ul>
 <li>In <code>main.cf</code>, find parameter <code>smtpd_sender_restrictions =</code>, add a new setting
-  <code>check_sender_access pcre:/etc/postfix/sender_access.pcre</code> right before
-  <code>permit_mynetworks</code> like below:</li>
+  <code>check_sender_access pcre:/etc/postfix/sender_access.pcre</code> right after
+  <code>permit_sasl_authenticated</code> like below:</li>
 </ul>
 <pre><code>smtpd_sender_restrictions =
     ...
