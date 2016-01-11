@@ -21,19 +21,39 @@ To enable SMTPS, you should configure Postfix to listen on port 465 first, then 
 
 Please find below lines in Postfix config file `/etc/postfix/master.cf` (Linux/OpenBSD) or `/usr/local/etc/postfix/master.cf` (FreeBSD):
 
-    #smtps     inet  n       -       n       -       -       smtpd
-    #  -o smtpd_tls_wrappermode=yes
-    #  -o smtpd_sasl_auth_enable=yes
-    #  -o smtpd_client_restrictions=permit_sasl_authenticated,reject
-    #  -o milter_macro_daemon_name=ORIGINATING
+```
+#smtps     inet  n       -       n       -       -       smtpd
+#  -o smtpd_tls_wrappermode=yes
+#  -o smtpd_sasl_auth_enable=yes
+#  -o smtpd_client_restrictions=permit_sasl_authenticated,reject
+#  -o milter_macro_daemon_name=ORIGINATING
+```
 
-Uncomment first 4 lines, but leave the last one commented out (because iRedMail doesn't use Postfix milter at all):
+Uncomment first 4 lines, and:
 
-    smtps     inet  n       -       n       -       -       smtpd
-      -o smtpd_tls_wrappermode=yes
-      -o smtpd_sasl_auth_enable=yes
-      -o smtpd_client_restrictions=permit_sasl_authenticated,reject
-    #  -o milter_macro_daemon_name=ORIGINATING
+* leave the last one commented out (because iRedMail doesn't use any Postfix milter)
+* replace `smtps` by `465`, because service name `smtps` is deprecated and not
+  defined in `/etc/services` anymore.
+
+```
+465     inet  n       -       n       -       -       smtpd
+  -o smtpd_tls_wrappermode=yes
+  -o smtpd_sasl_auth_enable=yes
+  -o smtpd_client_restrictions=permit_sasl_authenticated,reject
+#  -o milter_macro_daemon_name=ORIGINATING
+```
+
+If you're running iRedMail-0.9.3 or later releases, please replace
+`-o milter_macro_daemon_name=ORIGINATING` by
+`-o content_filter=smtp-amavis:[127.0.0.1]:10026`.
+
+```
+465     inet  n       -       n       -       -       smtpd
+  -o smtpd_tls_wrappermode=yes
+  -o smtpd_sasl_auth_enable=yes
+  -o smtpd_client_restrictions=permit_sasl_authenticated,reject
+  -o content_filter=smtp-amavis:[127.0.0.1]:10026
+```
 
 Restart Postfix service to enable SMTPS.
 
