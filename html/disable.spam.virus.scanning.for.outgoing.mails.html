@@ -21,8 +21,8 @@ in Amavisd config file: <code>/etc/amavisd/amavisd.conf</code> (RHEL/CentOS) or
 <li>bypass_header_checks_maps</li>
 <li>bypass_banned_checks_maps</li>
 </ul>
-<p>These settings can be added in setting block <code>$policy_bank{'MYUSERS'}</code>:</p>
-<pre><code class="perl">$policy_bank{'MYUSERS'} = {
+<p>These settings can be added in setting block <code>$policy_bank{'ORIGINATING'}</code>:</p>
+<pre><code class="perl">$policy_bank{'ORIGINATING'} = {
     [...OMIT OTHER SETTINGS HERE...]
 
     # don't perform spam/virus/header check.

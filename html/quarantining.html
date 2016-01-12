@@ -123,9 +123,9 @@ $clean_quarantine_to = 'clean-quarantine';
 </code></pre>
 
 <ul>
-<li>Find policy bank <code>MYUSERS</code>, append two lines in this policy bank:</li>
+<li>Find policy bank <code>ORIGINATING</code>, append two lines in this policy bank:</li>
 </ul>
-<pre><code class="perl">$policy_bank{'MYUSERS'} = {
+<pre><code class="perl">$policy_bank{'ORIGINATING'} = {
     ...
     clean_quarantine_method =&gt; 'sql:',
     final_destiny_by_ccat =&gt; {CC_CLEAN, D_DISCARD},

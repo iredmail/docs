@@ -118,10 +118,10 @@ $clean_quarantine_method = 'sql:';
 $clean_quarantine_to = 'clean-quarantine';
 ```
 
-* Find policy bank `MYUSERS`, append two lines in this policy bank:
+* Find policy bank `ORIGINATING`, append two lines in this policy bank:
 
 ```perl
-$policy_bank{'MYUSERS'} = {
+$policy_bank{'ORIGINATING'} = {
     ...
     clean_quarantine_method => 'sql:',
     final_destiny_by_ccat => {CC_CLEAN, D_DISCARD},
