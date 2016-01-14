@@ -6,6 +6,7 @@
 
 > We offer remote upgrade service, check [the price](../support.html) and [contact us](../contact.html).
 
+* 2016-01-14: Mention updating backup script to backup iRedAPD SQL database.
 * 2015-12-23: Run `a2enmod headers` on Debian/Ubuntu to make sure required Apache module is enabled.
 * 2015-12-16: Mention how to enable greylisting in iRedAPD.
 * 2015-12-14: New section: `Upgrade iRedAdmin (open source edition) to the latest stable release`.
@@ -32,13 +33,26 @@ so that you can know which version of iRedMail you're running. For example:
 Please follow below tutorial to upgrade iRedAPD to the latest stable release:
 [Upgrade iRedAPD to the latest stable release](./upgrade.iredapd.html)
 
-__Note__: iRedAPD-1.7.0 doesn't enable greylisting by default, please enable
-plugin `greylisting` in iRedAPD config file (`/opt/iredapd/settings.py`), then
-execute SQL command below to enable server-wide greylisting:
+__Notes__:
+
+* iRedAPD-1.7.0 doesn't enable greylisting by default, please enable
+   plugin `greylisting` in iRedAPD config file (`/opt/iredapd/settings.py`),
+   then execute SQL command below to enable server-wide greylisting:
 
 ```
 sql> USE iredapd;
 sql> INSERT INTO greylisting (account, priority, sender, sender_priority, active) VALUES ('@.', 0, '@.', 0, 1);
+```
+
+* iRedAPD-1.7.0 creates a new SQL database `iredapd`, please update your
+   backup script to backup this database. The backup script was set up by
+   iRedMail during installation, default path is
+   `/var/vmail/backup/backup_mysql.sh` (For OpenLDAP and MySQL/MariaDB
+   backends) or `/var/vmail/backup/backup_pgsql.sh` (For PostgreSQL backend).
+   For example:
+
+```
+DATABASES='... iredapd'
 ```
 
 Detailed release notes are available [here](./iredapd.releases.html).

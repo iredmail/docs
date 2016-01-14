@@ -69,6 +69,7 @@
 <p>We offer remote upgrade service, check <a href="../support.html">the price</a> and <a href="../contact.html">contact us</a>.</p>
 </blockquote>
 <ul>
+<li>2016-01-14: Mention updating backup script to backup iRedAPD SQL database.</li>
 <li>2015-12-23: Run <code>a2enmod headers</code> on Debian/Ubuntu to make sure required Apache module is enabled.</li>
 <li>2015-12-16: Mention how to enable greylisting in iRedAPD.</li>
 <li>2015-12-14: New section: <code>Upgrade iRedAdmin (open source edition) to the latest stable release</code>.</li>
@@ -89,11 +90,25 @@ so that you can know which version of iRedMail you're running. For example:</p>
 <h3 id="upgrade-iredapd-postfix-policy-server-to-the-latest-170">Upgrade iRedAPD (Postfix policy server) to the latest 1.7.0</h3>
 <p>Please follow below tutorial to upgrade iRedAPD to the latest stable release:
 <a href="./upgrade.iredapd.html">Upgrade iRedAPD to the latest stable release</a></p>
-<p><strong>Note</strong>: iRedAPD-1.7.0 doesn't enable greylisting by default, please enable
-plugin <code>greylisting</code> in iRedAPD config file (<code>/opt/iredapd/settings.py</code>), then
-execute SQL command below to enable server-wide greylisting:</p>
+<p><strong>Notes</strong>:</p>
+<ul>
+<li>iRedAPD-1.7.0 doesn't enable greylisting by default, please enable
+   plugin <code>greylisting</code> in iRedAPD config file (<code>/opt/iredapd/settings.py</code>),
+   then execute SQL command below to enable server-wide greylisting:</li>
+</ul>
 <pre><code>sql&gt; USE iredapd;
 sql&gt; INSERT INTO greylisting (account, priority, sender, sender_priority, active) VALUES ('@.', 0, '@.', 0, 1);
+</code></pre>
+
+<ul>
+<li>iRedAPD-1.7.0 creates a new SQL database <code>iredapd</code>, please update your
+   backup script to backup this database. The backup script was set up by
+   iRedMail during installation, default path is
+   <code>/var/vmail/backup/backup_mysql.sh</code> (For OpenLDAP and MySQL/MariaDB
+   backends) or <code>/var/vmail/backup/backup_pgsql.sh</code> (For PostgreSQL backend).
+   For example:</li>
+</ul>
+<pre><code>DATABASES='... iredapd'
 </code></pre>
 
 <p>Detailed release notes are available <a href="./iredapd.releases.html">here</a>.</p>
