@@ -165,12 +165,9 @@ Password of LDAP root dn.
 
 ![](../images/installation/iredmail/pw_of_ldap_root_dn.png)
 
-* Set password of MySQL or PostgreSQL admin user.
-
-__NOTE__: MySQL is used to store data of other applications (e.g. Roundcube
-webmail, Cluebringer, Amavisd-new) if you choose OpenLDAP or MySQL as backend.
-
-![](../images/installation/iredmail/pw_of_mysql_root_user.png)
+* If you choose to store mail accounts in MySQL/MariaDB/PostgreSQL, iRedMail
+  installer will generate a random, strong password for you. You can find it in
+  file `iRedMail.tips`.
 
 * Add your first mail domain name
 
