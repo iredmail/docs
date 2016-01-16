@@ -41,3 +41,16 @@ Please follow Roundcube official tutorial to upgrade Roundcube webmail to the
 latest stable release immediately: [How to upgrade Roundcube](http://trac.roundcube.net/wiki/Howto_Upgrade)
 
 Note: package `rsync` must be installed on your server before upgrading.
+
+
+### FreeBSD: Fix incorrect file permission of /etc/mail/mailer.conf
+
+> This is applicable to only FreeBSD.
+
+iRedMail generates /etc/mail/mailer.conf with permission 0600 during
+installation, but it should be world-readable. Please fix this issue with
+command below:
+
+```
+chmod +r /etc/mail/mailer.conf
+```
