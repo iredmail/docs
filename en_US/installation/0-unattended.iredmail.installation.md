@@ -64,7 +64,7 @@ command line tool `vmrun`.
 ssh root@[SERVER] "cd /root/iRedMail/ && IREDMAIL_DEBUG='NO' AUTO_USE_EXISTING_CONFIG_FILE=y AUTO_INSTALL_WITHOUT_CONFIRM=y AUTO_CLEANUP_REMOVE_SENDMAIL=y AUTO_CLEANUP_REMOVE_MOD_PYTHON=y AUTO_CLEANUP_REPLACE_FIREWALL_RULES=y AUTO_CLEANUP_RESTART_IPTABLES=y AUTO_CLEANUP_REPLACE_MYSQL_CONFIG=y AUTO_CLEANUP_RESTART_POSTFIX=n bash iRedMail.sh"
 ```
 
-* Perform after-installation tasks: upload downloaded ClamAV database, ..., reboot server.
+* Reboot server.
 
 It should complete in 2-3 minutes (uploading binary packages takes most time),
 then i got a working iRedMail server. I do this many times every day.
