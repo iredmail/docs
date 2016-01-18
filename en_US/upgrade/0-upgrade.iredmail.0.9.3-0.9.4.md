@@ -42,6 +42,41 @@ latest stable release immediately: [How to upgrade Roundcube](http://trac.roundc
 
 Note: package `rsync` must be installed on your server before upgrading.
 
+### Fixed: No daily cron job to backup SQL/LDAP database
+
+In iRedMail-0.9.3, there's no daily cron job to backup SQL/LDAP databases.
+Please add them manually with command `crontab -e -u root`.
+
+> Notes:
+>
+> * Please make sure the path to backup scripts
+>   (`/var/vmail/backup/backup_XXX.sh`) are correct.
+>
+> * On FreeBSD and OpenBSD, the path of `bash` shell is `/usr/local/bin/bash`.
+
+* For OpenLDAP backend, you need 2 daily cron jobs, one for SQL database, one
+  another one for LDAP:
+
+```
+# iRedMail: Backup OpenLDAP data (at 03:00 AM)
+0   3   *   *   *   /bin/bash ${BACKUP_SCRIPT_OPENLDAP}
+
+# iRedMail: Backup MySQL databases (at 03:30AM)
+30   3   *   *   *   /bin/bash /var/vmail/backup/backup_pgsql.sh
+```
+
+* For MySQL/MariaDB backends, you need 1 daily cron job:
+
+```
+# iRedMail: Backup MySQL databases (at 03:30AM)
+30   3   *   *   *   /bin/bash /var/vmail/backup/backup_pgsql.sh
+```
+
+* For PostgreSQL backend, you need 1 daily cron job:
+```
+# iRedMail: Backup PostgreSQL databases (at 03:01AM)
+1   3   *   *   *   /bin/bash /var/vmail/backup/backup_pgsql.sh
+```
 
 ### FreeBSD: Fix incorrect file permission of /etc/mail/mailer.conf
 
