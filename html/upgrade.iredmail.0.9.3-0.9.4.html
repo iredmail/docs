@@ -22,6 +22,7 @@
 <li><a href="#upgrade-roundcube-webmail-to-the-latest-stable-release">Upgrade Roundcube webmail to the latest stable release</a></li>
 <li><a href="#fixed-no-daily-cron-job-to-backup-sqlldap-database">Fixed: No daily cron job to backup SQL/LDAP database</a></li>
 <li><a href="#freebsd-fix-incorrect-file-permission-of-etcmailmailerconf">FreeBSD: Fix incorrect file permission of /etc/mail/mailer.conf</a></li>
+<li><a href="#openbsd-fixed-not-open-port-25-in-firewall-rule">OpenBSD: Fixed: Not open port 25 in firewall rule</a></li>
 </ul>
 </li>
 </ul>
@@ -103,6 +104,26 @@ Please add them manually with command <code>crontab -e -u root</code>.</p>
 installation, but it should be world-readable. Please fix this issue with
 command below:</p>
 <pre><code>chmod +r /etc/mail/mailer.conf
+</code></pre>
+
+<h3 id="openbsd-fixed-not-open-port-25-in-firewall-rule">OpenBSD: Fixed: Not open port 25 in firewall rule</h3>
+<blockquote>
+<p>This is applicable to only OpenBSD.</p>
+</blockquote>
+<p>The sample PF firewall rule shipped in iRedMail-0.9.3 doesn't enable port 25
+by default, please add service name <code>smtp</code> in <code>mail_services=</code> manually, then
+reload pf rules.</p>
+<ul>
+<li>Add service name <code>smtp</code> in parameter <code>mail_services=</code> in <code>/etc/pf.conf</code>:</li>
+</ul>
+<pre><code>mail_services=&quot;{ ... smtp}&quot;
+</code></pre>
+
+<ul>
+<li>Reload pf firewall:</li>
+</ul>
+<pre><code># pfctl -d
+# pfctl -ef /etc/pf.conf
 </code></pre><p style="text-align: center; color: grey;">All documents are available in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.<script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),

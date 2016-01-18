@@ -89,3 +89,24 @@ command below:
 ```
 chmod +r /etc/mail/mailer.conf
 ```
+
+### OpenBSD: Fixed: Not open port 25 in firewall rule
+
+> This is applicable to only OpenBSD.
+
+The sample PF firewall rule shipped in iRedMail-0.9.3 doesn't enable port 25
+by default, please add service name `smtp` in `mail_services=` manually, then
+reload pf rules.
+
+* Add service name `smtp` in parameter `mail_services=` in `/etc/pf.conf`:
+
+```
+mail_services="{ ... smtp}"
+```
+
+* Reload pf firewall:
+
+```
+# pfctl -d
+# pfctl -ef /etc/pf.conf
+```
