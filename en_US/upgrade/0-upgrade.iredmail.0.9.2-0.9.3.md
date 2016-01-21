@@ -6,12 +6,14 @@
 
 > We offer remote upgrade service, check [the price](../support.html) and [contact us](../contact.html).
 
+* 2016-01-21: Fix incorrect permission on new sql table `amavisd.outbound_wblist`.
 * 2016-01-14: Mention updating backup script to backup iRedAPD SQL database.
 * 2015-12-23: Run `a2enmod headers` on Debian/Ubuntu to make sure required Apache module is enabled.
 * 2015-12-16: Mention how to enable greylisting in iRedAPD.
 * 2015-12-14: New section: `Upgrade iRedAdmin (open source edition) to the latest stable release`.
 * 2015-12-14: New section: `Migrate from Cluebringer to iRedAPD`.
 * 2015-12-14: Fix duplicate folder name in section `Dovecot-2.2: Add more special folders as alias folders`.
+----
 * 2015-12-14: Initial release.
 
 ## General (All backends should apply these steps)
@@ -950,8 +952,9 @@ Please switch to PostgreSQL daemon user, then execute SQL commands to import it:
 
 ```
 # su - postgres
-$ psql -d cluebringer -d amavisd
+$ psql -d amavisd
 sql> CREATE TABLE outbound_wblist (rid integer NOT NULL CHECK (rid >= 0), sid integer NOT NULL CHECK (sid >= 0), wb varchar(10) NOT NULL, PRIMARY KEY (rid,sid));
+sql> ALTER TABLE outbound_wblist OWNER TO 'amavisd';
 ```
 
 After table created, please restart iRedAPD service.
