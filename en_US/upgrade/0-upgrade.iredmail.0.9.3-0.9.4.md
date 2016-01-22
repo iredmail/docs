@@ -59,7 +59,7 @@ Please add them manually with command `crontab -e -u root`.
 
 ```
 # iRedMail: Backup OpenLDAP data (at 03:00 AM)
-0   3   *   *   *   /bin/bash ${BACKUP_SCRIPT_OPENLDAP}
+0   3   *   *   *   /bin/bash /var/vmail/backup/backup_openldap.sh
 
 # iRedMail: Backup MySQL databases (at 03:30AM)
 30   3   *   *   *   /bin/bash /var/vmail/backup/backup_pgsql.sh
