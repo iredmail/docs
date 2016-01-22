@@ -1,0 +1,182 @@
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Manage iRedAPD (white/blacklists, greylisting)</title>
+        <link rel="stylesheet" type="text/css" href="./css/markdown.css" />
+    </head>
+    <body>
+    
+    <div id="navigation">
+        <a href="http://www.iredmail.org" target="_blank">iRedMail web site</a>
+    
+        // <a href="./index.html">Document Index</a>
+    </div><h1 id="manage-iredapd-whiteblacklists-greylisting">Manage iRedAPD (white/blacklists, greylisting)</h1>
+<div class="toc">
+<ul>
+<li><a href="#manage-iredapd-whiteblacklists-greylisting">Manage iRedAPD (white/blacklists, greylisting)</a><ul>
+<li><a href="#introduce-iredapd">Introduce iRedAPD</a></li>
+<li><a href="#manage-whiteblacklists">Manage white/blacklists</a></li>
+<li><a href="#manage-greylisting-settings">Manage greylisting settings</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<blockquote>
+<p>Note: all iRedAPD features listed in current page can be managed with our
+web-based admin panel - <a href="../admin_panel.html">iRedAdmin-Pro</a>.</p>
+</blockquote>
+<h2 id="introduce-iredapd">Introduce iRedAPD</h2>
+<p>iRedAPD is a simple Postfix policy server, written in Python, with plugin
+support. it listens on port <code>7777</code> by default, and runs as a low-privileged
+user <code>iredapd</code>.</p>
+<h2 id="manage-whiteblacklists">Manage white/blacklists</h2>
+<blockquote>
+<ul>
+<li>White/blacklisting is available in iRedAPD-1.4.4 and later releases.</li>
+<li>Script <code>wblist_admin.py</code> is available in iRedAPD-1.7.0 and later releases.</li>
+</ul>
+</blockquote>
+<p>White/blacklisting is controlled by plugin <code>amavisd_wblist</code> (file
+<code>/opt/iredapd/plugins/amavisd_wblist.py</code>), you can manage it with script
+<code>/opt/iredapd/tools/wblist_admin.py</code>.</p>
+<p>Available arguments:</p>
+<pre><code>    --outbound
+        Manage white/blacklist for outbound messages.
+
+        If no '--outbound' argument, defaults to manage inbound messages.
+
+    --account account
+        Add white/blacklists for specified (local) account. Valid formats:
+
+            - a single user: username@domain.com
+            - a single domain: @domain.com
+            - entire domain and all its sub-domains: @.domain.com
+            - anyone: @. (the ending dot is required)
+
+        if no '--account' argument, defaults to '@.' (anyone).
+
+    --add
+        Add white/blacklists for specified (local) account.
+
+    --delete
+        Delete specified white/blacklists for specified (local) account.
+
+    --delete-all
+        Delete ALL white/blacklists for specified (local) account.
+
+    --list
+        Show existing white/blacklists for specified (local) account. If no
+        account specified, defaults to manage server-wide white/blacklists.
+
+    --whitelist sender1 [sender2 sender3 ...]
+        Whitelist specified sender(s). Multiple senders must be separated by a space.
+
+    --blacklist sender1 [sender2 sender3 ...]
+        Blacklist specified sender(s). Multiple senders must be separated by a space.
+
+    WARNING: Do not use --list, --add-whitelist, --add-blacklist at the same time.
+
+    --noninteractive
+        Don't ask to confirm.
+</code></pre>
+
+<p>Sample usage:</p>
+<ul>
+<li>Show and add server-wide whitelists or blacklists:</li>
+</ul>
+<pre><code># python wblist_admin.py --list --whitelist
+# python wblist_admin.py --list --blacklist
+# python wblist_admin.py --add --whitelist 192.168.1.10 user@domain.com
+# python wblist_admin.py --add --blacklist 172.16.1.10 user@domain.com
+</code></pre>
+
+<ul>
+<li>For per-user or per-domain whitelists and blacklists, please use option
+  <code>--account</code>. for example:</li>
+</ul>
+<pre><code># python wblist_admin.py --account @mydomain.com --add --whitelist 192.168.1.10 user@example.com
+# python wblist_admin.py --account user@mydomain.com --add --blacklist 172.16.1.10 baduser@example.com
+
+# python wblist_admin.py --account @mydomain.com --list --whitelist
+# python wblist_admin.py --account user@mydomain.com --list --blacklist
+</code></pre>
+
+<h2 id="manage-greylisting-settings">Manage greylisting settings</h2>
+<blockquote>
+<ul>
+<li>Greylisting is available in iRedAPD-1.7.0 and later releases.</li>
+<li>Script <code>/opt/iredapd/tools/greylisting_admin.py</code> is available in
+  iRedAPD-1.8.0 and later releases.</li>
+</ul>
+</blockquote>
+<p>Greylisting is controlled by plugin <code>greylisting</code> (file
+<code>/opt/iredapd/plugins/greylisting.py</code>), you can manage it with script
+<code>/opt/iredapd/tools/greylisting_admin.py</code>.</p>
+<p>Available arguments:</p>
+<pre><code>    --list
+        Show ALL existing greylisting settings.
+
+    --from &lt;from_address&gt;
+    --to &lt;to_address&gt;
+        Manage greylisting setting from email which is sent from &lt;from_address&gt;
+        to &lt;to_address&gt;.
+
+        Valid formats for both &lt;from_address&gt; and &lt;to_address&gt;:
+
+            - a single user: username@domain.com
+            - a single domain: @domain.com
+            - entire domain and all its sub-domains: @.domain.com
+            - anyone: @. (the ending dot is required)
+
+        if no '--from' or '--to' argument, defaults to '@.' (anyone).
+
+    --enable
+        Explicitly enable greylisting for specified account.
+
+    --disable
+        Explicitly disable greylisting for specified account.
+
+    --delete
+        Delete specified greylisting setting.
+</code></pre>
+
+<p>Sample usages:</p>
+<ul>
+<li>List all existing greylisting settings</li>
+</ul>
+<pre><code># cd /opt/iredapd/tools/
+# python greylisting_admin.py --list
+</code></pre>
+
+<ul>
+<li>Enable greylisting for emails which are sent from anyone to local mail domain <code>example.com</code>:</li>
+</ul>
+<pre><code># python greylisting_admin.py --enable --to '@example.com'
+</code></pre>
+
+<ul>
+<li>Disable greylisting for emails which are sent from anyone to local mail user <code>user@example.com</code>:</li>
+</ul>
+<pre><code># python greylisting_admin.py --disable --to 'user@example.com'
+</code></pre>
+
+<ul>
+<li>Disable greylisting for emails which are sent from <code>gmail.com</code> to local mail user <code>user@example.com</code></li>
+</ul>
+<pre><code># python greylisting_admin.py --disable --from '@gmail.com' --to 'user@example.com'
+</code></pre>
+
+<ul>
+<li>Delete greylisting setting for emails which are sent from anyone to local domain <code>test.com</code></li>
+</ul>
+<pre><code># python greylisting_admin.py --delete --to '@test.com'
+</code></pre><p style="text-align: center; color: grey;">All documents are available in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-3293801-21', 'auto');
+  ga('send', 'pageview');
+</script>
+</body></html>
