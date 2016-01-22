@@ -14,13 +14,13 @@ user `iredapd`.
 ## Manage white/blacklists
 
 > * White/blacklisting is available in iRedAPD-1.4.4 and later releases.
-> * Script `wblist_admin.py` is available in iRedAPD-1.7.0 and later releases.
+> * Script `tools/wblist_admin.py` is available in iRedAPD-1.7.0 and later releases.
 
 White/blacklisting is controlled by plugin `amavisd_wblist` (file
 `/opt/iredapd/plugins/amavisd_wblist.py`), you can manage it with script
 `/opt/iredapd/tools/wblist_admin.py`.
 
-Available arguments:
+### Available arguments
 
 ```
     --outbound
@@ -63,7 +63,7 @@ Available arguments:
         Don't ask to confirm.
 ```
 
-Sample usage:
+### Sample usages
 
 * Show and add server-wide whitelists or blacklists:
 
@@ -88,14 +88,14 @@ Sample usage:
 ## Manage greylisting settings
 
 > * Greylisting is available in iRedAPD-1.7.0 and later releases.
-> * Script `/opt/iredapd/tools/greylisting_admin.py` is available in
->   iRedAPD-1.8.0 and later releases.
+> * Script `tools/greylisting_admin.py` is available in iRedAPD-1.8.0 and
+>   later releases.
 
 Greylisting is controlled by plugin `greylisting` (file
 `/opt/iredapd/plugins/greylisting.py`), you can manage it with script
 `/opt/iredapd/tools/greylisting_admin.py`.
 
-Available arguments:
+### Available arguments
 
 ```
     --list
@@ -125,7 +125,7 @@ Available arguments:
         Delete specified greylisting setting.
 ```
 
-Sample usages:
+### Sample usages
 
 * List all existing greylisting settings
 
@@ -156,4 +156,51 @@ Sample usages:
 
 ```
 # python greylisting_admin.py --delete --to '@test.com'
+```
+
+### Additional greylisting whitelist support
+
+Seems many companies setup their mail servers to re-deliver returned email
+immediately from another server, this causes trouble with greylisting.
+
+Possible solutions:
+
+1. Disable greylisting on your server completely.
+2. Whitelist IP addresses/networks of their mail servers.
+
+For solution #2, you can whitelist those mail servers with script
+`/opt/iredapd/tools/spf_to_greylit_whitelists.py`.
+
+> Note: script `tools/spf_to_greylit_whitelists.py` is available in iRedAPD-1.8.0 and later releases.
+
+It queries SPF and MX records of specified mail domain names, then store all
+converted IP addresses/networks defined in SPF/MX records in SQL table
+`iredapd.greylisting_whitelists`.
+
+To whitelist IP addresses/networks of some mail domain, for example,
+`outlook.com`, `microsoft.com`, please run command like below:
+
+```
+# cd /opt/iredapd/tools/
+# python spf_to_greylit_whitelists.py outlook.com microsoft.com
+```
+
+If you want to whitelist more mail domains, just run the command with the
+domain names like above sample.
+
+Since iRedAPD-1.8.0, we have SQL table `iredapd.greylisting_whitelist_domains`
+to store these mail domain names. if you run `spf_to_greylit_whitelists.py`
+without any argument, it will fetch all mail domains stored in sql table 
+`greylisting_whitelist_domains` instead of fetching from command line arguments.
+
+```
+# python spf_to_greylit_whitelists.py
+```
+
+You should setup a cron job to run this script, so that it can keep the IP
+addresses/networks up to date. iRedMail sets up the cron job to run every 10
+minutes, like below:
+
+```
+*/10   *   *   *   *   /usr/bin/python /opt/iredapd/tools/spf_to_greylisting_whitelists.py &>/dev/null
 ```
