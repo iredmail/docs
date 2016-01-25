@@ -81,14 +81,14 @@ Please add them manually with command <code>crontab -e -u root</code>.</p>
 0   3   *   *   *   /bin/bash /var/vmail/backup/backup_openldap.sh
 
 # iRedMail: Backup MySQL databases (at 03:30AM)
-30   3   *   *   *   /bin/bash /var/vmail/backup/backup_pgsql.sh
+30   3   *   *   *   /bin/bash /var/vmail/backup/backup_mysql.sh
 </code></pre>
 
 <ul>
 <li>For MySQL/MariaDB backends, you need 1 daily cron job:</li>
 </ul>
 <pre><code># iRedMail: Backup MySQL databases (at 03:30AM)
-30   3   *   *   *   /bin/bash /var/vmail/backup/backup_pgsql.sh
+30   3   *   *   *   /bin/bash /var/vmail/backup/backup_mysql.sh
 </code></pre>
 
 <ul>
