@@ -47,6 +47,12 @@ Note: package `rsync` must be installed on your server before upgrading.
 In iRedMail-0.9.3, there's no daily cron job to backup SQL/LDAP databases.
 Please add them manually with command `crontab -e -u root`.
 
+> If you downloaded iRedMail-0.9.3 right after it had been released, the daily
+> cron job which is used to backup SQL/LDAP database is missing. We re-packed
+> iRedMail-0.9.3 with this fix to avoid trouble for users. So if don't have this
+> cron job, please add it by following steps below. If you already have it,
+> it's safe to ignore steps below.
+
 > Notes:
 >
 > * Please make sure the path to backup scripts
