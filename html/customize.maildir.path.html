@@ -1,0 +1,41 @@
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Customize maildir path</title>
+        <link rel="stylesheet" type="text/css" href="./css/markdown.css" />
+    </head>
+    <body>
+    
+    <div id="navigation">
+        <a href="http://www.iredmail.org" target="_blank">iRedMail web site</a>
+    
+        // <a href="./index.html">Document Index</a>
+    </div><h1 id="customize-maildir-path">Customize maildir path</h1>
+<p>iRedAdmin offers several settings to customize the maildir path, default values
+are stored in file <code>libs/default_settings.py</code>, if you need to change them,
+please write your own setting in iRedAdmin main config file <code>settings.py</code>, so
+that your settings will be kept after upgrading iRedAdmin.</p>
+<pre><code># It's RECOMMEND for better performance. Samples:
+# - hashed: domain.ltd/u/s/e/username-2009.09.04.12.05.33/
+# - non-hashed: domain.ltd/username-2009.09.04.12.05.33/
+MAILDIR_HASHED = True
+
+# Prepend domain name in path. Samples:
+# - with domain name: domain.ltd/username/
+# - without: username/
+MAILDIR_PREPEND_DOMAIN = True
+
+# Append timestamp in path. Samples:
+# - with timestamp: domain.ltd/username-2010.12.20.13.13.33/
+# - without timestamp: domain.ltd/username/
+MAILDIR_APPEND_TIMESTAMP = True
+</code></pre><p style="text-align: center; color: grey;">All documents are available in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-3293801-21', 'auto');
+  ga('send', 'pageview');
+</script>
+</body></html>
