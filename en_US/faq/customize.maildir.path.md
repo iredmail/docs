@@ -7,17 +7,17 @@ that your settings will be kept after upgrading iRedAdmin.
 
 ```
 # It's RECOMMEND for better performance. Samples:
-# - hashed: domain.ltd/u/s/e/username-2009.09.04.12.05.33/
+# - hashed:     domain.ltd/u/s/e/username-2009.09.04.12.05.33/
 # - non-hashed: domain.ltd/username-2009.09.04.12.05.33/
 MAILDIR_HASHED = True
 
 # Prepend domain name in path. Samples:
 # - with domain name: domain.ltd/username/
-# - without: username/
+# - without:          username/
 MAILDIR_PREPEND_DOMAIN = True
 
 # Append timestamp in path. Samples:
-# - with timestamp: domain.ltd/username-2010.12.20.13.13.33/
-# - without timestamp: domain.ltd/username/
+# - with timestamp:     domain.ltd/username-2010.12.20.13.13.33/
+# - without timestamp:  domain.ltd/username/
 MAILDIR_APPEND_TIMESTAMP = True
 ```

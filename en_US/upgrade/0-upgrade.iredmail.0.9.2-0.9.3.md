@@ -340,7 +340,7 @@ and append below settings right after `SSLEngine on` line:
 # Reference:
 # https://developer.mozilla.org/en-US/docs/Web/Security/HTTP_strict_transport_security
 # Module mod_headers is required. 15768000 seconds = 6 months.
-Header always set Strict-Transport-Security "max-age=15768000; includeSubdomains"
+Header always set Strict-Transport-Security "max-age=15768000"
 ```
 
 On Debian 8 and Ubuntu, run command below to make sure Apache module `headers`
@@ -363,7 +363,7 @@ and append below settings right after `ssl on` line:
 # Use HTTP Strict Transport Security to force client to use secure connections only.
 # Reference:
 # https://developer.mozilla.org/en-US/docs/Web/Security/HTTP_strict_transport_security
-add_header Strict-Transport-Security "max-age=15768000; includeSubdomains";
+add_header Strict-Transport-Security "max-age=15768000"
 ```
 
 ### SOGo: Fix improper settings in Apache/Nginx config file
