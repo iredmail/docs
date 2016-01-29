@@ -21,3 +21,7 @@ MAILDIR_PREPEND_DOMAIN = True
 # - without timestamp:  domain.ltd/username/
 MAILDIR_APPEND_TIMESTAMP = True
 ```
+
+Note: each time you modified iRedAdmin source code (Python source file which
+file name ends with `.py`), you must restart Apache or uwsgi (if you're running
+Nginx) service to load modified code.
