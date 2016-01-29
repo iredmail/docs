@@ -98,3 +98,7 @@ mysql> SELECT * FROM share_folder;
 * Roundcubemail has official plugin `acl` to manage mailbox sharing.
 * SOGo groupware supports mailbox sharing by default: right-click IMAP folder, choose `Sharing`.
 * [Imap-ACL-Extension for Thunderbird](https://addons.mozilla.org/en-US/thunderbird/addon/imap-acl-extension/), manage acls/permissions for shared mailboxes/folders on imap servers.
+
+## See Also
+
+* [How to create and manage public folder](./public.folder.html)
