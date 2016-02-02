@@ -16,11 +16,13 @@
 <li><a href="#manage-iredapd-whiteblacklists-greylisting">Manage iRedAPD (white/blacklists, greylisting)</a><ul>
 <li><a href="#introduce-iredapd">Introduce iRedAPD</a></li>
 <li><a href="#manage-whiteblacklists">Manage white/blacklists</a><ul>
+<li><a href="#how-to-disable-whiteblacklists-completely">How to disable white/blacklists completely</a></li>
 <li><a href="#available-arguments">Available arguments</a></li>
 <li><a href="#sample-usages">Sample usages</a></li>
 </ul>
 </li>
 <li><a href="#manage-greylisting-settings">Manage greylisting settings</a><ul>
+<li><a href="#how-to-disable-greylisting-completely">How to disable greylisting completely</a></li>
 <li><a href="#available-arguments_1">Available arguments</a></li>
 <li><a href="#sample-usages_1">Sample usages</a></li>
 <li><a href="#additional-greylisting-whitelist-support">Additional greylisting whitelist support</a></li>
@@ -48,6 +50,14 @@ user <code>iredapd</code>.</p>
 <p>White/blacklisting is controlled by plugin <code>amavisd_wblist</code> (file
 <code>/opt/iredapd/plugins/amavisd_wblist.py</code>), you can manage it with script
 <code>/opt/iredapd/tools/wblist_admin.py</code>.</p>
+<h3 id="how-to-disable-whiteblacklists-completely">How to disable white/blacklists completely</h3>
+<p>To disable white/blacklists completely, please remove plugin name
+<code>amavisd_wblist</code> in iRedAPD config file <code>/opt/iredapd/settings.py</code>,
+parameter <code>plugins =</code>:</p>
+<pre><code>plugins = [..., 'amavisd_wblist', ...]
+</code></pre>
+
+<p>Restarting iRedAPD service is required.</p>
 <h3 id="available-arguments">Available arguments</h3>
 <pre><code>    --outbound
         Manage white/blacklist for outbound messages.
@@ -121,6 +131,13 @@ user <code>iredapd</code>.</p>
 <p>Greylisting is controlled by plugin <code>greylisting</code> (file
 <code>/opt/iredapd/plugins/greylisting.py</code>), you can manage it with script
 <code>/opt/iredapd/tools/greylisting_admin.py</code>.</p>
+<h3 id="how-to-disable-greylisting-completely">How to disable greylisting completely</h3>
+<p>To disable greylisting completely, please remove plugin name <code>greylisting</code>
+in iRedAPD config file <code>/opt/iredapd/settings.py</code>, parameter <code>plugins =</code>:</p>
+<pre><code>plugins = [..., 'greylisting', ...]
+</code></pre>
+
+<p>Restarting iRedAPD service is required.</p>
 <h3 id="available-arguments_1">Available arguments</h3>
 <pre><code>    --list
         Show ALL existing greylisting settings.

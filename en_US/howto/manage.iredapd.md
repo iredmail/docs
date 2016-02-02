@@ -20,6 +20,18 @@ White/blacklisting is controlled by plugin `amavisd_wblist` (file
 `/opt/iredapd/plugins/amavisd_wblist.py`), you can manage it with script
 `/opt/iredapd/tools/wblist_admin.py`.
 
+### How to disable white/blacklists completely
+
+To disable white/blacklists completely, please remove plugin name
+`amavisd_wblist` in iRedAPD config file `/opt/iredapd/settings.py`,
+parameter `plugins =`:
+
+```
+plugins = [..., 'amavisd_wblist', ...]
+```
+
+Restarting iRedAPD service is required.
+
 ### Available arguments
 
 ```
@@ -94,6 +106,17 @@ White/blacklisting is controlled by plugin `amavisd_wblist` (file
 Greylisting is controlled by plugin `greylisting` (file
 `/opt/iredapd/plugins/greylisting.py`), you can manage it with script
 `/opt/iredapd/tools/greylisting_admin.py`.
+
+### How to disable greylisting completely
+
+To disable greylisting completely, please remove plugin name `greylisting`
+in iRedAPD config file `/opt/iredapd/settings.py`, parameter `plugins =`:
+
+```
+plugins = [..., 'greylisting', ...]
+```
+
+Restarting iRedAPD service is required.
 
 ### Available arguments
 
