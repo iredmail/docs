@@ -12,11 +12,16 @@
         // <a href="./index.html">Document Index</a>
     </div><h1 id="upgrade-iredapd">Upgrade iRedAPD</h1>
 <blockquote>
-<p>Release Notes are available here: <a href="./iredapd.releases.html">iRedAPD Release Notes</a>.</p>
-<p>If you're trying to upgrade iRedAPD-1.3.x or earlier releases to the latest
-iRedAPD, please check this tutorial instead: 
-<a href="./upgrade.old.iredapd.html">Upgrade iRedAPD from v1.3.x or earlier versions to latest release</a>.</p>
-<p>We offer remote upgrade service, check <a href="../support.html">the price</a> and <a href="../contact.html">contact us</a>.</p>
+<ul>
+<li>Release Notes are available here: <a href="./iredapd.releases.html">iRedAPD Release Notes</a>.</li>
+<li>If you're trying to upgrade iRedAPD-1.3.x or earlier releases to the latest
+  iRedAPD, please check this tutorial instead: 
+  <a href="./upgrade.old.iredapd.html">Upgrade iRedAPD from v1.3.x or earlier versions to latest release</a>.</li>
+<li>iRedMail and iRedAdmin-Pro completely drop support for Cluebringer, if
+  you're still running Cluebringer, please migrate to iRedAPD by following
+  <a href="./cluebringer.to.iredapd.html">our tutorial</a>.</li>
+<li>We offer remote upgrade service, check <a href="../support.html">the price</a> and <a href="../contact.html">contact us</a>.</li>
+</ul>
 </blockquote>
 <p>This tutorial describes how to upgrade iRedAPD from <code>1.4.0</code> or later releases
 to the latest stable release. It's applicable on all Linux/BSD distributions
@@ -60,6 +65,10 @@ sql&gt; INSERT INTO greylisting (account, priority, sender, sender_priority, act
 <p>Plugin <code>amavisd_wblist</code> is required if you manage white/blacklists with
   iRedAdmin-Pro.</p>
 </li>
+</ul>
+<h2 id="see-also">See Also</h2>
+<ul>
+<li><a href="./cluebringer.to.iredapd.html">Migrate Cluebringer to iRedAPD</a></li>
 </ul><p style="text-align: center; color: grey;">All documents are available in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.<script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),

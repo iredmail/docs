@@ -123,25 +123,65 @@ smtpd_end_of_data_restrictions =
     ...
 ```
 
-* Restart Postfix service:
+### Enable iRedAPD in Postfix
 
-    * On Linux/FreeBSD: ```# service postfix restart```
-    * On OpenBSD: ```# /etc/rc.d/postfix restart```
+Make sure iRedAPD are enabled in __BOTH__ `smtpd_recipient_restrictions`
+and `smtpd_end_of_data_restrictions` like below:
 
-* Stop Cluebringer service, and optionally, remove cluebringer packages.
+```
+smtpd_recipient_restrictions =
+    ...
+    check_policy_service inet:127.0.0.1:7777
+    permit_mynetworks
+    ...
 
-    * On RHEL/CentOS:
-      ```# service cbpolicyd stop && yum remove cluebringer```
-    * On Debian/Ubuntu:
-      ```# service postfix-cluebringer stop && apt-get remove --purge postfix-cluebringer```
-    * On FreeBSD:
-      ```# service policyd2 stop && cd /usr/ports/mail/policyd2/ && make deinstall```
+smtpd_end_of_data_restrictions = check_policy_service inet:127.0.0.1:7777
+```
+
+### Restart Postfix service
+
+Reloading or restarting Postfix service is required after changed `main.cf`.
+
+* On Linux/FreeBSD:
+
+```
+# service postfix restart
+```
+
+* On OpenBSD:
+
+```
+# /etc/rc.d/postfix restart
+```
+
+### Stop Cluebringer service, and remove Cluebringer packages
+
+We don't need Cluebringer anymore, so it's ok to stop cluebringer service and
+remove the packages:
+
+* On RHEL/CentOS:
+
+```
+# service cbpolicyd stop && yum remove cluebringer
+```
+
+* On Debian/Ubuntu:
+
+```
+# service postfix-cluebringer stop && apt-get remove --purge postfix-cluebringer
+```
+
+* On FreeBSD:
+
+```
+# service policyd2 stop && cd /usr/ports/mail/policyd2/ && make deinstall
+```
 
 * Edit root user's cron job, remove the one used to clean up Cluebringer SQL
   database:
 
-    * Run command to edit root user's cron job: ```# crontab -e -u root```
-    * Find cron job like below, remove it or comment out it:
+    1. Run command to edit root user's cron job: ```# crontab -e -u root```
+    1. Find cron job like below, remove it or comment out it:
 
 ```
 3   3   *   *   *   /usr/sbin/cbpadmin --config=/etc/policyd/cluebringer.conf --cleanup >/dev/null
@@ -161,10 +201,10 @@ or uwsgi (if you're running Nginx) service.
 > with `policyd_` in iRedAdmin-Pro config file, for example:
  
 ```
-policyd_enabled
-policyd_db_host
-policyd_db_port
-policyd_db_name
-policyd_db_user
-policyd_db_password
+policyd_enabled =
+policyd_db_host =
+policyd_db_port =
+policyd_db_name =
+policyd_db_user =
+policyd_db_password =
 ```

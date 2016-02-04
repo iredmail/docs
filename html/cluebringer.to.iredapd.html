@@ -23,6 +23,9 @@
 <li><a href="#after-migration">After migration</a><ul>
 <li><a href="#enable-required-plugins-remove-old-plugins">Enable required plugins, remove old plugins</a></li>
 <li><a href="#disable-cluebringer-in-postfix">Disable Cluebringer in Postfix</a></li>
+<li><a href="#enable-iredapd-in-postfix">Enable iRedAPD in Postfix</a></li>
+<li><a href="#restart-postfix-service">Restart Postfix service</a></li>
+<li><a href="#stop-cluebringer-service-and-remove-cluebringer-packages">Stop Cluebringer service, and remove Cluebringer packages</a></li>
 <li><a href="#disable-cluebringer-in-iredadmin-pro">Disable Cluebringer in iRedAdmin-Pro</a></li>
 </ul>
 </li>
@@ -138,32 +141,61 @@ smtpd_end_of_data_restrictions =
     ...
 </code></pre>
 
+<h3 id="enable-iredapd-in-postfix">Enable iRedAPD in Postfix</h3>
+<p>Make sure iRedAPD are enabled in <strong>BOTH</strong> <code>smtpd_recipient_restrictions</code>
+and <code>smtpd_end_of_data_restrictions</code> like below:</p>
+<pre><code>smtpd_recipient_restrictions =
+    ...
+    check_policy_service inet:127.0.0.1:7777
+    permit_mynetworks
+    ...
+
+smtpd_end_of_data_restrictions = check_policy_service inet:127.0.0.1:7777
+</code></pre>
+
+<h3 id="restart-postfix-service">Restart Postfix service</h3>
+<p>Reloading or restarting Postfix service is required after changed <code>main.cf</code>.</p>
 <ul>
-<li>
-<p>Restart Postfix service:</p>
-<ul>
-<li>On Linux/FreeBSD: <code># service postfix restart</code></li>
-<li>On OpenBSD: <code># /etc/rc.d/postfix restart</code></li>
+<li>On Linux/FreeBSD:</li>
 </ul>
-</li>
-<li>
-<p>Stop Cluebringer service, and optionally, remove cluebringer packages.</p>
+<pre><code># service postfix restart
+</code></pre>
+
 <ul>
-<li>On RHEL/CentOS:
-  <code># service cbpolicyd stop &amp;&amp; yum remove cluebringer</code></li>
-<li>On Debian/Ubuntu:
-  <code># service postfix-cluebringer stop &amp;&amp; apt-get remove --purge postfix-cluebringer</code></li>
-<li>On FreeBSD:
-  <code># service policyd2 stop &amp;&amp; cd /usr/ports/mail/policyd2/ &amp;&amp; make deinstall</code></li>
+<li>On OpenBSD:</li>
 </ul>
-</li>
+<pre><code># /etc/rc.d/postfix restart
+</code></pre>
+
+<h3 id="stop-cluebringer-service-and-remove-cluebringer-packages">Stop Cluebringer service, and remove Cluebringer packages</h3>
+<p>We don't need Cluebringer anymore, so it's ok to stop cluebringer service and
+remove the packages:</p>
+<ul>
+<li>On RHEL/CentOS:</li>
+</ul>
+<pre><code># service cbpolicyd stop &amp;&amp; yum remove cluebringer
+</code></pre>
+
+<ul>
+<li>On Debian/Ubuntu:</li>
+</ul>
+<pre><code># service postfix-cluebringer stop &amp;&amp; apt-get remove --purge postfix-cluebringer
+</code></pre>
+
+<ul>
+<li>On FreeBSD:</li>
+</ul>
+<pre><code># service policyd2 stop &amp;&amp; cd /usr/ports/mail/policyd2/ &amp;&amp; make deinstall
+</code></pre>
+
+<ul>
 <li>
 <p>Edit root user's cron job, remove the one used to clean up Cluebringer SQL
   database:</p>
-<ul>
+<ol>
 <li>Run command to edit root user's cron job: <code># crontab -e -u root</code></li>
 <li>Find cron job like below, remove it or comment out it:</li>
-</ul>
+</ol>
 </li>
 </ul>
 <pre><code>3   3   *   *   *   /usr/sbin/cbpadmin --config=/etc/policyd/cluebringer.conf --cleanup &gt;/dev/null
@@ -182,12 +214,12 @@ iRedAdmin-Pro-LDAP-2.4.0, or iRedAdmin-Pro-SQL-2.2.0, both released on Dec 14,
 2015), you can either <strong>COMMENT OUT</strong> or <strong>REMOVE</strong> all parameters which start
 with <code>policyd_</code> in iRedAdmin-Pro config file, for example:</p>
 </blockquote>
-<pre><code>policyd_enabled
-policyd_db_host
-policyd_db_port
-policyd_db_name
-policyd_db_user
-policyd_db_password
+<pre><code>policyd_enabled =
+policyd_db_host =
+policyd_db_port =
+policyd_db_name =
+policyd_db_user =
+policyd_db_password =
 </code></pre><p style="text-align: center; color: grey;">All documents are available in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.<script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
