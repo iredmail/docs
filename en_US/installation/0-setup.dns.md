@@ -215,8 +215,9 @@ tell amavisd the correct path of its config file. For example:
 # amavisd -c /etc/amavisd/amavisd.conf showkeys
 ```
 
-* Copy output of above command into one line, like below. It will be the value
-  of DKIM DNS record.
+* Copy output of command above into one line like below, remove all quotes, but
+  keep `;`. __we just need strings inside the `()` block__, it's the value of
+  DKIM DNS record.
 
 ```
 v=DKIM1; p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDYArsr2BKbdhv9efugBy...
