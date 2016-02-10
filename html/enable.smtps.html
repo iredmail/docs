@@ -40,30 +40,7 @@ Quote from <a href="http://en.wikipedia.org/wiki/SMTPS">wikipedia.org</a></p>
 </blockquote>
 <h3 id="how-to-enable-smtps">How to enable SMTPS</h3>
 <p>To enable SMTPS, you should configure Postfix to listen on port 465 first, then open port 465 in iptables.</p>
-<p>Please find below lines in Postfix config file <code>/etc/postfix/master.cf</code> (Linux/OpenBSD) or <code>/usr/local/etc/postfix/master.cf</code> (FreeBSD):</p>
-<pre><code>#smtps     inet  n       -       n       -       -       smtpd
-#  -o smtpd_tls_wrappermode=yes
-#  -o smtpd_sasl_auth_enable=yes
-#  -o smtpd_client_restrictions=permit_sasl_authenticated,reject
-#  -o milter_macro_daemon_name=ORIGINATING
-</code></pre>
-
-<p>Uncomment first 4 lines, and:</p>
-<ul>
-<li>leave the last one commented out (because iRedMail doesn't use any Postfix milter)</li>
-<li>replace <code>smtps</code> by <code>465</code>, because service name <code>smtps</code> is deprecated and not
-  defined in <code>/etc/services</code> anymore.</li>
-</ul>
-<pre><code>465     inet  n       -       n       -       -       smtpd
-  -o smtpd_tls_wrappermode=yes
-  -o smtpd_sasl_auth_enable=yes
-  -o smtpd_client_restrictions=permit_sasl_authenticated,reject
-#  -o milter_macro_daemon_name=ORIGINATING
-</code></pre>
-
-<p>If you're running iRedMail-0.9.3 or later releases, please replace
-<code>-o milter_macro_daemon_name=ORIGINATING</code> by
-<code>-o content_filter=smtp-amavis:[127.0.0.1]:10026</code>.</p>
+<p>Please append below lines in Postfix config file <code>/etc/postfix/master.cf</code> (Linux/OpenBSD) or <code>/usr/local/etc/postfix/master.cf</code> (FreeBSD):</p>
 <pre><code>465     inet  n       -       n       -       -       smtpd
   -o smtpd_tls_wrappermode=yes
   -o smtpd_sasl_auth_enable=yes
@@ -72,6 +49,7 @@ Quote from <a href="http://en.wikipedia.org/wiki/SMTPS">wikipedia.org</a></p>
 </code></pre>
 
 <p>Restart Postfix service to enable SMTPS.</p>
+<p><strong>WARNING</strong>: Please make sure you have Amavisd listening on port 10026 (and 10024, 9998).</p>
 <h3 id="open-port-465-in-firewall">Open port <code>465</code> in firewall</h3>
 <h4 id="on-rhelcentos">On RHEL/CentOS</h4>
 <ul>

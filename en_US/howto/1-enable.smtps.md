@@ -19,33 +19,7 @@ Unfortunately, there're some popular mail clients don't support submission (SMTP
 
 To enable SMTPS, you should configure Postfix to listen on port 465 first, then open port 465 in iptables.
 
-Please find below lines in Postfix config file `/etc/postfix/master.cf` (Linux/OpenBSD) or `/usr/local/etc/postfix/master.cf` (FreeBSD):
-
-```
-#smtps     inet  n       -       n       -       -       smtpd
-#  -o smtpd_tls_wrappermode=yes
-#  -o smtpd_sasl_auth_enable=yes
-#  -o smtpd_client_restrictions=permit_sasl_authenticated,reject
-#  -o milter_macro_daemon_name=ORIGINATING
-```
-
-Uncomment first 4 lines, and:
-
-* leave the last one commented out (because iRedMail doesn't use any Postfix milter)
-* replace `smtps` by `465`, because service name `smtps` is deprecated and not
-  defined in `/etc/services` anymore.
-
-```
-465     inet  n       -       n       -       -       smtpd
-  -o smtpd_tls_wrappermode=yes
-  -o smtpd_sasl_auth_enable=yes
-  -o smtpd_client_restrictions=permit_sasl_authenticated,reject
-#  -o milter_macro_daemon_name=ORIGINATING
-```
-
-If you're running iRedMail-0.9.3 or later releases, please replace
-`-o milter_macro_daemon_name=ORIGINATING` by
-`-o content_filter=smtp-amavis:[127.0.0.1]:10026`.
+Please append below lines in Postfix config file `/etc/postfix/master.cf` (Linux/OpenBSD) or `/usr/local/etc/postfix/master.cf` (FreeBSD):
 
 ```
 465     inet  n       -       n       -       -       smtpd
@@ -56,6 +30,8 @@ If you're running iRedMail-0.9.3 or later releases, please replace
 ```
 
 Restart Postfix service to enable SMTPS.
+
+__WARNING__: Please make sure you have Amavisd listening on port 10026 (and 10024, 9998).
 
 ### Open port `465` in firewall
 
