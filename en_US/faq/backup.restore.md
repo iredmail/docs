@@ -76,7 +76,7 @@ must be so restored with command `slapadd`.
 Below example shows how to restore a LDAP backup on RHEL/CentOS 6.x, files and
 directories may be different on other Linux/BSD distributions, you can find
 the correct ones in this tutorial: 
-[Locations of configuration and log files of mojor components](./file.locations.html#openldap).
+[Locations of configuration and log files of major components](./file.locations.html#openldap).
 
 * LDAP backups are stored under `/var/vmail/backup/ldap/[YEAR]/[MONTH]` by
   default, for example, `/var/vmail/backup/ldap/2015/05/`. And it's compressed

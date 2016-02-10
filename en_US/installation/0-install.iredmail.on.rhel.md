@@ -220,7 +220,7 @@ Configuration completed.
     * URLs, usernames and passwords of web-based applications
     * Location of mail service related software configuration files. You can
       also check this tutorial instead:
-      [Locations of configuration and log files of mojor components](./file.locations.html).
+      [Locations of configuration and log files of major components](./file.locations.html).
     * Some other important and sensitive information
 
 * [Setup DNS records for your mail server](./setup.dns.html)

@@ -1,7 +1,7 @@
 # Disable greylisting in Cluebringer
 
 * Find Cluebringer config file `cluebringer.conf` on your server with this
-  document: [Locations of configuration and log files of mojor components](./file.locations.html#cluebringer)
+  document: [Locations of configuration and log files of major components](./file.locations.html#cluebringer)
 
 * Find below lines in `cluebringer.conf`:
 

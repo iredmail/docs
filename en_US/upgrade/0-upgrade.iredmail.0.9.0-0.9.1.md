@@ -56,7 +56,7 @@ Notes:
 * If you're going to update PHP to 5.6, you should add below settings in
   Roundcube config file (`config/config.inc.php`) to avoid ssl certificate issue.
   If you don't know the location of this config file, check our tutorial here:
-  [Locations of configuration and log files of mojor components](./file.locations.html#roundcube-webmail).
+  [Locations of configuration and log files of major components](./file.locations.html#roundcube-webmail).
 
 ```
 // Required if you're running PHP 5.6

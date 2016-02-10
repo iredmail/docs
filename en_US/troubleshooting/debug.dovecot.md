@@ -1,7 +1,7 @@
 # Turn on debug mode in Dovecot
 
 > Don't know where Dovecot config files are? check this tutorial:
-> [Locations of configuration and log files of mojor components](file.locations.html#dovecot).
+> [Locations of configuration and log files of major components](file.locations.html#dovecot).
 
 To turn on debug mode in Dovecot, please update below parameter in Dovecot
 config file `dovecot.conf`:

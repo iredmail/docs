@@ -7,7 +7,7 @@
 
 
 > Don't know where Amavisd config file is? check this tutorial:
-> [Locations of configuration and log files of mojor components](file.locations.html#amavisd).
+> [Locations of configuration and log files of major components](file.locations.html#amavisd).
 
 iRedMail configures Amavisd to sign outgoing emails for the first mail domain
 you added during iRedMail installation. If you added new mail domain, you

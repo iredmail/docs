@@ -103,5 +103,5 @@
 
 # See also
 
-* [Locations of configuration and log files of mojor components](./file.locations.html)
+* [Locations of configuration and log files of major components](./file.locations.html)
 * [Which network ports are open by iRedMail](./network.ports.html)

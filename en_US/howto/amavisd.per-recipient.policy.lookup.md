@@ -20,7 +20,7 @@ it's very easy to enable per-recipient policy lookup. Just add one line after
 Then restart Amavisd serivce.
 
 If you don't know where Amavisd config file is, please refer to our document:
-[Locations of configuration and log files of mojor components](./file.locations.html#amavisd)
+[Locations of configuration and log files of major components](./file.locations.html#amavisd)
 
 ## References:
 

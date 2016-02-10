@@ -1,4 +1,4 @@
-# Locations of configuration and log files of mojor components
+# Locations of configuration and log files of major components
 
 [TOC]
 
