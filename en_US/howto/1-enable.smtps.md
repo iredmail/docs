@@ -23,6 +23,7 @@ Please append below lines in Postfix config file `/etc/postfix/master.cf` (Linux
 
 ```
 465     inet  n       -       n       -       -       smtpd
+  -o syslog_name=postfix/smtps
   -o smtpd_tls_wrappermode=yes
   -o smtpd_sasl_auth_enable=yes
   -o smtpd_client_restrictions=permit_sasl_authenticated,reject
