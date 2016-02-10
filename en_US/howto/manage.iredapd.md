@@ -11,6 +11,13 @@ iRedAPD is a simple Postfix policy server, written in Python, with plugin
 support. it listens on port `7777` by default, and runs as a low-privileged
 user `iredapd`.
 
+## How to disable iRedAPD
+
+To disable iRedAPD service, please remove all
+`check_policy_service inet:127.0.0.1:7777` in Postfix config file
+`/etc/postfix/main.cf` (Linux/OpenBSD) or `/usr/local/etc/postfix/main.cf`
+(FreeBSD), then disable iredapd service.
+
 ## Manage white/blacklists
 
 > * White/blacklisting is available in iRedAPD-1.4.4 and later releases.

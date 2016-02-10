@@ -6,7 +6,7 @@ __NOTES__:
 
 * iRedAdmin-Pro doesn't work with Active Directory, so if you choose to
   authenticate mail users against Active Directory, you have to manage mail
-  accounts with Active Directory management tools, don't buy iRedAdmin-Pro.
+  accounts with Active Directory management tools.
 
 * This tutorial has been verified on Windows 2000, 2003, 2008, 2012 server, if
   you tested it on other versions and works well, please let us know.
@@ -27,6 +27,8 @@ Since AD uses different LDAP schema, you will lose some iRedMail special feature
 
 * Per-user, per-domain service control with LDAP (e.g. enable/disable
   POP3/IMAP/SMTP services).
+* Advanced mail polices implemented by iRedAPD which relies on iRedMail
+  LDAP scheme.
 
 ## Requirements
 
@@ -253,6 +255,14 @@ __NOTE__: `postmap` return nothing if:
 
 1. mail group doesn't exist
 1. mail group doesn't have any members
+
+### Remove iRedAPD integration in Postfix
+
+iRedAPD relies on iRedMail LDAP scheme, so it's useless if you integrate
+iRedMail with Active Directory. We should remove the integration in Postfix
+to save some system resource.
+
+To disable iRedAPD, please read tutorial: [Manage iRedAPD](./manage.iredapd.html).
 
 ## Enable Active Directory integration in Dovecot
 

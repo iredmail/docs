@@ -15,6 +15,7 @@
 <ul>
 <li><a href="#manage-iredapd-whiteblacklists-greylisting">Manage iRedAPD (white/blacklists, greylisting)</a><ul>
 <li><a href="#introduce-iredapd">Introduce iRedAPD</a></li>
+<li><a href="#how-to-disable-iredapd">How to disable iRedAPD</a></li>
 <li><a href="#manage-whiteblacklists">Manage white/blacklists</a><ul>
 <li><a href="#how-to-disable-whiteblacklists-completely">How to disable white/blacklists completely</a></li>
 <li><a href="#available-arguments">Available arguments</a></li>
@@ -40,6 +41,11 @@ web-based admin panel - <a href="../admin_panel.html">iRedAdmin-Pro</a>.</p>
 <p>iRedAPD is a simple Postfix policy server, written in Python, with plugin
 support. it listens on port <code>7777</code> by default, and runs as a low-privileged
 user <code>iredapd</code>.</p>
+<h2 id="how-to-disable-iredapd">How to disable iRedAPD</h2>
+<p>To disable iRedAPD service, please remove all
+<code>check_policy_service inet:127.0.0.1:7777</code> in Postfix config file
+<code>/etc/postfix/main.cf</code> (Linux/OpenBSD) or <code>/usr/local/etc/postfix/main.cf</code>
+(FreeBSD), then disable iredapd service.</p>
 <h2 id="manage-whiteblacklists">Manage white/blacklists</h2>
 <blockquote>
 <ul>
