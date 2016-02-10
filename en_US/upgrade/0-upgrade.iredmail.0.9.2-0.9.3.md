@@ -262,7 +262,7 @@ Add below alias folders inside the same `namespace {}` block:
 
     # Archive
     mailbox Archive {
-        auto = subscribe
+        auto = no
         special_use = \Archive
     }
     mailbox Archives {
