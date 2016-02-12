@@ -13,10 +13,13 @@ user `iredapd`.
 
 ## How to disable iRedAPD
 
-To disable iRedAPD service, please remove all
-`check_policy_service inet:127.0.0.1:7777` in Postfix config file
+To disable iRedAPD service:
+
+1. please remove all `check_policy_service inet:127.0.0.1:7777` in Postfix config file
 `/etc/postfix/main.cf` (Linux/OpenBSD) or `/usr/local/etc/postfix/main.cf`
-(FreeBSD), then disable iredapd service.
+(FreeBSD).
+1. Restart or reload Postfix service.
+1. Disable iredapd service.
 
 ## Manage white/blacklists
 
