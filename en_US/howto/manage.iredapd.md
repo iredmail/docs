@@ -21,14 +21,7 @@ To disable iRedAPD service:
 1. Restart or reload Postfix service.
 1. Disable iredapd service.
 
-## Manage white/blacklists
-
-> * White/blacklisting is available in iRedAPD-1.4.4 and later releases.
-> * Script `tools/wblist_admin.py` is available in iRedAPD-1.7.0 and later releases.
-
-White/blacklisting is controlled by plugin `amavisd_wblist` (file
-`/opt/iredapd/plugins/amavisd_wblist.py`), you can manage it with script
-`/opt/iredapd/tools/wblist_admin.py`.
+## White/Blacklisting
 
 ### How to disable white/blacklists completely
 
@@ -42,7 +35,16 @@ plugins = [..., 'amavisd_wblist', ...]
 
 Restarting iRedAPD service is required.
 
-### Available arguments
+### Manage white/blacklists
+
+> * White/blacklisting is available in iRedAPD-1.4.4 and later releases.
+> * Script `tools/wblist_admin.py` is available in iRedAPD-1.7.0 and later releases.
+
+White/blacklisting is controlled by plugin `amavisd_wblist` (file
+`/opt/iredapd/plugins/amavisd_wblist.py`), you can manage it with script
+`/opt/iredapd/tools/wblist_admin.py`.
+
+#### Available arguments
 
 ```
     --outbound
@@ -85,7 +87,7 @@ Restarting iRedAPD service is required.
         Don't ask to confirm.
 ```
 
-### Sample usages
+#### Sample usages
 
 * Show and add server-wide whitelists or blacklists:
 
@@ -107,15 +109,7 @@ Restarting iRedAPD service is required.
 # python wblist_admin.py --account user@mydomain.com --list --blacklist
 ```
 
-## Manage greylisting settings
-
-> * Greylisting is available in iRedAPD-1.7.0 and later releases.
-> * Script `tools/greylisting_admin.py` is available in iRedAPD-1.8.0 and
->   later releases.
-
-Greylisting is controlled by plugin `greylisting` (file
-`/opt/iredapd/plugins/greylisting.py`), you can manage it with script
-`/opt/iredapd/tools/greylisting_admin.py`.
+## Greylisting
 
 ### How to disable greylisting completely
 
@@ -128,7 +122,17 @@ plugins = [..., 'greylisting', ...]
 
 Restarting iRedAPD service is required.
 
-### Available arguments
+### Manage greylisting settings
+
+> * Greylisting is available in iRedAPD-1.7.0 and later releases.
+> * Script `tools/greylisting_admin.py` is available in iRedAPD-1.8.0 and
+>   later releases.
+
+Greylisting is controlled by plugin `greylisting` (file
+`/opt/iredapd/plugins/greylisting.py`), you can manage it with script
+`/opt/iredapd/tools/greylisting_admin.py`.
+
+#### Available arguments
 
 ```
     --list
@@ -158,7 +162,7 @@ Restarting iRedAPD service is required.
         Delete specified greylisting setting.
 ```
 
-### Sample usages
+#### Sample usages
 
 * List all existing greylisting settings
 
@@ -191,7 +195,7 @@ Restarting iRedAPD service is required.
 # python greylisting_admin.py --delete --to '@test.com'
 ```
 
-### Additional greylisting whitelist support
+#### RECOMMENDED: Additional greylisting whitelist support
 
 Seems many companies setup their mail servers to re-deliver returned email
 immediately from another server, this causes trouble with greylisting.
@@ -199,7 +203,7 @@ immediately from another server, this causes trouble with greylisting.
 Possible solutions:
 
 1. Disable greylisting on your server completely.
-2. Whitelist IP addresses/networks of their mail servers.
+1. Whitelist IP addresses/networks of their mail servers.
 
 For solution #2, you can whitelist those mail servers with script
 `/opt/iredapd/tools/spf_to_greylit_whitelists.py`.

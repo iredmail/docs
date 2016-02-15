@@ -16,17 +16,23 @@
 <li><a href="#manage-iredapd-whiteblacklists-greylisting">Manage iRedAPD (white/blacklists, greylisting)</a><ul>
 <li><a href="#introduce-iredapd">Introduce iRedAPD</a></li>
 <li><a href="#how-to-disable-iredapd">How to disable iRedAPD</a></li>
-<li><a href="#manage-whiteblacklists">Manage white/blacklists</a><ul>
+<li><a href="#whiteblacklisting">White/Blacklisting</a><ul>
 <li><a href="#how-to-disable-whiteblacklists-completely">How to disable white/blacklists completely</a></li>
+<li><a href="#manage-whiteblacklists">Manage white/blacklists</a><ul>
 <li><a href="#available-arguments">Available arguments</a></li>
 <li><a href="#sample-usages">Sample usages</a></li>
 </ul>
 </li>
-<li><a href="#manage-greylisting-settings">Manage greylisting settings</a><ul>
+</ul>
+</li>
+<li><a href="#greylisting">Greylisting</a><ul>
 <li><a href="#how-to-disable-greylisting-completely">How to disable greylisting completely</a></li>
+<li><a href="#manage-greylisting-settings">Manage greylisting settings</a><ul>
 <li><a href="#available-arguments_1">Available arguments</a></li>
 <li><a href="#sample-usages_1">Sample usages</a></li>
-<li><a href="#additional-greylisting-whitelist-support">Additional greylisting whitelist support</a></li>
+<li><a href="#recommended-additional-greylisting-whitelist-support">RECOMMENDED: Additional greylisting whitelist support</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -50,7 +56,16 @@ user <code>iredapd</code>.</p>
 <li>Restart or reload Postfix service.</li>
 <li>Disable iredapd service.</li>
 </ol>
-<h2 id="manage-whiteblacklists">Manage white/blacklists</h2>
+<h2 id="whiteblacklisting">White/Blacklisting</h2>
+<h3 id="how-to-disable-whiteblacklists-completely">How to disable white/blacklists completely</h3>
+<p>To disable white/blacklists completely, please remove plugin name
+<code>amavisd_wblist</code> in iRedAPD config file <code>/opt/iredapd/settings.py</code>,
+parameter <code>plugins =</code>:</p>
+<pre><code>plugins = [..., 'amavisd_wblist', ...]
+</code></pre>
+
+<p>Restarting iRedAPD service is required.</p>
+<h3 id="manage-whiteblacklists">Manage white/blacklists</h3>
 <blockquote>
 <ul>
 <li>White/blacklisting is available in iRedAPD-1.4.4 and later releases.</li>
@@ -60,15 +75,7 @@ user <code>iredapd</code>.</p>
 <p>White/blacklisting is controlled by plugin <code>amavisd_wblist</code> (file
 <code>/opt/iredapd/plugins/amavisd_wblist.py</code>), you can manage it with script
 <code>/opt/iredapd/tools/wblist_admin.py</code>.</p>
-<h3 id="how-to-disable-whiteblacklists-completely">How to disable white/blacklists completely</h3>
-<p>To disable white/blacklists completely, please remove plugin name
-<code>amavisd_wblist</code> in iRedAPD config file <code>/opt/iredapd/settings.py</code>,
-parameter <code>plugins =</code>:</p>
-<pre><code>plugins = [..., 'amavisd_wblist', ...]
-</code></pre>
-
-<p>Restarting iRedAPD service is required.</p>
-<h3 id="available-arguments">Available arguments</h3>
+<h4 id="available-arguments">Available arguments</h4>
 <pre><code>    --outbound
         Manage white/blacklist for outbound messages.
 
@@ -109,7 +116,7 @@ parameter <code>plugins =</code>:</p>
         Don't ask to confirm.
 </code></pre>
 
-<h3 id="sample-usages">Sample usages</h3>
+<h4 id="sample-usages">Sample usages</h4>
 <ul>
 <li>Show and add server-wide whitelists or blacklists:</li>
 </ul>
@@ -130,7 +137,15 @@ parameter <code>plugins =</code>:</p>
 # python wblist_admin.py --account user@mydomain.com --list --blacklist
 </code></pre>
 
-<h2 id="manage-greylisting-settings">Manage greylisting settings</h2>
+<h2 id="greylisting">Greylisting</h2>
+<h3 id="how-to-disable-greylisting-completely">How to disable greylisting completely</h3>
+<p>To disable greylisting completely, please remove plugin name <code>greylisting</code>
+in iRedAPD config file <code>/opt/iredapd/settings.py</code>, parameter <code>plugins =</code>:</p>
+<pre><code>plugins = [..., 'greylisting', ...]
+</code></pre>
+
+<p>Restarting iRedAPD service is required.</p>
+<h3 id="manage-greylisting-settings">Manage greylisting settings</h3>
 <blockquote>
 <ul>
 <li>Greylisting is available in iRedAPD-1.7.0 and later releases.</li>
@@ -141,14 +156,7 @@ parameter <code>plugins =</code>:</p>
 <p>Greylisting is controlled by plugin <code>greylisting</code> (file
 <code>/opt/iredapd/plugins/greylisting.py</code>), you can manage it with script
 <code>/opt/iredapd/tools/greylisting_admin.py</code>.</p>
-<h3 id="how-to-disable-greylisting-completely">How to disable greylisting completely</h3>
-<p>To disable greylisting completely, please remove plugin name <code>greylisting</code>
-in iRedAPD config file <code>/opt/iredapd/settings.py</code>, parameter <code>plugins =</code>:</p>
-<pre><code>plugins = [..., 'greylisting', ...]
-</code></pre>
-
-<p>Restarting iRedAPD service is required.</p>
-<h3 id="available-arguments_1">Available arguments</h3>
+<h4 id="available-arguments_1">Available arguments</h4>
 <pre><code>    --list
         Show ALL existing greylisting settings.
 
@@ -176,7 +184,7 @@ in iRedAPD config file <code>/opt/iredapd/settings.py</code>, parameter <code>pl
         Delete specified greylisting setting.
 </code></pre>
 
-<h3 id="sample-usages_1">Sample usages</h3>
+<h4 id="sample-usages_1">Sample usages</h4>
 <ul>
 <li>List all existing greylisting settings</li>
 </ul>
@@ -208,7 +216,7 @@ in iRedAPD config file <code>/opt/iredapd/settings.py</code>, parameter <code>pl
 <pre><code># python greylisting_admin.py --delete --to '@test.com'
 </code></pre>
 
-<h3 id="additional-greylisting-whitelist-support">Additional greylisting whitelist support</h3>
+<h4 id="recommended-additional-greylisting-whitelist-support">RECOMMENDED: Additional greylisting whitelist support</h4>
 <p>Seems many companies setup their mail servers to re-deliver returned email
 immediately from another server, this causes trouble with greylisting.</p>
 <p>Possible solutions:</p>
