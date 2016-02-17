@@ -131,7 +131,7 @@ questions, that's all required to setup a full-featured mail server.
 > Additional variables are:
 >
 > * EPEL repo: `IREDMAIL_EPEL_MIRROR='http://mirrors.aliyun.com/epel'`
-> * SOGo repo: `SOGO_PKG_MIRROR='http://42.159.241.31'`
+> * SOGo repo: `SOGO_PKG_MIRROR='http://42.159.241.31/SOGo'`
 
 ```
 # cd /root/iRedMail-x.y.z/
