@@ -82,9 +82,6 @@ White/blacklisting is controlled by plugin `amavisd_wblist` (file
         Blacklist specified sender(s). Multiple senders must be separated by a space.
 
     WARNING: Do not use --list, --add-whitelist, --add-blacklist at the same time.
-
-    --noninteractive
-        Don't ask to confirm.
 ```
 
 #### Sample usages
