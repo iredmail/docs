@@ -41,7 +41,7 @@ this installation guide instead:
 which means your server does <strong>NOT</strong> have mail related components installed,
 e.g. MySQL, OpenLDAP, Postfix, Dovecot, Amavisd, etc. iRedMail will install
 and configure them for you automatically. Otherwise it may override your
-existing files/configurations althought it will backup files before modifing,
+existing files/configurations althought it will backup files before modifying,
 and it may not be working as expected.</p>
 <p>To install iRedMail on FreeBSD, you need:</p>
 <ul>
@@ -116,12 +116,14 @@ mx.example.com
 <p>It's now ready to start iRedMail installer, it will ask you several simple
 questions, that's all required to setup a full-featured mail server.</p>
 <blockquote>
-<p>For Chinese users: Our domain name <code>iredmail.org</code> is blocked in mainland
-China since Jun 04, 2011, please run below command with a nearest mirror
-site. For example: <code>IREDMAIL_MIRROR='http://42.159.241.31' bash iRedMail.sh</code>.</p>
+<p><strong>Note to Chinese users</strong>:</p>
+<p>Our domain name <code>iredmail.org</code> is blocked in mainland
+China since Jun 04, 2011, please run command below to finish the installation:</p>
+<p><code>IREDMAIL_MIRROR='http://42.159.241.31' bash iRedMail.sh</code></p>
+<p>Additional variables are:</p>
 <ul>
-<li><code>http://42.159.241.31</code> is a mirror in mainland China. recommended.</li>
-<li><code>http://106.187.51.47</code> is a Linode VPS hosted in Tokyo, Japan.</li>
+<li>EPEL repo: <code>IREDMAIL_EPEL_MIRROR='http://mirrors.aliyun.com/epel'</code></li>
+<li>SOGo repo: <code>SOGO_PKG_MIRROR='http://42.159.241.31/SOGo'</code></li>
 </ul>
 </blockquote>
 <pre><code># cd /root/iRedMail-x.y.z/

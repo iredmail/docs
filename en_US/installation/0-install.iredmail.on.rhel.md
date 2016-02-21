@@ -8,7 +8,7 @@ __IMPORTANT WARNING__: iRedMail is designed to be deployed on a FRESH server sys
 which means your server does __NOT__ have mail related components installed,
 e.g. MySQL, OpenLDAP, Postfix, Dovecot, Amavisd, etc. iRedMail will install
 and configure them for you automatically. Otherwise it may override your
-existing files/configurations althought it will backup files before modifing,
+existing files/configurations althought it will backup files before modifying,
 and it may not be working as expected.
 
 To install iRedMail on RHEL or CentOS Linux, you need:
@@ -121,7 +121,7 @@ Disable it immediately without rebooting your server.
 It's now ready to start iRedMail installer, it will ask you several simple
 questions, that's all required to setup a full-featured mail server.
 
-> __For Chinese users__:
+> __Note to Chinese users__:
 >
 > Our domain name `iredmail.org` is blocked in mainland
 > China since Jun 04, 2011, please run command below to finish the installation:

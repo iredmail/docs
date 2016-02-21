@@ -6,14 +6,16 @@
 
 * This tutorial describes how to create a FreeBSD Jail with ezjail, then
   install the latest iRedMail in Jail.
-* We use hostname `mx.example.com` and IP address `172.16.122.244` for our Jail server.
+* We use hostname `mx.example.com` and IP address `172.16.244.254` for our Jail server.
 
 Notes:
 
-* This tutorial was tested with FreeBSD 9 and the latest ports tree, but it
-  should work on FreeBSD 8 and 10 too.
+* This tutorial was tested with FreeBSD 10 and the latest ports tree, but it
+  should work on FreeBSD 9 and other releases.
 * All backends available in iRedMail (OpenLDAP, MySQL/MariaDB, PostgreSQL) were
   tested, work like a charm. :)
+* For more details about ezjail, please check FreeBSD Handbook:
+  [Managing Jails with ezjail](https://www.freebsd.org/doc/handbook/jails-ezjail.html).
 
 ## System Requirements
 
@@ -21,32 +23,13 @@ __IMPORTANT WARNING__: iRedMail is designed to be deployed on a FRESH server sys
 which means your server does __NOT__ have mail related components installed,
 e.g. MySQL, OpenLDAP, Postfix, Dovecot, Amavisd, etc. iRedMail will install
 and configure them for you automatically. Otherwise it may override your
-existing files/configurations althought it will backup files before modifing,
+existing files/configurations althought it will backup files before modifying,
 and it may not be working as expected.
 
 * The latest stable release of iRedMail. You can download it here: http://www.iredmail.org/download.html
 * Port `sysutils/ezjail` for FreeBSD.
 
 ## Preparations
-
-### Set a proper hostname and IP address for Jail server
-
-We use hostname `mx.example.com` and internal IP address `172.16.122.244` for
-example. We created an alias IP address on network interface `em0`, so we have
-below setting in `/etc/rc.conf` for this IP address like below:
-
-```
-# Part of file: /etc/rc.conf
-
-ifconfig_em0_alias0="inet 172.16.122.244 netmask 255.255.255.0"
-
-# Settings for our Jail: mx.example.com.
-jail_mx_example_com_hostname="mx.example.com"
-jail_mx_example_com_ip="172.16.122.244"
-
-# Required by PostgreSQL, otherwise initializing database will fail.
-jail_mx_example_com_parameters='allow.sysvipc=1'
-```
 
 ### Install sysutils/ezjail and add required settings
 
@@ -57,21 +40,11 @@ jail_mx_example_com_parameters='allow.sysvipc=1'
 # make install clean
 ```
 
-* Enable Jail by adding below setting in `/etc/rc.conf`:
+* Enable ezjail service by appending below line in `/etc/rc.conf`:
 
 ```
-# Part of file: /etc/rc.conf
-
 # Start ezjail while system start up
 ezjail_enable="YES"
-```
-
-* [OPTIONAL] Allow to use `ping` command inside Jail by adding below line in
-  `/etc/sysctl.conf`:
-
-```
-# Part of file: /etc/sysctl.conf
-security.jail.allow_raw_sockets=1
 ```
 
 * Rebooting system is required after changing `/etc/rc.conf`.
@@ -82,42 +55,26 @@ security.jail.allow_raw_sockets=1
 
 ### Create Jail
 
-* After server reboot, create the base jail that all jails we created later will use:
+* After server reboot, populate the Jail with FreeBSD-RELEASE
 
 ```
 # ezjail-admin install -p
 ```
 
-* Create Jail for domain name `mx.example.com`, bound to internal IP address
-  `172.16.122.244`. All files are placed under `/jails/mx.example.com`:
+* Create Jail
+
+    * hostname `mx.example.com`
+    * bound IP address `172.16.244.254` to network interface `em0`
+    * Jail is placed under `/jails/mx.example.com`
 
 ```
-# ezjail-admin create -r /jails/mx.example.com mx.example.com 172.16.122.244
-```
-
-* Set hostname of Jail in `/jails/mx.example.com/etc/rc.conf`:
-
-```
-# File: /jails/mx.example.com/etc/rc.conf
-hostname="mx.example.com"
-```
-
-* [OPTIONAL] Share /usr/ports/distfiles/ with Jail by adding below line in
-  `/etc/fstab.mx_example_com`:
-
-    * NOTE: Jail will set ports tree directory to `/var/ports` instead of
-      `/usr/ports` in `/jails/mx.example.com/etc/make.conf`, you can either
-      use this default setting or change it to `/usr/ports`.
-
-```
-# Part of file: /etc/fstab.mx_example.com
-/usr/ports/distfiles /jails/mx.example.com/basejail/usr/ports/distfiles nullfs rw 0 0
+# ezjail-admin create -r /jails/mx.example.com mx.example.com 'em0|172.16.244.254'
 ```
 
 * Start Jail.
 
 ```
-# /usr/local/etc/rc.d/ezjail restart
+# service ezjail restart
 ```
 
 * List all Jails:
@@ -126,7 +83,7 @@ hostname="mx.example.com"
 # ezjail-admin list
 STA JID  IP               Hostname                          Root Directory
 --- ---- ---------------- --------------------------------- ------------------------
-DS  1    172.16.122.244   mx.example.com                    /jails/mx.example.com
+DS  1    172.16.244.254   mx.example.com                    /jails/mx.example.com
 ```
 
 ## Install iRedMail
@@ -141,13 +98,17 @@ We can now enter this Jail with below command:
 
 ```
 # File: /etc/resolv.conf
-nameserver 172.16.122.2
+nameserver 172.16.244.2
 ```
 
 * In Jail, install binary package `bash-static`, it's required by iRedMail.
 
 ```
+# -- For FreeBSD 9 or earlier releases --
 # pkg_add -r bash-static
+
+# -- For FreeBSD 10 or later releases --
+# pkg install bash-static
 ```
 
 ## Start iRedMail installer
@@ -155,17 +116,22 @@ nameserver 172.16.122.2
 It's now ready to start iRedMail installer inside Jail, it will ask you several simple
 questions, that's all required to setup a full-featured mail server.
 
-> For Chinese users: Our domain name `iredmail.org` is blocked in mainland
-> China since Jun 04, 2011, please run below command with a nearest mirror
-> site. For example: `IREDMAIL_MIRROR='http://42.159.241.31' bash iRedMail.sh`.
-> 
-> * `http://42.159.241.31` is a mirror in mainland China. recommended.
-> * `http://106.187.51.47` is a Linode VPS hosted in Tokyo, Japan.
+> __Note to Chinese users__:
+>
+> Our domain name `iredmail.org` is blocked in mainland
+> China since Jun 04, 2011, please run command below to finish the installation:
+>
+> `IREDMAIL_MIRROR='http://42.159.241.31' bash iRedMail.sh`
+>
+> Additional variables are:
+>
+> * EPEL repo: `IREDMAIL_EPEL_MIRROR='http://mirrors.aliyun.com/epel'`
+> * SOGo repo: `SOGO_PKG_MIRROR='http://42.159.241.31/SOGo'`
 
 ```
 # bash          # <- start bash shell, REQUIRED
 # cd /root/iRedMail/
-# LOCAL_ADDRESS='172.16.122.244' bash iRedMail.sh
+# LOCAL_ADDRESS='172.16.244.254' bash iRedMail.sh
 ```
 
 ## Screenshots of installation:
@@ -283,3 +249,40 @@ hostname or IP address.
 Please post all issues, feedbacks, feature requests, suggestions in our [online
 support forum](http://www.iredmail.org/forum/), it's more responsible than you
 expected.
+
+## Some Tips for FreeBSD Jail
+
+### Allow `ping` in Jail
+
+* Appending below line in `/etc/sysctl.conf` to allow to use `ping` command
+  inside Jail:
+
+```
+security.jail.allow_raw_sockets=1
+```
+
+* Update `/usr/local/etc/ezjail/mx_example_com` to allow `ping` inside Jail:
+
+```
+export jail_mx_example_com_parameters="allow.raw_sockets=1"
+```
+
+### Share `/usr/ports/distfiles` with Jail
+
+To share `/usr/ports/distfiles/` with Jail, please append below line in
+  `/etc/fstab.mx_example_com`:
+
+> Jail will set ports tree directory to `/var/ports` instead of
+> `/usr/ports` in `/jails/mx.example.com/etc/make.conf` by default, you can
+> either use this default setting or change it to `/usr/ports`.
+
+```
+# Part of file: /etc/fstab.mx_example.com
+/usr/ports/distfiles /jails/mx.example.com/basejail/var/ports/distfiles nullfs rw 0 0
+```
+
+Create directory `/usr/jails/basejail/var/ports/distfiles`:
+
+```
+# mkdir /usr/jails/basejail/var/ports/distfiles
+```

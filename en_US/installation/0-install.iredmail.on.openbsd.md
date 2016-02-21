@@ -8,7 +8,7 @@ __IMPORTANT WARNING__: iRedMail is designed to be deployed on a FRESH server sys
 which means your server does __NOT__ have mail related components installed,
 e.g. MySQL, OpenLDAP, Postfix, Dovecot, Amavisd, etc. iRedMail will install
 and configure them for you automatically. Otherwise it may override your
-existing files/configurations althought it will backup files before modifing,
+existing files/configurations althought it will backup files before modifying,
 and it may not be working as expected.
 
 To install iRedMail on OpenBSD, you need:
@@ -123,12 +123,17 @@ Install Bash shell, it's required by iRedMail.
 It's now ready to start iRedMail installer, it will ask you several simple
 questions, that's all required to setup a full-featured mail server.
 
-> For Chinese users: Our domain name `iredmail.org` is blocked in mainland
-> China since Jun 04, 2011, please run below command with a nearest mirror
-> site. For example: `IREDMAIL_MIRROR='http://42.159.241.31' bash iRedMail.sh`.
-> 
-> * `http://42.159.241.31` is a mirror in mainland China. recommended.
-> * `http://106.187.51.47` is a Linode VPS hosted in Tokyo, Japan.
+> __Note to Chinese users__:
+>
+> Our domain name `iredmail.org` is blocked in mainland
+> China since Jun 04, 2011, please run command below to finish the installation:
+>
+> `IREDMAIL_MIRROR='http://42.159.241.31' bash iRedMail.sh`
+>
+> Additional variables are:
+>
+> * EPEL repo: `IREDMAIL_EPEL_MIRROR='http://mirrors.aliyun.com/epel'`
+> * SOGo repo: `SOGO_PKG_MIRROR='http://42.159.241.31/SOGo'`
 
 ```
 # cd /root/iRedMail-x.y.z/
