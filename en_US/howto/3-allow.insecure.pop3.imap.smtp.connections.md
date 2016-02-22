@@ -1,5 +1,7 @@
 # Allow insecure POP3/IMAP/SMTP connections without STARTTLS
 
+[TOC]
+
 With default iRedMail setting, all clients are forced to use POP3/IMAP/SMTP
 services over STARTTLS for secure connections. If your mail clients
 try to access mailbox via protocol POP3/IMAP without TLS support, you will
