@@ -1,6 +1,6 @@
 body{
     margin: 0 auto;
-    font-family: Georgia, Palatino, serif;
+    font-family: 'PT Sans', Georgia, Palatino, serif;
     line-height: 1;
     max-width: 70%;
     padding: 30px 0px 100px 0px;
@@ -309,3 +309,5 @@ th { font-style: bold; text-align: left; }
 code.bash { background-color: green; color: white; }
 */
 pre { margin-left: 30px; }
+p, ul, ol { font-size: 17px; }
+li { line-height: 26px; }

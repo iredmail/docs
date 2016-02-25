@@ -1,6 +1,6 @@
 # Major open source softwares used in iRedMail
 
-<table cellpadding="4px;">
+<table cellpadding="4px;" border="1">
 <thead>
 <tr>
 <th>Name</th>
