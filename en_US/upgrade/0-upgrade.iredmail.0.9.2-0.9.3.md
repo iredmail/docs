@@ -100,7 +100,7 @@ Steps to add alias accounts:
 
 ```shell
 perl -pi -e 's/(virusalert:.*)/#${1}/g' /etc/postfix/aliases
-echo 'virusalert: root' >> /etc/postfix/aliases
+echo -e '\nvirusalert: root' >> /etc/postfix/aliases
 postalias /etc/postfix/aliases
 ```
 
@@ -109,8 +109,9 @@ postalias /etc/postfix/aliases
   run commands below to add it.
 
 ```shell
-# echo 'virusalert: root' >> /usr/local/etc/postfix/aliases
-# postalias /usr/local/etc/postfix/aliases
+perl -pi -e 's/(virusalert:.*)/#${1}/g' /etc/postfix/aliases
+echo -e '\nvirusalert: root' >> /usr/local/etc/postfix/aliases
+postalias /usr/local/etc/postfix/aliases
 ```
 
 ### Amavisd: Fix incorrect setting which treats external sender as internal user

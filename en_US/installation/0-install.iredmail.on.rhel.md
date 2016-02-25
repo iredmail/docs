@@ -2,6 +2,10 @@
 
 [TOC]
 
+> This tutorial is available in other languages:
+>
+> * [Russian](http://www.everycloudtech.com/install.iredmail.on.rhel). Thanks to [Everycloudtech](http://www.everycloudtech.com/).
+
 ## System Requirements
 
 __IMPORTANT WARNING__: iRedMail is designed to be deployed on a FRESH server system,

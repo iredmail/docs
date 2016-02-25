@@ -80,7 +80,7 @@ Ubuntu, but not other OSes. Please fix it with below commands:</p>
 <li>For Linux and OpenBSD:</li>
 </ul>
 <pre><code class="shell">perl -pi -e 's/(virusalert:.*)/#${1}/g' /etc/postfix/aliases
-echo 'virusalert: root' &gt;&gt; /etc/postfix/aliases
+echo -e '\nvirusalert: root' &gt;&gt; /etc/postfix/aliases
 postalias /etc/postfix/aliases
 </code></pre>
 
@@ -88,7 +88,7 @@ postalias /etc/postfix/aliases
 <li>For FreeBSD:</li>
 </ul>
 <pre><code class="shell">perl -pi -e 's/(virusalert:.*)/#${1}/g' /usr/local/etc/postfix/aliases
-echo 'virusalert: root' &gt;&gt; /usr/local/etc/postfix/aliases
+echo -e '\nvirusalert: root' &gt;&gt; /usr/local/etc/postfix/aliases
 postalias /usr/local/etc/postfix/aliases
 </code></pre><p style="text-align: center; color: grey;">All documents are available in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.<script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){

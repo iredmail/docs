@@ -70,7 +70,7 @@ Ubuntu, but not other OSes. Please fix it with below commands:
 
 ```shell
 perl -pi -e 's/(virusalert:.*)/#${1}/g' /etc/postfix/aliases
-echo 'virusalert: root' >> /etc/postfix/aliases
+echo -e '\nvirusalert: root' >> /etc/postfix/aliases
 postalias /etc/postfix/aliases
 ```
 
@@ -78,6 +78,6 @@ postalias /etc/postfix/aliases
 
 ```shell
 perl -pi -e 's/(virusalert:.*)/#${1}/g' /usr/local/etc/postfix/aliases
-echo 'virusalert: root' >> /usr/local/etc/postfix/aliases
+echo -e '\nvirusalert: root' >> /usr/local/etc/postfix/aliases
 postalias /usr/local/etc/postfix/aliases
 ```

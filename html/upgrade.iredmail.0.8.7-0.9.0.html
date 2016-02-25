@@ -186,13 +186,13 @@ upstream OpenSSL advisory: <a href="http://web.nvd.nist.gov/view/vuln/detail?vul
 
 <p>Restarting Apache service is required.</p>
 <h4 id="disable-sslv3-in-postfix">Disable SSLv3 in Postfix</h4>
-<p>Please execute below commands to disable SSLv3 in Postfix:</p>
-<pre><code># postconf -e smtpd_tls_protocols='!SSLv2 !SSLv3'
-# postconf -e smtp_tls_protocols='!SSLv2 !SSLv3'
-# postconf -e lmtp_tls_protocols='!SSLv2 !SSLv3'
-# postconf -e smtpd_tls_mandatory_protocols='!SSLv2 !SSLv3'
-# postconf -e smtp_tls_mandatory_protocols='!SSLv2 !SSLv3'
-# postconf -e lmtp_tls_mandatory_protocols='!SSLv2 !SSLv3'
+<p>Please execute commands below to disable SSLv3 in Postfix:</p>
+<pre><code>postconf -e smtpd_tls_protocols='!SSLv2 !SSLv3'
+postconf -e smtp_tls_protocols='!SSLv2 !SSLv3'
+postconf -e lmtp_tls_protocols='!SSLv2 !SSLv3'
+postconf -e smtpd_tls_mandatory_protocols='!SSLv2 !SSLv3'
+postconf -e smtp_tls_mandatory_protocols='!SSLv2 !SSLv3'
+postconf -e lmtp_tls_mandatory_protocols='!SSLv2 !SSLv3'
 </code></pre>
 
 <p>Restarting Postfix service is required.</p>
