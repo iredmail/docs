@@ -1,0 +1,102 @@
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Upgrade iRedMail from 0.9.4 to 0.9.5</title>
+        <link rel="stylesheet" type="text/css" href="./css/markdown.css" />
+    </head>
+    <body>
+    
+    <div id="navigation">
+        <a href="http://www.iredmail.org" target="_blank">iRedMail web site</a>
+    
+        // <a href="./index.html">Document Index</a>
+    </div><h1 id="upgrade-iredmail-from-094-to-095">Upgrade iRedMail from 0.9.4 to 0.9.5</h1>
+<div class="toc">
+<ul>
+<li><a href="#upgrade-iredmail-from-094-to-095">Upgrade iRedMail from 0.9.4 to 0.9.5</a><ul>
+<li><a href="#changelog">ChangeLog</a></li>
+<li><a href="#general-all-backends-should-apply-these-steps">General (All backends should apply these steps)</a><ul>
+<li><a href="#update-etciredmail-release-with-new-iredmail-version-number">Update /etc/iredmail-release with new iRedMail version number</a></li>
+<li><a href="#upgrade-iredapd-postfix-policy-server-to-the-latest-190">Upgrade iRedAPD (Postfix policy server) to the latest 1.9.0</a></li>
+<li><a href="#rhelcentos-fixed-not-enable-cron-job-to-update-spamassassin-rules">[RHEL/CentOS] Fixed: Not enable cron job to update SpamAssassin rules</a></li>
+<li><a href="#rhelcentos-fixed-not-create-required-directory-used-to-store-php-session-files">[RHEL/CentOS] Fixed: Not create required directory used to store PHP session files</a></li>
+<li><a href="#fixed-not-add-alias-for-virusalert-on-non-debianubuntu-oses">Fixed: not add alias for virusalert on non-Debian/Ubuntu OSes</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<h2 id="changelog">ChangeLog</h2>
+<blockquote>
+<p>We offer remote upgrade service, check <a href="../support.html">the price</a> and <a href="../contact.html">contact us</a>.</p>
+</blockquote>
+<ul>
+<li>2016-02-25:<ul>
+<li>[RHEL/CentOS] Fixed: Not create required directory used to store PHP session files</li>
+<li>[RHEL/CentOS] Fixed: Not enable cron job to update SpamAssassin rules</li>
+<li>Fixed: not add alias for <code>virusalert</code> on non-Debian/Ubuntu OSes</li>
+</ul>
+</li>
+</ul>
+<h2 id="general-all-backends-should-apply-these-steps">General (All backends should apply these steps)</h2>
+<h3 id="update-etciredmail-release-with-new-iredmail-version-number">Update <code>/etc/iredmail-release</code> with new iRedMail version number</h3>
+<p>iRedMail stores the release version in <code>/etc/iredmail-release</code> after
+installation, it's recommended to update this file after you upgraded iRedMail,
+so that you can know which version of iRedMail you're running. For example:</p>
+<pre><code># File: /etc/iredmail-release
+
+0.9.5
+</code></pre>
+
+<h3 id="upgrade-iredapd-postfix-policy-server-to-the-latest-190">Upgrade iRedAPD (Postfix policy server) to the latest 1.9.0</h3>
+<p>Please follow below tutorial to upgrade iRedAPD to the latest stable release:
+<a href="./upgrade.iredapd.html">Upgrade iRedAPD to the latest stable release</a></p>
+<p>Detailed release notes are available <a href="./iredapd.releases.html">here</a>.</p>
+<h3 id="rhelcentos-fixed-not-enable-cron-job-to-update-spamassassin-rules">[RHEL/CentOS] Fixed: Not enable cron job to update SpamAssassin rules</h3>
+<p>Note: this is applicable to only RHEL and CentOS.</p>
+<p>In iRedMail-0.9.4 and earlier releases, iRedMail didn't enable cron job to
+update SpamAssassin rules. Please run commands below to fix it.</p>
+<pre><code class="shell">perl -pi -e 's/^(SAUPDATE=yes)/#${1}/' /etc/sysconfig/sa-update
+echo 'SAUPDATE=yes' &gt;&gt; /etc/sysconfig/sa-update
+</code></pre>
+
+<h3 id="rhelcentos-fixed-not-create-required-directory-used-to-store-php-session-files">[RHEL/CentOS] Fixed: Not create required directory used to store PHP session files</h3>
+<p>Note: this is applicable to only RHEL and CentOS.</p>
+<p>In iRedMail-0.9.4 and earlier releases, iRedMail didn't create directory used
+to store PHP session files, it will cause error when your PHP application tries
+to create session file. Please fix it with commands below:</p>
+<pre><code class="shell">mkdir /var/lib/php/session
+chown root:root /var/lib/php/session
+chmod 0733 /var/lib/php/session
+chmod o+t /var/lib/php/session
+</code></pre>
+
+<h3 id="fixed-not-add-alias-for-virusalert-on-non-debianubuntu-oses">Fixed: not add alias for <code>virusalert</code> on non-Debian/Ubuntu OSes</h3>
+<p>Note: this is <strong>NOT</strong> applicable to Debian and Ubuntu.</p>
+<p>There's a bug in iRedMail-0.9.4, it adds alias <code>virusalert</code> on only Debian and
+Ubuntu, but not other OSes. Please fix it with below commands:</p>
+<ul>
+<li>For Linux and OpenBSD:</li>
+</ul>
+<pre><code class="shell">perl -pi -e 's/(virusalert:.*)/#${1}/g' /etc/postfix/aliases
+echo 'virusalert: root' &gt;&gt; /etc/postfix/aliases
+postalias /etc/postfix/aliases
+</code></pre>
+
+<ul>
+<li>For FreeBSD:</li>
+</ul>
+<pre><code class="shell">perl -pi -e 's/(virusalert:.*)/#${1}/g' /usr/local/etc/postfix/aliases
+echo 'virusalert: root' &gt;&gt; /usr/local/etc/postfix/aliases
+postalias /usr/local/etc/postfix/aliases
+</code></pre><p style="text-align: center; color: grey;">All documents are available in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-3293801-21', 'auto');
+  ga('send', 'pageview');
+</script>
+</body></html>

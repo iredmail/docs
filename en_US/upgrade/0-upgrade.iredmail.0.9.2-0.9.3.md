@@ -98,9 +98,10 @@ Steps to add alias accounts:
   already have line `virusalert: root`, please ignore this step. if not, please
   run commands below to add it.
 
-```cfg
-# echo 'virusalert: root' >> /etc/postfix/aliases
-# postalias /etc/postfix/aliases
+```shell
+perl -pi -e 's/(virusalert:.*)/#${1}/g' /etc/postfix/aliases
+echo 'virusalert: root' >> /etc/postfix/aliases
+postalias /etc/postfix/aliases
 ```
 
 * For FreeBSD: please open file `/usr/local/etc/postfix/aliases`, if you
