@@ -10,7 +10,7 @@ annoying message, you have to buy a SSL certificate from SSL certificate
 provider. Search `buy ssl certificate` in Google will give you many SSL
 providers, choose the one you prefer.
 
-> [StartSSL.com offers free one-year certificate](http://www.startssl.com/?app=1).
+> ["Let's Encrypt" offers free SSL certificate](https://letsencrypt.org)
 
 ## Generate SSL private key and buy one SSL certificate
 

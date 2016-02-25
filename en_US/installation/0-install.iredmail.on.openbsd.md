@@ -227,12 +227,11 @@ Configuration completed.
 
 * [Setup DNS records for your mail server](./setup.dns.html)
 * [How to configure your mail clients](./index.html#configure-mail-client-applications)
-* It's highly recommended to purchase a SSL cert to avoid annonying warning
+* It's highly recommended to get a SSL cert to avoid annonying warning
   message in web browser or mail clients when accessing mailbox via
-  HTTPS/IMAPS/POP3/SMTPS. Or, you can use
-  [free SSL cert offerred by StartSSL.com](http://www.startssl.com/?app=1).
+  HTTPS/IMAPS/POP3/SMTPS. [Let's Encrypt offers __FREE__ SSL certificate](https://letsencrypt.org).
   We have a document for you to
-  [use a bought SSL certificate](http://www.iredmail.org/docs/use.a.bought.ssl.certificate.html).
+  [use a SSL certificate](http://www.iredmail.org/docs/use.a.bought.ssl.certificate.html).
 * If you need to bulk create mail users, check our document for
   [OpenLDAP](./ldap.bulk.create.mail.users.html) and
   [MySQL/MariaDB/PostgreSQL](./sql.bulk.create.mail.users.html).

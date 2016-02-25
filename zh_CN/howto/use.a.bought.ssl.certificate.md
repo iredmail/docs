@@ -8,7 +8,7 @@ iRedMail 在安装期间会自动生成一个自签名的 SSL 证书，如果你
 必须从 SSL 证书供应商那里购买 SSL 证书。在 Google 中搜索 `buy ssl certificate`
 会列出许多 SSL 证书供应商，选择你信任的那一家即可。
 
-> [StartSSL.com 提供免费的一年期 SSL 证书](http://www.startssl.com/?app=1).
+> [Let's Encrypt 提供免费的 SSL 证书](https://letsencrypt.org).
 
 ## 生成 SSL 密钥并购买 SSL 证书
 

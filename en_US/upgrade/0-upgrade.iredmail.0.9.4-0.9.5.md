@@ -55,7 +55,7 @@ to create session file. Please fix it with commands below:
 ```shell
 mkdir /var/lib/php/session
 chown root:root /var/lib/php/session
-chmod 0733 /var/lib/php/session
+chmod 0773 /var/lib/php/session
 chmod o+t /var/lib/php/session
 ```
 
