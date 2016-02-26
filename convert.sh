@@ -128,6 +128,7 @@ for lang in ${all_languages}; do
 
             # Get title in markdown file: '# title'
             _article_title="$(head -1 ${article_file} | awk -F'# ' '{print $2}')"
+            echo "${_article_title}"
             #
             # Get title in markdown file: 'Title: title'
             #_article_title="$(grep '^Title: ' ${article_file} | head -1 | awk -F'Title: ' '{print $2}')"

@@ -7,7 +7,7 @@
 
 * After installtion:
 
-    * [Setup DNS records for your iRedMail server](./setup.dns.html)
+    * [Setup DNS records for your iRedMail server (A, PTR, MX, SPF, DKIM)](./setup.dns.html)
 
 * Additional installation tips
 

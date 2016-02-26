@@ -1,4 +1,4 @@
-# Setup DNS records for your iRedMail server
+# Setup DNS records for your iRedMail server (A, PTR, MX, SPF, DKIM)
 
 [TOC]
 
