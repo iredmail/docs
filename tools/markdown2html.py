@@ -58,7 +58,7 @@ html = """\
 # Link to iRedMail.org
 html += """
     <div id="navigation">
-        <a href="http://www.iredmail.org" target="_blank">iRedMail web site</a>
+    <a href="http://www.iredmail.org" target="_blank"><img alt="iRedMail web site" src="images/logo-iredmail.png" style="vertical-align: middle; height: 30px;"/> <span>iRedMail</span></a>
     """
 
 # Add link to index page in article pages.
