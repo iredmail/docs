@@ -270,10 +270,12 @@ created socket file <code>/var/spool/postfix/private/dovecot-lmtp</code> for LMT
 mysql&gt; UPDATE domain SET transport='lmtp:unix:private/dovecot-lmtp' WHERE domain='abc.com';
 </code></pre>
 
-<p><strong>IMPORTANT NOTE</strong>: it requires new LDAP value or SQL column for mail users
-mentioned in this upgrade tutorial (LDAP: <code>enabledService=lmtp</code>, SQL:
-<code>mailbox.enablelmtp=1</code>), so please finish this upgrade tutorial first, then
-you're safe to use LMTP.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>It requires new LDAP value or SQL column for mail users mentioned later in
+this tutorial (LDAP: <code>enabledService=lmtp</code>, SQL: <code>mailbox.enablelmtp=1</code>),
+so please finish this upgrade tutorial first, then you're safe to use LMTP.</p>
+</div>
 <h3 id="optional-fixed-issue-postfix-cannot-resolve-client-ip-address-to-dns-name-on-rhelcentos">[OPTIONAL] Fixed issue: Postfix cannot resolve client IP address to DNS name on RHEL/CentOS</h3>
 <p>This is optional.</p>
 <p>On RHEL/CentOS, Postfix is running under chroot, it logs client IP address in

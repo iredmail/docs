@@ -333,9 +333,6 @@ li { line-height: 26px; }
 	line-height: 24px;
 	margin-bottom: 24px;
 	background: #e7f2fa;
-    /*
-	background: #fdf3f2;
-    */
 }
 
 .admonition-title {
@@ -358,11 +355,11 @@ li { line-height: 26px; }
 .important  .admonition-title,
 .tip        .admonition-title,
 .seealso    .admonition-title,
-.admonition-todo .admonition-title {
-	color: #404040;
-}
+.admonition-todo .admonition-title
 */
 
 .note       .admonition-title { background: #6ab0de; }
-.warning    .admonition-title { background: #e7f2fa; }
-.attention  .admonition-title { background: #fff; }
+.warning    .admonition-title { background: #f0b37e; }
+.attention  .admonition-title { display: none; }
+.attention  { background: #e7f2fa; }
+.attention p { margin-top: 4px; }

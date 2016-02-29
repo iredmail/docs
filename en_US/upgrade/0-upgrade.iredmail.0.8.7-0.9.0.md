@@ -50,13 +50,13 @@ latest stable release immediately: [How to upgrade Roundcube](http://trac.roundc
 Please follow below tutorial to upgrade iRedAPD to the latest stable release:
 [Upgrade iRedAPD to the latest stable release](./upgrade.iredapd.html)
 
-Important notes: 
+!!! note "Important Notes"
 
-* in iRedMail-0.9.0 and future iRedMail releases, we will use white/blacklists
-  stored in Amavisd database in Amavisd (after-queue) and iRedAPD (before-queue),
-  so you must enable iRedAPD plugin `amavisd_wblist`.
-* it's strongly recommended to enable plugin `reject_null_sender` (as first
-  plugin listed in iRedAPD parameter `plugins =`) to prevent spam.
+    * in iRedMail-0.9.0 and future iRedMail releases, we will use
+      white/blacklists stored in Amavisd database in Amavisd (after-queue) and
+      iRedAPD (before-queue), so you must enable iRedAPD plugin `amavisd_wblist`.
+    * it's strongly recommended to enable plugin `reject_null_sender` (as first
+      plugin listed in iRedAPD parameter `plugins =`) to prevent spam.
 
 iRedAPD-1.4.4 fixes several issues and brings some new features:
 
@@ -92,16 +92,16 @@ Suggested order of above 3 plugins are (if you enabled them):
 plugins = ['reject_null_sender', 'reject_sender_login_mismatch', 'amavisd_wblist', ...]
 ```
 
-Important notes:
+!!! note "Important Notes"
 
-* If you want to manage white/blacklists with the latest iRedAdmin-Pro, you
-  have to enable plugin `amavisd_wblist`.
+    * If you want to manage white/blacklists with the latest iRedAdmin-Pro, you
+      have to enable plugin `amavisd_wblist`.
 
-* Plugin `amavisd_wblist` and `amavisd_message_size_limit` requires additional
-  database related settings in iRedAPD config file, please set correct values
-  for them. You can find SQL database settings in Amavisd config file,
-  in parameter `@lookup_sql_dsn =`, if `@lookup_sql_dsn` is disabled, you can
-  find them in `@storage_sql_dsn =`.
+    * Plugin `amavisd_wblist` and `amavisd_message_size_limit` requires additional
+      database related settings in iRedAPD config file, please set correct values
+      for them. You can find SQL database settings in Amavisd config file,
+      in parameter `@lookup_sql_dsn =`, if `@lookup_sql_dsn` is disabled, you can
+      find them in `@storage_sql_dsn =`.
 
 ```
 amavisd_db_server = '127.0.0.1'
@@ -229,10 +229,12 @@ Please apply below steps to fix above issues:
 
 * Restart Postfix service.
 
-__IMPORTANT NOTE__: If you want to disable `content_filter=` in Postfix, please
-comment out `receive_override_options=` in Postfix config file `main.cf` too,
-otherwise canonical address mapping, virtual alias map expansion, address
-masquerading, and automatic BCC (blind carbon-copy) recipients will not work.
+!!! note
+
+    If you want to disable `content_filter=` in Postfix, please
+    comment out `receive_override_options=` in Postfix config file `main.cf` too,
+    otherwise canonical address mapping, virtual alias map expansion, address
+    masquerading, and automatic BCC (blind carbon-copy) recipients will not work.
 </strike>
 
 ### Fix improper file permission of Amavisd config file

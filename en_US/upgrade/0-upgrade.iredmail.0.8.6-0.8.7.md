@@ -249,10 +249,11 @@ mysql> USE vmail;
 mysql> UPDATE domain SET transport='lmtp:unix:private/dovecot-lmtp' WHERE domain='abc.com';
 ```
 
-__IMPORTANT NOTE__: it requires new LDAP value or SQL column for mail users
-mentioned in this upgrade tutorial (LDAP: `enabledService=lmtp`, SQL:
-`mailbox.enablelmtp=1`), so please finish this upgrade tutorial first, then
-you're safe to use LMTP.
+!!! note
+
+    It requires new LDAP value or SQL column for mail users mentioned later in
+    this tutorial (LDAP: `enabledService=lmtp`, SQL: `mailbox.enablelmtp=1`),
+    so please finish this upgrade tutorial first, then you're safe to use LMTP.
 
 ### [OPTIONAL] Fixed issue: Postfix cannot resolve client IP address to DNS name on RHEL/CentOS
 

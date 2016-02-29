@@ -36,12 +36,15 @@
 </ul>
 </blockquote>
 <h2 id="system-requirements">System Requirements</h2>
-<p><strong>IMPORTANT WARNING</strong>: iRedMail is designed to be deployed on a FRESH server system,
-which means your server does <strong>NOT</strong> have mail related components installed,
+<div class="admonition note">
+<p class="admonition-title">Important Note</p>
+<p>iRedMail is designed to be deployed on a <strong>FRESH</strong> server system, which
+means your server does <strong>NOT</strong> have mail related components installed,
 e.g. MySQL, OpenLDAP, Postfix, Dovecot, Amavisd, etc. iRedMail will install
 and configure them for you automatically. Otherwise it may override your
-existing files/configurations althought it will backup files before modifying,
-and it may not be working as expected.</p>
+existing files/configurations althought it will backup files before
+modifying, and it may not be working as expected.</p>
+</div>
 <p>To install iRedMail on RHEL or CentOS Linux, you need:</p>
 <ul>
 <li>A <strong>FRESH</strong>, working RHEL or CentOS system. Supported releases are listed on
@@ -168,9 +171,12 @@ China since Jun 04, 2011, please run command below to finish the installation:</
 <li>Choose backend used to store mail accounts. You can manage mail accounts
 with iRedAdmin, our web-based iRedMail admin panel.</li>
 </ul>
-<p><strong>IMPORTANT NOTE</strong>: There's no big difference between available backends, so
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>There's no big difference between available backends, so
 it's strongly recommended to choose the one you're familiar with for easier
 management and maintenance after installation.</p>
+</div>
 <p><img alt="" src="../images/installation/iredmail/backend.png" /></p>
 <ul>
 <li>
@@ -185,15 +191,14 @@ ask you two questions about OpenLDAP.</p>
 <pre><code>* Password of LDAP root dn.
 </code></pre>
 <p><img alt="" src="../images/installation/iredmail/pw_of_ldap_root_dn.png" /></p>
-<ul>
-<li>
+<div class="admonition note">
+<p class="admonition-title">To MySQL/MariaDB/PostgreSQL users</p>
 <p>If you choose to store mail accounts in MySQL/MariaDB/PostgreSQL, iRedMail
-  installer will generate a random, strong password for you. You can find it in
-  file <code>iRedMail.tips</code>.</p>
-</li>
-<li>
-<p>Add your first mail domain name</p>
-</li>
+installer will generate a random, strong password for you. You can find it
+in file <code>iRedMail.tips</code>.</p>
+</div>
+<ul>
+<li>Add your first mail domain name</li>
 </ul>
 <p><img alt="" src="../images/installation/iredmail/first_mail_domain.png" /></p>
 <ul>

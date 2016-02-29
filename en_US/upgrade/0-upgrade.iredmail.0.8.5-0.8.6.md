@@ -2,7 +2,11 @@
 
 [TOC]
 
-__IMPORTANT NOTES__: If you're running Policyd-1.8, please stay with it right now. Be patient and wait for our upgrade tutorial if you want to upgrade to Cluebringer. P.S. Policyd doesn't provide upgrade tutorial officially.
+!!! note
+
+    Policyd doesn't provide upgrade tutorial officially, so
+    if you're running Policyd-1.8, please stay with it right now. Be patient
+    and wait for our upgrade tutorial if you want to upgrade to Cluebringer.
 
 ## ChangeLog
 

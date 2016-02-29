@@ -32,24 +32,13 @@ supported by iRedMail.
 
 That's all.
 
-----
 
-Important notes:
+!!! note "Plugins"
 
-* iRedAPD-1.7.0 doesn't enable greylisting by default, please enable plugin
-  `greylisting` in iRedAPD config file (`/opt/iredapd/settings.py`), then
-  execute SQL command below to enable server-wide greylisting:
+    * It's recommended to enable plugin `reject_null_sender` in iRedAPD-1.4.4
+      or later releases to prevent authenticated user sending spam as null sender.
 
-```
-sql> USE iredapd;
-sql> INSERT INTO greylisting (account, priority, sender, sender_priority, active) VALUES ('@.', 0, '@.', 0, 1);
-```
-
-* It's recommended to enable plugin `reject_null_sender` in iRedAPD-1.4.4 or
-  later releases to prevent authenticated user sending spam as null sender.
-
-* Plugin `amavisd_wblist` is required if you manage white/blacklists with
-  iRedAdmin-Pro.
+    * Plugin `amavisd_wblist` is required for whitelisting and blacklisting.
 
 ## See Also
 

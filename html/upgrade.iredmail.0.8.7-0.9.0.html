@@ -93,14 +93,16 @@ latest stable release immediately: <a href="http://trac.roundcube.net/wiki/Howto
 <h3 id="upgrade-iredapd-postfix-policy-server-to-the-latest-144">Upgrade iRedAPD (Postfix policy server) to the latest 1.4.4</h3>
 <p>Please follow below tutorial to upgrade iRedAPD to the latest stable release:
 <a href="./upgrade.iredapd.html">Upgrade iRedAPD to the latest stable release</a></p>
-<p>Important notes: </p>
+<div class="admonition note">
+<p class="admonition-title">Important Notes</p>
 <ul>
-<li>in iRedMail-0.9.0 and future iRedMail releases, we will use white/blacklists
-  stored in Amavisd database in Amavisd (after-queue) and iRedAPD (before-queue),
-  so you must enable iRedAPD plugin <code>amavisd_wblist</code>.</li>
+<li>in iRedMail-0.9.0 and future iRedMail releases, we will use
+  white/blacklists stored in Amavisd database in Amavisd (after-queue) and
+  iRedAPD (before-queue), so you must enable iRedAPD plugin <code>amavisd_wblist</code>.</li>
 <li>it's strongly recommended to enable plugin <code>reject_null_sender</code> (as first
   plugin listed in iRedAPD parameter <code>plugins =</code>) to prevent spam.</li>
 </ul>
+</div>
 <p>iRedAPD-1.4.4 fixes several issues and brings some new features:</p>
 <ul>
 <li>
@@ -140,7 +142,8 @@ or per-user setting. Priority: per-user &gt; per-domain &gt; global.</p>
 <pre><code>plugins = ['reject_null_sender', 'reject_sender_login_mismatch', 'amavisd_wblist', ...]
 </code></pre>
 
-<p>Important notes:</p>
+<div class="admonition note">
+<p class="admonition-title">Important Notes</p>
 <ul>
 <li>
 <p>If you want to manage white/blacklists with the latest iRedAdmin-Pro, you
@@ -154,6 +157,7 @@ or per-user setting. Priority: per-user &gt; per-domain &gt; global.</p>
   find them in <code>@storage_sql_dsn =</code>.</p>
 </li>
 </ul>
+</div>
 <pre><code>amavisd_db_server = '127.0.0.1'
 amavisd_db_port = 3306
 amavisd_db_name = 'amavisd'
@@ -261,11 +265,14 @@ Currently, we don't have Postfix parameter <code>receive_override_options=</code
 <ul>
 <li>Restart Postfix service.</li>
 </ul>
-<p><strong>IMPORTANT NOTE</strong>: If you want to disable <code>content_filter=</code> in Postfix, please
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you want to disable <code>content_filter=</code> in Postfix, please
 comment out <code>receive_override_options=</code> in Postfix config file <code>main.cf</code> too,
 otherwise canonical address mapping, virtual alias map expansion, address
-masquerading, and automatic BCC (blind carbon-copy) recipients will not work.
-</strike></p>
+masquerading, and automatic BCC (blind carbon-copy) recipients will not work.</p>
+</div>
+<p></strike></p>
 <h3 id="fix-improper-file-permission-of-amavisd-config-file">Fix improper file permission of Amavisd config file</h3>
 <p><strong>NOTE</strong>: This step is applicable to only Red Hat/CentOS 6.</p>
 <p>Amavisd config file <code>/etc/amavisd/amavisd.conf</code> must be owned by group <code>amavis</code>,

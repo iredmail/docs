@@ -29,12 +29,15 @@
 </ul>
 </div>
 <h2 id="system-requirements">System Requirements</h2>
-<p><strong>IMPORTANT WARNING</strong>: iRedMail is designed to be deployed on a FRESH server system,
-which means your server does <strong>NOT</strong> have mail related components installed,
+<div class="admonition note">
+<p class="admonition-title">Important Note</p>
+<p>iRedMail is designed to be deployed on a <strong>FRESH</strong> server system, which
+means your server does <strong>NOT</strong> have mail related components installed,
 e.g. MySQL, OpenLDAP, Postfix, Dovecot, Amavisd, etc. iRedMail will install
 and configure them for you automatically. Otherwise it may override your
-existing files/configurations althought it will backup files before modifying,
-and it may not be working as expected.</p>
+existing files/configurations althought it will backup files before
+modifying, and it may not be working as expected.</p>
+</div>
 <p>To install iRedMail on OpenBSD, you need:</p>
 <ul>
 <li>A <strong>FRESH</strong>, working OpenBSD system. Supported releases are listed on
@@ -53,7 +56,8 @@ and it may not be working as expected.</p>
 </ul>
 </li>
 </ul>
-<p>Notes:</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
 <ul>
 <li>
 <p>All binary packages will be installed with command <code>pkg_add -i</code>. It will
@@ -69,6 +73,7 @@ and it may not be working as expected.</p>
 <li>PF is enabled by default, with basic rules for ssh and mail services.</li>
 <li>OpenSMTPd are disabled by default, replaced by Postfix.</li>
 </ul>
+</div>
 <h2 id="preparations">Preparations</h2>
 <h3 id="set-a-fully-qualified-domain-name-fqdn-hostname-on-your-server">Set a fully qualified domain name (FQDN) hostname on your server</h3>
 <p>No matter your server is a testing machine or production server, it's strongly
@@ -140,21 +145,16 @@ near you on OpenBSD web site:
 <h2 id="start-iredmail-installer">Start iRedMail installer</h2>
 <p>It's now ready to start iRedMail installer, it will ask you several simple
 questions, that's all required to setup a full-featured mail server.</p>
-<blockquote>
-<p><strong>Note to Chinese users</strong>:</p>
-<p>Our domain name <code>iredmail.org</code> is blocked in mainland
-China since Jun 04, 2011, please run command below to finish the installation:</p>
-<p><code>IREDMAIL_MIRROR='http://42.159.241.31' bash iRedMail.sh</code></p>
-<p>Additional variables are:</p>
-<ul>
-<li>EPEL repo: <code>IREDMAIL_EPEL_MIRROR='http://mirrors.aliyun.com/epel'</code></li>
-<li>SOGo repo: <code>SOGO_PKG_MIRROR='http://42.159.241.31/SOGo'</code></li>
-</ul>
-</blockquote>
 <pre><code># cd /root/iRedMail-x.y.z/
 # bash iRedMail.sh
 </code></pre>
 
+<div class="admonition note">
+<p class="admonition-title">To Chinese users</p>
+<p>Our domain name <code>iredmail.org</code> is blocked in mainland
+China since Jun 04, 2011, please run command below to finish the installation:</p>
+<p><code>IREDMAIL_MIRROR='http://42.159.241.31' bash iRedMail.sh</code></p>
+</div>
 <h2 id="screenshots-of-installation">Screenshots of installation:</h2>
 <ul>
 <li>Welcome and thanks for your use</li>
@@ -168,9 +168,12 @@ China since Jun 04, 2011, please run command below to finish the installation:</
 <li>Choose backend used to store mail accounts. You can manage mail accounts
 with iRedAdmin, our web-based iRedMail admin panel.</li>
 </ul>
-<p><strong>IMPORTANT NOTE</strong>: There's no big difference between available backends, so
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>There's no big difference between available backends, so
 it's strongly recommended to choose the one you're familiar with for easier
 management and maintenance after installation.</p>
+</div>
 <p><img alt="" src="../images/installation/iredmail/backend.png" /></p>
 <ul>
 <li>If you choose to store mail accounts in OpenLDAP, iRedMail installer will
@@ -180,15 +183,14 @@ ask you two questions about OpenLDAP.</li>
 <p><img alt="" src="../images/installation/iredmail/ldap_suffix.png" /></p>
 <p>Password of LDAP root dn.</p>
 <p><img alt="" src="../images/installation/iredmail/pw_of_ldap_root_dn.png" /></p>
-<ul>
-<li>
+<div class="admonition note">
+<p class="admonition-title">To MySQL/MariaDB/PostgreSQL users</p>
 <p>If you choose to store mail accounts in MySQL/MariaDB/PostgreSQL, iRedMail
-  installer will generate a random, strong password for you. You can find it in
-  file <code>iRedMail.tips</code>.</p>
-</li>
-<li>
-<p>Add your first mail domain name</p>
-</li>
+installer will generate a random, strong password for you. You can find it
+in file <code>iRedMail.tips</code>.</p>
+</div>
+<ul>
+<li>Add your first mail domain name</li>
 </ul>
 <p><img alt="" src="../images/installation/iredmail/first_mail_domain.png" /></p>
 <ul>

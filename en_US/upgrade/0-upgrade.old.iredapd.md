@@ -13,12 +13,12 @@ This tutorial describes how to upgrade iRedAPD from v1.3.x or earlier versions
 to the later releases, it's applicable on all Linux/BSD distributions supported
 by iRedMail.
 
-Important notes:
+!!! note "Important Notes"
 
-* Since iRedAPD-`1.4.0`, we use Python source file as config file, not `.ini`
-  format anymore.
-* We don't need second instance `iredapd-rr` anymore (it listens on port `7778`),
-  just one instance, one listen port `7777` is required.
+    * Since iRedAPD-`1.4.0`, we use Python source file as config file, not
+      `.ini` format anymore.
+    * We don't need second instance `iredapd-rr` anymore (it listens on port
+      `7778`), just one instance, one listen port `7777` is required.
 
 Steps to upgrade iRedAPD-1.3.x or earlier versions:
 

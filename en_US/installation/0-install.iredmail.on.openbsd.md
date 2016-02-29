@@ -4,12 +4,14 @@
 
 ## System Requirements
 
-__IMPORTANT WARNING__: iRedMail is designed to be deployed on a FRESH server system,
-which means your server does __NOT__ have mail related components installed,
-e.g. MySQL, OpenLDAP, Postfix, Dovecot, Amavisd, etc. iRedMail will install
-and configure them for you automatically. Otherwise it may override your
-existing files/configurations althought it will backup files before modifying,
-and it may not be working as expected.
+!!! note "Important Note"
+
+    iRedMail is designed to be deployed on a __FRESH__ server system, which
+    means your server does __NOT__ have mail related components installed,
+    e.g. MySQL, OpenLDAP, Postfix, Dovecot, Amavisd, etc. iRedMail will install
+    and configure them for you automatically. Otherwise it may override your
+    existing files/configurations althought it will backup files before
+    modifying, and it may not be working as expected.
 
 To install iRedMail on OpenBSD, you need:
 
@@ -26,17 +28,17 @@ To install iRedMail on OpenBSD, you need:
     * man[XX].tgz
     * xbase[XX].tgz
 
-Notes:
+!!! note
 
-* All binary packages will be installed with command `pkg_add -i`. It will
-  prompt you to choose different versions of binary packages, please choose
-  the one described below:
+    * All binary packages will be installed with command `pkg_add -i`. It will
+      prompt you to choose different versions of binary packages, please choose
+      the one described below:
 
-    * choose `p5-Mail-SPF`, NOT `p5-Mail-SPF-Query`
+        * choose `p5-Mail-SPF`, NOT `p5-Mail-SPF-Query`
 
-* Nginx is used as web server.
-* PF is enabled by default, with basic rules for ssh and mail services.
-* OpenSMTPd are disabled by default, replaced by Postfix.
+    * Nginx is used as web server.
+    * PF is enabled by default, with basic rules for ssh and mail services.
+    * OpenSMTPd are disabled by default, replaced by Postfix.
 
 ## Preparations
 
@@ -123,22 +125,17 @@ Install Bash shell, it's required by iRedMail.
 It's now ready to start iRedMail installer, it will ask you several simple
 questions, that's all required to setup a full-featured mail server.
 
-> __Note to Chinese users__:
->
-> Our domain name `iredmail.org` is blocked in mainland
-> China since Jun 04, 2011, please run command below to finish the installation:
->
-> `IREDMAIL_MIRROR='http://42.159.241.31' bash iRedMail.sh`
->
-> Additional variables are:
->
-> * EPEL repo: `IREDMAIL_EPEL_MIRROR='http://mirrors.aliyun.com/epel'`
-> * SOGo repo: `SOGO_PKG_MIRROR='http://42.159.241.31/SOGo'`
-
 ```
 # cd /root/iRedMail-x.y.z/
 # bash iRedMail.sh
 ```
+
+!!! note "To Chinese users"
+
+    Our domain name `iredmail.org` is blocked in mainland
+    China since Jun 04, 2011, please run command below to finish the installation:
+
+    `IREDMAIL_MIRROR='http://42.159.241.31' bash iRedMail.sh`
 
 ## Screenshots of installation:
 
@@ -153,9 +150,11 @@ questions, that's all required to setup a full-featured mail server.
 * Choose backend used to store mail accounts. You can manage mail accounts
 with iRedAdmin, our web-based iRedMail admin panel.
 
-__IMPORTANT NOTE__: There's no big difference between available backends, so
-it's strongly recommended to choose the one you're familiar with for easier
-management and maintenance after installation.
+!!! note
+
+    There's no big difference between available backends, so
+    it's strongly recommended to choose the one you're familiar with for easier
+    management and maintenance after installation.
 
 ![](../images/installation/iredmail/backend.png)
 
@@ -170,9 +169,11 @@ Password of LDAP root dn.
 
 ![](../images/installation/iredmail/pw_of_ldap_root_dn.png)
 
-* If you choose to store mail accounts in MySQL/MariaDB/PostgreSQL, iRedMail
-  installer will generate a random, strong password for you. You can find it in
-  file `iRedMail.tips`.
+!!! note "To MySQL/MariaDB/PostgreSQL users"
+
+    If you choose to store mail accounts in MySQL/MariaDB/PostgreSQL, iRedMail
+    installer will generate a random, strong password for you. You can find it
+    in file `iRedMail.tips`.
 
 * Add your first mail domain name
 
