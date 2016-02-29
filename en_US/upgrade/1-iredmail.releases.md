@@ -30,10 +30,10 @@
 > We provide remote upgrade support, check [the price](../support.html) and [contact us](../contact.html).
 
 * [0.9.4](http://www.iredmail.org/forum/topic10512.html), Jan 25, 2016. [Upgrade from iRedMail-0.9.3](./upgrade.iredmail.0.9.3-0.9.4.html)
-* [0.9.3](http://www.iredmail.org/forum/topic10261.html), Dec 14, 2015. [Upgrade from iRedMail-0.9.2](./upgrade.iredmail.0.9.2-0.9.3.html)
+* [0.9.3](http://www.iredmail.org/forum/topic10261.html), Dec 14, 2015. [Upgrade from iRedMail-0.9.2](./upgrade.iredmail.0.9.2-0.9.3.html) (contains SQL/LDAP structure changes)
 * [0.9.2](http://www.iredmail.org/forum/topic9280.html), Jun 3, 2015. [Upgrade from iRedMail-0.9.1](./upgrade.iredmail.0.9.1-0.9.2.html)
-* [0.9.1](http://www.iredmail.org/forum/topic9144.html), May 15, 2015. [Upgrade from iRedMail-0.9.0](./upgrade.iredmail.0.9.0-0.9.1.html)
-* [0.9.0](http://www.iredmail.org/forum/topic8443.html), Dec 31, 2014. [Upgrade from iRedMail-0.8.7](./upgrade.iredmail.0.8.7-0.9.0.html)
+* [0.9.1](http://www.iredmail.org/forum/topic9144.html), May 15, 2015. [Upgrade from iRedMail-0.9.0](./upgrade.iredmail.0.9.0-0.9.1.html) (contains SQL/LDAP structure changes)
+* [0.9.0](http://www.iredmail.org/forum/topic8443.html), Dec 31, 2014. [Upgrade from iRedMail-0.8.7](./upgrade.iredmail.0.8.7-0.9.0.html) (contains SQL/LDAP structure changes)
 * [0.8.7](http://www.iredmail.org/forum/topic6872-news-announcements-bug-fixes-iredmail087-has-been-released.html), May 13, 2014. [Upgrade from iRedMail-0.8.6](./upgrade.iredmail.0.8.6-0.8.7.html)
 * [0.8.6](http://www.iredmail.org/forum/topic5831-iredmail086-has-been-released.html), Dec 16, 2013. [Upgrade from iRedMail-0.8.5](./upgrade.iredmail.0.8.5-0.8.6.html)
 * [0.8.5](http://www.iredmail.org/forum/topic5167-news-announcements-bug-fixes-iredmail085-has-been-released.html), Jul 16, 2013. [Upgrade from iRedMail-0.8.4](./upgrade.iredmail.0.8.4-0.8.5.html)

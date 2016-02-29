@@ -312,3 +312,57 @@ code.bash { background-color: green; color: white; }
 pre { margin-left: 30px; }
 p, ul, ol { font-size: 17px; }
 li { line-height: 26px; }
+
+/*
+.note {
+    background: #e7f2fa;
+    padding: 12px;
+    line-height: 24px;
+    margin-bottom: 24px;
+}
+.note .admonition-title {
+    background: #6ab0de;
+}
+.note p:last-child {
+    margin-bottom: 0;
+}
+*/
+
+.note, .attention, .caution, .danger, .error, .hint, .important, .tip, .warning, .seealso, .admonition-todo {
+	padding: 12px;
+	line-height: 24px;
+	margin-bottom: 24px;
+	background: #e7f2fa;
+    /*
+	background: #fdf3f2;
+    */
+}
+
+.admonition-title {
+	font-weight: bold;
+	display: block;
+	color: #fff;
+    /*
+    background: #6ab0de;
+    */
+	margin: -12px;
+	padding: 6px 12px;
+	margin-bottom: 12px
+}
+
+/*
+.caution    .admonition-title,
+.danger     .admonition-title,
+.error      .admonition-title,
+.hint       .admonition-title,
+.important  .admonition-title,
+.tip        .admonition-title,
+.seealso    .admonition-title,
+.admonition-todo .admonition-title {
+	color: #404040;
+}
+*/
+
+.note       .admonition-title { background: #6ab0de; }
+.warning    .admonition-title { background: #e7f2fa; }
+.attention  .admonition-title { background: #fff; }
