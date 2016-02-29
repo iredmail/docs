@@ -760,7 +760,8 @@ sql&gt; ALTER TABLE alias ADD INDEX (alias_to);
 
 <blockquote>
 <p><strong>Sample usage</strong>: add additional email addresses <code>extra@domain.com</code> for
-existing user <code>user@domain.com</code>:</p>
+existing user <code>user@domain.com</code>:
+</p>
 </blockquote>
 <pre><code>sql&gt; USE vmail;
 sql&gt; INSERT INTO alias (address, goto, is_alias, alias_to, domain)
@@ -862,7 +863,8 @@ sql&gt; CREATE INDEX idx_alias_alias_to ON alias (alias_to);
 
 <blockquote>
 <p><strong>Sample usage</strong>: add additional email addresses <code>extra@domain.com</code> for
-existing user <code>user@domain.com</code>:</p>
+existing user <code>user@domain.com</code>:
+</p>
 </blockquote>
 <pre><code>sql&gt; USE vmail;
 sql&gt; INSERT INTO alias (address, goto, is_alias, alias_to, domain)
