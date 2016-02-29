@@ -4,7 +4,7 @@
 
 ## System Requirements
 
-!!! note "Important Note"
+!!! warning
 
     iRedMail is designed to be deployed on a __FRESH__ server system, which
     means your server does __NOT__ have mail related components installed,

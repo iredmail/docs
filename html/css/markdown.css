@@ -362,4 +362,5 @@ li { line-height: 26px; }
 .warning    .admonition-title { background: #f0b37e; }
 .attention  .admonition-title { display: none; }
 .attention  { background: #e7f2fa; }
+.warning    { background: #FFFFE1; }
 .attention p { margin-top: 4px; }
