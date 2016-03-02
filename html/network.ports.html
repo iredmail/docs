@@ -64,8 +64,10 @@ external network is blocked by firewall (iptables, pf).</p>
 </ul>
 <h2 id="amavisd-new">Amavisd-new</h2>
 <ul>
-<li>10024: main port used for Postfix to inject incoming/outgoing
-  emails for spam/virus scanning, DKIM signing/verification, etc.</li>
+<li>10024: port used for inbound messages, includes spam/virus scanning, DKIM
+  verification, applying spam policy.</li>
+<li>10026: port used for outbound messages, includes spam/virus scanning, DKIM
+  signing, apply spam policy.</li>
 <li>9998: port used to manage quarantined emails.</li>
 </ul>
 <p>All ports are listening on <code>127.0.0.1</code> by default.</p>
@@ -73,6 +75,10 @@ external network is blocked by firewall (iptables, pf).</p>
 <ul>
 <li>10031: default listen port. Listening on IP address <code>127.0.0.1</code> by default.</li>
 </ul>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>Policyd and Cluebringer were removed since iRedMail-0.9.3.</p>
+</div>
 <h2 id="iredapd-postfix-policy-server">iRedAPD (Postfix policy server)</h2>
 <ul>
 <li>7777: default listen port. Listening on IP address <code>127.0.0.1</code> by default.</li>
