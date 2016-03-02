@@ -176,7 +176,9 @@ for lang in ${all_languages}; do
         _links_md="${chapter_dir}/_links.md"
 
         if [ -f ${_links_md} ]; then
+            echo '' >> ${INDEX_MD}
             cat ${_links_md} >> ${INDEX_MD}
+            echo '' >> ${INDEX_MD}
         fi
     done
 

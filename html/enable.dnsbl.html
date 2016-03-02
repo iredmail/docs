@@ -24,7 +24,10 @@ DNS server speeds up the mail flow.</p>
 <code>reject_rbl_client zen.spamhaus.org</code> to parameter <code>smtpd_recipient_restrictions</code>.
 Final setting looks like below:</li>
 </ul>
-<pre><code>smtpd_recipient_restrictions = ..., reject_unauth_destination, reject_rbl_client zen.spamhaus.org
+<pre><code>smtpd_recipient_restrictions =
+    ...
+    reject_unauth_destination
+    reject_rbl_client zen.spamhaus.org
 </code></pre>
 
 <p>It must be placed after <code>reject_unauth_destination</code>. You can add more DNSBL
@@ -33,6 +36,12 @@ specified order.</p>
 <ul>
 <li>Restart or reload Postfix service is required.</li>
 </ul>
+<div class="admonition note">
+<p class="admonition-title">Another popular DNSBL server</p>
+<p>Another popular DNSBL server address is <code>b.barracudacentral.org</code>. For more
+details, please read its web site:
+<a href="http://www.barracudacentral.org/rbl">Barracuda Reputation Block List (BRBL)</a></p>
+</div>
 <h2 id="see-also">See also</h2>
 <ul>
 <li><a href="./enable.postscreen.html">Enable postscreen service</a></li>

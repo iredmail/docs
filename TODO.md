@@ -10,7 +10,3 @@
 * http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/Send.out.email.from.specified.IP.address
 * http://www.iredmail.org/forum/topic1968-enabling-ipv6-for-your-iredmail-postfixdovecot.html
 * http://www.iredmail.org/forum/topic210-iredmail-support-faq-how-to-enable-signing-disclaimer-on-outgoing-mails.html
-
-* Update iRedMail installation document to use loopback interface in FreeBSD
-  Jail, so that we don't need `LOCAL_ADDRESS=` while launching iRedMail installer:
-  https://www.freebsd.org/doc/handbook/jails-ezjail.html

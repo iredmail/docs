@@ -15,7 +15,10 @@ You can enable additional DNSBL services in Postfix to reduce spam. We use
 Final setting looks like below:
 
 ```
-smtpd_recipient_restrictions = ..., reject_unauth_destination, reject_rbl_client zen.spamhaus.org
+smtpd_recipient_restrictions =
+    ...
+    reject_unauth_destination
+    reject_rbl_client zen.spamhaus.org
 ```
 
 It must be placed after `reject_unauth_destination`. You can add more DNSBL
@@ -23,6 +26,12 @@ services after `reject_unauth_destination`, and they will be queried in the
 specified order.
 
 * Restart or reload Postfix service is required.
+
+!!! note "Another popular DNSBL server"
+
+    Another popular DNSBL server address is `b.barracudacentral.org`. For more
+    details, please read its web site:
+    [Barracuda Reputation Block List (BRBL)](http://www.barracudacentral.org/rbl)
 
 ## See also
 
