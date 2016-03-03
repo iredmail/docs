@@ -109,11 +109,11 @@ Username ID Global Rights
 ```
 
 With shell command below, we grant `lookup`, `read`, `write`, `insert`,
-`delete` and `create` (sub-directory) permissions to user
+`delete`, `expunge` and `create` (sub-directory) permissions to user
 `postmaster@test.com` (again, this user is hosted on same server):
 
 ```
-doveadm acl set -A "Public/TestFolder" "user=postmaster@test.com" lookup read write insert delete create
+doveadm acl set -A "Public/TestFolder" "user=postmaster@test.com" lookup read write insert delete expunge create
 ```
 
 Check the ACl with `doveadm` again:
@@ -121,7 +121,7 @@ Check the ACl with `doveadm` again:
 ```
 # doveadm acl get -A "Public/TestFolder"
 Username        ID                       Global Rights
-postmaster@a.cn user=postmaster@test.com        create delete insert lookup read write
+postmaster@a.cn user=postmaster@test.com        create delete expunge insert lookup read write
 ```
 
 If you now login to webmail (or other IMAP client) as user `postmaster@test.com`,
@@ -140,7 +140,7 @@ Check the ACl with `doveadm` now:
 # doveadm acl get -A "Public/TestFolder"
 Username        ID                       Global Rights
 postmaster@a.cn anyone                          lookup read
-postmaster@a.cn user=postmaster@test.com        create delete insert lookup read write
+postmaster@a.cn user=postmaster@test.com        create delete expunge insert lookup read write
 ```
 
 If you login to webmail (or other IMAP client) as any user hosted on same
@@ -176,11 +176,11 @@ chmod 0700 /var/vmail/public/.TestFolder/dovecot-acl
 ```
 
 With shell command below, we grant `lookup` (l), `read` (r), `write` (w),
-`insert` (i), `delete` (x) and `create sub-directory` (k) permissions to user
+`insert` (i), `delete` (x), `expunge` (e) and `create sub-directory` (k) permissions to user
 `postmaster@test.com` (again, this user is hosted on same server):
 
 ```
-echo 'user=postmaster@test.com lrwixk' >> /var/vmail/public/.TestFolder/dovecot-acl
+echo 'user=postmaster@test.com lrwixke' >> /var/vmail/public/.TestFolder/dovecot-acl
 ```
 
 With shell command below, we grant all users `lookup` (l) and `read` (r)

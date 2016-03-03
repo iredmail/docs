@@ -116,15 +116,15 @@ folder first with command <code>doveadm acl get</code>:</p>
 </code></pre>
 
 <p>With shell command below, we grant <code>lookup</code>, <code>read</code>, <code>write</code>, <code>insert</code>,
-<code>delete</code> and <code>create</code> (sub-directory) permissions to user
+<code>delete</code>, <code>expunge</code> and <code>create</code> (sub-directory) permissions to user
 <code>postmaster@test.com</code> (again, this user is hosted on same server):</p>
-<pre><code>doveadm acl set -A &quot;Public/TestFolder&quot; &quot;user=postmaster@test.com&quot; lookup read write insert delete create
+<pre><code>doveadm acl set -A &quot;Public/TestFolder&quot; &quot;user=postmaster@test.com&quot; lookup read write insert delete expunge create
 </code></pre>
 
 <p>Check the ACl with <code>doveadm</code> again:</p>
 <pre><code># doveadm acl get -A &quot;Public/TestFolder&quot;
 Username        ID                       Global Rights
-postmaster@a.cn user=postmaster@test.com        create delete insert lookup read write
+postmaster@a.cn user=postmaster@test.com        create delete expunge insert lookup read write
 </code></pre>
 
 <p>If you now login to webmail (or other IMAP client) as user <code>postmaster@test.com</code>,
@@ -138,7 +138,7 @@ and <code>read</code> permissions:</p>
 <pre><code># doveadm acl get -A &quot;Public/TestFolder&quot;
 Username        ID                       Global Rights
 postmaster@a.cn anyone                          lookup read
-postmaster@a.cn user=postmaster@test.com        create delete insert lookup read write
+postmaster@a.cn user=postmaster@test.com        create delete expunge insert lookup read write
 </code></pre>
 
 <p>If you login to webmail (or other IMAP client) as any user hosted on same
@@ -169,9 +169,9 @@ chmod 0700 /var/vmail/public/.TestFolder/dovecot-acl
 </code></pre>
 
 <p>With shell command below, we grant <code>lookup</code> (l), <code>read</code> (r), <code>write</code> (w),
-<code>insert</code> (i), <code>delete</code> (x) and <code>create sub-directory</code> (k) permissions to user
+<code>insert</code> (i), <code>delete</code> (x), <code>expunge</code> (e) and <code>create sub-directory</code> (k) permissions to user
 <code>postmaster@test.com</code> (again, this user is hosted on same server):</p>
-<pre><code>echo 'user=postmaster@test.com lrwixk' &gt;&gt; /var/vmail/public/.TestFolder/dovecot-acl
+<pre><code>echo 'user=postmaster@test.com lrwixke' &gt;&gt; /var/vmail/public/.TestFolder/dovecot-acl
 </code></pre>
 
 <p>With shell command below, we grant all users <code>lookup</code> (l) and <code>read</code> (r)
