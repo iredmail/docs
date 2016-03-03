@@ -151,6 +151,13 @@ and <code>smtpd_end_of_data_restrictions</code> like below:</p>
 smtpd_end_of_data_restrictions = check_policy_service inet:127.0.0.1:7777
 </code></pre>
 
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you have additional IP addresses/networks listed in Postfix setting
+"mynetworks =", you have to list them all in iRedAPD config file
+(<code>/opt/iredapd/settings.py</code>) too, like below:</p>
+<p><code>MYNETWORKS = ['xx.xx.xx.xx', 'xx.xx.xx.0/24', ...]</code></p>
+</div>
 <h3 id="restart-postfix-service">Restart Postfix service</h3>
 <p>Reloading or restarting Postfix service is required after changed <code>main.cf</code>.</p>
 <ul>

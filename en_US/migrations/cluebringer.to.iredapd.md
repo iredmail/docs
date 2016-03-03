@@ -138,6 +138,14 @@ smtpd_recipient_restrictions =
 smtpd_end_of_data_restrictions = check_policy_service inet:127.0.0.1:7777
 ```
 
+!!! note
+
+    If you have additional IP addresses/networks listed in Postfix setting
+    "mynetworks =", you have to list them all in iRedAPD config file
+    (`/opt/iredapd/settings.py`) too, like below:
+
+    ```MYNETWORKS = ['xx.xx.xx.xx', 'xx.xx.xx.0/24', ...]```
+
 ### Restart Postfix service
 
 Reloading or restarting Postfix service is required after changed `main.cf`.
