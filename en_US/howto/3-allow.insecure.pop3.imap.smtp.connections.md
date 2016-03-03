@@ -11,6 +11,14 @@ get error message like below:
 Plaintext authentication disallowed on non-secure (SSL/TLS) connections
 ```
 
+This tutorial describes how to allow insecure connection for daily use.
+
+!!! note
+
+    If you just have 1 or few network devices like printer, firewall need to
+    send email with insecure connection, please follow this tutorial instead:
+    [Allow internal network devices to send email with insecure connection](./additional.smtp.port.html).
+
 ## Allow insecure POP3/IMAP connections
 
 If you want to enable POP3/IMAP services without STARTTLS for some reason

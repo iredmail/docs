@@ -1,0 +1,62 @@
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Allow internal network devices to send email with insecure connection</title>
+        <link rel="stylesheet" type="text/css" href="./css/markdown.css" />
+    </head>
+    <body>
+    
+    <div id="navigation">
+    <a href="http://www.iredmail.org" target="_blank"><img alt="iRedMail web site" src="images/logo-iredmail.png" style="vertical-align: middle; height: 30px;"/> <span>iRedMail</span></a>
+    &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><h1 id="allow-internal-network-devices-to-send-email-with-insecure-connection">Allow internal network devices to send email with insecure connection</h1>
+<div class="toc">
+<ul>
+<li><a href="#allow-internal-network-devices-to-send-email-with-insecure-connection">Allow internal network devices to send email with insecure connection</a><ul>
+<li><a href="#purpose">Purpose</a></li>
+<li><a href="#open-additional-smtp-port-in-postfix">Open additional smtp port in Postfix</a></li>
+<li><a href="#update-firewall-rules-to-deny-access-from-external-network">Update firewall rules to deny access from external network</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<h2 id="purpose">Purpose</h2>
+<p>If you have some network devices like printer, firewall, and they need to
+send out notification or report email with insecure smtp connection, please
+try steps below to get it working without breaking default security settings.</p>
+<h2 id="open-additional-smtp-port-in-postfix">Open additional smtp port in Postfix</h2>
+<p>Since iRedMail-0.9.3, with default iRedMail settings, port 25 is used for
+postscreen service, all clients are forced to submit through port 587 with
+STARTTLS for secure connection.</p>
+<p>To support network devices which doesn't support STARTTLS and SSL, we can ask
+Postfix to listen on additional port for smtp service by appending below line
+in <code>/etc/postfix/master.cf</code> (on Linux/OpenBSD) or
+<code>/usr/local/etc/postfix/master.cf</code> (on FreeBSD):</p>
+<pre><code>2525      inet  n       -       -       -       -       smtpd
+</code></pre>
+
+<p><code>2525</code> is the new port number for smtp service, you're free to change it to
+your favourite port number.</p>
+<p>Restarting Postfix service is required. After restarting, you can check whether
+it's listening on this new port:</p>
+<pre><code>netstat -ntlp | grep 2525
+</code></pre>
+
+<p>Now it's turn to update your network devices to send email through this port
+number, without STARTTLS and SSL.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>SMTP authentication is still required to send email.</p>
+</div>
+<h2 id="update-firewall-rules-to-deny-access-from-external-network">Update firewall rules to deny access from external network</h2>
+<p>It's dangerous to expose this new port number to external network, so you must
+update your firewall rules to deny access from external network to this new
+port number.</p><p style="text-align: center; color: grey;">All documents are available in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-3293801-21', 'auto');
+  ga('send', 'pageview');
+</script>
+</body></html>

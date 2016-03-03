@@ -25,6 +25,13 @@ get error message like below:</p>
 <pre><code>Plaintext authentication disallowed on non-secure (SSL/TLS) connections
 </code></pre>
 
+<p>This tutorial describes how to allow insecure connection for daily use.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you just have 1 or few network devices like printer, firewall need to
+send email with insecure connection, please follow this tutorial instead:
+<a href="./additional.smtp.port.html">Allow internal network devices to send email with insecure connection</a>.</p>
+</div>
 <h2 id="allow-insecure-pop3imap-connections">Allow insecure POP3/IMAP connections</h2>
 <p>If you want to enable POP3/IMAP services without STARTTLS for some reason
 (again, not recommended), please update below two parameters in Dovecot config
