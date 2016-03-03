@@ -26,7 +26,7 @@ what you need to do is:</p>
 <ul>
 <li>enable the setting for public folder</li>
 <li>choose a preferred directory as public folder</li>
-<li>create ACL file to control the access</li>
+<li>set proper ACL rules to control the access</li>
 </ul>
 <p>In this tutorial, we will show you how to share a public folder named <code>TestFolder</code>.</p>
 <h2 id="enable-public-folder-in-dovecot">Enable public folder in Dovecot</h2>
@@ -81,26 +81,33 @@ please also remove the comment mark in below line in <code>dovecot.conf</code>:<
   with permission <code>0700</code>.</li>
 </ul>
 <p>Now let's create required folder and our first shared folder <code>TestFolder</code>.</p>
-<blockquote>
-<p><strong>Attention</strong>: there's a dot in folder name while creating it, it's
-<code>.TestFolder</code>, not <code>TestFolder</code>. All folders with a prefixed dot will be
-considered as an IMAP folder by Dovecot with iRedMail default settings.</p>
-</blockquote>
 <pre><code>mkdir -p /var/vmail/public/.TestFolder
 chown -R vmail:vmail /var/vmail/public
 chmod -R 0700 /var/vmail/public
 </code></pre>
 
-<blockquote>
-<p>Note that there are no <code>cur/</code>, <code>new/</code> or <code>tmp/</code> directories directly under
-the <code>/var/mail/public/</code>, because the <code>Public/</code> namespace isn't a mailbox
-itself. (If you create them manually, it does become a selectable mailbox.)</p>
-</blockquote>
+<div class="admonition note">
+<p class="admonition-title">Notes</p>
+<ul>
+<li>
+<p>There's a dot in folder name while creating it, it's <code>.TestFolder</code>, not
+  <code>TestFolder</code>. All folders with a prefixed dot will be considered as an
+  IMAP folder by Dovecot with iRedMail default settings.</p>
+</li>
+<li>
+<p>There are no <code>cur/</code>, <code>new/</code> or <code>tmp/</code> directories directly under the
+  <code>/var/mail/public/</code> folder, because the <code>Public/</code> namespace isn't a
+  mailbox itself. If you create them manually, it does become a selectable
+  mailbox.</p>
+</li>
+</ul>
+</div>
 <p>With steps above, if you login to webmail (or other IMAP client) as any mail
 user hosted on same server, there's no visible public folder at all -- this is
-correct, because no one has permission to access this folder.</p>
+correct, because no one has permission to access this folder right now.</p>
 <h2 id="manage-access-control-with-doveadm">Manage Access Control with <code>doveadm</code></h2>
-<p>Before we set any permission, let's check the access control of this public folder:</p>
+<p>Before we set any permission, let's check the access control of this public
+folder first with command <code>doveadm acl get</code>:</p>
 <pre><code>doveadm acl get -A &quot;Public/TestFolder&quot;
 </code></pre>
 
@@ -108,15 +115,13 @@ correct, because no one has permission to access this folder.</p>
 <pre><code>Username ID Global Rights
 </code></pre>
 
-<ul>
-<li>With shell command below, we grant <code>lookup</code>, <code>read</code>, <code>write</code>, <code>insert</code>,
-  <code>delete</code> and <code>create</code> (sub-directory) permissions to user
-  <code>postmaster@test.com</code> (again, this user is hosted on same server):</li>
-</ul>
+<p>With shell command below, we grant <code>lookup</code>, <code>read</code>, <code>write</code>, <code>insert</code>,
+<code>delete</code> and <code>create</code> (sub-directory) permissions to user
+<code>postmaster@test.com</code> (again, this user is hosted on same server):</p>
 <pre><code>doveadm acl set -A &quot;Public/TestFolder&quot; &quot;user=postmaster@test.com&quot; lookup read write insert delete create
 </code></pre>
 
-<p>Check the ACl with <code>doveadm</code> now:</p>
+<p>Check the ACl with <code>doveadm</code> again:</p>
 <pre><code># doveadm acl get -A &quot;Public/TestFolder&quot;
 Username        ID                       Global Rights
 postmaster@a.cn user=postmaster@test.com        create delete insert lookup read write
@@ -124,10 +129,8 @@ postmaster@a.cn user=postmaster@test.com        create delete insert lookup read
 
 <p>If you now login to webmail (or other IMAP client) as user <code>postmaster@test.com</code>,
 you can see a new folder <code>TestFolder</code>.</p>
-<ul>
-<li>With shell command below, we grant all users hosted on same server <code>lookup</code>,
-  and <code>read</code> permissions:</li>
-</ul>
+<p>With shell command below, we grant all users hosted on same server <code>lookup</code>,
+and <code>read</code> permissions:</p>
 <pre><code>doveadm acl set -A &quot;Public/TestFolder&quot; &quot;anyone&quot; lookup read
 </code></pre>
 
@@ -140,16 +143,15 @@ postmaster@a.cn user=postmaster@test.com        create delete insert lookup read
 
 <p>If you login to webmail (or other IMAP client) as any user hosted on same
 server, you can see a new folder <code>TestFolder</code>.</p>
-<ul>
-<li>With shell command below we delete access control for user <code>postmaster@test.com</code>:</li>
-</ul>
+<p>With shell command below we delete access control for user <code>postmaster@test.com</code>:</p>
 <pre><code>doveadm acl delete -A &quot;Public/TestFolder&quot; &quot;user=postmaster@test.com&quot;
 </code></pre>
 
-<p>For more details about <code>doveadm</code> acl control, please read its <a href="#references">manual page</a>.</p>
+<p>For more details about ACL control, please read Dovecot tutorials mentioned in
+<a href="#references">References</a> below.</p>
 <h2 id="manage-access-control-manually">Manage Access Control manually</h2>
-<blockquote>
-<p>Notes:</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
 <ul>
 <li>if you're running Dovecot-2, it's recommended to manage ACL with <code>doveadm</code>
   command.</li>
@@ -158,7 +160,7 @@ server, you can see a new folder <code>TestFolder</code>.</p>
   add/edit <code>dovecot-acl</code> files, you may need to delete the <code>dovecot-acl-list</code>
   to get the mailboxes visible.</li>
 </ul>
-</blockquote>
+</div>
 <p>Access permission is controlled in file <code>dovecot-acl</code> under each shared folder,
 let's create it before showing you some examples:</p>
 <pre><code>touch /var/vmail/public/.TestFolder/dovecot-acl
@@ -166,21 +168,18 @@ chown vmail:vmail /var/vmail/public/.TestFolder/dovecot-acl
 chmod 0700 /var/vmail/public/.TestFolder/dovecot-acl
 </code></pre>
 
-<ul>
-<li>With shell command below, we grant <code>lookup</code> (l), <code>read</code> (r), <code>write</code> (w),
-  <code>insert</code> (i), <code>delete</code> (x) and <code>create sub-directory</code> (k) permissions to user
-  <code>postmaster@test.com</code> (again, this user is hosted on same server):</li>
-</ul>
+<p>With shell command below, we grant <code>lookup</code> (l), <code>read</code> (r), <code>write</code> (w),
+<code>insert</code> (i), <code>delete</code> (x) and <code>create sub-directory</code> (k) permissions to user
+<code>postmaster@test.com</code> (again, this user is hosted on same server):</p>
 <pre><code>echo 'user=postmaster@test.com lrwixk' &gt;&gt; /var/vmail/public/.TestFolder/dovecot-acl
 </code></pre>
 
-<ul>
-<li>With shell command below, we grant all users <code>lookup</code> (l) and <code>read</code> (r)
-  permissions:</li>
-</ul>
-<blockquote>
-<p>Note: it requires setting <code>acl_anyone = allow</code> in Dovecot config file.</p>
-</blockquote>
+<p>With shell command below, we grant all users <code>lookup</code> (l) and <code>read</code> (r)
+permissions:</p>
+<div class="admonition note">
+<p class="admonition-title">Reminder</p>
+<p>It requires Dovecot setting <code>acl_anyone = allow</code> in <code>dovecot.conf</code>.</p>
+</div>
 <pre><code>echo 'anyone lr' &gt;&gt; /var/vmail/public/.TestFolder/dovecot-acl
 </code></pre>
 

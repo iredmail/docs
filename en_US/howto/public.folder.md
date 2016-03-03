@@ -7,7 +7,7 @@ what you need to do is:
 
 * enable the setting for public folder
 * choose a preferred directory as public folder
-* create ACL file to control the access
+* set proper ACL rules to control the access
 
 In this tutorial, we will show you how to share a public folder named `TestFolder`.
 
@@ -72,27 +72,31 @@ Important notes:
 
 Now let's create required folder and our first shared folder `TestFolder`.
 
-> __Attention__: there's a dot in folder name while creating it, it's
-> `.TestFolder`, not `TestFolder`. All folders with a prefixed dot will be
-> considered as an IMAP folder by Dovecot with iRedMail default settings.
-
 ```
 mkdir -p /var/vmail/public/.TestFolder
 chown -R vmail:vmail /var/vmail/public
 chmod -R 0700 /var/vmail/public
 ```
 
-> Note that there are no `cur/`, `new/` or `tmp/` directories directly under
-> the `/var/mail/public/`, because the `Public/` namespace isn't a mailbox
-> itself. (If you create them manually, it does become a selectable mailbox.)
+!!! note "Notes"
+
+    * There's a dot in folder name while creating it, it's `.TestFolder`, not
+      `TestFolder`. All folders with a prefixed dot will be considered as an
+      IMAP folder by Dovecot with iRedMail default settings.
+
+    * There are no `cur/`, `new/` or `tmp/` directories directly under the
+      `/var/mail/public/` folder, because the `Public/` namespace isn't a
+      mailbox itself. If you create them manually, it does become a selectable
+      mailbox.
 
 With steps above, if you login to webmail (or other IMAP client) as any mail
 user hosted on same server, there's no visible public folder at all -- this is
-correct, because no one has permission to access this folder.
+correct, because no one has permission to access this folder right now.
 
 ## Manage Access Control with `doveadm`
 
-Before we set any permission, let's check the access control of this public folder:
+Before we set any permission, let's check the access control of this public
+folder first with command `doveadm acl get`:
 
 ```
 doveadm acl get -A "Public/TestFolder"
@@ -104,15 +108,15 @@ You can see output like below, no access control at all:
 Username ID Global Rights
 ```
 
-* With shell command below, we grant `lookup`, `read`, `write`, `insert`,
-  `delete` and `create` (sub-directory) permissions to user
-  `postmaster@test.com` (again, this user is hosted on same server):
+With shell command below, we grant `lookup`, `read`, `write`, `insert`,
+`delete` and `create` (sub-directory) permissions to user
+`postmaster@test.com` (again, this user is hosted on same server):
 
 ```
 doveadm acl set -A "Public/TestFolder" "user=postmaster@test.com" lookup read write insert delete create
 ```
 
-Check the ACl with `doveadm` now:
+Check the ACl with `doveadm` again:
 
 ```
 # doveadm acl get -A "Public/TestFolder"
@@ -123,8 +127,8 @@ postmaster@a.cn user=postmaster@test.com        create delete insert lookup read
 If you now login to webmail (or other IMAP client) as user `postmaster@test.com`,
 you can see a new folder `TestFolder`.
 
-* With shell command below, we grant all users hosted on same server `lookup`,
-  and `read` permissions:
+With shell command below, we grant all users hosted on same server `lookup`,
+and `read` permissions:
 
 ```
 doveadm acl set -A "Public/TestFolder" "anyone" lookup read
@@ -142,24 +146,25 @@ postmaster@a.cn user=postmaster@test.com        create delete insert lookup read
 If you login to webmail (or other IMAP client) as any user hosted on same
 server, you can see a new folder `TestFolder`.
 
-* With shell command below we delete access control for user `postmaster@test.com`:
+With shell command below we delete access control for user `postmaster@test.com`:
 
 ```
 doveadm acl delete -A "Public/TestFolder" "user=postmaster@test.com"
 ```
 
-For more details about `doveadm` acl control, please read its [manual page](#references).
+For more details about ACL control, please read Dovecot tutorials mentioned in
+[References](#references) below.
 
 ## Manage Access Control manually
 
-> Notes:
->
-> * if you're running Dovecot-2, it's recommended to manage ACL with `doveadm`
->   command.
-> * Dovecot will create file `/var/vmail/public/dovecot-acl-list` automatically,
->   it lists all mailboxes that have `l` rights assigned. If you manually
->   add/edit `dovecot-acl` files, you may need to delete the `dovecot-acl-list`
->   to get the mailboxes visible.
+!!! note
+
+    * if you're running Dovecot-2, it's recommended to manage ACL with `doveadm`
+      command.
+    * Dovecot will create file `/var/vmail/public/dovecot-acl-list` automatically,
+      it lists all mailboxes that have `l` rights assigned. If you manually
+      add/edit `dovecot-acl` files, you may need to delete the `dovecot-acl-list`
+      to get the mailboxes visible.
 
 Access permission is controlled in file `dovecot-acl` under each shared folder,
 let's create it before showing you some examples:
@@ -170,18 +175,20 @@ chown vmail:vmail /var/vmail/public/.TestFolder/dovecot-acl
 chmod 0700 /var/vmail/public/.TestFolder/dovecot-acl
 ```
 
-* With shell command below, we grant `lookup` (l), `read` (r), `write` (w),
-  `insert` (i), `delete` (x) and `create sub-directory` (k) permissions to user
-  `postmaster@test.com` (again, this user is hosted on same server):
+With shell command below, we grant `lookup` (l), `read` (r), `write` (w),
+`insert` (i), `delete` (x) and `create sub-directory` (k) permissions to user
+`postmaster@test.com` (again, this user is hosted on same server):
 
 ```
 echo 'user=postmaster@test.com lrwixk' >> /var/vmail/public/.TestFolder/dovecot-acl
 ```
 
-* With shell command below, we grant all users `lookup` (l) and `read` (r)
-  permissions:
+With shell command below, we grant all users `lookup` (l) and `read` (r)
+permissions:
 
-> Note: it requires setting `acl_anyone = allow` in Dovecot config file.
+!!! note "Reminder"
+
+    It requires Dovecot setting `acl_anyone = allow` in `dovecot.conf`.
 
 ```
 echo 'anyone lr' >> /var/vmail/public/.TestFolder/dovecot-acl
