@@ -116,23 +116,19 @@ nameserver 172.16.244.2
 It's now ready to start iRedMail installer inside Jail, it will ask you several simple
 questions, that's all required to setup a full-featured mail server.
 
-> __Note to Chinese users__:
->
-> Our domain name `iredmail.org` is blocked in mainland
-> China since Jun 04, 2011, please run command below to finish the installation:
->
-> `IREDMAIL_MIRROR='http://42.159.241.31' bash iRedMail.sh`
->
-> Additional variables are:
->
-> * EPEL repo: `IREDMAIL_EPEL_MIRROR='http://mirrors.aliyun.com/epel'`
-> * SOGo repo: `SOGO_PKG_MIRROR='http://42.159.241.31/SOGo'`
-
 ```
 # bash          # <- start bash shell, REQUIRED
 # cd /root/iRedMail/
 # LOCAL_ADDRESS='172.16.244.254' bash iRedMail.sh
 ```
+
+!!! note "Note to Chinese users"
+
+    Our domain name `iredmail.org` has been blocked in mainland China for
+    years (since Jun 04, 2011), please run command below to finish the
+    installation:
+
+    `IREDMAIL_MIRROR='http://42.159.241.31' bash iRedMail.sh`
 
 ## Screenshots of installation:
 

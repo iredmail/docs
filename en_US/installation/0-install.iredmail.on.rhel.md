@@ -127,22 +127,23 @@ Disable it immediately without rebooting your server.
 It's now ready to start iRedMail installer, it will ask you several simple
 questions, that's all required to setup a full-featured mail server.
 
-> __Note to Chinese users__:
->
-> Our domain name `iredmail.org` is blocked in mainland
-> China since Jun 04, 2011, please run command below to finish the installation:
->
-> `IREDMAIL_MIRROR='http://42.159.241.31' bash iRedMail.sh`
->
-> Additional variables are:
->
-> * EPEL repo: `IREDMAIL_EPEL_MIRROR='http://mirrors.aliyun.com/epel'`
-> * SOGo repo: `SOGO_PKG_MIRROR='http://42.159.241.31/SOGo'`
-
 ```
 # cd /root/iRedMail-x.y.z/
 # bash iRedMail.sh
 ```
+
+!!! note "Note to Chinese Users"
+
+    Our domain name `iredmail.org` has been blocked in mainland China for
+    years (since Jun 04, 2011), please run command below to finish the
+    installation:
+
+    `IREDMAIL_MIRROR='http://42.159.241.31' bash iRedMail.sh`
+
+    Additional variables are:
+
+    * EPEL repo: `IREDMAIL_EPEL_MIRROR='http://mirrors.aliyun.com/epel'`
+    * SOGo repo: `SOGO_PKG_MIRROR='http://42.159.241.31/SOGo'`
 
 ## Screenshots of installation:
 

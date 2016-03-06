@@ -51,14 +51,16 @@ external network is blocked by firewall (iptables, pf).
 
 All ports are listening on `127.0.0.1` by default.
 
+## iRedAPD (Postfix policy server)
+
+* 7777: default listen port. Listening on IP address `127.0.0.1` by default,
+  offers greylisting, whitelisting, blacklists, throttling, and other features.
+
 ## Policyd or Cluebringer (Postfix policy server)
 
 * 10031: default listen port. Listening on IP address `127.0.0.1` by default.
 
-!!! attention
+!!! note
 
-    Policyd and Cluebringer were removed since iRedMail-0.9.3.
-
-## iRedAPD (Postfix policy server)
-
-* 7777: default listen port. Listening on IP address `127.0.0.1` by default.
+    Policyd and Cluebringer were removed since iRedMail-0.9.3, they're replaced
+    by iRedAPD.

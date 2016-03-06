@@ -143,21 +143,22 @@ used by iRedMail team to build the binary packages are available
 <h2 id="start-iredmail-installer">Start iRedMail installer</h2>
 <p>It's now ready to start iRedMail installer, it will ask you several simple
 questions, that's all required to setup a full-featured mail server.</p>
-<blockquote>
-<p><strong>Note to Chinese users</strong>:</p>
-<p>Our domain name <code>iredmail.org</code> is blocked in mainland
-China since Jun 04, 2011, please run command below to finish the installation:</p>
+<pre><code># cd /root/iRedMail-x.y.z/
+# bash iRedMail.sh
+</code></pre>
+
+<div class="admonition note">
+<p class="admonition-title">Note to Chinese Users</p>
+<p>Our domain name <code>iredmail.org</code> has been blocked in mainland China for
+years (since Jun 04, 2011), please run command below to finish the
+installation:</p>
 <p><code>IREDMAIL_MIRROR='http://42.159.241.31' bash iRedMail.sh</code></p>
 <p>Additional variables are:</p>
 <ul>
 <li>EPEL repo: <code>IREDMAIL_EPEL_MIRROR='http://mirrors.aliyun.com/epel'</code></li>
 <li>SOGo repo: <code>SOGO_PKG_MIRROR='http://42.159.241.31/SOGo'</code></li>
 </ul>
-</blockquote>
-<pre><code># cd /root/iRedMail-x.y.z/
-# bash iRedMail.sh
-</code></pre>
-
+</div>
 <h2 id="screenshots-of-installation">Screenshots of installation:</h2>
 <ul>
 <li>Welcome and thanks for your use</li>
