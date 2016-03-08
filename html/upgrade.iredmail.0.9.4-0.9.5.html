@@ -21,6 +21,26 @@
 <li><a href="#fixed-not-add-alias-for-virusalert-on-non-debianubuntu-oses">Fixed: not add alias for virusalert on non-Debian/Ubuntu OSes</a></li>
 </ul>
 </li>
+<li><a href="#mysqlmariadb-backend-special">MySQL/MariaDB backend special</a><ul>
+<li><a href="#new-support-postfix-sender_dependent_relayhost_maps">NEW: Support Postfix sender_dependent_relayhost_maps</a><ul>
+<li><a href="#summary">Summary</a></li>
+<li><a href="#create-sql-table-vmailsender_relayhost">Create SQL table vmail.sender_relayhost</a></li>
+<li><a href="#create-sql-lookup-file-sender_dependent_relayhost_mapscf">Create SQL lookup file: sender_dependent_relayhost_maps.cf</a></li>
+<li><a href="#update-postfix-settings-in-etcpostfixmaincf">Update Postfix settings in /etc/postfix/main.cf</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#postgresql-backend-special">PostgreSQL backend special</a><ul>
+<li><a href="#new-support-postfix-sender_dependent_relayhost_maps_1">NEW: Support Postfix sender_dependent_relayhost_maps</a><ul>
+<li><a href="#summary_1">Summary</a></li>
+<li><a href="#create-sql-table-vmailsender_relayhost_1">Create SQL table vmail.sender_relayhost</a></li>
+<li><a href="#create-sql-lookup-file-sender_dependent_relayhost_mapscf_1">Create SQL lookup file: sender_dependent_relayhost_maps.cf</a></li>
+<li><a href="#update-postfix-settings-in-etcpostfixmaincf_1">Update Postfix settings in /etc/postfix/main.cf</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -30,6 +50,7 @@
 <p>We offer remote upgrade service, check <a href="../support.html">the price</a> and <a href="../contact.html">contact us</a>.</p>
 </blockquote>
 <ul>
+<li>2016-03-08: [NEW] Supports Postfix <code>sender_dependent_relayhost_maps</code>.</li>
 <li>2016-02-25:<ul>
 <li>[RHEL/CentOS] Fixed: Not create required directory used to store PHP session files</li>
 <li>[RHEL/CentOS] Fixed: Not enable cron job to update SpamAssassin rules</li>
@@ -88,7 +109,143 @@ postalias /etc/postfix/aliases
 <pre><code class="shell">perl -pi -e 's/(virusalert:.*)/#${1}/g' /usr/local/etc/postfix/aliases
 echo -e '\nvirusalert: root' &gt;&gt; /usr/local/etc/postfix/aliases
 postalias /usr/local/etc/postfix/aliases
-</code></pre><p style="text-align: center; color: grey;">All documents are available in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.<script>
+</code></pre>
+
+<h2 id="mysqlmariadb-backend-special">MySQL/MariaDB backend special</h2>
+<h3 id="new-support-postfix-sender_dependent_relayhost_maps">NEW: Support Postfix <code>sender_dependent_relayhost_maps</code></h3>
+<h4 id="summary">Summary</h4>
+<p>Postfix setting <code>relayhost</code> allows Postfix to relay outbound emails to
+specified mail server instead of connecting recipient server directly. Sender
+dependent relayhost (controlled by parameter <code>sender_dependent_relayhost_maps</code>)
+allows you to define per-user or per-domain relayhost, it
+overrides the global <code>relayhost</code> parameter setting. Specified query tables are
+searched by the envelope sender address (<code>user@domain.com</code>) and domain name
+(<code>@domain.com</code>). For more details, please read Postfix document:</p>
+<ul>
+<li>Postfix parameter: <a href="http://www.postfix.org/postconf.5.html#sender_dependent_relayhost_maps"><code>sender_dependent_relayhost_maps</code></a></li>
+<li>Postfix manual page: <a href="http://www.postfix.org/transport.5.html">transport(5)</a></li>
+</ul>
+<p>To support <code>sender_dependent_relayhost_maps</code>, we need some modification on
+iRedMail server:</p>
+<ul>
+<li>a new SQL table: <code>vmail.sender_relayhost</code></li>
+<li>a new SQL lookup file: <code>/etc/postfix/mysql/sender_dependent_relayhost_maps.cf</code></li>
+<li>a new Postfix parameter: <code>sender_dependent_relayhost_maps</code></li>
+</ul>
+<h4 id="create-sql-table-vmailsender_relayhost">Create SQL table <code>vmail.sender_relayhost</code></h4>
+<p>Please connect to MySQL server as MySQL root user, and execute SQL commands
+below to create this new table:</p>
+<pre><code># mysql -uroot -p
+sql&gt; USE vmail;
+sql&gt; CREATE TABLE IF NOT EXISTS sender_relayhost (
+    id BIGINT(20) UNSIGNED AUTO_INCREMENT,
+    account VARCHAR(255) NOT NULL DEFAULT '',
+    relayhost VARCHAR(255) NOT NULL DEFAULT '',
+    PRIMARY KEY (id),
+    UNIQUE INDEX (account)
+) ENGINE=InnoDB;
+</code></pre>
+
+<h4 id="create-sql-lookup-file-sender_dependent_relayhost_mapscf">Create SQL lookup file: <code>sender_dependent_relayhost_maps.cf</code></h4>
+<ul>
+<li>On Linux/OpenBSD, please <strong>COPY</strong> file <code>/etc/postfix/mysql/catchall_maps.cf</code>
+  to <code>/etc/postfix/mysql/sender_dependent_relayhost_maps.cf</code>.</li>
+<li>On FreeBSD, please <strong>COPY</strong> file <code>/usr/local/etc/postfix/mysql/catchall_maps.cf</code>
+  to <code>/usr/local/etc/postfix/mysql/sender_dependent_relayhost_maps.cf</code>.</li>
+</ul>
+<p>Open file <code>sender_dependent_relayhost_maps.cf</code>, <strong>REPLACE</strong> the <code>query =</code> line
+by below one:</p>
+<pre><code>query       = SELECT relayhost FROM sender_relayhost WHERE account='%s' LIMIT 1
+</code></pre>
+
+<h4 id="update-postfix-settings-in-etcpostfixmaincf">Update Postfix settings in <code>/etc/postfix/main.cf</code></h4>
+<p>We need to update 2 parameters in Postfix config file: <code>proxy_read_maps</code>,
+<code>sender_dependent_relayhost_maps</code>.</p>
+<ul>
+<li>On <strong>Linux/OpenBSD</strong>, please run 2 commands below to update Postfix settings:</li>
+</ul>
+<pre><code>postconf -e proxy_read_maps ='$canonical_maps $lmtp_generic_maps $local_recipient_maps $mydestination $mynetworks $recipient_bcc_maps $recipient_canonical_maps $relay_domains $relay_recipient_maps $relocated_maps $sender_bcc_maps $sender_canonical_maps $smtp_generic_maps $smtpd_sender_login_maps $transport_maps $virtual_alias_domains $virtual_alias_maps $virtual_mailbox_domains $virtual_mailbox_maps $smtpd_sender_restrictions $sender_dependent_relayhost_maps'
+
+postconf -e sender_dependent_relayhost_maps='proxy:mysql:/etc/postfix/mysql/sender_dependent_relayhost_maps.cf'
+</code></pre>
+
+<p>Reload or restart Postfix service is required.</p>
+<ul>
+<li>On <strong>FreeBSD</strong>, please run 2 commands below to update Postfix settings:</li>
+</ul>
+<pre><code>postconf -e proxy_read_maps ='$canonical_maps $lmtp_generic_maps $local_recipient_maps $mydestination $mynetworks $recipient_bcc_maps $recipient_canonical_maps $relay_domains $relay_recipient_maps $relocated_maps $sender_bcc_maps $sender_canonical_maps $smtp_generic_maps $smtpd_sender_login_maps $transport_maps $virtual_alias_domains $virtual_alias_maps $virtual_mailbox_domains $virtual_mailbox_maps $smtpd_sender_restrictions $sender_dependent_relayhost_maps'
+
+postconf -e sender_dependent_relayhost_maps='proxy:mysql:/usr/local/etc/postfix/mysql/sender_dependent_relayhost_maps.cf'
+</code></pre>
+
+<p>Reload or restart Postfix service is required.</p>
+<h2 id="postgresql-backend-special">PostgreSQL backend special</h2>
+<h3 id="new-support-postfix-sender_dependent_relayhost_maps_1">NEW: Support Postfix <code>sender_dependent_relayhost_maps</code></h3>
+<h4 id="summary_1">Summary</h4>
+<p>Postfix setting <code>relayhost</code> allows Postfix to relay outbound emails to
+specified mail server instead of connecting recipient server directly. Sender
+dependent relayhost (controlled by parameter <code>sender_dependent_relayhost_maps</code>)
+allows you to define per-user or per-domain relayhost, it
+overrides the global <code>relayhost</code> parameter setting. Specified query tables are
+searched by the envelope sender address (<code>user@domain.com</code>) and domain name
+(<code>@domain.com</code>). For more details, please read Postfix document:</p>
+<ul>
+<li>Postfix parameter: <a href="http://www.postfix.org/postconf.5.html#sender_dependent_relayhost_maps"><code>sender_dependent_relayhost_maps</code></a></li>
+<li>Postfix manual page: <a href="http://www.postfix.org/transport.5.html">transport(5)</a></li>
+</ul>
+<p>To support <code>sender_dependent_relayhost_maps</code>, we need some modification on
+iRedMail server:</p>
+<ul>
+<li>a new SQL table: <code>vmail.sender_relayhost</code></li>
+<li>a new SQL lookup file: <code>/etc/postfix/mysql/sender_dependent_relayhost_maps.cf</code></li>
+<li>a new Postfix parameter: <code>sender_dependent_relayhost_maps</code></li>
+</ul>
+<h4 id="create-sql-table-vmailsender_relayhost_1">Create SQL table <code>vmail.sender_relayhost</code></h4>
+<p>Please follow steps below to create this new table:</p>
+<pre><code># su - postgres
+$ psql -d vmail
+sql&gt; CREATE TABLE sender_relayhost (
+    id SERIAL PRIMARY KEY,
+    account VARCHAR(255) NOT NULL DEFAULT '',
+    relayhost VARCHAR(255) NOT NULL DEFAULT ''
+);
+
+sql&gt; CREATE INDEX idx_sender_relayhost_account ON sender_relayhost (account);
+</code></pre>
+
+<h4 id="create-sql-lookup-file-sender_dependent_relayhost_mapscf_1">Create SQL lookup file: <code>sender_dependent_relayhost_maps.cf</code></h4>
+<ul>
+<li>On Linux/OpenBSD, please <strong>COPY</strong> file <code>/etc/postfix/pgsql/catchall_maps.cf</code>
+  to <code>/etc/postfix/pgsql/sender_dependent_relayhost_maps.cf</code>.</li>
+<li>On FreeBSD, please <strong>COPY</strong> file <code>/usr/local/etc/postfix/pgsql/catchall_maps.cf</code>
+  to <code>/usr/local/etc/postfix/pgsql/sender_dependent_relayhost_maps.cf</code>.</li>
+</ul>
+<p>Open file <code>sender_dependent_relayhost_maps.cf</code>, <strong>REPLACE</strong> the <code>query =</code> line
+by below one:</p>
+<pre><code>query       = SELECT relayhost FROM sender_relayhost WHERE account='%s' LIMIT 1
+</code></pre>
+
+<h4 id="update-postfix-settings-in-etcpostfixmaincf_1">Update Postfix settings in <code>/etc/postfix/main.cf</code></h4>
+<p>We need to update 2 parameters in Postfix config file: <code>proxy_read_maps</code>,
+<code>sender_dependent_relayhost_maps</code>.</p>
+<ul>
+<li>On <strong>Linux/OpenBSD</strong>, please run 2 commands below to update Postfix settings:</li>
+</ul>
+<pre><code>postconf -e proxy_read_maps ='$canonical_maps $lmtp_generic_maps $local_recipient_maps $mydestination $mynetworks $recipient_bcc_maps $recipient_canonical_maps $relay_domains $relay_recipient_maps $relocated_maps $sender_bcc_maps $sender_canonical_maps $smtp_generic_maps $smtpd_sender_login_maps $transport_maps $virtual_alias_domains $virtual_alias_maps $virtual_mailbox_domains $virtual_mailbox_maps $smtpd_sender_restrictions $sender_dependent_relayhost_maps'
+
+postconf -e sender_dependent_relayhost_maps='proxy:pgsql:/etc/postfix/pgsql/sender_dependent_relayhost_maps.cf'
+</code></pre>
+
+<p>Reload or restart Postfix service is required.</p>
+<ul>
+<li>On <strong>FreeBSD</strong>, please run 2 commands below to update Postfix settings:</li>
+</ul>
+<pre><code>postconf -e proxy_read_maps ='$canonical_maps $lmtp_generic_maps $local_recipient_maps $mydestination $mynetworks $recipient_bcc_maps $recipient_canonical_maps $relay_domains $relay_recipient_maps $relocated_maps $sender_bcc_maps $sender_canonical_maps $smtp_generic_maps $smtpd_sender_login_maps $transport_maps $virtual_alias_domains $virtual_alias_maps $virtual_mailbox_domains $virtual_mailbox_maps $smtpd_sender_restrictions $sender_dependent_relayhost_maps'
+
+postconf -e sender_dependent_relayhost_maps='proxy:mysql:/usr/local/etc/postfix/mysql/sender_dependent_relayhost_maps.cf'
+</code></pre>
+
+<p>Reload or restart Postfix service is required.</p><p style="text-align: center; color: grey;">All documents are available in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.<script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
   m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
