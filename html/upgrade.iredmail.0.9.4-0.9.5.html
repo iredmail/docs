@@ -21,22 +21,32 @@
 <li><a href="#fixed-not-add-alias-for-virusalert-on-non-debianubuntu-oses">Fixed: not add alias for virusalert on non-Debian/Ubuntu OSes</a></li>
 </ul>
 </li>
-<li><a href="#mysqlmariadb-backend-special">MySQL/MariaDB backend special</a><ul>
+<li><a href="#openldap-backend-special">OpenLDAP backend special</a><ul>
 <li><a href="#new-support-postfix-sender_dependent_relayhost_maps">NEW: Support Postfix sender_dependent_relayhost_maps</a><ul>
 <li><a href="#summary">Summary</a></li>
-<li><a href="#create-sql-table-vmailsender_relayhost">Create SQL table vmail.sender_relayhost</a></li>
-<li><a href="#create-sql-lookup-file-sender_dependent_relayhost_mapscf">Create SQL lookup file: sender_dependent_relayhost_maps.cf</a></li>
+<li><a href="#use-the-latest-iredmail-ldap-schema-file">Use the latest iRedMail LDAP schema file</a></li>
+<li><a href="#create-ldap-lookup-files">Create LDAP lookup files</a></li>
 <li><a href="#update-postfix-settings-in-etcpostfixmaincf">Update Postfix settings in /etc/postfix/main.cf</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li><a href="#postgresql-backend-special">PostgreSQL backend special</a><ul>
+<li><a href="#mysqlmariadb-backend-special">MySQL/MariaDB backend special</a><ul>
 <li><a href="#new-support-postfix-sender_dependent_relayhost_maps_1">NEW: Support Postfix sender_dependent_relayhost_maps</a><ul>
 <li><a href="#summary_1">Summary</a></li>
+<li><a href="#create-sql-table-vmailsender_relayhost">Create SQL table vmail.sender_relayhost</a></li>
+<li><a href="#create-sql-lookup-file-sender_dependent_relayhost_mapscf">Create SQL lookup file: sender_dependent_relayhost_maps.cf</a></li>
+<li><a href="#update-postfix-settings-in-etcpostfixmaincf_1">Update Postfix settings in /etc/postfix/main.cf</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#postgresql-backend-special">PostgreSQL backend special</a><ul>
+<li><a href="#new-support-postfix-sender_dependent_relayhost_maps_2">NEW: Support Postfix sender_dependent_relayhost_maps</a><ul>
+<li><a href="#summary_2">Summary</a></li>
 <li><a href="#create-sql-table-vmailsender_relayhost_1">Create SQL table vmail.sender_relayhost</a></li>
 <li><a href="#create-sql-lookup-file-sender_dependent_relayhost_mapscf_1">Create SQL lookup file: sender_dependent_relayhost_maps.cf</a></li>
-<li><a href="#update-postfix-settings-in-etcpostfixmaincf_1">Update Postfix settings in /etc/postfix/main.cf</a></li>
+<li><a href="#update-postfix-settings-in-etcpostfixmaincf_2">Update Postfix settings in /etc/postfix/main.cf</a></li>
 </ul>
 </li>
 </ul>
@@ -111,9 +121,115 @@ echo -e '\nvirusalert: root' &gt;&gt; /usr/local/etc/postfix/aliases
 postalias /usr/local/etc/postfix/aliases
 </code></pre>
 
-<h2 id="mysqlmariadb-backend-special">MySQL/MariaDB backend special</h2>
+<h2 id="openldap-backend-special">OpenLDAP backend special</h2>
 <h3 id="new-support-postfix-sender_dependent_relayhost_maps">NEW: Support Postfix <code>sender_dependent_relayhost_maps</code></h3>
 <h4 id="summary">Summary</h4>
+<p>Postfix setting <code>relayhost</code> allows Postfix to relay outbound emails to
+specified mail server instead of connecting recipient server directly. Sender
+dependent relayhost (controlled by parameter <code>sender_dependent_relayhost_maps</code>)
+allows you to define per-user or per-domain relayhost, it
+overrides the global <code>relayhost</code> parameter setting. Specified query tables are
+searched by the envelope sender address (<code>user@domain.com</code>) and domain name
+(<code>@domain.com</code>). For more details, please read Postfix document:</p>
+<ul>
+<li>Postfix parameter: <a href="http://www.postfix.org/postconf.5.html#sender_dependent_relayhost_maps"><code>sender_dependent_relayhost_maps</code></a></li>
+<li>Postfix manual page: <a href="http://www.postfix.org/transport.5.html">transport(5)</a></li>
+</ul>
+<p>To support <code>sender_dependent_relayhost_maps</code>, we need some modification on
+iRedMail server:</p>
+<ul>
+<li>one updated iRedMail OpenLDAP schema file with new attribute: <code>senderRelayHost</code></li>
+<li>two new LDAP lookup files:<ul>
+<li><code>/etc/postfix/ldap/sender_dependent_relayhost_maps_domain.cf</code></li>
+<li><code>/etc/postfix/ldap/sender_dependent_relayhost_maps_user.cf</code></li>
+</ul>
+</li>
+<li>one new Postfix parameter: <code>sender_dependent_relayhost_maps</code></li>
+</ul>
+<h4 id="use-the-latest-iredmail-ldap-schema-file">Use the latest iRedMail LDAP schema file</h4>
+<ul>
+<li>On RHEL/CentOS, OpenBSD:</li>
+</ul>
+<pre><code>cd /tmp
+wget https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/samples/iredmail.schema
+
+cd /etc/openldap/schema/
+cp iredmail.schema iredmail.schema.bak
+
+cp -f /tmp/iredmail.schema /etc/openldap/schema/
+/etc/init.d/slapd restart     # Use '/etc/rc.d/slapd restart' on OpenBSD
+</code></pre>
+
+<ul>
+<li>On Debian/Ubuntu:</li>
+</ul>
+<pre><code>cd /tmp
+wget https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/samples/iredmail.schema
+
+cd /etc/ldap/schema/
+cp iredmail.schema iredmail.schema.bak
+
+cp -f /tmp/iredmail.schema /etc/ldap/schema/
+/etc/init.d/slapd restart
+</code></pre>
+
+<ul>
+<li>On FreeBSD:</li>
+</ul>
+<pre><code>cd /tmp
+wget https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/samples/iredmail.schema
+
+cd /usr/local/etc/ldap/schema/
+cp iredmail.schema iredmail.schema.bak
+
+cp -f /tmp/iredmail.schema /usr/local/etc/openldap/schema/
+service slapd restart
+</code></pre>
+
+<h4 id="create-ldap-lookup-files">Create LDAP lookup files</h4>
+<ul>
+<li>On Linux/OpenBSD:</li>
+</ul>
+<pre><code>cd /etc/postfix/ldap/
+cp -p transport_maps_domain.cf sender_dependent_relayhost_maps_domain.cf
+cp -p transport_maps_user.cf sender_dependent_relayhost_maps_user.cf
+perl -pi -e 's#%s#%d#g' sender_dependent_relayhost_maps_domain.cf
+perl -pi -e 's#mtaTransport#senderRelayHost#g' sender_dependent_relayhost_maps*.cf
+</code></pre>
+
+<ul>
+<li>On FreeBSD:</li>
+</ul>
+<pre><code>cd /usr/local/etc/postfix/ldap/
+cp -p transport_maps_domain.cf sender_dependent_relayhost_maps_domain.cf
+cp -p transport_maps_user.cf sender_dependent_relayhost_maps_user.cf
+perl -pi -e 's#%s#%d#g' sender_dependent_relayhost_maps_domain.cf
+perl -pi -e 's#mtaTransport#senderRelayHost#g' sender_dependent_relayhost_maps*.cf
+</code></pre>
+
+<h4 id="update-postfix-settings-in-etcpostfixmaincf">Update Postfix settings in <code>/etc/postfix/main.cf</code></h4>
+<p>We need to update 2 parameters in Postfix config file: <code>proxy_read_maps</code>,
+<code>sender_dependent_relayhost_maps</code>.</p>
+<ul>
+<li>On <strong>Linux/OpenBSD</strong>, please run 2 commands below to update Postfix settings:</li>
+</ul>
+<pre><code>postconf -e proxy_read_maps ='$canonical_maps $lmtp_generic_maps $local_recipient_maps $mydestination $mynetworks $recipient_bcc_maps $recipient_canonical_maps $relay_domains $relay_recipient_maps $relocated_maps $sender_bcc_maps $sender_canonical_maps $smtp_generic_maps $smtpd_sender_login_maps $transport_maps $virtual_alias_domains $virtual_alias_maps $virtual_mailbox_domains $virtual_mailbox_maps $smtpd_sender_restrictions $sender_dependent_relayhost_maps'
+
+postconf -e sender_dependent_relayhost_maps='proxy:ldap:/etc/postfix/ldap/sender_dependent_relayhost_maps_domain.cf, proxy:ldap:/etc/postfix/ldap/sender_dependent_relayhost_maps_user.cf'
+</code></pre>
+
+<ul>
+<li>On <strong>FreeBSD</strong>, please run 2 commands below to update Postfix settings:</li>
+</ul>
+<pre><code>postconf -e proxy_read_maps ='$canonical_maps $lmtp_generic_maps $local_recipient_maps $mydestination $mynetworks $recipient_bcc_maps $recipient_canonical_maps $relay_domains $relay_recipient_maps $relocated_maps $sender_bcc_maps $sender_canonical_maps $smtp_generic_maps $smtpd_sender_login_maps $transport_maps $virtual_alias_domains $virtual_alias_maps $virtual_mailbox_domains $virtual_mailbox_maps $smtpd_sender_restrictions $sender_dependent_relayhost_maps'
+
+postconf -e sender_dependent_relayhost_maps='proxy:ldap:/usr/local/etc/postfix/ldap/sender_dependent_relayhost_maps_domain.cf, proxy:ldap:/usr/local/etc/postfix/ldap/sender_dependent_relayhost_maps_user.cf'
+</code></pre>
+
+<p>Reload or restart Postfix service is required.</p>
+<h2 id="mysqlmariadb-backend-special">MySQL/MariaDB backend special</h2>
+<h3 id="new-support-postfix-sender_dependent_relayhost_maps_1">NEW: Support Postfix <code>sender_dependent_relayhost_maps</code></h3>
+<h4 id="summary_1">Summary</h4>
 <p>Postfix setting <code>relayhost</code> allows Postfix to relay outbound emails to
 specified mail server instead of connecting recipient server directly. Sender
 dependent relayhost (controlled by parameter <code>sender_dependent_relayhost_maps</code>)
@@ -147,18 +263,27 @@ sql&gt; CREATE TABLE IF NOT EXISTS sender_relayhost (
 </code></pre>
 
 <h4 id="create-sql-lookup-file-sender_dependent_relayhost_mapscf">Create SQL lookup file: <code>sender_dependent_relayhost_maps.cf</code></h4>
+<p>Create sql lookup file by copying an existing file:</p>
 <ul>
-<li>On Linux/OpenBSD, please <strong>COPY</strong> file <code>/etc/postfix/mysql/catchall_maps.cf</code>
-  to <code>/etc/postfix/mysql/sender_dependent_relayhost_maps.cf</code>.</li>
-<li>On FreeBSD, please <strong>COPY</strong> file <code>/usr/local/etc/postfix/mysql/catchall_maps.cf</code>
-  to <code>/usr/local/etc/postfix/mysql/sender_dependent_relayhost_maps.cf</code>.</li>
+<li>On Linux/OpenBSD:</li>
 </ul>
+<pre><code>cd /etc/postfix/mysql/
+cp -p catchall_maps.cf sender_dependent_relayhost_maps.cf
+</code></pre>
+
+<ul>
+<li>On FreeBSD:</li>
+</ul>
+<pre><code>cd /usr/local/etc/postfix/mysql/
+cp -p catchall_maps.cf sender_dependent_relayhost_maps.cf
+</code></pre>
+
 <p>Open file <code>sender_dependent_relayhost_maps.cf</code>, <strong>REPLACE</strong> the <code>query =</code> line
 by below one:</p>
 <pre><code>query       = SELECT relayhost FROM sender_relayhost WHERE account='%s' LIMIT 1
 </code></pre>
 
-<h4 id="update-postfix-settings-in-etcpostfixmaincf">Update Postfix settings in <code>/etc/postfix/main.cf</code></h4>
+<h4 id="update-postfix-settings-in-etcpostfixmaincf_1">Update Postfix settings in <code>/etc/postfix/main.cf</code></h4>
 <p>We need to update 2 parameters in Postfix config file: <code>proxy_read_maps</code>,
 <code>sender_dependent_relayhost_maps</code>.</p>
 <ul>
@@ -169,7 +294,6 @@ by below one:</p>
 postconf -e sender_dependent_relayhost_maps='proxy:mysql:/etc/postfix/mysql/sender_dependent_relayhost_maps.cf'
 </code></pre>
 
-<p>Reload or restart Postfix service is required.</p>
 <ul>
 <li>On <strong>FreeBSD</strong>, please run 2 commands below to update Postfix settings:</li>
 </ul>
@@ -180,8 +304,8 @@ postconf -e sender_dependent_relayhost_maps='proxy:mysql:/usr/local/etc/postfix/
 
 <p>Reload or restart Postfix service is required.</p>
 <h2 id="postgresql-backend-special">PostgreSQL backend special</h2>
-<h3 id="new-support-postfix-sender_dependent_relayhost_maps_1">NEW: Support Postfix <code>sender_dependent_relayhost_maps</code></h3>
-<h4 id="summary_1">Summary</h4>
+<h3 id="new-support-postfix-sender_dependent_relayhost_maps_2">NEW: Support Postfix <code>sender_dependent_relayhost_maps</code></h3>
+<h4 id="summary_2">Summary</h4>
 <p>Postfix setting <code>relayhost</code> allows Postfix to relay outbound emails to
 specified mail server instead of connecting recipient server directly. Sender
 dependent relayhost (controlled by parameter <code>sender_dependent_relayhost_maps</code>)
@@ -214,18 +338,27 @@ sql&gt; CREATE INDEX idx_sender_relayhost_account ON sender_relayhost (account);
 </code></pre>
 
 <h4 id="create-sql-lookup-file-sender_dependent_relayhost_mapscf_1">Create SQL lookup file: <code>sender_dependent_relayhost_maps.cf</code></h4>
+<p>Create sql lookup file by copying an existing file:</p>
 <ul>
-<li>On Linux/OpenBSD, please <strong>COPY</strong> file <code>/etc/postfix/pgsql/catchall_maps.cf</code>
-  to <code>/etc/postfix/pgsql/sender_dependent_relayhost_maps.cf</code>.</li>
-<li>On FreeBSD, please <strong>COPY</strong> file <code>/usr/local/etc/postfix/pgsql/catchall_maps.cf</code>
-  to <code>/usr/local/etc/postfix/pgsql/sender_dependent_relayhost_maps.cf</code>.</li>
+<li>On Linux/OpenBSD:</li>
 </ul>
+<pre><code>cd /etc/postfix/pgsql/
+cp -p catchall_maps.cf sender_dependent_relayhost_maps.cf
+</code></pre>
+
+<ul>
+<li>On FreeBSD:</li>
+</ul>
+<pre><code>cd /usr/local/etc/postfix/pgsql/
+cp -p catchall_maps.cf sender_dependent_relayhost_maps.cf
+</code></pre>
+
 <p>Open file <code>sender_dependent_relayhost_maps.cf</code>, <strong>REPLACE</strong> the <code>query =</code> line
 by below one:</p>
 <pre><code>query       = SELECT relayhost FROM sender_relayhost WHERE account='%s' LIMIT 1
 </code></pre>
 
-<h4 id="update-postfix-settings-in-etcpostfixmaincf_1">Update Postfix settings in <code>/etc/postfix/main.cf</code></h4>
+<h4 id="update-postfix-settings-in-etcpostfixmaincf_2">Update Postfix settings in <code>/etc/postfix/main.cf</code></h4>
 <p>We need to update 2 parameters in Postfix config file: <code>proxy_read_maps</code>,
 <code>sender_dependent_relayhost_maps</code>.</p>
 <ul>
@@ -236,7 +369,6 @@ by below one:</p>
 postconf -e sender_dependent_relayhost_maps='proxy:pgsql:/etc/postfix/pgsql/sender_dependent_relayhost_maps.cf'
 </code></pre>
 
-<p>Reload or restart Postfix service is required.</p>
 <ul>
 <li>On <strong>FreeBSD</strong>, please run 2 commands below to update Postfix settings:</li>
 </ul>
