@@ -6,31 +6,23 @@
 
 Amavisd has two settings to use its SQL tables:
 
-* `@storage_sql_dsn`: used to store:
+* `@storage_sql_dsn` uses 4 sql tables (`msgs`, `msgrcpt`, `maddr`,
+  `quarantine`), and it's used to store:
 
     * basic info of inbound and outbound message. e.g. mail subject,
       sender address, recipient address, timestamp, etc. Note: no mail body.
     * quarantined mails. Note: it stores full message of quarantined mail,
       including mail body.
 
-    `@storage_sql_dsn` uses 4 sql tables:
-    
-    * `msgs`
-    * `msgrcpt`
-    * `maddr`
-    * `quarantine`
-
-* `@lookup_sql_dsn`: used to store:
+* `@lookup_sql_dsn`: uses 4 sql tables (`mailaddr`, `policy`, `users`,
+  `wblist`), and it's used to store:
 
     * per-account spam policy
     * per-account white/blacklists
 
-    `@lookup_sql_dsn` uses 4 sql tables:
-    
-    * `mailaddr`
-    * `policy`
-    * `users`
-    * `wblist`
+    Note: iRedMail has addition sql table `outbound_wblist` to store
+    white/blacklists for outbound emails, but it's used by iRedAPD (plugin
+    `amavisd_wblist`), not by Amavisd.
 
 ## Details
 
