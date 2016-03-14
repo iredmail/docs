@@ -105,6 +105,7 @@ for lang in ${all_languages}; do
             echo -e "### ${_chapter_title}" >> ${INDEX_MD}
 
             if [ -f ${_summary_md} ]; then
+                echo '' >> ${INDEX_MD}
                 cat ${_summary_md} >> ${INDEX_MD}
 
                 # Insert an empty line to not mess up other formats like list.
