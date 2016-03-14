@@ -9,13 +9,14 @@
     <div id="navigation">
     <a href="http://www.iredmail.org" target="_blank"><img alt="iRedMail web site" src="images/logo-iredmail.png" style="vertical-align: middle; height: 30px;"/> <span>iRedMail</span></a>
     &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><h1 id="enable-dnsbl-service-in-postfix-to-reduce-spam">Enable DNSBL service in Postfix to reduce spam</h1>
-<blockquote>
-<p>Important note: if you're running a high-traffic mail server, you'd better
-setup a local DNS server to cache DNS queries, because free RBL services
-like zen.spamhaus.org may improperly reply if your server exceed the 
-DNS query limit. Also, mail service higly relies on DNS queries, so a local
+<div class="admonition note">
+<p class="admonition-title">Important Note</p>
+<p>If you're running a high-traffic mail server, you'd better setup a local
+DNS server to cache DNS queries, because free RBL services like
+<code>zen.spamhaus.org</code> may improperly reply if your server exceed the DNS
+query limit. Also, mail service higly relies on DNS queries, so a local
 DNS server speeds up the mail flow.</p>
-</blockquote>
+</div>
 <p>You can enable additional DNSBL services in Postfix to reduce spam. We use
 <code>zen.spamhaus.org</code> for example below.</p>
 <ul>
