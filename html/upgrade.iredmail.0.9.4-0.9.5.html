@@ -18,6 +18,7 @@
 <li><a href="#upgrade-iredapd-postfix-policy-server-to-the-latest-190">Upgrade iRedAPD (Postfix policy server) to the latest 1.9.0</a></li>
 <li><a href="#rhelcentos-fixed-not-enable-cron-job-to-update-spamassassin-rules">[RHEL/CentOS] Fixed: Not enable cron job to update SpamAssassin rules</a></li>
 <li><a href="#rhelcentos-fixed-not-create-required-directory-used-to-store-php-session-files">[RHEL/CentOS] Fixed: Not create required directory used to store PHP session files</a></li>
+<li><a href="#nginx-fixed-not-explicitly-define-content-type-texthtml-header-for-iredadmin">[Nginx] Fixed: not explicitly define Content-Type: text/html header for iRedAdmin</a></li>
 <li><a href="#fixed-not-add-alias-for-virusalert-on-non-debianubuntu-oses">Fixed: not add alias for virusalert on non-Debian/Ubuntu OSes</a></li>
 </ul>
 </li>
@@ -60,6 +61,7 @@
 <p>We offer remote upgrade service, check <a href="../support.html">the price</a> and <a href="../contact.html">contact us</a>.</p>
 </blockquote>
 <ul>
+<li>2016-03-15: [Nginx] Fixed: not explicitly define <code>Content-Type: text/html</code> header for iRedAdmin</li>
 <li>2016-03-08: [NEW] Supports Postfix <code>sender_dependent_relayhost_maps</code>.</li>
 <li>2016-02-25:<ul>
 <li>[RHEL/CentOS] Fixed: Not create required directory used to store PHP session files</li>
@@ -101,6 +103,28 @@ chmod 0773 /var/lib/php/session
 chmod o+t /var/lib/php/session
 </code></pre>
 
+<h3 id="nginx-fixed-not-explicitly-define-content-type-texthtml-header-for-iredadmin">[Nginx] Fixed: not explicitly define <code>Content-Type: text/html</code> header for iRedAdmin</h3>
+<p>We didn't add explicit <code>Content-Type</code> header for iRedAdmin pages, this will
+cause error (web pages inaccessible) if you have setting
+<code>add_header X-Content-Type-Options nosniff;</code> in Nginx.</p>
+<p>To prevent this issue, please add setting <code>add_header Content-Type 'text/html';</code>
+in Nginx config file to explicitly define the content type, in
+<code>location ~ ^/iredadmin(.*) {}</code> block:</p>
+<ul>
+<li>On Linux/OpenBSD, it's <code>/etc/nginx/templates/iredadmin.tmpl</code> (iRedMail-0.9.3
+  or newer releases) or <code>/etc/nginx/conf.d/default.conf</code>.</li>
+<li>On FreeBSD, it's <code>/usr/local/etc/nginx/templates/iredadmin.tmpl</code>
+  (iRedMail-0.9.3 or newer releases) or <code>/usr/local/etc/nginx/conf.d/default.conf</code>.</li>
+</ul>
+<pre><code># Python scripts
+location ~ ^/iredadmin(.*) {
+    add_header Content-Type 'text/html';                # &lt;-- Add this line
+
+    ...
+}
+</code></pre>
+
+<p>Reloading or restarting Nginx service is required.</p>
 <h3 id="fixed-not-add-alias-for-virusalert-on-non-debianubuntu-oses">Fixed: not add alias for <code>virusalert</code> on non-Debian/Ubuntu OSes</h3>
 <p>Note: this is <strong>NOT</strong> applicable to Debian and Ubuntu.</p>
 <p>There's a bug in iRedMail-0.9.4, it adds alias <code>virusalert</code> on only Debian and
