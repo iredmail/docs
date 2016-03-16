@@ -97,9 +97,17 @@
 </tbody>
 </table>
 
-# The Big Picture
+## The Big Picture
 
 ![](./images/big.picture.png)
+
+## Mail Flow of Inbound Emails
+
+![](./images/flow.inbound.png)
+
+## Mail Flow of Outbound Emails
+
+![](./images/flow.outbound.png)
 
 # See also
 
