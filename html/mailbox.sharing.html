@@ -9,17 +9,20 @@
     <div id="navigation">
     <a href="/index.html" target="_blank"><img alt="iRedMail web site" src="images/logo-iredmail.png" style="vertical-align: middle; height: 30px;"/> <span>iRedMail</span></a>
     &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><h1 id="mailbox-sharing-sharing-imap-folder-with-other-users">Mailbox sharing (Sharing IMAP folder with other users)</h1>
-<blockquote>
-<p>Since iRedMail-<code>0.9.0</code>, mailbox sharing are enabled by default, you don't need
-to modify any config file.</p>
-<p>Since iRedMail-<code>0.7.0</code>, mailbox sharing related settings are configured in
-Dovecot but not enabled, what you need to do is enabling <code>acl</code> plugin as
-mentioned below.</p>
-<p>Do not mistake "shared folders" for "public folders". For shared folders,
-users must select which folder they want to share and with who, using an
-interface, like IMAP command line or the ones available with Roundcube
-webmail or SOGo and SOGo connectors.</p>
-</blockquote>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul>
+<li>Since iRedMail-<code>0.9.0</code>, mailbox sharing are enabled by default, you don't
+  need to modify any config file.</li>
+<li>Since iRedMail-<code>0.7.0</code>, mailbox sharing related settings are configured
+  in Dovecot but not enabled, what you need to do is enabling <code>acl</code> plugin
+  as mentioned below.</li>
+<li>Do not mistake "shared folders" for "public folders". For shared folders,
+  users must select which folder they want to share and with who, using an
+  interface, like IMAP command line or the ones available with Roundcube
+  webmail or SOGo and SOGo connectors.</li>
+</ul>
+</div>
 <h2 id="enable-mailbox-sharing">Enable mailbox sharing</h2>
 <p>To enable mailbox sharing, please make sure you have plugin <code>acl</code> enabled
 in Dovecot config file <code>/etc/dovecot/dovecot.conf</code> like below:</p>
@@ -52,9 +55,10 @@ protocol imap {
 <p>Restarting Dovecot service is required.</p>
 <h2 id="test-shared-folder">Test shared folder</h2>
 <p>Example: share <code>from@domain.ltd</code>'s <code>Sent</code> folder to user <code>testing@domain.ltd</code>.</p>
-<blockquote>
-<p>Attention: Do not forget the dot before IMAP command.</p>
-</blockquote>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Do not forget the dot before each IMAP command.</p>
+</div>
 <pre><code># telnet localhost 143                # &lt;- Type this.
 * OK [...] Dovecot ready.
 

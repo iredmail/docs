@@ -1,16 +1,16 @@
 # Mailbox sharing (Sharing IMAP folder with other users)
 
-> Since iRedMail-`0.9.0`, mailbox sharing are enabled by default, you don't need
-> to modify any config file.
+!!! note
 
-> Since iRedMail-`0.7.0`, mailbox sharing related settings are configured in
-> Dovecot but not enabled, what you need to do is enabling `acl` plugin as
-> mentioned below.
-
-> Do not mistake "shared folders" for "public folders". For shared folders,
-> users must select which folder they want to share and with who, using an
-> interface, like IMAP command line or the ones available with Roundcube
-> webmail or SOGo and SOGo connectors.
+    * Since iRedMail-`0.9.0`, mailbox sharing are enabled by default, you don't
+      need to modify any config file.
+    * Since iRedMail-`0.7.0`, mailbox sharing related settings are configured
+      in Dovecot but not enabled, what you need to do is enabling `acl` plugin
+      as mentioned below.
+    * Do not mistake "shared folders" for "public folders". For shared folders,
+      users must select which folder they want to share and with who, using an
+      interface, like IMAP command line or the ones available with Roundcube
+      webmail or SOGo and SOGo connectors.
 
 ## Enable mailbox sharing
 
@@ -47,7 +47,9 @@ Restarting Dovecot service is required.
 
 Example: share `from@domain.ltd`'s `Sent` folder to user `testing@domain.ltd`.
 
-> Attention: Do not forget the dot before IMAP command.
+!!! warning
+
+    Do not forget the dot before each IMAP command.
 
 ```
 # telnet localhost 143                # <- Type this.
