@@ -1,5 +1,11 @@
 # Turn on debug mode in Cluebringer
 
+!!! warning
+
+    Cluebringer has been removed from iRedMail since iRedMail-0.9.3, if you're
+    still running Cluebringer, please follow our tutorial to migrate to
+    iRedAPD: [Migrate from Cluebringer to iRedAPD](./cluebringer.to.iredapd.html).
+
 To turn on debug mode in Cluebringer, please increase its log level in
 Cluebringer config file, set what it should log, and restart Cluebringer
 service.
