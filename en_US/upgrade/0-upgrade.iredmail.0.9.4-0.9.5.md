@@ -6,7 +6,6 @@
 
 > We offer remote upgrade service, check [the price](../support.html) and [contact us](../contact.html).
 
-* 2016-03-15: [Nginx] Fixed: not explicitly define `Content-Type: text/html` header for iRedAdmin
 * 2016-03-08: [NEW] Supports Postfix `sender_dependent_relayhost_maps`.
 * 2016-02-25:
     * [RHEL/CentOS] Fixed: Not create required directory used to store PHP session files
@@ -60,32 +59,6 @@ chown root:root /var/lib/php/session
 chmod 0773 /var/lib/php/session
 chmod o+t /var/lib/php/session
 ```
-
-### [Nginx] Fixed: not explicitly define `Content-Type: text/html` header for iRedAdmin
-
-We didn't add explicit `Content-Type` header for iRedAdmin pages, this will
-cause error (web pages inaccessible) if you have setting
-`add_header X-Content-Type-Options nosniff;` in Nginx.
-
-To prevent this issue, please add setting `add_header Content-Type 'text/html';`
-in Nginx config file to explicitly define the content type, in
-`location ~ ^/iredadmin(.*) {}` block:
-
-* On Linux/OpenBSD, it's `/etc/nginx/templates/iredadmin.tmpl` (iRedMail-0.9.3
-  or newer releases) or `/etc/nginx/conf.d/default.conf`.
-* On FreeBSD, it's `/usr/local/etc/nginx/templates/iredadmin.tmpl`
-  (iRedMail-0.9.3 or newer releases) or `/usr/local/etc/nginx/conf.d/default.conf`.
-
-```
-# Python scripts
-location ~ ^/iredadmin(.*) {
-    add_header Content-Type 'text/html';                # <-- Add this line
-
-    ...
-}
-```
-
-Reloading or restarting Nginx service is required.
 
 ### Fixed: not add alias for `virusalert` on non-Debian/Ubuntu OSes
 
