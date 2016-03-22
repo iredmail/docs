@@ -194,6 +194,20 @@ permissions:
 echo 'anyone lr' >> /var/vmail/public/.TestFolder/dovecot-acl
 ```
 
+## Troubleshooting
+
+* If public folder doesn't work as expected, please [turn on debug mode in
+  Dovecot](./debug.dovecot.html) to get debug message. If you don't understand
+  the debug message, you can post them to our [online support forum](../forum/)
+  to get help.
+
+* It's also a good idea to run `doveadm` command with `-D` flag to turn on
+  verbose logging, like below:
+
+```
+doveadm -D acl ...
+```
+
 ## References
 
 * Dovecot official documents:

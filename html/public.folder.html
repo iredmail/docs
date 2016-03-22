@@ -15,6 +15,7 @@
 <li><a href="#enable-public-folder-in-dovecot">Enable public folder in Dovecot</a></li>
 <li><a href="#manage-access-control-with-doveadm">Manage Access Control with doveadm</a></li>
 <li><a href="#manage-access-control-manually">Manage Access Control manually</a></li>
+<li><a href="#troubleshooting">Troubleshooting</a></li>
 <li><a href="#references">References</a></li>
 <li><a href="#see-also">See Also</a></li>
 </ul>
@@ -181,6 +182,22 @@ permissions:</p>
 <p>It requires Dovecot setting <code>acl_anyone = allow</code> in <code>dovecot.conf</code>.</p>
 </div>
 <pre><code>echo 'anyone lr' &gt;&gt; /var/vmail/public/.TestFolder/dovecot-acl
+</code></pre>
+
+<h2 id="troubleshooting">Troubleshooting</h2>
+<ul>
+<li>
+<p>If public folder doesn't work as expected, please <a href="./debug.dovecot.html">turn on debug mode in
+  Dovecot</a> to get debug message. If you don't understand
+  the debug message, you can post them to our <a href="../forum/">online support forum</a>
+  to get help.</p>
+</li>
+<li>
+<p>It's also a good idea to run <code>doveadm</code> command with <code>-D</code> flag to turn on
+  verbose logging, like below:</p>
+</li>
+</ul>
+<pre><code>doveadm -D acl ...
 </code></pre>
 
 <h2 id="references">References</h2>
