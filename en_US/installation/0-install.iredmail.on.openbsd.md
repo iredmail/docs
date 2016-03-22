@@ -252,6 +252,8 @@ hostname or IP address.
 
 ## Get technical support
 
-Please post all issues, feedbacks, feature requests, suggestions in our [online
-support forum](http://www.iredmail.org/forum/), it's more responsible than you
-expected.
+* You are welcome to post issues, feedbacks, feature requests, suggestions in
+  our [online support forum](../forum/), it's more
+  responsible than you expected.
+* We offer paid professional support service too, check our web site for more
+  details: [Get Professional Support from iRedMail Team](../support.html).
