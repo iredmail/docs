@@ -248,7 +248,9 @@ on Debian/Ubuntu.</p>
 </ul>
 <p>FreeBSD system is <code>/usr/local/etc/fail2ban/</code>.</p>
 <h2 id="roundcube-webmail">Roundcube webmail</h2>
-<p>Roundcube webmail is installed under below directory by default:</p>
+<ul>
+<li>
+<p>Root Directory. Roundcube webmail is installed under below directory by default:</p>
 <ul>
 <li>RHEL/CentOS: <code>/var/www/roundcubemail</code>. It's a symbol link to
   <code>/var/www/roundcubemail-x.y.z</code>.</li>
@@ -258,13 +260,9 @@ on Debian/Ubuntu.</p>
 <li>OpenBSD: <code>/var/www/roundcubemail</code>. It's a symbol link to
   <code>/var/www/roundcubemail-x.y.z/</code>.</li>
 </ul>
+</li>
+<li>
 <p>Config files:</p>
-<blockquote>
-<p>Roundcube stores all default settings in <code>config/defaults.inc.php</code>, please do
-not modify it, instead, you should copy the settings you want to modify from
-<code>config/defaults.inc.php</code> to <code>config/config.inc.php</code>, then modify the one in
-<code>config/config.inc.php</code>.</p>
-</blockquote>
 <ul>
 <li>
 <p>Main config file is <code>config/config.inc.php</code> under Roundcube webmail
@@ -278,7 +276,18 @@ releases), it has two separate config files: <code>config/db.inc.php</code> and
   config file of <code>password</code> plugin is <code>plugins/password/config.inc.php</code>.</p>
 </li>
 </ul>
-<p>Roundcube is configured to log to <a href="#postfix">Postfix log</a> file by default.</p>
+</li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Roundcube stores all default settings in <code>config/defaults.inc.php</code>, please do
+not modify it, instead, you should copy the settings you want to modify from
+<code>config/defaults.inc.php</code> to <code>config/config.inc.php</code>, then modify the one in
+<code>config/config.inc.php</code>.</p>
+</div>
+<ul>
+<li>Log file. Roundcube is configured to log to <a href="#postfix">Postfix log</a> file by default.</li>
+</ul>
 <h2 id="sogo-groupware">SOGo Groupware</h2>
 <ul>
 <li>Main config file is <code>/etc/sogo/sogo.conf</code>.</li>

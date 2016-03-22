@@ -60,7 +60,7 @@ external network is blocked by firewall (iptables, pf).</p>
 <li>995: POP3S (Secure POP3 over SSL). Deprecated, recommended to use port 110 with STARTTLS.</li>
 <li>143: IMAP service, insecure connection. Supports STARTTLS for secure connection.</li>
 <li>993: IMAPS (Secure IMAP over SSL). Deprecated,  recommended to use port 143 with STARTTLS.</li>
-<li>2000: managesieve service. (Refuse connections from external network in iptables be default)</li>
+<li>4190: managesieve service. (Refuse connections from external network in iptables by default). Note: in old iRedMail releases, it's port 2000, it's deprecated and not even listed in <code>/etc/services</code> file.</li>
 </ul>
 <h2 id="amavisd-new">Amavisd-new</h2>
 <ul>

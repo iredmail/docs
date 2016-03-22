@@ -199,34 +199,36 @@ FreeBSD system is `/usr/local/etc/fail2ban/`.
 
 ## Roundcube webmail
 
-Roundcube webmail is installed under below directory by default:
+* Root Directory. Roundcube webmail is installed under below directory by default:
 
-* RHEL/CentOS: `/var/www/roundcubemail`. It's a symbol link to
-  `/var/www/roundcubemail-x.y.z`.
-* Debian/Ubuntu: `/usr/share/apache2/roundcubemail`. It's a symbol link of
-  `/usr/share/apache2/roundcubemail-x.y.z/`.
-* FreeBSD: `/usr/local/www/roundcube`.
-* OpenBSD: `/var/www/roundcubemail`. It's a symbol link to
-  `/var/www/roundcubemail-x.y.z/`.
+    * RHEL/CentOS: `/var/www/roundcubemail`. It's a symbol link to
+      `/var/www/roundcubemail-x.y.z`.
+    * Debian/Ubuntu: `/usr/share/apache2/roundcubemail`. It's a symbol link of
+      `/usr/share/apache2/roundcubemail-x.y.z/`.
+    * FreeBSD: `/usr/local/www/roundcube`.
+    * OpenBSD: `/var/www/roundcubemail`. It's a symbol link to
+      `/var/www/roundcubemail-x.y.z/`.
 
-Config files:
+* Config files:
 
-> Roundcube stores all default settings in `config/defaults.inc.php`, please do
-> not modify it, instead, you should copy the settings you want to modify from
-> `config/defaults.inc.php` to `config/config.inc.php`, then modify the one in
-> `config/config.inc.php`.
+    * Main config file is `config/config.inc.php` under Roundcube webmail
+      directory.
 
-* Main config file is `config/config.inc.php` under Roundcube webmail
-  directory.
+        If you're running old Roundcube webmail (0.9.x and earlier
+        releases), it has two separate config files: `config/db.inc.php` and
+        `config/main.inc.php`.
 
-    If you're running old Roundcube webmail (0.9.x and earlier
-    releases), it has two separate config files: `config/db.inc.php` and
-    `config/main.inc.php`.
+    * Config files of plugins are placed under plugin directory. for example,
+      config file of `password` plugin is `plugins/password/config.inc.php`.
 
-* Config files of plugins are placed under plugin directory. for example,
-  config file of `password` plugin is `plugins/password/config.inc.php`.
+!!! warning
 
-Roundcube is configured to log to [Postfix log](#postfix) file by default.
+    Roundcube stores all default settings in `config/defaults.inc.php`, please do
+    not modify it, instead, you should copy the settings you want to modify from
+    `config/defaults.inc.php` to `config/config.inc.php`, then modify the one in
+    `config/config.inc.php`.
+
+* Log file. Roundcube is configured to log to [Postfix log](#postfix) file by default.
 
 ## SOGo Groupware
 
