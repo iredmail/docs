@@ -1,0 +1,655 @@
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Build an iRedMail fail-over Cluster with KeepAlived, HAProxy, GlusterFS, OpenLDAP, Mariadb</title>
+        <link rel="stylesheet" type="text/css" href="./css/markdown.css" />
+    </head>
+    <body>
+    
+    <div id="navigation">
+    <a href="/index.html" target="_blank"><img alt="iRedMail web site" src="images/logo-iredmail.png" style="vertical-align: middle; height: 30px;"/> <span>iRedMail</span></a>
+    &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><h1 id="build-an-iredmail-fail-over-cluster-with-keepalived-haproxy-glusterfs-openldap-mariadb">Build an iRedMail fail-over Cluster with KeepAlived, HAProxy, GlusterFS, OpenLDAP, Mariadb</h1>
+<div class="toc">
+<ul>
+<li><a href="#build-an-iredmail-fail-over-cluster-with-keepalived-haproxy-glusterfs-openldap-mariadb">Build an iRedMail fail-over Cluster with KeepAlived, HAProxy, GlusterFS, OpenLDAP, Mariadb</a><ul>
+<li><a href="#todo">TODO</a></li>
+<li><a href="#goal">Goal</a></li>
+<li><a href="#requirements">Requirements</a></li>
+<li><a href="#summary">Summary</a></li>
+<li><a href="#install-and-configure-keepalived">Install and configure KeepAlived</a></li>
+<li><a href="#install-and-configure-haproxy">Install and configure HAProxy</a></li>
+<li><a href="#glusterfs">GlusterFS</a><ul>
+<li><a href="#add-new-hard-disk-and-format-with-preferred-file-system">Add new hard disk and format with preferred file system</a></li>
+<li><a href="#install-and-configure-gulsterfs">Install and Configure GulsterFS</a></li>
+</ul>
+</li>
+<li><a href="#install-and-configure-iredmail">Install and configure iRedMail</a></li>
+<li><a href="#configure-ldap-replication-master-slave">Configure LDAP replication (Master-Slave)</a></li>
+<li><a href="#configure-mariadb-replication-master-master">Configure MariaDB replication (Master-Master)</a><ul>
+<li><a href="#create-replicator-dbuser-on-both-servers">create replicator dbuser on both servers</a></li>
+</ul>
+</li>
+<li><a href="#testing">Testing</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<h2 id="todo">TODO</h2>
+<ul>
+<li>Use clear server hostnames and IP addresses for all involved servers.</li>
+<li>Install adminer from <a href="http://adminer.org">http://adminer.org</a></li>
+</ul>
+<h2 id="goal">Goal</h2>
+<p>Build a fail-over cluster with 4 servers (2 backend servers behind HAProxy + KeepAlived).</p>
+<h2 id="requirements">Requirements</h2>
+<ul>
+<li>4 servers, all are CentOS 7.</li>
+<li>A valid mail domain name. We use example.com for example in this document.</li>
+</ul>
+<p><img alt="" src="http://s14.postimg.org/sfooxggu9/iredmailhat10b.png" /></p>
+<h2 id="summary">Summary</h2>
+<ol>
+<li>Install and configure KeepAlived</li>
+<li>Install and configure HAProxy</li>
+<li>Install and configure GlusterFS as glusterserver &amp; glusterclient (you can
+   use separate machine for glusterserver) it's better to use a new hard drive
+   with the same capacity  </li>
+<li>Install and configure iRedMail</li>
+<li>Setup OpenLDAP replication (Master-Slave)</li>
+<li>Setup MariaDB replication (Master-Master)</li>
+</ol>
+<h2 id="install-and-configure-keepalived">Install and configure KeepAlived</h2>
+<p>Install on 2 servers (ha1 &amp; ha2)</p>
+<ul>
+<li>on both servers, update <code>/etc/hosts</code>:</li>
+</ul>
+<pre><code>192.168.1.1 ha1
+192.168.1.2 ha2
+192.168.1.3 mail1
+192.168.1.4 mail2
+</code></pre>
+
+<ul>
+<li>Install KeepAlived and backup default config file:</li>
+</ul>
+<pre><code>yum install -y keepalived  
+mv /etc/keepalived/keepalived.conf /etc/keepalived/keepalived.conf_DEFAULT
+</code></pre>
+
+<ul>
+<li>on ha1:</li>
+</ul>
+<pre><code>nano /etc/keepalived/keepalived.conf
+</code></pre>
+
+<ul>
+<li>change eth0 to your existing interface</li>
+</ul>
+<pre><code>vrrp_script chk_haproxy {
+    script &quot;killall -0 haproxy&quot; # check the haproxy process
+    interval 2 # every 2 seconds
+    weight 2 # add 2 points if OK
+}
+vrrp_instance VI_1 {
+    interface eth0 # interface to monitor 
+    state MASTER # MASTER on ha1, BACKUP on ha2
+    virtual_router_id 51
+    priority 101 # 101 on ha1, 100 on ha2
+    virtual_ipaddress {
+    192.168.1.10 # virtual ip address 
+    }
+    track_script {
+        chk_haproxy
+    }
+} 
+</code></pre>
+
+<ul>
+<li>on ha2, update <code>/etc/keepalived/keepalived.conf</code></li>
+</ul>
+<p>change eth0  to your existing interface* </p>
+<pre><code>vrrp_script chk_haproxy {
+    script &quot;killall -0 haproxy&quot; # check the haproxy process
+    interval 2 # every 2 seconds
+    weight 2 # add 2 points if OK
+}
+vrrp_instance VI_1 {
+    interface eth0 # interface to monitor 
+    state BACKUP # MASTER on ha1, BACKUP on ha2
+    virtual_router_id 51
+    priority 101 # 101 on ha1, 100 on ha2
+    virtual_ipaddress {
+    192.168.1.10 # virtual ip address 
+    }
+    track_script {
+        chk_haproxy
+    }
+} 
+</code></pre>
+
+<ul>
+<li>activate KeepAlived service on both servers:</li>
+</ul>
+<pre><code>systemctl enable keepalived  
+systemctl start keepalived  
+</code></pre>
+
+<ul>
+<li>Check status of virtual IP (192.168.1.10) with command below:</li>
+</ul>
+<pre><code>ip a
+</code></pre>
+
+<h2 id="install-and-configure-haproxy">Install and configure HAProxy</h2>
+<ul>
+<li>Install on both servers (ha1 &amp; ha2)</li>
+</ul>
+<pre><code>yum install -y haproxy                
+mv /etc/haproxy/haproxy.cfg /etc/haproxy/haproxy.cfg_DEFAULT
+</code></pre>
+
+<ul>
+<li>on ha1: update <code>/etc/haproxy/haproxy.cfg</code></li>
+</ul>
+<pre><code>global
+        log 127.0.0.1   local0
+        log 127.0.0.1   local1 debug
+        maxconn   45000 # Total Max Connections.
+        daemon
+        nbproc      1 # Number of processing cores.
+
+defaults
+        timeout server 86400000
+        timeout connect 86400000
+        timeout client 86400000
+        timeout queue   1000s
+
+# [HTTP Site Configuration]
+listen  http_web 192.168.1.10:80
+        bind *:80
+        bind *:443 ssl crt /etc/ssl/iredmail.org/iredmail.org.pem
+        redirect scheme https if !{ ssl_fc }
+        mode http
+        balance roundrobin  # Load Balancing algorithm
+        option httpchk
+        option forwardfor
+        server mail1 192.168.1.3:443 weight 1 maxconn 512 check
+        server mail2 192.168.1.4:443 weight 1 maxconn 512 check
+
+# [HTTPS Site Configuration]
+listen  https_web 192.168.1.10:443
+        mode tcp
+        balance source# Load Balancing algorithm
+        reqadd X-Forwarded-Proto:\ http
+        server mail1 192.168.1.3:443 weight 1 maxconn 512 check
+        server mail2 192.168.1.4:443 weight 1 maxconn 512 check
+
+# Reporting
+listen stats
+    bind :9000
+    mode http
+
+    # Enable statistics
+    stats enable
+
+    # Hide HAPRoxy version, a necessity for any public-facing site
+    stats hide-version
+
+    # Show text in authentication popup
+    stats realm Authorization
+
+    # URI of the stats page: localhost:9000/haproxy_stats
+    stats uri /haproxy_stats
+
+    # Set a username and password
+    stats auth yourUsername:yourPassword
+</code></pre>
+
+<ul>
+<li>on ha2, update <code>/etc/haproxy/haproxy.cfg</code></li>
+</ul>
+<pre><code>global
+        log 127.0.0.1   local0
+        log 127.0.0.1   local1 debug
+        maxconn   45000 # Total Max Connections.
+        daemon
+        nbproc      1 # Number of processing cores.
+
+defaults
+        timeout server 86400000
+        timeout connect 86400000
+        timeout client 86400000
+        timeout queue   1000s
+
+# [HTTP Site Configuration]
+listen  http_web 192.168.1.10:80
+        bind *:80
+        bind *:443 ssl crt /etc/ssl/iredmail.org/iredmail.org.pem
+        redirect scheme https if !{ ssl_fc }
+        mode http
+        balance roundrobin  # Load Balancing algorithm
+        option httpchk
+        option forwardfor
+        server mail1 192.168.1.3:80 weight 1 maxconn 512 check
+        server mail2 192.168.1.4:80 weight 1 maxconn 512 check
+
+# [HTTPS Site Configuration]
+listen  https_web 192.168.1.10:443
+        mode tcp
+        balance source# Load Balancing algorithm
+        reqadd X-Forwarded-Proto:\ http
+        server mail1 192.168.1.3:443 weight 1 maxconn 512 check
+        server mail2 192.168.1.4:443 weight 1 maxconn 512 check
+
+# Reporting
+listen stats
+    bind :9000
+    mode http
+
+    # Enable statistics
+    stats enable
+
+    # Hide HAPRoxy version, a necessity for any public-facing site
+    stats hide-version
+
+    # Show text in authentication popup
+    stats realm Authorization
+
+    # URI of the stats page: localhost:9000/haproxy_stats
+    stats uri /haproxy_stats
+
+    # Set a username and password
+    stats auth yourUsername:yourPassword
+</code></pre>
+
+<ul>
+<li>on both servers:</li>
+</ul>
+<p>create cert for ssl redirect (to iRedMail Servers) </p>
+<pre><code>mkdir /etc/ssl/iredmail.org/  
+openssl genrsa -out /etc/ssl/iredmail.org/iredmail.org.key 2048 
+openssl req -new -key /etc/ssl/iredmail.org/iredmail.org.key -out /etc/ssl/iredmail.org/iredmail.org.csr  
+openssl x509 -req -days 365 -in /etc/ssl/iredmail.org/iredmail.org.csr -signkey /etc/ssl/iredmail.org/iredmail.org.key -out /etc/ssl/iredmail.org/iredmail.org.crt  
+cat /etc/ssl/iredmail.org/iredmail.org.crt /etc/ssl/iredmail.org/iredmail.org.key &gt; /etc/ssl/iredmail.org/iredmail.org.pem   
+</code></pre>
+
+<p>activate HAProxy service </p>
+<pre><code>systemctl enable haproxy  
+systemctl start haproxy
+</code></pre>
+
+<p>check log if any errors </p>
+<pre><code>tail -f /var/log/messages
+</code></pre>
+
+<p>allow http, https, haproxystat ports</p>
+<pre><code>firewall-cmd --zone=public --permanent --add-port=80/tcp  
+firewall-cmd --zone=public --permanent --add-port=443/tcp  
+firewall-cmd --zone=public --permanent --add-port=9000/tcp  
+firewall-cmd --complete-reload
+</code></pre>
+
+<h2 id="glusterfs">GlusterFS</h2>
+<h3 id="add-new-hard-disk-and-format-with-preferred-file-system">Add new hard disk and format with preferred file system</h3>
+<p>first, add new hard drive with the same capacity***  </p>
+<ul>
+<li>on both servers, update <code>/etc/hosts</code>:</li>
+</ul>
+<pre><code>192.168.1.3 mail1
+192.168.1.4 mail2
+</code></pre>
+
+<ul>
+<li>add new disk on <code>mail1</code>:</li>
+</ul>
+<p>type 'n', and hit enter for next question, (dont forget to write) hit 'w'</p>
+<pre><code>fdisk /dev/sdb     
+/sbin/mkfs.ext4 /dev/sdb1   
+mkdir /glusterfs1  
+</code></pre>
+
+<p>Update <code>/etc/fstab</code>:</p>
+<pre><code>/dev/sdb1 /glusterfs1      ext4    defaults        1 2
+</code></pre>
+
+<p>remount all:</p>
+<pre><code>mount -a
+</code></pre>
+
+<ul>
+<li>add new disk on mail2:</li>
+</ul>
+<p>type 'n', and hit enter for next question, (dont forget to write) hit 'w'</p>
+<pre><code>fdisk /dev/sdb 
+/sbin/mkfs.ext4 /dev/sdb1   
+mkdir /glusterfs2   
+</code></pre>
+
+<p>Update /etc/fstab:</p>
+<pre><code>/dev/sdb1 /glusterfs1      ext4    defaults        1 2
+</code></pre>
+
+<p>remount all</p>
+<pre><code>mount -a
+</code></pre>
+
+<h3 id="install-and-configure-gulsterfs">Install and Configure GulsterFS</h3>
+<ul>
+<li>on both servers (mail1 &amp; mail2):</li>
+</ul>
+<pre><code>rpm  -ivh  http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-5.noarch.rpm   
+wget -P /etc/yum.repos.d http://download.gluster.org/pub/gluster/glusterfs/3.7/3.7.5/CentOS/glusterfs-epel.repo  
+yum -y install glusterfs glusterfs-fuse glusterfs-server
+</code></pre>
+
+<p>activate the service </p>
+<pre><code>systemctl enable glusterd.service  
+systemctl start glusterd.service 
+</code></pre>
+
+<p>disabling firewall  </p>
+<pre><code>systemctl stop firewalld.service  
+systemctl disable firewalld.service     
+</code></pre>
+
+<ul>
+<li>on mail1:</li>
+</ul>
+<pre><code>gluster peer probe mail2  
+</code></pre>
+
+<ul>
+<li>on mail2:</li>
+</ul>
+<pre><code>gluster peer probe mail1  
+</code></pre>
+
+<p>you can check status with command below:</p>
+<pre><code>gluster peer status
+</code></pre>
+
+<ul>
+<li>ONLY on mail1:</li>
+</ul>
+<pre><code>gluster volume create mailrep-volume replica 2  mail1:/glusterfs1/vmail  mail2:/glusterfs2/vmail force  
+gluster volume start mailrep-volume  
+</code></pre>
+
+<p>check it </p>
+<pre><code>gluster volume info mailrep-volume  
+</code></pre>
+
+<ul>
+<li>create folder for vmail and mount glusterfs to vmail folder</li>
+</ul>
+<p>on mail1:</p>
+<pre><code>mkdir  /var/vmail  
+mount.glusterfs mail1:/mailrep-volume /var/vmail/    
+</code></pre>
+
+<p>Update /etc/fstab  </p>
+<pre><code>mail1:/mailrep-volume /var/vmail glusterfs defaults,_netdev 0 0
+</code></pre>
+
+<p>remount all</p>
+<pre><code>mount -a
+</code></pre>
+
+<p>check it</p>
+<pre><code>df -h  
+</code></pre>
+
+<ul>
+<li>on mail2:</li>
+</ul>
+<pre><code>mkdir  /var/vmail  
+mount.glusterfs mail2:/mailrep-volume /var/vmail/  
+</code></pre>
+
+<p>Update /etc/fstab:</p>
+<pre><code>mail2:/mailrep-volume /var/vmail glusterfs defaults,_netdev 0 0
+</code></pre>
+
+<p>remount all</p>
+<pre><code>mount -a
+</code></pre>
+
+<p>check it</p>
+<pre><code>df -h  
+</code></pre>
+
+<p>you can test it by creating any files on one of your mail servers</p>
+<pre><code>cd /var/vmail; touch R1 R2 R3 R4 R5 R6
+</code></pre>
+
+<p>make sure it, by checking files on both servers</p>
+<pre><code>ls -la /var/vmail
+</code></pre>
+
+<h2 id="install-and-configure-iredmail">Install and configure iRedMail</h2>
+<ul>
+<li>
+<p>Install the latest iRedMail on 2 servers (mail1 &amp; mail2)</p>
+</li>
+<li>
+<p>For installing iRedMail on CentOS, please check its installation guide:
+  <a href="./install.iredmail.on.rhel.html">Install iRedMail on Red Hat Enterprise Linux, CentOS</a></p>
+</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul>
+<li>
+<p>install iRedMail on <code>mail1</code> first, after mail1 finish you can install it
+  to mail2 (better do not reboot after installing iRedMail, wait untill
+  finish install/configure)  </p>
+</li>
+<li>
+<p>Dont forget to choose LDAP and using default mail folder: <code>/var/vmail</code></p>
+</li>
+<li>Choose Nginx as web server</li>
+</ul>
+</div>
+<h2 id="configure-ldap-replication-master-slave">Configure LDAP replication (Master-Slave)</h2>
+<ul>
+<li>on mail1 (MASTER), update <code>/etc/openldap/slapd.conf</code>:</li>
+</ul>
+<pre><code>moduleload syncprov
+index entryCSN,entryUUID eq
+overlay syncprov
+syncprov-checkpoint 100 10
+syncprov-sessionlog 200
+</code></pre>
+
+<ul>
+<li>on mail2 (SLAVE), update <code>/etc/openldap/slapd.conf</code>:</li>
+</ul>
+<pre><code>syncrepl   rid=001
+           provider=ldap://mail1:389
+           searchbase=&quot;dc=iredmail,dc=kom&quot;
+           bindmethod=simple
+           binddn=&quot;cn=vmail,dc=iredmail,dc=kom&quot;
+           credentials=erec3xiThBUW9QnnU9Bnifp3434
+           schemachecking=on
+           type=refreshOnly
+           retry=&quot;60 +&quot;
+           scope=sub
+           interval=00:00:01:00
+           attrs=&quot;*,+&quot;
+</code></pre>
+
+<p>on both servers set firewalld to accept gluster port, ldap port, and database to each servers,
+or you can set by your own rules:</p>
+<pre><code>firewall-cmd --permanent \
+     --zone=iredmail \
+     --add-rich-rule='rule family=&quot;ipv4&quot; source address=&quot;192.168.1.3/24&quot; port protocol=&quot;tcp&quot; port=&quot;389&quot; accept'
+
+firewall-cmd --permanent \
+    --zone=iredmail \
+    --add-rich-rule='rule family=&quot;ipv4&quot; source address=&quot;192.168.1.4/24&quot; port protocol=&quot;tcp&quot; port=&quot;3306&quot; accept'
+
+firewall-cmd --zone=iredmail --permanent --add-port=111/udp
+firewall-cmd --zone=iredmail --permanent --add-port=24007/tcp  
+firewall-cmd --zone=iredmail --permanent --add-port=24008/tcp  
+firewall-cmd --zone=iredmail --permanent --add-port=24009/tcp  
+firewall-cmd --zone=iredmail --permanent --add-port=139/tcp  
+firewall-cmd --zone=iredmail --permanent --add-port=445/tcp  
+firewall-cmd --zone=iredmail --permanent --add-port=965/tcp  
+firewall-cmd --zone=iredmail --permanent --add-port=2049/tcp  
+firewall-cmd --zone=iredmail --permanent --add-port=38465-38469/tcp  
+firewall-cmd --zone=iredmail --permanent --add-port=631/tcp  
+firewall-cmd --zone=iredmail --permanent --add-port=963/tcp  
+firewall-cmd --zone=iredmail --permanent --add-port=49152-49251/tcp  
+</code></pre>
+
+<p>reload firewall rules:</p>
+<pre><code>firewall-cmd --complete-reload
+</code></pre>
+
+<p>Restart OpenLDAP service:</p>
+<pre><code>systemctl restart slapd
+</code></pre>
+
+<h2 id="configure-mariadb-replication-master-master">Configure MariaDB replication (Master-Master)</h2>
+<ul>
+<li>on mail1, update <code>/etc/my.cnf</code>:</li>
+</ul>
+<pre><code>server-id                   = 1
+    log_bin                 = /var/log/mariadb/mariadb-bin.log
+    log-slave-updates
+    log-bin-index           = /var/log/mariadb/log-bin.index
+    log-error               = /var/log/mariadb/error.log
+    relay-log               = /var/log/mariadb/relay.log
+    relay-log-info-file     = /var/log/mariadb/relay-log.info
+    relay-log-index         = /var/log/mariadb/relay-log.index
+    auto_increment_increment = 10
+    auto_increment_offset   = 1
+    binlog_do_db            = amavisd
+    binlog_do_db            = iredadmin
+    binlog_do_db            = roundcubemail
+    binlog_do_db            = sogo
+    binlog-ignore-db=test
+    binlog-ignore-db=information_schema
+    binlog-ignore-db=mysql
+    binlog-ignore-db=iredapd
+    log-slave-updates
+    replicate-ignore-db=test
+    replicate-ignore-db=information_schema
+    replicate-ignore-db=mysql
+    replicate-ignore-db=iredapd
+</code></pre>
+
+<p>Restart MariaDB service:</p>
+<pre><code>systemctl restart mariadb
+</code></pre>
+
+<p>*on mail2, update <code>/etc/my.cnf</code>:</p>
+<pre><code>server-id                   = 2
+    log_bin                 = /var/log/mariadb/mariadb-bin.log
+    log-slave-updates
+    log-bin-index           = /var/log/mariadb/log-bin.index
+    log-error               = /var/log/mariadb/error.log
+    relay-log               = /var/log/mariadb/relay.log
+    relay-log-info-file     = /var/log/mariadb/relay-log.info
+    relay-log-index         = /var/log/mariadb/relay-log.index
+    auto_increment_increment = 10
+    auto_increment_offset = 1
+    binlog_do_db            = amavisd
+    binlog_do_db            = iredadmin
+    binlog_do_db            = roundcubemail
+    binlog_do_db            = sogo
+    binlog-ignore-db=test
+    binlog-ignore-db=information_schema
+    binlog-ignore-db=mysql
+    binlog-ignore-db=iredapd
+    log-slave-updates
+    replicate-ignore-db=test
+    replicate-ignore-db=information_schema
+    replicate-ignore-db=mysql
+    replicate-ignore-db=iredapd
+</code></pre>
+
+<p>Restart MariaDB service:</p>
+<pre><code>systemctl restart mariadb
+</code></pre>
+
+<h3 id="create-replicator-dbuser-on-both-servers">create replicator dbuser on both servers</h3>
+<ul>
+<li>on mail1, login as MariaDB root user, then execute sql commands below:</li>
+</ul>
+<pre><code>create user 'replicator'@'%' identified by '12345678';
+grant replication slave on *.* to 'replicator'@'%';                                 
+SHOW MASTER STATUS; 
++--------------------+----------+----------------------------------------------+-------------------------------+
+| File               | Position | Binlog_Do_DB                                 | Binlog_Ignore_DB              |
++--------------------+----------+----------------------------------------------+-------------------------------+
+| mariadb-bin.000001 |      245 | amavisd,iredadmin,iredapd,roundcubemail,sogo | test,information_schema,mysql |
++--------------------+----------+----------------------------------------------+-------------------------------+
+</code></pre>
+
+<p>check master status in column <code>File</code> and <code>Position</code>:</p>
+<ul>
+<li>on mail2:</li>
+</ul>
+<pre><code>create user 'replicator'@'%' identified by '12345678';
+grant replication slave on *.* to 'replicator'@'%'; 
+slave stop;         
+CHANGE MASTER TO MASTER_HOST = '192.168.1.3', MASTER_USER = 'replicator', MASTER_PASSWORD = '12345678', MASTER_LOG_FILE = 'mariadb-bin.000001', MASTER_LOG_POS = 245; 
+slave start;                     
+SHOW MASTER STATUS;     
++--------------------+----------+----------------------------------------------+-------------------------------+
+| File               | Position | Binlog_Do_DB                                 | Binlog_Ignore_DB              |
++--------------------+----------+----------------------------------------------+-------------------------------+
+| mariadb-bin.000001 |     289 | amavisd,iredadmin,iredapd,roundcubemail,sogo | test,information_schema,mysql |
++--------------------+----------+----------------------------------------------+-------------------------------+
+
+show slave status\G;    
+</code></pre>
+
+<ul>
+<li>change to your own master status MASTER_LOG_FILE is from <code>File</code>, MASTER_LOG_POS is from <code>Position</code> of master mail1</li>
+<li>check master status for <code>File</code> and <code>Position</code></li>
+</ul>
+<p>Restart MariaDB service:</p>
+<pre><code>systemctl restart mariadb
+</code></pre>
+
+<ul>
+<li>on mail1, login as MariaDB root user:</li>
+</ul>
+<pre><code>slave stop;
+CHANGE MASTER TO MASTER_HOST = '192.168.1.4', MASTER_USER = 'replicator', MASTER_PASSWORD = '12345678', MASTER_LOG_FILE = 'mariadb-bin.000001', MASTER_LOG_POS = 289; 
+slave start;             
+show slave status\G;    
+exit;   
+</code></pre>
+
+<ul>
+<li>change to your own master status MASTER_LOG_FILE is from <code>File</code>, MASTER_LOG_POS is from <code>Position</code> of master mail2*.</li>
+</ul>
+<p>Restart MariaDB service:</p>
+<pre><code>systemctl restart mariadb
+</code></pre>
+
+<ul>
+<li>reboot one of mailserver and wait till up, then reboot the other mailserver</li>
+</ul>
+<h2 id="testing">Testing</h2>
+<ul>
+<li>For HA Testing, u can try to shutdown one of your server to testing it (ha1 or ha2 --/OR-- mail1 or mail2)</li>
+<li>u can create users using iredadmin on mail1, then check users from mail2 and you can see its already sync</li>
+<li>try to login using roundcubemail from any mailserver then u can check users on database 'roundcubemail-&gt;users', and its already sync</li>
+<li>only mail1 'can add n modify' users</li>
+<li>this mailservers act as Glusterserver &amp; Glusterclient, if u want to reboot the servers, please reboot first server untill this up then reboot the second server.</li>
+<li>if all servers are reboot for the same time it will not mounting '/var/vmail' folder. u must force mount manually using this command 'gluster volume start mailrep-volume force'</li>
+</ul>
+<p>To view the DB easily, you may want to install adminer from <a href="http://adminer.org/">http://adminer.org/</a> (it's web-based SQL management tool, just a single PHP file):</p><p style="text-align: center; color: grey;">All documents are available in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-3293801-21', 'auto');
+  ga('send', 'pageview');
+</script>
+</body></html>

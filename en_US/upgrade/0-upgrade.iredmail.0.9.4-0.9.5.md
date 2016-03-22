@@ -2,6 +2,11 @@
 
 [TOC]
 
+## TODO
+
+* Upgrade yum/apt repositories to switch to SOGo v3.
+* Support 'enabledService=sogo' (LDAP) and 'mailbox.enablesogo=1' (SQL).
+
 ## ChangeLog
 
 > We offer remote upgrade service, check [the price](../support.html) and [contact us](../contact.html).
