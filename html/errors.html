@@ -85,8 +85,9 @@ Postfix config file <code>/etc/postfix/main.cf</code>:</p>
 <h3 id="connect-to-12700112700110024-connection-refused">connect to 127.0.0.1[127.0.0.1]:10024: Connection refused</h3>
 <p>This error means Amavisd service is not running, please try to start it first.</p>
 <ul>
-<li>RHEL/CentOS/FreeBSD/OpenBSD: <code># service amavisd restart</code></li>
+<li>RHEL/CentOS/FreeBSD: <code># service amavisd restart</code></li>
 <li>Debian/Ubuntu: <code># service amavis restart</code></li>
+<li>OpenBSD: <code># /etc/rc.d/amavisd restart</code> or <code># rcctl restart amavisd</code></li>
 </ul>
 <p>After restarted amavisd service, please check its
 <a href="./file.locations.html#amavisd">log file</a> to make sure it's running.</p>

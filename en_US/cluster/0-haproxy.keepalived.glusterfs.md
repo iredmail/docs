@@ -2,7 +2,9 @@
 
 [TOC]
 
-This tutorial was [initial published](http://www.iredmail.org/forum/topic10773.html) by user `t10` on March 13, 2016.
+This tutorial was contributed by Setyo Prayitno <jrsetyo@gmail.com> (forum user
+name `t10`) [on March 13, 2016](http://www.iredmail.org/forum/topic10773.html).
+Thanks Setyo. :)
 
 ## TODO
 

@@ -77,8 +77,9 @@ Reference: [Postfix Configuration Parameters](http://www.postfix.org/postconf.5.
 
 This error means Amavisd service is not running, please try to start it first.
 
-* RHEL/CentOS/FreeBSD/OpenBSD: ```# service amavisd restart```
+* RHEL/CentOS/FreeBSD: ```# service amavisd restart```
 * Debian/Ubuntu: ```# service amavis restart```
+* OpenBSD: `# /etc/rc.d/amavisd restart` or `# rcctl restart amavisd`
 
 After restarted amavisd service, please check its
 [log file](./file.locations.html#amavisd) to make sure it's running.
