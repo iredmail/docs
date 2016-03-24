@@ -335,7 +335,7 @@ $config['autocomplete_addressbooks'] = array("sql", "global_ldap_abook");
 #
 $config['ldap_public']["global_ldap_abook"] = array(
     'name'          => 'Global Address Book',
-    'hosts'         => array("ad.example.com"),      // <- Set AD hostname or IP address here.
+    'hosts'         => array("ad.example.com"), // <- Set AD hostname or IP address here.
     'port'          => 389,
     'use_tls'       => false,   // <- Set to true if you want to use LDAP over TLS.
     'ldap_version'  => '3',
@@ -343,9 +343,9 @@ $config['ldap_public']["global_ldap_abook"] = array(
     'user_specific' => false,
 
     'base_dn'       => "cn=users,dc=example,dc=com", // <- Set base dn in AD
-    'bind_dn'       => "vmail",                      // <- bind dn
-    'bind_pass'     => "password_of_vmail",          // <- bind password
-    'writable'      => false,                        // <- Do not allow mail user write data back to AD.
+    'bind_dn'       => "vmail",             // <- bind dn
+    'bind_pass'     => "password_of_vmail", // <- bind password
+    'writable'      => false,               // <- Do not allow mail user write data back to AD.
 
     'search_fields' => array('mail', 'cn', 'sAMAccountName', 'displayname', 'sn', 'givenName'),
 
@@ -380,13 +380,20 @@ $config['ldap_public']["global_ldap_abook"] = array(
     ),
     'sort'          => 'cn',
     'scope'         => 'sub',
-    //'filter'        => "(&(objectclass=person)(!(userAccountControl:1.2.840.113556.1.4.803:=2)))",
-    'filter'        => "(mail=*@*)",
+    'filter'        => "(&(objectclass=person)(!(userAccountControl:1.2.840.113556.1.4.803:=2)))",
     'fuzzy_search'  => true,
-    'vlv'           => false,   // Enable Virtual List View to more efficiently fetch paginated data (if server supports it)
-    'sizelimit'     => '0',     // Enables you to limit the count of entries fetched. Setting this to 0 means no limit.
-    'timelimit'     => '0',     // Sets the number of seconds how long is spend on the search. Setting this to 0 means no limit.
-    'referrals'     => false,  // Sets the LDAP_OPT_REFERRALS option. Mostly used in multi-domain Active Directory setups
+    'vlv'           => false,   // Enable Virtual List View to more
+                                // efficiently fetch paginated data
+                                // (if server supports it)
+    'sizelimit'     => '0',     // Enables you to limit the count of
+                                // entries fetched. Setting this to 0
+                                // means no limit.
+    'timelimit'     => '0',     // Sets the number of seconds how long
+                                // is spend on the search. Setting this
+                                // to 0 means no limit.
+    'referrals'     => false,   // Sets the LDAP_OPT_REFERRALS option.
+                                // Mostly used in multi-domain Active
+                                // Directory setups
 );
 ```
 
