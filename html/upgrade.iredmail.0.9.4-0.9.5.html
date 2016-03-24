@@ -12,7 +12,6 @@
 <div class="toc">
 <ul>
 <li><a href="#upgrade-iredmail-from-094-to-095">Upgrade iRedMail from 0.9.4 to 0.9.5</a><ul>
-<li><a href="#todo">TODO</a></li>
 <li><a href="#changelog">ChangeLog</a></li>
 <li><a href="#general-all-backends-should-apply-these-steps">General (All backends should apply these steps)</a><ul>
 <li><a href="#update-etciredmail-release-with-new-iredmail-version-number">Update /etc/iredmail-release with new iRedMail version number</a></li>
@@ -20,6 +19,7 @@
 <li><a href="#rhelcentos-fixed-not-enable-cron-job-to-update-spamassassin-rules">[RHEL/CentOS] Fixed: Not enable cron job to update SpamAssassin rules</a></li>
 <li><a href="#rhelcentos-fixed-not-create-required-directory-used-to-store-php-session-files">[RHEL/CentOS] Fixed: Not create required directory used to store PHP session files</a></li>
 <li><a href="#fixed-not-add-alias-for-virusalert-on-non-debianubuntu-oses">Fixed: not add alias for virusalert on non-Debian/Ubuntu OSes</a></li>
+<li><a href="#optional-switch-sogo-to-v3-from-v2">[OPTIONAL] Switch SOGo to v3 from v2</a></li>
 </ul>
 </li>
 <li><a href="#openldap-backend-special">OpenLDAP backend special</a><ul>
@@ -28,6 +28,11 @@
 <li><a href="#use-the-latest-iredmail-ldap-schema-file">Use the latest iRedMail LDAP schema file</a></li>
 <li><a href="#create-ldap-lookup-files">Create LDAP lookup files</a></li>
 <li><a href="#update-postfix-settings-in-etcpostfixmaincf">Update Postfix settings in /etc/postfix/main.cf</a></li>
+</ul>
+</li>
+<li><a href="#new-able-to-enabledisable-sogo-access-for-a-single-user">NEW: Able to enable/disable SOGo access for a single user</a><ul>
+<li><a href="#add-required-ldap-attributevalue-for-existing-mail-users">Add required LDAP attribute/value for existing mail users</a></li>
+<li><a href="#update-sogo-config-file">Update SOGo config file</a></li>
 </ul>
 </li>
 </ul>
@@ -40,6 +45,7 @@
 <li><a href="#update-postfix-settings-in-etcpostfixmaincf_1">Update Postfix settings in /etc/postfix/main.cf</a></li>
 </ul>
 </li>
+<li><a href="#new-able-to-enabledisable-sogo-access-for-a-single-user_1">NEW: Able to enable/disable SOGo access for a single user</a></li>
 </ul>
 </li>
 <li><a href="#postgresql-backend-special">PostgreSQL backend special</a><ul>
@@ -50,22 +56,26 @@
 <li><a href="#update-postfix-settings-in-etcpostfixmaincf_2">Update Postfix settings in /etc/postfix/main.cf</a></li>
 </ul>
 </li>
+<li><a href="#new-able-to-enabledisable-sogo-access-for-a-single-user_2">NEW: Able to enable/disable SOGo access for a single user</a></li>
 </ul>
 </li>
 </ul>
 </li>
 </ul>
 </div>
-<h2 id="todo">TODO</h2>
-<ul>
-<li>Upgrade yum/apt repositories to switch to SOGo v3.</li>
-<li>Support 'enabledService=sogo' (LDAP) and 'mailbox.enablesogo=1' (SQL).</li>
-</ul>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p><strong>THIS IS STILL A DRAFT DOCUMENT, DO NOT APPLY IT.</strong></p>
+</div>
 <h2 id="changelog">ChangeLog</h2>
-<blockquote>
-<p>We offer remote upgrade service, check <a href="../support.html">the price</a> and <a href="../contact.html">contact us</a>.</p>
-</blockquote>
+<div class="admonition note">
+<p class="admonition-title">Paid Remote Upgrade Support</p>
+<p>We offer remote upgrade support if you don't want to get your hands dirty,
+check <a href="../support.html">the details</a> and <a href="../contact.html">contact us</a>.</p>
+</div>
 <ul>
+<li>2016-03-23: [OPTIONAL] Switch SOGo to v3 from v2</li>
+<li>2016-03-23: [NEW] Able to enable/disable SOGo access for a single user.</li>
 <li>2016-03-08: [NEW] Supports Postfix <code>sender_dependent_relayhost_maps</code>.</li>
 <li>2016-02-25:<ul>
 <li>[RHEL/CentOS] Fixed: Not create required directory used to store PHP session files</li>
@@ -127,6 +137,42 @@ echo -e '\nvirusalert: root' &gt;&gt; /usr/local/etc/postfix/aliases
 postalias /usr/local/etc/postfix/aliases
 </code></pre>
 
+<h3 id="optional-switch-sogo-to-v3-from-v2">[OPTIONAL] Switch SOGo to v3 from v2</h3>
+<p>SOGo-3.x has a shinny new web UI, you can try the online demo here:
+<a href="http://sogo.nu">http://sogo.nu</a> (search 'demo' on the page).</p>
+<p>SOGo team offers support for both SOGo v3 and v2, so it's totally fine if you
+want to stick to SOGo-2.x. In case you want to try SOGo-3.x, please try steps
+below.</p>
+<p>Before switching, please backup SOGo config file first:</p>
+<pre><code>cp /etc/sogo/sogo.conf /etc/sogo/sogo.conf.bak
+</code></pre>
+
+<ul>
+<li>On RHEL/CentOS, please open file <code>/etc/yum.repos.d/sogo.conf</code>, change the
+  <code>baseurl=</code> setting to below one:</li>
+</ul>
+<pre><code>baseurl=http://inverse.ca/rhel-v3/$releasever/$basearch/
+</code></pre>
+
+<pre><code>Remove `sope` and `sogo` packages first, then install SOGo again:
+Then run command `yum update` to upgrade SOGo to 3.x.
+</code></pre>
+<ul>
+<li>On Debian, please open file <code>/etc/apt/sources.list</code>, replace URL
+  <code>http://inverse.ca/downloads/SOGo/Debian/</code> by below one:</li>
+</ul>
+<pre><code>http://inverse.ca/debian-v3/
+</code></pre>
+
+<ul>
+<li>On Ubuntu, please open file <code>/etc/apt/sources.list</code>, replace URL
+  <code>http://inverse.ca/downloads/SOGo/Ubuntu/</code> by below one:</li>
+</ul>
+<pre><code>http://inverse.ca/ubuntu-v3/
+</code></pre>
+
+<p>FreeBSD and OpenBSD rely on the ports tree, so you have to wait for the update
+in ports tree.</p>
 <h2 id="openldap-backend-special">OpenLDAP backend special</h2>
 <h3 id="new-support-postfix-sender_dependent_relayhost_maps">NEW: Support Postfix <code>sender_dependent_relayhost_maps</code></h3>
 <h4 id="summary">Summary</h4>
@@ -233,6 +279,59 @@ postconf -e sender_dependent_relayhost_maps='proxy:ldap:/usr/local/etc/postfix/l
 </code></pre>
 
 <p>Reload or restart Postfix service is required.</p>
+<h3 id="new-able-to-enabledisable-sogo-access-for-a-single-user">NEW: Able to enable/disable SOGo access for a single user</h3>
+<p>With steps below, system admin is able to control which users can access SOGo
+Groupware (webmail, calendar, contacts, ActiveSync).</p>
+<p>To accomplish this, we need to add a new LDAP attribute/value pair
+<code>enabledService=sogo</code> for existing mail users, then update SOGo config file to
+use this condition while querying user accounts.</p>
+<h4 id="add-required-ldap-attributevalue-for-existing-mail-users">Add required LDAP attribute/value for existing mail users</h4>
+<ul>
+<li>Download below script to update existing mail users:</li>
+</ul>
+<pre><code># cd /root/
+# wget https://bitbucket.org/zhb/iredmail/raw/default/extra/update/updateLDAPValues_094_to_095.py
+</code></pre>
+
+<ul>
+<li>Open downloaded file <code>updateLDAPValues_094_to_095.py</code>, set LDAP server
+  related settings in this file. For example:</li>
+</ul>
+<pre><code># Part of file: updateLDAPValues_094_to_095.py
+
+uri = 'ldap://127.0.0.1:389'
+basedn = 'o=domains,dc=example,dc=com'
+bind_dn = 'cn=vmailadmin,dc=example,dc=com'
+bind_pw = 'passwd'
+</code></pre>
+
+<p>You can find required LDAP credential in iRedAdmin config file or
+<code>iRedMail.tips</code> file under your iRedMail installation directory. Using either
+<code>cn=Manager,dc=xx,dc=xx</code> or <code>cn=vmailadmin,dc=xx,dc=xx</code> as bind dn is ok, both
+of them have read-write privilege to update mail accounts.</p>
+<ul>
+<li>Execute this script, it will add required data:</li>
+</ul>
+<pre><code># python updateLDAPValues_094_to_095.py
+</code></pre>
+
+<h4 id="update-sogo-config-file">Update SOGo config file</h4>
+<ul>
+<li>On Linux/OpenBSD, please update file <code>/etc/sogo/sogo.conf</code>.</li>
+<li>On FreeBSD, please update file /usr/local/etc/sogo/sogo.conf`.</li>
+</ul>
+<p>Open SOGo config file <code>sogo.conf</code>, find below line:</p>
+<pre><code>filter = &quot;objectClass=mailUser AND accountStatus=active AND enabledService=mail&quot;;
+</code></pre>
+
+<p>Add new condition <code>AND enabledService=sogo</code> in <code>filter =</code> setting, the final
+setting is:</p>
+<pre><code>filter = &quot;objectClass=mailUser AND accountStatus=active AND enabledService=mail AND enabledService=sogo&quot;;
+</code></pre>
+
+<p>Save your change and restart SOGo service.</p>
+<p>It's now able to enable or disable SOGo access for a single user by adding or
+removing <code>enabledService=sogo</code> for this user.</p>
 <h2 id="mysqlmariadb-backend-special">MySQL/MariaDB backend special</h2>
 <h3 id="new-support-postfix-sender_dependent_relayhost_maps_1">NEW: Support Postfix <code>sender_dependent_relayhost_maps</code></h3>
 <h4 id="summary_1">Summary</h4>
@@ -309,6 +408,32 @@ postconf -e sender_dependent_relayhost_maps='proxy:mysql:/usr/local/etc/postfix/
 </code></pre>
 
 <p>Reload or restart Postfix service is required.</p>
+<h3 id="new-able-to-enabledisable-sogo-access-for-a-single-user_1">NEW: Able to enable/disable SOGo access for a single user</h3>
+<p>With steps below, system admin is able to control which users can access SOGo
+Groupware (webmail, calendar, contacts, ActiveSync).</p>
+<p>To accomplish this, we need to add a new SQL column <code>enablesogo</code> in SQL table
+<code>vmail.mailbox</code>, then re-create SQL VIEW <code>sogo.users</code>.</p>
+<p>Before we go further, please find the SQL password for SQL user <code>vmail</code>
+in Postfix config file <code>/etc/postfix/mysql/*.cf</code> (on Linux/OpenBSD) or
+<code>/usr/local/etc/postfix/mysql/*.cf</code> (on FreeBSD), we need this while
+(re-)creating SQL VIEW <code>sogo.users</code>.</p>
+<p>Please login to MySQL/MariaDB as SQL root user first:</p>
+<pre><code># mysql -uroot -p
+</code></pre>
+
+<p>Then execute SQL commands below to add required new SQL column and re-create
+SQL VIEW <code>sogo.users</code>:</p>
+<pre><code>sql&gt; USE vmail;
+sql&gt; ALTER TABLE mailbox ADD COLUMN enablesogo TINYINT(1) NOT NULL DEFAULT 1;
+sql&gt; ALTER TABLE mailbox ADD INDEX (enablesogo);
+
+sql&gt; USE sogo;
+sql&gt; DROP TABLE users;
+sql&gt; CREATE VIEW sogo.users (c_uid, c_name, c_password, c_cn, mail, domain) AS SELECT username, username, password, name, username, domain FROM vmail.mailbox WHERE enablesogo=1 AND active=1;
+</code></pre>
+
+<p>It's now able to enable SOGo access for a single user by setting
+<code>mailbox.enablesogo=1</code>, or disable the access with <code>mailbox.enablesogo=0</code>.</p>
 <h2 id="postgresql-backend-special">PostgreSQL backend special</h2>
 <h3 id="new-support-postfix-sender_dependent_relayhost_maps_2">NEW: Support Postfix <code>sender_dependent_relayhost_maps</code></h3>
 <h4 id="summary_2">Summary</h4>
@@ -383,7 +508,65 @@ postconf -e sender_dependent_relayhost_maps='proxy:pgsql:/etc/postfix/pgsql/send
 postconf -e sender_dependent_relayhost_maps='proxy:mysql:/usr/local/etc/postfix/mysql/sender_dependent_relayhost_maps.cf'
 </code></pre>
 
-<p>Reload or restart Postfix service is required.</p><p style="text-align: center; color: grey;">All documents are available in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.<script>
+<p>Reload or restart Postfix service is required.</p>
+<h3 id="new-able-to-enabledisable-sogo-access-for-a-single-user_2">NEW: Able to enable/disable SOGo access for a single user</h3>
+<p>With steps below, system admin is able to control which users can access SOGo
+Groupware (webmail, calendar, contacts, ActiveSync).</p>
+<p>To accomplish this, we need to add a new SQL column <code>enablesogo</code> in SQL table
+<code>vmail.mailbox</code>, then re-create SQL VIEW <code>sogo.users</code>.</p>
+<p>Before we go further, please find the SQL password for SQL user <code>vmail</code>
+in Postfix config file <code>/etc/postfix/pgsql/*.cf</code> (on Linux/OpenBSD) or
+<code>/usr/local/etc/postfix/pgsql/*.cf</code> (on FreeBSD), we need this while
+(re-)creating SQL VIEW <code>sogo.users</code>.</p>
+<p>Please login to PostgreSQL database as SQL root user first:</p>
+<ul>
+<li>on Linux, the root user name is <code>postgres</code></li>
+<li>on FreeBSD, the root user name is <code>pgsql</code></li>
+<li>on OpenBSD, the root user name is <code>_postgresql</code></li>
+</ul>
+<pre><code># su - postgres
+$ psql -d vmail
+</code></pre>
+
+<p>Then execute SQL commands below to add required new SQL column and re-create
+SQL VIEW <code>sogo.users</code>:</p>
+<pre><code class="sql">sql&gt; \c vmail;
+sql&gt; ALTER TABLE mailbox ADD COLUMN enablesogo INT2 NOT NULL DEFAULT 1;
+sql&gt; CREATE INDEX idx_mailbox_enablesogo ON mailbox (enablesogo);
+
+sql&gt; \c sogo;
+sql&gt; DROP VIEW users;
+</code></pre>
+
+<p>Be careful, you must replace string <code>VMAIL_PASSWORD</code> in SQL command below
+by the real password of SQL user <code>vmail</code>:</p>
+<pre><code class="sql">sql&gt; CREATE VIEW users
+              AS SELECT * FROM dblink('host=127.0.0.1
+                                       port=5432
+                                       dbname=vmail
+                                       user=vmail
+                                       password=VMAIL_PASSWORD',
+                                       'SELECT username AS c_uid,
+                                               username AS c_name,
+                                               password AS c_password,
+                                               name AS c_cn,
+                                               username AS mail,
+                                               domain AS domain
+                                          FROM mailbox
+                                         WHERE enablesogo=1 AND active=1')
+              AS users (c_uid VARCHAR(255),
+                        c_name VARCHAR(255),
+                        c_password VARCHAR(255),
+                        c_cn VARCHAR(255),
+                        mail VARCHAR(255),
+                        domain VARCHAR(255));
+
+sql&gt; ALTER TABLE users OWNER TO sogo;
+sql&gt; EXIT;
+</code></pre>
+
+<p>It's now able to enable SOGo access for a single user by setting
+<code>mailbox.enablesogo=1</code>, or disable the access with <code>mailbox.enablesogo=0</code>.</p><p style="text-align: center; color: grey;">All documents are available in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.<script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
   m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)

@@ -80,9 +80,10 @@ latest stable release immediately: <a href="http://trac.roundcube.net/wiki/Howto
 latest stable release: <a href="./migrate.or.upgrade.iredadmin.html">Upgrade iRedAdmin to the latest stable release</a></p>
 <h3 id="remove-improper-spamassassin-spf-score-settings">Remove improper SpamAssassin SPF score settings</h3>
 <p>Please remove below two settings in SpamAssassin config file:</p>
-<pre><code>* On Linux and OpenBSD, it's `/etc/mail/spamassassin/local.cf`.
-* On FreeBSD, it's `/usr/local/etc/mail/spamassassin/local.cf`.
-</code></pre>
+<ul>
+<li>On Linux and OpenBSD, it's <code>/etc/mail/spamassassin/local.cf</code>.</li>
+<li>On FreeBSD, it's <code>/usr/local/etc/mail/spamassassin/local.cf</code>.</li>
+</ul>
 <pre><code># Part of file: etc/mail/spamassassin/local.cf
 
 score SPF_PASS -10.000

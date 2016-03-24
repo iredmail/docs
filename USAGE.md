@@ -1,4 +1,4 @@
-# How to write ebooks with Markdown
+# How to write documents with Markdown
 
 * Organize articles in directories, each directory is a chapter.
 * Order of chapters is hard-coded in file `convert.sh`, so that we can avoid

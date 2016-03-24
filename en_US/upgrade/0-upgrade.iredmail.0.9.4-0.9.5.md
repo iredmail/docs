@@ -2,15 +2,19 @@
 
 [TOC]
 
-## TODO
+!!! warning
 
-* Upgrade yum/apt repositories to switch to SOGo v3.
-* Support 'enabledService=sogo' (LDAP) and 'mailbox.enablesogo=1' (SQL).
+    __THIS IS STILL A DRAFT DOCUMENT, DO NOT APPLY IT.__
 
 ## ChangeLog
 
-> We offer remote upgrade service, check [the price](../support.html) and [contact us](../contact.html).
+!!! note "Paid Remote Upgrade Support"
 
+    We offer remote upgrade support if you don't want to get your hands dirty,
+    check [the details](../support.html) and [contact us](../contact.html).
+
+* 2016-03-23: [OPTIONAL] Switch SOGo to v3 from v2
+* 2016-03-23: [NEW] Able to enable/disable SOGo access for a single user.
 * 2016-03-08: [NEW] Supports Postfix `sender_dependent_relayhost_maps`.
 * 2016-02-25:
     * [RHEL/CentOS] Fixed: Not create required directory used to store PHP session files
@@ -87,6 +91,48 @@ perl -pi -e 's/(virusalert:.*)/#${1}/g' /usr/local/etc/postfix/aliases
 echo -e '\nvirusalert: root' >> /usr/local/etc/postfix/aliases
 postalias /usr/local/etc/postfix/aliases
 ```
+
+### [OPTIONAL] Switch SOGo to v3 from v2
+
+SOGo-3.x has a shinny new web UI, you can try the online demo here:
+<http://sogo.nu> (search 'demo' on the page).
+
+SOGo team offers support for both SOGo v3 and v2, so it's totally fine if you
+want to stick to SOGo-2.x. In case you want to try SOGo-3.x, please try steps
+below.
+
+Before switching, please backup SOGo config file first:
+
+```
+cp /etc/sogo/sogo.conf /etc/sogo/sogo.conf.bak
+```
+
+* On RHEL/CentOS, please open file `/etc/yum.repos.d/sogo.conf`, change the
+  `baseurl=` setting to below one:
+
+```
+baseurl=http://inverse.ca/rhel-v3/$releasever/$basearch/
+```
+
+    Remove `sope` and `sogo` packages first, then install SOGo again:
+    Then run command `yum update` to upgrade SOGo to 3.x.
+
+* On Debian, please open file `/etc/apt/sources.list`, replace URL
+  `http://inverse.ca/downloads/SOGo/Debian/` by below one:
+
+```
+http://inverse.ca/debian-v3/
+```
+
+* On Ubuntu, please open file `/etc/apt/sources.list`, replace URL
+  `http://inverse.ca/downloads/SOGo/Ubuntu/` by below one:
+
+```
+http://inverse.ca/ubuntu-v3/
+```
+
+FreeBSD and OpenBSD rely on the ports tree, so you have to wait for the update
+in ports tree.
 
 ## OpenLDAP backend special
 
@@ -199,6 +245,70 @@ postconf -e sender_dependent_relayhost_maps='proxy:ldap:/usr/local/etc/postfix/l
 
 Reload or restart Postfix service is required.
 
+### NEW: Able to enable/disable SOGo access for a single user
+
+With steps below, system admin is able to control which users can access SOGo
+Groupware (webmail, calendar, contacts, ActiveSync).
+
+To accomplish this, we need to add a new LDAP attribute/value pair
+`enabledService=sogo` for existing mail users, then update SOGo config file to
+use this condition while querying user accounts.
+
+#### Add required LDAP attribute/value for existing mail users
+
+* Download below script to update existing mail users:
+
+```
+# cd /root/
+# wget https://bitbucket.org/zhb/iredmail/raw/default/extra/update/updateLDAPValues_094_to_095.py
+```
+
+* Open downloaded file `updateLDAPValues_094_to_095.py`, set LDAP server
+  related settings in this file. For example:
+
+```
+# Part of file: updateLDAPValues_094_to_095.py
+
+uri = 'ldap://127.0.0.1:389'
+basedn = 'o=domains,dc=example,dc=com'
+bind_dn = 'cn=vmailadmin,dc=example,dc=com'
+bind_pw = 'passwd'
+```
+
+You can find required LDAP credential in iRedAdmin config file or
+`iRedMail.tips` file under your iRedMail installation directory. Using either
+`cn=Manager,dc=xx,dc=xx` or `cn=vmailadmin,dc=xx,dc=xx` as bind dn is ok, both
+of them have read-write privilege to update mail accounts.
+
+* Execute this script, it will add required data:
+
+```
+# python updateLDAPValues_094_to_095.py
+```
+
+#### Update SOGo config file
+
+* On Linux/OpenBSD, please update file `/etc/sogo/sogo.conf`.
+* On FreeBSD, please update file /usr/local/etc/sogo/sogo.conf`.
+
+Open SOGo config file `sogo.conf`, find below line:
+
+```
+filter = "objectClass=mailUser AND accountStatus=active AND enabledService=mail";
+```
+
+Add new condition `AND enabledService=sogo` in `filter =` setting, the final
+setting is:
+
+```
+filter = "objectClass=mailUser AND accountStatus=active AND enabledService=mail AND enabledService=sogo";
+```
+
+Save your change and restart SOGo service.
+
+It's now able to enable or disable SOGo access for a single user by adding or
+removing `enabledService=sogo` for this user.
+
 ## MySQL/MariaDB backend special
 
 ### NEW: Support Postfix `sender_dependent_relayhost_maps`
@@ -288,6 +398,41 @@ postconf -e sender_dependent_relayhost_maps='proxy:mysql:/usr/local/etc/postfix/
 
 Reload or restart Postfix service is required.
 
+### NEW: Able to enable/disable SOGo access for a single user
+
+With steps below, system admin is able to control which users can access SOGo
+Groupware (webmail, calendar, contacts, ActiveSync).
+
+To accomplish this, we need to add a new SQL column `enablesogo` in SQL table
+`vmail.mailbox`, then re-create SQL VIEW `sogo.users`.
+
+Before we go further, please find the SQL password for SQL user `vmail`
+in Postfix config file `/etc/postfix/mysql/*.cf` (on Linux/OpenBSD) or
+`/usr/local/etc/postfix/mysql/*.cf` (on FreeBSD), we need this while
+(re-)creating SQL VIEW `sogo.users`.
+
+Please login to MySQL/MariaDB as SQL root user first:
+
+```
+# mysql -uroot -p
+```
+
+Then execute SQL commands below to add required new SQL column and re-create
+SQL VIEW `sogo.users`:
+
+```
+sql> USE vmail;
+sql> ALTER TABLE mailbox ADD COLUMN enablesogo TINYINT(1) NOT NULL DEFAULT 1;
+sql> ALTER TABLE mailbox ADD INDEX (enablesogo);
+
+sql> USE sogo;
+sql> DROP TABLE users;
+sql> CREATE VIEW sogo.users (c_uid, c_name, c_password, c_cn, mail, domain) AS SELECT username, username, password, name, username, domain FROM vmail.mailbox WHERE enablesogo=1 AND active=1;
+```
+
+It's now able to enable SOGo access for a single user by setting
+`mailbox.enablesogo=1`, or disable the access with `mailbox.enablesogo=0`.
+
 ## PostgreSQL backend special
 
 ### NEW: Support Postfix `sender_dependent_relayhost_maps`
@@ -375,3 +520,72 @@ postconf -e sender_dependent_relayhost_maps='proxy:mysql:/usr/local/etc/postfix/
 ```
 
 Reload or restart Postfix service is required.
+
+### NEW: Able to enable/disable SOGo access for a single user
+
+With steps below, system admin is able to control which users can access SOGo
+Groupware (webmail, calendar, contacts, ActiveSync).
+
+To accomplish this, we need to add a new SQL column `enablesogo` in SQL table
+`vmail.mailbox`, then re-create SQL VIEW `sogo.users`.
+
+Before we go further, please find the SQL password for SQL user `vmail`
+in Postfix config file `/etc/postfix/pgsql/*.cf` (on Linux/OpenBSD) or
+`/usr/local/etc/postfix/pgsql/*.cf` (on FreeBSD), we need this while
+(re-)creating SQL VIEW `sogo.users`.
+
+Please login to PostgreSQL database as SQL root user first:
+
+* on Linux, the root user name is `postgres`
+* on FreeBSD, the root user name is `pgsql`
+* on OpenBSD, the root user name is `_postgresql`
+
+```
+# su - postgres
+$ psql -d vmail
+```
+
+Then execute SQL commands below to add required new SQL column and re-create
+SQL VIEW `sogo.users`:
+
+```sql
+sql> \c vmail;
+sql> ALTER TABLE mailbox ADD COLUMN enablesogo INT2 NOT NULL DEFAULT 1;
+sql> CREATE INDEX idx_mailbox_enablesogo ON mailbox (enablesogo);
+
+sql> \c sogo;
+sql> DROP VIEW users;
+```
+
+Be careful, you must replace string `VMAIL_PASSWORD` in SQL command below
+by the real password of SQL user `vmail`:
+
+```sql
+sql> CREATE VIEW users
+              AS SELECT * FROM dblink('host=127.0.0.1
+                                       port=5432
+                                       dbname=vmail
+                                       user=vmail
+                                       password=VMAIL_PASSWORD',
+                                       'SELECT username AS c_uid,
+                                               username AS c_name,
+                                               password AS c_password,
+                                               name AS c_cn,
+                                               username AS mail,
+                                               domain AS domain
+                                          FROM mailbox
+                                         WHERE enablesogo=1 AND active=1')
+              AS users (c_uid VARCHAR(255),
+                        c_name VARCHAR(255),
+                        c_password VARCHAR(255),
+                        c_cn VARCHAR(255),
+                        mail VARCHAR(255),
+                        domain VARCHAR(255));
+
+sql> ALTER TABLE users OWNER TO sogo;
+sql> EXIT;
+```
+
+It's now able to enable SOGo access for a single user by setting
+`mailbox.enablesogo=1`, or disable the access with `mailbox.enablesogo=0`.
+

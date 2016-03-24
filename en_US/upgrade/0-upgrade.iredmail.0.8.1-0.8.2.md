@@ -51,8 +51,8 @@ latest stable release: [Upgrade iRedAdmin to the latest stable release](./migrat
 
 Please remove below two settings in SpamAssassin config file:
 
-    * On Linux and OpenBSD, it's `/etc/mail/spamassassin/local.cf`.
-    * On FreeBSD, it's `/usr/local/etc/mail/spamassassin/local.cf`.
+* On Linux and OpenBSD, it's `/etc/mail/spamassassin/local.cf`.
+* On FreeBSD, it's `/usr/local/etc/mail/spamassassin/local.cf`.
 
 ```
 # Part of file: etc/mail/spamassassin/local.cf

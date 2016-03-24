@@ -28,8 +28,14 @@
 
 ### Release notes and upgrade tutorials
 
-> We provide remote upgrade support, check [the price](../support.html) and [contact us](../contact.html).
+!!! note "Paid Remote Upgrade Support"
 
+    We offer remote upgrade support if you don't want to get your hands dirty,
+    check [the details](../support.html) and [contact us](../contact.html).
+
+<!--
+* [0.9.5](http://www.iredmail.org/forum/), xx xx, 2016. [Upgrade from iRedMail-0.9.4](./upgrade.iredmail.0.9.4-0.9.5.html) (contains SQL/LDAP structure changes)
+-->
 * [0.9.4](http://www.iredmail.org/forum/topic10512.html), Jan 25, 2016. [Upgrade from iRedMail-0.9.3](./upgrade.iredmail.0.9.3-0.9.4.html)
 * [0.9.3](http://www.iredmail.org/forum/topic10261.html), Dec 14, 2015. [Upgrade from iRedMail-0.9.2](./upgrade.iredmail.0.9.2-0.9.3.html) (contains SQL/LDAP structure changes)
 * [0.9.2](http://www.iredmail.org/forum/topic9280.html), Jun 3, 2015. [Upgrade from iRedMail-0.9.1](./upgrade.iredmail.0.9.1-0.9.2.html)

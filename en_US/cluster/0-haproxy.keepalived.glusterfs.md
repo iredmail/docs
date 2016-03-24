@@ -2,7 +2,7 @@
 
 [TOC]
 
-This tutorial was contributed by Setyo Prayitno <jrsetyo@gmail.com> (forum user
+This tutorial was contributed by Setyo Prayitno <<jrsetyo@gmail.com>> (forum user
 name `t10`) [on March 13, 2016](http://www.iredmail.org/forum/topic10773.html).
 Thanks Setyo. :)
 
@@ -17,12 +17,38 @@ Build a fail-over cluster with 4 servers (2 backend servers behind HAProxy + Kee
 
 ## Requirements
 
+* A valid mail domain name. We use `example.com` as mail domain name in this document.
 * 4 servers, all are CentOS 7.
-* A valid mail domain name. We use example.com for example in this document.
 
-![](http://s14.postimg.org/sfooxggu9/iredmailhat10b.png)
+    * 2 servers run HAProxy + KeepAlived as a frontend for load-balance
+      (HAProxy) and fail-over (KeepAlived).
+    * 2 servers run the actual mail services. We will install the latest
+      iRedMail release for this.
+
+The big picture:
+
+![](https://bytebucket.org/jrt10/catatan/raw/master/iredmailhat10.bmp)
 
 ## Summary
+
+Hostnames and IP addresses:
+
+* We use hostname `ha1.example.com` and `ha2.example.com` for our 2 servers
+  which runs HAProxy and KeepAlived, use `ha1` and `ha2` for short.
+
+* We use hostname `mail1.example.com` and `mail2.example.com` for our 2 servers
+  which runs iRedMail for mail services, use `mail1` and `mail2` for short.
+
+* IP addresses:
+
+```
+192.168.1.1 ha1
+192.168.1.2 ha2
+192.168.1.3 mail1
+192.168.1.4 mail2
+```
+
+The procedure:
 
 1. Install and configure KeepAlived
 1. Install and configure HAProxy
@@ -67,6 +93,7 @@ vrrp_script chk_haproxy {
     interval 2 # every 2 seconds
     weight 2 # add 2 points if OK
 }
+
 vrrp_instance VI_1 {
     interface eth0 # interface to monitor
     state MASTER # MASTER on ha1, BACKUP on ha2
