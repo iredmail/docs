@@ -326,15 +326,15 @@ address book setting added by iRedMail, and add new setting for AD like below:
 ```php
 #
 # "sql" is personal address book stored in roundcube database.
-# "example.com" is new LDAP address book with AD, we will create it below.
+# "global_ldap_abook" is the new LDAP address book for AD, we will create it below.
 #
-$config['autocomplete_addressbooks'] = array("sql", "example.com");
+$config['autocomplete_addressbooks'] = array("sql", "global_ldap_abook");
 
 #
 # Global LDAP Address Book with AD.
 #
 $config['ldap_public']["global_ldap_abook"] = array(
-    'name'          => 'Global LDAP Address Book',
+    'name'          => 'Global Address Book',
     'hosts'         => array("ad.example.com"),      // <- Set AD hostname or IP address here.
     'port'          => 389,
     'use_tls'       => false,   // <- Set to true if you want to use LDAP over TLS.
