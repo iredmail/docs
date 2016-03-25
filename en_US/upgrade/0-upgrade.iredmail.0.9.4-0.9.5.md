@@ -471,6 +471,8 @@ sql> CREATE TABLE sender_relayhost (
 );
 
 sql> CREATE INDEX idx_sender_relayhost_account ON sender_relayhost (account);
+sql> ALTER TABLE sender_relayhost OWNER TO vmailadmin;
+sql> GRANT SELECT ON sender_relayhost TO vmail;
 ```
 
 #### Create SQL lookup file: `sender_dependent_relayhost_maps.cf`
