@@ -13,7 +13,7 @@
     We offer remote upgrade support if you don't want to get your hands dirty,
     check [the details](../support.html) and [contact us](../contact.html).
 
-* 2016-03-23: [OPTIONAL] Switch SOGo to v3 from v2
+* 2016-03-23: [OPTIONAL] Upgrade SOGo from v2 to v3
 * 2016-03-23: [NEW] Able to enable/disable SOGo access for a single user.
 * 2016-03-08: [NEW] Supports Postfix `sender_dependent_relayhost_maps`.
 * 2016-02-25:
@@ -92,7 +92,9 @@ echo -e '\nvirusalert: root' >> /usr/local/etc/postfix/aliases
 postalias /usr/local/etc/postfix/aliases
 ```
 
-### [OPTIONAL] Switch SOGo to v3 from v2
+### [OPTIONAL] Upgrade SOGo from v2 to v3
+
+Note: This upgrade is __OPTIONAL__.
 
 SOGo-3.x has a shinny new web UI, you can try the online demo here:
 <http://sogo.nu> (search 'demo' on the page).
@@ -101,38 +103,8 @@ SOGo team offers support for both SOGo v3 and v2, so it's totally fine if you
 want to stick to SOGo-2.x. In case you want to try SOGo-3.x, please try steps
 below.
 
-Before switching, please backup SOGo config file first:
-
-```
-cp /etc/sogo/sogo.conf /etc/sogo/sogo.conf.bak
-```
-
-* On RHEL/CentOS, please open file `/etc/yum.repos.d/sogo.conf`, change the
-  `baseurl=` setting to below one:
-
-```
-baseurl=http://inverse.ca/rhel-v3/$releasever/$basearch/
-```
-
-    Remove `sope` and `sogo` packages first, then install SOGo again:
-    Then run command `yum update` to upgrade SOGo to 3.x.
-
-* On Debian, please open file `/etc/apt/sources.list`, replace URL
-  `http://inverse.ca/downloads/SOGo/Debian/` by below one:
-
-```
-http://inverse.ca/debian-v3/
-```
-
-* On Ubuntu, please open file `/etc/apt/sources.list`, replace URL
-  `http://inverse.ca/downloads/SOGo/Ubuntu/` by below one:
-
-```
-http://inverse.ca/ubuntu-v3/
-```
-
-FreeBSD and OpenBSD rely on the ports tree, so you have to wait for the update
-in ports tree.
+To upgrade SOGo, please follow our tutorial here:
+[Upgrade SOGo from v2 to v3](./upgrade.sogo.2.to.3.html).
 
 ## OpenLDAP backend special
 
