@@ -9,12 +9,22 @@
     <div id="navigation">
     <a href="/index.html" target="_blank"><img alt="iRedMail web site" src="images/logo-iredmail.png" style="vertical-align: middle; height: 30px;"/> <span>iRedMail</span></a>
     &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><h1 id="upgrade-sogo-from-v2-to-v3">Upgrade SOGo from v2 to v3</h1>
+<div class="toc">
+<ul>
+<li><a href="#upgrade-sogo-from-v2-to-v3">Upgrade SOGo from v2 to v3</a><ul>
+<li><a href="#upgrade-sogo-on-rhelcentos">Upgrade SOGo On RHEL/CentOS</a></li>
+<li><a href="#upgrade-sogo-on-debianubuntu">Upgrade SOGo On Debian/Ubuntu</a></li>
+<li><a href="#troubleshooting">Troubleshooting</a></li>
+</ul>
+</li>
+</ul>
+</div>
 <p>SOGo-3.x has a shinny new web UI, you can try the online demo here:
 <a href="http://sogo.nu">http://sogo.nu</a> (search 'demo' on the page).</p>
 <p>SOGo team offers support for both SOGo v3 and v2, so it's totally fine if you
 want to stick to SOGo-2.x. In case you want to try SOGo-3.x, please try steps
 below.</p>
-<h2 id="on-rhelcentos">On RHEL/CentOS</h2>
+<h2 id="upgrade-sogo-on-rhelcentos">Upgrade SOGo On RHEL/CentOS</h2>
 <ul>
 <li>Backup 2 config files first:</li>
 </ul>
@@ -48,7 +58,7 @@ cp /etc/sysconfig/sogo.bak /etc/sysconfig/sogo
 <pre><code>service sogod restart
 </code></pre>
 
-<h2 id="on-debianubuntu">On Debian/Ubuntu</h2>
+<h2 id="upgrade-sogo-on-debianubuntu">Upgrade SOGo On Debian/Ubuntu</h2>
 <ul>
 <li>Backup 2 config files first:</li>
 </ul>

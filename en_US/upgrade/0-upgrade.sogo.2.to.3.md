@@ -1,5 +1,8 @@
 # Upgrade SOGo from v2 to v3
 
+[TOC]
+
+
 SOGo-3.x has a shinny new web UI, you can try the online demo here:
 <http://sogo.nu> (search 'demo' on the page).
 
@@ -7,7 +10,7 @@ SOGo team offers support for both SOGo v3 and v2, so it's totally fine if you
 want to stick to SOGo-2.x. In case you want to try SOGo-3.x, please try steps
 below.
 
-## On RHEL/CentOS
+## Upgrade SOGo On RHEL/CentOS
 
 * Backup 2 config files first:
 
@@ -42,7 +45,7 @@ cp /etc/sysconfig/sogo.bak /etc/sysconfig/sogo
 service sogod restart
 ```
 
-## On Debian/Ubuntu
+## Upgrade SOGo On Debian/Ubuntu
 
 * Backup 2 config files first:
 
