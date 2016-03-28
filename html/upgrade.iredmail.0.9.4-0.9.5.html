@@ -19,7 +19,6 @@
 <li><a href="#rhelcentos-fixed-not-enable-cron-job-to-update-spamassassin-rules">[RHEL/CentOS] Fixed: Not enable cron job to update SpamAssassin rules</a></li>
 <li><a href="#rhelcentos-fixed-not-create-required-directory-used-to-store-php-session-files">[RHEL/CentOS] Fixed: Not create required directory used to store PHP session files</a></li>
 <li><a href="#fixed-not-add-alias-for-virusalert-on-non-debianubuntu-oses">Fixed: not add alias for virusalert on non-Debian/Ubuntu OSes</a></li>
-<li><a href="#optional-upgrade-sogo-from-v2-to-v3">[OPTIONAL] Upgrade SOGo from v2 to v3</a></li>
 </ul>
 </li>
 <li><a href="#openldap-backend-special">OpenLDAP backend special</a><ul>
@@ -74,7 +73,6 @@
 check <a href="../support.html">the details</a> and <a href="../contact.html">contact us</a>.</p>
 </div>
 <ul>
-<li>2016-03-23: [OPTIONAL] Upgrade SOGo from v2 to v3</li>
 <li>2016-03-23: [NEW] Able to enable/disable SOGo access for a single user.</li>
 <li>2016-03-08: [NEW] Supports Postfix <code>sender_dependent_relayhost_maps</code>.</li>
 <li>2016-02-25:<ul>
@@ -137,15 +135,6 @@ echo -e '\nvirusalert: root' &gt;&gt; /usr/local/etc/postfix/aliases
 postalias /usr/local/etc/postfix/aliases
 </code></pre>
 
-<h3 id="optional-upgrade-sogo-from-v2-to-v3">[OPTIONAL] Upgrade SOGo from v2 to v3</h3>
-<p>Note: This upgrade is <strong>OPTIONAL</strong>.</p>
-<p>SOGo-3.x has a shinny new web UI, you can try the online demo here:
-<a href="http://sogo.nu">http://sogo.nu</a> (search 'demo' on the page).</p>
-<p>SOGo team offers support for both SOGo v3 and v2, so it's totally fine if you
-want to stick to SOGo-2.x. In case you want to try SOGo-3.x, please try steps
-below.</p>
-<p>To upgrade SOGo, please follow our tutorial here:
-<a href="./upgrade.sogo.2.to.3.html">Upgrade SOGo from v2 to v3</a>.</p>
 <h2 id="openldap-backend-special">OpenLDAP backend special</h2>
 <h3 id="new-support-postfix-sender_dependent_relayhost_maps">NEW: Support Postfix <code>sender_dependent_relayhost_maps</code></h3>
 <h4 id="summary">Summary</h4>

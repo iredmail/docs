@@ -13,7 +13,6 @@
     We offer remote upgrade support if you don't want to get your hands dirty,
     check [the details](../support.html) and [contact us](../contact.html).
 
-* 2016-03-23: [OPTIONAL] Upgrade SOGo from v2 to v3
 * 2016-03-23: [NEW] Able to enable/disable SOGo access for a single user.
 * 2016-03-08: [NEW] Supports Postfix `sender_dependent_relayhost_maps`.
 * 2016-02-25:
@@ -91,20 +90,6 @@ perl -pi -e 's/(virusalert:.*)/#${1}/g' /usr/local/etc/postfix/aliases
 echo -e '\nvirusalert: root' >> /usr/local/etc/postfix/aliases
 postalias /usr/local/etc/postfix/aliases
 ```
-
-### [OPTIONAL] Upgrade SOGo from v2 to v3
-
-Note: This upgrade is __OPTIONAL__.
-
-SOGo-3.x has a shinny new web UI, you can try the online demo here:
-<http://sogo.nu> (search 'demo' on the page).
-
-SOGo team offers support for both SOGo v3 and v2, so it's totally fine if you
-want to stick to SOGo-2.x. In case you want to try SOGo-3.x, please try steps
-below.
-
-To upgrade SOGo, please follow our tutorial here:
-[Upgrade SOGo from v2 to v3](./upgrade.sogo.2.to.3.html).
 
 ## OpenLDAP backend special
 
