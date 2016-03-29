@@ -70,6 +70,11 @@ basedn, bind dn/passwordthen in this file, then it's done.
 
 With below config file, SOGo will listen on address `127.0.0.1`, port `20000`.
 
+!!! note
+
+    Sample config file below may be out of date, please check the [latest one
+    in iRedMail source code repository](https://bitbucket.org/zhb/iredmail/src/default/iRedMail/samples/sogo/sogo.conf).
+
 ```
 {
     // Official SOGo documents:

@@ -60,11 +60,15 @@ mysql> GRANT ALL ON sogo.* TO sogo@localhost IDENTIFIED BY 'password';
 
 mysql> GRANT SELECT ON vmail.mailbox TO sogo@localhost;
 
-mysql> CREATE VIEW sogo.users (c_uid, c_name, c_password, c_cn, mail, home) AS SELECT username, username, password, name, username, CONCAT(storagebasedirectory, '/', storagenode, '/', maildir) FROM vmail.mailbox WHERE active=1;
+mysql> CREATE VIEW sogo.users (c_uid, c_name, c_password, c_cn, mail, domain) AS SELECT username, username, password, name, username, domain FROM vmail.mailbox WHERE enablesogo=1 AND active=1;
 ```
 
-Note: SOGo will create required SQL tables automatically, we don't need to
-create them manually.
+!!! note
+
+    * SOGo will create required SQL tables automatically, we don't need to
+      import a SQL template file or create them manually.
+    * SQL column `mailbox.enablesogo` is available in iRedMail-0.9.5, if you
+      don't have it, it's safe to remove this SQL condition (`enablesogo=1`).
 
 ## Configure SOGo
 
@@ -72,6 +76,11 @@ Default SOGo config file is `/etc/sogo/sogo.conf`. We have a sample config file
 for you, just replace MySQL username/password in this file, then it's done.
 
 With below config file, SOGo will listen on address `127.0.0.1`, port `20000`.
+
+!!! note
+
+    Sample config file below may be out of date, please check the [latest one
+    in iRedMail source code repository](https://bitbucket.org/zhb/iredmail/src/default/iRedMail/samples/sogo/sogo.conf).
 
 ```
 {
