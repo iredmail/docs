@@ -13,7 +13,8 @@
 <ul>
 <li><a href="#manage-iredapd-whiteblacklists-greylisting">Manage iRedAPD (white/blacklists, greylisting)</a><ul>
 <li><a href="#introduce-iredapd">Introduce iRedAPD</a></li>
-<li><a href="#how-to-disable-iredapd">How to disable iRedAPD</a></li>
+<li><a href="#how-to-disable-iredapd-service">How to disable iRedAPD service</a></li>
+<li><a href="#how-to-enable-or-disable-iredapd-plugins">How to enable or disable iRedAPD plugins</a></li>
 <li><a href="#whiteblacklisting">White/Blacklisting</a><ul>
 <li><a href="#how-to-disable-whiteblacklists-completely">How to disable white/blacklists completely</a></li>
 <li><a href="#manage-whiteblacklists">Manage white/blacklists</a><ul>
@@ -37,15 +38,16 @@
 </li>
 </ul>
 </div>
-<blockquote>
-<p>Note: all iRedAPD features listed in current page can be managed with our
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>All iRedAPD features listed in current page can be managed with our
 web-based admin panel - <a href="../admin_panel.html">iRedAdmin-Pro</a>.</p>
-</blockquote>
+</div>
 <h2 id="introduce-iredapd">Introduce iRedAPD</h2>
 <p>iRedAPD is a simple Postfix policy server, written in Python, with plugin
 support. it listens on port <code>7777</code> by default, and runs as a low-privileged
 user <code>iredapd</code>.</p>
-<h2 id="how-to-disable-iredapd">How to disable iRedAPD</h2>
+<h2 id="how-to-disable-iredapd-service">How to disable iRedAPD service</h2>
 <p>To disable iRedAPD service:</p>
 <ol>
 <li>please remove all <code>check_policy_service inet:127.0.0.1:7777</code> in Postfix config file
@@ -54,6 +56,22 @@ user <code>iredapd</code>.</p>
 <li>Restart or reload Postfix service.</li>
 <li>Disable iredapd service.</li>
 </ol>
+<h2 id="how-to-enable-or-disable-iredapd-plugins">How to enable or disable iRedAPD plugins</h2>
+<p>iRedAPD plugin is Python file under <code>/opt/iredapd/plugins/</code> directory. To
+enable a plugin, please find line <code>plugins =</code> in iRedAPD config file
+<code>/opt/iredapd/settings.py</code>, for example:</p>
+<pre><code>plugins = ['reject_null_sender', 'amavisd_wblist', 'greylisting', 'throttle']
+</code></pre>
+
+<p>If you want to enable plugin <code>reject_sender_login_mismatch</code> (file
+<code>/opt/iredapd/plugins/reject_sender_login_mismatch.py</code>), please add the plugin
+name in <code>plugins =</code> like below, and restart iRedAPD service:</p>
+<pre><code>plugins = ['reject_null_sender', 'amavisd_wblist', 'greylisting', 'throttle', 'reject_sender_login_mismatch']
+</code></pre>
+
+<p>The priorities of plugins shipped in iRedAPD are hard-coded, so the order of
+plugin name in <code>plugins =</code> doesn't matter.</p>
+<p>To disable a plugin, just remove the plugin name and restart iRedAPD service.</p>
 <h2 id="whiteblacklisting">White/Blacklisting</h2>
 <h3 id="how-to-disable-whiteblacklists-completely">How to disable white/blacklists completely</h3>
 <p>To disable white/blacklists completely, please remove plugin name
