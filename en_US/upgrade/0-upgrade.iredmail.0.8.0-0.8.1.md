@@ -2,9 +2,12 @@
 
 [TOC]
 
-## ChangeLog
+!!! note "Paid Remote Upgrade Support"
 
-> We provide remote upgrade service, check [the price](../support.html) and [contact us](../contact.html).
+    We offer remote upgrade support if you don't want to get your hands dirty,
+    check [the details](../support.html) and [contact us](../contact.html).
+
+## ChangeLog
 
 * 2012-06-14: Fix incorrect logrotate setting for iRedAPD on FreeBSD. Thanks openbsdnoob <w-chi _at_ gmx.de> for the report.
 * 2012-06-06: Add new column `mailbox.language` in MySQL & PGSQL backends, used by iRedAdmin.

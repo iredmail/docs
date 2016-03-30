@@ -2,9 +2,12 @@
 
 [TOC]
 
-## ChangeLog
+!!! note "Paid Remote Upgrade Support"
 
-> We provide remote upgrade service, check [the price](../support.html) and [contact us](../contact.html).
+    We offer remote upgrade support if you don't want to get your hands dirty,
+    check [the details](../support.html) and [contact us](../contact.html).
+
+## ChangeLog
 
 * 2013-07-14: First public release.
 * 2013-06-27: [All backends] Add new SQL table: deleted_mailboxes. Used to store maildir path of removed mail user, used in iRedAdmin-Pro.

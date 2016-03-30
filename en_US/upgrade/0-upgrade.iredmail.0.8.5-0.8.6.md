@@ -2,6 +2,11 @@
 
 [TOC]
 
+!!! note "Paid Remote Upgrade Support"
+
+    We offer remote upgrade support if you don't want to get your hands dirty,
+    check [the details](../support.html) and [contact us](../contact.html).
+
 !!! note
 
     Policyd doesn't provide upgrade tutorial officially, so

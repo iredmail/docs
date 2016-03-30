@@ -6,12 +6,12 @@
 
     __THIS IS STILL A DRAFT DOCUMENT, DO NOT APPLY IT.__
 
-## ChangeLog
-
 !!! note "Paid Remote Upgrade Support"
 
     We offer remote upgrade support if you don't want to get your hands dirty,
     check [the details](../support.html) and [contact us](../contact.html).
+
+## ChangeLog
 
 * 2016-03-23: [NEW] Able to enable/disable SOGo access for a single user.
 * 2016-03-08: [NEW] Supports Postfix `sender_dependent_relayhost_maps`.

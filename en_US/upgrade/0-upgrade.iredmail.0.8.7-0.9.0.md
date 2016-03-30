@@ -2,9 +2,12 @@
 
 [TOC]
 
-## ChangeLog
+!!! note "Paid Remote Upgrade Support"
 
-> We provide remote upgrade service, check [the price](../support.html) and [contact us](../contact.html).
+    We offer remote upgrade support if you don't want to get your hands dirty,
+    check [the details](../support.html) and [contact us](../contact.html).
+
+## ChangeLog
 
 * 2015-08-19: [All backends] If `@lookup_sql_dsn` is disabled in Amavisd, you
               can use SQL username/password defined in `@storage_sql_dsn`

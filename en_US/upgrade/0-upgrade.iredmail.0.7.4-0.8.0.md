@@ -2,9 +2,12 @@
 
 [TOC]
 
-## ChangeLog
+!!! note "Paid Remote Upgrade Support"
 
-> We provide remote upgrade service, check [the price](../support.html) and [contact us](../contact.html).
+    We offer remote upgrade support if you don't want to get your hands dirty,
+    check [the details](../support.html) and [contact us](../contact.html).
+
+## ChangeLog
 
 * 2012-07-12: [OPTIONAL] Enforce connections over HTTPS in Roundcube webmail
 * 2012-07-12: [OPTIONAL] Enforce connections over POP3S/IMAPS in Dovecot

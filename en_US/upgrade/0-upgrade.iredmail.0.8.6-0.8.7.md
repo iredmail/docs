@@ -2,9 +2,12 @@
 
 [TOC]
 
-## ChangeLog
+!!! note "Paid Remote Upgrade Support"
 
-> We provide remote upgrade service, check [the price](../support.html) and [contact us](../contact.html).
+    We offer remote upgrade support if you don't want to get your hands dirty,
+    check [the details](../support.html) and [contact us](../contact.html).
+
+## ChangeLog
 
 * 2014-05-18: Update SQL commands to sync value of removed columns to new column 'domain.settings'.
 * 2014-05-14: Mention Roundcube setting change after you enable SMTP SASL authentication only over TLS in Postfix.

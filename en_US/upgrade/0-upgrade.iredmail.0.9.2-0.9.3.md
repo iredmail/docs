@@ -2,9 +2,12 @@
 
 [TOC]
 
-## ChangeLog
+!!! note "Paid Remote Upgrade Support"
 
-> We offer remote upgrade service, check [the price](../support.html) and [contact us](../contact.html).
+    We offer remote upgrade support if you don't want to get your hands dirty,
+    check [the details](../support.html) and [contact us](../contact.html).
+
+## ChangeLog
 
 * 2016-01-21: Fix incorrect permission on new sql table `amavisd.outbound_wblist`.
 * 2016-01-14: Mention updating backup script to backup iRedAPD SQL database.
