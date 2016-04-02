@@ -41,14 +41,16 @@ Check [manual page of Postfix configuration file](http://www.postfix.org/postcon
 Removing `reject_sender_login_mismatch` and restarting Postfix service fixes
 this issue.
 
-> If you want to allow some users to send as other users, or allow all users
-> to send as their alias addresses, or allow member of mail list/alias to send
-> as mail list/alias, you should try iRedAPD plugin `reject_sender_login_mismatch`
-> instead (requires iRedAPD-1.4.4 or later releases).
->
-> Read comments in file `/opt/iredapd/plugins/reject_sender_login_mismatch.py`,
-> then enable it in iRedAPD config file `/opt/iredapd/settings.py` (`plugins = `),
-> restart iRedAPD service. That's all.
+!!! note
+
+    If you want to allow some users to send as other users, or allow all users
+    to send as their alias addresses, or allow member of mail list/alias to send
+    as mail list/alias, you should try iRedAPD plugin `reject_sender_login_mismatch`
+    instead (requires iRedAPD-1.4.4 or later releases).
+
+    Read comments in file `/opt/iredapd/plugins/reject_sender_login_mismatch.py`,
+    then enable it in iRedAPD config file `/opt/iredapd/settings.py` (`plugins = `),
+    restart iRedAPD service. That's all.
 
 ### unreasonable virtual_alias_maps map expansion size for user@domain.com
 

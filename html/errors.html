@@ -56,7 +56,8 @@ login name doesn't own the MAIL FROM address according to $smtpd_sender_login_ma
 Check <a href="http://www.postfix.org/postconf.5.html#reject_sender_login_mismatch">manual page of Postfix configuration file</a> for more details.</p>
 <p>Removing <code>reject_sender_login_mismatch</code> and restarting Postfix service fixes
 this issue.</p>
-<blockquote>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
 <p>If you want to allow some users to send as other users, or allow all users
 to send as their alias addresses, or allow member of mail list/alias to send
 as mail list/alias, you should try iRedAPD plugin <code>reject_sender_login_mismatch</code>
@@ -64,7 +65,7 @@ instead (requires iRedAPD-1.4.4 or later releases).</p>
 <p>Read comments in file <code>/opt/iredapd/plugins/reject_sender_login_mismatch.py</code>,
 then enable it in iRedAPD config file <code>/opt/iredapd/settings.py</code> (<code>plugins =</code>),
 restart iRedAPD service. That's all.</p>
-</blockquote>
+</div>
 <h3 id="unreasonable-virtual_alias_maps-map-expansion-size-for-userdomaincom">unreasonable virtual_alias_maps map expansion size for user@domain.com</h3>
 <p>Sample error message in Postfix log file:</p>
 <blockquote>
