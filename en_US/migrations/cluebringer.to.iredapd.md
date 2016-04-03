@@ -100,7 +100,7 @@ The order of plugin names doesn't matter.
     * sql_user_restrictions
     * amavisd_message_size_limit
 
-    First 3 plugins are replaced by `amavisd_wblist', last one is replaced by
+    First 3 plugins are replaced by `amavisd_wblist`, last one is replaced by
     plugin `throttle`.
 
 ### Disable Cluebringer in Postfix

@@ -102,6 +102,43 @@ or delete them.
 
 Screenshots attached at the bottom.
 
+### Notify users about quarantined mails
+
+!!! note
+    This feature requires you to enable self-service for mail domain -- you can
+    enable it in domain profile page.
+
+iRedAdmin-Pro ships a script you can run to notify users about quarantined
+mails: `tools/notify_quarantined_recipients.py`.
+
+The notification email is read from template file
+`tools/notify_quarantined_recipients.html`, you're free to modify it to match
+your needs. (don't forget to backup it before upgrading iRedAdmin-Pro.)
+
+The notification email will show the link of iRedAdmin-Pro so that users can
+click it and login to manage quarantined mails. You must change the URL by
+adding below parameter with proper URL in iRedAdmin-Pro config file:
+
+```
+NOTIFICATION_IREDADMIN_URL = 'https://[your_server]/iredadmin/'
+```
+
+To notify user, please add a cron job to run
+`tools/notify_quarantined_recipients.py`. for example, every 6 hours:
+
+```
+1 */12 * * * python /path/to/tools/notify_quarantined_recipients.py >/dev/null
+```
+
+Don't forget to use the correct path to `notify_quarantined_recipients.py` on your server.
+
+You can also run this script manually to notify users. for example, on RHEL/CentOS:
+
+```
+cd /var/www/iredadmin/tools/
+python notify_quarantined_recipients.py
+```
+
 ## Quarantine clean emails
 
 Note: If you just want to quarantine clean emails sent from/to certain local
