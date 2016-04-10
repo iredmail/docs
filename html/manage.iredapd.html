@@ -238,9 +238,9 @@ immediately from another server, this causes trouble with greylisting.</p>
 <li>Whitelist IP addresses/networks of their mail servers.</li>
 </ol>
 <p>For solution #2, you can whitelist those mail servers with script
-<code>/opt/iredapd/tools/spf_to_greylit_whitelists.py</code>.</p>
+<code>/opt/iredapd/tools/spf_to_greylist_whitelists.py</code>.</p>
 <blockquote>
-<p>Note: script <code>tools/spf_to_greylit_whitelists.py</code> is available in iRedAPD-1.8.0 and later releases.</p>
+<p>Note: script <code>tools/spf_to_greylist_whitelists.py</code> is available in iRedAPD-1.8.0 and later releases.</p>
 </blockquote>
 <p>It queries SPF and MX records of specified mail domain names, then store all
 converted IP addresses/networks defined in SPF/MX records in SQL table
@@ -248,16 +248,16 @@ converted IP addresses/networks defined in SPF/MX records in SQL table
 <p>To whitelist IP addresses/networks of some mail domain, for example,
 <code>outlook.com</code>, <code>microsoft.com</code>, please run command like below:</p>
 <pre><code># cd /opt/iredapd/tools/
-# python spf_to_greylit_whitelists.py outlook.com microsoft.com
+# python spf_to_greylist_whitelists.py outlook.com microsoft.com
 </code></pre>
 
 <p>If you want to whitelist more mail domains, just run the command with the
 domain names like above sample.</p>
 <p>Since iRedAPD-1.8.0, we have SQL table <code>iredapd.greylisting_whitelist_domains</code>
-to store these mail domain names. if you run <code>spf_to_greylit_whitelists.py</code>
+to store these mail domain names. if you run <code>spf_to_greylist_whitelists.py</code>
 without any argument, it will fetch all mail domains stored in sql table 
 <code>greylisting_whitelist_domains</code> instead of fetching from command line arguments.</p>
-<pre><code># python spf_to_greylit_whitelists.py
+<pre><code># python spf_to_greylist_whitelists.py
 </code></pre>
 
 <p>You should setup a cron job to run this script, so that it can keep the IP

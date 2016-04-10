@@ -228,9 +228,9 @@ Possible solutions:
 1. Whitelist IP addresses/networks of their mail servers.
 
 For solution #2, you can whitelist those mail servers with script
-`/opt/iredapd/tools/spf_to_greylit_whitelists.py`.
+`/opt/iredapd/tools/spf_to_greylist_whitelists.py`.
 
-> Note: script `tools/spf_to_greylit_whitelists.py` is available in iRedAPD-1.8.0 and later releases.
+> Note: script `tools/spf_to_greylist_whitelists.py` is available in iRedAPD-1.8.0 and later releases.
 
 It queries SPF and MX records of specified mail domain names, then store all
 converted IP addresses/networks defined in SPF/MX records in SQL table
@@ -241,19 +241,19 @@ To whitelist IP addresses/networks of some mail domain, for example,
 
 ```
 # cd /opt/iredapd/tools/
-# python spf_to_greylit_whitelists.py outlook.com microsoft.com
+# python spf_to_greylist_whitelists.py outlook.com microsoft.com
 ```
 
 If you want to whitelist more mail domains, just run the command with the
 domain names like above sample.
 
 Since iRedAPD-1.8.0, we have SQL table `iredapd.greylisting_whitelist_domains`
-to store these mail domain names. if you run `spf_to_greylit_whitelists.py`
+to store these mail domain names. if you run `spf_to_greylist_whitelists.py`
 without any argument, it will fetch all mail domains stored in sql table 
 `greylisting_whitelist_domains` instead of fetching from command line arguments.
 
 ```
-# python spf_to_greylit_whitelists.py
+# python spf_to_greylist_whitelists.py
 ```
 
 You should setup a cron job to run this script, so that it can keep the IP
