@@ -1,0 +1,116 @@
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>iRedAdmin-Pro RESTful API (interact with `curl`)</title>
+        <link rel="stylesheet" type="text/css" href="./css/markdown.css" />
+    </head>
+    <body>
+    
+    <div id="navigation">
+    <a href="/index.html" target="_blank"><img alt="iRedMail web site" src="images/logo-iredmail.png" style="vertical-align: middle; height: 30px;"/> <span>iRedMail</span></a>
+    &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><h1 id="iredadmin-pro-restful-api-interact-with-curl">iRedAdmin-Pro RESTful API (interact with <code>curl</code>)</h1>
+<div class="toc">
+<ul>
+<li><a href="#iredadmin-pro-restful-api-interact-with-curl">iRedAdmin-Pro RESTful API (interact with curl)</a><ul>
+<li><a href="#summary">Summary</a></li>
+<li><a href="#requirements">Requirements</a></li>
+<li><a href="#login">Login</a></li>
+<li><a href="#domain">Domain</a><ul>
+<li><a href="#create-a-new-mail-domain">Create a new mail domain</a></li>
+<li><a href="#delete-an-existing-mail-domain">Delete an existing mail domain</a></li>
+</ul>
+</li>
+<li><a href="#user">User</a><ul>
+<li><a href="#create-a-new-mail-user">Create a new mail user</a></li>
+<li><a href="#delete-an-existing-mail-user">Delete an existing mail user</a></li>
+</ul>
+</li>
+<li><a href="#see-also">See Also</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<h2 id="summary">Summary</h2>
+<p>iRedAdmin-Pro RESTful API will return message in JSON format.</p>
+<ul>
+<li>If operation succeed, it returns JSON <code>{'success': true}</code>.</li>
+<li>If operation failed, it returns JSON <code>{'success': false, 'msg': '&lt;error_reason&gt;'}</code>.</li>
+</ul>
+<h2 id="requirements">Requirements</h2>
+<ul>
+<li>At least iRedAdmin-Pro-SQL-2.4.0 or iRedAdmin-Pro-LDAP-2.6.0. Earlier releases
+  didn't offer RESTful API.</li>
+<li>Our samples below requires tool <code>curl</code>: <a href="https://curl.haxx.se">https://curl.haxx.se</a>.</li>
+</ul>
+<h2 id="login">Login</h2>
+<pre><code>curl -X POST -c cookie.txt -d &quot;username=&lt;username&gt;&amp;password=&lt;password&gt;&quot; https://&lt;server&gt;/api/login
+</code></pre>
+
+<ul>
+<li>Replace <code>&lt;username&gt;</code> by the real admin email address.</li>
+<li>Replace <code>&lt;password&gt;</code> by the real admin password.</li>
+<li>It will create a plain text file <code>cookie.txt</code> under current directory.</li>
+</ul>
+<h2 id="domain">Domain</h2>
+<h3 id="create-a-new-mail-domain">Create a new mail domain</h3>
+<pre><code>curl -X POST -i -b cookie.txt -d &quot;var=&lt;value&gt;&amp;var2=value2&quot; https://&lt;server&gt;/api/domain/&lt;domain&gt;
+</code></pre>
+
+<ul>
+<li>Replace <code>&lt;domain&gt;</code> by the (new) real domain name.</li>
+</ul>
+<p>Optional POST data:</p>
+<ul>
+<li><code>cn</code>: the short description of this domain name. e.g. company name.</li>
+<li><code>quota</code>: a integer number for mailbox quota (for whole domain)</li>
+<li><code>preferredLanguage</code>: default preferred language for new user. e.g. <code>en_US</code> for English, <code>de_DE</code> for Deutsch.</li>
+<li><code>defaultQuota</code>: default mailbox quota for new user.</li>
+<li><code>maxUserQuota</code>: Max mailbox quota of a single mail user</li>
+<li><code>numberOfUsers</code>: Max number of mail user accounts</li>
+<li><code>numberOfAliases</code>: Max number of mail alias accounts</li>
+</ul>
+<h3 id="delete-an-existing-mail-domain">Delete an existing mail domain</h3>
+<pre><code>curl -X DELETE -i -b cookie.txt https://&lt;server&gt;/api/domain/&lt;domain&gt;
+</code></pre>
+
+<ul>
+<li>Replace <code>&lt;domain&gt;</code> by the (existing) domain name.</li>
+</ul>
+<h2 id="user">User</h2>
+<h3 id="create-a-new-mail-user">Create a new mail user</h3>
+<pre><code>curl -X POST -i -b cookie.txt -d &quot;var=value1&amp;var2=value2&amp;...&quot; https://&lt;server&gt;/api/user/&lt;mail&gt;
+</code></pre>
+
+<ul>
+<li>Replace <code>&lt;mail&gt;</code> by the (new) email address.</li>
+</ul>
+<p>Required POST data:</p>
+<ul>
+<li><code>password</code>: password for this user</li>
+</ul>
+<p>Optional POST data:</p>
+<ul>
+<li><code>cn</code>: display name</li>
+<li><code>preferredLanguage</code>: default preferred language for new user. e.g. <code>en_US</code> for English, <code>de_DE</code> for Deutsch.</li>
+<li><code>mailQuota</code>: mailbox quota for this user (in MB). Defaults to per-domain quota setting or unlimited.</li>
+</ul>
+<h3 id="delete-an-existing-mail-user">Delete an existing mail user</h3>
+<pre><code>curl -X DELETE -i -b cookie.txt https://&lt;server&gt;/api/user/&lt;mail&gt;
+</code></pre>
+
+<ul>
+<li>Replace <code>&lt;mail&gt;</code> by the (existing) email address.</li>
+</ul>
+<h2 id="see-also">See Also</h2>
+<ul>
+<li><a href="./iredadmin-pro.restful.api.python.html">iRedAdmin-Pro RESTful API (interact with Python)</a></li>
+</ul><p style="text-align: center; color: grey;">All documents are available in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-3293801-21', 'auto');
+  ga('send', 'pageview');
+</script>
+</body></html>
