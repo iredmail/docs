@@ -2,6 +2,11 @@
 
 [TOC]
 
+!!! note
+
+    If you need an API which has not yet been implemented, feel free to
+    [contact us](../contact.html).
+
 ## Summary
 
 iRedAdmin-Pro RESTful API will return message in JSON format.
