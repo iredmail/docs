@@ -24,6 +24,7 @@
 <li><a href="#mail-user-usermail">Mail User (/user/&lt;mail&gt;)</a><ul>
 <li><a href="#create-mail-user-post">Create mail user (POST)</a></li>
 <li><a href="#delete-mail-user-delete">Delete mail user (DELETE)</a></li>
+<li><a href="#update-mail-user-profiles-put">Update mail user profiles (PUT)</a></li>
 </ul>
 </li>
 <li><a href="#mail-alias-aliasmail">Mail Alias (/alias/&lt;mail&gt;)</a><ul>
@@ -119,6 +120,19 @@
 
 <ul>
 <li>Replace <code>&lt;mail&gt;</code> by the (existing) email address.</li>
+</ul>
+<h4 id="update-mail-user-profiles-put">Update mail user profiles (PUT)</h4>
+<pre><code>curl -X PUT -i -b cookie.txt -d &quot;var=&lt;value&gt;&amp;var2=&lt;value2&gt;&quot; https://&lt;server&gt;/api/user/&lt;mail&gt;
+</code></pre>
+
+<p>Optional PUT data:</p>
+<ul>
+<li><code>name</code>: display name.</li>
+<li><code>accountStatus</code>: enable or disable user. possible value is: active, disabled.</li>
+<li><code>password</code>: set new password for user</li>
+<li><code>quota</code>: set mailbox quota (in MB)</li>
+<li><code>language</code>: set preferred language of web UI</li>
+<li><code>transport</code>: set per-user transport</li>
 </ul>
 <h3 id="mail-alias-aliasmail">Mail Alias (<code>/alias/&lt;mail&gt;</code>)</h3>
 <h4 id="create-mail-alias-post">Create mail alias (POST)</h4>

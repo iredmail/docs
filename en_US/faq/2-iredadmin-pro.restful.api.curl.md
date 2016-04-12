@@ -88,6 +88,21 @@ curl -X DELETE -i -b cookie.txt https://<server>/api/user/<mail>
 
 * Replace `<mail>` by the (existing) email address.
 
+#### Update mail user profiles (PUT)
+
+```
+curl -X PUT -i -b cookie.txt -d "var=<value>&var2=<value2>" https://<server>/api/user/<mail>
+```
+
+Optional PUT data:
+
+* `name`: display name.
+* `accountStatus`: enable or disable user. possible value is: active, disabled.
+* `password`: set new password for user
+* `quota`: set mailbox quota (in MB)
+* `language`: set preferred language of web UI
+* `transport`: set per-user transport
+
 ### Mail Alias (`/alias/<mail>`)
 
 #### Create mail alias (POST)

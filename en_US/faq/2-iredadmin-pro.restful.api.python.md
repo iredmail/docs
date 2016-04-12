@@ -112,6 +112,23 @@ Optional POST data:
 requests.delete(url + '/user/zhb@test.com', cookies=cookies)
 ```
 
+#### Update mail user profiles (PUT)
+
+```
+requests.put(url + '/user/zhb@test.com',
+             cookies=cookies,
+             data={'password': '<a_strong_password>'})
+```
+
+Optional PUT data:
+
+* `name`: display name.
+* `accountStatus`: enable or disable user. possible value is: active, disabled.
+* `password`: set new password for user
+* `quota`: set mailbox quota (in MB)
+* `language`: set preferred language of web UI
+* `transport`: set per-user transport
+
 ### Mail Alias (`/alias/<mail>`)
 
 #### Create mail alias (POST)
