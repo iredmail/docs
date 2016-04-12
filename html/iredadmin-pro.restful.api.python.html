@@ -15,11 +15,27 @@
 <li><a href="#summary">Summary</a></li>
 <li><a href="#requirements">Requirements</a></li>
 <li><a href="#sample-code">Sample code</a><ul>
-<li><a href="#login">Login</a></li>
-<li><a href="#create-new-domain">Create new domain</a></li>
-<li><a href="#delete-domain">Delete domain</a></li>
-<li><a href="#create-new-user">Create new user</a></li>
-<li><a href="#delete-user">Delete user</a></li>
+<li><a href="#login-login-post">Login (/login, POST)</a></li>
+<li><a href="#domain-domaindomain">Domain (/domain/&lt;domain&gt;)</a><ul>
+<li><a href="#create-domain-post">Create domain (POST)</a></li>
+<li><a href="#delete-domain-delete">Delete domain (DELETE)</a></li>
+</ul>
+</li>
+<li><a href="#mail-user-usermail">Mail User (/user/&lt;mail&gt;)</a><ul>
+<li><a href="#create-mail-user-post">Create mail user (POST)</a></li>
+<li><a href="#delete-mail-user-delete">Delete mail user (DELETE)</a></li>
+</ul>
+</li>
+<li><a href="#mail-alias-aliasmail">Mail Alias (/alias/&lt;mail&gt;)</a><ul>
+<li><a href="#create-mail-alias-post">Create mail alias (POST)</a></li>
+<li><a href="#delete-mail-alias-delete">Delete mail alias (DELETE)</a></li>
+</ul>
+</li>
+<li><a href="#mailing-list-maillistmail-openldap-backend-only">Mailing List (/maillist/&lt;mail&gt;, OpenLDAP backend only)</a><ul>
+<li><a href="#create-mailing-list-post">Create mailing list (POST)</a></li>
+<li><a href="#delete-mail-alias-delete_1">Delete mail alias (DELETE)</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li><a href="#see-also">See Also</a></li>
@@ -46,7 +62,7 @@
   please read its <a href="http://docs.python-requests.org/en/master/">official documentation</a>.</li>
 </ul>
 <h2 id="sample-code">Sample code</h2>
-<h3 id="login">Login</h3>
+<h3 id="login-login-post">Login (<code>/login</code>, POST)</h3>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>We need the cookies for further operations.</p>
@@ -75,8 +91,9 @@ if not data['success']:
 cookies = r.cookies
 </code></pre>
 
-<h3 id="create-new-domain">Create new domain</h3>
-<p>Create new domain <code>test.com</code>.</p>
+<h3 id="domain-domaindomain">Domain (<code>/domain/&lt;domain&gt;</code>)</h3>
+<h4 id="create-domain-post">Create domain (POST)</h4>
+<p>Create domain <code>test.com</code>.</p>
 <pre><code>requests.post(url + '/domain/test.com',
               cookies=cookies,
               data={'defaultQuota': '1024'})
@@ -92,13 +109,13 @@ cookies = r.cookies
 <li><code>numberOfUsers</code>: Max number of mail user accounts</li>
 <li><code>numberOfAliases</code>: Max number of mail alias accounts</li>
 </ul>
-<h3 id="delete-domain">Delete domain</h3>
-<p>Delete domain: test.com</p>
+<h4 id="delete-domain-delete">Delete domain (DELETE)</h4>
 <pre><code>requests.delete(url + '/domain/test.com', cookies=cookies)
 </code></pre>
 
-<h3 id="create-new-user">Create new user</h3>
-<p>Create new user <code>zhb@test.com</code>.</p>
+<h3 id="mail-user-usermail">Mail User (<code>/user/&lt;mail&gt;</code>)</h3>
+<h4 id="create-mail-user-post">Create mail user (POST)</h4>
+<p>Create mail user <code>zhb@test.com</code>.</p>
 <pre><code>requests.post(url + '/user/zhb@test.com',
               cookies=cookies,
               data={'cn': 'Zhang Huangbin',
@@ -117,9 +134,39 @@ cookies = r.cookies
 <li><code>preferredLanguage</code>: default preferred language for new user. e.g. <code>en_US</code> for English, <code>de_DE</code> for Deutsch.</li>
 <li><code>mailQuota</code>: mailbox quota for this user (in MB). Defaults to per-domain quota setting or unlimited.</li>
 </ul>
-<h3 id="delete-user">Delete user</h3>
-<p>Delete user <code>zhb@test.com</code></p>
+<h4 id="delete-mail-user-delete">Delete mail user (DELETE)</h4>
 <pre><code>requests.delete(url + '/user/zhb@test.com', cookies=cookies)
+</code></pre>
+
+<h3 id="mail-alias-aliasmail">Mail Alias (<code>/alias/&lt;mail&gt;</code>)</h3>
+<h4 id="create-mail-alias-post">Create mail alias (POST)</h4>
+<p>Create mail alias account <code>alias@test.com</code>.</p>
+<pre><code>requests.post(url + '/alias/alias@test.com',
+              cookies=cookies,
+              data={'cn': 'My Alias'})
+</code></pre>
+
+<p>Optional POST data:</p>
+<ul>
+<li><code>cn</code>: display name</li>
+</ul>
+<h4 id="delete-mail-alias-delete">Delete mail alias (DELETE)</h4>
+<pre><code>requests.delete(url + '/alias/alias@test.com', cookies=cookies)
+</code></pre>
+
+<h3 id="mailing-list-maillistmail-openldap-backend-only">Mailing List (<code>/maillist/&lt;mail&gt;</code>, OpenLDAP backend only)</h3>
+<h4 id="create-mailing-list-post">Create mailing list (POST)</h4>
+<pre><code>requests.post(url + '/maillist/list@test.com',
+              cookies=cookies,
+              data={'cn': 'My Mailing List'})
+</code></pre>
+
+<p>Optional POST data:</p>
+<ul>
+<li><code>cn</code>: display name</li>
+</ul>
+<h4 id="delete-mail-alias-delete_1">Delete mail alias (DELETE)</h4>
+<pre><code>requests.delete(url + '/maillist/list@test.com', cookies=cookies)
 </code></pre>
 
 <h2 id="see-also">See Also</h2>

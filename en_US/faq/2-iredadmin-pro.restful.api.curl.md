@@ -20,7 +20,9 @@ iRedAdmin-Pro RESTful API will return message in JSON format.
   didn't offer RESTful API.
 * Our samples below requires tool `curl`: <https://curl.haxx.se>.
 
-## Login
+## Samples
+
+### Login (`/login`, POST)
 
 ```
 curl -X POST -c cookie.txt -d "username=<username>&password=<password>" https://<server>/api/login
@@ -30,9 +32,9 @@ curl -X POST -c cookie.txt -d "username=<username>&password=<password>" https://
 * Replace `<password>` by the real admin password.
 * It will create a plain text file `cookie.txt` under current directory.
 
-## Domain
+### Domain (`/domain/<domain>`)
 
-### Create a new mail domain
+#### Create domain (POST)
 
 ```
 curl -X POST -i -b cookie.txt -d "var=<value>&var2=value2" https://<server>/api/domain/<domain>
@@ -50,7 +52,7 @@ Optional POST data:
 * `numberOfUsers`: Max number of mail user accounts
 * `numberOfAliases`: Max number of mail alias accounts
 
-### Delete an existing mail domain
+#### Delete domain (DELETE)
 
 ```
 curl -X DELETE -i -b cookie.txt https://<server>/api/domain/<domain>
@@ -58,9 +60,9 @@ curl -X DELETE -i -b cookie.txt https://<server>/api/domain/<domain>
 
 * Replace `<domain>` by the (existing) domain name.
 
-## User
+### Mail User (`/user/<mail>`)
 
-### Create a new mail user
+#### Create mail user (POST)
 
 ```
 curl -X POST -i -b cookie.txt -d "var=value1&var2=value2&..." https://<server>/api/user/<mail>
@@ -78,13 +80,57 @@ Optional POST data:
 * `preferredLanguage`: default preferred language for new user. e.g. `en_US` for English, `de_DE` for Deutsch.
 * `mailQuota`: mailbox quota for this user (in MB). Defaults to per-domain quota setting or unlimited.
 
-### Delete an existing mail user
+#### Delete mail user (DELETE)
 
 ```
 curl -X DELETE -i -b cookie.txt https://<server>/api/user/<mail>
 ```
 
 * Replace `<mail>` by the (existing) email address.
+
+### Mail Alias (`/alias/<mail>`)
+
+#### Create mail alias (POST)
+
+```
+curl -X POST -i -b cookie.txt -d "..." https://<server>/api/alias/<mail>
+```
+
+* Replace `<mail>` by the email address of (new) mail alias account.
+
+Optional POST data:
+
+* `cn`: display name
+
+#### Delete mail alias (DELETE)
+
+```
+curl -X DELETE -i -b cookie.txt https://<server>/api/alias/<mail>
+```
+
+* Replace `<mail>` by the email address (existing) mail alias account.
+
+### Mailing List (`/maillist/<mail>`, OpenLDAP backend only)
+
+#### Create mailing list (POST)
+
+```
+curl -X POST -i -b cookie.txt -d "..." https://<server>/api/maillist/<mail>
+```
+
+* Replace `<mail>` by the email address of (new) mailing list.
+
+Optional POST data:
+
+* `cn`: display name
+
+#### Delete mail alias (DELETE)
+
+```
+curl -X DELETE -i -b cookie.txt https://<server>/api/maillist/<mail>
+```
+
+* Replace `<mail>` by the email address of (existing) mailing list.
 
 ## See Also
 

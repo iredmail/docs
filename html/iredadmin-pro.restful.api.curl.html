@@ -14,15 +14,28 @@
 <li><a href="#iredadmin-pro-restful-api-interact-with-curl">iRedAdmin-Pro RESTful API (interact with curl)</a><ul>
 <li><a href="#summary">Summary</a></li>
 <li><a href="#requirements">Requirements</a></li>
-<li><a href="#login">Login</a></li>
-<li><a href="#domain">Domain</a><ul>
-<li><a href="#create-a-new-mail-domain">Create a new mail domain</a></li>
-<li><a href="#delete-an-existing-mail-domain">Delete an existing mail domain</a></li>
+<li><a href="#samples">Samples</a><ul>
+<li><a href="#login-login-post">Login (/login, POST)</a></li>
+<li><a href="#domain-domaindomain">Domain (/domain/&lt;domain&gt;)</a><ul>
+<li><a href="#create-domain-post">Create domain (POST)</a></li>
+<li><a href="#delete-domain-delete">Delete domain (DELETE)</a></li>
 </ul>
 </li>
-<li><a href="#user">User</a><ul>
-<li><a href="#create-a-new-mail-user">Create a new mail user</a></li>
-<li><a href="#delete-an-existing-mail-user">Delete an existing mail user</a></li>
+<li><a href="#mail-user-usermail">Mail User (/user/&lt;mail&gt;)</a><ul>
+<li><a href="#create-mail-user-post">Create mail user (POST)</a></li>
+<li><a href="#delete-mail-user-delete">Delete mail user (DELETE)</a></li>
+</ul>
+</li>
+<li><a href="#mail-alias-aliasmail">Mail Alias (/alias/&lt;mail&gt;)</a><ul>
+<li><a href="#create-mail-alias-post">Create mail alias (POST)</a></li>
+<li><a href="#delete-mail-alias-delete">Delete mail alias (DELETE)</a></li>
+</ul>
+</li>
+<li><a href="#mailing-list-maillistmail-openldap-backend-only">Mailing List (/maillist/&lt;mail&gt;, OpenLDAP backend only)</a><ul>
+<li><a href="#create-mailing-list-post">Create mailing list (POST)</a></li>
+<li><a href="#delete-mail-alias-delete_1">Delete mail alias (DELETE)</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li><a href="#see-also">See Also</a></li>
@@ -47,7 +60,8 @@
   didn't offer RESTful API.</li>
 <li>Our samples below requires tool <code>curl</code>: <a href="https://curl.haxx.se">https://curl.haxx.se</a>.</li>
 </ul>
-<h2 id="login">Login</h2>
+<h2 id="samples">Samples</h2>
+<h3 id="login-login-post">Login (<code>/login</code>, POST)</h3>
 <pre><code>curl -X POST -c cookie.txt -d &quot;username=&lt;username&gt;&amp;password=&lt;password&gt;&quot; https://&lt;server&gt;/api/login
 </code></pre>
 
@@ -56,8 +70,8 @@
 <li>Replace <code>&lt;password&gt;</code> by the real admin password.</li>
 <li>It will create a plain text file <code>cookie.txt</code> under current directory.</li>
 </ul>
-<h2 id="domain">Domain</h2>
-<h3 id="create-a-new-mail-domain">Create a new mail domain</h3>
+<h3 id="domain-domaindomain">Domain (<code>/domain/&lt;domain&gt;</code>)</h3>
+<h4 id="create-domain-post">Create domain (POST)</h4>
 <pre><code>curl -X POST -i -b cookie.txt -d &quot;var=&lt;value&gt;&amp;var2=value2&quot; https://&lt;server&gt;/api/domain/&lt;domain&gt;
 </code></pre>
 
@@ -74,15 +88,15 @@
 <li><code>numberOfUsers</code>: Max number of mail user accounts</li>
 <li><code>numberOfAliases</code>: Max number of mail alias accounts</li>
 </ul>
-<h3 id="delete-an-existing-mail-domain">Delete an existing mail domain</h3>
+<h4 id="delete-domain-delete">Delete domain (DELETE)</h4>
 <pre><code>curl -X DELETE -i -b cookie.txt https://&lt;server&gt;/api/domain/&lt;domain&gt;
 </code></pre>
 
 <ul>
 <li>Replace <code>&lt;domain&gt;</code> by the (existing) domain name.</li>
 </ul>
-<h2 id="user">User</h2>
-<h3 id="create-a-new-mail-user">Create a new mail user</h3>
+<h3 id="mail-user-usermail">Mail User (<code>/user/&lt;mail&gt;</code>)</h3>
+<h4 id="create-mail-user-post">Create mail user (POST)</h4>
 <pre><code>curl -X POST -i -b cookie.txt -d &quot;var=value1&amp;var2=value2&amp;...&quot; https://&lt;server&gt;/api/user/&lt;mail&gt;
 </code></pre>
 
@@ -99,12 +113,50 @@
 <li><code>preferredLanguage</code>: default preferred language for new user. e.g. <code>en_US</code> for English, <code>de_DE</code> for Deutsch.</li>
 <li><code>mailQuota</code>: mailbox quota for this user (in MB). Defaults to per-domain quota setting or unlimited.</li>
 </ul>
-<h3 id="delete-an-existing-mail-user">Delete an existing mail user</h3>
+<h4 id="delete-mail-user-delete">Delete mail user (DELETE)</h4>
 <pre><code>curl -X DELETE -i -b cookie.txt https://&lt;server&gt;/api/user/&lt;mail&gt;
 </code></pre>
 
 <ul>
 <li>Replace <code>&lt;mail&gt;</code> by the (existing) email address.</li>
+</ul>
+<h3 id="mail-alias-aliasmail">Mail Alias (<code>/alias/&lt;mail&gt;</code>)</h3>
+<h4 id="create-mail-alias-post">Create mail alias (POST)</h4>
+<pre><code>curl -X POST -i -b cookie.txt -d &quot;...&quot; https://&lt;server&gt;/api/alias/&lt;mail&gt;
+</code></pre>
+
+<ul>
+<li>Replace <code>&lt;mail&gt;</code> by the email address of (new) mail alias account.</li>
+</ul>
+<p>Optional POST data:</p>
+<ul>
+<li><code>cn</code>: display name</li>
+</ul>
+<h4 id="delete-mail-alias-delete">Delete mail alias (DELETE)</h4>
+<pre><code>curl -X DELETE -i -b cookie.txt https://&lt;server&gt;/api/alias/&lt;mail&gt;
+</code></pre>
+
+<ul>
+<li>Replace <code>&lt;mail&gt;</code> by the email address (existing) mail alias account.</li>
+</ul>
+<h3 id="mailing-list-maillistmail-openldap-backend-only">Mailing List (<code>/maillist/&lt;mail&gt;</code>, OpenLDAP backend only)</h3>
+<h4 id="create-mailing-list-post">Create mailing list (POST)</h4>
+<pre><code>curl -X POST -i -b cookie.txt -d &quot;...&quot; https://&lt;server&gt;/api/maillist/&lt;mail&gt;
+</code></pre>
+
+<ul>
+<li>Replace <code>&lt;mail&gt;</code> by the email address of (new) mailing list.</li>
+</ul>
+<p>Optional POST data:</p>
+<ul>
+<li><code>cn</code>: display name</li>
+</ul>
+<h4 id="delete-mail-alias-delete_1">Delete mail alias (DELETE)</h4>
+<pre><code>curl -X DELETE -i -b cookie.txt https://&lt;server&gt;/api/maillist/&lt;mail&gt;
+</code></pre>
+
+<ul>
+<li>Replace <code>&lt;mail&gt;</code> by the email address of (existing) mailing list.</li>
 </ul>
 <h2 id="see-also">See Also</h2>
 <ul>

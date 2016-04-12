@@ -23,7 +23,7 @@ iRedAdmin-Pro RESTful API will return message in JSON format.
 
 ## Sample code
 
-### Login
+### Login (`/login`, POST)
 
 !!! note
 
@@ -54,9 +54,10 @@ if not data['success']:
 cookies = r.cookies
 ```
 
-### Create new domain
+### Domain (`/domain/<domain>`)
+#### Create domain (POST)
 
-Create new domain `test.com`.
+Create domain `test.com`.
 
 ```
 requests.post(url + '/domain/test.com',
@@ -74,17 +75,17 @@ Optional POST data:
 * `numberOfUsers`: Max number of mail user accounts
 * `numberOfAliases`: Max number of mail alias accounts
 
-### Delete domain
-
-Delete domain: test.com
+#### Delete domain (DELETE)
 
 ```
 requests.delete(url + '/domain/test.com', cookies=cookies)
 ```
 
-### Create new user
+### Mail User (`/user/<mail>`)
 
-Create new user `zhb@test.com`.
+#### Create mail user (POST)
+
+Create mail user `zhb@test.com`.
 
 ```
 requests.post(url + '/user/zhb@test.com',
@@ -105,12 +106,52 @@ Optional POST data:
 * `preferredLanguage`: default preferred language for new user. e.g. `en_US` for English, `de_DE` for Deutsch.
 * `mailQuota`: mailbox quota for this user (in MB). Defaults to per-domain quota setting or unlimited.
 
-### Delete user
-
-Delete user `zhb@test.com`
+#### Delete mail user (DELETE)
 
 ```
 requests.delete(url + '/user/zhb@test.com', cookies=cookies)
+```
+
+### Mail Alias (`/alias/<mail>`)
+
+#### Create mail alias (POST)
+
+Create mail alias account `alias@test.com`.
+
+```
+requests.post(url + '/alias/alias@test.com',
+              cookies=cookies,
+              data={'cn': 'My Alias'})
+```
+
+Optional POST data:
+
+* `cn`: display name
+
+#### Delete mail alias (DELETE)
+
+```
+requests.delete(url + '/alias/alias@test.com', cookies=cookies)
+```
+
+### Mailing List (`/maillist/<mail>`, OpenLDAP backend only)
+
+#### Create mailing list (POST)
+
+```
+requests.post(url + '/maillist/list@test.com',
+              cookies=cookies,
+              data={'cn': 'My Mailing List'})
+```
+
+Optional POST data:
+
+* `cn`: display name
+
+#### Delete mail alias (DELETE)
+
+```
+requests.delete(url + '/maillist/list@test.com', cookies=cookies)
 ```
 
 ## See Also
