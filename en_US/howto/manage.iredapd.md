@@ -133,6 +133,8 @@ White/blacklisting is controlled by plugin `amavisd_wblist` (file
 
 ## Greylisting
 
+For technical details about greylisting, please visit <http://greylisting.org/>
+
 ### How to disable greylisting completely
 
 To disable greylisting completely, please remove plugin name `greylisting`
