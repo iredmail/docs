@@ -102,14 +102,23 @@ Add one line after `"mydomain.com"` line like below:
 
 * Restart Amavisd service.
 
-Again, don't forget to ask your customer to add DKIM DNS record. The value of
+Again, don't forget to add DKIM DNS record for this new domain. The value of
 DKIM record can be checked with command below:
 
 ```shell
 # amavisd-new showkeys
 ```
 
-## Use one DKIM key for all mail domains without updating Amavisd config file
+After added DKIM DNS record, please verify it with command:
+
+```shell
+# amavisd-new testkeys
+```
+
+Note: DNS vendor usually cache DNS records for 2 hours, so if above command
+shows "invalid" instead of "pass", you should try again later.
+
+## Use one DKIM key for all mail domains
 
 For compatibility with dkim_milter the signing domain can include a '*'
 as a wildcard - this is not recommended as this way amavisd could produce

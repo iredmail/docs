@@ -14,7 +14,7 @@
 <li><a href="#sign-dkim-signature-on-outgoing-emails-for-new-mail-domain">Sign DKIM signature on outgoing emails for new mail domain</a><ul>
 <li><a href="#use-existing-dkim-key-for-new-mail-domain">Use existing DKIM key for new mail domain</a></li>
 <li><a href="#generate-new-dkim-key-for-new-mail-domain">Generate new DKIM key for new mail domain</a></li>
-<li><a href="#use-one-dkim-key-for-all-mail-domains-without-updating-amavisd-config-file">Use one DKIM key for all mail domains without updating Amavisd config file</a></li>
+<li><a href="#use-one-dkim-key-for-all-mail-domains">Use one DKIM key for all mail domains</a></li>
 <li><a href="#references">References</a></li>
 </ul>
 </li>
@@ -111,12 +111,18 @@ tutorial to <a href="setup.dns.html#dkim-record-for-your-mail-domain-name">add D
 <ul>
 <li>Restart Amavisd service.</li>
 </ul>
-<p>Again, don't forget to ask your customer to add DKIM DNS record. The value of
+<p>Again, don't forget to add DKIM DNS record for this new domain. The value of
 DKIM record can be checked with command below:</p>
 <pre><code class="shell"># amavisd-new showkeys
 </code></pre>
 
-<h2 id="use-one-dkim-key-for-all-mail-domains-without-updating-amavisd-config-file">Use one DKIM key for all mail domains without updating Amavisd config file</h2>
+<p>After added DKIM DNS record, please verify it with command:</p>
+<pre><code class="shell"># amavisd-new testkeys
+</code></pre>
+
+<p>Note: DNS vendor usually cache DNS records for 2 hours, so if above command
+shows "invalid" instead of "pass", you should try again later.</p>
+<h2 id="use-one-dkim-key-for-all-mail-domains">Use one DKIM key for all mail domains</h2>
 <p>For compatibility with dkim_milter the signing domain can include a '*'
 as a wildcard - this is not recommended as this way amavisd could produce
 signatures which have no corresponding public key published in DNS.
