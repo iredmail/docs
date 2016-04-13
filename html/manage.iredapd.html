@@ -15,6 +15,7 @@
 <li><a href="#introduce-iredapd">Introduce iRedAPD</a></li>
 <li><a href="#how-to-disable-iredapd-service">How to disable iRedAPD service</a></li>
 <li><a href="#how-to-enable-or-disable-iredapd-plugins">How to enable or disable iRedAPD plugins</a></li>
+<li><a href="#how-to-add-custom-settings">How to add custom settings</a></li>
 <li><a href="#whiteblacklisting">White/Blacklisting</a><ul>
 <li><a href="#how-to-disable-whiteblacklists-completely">How to disable white/blacklists completely</a></li>
 <li><a href="#manage-whiteblacklists">Manage white/blacklists</a><ul>
@@ -26,6 +27,7 @@
 </li>
 <li><a href="#greylisting">Greylisting</a><ul>
 <li><a href="#how-to-disable-greylisting-completely">How to disable greylisting completely</a></li>
+<li><a href="#general-settings">General settings</a></li>
 <li><a href="#manage-greylisting-settings">Manage greylisting settings</a><ul>
 <li><a href="#available-arguments_1">Available arguments</a></li>
 <li><a href="#sample-usages_1">Sample usages</a></li>
@@ -72,6 +74,14 @@ name in <code>plugins =</code> like below, and restart iRedAPD service:</p>
 <p>The priorities of plugins shipped in iRedAPD are hard-coded, so the order of
 plugin name in <code>plugins =</code> doesn't matter.</p>
 <p>To disable a plugin, just remove the plugin name and restart iRedAPD service.</p>
+<h2 id="how-to-add-custom-settings">How to add custom settings</h2>
+<p>iRedAPD has some default settings in file
+<code>/opt/iredapd/libs/default_settings.py</code>, but you should never modify it.
+Instead, you should copy the settings you want to modify from
+<code>/opt/iredapd/libs/default_settings.py</code> to <code>/opt/iredapd/settings.py</code>, then
+update it with new values. This way you will keep custom settings after
+upgrading iRedAPD -- because iRedAPD upgrade tool will copy
+<code>/opt/iredapd/settings.py</code> to new iRedAPD release during upgrading.</p>
 <h2 id="whiteblacklisting">White/Blacklisting</h2>
 <h3 id="how-to-disable-whiteblacklists-completely">How to disable white/blacklists completely</h3>
 <p>To disable white/blacklists completely, please remove plugin name
@@ -151,6 +161,10 @@ parameter <code>plugins =</code>:</p>
 </code></pre>
 
 <h2 id="greylisting">Greylisting</h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Greylisting is available in iRedAPD-1.7.0 and later releases.</p>
+</div>
 <p>For technical details about greylisting, please visit <a href="http://greylisting.org/">http://greylisting.org/</a></p>
 <h3 id="how-to-disable-greylisting-completely">How to disable greylisting completely</h3>
 <p>To disable greylisting completely, please remove plugin name <code>greylisting</code>
@@ -159,10 +173,26 @@ in iRedAPD config file <code>/opt/iredapd/settings.py</code>, parameter <code>pl
 </code></pre>
 
 <p>Restarting iRedAPD service is required.</p>
+<h3 id="general-settings">General settings</h3>
+<p>There're several settings for greylisting behaviour, default values are defined
+in <code>/opt/iredapd/libs/default_settings.py</code>. If you want to modify them, please
+add the settings with custom values in <code>/opt/iredapd/settings.py</code>.</p>
+<ul>
+<li><code>GREYLISTING_MESSAGE</code>: the rejection message which will be sent to sender
+  server. Default is <code>Intentional policy rejection, please try again later</code>.</li>
+<li><code>GREYLISTING_BLOCK_EXPIRE</code>: Time (in MINUTES) to wait before client retrying,
+  client will be rejected if retires too soon (in less than specified minutes).
+  Defaults to <code>15</code> minutes.</li>
+<li><code>GREYLISTING_AUTH_TRIPLET_EXPIRE</code>: Disable greylisting for how long (in DAYS)
+  for clients which passed greylisting (retried and delivered). It's also used
+  to clean up old greylisting tracking records. Defaults to <code>30</code> days.</li>
+<li><code>GREYLISTING_UNAUTH_TRIPLET_EXPIRE</code>: Time (in DAYS) to keep tracking records
+  if client didn't pass the greylisting, and no further deliver attempts.
+  Defaults to <code>2</code> days.</li>
+</ul>
 <h3 id="manage-greylisting-settings">Manage greylisting settings</h3>
 <blockquote>
 <ul>
-<li>Greylisting is available in iRedAPD-1.7.0 and later releases.</li>
 <li>Script <code>tools/greylisting_admin.py</code> is available in iRedAPD-1.8.0 and
   later releases.</li>
 </ul>
@@ -264,7 +294,7 @@ without any argument, it will fetch all mail domains stored in sql table
 <p>You should setup a cron job to run this script, so that it can keep the IP
 addresses/networks up to date. iRedMail sets up the cron job to run every 10
 minutes, like below:</p>
-<pre><code>*/10   *   *   *   *   /usr/bin/python /opt/iredapd/tools/spf_to_greylisting_whitelists.py &amp;&gt;/dev/null
+<pre><code>*/10   *   *   *   *   /usr/bin/python /opt/iredapd/tools/spf_to_greylist_whitelists.py &amp;&gt;/dev/null
 </code></pre><p style="text-align: center; color: grey;">All documents are available in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.<script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),

@@ -46,6 +46,16 @@ plugin name in `plugins =` doesn't matter.
 
 To disable a plugin, just remove the plugin name and restart iRedAPD service.
 
+## How to add custom settings
+
+iRedAPD has some default settings in file
+`/opt/iredapd/libs/default_settings.py`, but you should never modify it.
+Instead, you should copy the settings you want to modify from
+`/opt/iredapd/libs/default_settings.py` to `/opt/iredapd/settings.py`, then
+update it with new values. This way you will keep custom settings after
+upgrading iRedAPD -- because iRedAPD upgrade tool will copy
+`/opt/iredapd/settings.py` to new iRedAPD release during upgrading.
+
 ## White/Blacklisting
 
 ### How to disable white/blacklists completely
@@ -133,6 +143,10 @@ White/blacklisting is controlled by plugin `amavisd_wblist` (file
 
 ## Greylisting
 
+!!! note
+
+    Greylisting is available in iRedAPD-1.7.0 and later releases.
+
 For technical details about greylisting, please visit <http://greylisting.org/>
 
 ### How to disable greylisting completely
@@ -146,9 +160,26 @@ plugins = [..., 'greylisting', ...]
 
 Restarting iRedAPD service is required.
 
+### General settings
+
+There're several settings for greylisting behaviour, default values are defined
+in `/opt/iredapd/libs/default_settings.py`. If you want to modify them, please
+add the settings with custom values in `/opt/iredapd/settings.py`.
+
+* `GREYLISTING_MESSAGE`: the rejection message which will be sent to sender
+  server. Default is `Intentional policy rejection, please try again later`.
+* `GREYLISTING_BLOCK_EXPIRE`: Time (in MINUTES) to wait before client retrying,
+  client will be rejected if retires too soon (in less than specified minutes).
+  Defaults to `15` minutes.
+* `GREYLISTING_AUTH_TRIPLET_EXPIRE`: Disable greylisting for how long (in DAYS)
+  for clients which passed greylisting (retried and delivered). It's also used
+  to clean up old greylisting tracking records. Defaults to `30` days.
+* `GREYLISTING_UNAUTH_TRIPLET_EXPIRE`: Time (in DAYS) to keep tracking records
+  if client didn't pass the greylisting, and no further deliver attempts.
+  Defaults to `2` days.
+
 ### Manage greylisting settings
 
-> * Greylisting is available in iRedAPD-1.7.0 and later releases.
 > * Script `tools/greylisting_admin.py` is available in iRedAPD-1.8.0 and
 >   later releases.
 
