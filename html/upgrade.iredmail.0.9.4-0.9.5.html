@@ -16,6 +16,7 @@
 <li><a href="#general-all-backends-should-apply-these-steps">General (All backends should apply these steps)</a><ul>
 <li><a href="#update-etciredmail-release-with-new-iredmail-version-number">Update /etc/iredmail-release with new iRedMail version number</a></li>
 <li><a href="#upgrade-iredapd-postfix-policy-server-to-the-latest-190">Upgrade iRedAPD (Postfix policy server) to the latest 1.9.0</a></li>
+<li><a href="#linux-fixed-not-add-ssh-port-number-in-fail2ban-config-file-jaillocal">[Linux] Fixed: not add ssh port number in Fail2ban config file (jail.local)</a></li>
 <li><a href="#rhelcentos-fixed-not-enable-cron-job-to-update-spamassassin-rules">[RHEL/CentOS] Fixed: Not enable cron job to update SpamAssassin rules</a></li>
 <li><a href="#rhelcentos-fixed-not-create-required-directory-used-to-store-php-session-files">[RHEL/CentOS] Fixed: Not create required directory used to store PHP session files</a></li>
 <li><a href="#fixed-not-add-alias-for-virusalert-on-non-debianubuntu-oses">Fixed: not add alias for virusalert on non-Debian/Ubuntu OSes</a></li>
@@ -73,6 +74,7 @@ check <a href="../support.html">the details</a> and <a href="../contact.html">co
 </div>
 <h2 id="changelog">ChangeLog</h2>
 <ul>
+<li>2016-04-13: Fixed: not add ssh port number in Fail2ban config file.</li>
 <li>2016-03-23: [NEW] Able to enable/disable SOGo access for a single user.</li>
 <li>2016-03-08: [NEW] Supports Postfix <code>sender_dependent_relayhost_maps</code>.</li>
 <li>2016-02-25:<ul>
@@ -96,6 +98,37 @@ so that you can know which version of iRedMail you're running. For example:</p>
 <p>Please follow below tutorial to upgrade iRedAPD to the latest stable release:
 <a href="./upgrade.iredapd.html">Upgrade iRedAPD to the latest stable release</a></p>
 <p>Detailed release notes are available <a href="./iredapd.releases.html">here</a>.</p>
+<h3 id="linux-fixed-not-add-ssh-port-number-in-fail2ban-config-file-jaillocal">[Linux] Fixed: not add ssh port number in Fail2ban config file (jail.local)</h3>
+<p>iRedMail-0.9.4 doesn't list ssh port number in 2 Fail2ban jails: <code>sshd</code>,
+<code>sshd-ddos</code>, this causes Fail2ban doesn't block bad client IP address for
+ssh service.</p>
+<ul>
+<li>Please open Fail2ban config file <code>/etc/fail2ban/jail.local</code>, find lines below:</li>
+</ul>
+<pre><code>[sshd]
+...
+action      = iptables-multiport[name=sshd, port=&quot;http,https,smtp,submission,pop3,pop3s,imap,imaps,sieve&quot;, protocol=tcp]
+
+[sshd-ddos]
+...
+action      = iptables-multiport[name=sshd-ddos, port=&quot;http,https,smtp,submission,pop3,pop3s,imap,imaps,sieve&quot;, protocol=tcp]
+</code></pre>
+
+<ul>
+<li>Append your ssh service name <code>ssh</code> in the <code>port=</code> parameter like below. If
+  you're running ssh service on different port number, please append the port
+  number directly:</li>
+</ul>
+<pre><code>[sshd]
+...
+action      = iptables-multiport[name=sshd, port=&quot;http,https,smtp,submission,pop3,pop3s,imap,imaps,sieve,ssh&quot;, protocol=tcp]
+
+[sshd-ddos]
+...
+action      = iptables-multiport[name=sshd-ddos, port=&quot;http,https,smtp,submission,pop3,pop3s,imap,imaps,sieve,ssh&quot;, protocol=tcp]
+</code></pre>
+
+<p>Restarting Fail2ban service is required.</p>
 <h3 id="rhelcentos-fixed-not-enable-cron-job-to-update-spamassassin-rules">[RHEL/CentOS] Fixed: Not enable cron job to update SpamAssassin rules</h3>
 <p>Note: this is applicable to only RHEL and CentOS.</p>
 <p>In iRedMail-0.9.4 and earlier releases, iRedMail didn't enable cron job to

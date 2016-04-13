@@ -13,6 +13,7 @@
 
 ## ChangeLog
 
+* 2016-04-13: Fixed: not add ssh port number in Fail2ban config file.
 * 2016-03-23: [NEW] Able to enable/disable SOGo access for a single user.
 * 2016-03-08: [NEW] Supports Postfix `sender_dependent_relayhost_maps`.
 * 2016-02-25:
@@ -40,6 +41,40 @@ Please follow below tutorial to upgrade iRedAPD to the latest stable release:
 [Upgrade iRedAPD to the latest stable release](./upgrade.iredapd.html)
 
 Detailed release notes are available [here](./iredapd.releases.html).
+
+### [Linux] Fixed: not add ssh port number in Fail2ban config file (jail.local)
+
+iRedMail-0.9.4 doesn't list ssh port number in 2 Fail2ban jails: `sshd`,
+`sshd-ddos`, this causes Fail2ban doesn't block bad client IP address for
+ssh service.
+
+* Please open Fail2ban config file `/etc/fail2ban/jail.local`, find lines below:
+
+```
+[sshd]
+...
+action      = iptables-multiport[name=sshd, port="http,https,smtp,submission,pop3,pop3s,imap,imaps,sieve", protocol=tcp]
+
+[sshd-ddos]
+...
+action      = iptables-multiport[name=sshd-ddos, port="http,https,smtp,submission,pop3,pop3s,imap,imaps,sieve", protocol=tcp]
+```
+
+* Append your ssh service name `ssh` in the `port=` parameter like below. If
+  you're running ssh service on different port number, please append the port
+  number directly:
+
+```
+[sshd]
+...
+action      = iptables-multiport[name=sshd, port="http,https,smtp,submission,pop3,pop3s,imap,imaps,sieve,ssh", protocol=tcp]
+
+[sshd-ddos]
+...
+action      = iptables-multiport[name=sshd-ddos, port="http,https,smtp,submission,pop3,pop3s,imap,imaps,sieve,ssh", protocol=tcp]
+```
+
+Restarting Fail2ban service is required.
 
 ### [RHEL/CentOS] Fixed: Not enable cron job to update SpamAssassin rules
 
