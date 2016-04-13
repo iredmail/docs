@@ -263,5 +263,5 @@ addresses/networks up to date. iRedMail sets up the cron job to run every 10
 minutes, like below:
 
 ```
-*/10   *   *   *   *   /usr/bin/python /opt/iredapd/tools/spf_to_greylisting_whitelists.py &>/dev/null
+*/10   *   *   *   *   /usr/bin/python /opt/iredapd/tools/spf_to_greylist_whitelists.py &>/dev/null
 ```
