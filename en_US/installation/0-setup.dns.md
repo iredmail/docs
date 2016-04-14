@@ -265,7 +265,9 @@ If you want to re-generate DKIM key, or need to generate one for new mail
 domain, please check our another tutorial:
 [Sign DKIM signature on outgoing emails for new mail domain](./sign.dkim.signature.for.new.domain.html).
 
-## [OPTIONAL] Register your mail domain in Google Postmaster Tools
+## Register your mail domain in Google Postmaster Tools
+
+This step is __optional__, but __higly recommended__.
 
 Google Postmaster Tools web site: <https://postmaster.google.com>, and
 [Postmaster Tools FAQs](https://support.google.com/mail/answer/6258950).
