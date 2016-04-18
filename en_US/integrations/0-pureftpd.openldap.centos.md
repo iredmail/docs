@@ -12,12 +12,10 @@ Install PureFTPD from EPEL yum repo:
 
 ## Use a proper LDAP bind dn/password to query accounts
 
-iRedMail generates a LDAP bind dn `cn=vmail,dc=xxx,dc=xxx` with read-only
-access to all mail accounts, we use it in ejabberd to query accounts.
+iRedMail generates a read-only LDAP bind dn `cn=vmail,dc=xxx,dc=xxx` during
+installation, so it's perfect to query user accounts with this dn.
 
-Password of `cn=vmail,dc=xxx,dc=xxx` was generated randomly during iRedMail
-installation, you can find the full dn and password in
-`/etc/postfix/ldap/catchall_maps.cf`:
+You can find the full dn and password in `/etc/postfix/ldap/catchall_maps.cf`:
 
 ```
 # grep 'bind_' /etc/postfix/ldap/catchall_maps.cf
@@ -27,31 +25,32 @@ bind_pw         = InYTi8qGjamTb6Me2ESwbb6rxQUs5y
 
 ## Configure the LDAP setting for PureFTPD
 
-* Open `/etc/pure-ftpd/pureftpd-ldap.conf` and update below parameters:
+* Open `/etc/pure-ftpd/pureftpd-ldap.conf` and update parameters below:
 
 ```
-LDAPServer localhost
-LDAPPort 389
-LDAPBaseDN o=domains,dc=example,dc=com
-LDAPBindDN cn=vmail,dc=example,dc=com
-LDAPBindPW InYTi8qGjamTb6Me2ESwbb6rxQUs5y       # cn=vmail password 
-LDAPDefaultUID 2000                             # <- UID of `vmail` user.
-LDAPDefaultGID 2000                             # <- GID of `vmail` user.
-LDAPFilter (&(objectClass=PureFTPdUser)(mail=\L)(FTPStatus=enabled))
-LDAPHomeDir FTPHomeDir                          # <- New LDAP attribute, we will add it later.
-LDAPVersion 3
+LDAPServer      localhost
+LDAPPort        389
+LDAPBaseDN      o=domains,dc=example,dc=com
+LDAPBindDN      cn=vmail,dc=example,dc=com
+LDAPBindPW      InYTi8qGjamTb6Me2ESwbb6rxQUs5y   # cn=vmail password 
+LDAPDefaultUID  2000                             # <- UID of `vmail` user.
+LDAPDefaultGID  2000                             # <- GID of `vmail` user.
+LDAPFilter      (&(objectClass=PureFTPdUser)(mail=\L)(FTPStatus=enabled))
+LDAPHomeDir     FTPHomeDir                       # <- New LDAP attribute, we will add it later.
+LDAPVersion     3
 ```
 
 ## Config OpenLDAP
 
-* Get the schema modify by iredmail
+* Get the schema modified by iredmail, it adds a new attribute `FTPHomeDir` to
+  store per-user FTP home directory. Default schema uses `homeDirectory`.
 
 ```
 # wget https://bitbucket.org/zhb/iredmail/raw/default/extra/samples/pureftpd.schema
-# mv pureftpd.schema /etc/openldap/schema/ 
+# mv pureftpd.schema /etc/openldap/schema/
 ```
 
-* Open `/etc/openldap/slapd.conf`, include `pureftpd.schema` after `iredmail.schema`:
+* Update `/etc/openldap/slapd.conf`, include `pureftpd.schema` after `iredmail.schema`:
 
 ```
 include /etc/openldap/schema/iredmail.schema
@@ -72,7 +71,7 @@ index FTPStatus,FTPuid,FTPgid,FTPHomeDir eq,pres
 ## Create FTP Home Directory
 
 We're going to store all FTP data under `/home/ftp/` directory, so let's create
-`/home/ftp/` now, owner must be `root` user.
+`/home/ftp/` first, directory owner MUST be `root` user.
 
 ```
 # mkdir /home/ftp/
@@ -82,7 +81,7 @@ drwxr-xr-x 3 root root 4096 Jun  7 20:18 /home/ftp/
 
 ## Restart OpenLDAP and Pure-FTPD Service
 
-Make sure pure-ftpd is running:
+Restart Pure-FTPd and OpenLDAP services:
 
 ```
 # /etc/init.d/ldap restart
@@ -95,17 +94,22 @@ tcp 0   0 :::21         :::*        LISTEN  2062/pure-ftpd (SERVER)
 
 ## Add LDAP FTP attributes and values for new user
 
-use the iredmail tools quick create the user include the PureFTP attributes and values.
+With script shipped in iRedMail, you can quickly create NEW mail user which
+has pureftpd service support.
 
-* Open `/iRedMail-x.y.z/tools/create_mail_user_OpenLDAP.sh` and set correct values:
+* Open file `tools/create_mail_user_OpenLDAP.sh` under your iRedMail directory
+  (e.g. `/root/iRedMail-0.9.4/tools/create_mail_user_OpenLDAP.sh`), update
+  paraemters below with correct values:
 
 ```
-LDAP_SUFFIX="dc=example,dc=com" # <- Change the LDAP suffix 
-BINDPW='passwd'                 # <- Password for the bind dn `cn=Manager,dc=example,dc=com`
-PUREFTPD_INTEGRATION='YES'      # <- Change to YES, enable the pureftp inteegration
+LDAP_SUFFIX="dc=example,dc=com"         # <- Change the LDAP suffix 
+BINDPW='passwd'                         # <- Password for the bind dn `cn=Manager,dc=example,dc=com`
+PUREFTPD_INTEGRATION='YES'              # <- Set to 'YES' to enable the pureftp inteegration
+FTP_STORAGE_BASE_DIRECTORY='/home/ftp'  # <- Change it to the ftp home directory
 ```
 
-* Run the script to create a new user `user1@example.com`. The default password is same as user name (`user1`) by default.
+* Run the script to create a new user `user1@example.com`. The default
+  password is same as user name (`user1`) by default.
 
 ```
 # bash create_mail_user_OpenLDAP.sh example.com user1
@@ -118,6 +122,8 @@ adding new entry "ou=Aliases,domainName=example.com,o=domains,dc=example,dc=com"
 ldapadd: Already exists (68)
 adding new entry "mail=user1@example.com,ou=Users,domainName=example.com,o=domains,dc=example,dc=com"
 ```
+
+You can now login to both webmail and FTP service as this user.
 
 ## Configure iptables
 
@@ -133,12 +139,16 @@ iRedMail doesn't open port 20 and 21 by default, you must open them first.
 * Restart the iptables service
 
 ```
-# /etc/init.d/iptables restart 
+# service iptables restart 
 ```
 
 ## Testing
 
-You can use windows FTP client or Linux ftp client (e.g. command line ftp client `lftp` or GUI client `FileZilla`) for testing.
+You can use windows FTP client or Linux ftp client (e.g. command line ftp
+client `lftp` or GUI client [`FileZilla`](https://filezilla-project.org)) for
+testing.
+
+We use `lftp` for testing below:
 
 ```
 $ lftp localhost
@@ -194,10 +204,10 @@ Enable verbose log in pure-ftpd
 * Open `/etc/pure-ftpd/pure-ftpd.conf`  and set correct values:
 
 ```
-VerboseLog                  yes # <-- change form no to yes 
+VerboseLog                  yes # <-- change from no to yes
 ```
 
-* Open `/etc/syslog.conf` and set correct values:
+* Open `/etc/rsyslog.conf` and set correct values:
 
 ```
 ftp.*                       -/var/log/pureftpd.log # <-- Add entry
@@ -206,8 +216,8 @@ ftp.*                       -/var/log/pureftpd.log # <-- Add entry
 * Restart services
 
 ```
-#/etc/init.d/pure-ftpd restart
-#/etc/init.d/syslog restart
+# service pure-ftpd restart
+# service rsyslog restart
 ```
 
 Monitor `/var/log/pureftpd.log` for troubleshooting:
