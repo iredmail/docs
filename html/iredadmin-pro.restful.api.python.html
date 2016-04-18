@@ -1,193 +1,97 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title>iRedAdmin-Pro RESTful API (interact with Python)</title>
+        <title>Interact iRedAdmin-Pro RESTful API with Python</title>
         <link rel="stylesheet" type="text/css" href="./css/markdown.css" />
     </head>
     <body>
     
     <div id="navigation">
     <a href="/index.html" target="_blank"><img alt="iRedMail web site" src="images/logo-iredmail.png" style="vertical-align: middle; height: 30px;"/> <span>iRedMail</span></a>
-    &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><h1 id="iredadmin-pro-restful-api-interact-with-python">iRedAdmin-Pro RESTful API (interact with Python)</h1>
-<div class="toc">
-<ul>
-<li><a href="#iredadmin-pro-restful-api-interact-with-python">iRedAdmin-Pro RESTful API (interact with Python)</a><ul>
-<li><a href="#summary">Summary</a></li>
-<li><a href="#requirements">Requirements</a></li>
-<li><a href="#sample-code">Sample code</a><ul>
-<li><a href="#login-login-post">Login (/login, POST)</a></li>
-<li><a href="#domain-domaindomain">Domain (/domain/&lt;domain&gt;)</a><ul>
-<li><a href="#create-domain-post">Create domain (POST)</a></li>
-<li><a href="#delete-domain-delete">Delete domain (DELETE)</a></li>
-</ul>
-</li>
-<li><a href="#mail-user-usermail">Mail User (/user/&lt;mail&gt;)</a><ul>
-<li><a href="#create-mail-user-post">Create mail user (POST)</a></li>
-<li><a href="#delete-mail-user-delete">Delete mail user (DELETE)</a></li>
-<li><a href="#update-mail-user-profiles-put">Update mail user profiles (PUT)</a></li>
-</ul>
-</li>
-<li><a href="#mail-alias-aliasmail">Mail Alias (/alias/&lt;mail&gt;)</a><ul>
-<li><a href="#create-mail-alias-post">Create mail alias (POST)</a></li>
-<li><a href="#delete-mail-alias-delete">Delete mail alias (DELETE)</a></li>
-</ul>
-</li>
-<li><a href="#mailing-list-maillistmail-openldap-backend-only">Mailing List (/maillist/&lt;mail&gt;, OpenLDAP backend only)</a><ul>
-<li><a href="#create-mailing-list-post">Create mailing list (POST)</a></li>
-<li><a href="#delete-mail-alias-delete_1">Delete mail alias (DELETE)</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a href="#see-also">See Also</a></li>
-</ul>
-</li>
-</ul>
-</div>
+    &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><h1 id="interact-iredadmin-pro-restful-api-with-python">Interact iRedAdmin-Pro RESTful API with Python</h1>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>If you need an API which has not yet been implemented, feel free to
-<a href="../contact.html">contact us</a>.</p>
-</div>
-<h2 id="summary">Summary</h2>
-<p>iRedAdmin-Pro RESTful API will return message in JSON format.</p>
 <ul>
-<li>If operation succeed, it returns JSON <code>{'success': true}</code>.</li>
-<li>If operation failed, it returns JSON <code>{'success': false, 'msg': '&lt;error_reason&gt;'}</code>.</li>
+<li>For more details about iRedAdmin-Pro RESTful API, please read document:
+  <a href="./iredadmin-pro.restful.api.html">iRedAdmin-Pro: RESTful API</a>.</li>
+<li>If you need an API which has not yet been implemented, don't hesitate to
+  <a href="../contact.html">contact us</a>.</li>
+<li>Our sample code below requires thiard-party Python module <code>requests</code>. For
+  more details, please read its official documentation:
+  <a href="http://docs.python-requests.org/en/master/">Requests: HTTP for Humans</a></li>
 </ul>
-<h2 id="requirements">Requirements</h2>
-<ul>
-<li>At least iRedAdmin-Pro-SQL-2.4.0 or iRedAdmin-Pro-LDAP-2.6.0. Earlier releases
-  didn't offer RESTful API.</li>
-<li>Our sample Python code requires Python module <code>requests</code>. For more details,
-  please read its <a href="http://docs.python-requests.org/en/master/">official documentation</a>.</li>
-</ul>
-<h2 id="sample-code">Sample code</h2>
-<h3 id="login-login-post">Login (<code>/login</code>, POST)</h3>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>We need the cookies for further operations.</p>
 </div>
+<p>Sample Python code to interact iRedAdmin-Pro RESTful API.</p>
 <pre><code>import sys
 import requests
 
-# Base URL to iRedAdmin-Pro API interface
-url = 'https://&lt;server&gt;/iredadmin/api'
+url = 'http://&lt;server&gt;/iredadmin/api'
 
-# Admin username (email) and password.
-admin = 'my_admin@domain.com'
+# Admin email address and password.
+admin = 'postmaster@mydomain.com'
 pw = 'my_password'
 
-#
 # Login
-#
-r = requests.post(url + '/login', data={'username': admin, 'password': pw})
+r = requests.post(url + '/login', data={'username': admin,
+                                        'password': pw})
 
-# Get returned JSON data (Python dict)
+# Get returned JSON data and get auth_token.
 data = r.json()
-if not data['success']:
+if data['success']:
+    auth_token = r.text['auth_token']
+else:
     sys.exit('Login failed')
 
-# Get cookies
 cookies = r.cookies
-</code></pre>
 
-<h3 id="domain-domaindomain">Domain (<code>/domain/&lt;domain&gt;</code>)</h3>
-<h4 id="create-domain-post">Create domain (POST)</h4>
-<p>Create domain <code>test.com</code>.</p>
-<pre><code>requests.post(url + '/domain/test.com',
+# Create domain: test.com
+requests.post(url + '/domain/test.com',
               cookies=cookies,
               data={'defaultQuota': '1024'})
-</code></pre>
 
-<p>Optional POST data:</p>
-<ul>
-<li><code>cn</code>: the short description of this domain name. e.g. company name.</li>
-<li><code>quota</code>: a integer number for mailbox quota (for whole domain)</li>
-<li><code>preferredLanguage</code>: default preferred language for new user. e.g. <code>en_US</code> for English, <code>de_DE</code> for Deutsch.</li>
-<li><code>defaultQuota</code>: default mailbox quota for new user.</li>
-<li><code>maxUserQuota</code>: Max mailbox quota of a single mail user</li>
-<li><code>numberOfUsers</code>: Max number of mail user accounts</li>
-<li><code>numberOfAliases</code>: Max number of mail alias accounts</li>
-</ul>
-<h4 id="delete-domain-delete">Delete domain (DELETE)</h4>
-<pre><code>requests.delete(url + '/domain/test.com', cookies=cookies)
-</code></pre>
-
-<h3 id="mail-user-usermail">Mail User (<code>/user/&lt;mail&gt;</code>)</h3>
-<h4 id="create-mail-user-post">Create mail user (POST)</h4>
-<p>Create mail user <code>zhb@test.com</code>.</p>
-<pre><code>requests.post(url + '/user/zhb@test.com',
+# Create user: zhb@test.com
+requests.post(url + '/user/zhb@test.com',
               cookies=cookies,
-              data={'cn': 'Zhang Huangbin',
-                    'password': 'password_for_zhb',
-                    'preferredLanguage': 'en_US',
+              data={'cn': 'My Name',
+                    'password': '1@Password',
+                    'preferredLanguage': 'zh_CN',
                     'mailQuota': 2048})
-</code></pre>
 
-<p>Required POST data:</p>
-<ul>
-<li><code>password</code>: password for this user</li>
-</ul>
-<p>Optional POST data:</p>
-<ul>
-<li><code>cn</code>: display name</li>
-<li><code>preferredLanguage</code>: default preferred language for new user. e.g. <code>en_US</code> for English, <code>de_DE</code> for Deutsch.</li>
-<li><code>mailQuota</code>: mailbox quota for this user (in MB). Defaults to per-domain quota setting or unlimited.</li>
-</ul>
-<h4 id="delete-mail-user-delete">Delete mail user (DELETE)</h4>
-<pre><code>requests.delete(url + '/user/zhb@test.com', cookies=cookies)
-</code></pre>
+# Create list: list@test.com. Note: OpenLDAP only.
+requests.post(url + '/maillist/list@test.com',
+              cookies=cookies,
+              data={'cn': 'My List'})
 
-<h4 id="update-mail-user-profiles-put">Update mail user profiles (PUT)</h4>
-<pre><code>requests.put(url + '/user/zhb@test.com',
-             cookies=cookies,
-             data={'password': '&lt;a_strong_password&gt;'})
-</code></pre>
-
-<p>Optional PUT data:</p>
-<ul>
-<li><code>name</code>: display name.</li>
-<li><code>accountStatus</code>: enable or disable user. possible value is: active, disabled.</li>
-<li><code>password</code>: set new password for user</li>
-<li><code>quota</code>: set mailbox quota (in MB)</li>
-<li><code>language</code>: set preferred language of web UI</li>
-<li><code>transport</code>: set per-user transport</li>
-</ul>
-<h3 id="mail-alias-aliasmail">Mail Alias (<code>/alias/&lt;mail&gt;</code>)</h3>
-<h4 id="create-mail-alias-post">Create mail alias (POST)</h4>
-<p>Create mail alias account <code>alias@test.com</code>.</p>
-<pre><code>requests.post(url + '/alias/alias@test.com',
+# Create alias: alias@test.com
+requests.post(url + '/alias/alias@test.com',
               cookies=cookies,
               data={'cn': 'My Alias'})
-</code></pre>
 
-<p>Optional POST data:</p>
-<ul>
-<li><code>cn</code>: display name</li>
-</ul>
-<h4 id="delete-mail-alias-delete">Delete mail alias (DELETE)</h4>
-<pre><code>requests.delete(url + '/alias/alias@test.com', cookies=cookies)
-</code></pre>
+# Update user: zhb@test.com
+requests.put(url + '/user/zhb@test.com',
+             cookies=cookies,
+             data={'cn': 'My New Name',
+                   'password': 'WHDZ2@5yxORvVqzYY',
+                   'transport': 'dovecot',
+                   'language': 'en_US',
+                   'quota': 2048})
 
-<h3 id="mailing-list-maillistmail-openldap-backend-only">Mailing List (<code>/maillist/&lt;mail&gt;</code>, OpenLDAP backend only)</h3>
-<h4 id="create-mailing-list-post">Create mailing list (POST)</h4>
-<pre><code>requests.post(url + '/maillist/list@test.com',
-              cookies=cookies,
-              data={'cn': 'My Mailing List'})
-</code></pre>
+# Delete user: zhb@test.com
+requests.delete(url + '/user/zhb@test.com', cookies=cookies)
 
-<p>Optional POST data:</p>
-<ul>
-<li><code>cn</code>: display name</li>
-</ul>
-<h4 id="delete-mail-alias-delete_1">Delete mail alias (DELETE)</h4>
-<pre><code>requests.delete(url + '/maillist/list@test.com', cookies=cookies)
+# Delete mailing list: list@test.com. Note: OpenLDAP only.
+requests.delete(url + '/maillist/list@test.com', cookies=cookies)
+
+# Delete alias: alias@test.com
+requests.delete(url + '/alias/alias@test.com', cookies=cookies)
+
+# Delete domain: test.com
+requests.delete(url + '/domain/test.com', cookies=cookies)
 </code></pre>
 
 <h2 id="see-also">See Also</h2>
 <ul>
-<li><a href="./iredadmin-pro.restful.api.curl.html">iRedAdmin-Pro RESTful API (interact with <code>curl</code>)</a></li>
+<li><a href="./iredadmin-pro.restful.api.curl.html">Interact iRedAdmin-Pro RESTful API with <code>curl</code></a></li>
 </ul><p style="text-align: center; color: grey;">All documents are available in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.<script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
