@@ -7,7 +7,13 @@
     <body>
     
     <div id="navigation">
-    <a href="/index.html" target="_blank"><img alt="iRedMail web site" src="images/logo-iredmail.png" style="vertical-align: middle; height: 30px;"/> <span>iRedMail</span></a>
+    <a href="/index.html" target="_blank">
+        <img alt="iRedMail web site"
+             src="./images/logo-iredmail.png"
+             style="vertical-align: middle; height: 30px;"
+             />&nbsp;
+        <span>iRedMail</span>
+    </a>
     &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><h1 id="interact-iredadmin-pro-restful-api-with-python">Interact iRedAdmin-Pro RESTful API with Python</h1>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -35,11 +41,9 @@ pw = 'my_password'
 r = requests.post(url + '/login', data={'username': admin,
                                         'password': pw})
 
-# Get returned JSON data and get auth_token.
+# Get returned JSON data
 data = r.json()
-if data['success']:
-    auth_token = r.text['auth_token']
-else:
+if not data['success']:
     sys.exit('Login failed')
 
 cookies = r.cookies

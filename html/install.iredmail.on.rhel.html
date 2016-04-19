@@ -7,7 +7,13 @@
     <body>
     
     <div id="navigation">
-    <a href="/index.html" target="_blank"><img alt="iRedMail web site" src="images/logo-iredmail.png" style="vertical-align: middle; height: 30px;"/> <span>iRedMail</span></a>
+    <a href="/index.html" target="_blank">
+        <img alt="iRedMail web site"
+             src="./images/logo-iredmail.png"
+             style="vertical-align: middle; height: 30px;"
+             />&nbsp;
+        <span>iRedMail</span>
+    </a>
     &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><h1 id="install-iredmail-on-red-hat-enterprise-linux-centos">Install iRedMail on Red Hat Enterprise Linux, CentOS</h1>
 <div class="toc">
 <ul>
@@ -33,6 +39,7 @@
 <p>This tutorial is available in other languages:</p>
 <ul>
 <li><a href="http://www.everycloudtech.com/install.iredmail.on.rhel">Russian</a>. Thanks to <a href="http://www.everycloudtech.com/">Everycloudtech</a>.</li>
+<li><a href="./zh_CN/install.iredmail.on.rhel.html">简体中文</a></li>
 </ul>
 </blockquote>
 <h2 id="system-requirements">System Requirements</h2>
@@ -180,18 +187,10 @@ management and maintenance after installation.</p>
 </div>
 <p><img alt="" src="../images/installation/iredmail/backend.png" /></p>
 <ul>
-<li>
-<p>If you choose to store mail accounts in OpenLDAP, iRedMail installer will
-ask you two questions about OpenLDAP.</p>
-<ul>
-<li>LDAP suffix.</li>
-</ul>
-</li>
+<li>If you choose to store mail accounts in OpenLDAP, iRedMail installer will
+  ask to set the LDAP suffix.</li>
 </ul>
 <p><img alt="" src="../images/installation/iredmail/ldap_suffix.png" /></p>
-<pre><code>* Password of LDAP root dn.
-</code></pre>
-<p><img alt="" src="../images/installation/iredmail/pw_of_ldap_root_dn.png" /></p>
 <div class="admonition note">
 <p class="admonition-title">To MySQL/MariaDB/PostgreSQL users</p>
 <p>If you choose to store mail accounts in MySQL/MariaDB/PostgreSQL, iRedMail
@@ -256,7 +255,7 @@ Please <strong>ALWAYS ALWAYS ALWAYS</strong> force users to use a strong passwor
   message in web browser or mail clients when accessing mailbox via
   HTTPS/IMAPS/POP3/SMTPS. <a href="https://letsencrypt.org">Let's Encrypt offers <strong>FREE</strong> SSL certificate</a>.
   We have a document for you to
-  <a href="http://www.iredmail.org/docs/use.a.bought.ssl.certificate.html">use a SSL certificate</a>.</li>
+  <a href="./use.a.bought.ssl.certificate.html">use a SSL certificate</a>.</li>
 <li>If you need to bulk create mail users, check our document for
   <a href="./ldap.bulk.create.mail.users.html">OpenLDAP</a> and
   <a href="./sql.bulk.create.mail.users.html">MySQL/MariaDB/PostgreSQL</a>.</li>

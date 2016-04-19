@@ -5,6 +5,7 @@
 > This tutorial is available in other languages:
 >
 > * [Russian](http://www.everycloudtech.com/install.iredmail.on.rhel). Thanks to [Everycloudtech](http://www.everycloudtech.com/).
+> * [简体中文](./zh_CN/install.iredmail.on.rhel.html)
 
 ## System Requirements
 
@@ -167,15 +168,9 @@ with iRedAdmin, our web-based iRedMail admin panel.
 ![](../images/installation/iredmail/backend.png)
 
 * If you choose to store mail accounts in OpenLDAP, iRedMail installer will
-ask you two questions about OpenLDAP.
-
-    * LDAP suffix.
+  ask to set the LDAP suffix.
 
 ![](../images/installation/iredmail/ldap_suffix.png)
-
-    * Password of LDAP root dn.
-
-![](../images/installation/iredmail/pw_of_ldap_root_dn.png)
 
 !!! note "To MySQL/MariaDB/PostgreSQL users"
 
@@ -240,7 +235,7 @@ Configuration completed.
   message in web browser or mail clients when accessing mailbox via
   HTTPS/IMAPS/POP3/SMTPS. [Let's Encrypt offers __FREE__ SSL certificate](https://letsencrypt.org).
   We have a document for you to
-  [use a SSL certificate](http://www.iredmail.org/docs/use.a.bought.ssl.certificate.html).
+  [use a SSL certificate](./use.a.bought.ssl.certificate.html).
 * If you need to bulk create mail users, check our document for
   [OpenLDAP](./ldap.bulk.create.mail.users.html) and
   [MySQL/MariaDB/PostgreSQL](./sql.bulk.create.mail.users.html).

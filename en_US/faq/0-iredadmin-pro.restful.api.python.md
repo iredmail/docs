@@ -26,11 +26,9 @@ pw = 'my_password'
 r = requests.post(url + '/login', data={'username': admin,
                                         'password': pw})
 
-# Get returned JSON data and get auth_token.
+# Get returned JSON data
 data = r.json()
-if data['success']:
-    auth_token = r.text['auth_token']
-else:
+if not data['success']:
     sys.exit('Login failed')
 
 cookies = r.cookies

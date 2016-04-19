@@ -59,9 +59,11 @@ for lang in ${all_languages}; do
     # Directory used to store converted html files.
     OUTPUT_DIR="${ROOTDIR}/html"
     CSS_FILE='./css/markdown.css'
+    IS_SUB_FOLDER='NO'
     if [ X"${lang}" != X'en_US' ]; then
         OUTPUT_DIR="${ROOTDIR}/html/${lang}"
         CSS_FILE='../css/markdown.css'
+        IS_SUB_FOLDER='YES'
     fi
 
     # Markdown file used to store index of chapters/articles.
@@ -158,7 +160,8 @@ for lang in ${all_languages}; do
                                output_filename="${article_html_file}" \
                                title="${_article_title}" \
                                add_index_link='yes' \
-                               css="${CSS_FILE}"
+                               css="${CSS_FILE}" \
+                               is_sub_folder="${IS_SUB_FOLDER}"
 
                 if [ X"$?" == X'0' ]; then
                     echo -e ' [DONE]'
@@ -192,7 +195,10 @@ for lang in ${all_languages}; do
     echo "* ${article_counter} files total for ${lang}."
 
     echo "* Converting ${INDEX_MD} for index page."
-    ${CMD_CONVERT} ${INDEX_MD} ${OUTPUT_DIR} title="iRedMail Documentations" css="${CSS_FILE}"
+    ${CMD_CONVERT} ${INDEX_MD} ${OUTPUT_DIR} \
+        title="iRedMail Documentations" \
+        css="${CSS_FILE}" \
+        is_sub_folder="${IS_SUB_FOLDER}"
 
     # Cleanup and reset variables
     rm -f ${INDEX_MD}
