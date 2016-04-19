@@ -11,7 +11,7 @@
 
 !!! warning
 
-    iRedMail 只针对全新安装的操作系统设计，它要求你的操作系统上__没有__事先
+    iRedMail 只针对全新安装的操作系统设计，它要求你的操作系统上 __没有__ 事先
     安装邮件服务相关的组件，例如 MySQL，OpenLDAP，Postfix，Amavisd，等。
     iRedMail 会自动安装和配置邮件服务所需的组件，因此如果操作系统上已有相关
     组件，iRedMail 可能会打乱你的配置并造成服务无法正常启动。
@@ -84,7 +84,7 @@ SELINUX=permissive
 ### 启用必须的 yum 仓库
 
 * 对于 CentOS 系统，必须启用 `/etc/yum.repos.d/CentOS-Base.repo` 里定义的所有
-  CentOS 官方 yum 仓库。同时__禁用__所有第三方yum 仓库，以避免软件包冲突。
+  CentOS 官方 yum 仓库。同时 __禁用__ 所有第三方yum 仓库，以避免软件包冲突。
 
 * 对于 RHEL，请启用 Red Hat Network 以便安装软件包。
 
