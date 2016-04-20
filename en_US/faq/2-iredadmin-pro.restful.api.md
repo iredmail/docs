@@ -82,7 +82,7 @@ Possible `PUT` parameters used to update account profile:
 Parameter Name | Summary | Sample Usage
 --- |--- |---
 `cn` | display name | `cn=My List Name`
-`accessPolicy` | access policy | `accessPolicy=public`
+`accessPolicy` | Defines who can send email to this mailing list | `accessPolicy=public`
 
 ### Mail Alias
 
@@ -97,19 +97,28 @@ Possible `PUT` parameters used to update account profile:
 Parameter Name | Summary | Sample Usage
 --- |--- |---
 `cn` | display name | `cn=My List Name`
-`accessPolicy` | access policy | `accessPolicy=public`
+`accessPolicy` | Defines who can send email to this mail alias account | `accessPolicy=public`
 
-> Note: `accessPolicy` is available for only SQL backends.
+> Note: `accessPolicy` for mail alias account is available for only SQL backends.
 
 ### Throttling
 
 URL | HTTP Method | Summary
 --- |---| ---
-/api/throttle/global | GET | Get global inbound and outbound throttle settings
-/api/throttle/inbound | POST | Set global inbound throttle setting
-/api/throttle/outbound | POST | Set global outbound throttle setting
+/api/throttle/global/inbound | GET | Get global inbound throttle settings
+/api/throttle/global/outbound | GET | Get global outbound throttle settings
+/api/throttle/global/inbound | POST | Set global inbound throttle setting
+/api/throttle/global/outbound | POST | Set global outbound throttle setting
+/api/throttle/<domain\>/inbound | GET | Get domain inbound throttle settings
+/api/throttle/<domain\>/outbound | GET | Get domain outbound throttle settings
+/api/throttle/<domain\>/inbound | POST | Set domain inbound throttle setting
+/api/throttle/<domain\>/outbound | POST | Set domain outbound throttle setting
+/api/throttle/<mail\>/inbound | GET | Get user inbound throttle settings
+/api/throttle/<mail\>/outbound | GET | Get user outbound throttle settings
+/api/throttle/<mail\>/inbound | POST | Set user inbound throttle setting
+/api/throttle/<mail\>/outbound | POST | Set user outbound throttle setting
 
-Possible `POST` parameters used to set throttling:
+Possible `POST` parameters used to set throttle setting:
 
 Parameter Name | Summary | Sample Usage
 --- |--- |---
