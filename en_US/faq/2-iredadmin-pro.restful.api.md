@@ -1,11 +1,11 @@
 # iRedAdmin-Pro: RESTful API
 
-[TOC]
-
 !!! note
 
     If you need an API which has not yet been implemented, don't hesitate to
     [contact us](../contact.html).
+
+[TOC]
 
 ## Summary
 
@@ -100,6 +100,23 @@ Parameter Name | Summary | Sample Usage
 `accessPolicy` | access policy | `accessPolicy=public`
 
 > Note: `accessPolicy` is available for only SQL backends.
+
+### Throttling
+
+URL | HTTP Method | Summary
+--- |---| ---
+/api/throttle/global | GET | Get global inbound and outbound throttle settings
+/api/throttle/inbound | POST | Set global inbound throttle setting
+/api/throttle/outbound | POST | Set global outbound throttle setting
+
+Possible `POST` parameters used to set throttling:
+
+Parameter Name | Summary | Sample Usage
+--- |--- |---
+`period` | Period of time (in seconds) | `period=3600` (one hour)
+`msg_size` | Max size of single email | `msg_size=10485760` (10 MB)
+`max_msgs` | Number of max inbound emails | `max_msgs=20` (up to 20 messages)
+`max_quota` | Cumulative size of all inbound emails | `max_quota=1048576000` (1 GB)
 
 ##  Sample code to interact with iRedAdmin-Pro RESTful API
 

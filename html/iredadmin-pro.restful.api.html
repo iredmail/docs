@@ -15,6 +15,11 @@
         <span>iRedMail</span>
     </a>
     &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><h1 id="iredadmin-pro-restful-api">iRedAdmin-Pro: RESTful API</h1>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you need an API which has not yet been implemented, don't hesitate to
+<a href="../contact.html">contact us</a>.</p>
+</div>
 <div class="toc">
 <ul>
 <li><a href="#iredadmin-pro-restful-api">iRedAdmin-Pro: RESTful API</a><ul>
@@ -25,17 +30,13 @@
 <li><a href="#user">User</a></li>
 <li><a href="#mailing-list">Mailing List</a></li>
 <li><a href="#mail-alias">Mail Alias</a></li>
+<li><a href="#throttling">Throttling</a></li>
 </ul>
 </li>
 <li><a href="#sample-code-to-interact-with-iredadmin-pro-restful-api">Sample code to interact with iRedAdmin-Pro RESTful API</a></li>
 </ul>
 </li>
 </ul>
-</div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>If you need an API which has not yet been implemented, don't hesitate to
-<a href="../contact.html">contact us</a>.</p>
 </div>
 <h2 id="summary">Summary</h2>
 <p>iRedAdmin-Pro RESTful API will return message in JSON format.</p>
@@ -298,6 +299,65 @@ account as mailing list.</p>
 <blockquote>
 <p>Note: <code>accessPolicy</code> is available for only SQL backends.</p>
 </blockquote>
+<h3 id="throttling">Throttling</h3>
+<table>
+<thead>
+<tr>
+<th>URL</th>
+<th>HTTP Method</th>
+<th>Summary</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>/api/throttle/global</td>
+<td>GET</td>
+<td>Get global inbound and outbound throttle settings</td>
+</tr>
+<tr>
+<td>/api/throttle/inbound</td>
+<td>POST</td>
+<td>Set global inbound throttle setting</td>
+</tr>
+<tr>
+<td>/api/throttle/outbound</td>
+<td>POST</td>
+<td>Set global outbound throttle setting</td>
+</tr>
+</tbody>
+</table>
+<p>Possible <code>POST</code> parameters used to set throttling:</p>
+<table>
+<thead>
+<tr>
+<th>Parameter Name</th>
+<th>Summary</th>
+<th>Sample Usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>period</code></td>
+<td>Period of time (in seconds)</td>
+<td><code>period=3600</code> (one hour)</td>
+</tr>
+<tr>
+<td><code>msg_size</code></td>
+<td>Max size of single email</td>
+<td><code>msg_size=10485760</code> (10 MB)</td>
+</tr>
+<tr>
+<td><code>max_msgs</code></td>
+<td>Number of max inbound emails</td>
+<td><code>max_msgs=20</code> (up to 20 messages)</td>
+</tr>
+<tr>
+<td><code>max_quota</code></td>
+<td>Cumulative size of all inbound emails</td>
+<td><code>max_quota=1048576000</code> (1 GB)</td>
+</tr>
+</tbody>
+</table>
 <h2 id="sample-code-to-interact-with-iredadmin-pro-restful-api">Sample code to interact with iRedAdmin-Pro RESTful API</h2>
 <ul>
 <li><a href="./iredadmin-pro.restful.api.curl.html">iRedAdmin-Pro RESTful API (interact with <code>curl</code>)</a></li>
