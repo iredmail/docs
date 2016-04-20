@@ -49,7 +49,7 @@ service postfix restart
 
 Since iRedAdmin-Pro-SQL-2.4.0 or iRedAdmin-Pro-LDAp-2.6.0, it's able to manage
 per-domain or per-user sender dependent relay host in domain or user profile
-page, under tab "Relay". Screenshot attached.
+page, under tab `Relay`. Screenshot attached.
 
 ### Manage with command line tools
 
