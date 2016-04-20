@@ -15,8 +15,27 @@
         <span>iRedMail</span>
     </a>
     &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><h1 id="setup-relayhost">Setup relayhost</h1>
+<div class="toc">
+<ul>
+<li><a href="#setup-relayhost">Setup relayhost</a><ul>
+<li><a href="#global-relay-host">Global relay host</a></li>
+<li><a href="#sender-dependent-relay-host">Sender dependent relay host</a><ul>
+<li><a href="#manage-with-iredadmin-pro">Manage with iRedAdmin-Pro</a></li>
+<li><a href="#manage-with-command-line-tools">Manage with command line tools</a><ul>
+<li><a href="#mysql-mariadb-postgresql">MySQL, MariaDB, PostgreSQL</a></li>
+<li><a href="#openldap">OpenLDAP</a></li>
+</ul>
+</li>
+<li><a href="#screenshot-of-iredadmin-pro">Screenshot of iRedAdmin-Pro</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
 <p>Relay host is a server which can accept your email and sent it out to the final
 destination for you.</p>
+<h2 id="global-relay-host">Global relay host</h2>
 <p>To setup a global relay host in iRedMail, please append below settings in
 Postfix config file <code>/etc/postfix/main.cf</code> (Linux/OpenBSD) or
 <code>/usr/local/etc/postfix/main.cf</code> (FreeBSD):</p>
@@ -45,7 +64,67 @@ smtp_sasl_security_options = noanonymous
 service postfix restart
 </code></pre>
 
-<p>That's it.</p><p style="text-align: center; color: grey;">All documents are available in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.<script>
+<h2 id="sender-dependent-relay-host">Sender dependent relay host</h2>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul>
+<li>Sender dependent relay host is available in iRedMail-0.9.5 or later releases.</li>
+</ul>
+</div>
+<h3 id="manage-with-iredadmin-pro">Manage with iRedAdmin-Pro</h3>
+<p>Since iRedAdmin-Pro-SQL-2.4.0 or iRedAdmin-Pro-LDAp-2.6.0, it's able to manage
+per-domain or per-user sender dependent relay host in domain or user profile
+page, under tab "Relay". Screenshot attached.</p>
+<h3 id="manage-with-command-line-tools">Manage with command line tools</h3>
+<h4 id="mysql-mariadb-postgresql">MySQL, MariaDB, PostgreSQL</h4>
+<p>For SQL backends, you can manage sender dependent relay host in SQL table
+<code>mailbox.sender_relayhost</code>. We use MySQL for example below.</p>
+<ul>
+<li>Per-domain sender dependent relay host:</li>
+</ul>
+<pre><code>sql&gt; USE vmail;
+sql&gt; INSERT INTO sender_relayhost (account, relayhost) VALUES ('@domain.com', '[mail.gmail.com]:25');
+</code></pre>
+
+<ul>
+<li>Per-user sender dependent relay host:</li>
+</ul>
+<pre><code>sql&gt; USE vmail;
+sql&gt; INSERT INTO sender_relayhost (account, relayhost) VALUES ('user@domain.com', '[mail.gmail.com]:25');
+</code></pre>
+
+<h4 id="openldap">OpenLDAP</h4>
+<p>For OpenLDAP backend:</p>
+<ul>
+<li>per-domain sender dependent relay host is stored in attribute <code>senderRelayHost</code> of domain account.</li>
+<li>per-user sender dependent relay host is stored in attribute <code>senderRelayHost</code> of user account.</li>
+</ul>
+<p>Sample LDIF data:</p>
+<ul>
+<li>Per-domain sender dependent relay host</li>
+</ul>
+<pre><code>dn: domainName=mydomain.com,o=domains,dc=example,dc=com
+senderRelayHost: [mail.gmail.com]:25
+...
+</code></pre>
+
+<ul>
+<li>Per-user sender dependent relay host</li>
+</ul>
+<pre><code>dn: mail=user@mydomain.com,ou=Users,domainName=mydomain.com,o=domains,dc=example,dc=com
+senderRelayHost: [mail.gmail.com]:25
+...
+</code></pre>
+
+<h3 id="screenshot-of-iredadmin-pro">Screenshot of iRedAdmin-Pro</h3>
+<ul>
+<li>iRedAdmin-Pro: Per-domain relay setting:</li>
+</ul>
+<p><img alt="" src="../images/iredadmin/domain_profile_relay.png" /></p>
+<ul>
+<li>iRedAdmin-Pro: Per-user relay setting:</li>
+</ul>
+<p><img alt="" src="../images/iredadmin/user_profile_relay.png" /></p><p style="text-align: center; color: grey;">All documents are available in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.<script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
   m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
