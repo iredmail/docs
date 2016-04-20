@@ -23,7 +23,7 @@
 <li><a href="#apis">APIs</a><ul>
 <li><a href="#domain">Domain</a></li>
 <li><a href="#user">User</a></li>
-<li><a href="#mailing-list-openldap-only">Mailing List (OpenLDAP only)</a></li>
+<li><a href="#mailing-list">Mailing List</a></li>
 <li><a href="#mail-alias">Mail Alias</a></li>
 </ul>
 </li>
@@ -180,9 +180,24 @@
 <td>mailbox quota for this user (in MB)</td>
 <td><code>mailQuota=1024</code></td>
 </tr>
+<tr>
+<td><code>password</code></td>
+<td>Password</td>
+<td><code>password=Ww0nXVEV8iv4ap@p4b</code></td>
+</tr>
+<tr>
+<td><code>transport</code></td>
+<td>Transport program</td>
+<td><code>transport=dovecot</code></td>
+</tr>
 </tbody>
 </table>
-<h3 id="mailing-list-openldap-only">Mailing List (OpenLDAP only)</h3>
+<h3 id="mailing-list">Mailing List</h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This is applicable to OpenLDAP. For SQL backends, please use mail alias
+account as mailing list.</p>
+</div>
 <table>
 <thead>
 <tr>
@@ -223,6 +238,11 @@
 <td><code>cn</code></td>
 <td>display name</td>
 <td><code>cn=My List Name</code></td>
+</tr>
+<tr>
+<td><code>accessPolicy</code></td>
+<td>access policy</td>
+<td><code>accessPolicy=public</code></td>
 </tr>
 </tbody>
 </table>
@@ -268,8 +288,16 @@
 <td>display name</td>
 <td><code>cn=My List Name</code></td>
 </tr>
+<tr>
+<td><code>accessPolicy</code></td>
+<td>access policy</td>
+<td><code>accessPolicy=public</code></td>
+</tr>
 </tbody>
 </table>
+<blockquote>
+<p>Note: <code>accessPolicy</code> is available for only SQL backends.</p>
+</blockquote>
 <h2 id="sample-code-to-interact-with-iredadmin-pro-restful-api">Sample code to interact with iRedAdmin-Pro RESTful API</h2>
 <ul>
 <li><a href="./iredadmin-pro.restful.api.curl.html">iRedAdmin-Pro RESTful API (interact with <code>curl</code>)</a></li>

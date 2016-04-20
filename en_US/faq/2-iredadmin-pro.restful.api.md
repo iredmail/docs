@@ -61,8 +61,15 @@ Parameter Name | Summary | Sample Usage
 `cn` | display name | `cn=My New Name`
 `preferredLanguage` | default preferred language for new user | `preferredLanguage=en_US`
 `mailQuota` | mailbox quota for this user (in MB) | `mailQuota=1024`
+`password` | Password | `password=Ww0nXVEV8iv4ap@p4b`
+`transport` | Transport program | `transport=dovecot`
 
-### Mailing List (OpenLDAP only)
+### Mailing List
+
+!!! note
+
+    This is applicable to OpenLDAP. For SQL backends, please use mail alias
+    account as mailing list.
 
 URL | HTTP Method | Summary
 --- |---| ---
@@ -75,6 +82,7 @@ Possible `PUT` parameters used to update account profile:
 Parameter Name | Summary | Sample Usage
 --- |--- |---
 `cn` | display name | `cn=My List Name`
+`accessPolicy` | access policy | `accessPolicy=public`
 
 ### Mail Alias
 
@@ -89,6 +97,9 @@ Possible `PUT` parameters used to update account profile:
 Parameter Name | Summary | Sample Usage
 --- |--- |---
 `cn` | display name | `cn=My List Name`
+`accessPolicy` | access policy | `accessPolicy=public`
+
+> Note: `accessPolicy` is available for only SQL backends.
 
 ##  Sample code to interact with iRedAdmin-Pro RESTful API
 
