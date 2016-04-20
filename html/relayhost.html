@@ -1,0 +1,57 @@
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Setup relayhost</title>
+        <link rel="stylesheet" type="text/css" href="./css/markdown.css" />
+    </head>
+    <body>
+    
+    <div id="navigation">
+    <a href="/index.html" target="_blank">
+        <img alt="iRedMail web site"
+             src="./images/logo-iredmail.png"
+             style="vertical-align: middle; height: 30px;"
+             />&nbsp;
+        <span>iRedMail</span>
+    </a>
+    &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><h1 id="setup-relayhost">Setup relayhost</h1>
+<p>Relay host is a server which can accept your email and sent it out to the final
+destination for you.</p>
+<p>To setup a global relay host in iRedMail, please append below settings in
+Postfix config file <code>/etc/postfix/main.cf</code> (Linux/OpenBSD) or
+<code>/usr/local/etc/postfix/main.cf</code> (FreeBSD):</p>
+<pre><code class="cfg">relayhost = [relay_server]:25
+smtp_sasl_password_maps = hash:/etc/postfix/sasl_password
+smtp_sasl_auth_enable = yes
+smtp_sasl_mechanism_filter = login
+smtp_sasl_security_options = noanonymous
+</code></pre>
+
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul>
+<li>You should relace <code>relay_server</code> above by the real server address. for
+  example, <code>relayhost = [37.61.54.158]:25</code>, <code>relayhost = [smtp.gmail.com]:25</code>.</li>
+<li>For more possible values/formats, please check Postfix document:
+  <a href="http://www.postfix.org/transport.5.html">Postfix transport table format (transport)</a>.</li>
+</ul>
+</div>
+<p>Then write the username and password in <code>/etc/postfix/sasl_password</code>:</p>
+<pre><code class="cfg">relay.server user:password
+</code></pre>
+
+<p>Run <code>postmap</code> and restart Postfix service:</p>
+<pre><code class="cmd">postmap hash:/etc/postfix/sasl_password
+service postfix restart
+</code></pre>
+
+<p>That's it.</p><p style="text-align: center; color: grey;">All documents are available in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-3293801-21', 'auto');
+  ga('send', 'pageview');
+</script>
+</body></html>
