@@ -19,6 +19,28 @@ iRedAdmin-Pro RESTful API will return message in JSON format.
 * At least iRedAdmin-Pro-SQL-2.4.0 or iRedAdmin-Pro-LDAP-2.6.0. Earlier releases
   didn't offer RESTful API.
 
+## Enable RESTful API
+
+RESTful API is disabled by default, to enable it, please add setting below in
+iRedAdmin-Pro config file `settings.py`:
+
+```
+ENABLE_RESTFUL_API = True
+```
+
+To restrict API access to few IP addresses, please also add settings below in
+iRedAdmin-Pro config file:
+
+```
+# Enable restriction
+RESTRICT_API_ACCESS = True
+
+# List all IP addresses of allowed client for API access.
+RESTFUL_API_CLIENTS = ['172.16.244.1', ...]
+```
+
+Restarting Apache or uwsgi (if you're running Nginx) is required.
+
 ## APIs
 
 Notes:

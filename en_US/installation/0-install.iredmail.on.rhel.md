@@ -47,7 +47,7 @@ On RHEL/CentOS/Scientific Linux, hostname is set in two files:
 HOSTNAME=mx.example.com
 ```
 
-For RHEL/CentOS/Scientific Linux 7, hostname is defined in /etc/hostname.
+For RHEL/CentOS/Scientific Linux 7, hostname is defined in `/etc/hostname`.
 
 ```
 mx.example.com
