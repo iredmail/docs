@@ -18,7 +18,7 @@
 
 要在 Red Hat Enterprise Linux （以下简称 RHEL）或 CentOS 上安装 iRedMail，你需要：
 
-* 一个全新安装的 RHEL 或 CentOS 系统。支持的版本号在[下载](../../download.html)页面有注明。
+* 一个全新安装的 RHEL 或 CentOS 系统。支持的版本号在[下载](../download.html)页面有注明。
 * 要运行一个低流量的邮件服务器，要求至少`2 GB` 内存才能使用完整的垃圾邮件和病毒扫描功能。
 
 ## 准备
@@ -90,7 +90,7 @@ SELINUX=permissive
 
 ### 下载最新的 iRedMail
 
-* 访问[下载页面](../../download.html)下载最新的版本。
+* 访问[下载页面](../download.html)下载最新的版本。
 * 上传 iRedMail 到服务器上。假设上传后的路径是 `/root/iRedMail-x.y.z.tar.bz2`
   （这里以 `x.y.z` 代替实际的版本号）。
 * 解压缩 iRedMail 安装包：
@@ -117,11 +117,11 @@ SELINUX=permissive
 
 * 欢迎和感谢使用
 
-![](../../images/installation/iredmail/welcome.png)
+![](../images/installation/iredmail/welcome.png)
 
 * 指定用于存储用户邮箱的路径。默认是 `/var/vmail/`。
 
-![](../../images/installation/iredmail/location_to_store_mailboxes.png)
+![](../images/installation/iredmail/location_to_store_mailboxes.png)
 
 * 选择用于存储邮件账号的数据库。
 
@@ -129,11 +129,11 @@ SELINUX=permissive
 
     各个数据库之间没有太大区别，建议使用自己熟悉的数据库，便于后期维护。
 
-![](../../images/installation/iredmail/backend.png)
+![](../images/installation/iredmail/backend.png)
 
 * 如果选择 OpenLDAP 数据库用于存储邮件账号，安装程序会要求你输入 LDAP 前缀：
 
-![](../../images/installation/iredmail/ldap_suffix.png)
+![](../images/installation/iredmail/ldap_suffix.png)
 
 !!! note "MySQL/MariaDB/PostgreSQL 用户"
 
@@ -142,7 +142,7 @@ SELINUX=permissive
 
 * 添加第一个邮件域名
 
-![](../../images/installation/iredmail/first_mail_domain.png)
+![](../images/installation/iredmail/first_mail_domain.png)
 
 * 设置邮件管理员的密码
 
@@ -150,11 +150,11 @@ SELINUX=permissive
 
     该账号即是邮件管理员，也是普通的邮件账号，可以登录管理后台和 webmail。
 
-![](../../images/installation/iredmail/pw_of_domain_admin.png)
+![](../images/installation/iredmail/pw_of_domain_admin.png)
 
 * 可选的组件
 
-![](../../images/installation/iredmail/optional_components.png)
+![](../images/installation/iredmail/optional_components.png)
 
 
 回答完上面的几个问题之后，安装程序会列出本次安装的基本信息并要求确认是否实际
@@ -194,4 +194,4 @@ SELINUX=permissive
 * 遇到问题、疑问，或有建议、功能需求，都可以发到活跃的在线论坛：
     * [英文论坛](http://www.iredmail.org/forum/)
     * [中文论坛](http://www.iredmail.com/bbs/)
-* 如需及时快速的专业技术支持，请查看网页：[获取专业的技术支持](../../support.html).
+* 如需及时快速的专业技术支持，请查看网页：[获取专业的技术支持](../support.html).
