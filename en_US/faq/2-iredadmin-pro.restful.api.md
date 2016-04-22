@@ -11,8 +11,8 @@
 
 iRedAdmin-Pro RESTful API will return message in JSON format.
 
-* If operation succeed, it returns JSON `{'success': true}`.
-* If operation failed, it returns JSON `{'success': false, 'msg': '<error_reason>'}`.
+* If operation succeed, client will receive JSON data: `{'success': true}`.
+* If operation failed, client will receive JSON data: `{'success': false, 'msg': '<error_reason>'}`.
 
 ## Requirements
 

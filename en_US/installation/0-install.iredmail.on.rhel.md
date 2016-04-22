@@ -2,11 +2,6 @@
 
 [TOC]
 
-> This tutorial is available in other languages:
->
-> * [Russian](http://www.everycloudtech.com/install.iredmail.on.rhel). Thanks to [Everycloudtech](http://www.everycloudtech.com/).
-> * [简体中文](./zh_CN/install.iredmail.on.rhel.html)
-
 ## System Requirements
 
 !!! warning

@@ -2,19 +2,25 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>对外发邮件禁用垃圾扫描、病毒扫描</title>
-        <link rel="stylesheet" type="text/css" href="../css/markdown.css" />
+        <link rel="stylesheet" type="text/css" href="./css/markdown.css" />
     </head>
     <body>
     
     <div id="navigation">
     <a href="/index.html" target="_blank">
         <img alt="iRedMail web site"
-             src="./../images/logo-iredmail.png"
+             src="./images/logo-iredmail.png"
              style="vertical-align: middle; height: 30px;"
              />&nbsp;
         <span>iRedMail</span>
     </a>
-    &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><h1 id="_1">对外发邮件禁用垃圾扫描、病毒扫描</h1>
+    &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><div class="admonition note">
+<p class="admonition-title">This tutorial is available in other languages</p>
+<ul>
+<li><a href="./disable.spam.virus.scanning.for.outgoing.mails-en_US.html">English</a></li>
+</ul>
+</div>
+<h1 id="_1">对外发邮件禁用垃圾扫描、病毒扫描</h1>
 <p>要对外发邮件禁用垃圾扫描、病毒扫描功能，可以在 Amavisd 配置文件
 <code>/etc/amavisd/amavisd.conf</code> (RHEL/CentOS) 或 <code>/etc/amavis/conf.d/50-user</code>
 (Debian/Ubuntu) 或 <code>/usr/local/etc/amavisd.conf</code> (FreeBSD) 中增加 bypass 设置。</p>

@@ -30,13 +30,6 @@ for arg in args:
         (var, value) = arg.split('=')
         cmd_opts[var] = value
 
-if not 'css' in cmd_opts:
-    cmd_opts['css'] = './css/markdown.css'
-
-cmd_opts['dir_base'] = '.'
-if 'is_sub_folder=YES' in args:
-    cmd_opts['dir_base'] = './..'
-
 # Get article title
 if not 'title' in cmd_opts:
     cmd_opts['title'] = commands.getoutput("""grep 'Title:' %s |awk -F'Title: ' '{print $2}'""" % filename)
@@ -53,7 +46,7 @@ html = """\
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>%(title)s</title>
-        <link rel="stylesheet" type="text/css" href="%(css)s" />
+        <link rel="stylesheet" type="text/css" href="./css/markdown.css" />
     </head>
     <body>
     """ % cmd_opts
@@ -64,7 +57,7 @@ html += """
     <div id="navigation">
     <a href="/index.html" target="_blank">
         <img alt="iRedMail web site"
-             src="%(dir_base)s/images/logo-iredmail.png"
+             src="./images/logo-iredmail.png"
              style="vertical-align: middle; height: 30px;"
              />&nbsp;
         <span>iRedMail</span>

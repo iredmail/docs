@@ -3,13 +3,20 @@
 # Author: Zhang Huangbin <zhb _at_ iredmail.org>
 # Purpose: Convert markdown articles to HTML files.
 
-ROOTDIR="$(pwd)"
+export ROOTDIR="$(pwd)"
+export OUTPUT_DIR="${ROOTDIR}/html"
 
-CONVERTER="${ROOTDIR}/tools/markdown2html.py"
-CMD_CONVERT="python ${CONVERTER}"
-#CMD_CONVERT=":"
-CHANGED_FILES="$(hg st | grep '\.md$')"
-TODAY="$(date +%Y-%m-%d)"
+# A temporary directory used to copy and modify markdown files, will be removed
+# after all files were converted.
+export TMP_DIR="${OUTPUT_DIR}/tmp"
+
+export CONVERTER="${ROOTDIR}/tools/markdown2html.py"
+export CMD_CONVERT="python ${CONVERTER}"
+export CHANGED_FILES="$(hg st | grep '\.md$')"
+export TODAY="$(date +%Y-%m-%d)"
+
+[ -d ${OUTPUT_DIR} ] || mkdir -p ${OUTPUT_DIR}
+[ -d ${TMP_DIR} ] || mkdir -p ${TMP_DIR}
 
 strip_name_prefix()
 {
@@ -22,19 +29,19 @@ strip_name_prefix()
 }
 
 # Available translations
-all_languages='en_US zh_CN'
+export all_languages='en_US zh_CN'
 
 # Chapter directories in specified order
-all_chapter_dirs="overview \
-                  installation \
-                  mua \
-                  upgrade \
-                  migrations \
-                  howto \
-                  integrations \
-                  cluster \
-                  troubleshooting \
-                  faq"
+export all_chapter_dirs="overview \
+                         installation \
+                         mua \
+                         upgrade \
+                         migrations \
+                         howto \
+                         integrations \
+                         cluster \
+                         troubleshooting \
+                         faq"
 
 # Additional directories which stores scripts or other non-Markdown files.
 additional_dirs=""
@@ -54,28 +61,24 @@ for lang in ${all_languages}; do
         break
     fi
 
-    cd ${src_dir}
-
-    # Directory used to store converted html files.
-    OUTPUT_DIR="${ROOTDIR}/html"
-    CSS_FILE='./css/markdown.css'
-    IS_SUB_FOLDER='NO'
-    if [ X"${lang}" != X'en_US' ]; then
-        OUTPUT_DIR="${ROOTDIR}/html/${lang}"
-        CSS_FILE='../css/markdown.css'
-        IS_SUB_FOLDER='YES'
-    fi
-
     # Markdown file used to store index of chapters/articles.
     INDEX_MD="${OUTPUT_DIR}/index.md"
 
-    [ -d ${OUTPUT_DIR} ] || mkdir -p ${OUTPUT_DIR}
+    # Generate a index file.
+    has_index='NO'
+    if [ X"${lang}" == X'en_US' ]; then
+        has_index='YES'
+    fi
+
+    cd ${src_dir}
 
     # Initial index file.
-    if [ -f ${src_dir}/_title.md ]; then
-        cat ${src_dir}/_title.md > ${INDEX_MD}
-    else
-        echo '' > ${INDEX_MD}
+    if [ X"${has_index}" == X'YES' ]; then
+        if [ -f ${src_dir}/_title.md ]; then
+            cat ${src_dir}/_title.md > ${INDEX_MD}
+        else
+            echo '' > ${INDEX_MD}
+        fi
     fi
 
     # Used for prettier printing
@@ -101,17 +104,19 @@ for lang in ${all_languages}; do
         _title_md="${chapter_dir}/_title.md"
         _summary_md="${chapter_dir}/_summary.md"
 
-        if [ -f ${_title_md} ]; then
-            # generate index info of chapter
-            _chapter_title="$(cat ${_title_md})"
-            echo -e "### ${_chapter_title}" >> ${INDEX_MD}
+        if [ X"${has_index}" == X'YES' ]; then
+            if [ -f ${_title_md} ]; then
+                # generate index info of chapter
+                _chapter_title="$(cat ${_title_md})"
+                echo -e "### ${_chapter_title}" >> ${INDEX_MD}
 
-            if [ -f ${_summary_md} ]; then
-                echo '' >> ${INDEX_MD}
-                cat ${_summary_md} >> ${INDEX_MD}
+                if [ -f ${_summary_md} ]; then
+                    echo '' >> ${INDEX_MD}
+                    cat ${_summary_md} >> ${INDEX_MD}
 
-                # Insert an empty line to not mess up other formats like list.
-                echo '' >> ${INDEX_MD}
+                    # Insert an empty line to not mess up other formats like list.
+                    echo '' >> ${INDEX_MD}
+                fi
             fi
         fi
 
@@ -120,9 +125,13 @@ for lang in ${all_languages}; do
         for article_file in ${all_chapter_articles}; do
             article_counter="$((article_counter+1))"
             article_file_basename="$(basename ${article_file})"
-            article_html_file="$(strip_name_prefix ${article_file_basename})"
-            # Replace '.md' suffix by '.html'
-            article_html_file="$(echo ${article_html_file/%.md/.html})"
+            article_html_file_orig="$(strip_name_prefix ${article_file_basename})"
+            # Replace '.md' suffix by '.html', and append lang code
+            if [ X"${lang}" == X'en_US' ]; then
+                article_html_file="$(echo ${article_html_file_orig/%.md/.html})"
+            else
+                article_html_file="$(echo ${article_html_file_orig/%.md/-${lang}.html})"
+            fi
 
             hide_article_in_index='NO'
             if echo "${article_file_basename}" | grep '^0-' &>/dev/null; then
@@ -139,7 +148,7 @@ for lang in ${all_languages}; do
             # Get title in markdown file: '<h1>title</h1>'
             #_article_title="$(head -1 ${article_file} | awk -F'[<|>]' '{print $3}')"
 
-            if [ X"${hide_article_in_index}" == X'NO' ]; then
+            if [ X"${hide_article_in_index}" == X'NO' -a X"${has_index}" == X'YES' ]; then
                 echo "* [${_article_title}](${article_html_file})" >> ${INDEX_MD}
             fi
 
@@ -154,14 +163,55 @@ for lang in ${all_languages}; do
                     echo -en "\n* Converting (#${article_counter}): ${lang}/${article_file}"
                 fi
 
+                # * Detect same file in different languages
+                # * Modify markdown file to append a note paragraph to remind
+                #   reader that current document has different language version.
+                translations=''
+                for tlang in ${all_languages}; do
+                    if [ X"${tlang}" != X"${lang}" ]; then
+                        if [ -f ${ROOTDIR}/${tlang}/${chapter_dir}/${article_file_basename} ]; then
+                            translations="${translations} ${tlang}"
+                        fi
+                    fi
+                done
+
+                # Has translation(s).
+                md_src="${article_file}"
+                if echo ${translations} | grep '_' &>/dev/null; then
+                    tmp_md_orig="${TMP_DIR}/${article_file_basename}-${lang}"
+                    tmp_md="${TMP_DIR}/${article_file_basename}"
+
+                    cp -f ${article_file} ${tmp_md_orig}
+
+                    set -x
+                    # Generate new markdown file
+                    # Get title line
+                    _title_line="$(head -1 ${tmp_md_orig})"
+                    # Remove title line
+                    perl -pi -e 's#${_title_line}##' ${tmp_md_orig}
+
+                    echo -e "${title_line}\n\n" > ${tmp_md}
+                    echo -e '!!! note "This tutorial is available in other languages"\n\n' >> ${tmp_md}
+
+                    for l in ${translations}; do
+                        tmp_article_html_file="$(echo ${article_html_file_orig/%.md/-${l}.html})"
+                        echo -e "    * [$(cat ${ROOTDIR}/${l}/_lang.md)](./${tmp_article_html_file})\n" >> ${tmp_md}
+                    done
+                    echo -e '\n' >> ${tmp_md}
+
+                    cat ${tmp_md_orig} >> ${tmp_md}
+                    set +x
+
+                    md_src="${tmp_md}"
+                    rm -f ${tmp_md_orig}
+                fi
+
                 # Convert
-                ${CMD_CONVERT} ${article_file} \
+                ${CMD_CONVERT} ${md_src} \
                                ${OUTPUT_DIR} \
                                output_filename="${article_html_file}" \
                                title="${_article_title}" \
-                               add_index_link='yes' \
-                               css="${CSS_FILE}" \
-                               is_sub_folder="${IS_SUB_FOLDER}"
+                               add_index_link='yes'
 
                 if [ X"$?" == X'0' ]; then
                     echo -e ' [DONE]'
@@ -177,12 +227,13 @@ for lang in ${all_languages}; do
         done
 
         # Append addition links at the chapter bottom on index page.
-        _links_md="${chapter_dir}/_links.md"
-
-        if [ -f ${_links_md} ]; then
-            echo '' >> ${INDEX_MD}
-            cat ${_links_md} >> ${INDEX_MD}
-            echo '' >> ${INDEX_MD}
+        if [ X"${has_index}" == X'YES' ]; then
+            _links_md="${chapter_dir}/_links.md"
+            if [ -f ${_links_md} ]; then
+                echo '' >> ${INDEX_MD}
+                cat ${_links_md} >> ${INDEX_MD}
+                echo '' >> ${INDEX_MD}
+            fi
         fi
     done
 
@@ -194,16 +245,18 @@ for lang in ${all_languages}; do
     echo ''
     echo "* ${article_counter} files total for ${lang}."
 
-    echo "* Converting ${INDEX_MD} for index page."
-    ${CMD_CONVERT} ${INDEX_MD} ${OUTPUT_DIR} \
-        title="iRedMail Documentations" \
-        css="${CSS_FILE}" \
-        is_sub_folder="${IS_SUB_FOLDER}"
+    if [ X"${has_index}" == X'YES' ]; then
+        echo "* Converting ${INDEX_MD} for index page."
+        ${CMD_CONVERT} ${INDEX_MD} ${OUTPUT_DIR} title="iRedMail Documentations"
 
-    # Cleanup and reset variables
-    rm -f ${INDEX_MD}
+        # Cleanup and reset variables
+        rm -f ${INDEX_MD}
+    fi
+
     article_counter=0
 done
+
+rm -rf ${TMP_DIR} &>/dev/null
 
 # Sync newly generated HTML files to local diretories.
 if echo "$@" | grep -q -- '--sync-local'; then
@@ -211,10 +264,6 @@ if echo "$@" | grep -q -- '--sync-local'; then
     echo "* Syncing converted HTML files."
     rm -rf ../web/docs/*
     cp -rf ${ROOTDIR}/html/* ${ROOTDIR}/../web/docs/
-
-    # Copy to iredmail.com/docs/
-    rm -rf /Volumes/STORAGE/Dropbox/Backup/iredmail.com/docs/*
-    cp -rf ${ROOTDIR}/html/* /Volumes/STORAGE/Dropbox/Backup/iredmail.com/docs/
 fi
 
 # Show changed files.

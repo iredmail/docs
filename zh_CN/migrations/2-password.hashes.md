@@ -1,5 +1,7 @@
 # 密码
 
+[TOC]
+
 ## iRedMail 支持的密码
 
 在 iRedMail 中，Doevcot 被配置为 Postfix 的 SASL 认证服务器，因此，Dovecot 支持

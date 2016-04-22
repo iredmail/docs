@@ -2,19 +2,25 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <title>允许列表成员以列表邮件地址作为发件人发送邮件</title>
-        <link rel="stylesheet" type="text/css" href="../css/markdown.css" />
+        <link rel="stylesheet" type="text/css" href="./css/markdown.css" />
     </head>
     <body>
     
     <div id="navigation">
     <a href="/index.html" target="_blank">
         <img alt="iRedMail web site"
-             src="./../images/logo-iredmail.png"
+             src="./images/logo-iredmail.png"
              style="vertical-align: middle; height: 30px;"
              />&nbsp;
         <span>iRedMail</span>
     </a>
-    &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><h1 id="_1">允许列表成员以列表邮件地址作为发件人发送邮件</h1>
+    &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><div class="admonition note">
+<p class="admonition-title">This tutorial is available in other languages</p>
+<ul>
+<li><a href="./allow.member.to.send.email.as.mail.list-en_US.html">English</a></li>
+</ul>
+</div>
+<h1 id="_1">允许列表成员以列表邮件地址作为发件人发送邮件</h1>
 <p>要允许列表成员以列表邮件地址作为发件人发送邮件，请按照以下步骤操作：</p>
 <ul>
 <li>在 Postfix 配置文件 <code>/etc/postfix/main.cf</code> 中移除参数 <code>reject_sender_login_mismatch</code>。</li>
