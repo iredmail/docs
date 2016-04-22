@@ -48,3 +48,9 @@
 ```bash
 $ bash convert.sh
 ```
+
+To recompile all files, append flag `--all`:
+
+```bash
+$ bash convert.sh --all
+```
