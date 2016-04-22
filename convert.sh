@@ -183,7 +183,6 @@ for lang in ${all_languages}; do
 
                     cp -f ${article_file} ${tmp_md_orig}
 
-                    set -x
                     # Generate new markdown file
                     # Get title line
                     _title_line="$(head -1 ${tmp_md_orig})"
@@ -193,14 +192,18 @@ for lang in ${all_languages}; do
                     echo -e "${title_line}\n\n" > ${tmp_md}
                     echo -e '!!! note "This tutorial is available in other languages"\n\n' >> ${tmp_md}
 
+                    _md_l='\t'
                     for l in ${translations}; do
-                        tmp_article_html_file="$(echo ${article_html_file_orig/%.md/-${l}.html})"
-                        echo -e "    * [$(cat ${ROOTDIR}/${l}/_lang.md)](./${tmp_article_html_file})\n" >> ${tmp_md}
+                        if [ X"${l}" == X'en_US' ]; then
+                            tmp_article_html_file="$(echo ${article_html_file_orig/%.md/.html})"
+                        else
+                            tmp_article_html_file="$(echo ${article_html_file_orig/%.md/-${l}.html})"
+                        fi
+                        _md_l="${_md_l} [$(cat ${ROOTDIR}/${l}/_lang.md)](./${tmp_article_html_file}) "
                     done
-                    echo -e '\n' >> ${tmp_md}
+                    echo -e "${_md_l}\n" >> ${tmp_md}
 
                     cat ${tmp_md_orig} >> ${tmp_md}
-                    set +x
 
                     md_src="${tmp_md}"
                     rm -f ${tmp_md_orig}
