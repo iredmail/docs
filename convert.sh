@@ -29,7 +29,7 @@ strip_name_prefix()
 }
 
 # Available translations
-export all_languages='en_US zh_CN'
+export all_languages='en_US zh_CN lv_LV'
 
 # Chapter directories in specified order
 export all_chapter_dirs="overview \
@@ -199,7 +199,7 @@ for lang in ${all_languages}; do
                         else
                             tmp_article_html_file="$(echo ${article_html_file_orig/%.md/-${l}.html})"
                         fi
-                        _md_l="${_md_l} [$(cat ${ROOTDIR}/${l}/_lang.md)](./${tmp_article_html_file}) "
+                        _md_l="${_md_l} [$(cat ${ROOTDIR}/${l}/_lang.md)](./${tmp_article_html_file}) /"
                     done
                     echo -e "${_md_l}\n" >> ${tmp_md}
 
