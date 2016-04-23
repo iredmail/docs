@@ -1,101 +1,21 @@
 # Major open source softwares used in iRedMail
 
-<table cellpadding="4px;" border="1">
-<thead>
-<tr>
-<th>Name</th>
-<th>Comment</th>
-<th>Command used to check software version</th>
-</tr>
-</thead>
-<tbody>
-
-<tr>
-<td><a href="http://www.postfix.org" target="_blank">Postfix</a></td>
-<td>Mail Transfer Agent (MTA)</td>
-<td>postconf mail_version
-</tr>
-
-<tr>
-<td><a href="http://www.dovecot.org" target="_blank">Dovecot</a></td>
-<td>POP3, IMAP and Managesieve server</td>
-<td>dovecot --version</td>
-</tr>
-
-<tr>
-<td><a href="http://httpd.apache.org" target="_blank">Apache</a>, <a href="http://nginx.org" target="_blank">Nginx</a></td>
-<td>Web server</td>
-<td>apachectl -v<br/>nginx -v</td>
-</tr>
-
-<tr>
-<td><a href="http://www.openldap.org" target="_blank">OpenLDAP</a>, <a href="http://www.openbsd.org/cgi-bin/man.cgi/OpenBSD-current/man8/ldapd.8?query=ldapd&arch=i386" target="_blank">ldapd(8)</a></td>
-<td>LDAP server, used for storing mail accounts (optional).</td>
-<td>slapd -V</td>
-</tr>
-
-<tr>
-<td><a href="http://www.mysql.com" target="_blank">MySQL</a>, <a href="https://mariadb.org" target="_blank">MariaDB</a>, <a href="http://www.postgresql.org" target="_blank">PostgreSQL</a></td>
-<td>SQL server used to store application data. Could be used to store mail accounts too.</td>
-<td>mysql --version<br />psql -V</td>
-</tr>
-
-<tr>
-<td><a href="http://www.amavis.org" target="_blank">Amavisd-new</a></td>
-<td>Interface between Postfix and SpamAssassin, ClamAV. it calls SpamAssassin and ClamAV for content-based spam/virus scanning.</td>
-<td>amavisd-new -V</td>
-</tr>
-
-<tr>
-<td><a href="http://spamassassin.apache.org" target="_blank">SpamAssassin</a></td>
-<td>content-based spam scanner</td>
-<td>spamassassin -V</td>
-</tr>
-
-<tr>
-<td><a href="http://www.clamav.net/index.html" target="_blank">ClamAV</a></td>
-<td>Virus scanner</td>
-<td>clamd -V</td>
-</tr>
-
-<tr>
-<td><a href="http://www.policyd.org" target="_blank">Cluebringer</a></td>
-<td>A third-party postfix policy server</td>
-<td></td>
-</tr>
-
-<tr>
-<td><a href="http://roundcube.net" target="_blank">Roundcube</a></td>
-<td>Webmail (PHP)</td>
-<td></td>
-</tr>
-
-<tr>
-<td><a href="http://sogo.nu" target="_blank">SOGo Groupware</a></td>
-<td>A groupware which provides calendar (CalDAV), contact (CardDAV), tasks and ActiveSync services.</td>
-<td></td>
-</tr>
-
-<tr>
-<td><a href="http://www.fail2ban.org" target="_blank">Fail2ban</a></td>
-<td>Scans log files and bans IPs that show the malicious signs -- too many password failures, seeking for exploits, etc.</td>
-<td>fail2ban-server -V</td>
-</tr>
-
-<tr>
-<td><a href="http://www.awstats.org" target="_blank">Awstats</a></td>
-<td>Apache and Postfix log analyzer</td>
-<td></td>
-</tr>
-
-<tr>
-<td><a href="https://bitbucket.org/zhb/iredapd/" target="_blank">iRedAPD</a></td>
-<td>A very simple postfix policy server developed by iRedMail team</td>
-<td>grep '__version__' /opt/iredapd/libs/__init__.py</td>
-</tr>
-
-</tbody>
-</table>
+Name | Comment
+--- |---
+[Postfix](http://www.postfix.org) | Mail Transfer Agent (MTA)
+[Dovecot](http://www.dovecot.org) | POP3, IMAP and Managesieve server
+[Apache](http://httpd.apache.org), [Nginx](http://nginx.org) | Web server
+[OpenLDAP](http://www.openldap.org), [ldapd(8)](http://www.openbsd.org/cgi-bin/man.cgi/OpenBSD-current/man8/ldapd.8?query=ldapd&arch=i386) | LDAP server, used for storing mail accounts (optional)
+[MySQL](http://www.mysql.com), [MariaDB](https://mariadb.org), [PostgreSQL](http://www.postgresql.org) | SQL server used to store application data. Could be used to store mail accounts too.
+[Amavisd-new](http://www.amavis.org) | Interface between Postfix and SpamAssassin, ClamAV. it calls SpamAssassin and ClamAV for content-based spam/virus scanning
+[SpamAssassin](http://spamassassin.apache.org) | Content-based spam scanner
+[ClamAV](http://www.clamav.net/) | Virus scanner
+[Roundcube](http://roundcube.net) | Webmail (PHP)
+[SOGo Groupware](http://sogo.nu) | A groupware which provides calendar (CalDAV), contact (CardDAV), tasks and ActiveSync services
+[Fail2ban](http://www.fail2ban.org) | Scans log files and bans IPs that show the malicious signs -- too many password failures, seeking for exploits, etc
+[Awstats](http://www.awstats.org) | Apache and Postfix log analyzer
+[iRedAPD](https://bitbucket.org/zhb/iredapd/) | A postfix policy server developed by iRedMail team
+<strike>[Cluebringer](http://www.policyd.org)</strike> | <strike>A postfix policy server. Deprecated since iRedMail-0.9.3.</strike>  
 
 ## The Big Picture
 

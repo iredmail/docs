@@ -13,6 +13,7 @@
 
 ## ChangeLog
 
+* 2016-04-23: [OPTIONAL] Add custom Amavisd log template to always log SpamAssassin testing result
 * 2016-04-13: Fixed: not add ssh port number in Fail2ban config file.
 * 2016-03-23: [NEW] Able to enable/disable SOGo access for a single user.
 * 2016-03-08: [NEW] Supports Postfix `sender_dependent_relayhost_maps`.
@@ -125,6 +126,74 @@ perl -pi -e 's/(virusalert:.*)/#${1}/g' /usr/local/etc/postfix/aliases
 echo -e '\nvirusalert: root' >> /usr/local/etc/postfix/aliases
 postalias /usr/local/etc/postfix/aliases
 ```
+
+### [OPTIONAL] Add custom Amavisd log template to always log SpamAssassin testing result
+
+> Note: This is totally optional.
+
+It's helpful if you can see SpamAssassin testing result in log file at Amavisd
+log_level 0.
+
+Open Amavisd config file `amavisd.conf`, add below lines in BEFORE the last line `1;  # insure a defined return value`:
+
+* on RHEL/CentOS: it's `/etc/amavisd/amavisd.conf`.
+* on Debian/Ubuntu: it's `/etc/amavis/conf.d/50-user`.
+* on FreeBSD: it's `/usr/local/etc/amavisd.conf`.
+* on OpenBSD: it's `/etc/amavisd.conf`.
+
+```
+# Custom short log template (at log_level 0), add SpamAssassin testing result (Tests: [xxx])
+#
+# Note: You can find the original log template at the bottom of
+#       /usr/sbin/amavisd-new.
+$log_templ = '
+[?%#D|#|Passed #
+[? [:ccat|major] |#
+OTHER|CLEAN|MTA-BLOCKED|OVERSIZED|BAD-HEADER-[:ccat|minor]|SPAMMY|SPAM|\
+UNCHECKED[?[:ccat|minor]||-ENCRYPTED|]|BANNED (%F)|INFECTED (%V)]#
+ {[:actions_performed]}#
+,[?%p|| %p][?%a||[?%l|| LOCAL] [:client_addr_port]][?%e|| \[%e\]] [:mail_addr_decode_octets|%s] -> [%D|[:mail_addr_decode_octets|%D]|,]#
+[? %q ||, quarantine: %q]#
+[? %Q ||, Queue-ID: %Q]#
+[? %m ||, Message-ID: [:mail_addr_decode_octets|%m]]#
+[? %r ||, Resent-Message-ID: [:mail_addr_decode_octets|%r]]#
+[? %i ||, mail_id: %i]#
+, Hits: [:SCORE]#
+, size: %z#
+[? [:partition_tag] ||, pt: [:partition_tag]]#
+[~[:remote_mta_smtp_response]|["^$"]||[", queued_as: "]]\
+[remote_mta_smtp_response|[~%x|["queued as ([0-9A-Za-z]+)$"]|["%1"]|["%0"]]|/]#
+#, Subject: [:dquote|[:mime2utf8|[:header_field_octets|Subject]|100|1]]#
+#, From: [:uquote|[:mail_addr_decode_octets|[:rfc2822_from]]]#
+[? [:dkim|sig_sd]    ||, dkim_sd=[:dkim|sig_sd]]#
+[? [:dkim|newsig_sd] ||, dkim_new=[:dkim|newsig_sd]]#
+, %y ms#
+[? %#T ||, Tests: \[[%T|,]\]]#
+]
+[?%#O|#|Blocked #
+[? [:ccat|major|blocking] |#
+OTHER|CLEAN|MTA-BLOCKED|OVERSIZED|BAD-HEADER-[:ccat|minor]|SPAMMY|SPAM|\
+UNCHECKED[?[:ccat|minor]||-ENCRYPTED|]|BANNED (%F)|INFECTED (%V)]#
+ {[:actions_performed]}#
+,[?%p|| %p][?%a||[?%l|| LOCAL] [:client_addr_port]][?%e|| \[%e\]] [:mail_addr_decode_octets|%s] -> [%O|[:mail_addr_decode_octets|%O]|,]#
+[? %q ||, quarantine: %q]#
+[? %Q ||, Queue-ID: %Q]#
+[? %m ||, Message-ID: [:mail_addr_decode_octets|%m]]#
+[? %r ||, Resent-Message-ID: [:mail_addr_decode_octets|%r]]#
+[? %i ||, mail_id: %i]#
+, Hits: [:SCORE]#
+, size: %z#
+[? [:partition_tag] ||, pt: [:partition_tag]]#
+#, Subject: [:dquote|[:mime2utf8|[:header_field_octets|Subject]|100|1]]#
+#, From: [:uquote|[:mail_addr_decode_octets|[:rfc2822_from]]]#
+[? [:dkim|sig_sd]    ||, dkim_sd=[:dkim|sig_sd]]#
+[? [:dkim|newsig_sd] ||, dkim_new=[:dkim|newsig_sd]]#
+, %y ms#
+[? %#T ||, Tests: \[[%T|,]\]]#
+]';
+```
+
+Restarting Amavisd service is required.
 
 ## OpenLDAP backend special
 

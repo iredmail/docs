@@ -26,6 +26,7 @@
 <li><a href="#rhelcentos-fixed-not-enable-cron-job-to-update-spamassassin-rules">[RHEL/CentOS] Fixed: Not enable cron job to update SpamAssassin rules</a></li>
 <li><a href="#rhelcentos-fixed-not-create-required-directory-used-to-store-php-session-files">[RHEL/CentOS] Fixed: Not create required directory used to store PHP session files</a></li>
 <li><a href="#fixed-not-add-alias-for-virusalert-on-non-debianubuntu-oses">Fixed: not add alias for virusalert on non-Debian/Ubuntu OSes</a></li>
+<li><a href="#optional-add-custom-amavisd-log-template-to-always-log-spamassassin-testing-result">[OPTIONAL] Add custom Amavisd log template to always log SpamAssassin testing result</a></li>
 </ul>
 </li>
 <li><a href="#openldap-backend-special">OpenLDAP backend special</a><ul>
@@ -80,6 +81,7 @@ check <a href="../support.html">the details</a> and <a href="../contact.html">co
 </div>
 <h2 id="changelog">ChangeLog</h2>
 <ul>
+<li>2016-04-23: [OPTIONAL] Add custom Amavisd log template to always log SpamAssassin testing result</li>
 <li>2016-04-13: Fixed: not add ssh port number in Fail2ban config file.</li>
 <li>2016-03-23: [NEW] Able to enable/disable SOGo access for a single user.</li>
 <li>2016-03-08: [NEW] Supports Postfix <code>sender_dependent_relayhost_maps</code>.</li>
@@ -174,6 +176,71 @@ echo -e '\nvirusalert: root' &gt;&gt; /usr/local/etc/postfix/aliases
 postalias /usr/local/etc/postfix/aliases
 </code></pre>
 
+<h3 id="optional-add-custom-amavisd-log-template-to-always-log-spamassassin-testing-result">[OPTIONAL] Add custom Amavisd log template to always log SpamAssassin testing result</h3>
+<blockquote>
+<p>Note: This is totally optional.</p>
+</blockquote>
+<p>It's helpful if you can see SpamAssassin testing result in log file at Amavisd
+log_level 0.</p>
+<p>Open Amavisd config file <code>amavisd.conf</code>, add below lines in BEFORE the last line <code>1;  # insure a defined return value</code>:</p>
+<ul>
+<li>on RHEL/CentOS: it's <code>/etc/amavisd/amavisd.conf</code>.</li>
+<li>on Debian/Ubuntu: it's <code>/etc/amavis/conf.d/50-user</code>.</li>
+<li>on FreeBSD: it's <code>/usr/local/etc/amavisd.conf</code>.</li>
+<li>on OpenBSD: it's <code>/etc/amavisd.conf</code>.</li>
+</ul>
+<pre><code># Custom short log template (at log_level 0), add SpamAssassin testing result (Tests: [xxx])
+#
+# Note: You can find the original log template at the bottom of
+#       /usr/sbin/amavisd-new.
+$log_templ = '
+[?%#D|#|Passed #
+[? [:ccat|major] |#
+OTHER|CLEAN|MTA-BLOCKED|OVERSIZED|BAD-HEADER-[:ccat|minor]|SPAMMY|SPAM|\
+UNCHECKED[?[:ccat|minor]||-ENCRYPTED|]|BANNED (%F)|INFECTED (%V)]#
+ {[:actions_performed]}#
+,[?%p|| %p][?%a||[?%l|| LOCAL] [:client_addr_port]][?%e|| \[%e\]] [:mail_addr_decode_octets|%s] -&gt; [%D|[:mail_addr_decode_octets|%D]|,]#
+[? %q ||, quarantine: %q]#
+[? %Q ||, Queue-ID: %Q]#
+[? %m ||, Message-ID: [:mail_addr_decode_octets|%m]]#
+[? %r ||, Resent-Message-ID: [:mail_addr_decode_octets|%r]]#
+[? %i ||, mail_id: %i]#
+, Hits: [:SCORE]#
+, size: %z#
+[? [:partition_tag] ||, pt: [:partition_tag]]#
+[~[:remote_mta_smtp_response]|[&quot;^$&quot;]||[&quot;, queued_as: &quot;]]\
+[remote_mta_smtp_response|[~%x|[&quot;queued as ([0-9A-Za-z]+)$&quot;]|[&quot;%1&quot;]|[&quot;%0&quot;]]|/]#
+#, Subject: [:dquote|[:mime2utf8|[:header_field_octets|Subject]|100|1]]#
+#, From: [:uquote|[:mail_addr_decode_octets|[:rfc2822_from]]]#
+[? [:dkim|sig_sd]    ||, dkim_sd=[:dkim|sig_sd]]#
+[? [:dkim|newsig_sd] ||, dkim_new=[:dkim|newsig_sd]]#
+, %y ms#
+[? %#T ||, Tests: \[[%T|,]\]]#
+]
+[?%#O|#|Blocked #
+[? [:ccat|major|blocking] |#
+OTHER|CLEAN|MTA-BLOCKED|OVERSIZED|BAD-HEADER-[:ccat|minor]|SPAMMY|SPAM|\
+UNCHECKED[?[:ccat|minor]||-ENCRYPTED|]|BANNED (%F)|INFECTED (%V)]#
+ {[:actions_performed]}#
+,[?%p|| %p][?%a||[?%l|| LOCAL] [:client_addr_port]][?%e|| \[%e\]] [:mail_addr_decode_octets|%s] -&gt; [%O|[:mail_addr_decode_octets|%O]|,]#
+[? %q ||, quarantine: %q]#
+[? %Q ||, Queue-ID: %Q]#
+[? %m ||, Message-ID: [:mail_addr_decode_octets|%m]]#
+[? %r ||, Resent-Message-ID: [:mail_addr_decode_octets|%r]]#
+[? %i ||, mail_id: %i]#
+, Hits: [:SCORE]#
+, size: %z#
+[? [:partition_tag] ||, pt: [:partition_tag]]#
+#, Subject: [:dquote|[:mime2utf8|[:header_field_octets|Subject]|100|1]]#
+#, From: [:uquote|[:mail_addr_decode_octets|[:rfc2822_from]]]#
+[? [:dkim|sig_sd]    ||, dkim_sd=[:dkim|sig_sd]]#
+[? [:dkim|newsig_sd] ||, dkim_new=[:dkim|newsig_sd]]#
+, %y ms#
+[? %#T ||, Tests: \[[%T|,]\]]#
+]';
+</code></pre>
+
+<p>Restarting Amavisd service is required.</p>
 <h2 id="openldap-backend-special">OpenLDAP backend special</h2>
 <h3 id="new-support-postfix-sender_dependent_relayhost_maps">NEW: Support Postfix <code>sender_dependent_relayhost_maps</code></h3>
 <h4 id="summary">Summary</h4>

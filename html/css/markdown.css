@@ -371,9 +371,9 @@ li { line-height: 26px; }
 
 /* Table */
 th { padding: 5px 10px 5px 10px; }
-td { padding: 0px 10px 0px 10px; }
-/*
+td { padding: 5px 10px 5px 10px; }
 table { border: 1px solid black; }
 th, td { border: 1px solid black; }
+/*
 caption { font-size: 200%;}
 */

@@ -15,103 +15,72 @@
         <span>iRedMail</span>
     </a>
     &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><h1 id="major-open-source-softwares-used-in-iredmail">Major open source softwares used in iRedMail</h1>
-<table cellpadding="4px;" border="1">
+<table>
 <thead>
 <tr>
 <th>Name</th>
 <th>Comment</th>
-<th>Command used to check software version</th>
 </tr>
 </thead>
 <tbody>
-
 <tr>
-<td><a href="http://www.postfix.org" target="_blank">Postfix</a></td>
+<td><a href="http://www.postfix.org">Postfix</a></td>
 <td>Mail Transfer Agent (MTA)</td>
-<td>postconf mail_version
 </tr>
-
 <tr>
-<td><a href="http://www.dovecot.org" target="_blank">Dovecot</a></td>
+<td><a href="http://www.dovecot.org">Dovecot</a></td>
 <td>POP3, IMAP and Managesieve server</td>
-<td>dovecot --version</td>
 </tr>
-
 <tr>
-<td><a href="http://httpd.apache.org" target="_blank">Apache</a>, <a href="http://nginx.org" target="_blank">Nginx</a></td>
+<td><a href="http://httpd.apache.org">Apache</a>, <a href="http://nginx.org">Nginx</a></td>
 <td>Web server</td>
-<td>apachectl -v<br/>nginx -v</td>
 </tr>
-
 <tr>
-<td><a href="http://www.openldap.org" target="_blank">OpenLDAP</a>, <a href="http://www.openbsd.org/cgi-bin/man.cgi/OpenBSD-current/man8/ldapd.8?query=ldapd&arch=i386" target="_blank">ldapd(8)</a></td>
-<td>LDAP server, used for storing mail accounts (optional).</td>
-<td>slapd -V</td>
+<td><a href="http://www.openldap.org">OpenLDAP</a>, <a href="http://www.openbsd.org/cgi-bin/man.cgi/OpenBSD-current/man8/ldapd.8?query=ldapd&amp;arch=i386">ldapd(8)</a></td>
+<td>LDAP server, used for storing mail accounts (optional)</td>
 </tr>
-
 <tr>
-<td><a href="http://www.mysql.com" target="_blank">MySQL</a>, <a href="https://mariadb.org" target="_blank">MariaDB</a>, <a href="http://www.postgresql.org" target="_blank">PostgreSQL</a></td>
+<td><a href="http://www.mysql.com">MySQL</a>, <a href="https://mariadb.org">MariaDB</a>, <a href="http://www.postgresql.org">PostgreSQL</a></td>
 <td>SQL server used to store application data. Could be used to store mail accounts too.</td>
-<td>mysql --version<br />psql -V</td>
 </tr>
-
 <tr>
-<td><a href="http://www.amavis.org" target="_blank">Amavisd-new</a></td>
-<td>Interface between Postfix and SpamAssassin, ClamAV. it calls SpamAssassin and ClamAV for content-based spam/virus scanning.</td>
-<td>amavisd-new -V</td>
+<td><a href="http://www.amavis.org">Amavisd-new</a></td>
+<td>Interface between Postfix and SpamAssassin, ClamAV. it calls SpamAssassin and ClamAV for content-based spam/virus scanning</td>
 </tr>
-
 <tr>
-<td><a href="http://spamassassin.apache.org" target="_blank">SpamAssassin</a></td>
-<td>content-based spam scanner</td>
-<td>spamassassin -V</td>
+<td><a href="http://spamassassin.apache.org">SpamAssassin</a></td>
+<td>Content-based spam scanner</td>
 </tr>
-
 <tr>
-<td><a href="http://www.clamav.net/index.html" target="_blank">ClamAV</a></td>
+<td><a href="http://www.clamav.net/">ClamAV</a></td>
 <td>Virus scanner</td>
-<td>clamd -V</td>
 </tr>
-
 <tr>
-<td><a href="http://www.policyd.org" target="_blank">Cluebringer</a></td>
-<td>A third-party postfix policy server</td>
-<td></td>
-</tr>
-
-<tr>
-<td><a href="http://roundcube.net" target="_blank">Roundcube</a></td>
+<td><a href="http://roundcube.net">Roundcube</a></td>
 <td>Webmail (PHP)</td>
-<td></td>
 </tr>
-
 <tr>
-<td><a href="http://sogo.nu" target="_blank">SOGo Groupware</a></td>
-<td>A groupware which provides calendar (CalDAV), contact (CardDAV), tasks and ActiveSync services.</td>
-<td></td>
+<td><a href="http://sogo.nu">SOGo Groupware</a></td>
+<td>A groupware which provides calendar (CalDAV), contact (CardDAV), tasks and ActiveSync services</td>
 </tr>
-
 <tr>
-<td><a href="http://www.fail2ban.org" target="_blank">Fail2ban</a></td>
-<td>Scans log files and bans IPs that show the malicious signs -- too many password failures, seeking for exploits, etc.</td>
-<td>fail2ban-server -V</td>
+<td><a href="http://www.fail2ban.org">Fail2ban</a></td>
+<td>Scans log files and bans IPs that show the malicious signs -- too many password failures, seeking for exploits, etc</td>
 </tr>
-
 <tr>
-<td><a href="http://www.awstats.org" target="_blank">Awstats</a></td>
+<td><a href="http://www.awstats.org">Awstats</a></td>
 <td>Apache and Postfix log analyzer</td>
-<td></td>
 </tr>
-
 <tr>
-<td><a href="https://bitbucket.org/zhb/iredapd/" target="_blank">iRedAPD</a></td>
-<td>A very simple postfix policy server developed by iRedMail team</td>
-<td>grep '__version__' /opt/iredapd/libs/__init__.py</td>
+<td><a href="https://bitbucket.org/zhb/iredapd/">iRedAPD</a></td>
+<td>A postfix policy server developed by iRedMail team</td>
 </tr>
-
+<tr>
+<td><strike><a href="http://www.policyd.org">Cluebringer</a></strike></td>
+<td><strike>A postfix policy server. Deprecated since iRedMail-0.9.3.</strike></td>
+</tr>
 </tbody>
 </table>
-
 <h2 id="the-big-picture">The Big Picture</h2>
 <p><img alt="" src="./images/big.picture.png" /></p>
 <h2 id="mail-flow-of-inbound-emails">Mail Flow of Inbound Emails</h2>
