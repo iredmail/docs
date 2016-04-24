@@ -489,7 +489,8 @@ from specified IP/networks.</p>
 <p>Restarting Dovecot service is required.</p>
 <blockquote>
 <p>Sample usage: allow user <code>user@domain.com</code> to login from IP <code>172.16.244.1</code>
-and network <code>192.168.1.0/24</code>:</p>
+and network <code>192.168.1.0/24</code>:
+</p>
 </blockquote>
 <pre><code>dn: mail=user@domain.com,ou=Users,domainName=domain.com,o=domains,dc=xx,dc=xx
 objectClass: mailUser
@@ -572,7 +573,8 @@ mysql&gt; ALTER TABLE mailbox ADD COLUMN `allow_nets` TEXT DEFAULT NULL;
 <p>Restarting Dovecot service is required.</p>
 <blockquote>
 <p>Sample usage: allow user <code>user@domain.com</code> to login from IP <code>172.16.244.1</code>
-and network <code>192.168.1.0/24</code>:</p>
+and network <code>192.168.1.0/24</code>:
+</p>
 </blockquote>
 <pre><code>sql&gt; USE vmail;
 sql&gt; UPDATE mailbox SET allow_nets='172.16.244.1,192.168.1.0/24' WHERE username='user@domain.com`;
@@ -673,7 +675,8 @@ sql&gt; ALTER TABLE mailbox ADD COLUMN allow_nets TEXT DEFAULT NULL;
 <p>Restarting Dovecot service is required.</p>
 <blockquote>
 <p>Sample usage: allow user <code>user@domain.com</code> to login from IP <code>172.16.244.1</code>
-and network <code>192.168.1.0/24</code>:</p>
+and network <code>192.168.1.0/24</code>:
+</p>
 </blockquote>
 <pre><code>sql&gt; \c vmail;
 sql&gt; UPDATE mailbox SET allow_nets='172.16.244.1,192.168.1.0/24' WHERE username='user@domain.com`;
