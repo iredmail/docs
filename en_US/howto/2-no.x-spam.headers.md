@@ -1,5 +1,9 @@
 # Amavisd + SpamAssassin not working? no mail header (X-Spam-*) inserted
 
+> Amavisd config file is different on different Linux/BSD distributions, you can
+> find the correct one for your server in this tutorial:
+> [Locations of configuration and log files of major components](./file.locations.html#amavisd)
+
 Amavisd has below setting in its config file `/etc/amavisd/amavisd.conf` by default:
 
 ```
@@ -15,9 +19,3 @@ $sa_tag_level_deflt  = -999;
 ```
 
 Restarting Amavisd service is required after changed setting.
-
-Amavisd's main config file is different on different Linux/BSD distributions:
-
-* Red Hat, CentOS, OpenBSD: `/etc/amavisd/amavisd.conf`
-* Debian, Ubuntu: `/etc/amavis/conf.d/50-user` (and other config files under `/etc/amavis/conf.d/`)
-* FreeBSD: `/usr/local/etc/amavisd/amavisd.conf`

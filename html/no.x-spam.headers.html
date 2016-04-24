@@ -19,6 +19,11 @@
 <p><a href="./no.x-spam.headers-zh_CN.html">简体中文</a> /</p>
 </div>
 <h1 id="amavisd-spamassassin-not-working-no-mail-header-x-spam-inserted">Amavisd + SpamAssassin not working? no mail header (X-Spam-*) inserted</h1>
+<blockquote>
+<p>Amavisd config file is different on different Linux/BSD distributions, you can
+find the correct one for your server in this tutorial:
+<a href="./file.locations.html#amavisd">Locations of configuration and log files of major components</a></p>
+</blockquote>
 <p>Amavisd has below setting in its config file <code>/etc/amavisd/amavisd.conf</code> by default:</p>
 <pre><code>$sa_tag_level_deflt  = 2.0;
 </code></pre>
@@ -29,13 +34,7 @@ set it to a low score, for example:</p>
 <pre><code>$sa_tag_level_deflt  = -999;
 </code></pre>
 
-<p>Restarting Amavisd service is required after changed setting.</p>
-<p>Amavisd's main config file is different on different Linux/BSD distributions:</p>
-<ul>
-<li>Red Hat, CentOS, OpenBSD: <code>/etc/amavisd/amavisd.conf</code></li>
-<li>Debian, Ubuntu: <code>/etc/amavis/conf.d/50-user</code> (and other config files under <code>/etc/amavis/conf.d/</code>)</li>
-<li>FreeBSD: <code>/usr/local/etc/amavisd/amavisd.conf</code></li>
-</ul><p style="text-align: center; color: grey;">All documents are available in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.<script>
+<p>Restarting Amavisd service is required after changed setting.</p><p style="text-align: center; color: grey;">All documents are available in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.<script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
   m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)

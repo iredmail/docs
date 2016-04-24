@@ -1,5 +1,8 @@
 # Amavisd + SpamAssassin 无效，邮件头无 X-Spam-* 信息插入
 
+> Amavisd 的主配置文件在不同的 Linux/BSD 系统上路径不同，请参考以下文档找到正确的文件：
+> [Locations of configuration and log files of major components](./file.locations.html#amavisd)
+
 在 Amavisd 的配置文件 `/etc/amavisd/amavisd.conf` 中有如下默认设置：
 
 ```
@@ -15,9 +18,3 @@ $sa_tag_level_deflt  = -999;
 ```
 
 修改后需要重启 Amavisd 服务。
-
-Amavisd 的主配置文件在不同的 Linux/BSD 系统上路径不同：
-
-* Red Hat, CentOS, OpenBSD: `/etc/amavisd/amavisd.conf`
-* Debian, Ubuntu: `/etc/amavis/conf.d/50-user` （其它配置文件均在 `/etc/amavs/conf.d/` 目录下)
-* FreeBSD: `/usr/local/etc/amavisd/amavisd.conf`
