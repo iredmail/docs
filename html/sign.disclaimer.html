@@ -1,0 +1,71 @@
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Sign disclaimer on outgoing mails</title>
+        <link rel="stylesheet" type="text/css" href="./css/markdown.css" />
+    </head>
+    <body>
+    
+    <div id="navigation">
+    <a href="/index.html" target="_blank">
+        <img alt="iRedMail web site"
+             src="./images/logo-iredmail.png"
+             style="vertical-align: middle; height: 30px;"
+             />&nbsp;
+        <span>iRedMail</span>
+    </a>
+    &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><h1 id="sign-disclaimer-on-outgoing-mails">Sign disclaimer on outgoing mails</h1>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you're not sure which is Amavisd config file on your server, please
+check our document to find it:</p>
+<ul>
+<li><a href="./file.locations.html">Locations of configuration and log files of major components</a></li>
+</ul>
+</div>
+<p>With iRedMail, it's able to sign disclaimer on outgoing email with Amavisd-new
+and alterMIME, it is pre-configured but disabled by default.</p>
+<p>To enable the signing, please find setting in Amavisd config file <code>amavisd.conf</code>:</p>
+<pre><code>#$defang_maps_by_ccat{+CC_CATCHALL} = [ 'disclaimer' ];
+</code></pre>
+
+<p>Uncomment the <code>$defang_maps_by_ccat</code> line and restart Amavisd service will
+enable signing disclaimer on outgoing email, default disclaimer text is stored
+in <code>/etc/postfix/disclaimer/default.txt</code> (Linux/OpenBSD) or
+<code>/usr/local/etc/postfix/disclaimer/default.txt</code>.</p>
+<p>If you need a per-domain disclaimer, please update setting <code>@disclaimer_options_bysender_maps</code>
+in Amavisd config file:</p>
+<pre><code>@disclaimer_options_bysender_maps = ({
+    # Per-domain disclaimer setting: /etc/postfix/disclaimer/host1.iredmail.org.txt
+    #'host1.iredmail.org' =&gt; 'host1.iredmail.org',
+
+    # Per-user disclaimer setting: /etc/postfix/disclaimer/boss.iredmail.org.txt
+    #'boss@iredmail.org'  =&gt; 'boss.iredmail.org',
+
+    # Catch-all disclaimer setting: /etc/postfix/disclaimer/default.txt
+    '.' =&gt; 'default',
+},);
+</code></pre>
+
+<p>Just add your domain name with the same syntax, then create required file with
+disclaimer text. For example, for domain <code>example.com</code>:</p>
+<pre><code>@disclaimer_options_bysender_maps = ({
+    # domain 'example.com'
+    # disclaimer text file: /etc/postfix/disclaimer/example.com.txt
+    'example.com' =&gt; 'example.com',
+
+    # Catch-all disclaimer setting: /etc/postfix/disclaimer/default.txt
+    '.' =&gt; 'default',
+},);
+</code></pre>
+
+<p>Restarting Amavisd service is required each time you changed its config file.</p><p style="text-align: center; color: grey;">All documents are available in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-3293801-21', 'auto');
+  ga('send', 'pageview');
+</script>
+</body></html>

@@ -1,11 +1,11 @@
 # iRedMail release notes and upgrade tutorials
 
-[TOC]
-
 !!! note
 
     * iRedMail source code is hosted on [BitBucket](https://bitbucket.org/zhb/iredmail/src).
     * Download the [latest iRedMail stable release](../download.html).
+
+[TOC]
 
 ### Why keep your iRedMail server up to date
 
