@@ -25,6 +25,7 @@
 <li><a href="#linux-fixed-not-add-ssh-port-number-in-fail2ban-config-file-jaillocal">[Linux] Fixed: not add ssh port number in Fail2ban config file (jail.local)</a></li>
 <li><a href="#rhelcentos-fixed-not-enable-cron-job-to-update-spamassassin-rules">[RHEL/CentOS] Fixed: Not enable cron job to update SpamAssassin rules</a></li>
 <li><a href="#rhelcentos-fixed-not-create-required-directory-used-to-store-php-session-files">[RHEL/CentOS] Fixed: Not create required directory used to store PHP session files</a></li>
+<li><a href="#fixed-not-perform-banned-file-types-checking-on-rhelcentosopenbsdfreebsd">Fixed: Not perform banned file types checking on RHEL/CentOS/OpenBSD/FreeBSD</a></li>
 <li><a href="#fixed-not-add-alias-for-virusalert-on-non-debianubuntu-oses">Fixed: not add alias for virusalert on non-Debian/Ubuntu OSes</a></li>
 <li><a href="#optional-add-custom-amavisd-log-template-to-always-log-spamassassin-testing-result">[OPTIONAL] Add custom Amavisd log template to always log SpamAssassin testing result</a></li>
 </ul>
@@ -81,6 +82,7 @@ check <a href="../support.html">the details</a> and <a href="../contact.html">co
 </div>
 <h2 id="changelog">ChangeLog</h2>
 <ul>
+<li>2016-04-26: Fixed: Not perform banned file types checking on RHEL/CentOS/OpenBSD/FreeBSD</li>
 <li>2016-04-23: [OPTIONAL] Add custom Amavisd log template to always log SpamAssassin testing result</li>
 <li>2016-04-13: Fixed: not add ssh port number in Fail2ban config file.</li>
 <li>2016-03-23: [NEW] Able to enable/disable SOGo access for a single user.</li>
@@ -156,8 +158,41 @@ chmod 0773 /var/lib/php/session
 chmod o+t /var/lib/php/session
 </code></pre>
 
+<h3 id="fixed-not-perform-banned-file-types-checking-on-rhelcentosopenbsdfreebsd">Fixed: Not perform banned file types checking on RHEL/CentOS/OpenBSD/FreeBSD</h3>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>This is <strong>NOT</strong> applicable to Debian and Ubuntu.</p>
+</div>
+<p>There's a bug in iRedMail-0.9.3 and 0.9.4, it didn't comment out setting
+<code>bypass_banned_checks_maps</code> in parameter <code>$policy_bank{'ORIGINATING'} = {}</code>,
+this causes Amavisd won't perform banned file types checking for outgoing
+emails sent through SMTP AUTH. Please follw steps below to fix it.</p>
+<p>Open Amavisd config file, find parameter <code>$policy_bank{'ORIGINATING'} =</code> like
+below:
+<em> on RHEL/CentOS: it's <code>/etc/amavisd/amavisd.conf</code>
+</em> on FreeBSD: it's <code>/usr/local/etc/amavisd.conf</code>
+* on OpenBSD: it's <code>/etc/amavisd.conf</code></p>
+<pre><code>$policy_bank{'ORIGINATING'} = {
+    ...
+    bypass_banned_checks_maps =&gt; [1],
+    ...
+};
+</code></pre>
+
+<p>Comment out line <code>bypass_banned_checks_maps</code> like below:</p>
+<pre><code>$policy_bank{'ORIGINATING'} = {
+    ...
+    #bypass_banned_checks_maps =&gt; [1],
+    ...
+};
+</code></pre>
+
+<p>Save the change. Restarting amavisd service is required.</p>
 <h3 id="fixed-not-add-alias-for-virusalert-on-non-debianubuntu-oses">Fixed: not add alias for <code>virusalert</code> on non-Debian/Ubuntu OSes</h3>
-<p>Note: this is <strong>NOT</strong> applicable to Debian and Ubuntu.</p>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>This is <strong>NOT</strong> applicable to Debian and Ubuntu.</p>
+</div>
 <p>There's a bug in iRedMail-0.9.4, it adds alias <code>virusalert</code> on only Debian and
 Ubuntu, but not other OSes. Please fix it with below commands:</p>
 <ul>
@@ -177,9 +212,10 @@ postalias /usr/local/etc/postfix/aliases
 </code></pre>
 
 <h3 id="optional-add-custom-amavisd-log-template-to-always-log-spamassassin-testing-result">[OPTIONAL] Add custom Amavisd log template to always log SpamAssassin testing result</h3>
-<blockquote>
-<p>Note: This is totally optional.</p>
-</blockquote>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>Note: This step is totally optional.</p>
+</div>
 <p>It's helpful if you can see SpamAssassin testing result in log file at Amavisd
 log_level 0.</p>
 <p>Open Amavisd config file <code>amavisd.conf</code>, add below lines in BEFORE the last line <code>1;  # insure a defined return value</code>:</p>

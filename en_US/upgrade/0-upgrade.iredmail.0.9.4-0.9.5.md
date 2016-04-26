@@ -13,6 +13,7 @@
 
 ## ChangeLog
 
+* 2016-04-26: Fixed: Not perform banned file types checking on RHEL/CentOS/OpenBSD/FreeBSD
 * 2016-04-23: [OPTIONAL] Add custom Amavisd log template to always log SpamAssassin testing result
 * 2016-04-13: Fixed: not add ssh port number in Fail2ban config file.
 * 2016-03-23: [NEW] Able to enable/disable SOGo access for a single user.
@@ -104,9 +105,48 @@ chmod 0773 /var/lib/php/session
 chmod o+t /var/lib/php/session
 ```
 
+### Fixed: Not perform banned file types checking on RHEL/CentOS/OpenBSD/FreeBSD
+
+!!! attention
+
+    This is __NOT__ applicable to Debian and Ubuntu.
+
+There's a bug in iRedMail-0.9.3 and 0.9.4, it didn't comment out setting
+`bypass_banned_checks_maps` in parameter `$policy_bank{'ORIGINATING'} = {}`,
+this causes Amavisd won't perform banned file types checking for outgoing
+emails sent through SMTP AUTH. Please follw steps below to fix it.
+
+Open Amavisd config file, find parameter `$policy_bank{'ORIGINATING'} =` like
+below:
+* on RHEL/CentOS: it's `/etc/amavisd/amavisd.conf`
+* on FreeBSD: it's `/usr/local/etc/amavisd.conf`
+* on OpenBSD: it's `/etc/amavisd.conf`
+
+```
+$policy_bank{'ORIGINATING'} = {
+    ...
+    bypass_banned_checks_maps => [1],
+    ...
+};
+```
+
+Comment out line `bypass_banned_checks_maps` like below:
+
+```
+$policy_bank{'ORIGINATING'} = {
+    ...
+    #bypass_banned_checks_maps => [1],
+    ...
+};
+```
+
+Save the change. Restarting amavisd service is required.
+
 ### Fixed: not add alias for `virusalert` on non-Debian/Ubuntu OSes
 
-Note: this is __NOT__ applicable to Debian and Ubuntu.
+!!! attention
+
+    This is __NOT__ applicable to Debian and Ubuntu.
 
 There's a bug in iRedMail-0.9.4, it adds alias `virusalert` on only Debian and
 Ubuntu, but not other OSes. Please fix it with below commands:
@@ -129,7 +169,9 @@ postalias /usr/local/etc/postfix/aliases
 
 ### [OPTIONAL] Add custom Amavisd log template to always log SpamAssassin testing result
 
-> Note: This is totally optional.
+!!! attention
+
+    Note: This step is totally optional.
 
 It's helpful if you can see SpamAssassin testing result in log file at Amavisd
 log_level 0.
