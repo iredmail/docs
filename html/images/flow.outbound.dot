@@ -1,0 +1,69 @@
+// Flow of outbound mails
+//
+// Convert to png with Graphviz:
+//  dot -Tpng flow.outbound.dot -o flow.outbound.png
+digraph outbound {
+    label="Flow of Outbound Mail"
+
+    sender[label="Sender"]
+    recipient[label="Recipient"]
+    rcpt_server[label="Recipient Server"]
+
+    postfix_smtpd[label="Postfix (smtpd)", style=filled]
+    postfix_queue[label="Postfix (queue)", style=filled]
+    postfix_submission[label="Postfix (submission, port 587, TLS)", style=filled]
+
+    //postfix_iredapd[label="Postfix (smtpd)"]
+    dovecot[label="Dovecot (POP3/IMAP/Sieve/LDA/LMTP/SASL)", style=filled]
+    iredapd[label="iRedAPD (Postfix Policy Server)", style=filled, shape=diamond]
+    db[label="OpenLDAP, MySQL/MariaDB/PostgreSQL", style=filled]
+    //amavisd[label="Amavisd", style=filled]
+    //amavisd_10024[label="Amavisd (for incoming mails, port 10024)", style=filled]
+    sa_clamav[label="SpamAssassin, ClamAV", style=filled]
+    amavisd_10026[label="Amavisd (for submission, port 10026)", style=filled, shape=diamond]
+    //mailboxes[label="Mailboxes"]
+
+    sender -> postfix_submission[label=" Enter iRedMail Server", style=dotted]
+    postfix_submission -> iredapd[label=" White/Blacklisting\n Throttling\n Sender Login Mismatch\n ..."]
+    iredapd -> postfix_submission[label=" DUNNO \nREJECT \n...", color=blue]
+    postfix_submission -> amavisd_10026[label=" Spam/Virus Scanning"]
+    amavisd_10026 -> sa_clamav[label=" Spam/Virus Scanning \nDKIM verification \n..."]
+    sa_clamav -> amavisd_10026
+    amavisd_10026 -> postfix_queue[label=" Submit to mail queue"]
+
+    postfix_queue -> postfix_smtpd
+    postfix_smtpd -> rcpt_server[label=" Leave iRedMail Server", style=dotted]
+    rcpt_server -> recipient[style=dotted]
+
+    amavisd_10026 -> postfix_submission[label=" REJECT, BOUNCE, ... \n(Detected SPAM/VIRUS, ...)", color=blue]
+
+    iredapd -> db[label=" User Verification\n Additional SQL/LDAP queries"]
+    amavisd_10026 -> db[label=" User verification \nWhite/Blacklisting \nQuarantine Spam/Virus \n..."]
+    postfix_submission -> db[label=" User Verification"]
+
+    postfix_submission -> dovecot[label="User Authentication \n(Dovecot is SASL AUTH server)"]
+    dovecot -> db
+
+    //postfix_submission -> sender[label=" REJECT, ...", color=red]
+
+/*
+    end_users -> postfix_submission[label=" Enter iRedMail Server", style=dotted]
+
+    postfix_submission -> iredapd[label=" White/Blacklisting, Throttling"]
+    postfix_submission -> amavisd_10026[label=" Spam/Virus Scanning"]
+    postfix_submission -> dovecot[label="User Authentication \n(Dovecot is SASL AUTH server)"]
+    postfix_submission -> db[label=" User Verification"]
+
+    iredapd -> postfix_submission[label=" DUNNO \nREJECT \n...", color=blue]
+    iredapd -> db[label=" User Verification\n Additional SQL/LDAP queries"]
+
+    amavisd_10026 -> sa_clamav[label=" Spam/Virus Scanning \nDKIM verification \n..."]
+    amavisd_10026 -> postfix_queue[label=" Submit to mail queue"]
+    amavisd_10026 -> postfix_submission[label=" REJECT, BOUNCE, ... \n(Detected SPAM/VIRUS, ...)", color=blue]
+    amavisd_10026 -> db[label=" User verification \nWhite/Blacklisting \nQuarantine Spam/Virus \n..."]
+
+    dovecot -> db
+
+    sa_clamav -> amavisd_10026
+    */
+}

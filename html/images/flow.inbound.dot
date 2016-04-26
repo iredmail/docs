@@ -1,0 +1,47 @@
+// Flow of inbound mails
+//
+// Convert to png with Graphviz:
+//  dot -Tpng flow.inbound.dot -o flow.inbound.png
+digraph inbound {
+    label="Flow of Inbound Mail"
+
+    sender[label="Sender"]
+    sender_server[label="Sender Server"]
+    //postfix[label="Postfix (MTA)", style=filled]
+    postfix_postscreen[label="Postfix (postscreen)", style=filled]
+    postfix_smtpd[label="Postfix (smtpd)", style=filled]
+    postfix_queue[label="Postfix (queue)", style=filled]
+    //postfix_iredapd[label="Postfix (smtpd)"]
+    dovecot[label="Dovecot (POP3/IMAP/Sieve/LDA/LMTP/SASL)", style=filled]
+    iredapd[label="iRedAPD (Postfix Policy Server)", style=filled, shape=diamond]
+    db[label="OpenLDAP, MySQL/MariaDB/PostgreSQL", style=filled]
+    //amavisd[label="Amavisd", style=filled]
+    amavisd_10024[label="Amavisd (port 10024)", style=filled, shape=diamond]
+    sa_clamav[label="SpamAssassin, ClamAV", style=filled]
+    mailboxes[label="Mailboxes"]
+
+    // Flow of inbound emails
+    sender -> sender_server[style=dotted]
+    sender_server -> postfix_postscreen[label=" Enter iRedMail Server, Port 25", style=dotted]
+    postfix_postscreen -> sender_server[label=" REJECT", color=red]
+    postfix_postscreen -> postfix_smtpd
+    postfix_smtpd -> iredapd[label=" Greylisting \nWhitelisting \nBlacklisting \nThrottling \n..."]
+    postfix_smtpd -> db[label="User verification"]
+    iredapd -> postfix_smtpd[label=" DUNNO \nREJECT \n451 (Greylisting) \n...", color=blue]
+    iredapd -> db[label="User verification"]
+    postfix_smtpd -> sender_server[label=" REJECT \n451 (Greylisting)", color=red]
+    postfix_smtpd -> amavisd_10024[label=" Pipe to port 10024 for spam/Virus scanning and more"]
+    amavisd_10024 -> postfix_smtpd[label=" REJECT, BOUNCE, ... \n(Detected SPAM/VIRUS, ...)", color=blue]
+    amavisd_10024 -> sa_clamav[label=" Spam/Virus Scanning \nDKIM verification \n..."]
+    amavisd_10024 -> db[label=" User verification \nWhite/Blacklisting \nQuarantine Spam/Virus \n..."]
+    sa_clamav -> postfix_queue
+    postfix_queue-> dovecot[label=" Pipe"]
+    dovecot -> db[label=" User Authentication"]
+    dovecot -> mailboxes[label=" LDA, LMTP"]
+    dovecot -> postfix_smtpd[label=" REJECT (mailbox quota exceed)", color=blue]
+    //end_users -> dovecot[label="Retrieve mails via POP3/IMAP"]
+    //end_users -> postfix[label="Send email (port 587)"]
+    //Webmail -> dovecot[label="Access mailbox on web browser (IMAP)"]
+    //Webmail -> postfix[label="Send email (port 587)"]
+    iRedAdmin -> db[label="Account management \nand more"]
+}
