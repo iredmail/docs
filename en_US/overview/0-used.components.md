@@ -1,5 +1,9 @@
 # Major open source softwares used in iRedMail
 
+[TOC]
+
+## Used Components
+
 Name | Comment
 --- |---
 [Postfix](http://www.postfix.org) | Mail Transfer Agent (MTA)
@@ -29,7 +33,7 @@ Name | Comment
 
 ![](./images/flow.outbound.png)
 
-# See also
+## See also
 
 * [Locations of configuration and log files of major components](./file.locations.html)
 * [Which network ports are open by iRedMail](./network.ports.html)
