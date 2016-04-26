@@ -1,13 +1,10 @@
 # Upgrade iRedAPD from v1.3.x or earlier versions to latest release
 
-> iRedAPD source code is hosted on [BitBucket](https://bitbucket.org/zhb/iredapd/).
+!!! attention
 
-> Release Notes are available here: [iRedAPD Release Notes](./iredapd.releases.html).
-
-> If you're trying to upgrade iRedAPD-1.4.0 or later releases to the latest
-> iRedAPD, please check this tutorial instead: [Upgrade iRedAPD](./upgrade.iredapd.html)
-
-> We provide remote upgrade service, check [the price](../support.html) and [contact us](../contact.html).
+    * If you're trying to upgrade iRedAPD-1.4.0 or later releases to the latest
+      iRedAPD, please check this tutorial instead: [Upgrade iRedAPD](./upgrade.iredapd.html)
+    * We provide remote upgrade service, check [the price](../support.html) and [contact us](../contact.html).
 
 This tutorial describes how to upgrade iRedAPD from v1.3.x or earlier versions
 to the later releases, it's applicable on all Linux/BSD distributions supported

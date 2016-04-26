@@ -1,6 +1,6 @@
 # Upgrade iRedAPD
 
-!!! note
+!!! attention
 
     * Release Notes are available here: [iRedAPD Release Notes](./iredapd.releases.html).
     * If you're trying to upgrade iRedAPD-1.3.x or earlier releases to the latest
