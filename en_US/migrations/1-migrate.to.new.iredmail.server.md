@@ -2,39 +2,48 @@
 
 [TOC]
 
-`WARNING`: Please try it on a test server first. if it works well, then try it on product server.
+!!! warning
 
-Since new iRedMail server will install same components as old server, you can choose what data you want to migrate. Most important data are:
+    Please practise the migration on a test server first, make sure you understand
+    the whole procedure and migrate all required data.
+
+Since new iRedMail server will install same components as old server, you can choose what data you want to migrate.
+
+Most important data are:
 
 * email accounts stored in SQL/LDAP.
 * user mailboxes. Stored under /var/vmail by default.
 * SQL database of Roundcube webmail. It stores per-user webmail preferences, and address book.
-* Policyd/Cluebringer database. It stores white/blacklists records, greylisting records, etc.
+* <strike>Policyd/Cluebringer database. It stores white/blacklists records, greylisting records, etc.</strike> Note: Policyd/Cluebringer were removed since iRedMail-0.9.3.
 * Amavisd database.
     * It stores per-recipient white/blacklists in SQL tables: `mailaddr`, `policy`, `users`, `wblist`.
     * Basic info of in/out emails are stored in SQL tables: `maddr`, `msgs`, `msgrcpt`. Quarantined emails are stored in `quarantine`, it requires other 3 tables. If you don't have any quarantined emails, it's safe to delete all records in these 4 tables.
 
-__WARNING__: Do not restore database `mysql` exported from old server, it contains SQL usernames/passwords for Roundcube/Amavisd/Policyd/Cluebringer used on old server. New iRedMail server has the same SQL usernames, but different passwords. So please do not restore it.
+!!! warning
+
+    Do not restore database `mysql` exported from old server, it contains SQL
+    usernames/passwords for Roundcube/Amavisd/iRedAPD/iRedAdmin/... used on
+    old server. New iRedMail server has the same SQL usernames, but different
+    passwords. So please do not restore it.
 
 ## Client settings (Outlook, Thunderbird)
 
-Since iRedMail-0.8.7, iRedMail enforces secure POP3/IMAP/SMTP connections.
-Mail client programs must issue 'STARTTLS' command before authentication,
-so please update your mail client programs you must change your mail client
-programs (e.g. Outlook, Thunderbird) to use TLS connection.
+Since iRedMail-0.8.7, iRedMail enforces secure POP3/IMAP/SMTP connections,
+please update your mail client applications to use TLS connection.
 
 * For SMTP service, use port `587` with `STARTTLS` (or `TLS`).
-* For IMAP service, use port `143` with `STARTTLS` (or `TLS`).
-* For POP3 service, use port `110` with `STARTTLS` (or `TLS`).
+* For IMAP service, use port `143` with `STARTTLS` (or `TLS`), or port `993` with `SSL`.
+* For POP3 service, use port `110` with `STARTTLS` (or `TLS`), or port `995` with `SSL`.
 
-Additional notes:
+!!! note
 
-* If you want to enable smtp authentication on port `25` (again, not
-recommended), please comment out Postfix parameter `smtpd_tls_auth_only = yes`
-in its config file `/etc/postfix/main.cf`.
+    * If you want to enable smtp authentication on port `25` (again, not
+      recommended), please comment out Postfix parameter `smtpd_tls_auth_only = yes`
+      in its config file `/etc/postfix/main.cf`.
 
-* if you want to enable SMTPS (SMTP over SSL, port `465`) to support legency
-mail clients, please follow this tutorial: [How to enable SMTPS service](./enable.smtps.html).
+    * if you want to enable SMTPS (SMTP over SSL, port `465`) to support
+      legency mail clients, please follow this tutorial:
+      [How to enable SMTPS service](./enable.smtps.html).
 
 ## LDAP: migrate mail accounts
 
@@ -111,19 +120,17 @@ structure related changes. Check [upgrade tutorials for iRedMail](./iredmail.rel
 
 ## Migrate mailboxes (Maildir format)
 
+!!! warning
+
+    * Make sure the maildir path stored in SQL/LDAP matches the mailbox
+      path on file system, so that mail clients can find migrated mail messages.
+    * After migrated mailboxes, you may want to recalculate mailbox quota by
+      following our tutorial:
+      [Force Dovecot to recalculate mailbox quota](./recalculate.mailbox.quota.html)
+
 * Copy all mailboxes (in Maildir format) to new iRedMail server with tools like `rsync`.
 * Set correct file owner and permission of mailboxes. Default owner is `vmail`,
   group is `vmail`, permission is `0700`.
-
-> WARNING:
->
-> * please make sure maildir path stored in SQL/LDAP matches the mailbox
->   path on file system, so that mail clients can find imported emails.
->
-> * After migrated mailboxes, you may want to recalculate mailbox quota by
->   following our tutorial:
->   [Force Dovecot to recalculate mailbox quota](./recalculate.mailbox.quota.html)
-
 
 * With SQL backends, you can get full maildir path of user with below SQL command:
 

@@ -29,42 +29,54 @@
 <li><a href="#references">References</a></li>
 </ul>
 </div>
-<p><code>WARNING</code>: Please try it on a test server first. if it works well, then try it on product server.</p>
-<p>Since new iRedMail server will install same components as old server, you can choose what data you want to migrate. Most important data are:</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Please practise the migration on a test server first, make sure you understand
+the whole procedure and migrate all required data.</p>
+</div>
+<p>Since new iRedMail server will install same components as old server, you can choose what data you want to migrate.</p>
+<p>Most important data are:</p>
 <ul>
 <li>email accounts stored in SQL/LDAP.</li>
 <li>user mailboxes. Stored under /var/vmail by default.</li>
 <li>SQL database of Roundcube webmail. It stores per-user webmail preferences, and address book.</li>
-<li>Policyd/Cluebringer database. It stores white/blacklists records, greylisting records, etc.</li>
+<li><strike>Policyd/Cluebringer database. It stores white/blacklists records, greylisting records, etc.</strike> Note: Policyd/Cluebringer were removed since iRedMail-0.9.3.</li>
 <li>Amavisd database.<ul>
 <li>It stores per-recipient white/blacklists in SQL tables: <code>mailaddr</code>, <code>policy</code>, <code>users</code>, <code>wblist</code>.</li>
 <li>Basic info of in/out emails are stored in SQL tables: <code>maddr</code>, <code>msgs</code>, <code>msgrcpt</code>. Quarantined emails are stored in <code>quarantine</code>, it requires other 3 tables. If you don't have any quarantined emails, it's safe to delete all records in these 4 tables.</li>
 </ul>
 </li>
 </ul>
-<p><strong>WARNING</strong>: Do not restore database <code>mysql</code> exported from old server, it contains SQL usernames/passwords for Roundcube/Amavisd/Policyd/Cluebringer used on old server. New iRedMail server has the same SQL usernames, but different passwords. So please do not restore it.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Do not restore database <code>mysql</code> exported from old server, it contains SQL
+usernames/passwords for Roundcube/Amavisd/iRedAPD/iRedAdmin/... used on
+old server. New iRedMail server has the same SQL usernames, but different
+passwords. So please do not restore it.</p>
+</div>
 <h2 id="client-settings-outlook-thunderbird">Client settings (Outlook, Thunderbird)</h2>
-<p>Since iRedMail-0.8.7, iRedMail enforces secure POP3/IMAP/SMTP connections.
-Mail client programs must issue 'STARTTLS' command before authentication,
-so please update your mail client programs you must change your mail client
-programs (e.g. Outlook, Thunderbird) to use TLS connection.</p>
+<p>Since iRedMail-0.8.7, iRedMail enforces secure POP3/IMAP/SMTP connections,
+please update your mail client applications to use TLS connection.</p>
 <ul>
 <li>For SMTP service, use port <code>587</code> with <code>STARTTLS</code> (or <code>TLS</code>).</li>
-<li>For IMAP service, use port <code>143</code> with <code>STARTTLS</code> (or <code>TLS</code>).</li>
-<li>For POP3 service, use port <code>110</code> with <code>STARTTLS</code> (or <code>TLS</code>).</li>
+<li>For IMAP service, use port <code>143</code> with <code>STARTTLS</code> (or <code>TLS</code>), or port <code>993</code> with <code>SSL</code>.</li>
+<li>For POP3 service, use port <code>110</code> with <code>STARTTLS</code> (or <code>TLS</code>), or port <code>995</code> with <code>SSL</code>.</li>
 </ul>
-<p>Additional notes:</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
 <ul>
 <li>
 <p>If you want to enable smtp authentication on port <code>25</code> (again, not
-recommended), please comment out Postfix parameter <code>smtpd_tls_auth_only = yes</code>
-in its config file <code>/etc/postfix/main.cf</code>.</p>
+  recommended), please comment out Postfix parameter <code>smtpd_tls_auth_only = yes</code>
+  in its config file <code>/etc/postfix/main.cf</code>.</p>
 </li>
 <li>
-<p>if you want to enable SMTPS (SMTP over SSL, port <code>465</code>) to support legency
-mail clients, please follow this tutorial: <a href="./enable.smtps.html">How to enable SMTPS service</a>.</p>
+<p>if you want to enable SMTPS (SMTP over SSL, port <code>465</code>) to support
+  legency mail clients, please follow this tutorial:
+  <a href="./enable.smtps.html">How to enable SMTPS service</a>.</p>
 </li>
 </ul>
+</div>
 <h2 id="ldap-migrate-mail-accounts">LDAP: migrate mail accounts</h2>
 <p>Steps to migrate LDAP mail accounts:</p>
 <ul>
@@ -130,27 +142,25 @@ mysql&gt; ALTER TABLE domain DROP disableduserprofiles;
 all upgrade tutorials for your current iRedMail release, then apply SQL
 structure related changes. Check <a href="./iredmail.releases.html">upgrade tutorials for iRedMail</a>.</p>
 <h2 id="migrate-mailboxes-maildir-format">Migrate mailboxes (Maildir format)</h2>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<ul>
+<li>Make sure the maildir path stored in SQL/LDAP matches the mailbox
+  path on file system, so that mail clients can find migrated mail messages.</li>
+<li>After migrated mailboxes, you may want to recalculate mailbox quota by
+  following our tutorial:
+  <a href="./recalculate.mailbox.quota.html">Force Dovecot to recalculate mailbox quota</a></li>
+</ul>
+</div>
 <ul>
 <li>Copy all mailboxes (in Maildir format) to new iRedMail server with tools like <code>rsync</code>.</li>
-<li>Set correct file owner and permission of mailboxes. Default owner is <code>vmail</code>,
-  group is <code>vmail</code>, permission is <code>0700</code>.</li>
-</ul>
-<blockquote>
-<p>WARNING:</p>
-<ul>
 <li>
-<p>please make sure maildir path stored in SQL/LDAP matches the mailbox
-  path on file system, so that mail clients can find imported emails.</p>
+<p>Set correct file owner and permission of mailboxes. Default owner is <code>vmail</code>,
+  group is <code>vmail</code>, permission is <code>0700</code>.</p>
 </li>
 <li>
-<p>After migrated mailboxes, you may want to recalculate mailbox quota by
-  following our tutorial:
-  <a href="./recalculate.mailbox.quota.html">Force Dovecot to recalculate mailbox quota</a></p>
+<p>With SQL backends, you can get full maildir path of user with below SQL command:</p>
 </li>
-</ul>
-</blockquote>
-<ul>
-<li>With SQL backends, you can get full maildir path of user with below SQL command:</li>
 </ul>
 <pre><code>mysql&gt; USE vmail;
 mysql&gt; SELECT CONCAT(storagebasedirectory, '/', storagenode, '/', maildir) FROM mailbox WHERE username='user@domain.com';
