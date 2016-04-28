@@ -280,18 +280,27 @@ on Debian/Ubuntu.</p>
 <p>SpamAssassin doesn't have a separated log file, to debug SpamAssassin, please
 set <code>$sa_debug = 1;</code> in Amavisd config file, then restart Amavisd service.</p>
 <h2 id="fail2ban">Fail2ban</h2>
+<p>Main config file:</p>
 <ul>
-<li>
-<p>Main config file is <code>/etc/fail2ban/jail.local</code>. All custom settings should be
-  placed in <code>/etc/fail2ban/jail.local</code>, and don't touch <code>jail.conf</code>, so that
-  upgrading Fail2ban binary package won't override your custom settings.</p>
-</li>
-<li>
-<p>All filter rules are defined in files under <code>/etc/fail2ban/filter.d/</code>.</p>
-</li>
-<li>Actions are defined in files under <code>/etc/fail2ban/action.d/</code>.</li>
+<li>On Linux/OpenBSD, it's <code>/etc/fail2ban/jail.local</code>.</li>
+<li>On FreeBSD, it's <code>/usr/local/etc/fail2ban/jail.local</code>.</li>
 </ul>
-<p>FreeBSD system is <code>/usr/local/etc/fail2ban/</code>.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>All custom settings should be placed in <code>jail.local</code>, and don't touch
+<code>jail.conf</code>, so that upgrading Fail2ban binary package won't lose/override
+your custom settings.</p>
+</div>
+<p>Filters:</p>
+<ul>
+<li>On Linux/OpenBSD, all filters are defined in files under <code>/etc/fail2ban/filter.d/</code>.</li>
+<li>On FreeBSD, all filters are defined in files under <code>/usr/local/etc/fail2ban/filter.d/</code>.</li>
+</ul>
+<p>Ban/Unban actions:</p>
+<ul>
+<li>On Linux/OpenBSD, all actions are defined in files under <code>/etc/fail2ban/action.d/</code>.</li>
+<li>On FreeBSD, all filters are defined in files under <code>/usr/local/etc/fail2ban/action.d/</code>.</li>
+</ul>
 <h2 id="sogo-groupware">SOGo Groupware</h2>
 <ul>
 <li>Main config file is <code>/etc/sogo/sogo.conf</code>.</li>

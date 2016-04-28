@@ -218,14 +218,27 @@ set `$sa_debug = 1;` in Amavisd config file, then restart Amavisd service.
 
 ## Fail2ban
 
-* Main config file is `/etc/fail2ban/jail.local`. All custom settings should be
-  placed in `/etc/fail2ban/jail.local`, and don't touch `jail.conf`, so that
-  upgrading Fail2ban binary package won't override your custom settings.
+Main config file:
 
-* All filter rules are defined in files under `/etc/fail2ban/filter.d/`.
-* Actions are defined in files under `/etc/fail2ban/action.d/`.
+* On Linux/OpenBSD, it's `/etc/fail2ban/jail.local`.
+* On FreeBSD, it's `/usr/local/etc/fail2ban/jail.local`.
 
-FreeBSD system is `/usr/local/etc/fail2ban/`.
+!!! warning
+
+    All custom settings should be placed in `jail.local`, and don't touch
+    `jail.conf`, so that upgrading Fail2ban binary package won't lose/override
+    your custom settings.
+
+Filters:
+
+* On Linux/OpenBSD, all filters are defined in files under `/etc/fail2ban/filter.d/`.
+* On FreeBSD, all filters are defined in files under `/usr/local/etc/fail2ban/filter.d/`.
+
+Ban/Unban actions:
+
+* On Linux/OpenBSD, all actions are defined in files under `/etc/fail2ban/action.d/`.
+* On FreeBSD, all filters are defined in files under `/usr/local/etc/fail2ban/action.d/`.
+
 
 ## SOGo Groupware
 

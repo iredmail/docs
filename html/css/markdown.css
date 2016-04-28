@@ -342,6 +342,7 @@ li { line-height: 26px; }
 	background: #e7f2fa;
 }
 
+.admonition { margin-top: 20px; }
 .admonition-title {
 	font-weight: bold;
 	display: block;
