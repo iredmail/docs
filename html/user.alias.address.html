@@ -15,6 +15,17 @@
         <span>iRedMail</span>
     </a>
     &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><h1 id="per-user-alias-address">Per-user alias address</h1>
+<div class="toc">
+<ul>
+<li><a href="#per-user-alias-address">Per-user alias address</a><ul>
+<li><a href="#manage-per-user-alias-addresses-with-iredadmin-pro">Manage per-user alias addresses with iRedAdmin-Pro</a></li>
+<li><a href="#sql-backend-manage-per-user-alias-addresses-with-sql-command-line">SQL backend: Manage per-user alias addresses with SQL command line</a></li>
+<li><a href="#ldap-backend-manage-per-user-alias-addresses">LDAP backend: Manage per-user alias addresses</a></li>
+<li><a href="#screenshot-of-iredadmin-pro">Screenshot of iRedAdmin-Pro</a></li>
+</ul>
+</li>
+</ul>
+</div>
 <p>Since iRedMail-0.9.3, we have per-user alias address support, that means mail
 user <code>john.smith@domain.com</code> can have additional email addresses like
 <code>john@domain.com</code>, <code>js@domain.com</code> and more, all emails sent to these addresses
@@ -37,9 +48,10 @@ sql&gt; INSERT INTO alias (address, goto, alias_to, is_alias, domain)
 </code></pre>
 
 <ul>
+<li>Account <code>sales@domain.com</code> and <code>bill@domain.com</code> are NOT existing mail user accounts.</li>
 <li>Values of column <code>alias.goto</code> and <code>alias.alias_to</code> must be the same -- email address of the existing mail user.</li>
-<li>You can add as many additional email addresses as you want.</li>
 <li>In above sample, <code>bill@domain.com</code> could be an email address which belongs to your alias domain.</li>
+<li>You're free to add as many additional email addresses as you want.</li>
 </ul>
 <h2 id="ldap-backend-manage-per-user-alias-addresses">LDAP backend: Manage per-user alias addresses</h2>
 <p>For LDAP backend, per-user alias addresses are stored in LDAP attribute

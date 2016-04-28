@@ -1,5 +1,7 @@
 # Per-user alias address
 
+[TOC]
+
 Since iRedMail-0.9.3, we have per-user alias address support, that means mail
 user `john.smith@domain.com` can have additional email addresses like
 `john@domain.com`, `js@domain.com` and more, all emails sent to these addresses
@@ -27,10 +29,10 @@ sql> INSERT INTO alias (address, goto, alias_to, is_alias, domain)
                 VALUES ('bill@domain.com', 'john@domain.com', 'john@domain.com', 1, 'domain.com');
 ```
 
+* Account `sales@domain.com` and `bill@domain.com` are NOT existing mail user accounts.
 * Values of column `alias.goto` and `alias.alias_to` must be the same -- email address of the existing mail user.
-* You can add as many additional email addresses as you want.
 * In above sample, `bill@domain.com` could be an email address which belongs to your alias domain.
-
+* You're free to add as many additional email addresses as you want.
 
 ## LDAP backend: Manage per-user alias addresses
 
