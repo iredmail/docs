@@ -9,7 +9,7 @@ Sample usage:
 * Bulk create mail users with the shell script:
 
 ```shell
-# cd iRedMail-0.9.2/tools/
+# cd iRedMail-0.9.4/tools/
 # bash create_mail_user_SQL.sh example.com user1 user2 user3
 ```
 
