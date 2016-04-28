@@ -150,53 +150,6 @@ Main config file:
 * on FreeBSD: `/var/db/mysql/my.cnf`.
 * on OpenBSD: `/etc/my.cnf`.
 
-
-## Amavisd
-
-### Main config files
-
-* on RHEL/CentOS: it's `/etc/amavisd/amavisd.conf`.
-* on Debian/Ubuntu: it's `/etc/amavis/conf.d/50-user`.
-
-    Debian/Ubuntu have some additional config files under `/etc/amavis/conf.d/`,
-    but you can always override them in `/etc/amavis/conf.d/50-user`.
-    When we mention `amavisd.conf` in other documents, it always means `50-user`
-    on Debian/Ubuntu.
-
-* on FreeBSD: it's `/usr/local/etc/amavisd.conf`.
-* on OpenBSD: it's `/etc/amavisd.conf`.
-
-### Log files
-
-Amavisd is configured to log to [Postfix log file](#postfix) by iRedMail.
-
-## Cluebringer
-
-Main config file:
-
-* RHEL/CentOS: `/etc/policyd/cluebringer.conf`, `/etc/policyd/webui.conf` (web admin panel).
-* Debian/Ubuntu: `/etc/cluebringer/cluebringer.conf`, `/etc/cluebringer/cluebringer-webui.conf` (web admin panel).
-* FreeBSD: `/usr/local/etc/cluebringer.conf`, `/usr/local/etc/apache24/cluebringer.conf` (web admin panel).
-* OpenBSD: Not applicable, cluebringer is not available on OpenBSD.
-
-Init script:
-
-* RHEL/CentOS: `/etc/init.d/cbpolicyd`
-* Debian/Ubuntu: `/etc/init.d/postfix-cluebringer`
-* FreeBSD: `/usr/local/etc/rc.d/policyd2`
-* OpenBSD: N/A. we don't have Cluebringer installed on OpenBSD.
-
-## Fail2ban
-
-* Main config file is `/etc/fail2ban/jail.local`. All custom settings should be
-  placed in `/etc/fail2ban/jail.local`, and don't touch `jail.conf`, so that
-  upgrading Fail2ban binary package won't override your custom settings.
-
-* All filter rules are defined in files under `/etc/fail2ban/filter.d/`.
-* Actions are defined in files under `/etc/fail2ban/action.d/`.
-
-FreeBSD system is `/usr/local/etc/fail2ban/`.
-
 ## Roundcube webmail
 
 * Root Directory. Roundcube webmail is installed under below directory by default:
@@ -230,6 +183,50 @@ FreeBSD system is `/usr/local/etc/fail2ban/`.
 
 * Log file. Roundcube is configured to log to [Postfix log](#postfix) file by default.
 
+## Amavisd
+
+### Main config files
+
+* on RHEL/CentOS: it's `/etc/amavisd/amavisd.conf`.
+* on Debian/Ubuntu: it's `/etc/amavis/conf.d/50-user`.
+
+    Debian/Ubuntu have some additional config files under `/etc/amavis/conf.d/`,
+    but you can always override them in `/etc/amavis/conf.d/50-user`.
+    When we mention `amavisd.conf` in other documents, it always means `50-user`
+    on Debian/Ubuntu.
+
+* on FreeBSD: it's `/usr/local/etc/amavisd.conf`.
+* on OpenBSD: it's `/etc/amavisd.conf`.
+
+### Log files
+
+Amavisd is configured to log to [Postfix log file](#postfix) by iRedMail.
+
+## SpamAssassin
+
+!!! attention
+
+    With default iRedMail settings, SpamAssassin is called by Amavisd, not run as a daemon.
+
+Main config file:
+
+* On Linux/OpenBSD, it's `/etc/mail/spamassassin/local.cf`.
+* On FreeBSD, it's `/usr/local/etc/mail/spamassassin/local.cf`.
+
+SpamAssassin doesn't have a separated log file, to debug SpamAssassin, please
+set `$sa_debug = 1;` in Amavisd config file, then restart Amavisd service.
+
+## Fail2ban
+
+* Main config file is `/etc/fail2ban/jail.local`. All custom settings should be
+  placed in `/etc/fail2ban/jail.local`, and don't touch `jail.conf`, so that
+  upgrading Fail2ban binary package won't override your custom settings.
+
+* All filter rules are defined in files under `/etc/fail2ban/filter.d/`.
+* Actions are defined in files under `/etc/fail2ban/action.d/`.
+
+FreeBSD system is `/usr/local/etc/fail2ban/`.
+
 ## SOGo Groupware
 
 * Main config file is `/etc/sogo/sogo.conf`.
@@ -261,3 +258,24 @@ Nginx). uwsgi log file is under `/var/log/uwsgi/` on Linux/FreeBSD, and
 
 Note: If you modified any iRedAdmin files (not just config file), please restart
 Apache or uwsgi service (if you're running Nginx) to reload modified files.
+
+## <strike>Cluebringer</strike>
+
+!!! warning
+
+    Policyd/Cluebringer were removed since iRedMail-0.9.3.
+
+Main config file:
+
+* RHEL/CentOS: `/etc/policyd/cluebringer.conf`, `/etc/policyd/webui.conf` (web admin panel).
+* Debian/Ubuntu: `/etc/cluebringer/cluebringer.conf`, `/etc/cluebringer/cluebringer-webui.conf` (web admin panel).
+* FreeBSD: `/usr/local/etc/cluebringer.conf`, `/usr/local/etc/apache24/cluebringer.conf` (web admin panel).
+* OpenBSD: Not applicable, cluebringer is not available on OpenBSD.
+
+Init script:
+
+* RHEL/CentOS: `/etc/init.d/cbpolicyd`
+* Debian/Ubuntu: `/etc/init.d/postfix-cluebringer`
+* FreeBSD: `/usr/local/etc/rc.d/policyd2`
+* OpenBSD: N/A. we don't have Cluebringer installed on OpenBSD.
+

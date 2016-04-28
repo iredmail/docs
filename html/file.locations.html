@@ -33,17 +33,18 @@
 </li>
 <li><a href="#openldap">OpenLDAP</a></li>
 <li><a href="#mysql-mariadb">MySQL, MariaDB</a></li>
+<li><a href="#roundcube-webmail">Roundcube webmail</a></li>
 <li><a href="#amavisd">Amavisd</a><ul>
 <li><a href="#main-config-files_1">Main config files</a></li>
 <li><a href="#log-files_2">Log files</a></li>
 </ul>
 </li>
-<li><a href="#cluebringer">Cluebringer</a></li>
+<li><a href="#spamassassin">SpamAssassin</a></li>
 <li><a href="#fail2ban">Fail2ban</a></li>
-<li><a href="#roundcube-webmail">Roundcube webmail</a></li>
 <li><a href="#sogo-groupware">SOGo Groupware</a></li>
 <li><a href="#iredapd">iRedAPD</a></li>
 <li><a href="#iredadmin">iRedAdmin</a></li>
+<li><a href="#cluebringer"><strike>Cluebringer</strike></a></li>
 </ul>
 </li>
 </ul>
@@ -207,52 +208,6 @@ empty, please check normal syslog log file <code>/var/log/messages</code> or
 <li>on FreeBSD: <code>/var/db/mysql/my.cnf</code>.</li>
 <li>on OpenBSD: <code>/etc/my.cnf</code>.</li>
 </ul>
-<h2 id="amavisd">Amavisd</h2>
-<h3 id="main-config-files_1">Main config files</h3>
-<ul>
-<li>on RHEL/CentOS: it's <code>/etc/amavisd/amavisd.conf</code>.</li>
-<li>
-<p>on Debian/Ubuntu: it's <code>/etc/amavis/conf.d/50-user</code>.</p>
-<p>Debian/Ubuntu have some additional config files under <code>/etc/amavis/conf.d/</code>,
-but you can always override them in <code>/etc/amavis/conf.d/50-user</code>.
-When we mention <code>amavisd.conf</code> in other documents, it always means <code>50-user</code>
-on Debian/Ubuntu.</p>
-</li>
-<li>
-<p>on FreeBSD: it's <code>/usr/local/etc/amavisd.conf</code>.</p>
-</li>
-<li>on OpenBSD: it's <code>/etc/amavisd.conf</code>.</li>
-</ul>
-<h3 id="log-files_2">Log files</h3>
-<p>Amavisd is configured to log to <a href="#postfix">Postfix log file</a> by iRedMail.</p>
-<h2 id="cluebringer">Cluebringer</h2>
-<p>Main config file:</p>
-<ul>
-<li>RHEL/CentOS: <code>/etc/policyd/cluebringer.conf</code>, <code>/etc/policyd/webui.conf</code> (web admin panel).</li>
-<li>Debian/Ubuntu: <code>/etc/cluebringer/cluebringer.conf</code>, <code>/etc/cluebringer/cluebringer-webui.conf</code> (web admin panel).</li>
-<li>FreeBSD: <code>/usr/local/etc/cluebringer.conf</code>, <code>/usr/local/etc/apache24/cluebringer.conf</code> (web admin panel).</li>
-<li>OpenBSD: Not applicable, cluebringer is not available on OpenBSD.</li>
-</ul>
-<p>Init script:</p>
-<ul>
-<li>RHEL/CentOS: <code>/etc/init.d/cbpolicyd</code></li>
-<li>Debian/Ubuntu: <code>/etc/init.d/postfix-cluebringer</code></li>
-<li>FreeBSD: <code>/usr/local/etc/rc.d/policyd2</code></li>
-<li>OpenBSD: N/A. we don't have Cluebringer installed on OpenBSD.</li>
-</ul>
-<h2 id="fail2ban">Fail2ban</h2>
-<ul>
-<li>
-<p>Main config file is <code>/etc/fail2ban/jail.local</code>. All custom settings should be
-  placed in <code>/etc/fail2ban/jail.local</code>, and don't touch <code>jail.conf</code>, so that
-  upgrading Fail2ban binary package won't override your custom settings.</p>
-</li>
-<li>
-<p>All filter rules are defined in files under <code>/etc/fail2ban/filter.d/</code>.</p>
-</li>
-<li>Actions are defined in files under <code>/etc/fail2ban/action.d/</code>.</li>
-</ul>
-<p>FreeBSD system is <code>/usr/local/etc/fail2ban/</code>.</p>
 <h2 id="roundcube-webmail">Roundcube webmail</h2>
 <ul>
 <li>
@@ -294,6 +249,49 @@ not modify it, instead, you should copy the settings you want to modify from
 <ul>
 <li>Log file. Roundcube is configured to log to <a href="#postfix">Postfix log</a> file by default.</li>
 </ul>
+<h2 id="amavisd">Amavisd</h2>
+<h3 id="main-config-files_1">Main config files</h3>
+<ul>
+<li>on RHEL/CentOS: it's <code>/etc/amavisd/amavisd.conf</code>.</li>
+<li>
+<p>on Debian/Ubuntu: it's <code>/etc/amavis/conf.d/50-user</code>.</p>
+<p>Debian/Ubuntu have some additional config files under <code>/etc/amavis/conf.d/</code>,
+but you can always override them in <code>/etc/amavis/conf.d/50-user</code>.
+When we mention <code>amavisd.conf</code> in other documents, it always means <code>50-user</code>
+on Debian/Ubuntu.</p>
+</li>
+<li>
+<p>on FreeBSD: it's <code>/usr/local/etc/amavisd.conf</code>.</p>
+</li>
+<li>on OpenBSD: it's <code>/etc/amavisd.conf</code>.</li>
+</ul>
+<h3 id="log-files_2">Log files</h3>
+<p>Amavisd is configured to log to <a href="#postfix">Postfix log file</a> by iRedMail.</p>
+<h2 id="spamassassin">SpamAssassin</h2>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>With default iRedMail settings, SpamAssassin is called by Amavisd, not run as a daemon.</p>
+</div>
+<p>Main config file:</p>
+<ul>
+<li>On Linux/OpenBSD, it's <code>/etc/mail/spamassassin/local.cf</code>.</li>
+<li>On FreeBSD, it's <code>/usr/local/etc/mail/spamassassin/local.cf</code>.</li>
+</ul>
+<p>SpamAssassin doesn't have a separated log file, to debug SpamAssassin, please
+set <code>$sa_debug = 1;</code> in Amavisd config file, then restart Amavisd service.</p>
+<h2 id="fail2ban">Fail2ban</h2>
+<ul>
+<li>
+<p>Main config file is <code>/etc/fail2ban/jail.local</code>. All custom settings should be
+  placed in <code>/etc/fail2ban/jail.local</code>, and don't touch <code>jail.conf</code>, so that
+  upgrading Fail2ban binary package won't override your custom settings.</p>
+</li>
+<li>
+<p>All filter rules are defined in files under <code>/etc/fail2ban/filter.d/</code>.</p>
+</li>
+<li>Actions are defined in files under <code>/etc/fail2ban/action.d/</code>.</li>
+</ul>
+<p>FreeBSD system is <code>/usr/local/etc/fail2ban/</code>.</p>
 <h2 id="sogo-groupware">SOGo Groupware</h2>
 <ul>
 <li>Main config file is <code>/etc/sogo/sogo.conf</code>.</li>
@@ -325,7 +323,26 @@ message to <a href="#apache">Apache ssl error log file</a>, or uwsgi log file (i
 Nginx). uwsgi log file is under <code>/var/log/uwsgi/</code> on Linux/FreeBSD, and
 <code>/var/www/logs/</code> on OpenBSD.</p>
 <p>Note: If you modified any iRedAdmin files (not just config file), please restart
-Apache or uwsgi service (if you're running Nginx) to reload modified files.</p><p style="text-align: center; color: grey;">All documents are available in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.<script>
+Apache or uwsgi service (if you're running Nginx) to reload modified files.</p>
+<h2 id="cluebringer"><strike>Cluebringer</strike></h2>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Policyd/Cluebringer were removed since iRedMail-0.9.3.</p>
+</div>
+<p>Main config file:</p>
+<ul>
+<li>RHEL/CentOS: <code>/etc/policyd/cluebringer.conf</code>, <code>/etc/policyd/webui.conf</code> (web admin panel).</li>
+<li>Debian/Ubuntu: <code>/etc/cluebringer/cluebringer.conf</code>, <code>/etc/cluebringer/cluebringer-webui.conf</code> (web admin panel).</li>
+<li>FreeBSD: <code>/usr/local/etc/cluebringer.conf</code>, <code>/usr/local/etc/apache24/cluebringer.conf</code> (web admin panel).</li>
+<li>OpenBSD: Not applicable, cluebringer is not available on OpenBSD.</li>
+</ul>
+<p>Init script:</p>
+<ul>
+<li>RHEL/CentOS: <code>/etc/init.d/cbpolicyd</code></li>
+<li>Debian/Ubuntu: <code>/etc/init.d/postfix-cluebringer</code></li>
+<li>FreeBSD: <code>/usr/local/etc/rc.d/policyd2</code></li>
+<li>OpenBSD: N/A. we don't have Cluebringer installed on OpenBSD.</li>
+</ul><p style="text-align: center; color: grey;">All documents are available in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.<script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
   m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
