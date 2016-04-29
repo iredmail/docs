@@ -2,10 +2,6 @@
 
 [TOC]
 
-!!! warning
-
-    __THIS IS STILL A DRAFT DOCUMENT, DO NOT APPLY IT.__
-
 !!! note "Paid Remote Upgrade Support"
 
     We offer remote upgrade support if you don't want to get your hands dirty,
@@ -13,15 +9,7 @@
 
 ## ChangeLog
 
-* 2016-04-26: Fixed: Not perform banned file types checking on RHEL/CentOS/OpenBSD/FreeBSD
-* 2016-04-23: [OPTIONAL] Add custom Amavisd log template to always log SpamAssassin testing result
-* 2016-04-13: Fixed: not add ssh port number in Fail2ban config file.
-* 2016-03-23: [NEW] Able to enable/disable SOGo access for a single user.
-* 2016-03-08: [NEW] Supports Postfix `sender_dependent_relayhost_maps`.
-* 2016-02-25:
-    * [RHEL/CentOS] Fixed: Not create required directory used to store PHP session files
-    * [RHEL/CentOS] Fixed: Not enable cron job to update SpamAssassin rules
-    * Fixed: not add alias for `virusalert` on non-Debian/Ubuntu OSes
+* May 1, 2016: Initial publish.
 
 ## General (All backends should apply these steps)
 
@@ -32,17 +20,21 @@ installation, it's recommended to update this file after you upgraded iRedMail,
 so that you can know which version of iRedMail you're running. For example:
 
 ```
-# File: /etc/iredmail-release
-
 0.9.5
 ```
 
-### Upgrade iRedAPD (Postfix policy server) to the latest 1.9.0
+### Upgrade iRedAPD (Postfix policy server) to the latest stable release (1.9.0)
 
 Please follow below tutorial to upgrade iRedAPD to the latest stable release:
 [Upgrade iRedAPD to the latest stable release](./upgrade.iredapd.html)
 
 Detailed release notes are available [here](./iredapd.releases.html).
+
+### Upgrade iRedAdmin (open source edition) to the latest stable release (0.6)
+
+Please follow this tutorial to upgrade iRedAdmin open source edition to the
+latest stable release:
+[Upgrade iRedAdmin to the latest stable release](./migrate.or.upgrade.iredadmin.html)
 
 ### [Linux] Fixed: not add ssh port number in Fail2ban config file (jail.local)
 
@@ -118,6 +110,7 @@ emails sent through SMTP AUTH. Please follw steps below to fix it.
 
 Open Amavisd config file, find parameter `$policy_bank{'ORIGINATING'} =` like
 below:
+
 * on RHEL/CentOS: it's `/etc/amavisd/amavisd.conf`
 * on FreeBSD: it's `/usr/local/etc/amavisd.conf`
 * on OpenBSD: it's `/etc/amavisd.conf`
@@ -166,6 +159,62 @@ perl -pi -e 's/(virusalert:.*)/#${1}/g' /usr/local/etc/postfix/aliases
 echo -e '\nvirusalert: root' >> /usr/local/etc/postfix/aliases
 postalias /usr/local/etc/postfix/aliases
 ```
+
+### Fixed: Improper Nginx proxy timeout setting for SOGo
+
+!!! attention
+
+    This is applicable to Nginx, not Apache (Apache has proper proxy timeout setting).
+
+iRedMail-0.9.4 and early releases didn't set proper proxy timeout setting in
+Nginx, this will cause error `client disconnected during delivery of response`
+while SOGo trying to push mailbox changes. Below settings will fix this issue.
+
+* Open Nginx config file `/etc/nginx/templates/sogo.tmpl`
+    * If your iRedMail server was installed with iRedMail-0.9.4, it's
+      `/etc/nginx/templates/sogo.tmpl` (Linux/OpenBSD) or
+      `/usr/local/etc/nginx/templates/sogo.tmpl` (FreeBSD).
+    * If your iRedMail server was installed with early release and upgraded to
+      iRedMail-0.9.4, it's `/etc/nginx/conf.d/default.conf` (Linux/OpenBSD)
+      or `/usr/local/etc/nginx/conf.d/default.conf` (FreeBSD).
+
+* Find setting like below:
+
+```
+location ^~ /Microsoft-Server-ActiveSync {
+    ...
+}
+
+location ^~ /SOGo/Microsoft-Server-ActiveSync {
+    ...
+}
+```
+
+* Add 3 proxy timeout settings in both `location {}` blocks like below:
+
+!!! warning
+
+    The timeout value, `360` (seconds), used below must be same as the value of
+    parameter `SOGoMaximumPingInterval =` in SOGo config file `/etc/sogo/sogo.conf`
+    (Linux/OpenBSD) or `/usr/local/etc/sogo/sogo.conf`.
+
+```
+location ^~ /Microsoft-Server-ActiveSync {
+    ...
+    proxy_connect_timeout 360;
+    proxy_send_timeout 360;
+    proxy_read_timeout 360;
+}
+
+location ^~ /SOGo/Microsoft-Server-ActiveSync {
+    ...
+    proxy_connect_timeout 360;
+    proxy_send_timeout 360;
+    proxy_read_timeout 360;
+}
+```
+
+* Restarting Nginx service is required.
 
 ### [OPTIONAL] Add custom Amavisd log template to always log SpamAssassin testing result
 

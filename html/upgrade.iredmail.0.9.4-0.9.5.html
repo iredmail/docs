@@ -21,12 +21,14 @@
 <li><a href="#changelog">ChangeLog</a></li>
 <li><a href="#general-all-backends-should-apply-these-steps">General (All backends should apply these steps)</a><ul>
 <li><a href="#update-etciredmail-release-with-new-iredmail-version-number">Update /etc/iredmail-release with new iRedMail version number</a></li>
-<li><a href="#upgrade-iredapd-postfix-policy-server-to-the-latest-190">Upgrade iRedAPD (Postfix policy server) to the latest 1.9.0</a></li>
+<li><a href="#upgrade-iredapd-postfix-policy-server-to-the-latest-stable-release-190">Upgrade iRedAPD (Postfix policy server) to the latest stable release (1.9.0)</a></li>
+<li><a href="#upgrade-iredadmin-open-source-edition-to-the-latest-stable-release-06">Upgrade iRedAdmin (open source edition) to the latest stable release (0.6)</a></li>
 <li><a href="#linux-fixed-not-add-ssh-port-number-in-fail2ban-config-file-jaillocal">[Linux] Fixed: not add ssh port number in Fail2ban config file (jail.local)</a></li>
 <li><a href="#rhelcentos-fixed-not-enable-cron-job-to-update-spamassassin-rules">[RHEL/CentOS] Fixed: Not enable cron job to update SpamAssassin rules</a></li>
 <li><a href="#rhelcentos-fixed-not-create-required-directory-used-to-store-php-session-files">[RHEL/CentOS] Fixed: Not create required directory used to store PHP session files</a></li>
 <li><a href="#fixed-not-perform-banned-file-types-checking-on-rhelcentosopenbsdfreebsd">Fixed: Not perform banned file types checking on RHEL/CentOS/OpenBSD/FreeBSD</a></li>
 <li><a href="#fixed-not-add-alias-for-virusalert-on-non-debianubuntu-oses">Fixed: not add alias for virusalert on non-Debian/Ubuntu OSes</a></li>
+<li><a href="#fixed-improper-nginx-proxy-timeout-setting-for-sogo">Fixed: Improper Nginx proxy timeout setting for SOGo</a></li>
 <li><a href="#optional-add-custom-amavisd-log-template-to-always-log-spamassassin-testing-result">[OPTIONAL] Add custom Amavisd log template to always log SpamAssassin testing result</a></li>
 </ul>
 </li>
@@ -71,10 +73,6 @@
 </li>
 </ul>
 </div>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p><strong>THIS IS STILL A DRAFT DOCUMENT, DO NOT APPLY IT.</strong></p>
-</div>
 <div class="admonition note">
 <p class="admonition-title">Paid Remote Upgrade Support</p>
 <p>We offer remote upgrade support if you don't want to get your hands dirty,
@@ -82,32 +80,24 @@ check <a href="../support.html">the details</a> and <a href="../contact.html">co
 </div>
 <h2 id="changelog">ChangeLog</h2>
 <ul>
-<li>2016-04-26: Fixed: Not perform banned file types checking on RHEL/CentOS/OpenBSD/FreeBSD</li>
-<li>2016-04-23: [OPTIONAL] Add custom Amavisd log template to always log SpamAssassin testing result</li>
-<li>2016-04-13: Fixed: not add ssh port number in Fail2ban config file.</li>
-<li>2016-03-23: [NEW] Able to enable/disable SOGo access for a single user.</li>
-<li>2016-03-08: [NEW] Supports Postfix <code>sender_dependent_relayhost_maps</code>.</li>
-<li>2016-02-25:<ul>
-<li>[RHEL/CentOS] Fixed: Not create required directory used to store PHP session files</li>
-<li>[RHEL/CentOS] Fixed: Not enable cron job to update SpamAssassin rules</li>
-<li>Fixed: not add alias for <code>virusalert</code> on non-Debian/Ubuntu OSes</li>
-</ul>
-</li>
+<li>May 1, 2016: Initial publish.</li>
 </ul>
 <h2 id="general-all-backends-should-apply-these-steps">General (All backends should apply these steps)</h2>
 <h3 id="update-etciredmail-release-with-new-iredmail-version-number">Update <code>/etc/iredmail-release</code> with new iRedMail version number</h3>
 <p>iRedMail stores the release version in <code>/etc/iredmail-release</code> after
 installation, it's recommended to update this file after you upgraded iRedMail,
 so that you can know which version of iRedMail you're running. For example:</p>
-<pre><code># File: /etc/iredmail-release
-
-0.9.5
+<pre><code>0.9.5
 </code></pre>
 
-<h3 id="upgrade-iredapd-postfix-policy-server-to-the-latest-190">Upgrade iRedAPD (Postfix policy server) to the latest 1.9.0</h3>
+<h3 id="upgrade-iredapd-postfix-policy-server-to-the-latest-stable-release-190">Upgrade iRedAPD (Postfix policy server) to the latest stable release (1.9.0)</h3>
 <p>Please follow below tutorial to upgrade iRedAPD to the latest stable release:
 <a href="./upgrade.iredapd.html">Upgrade iRedAPD to the latest stable release</a></p>
 <p>Detailed release notes are available <a href="./iredapd.releases.html">here</a>.</p>
+<h3 id="upgrade-iredadmin-open-source-edition-to-the-latest-stable-release-06">Upgrade iRedAdmin (open source edition) to the latest stable release (0.6)</h3>
+<p>Please follow this tutorial to upgrade iRedAdmin open source edition to the
+latest stable release:
+<a href="./migrate.or.upgrade.iredadmin.html">Upgrade iRedAdmin to the latest stable release</a></p>
 <h3 id="linux-fixed-not-add-ssh-port-number-in-fail2ban-config-file-jaillocal">[Linux] Fixed: not add ssh port number in Fail2ban config file (jail.local)</h3>
 <p>iRedMail-0.9.4 doesn't list ssh port number in 2 Fail2ban jails: <code>sshd</code>,
 <code>sshd-ddos</code>, this causes Fail2ban doesn't block bad client IP address for
@@ -168,10 +158,12 @@ chmod o+t /var/lib/php/session
 this causes Amavisd won't perform banned file types checking for outgoing
 emails sent through SMTP AUTH. Please follw steps below to fix it.</p>
 <p>Open Amavisd config file, find parameter <code>$policy_bank{'ORIGINATING'} =</code> like
-below:
-<em> on RHEL/CentOS: it's <code>/etc/amavisd/amavisd.conf</code>
-</em> on FreeBSD: it's <code>/usr/local/etc/amavisd.conf</code>
-* on OpenBSD: it's <code>/etc/amavisd.conf</code></p>
+below:</p>
+<ul>
+<li>on RHEL/CentOS: it's <code>/etc/amavisd/amavisd.conf</code></li>
+<li>on FreeBSD: it's <code>/usr/local/etc/amavisd.conf</code></li>
+<li>on OpenBSD: it's <code>/etc/amavisd.conf</code></li>
+</ul>
 <pre><code>$policy_bank{'ORIGINATING'} = {
     ...
     bypass_banned_checks_maps =&gt; [1],
@@ -211,6 +203,66 @@ echo -e '\nvirusalert: root' &gt;&gt; /usr/local/etc/postfix/aliases
 postalias /usr/local/etc/postfix/aliases
 </code></pre>
 
+<h3 id="fixed-improper-nginx-proxy-timeout-setting-for-sogo">Fixed: Improper Nginx proxy timeout setting for SOGo</h3>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>This is applicable to Nginx, not Apache (Apache has proper proxy timeout setting).</p>
+</div>
+<p>iRedMail-0.9.4 and early releases didn't set proper proxy timeout setting in
+Nginx, this will cause error <code>client disconnected during delivery of response</code>
+while SOGo trying to push mailbox changes. Below settings will fix this issue.</p>
+<ul>
+<li>
+<p>Open Nginx config file <code>/etc/nginx/templates/sogo.tmpl</code></p>
+<ul>
+<li>If your iRedMail server was installed with iRedMail-0.9.4, it's
+  <code>/etc/nginx/templates/sogo.tmpl</code> (Linux/OpenBSD) or
+  <code>/usr/local/etc/nginx/templates/sogo.tmpl</code> (FreeBSD).</li>
+<li>If your iRedMail server was installed with early release and upgraded to
+  iRedMail-0.9.4, it's <code>/etc/nginx/conf.d/default.conf</code> (Linux/OpenBSD)
+  or <code>/usr/local/etc/nginx/conf.d/default.conf</code> (FreeBSD).</li>
+</ul>
+</li>
+<li>
+<p>Find setting like below:</p>
+</li>
+</ul>
+<pre><code>location ^~ /Microsoft-Server-ActiveSync {
+    ...
+}
+
+location ^~ /SOGo/Microsoft-Server-ActiveSync {
+    ...
+}
+</code></pre>
+
+<ul>
+<li>Add 3 proxy timeout settings in both <code>location {}</code> blocks like below:</li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The timeout value, <code>360</code> (seconds), used below must be same as the value of
+parameter <code>SOGoMaximumPingInterval =</code> in SOGo config file <code>/etc/sogo/sogo.conf</code>
+(Linux/OpenBSD) or <code>/usr/local/etc/sogo/sogo.conf</code>.</p>
+</div>
+<pre><code>location ^~ /Microsoft-Server-ActiveSync {
+    ...
+    proxy_connect_timeout 360;
+    proxy_send_timeout 360;
+    proxy_read_timeout 360;
+}
+
+location ^~ /SOGo/Microsoft-Server-ActiveSync {
+    ...
+    proxy_connect_timeout 360;
+    proxy_send_timeout 360;
+    proxy_read_timeout 360;
+}
+</code></pre>
+
+<ul>
+<li>Restarting Nginx service is required.</li>
+</ul>
 <h3 id="optional-add-custom-amavisd-log-template-to-always-log-spamassassin-testing-result">[OPTIONAL] Add custom Amavisd log template to always log SpamAssassin testing result</h3>
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>
