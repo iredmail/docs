@@ -68,7 +68,7 @@ You can simply restore plain SQL files backed up by above backup scripts.
 > `mysql` database, otherwise almost all services won't work due to incorrect
 > SQL credentials.
 
-### How to restore LDAP backup
+### How to restore OpenLDAP backup
 
 Backup script runs command `slapcat` to dump whole LDAP tree as a backup, it
 must be so restored with command `slapadd`.
@@ -243,3 +243,34 @@ owner on newly created bdb files immediately, then restart OpenLDAP service:
 # chown ldap:ldap /var/lib/ldap/iredmail.org/*.bdb
 # /etc/init.d/ldap restart
 ```
+
+### How to restore OpenBSD ldapd(8) backup
+
+iRedMail-0.9.5 and later releases ships script
+`/var/vmail/backup/backup_ldapd.sh` for daily backup. It backs up data with
+command `ldapsearch` (not `slapcat` - which is used for OpenLDAP), so you have
+to restore its data with command `ldapadd`.
+
+* Stop ldapd service first.
+
+```
+rcctl stop ldapd
+```
+
+* Remove all files under ldapd data directory `/var/db/ldap/`.
+* Start ldapd service.
+
+```
+rcctl start ldapd
+```
+
+* Import backup LDIF file:
+
+    * Please replace `cn=Manager,dc=xx,dc=xx` by the real LDAP root dn.
+    * Please replace `/path/to/backup.ldif` by the real path of backup LDIF file.
+
+```
+# ldapadd -x -D 'cn=Manager,dc=xx,dc=xx' -W -f /path/to/backup.ldif
+```
+
+That's all.
