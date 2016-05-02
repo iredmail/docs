@@ -9,7 +9,7 @@
 
 ## ChangeLog
 
-* May 1, 2016: Initial publish.
+* May 3, 2016: Initial publish.
 
 ## General (All backends should apply these steps)
 
@@ -70,33 +70,6 @@ action      = iptables-multiport[name=sshd-ddos, port="http,https,smtp,submissio
 
 Restarting Fail2ban service is required.
 
-### [RHEL/CentOS] Fixed: Not enable cron job to update SpamAssassin rules
-
-Note: this is applicable to only RHEL and CentOS.
-
-In iRedMail-0.9.4 and earlier releases, iRedMail didn't enable cron job to
-update SpamAssassin rules. Please run commands below to fix it.
-
-```shell
-perl -pi -e 's/^(SAUPDATE=yes)/#${1}/' /etc/sysconfig/sa-update
-echo 'SAUPDATE=yes' >> /etc/sysconfig/sa-update
-```
-
-### [RHEL/CentOS] Fixed: Not create required directory used to store PHP session files
-
-Note: this is applicable to only RHEL and CentOS if you're __running Nginx + php-fpm__.
-
-In iRedMail-0.9.4 and earlier releases, iRedMail didn't create directory used
-to store PHP session files, it will cause error when your PHP application tries
-to create session file. Please fix it with commands below:
-
-```shell
-mkdir /var/lib/php/session
-chown root:root /var/lib/php/session
-chmod 0773 /var/lib/php/session
-chmod o+t /var/lib/php/session
-```
-
 ### Fixed: Not perform banned file types checking on RHEL/CentOS/OpenBSD/FreeBSD
 
 !!! attention
@@ -135,7 +108,7 @@ $policy_bank{'ORIGINATING'} = {
 
 Save the change. Restarting amavisd service is required.
 
-### Fixed: not add alias for `virusalert` on non-Debian/Ubuntu OSes
+### Fixed: not add alias for `virusalert` on RHEL/CentOS/OpenBSD/FreeBSD
 
 !!! attention
 
@@ -215,6 +188,115 @@ location ^~ /SOGo/Microsoft-Server-ActiveSync {
 ```
 
 * Restarting Nginx service is required.
+
+### [RHEL/CentOS] Fixed: Not enable cron job to update SpamAssassin rules
+
+Note: this is applicable to only RHEL and CentOS.
+
+In iRedMail-0.9.4 and earlier releases, iRedMail didn't enable cron job to
+update SpamAssassin rules. Please run commands below to fix it.
+
+```shell
+perl -pi -e 's/^(SAUPDATE=yes)/#${1}/' /etc/sysconfig/sa-update
+echo 'SAUPDATE=yes' >> /etc/sysconfig/sa-update
+```
+
+### [RHEL/CentOS] Fixed: Not create required directory used to store PHP session files
+
+Note: this is applicable to only RHEL and CentOS if you're __running Nginx + php-fpm__.
+
+In iRedMail-0.9.4 and earlier releases, iRedMail didn't create directory used
+to store PHP session files, it will cause error when your PHP application tries
+to create session file. Please fix it with commands below:
+
+```shell
+mkdir /var/lib/php/session
+chown root:root /var/lib/php/session
+chmod 0773 /var/lib/php/session
+chmod o+t /var/lib/php/session
+```
+
+### [OpenBSD] Add script and daily cron job to backup ldapd database
+
+!!! attention
+
+    This is applicable to only OpenBSD with ldapd backend (not OpenLDAP, MySQL, PostgreSQL).
+
+In iRedMail-0.9.4 and early releases, iRedMail incorrectly used script for
+backing up OpenLDAP to backup ldapd, this causes empty backup. Please fix it with
+steps below.
+
+* Download script used to backup ldapd and copy it to `/var/vmail/backup` (this
+  is default backup directory, it might be changed during iRedMail installation,
+  so please copy to the correct directory on your server):
+
+```
+cd /var/vmail/backup/
+wget https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/tools/backup_ldapd.sh
+chown root:wheel backup_ldapd.sh
+chmod 0500 backup_ldapd.sh
+```
+
+* Edit file `/var/vmail/backup/backup_ldapd.sh`, update parameters with proper
+  values:
+
+    * You should use LDAP suffix as value of `LDAP_BASE_DN` to backup whole
+      LDAP tree.
+    * You should use find LDAP root dn and password as `LDAP_BIND_DN` and
+      `LDAP_BIND_PASSWORD`, so that it has required privilege to query whole
+      LDAP tree.
+    * You can find all required values in `iRedMail.tips` file under iRedMail
+      installation directory. for example, `/root/iRedMail-0.9.4/iRedMail.tips`.
+
+```
+# LDAP base dn, bind dn and password.
+export LDAP_BASE_DN='dc=example,dc=com'
+export LDAP_BIND_DN='cn=Manager,dc=example,dc=com'
+export LDAP_BIND_PASSWORD='password'
+
+# Where to store backup copies.
+export BACKUP_ROOTDIR='/var/vmail/backup'
+
+# Keep backup for how many days. Default is 90 days.
+export KEEP_DAYS='90'
+```
+
+If you want to store backup status in SQL database `iredadmin` (so that you
+can check backup status in iRedAdmin), please set correct SQL username and
+password in parameters `MYSQL_USER` and `MYSQL_PASSWD` in
+file `/var/vmail/backup/backup_ldapd.sh`:
+
+```
+# MySQL user and password, used to log backup status to sql table `iredadmin.log`.
+# You can find password of SQL user 'iredadmin' in iRedAdmin config file 'settings.py'.
+export MYSQL_USER='iredadmin'
+export MYSQL_PASSWD='passwd'
+```
+
+* Run this script manually to backup ldapd immediately, check whether or not
+  it works: make sure the backup file contains valid/correct LDIF data, and
+  SQL table `iredadmin.log` contains a record of this backup.
+
+* Edit root's cron job with command:
+
+```
+crontab -e -u root
+```
+
+* Find the daily cron job used to run script `backup_openldap.sh` like below:
+
+```
+0   3   *   *   *   /usr/local/bin/bash /var/vmail/backup/backup_openldap.sh
+```
+
+* Rename `backup_openldap.sh` to `backup_ldapd.sh`, and make sure the absolute
+  path of this script is correct:
+
+```
+0   3   *   *   *   /usr/local/bin/bash /var/vmail/backup/backup_ldapd.sh
+```
+
+* Save your changes.
 
 ### [OPTIONAL] Add custom Amavisd log template to always log SpamAssassin testing result
 

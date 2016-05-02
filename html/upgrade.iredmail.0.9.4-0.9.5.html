@@ -24,11 +24,12 @@
 <li><a href="#upgrade-iredapd-postfix-policy-server-to-the-latest-stable-release-190">Upgrade iRedAPD (Postfix policy server) to the latest stable release (1.9.0)</a></li>
 <li><a href="#upgrade-iredadmin-open-source-edition-to-the-latest-stable-release-06">Upgrade iRedAdmin (open source edition) to the latest stable release (0.6)</a></li>
 <li><a href="#linux-fixed-not-add-ssh-port-number-in-fail2ban-config-file-jaillocal">[Linux] Fixed: not add ssh port number in Fail2ban config file (jail.local)</a></li>
+<li><a href="#fixed-not-perform-banned-file-types-checking-on-rhelcentosopenbsdfreebsd">Fixed: Not perform banned file types checking on RHEL/CentOS/OpenBSD/FreeBSD</a></li>
+<li><a href="#fixed-not-add-alias-for-virusalert-on-rhelcentosopenbsdfreebsd">Fixed: not add alias for virusalert on RHEL/CentOS/OpenBSD/FreeBSD</a></li>
+<li><a href="#fixed-improper-nginx-proxy-timeout-setting-for-sogo">Fixed: Improper Nginx proxy timeout setting for SOGo</a></li>
 <li><a href="#rhelcentos-fixed-not-enable-cron-job-to-update-spamassassin-rules">[RHEL/CentOS] Fixed: Not enable cron job to update SpamAssassin rules</a></li>
 <li><a href="#rhelcentos-fixed-not-create-required-directory-used-to-store-php-session-files">[RHEL/CentOS] Fixed: Not create required directory used to store PHP session files</a></li>
-<li><a href="#fixed-not-perform-banned-file-types-checking-on-rhelcentosopenbsdfreebsd">Fixed: Not perform banned file types checking on RHEL/CentOS/OpenBSD/FreeBSD</a></li>
-<li><a href="#fixed-not-add-alias-for-virusalert-on-non-debianubuntu-oses">Fixed: not add alias for virusalert on non-Debian/Ubuntu OSes</a></li>
-<li><a href="#fixed-improper-nginx-proxy-timeout-setting-for-sogo">Fixed: Improper Nginx proxy timeout setting for SOGo</a></li>
+<li><a href="#openbsd-add-script-and-daily-cron-job-to-backup-ldapd-database">[OpenBSD] Add script and daily cron job to backup ldapd database</a></li>
 <li><a href="#optional-add-custom-amavisd-log-template-to-always-log-spamassassin-testing-result">[OPTIONAL] Add custom Amavisd log template to always log SpamAssassin testing result</a></li>
 </ul>
 </li>
@@ -80,7 +81,7 @@ check <a href="../support.html">the details</a> and <a href="../contact.html">co
 </div>
 <h2 id="changelog">ChangeLog</h2>
 <ul>
-<li>May 1, 2016: Initial publish.</li>
+<li>May 3, 2016: Initial publish.</li>
 </ul>
 <h2 id="general-all-backends-should-apply-these-steps">General (All backends should apply these steps)</h2>
 <h3 id="update-etciredmail-release-with-new-iredmail-version-number">Update <code>/etc/iredmail-release</code> with new iRedMail version number</h3>
@@ -129,25 +130,6 @@ action      = iptables-multiport[name=sshd-ddos, port=&quot;http,https,smtp,subm
 </code></pre>
 
 <p>Restarting Fail2ban service is required.</p>
-<h3 id="rhelcentos-fixed-not-enable-cron-job-to-update-spamassassin-rules">[RHEL/CentOS] Fixed: Not enable cron job to update SpamAssassin rules</h3>
-<p>Note: this is applicable to only RHEL and CentOS.</p>
-<p>In iRedMail-0.9.4 and earlier releases, iRedMail didn't enable cron job to
-update SpamAssassin rules. Please run commands below to fix it.</p>
-<pre><code class="shell">perl -pi -e 's/^(SAUPDATE=yes)/#${1}/' /etc/sysconfig/sa-update
-echo 'SAUPDATE=yes' &gt;&gt; /etc/sysconfig/sa-update
-</code></pre>
-
-<h3 id="rhelcentos-fixed-not-create-required-directory-used-to-store-php-session-files">[RHEL/CentOS] Fixed: Not create required directory used to store PHP session files</h3>
-<p>Note: this is applicable to only RHEL and CentOS if you're <strong>running Nginx + php-fpm</strong>.</p>
-<p>In iRedMail-0.9.4 and earlier releases, iRedMail didn't create directory used
-to store PHP session files, it will cause error when your PHP application tries
-to create session file. Please fix it with commands below:</p>
-<pre><code class="shell">mkdir /var/lib/php/session
-chown root:root /var/lib/php/session
-chmod 0773 /var/lib/php/session
-chmod o+t /var/lib/php/session
-</code></pre>
-
 <h3 id="fixed-not-perform-banned-file-types-checking-on-rhelcentosopenbsdfreebsd">Fixed: Not perform banned file types checking on RHEL/CentOS/OpenBSD/FreeBSD</h3>
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>
@@ -180,7 +162,7 @@ below:</p>
 </code></pre>
 
 <p>Save the change. Restarting amavisd service is required.</p>
-<h3 id="fixed-not-add-alias-for-virusalert-on-non-debianubuntu-oses">Fixed: not add alias for <code>virusalert</code> on non-Debian/Ubuntu OSes</h3>
+<h3 id="fixed-not-add-alias-for-virusalert-on-rhelcentosopenbsdfreebsd">Fixed: not add alias for <code>virusalert</code> on RHEL/CentOS/OpenBSD/FreeBSD</h3>
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>
 <p>This is <strong>NOT</strong> applicable to Debian and Ubuntu.</p>
@@ -262,6 +244,110 @@ location ^~ /SOGo/Microsoft-Server-ActiveSync {
 
 <ul>
 <li>Restarting Nginx service is required.</li>
+</ul>
+<h3 id="rhelcentos-fixed-not-enable-cron-job-to-update-spamassassin-rules">[RHEL/CentOS] Fixed: Not enable cron job to update SpamAssassin rules</h3>
+<p>Note: this is applicable to only RHEL and CentOS.</p>
+<p>In iRedMail-0.9.4 and earlier releases, iRedMail didn't enable cron job to
+update SpamAssassin rules. Please run commands below to fix it.</p>
+<pre><code class="shell">perl -pi -e 's/^(SAUPDATE=yes)/#${1}/' /etc/sysconfig/sa-update
+echo 'SAUPDATE=yes' &gt;&gt; /etc/sysconfig/sa-update
+</code></pre>
+
+<h3 id="rhelcentos-fixed-not-create-required-directory-used-to-store-php-session-files">[RHEL/CentOS] Fixed: Not create required directory used to store PHP session files</h3>
+<p>Note: this is applicable to only RHEL and CentOS if you're <strong>running Nginx + php-fpm</strong>.</p>
+<p>In iRedMail-0.9.4 and earlier releases, iRedMail didn't create directory used
+to store PHP session files, it will cause error when your PHP application tries
+to create session file. Please fix it with commands below:</p>
+<pre><code class="shell">mkdir /var/lib/php/session
+chown root:root /var/lib/php/session
+chmod 0773 /var/lib/php/session
+chmod o+t /var/lib/php/session
+</code></pre>
+
+<h3 id="openbsd-add-script-and-daily-cron-job-to-backup-ldapd-database">[OpenBSD] Add script and daily cron job to backup ldapd database</h3>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>This is applicable to only OpenBSD with ldapd backend (not OpenLDAP, MySQL, PostgreSQL).</p>
+</div>
+<p>In iRedMail-0.9.4 and early releases, iRedMail incorrectly used script for
+backing up OpenLDAP to backup ldapd, this causes empty backup. Please fix it with
+steps below.</p>
+<ul>
+<li>Download script used to backup ldapd and copy it to <code>/var/vmail/backup</code> (this
+  is default backup directory, it might be changed during iRedMail installation,
+  so please copy to the correct directory on your server):</li>
+</ul>
+<pre><code>cd /var/vmail/backup/
+wget https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/tools/backup_ldapd.sh
+chown root:wheel backup_ldapd.sh
+chmod 0500 backup_ldapd.sh
+</code></pre>
+
+<ul>
+<li>
+<p>Edit file <code>/var/vmail/backup/backup_ldapd.sh</code>, update parameters with proper
+  values:</p>
+<ul>
+<li>You should use LDAP suffix as value of <code>LDAP_BASE_DN</code> to backup whole
+  LDAP tree.</li>
+<li>You should use find LDAP root dn and password as <code>LDAP_BIND_DN</code> and
+  <code>LDAP_BIND_PASSWORD</code>, so that it has required privilege to query whole
+  LDAP tree.</li>
+<li>You can find all required values in <code>iRedMail.tips</code> file under iRedMail
+  installation directory. for example, <code>/root/iRedMail-0.9.4/iRedMail.tips</code>.</li>
+</ul>
+</li>
+</ul>
+<pre><code># LDAP base dn, bind dn and password.
+export LDAP_BASE_DN='dc=example,dc=com'
+export LDAP_BIND_DN='cn=Manager,dc=example,dc=com'
+export LDAP_BIND_PASSWORD='password'
+
+# Where to store backup copies.
+export BACKUP_ROOTDIR='/var/vmail/backup'
+
+# Keep backup for how many days. Default is 90 days.
+export KEEP_DAYS='90'
+</code></pre>
+
+<p>If you want to store backup status in SQL database <code>iredadmin</code> (so that you
+can check backup status in iRedAdmin), please set correct SQL username and
+password in parameters <code>MYSQL_USER</code> and <code>MYSQL_PASSWD</code> in
+file <code>/var/vmail/backup/backup_ldapd.sh</code>:</p>
+<pre><code># MySQL user and password, used to log backup status to sql table `iredadmin.log`.
+# You can find password of SQL user 'iredadmin' in iRedAdmin config file 'settings.py'.
+export MYSQL_USER='iredadmin'
+export MYSQL_PASSWD='passwd'
+</code></pre>
+
+<ul>
+<li>
+<p>Run this script manually to backup ldapd immediately, check whether or not
+  it works: make sure the backup file contains valid/correct LDIF data, and
+  SQL table <code>iredadmin.log</code> contains a record of this backup.</p>
+</li>
+<li>
+<p>Edit root's cron job with command:</p>
+</li>
+</ul>
+<pre><code>crontab -e -u root
+</code></pre>
+
+<ul>
+<li>Find the daily cron job used to run script <code>backup_openldap.sh</code> like below:</li>
+</ul>
+<pre><code>0   3   *   *   *   /usr/local/bin/bash /var/vmail/backup/backup_openldap.sh
+</code></pre>
+
+<ul>
+<li>Rename <code>backup_openldap.sh</code> to <code>backup_ldapd.sh</code>, and make sure the absolute
+  path of this script is correct:</li>
+</ul>
+<pre><code>0   3   *   *   *   /usr/local/bin/bash /var/vmail/backup/backup_ldapd.sh
+</code></pre>
+
+<ul>
+<li>Save your changes.</li>
 </ul>
 <h3 id="optional-add-custom-amavisd-log-template-to-always-log-spamassassin-testing-result">[OPTIONAL] Add custom Amavisd log template to always log SpamAssassin testing result</h3>
 <div class="admonition attention">
