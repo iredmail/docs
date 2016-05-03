@@ -1,4 +1,4 @@
-# Manage iRedAPD (white/blacklists, greylisting)
+# Manage iRedAPD (white/blacklists, greylisting, and more)
 
 [TOC]
 
@@ -56,7 +56,51 @@ update it with new values. This way you will keep custom settings after
 upgrading iRedAPD -- because iRedAPD upgrade tool will copy
 `/opt/iredapd/settings.py` to new iRedAPD release during upgrading.
 
-## White/Blacklisting
+## Feature: Sender address control
+
+Plugin `reject_sender_login_mismatch` will reject emails if:
+
+* smtp authentication username (`sasl_username`) is different than than sender address (`From:`). This is usually called `sender login mismatch`. Note: This can be performed by Postfix with restriction rule `reject_sender_login_mismatch` in `smtpd_sender_restrictions =`.
+* sender address is forged (sender doesn't perform smtp auth and sender domain is hosted on localhost)
+
+It offers some parameters to control whether or not to reject email:
+
+* for forged sender address checking:
+
+```
+# Check whether sender is forged in message sent without smtp auth.
+CHECK_FORGED_SENDER = True
+
+# If you allow someone or some service providers to send email as forged
+# (your local) address, you can list all allowed addresses in this parameter.
+# For example, if some ISPs may send email as 'user@mydomain.com' (mydomain.com
+# is hosted on your server) to you, you should add `user@mydomain.com` as one
+# of forged senders.
+# Sample: ALLOWED_FORGED_SENDERS = ['user@mydomain.com', 'mydomain.com']
+ALLOWED_FORGED_SENDERS = []
+
+```
+
+* for sender login mismatch:
+
+```
+# Allow sender login mismatch for specified senders or sender domains.
+#
+# Sample setting: allow local user `user@local_domain_1.com` and all users
+# under `local_domain_2.com` to send email as other users.
+#
+#   ALLOWED_LOGIN_MISMATCH_SENDERS = ['user@local_domain_1.com', 'local_domain_2.com']
+ALLOWED_LOGIN_MISMATCH_SENDERS = []
+
+# Strictly allow sender to send as one of user alias addresses. Default is True.
+ALLOWED_LOGIN_MISMATCH_STRICTLY = True
+
+# Allow member of mail lists/alias account to send email as mail list/alias
+# ('From: <email_of_mail_list>' in mail header). Default is False.
+ALLOWED_LOGIN_MISMATCH_LIST_MEMBER = False
+```
+
+## Feature: White/Blacklisting
 
 ### How to disable white/blacklists completely
 
@@ -141,7 +185,7 @@ White/blacklisting is controlled by plugin `amavisd_wblist` (file
 # python wblist_admin.py --account user@mydomain.com --list --blacklist
 ```
 
-## Greylisting
+## Feature: Greylisting
 
 !!! note
 

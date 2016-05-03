@@ -1,7 +1,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title>Manage iRedAPD (white/blacklists, greylisting)</title>
+        <title>Manage iRedAPD (white/blacklists, greylisting, and more)</title>
         <link rel="stylesheet" type="text/css" href="./css/markdown.css" />
     </head>
     <body>
@@ -14,15 +14,16 @@
              />&nbsp;
         <span>iRedMail</span>
     </a>
-    &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><h1 id="manage-iredapd-whiteblacklists-greylisting">Manage iRedAPD (white/blacklists, greylisting)</h1>
+    &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><h1 id="manage-iredapd-whiteblacklists-greylisting-and-more">Manage iRedAPD (white/blacklists, greylisting, and more)</h1>
 <div class="toc">
 <ul>
-<li><a href="#manage-iredapd-whiteblacklists-greylisting">Manage iRedAPD (white/blacklists, greylisting)</a><ul>
+<li><a href="#manage-iredapd-whiteblacklists-greylisting-and-more">Manage iRedAPD (white/blacklists, greylisting, and more)</a><ul>
 <li><a href="#introduce-iredapd">Introduce iRedAPD</a></li>
 <li><a href="#how-to-disable-iredapd-service">How to disable iRedAPD service</a></li>
 <li><a href="#how-to-enable-or-disable-iredapd-plugins">How to enable or disable iRedAPD plugins</a></li>
 <li><a href="#how-to-add-custom-settings">How to add custom settings</a></li>
-<li><a href="#whiteblacklisting">White/Blacklisting</a><ul>
+<li><a href="#feature-sender-address-control">Feature: Sender address control</a></li>
+<li><a href="#feature-whiteblacklisting">Feature: White/Blacklisting</a><ul>
 <li><a href="#how-to-disable-whiteblacklists-completely">How to disable white/blacklists completely</a></li>
 <li><a href="#manage-whiteblacklists">Manage white/blacklists</a><ul>
 <li><a href="#available-arguments">Available arguments</a></li>
@@ -31,7 +32,7 @@
 </li>
 </ul>
 </li>
-<li><a href="#greylisting">Greylisting</a><ul>
+<li><a href="#feature-greylisting">Feature: Greylisting</a><ul>
 <li><a href="#how-to-disable-greylisting-completely">How to disable greylisting completely</a></li>
 <li><a href="#general-settings">General settings</a></li>
 <li><a href="#manage-greylisting-settings">Manage greylisting settings</a><ul>
@@ -88,7 +89,49 @@ Instead, you should copy the settings you want to modify from
 update it with new values. This way you will keep custom settings after
 upgrading iRedAPD -- because iRedAPD upgrade tool will copy
 <code>/opt/iredapd/settings.py</code> to new iRedAPD release during upgrading.</p>
-<h2 id="whiteblacklisting">White/Blacklisting</h2>
+<h2 id="feature-sender-address-control">Feature: Sender address control</h2>
+<p>Plugin <code>reject_sender_login_mismatch</code> will reject emails if:</p>
+<ul>
+<li>smtp authentication username (<code>sasl_username</code>) is different than than sender address (<code>From:</code>). This is usually called <code>sender login mismatch</code>. Note: This can be performed by Postfix with restriction rule <code>reject_sender_login_mismatch</code> in <code>smtpd_sender_restrictions =</code>.</li>
+<li>sender address is forged (sender doesn't perform smtp auth and sender domain is hosted on localhost)</li>
+</ul>
+<p>It offers some parameters to control whether or not to reject email:</p>
+<ul>
+<li>for forged sender address checking:</li>
+</ul>
+<pre><code># Check whether sender is forged in message sent without smtp auth.
+CHECK_FORGED_SENDER = True
+
+# If you allow someone or some service providers to send email as forged
+# (your local) address, you can list all allowed addresses in this parameter.
+# For example, if some ISPs may send email as 'user@mydomain.com' (mydomain.com
+# is hosted on your server) to you, you should add `user@mydomain.com` as one
+# of forged senders.
+# Sample: ALLOWED_FORGED_SENDERS = ['user@mydomain.com', 'mydomain.com']
+ALLOWED_FORGED_SENDERS = []
+
+</code></pre>
+
+<ul>
+<li>for sender login mismatch:</li>
+</ul>
+<pre><code># Allow sender login mismatch for specified senders or sender domains.
+#
+# Sample setting: allow local user `user@local_domain_1.com` and all users
+# under `local_domain_2.com` to send email as other users.
+#
+#   ALLOWED_LOGIN_MISMATCH_SENDERS = ['user@local_domain_1.com', 'local_domain_2.com']
+ALLOWED_LOGIN_MISMATCH_SENDERS = []
+
+# Strictly allow sender to send as one of user alias addresses. Default is True.
+ALLOWED_LOGIN_MISMATCH_STRICTLY = True
+
+# Allow member of mail lists/alias account to send email as mail list/alias
+# ('From: &lt;email_of_mail_list&gt;' in mail header). Default is False.
+ALLOWED_LOGIN_MISMATCH_LIST_MEMBER = False
+</code></pre>
+
+<h2 id="feature-whiteblacklisting">Feature: White/Blacklisting</h2>
 <h3 id="how-to-disable-whiteblacklists-completely">How to disable white/blacklists completely</h3>
 <p>To disable white/blacklists completely, please remove plugin name
 <code>amavisd_wblist</code> in iRedAPD config file <code>/opt/iredapd/settings.py</code>,
@@ -166,7 +209,7 @@ parameter <code>plugins =</code>:</p>
 # python wblist_admin.py --account user@mydomain.com --list --blacklist
 </code></pre>
 
-<h2 id="greylisting">Greylisting</h2>
+<h2 id="feature-greylisting">Feature: Greylisting</h2>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Greylisting is available in iRedAPD-1.7.0 and later releases.</p>
