@@ -12,11 +12,12 @@ below.
 
 ## Upgrade SOGo On RHEL/CentOS
 
-* Backup 2 config files first:
+* Backup config files first:
 
 ```
-cp /etc/sogo/sogo.conf /etc/sogo/sogo.conf.bak
-cp /etc/sysconfig/sogo /etc/sysconfig/sogo.bak
+mkdir /root/sogo-backup/{sogo,sysconfig}
+cp /etc/sogo/* /root/sogo-backup/sogo/
+cp /etc/sysconfig/sogo /root/sogo-backup/sysconfig/
 ```
 
 * Open file `/etc/yum.repos.d/sogo.repo`, change the `baseurl=` setting to:
@@ -35,8 +36,8 @@ yum install sogo sogo-ealarms-notify sogo-tool sogo-activesync sope49-gdl1-mysql
 * Restore backup files:
 
 ```
-cp /etc/sogo/sogo.conf.bak /etc/sogo/sogo.conf
-cp /etc/sysconfig/sogo.bak /etc/sysconfig/sogo
+cp /root/sogo-backup/sogo/* /etc/sogo/
+cp /root/sogo-backup/sysconfig/sogo /etc/sysconfig/
 ```
 
 * Restart SOGo service:
@@ -47,11 +48,12 @@ service sogod restart
 
 ## Upgrade SOGo On Debian/Ubuntu
 
-* Backup 2 config files first:
+* Backup config files first:
 
 ```
-cp /etc/sogo/sogo.conf /etc/sogo/sogo.conf.bak
-cp /etc/default/sogo /etc/default/sogo.bak
+mkdir /root/sogo-backup/{sogo,default}
+cp /etc/sogo/* /root/sogo-backup/sogo/
+cp /etc/default/sogo /root/sogo-backup/default/
 ```
 
 * Open file `/etc/apt/sources.list`,
@@ -62,7 +64,7 @@ cp /etc/default/sogo /etc/default/sogo.bak
 * Remove `sope` and `sogo` packages first, then install SOGo again:
 
 ```
-apt-get remove "sope*" "sogo*"
+apt-get remove "libsope*" "sogo*"
 
 apt-get update
 apt-get install sogo sogo-activesync sope4.9-gdl1-mysql sope4.9-gdl1-postgresql
@@ -71,8 +73,8 @@ apt-get install sogo sogo-activesync sope4.9-gdl1-mysql sope4.9-gdl1-postgresql
 * Restore backup files:
 
 ```
-cp /etc/sogo/sogo.conf.bak /etc/sogo/sogo.conf
-cp /etc/default/sogo.bak /etc/default/sogo
+cp /root/sogo-backup/sogo/* /etc/sogo/
+cp /root/sogo-backup/default/sogo /etc/default/
 ```
 
 * Restart SOGo service:
@@ -83,4 +85,7 @@ service sogo restart
 
 ## Troubleshooting
 
-If SOGo doesn't work as expected, please check its log file `/var/log/sogo/sogo.log`. If you don't understand what the error message means, please extract related error message and post to our online support forum: <http://www.iredmail.org/forum/>.
+If SOGo doesn't work as expected, please check its log file
+`/var/log/sogo/sogo.log`. If you don't understand what the error message means,
+please extract related error message and post to our online support forum:
+<http://www.iredmail.org/forum/>.

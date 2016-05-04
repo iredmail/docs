@@ -32,10 +32,11 @@ want to stick to SOGo-2.x. In case you want to try SOGo-3.x, please try steps
 below.</p>
 <h2 id="upgrade-sogo-on-rhelcentos">Upgrade SOGo On RHEL/CentOS</h2>
 <ul>
-<li>Backup 2 config files first:</li>
+<li>Backup config files first:</li>
 </ul>
-<pre><code>cp /etc/sogo/sogo.conf /etc/sogo/sogo.conf.bak
-cp /etc/sysconfig/sogo /etc/sysconfig/sogo.bak
+<pre><code>mkdir /root/sogo-backup/{sogo,sysconfig}
+cp /etc/sogo/* /root/sogo-backup/sogo/
+cp /etc/sysconfig/sogo /root/sogo-backup/sysconfig/
 </code></pre>
 
 <ul>
@@ -54,8 +55,8 @@ yum install sogo sogo-ealarms-notify sogo-tool sogo-activesync sope49-gdl1-mysql
 <ul>
 <li>Restore backup files:</li>
 </ul>
-<pre><code>cp /etc/sogo/sogo.conf.bak /etc/sogo/sogo.conf
-cp /etc/sysconfig/sogo.bak /etc/sysconfig/sogo
+<pre><code>cp /root/sogo-backup/sogo/* /etc/sogo/
+cp /root/sogo-backup/sysconfig/sogo /etc/sysconfig/
 </code></pre>
 
 <ul>
@@ -66,10 +67,11 @@ cp /etc/sysconfig/sogo.bak /etc/sysconfig/sogo
 
 <h2 id="upgrade-sogo-on-debianubuntu">Upgrade SOGo On Debian/Ubuntu</h2>
 <ul>
-<li>Backup 2 config files first:</li>
+<li>Backup config files first:</li>
 </ul>
-<pre><code>cp /etc/sogo/sogo.conf /etc/sogo/sogo.conf.bak
-cp /etc/default/sogo /etc/default/sogo.bak
+<pre><code>mkdir /root/sogo-backup/{sogo,default}
+cp /etc/sogo/* /root/sogo-backup/sogo/
+cp /etc/default/sogo /root/sogo-backup/default/
 </code></pre>
 
 <ul>
@@ -84,7 +86,7 @@ cp /etc/default/sogo /etc/default/sogo.bak
 <p>Remove <code>sope</code> and <code>sogo</code> packages first, then install SOGo again:</p>
 </li>
 </ul>
-<pre><code>apt-get remove &quot;sope*&quot; &quot;sogo*&quot;
+<pre><code>apt-get remove &quot;libsope*&quot; &quot;sogo*&quot;
 
 apt-get update
 apt-get install sogo sogo-activesync sope4.9-gdl1-mysql sope4.9-gdl1-postgresql
@@ -93,8 +95,8 @@ apt-get install sogo sogo-activesync sope4.9-gdl1-mysql sope4.9-gdl1-postgresql
 <ul>
 <li>Restore backup files:</li>
 </ul>
-<pre><code>cp /etc/sogo/sogo.conf.bak /etc/sogo/sogo.conf
-cp /etc/default/sogo.bak /etc/default/sogo
+<pre><code>cp /root/sogo-backup/sogo/* /etc/sogo/
+cp /root/sogo-backup/default/sogo /etc/default/
 </code></pre>
 
 <ul>
@@ -104,7 +106,10 @@ cp /etc/default/sogo.bak /etc/default/sogo
 </code></pre>
 
 <h2 id="troubleshooting">Troubleshooting</h2>
-<p>If SOGo doesn't work as expected, please check its log file <code>/var/log/sogo/sogo.log</code>. If you don't understand what the error message means, please extract related error message and post to our online support forum: <a href="http://www.iredmail.org/forum/">http://www.iredmail.org/forum/</a>.</p><p style="text-align: center; color: grey;">All documents are available in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.<script>
+<p>If SOGo doesn't work as expected, please check its log file
+<code>/var/log/sogo/sogo.log</code>. If you don't understand what the error message means,
+please extract related error message and post to our online support forum:
+<a href="http://www.iredmail.org/forum/">http://www.iredmail.org/forum/</a>.</p><p style="text-align: center; color: grey;">All documents are available in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.<script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
   m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
