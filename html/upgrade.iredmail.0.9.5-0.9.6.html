@@ -1,0 +1,73 @@
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Upgrade iRedMail from 0.9.5 to 0.9.6</title>
+        <link rel="stylesheet" type="text/css" href="./css/markdown.css" />
+    </head>
+    <body>
+    
+    <div id="navigation">
+    <a href="/index.html" target="_blank">
+        <img alt="iRedMail web site"
+             src="./images/logo-iredmail.png"
+             style="vertical-align: middle; height: 30px;"
+             />&nbsp;
+        <span>iRedMail</span>
+    </a>
+    &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><h1 id="upgrade-iredmail-from-095-to-096">Upgrade iRedMail from 0.9.5 to 0.9.6</h1>
+<div class="toc">
+<ul>
+<li><a href="#upgrade-iredmail-from-095-to-096">Upgrade iRedMail from 0.9.5 to 0.9.6</a><ul>
+<li><a href="#changelog">ChangeLog</a></li>
+<li><a href="#general-all-backends-should-apply-these-steps">General (All backends should apply these steps)</a><ul>
+<li><a href="#update-etciredmail-release-with-new-iredmail-version-number">Update /etc/iredmail-release with new iRedMail version number</a></li>
+<li><a href="#fixed-cannot-deliver-email-to-system-account">Fixed: cannot deliver email to system account.</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<!--
+!!! note "Paid Remote Upgrade Support"
+
+    We offer remote upgrade support if you don't want to get your hands dirty,
+    check [the details](../support.html) and [contact us](../contact.html).
+-->
+
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>THIS IS A DRAFT DOCUMENT, DO NOT APPLY IT.</p>
+</div>
+<h2 id="changelog">ChangeLog</h2>
+<ul>
+<li>May 3, 2016: Fixed: cannot deliver email to system account.</li>
+</ul>
+<h2 id="general-all-backends-should-apply-these-steps">General (All backends should apply these steps)</h2>
+<h3 id="update-etciredmail-release-with-new-iredmail-version-number">Update <code>/etc/iredmail-release</code> with new iRedMail version number</h3>
+<p>iRedMail stores the release version in <code>/etc/iredmail-release</code> after
+installation, it's recommended to update this file after you upgraded iRedMail,
+so that you can know which version of iRedMail you're running. For example:</p>
+<pre><code>0.9.6
+</code></pre>
+
+<h3 id="fixed-cannot-deliver-email-to-system-account">Fixed: cannot deliver email to system account.</h3>
+<p>iRedMail-0.9.5 and early releases have incorrect Postfix settings which causes
+emails sent to system account cannot be delivered to mailbox. Steps below fix
+it.</p>
+<p>Please open file <code>/etc/postfix/main.cf</code> (Linux/OpenBSD) or
+<code>/usr/local/etc/postfix/main.cf</code> (FreeBSD), remove below 2 parameters:</p>
+<pre><code>home_mailbox = ...
+mailbox_command = ...
+</code></pre>
+
+<p>Restarting or reloading Postfix service is required.</p><p style="text-align: center; color: grey;">All documents are available in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-3293801-21', 'auto');
+  ga('send', 'pageview');
+</script>
+</body></html>

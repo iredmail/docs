@@ -406,7 +406,7 @@ cd /etc/openldap/schema/
 cp iredmail.schema iredmail.schema.bak
 
 cp -f /tmp/iredmail.schema /etc/openldap/schema/
-/etc/init.d/slapd restart     # Use '/etc/rc.d/slapd restart' on OpenBSD
+service slapd restart     # Use `rcctl restart slapd' on OpenBSD
 ```
 
 * On Debian/Ubuntu:
@@ -418,7 +418,7 @@ cd /etc/ldap/schema/
 cp iredmail.schema iredmail.schema.bak
 
 cp -f /tmp/iredmail.schema /etc/ldap/schema/
-/etc/init.d/slapd restart
+service slapd restart
 ```
 
 * On FreeBSD:
