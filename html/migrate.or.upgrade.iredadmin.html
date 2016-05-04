@@ -26,9 +26,11 @@
 </li>
 </ul>
 </div>
-<blockquote>
-<p>We provide remote upgrade service, check <a href="../support.html">the price</a> and <a href="../contact.html">contact us</a>.</p>
-</blockquote>
+<div class="admonition note">
+<p class="admonition-title">Paid Remote Upgrade Support</p>
+<p>We offer remote upgrade support if you don't want to get your hands dirty,
+check <a href="../support.html">the details</a> and <a href="../contact.html">contact us</a>.</p>
+</div>
 <p>This tutorial describes how to update or migrate iRedAdmin (either open source
 edition or old iRedAdmin-Pro release) to the latest iRedAdmin release (again,
 either open source edition or iRedAdmin-Pro).</p>
@@ -38,14 +40,18 @@ either open source edition or iRedAdmin-Pro).</p>
 <p>The latest iRedAdmin-Pro always requires the latest iRedMail stable release,
    so you <strong>MUST</strong> upgrade iRedMail to the latest stable release before
    upgrading iRedAdmin-Pro.</p>
-<blockquote>
+<ul>
+<li>
 <p>If you run the latest iRedAdmin-Pro with old iRedMail release, you may
-get error due to missing some required ldap attribute/value pairs
-(OpenLDAP backend), or missing some required SQL columns.</p>
+  get error due to missing some required ldap attribute/value pairs
+  (OpenLDAP backend), or missing some required SQL columns.</p>
+</li>
+<li>
 <p>If you run the latest iRedMail with old iRedAdmin-Pro, you may get error
-due to missing dropped SQL columns, or created accounts may miss some
-properties required by the latest iRedMail.</p>
-</blockquote>
+  due to missing dropped SQL columns, or created accounts may miss some
+  properties required by the latest iRedMail.</p>
+</li>
+</ul>
 </li>
 <li>
 <p>You <strong>MUST</strong> have iRedAdmin open source edition or old iRedAdmin-Pro release
@@ -72,17 +78,11 @@ properties required by the latest iRedMail.</p>
 </ul>
 <h2 id="upgrade-steps">Upgrade Steps</h2>
 <ul>
-<li>
-<p>Upload or copy the latest iRedAdmin to your server which has iRedAdmin
+<li>Upload or copy the latest iRedAdmin to your server which has iRedAdmin
   open source edition or old iRedAdmin-Pro release running. We assume you
-  uploaded it to <code>/root/iRedAdmin-{BACKEND}-x.y.z.tar.bz2</code> (<code>{BACKEND}</code> is one
-  of <code>LDAP</code>, <code>MySQL</code>, <code>PGSQL</code>). We will use iRedAdmin-x.y.z below for
-  example, please replace x.y.z by the real file name. For example,
-  <code>iRedAdmin-Pro-LDAP-2.4.0.tar.bz2</code>.</p>
-</li>
-<li>
-<p>Uncompress and upgrade iRedAdmin:</p>
-</li>
+  uploaded it to <code>/root/iRedAdmin-x.y.z.tar.bz2</code> (<code>x.y.z</code> is a placeholder of
+  the version number).</li>
+<li>Uncompress and upgrade iRedAdmin:</li>
 </ul>
 <pre><code># cd /root/
 # tar xjf iRedAdmin-x.y.z.tar.bz2

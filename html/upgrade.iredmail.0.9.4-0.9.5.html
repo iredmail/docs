@@ -100,6 +100,11 @@ so that you can know which version of iRedMail you're running. For example:</p>
 latest stable release:
 <a href="./migrate.or.upgrade.iredadmin.html">Upgrade iRedAdmin to the latest stable release</a></p>
 <h3 id="linux-fixed-not-add-ssh-port-number-in-fail2ban-config-file-jaillocal">[Linux] Fixed: not add ssh port number in Fail2ban config file (jail.local)</h3>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>If your <code>jail.local</code> uses <code>action = iptables-allports</code>, then you can skip
+this step.</p>
+</div>
 <p>iRedMail-0.9.4 doesn't list ssh port number in 2 Fail2ban jails: <code>sshd</code>,
 <code>sshd-ddos</code>, this causes Fail2ban doesn't block bad client IP address for
 ssh service.</p>
@@ -225,7 +230,8 @@ location ^~ /SOGo/Microsoft-Server-ActiveSync {
 <p class="admonition-title">Warning</p>
 <p>The timeout value, <code>360</code> (seconds), used below must be same as the value of
 parameter <code>SOGoMaximumPingInterval =</code> in SOGo config file <code>/etc/sogo/sogo.conf</code>
-(Linux/OpenBSD) or <code>/usr/local/etc/sogo/sogo.conf</code>.</p>
+(Linux/OpenBSD) or <code>/usr/local/etc/sogo/sogo.conf</code>. if your <code>sogo.conf</code>
+doesn't have this setting, please add it manually (<code>SOGoMaximumPingInterval = 360;</code>).</p>
 </div>
 <pre><code>location ^~ /Microsoft-Server-ActiveSync {
     ...
@@ -655,10 +661,6 @@ postconf -e sender_dependent_relayhost_maps='proxy:mysql:/usr/local/etc/postfix/
 Groupware (webmail, calendar, contacts, ActiveSync).</p>
 <p>To accomplish this, we need to add a new SQL column <code>enablesogo</code> in SQL table
 <code>vmail.mailbox</code>, then re-create SQL VIEW <code>sogo.users</code>.</p>
-<p>Before we go further, please find the SQL password for SQL user <code>vmail</code>
-in Postfix config file <code>/etc/postfix/mysql/*.cf</code> (on Linux/OpenBSD) or
-<code>/usr/local/etc/postfix/mysql/*.cf</code> (on FreeBSD), we need this while
-(re-)creating SQL VIEW <code>sogo.users</code>.</p>
 <p>Please login to MySQL/MariaDB as SQL root user first:</p>
 <pre><code># mysql -uroot -p
 </code></pre>
@@ -670,7 +672,7 @@ sql&gt; ALTER TABLE mailbox ADD COLUMN enablesogo TINYINT(1) NOT NULL DEFAULT 1;
 sql&gt; ALTER TABLE mailbox ADD INDEX (enablesogo);
 
 sql&gt; USE sogo;
-sql&gt; DROP TABLE users;
+sql&gt; DROP VIEW users;
 sql&gt; CREATE VIEW sogo.users (c_uid, c_name, c_password, c_cn, mail, domain) AS SELECT username, username, password, name, username, domain FROM vmail.mailbox WHERE enablesogo=1 AND active=1;
 </code></pre>
 

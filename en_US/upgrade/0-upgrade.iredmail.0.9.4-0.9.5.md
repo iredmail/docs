@@ -38,6 +38,11 @@ latest stable release:
 
 ### [Linux] Fixed: not add ssh port number in Fail2ban config file (jail.local)
 
+!!! attention
+
+    If your `jail.local` uses `action = iptables-allports`, then you can skip
+    this step.
+
 iRedMail-0.9.4 doesn't list ssh port number in 2 Fail2ban jails: `sshd`,
 `sshd-ddos`, this causes Fail2ban doesn't block bad client IP address for
 ssh service.
@@ -169,7 +174,8 @@ location ^~ /SOGo/Microsoft-Server-ActiveSync {
 
     The timeout value, `360` (seconds), used below must be same as the value of
     parameter `SOGoMaximumPingInterval =` in SOGo config file `/etc/sogo/sogo.conf`
-    (Linux/OpenBSD) or `/usr/local/etc/sogo/sogo.conf`.
+    (Linux/OpenBSD) or `/usr/local/etc/sogo/sogo.conf`. if your `sogo.conf`
+    doesn't have this setting, please add it manually (`SOGoMaximumPingInterval = 360;`).
 
 ```
 location ^~ /Microsoft-Server-ActiveSync {
@@ -640,11 +646,6 @@ Groupware (webmail, calendar, contacts, ActiveSync).
 To accomplish this, we need to add a new SQL column `enablesogo` in SQL table
 `vmail.mailbox`, then re-create SQL VIEW `sogo.users`.
 
-Before we go further, please find the SQL password for SQL user `vmail`
-in Postfix config file `/etc/postfix/mysql/*.cf` (on Linux/OpenBSD) or
-`/usr/local/etc/postfix/mysql/*.cf` (on FreeBSD), we need this while
-(re-)creating SQL VIEW `sogo.users`.
-
 Please login to MySQL/MariaDB as SQL root user first:
 
 ```
@@ -660,7 +661,7 @@ sql> ALTER TABLE mailbox ADD COLUMN enablesogo TINYINT(1) NOT NULL DEFAULT 1;
 sql> ALTER TABLE mailbox ADD INDEX (enablesogo);
 
 sql> USE sogo;
-sql> DROP TABLE users;
+sql> DROP VIEW users;
 sql> CREATE VIEW sogo.users (c_uid, c_name, c_password, c_cn, mail, domain) AS SELECT username, username, password, name, username, domain FROM vmail.mailbox WHERE enablesogo=1 AND active=1;
 ```
 

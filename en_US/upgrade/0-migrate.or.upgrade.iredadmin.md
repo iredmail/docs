@@ -2,7 +2,10 @@
 
 [TOC]
 
-> We provide remote upgrade service, check [the price](../support.html) and [contact us](../contact.html).
+!!! note "Paid Remote Upgrade Support"
+
+    We offer remote upgrade support if you don't want to get your hands dirty,
+    check [the details](../support.html) and [contact us](../contact.html).
 
 This tutorial describes how to update or migrate iRedAdmin (either open source
 edition or old iRedAdmin-Pro release) to the latest iRedAdmin release (again,
@@ -14,13 +17,13 @@ either open source edition or iRedAdmin-Pro).
    so you __MUST__ upgrade iRedMail to the latest stable release before
    upgrading iRedAdmin-Pro.
 
-    > If you run the latest iRedAdmin-Pro with old iRedMail release, you may
-    > get error due to missing some required ldap attribute/value pairs
-    > (OpenLDAP backend), or missing some required SQL columns.
-    >
-    > If you run the latest iRedMail with old iRedAdmin-Pro, you may get error
-    > due to missing dropped SQL columns, or created accounts may miss some
-    > properties required by the latest iRedMail.
+    * If you run the latest iRedAdmin-Pro with old iRedMail release, you may
+      get error due to missing some required ldap attribute/value pairs
+      (OpenLDAP backend), or missing some required SQL columns.
+     
+    * If you run the latest iRedMail with old iRedAdmin-Pro, you may get error
+      due to missing dropped SQL columns, or created accounts may miss some
+      properties required by the latest iRedMail.
 
 1. You __MUST__ have iRedAdmin open source edition or old iRedAdmin-Pro release
    installed and running on your server before upgrading.
@@ -30,7 +33,6 @@ either open source edition or iRedAdmin-Pro).
 * iRedAdmin open source edition is available for download [here](http://www.iredmail.org/yum/misc/).
 * iRedAdmin-Pro customers can get download link of new release by following
   steps below:
-
     * Login to iRedAdmin-Pro as global admin.
     * Click `License` button on the top-right corner. it will show you basic
       license info and a `Download` button if new version is available.
@@ -45,11 +47,8 @@ either open source edition or iRedAdmin-Pro).
 
 * Upload or copy the latest iRedAdmin to your server which has iRedAdmin
   open source edition or old iRedAdmin-Pro release running. We assume you
-  uploaded it to `/root/iRedAdmin-{BACKEND}-x.y.z.tar.bz2` (`{BACKEND}` is one
-  of `LDAP`, `MySQL`, `PGSQL`). We will use iRedAdmin-x.y.z below for
-  example, please replace x.y.z by the real file name. For example,
-  `iRedAdmin-Pro-LDAP-2.4.0.tar.bz2`.
-
+  uploaded it to `/root/iRedAdmin-x.y.z.tar.bz2` (`x.y.z` is a placeholder of
+  the version number).
 * Uncompress and upgrade iRedAdmin:
 
 ```
