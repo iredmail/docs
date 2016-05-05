@@ -121,7 +121,7 @@ Parameter Name | Summary | Sample Usage
 `cn` | display name | `cn=My List Name`
 `accessPolicy` | Defines who can send email to this mail alias account | `accessPolicy=public`
 
-> Note: `accessPolicy` for mail alias account is available for only SQL backends.
+> Note: `accessPolicy` for mail alias account is only available for SQL backends.
 
 ### Throttling
 

@@ -34,7 +34,7 @@ below.</p>
 <ul>
 <li>Backup config files first:</li>
 </ul>
-<pre><code>mkdir /root/sogo-backup/{sogo,sysconfig}
+<pre><code>mkdir -p /root/sogo-backup/{sogo,sysconfig}
 cp /etc/sogo/* /root/sogo-backup/sogo/
 cp /etc/sysconfig/sogo /root/sogo-backup/sysconfig/
 </code></pre>
@@ -69,7 +69,7 @@ cp /root/sogo-backup/sysconfig/sogo /etc/sysconfig/
 <ul>
 <li>Backup config files first:</li>
 </ul>
-<pre><code>mkdir /root/sogo-backup/{sogo,default}
+<pre><code>mkdir -p /root/sogo-backup/{sogo,default}
 cp /etc/sogo/* /root/sogo-backup/sogo/
 cp /etc/default/sogo /root/sogo-backup/default/
 </code></pre>

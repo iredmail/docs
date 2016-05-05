@@ -120,39 +120,39 @@ Enter password: password_of_vmail
 <p>If it prints all users stored in AD server, then it's working as expected.</p>
 <h3 id="enable-ldap-query-with-ad-in-postfix">Enable LDAP query with AD in Postfix</h3>
 <p>Disable unused iRedMail special settings:</p>
-<pre><code class="shell"># postconf -e virtual_alias_maps=''
-# postconf -e sender_bcc_maps=''
-# postconf -e recipient_bcc_maps=''
-# postconf -e relay_domains=''
-# postconf -e relay_recipient_maps=''
+<pre><code class="shell">postconf -e virtual_alias_maps=''
+postconf -e sender_bcc_maps=''
+postconf -e recipient_bcc_maps=''
+postconf -e relay_domains=''
+postconf -e relay_recipient_maps=''
 </code></pre>
 
 <p>Add your mail domain name in <code>smtpd_sasl_local_domain</code> and <code>virtual_mailbox_domains</code>:</p>
-<pre><code class="shell"># postconf -e smtpd_sasl_local_domain='example.com'
-# postconf -e virtual_mailbox_domains='example.com'
+<pre><code class="shell">postconf -e smtpd_sasl_local_domain='example.com'
+postconf -e virtual_mailbox_domains='example.com'
 </code></pre>
 
 <p>Change transport maps setting:</p>
-<pre><code># postconf -e transport_maps='hash:/etc/postfix/transport'
+<pre><code>postconf -e transport_maps='hash:/etc/postfix/transport'
 </code></pre>
 
 <p>Enable AD query. <strong>Note</strong>: We will create these 3 files later.</p>
 <ul>
 <li>Verify SMTP senders</li>
 </ul>
-<pre><code class="shell"># postconf -e smtpd_sender_login_maps='proxy:ldap:/etc/postfix/ad_sender_login_maps.cf'
+<pre><code class="shell">postconf -e smtpd_sender_login_maps='proxy:ldap:/etc/postfix/ad_sender_login_maps.cf'
 </code></pre>
 
 <ul>
 <li>Verify local mail users</li>
 </ul>
-<pre><code class="shell"># postconf -e virtual_mailbox_maps='proxy:ldap:/etc/postfix/ad_virtual_mailbox_maps.cf'
+<pre><code class="shell">postconf -e virtual_mailbox_maps='proxy:ldap:/etc/postfix/ad_virtual_mailbox_maps.cf'
 </code></pre>
 
 <ul>
 <li>Verify local mail lists/groups.</li>
 </ul>
-<pre><code># postconf -e virtual_alias_maps='proxy:ldap:/etc/postfix/ad_virtual_group_maps.cf'
+<pre><code>postconf -e virtual_alias_maps='proxy:ldap:/etc/postfix/ad_virtual_group_maps.cf'
 </code></pre>
 
 <ul>

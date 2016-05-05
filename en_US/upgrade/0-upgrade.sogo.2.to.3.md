@@ -15,7 +15,7 @@ below.
 * Backup config files first:
 
 ```
-mkdir /root/sogo-backup/{sogo,sysconfig}
+mkdir -p /root/sogo-backup/{sogo,sysconfig}
 cp /etc/sogo/* /root/sogo-backup/sogo/
 cp /etc/sysconfig/sogo /root/sogo-backup/sysconfig/
 ```
@@ -51,7 +51,7 @@ service sogod restart
 * Backup config files first:
 
 ```
-mkdir /root/sogo-backup/{sogo,default}
+mkdir -p /root/sogo-backup/{sogo,default}
 cp /etc/sogo/* /root/sogo-backup/sogo/
 cp /etc/default/sogo /root/sogo-backup/default/
 ```

@@ -91,24 +91,24 @@ If it prints all users stored in AD server, then it's working as expected.
 Disable unused iRedMail special settings:
 
 ```shell
-# postconf -e virtual_alias_maps=''
-# postconf -e sender_bcc_maps=''
-# postconf -e recipient_bcc_maps=''
-# postconf -e relay_domains=''
-# postconf -e relay_recipient_maps=''
+postconf -e virtual_alias_maps=''
+postconf -e sender_bcc_maps=''
+postconf -e recipient_bcc_maps=''
+postconf -e relay_domains=''
+postconf -e relay_recipient_maps=''
 ```
 
 Add your mail domain name in `smtpd_sasl_local_domain` and `virtual_mailbox_domains`:
 
 ```shell
-# postconf -e smtpd_sasl_local_domain='example.com'
-# postconf -e virtual_mailbox_domains='example.com'
+postconf -e smtpd_sasl_local_domain='example.com'
+postconf -e virtual_mailbox_domains='example.com'
 ```
 
 Change transport maps setting:
 
 ```
-# postconf -e transport_maps='hash:/etc/postfix/transport'
+postconf -e transport_maps='hash:/etc/postfix/transport'
 ```
 
 Enable AD query. __Note__: We will create these 3 files later.
@@ -116,19 +116,19 @@ Enable AD query. __Note__: We will create these 3 files later.
 * Verify SMTP senders
 
 ```shell
-# postconf -e smtpd_sender_login_maps='proxy:ldap:/etc/postfix/ad_sender_login_maps.cf'
+postconf -e smtpd_sender_login_maps='proxy:ldap:/etc/postfix/ad_sender_login_maps.cf'
 ```
 
 * Verify local mail users
 
 ```shell
-# postconf -e virtual_mailbox_maps='proxy:ldap:/etc/postfix/ad_virtual_mailbox_maps.cf'
+postconf -e virtual_mailbox_maps='proxy:ldap:/etc/postfix/ad_virtual_mailbox_maps.cf'
 ```
 
 * Verify local mail lists/groups.
 
 ```
-# postconf -e virtual_alias_maps='proxy:ldap:/etc/postfix/ad_virtual_group_maps.cf'
+postconf -e virtual_alias_maps='proxy:ldap:/etc/postfix/ad_virtual_group_maps.cf'
 ```
 
 * Create/edit file: `/etc/postfix/transport`.
