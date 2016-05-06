@@ -1,7 +1,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title>在 Red Hat Enterprise Linux 或 CentOS 系统上安装 iRedMail</title>
+        <title>在 Debian 或 Ubuntu 系统上安装 iRedMail</title>
         <link rel="stylesheet" type="text/css" href="./css/markdown.css" />
     </head>
     <body>
@@ -16,18 +16,17 @@
     </a>
     &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><div class="admonition note">
 <p class="admonition-title">This tutorial is available in other languages</p>
-<p><a href="./install.iredmail.on.rhel.html">English</a> /</p>
+<p><a href="./install.iredmail.on.debian.ubuntu.html">English</a> /</p>
 </div>
-<h1 id="red-hat-enterprise-linux-centos-iredmail">在 Red Hat Enterprise Linux 或 CentOS 系统上安装 iRedMail</h1>
+<h1 id="debian-ubuntu-iredmail">在 Debian 或 Ubuntu 系统上安装 iRedMail</h1>
 <div class="toc">
 <ul>
-<li><a href="#red-hat-enterprise-linux-centos-iredmail">在 Red Hat Enterprise Linux 或 CentOS 系统上安装 iRedMail</a><ul>
+<li><a href="#debian-ubuntu-iredmail">在 Debian 或 Ubuntu 系统上安装 iRedMail</a><ul>
 <li><a href="#_1">系统要求</a></li>
 <li><a href="#_2">准备</a><ul>
 <li><a href="#fqdn">为服务器设置一个完整域名（FQDN）的主机名</a></li>
-<li><a href="#selinux">禁用 SELinux</a></li>
-<li><a href="#yum">启用必须的 yum 仓库</a></li>
-<li><a href="#iredmail">下载最新的 iRedMail</a></li>
+<li><a href="#debianubuntu-apt">启用 Debian/Ubuntu 默认的官方 apt 软件源</a></li>
+<li><a href="#iredmail">下载最新版本的 iRedMail</a></li>
 </ul>
 </li>
 <li><a href="#iredmail_1">运行 iRedMail 安装程序</a></li>
@@ -47,11 +46,19 @@
 iRedMail 会自动安装和配置邮件服务所需的组件，因此如果操作系统上已有相关
 组件，iRedMail 可能会打乱你的配置并造成服务无法正常启动。</p>
 </div>
-<p>要在 Red Hat Enterprise Linux （以下简称 RHEL）或 CentOS 上安装 iRedMail，你需要：</p>
+<p>要在 Debian 或 Ubuntu 上安装 iRedMail，你需要：</p>
 <ul>
-<li>一个全新安装的 RHEL 或 CentOS 系统。支持的版本号在<a href="../download.html">下载</a>页面有注明。</li>
+<li>一个全新安装的 Debian 或 Ubuntu 系统。支持的版本号在<a href="../download.html">下载</a>页面有注明。</li>
 <li>要运行一个低流量的邮件服务器，要求至少<code>2 GB</code> 内存才能使用完整的垃圾邮件和病毒扫描功能。</li>
 </ul>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<ul>
+<li>所有二进制软件包都从 Debian/Ubuntu 官方 apt 仓库安装。
+  repositories.</li>
+<li>如果使用 Ubuntu 系统，建议选择 LTS（Long Term Support，长期支持）版本。</li>
+</ul>
+</div>
 <h2 id="_2">准备</h2>
 <h3 id="fqdn">为服务器设置一个完整域名（FQDN）的主机名</h3>
 <p>不管你的服务器将用于实际运行还是仅仅用作测试，都建议设置一个完整域名（FQDN）的主机名。</p>
@@ -60,19 +67,15 @@ iRedMail 会自动安装和配置邮件服务所需的组件，因此如果操�
 mx.example.com
 </code></pre>
 
-<p>在 RHEL/CentOS 系统上，主机名需要在两个文件里设置：</p>
+<p>在 Debian/Ubuntu 系统上，主机名需要在两个文件里设置：<code>/etc/hostname</code> 和 <code>/etc/hosts</code>。</p>
 <ul>
-<li>对于 RHEL/CentOS 6，主机名定义在 <code>/etc/sysconfig/network</code>:</li>
+<li><code>/etc/hostname</code>：短名称。</li>
 </ul>
-<pre><code>HOSTNAME=mx.example.com
-</code></pre>
-
-<p>对于 RHEL/CentOS 7，主机名定义在 <code>/etc/hostname</code>.</p>
-<pre><code>mx.example.com
+<pre><code>mx
 </code></pre>
 
 <ul>
-<li>在 <code>/etc/hosts</code> 里定义主机名和 IP 地址的对应关系。注意：一定要将 FQDN 主机名列在第一个。</li>
+<li><code>/etc/hosts</code> 里定义主机名和 IP 地址的对应关系。注意：一定要将 FQDN 主机名列在第一个。</li>
 </ul>
 <pre><code>127.0.0.1   mx.example.com mx localhost localhost.localdomain
 </code></pre>
@@ -82,30 +85,16 @@ mx.example.com
 mx.example.com
 </code></pre>
 
-<h3 id="selinux">禁用 SELinux</h3>
-<p>iRedMail 不支持 SELinux，所以需要在 <code>/etc/selinux/config</code> 文件里禁用它。</p>
-<pre><code>SELINUX=disabled
-</code></pre>
-
-<p>如果不希望禁用 SELinux，可以设置为让它打印警告信息但不强制限制：</p>
-<pre><code>SELINUX=permissive
-</code></pre>
-
-<p>也可以无须重启服务就禁用它：</p>
-<pre><code># setenforce 0
-</code></pre>
-
-<h3 id="yum">启用必须的 yum 仓库</h3>
+<h3 id="debianubuntu-apt">启用 Debian/Ubuntu 默认的官方 apt 软件源</h3>
 <ul>
-<li>
-<p>对于 CentOS 系统，必须启用 <code>/etc/yum.repos.d/CentOS-Base.repo</code> 里定义的所有
-  CentOS 官方 yum 仓库。同时 <strong>禁用</strong> 所有第三方yum 仓库，以避免软件包冲突。</p>
-</li>
-<li>
-<p>对于 RHEL，请启用 Red Hat Network 以便安装软件包。</p>
-</li>
+<li>iRedMail 依赖 Debian/Ubuntu 官方的 apt 软件源，请在 <code>/etc/apt/sources.lists</code>
+  文件里启用它们。</li>
+<li>安装 <code>bzip2</code> 程序用于解压缩文件：</li>
 </ul>
-<h3 id="iredmail">下载最新的 iRedMail</h3>
+<pre><code># sudo apt-get install bzip2
+</code></pre>
+
+<h3 id="iredmail">下载最新版本的 iRedMail</h3>
 <ul>
 <li>访问<a href="../download.html">下载页面</a>下载最新的版本。</li>
 <li>上传 iRedMail 到服务器上。假设上传后的路径是 <code>/root/iRedMail-x.y.z.tar.bz2</code>
@@ -119,14 +108,9 @@ mx.example.com
 <h2 id="iredmail_1">运行 iRedMail 安装程序</h2>
 <p>现在可以运行 iRedMail 安装程序了，它会问你几个简单的问题，仅此而已。</p>
 <pre><code># cd /root/iRedMail-x.y.z/
-# IREDMAIL_MIRROR='http://42.159.241.31' IREDMAIL_EPEL_MIRROR='http://mirrors.aliyun.com/epel' bash iRedMail.sh
+# bash iRedMail.sh
 </code></pre>
 
-<blockquote>
-<p>由于 iredmail.org 域名在国内无法访问，所以需要指定 <code>IREDMAIL_MIRROR</code> 参数使用
-国内镜像站点。<code>IREDMAIL_EPEL_MIRROR</code> 则是为了加快安装速度而选择的国内的阿里云
-提供的 EPEL 软件包仓库镜像。</p>
-</blockquote>
 <h2 id="_3">安装过程的截图</h2>
 <ul>
 <li>欢迎和感谢使用</li>

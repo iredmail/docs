@@ -1,4 +1,4 @@
-# 在 Red Hat Enterprise Linux 或 CentOS 系统上安装 iRedMail
+# 在 Debian 或 Ubuntu 系统上安装 iRedMail
 
 [TOC]
 
@@ -11,10 +11,16 @@
     iRedMail 会自动安装和配置邮件服务所需的组件，因此如果操作系统上已有相关
     组件，iRedMail 可能会打乱你的配置并造成服务无法正常启动。
 
-要在 Red Hat Enterprise Linux （以下简称 RHEL）或 CentOS 上安装 iRedMail，你需要：
+要在 Debian 或 Ubuntu 上安装 iRedMail，你需要：
 
-* 一个全新安装的 RHEL 或 CentOS 系统。支持的版本号在[下载](../download.html)页面有注明。
+* 一个全新安装的 Debian 或 Ubuntu 系统。支持的版本号在[下载](../download.html)页面有注明。
 * 要运行一个低流量的邮件服务器，要求至少`2 GB` 内存才能使用完整的垃圾邮件和病毒扫描功能。
+
+!!! attention
+
+    * 所有二进制软件包都从 Debian/Ubuntu 官方 apt 仓库安装。
+      repositories.
+    * 如果使用 Ubuntu 系统，建议选择 LTS（Long Term Support，长期支持）版本。
 
 ## 准备
 
@@ -29,21 +35,15 @@ $ hostname -f
 mx.example.com
 ```
 
-在 RHEL/CentOS 系统上，主机名需要在两个文件里设置：
+在 Debian/Ubuntu 系统上，主机名需要在两个文件里设置：`/etc/hostname` 和 `/etc/hosts`。
 
-* 对于 RHEL/CentOS 6，主机名定义在 `/etc/sysconfig/network`:
-
-```
-HOSTNAME=mx.example.com
-```
-
-对于 RHEL/CentOS 7，主机名定义在 `/etc/hostname`.
+* `/etc/hostname`：短名称。
 
 ```
-mx.example.com
+mx
 ```
 
-* 在 `/etc/hosts` 里定义主机名和 IP 地址的对应关系。注意：一定要将 FQDN 主机名列在第一个。
+* `/etc/hosts` 里定义主机名和 IP 地址的对应关系。注意：一定要将 FQDN 主机名列在第一个。
 
 ```
 127.0.0.1   mx.example.com mx localhost localhost.localdomain
@@ -56,34 +56,17 @@ $ hostname -f
 mx.example.com
 ```
 
-### 禁用 SELinux
+### 启用 Debian/Ubuntu 默认的官方 apt 软件源
 
-iRedMail 不支持 SELinux，所以需要在 `/etc/selinux/config` 文件里禁用它。
-
-```
-SELINUX=disabled
-```
-
-如果不希望禁用 SELinux，可以设置为让它打印警告信息但不强制限制：
+* iRedMail 依赖 Debian/Ubuntu 官方的 apt 软件源，请在 `/etc/apt/sources.lists`
+  文件里启用它们。
+* 安装 `bzip2` 程序用于解压缩文件：
 
 ```
-SELINUX=permissive
+# sudo apt-get install bzip2
 ```
 
-也可以无须重启服务就禁用它：
-
-```
-# setenforce 0
-```
-
-### 启用必须的 yum 仓库
-
-* 对于 CentOS 系统，必须启用 `/etc/yum.repos.d/CentOS-Base.repo` 里定义的所有
-  CentOS 官方 yum 仓库。同时 __禁用__ 所有第三方yum 仓库，以避免软件包冲突。
-
-* 对于 RHEL，请启用 Red Hat Network 以便安装软件包。
-
-### 下载最新的 iRedMail
+### 下载最新版本的 iRedMail
 
 * 访问[下载页面](../download.html)下载最新的版本。
 * 上传 iRedMail 到服务器上。假设上传后的路径是 `/root/iRedMail-x.y.z.tar.bz2`
@@ -101,12 +84,8 @@ SELINUX=permissive
 
 ```
 # cd /root/iRedMail-x.y.z/
-# IREDMAIL_MIRROR='http://42.159.241.31' IREDMAIL_EPEL_MIRROR='http://mirrors.aliyun.com/epel' bash iRedMail.sh
+# bash iRedMail.sh
 ```
-
-> 由于 iredmail.org 域名在国内无法访问，所以需要指定 `IREDMAIL_MIRROR` 参数使用
-> 国内镜像站点。`IREDMAIL_EPEL_MIRROR` 则是为了加快安装速度而选择的国内的阿里云
-> 提供的 EPEL 软件包仓库镜像。
 
 ## 安装过程的截图
 
