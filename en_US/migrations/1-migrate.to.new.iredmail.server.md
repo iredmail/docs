@@ -148,8 +148,14 @@ $ ldapsearch -x -D 'cn=Manager,dc=xx,dc=xx' -b 'o=domains,dc=xx,dc=xx' -W "(mail
 
 ## Migrate Roundcube webmail data
 
-* Export/import roundcube webmail database, and upgrade database to work with new version of Roundcube.
-<http://trac.roundcube.net/wiki/Howto_Upgrade>
+* Export/import roundcube webmail database, and upgrade database to work with
+  new version of Roundcube.
+
+Reference: <http://trac.roundcube.net/wiki/Howto_Upgrade>
+
+## Migrate Amavisd, iRedAPD, iRedAdmin databases
+
+Export those database on old server, then import them on new server.
 
 ## Migrate DKIM keys
 
@@ -160,6 +166,12 @@ permission `0600`.
 
 If you prefer generating new DKIM keys on new server, don't forget to update
 DNS records for mail domain names.
+
+## Post-migration
+
+After migration, please recalculate mailbox quota by following this tutorial:
+
+* [Force Dovecot to recalculate mailbox quota](./recalculate.mailbox.quota.html)
 
 # References
 
