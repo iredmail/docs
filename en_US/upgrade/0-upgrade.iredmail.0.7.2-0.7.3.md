@@ -12,7 +12,7 @@
 ## General (All backends should apply these upgrade steps)
 
 * Please follow phpMyAdmin official tutorial to upgrade phpMyAdmin: http://www.phpmyadmin.net/documentation/#upgrading
-* Please follow Roundcube official tutorial to upgrade Roundcube Webmail: http://trac.roundcube.net/wiki/Howto_Upgrade
+* Please follow Roundcube official tutorial to upgrade Roundcube Webmail: <https://github.com/roundcube/roundcubemail/wiki/Upgrade>
 
 ## OpenLDAP backend special
 

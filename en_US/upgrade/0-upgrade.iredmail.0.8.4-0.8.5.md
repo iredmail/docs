@@ -36,7 +36,7 @@ so that you can know which version of iRedMail you're running. For example:
 ### Upgrade Roundcube webmail to the latest stable release
 
 Please follow Roundcube official tutorial to upgrade Roundcube webmail to the
-latest stable release immediately: [How to upgrade Roundcube](http://trac.roundcube.net/wiki/Howto_Upgrade)
+latest stable release immediately: [How to upgrade Roundcube](https://github.com/roundcube/roundcubemail/wiki/Upgrade).
 
 ### Upgrade iRedAPD (Postfix policy server) to the latest stable release
 

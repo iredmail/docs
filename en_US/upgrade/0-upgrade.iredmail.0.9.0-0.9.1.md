@@ -52,7 +52,7 @@ instead of `Dependent` edition (e.g. `roundcubemail-1.1.1.tar.gz`).
 
 After you have additional packages installed, please follow Roundcube official
 tutorial to upgrade Roundcube webmail to the latest stable release:
-[How to upgrade Roundcube](http://trac.roundcube.net/wiki/Howto_Upgrade)
+[How to upgrade Roundcube](https://github.com/roundcube/roundcubemail/wiki/Upgrade).
 
 Notes:
 

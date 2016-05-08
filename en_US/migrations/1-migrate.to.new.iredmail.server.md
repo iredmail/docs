@@ -151,7 +151,7 @@ $ ldapsearch -x -D 'cn=Manager,dc=xx,dc=xx' -b 'o=domains,dc=xx,dc=xx' -W "(mail
 * Export/import roundcube webmail database, and upgrade database to work with
   new version of Roundcube.
 
-Reference: <http://trac.roundcube.net/wiki/Howto_Upgrade>
+Reference: <https://github.com/roundcube/roundcubemail/wiki/Upgrade>
 
 ## Migrate Amavisd, iRedAPD, iRedAdmin databases
 
