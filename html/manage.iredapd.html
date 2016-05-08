@@ -250,7 +250,21 @@ add the settings with custom values in <code>/opt/iredapd/settings.py</code>.</p
 <code>/opt/iredapd/plugins/greylisting.py</code>), you can manage it with script
 <code>/opt/iredapd/tools/greylisting_admin.py</code>.</p>
 <h4 id="available-arguments_1">Available arguments</h4>
-<pre><code>    --list
+<pre><code>    --list-whitelist-domains
+        Show ALL whitelisted sender domain names (in `greylisting_whitelist_domains`)
+
+    --list-whitelists
+        Show ALL whitelisted sender addresses (in `greylisting_whitelists`)
+
+    --whitelist-domain
+        Whitelist the IP addresses/networks in SPF record of specified sender
+        domain for greylisting service. Whitelisted domain is stored in sql
+        table `greylisting_whitelist_domains`.
+
+    --remove-whitelist-domain
+        Remove whitelisted sender domain
+
+    --list
         Show ALL existing greylisting settings.
 
     --from &lt;from_address&gt;
@@ -279,34 +293,61 @@ add the settings with custom values in <code>/opt/iredapd/settings.py</code>.</p
 
 <h4 id="sample-usages_1">Sample usages</h4>
 <ul>
-<li>List all existing greylisting settings</li>
+<li>List all existing greylisting settings:</li>
 </ul>
-<pre><code># cd /opt/iredapd/tools/
-# python greylisting_admin.py --list
+<pre><code>python greylisting_admin.py --list
+</code></pre>
+
+<ul>
+<li>List all whitelisted sender domain names (in SQL table <code>greylisting_whitelist_domains</code>):</li>
+</ul>
+<pre><code>python greylisting_admin.py --list-whitelist-domains
+</code></pre>
+
+<ul>
+<li>List all whitelisted sender addresses (in SQL table <code>greylisting_whitelists</code>):</li>
+</ul>
+<pre><code>python greylisting_admin.py --list-whitelists
+</code></pre>
+
+<ul>
+<li>Whitelist IP networks/addresses specified in sender domain:</li>
+</ul>
+<pre><code>python greylisting_admin.py --whitelist-domain --from '@example.com'
+</code></pre>
+
+<p>This is same as:</p>
+<pre><code>python spf_to_whitelist_domains.py --submit example.com
+</code></pre>
+
+<ul>
+<li>Remove a whitelisted sender domain:</li>
+</ul>
+<pre><code>python greylisting_admin.py --remove-whitelist-domain --from '@example.com'
 </code></pre>
 
 <ul>
 <li>Enable greylisting for emails which are sent from anyone to local mail domain <code>example.com</code>:</li>
 </ul>
-<pre><code># python greylisting_admin.py --enable --to '@example.com'
+<pre><code>python greylisting_admin.py --enable --to '@example.com'
 </code></pre>
 
 <ul>
 <li>Disable greylisting for emails which are sent from anyone to local mail user <code>user@example.com</code>:</li>
 </ul>
-<pre><code># python greylisting_admin.py --disable --to 'user@example.com'
+<pre><code>python greylisting_admin.py --disable --to 'user@example.com'
 </code></pre>
 
 <ul>
-<li>Disable greylisting for emails which are sent from <code>gmail.com</code> to local mail user <code>user@example.com</code></li>
+<li>Disable greylisting for emails which are sent from <code>gmail.com</code> to local mail user <code>user@example.com</code>:</li>
 </ul>
-<pre><code># python greylisting_admin.py --disable --from '@gmail.com' --to 'user@example.com'
+<pre><code>python greylisting_admin.py --disable --from '@gmail.com' --to 'user@example.com'
 </code></pre>
 
 <ul>
-<li>Delete greylisting setting for emails which are sent from anyone to local domain <code>test.com</code></li>
+<li>Delete greylisting setting for emails which are sent from anyone to local domain <code>test.com</code>:</li>
 </ul>
-<pre><code># python greylisting_admin.py --delete --to '@test.com'
+<pre><code>python greylisting_admin.py --delete --to '@test.com'
 </code></pre>
 
 <h4 id="recommended-additional-greylisting-whitelist-support">RECOMMENDED: Additional greylisting whitelist support</h4>
@@ -315,13 +356,14 @@ immediately from another server, this causes trouble with greylisting.</p>
 <p>Possible solutions:</p>
 <ol>
 <li>Disable greylisting on your server completely.</li>
-<li>Whitelist IP addresses/networks of their mail servers.</li>
+<li>[Recommended] Whitelist IP addresses/networks of their mail servers.</li>
 </ol>
 <p>For solution #2, you can whitelist those mail servers with script
 <code>/opt/iredapd/tools/spf_to_greylist_whitelists.py</code>.</p>
-<blockquote>
-<p>Note: script <code>tools/spf_to_greylist_whitelists.py</code> is available in iRedAPD-1.8.0 and later releases.</p>
-</blockquote>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>Script <code>tools/spf_to_greylist_whitelists.py</code> is available in iRedAPD-1.8.0 and later releases.</p>
+</div>
 <p>It queries SPF and MX records of specified mail domain names, then store all
 converted IP addresses/networks defined in SPF/MX records in SQL table
 <code>iredapd.greylisting_whitelists</code>.</p>
@@ -341,9 +383,9 @@ without any argument, it will fetch all mail domains stored in sql table
 </code></pre>
 
 <p>You should setup a cron job to run this script, so that it can keep the IP
-addresses/networks up to date. iRedMail sets up the cron job to run every 10
-minutes, like below:</p>
-<pre><code>*/10   *   *   *   *   /usr/bin/python /opt/iredapd/tools/spf_to_greylist_whitelists.py &amp;&gt;/dev/null
+addresses/networks up to date. iRedMail sets up the cron job to run every 10 or
+30  minutes, like below:</p>
+<pre><code>*/30   *   *   *   *   /usr/bin/python /opt/iredapd/tools/spf_to_greylist_whitelists.py &amp;&gt;/dev/null
 </code></pre><p style="text-align: center; color: grey;">All documents are available in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.<script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),

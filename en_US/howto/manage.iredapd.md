@@ -234,6 +234,20 @@ Greylisting is controlled by plugin `greylisting` (file
 #### Available arguments
 
 ```
+    --list-whitelist-domains
+        Show ALL whitelisted sender domain names (in `greylisting_whitelist_domains`)
+
+    --list-whitelists
+        Show ALL whitelisted sender addresses (in `greylisting_whitelists`)
+
+    --whitelist-domain
+        Whitelist the IP addresses/networks in SPF record of specified sender
+        domain for greylisting service. Whitelisted domain is stored in sql
+        table `greylisting_whitelist_domains`.
+
+    --remove-whitelist-domain
+        Remove whitelisted sender domain
+
     --list
         Show ALL existing greylisting settings.
 
@@ -263,35 +277,64 @@ Greylisting is controlled by plugin `greylisting` (file
 
 #### Sample usages
 
-* List all existing greylisting settings
+* List all existing greylisting settings:
 
 ```
-# cd /opt/iredapd/tools/
-# python greylisting_admin.py --list
+python greylisting_admin.py --list
+```
+
+* List all whitelisted sender domain names (in SQL table `greylisting_whitelist_domains`):
+
+```
+python greylisting_admin.py --list-whitelist-domains
+```
+
+* List all whitelisted sender addresses (in SQL table `greylisting_whitelists`):
+
+```
+python greylisting_admin.py --list-whitelists
+```
+
+* Whitelist IP networks/addresses specified in sender domain:
+
+```
+python greylisting_admin.py --whitelist-domain --from '@example.com'
+```
+
+This is same as:
+
+```
+python spf_to_whitelist_domains.py --submit example.com
+```
+
+* Remove a whitelisted sender domain:
+
+```
+python greylisting_admin.py --remove-whitelist-domain --from '@example.com'
 ```
 
 * Enable greylisting for emails which are sent from anyone to local mail domain `example.com`:
 
 ```
-# python greylisting_admin.py --enable --to '@example.com'
+python greylisting_admin.py --enable --to '@example.com'
 ```
 
 * Disable greylisting for emails which are sent from anyone to local mail user `user@example.com`:
 
 ```
-# python greylisting_admin.py --disable --to 'user@example.com'
+python greylisting_admin.py --disable --to 'user@example.com'
 ```
 
-* Disable greylisting for emails which are sent from `gmail.com` to local mail user `user@example.com`
+* Disable greylisting for emails which are sent from `gmail.com` to local mail user `user@example.com`:
 
 ```
-# python greylisting_admin.py --disable --from '@gmail.com' --to 'user@example.com'
+python greylisting_admin.py --disable --from '@gmail.com' --to 'user@example.com'
 ```
 
-* Delete greylisting setting for emails which are sent from anyone to local domain `test.com`
+* Delete greylisting setting for emails which are sent from anyone to local domain `test.com`:
 
 ```
-# python greylisting_admin.py --delete --to '@test.com'
+python greylisting_admin.py --delete --to '@test.com'
 ```
 
 #### RECOMMENDED: Additional greylisting whitelist support
@@ -302,12 +345,14 @@ immediately from another server, this causes trouble with greylisting.
 Possible solutions:
 
 1. Disable greylisting on your server completely.
-1. Whitelist IP addresses/networks of their mail servers.
+1. [Recommended] Whitelist IP addresses/networks of their mail servers.
 
 For solution #2, you can whitelist those mail servers with script
 `/opt/iredapd/tools/spf_to_greylist_whitelists.py`.
 
-> Note: script `tools/spf_to_greylist_whitelists.py` is available in iRedAPD-1.8.0 and later releases.
+!!! attention
+
+    Script `tools/spf_to_greylist_whitelists.py` is available in iRedAPD-1.8.0 and later releases.
 
 It queries SPF and MX records of specified mail domain names, then store all
 converted IP addresses/networks defined in SPF/MX records in SQL table
@@ -334,9 +379,9 @@ without any argument, it will fetch all mail domains stored in sql table
 ```
 
 You should setup a cron job to run this script, so that it can keep the IP
-addresses/networks up to date. iRedMail sets up the cron job to run every 10
-minutes, like below:
+addresses/networks up to date. iRedMail sets up the cron job to run every 10 or
+30  minutes, like below:
 
 ```
-*/10   *   *   *   *   /usr/bin/python /opt/iredapd/tools/spf_to_greylist_whitelists.py &>/dev/null
+*/30   *   *   *   *   /usr/bin/python /opt/iredapd/tools/spf_to_greylist_whitelists.py &>/dev/null
 ```
