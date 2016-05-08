@@ -2,7 +2,15 @@
 
 Since iRedMail-0.9.5, SMTP auth on port 25 is disabled by default, all end
 users are forced to send email through port 587 (SMTP over TLS). If you need
-to allow insecure SMTP auth on port 25, please follow steps below to enable it.
+to allow insecure SMTP auth on port 25 for some reason, please follow steps
+below to enable it.
+
+!!! note
+
+    If you have just few clients need to send email through port 25, e.g.
+    network printer, old network devices which don't support secure
+    connection, you may try another tutorial instead:
+    [Allow internal network devices to send email with insecure connection](./additional.smtp.port.html)
 
 * Find comment out settings in Postfix config file `/etc/postfix/main.cf`
   (Linux/OpenBSD) or `/usr/local/etc/postfix/main.cf` (FreeBSD):
