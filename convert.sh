@@ -29,7 +29,7 @@ strip_name_prefix()
 }
 
 # Available translations
-export all_languages='en_US zh_CN lv_LV'
+export all_languages='en_US zh_CN lv_LV it_IT'
 
 # Chapter directories in specified order
 export all_chapter_dirs="overview \
