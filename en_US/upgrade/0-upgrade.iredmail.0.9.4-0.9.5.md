@@ -36,6 +36,13 @@ Please follow this tutorial to upgrade iRedAdmin open source edition to the
 latest stable release:
 [Upgrade iRedAdmin to the latest stable release](./migrate.or.upgrade.iredadmin.html)
 
+### Upgrade Roundcube webmail to the latest stable release (1.1.5)
+
+Please follow Roundcube official tutorial to upgrade Roundcube webmail to the
+latest stable release immediately: [How to upgrade Roundcube](https://github.com/roundcube/roundcubemail/wiki/Upgrade).
+
+Note: package `rsync` must be installed on your server before upgrading.
+
 ### [Linux] Fixed: not add ssh port number in Fail2ban config file (jail.local)
 
 !!! attention
