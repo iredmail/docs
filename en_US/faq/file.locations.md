@@ -26,6 +26,55 @@ The self-signed SSL certificate generated during iRedMail installation:
     * `/etc/ssl/iRedMail.crt`
     * Private key: `/etc/ssl/iRedMail.key`
 
+## Postfix
+
+* on `Linux` and OpenBSD, Postfix config files are placed under `/etc/postfix/`.
+* on FreeBSD, Postfix config files are placed under `/usr/local/etc/postfix/`.
+
+### Main config files:
+
+* `main.cf`: contains most configurations.
+* `master.cf`: contains transport related settings.
+* `aliases`: aliases for system accounts.
+* `helo_access.pcre`: PCRE regular expressions of HELO check rules.
+* `ldap/*.cf`: used to query mail accounts. LDAP backends only.
+* `mysql/*.cf`: used to query mail accounts. MySQL/MariaDB backends only.
+* `pgsql/*.cf`: used to query mail accounts. PostgreSQL backend only.
+
+### Log files
+
+* on RHEL/CentOS, FreeBSD, OpenBSD, it's `/var/log/maillog`.
+* on Debian, Ubuntu, it's `/var/log/mail.log`.
+
+## Dovecot
+
+* on `Linux` and OpenBSD, Dovecot config files are placed under `/etc/dovecot/`.
+* on FreeBSD, Dovecot config files are placed under `/usr/local/etc/dovecot/`.
+
+### Config files
+
+Main config file is `dovecot.conf`. It contains most configurations.
+
+Additional config files under `/etc/dovecot/`:
+
+* `dovecot-ldap.conf`: used to query mail users and passwords. LDAP backends only.
+* `dovecot-mysql.conf`: used to query mail users and passwords. MySQL/MariaDB backends only.
+* `dovecot-pgsql.conf`: used to query mail users and passwords. PostgreSQL backend only.
+* `dovecot-used-quota.conf`: used to store and query real-time per-user mailbox quota.
+* `dovecot-share-folder.conf`: used to store settings of shared IMAP mailboxes.
+* `dovecot-master-users-password` or `dovecot-master-users`: used to store Dovecot master user accounts.
+
+### Log files
+
+* `/var/log/dovecot.log`: main log file. IMAP/POP3 sessions, login, lotout,
+  some error messages will be logged in this file.
+* `/var/log/dovecot-sieve.log`: sieve LDA (Local Delivery Agent) related log.
+  Mail delivery related log will be logged in this file. NOTE: on old iRedMail
+  releases, it's `/var/log/sieve.log`.
+* `/var/log/dovecot-lmtp.log`: LMTP related log. Mail delivery (via LMTP)
+  related log will be logged in this file. Note: there's no such file on
+  iRedMail-0.8.6 and old iRedMail releases.
+
 ## Apache
 
 * On RHEL/CentOS: Apache config files are placed under `/etc/httpd/`.
@@ -76,54 +125,20 @@ Main config files are `nginx.conf` and `default.conf`.
 * On `Linux` and FreeBSD: log files are placed under `/var/log/nginx/`.
 * On OpenBSD: log files are placed under `/var/www/logs/` (same as Apache).
 
-## Postfix
+## PHP
 
-* on `Linux` and OpenBSD, Postfix config files are placed under `/etc/postfix/`.
-* on FreeBSD, Postfix config files are placed under `/usr/local/etc/postfix/`.
+Main config file:
 
-### Main config files:
-
-* `main.cf`: contains most configurations.
-* `master.cf`: contains transport related settings.
-* `aliases`: aliases for system accounts.
-* `helo_access.pcre`: PCRE regular expressions of HELO check rules.
-* `ldap/*.cf`: used to query mail accounts. LDAP backends only.
-* `mysql/*.cf`: used to query mail accounts. MySQL/MariaDB backends only.
-* `pgsql/*.cf`: used to query mail accounts. PostgreSQL backend only.
-
-### Log files
-
-* on RHEL/CentOS, FreeBSD, OpenBSD, it's `/var/log/maillog`.
-* on Debian, Ubuntu, it's `/var/log/mail.log`.
-
-## Dovecot
-
-* on `Linux` and OpenBSD, Dovecot config files are placed under `/etc/dovecot/`.
-* on FreeBSD, Dovecot config files are placed under `/usr/local/etc/dovecot/`.
-
-### Config files
-
-Main config file is `dovecot.conf`. It contains most configurations.
-
-Additional config files under `/etc/dovecot/`:
-
-* `dovecot-ldap.conf`: used to query mail users and passwords. LDAP backends only.
-* `dovecot-mysql.conf`: used to query mail users and passwords. MySQL/MariaDB backends only.
-* `dovecot-pgsql.conf`: used to query mail users and passwords. PostgreSQL backend only.
-* `dovecot-used-quota.conf`: used to store and query real-time per-user mailbox quota.
-* `dovecot-share-folder.conf`: used to store settings of shared IMAP mailboxes.
-* `dovecot-master-users-password` or `dovecot-master-users`: used to store Dovecot master user accounts.
-
-### Log files
-
-* `/var/log/dovecot.log`: main log file. IMAP/POP3 sessions, login, lotout,
-  some error messages will be logged in this file.
-* `/var/log/dovecot-sieve.log`: sieve LDA (Local Delivery Agent) related log.
-  Mail delivery related log will be logged in this file. NOTE: on old iRedMail
-  releases, it's `/var/log/sieve.log`.
-* `/var/log/dovecot-lmtp.log`: LMTP related log. Mail delivery (via LMTP)
-  related log will be logged in this file. Note: there's no such file on
-  iRedMail-0.8.6 and old iRedMail releases.
+* on RHEL/CentOS: it's `/etc/php.ini`
+* on Debian/Ubuntu:
+    * If you're running Apache as web server:
+        * If you're running PHP-5: it's `/etc/php5/apache2/php.ini` (Debian 8, Ubuntu 14.04)
+        * If you're running PHP-7: it's `/etc/php/7.0/cli/php.ini` (Ubuntu 16.04)
+    * If you're running Nginx as web server: it's `/etc/php5/fpm/php.ini`.
+        * If you're running PHP-5: it's `/etc/php5/fpm/php.ini` (Debian 8, Ubuntu 14.04)
+        * If you're running PHP-7: it's `/etc/php/7.0/fpm/php.ini` (Ubuntu 16.04)
+* on FreeBSD: it's `/usr/local/etc/php.ini`.
+* on OpenBSD: it's `/etc/php-5.X.ini`
 
 ## OpenLDAP
 

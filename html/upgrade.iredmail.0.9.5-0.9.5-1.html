@@ -1,0 +1,140 @@
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Upgrade iRedMail from 0.9.5 to 0.9.5-1</title>
+        <link rel="stylesheet" type="text/css" href="./css/markdown.css" />
+    </head>
+    <body>
+    
+    <div id="navigation">
+    <a href="/index.html" target="_blank">
+        <img alt="iRedMail web site"
+             src="./images/logo-iredmail.png"
+             style="vertical-align: middle; height: 30px;"
+             />&nbsp;
+        <span>iRedMail</span>
+    </a>
+    &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><h1 id="upgrade-iredmail-from-095-to-095-1">Upgrade iRedMail from 0.9.5 to 0.9.5-1</h1>
+<div class="toc">
+<ul>
+<li><a href="#upgrade-iredmail-from-095-to-095-1">Upgrade iRedMail from 0.9.5 to 0.9.5-1</a><ul>
+<li><a href="#changelog">ChangeLog</a></li>
+<li><a href="#general-all-backends-should-apply-these-steps">General (All backends should apply these steps)</a><ul>
+<li><a href="#update-etciredmail-release-with-new-iredmail-version-number">Update /etc/iredmail-release with new iRedMail version number</a></li>
+<li><a href="#upgrade-iredapd-postfix-policy-server-to-the-latest-stable-release-191">Upgrade iRedAPD (Postfix policy server) to the latest stable release (1.9.1)</a></li>
+<li><a href="#fixed-cannot-deliver-email-to-system-account">Fixed: cannot deliver email to system account.</a></li>
+<li><a href="#fixed-incorrect-compress-and-uncompress-command-in-logrotate-config-files">Fixed: Incorrect compress and uncompress command in logrotate config files</a></li>
+<li><a href="#fixed-allow-two-functions-in-php">Fixed: Allow two functions in PHP</a></li>
+<li><a href="#rhelcentos-6-fixed-roundcube-cannot-change-password">[RHEL/CentOS 6] Fixed: Roundcube cannot change password</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Paid Remote Upgrade Support</p>
+<p>We offer remote upgrade support if you don't want to get your hands dirty,
+check <a href="../support.html">the details</a> and <a href="../contact.html">contact us</a>.</p>
+</div>
+<h2 id="changelog">ChangeLog</h2>
+<ul>
+<li>May 10, 2016: Initial publish.</li>
+</ul>
+<h2 id="general-all-backends-should-apply-these-steps">General (All backends should apply these steps)</h2>
+<h3 id="update-etciredmail-release-with-new-iredmail-version-number">Update <code>/etc/iredmail-release</code> with new iRedMail version number</h3>
+<p>iRedMail stores the release version in <code>/etc/iredmail-release</code> after
+installation, it's recommended to update this file after you upgraded iRedMail,
+so that you can know which version of iRedMail you're running. For example:</p>
+<pre><code>0.9.5-1
+</code></pre>
+
+<h3 id="upgrade-iredapd-postfix-policy-server-to-the-latest-stable-release-191">Upgrade iRedAPD (Postfix policy server) to the latest stable release (1.9.1)</h3>
+<blockquote>
+<p>iRedAPD-1.9.1 fixes a bug in <code>tools/spf_to_greylist_whitelists.py</code> which was
+introduced in iRedAPD-1.9.0.</p>
+</blockquote>
+<p>Please follow below tutorial to upgrade iRedAPD to the latest stable release:
+<a href="./upgrade.iredapd.html">Upgrade iRedAPD to the latest stable release</a></p>
+<p>Detailed release notes are available <a href="./iredapd.releases.html">here</a>.</p>
+<h3 id="fixed-cannot-deliver-email-to-system-account">Fixed: cannot deliver email to system account.</h3>
+<p>iRedMail-0.9.5 and early releases have incorrect Postfix settings which causes
+emails sent to system account cannot be delivered to mailbox. Please follow
+steps below fix it.</p>
+<p>Please open file <code>/etc/postfix/main.cf</code> (Linux/OpenBSD) or
+<code>/usr/local/etc/postfix/main.cf</code> (FreeBSD), remove below 2 parameters:</p>
+<pre><code>home_mailbox = ...
+mailbox_command = ...
+</code></pre>
+
+<p>Restarting or reloading Postfix service is required.</p>
+<h3 id="fixed-incorrect-compress-and-uncompress-command-in-logrotate-config-files">Fixed: Incorrect compress and uncompress command in logrotate config files</h3>
+<blockquote>
+<p>This bug was introduced in iRedMail-0.9.0. If you're upgrading from
+iRedMail-0.9.3 or earlier release, it's safe to ignore this step.</p>
+</blockquote>
+<p>iRedMail-0.9.0 sets incorrect command for parameter <code>compresscmd</code> and
+<code>uncompresscmd</code>, please fix it with commands below:</p>
+<ul>
+<li>On RHEL/CentOS:</li>
+</ul>
+<pre><code>perl -pi -e 's#\$\(which bzip2\)#/usr/bin/bzip2#g' /etc/logrotate.d/*
+perl -pi -e 's#\$\(which bunzip2\)#/usr/bin/bunzip2#g' /etc/logrotate.d/*
+</code></pre>
+
+<ul>
+<li>On Debian/Ubuntu:</li>
+</ul>
+<pre><code>perl -pi -e 's#\$\(which bzip2\)#/bin/bzip2#g' /etc/logrotate.d/*
+perl -pi -e 's#\$\(which bunzip2\)#/bin/bunzip2#g' /etc/logrotate.d/*
+</code></pre>
+
+<ul>
+<li>On FreeBSD, OpenBSD: no fix required since FreeBSD/OpenBSD rotates log files
+  with <code>newsyslog</code> (<code>/etc/newsyslog.conf</code>), not <code>logrotate</code> program.</li>
+</ul>
+<h3 id="fixed-allow-two-functions-in-php">Fixed: Allow two functions in PHP</h3>
+<blockquote>
+<p>This bug was introduced in iRedMail-0.9.0. If you're upgrading from
+iRedMail-0.9.3 or earlier release, it's safe to ignore this step.</p>
+</blockquote>
+<p>Roundcube cannot call command to change password without PHP functions:
+<code>popen</code>, <code>openlog</code>, please remove them in PHP config file <code>php.ini</code>.</p>
+<ul>
+<li>on RHEL/CentOS: it's <code>/etc/php.ini</code></li>
+<li>on Debian/Ubuntu:<ul>
+<li>If you're running Apache as web server:<ul>
+<li>If you're running PHP-5: it's <code>/etc/php5/apache2/php.ini</code> (Debian 8, Ubuntu 14.04)</li>
+<li>If you're running PHP-7: it's <code>/etc/php/7.0/cli/php.ini</code> (Ubuntu 16.04)</li>
+</ul>
+</li>
+<li>If you're running Nginx as web server: it's <code>/etc/php5/fpm/php.ini</code>.<ul>
+<li>If you're running PHP-5: it's <code>/etc/php5/fpm/php.ini</code> (Debian 8, Ubuntu 14.04)</li>
+<li>If you're running PHP-7: it's <code>/etc/php/7.0/fpm/php.ini</code> (Ubuntu 16.04)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>on FreeBSD: it's <code>/usr/local/etc/php.ini</code>.</li>
+<li>on OpenBSD: it's <code>/etc/php-5.X.ini</code></li>
+</ul>
+<p>Find parameter <code>disable_functions =</code>, remove function name <code>popen</code> and
+<code>openlog</code>, then restart Apache or php fpm service.</p>
+<h3 id="rhelcentos-6-fixed-roundcube-cannot-change-password">[RHEL/CentOS 6] Fixed: Roundcube cannot change password</h3>
+<blockquote>
+<p>This bug was introduced in iRedMail-0.9.0. If you're upgrading from
+iRedMail-0.9.3 or earlier release, it's safe to ignore this step.</p>
+</blockquote>
+<p>Roundcube cannot change password due to miss package <code>mcrypt</code>, please install
+it as root user with commands below:</p>
+<pre><code>yum -y install mcrypt
+</code></pre><p style="text-align: center; color: grey;">All documents are available in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-3293801-21', 'auto');
+  ga('send', 'pageview');
+</script>
+</body></html>
