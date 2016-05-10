@@ -248,7 +248,7 @@ chmod 0500 backup_ldapd.sh
 
     * You should use LDAP suffix as value of `LDAP_BASE_DN` to backup whole
       LDAP tree.
-    * You should use find LDAP root dn and password as `LDAP_BIND_DN` and
+    * You should use LDAP root dn and password as `LDAP_BIND_DN` and
       `LDAP_BIND_PASSWORD`, so that it has required privilege to query whole
       LDAP tree.
     * You can find all required values in `iRedMail.tips` file under iRedMail
@@ -282,6 +282,10 @@ export MYSQL_PASSWD='passwd'
 * Run this script manually to backup ldapd immediately, check whether or not
   it works: make sure the backup file contains valid/correct LDIF data, and
   SQL table `iredadmin.log` contains a record of this backup.
+
+```
+bash backup_ldapd.sh
+```
 
 * Edit root's cron job with command:
 
