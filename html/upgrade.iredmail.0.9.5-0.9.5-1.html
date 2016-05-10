@@ -70,10 +70,10 @@ mailbox_command = ...
 <p>Restarting or reloading Postfix service is required.</p>
 <h3 id="fixed-incorrect-compress-and-uncompress-command-in-logrotate-config-files">Fixed: Incorrect compress and uncompress command in logrotate config files</h3>
 <blockquote>
-<p>This bug was introduced in iRedMail-0.9.0. If you're upgrading from
+<p>This bug was introduced in iRedMail-0.9.4. If you're upgrading from
 iRedMail-0.9.3 or earlier release, it's safe to ignore this step.</p>
 </blockquote>
-<p>iRedMail-0.9.0 sets incorrect command for parameter <code>compresscmd</code> and
+<p>iRedMail-0.9.4 sets incorrect command for parameter <code>compresscmd</code> and
 <code>uncompresscmd</code>, please fix it with commands below:</p>
 <ul>
 <li>On RHEL/CentOS:</li>
@@ -95,7 +95,7 @@ perl -pi -e 's#\$\(which bunzip2\)#/bin/bunzip2#g' /etc/logrotate.d/*
 </ul>
 <h3 id="fixed-allow-two-functions-in-php">Fixed: Allow two functions in PHP</h3>
 <blockquote>
-<p>This bug was introduced in iRedMail-0.9.0. If you're upgrading from
+<p>This bug was introduced in iRedMail-0.9.4. If you're upgrading from
 iRedMail-0.9.3 or earlier release, it's safe to ignore this step.</p>
 </blockquote>
 <p>Roundcube cannot call command to change password without PHP functions:
@@ -122,7 +122,7 @@ iRedMail-0.9.3 or earlier release, it's safe to ignore this step.</p>
 <code>openlog</code>, then restart Apache or php fpm service.</p>
 <h3 id="rhelcentos-6-fixed-roundcube-cannot-change-password">[RHEL/CentOS 6] Fixed: Roundcube cannot change password</h3>
 <blockquote>
-<p>This bug was introduced in iRedMail-0.9.0. If you're upgrading from
+<p>This bug was introduced in iRedMail-0.9.4. If you're upgrading from
 iRedMail-0.9.3 or earlier release, it's safe to ignore this step.</p>
 </blockquote>
 <p>Roundcube cannot change password due to miss package <code>mcrypt</code>, please install
