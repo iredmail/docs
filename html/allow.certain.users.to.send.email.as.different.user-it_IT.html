@@ -1,0 +1,69 @@
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Permettere ad alcuni utenti di mandare mail come fossero un altro utente</title>
+        <link rel="stylesheet" type="text/css" href="./css/markdown.css" />
+    </head>
+    <body>
+    
+    <div id="navigation">
+    <a href="/index.html" target="_blank">
+        <img alt="iRedMail web site"
+             src="./images/logo-iredmail.png"
+             style="vertical-align: middle; height: 30px;"
+             />&nbsp;
+        <span>iRedMail</span>
+    </a>
+    &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><div class="admonition note">
+<p class="admonition-title">This tutorial is available in other languages</p>
+<p><a href="./allow.certain.users.to.send.email.as.different.user.html">English</a> /</p>
+</div>
+<h1 id="permettere-ad-alcuni-utenti-di-mandare-mail-come-fossero-un-altro-utente">Permettere ad alcuni utenti di mandare mail come fossero un altro utente</h1>
+<p>iRedMail configura Postfix affinché rifiuti una richiesta quando il mittente
+specifica un indirizzo proprietario per il campo MAIL FROM (<code>From:</code> header), 
+ma il client non ha effettuato l'accesso in modalità SASL come il proprierario
+dell'indirizzo MAIL FORM; o quando il client è loggato in modalità SASL, ma 
+non è il proprietario dell'indirizzo in MAIL FROM </p>
+<p>A volte possiamo avere la necessità di mandare una mail a nome di un altro
+utente, questo manuale descrive come permettere, ad alcuni utenti, di farelo
+con il plugin iRedAPD <code>reject_sender_login_mismatch</code>.</p>
+<ul>
+<li>
+<p>Elimina la regola restrittiva <code>reject_sender_login_mismatch</code> dal file di 
+  di configurazione <code>smtpd_sender_restrictions</code> che si trova in
+  (<code>/etc/postfix/main.cf</code>).
+  Il plugin iREDAPD farà le stesse restrizioni per conto vostro.</p>
+<p>Dopo aver rimosso <code>reject_sender_login_mismatch</code>, la configurazione di 
+ postfix sara come riportato sotto:</p>
+</li>
+</ul>
+<pre><code>smtpd_sender_restrictions = permit_mynetworks, permit_sasl_authenticated
+</code></pre>
+
+<ul>
+<li>Nel file di configurazione iRedADP <code>/opt/iredapd/settings.py</code> abilita il 
+  plugin:</li>
+</ul>
+<pre><code class="python">plugins = ['reject_sender_login_mismatch', ...]
+</code></pre>
+
+<ul>
+<li>Elenca i mittenti che sono autorizzati ad inviare email con indirizzi 
+  diversi dai propri, nel file di configurazione iRedAPD
+  <code>ALLOWED_LOGIN_MISMATCH_SENDERS</code>. Per esempio:</li>
+</ul>
+<pre><code class="python">ALLOWED_LOGIN_MISMATCH_SENDERS = ['user1@here.com', 'user2@here.com']
+</code></pre>
+
+<pre><code>NOTA: Questo parametro non è presnete di default, aggiungilo manualmente.
+</code></pre>
+<p>Riavvia il servizio iRedAPD. Questo è tutto.</p><p style="text-align: center; color: grey;">All documents are available in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-3293801-21', 'auto');
+  ga('send', 'pageview');
+</script>
+</body></html>

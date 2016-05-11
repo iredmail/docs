@@ -19,6 +19,7 @@ this tutorial with just one shell command:
 
 ### iRedAdmin-Pro-LDAP (for OpenLDAP backend)
 
+* [2.6.0](http://www.iredmail.org/forum/topic10995.html), May 3, 2016. With __RESTful API__ support.
 * [2.5.0](http://www.iredmail.org/forum/topic10513.html), Jan 25, 2016.
 * [2.4.0](http://www.iredmail.org/forum/topic10262.html), Dec 14, 2015.
 * [2.3.1](http://www.iredmail.org/forum/topic9281.html), Jun 3, 2015. Bug fixes.
@@ -48,6 +49,7 @@ this tutorial with just one shell command:
 
 ### iRedAdmin-Pro-SQL (For MySQL, MariaDB, PostgreSQL backends)
 
+* [2.4.0](http://www.iredmail.org/forum/topic10996.html), May 3, 2016. With __RESTful API__ support.
 * [2.3.0](http://www.iredmail.org/forum/topic10514.html), Jan 25, 2016.
 * [2.2.0](http://www.iredmail.org/forum/topic10263.html), Dec 14, 2015.
 * [2.1](http://www.iredmail.org/forum/topic9282.html), Jun 3, 2015. Bug fixes.

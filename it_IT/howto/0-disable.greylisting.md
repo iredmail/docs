@@ -19,4 +19,4 @@ enable=1
 ```
 
 Per disabilitare il greylisting, cambiare `enabled=1` in `enabled=0` e riavviare
-e il servizio Clubringer.
+e il servizio Cluebringer.

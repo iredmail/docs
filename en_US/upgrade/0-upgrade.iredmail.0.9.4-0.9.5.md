@@ -413,7 +413,7 @@ iRedMail server:
 
 #### Use the latest iRedMail LDAP schema file
 
-* On RHEL/CentOS, OpenBSD:
+* On RHEL/CentOS:
 
 ```
 cd /tmp
@@ -423,7 +423,7 @@ cd /etc/openldap/schema/
 cp iredmail.schema iredmail.schema.bak
 
 cp -f /tmp/iredmail.schema /etc/openldap/schema/
-service slapd restart     # Use `rcctl restart slapd' on OpenBSD
+service slapd restart
 ```
 
 * On Debian/Ubuntu:
@@ -449,6 +449,19 @@ cp iredmail.schema iredmail.schema.bak
 
 cp -f /tmp/iredmail.schema /usr/local/etc/openldap/schema/
 service slapd restart
+```
+
+* On OpenBSD:
+
+```
+cd /tmp
+ftp https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/samples/iredmail.schema
+
+cd /etc/openldap/schema/
+cp iredmail.schema iredmail.schema.bak
+
+cp -f /tmp/iredmail.schema /etc/openldap/schema/
+rcctl restart ldapd
 ```
 
 #### Create LDAP lookup files
@@ -510,8 +523,8 @@ use this condition while querying user accounts.
 * Download below script to update existing mail users:
 
 ```
-# cd /root/
-# wget https://bitbucket.org/zhb/iredmail/raw/default/extra/update/updateLDAPValues_094_to_095.py
+cd /root/
+wget https://bitbucket.org/zhb/iredmail/raw/default/extra/update/updateLDAPValues_094_to_095.py
 ```
 
 * Open downloaded file `updateLDAPValues_094_to_095.py`, set LDAP server

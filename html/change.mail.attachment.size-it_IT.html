@@ -1,0 +1,113 @@
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Modifica dimensione massima per un'allegato di una mail</title>
+        <link rel="stylesheet" type="text/css" href="./css/markdown.css" />
+    </head>
+    <body>
+    
+    <div id="navigation">
+    <a href="/index.html" target="_blank">
+        <img alt="iRedMail web site"
+             src="./images/logo-iredmail.png"
+             style="vertical-align: middle; height: 30px;"
+             />&nbsp;
+        <span>iRedMail</span>
+    </a>
+    &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><div class="admonition note">
+<p class="admonition-title">This tutorial is available in other languages</p>
+<p><a href="./change.mail.attachment.size.html">English</a> / <a href="./change.mail.attachment.size-zh_CN.html">简体中文</a> /</p>
+</div>
+<h1 id="modifica-dimensione-massima-per-unallegato-di-una-mail">Modifica dimensione massima per un'allegato di una mail</h1>
+<div class="toc">
+<ul>
+<li><a href="#modifica-dimensione-massima-per-unallegato-di-una-mail">Modifica dimensione massima per un'allegato di una mail</a><ul>
+<li><a href="#cambia-la-dimensione-massima-del-messaggio-in-postfix">Cambia la dimensione massima del messaggio in postfix</a></li>
+<li><a href="#modifica-dimensione-di-upload-nel-client-web-roundcube">Modifica dimensione di upload nel client web Roundcube</a><ul>
+<li><a href="#modificate-le-configurazioni-di-php-in-modo-di-caricare-grossi-allegati">Modificate le configurazioni di PHP in modo di caricare grossi allegati</a></li>
+<li><a href="#modifica-configurazioni-di-roundcube-webmail-per-permettere-allegati-di-grosse-dimensioni">Modifica configurazioni di Roundcube webmail per permettere allegati di grosse dimensioni</a></li>
+<li><a href="#modifica-dimensione-di-upload-in-nginx">Modifica dimensione di upload in Nginx</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<p>Per cambiare la dimensione dell'allegato, dobbiamo modificare 3 configurazioni</p>
+<h2 id="cambia-la-dimensione-massima-del-messaggio-in-postfix">Cambia la dimensione massima del messaggio in postfix</h2>
+<p>Postfix è un MTA, per cui dobbiamo cambiare la sua configurazione per trasferire mail
+con allegati di grosse dimensioni.</p>
+<p>Per esempio, per permettere un allegato che sia di 100Mb, modificate i valori sia di
+<code>message_size_limit</code> che di <code>mailbox_size_limit</code> come mostrato sotto:</p>
+<pre><code># postconf -e message_size_limit='104857600'
+# postconf -e mailbox_size_limit='104857600'
+</code></pre>
+
+<p>Riavviate postfix per applicare le modifiche.</p>
+<pre><code># /etc/init.d/postfix restart
+</code></pre>
+
+<p><strong>NOTE</strong>:</p>
+<ul>
+<li><code>104857600</code> corrisponde a 100 (MB) x 1024 (KB) x 1024 (Bit).</li>
+<li>La mail sarà codificata dal vostro client (OutLook, Thunderbird, etc) prima di essere inviata,
+   quindi la dimensione totale del messaggio più l'allegato sarà superiore a 100MB. 
+   Puoi risolvere il problema portando il limite massimo a 110Mb o 120Mb.</li>
+<li>Se configurate <code>mailbox_size_limit</code> con un valore inferiore a quello di <code>message_size_limit</code>
+   Postfix riporterà il seguente errore nel suo log: <code>fatal: main.cf configuration  error:  
+   mailbox_size_limit is smaller than message_size_limit</code>.</li>
+</ul>
+<p>Se usate client di posta come OutLook o Thunderbird per inviare le mail, adesso è possibile 
+inviare grossi allegati con le configurazioni appena spiegate.</p>
+<h2 id="modifica-dimensione-di-upload-nel-client-web-roundcube">Modifica dimensione di upload nel client web Roundcube</h2>
+<p>Se usare Roundcube webmail, dovrete cambiare altri due parametri:</p>
+<h3 id="modificate-le-configurazioni-di-php-in-modo-di-caricare-grossi-allegati">Modificate le configurazioni di PHP in modo di caricare grossi allegati</h3>
+<p>Dovrete cambiare nel file di configurazione di PHP in <code>/etc/php.ini</code> le seguenti 
+configurazioni: <code>memory_limit</code>, <code>upload_max_filesize</code> e <code>post_max_size</code>  </p>
+<ul>
+<li>in RHEL/CentOS: in <code>/etc/php.ini</code></li>
+<li>in Debian/Ububtu: in <code>/etc/php5/apache2/php.ini</code></li>
+<li>in FreeBSD: in <code>/usr/local/etc/php.ini</code> per quanto riguarda Apache, per Nginx
+   invece in <code>/etc/php5/fpm/php.ini</code> 
+*in OpenBSD: in <code>/etc/php-5.4.ini</code>. Se usate una release diversa di PHP il numero di versione 
+  <code>5.4</code> sarà diverso rispetto all'esempio.</li>
+</ul>
+<pre><code>memory_limit = 200M;
+upload_max_filesize = 100M;
+post_max_size = 100M;
+</code></pre>
+
+<h3 id="modifica-configurazioni-di-roundcube-webmail-per-permettere-allegati-di-grosse-dimensioni">Modifica configurazioni di Roundcube webmail per permettere allegati di grosse dimensioni</h3>
+<p>Modificate le stesse configurazioni in <code>.htaccess</code> nella directory root di roundcube:</p>
+<ul>
+<li>in RHEL/CentOS: in <code>/var/www/roundcubemail/.htaccess</code></li>
+<li>in Debian/Ububtu: in  <code>/usr/share/apache2/roundcubemail/.htaccess</code> oppure
+  <code>/opt/www/roundcubemail/.htaccess</code>.</li>
+<li>in FreeBSD: in<code>/usr/local/www/roundcubemail/.htaccess</code>
+*in OpenBSD: in  <code>/var/www/roundcubemail/.htaccess</code></li>
+</ul>
+<p>Nota: il file <code>.htaccess</code> può non esistere in alcune distribuzioni Linux/BSD, nel qual caso 
+ignorare le seguenti modifiche</p>
+<pre><code>php_value    memory_limit   200M
+php_value    upload_max_filesize    100M
+php_value    post_max_size  100M
+</code></pre>
+
+<p>Riavviate il servizio di Apache o php-frm per accettare le modifiche fin qui applicate.</p>
+<h3 id="modifica-dimensione-di-upload-in-nginx">Modifica dimensione di upload in Nginx</h3>
+<p>Trovate, nel file di configurazione di Nginx, cher si trova a <code>/etc/nginx/nginx.conf</code>,  la riga con <code>client_max_body_size</code>e modificate il valore assegnato alle vostre specifiche esigenze.</p>
+<p>```
+http {
+    ...
+    client_max_body_size 100m;
+    ...
+}</p><p style="text-align: center; color: grey;">All documents are available in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-3293801-21', 'auto');
+  ga('send', 'pageview');
+</script>
+</body></html>
