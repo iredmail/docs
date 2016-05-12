@@ -12,7 +12,7 @@ import web
 import markdown
 
 # Markdown extensions
-MD_EXTENSIONS = ['toc', 'meta', 'extra', 'footnotes', 'admonition', 'tables']
+MD_EXTENSIONS = ['toc', 'meta', 'extra', 'footnotes', 'admonition', 'tables', 'attr_list']
 
 # Get file name
 filename = sys.argv[1]

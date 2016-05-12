@@ -144,7 +144,7 @@ label,
 input,
 select,
 textarea {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: 'PT Sans', Georgia, Palatino, serif;
   font-size: 13px;
   font-weight: normal;
   line-height: normal;
@@ -210,7 +210,7 @@ input[type=text]:focus, input[type=password]:focus, textarea:focus {
 button {
   display: inline-block;
   padding: 4px 14px;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: 'PT Sans', Georgia, Palatino, serif;
   font-size: 13px;
   line-height: 18px;
   -webkit-border-radius: 4px;
@@ -335,7 +335,7 @@ li { line-height: 26px; }
 }
 */
 
-.note, .attention, .caution, .danger, .error, .hint, .important, .tip, .warning, .seealso, .admonition-todo {
+.api, .note, .attention, .caution, .danger, .error, .hint, .important, .tip, .warning, .seealso, .admonition-todo {
 	padding: 12px;
 	line-height: 24px;
 	margin-bottom: 24px;
@@ -369,6 +369,29 @@ li { line-height: 26px; }
 .attention  { background: #e7f2fa; }
 .warning    { background: #FFFFE1; }
 .attention p { margin-top: 4px; }
+
+/* Style for API document */
+.api {
+	line-height: 18px;
+	background: #e7f2fa;
+	padding: 3px 12px 0px 0px;
+    margin-top: 0px;
+	margin-bottom: 0px;
+}
+.api .admonition-title {
+    background-color: white;
+    padding: 0px 12px 0px 5px;
+}
+.api > .admonition-title > code:nth-child(1) { background-color: green; }
+.api > .admonition-title > code:nth-child(2) { background-color: green; }
+.api > .admonition-title > code:nth-child(3) {
+    color: black;
+    background-color: white;
+    border: 0px;
+    font-family: 'PT Sans', Georgia, Palatino, serif;
+    font-size: 16px;
+    font-style: normal;
+}
 
 /* Table */
 th { padding: 5px 10px 5px 10px; }

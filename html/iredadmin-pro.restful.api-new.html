@@ -91,32 +91,14 @@ RESTFUL_API_CLIENTS = ['172.16.244.1', ...]
 <li>replace <code>&lt;mail&gt;</code> in URL by the real email address.</li>
 </ul>
 <h3 id="domain">Domain</h3>
-<table>
-<thead>
-<tr>
-<th>URL</th>
-<th>HTTP Method</th>
-<th>Summary</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>/api/domain/&lt;domain></td>
-<td>POST</td>
-<td>Create a new domin</td>
-</tr>
-<tr>
-<td>/api/domain/&lt;domain></td>
-<td>DELETE</td>
-<td>Delete an existing domain</td>
-</tr>
-<tr>
-<td>/api/domain/&lt;domain></td>
-<td>PUT</td>
-<td>Update profile of an existing domain</td>
-</tr>
-</tbody>
-</table>
+<div class="admonition api">
+<p class="admonition-title"><code>/api/domain/&lt;domain&gt;</code> <code>POST</code> <code>Create a new domain</code></p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code>/api/domain/&lt;domain&gt;</code> <code>DELETE</code> <code>Delete an existing domain</code></p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code>/api/domain/&lt;domain&gt;</code> <code>PUT</code> <code>Update profile of an existing domain</code></p>
 <p>Possible <code>PUT</code> parameters used to update account profile:</p>
 <table>
 <thead>
@@ -164,7 +146,38 @@ RESTFUL_API_CLIENTS = ['172.16.244.1', ...]
 </tr>
 </tbody>
 </table>
+</div>
 <h3 id="user">User</h3>
+<div class="admonition api">
+<p class="admonition-title"><code>/api/user/&lt;mail&gt;</code> <code>POST</code> <code>Create a new mail user</code></p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code>/api/user/&lt;mail&gt;</code> <code>DELETE</code> <code>Delete an existing mail user</code></p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code>/api/user/&lt;mail&gt;</code> <code>PUT</code> <code>Update profile of an existing mail user</code></p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code>/api/users/&lt;domain&gt;</code> <code>PUT</code> <code>Update profiles of all mail user under domain</code></p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code>/api/users/&lt;domain&gt;/password</code> <code>PUT</code> <code>Update passwords of all users under domain</code></p>
+<p id="param">Required parameter:</p>
+<table>
+<thead>
+<tr>
+<th>Parameter Name</th>
+<th>Sample Usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>password</code></td>
+<td><code>password=Ww0nXVEV8iv4ap@p4b</code></td>
+</tr>
+</tbody>
+</table>
+</div>
 <table>
 <thead>
 <tr>

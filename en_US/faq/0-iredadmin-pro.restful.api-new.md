@@ -62,25 +62,36 @@ Notes:
 
 ### Domain
 
-URL | HTTP Method | Summary
---- | --- | ---
-/api/domain/<domain\> | POST | Create a new domin
-/api/domain/<domain\> | DELETE | Delete an existing domain
-/api/domain/<domain\> | PUT | Update profile of an existing domain
+!!! api "`/api/domain/<domain>` `POST` `Create a new domain`"
+!!! api "`/api/domain/<domain>` `DELETE` `Delete an existing domain`"
+!!! api "`/api/domain/<domain>` `PUT` `Update profile of an existing domain`"
 
-Possible `PUT` parameters used to update account profile:
+    Possible `PUT` parameters used to update account profile:
 
-Parameter Name | Summary | Sample Usage
---- |--- |---
-`cn` | the short description of this domain name. e.g. company name | `cn=iRedMail Project`
-`quota` | a integer number for mailbox quota (for whole domain, in MB) | `quota=20480`
-`language` | default preferred language for new user | `language=en_US`
-`defaultQuota` | default mailbox quota for new user | `defaultQuota=1024`
-`maxUserQuota` | Max mailbox quota of a single mail user | `maxUserQuota=2048`
-`numberOfUsers` | Max number of mail user accounts | `numberOfUsers=20`
-`numberOfAliases` | Max number of mail alias accounts | `numberOfAliases=30`
+    Parameter Name | Summary | Sample Usage
+    --- |--- |---
+    `cn` | the short description of this domain name. e.g. company name | `cn=iRedMail Project`
+    `quota` | a integer number for mailbox quota (for whole domain, in MB) | `quota=20480`
+    `language` | default preferred language for new user | `language=en_US`
+    `defaultQuota` | default mailbox quota for new user | `defaultQuota=1024`
+    `maxUserQuota` | Max mailbox quota of a single mail user | `maxUserQuota=2048`
+    `numberOfUsers` | Max number of mail user accounts | `numberOfUsers=20`
+    `numberOfAliases` | Max number of mail alias accounts | `numberOfAliases=30`
 
 ### User
+
+!!! api "`/api/user/<mail>` `POST` `Create a new mail user`"
+!!! api "`/api/user/<mail>` `DELETE` `Delete an existing mail user`"
+!!! api "`/api/user/<mail>` `PUT` `Update profile of an existing mail user`"
+!!! api "`/api/users/<domain>` `PUT` `Update profiles of all mail user under domain`"
+!!! api "`/api/users/<domain>/password` `PUT` `Update passwords of all users under domain`"
+
+    Required parameter:
+    {: #param }
+
+    Parameter Name | Sample Usage
+    --- |---
+    `password` | `password=Ww0nXVEV8iv4ap@p4b`
 
 URL | HTTP Method | Summary
 --- |---| ---

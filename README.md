@@ -2,6 +2,10 @@ Please visit [http://www.iredmail.org/docs/](http://www.iredmail.org/docs/)
 to read converted documents in HTML format, get support in our forum:
 [http://www.iredmail.org/forum/](http://www.iredmail.org/forum/).
 
+# License
+
+All documents are published under Creative Commons License.
+
 # How to translate and contribute
 
 * Create a new directory and name it to the short language code. for example:
@@ -17,3 +21,7 @@ to read converted documents in HTML format, get support in our forum:
   directory `zh_CN/howto/` and copy `reset.user.password.md` to `zh_CN/howto/`
   (with same file name).
 * Translate the file and send a pull request.
+
+If you found something wrong, even just a grammar error or spelling mistake,
+please don't hesitate to send us a pull request or
+[contact us](http://www.iredmail.org/contact.html) to fix it.
