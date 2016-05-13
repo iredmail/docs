@@ -335,7 +335,7 @@ li { line-height: 26px; }
 }
 */
 
-.api, .note, .attention, .caution, .danger, .error, .hint, .important, .tip, .warning, .seealso, .admonition-todo {
+.note, .attention, .caution, .danger, .error, .hint, .important, .tip, .warning, .seealso, .admonition-todo {
 	padding: 12px;
 	line-height: 24px;
 	margin-bottom: 24px;
@@ -373,7 +373,7 @@ li { line-height: 26px; }
 /* Style for API document */
 .api {
 	line-height: 18px;
-	background: #e7f2fa;
+	#background: #e7f2fa;
 	padding: 3px 12px 0px 0px;
     margin-top: 0px;
 	margin-bottom: 0px;
@@ -401,3 +401,20 @@ th, td { border: 1px solid black; }
 /*
 caption { font-size: 200%;}
 */
+
+/*
+.api_url, .api_method, .api_comment { float: left; }
+*/
+
+.admonition  table {
+	border-collapse: collapse;
+    #width: 100%;
+    text-align: left;
+    line-height: 33px;
+    vertical-align: middle;
+    margin-bottom: 20px;
+}
+
+.admonition  table thead {
+    background-color: #f4f8e9;
+}

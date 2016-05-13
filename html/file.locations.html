@@ -236,8 +236,10 @@ empty, please check normal syslog log file <code>/var/log/messages</code> or
 <ul>
 <li>RHEL/CentOS: <code>/var/www/roundcubemail</code>. It's a symbol link to
   <code>/var/www/roundcubemail-x.y.z</code>.</li>
-<li>Debian/Ubuntu: <code>/usr/share/apache2/roundcubemail</code>. It's a symbol link of
-  <code>/usr/share/apache2/roundcubemail-x.y.z/</code>.</li>
+<li>Debian/Ubuntu: <code>/opt/www/roundcubemail</code>. It's a symbol link to
+  <code>/opt/www/roundcubemail-x.y.z</code>.
+    Note: with old iRedMail releases, it's <code>/usr/share/apache2/roundcubemail</code>,
+    it's a symbol link to <code>/usr/share/apache2/roundcubemail-x.y.z/</code>.</li>
 <li>FreeBSD: <code>/usr/local/www/roundcube</code>.</li>
 <li>OpenBSD: <code>/var/www/roundcubemail</code>. It's a symbol link to
   <code>/var/www/roundcubemail-x.y.z/</code>.</li>

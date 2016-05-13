@@ -171,8 +171,10 @@ Main config file:
 
     * RHEL/CentOS: `/var/www/roundcubemail`. It's a symbol link to
       `/var/www/roundcubemail-x.y.z`.
-    * Debian/Ubuntu: `/usr/share/apache2/roundcubemail`. It's a symbol link of
-      `/usr/share/apache2/roundcubemail-x.y.z/`.
+    * Debian/Ubuntu: `/opt/www/roundcubemail`. It's a symbol link to
+      `/opt/www/roundcubemail-x.y.z`.
+        Note: with old iRedMail releases, it's `/usr/share/apache2/roundcubemail`,
+        it's a symbol link to `/usr/share/apache2/roundcubemail-x.y.z/`.
     * FreeBSD: `/usr/local/www/roundcube`.
     * OpenBSD: `/var/www/roundcubemail`. It's a symbol link to
       `/var/www/roundcubemail-x.y.z/`.
