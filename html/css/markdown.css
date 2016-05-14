@@ -320,6 +320,9 @@ pre { margin-left: 30px; }
 p, ul, ol { font-size: 17px; }
 li { line-height: 26px; }
 
+.f_left { float: left; }
+.f_right { float: right; }
+
 /*
 .note {
     background: #e7f2fa;
@@ -370,6 +373,14 @@ li { line-height: 26px; }
 .warning    { background: #FFFFE1; }
 .attention p { margin-top: 4px; }
 
+/* Table */
+table { border: 1px solid black; border-collapse: collapse;}
+th { padding: 5px 10px 5px 10px; }
+td { padding: 5px 10px 5px 10px; }
+th, td { border: 1px solid black; }
+
+button { font-size: 16px; padding: 5px 5px 5px 5px; }
+
 /* Style for API document */
 .api {
 	line-height: 18px;
@@ -382,21 +393,32 @@ li { line-height: 26px; }
     padding: 0px 12px 0px 5px;
 }
 
-/* Table */
-table { border: 1px solid black; border-collapse: collapse;}
-th { padding: 5px 10px 5px 10px; }
-td { padding: 5px 10px 5px 10px; }
-th, td { border: 1px solid black; }
-
 .api code.url { background-color: white; color: black; display: inline-block; }
+.api code.get,
+.api code.post,
+.api code.put,
+.api code.delete,
+.api code.has_params,
+.api code.has_params_throttle
+{
+    display: inline-block;
+    width: 60px;
+    text-align: center;
+}
 .api code.get { background-color: #0f6ab4; }
 .api code.post { background-color: #10a54a; }
 .api code.put { background-color: #c5862b; padding-left: 5px; padding-right: 5px;}
 .api code.delete { background-color: #a41e22; }
-.api code.get, .api code.post, .api code.put, .api code.delete {
-    display: inline-block;
-    width: 60px;
-    text-align: center;
+.api code.upcoming { background-color: #0f6ab4; text-transform: uppercase; font-size: 12px; }
+.api code.new { background-color: #10a54a; text-transform: uppercase; }
+.api code.has_params,
+.api code.has_params_throttle {
+    background-color: #0064cd;
+    font-size: 12px;
+    float: right;
+    width: auto;
+    cursor: pointer;
+    -webkit-appearance: button;
 }
 .api code.comment {
     color: black;
@@ -418,10 +440,7 @@ th, td { border: 1px solid black; }
     vertical-align: middle;
     margin-bottom: 20px;
 }
+.api table thead { background-color: #ccc; }
 .api th { padding: 0px 10px 0px 10px; }
 .api td { padding: 0px 10px 0px 10px; }
-
-.admonition  table thead {
-    background-color: #f4f8e9;
-}
-
+/* END style for API Document */
