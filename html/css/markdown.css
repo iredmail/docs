@@ -373,7 +373,6 @@ li { line-height: 26px; }
 /* Style for API document */
 .api {
 	line-height: 18px;
-	#background: #e7f2fa;
 	padding: 3px 12px 0px 0px;
     margin-top: 0px;
 	margin-bottom: 0px;
@@ -382,9 +381,24 @@ li { line-height: 26px; }
     background-color: white;
     padding: 0px 12px 0px 5px;
 }
-.api > .admonition-title > code:nth-child(1) { background-color: green; }
-.api > .admonition-title > code:nth-child(2) { background-color: green; }
-.api > .admonition-title > code:nth-child(3) {
+
+/* Table */
+table { border: 1px solid black; border-collapse: collapse;}
+th { padding: 5px 10px 5px 10px; }
+td { padding: 5px 10px 5px 10px; }
+th, td { border: 1px solid black; }
+
+.api code.url { background-color: white; color: black; display: inline-block; }
+.api code.get { background-color: #0f6ab4; }
+.api code.post { background-color: #10a54a; }
+.api code.put { background-color: #c5862b; padding-left: 5px; padding-right: 5px;}
+.api code.delete { background-color: #a41e22; }
+.api code.get, .api code.post, .api code.put, .api code.delete {
+    display: inline-block;
+    width: 60px;
+    text-align: center;
+}
+.api code.comment {
     color: black;
     background-color: white;
     border: 0px;
@@ -393,28 +407,21 @@ li { line-height: 26px; }
     font-style: normal;
 }
 
-/* Table */
-th { padding: 5px 10px 5px 10px; }
-td { padding: 5px 10px 5px 10px; }
-table { border: 1px solid black; }
-th, td { border: 1px solid black; }
-/*
-caption { font-size: 200%;}
-*/
-
-/*
-.api_url, .api_method, .api_comment { float: left; }
-*/
-
-.admonition  table {
+.api table {
+    border: 0px;
 	border-collapse: collapse;
-    #width: 100%;
+    /*
+    width: 100%;
+    */
     text-align: left;
     line-height: 33px;
     vertical-align: middle;
     margin-bottom: 20px;
 }
+.api th { padding: 0px 10px 0px 10px; }
+.api td { padding: 0px 10px 0px 10px; }
 
 .admonition  table thead {
     background-color: #f4f8e9;
 }
+
