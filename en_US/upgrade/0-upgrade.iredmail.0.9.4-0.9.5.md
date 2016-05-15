@@ -30,7 +30,7 @@ Please follow below tutorial to upgrade iRedAPD to the latest stable release:
 
 Detailed release notes are available [here](./iredapd.releases.html).
 
-### Upgrade iRedAdmin (open source edition) to the latest stable release (0.6)
+### Upgrade iRedAdmin (open source edition) to the latest stable release (0.6.1)
 
 Please follow this tutorial to upgrade iRedAdmin open source edition to the
 latest stable release:
