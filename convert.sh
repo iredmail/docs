@@ -267,6 +267,7 @@ if echo "$@" | grep -q -- '--sync-local'; then
     echo "* Syncing converted HTML files."
     rm -rf ../web/docs/*
     cp -rf ${ROOTDIR}/html/* ${ROOTDIR}/../web/docs/
+    cp -rf ${ROOTDIR}/html/images/* ${ROOTDIR}/../web/docs/images/
 fi
 
 # Show changed files.

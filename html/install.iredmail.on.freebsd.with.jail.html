@@ -164,11 +164,11 @@ installation:</p>
 <ul>
 <li>Welcome and thanks for your use</li>
 </ul>
-<p><img alt="" src="../images/installation/iredmail/welcome.png" /></p>
+<p><img alt="" src="./images/installation/welcome.png" width="700px" /></p>
 <ul>
 <li>Specify location to store all mailboxes. Default is <code>/var/vmail/</code>.</li>
 </ul>
-<p><img alt="" src="../images/installation/iredmail/location_to_store_mailboxes.png" /></p>
+<p><img alt="" src="./images/installation/mail_storage.png" width="700px" /></p>
 <ul>
 <li>Choose backend used to store mail accounts. You can manage mail accounts
 with iRedAdmin, our web-based iRedMail admin panel.</li>
@@ -179,12 +179,12 @@ with iRedAdmin, our web-based iRedMail admin panel.</li>
 it's strongly recommended to choose the one you're familiar with for easier
 management and maintenance after installation.</p>
 </div>
-<p><img alt="" src="../images/installation/iredmail/backend.png" /></p>
+<p><img alt="" src="./images/installation/backends.png" width="700px" /></p>
 <ul>
 <li>If you choose to store mail accounts in OpenLDAP, iRedMail installer will
   ask to set the LDAP suffix.</li>
 </ul>
-<p><img alt="" src="../images/installation/iredmail/ldap_suffix.png" /></p>
+<p><img alt="" src="./images/installation/ldap_suffix.png" width="700px" /></p>
 <div class="admonition note">
 <p class="admonition-title">To MySQL/MariaDB/PostgreSQL users</p>
 <p>If you choose to store mail accounts in MySQL/MariaDB/PostgreSQL, iRedMail
@@ -194,36 +194,22 @@ in file <code>iRedMail.tips</code>.</p>
 <ul>
 <li>Add your first mail domain name</li>
 </ul>
-<p><img alt="" src="../images/installation/iredmail/first_mail_domain.png" /></p>
+<p><img alt="" src="./images/installation/first_domain.png" width="700px" /></p>
 <ul>
 <li>Set password of admin account of your first mail domain.</li>
 </ul>
 <p><strong>Note</strong>: This account is an admin account and a mail user. That means you can
 login to webmail and admin panel (iRedAdmin) with this account, login username
 is full email address.</p>
-<p><img alt="" src="../images/installation/iredmail/pw_of_domain_admin.png" /></p>
+<p><img alt="" src="./images/installation/admin_pw.png" width="700px" /></p>
 <ul>
 <li>Choose optional components</li>
 </ul>
-<p><img alt="" src="../images/installation/iredmail/optional_components.png" /></p>
-<p>After answered above questions, iRedMail installer will ask your confirm to
-start installation. It will install and configure required packages
+<p><img alt="" src="./images/installation/optional_components.png" width="700px" /></p>
+<p>After answered above questions, iRedMail installer will ask you to review and
+confirm to start installation. It will install and configure required packages
 automatically. Type <code>y</code> or <code>Y</code> and press <code>Enter</code> to start.</p>
-<pre><code>Configuration completed.
-
-*************************************************************************
-**************************** WARNING ***********************************
-*************************************************************************
-*                                                                       *
-* Please do remember to *REMOVE* configuration file after installation  *
-* completed successfully.                                               *
-*                                                                       *
-*   * /root/iRedMail-x.y.z/config
-*                                                                       *
-*************************************************************************
-&lt;&lt;&lt; iRedMail &gt;&gt;&gt; Continue? [Y|n]        # &lt;- Type 'Y' or 'y' here, and press 'Enter' to continue
-</code></pre>
-
+<p><img alt="" src="./images/installation/review.png" width="700px" /></p>
 <h2 id="important-things-you-must-know-after-installation">Important things you <strong>MUST</strong> know after installation</h2>
 <blockquote>
 <p>The weakest part of a mail server is user's weak password. Spammers don't

@@ -91,11 +91,11 @@ mx.example.com
 
 * 欢迎和感谢使用
 
-![](../images/installation/iredmail/welcome.png)
+![](./images/installation/welcome.png){: width="700px" }
 
 * 指定用于存储用户邮箱的路径。默认是 `/var/vmail/`。
 
-![](../images/installation/iredmail/location_to_store_mailboxes.png)
+![](./images/installation/mail_storage.png){: width="700px" }
 
 * 选择用于存储邮件账号的数据库。
 
@@ -103,11 +103,11 @@ mx.example.com
 
     各个数据库之间没有太大区别，建议使用自己熟悉的数据库，便于后期维护。
 
-![](../images/installation/iredmail/backend.png)
+![](./images/installation/backends.png){: width="700px" }
 
 * 如果选择 OpenLDAP 数据库用于存储邮件账号，安装程序会要求你输入 LDAP 前缀：
 
-![](../images/installation/iredmail/ldap_suffix.png)
+![](./images/installation/ldap_suffix.png){: width="700px" }
 
 !!! note "MySQL/MariaDB/PostgreSQL 用户"
 
@@ -116,7 +116,7 @@ mx.example.com
 
 * 添加第一个邮件域名
 
-![](../images/installation/iredmail/first_mail_domain.png)
+![](./images/installation/first_domain.png){: width="700px" }
 
 * 设置邮件管理员的密码
 
@@ -124,15 +124,17 @@ mx.example.com
 
     该账号即是邮件管理员，也是普通的邮件账号，可以登录管理后台和 webmail。
 
-![](../images/installation/iredmail/pw_of_domain_admin.png)
+![](./images/installation/admin_pw.png){: width="700px" }
 
 * 可选的组件
 
-![](../images/installation/iredmail/optional_components.png)
+![](./images/installation/optional_components.png){: width="700px" }
 
 
-回答完上面的几个问题之后，安装程序会列出本次安装的基本信息并要求确认是否实际
+回答完上面的几个问题之后，安装程序给出本次安装的基本信息并要求确认是否实际
 执行安装，请输入 `y` 或 `Y` 并按回车键确认，或 `n`, `N` 并按回车键中止安装。
+
+![](./images/installation/review.png){: width="700px" }
 
 ## 安装完成后你必须知道的几个重要事项
 

@@ -115,11 +115,11 @@ mx.example.com
 <ul>
 <li>欢迎和感谢使用</li>
 </ul>
-<p><img alt="" src="../images/installation/iredmail/welcome.png" /></p>
+<p><img alt="" src="./images/installation/welcome.png" width="700px" /></p>
 <ul>
 <li>指定用于存储用户邮箱的路径。默认是 <code>/var/vmail/</code>。</li>
 </ul>
-<p><img alt="" src="../images/installation/iredmail/location_to_store_mailboxes.png" /></p>
+<p><img alt="" src="./images/installation/mail_storage.png" width="700px" /></p>
 <ul>
 <li>选择用于存储邮件账号的数据库。</li>
 </ul>
@@ -127,11 +127,11 @@ mx.example.com
 <p class="admonition-title">Note</p>
 <p>各个数据库之间没有太大区别，建议使用自己熟悉的数据库，便于后期维护。</p>
 </div>
-<p><img alt="" src="../images/installation/iredmail/backend.png" /></p>
+<p><img alt="" src="./images/installation/backends.png" width="700px" /></p>
 <ul>
 <li>如果选择 OpenLDAP 数据库用于存储邮件账号，安装程序会要求你输入 LDAP 前缀：</li>
 </ul>
-<p><img alt="" src="../images/installation/iredmail/ldap_suffix.png" /></p>
+<p><img alt="" src="./images/installation/ldap_suffix.png" width="700px" /></p>
 <div class="admonition note">
 <p class="admonition-title">MySQL/MariaDB/PostgreSQL 用户</p>
 <p>如果选择 MySQL/MariaDB/PostgreSQL 用于存储邮件账号, 安装程序会为数据库的
@@ -140,7 +140,7 @@ root 用户生成一个随机的强密码，安装完成后可以在 <code>iRedM
 <ul>
 <li>添加第一个邮件域名</li>
 </ul>
-<p><img alt="" src="../images/installation/iredmail/first_mail_domain.png" /></p>
+<p><img alt="" src="./images/installation/first_domain.png" width="700px" /></p>
 <ul>
 <li>设置邮件管理员的密码</li>
 </ul>
@@ -148,13 +148,14 @@ root 用户生成一个随机的强密码，安装完成后可以在 <code>iRedM
 <p class="admonition-title">Note</p>
 <p>该账号即是邮件管理员，也是普通的邮件账号，可以登录管理后台和 webmail。</p>
 </div>
-<p><img alt="" src="../images/installation/iredmail/pw_of_domain_admin.png" /></p>
+<p><img alt="" src="./images/installation/admin_pw.png" width="700px" /></p>
 <ul>
 <li>可选的组件</li>
 </ul>
-<p><img alt="" src="../images/installation/iredmail/optional_components.png" /></p>
-<p>回答完上面的几个问题之后，安装程序会列出本次安装的基本信息并要求确认是否实际
+<p><img alt="" src="./images/installation/optional_components.png" width="700px" /></p>
+<p>回答完上面的几个问题之后，安装程序给出本次安装的基本信息并要求确认是否实际
 执行安装，请输入 <code>y</code> 或 <code>Y</code> 并按回车键确认，或 <code>n</code>, <code>N</code> 并按回车键中止安装。</p>
+<p><img alt="" src="./images/installation/review.png" width="700px" /></p>
 <h2 id="_4">安装完成后你必须知道的几个重要事项</h2>
 <ul>
 <li>邮件服务器最薄弱的环节是用户的弱密码，所以请一定强制你的用户使用强度高的密码。</li>
