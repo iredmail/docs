@@ -1,0 +1,118 @@
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Abilitare servizio SMTPS ( SMTP over SSL su porta 465)</title>
+        <link rel="stylesheet" type="text/css" href="./css/markdown.css" />
+    </head>
+    <body>
+    
+    <div id="navigation">
+    <a href="/index.html" target="_blank">
+        <img alt="iRedMail web site"
+             src="./images/logo-iredmail.png"
+             style="vertical-align: middle; height: 30px;"
+             />&nbsp;
+        <span>iRedMail</span>
+    </a>
+    &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><div class="admonition note">
+<p class="admonition-title">This tutorial is available in other languages</p>
+<p><a href="./enable.smtps.html">English</a> /</p>
+</div>
+<h1 id="abilitare-servizio-smtps-smtp-over-ssl-su-porta-465">Abilitare servizio SMTPS ( SMTP over SSL su porta 465)</h1>
+<div class="toc">
+<ul>
+<li><a href="#abilitare-servizio-smtps-smtp-over-ssl-su-porta-465">Abilitare servizio SMTPS ( SMTP over SSL su porta 465)</a><ul>
+<li><a href="#perche-iredmail-non-abilita-smtps-smtp-over-ssl-per-default">Perché iRedMail non abilita SMTPS (SMTP over SSL) per default.</a></li>
+<li><a href="#perche-abilitare-smtps-sebbene-sia-deprecato">Perché abilitare SMTPS sebbene sia deprecato ?</a></li>
+<li><a href="#come-abilitare-smtps">Come abilitare SMTPS</a></li>
+<li><a href="#aprirte-la-porta-465-sul-firewall">Aprirte la porta 465 sul firewall</a></li>
+<li><a href="#su-rhelcentos">Su RHEL/CentOS</a></li>
+<li><a href="#su-debianububtu">Su Debian/Ububtu</a></li>
+<li><a href="#su-openbsd">Su OpenBSD</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<h3 id="perche-iredmail-non-abilita-smtps-smtp-over-ssl-per-default">Perché iRedMail non abilita SMTPS (SMTP over SSL) per default.</h3>
+<p>SMTPS è deprecato, per cui iRedMail lo disabilita per default.
+Estratto da <a href="https://it.wikipedia.org/wiki/SMTPS">wikipedia.org</a></p>
+<blockquote>
+<p>Originalmente, nel 1997, la IASNS registrò la porta 465 per l'SMTPS. Alla fine del 1998 questa fu revocata quando fu standardizzato lo STARTTLS. Con STARTTLS, la stessa porta può essere usata sia con che senza TLS. Per il protocollo SMTP ciò è stato particolarmente importante, perché i client di questo protocollo sono spesso altri server email, e ciò implica che non è dato sapere se i server con cui si vuole comunicare abbiano una porta separata per TLS. La porta 465 è ora registrata come SSM audio e video.</p>
+</blockquote>
+<h3 id="perche-abilitare-smtps-sebbene-sia-deprecato">Perché abilitare SMTPS sebbene sia deprecato ?</h3>
+<p>Sfortunatamente, ci sono alcuni tra i piu noti client di posta che non supportano 'presentazione ossia SMTP over STARTTLS su porta 587. Il piu famoso di questi è Microsoft Outlook. Da wikipedia.org:</p>
+<blockquote>
+<p>Ancora nel 2013 ci sono servizi che continuano ad offrire interfacce SMTPS su porta 465 seppure deprecate, in aggiunta, o al posto, dell'interfaccia di autenticazione messaggio RFC compatibili sulla porta 587 come definito dalla RFC 6409. I provider mantengono la porta 465 perché vecchie applicazioni Microsoft (Incluso Entourage v10.0) non supportano STARTTLS, e quindi non lo standard SMTP (SMTPS sulla porta 587). L'unico modo per i provider per offrire a questi utenti una connessione crittata è di mantenere in uso la porta 465.</p>
+</blockquote>
+<h3 id="come-abilitare-smtps">Come abilitare SMTPS</h3>
+<p>Per abilitare SMTPS, devi configurare postfix per ascoltare sulla porta 456 prima e successivamente aprire la porta 465 su iptalbes.</p>
+<p>Aggiungete le righe sotto al file di configurazione di Postfix <code>/etc/postfix/master.cf</code> (per Linux/OpenBSD) oppure <code>/usr/local/etc/postfix/master.cf</code> per FreeBSD:</p>
+<pre><code>465     inet  n       -       n       -       -       smtpd
+  -o syslog_name=postfix/smtps
+  -o smtpd_tls_wrappermode=yes
+  -o smtpd_sasl_auth_enable=yes
+  -o smtpd_client_restrictions=permit_sasl_authenticated,reject
+  -o content_filter=smtp-amavis:[127.0.0.1]:10026
+</code></pre>
+
+<p>Riavviate il servizio Postfix per abilitare SMTPS.</p>
+<p><strong>WARNING</strong>: Fare attenzione di avere  Amavisd in ascolto sulla porta 10026 (ed 10024, 9998).</p>
+<h3 id="aprirte-la-porta-465-sul-firewall">Aprirte la porta <code>465</code> sul firewall</h3>
+<h3 id="su-rhelcentos">Su RHEL/CentOS</h3>
+<ul>
+<li>su RHEL/CentOS 6, aggiornare il file delle regole di iptables <code>/etc/sysconfig/iptables</code> con una regola (la terza nelle righe di codice sottostante) per la porta 465; a quel punto riavviate il serio iptables.</li>
+</ul>
+<pre><code># Part of file: /etc/sysconfig/iptables
+-A INPUT -p tcp --dport 25 -j ACCEPT
+-A INPUT -p tcp --dport 587 -j ACCEPT
+-A INPUT -p tcp --dport 465 -j ACCEPT
+</code></pre>
+
+<ul>
+<li>Su RHEL/CentOS 7, aggiungete il file <code>/etc/firewalld/services/smtps.xml</code>, che contiene quello che vedete qui sotto:</li>
+</ul>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;service&gt;
+  &lt;short&gt;Enable SMTPS&lt;/short&gt;
+  &lt;description&gt;Enable SMTPS.&lt;/description&gt;
+  &lt;port protocol=&quot;tcp&quot; port=&quot;465&quot;/&gt;
+&lt;/service&gt;
+</code></pre>
+
+<p>Modificate il file <code>/etc/firewalld/zones/iredmail.xml</code> abilitando il servizio smtp inserendo la linea <code>&lt;service name="smtps"/&gt;</code> inside <code>&lt;zone&gt;&lt;/zone&gt;</code>  nel blocco seguente:</p>
+<pre><code>&lt;zone&gt;
+    ...
+    &lt;service name=&quot;smtps&quot;/&gt;
+&lt;/zone&gt;
+</code></pre>
+
+<p>Riavviate il servizio firewall:</p>
+<pre><code># firewall-cmd --complete-reload
+</code></pre>
+
+<h3 id="su-debianububtu">Su Debian/Ububtu</h3>
+<p>Su Debian/Ubuntu, se usate le regole per iptables configurate da iRedMail, aggiornate il file <code>/etc/default/iptables</code>,  aggiungete una regola (la terza del codice qui sotto) per la porta 465 e successivamente riavviate il servizio iptables.</p>
+<pre><code># Part of file: /etc/default/iptables
+-A INPUT -p tcp --dport 25 -j ACCEPT
+-A INPUT -p tcp --dport 587 -j ACCEPT
+-A INPUT -p tcp --dport 465 -j ACCEPT
+</code></pre>
+
+<h3 id="su-openbsd">Su OpenBSD</h3>
+<p>Su OpenBSD, aggiungete il servizio <code>smtps</code> in <code>/etc/pf.conf</code>, parameter <code>mail_services=</code>:</p>
+<pre><code># Part of file: /etc/pf.conf
+mail_services=&quot;{www, https, submission, imap, imaps, pop3, pop3s, ssh, smtps}&quot;
+</code></pre>
+
+<p>Ricaricate il file delle regole di PF</p>
+<pre><code># pfctl -f /etc/pf.conf
+</code></pre><p style="text-align: center; color: grey;">All documents are available in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://bitbucket.org/zhb/iredmail-docs/get/tip.tar.bz2">download the latest version</a> for offline reading. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-3293801-21', 'auto');
+  ga('send', 'pageview');
+</script>
+</body></html>

@@ -1,0 +1,87 @@
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Disabilitare completamente Amavisi + ClamAV + SpaAssassin</title>
+        <link rel="stylesheet" type="text/css" href="./css/markdown.css" />
+    </head>
+    <body>
+    
+    <div id="navigation">
+    <a href="/index.html" target="_blank">
+        <img alt="iRedMail web site"
+             src="./images/logo-iredmail.png"
+             style="vertical-align: middle; height: 30px;"
+             />&nbsp;
+        <span>iRedMail</span>
+    </a>
+    &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><div class="admonition note">
+<p class="admonition-title">This tutorial is available in other languages</p>
+<p><a href="./completely.disable.amavisd.clamav.spamassassin.html">English</a> /</p>
+</div>
+<h1 id="disabilitare-completamente-amavisi-clamav-spaassassin">Disabilitare completamente Amavisi + ClamAV + SpaAssassin</h1>
+<div class="toc">
+<ul>
+<li><a href="#disabilitare-completamente-amavisi-clamav-spaassassin">Disabilitare completamente Amavisi + ClamAV + SpaAssassin</a><ul>
+<li><a href="#arresti-della-scansione-virusspam-mantenendo-in-funzione-la-firmaverifica-dkim-e-lesclusione-di-responsabilita">Arresti della scansione  virus/spam, mantenendo in funzione la firma/verifica DKIM e L'esclusione di responsabilità.</a></li>
+<li><a href="#disabilitare-completamente-tutte-le-opzioni">Disabilitare completamente tutte le opzioni:</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<p>in iRedMail Amavisd rende disponibili le seguenti opzioni:</p>
+<ul>
+<li>scansione per contesto di spam (attraverso SpamAssassin)</li>
+<li>Scansione Virus (attraverso ClamAV)</li>
+<li>Firma DKIM</li>
+<li>Verifica firma DKIM (attraverso SpanAssassin + modulo Perl)</li>
+<li>Verifica SPF (attraverso SpamAssassin + modulo Perl)</li>
+<li>Esclusione di responsabilità (attraverso AlterMIME)</li>
+</ul>
+<h3 id="arresti-della-scansione-virusspam-mantenendo-in-funzione-la-firmaverifica-dkim-e-lesclusione-di-responsabilita">Arresti della scansione  virus/spam, mantenendo in funzione la firma/verifica DKIM e L'esclusione di responsabilità.</h3>
+<p>Se volete disabilitare la scansione anti virus e anti spam, mantenendo però la fila DIKIM e la Esclusione di responsabilità, provare così:</p>
+<ul>
+<li>
+<p>Nel file di configurazione di Posfix ad <code>/etc/postfix/main.cf</code> mantenete <code>content_filter = smtp-amavis:[127.0.0.1]:10024</code></p>
+</li>
+<li>
+<p>Trovate le seguenti linee in /etc/amavisd/amavisd.conf:</p>
+</li>
+</ul>
+<pre><code class="perl"># @bypass_virus_checks_maps = (1);  # controls running of anti-virus code
+# @bypass_spam_checks_maps  = (1);  # controls running of anti-spam code
+</code></pre>
+
+<p>Decommentate le righe sopra  (rimuovendo il carattere # da ogni riga), e riavviate il servizio Amavisd.</p>
+<h3 id="disabilitare-completamente-tutte-le-opzioni">Disabilitare completamente tutte le opzioni:</h3>
+<p>Se volete disabilitare completamente sia il servizio anti spam che anti virus, fate:</p>
+<ul>
+<li>Commentate le due righe sotto nel file di configurazione di Postfix <code>/etc/postfix/main.cf</code>:</li>
+</ul>
+<pre><code class="cfg">content_filter = smtp-amavis:[127.0.0.1]:10024
+receive_override_options = no_address_mappings  # &lt;- it's ok if you don't have this line
+</code></pre>
+
+<ul>
+<li>Commentate le righe sottostanti nel file di configurazione di Postfix <code>/etc/postfix/main.cf</code>:</li>
+</ul>
+<pre><code class="cfg">  -o content_filter=smtp-amavis:[127.0.0.1]:10026
+</code></pre>
+
+<ul>
+<li>Il riavvio del servizio Postfix è necessario.</li>
+<li>Disabilitare i seguenti servizi di rete: Amavisd, ClamAV.</li>
+</ul>
+<p>Note:</p>
+<ul>
+<li>ClamAV e SpamAssassin sono invocati da Amavisd, per cui se disabilitate Amavisd i due servizi sanno anch'essi disabitati.</li>
+<li>SpamAssassin non ha un demone in esecuzione in iRedMail, per cui non serve fermare il servizio SpamAssassin.</li>
+</ul><p style="text-align: center; color: grey;">All documents are available in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://bitbucket.org/zhb/iredmail-docs/get/tip.tar.bz2">download the latest version</a> for offline reading. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-3293801-21', 'auto');
+  ga('send', 'pageview');
+</script>
+</body></html>

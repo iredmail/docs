@@ -100,21 +100,22 @@ hr {
 
 /* Code below this line is copyright Twitter Inc. */
 
-button, input, select, textarea {
+button, .button, input, select, textarea {
   font-size: 100%;
   margin: 0;
   vertical-align: baseline;
   vertical-align: middle;
 }
-button, input {
+button, .button, input {
   line-height: normal;
   overflow: visible;
 }
-button::-moz-focus-inner, input::-moz-focus-inner {
+button::-moz-focus-inner, .button::-moz-focus-inner, input::-moz-focus-inner {
   border: 0;
   padding: 0;
 }
 button,
+.button,
 input[type="button"],
 input[type="reset"],
 input[type="submit"] {
@@ -207,7 +208,7 @@ input[type=text]:focus, input[type=password]:focus, textarea:focus {
 }
 
 /* buttons */
-button {
+button, .button {
   display: inline-block;
   padding: 4px 14px;
   font-family: 'PT Sans', Georgia, Palatino, serif;
@@ -238,17 +239,17 @@ button {
   border-color: #0064cd #0064cd #003f81;
   border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
 }
-button:hover {
+button:hover, .button:hover {
   color: #fff;
   background-position: 0 -15px;
   text-decoration: none;
 }
-button:active {
+button:active, .button:active {
   -webkit-box-shadow: inset 0 3px 7px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
   -moz-box-shadow: inset 0 3px 7px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
   box-shadow: inset 0 3px 7px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
 }
-button::-moz-focus-inner {
+button::-moz-focus-inner, .button::-moz-focus-inner {
   padding: 0;
   border: 0;
 }
@@ -379,7 +380,7 @@ th { padding: 5px 10px 5px 10px; }
 td { padding: 5px 10px 5px 10px; }
 th, td { border: 1px solid black; }
 
-button { font-size: 16px; padding: 5px 5px 5px 5px; }
+button, .button { font-size: 16px; padding: 5px 5px 5px 5px; }
 
 /* Style for API document */
 .api {

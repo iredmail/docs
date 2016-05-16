@@ -1,0 +1,62 @@
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Abilitare servizio non protetto SMTP su porta 25</title>
+        <link rel="stylesheet" type="text/css" href="./css/markdown.css" />
+    </head>
+    <body>
+    
+    <div id="navigation">
+    <a href="/index.html" target="_blank">
+        <img alt="iRedMail web site"
+             src="./images/logo-iredmail.png"
+             style="vertical-align: middle; height: 30px;"
+             />&nbsp;
+        <span>iRedMail</span>
+    </a>
+    &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><div class="admonition note">
+<p class="admonition-title">This tutorial is available in other languages</p>
+<p><a href="./enable.insecure.smtp.html">English</a> /</p>
+</div>
+<h1 id="abilitare-servizio-non-protetto-smtp-su-porta-25">Abilitare servizio non protetto SMTP su porta 25</h1>
+<p>Sin dalla versione 0.9.5 di iRedMail, l'autenticazione su porta 25 è disabilitata per default, tutti gli utenti sono costretti a mandare email attraverso la posta 587 (SMTP over TLS). Se avete la necessità di abilitare l'autenticazione insicura sulla porta 25, per qualsivoglia motivo, seguite i passi sotto elencati per abilitarla.</p>
+<div class="admonition nota">
+<p class="admonition-title">Nota</p>
+</div>
+<p>Se avete la necessita di far usare solo ad un piccolo numero di utenti la porta 25m per esempio una  stampante di rete o vecchi apparati di rete che non sopportano connessioni sicure, potete invece provare questo altro tutorial: <a href="./additional.smtp.port.html">Abilitare apparati interni di rete a mandare mail su connessione insicura</a></p>
+<ul>
+<li>Trovate le configurazioni commentate, mostrate qui sotto, nel file di configurazione di Postfix <code>/etc/postfix/main.cf</code> (linux/OpenBDS) oppure <code>/usr/local/etc/postfix/main.cf</code> per FreeBSD:</li>
+</ul>
+<pre><code>#
+# Enable SASL authentication on port 25 and force TLS-encrypted SASL authentication.
+# WARNING: NOT RECOMMENDED to enable smtp auth on port 25, all end users should
+#          be forced to submit email through port 587 instead.
+#
+#smtpd_sasl_auth_enable = yes
+#smtpd_tls_auth_only = yes
+#smtpd_sasl_security_options = noanonymous
+#smtpd_tls_security_level = may
+</code></pre>
+
+<ul>
+<li>decommentate le ultime 4 righe:</li>
+</ul>
+<pre><code>smtpd_sasl_auth_enable = yes
+smtpd_tls_auth_only = yes
+smtpd_sasl_security_options = noanonymous
+smtpd_tls_security_level = may
+</code></pre>
+
+<ul>
+<li>Riavvia o ricarica il servizio Postfix</li>
+</ul>
+<p>Questo è tutto.</p><p style="text-align: center; color: grey;">All documents are available in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://bitbucket.org/zhb/iredmail-docs/get/tip.tar.bz2">download the latest version</a> for offline reading. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-3293801-21', 'auto');
+  ga('send', 'pageview');
+</script>
+</body></html>
