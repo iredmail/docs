@@ -14,27 +14,33 @@
              />&nbsp;
         <span>iRedMail</span>
     </a>
-    &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><div class="admonition note">
-<p class="admonition-title">This tutorial is available in other languages</p>
-<p><a href="./no.x-spam.headers-zh_CN.html">简体中文</a> /</p>
-</div>
-<h1 id="amavisd-spamassassin-not-working-no-mail-header-x-spam-inserted">Amavisd + SpamAssassin not working? no mail header (X-Spam-*) inserted</h1>
+    &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><h1 id="amavisd-spamassassin-not-working-no-mail-header-x-spam-inserted">Amavisd + SpamAssassin not working? no mail header (X-Spam-*) inserted</h1>
 <blockquote>
 <p>Amavisd config file is different on different Linux/BSD distributions, you can
 find the correct one for your server in this tutorial:
 <a href="./file.locations.html#amavisd">Locations of configuration and log files of major components</a></p>
 </blockquote>
-<p>Amavisd has below setting in its config file <code>/etc/amavisd/amavisd.conf</code> by default:</p>
-<pre><code>$sa_tag_level_deflt  = 2.0;
+<p>To understand whether Amavisd + SpamAssassin are working, you can add this
+setting to Amavisd config file:</p>
+<pre><code>$log_templ = $log_verbose_templ;
 </code></pre>
 
+<p>Then restart Amavisd service, it will log verbose message in log file. For
+example:</p>
+<blockquote>
+<p>May 18 09:54:15 ob amavis[24548]: (24548-01) Passed CLEAN {RelayedInbound}, [127.0.0.1] /ESMTP <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#114;&#111;&#111;&#116;&#64;&#46;&#46;&#46;&#109;&#97;&#105;&#108;&#46;&#111;&#114;&#103;">&#114;&#111;&#111;&#116;&#64;&#46;&#46;&#46;&#109;&#97;&#105;&#108;&#46;&#111;&#114;&#103;</a> -&gt; <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#98;&#117;&#103;&#115;&#64;&#46;&#46;&#46;&#98;&#115;&#100;&#46;&#111;&#114;&#103;">&#98;&#117;&#103;&#115;&#64;&#46;&#46;&#46;&#98;&#115;&#100;&#46;&#111;&#114;&#103;</a>, (), Message-ID: <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#50;&#48;&#49;&#54;&#48;&#53;&#49;&#56;&#48;&#49;&#53;&#51;&#48;&#49;&#46;&#66;&#50;&#65;&#55;&#52;&#49;&#51;&#52;&#52;&#68;&#64;&#46;&#46;&#46;&#109;&#97;&#105;&#108;&#46;&#111;&#114;&#103;">&#50;&#48;&#49;&#54;&#48;&#53;&#49;&#56;&#48;&#49;&#53;&#51;&#48;&#49;&#46;&#66;&#50;&#65;&#55;&#52;&#49;&#51;&#52;&#52;&#68;&#64;&#46;&#46;&#46;&#109;&#97;&#105;&#108;&#46;&#111;&#114;&#103;</a>, mail_id: JcfAanaWAP-2, b: efIM2W-Q-, Hits: -, size: 161634, queued_as: 4756B13453, Subject: "ldapd(8) doesn't correctly handle MOD_DELETE operation", From: <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#122;&#104;&#98;&#64;&#46;&#46;&#46;&#109;&#97;&#105;&#108;&#46;&#111;&#114;&#103;">&#122;&#104;&#98;&#64;&#46;&#46;&#46;&#109;&#97;&#105;&#108;&#46;&#111;&#114;&#103;</a>, helo=...mail.org, 160 ms</p>
+</blockquote>
+<pre><code>
+If you really want `X-Spam-*` headers in email, please decrease Amavisd setting
+`$sa_tag_level_deflt` to a very low score, e.g. `-999`, then restart Amavisd
+service. it will always insert `X-Spam-*` headers in email:
+
+</code></pre>
+
+<p>$sa_tag_level_deflt  = -999;
+```</p>
 <p>That means Amavisd will insert <code>X-Spam-Flag</code> and other <code>X-Spam-*</code> headers when
-email score &gt;= 2.0. If you want Amavisd always insert these headers, please
-set it to a low score, for example:</p>
-<pre><code>$sa_tag_level_deflt  = -999;
-</code></pre>
-
-<p>Restarting Amavisd service is required after changed setting.</p><p style="text-align: center; color: grey;">All documents are available in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://bitbucket.org/zhb/iredmail-docs/get/tip.tar.bz2">download the latest version</a> for offline reading. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.<script>
+email score &gt;= <code>-999</code>.</p><p style="text-align: center; color: grey;">All documents are available in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://bitbucket.org/zhb/iredmail-docs/get/tip.tar.bz2">download the latest version</a> for offline reading. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.<script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
   m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
