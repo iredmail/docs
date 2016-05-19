@@ -90,3 +90,22 @@ http {
     client_max_body_size 100m;
     ...
 }
+```
+
+## Change upload file size in SOGo-3.x
+
+SOGo-3.x introduces parameter `WOMaxUploadSize` to limit upload file size, you
+can add it in SOGo config file `/etc/sogo/sogo.conf` with a proper attachment
+size.
+
+```
+// set the maximum allowed size for content being sent to SOGo using a PUT or
+// a POST call. This can also limit the file attachment size being uploaded
+// to SOGo when composing a mail.
+//
+//  - The value is in kilobyte.
+//  - By default, the value is 0, or disabled so no limit will be set.
+WOMaxUploadSize = 102400;
+```
+
+Restarting SOGo service is required.

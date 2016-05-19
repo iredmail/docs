@@ -29,6 +29,7 @@
 </ul>
 </li>
 <li><a href="#change-upload-file-size-in-nginx">Change upload file size in Nginx</a></li>
+<li><a href="#change-upload-file-size-in-sogo-3x">Change upload file size in SOGo-3.x</a></li>
 </ul>
 </li>
 </ul>
@@ -97,12 +98,27 @@ php_value    post_max_size  100M
 <h2 id="change-upload-file-size-in-nginx">Change upload file size in Nginx</h2>
 <p>Find setting <code>client_max_body_size</code> in Nginx config file
 <code>/etc/nginx/nginx.conf</code>, change it to a proper value to match your need.</p>
-<p>```
-http {
+<pre><code>http {
     ...
     client_max_body_size 100m;
     ...
-}</p><p style="text-align: center; color: grey;">All documents are available in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://bitbucket.org/zhb/iredmail-docs/get/tip.tar.bz2">download the latest version</a> for offline reading. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.<script>
+}
+</code></pre>
+
+<h2 id="change-upload-file-size-in-sogo-3x">Change upload file size in SOGo-3.x</h2>
+<p>SOGo-3.x introduces parameter <code>WOMaxUploadSize</code> to limit upload file size, you
+can add it in SOGo config file <code>/etc/sogo/sogo.conf</code> with a proper attachment
+size.</p>
+<pre><code>// set the maximum allowed size for content being sent to SOGo using a PUT or
+// a POST call. This can also limit the file attachment size being uploaded
+// to SOGo when composing a mail.
+//
+//  - The value is in kilobyte.
+//  - By default, the value is 0, or disabled so no limit will be set.
+WOMaxUploadSize = 102400;
+</code></pre>
+
+<p>Restarting SOGo service is required.</p><p style="text-align: center; color: grey;">All documents are available in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://bitbucket.org/zhb/iredmail-docs/get/tip.tar.bz2">download the latest version</a> for offline reading. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.<script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
   m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)

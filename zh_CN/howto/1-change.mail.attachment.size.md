@@ -72,7 +72,7 @@ php_value    post_max_size  100M
 
 重启 Apache 或 php-fpm 服务以使上述修改生效。
 
-## 修改 Nginx 上传文件大小
+## 限制 Nginx 上传文件大小
 
 在配置文件 `/etc/nginx/nginx.conf` 中找到参数 `client_max_body_size`  ，按需要修改大小：
 
@@ -82,3 +82,21 @@ http {
     client_max_body_size 100m;
     ...
 }
+```
+
+## 限制 SOGo 上传文件大小
+
+SOGo-3.x 引入新参数 `WOMaxUploadSize` 用于限制上传文件的大小，请将它添加到 SOGo
+配置文件 `/etc/sogo/sogo.conf` 里并设置一个合适的附件大小。
+
+```
+// set the maximum allowed size for content being sent to SOGo using a PUT or
+// a POST call. This can also limit the file attachment size being uploaded
+// to SOGo when composing a mail.
+//
+//  - The value is in kilobyte.
+//  - By default, the value is 0, or disabled so no limit will be set.
+WOMaxUploadSize = 102400;
+```
+
+修改后需要重启 SOGo 服务。
