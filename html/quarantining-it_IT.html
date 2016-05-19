@@ -1,0 +1,178 @@
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Messa in quarantena</title>
+        <link rel="stylesheet" type="text/css" href="./css/markdown.css" />
+    </head>
+    <body>
+    
+    <div id="navigation">
+    <a href="/index.html" target="_blank">
+        <img alt="iRedMail web site"
+             src="./images/logo-iredmail.png"
+             style="vertical-align: middle; height: 30px;"
+             />&nbsp;
+        <span>iRedMail</span>
+    </a>
+    &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><div class="admonition note">
+<p class="admonition-title">This tutorial is available in other languages</p>
+<p><a href="./quarantining.html">English</a> /</p>
+</div>
+<h1 id="messa-in-quarantena">Messa in quarantena</h1>
+<div class="toc">
+<ul>
+<li><a href="#messa-in-quarantena">Messa in quarantena</a><ul>
+<li><a href="#messa-in-quarantena-di-spam-virus-banned-e-messaggi-con-intestazioni-scorrette">Messa in quarantena di spam, virus,  banned e messaggi con intestazioni scorrette.</a></li>
+<li><a href="#configurare-iredadmin-pro-affinche-gestisca-le-mail-in-quarantena">Configurare iRedAdmin-Pro affinché gestisca le mail in quarantena.</a><ul>
+<li><a href="#notifiche-agli-utenti-riguardo-le-mail-in-quarantena">Notifiche agli utenti riguardo le mail in quarantena.</a></li>
+</ul>
+</li>
+<li><a href="#messa-in-quarantena-di-mail-pulite">Messa in quarantena di mail pulite.</a></li>
+<li><a href="#screenshots">Screenshots</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<p>Sin dalla versione 0.7.0 di IredMail, la messa in quarantena e le relative configurazioni in Amavisd sono configurate da iRedMail, ma disabilitate per default, potere facilmente abilitate il sistema di messa in quarantena tramite questo tutoria.</p>
+<p>Con le modifiche che trovare sotto, mail Virus/Spam/Banned saranno messe in quarantena in un database SQL. Potrete a questo punto gestire le mail in quarantena con iRedAdmin-Pro.</p>
+<h2 id="messa-in-quarantena-di-spam-virus-banned-e-messaggi-con-intestazioni-scorrette">Messa in quarantena di spam, virus,  banned e messaggi con intestazioni scorrette.</h2>
+<p>Modificare il file di configurazione di Amavisd, trovate le configurazioni sotto riportate ed aggiornatele. Se non esistono, aggiungetele. </p>
+<ul>
+<li>in Red Hat Enterprise Linux, CentOS, Scientific Linux, il file è <code>/etc/amavisd/amavisd.conf</code> oppure <code>/etc/amavisd.conf</code>.
+*in Debian/Ubuntu è <code>/etc/amavis/conf.d/50-user</code>.</li>
+<li>in FreeBSD è <code>/usr/local/etc/amavisd.conf</code>.</li>
+<li>in OpenBSD è  <code>/etc/amavisd.conf</code>.</li>
+</ul>
+<pre><code># Part of file: /etc/amavisd/amavisd.conf
+
+# Change values of below parameters to D_DISCARD.
+# Detected spams/virus/banned messages will not be delivered to user's mailbox.
+$final_virus_destiny = D_DISCARD;
+$final_spam_destiny = D_DISCARD;
+$final_banned_destiny = D_DISCARD;
+$final_bad_header_destiny = D_DISCARD;
+
+# Quarantine SPAM into SQL server.
+$spam_quarantine_to = 'spam-quarantine';
+$spam_quarantine_method = 'sql:';
+
+# Quarantine VIRUS into SQL server.
+$virus_quarantine_to = 'virus-quarantine';
+$virus_quarantine_method = 'sql:';
+
+# Quarantine BANNED message into SQL server.
+$banned_quarantine_to = 'banned-quarantine';
+$banned_files_quarantine_method = 'sql:';
+
+# Quarantine Bad Header message into SQL server.
+$bad_header_quarantine_method = 'sql:';
+$bad_header_quarantine_to = 'bad-header-quarantine';
+</code></pre>
+
+<p>Inoltre verificare di avere le righe sottostanti presenti nello stesso file di configurazione:</p>
+<pre><code class="perl"># For MySQL/MariaDB/OpenLDAP backends
+@storage_sql_dsn = (
+    ['DBI:mysql:database=amavisd;host=127.0.0.1;port=3306', 'amavisd', 'password'],
+);
+
+# For PostgreSQL
+#@storage_sql_dsn = (
+#    ['DBI:Pg:database=amavisd;host=127.0.0.1;port=5432', 'amavisd', 'password'],
+#);
+</code></pre>
+
+<p>Il riavvio del servizio Amavaisd è richiesto per confermare le modifiche.</p>
+<h2 id="configurare-iredadmin-pro-affinche-gestisca-le-mail-in-quarantena">Configurare iRedAdmin-Pro affinché gestisca le mail in quarantena.</h2>
+<p>Aggiornate il file di configurazione di iRedAdmin-Pro, siate certi di avere le configurazioni corrette per Amavisd:</p>
+<ul>
+<li>in Red Hat Enterprise Linux, CentOS, Scientific Linux è <code>/var/www/iredadmin/settings.py</code>.</li>
+<li>in Debian/Ubuntu è <code>/opt/www/iredadmin/settings.py</code> oppure <code>/usr/share/apache2/iredadmin/settings.py</code>.</li>
+<li>in FreeBSD è <code>/usr/local/www/iredadmin/settings.py</code>.</li>
+<li>in OpenBSD è <code>/var/www/iredadmin/settings.py</code>.</li>
+</ul>
+<pre><code class="python"># File: settings.py
+
+amavisd_db_host = '127.0.0.1'
+amavisd_db_port = 3306
+amavisd_db_name = 'amavisd'
+amavisd_db_user = 'amavisd'
+amavisd_db_password = 'password'
+
+# Log basic info of inbound/outbound, no mail body stored.
+amavisd_enable_logging = True
+
+# Quarantining management
+amavisd_enable_quarantine = True
+amavisd_quarantine_port = 9998
+
+# Per-recipient policy lookup
+amavisd_enable_policy_lookup = True
+</code></pre>
+
+<p>Il riavvio del web server Apache o servizio <code>uwsgi</code> (se usate Nginx come web server) è necessario.</p>
+<p>Adesso potete autenticarvi in iRedAdmin-Pro e gestire i messaggi in quarantena dal menu <code>System -&gt; Quarantined Mails</code>. Scegliete l'azione adatta nella lista del menu a tendina per rilasciarli o cancellarli.</p>
+<p>Copie delle videate sono allegate in fondo.</p>
+<h3 id="notifiche-agli-utenti-riguardo-le-mail-in-quarantena">Notifiche agli utenti riguardo le mail in quarantena.</h3>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+</div>
+<p>È necessario affinché questa funzione sia operativa che abilitiate il self-service dal dominio della 
+   posta -- Lo potete abilitare nella pagina del profilo del dominio.</p>
+<p>iRedAdmin-Pro mette a disposizione uno script che potete eseguire per notificare gli agli utenti le mail messe in quarantena: <code>tools/notify_quarantined_recipients.py</code>.</p>
+<p>La mail di notifica viene legga dal file template <code>tools/notify_quarantined_recipients.html</code>, siete liberi di modificarlo affinché soddisfi le vostre necessità. (non dimenticatevi di salvare il file prima di aggiornare iRedAdmin-Pro.)</p>
+<p>La mail di notifica conterrà il link ad iRedAdmin-Pro affinché l'utente possa cliccarlo ed autenticarsi per poter gestire le mail in quarantena. Dovete cambiare l'URL aggiungendo il parametro sotto riportato, con l'URL corretto, nel file di configurazione di iRedAdmin-Pro:</p>
+<pre><code>NOTIFICATION_IREDADMIN_URL = 'https://[tuo_server]/iredadmin/'
+</code></pre>
+
+<p>Per mandare le notifiche aggiungete un cron job che esegua: <code>tools/notify_quarantined_recipients.py</code> . Esempio per inviare notifiche ogni 6 ore:</p>
+<pre><code>1 */12 * * * python /path/to/tools/notify_quarantined_recipients.py &gt;/dev/null
+</code></pre>
+
+<p>Non dimenticare di usare il percorso corretto verso il file <code>notify_quarantined_recipients.py</code> nel vostro server.</p>
+<p>Potete anche eseguire lo script manualmente per notificare diversi utenti. Per esempio su RHEL/CentOS:</p>
+<pre><code>cd /var/www/iredadmin/tools/
+python notify_quarantined_recipients.py
+</code></pre>
+
+<h2 id="messa-in-quarantena-di-mail-pulite">Messa in quarantena di mail pulite.</h2>
+<p>Nota: se volete mettere in quarantena mail invitate da/per certi utenti locali, fate invece  riferimento a questo documento: <a href="./quarantine.clean.mails.per-user.html">Quarantine clean emails sent from/to certain local user</a></p>
+<p>Se volete mettere in quarantena mail pulite in un database SQL per una futura approvazione o qualunque altra ragione, seguite i seguenti passi:</p>
+<ul>
+<li>Modificare i parametri sotto riportati nel file di configurazione di Amavisd <code>amavisd.conf</code>:</li>
+</ul>
+<pre><code class="perl">$clean_quarantine_method = 'sql:';
+$clean_quarantine_to = 'clean-quarantine';
+</code></pre>
+
+<ul>
+<li>Trovate la policy bank <code>ORIGINATING</code>, ed aggiungeteci due linee come mostrato sotto:</li>
+</ul>
+<pre><code class="perl">$policy_bank{'ORIGINATING'} = {
+    ...
+    clean_quarantine_method =&gt; 'sql:',
+    final_destiny_by_ccat =&gt; {CC_CLEAN, D_DISCARD},
+}
+</code></pre>
+
+<ul>
+<li>Riavviate il servizio Amavisd.</li>
+</ul>
+<p>Ora tutte le mail pulite inviate dal vostro utente verranno messe in quarantena in un database SQL.</p>
+<h2 id="screenshots">Screenshots</h2>
+<ul>
+<li>Vedi mail in quarantena:</li>
+</ul>
+<p><img alt="" src="../images/iredadmin/system_maillog_quarantined.png" /></p>
+<ul>
+<li>Espandi la mail in quarantena cosi da vedere il corpo e le intestazioni.</li>
+</ul>
+<p><img alt="" src="../images/iredadmin/system_maillog_quarantined_expanded.png" /></p><p style="text-align: center; color: grey;">All documents are available in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://bitbucket.org/zhb/iredmail-docs/get/tip.tar.bz2">download the latest version</a> for offline reading. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-3293801-21', 'auto');
+  ga('send', 'pageview');
+</script>
+</body></html>
