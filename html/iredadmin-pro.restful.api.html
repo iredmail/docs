@@ -104,7 +104,7 @@ RESTFUL_API_CLIENTS = ['172.16.244.1', ...]
 </tr>
 <tr>
 <td><code>quota</code></td>
-<td>Mailbox quota for whole domain, in MB.</td>
+<td>Per-domain mailbox quota, in MB.</td>
 <td><code>quota=2048</code></td>
 </tr>
 <tr>
@@ -114,12 +114,12 @@ RESTFUL_API_CLIENTS = ['172.16.244.1', ...]
 </tr>
 <tr>
 <td><code>defaultQuota</code></td>
-<td>Default per-user mailbox quota for newly created user</td>
+<td>Default per-user mailbox quota for newly created user, in MB.</td>
 <td><code>defaultQuota=1024</code></td>
 </tr>
 <tr>
 <td><code>maxUserQuota</code></td>
-<td>Max mailbox quota of a mail user</td>
+<td>Max mailbox quota of a mail user, in MB.</td>
 <td><code>maxUserQuota=2048</code></td>
 </tr>
 <tr>
@@ -294,7 +294,7 @@ please use mail alias account as mailing list.</p>
 </div>
 <div class="admonition api">
 <p class="admonition-title"><code class="put">PUT</code> <code class="url">/api/maillist/&lt;mail&gt;</code> <code class="comment">Update profile of an existing mailing list</code> <code class="has_params">Parameters</code></p>
-<div class="params params_maillist">
+<div class="params">
 
 <table>
 <thead>
@@ -329,7 +329,7 @@ please use mail alias account as mailing list.</p>
 </div>
 <div class="admonition api">
 <p class="admonition-title"><code class="put">PUT</code> <code class="url">/api/alias/&lt;mail&gt;</code> <code class="comment">Update profile of an existing mail alias</code> <code class="has_params">Parameters</code></p>
-<div class="params params_alias">
+<div class="params">
 
 <table>
 <thead>

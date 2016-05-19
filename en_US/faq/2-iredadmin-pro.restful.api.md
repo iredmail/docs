@@ -68,10 +68,10 @@ Notes:
     Parameter Name | Summary | Sample Usage
     --- |--- |---
     `cn` | Short description of this domain name. e.g. company name | `cn=Google Inc`
-    `quota` | Mailbox quota for whole domain, in MB. | `quota=2048`
+    `quota` | Per-domain mailbox quota, in MB. | `quota=2048`
     `language` | Default preferred language for newly created mail user | `preferredLanguage=en_US`
-    `defaultQuota` | Default per-user mailbox quota for newly created user | `defaultQuota=1024`
-    `maxUserQuota` | Max mailbox quota of a mail user | `maxUserQuota=2048`
+    `defaultQuota` | Default per-user mailbox quota for newly created user, in MB. | `defaultQuota=1024`
+    `maxUserQuota` | Max mailbox quota of a mail user, in MB. | `maxUserQuota=2048`
     `numberOfUsers` | Max number of mail user accounts | `numberOfUsers=20`
     `numberOfAliases` | Max number of mail alias accounts | `numberOfAliases=30`
     `numberOfLists` | Max number of mailing list accounts (LDAP only)| `numberOfLists=40`
@@ -159,7 +159,7 @@ Notes:
 !!! api "`DELETE`{: .delete } `/api/maillist/<mail>`{: .url } `Delete an existing mailing list`{: .comment }"
 !!! api "`PUT`{: .put } `/api/maillist/<mail>`{: .url } `Update profile of an existing mailing list`{: .comment } `Parameters`{: .has_params }"
 
-    <div class="params params_maillist">
+    <div class="params">
 
     Parameter Name | Summary | Sample Usage
     --- |--- |---
@@ -174,7 +174,7 @@ Notes:
 !!! api "`DELETE`{: .delete } `/api/alias/<mail>`{: .url } `Delete an existing mail alias`{: .comment }"
 !!! api "`PUT`{: .put } `/api/alias/<mail>`{: .url } `Update profile of an existing mail alias`{: .comment } `Parameters`{: .has_params }"
 
-    <div class="params params_alias">
+    <div class="params">
 
     Parameter Name | Summary | Sample Usage
     --- |--- |---
