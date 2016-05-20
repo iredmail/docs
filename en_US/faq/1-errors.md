@@ -73,6 +73,18 @@ virtual_alias_expansion_limit = 1500
 
 Reference: [Postfix Configuration Parameters](http://www.postfix.org/postconf.5.html#virtual_alias_expansion_limit)
 
+### Intentional policy rejection, please try again later
+
+Sample error message in Postfix log file:
+
+> May 15 15:59:27 mail postfix/smtpd[8451]: NOQUEUE: reject: RCPT from smtpweb149.aruba.it[62.149.158.149]: 451 4.7.1 <rcpt@mydomain.com>: Recipient address rejected: Intentional policy rejection, please try again later; from=<sender@sender_domain.com> to=<rcpt@mydomain> proto=ESMTP helo=<smtpcmd05149.aruba.it>
+
+This is caused by greylisting service, sender server will retry delivery, and
+you will receive the email in few minutes to 30 minutes.
+
+* For more technical details about Greylisting, please visit: <http://greylisting.org>.
+* To manage greylisting service, please read iRedAPD tutorial: [Manage iRedAPD: Greylisting](./manage.iredapd.html#feature-greylisting)
+
 ## Amavisd
 
 ### connect to 127.0.0.1[127.0.0.1]:10024: Connection refused
