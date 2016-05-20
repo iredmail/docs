@@ -187,7 +187,7 @@ White/blacklisting is controlled by plugin `amavisd_wblist` (file
 
 ## Feature: Greylisting
 
-!!! note
+!!! attention
 
     Greylisting is available in iRedAPD-1.7.0 and later releases.
 
