@@ -26,8 +26,12 @@
 </li>
 <li><a href="#restore">Restore</a><ul>
 <li><a href="#how-to-restore-sql-databases">How to restore SQL databases</a></li>
+<li><a href="#ldap">LDAP</a><ul>
 <li><a href="#how-to-restore-openldap-backup">How to restore OpenLDAP backup</a></li>
 <li><a href="#how-to-restore-openbsd-ldapd8-backup">How to restore OpenBSD ldapd(8) backup</a></li>
+<li><a href="#after-ldap-restore">After LDAP restore</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -97,7 +101,8 @@ the same SQL accounts with different passwords, so please do not restore
 <code>mysql</code> database, otherwise almost all services won't work due to incorrect
 SQL credentials.</p>
 </blockquote>
-<h3 id="how-to-restore-openldap-backup">How to restore OpenLDAP backup</h3>
+<h3 id="ldap">LDAP</h3>
+<h4 id="how-to-restore-openldap-backup">How to restore OpenLDAP backup</h4>
 <p>Backup script runs command <code>slapcat</code> to dump whole LDAP tree as a backup, it
 must be so restored with command <code>slapadd</code>.</p>
 <p>Below example shows how to restore a LDAP backup on RHEL/CentOS 6.x, files and
@@ -273,7 +278,10 @@ owner on newly created bdb files immediately, then restart OpenLDAP service:</p>
 # /etc/init.d/ldap restart
 </code></pre>
 
-<h3 id="how-to-restore-openbsd-ldapd8-backup">How to restore OpenBSD ldapd(8) backup</h3>
+<p>If you're restoring LDAP data from an old iRedMail server, you should add
+missing LDAP attribute/values, which are introduced in newer iRedMail releases,
+by following step below: <a href="#after-ldap-restore">After LDAP Restore</a>.</p>
+<h4 id="how-to-restore-openbsd-ldapd8-backup">How to restore OpenBSD ldapd(8) backup</h4>
 <p>iRedMail-0.9.5 and later releases ships script
 <code>/var/vmail/backup/backup_ldapd.sh</code> for daily backup. It backs up data with
 command <code>ldapsearch</code> (not <code>slapcat</code> - which is used for OpenLDAP), so you have
@@ -303,7 +311,41 @@ to restore its data with command <code>ldapadd</code>.</p>
 <pre><code># ldapadd -x -D 'cn=Manager,dc=xx,dc=xx' -W -f /path/to/backup.ldif
 </code></pre>
 
-<p>That's all.</p><div class="footer">
+<p>If you're restoring LDAP data from an old iRedMail server, you should add
+missing LDAP attribute/values, which are introduced in newer iRedMail releases,
+by following step below: <a href="#after-ldap-restore">After LDAP Restore</a>.</p>
+<h4 id="after-ldap-restore">After LDAP restore</h4>
+<p>If you're restoring from an old iRedMail release, you need to add missing LDAP
+attribute/values, which are introduced in new iRedMail releases, by running
+Python scripts below: <a href="https://bitbucket.org/zhb/iredmail/src/default/extra/update/">https://bitbucket.org/zhb/iredmail/src/default/extra/update/</a></p>
+<p>For example:</p>
+<ul>
+<li>
+<p>If you're restoring iRedMail from <code>0.9.1</code> to <code>0.9.5</code>, you must run all update
+  scripts for iRedMail-0.9.1 and newer releases. In this case, only file
+  <code>updateLDAPValues_094_to_095.py</code> listed in above link is required.</p>
+</li>
+<li>
+<p>If you're restoring iRedMail from <code>0.8.6</code> to <code>0.9.5</code>, you need 3 files:</p>
+<ul>
+<li><code>updateLDAPValues_086_to_087.py</code></li>
+<li><code>updateLDAPValues_087_to_090.py</code></li>
+<li><code>updateLDAPValues_094_to_095.py</code></li>
+</ul>
+</li>
+</ul>
+<p>Please open the file you need to run, for example, <code>updateLDAPValues_094_to_095.py</code>,
+find parameters like below:</p>
+<pre><code>uri = 'ldap://127.0.0.1:389'
+basedn = 'o=domains,dc=example,dc=com'
+bind_dn = 'cn=Manager,dc=example,dc=com'
+bind_pw = 'passwd'
+</code></pre>
+
+<p>Please update them with the correct LDAP prefix (<code>dc=xx,dc=xx</code>) and bind
+password, then run it with <code>python</code> command:</p>
+<pre><code>python updateLDAPValues_094_to_095.py
+</code></pre><div class="footer">
     <p style="text-align: center; color: grey;">All documents are available in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://bitbucket.org/zhb/iredmail-docs/get/tip.tar.bz2">download the latest version</a> for offline reading. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
 </div>
 <script type="text/javascript">

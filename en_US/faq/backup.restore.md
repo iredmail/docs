@@ -68,7 +68,8 @@ You can simply restore plain SQL files backed up by above backup scripts.
 > `mysql` database, otherwise almost all services won't work due to incorrect
 > SQL credentials.
 
-### How to restore OpenLDAP backup
+### LDAP
+#### How to restore OpenLDAP backup
 
 Backup script runs command `slapcat` to dump whole LDAP tree as a backup, it
 must be so restored with command `slapadd`.
@@ -244,7 +245,11 @@ owner on newly created bdb files immediately, then restart OpenLDAP service:
 # /etc/init.d/ldap restart
 ```
 
-### How to restore OpenBSD ldapd(8) backup
+If you're restoring LDAP data from an old iRedMail server, you should add
+missing LDAP attribute/values, which are introduced in newer iRedMail releases,
+by following step below: [After LDAP Restore](#after-ldap-restore).
+
+#### How to restore OpenBSD ldapd(8) backup
 
 iRedMail-0.9.5 and later releases ships script
 `/var/vmail/backup/backup_ldapd.sh` for daily backup. It backs up data with
@@ -273,4 +278,41 @@ rcctl start ldapd
 # ldapadd -x -D 'cn=Manager,dc=xx,dc=xx' -W -f /path/to/backup.ldif
 ```
 
-That's all.
+If you're restoring LDAP data from an old iRedMail server, you should add
+missing LDAP attribute/values, which are introduced in newer iRedMail releases,
+by following step below: [After LDAP Restore](#after-ldap-restore).
+
+#### After LDAP restore
+
+If you're restoring from an old iRedMail release, you need to add missing LDAP
+attribute/values, which are introduced in new iRedMail releases, by running
+Python scripts below: <https://bitbucket.org/zhb/iredmail/src/default/extra/update/>
+
+For example:
+
+* If you're restoring iRedMail from `0.9.1` to `0.9.5`, you must run all update
+  scripts for iRedMail-0.9.1 and newer releases. In this case, only file
+  `updateLDAPValues_094_to_095.py` listed in above link is required.
+
+* If you're restoring iRedMail from `0.8.6` to `0.9.5`, you need 3 files:
+
+    * `updateLDAPValues_086_to_087.py`
+    * `updateLDAPValues_087_to_090.py`
+    * `updateLDAPValues_094_to_095.py`
+
+Please open the file you need to run, for example, `updateLDAPValues_094_to_095.py`,
+find parameters like below:
+
+```
+uri = 'ldap://127.0.0.1:389'
+basedn = 'o=domains,dc=example,dc=com'
+bind_dn = 'cn=Manager,dc=example,dc=com'
+bind_pw = 'passwd'
+```
+
+Please update them with the correct LDAP prefix (`dc=xx,dc=xx`) and bind
+password, then run it with `python` command:
+
+```
+python updateLDAPValues_094_to_095.py
+```
