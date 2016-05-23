@@ -1,4 +1,4 @@
-# Enable insecure SMTP service on port 25
+# Enable SMTP SASL AUTH on port 25
 
 Since iRedMail-0.9.5, SMTP auth on port 25 is disabled by default, all end
 users are forced to send email through port 587 (SMTP over TLS). If you need
@@ -37,5 +37,11 @@ smtpd_tls_security_level = may
 ```
 
 * Restart or reload Postfix service.
+
+!!! warning
+
+    With `smtpd_tls_auth_only = yes`, it requires clients to enable STARTTLS
+    for secure connection, if you don't want this for some reason, please
+    comment it out.
 
 That's all.

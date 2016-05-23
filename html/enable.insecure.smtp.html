@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title>Enable insecure SMTP service on port 25</title>
+        <title>Enable SMTP SASL AUTH on port 25</title>
         <link rel="stylesheet" type="text/css" href="./css/markdown.css" />
     </head>
     <body>
@@ -19,7 +19,7 @@
 <p class="admonition-title">This tutorial is available in other languages</p>
 <p><a href="./enable.insecure.smtp-it_IT.html">Italiano</a> /</p>
 </div>
-<h1 id="enable-insecure-smtp-service-on-port-25">Enable insecure SMTP service on port 25</h1>
+<h1 id="enable-smtp-sasl-auth-on-port-25">Enable SMTP SASL AUTH on port 25</h1>
 <p>Since iRedMail-0.9.5, SMTP auth on port 25 is disabled by default, all end
 users are forced to send email through port 587 (SMTP over TLS). If you need
 to allow insecure SMTP auth on port 25 for some reason, please follow steps
@@ -58,6 +58,12 @@ smtpd_tls_security_level = may
 <ul>
 <li>Restart or reload Postfix service.</li>
 </ul>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>With <code>smtpd_tls_auth_only = yes</code>, it requires clients to enable STARTTLS
+for secure connection, if you don't want this for some reason, please
+comment it out.</p>
+</div>
 <p>That's all.</p><div class="footer">
     <p style="text-align: center; color: grey;">All documents are available in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://bitbucket.org/zhb/iredmail-docs/get/tip.tar.bz2">download the latest version</a> for offline reading. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
 </div>
