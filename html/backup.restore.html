@@ -213,9 +213,14 @@ userPassword: {SSHA}lWt6zjOOUq+2WUmiAea2FXLB4oHMYvIb
 </li>
 <li>
 <p>Remove all files under OpenLDAP data directory defined in LDAP config file
-  <code>slapd.conf</code> except one file (<code>DB_CONFIG</code>). For example:</p>
+  <code>slapd.conf</code> (parameter <code>directory</code>) except one file (<code>DB_CONFIG</code>). For example:</p>
 </li>
 </ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>File <code>DB_CONFIG</code> is present if you're use <code>bdb</code> database type (specified in
+parameter <code>database</code>), <code>mdb</code> database doesn't have this file.</p>
+</div>
 <pre><code># File: /etc/openldap/slapd.conf
 
 ...
@@ -255,18 +260,7 @@ except <code>/var/lib/ldap/iredmail.org/DB_CONFIG</code>.</p>
 Stopping slapd:                                            [  OK  ]
 /var/lib/ldap/iredmail.org/mailMessageStore.bdb is not owned[WARNING]&quot;
 /var/lib/ldap/iredmail.org/objectClass.bdb is not owned by &quot;[WARNING]
-/var/lib/ldap/iredmail.org/mtaTransport.bdb is not owned by [WARNING]
-/var/lib/ldap/iredmail.org/cn.bdb is not owned by &quot;ldap&quot;    [WARNING]
-/var/lib/ldap/iredmail.org/domainName.bdb is not owned by &quot;l[WARNING]
-/var/lib/ldap/iredmail.org/ou.bdb is not owned by &quot;ldap&quot;    [WARNING]
-/var/lib/ldap/iredmail.org/uid.bdb is not owned by &quot;ldap&quot;   [WARNING]
-/var/lib/ldap/iredmail.org/enabledService.bdb is not owned b[WARNING]
-/var/lib/ldap/iredmail.org/homeDirectory.bdb is not owned by[WARNING]
-/var/lib/ldap/iredmail.org/domainGlobalAdmin.bdb is not owne[WARNING]p&quot;
-/var/lib/ldap/iredmail.org/sn.bdb is not owned by &quot;ldap&quot;    [WARNING]
-/var/lib/ldap/iredmail.org/mail.bdb is not owned by &quot;ldap&quot;  [WARNING]
-/var/lib/ldap/iredmail.org/accountStatus.bdb is not owned by[WARNING]
-/var/lib/ldap/iredmail.org/givenName.bdb is not owned by &quot;ld[WARNING]
+...
 Checking configuration files for slapd:  config file testing succeeded
                                                            [  OK  ]
 Starting slapd:                                            [  OK  ]

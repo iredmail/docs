@@ -176,7 +176,12 @@ __Important note__:  There's only __ONE__ colon after `userPassword` string
   due to missing required attributes.
 
 * Remove all files under OpenLDAP data directory defined in LDAP config file
-  `slapd.conf` except one file (`DB_CONFIG`). For example:
+  `slapd.conf` (parameter `directory`) except one file (`DB_CONFIG`). For example:
+
+!!! note
+
+    File `DB_CONFIG` is present if you're use `bdb` database type (specified in
+    parameter `database`), `mdb` database doesn't have this file.
 
 ```
 # File: /etc/openldap/slapd.conf
@@ -220,18 +225,7 @@ except `/var/lib/ldap/iredmail.org/DB_CONFIG`.
 Stopping slapd:                                            [  OK  ]
 /var/lib/ldap/iredmail.org/mailMessageStore.bdb is not owned[WARNING]"
 /var/lib/ldap/iredmail.org/objectClass.bdb is not owned by "[WARNING]
-/var/lib/ldap/iredmail.org/mtaTransport.bdb is not owned by [WARNING]
-/var/lib/ldap/iredmail.org/cn.bdb is not owned by "ldap"    [WARNING]
-/var/lib/ldap/iredmail.org/domainName.bdb is not owned by "l[WARNING]
-/var/lib/ldap/iredmail.org/ou.bdb is not owned by "ldap"    [WARNING]
-/var/lib/ldap/iredmail.org/uid.bdb is not owned by "ldap"   [WARNING]
-/var/lib/ldap/iredmail.org/enabledService.bdb is not owned b[WARNING]
-/var/lib/ldap/iredmail.org/homeDirectory.bdb is not owned by[WARNING]
-/var/lib/ldap/iredmail.org/domainGlobalAdmin.bdb is not owne[WARNING]p"
-/var/lib/ldap/iredmail.org/sn.bdb is not owned by "ldap"    [WARNING]
-/var/lib/ldap/iredmail.org/mail.bdb is not owned by "ldap"  [WARNING]
-/var/lib/ldap/iredmail.org/accountStatus.bdb is not owned by[WARNING]
-/var/lib/ldap/iredmail.org/givenName.bdb is not owned by "ld[WARNING]
+...
 Checking configuration files for slapd:  config file testing succeeded
                                                            [  OK  ]
 Starting slapd:                                            [  OK  ]
