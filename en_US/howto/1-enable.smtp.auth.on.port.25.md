@@ -27,6 +27,12 @@ below to enable it.
 #smtpd_tls_security_level = may
 ```
 
+!!! note
+
+    With `smtpd_tls_auth_only = yes`, it requires clients to enable STARTTLS
+    for secure connection, if you don't want this for some reason, please
+    comment it out.
+
 * uncomment the last 4 lines:
 
 ```
@@ -37,11 +43,5 @@ smtpd_tls_security_level = may
 ```
 
 * Restart or reload Postfix service.
-
-!!! warning
-
-    With `smtpd_tls_auth_only = yes`, it requires clients to enable STARTTLS
-    for secure connection, if you don't want this for some reason, please
-    comment it out.
 
 That's all.
