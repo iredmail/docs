@@ -34,6 +34,10 @@
 <li><a href="#mailing-list">Mailing List</a></li>
 <li><a href="#mail-alias">Mail Alias</a></li>
 <li><a href="#throttling">Throttling</a></li>
+<li><a href="#export-accounts">Export Accounts</a><ul>
+<li><a href="#ldif-ldap-backend-only">LDIF (LDAP backend only)</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -111,7 +115,7 @@ RESTFUL_API_CLIENTS = ['172.16.244.1', ...]
 <tr>
 <td><code>language</code></td>
 <td>Default preferred language for newly created mail user</td>
-<td><code>preferredLanguage=en_US</code></td>
+<td><code>language=en_US</code></td>
 </tr>
 <tr>
 <td><code>defaultQuota</code></td>
@@ -155,7 +159,7 @@ RESTFUL_API_CLIENTS = ['172.16.244.1', ...]
     --- |--- |---
     `cn` | Short description of this domain name. e.g. company name | `cn=Google Inc`
     `quota` | Mailbox quota for whole domain, in MB. | `quota=2048`
-    `language` | Default preferred language for newly created mail user | `preferredLanguage=en_US`
+    `language` | Default preferred language for newly created mail user | `language=en_US`
     `defaultQuota` | Default per-user mailbox quota for newly created user | `defaultQuota=1024`
     `maxUserQuota` | Max mailbox quota of a mail user | `maxUserQuota=2048`
     `numberOfUsers` | Max number of mail user accounts | `numberOfUsers=20`
@@ -167,7 +171,42 @@ RESTFUL_API_CLIENTS = ['172.16.244.1', ...]
 
 <h3 class="toggle" id="user">User</h3>
 <div class="admonition api">
-<p class="admonition-title"><code class="post">POST</code> <code class="url">/api/user/&lt;mail&gt;</code> <code class="comment">Create a new mail user</code></p>
+<p class="admonition-title"><code class="post">POST</code> <code class="url">/api/user/&lt;mail&gt;</code> <code class="comment">Create a new mail user</code> <code class="has_params">Parameters</code></p>
+<div class="params params_user">
+
+<table>
+<thead>
+<tr>
+<th>Parameter Name</th>
+<th>Summary</th>
+<th>Sample Usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>cn</code></td>
+<td>Display name</td>
+<td><code>cn=My New Name</code></td>
+</tr>
+<tr>
+<td><code>password</code></td>
+<td>Password</td>
+<td><code>password=AsTr0ng@</code></td>
+</tr>
+<tr>
+<td><code>language</code></td>
+<td>Preferred language of web UI</td>
+<td><code>language=en_US</code></td>
+</tr>
+<tr>
+<td><code>quota</code></td>
+<td>Mailbox quota (in MB)</td>
+<td><code>quota=1024</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+
 </div>
 <div class="admonition api">
 <p class="admonition-title"><code class="delete">DELETE</code> <code class="url">/api/user/&lt;mail&gt;</code> <code class="comment">Delete an existing mail user</code></p>
@@ -193,12 +232,7 @@ RESTFUL_API_CLIENTS = ['172.16.244.1', ...]
 <tr>
 <td><code>language</code></td>
 <td>Preferred language of web UI</td>
-<td><code>preferredLanguage=en_US</code></td>
-</tr>
-<tr>
-<td><code>mailQuota</code></td>
-<td>User's mailbox quota, in MB</td>
-<td><code>mailQuota=1024</code></td>
+<td><code>language=en_US</code></td>
 </tr>
 <tr>
 <td><code>transport</code></td>
@@ -431,6 +465,26 @@ please use mail alias account as mailing list.</p>
 </table>
 </div>
 
+</div>
+<h3 class="toggle" id="export-accounts">Export Accounts</h3>
+<h4 class="toggle" id="ldif-ldap-backend-only">LDIF (LDAP backend only)</h4>
+<div class="admonition api">
+<p class="admonition-title"><code class="get">GET</code> <code class="url">/api/ldif/domain/&lt;domain&gt;</code> <code class="comment">Export domain to LDIF</code> <code class="upcoming">upcoming</code></p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code class="get">GET</code> <code class="url">/api/ldif/catchall/&lt;domain&gt;</code> <code class="comment">Export per-domain catch-all account to LDIF</code> <code class="upcoming">upcoming</code></p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code class="get">GET</code> <code class="url">/api/ldif/admin/&lt;mail&gt;</code> <code class="comment">Export (separated) domain admin to LDIF</code> <code class="upcoming">upcoming</code></p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code class="get">GET</code> <code class="url">/api/ldif/user/&lt;mail&gt;</code> <code class="comment">Export mail user to LDIF</code> <code class="upcoming">upcoming</code></p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code class="get">GET</code> <code class="url">/api/ldif/maillist/&lt;mail&gt;</code> <code class="comment">Export mailing list account to LDIF</code> <code class="upcoming">upcoming</code></p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code class="get">GET</code> <code class="url">/api/ldif/alias/&lt;mail&gt;</code> <code class="comment">Export mail alias account to LDIF</code> <code class="upcoming">upcoming</code></p>
 </div>
 <script src="./js/jquery-1.12.3.min.js"></script>
 

@@ -69,7 +69,7 @@ Notes:
     --- |--- |---
     `cn` | Short description of this domain name. e.g. company name | `cn=Google Inc`
     `quota` | Per-domain mailbox quota, in MB. | `quota=2048`
-    `language` | Default preferred language for newly created mail user | `preferredLanguage=en_US`
+    `language` | Default preferred language for newly created mail user | `language=en_US`
     `defaultQuota` | Default per-user mailbox quota for newly created user, in MB. | `defaultQuota=1024`
     `maxUserQuota` | Max mailbox quota of a mail user, in MB. | `maxUserQuota=2048`
     `numberOfUsers` | Max number of mail user accounts | `numberOfUsers=20`
@@ -89,7 +89,7 @@ Notes:
     --- |--- |---
     `cn` | Short description of this domain name. e.g. company name | `cn=Google Inc`
     `quota` | Mailbox quota for whole domain, in MB. | `quota=2048`
-    `language` | Default preferred language for newly created mail user | `preferredLanguage=en_US`
+    `language` | Default preferred language for newly created mail user | `language=en_US`
     `defaultQuota` | Default per-user mailbox quota for newly created user | `defaultQuota=1024`
     `maxUserQuota` | Max mailbox quota of a mail user | `maxUserQuota=2048`
     `numberOfUsers` | Max number of mail user accounts | `numberOfUsers=20`
@@ -101,7 +101,19 @@ Notes:
 
 ### User {: .toggle }
 
-!!! api "`POST`{: .post } `/api/user/<mail>`{: .url } `Create a new mail user`{: .comment }"
+!!! api "`POST`{: .post } `/api/user/<mail>`{: .url } `Create a new mail user`{: .comment } `Parameters`{: .has_params }"
+
+    <div class="params params_user">
+
+    Parameter Name | Summary | Sample Usage
+    --- |--- |---
+    `cn` | Display name | `cn=My New Name`
+    `password` | Password| `password=AsTr0ng@`
+    `language` | Preferred language of web UI | `language=en_US`
+    `quota` | Mailbox quota (in MB) | `quota=1024`
+
+    </div>
+
 !!! api "`DELETE`{: .delete } `/api/user/<mail>`{: .url } `Delete an existing mail user`{: .comment }"
 !!! api "`PUT`{: .put } `/api/user/<mail>`{: .url } `Update profile of an existing mail user`{: .comment } `Parameters`{: .has_params} "
 
@@ -110,8 +122,7 @@ Notes:
     Parameter Name | Summary | Sample Usage
     --- |--- |---
     `cn` | Display name | `cn=My New Name`
-    `language` | Preferred language of web UI | `preferredLanguage=en_US`
-    `mailQuota` | User's mailbox quota, in MB | `mailQuota=1024`
+    `language` | Preferred language of web UI | `language=en_US`
     `transport` | Transport program | `transport=dovecot`
 
     </div>
@@ -215,7 +226,16 @@ Notes:
     </div>
 
 
+### Export Accounts {: .toggle }
 
+#### LDIF (LDAP backend only) {: .toggle }
+
+!!! api "`GET`{: .get } `/api/ldif/domain/<domain>`{: .url } `Export domain to LDIF`{: .comment } `upcoming`{: .upcoming }"
+!!! api "`GET`{: .get } `/api/ldif/catchall/<domain>`{: .url } `Export per-domain catch-all account to LDIF`{: .comment } `upcoming`{: .upcoming }"
+!!! api "`GET`{: .get } `/api/ldif/admin/<mail>`{: .url } `Export (separated) domain admin to LDIF`{: .comment } `upcoming`{: .upcoming }"
+!!! api "`GET`{: .get } `/api/ldif/user/<mail>`{: .url } `Export mail user to LDIF`{: .comment } `upcoming`{: .upcoming }"
+!!! api "`GET`{: .get } `/api/ldif/maillist/<mail>`{: .url } `Export mailing list account to LDIF`{: .comment } `upcoming`{: .upcoming }"
+!!! api "`GET`{: .get } `/api/ldif/alias/<mail>`{: .url } `Export mail alias account to LDIF`{: .comment } `upcoming`{: .upcoming }"
 
 
 
