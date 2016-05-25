@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Apponi firma DKIM su e-mail in uscita per il nuovo dominio di posta elettronica</title>
+        <link rel="stylesheet" type="text/css" href="./css/markdown.css" />
+    </head>
+    <body>
+    
+    <div id="navigation">
+    <a href="/index.html" target="_blank">
+        <img alt="iRedMail web site"
+             src="./images/logo-iredmail.png"
+             style="vertical-align: middle; height: 30px;"
+             />&nbsp;
+        <span>iRedMail</span>
+    </a>
+    &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><div class="admonition note">
+<p class="admonition-title">This tutorial is available in other languages</p>
+<p><a href="./sign.dkim.signature.for.new.domain.html">English</a> /</p>
+</div>
+<h1 id="apponi-firma-dkim-su-e-mail-in-uscita-per-il-nuovo-dominio-di-posta-elettronica">Apponi firma DKIM su e-mail in uscita per il nuovo dominio di posta elettronica</h1>
+<div class="toc">
+<ul>
+<li><a href="#apponi-firma-dkim-su-e-mail-in-uscita-per-il-nuovo-dominio-di-posta-elettronica">Apponi firma DKIM su e-mail in uscita per il nuovo dominio di posta elettronica</a><ul>
+<li><a href="#usare-la-chiave-esistente-dkim-per-il-nuovo-dominio">Usare la chiave esistente DKIM per il nuovo dominio</a></li>
+<li><a href="#generate-una-nuova-chiave-dkim-per-il-nuovo-dominio">Generate una nuova chiave DKIM per il nuovo dominio.</a></li>
+<li><a href="#uso-di-uanchiave-dkim-per-tutti-i-domini-di-posta">Uso di uanchiave DKIM per tutti i domini di posta</a></li>
+<li><a href="#referenze">Referenze</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<blockquote>
+<p>Non sapete cosa DKIM sia? Leggete il nostro tutorial qui:
+<a href="./setup.dns.html#dkim-record-for-your-mail-domain-name">Cos'è un record DNS DKIM</a>.</p>
+<p>Non sapete dove sia il file di configurazione di Amavisd? Leggete il nostro tutorial qui:
+<a href="file.locations.html#amavisd">Posizione dei file di configurazioni e log dei maggiori componenti</a>.</p>
+</blockquote>
+<p>iRedMail configura Amavisd per firmare le mail in uscita con il primo dominio di posta che avete
+aggiunto durante l'installazione di iRedMail. Se aggiungete un nuovo dominio di posta, dovrete modificare
+il file di configurazione di Amavisd affinché apponga la firma DKIM.</p>
+<p>Mettiamo che il primo dominio di posta aggiunto durante l'installazione di iRedMail sia <code>mydomain.com</code>,<br />
+ed il nuovo dominio aggiunto sia <code>new_domain.com</code>, eseguite i seguenti passi per abilitare la firma DKIM per 
+mail in uscita per il nuovo dominio.</p>
+<h2 id="usare-la-chiave-esistente-dkim-per-il-nuovo-dominio">Usare la chiave esistente DKIM per il nuovo dominio</h2>
+<p>Se avete già una chiave DKIM ed il relativo record DNS DKIM, va bene se usate la chiave DKIM  esistente per
+firmare le mail in uscita per il nuovo dominio. Così facendo non dovrete chiedere al cliente che detiene il nuovo 
+dominio di creare un nuovo record DNS DKIM.</p>
+<ul>
+<li>Cercate le configurazioni qui sotto nel file di configurazione di Amavisd, <code>amavisd.conf</code>:</li>
+</ul>
+<pre><code>dkim_key('mydomain.com', &quot;dkim&quot;, &quot;/var/lib/dkim/mydomain.com.pem&quot;);
+
+@dkim_signature_options_bysender_maps = ( {
+    ...
+    &quot;mydomain.com&quot;  =&gt; { d =&gt; &quot;mydomain.com&quot;, a =&gt; 'rsa-sha256', ttl =&gt; 10*24*3600 },
+    ...
+});
+</code></pre>
+
+<p>Aggiungete una riga  nel blocco <code>@dkim_signature_options_bysender_maps</code>, dopo la linea <code>"mydomain.com"</code> come 
+riportato qui sotto:</p>
+<pre><code>@dkim_signature_options_bysender_maps = ( {
+    ...
+    &quot;mydomain.com&quot;  =&gt; { d =&gt; &quot;mydomain.com&quot;, a =&gt; 'rsa-sha256', ttl =&gt; 10*24*3600 },
+    &quot;new_domain.com&quot;  =&gt; { d =&gt; &quot;mydomain.com&quot;, a =&gt; 'rsa-sha256', ttl =&gt; 10*24*3600 },
+    ...
+});
+</code></pre>
+
+<ul>
+<li>Riavviate il servizio Amavisd.</li>
+</ul>
+<h2 id="generate-una-nuova-chiave-dkim-per-il-nuovo-dominio">Generate una nuova chiave DKIM per il nuovo dominio.</h2>
+<p>Se il vostro cliente preferisce usare una propria chiave DKIM, potete generare una nuova chiave DKIM e chiedere al 
+vostro cliente di aggiungere un record DNS DIKIM sul proprio dominio. Fate riferimento al nostro tutorial
+<a href="setup.dns.html#dkim-record-for-your-mail-domain-name">Aggiungere un record DNS DKIM</a>.</p>
+<ul>
+<li>Generare una  nuova chiave DKIM (lunghezza della chiave 1024`) per il nuovo dominio.</li>
+</ul>
+<pre><code class="shell"># amavisd-new genrsa /var/lib/dkim/new_domain.com.pem 1024
+</code></pre>
+
+<blockquote>
+<ul>
+<li>se state eseguendo CentOS, potrebbe essere necessario specificare il file di configurazione sulla linea di comando
+   per esempio:</li>
+</ul>
+<p><code># amavisd -c /etc/amavisd/amavisd.conf genrsa /var/lib/dkim/new_domain.com.pem 1024</code></p>
+</blockquote>
+<ul>
+<li>Cercate le seguenti righe nel file di configurazione di Amavisd, <code>amavisd.conf</code>:</li>
+</ul>
+<pre><code>dkim_key('mydomain.com', &quot;dkim&quot;, &quot;/var/lib/dkim/mydomain.com.pem&quot;);
+</code></pre>
+
+<p>Aggiungere una riga dopo le righe sopra, come di seguito:</p>
+<pre><code>dkim_key('new_domain.com', &quot;dkim&quot;, &quot;/var/lib/dkim/new_domain.com.pem&quot;);
+</code></pre>
+
+<ul>
+<li>Cercate le seguenti righe nel file di configurazione di Amavisd, <code>amavisd.conf</code>:</li>
+</ul>
+<pre><code>@dkim_signature_options_bysender_maps = ( {
+    ...
+    &quot;mydomain.com&quot;  =&gt; { d =&gt; &quot;mydomain.com&quot;, a =&gt; 'rsa-sha256', ttl =&gt; 10*24*3600 },
+    ...
+});
+</code></pre>
+
+<p>Aggiungete una riga dopo la linea contenente <code>"mydomain.com"</code> come la linea che segue:</p>
+<pre><code>@dkim_signature_options_bysender_maps = ( {
+    ...
+    &quot;mydomain.com&quot;  =&gt; { d =&gt; &quot;mydomain.com&quot;, a =&gt; 'rsa-sha256', ttl =&gt; 10*24*3600 },
+    &quot;new_domain.com&quot;  =&gt; { d =&gt; &quot;new_domain.com&quot;, a =&gt; 'rsa-sha256', ttl =&gt; 10*24*3600 },
+    ...
+});
+</code></pre>
+
+<ul>
+<li>Riavviate il servizio Amavids.</li>
+</ul>
+<p>Di nuovo, non dimenticate di aggiungere un nuovo record DNS DKIM nel nuovo dominio. Il valore del record DKIM
+può essere verificato con il seguente comando;</p>
+<pre><code class="shell"># amavisd-new showkeys
+</code></pre>
+
+<p>Dopo aver aggiunto il record DNS DKIM, verificatelo con il seguente comando;</p>
+<pre><code class="shell"># amavisd-new testkeys
+</code></pre>
+
+<p>Nota: I provider DNS generalmente tengono in cache per due ore i record DNS, per cui se il comando ritorna " invalid" 
+invece di "pass", dovrete seguire nuovamente il test dopo un po' di tempo.</p>
+<h2 id="uso-di-uanchiave-dkim-per-tutti-i-domini-di-posta">Uso di uanchiave DKIM per tutti i domini di posta</h2>
+<p>Per compatibilità verso dkim_milter il dominio che firma puo includere un "*" come carattere jolly - questo non è raccomandato in quanto Amavisd, in questo caso, potrebbe produrre firme che non hanno corrispondenza con la chiave pubblicata nel DNS. Il modo corretto è di avere una chiave dkim per ogni dominio di posta.</p>
+<p>Se comunque volete provare questa configurazione, eseguite i passi seguenti:</p>
+<ul>
+<li>Cercate la seguente riga nel file di configurazione di Amavisd, <code>amavisd.conf</code>:</li>
+</ul>
+<pre><code>dkim_key('mydomain.com', &quot;dkim&quot;, &quot;/var/lib/dkim/mydomain.com.pem&quot;);
+</code></pre>
+
+<ul>
+<li>
+<p>Sostituitela con la riga seguente:</p>
+</li>
+<li>
+<p>Replace it by below line:</p>
+</li>
+</ul>
+<pre><code>dkim_key('*', &quot;dkim&quot;, &quot;/var/lib/dkim/mydomain.com.pem&quot;);
+</code></pre>
+
+<ul>
+<li>Riavviate il servizio Amavisd.</li>
+</ul>
+<p>Con questa configurazione, tutte le mail in uscita saranno firmata con questa  chiave dkim. Ed Amavisd mostrerà un messaggio di avviso quando avviate il servizio Amavisd:</p>
+<blockquote>
+<p>dkim: wildcard in signing domain (key#1, *), may produce unverifiable
+signatures with no published public key, avoid!</p>
+</blockquote>
+<h2 id="referenze">Referenze</h2>
+<ul>
+<li>Documenti ufficiali di Amavisd: <a href="http://www.ijs.si/software/amavisd/amavisd-new-docs.html#dkim">Configurazione della firma e verifica DKIM</a></li>
+</ul><div class="footer">
+    <p style="text-align: center; color: grey;">All documents are available in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://bitbucket.org/zhb/iredmail-docs/get/tip.tar.bz2">download the latest version</a> for offline reading. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
+</div>
+<script type="text/javascript">
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-3293801-21', 'auto');
+  ga('send', 'pageview');
+</script>
+</body></html>

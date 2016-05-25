@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Permettere connessioni inscurire senza STARTTLS per POP3/IMAP/SMTP</title>
+        <link rel="stylesheet" type="text/css" href="./css/markdown.css" />
+    </head>
+    <body>
+    
+    <div id="navigation">
+    <a href="/index.html" target="_blank">
+        <img alt="iRedMail web site"
+             src="./images/logo-iredmail.png"
+             style="vertical-align: middle; height: 30px;"
+             />&nbsp;
+        <span>iRedMail</span>
+    </a>
+    &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><div class="admonition note">
+<p class="admonition-title">This tutorial is available in other languages</p>
+<p><a href="./allow.insecure.pop3.imap.smtp.connections.html">English</a> /</p>
+</div>
+<h1 id="permettere-connessioni-inscurire-senza-starttls-per-pop3imapsmtp">Permettere connessioni inscurire senza STARTTLS per POP3/IMAP/SMTP</h1>
+<div class="toc">
+<ul>
+<li><a href="#permettere-connessioni-inscurire-senza-starttls-per-pop3imapsmtp">Permettere connessioni inscurire senza STARTTLS per POP3/IMAP/SMTP</a><ul>
+<li><a href="#abilitare-connessioni-pop3imap-insicure">Abilitare connessioni POP3/IMAP insicure</a></li>
+<li><a href="#abilitare-connessioni-stmp-insicure">Abilitare connessioni STMP insicure</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<p>Con la configurazione di default di iRedMail, tutti i client di posta sono forzati ad usare i servizi POP3/IMAP/SMTP over STARTTLS per ottenere connessioni sicure. Se il vostro client di posta tentasse l'accesso alla casella di posta con il protocollo POP3/IMAP/SMTP senza il support TLS, otterreste un messaggio di errore simile quello sottostante:</p>
+<pre><code>Plaintext authentication disallowed on non-secure (SSL/TLS) connections
+</code></pre>
+
+<p>Questo tutorial descrive come abilitare connessioni insicure per l'uso quotidiano.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Se avete uno o solo pochi apparati di rete come stampanti e firewall che necessitano di inviare mail  con una connessione insicura, seguite invece questo tutorial:  <a href="./additional.smtp.port.html">Abilitare apparati di rete interni ad inviare mail con connessione inscure</a>.</p>
+</div>
+<h2 id="abilitare-connessioni-pop3imap-insicure">Abilitare connessioni POP3/IMAP insicure</h2>
+<p>Se volete abilitare i servizi POP3/IMAP/SMTP senza STARTTLS per qualche ragione (di nuovo è una cosa non raccomandata), aggiornate i due seguenti parametri nel file di configurazione di Dovecot, <code>/etc/dovecot/dovecot.conf</code> e riavviate il servizio di Dovecot:</p>
+<ul>
+<li>su Linux ed OpenBSD è <code>/etc/dovecot/dovecot.conf</code></li>
+<li>su FreeBSD è  <code>/usr/local/etc/dovecot/dovecot.conf</code></li>
+</ul>
+<pre><code>disable_plaintext_auth=no
+ssl=yes
+</code></pre>
+
+<p>Nuovamente, è fortemente raccomandato di usare solo POP3S/IMAPS per una migliore sicurezza.</p>
+<p>La configurazione di default, e raccomandata, impostata da iRedMail è:</p>
+<pre><code>disable_plaintext_auth=yes
+ssl=required
+</code></pre>
+
+<h2 id="abilitare-connessioni-stmp-insicure">Abilitare connessioni STMP insicure</h2>
+<p>Commentate la riga sottostante nel file di configurazione di Postifx, <code>/etc/postfix/main.cf</code> e ricaricate o riavviate il servizio Postfix:</p>
+<pre><code>smtpd_tls_auth_only=yes
+</code></pre><div class="footer">
+    <p style="text-align: center; color: grey;">All documents are available in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://bitbucket.org/zhb/iredmail-docs/get/tip.tar.bz2">download the latest version</a> for offline reading. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
+</div>
+<script type="text/javascript">
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-3293801-21', 'auto');
+  ga('send', 'pageview');
+</script>
+</body></html>
