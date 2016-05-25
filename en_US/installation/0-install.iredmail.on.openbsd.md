@@ -101,7 +101,7 @@ Install Bash shell, it's required by iRedMail.
 
 ```
 # . /root/.profile    # <- This steps is required, used to set PKG_PATH without re-login.
-# pkg_add bash
+# pkg_add bash bzip2
 ```
 
 ### Download the latest release of iRedMail
