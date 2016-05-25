@@ -88,14 +88,16 @@ Notes:
     Parameter Name | Summary | Sample Usage
     --- |--- |---
     `cn` | Short description of this domain name. e.g. company name | `cn=Google Inc`
+    `accountStatus` | Enable or disable domain | `accountStatus=active` (or `disabled`)
     `quota` | Mailbox quota for whole domain, in MB. | `quota=2048`
-    `language` | Default preferred language for newly created mail user | `language=en_US`
-    `defaultQuota` | Default per-user mailbox quota for newly created user | `defaultQuota=1024`
-    `maxUserQuota` | Max mailbox quota of a mail user | `maxUserQuota=2048`
+    `transport` | Transport program | `transport=dovecot`
     `numberOfUsers` | Max number of mail user accounts | `numberOfUsers=20`
     `numberOfAliases` | Max number of mail alias accounts | `numberOfAliases=30`
-    `numberOfLists` | Max number of mailing list accounts (LDAP only)| `numberOfLists=40`
+    `backupmx` | Mark domain as Backup MX | `backupmx=yes`
 
+    `defaultQuota` | Default per-user mailbox quota for newly created user | `defaultQuota=1024`
+    `maxUserQuota` | Max mailbox quota of a mail user | `maxUserQuota=2048`
+    `language` | Default preferred language for newly created mail user | `language=en_US`
     </div>
 -->
 
@@ -122,6 +124,7 @@ Notes:
     Parameter Name | Summary | Sample Usage
     --- |--- |---
     `cn` | Display name | `cn=My New Name`
+    `accountStatus` | Enable or disable user | `accountStatus=active` (or `disabled`)
     `language` | Preferred language of web UI | `language=en_US`
     `transport` | Transport program | `transport=dovecot`
 

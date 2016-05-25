@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title>Amavisd: Enable per-recipient policy lookup</title>
+        <title>Amavisd: attiva polixy di ricerca per destinatario</title>
         <link rel="stylesheet" type="text/css" href="./css/markdown.css" />
     </head>
     <body>
@@ -17,30 +17,23 @@
     </a>
     &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><div class="admonition note">
 <p class="admonition-title">This tutorial is available in other languages</p>
-<p><a href="./amavisd.per-recipient.policy.lookup-it_IT.html">Italiano</a> /</p>
+<p><a href="./amavisd.per-recipient.policy.lookup.html">English</a> /</p>
 </div>
-<h1 id="amavisd-enable-per-recipient-policy-lookup">Amavisd: Enable per-recipient policy lookup</h1>
-<p>With per-recipient policy lookup, you can achieve per-recipient white/blacklists,
-basic spamassassin preferences, etc. Settings are available as global setting,
-or per-domain, per-user settings. iRedMail uses it to reject blacklisted
-senders and bypass whitelisted senders during smtp session to save system
-resource (implemented via iRedAPD plugin <code>amavisd_wblist</code>, new in iRedAPD-1.4.4.).</p>
-<p>iRedMail has <code>@storage_sql_dsn</code> enabled in Amavisd config file by default, so
-it's very easy to enable per-recipient policy lookup. Just add one line after
-<code>@storage_sql_dsn</code> like below:</p>
+<h1 id="amavisd-attiva-polixy-di-ricerca-per-destinatario">Amavisd: attiva polixy di ricerca per destinatario</h1>
+<p>Con la policy di ricerca per destinatario, potete archiviare whitelist/blacklist per destinatario, preferenze di base per spamassassin etc. Le configurazioni sono disponibili come configurazioni globali, o per dominio o per utente. iRedMail usa queste configurazioni per rigettare mittenti in blacklist e far passare mittenti in whitelist durante la sessione smtp, il tutto per risparmiare risorse di sistema (il tutto implementato dal plugin <code>amavisd_wblist</code>, nuovo dalla versione 1.4.4 si iRedAPD).</p>
+<p>iRedMail ha, nella configurazione di Amavisd, <code>@storage_sql_dsn</code>m abilitato di default, per cui è molto facile abilitare la policy per destinatario. Aggiungete semplicemente una linea dopo <code>@storage_sql_dsn</code>, come sotto riportato:</p>
 <pre><code># Part of file: amavisd.conf
 
 @storage_sql_dsn = [...]
 @lookup_sql_dsn = @storage_sql_dsn;
 </code></pre>
 
-<p>Then restart Amavisd serivce.</p>
-<p>If you don't know where Amavisd config file is, please refer to our document:
-<a href="./file.locations.html#amavisd">Locations of configuration and log files of major components</a></p>
-<h2 id="references">References:</h2>
+<p>Acqueo punto riavviate il servizio Amavisd.</p>
+<p>Se non sapete dove sia il file di configurazione di Amavisd, fate riferimento a questo documento: <a href="./file.locations.html#amavisd">Posizione dei file di configurazione e log dei componenti maggiori</a></p>
+<h2 id="referenze">Referenze:</h2>
 <ul>
-<li><a href="http://www.ijs.si/software/amavisd/README.sql.txt">Amavisd doc: Uing SQL for lookups, log/reporting and quarantine</a></li>
-<li><a href="http://www.ijs.si/software/amavisd/README.lookups.txt">Amavisd doc: Lookup maps (hash, SQL) and access list explained</a></li>
+<li><a href="http://www.ijs.si/software/amavisd/README.sql.txt">Documentazione Amavisd : Usare SQL per ricerche, log/rapporti e messa in quarantena</a></li>
+<li><a href="http://www.ijs.si/software/amavisd/README.lookups.txt">Documentazione Amavisd: Mappa delle ricerche (hash, SQL) e spiegazione della lista di accesso</a></li>
 </ul><div class="footer">
     <p style="text-align: center; color: grey;">All documents are available in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://bitbucket.org/zhb/iredmail-docs/get/tip.tar.bz2">download the latest version</a> for offline reading. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
 </div>

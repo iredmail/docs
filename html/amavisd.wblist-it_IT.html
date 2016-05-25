@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title>Whitelists and Blacklists</title>
+        <title>WhiteList e BlackList</title>
         <link rel="stylesheet" type="text/css" href="./css/markdown.css" />
     </head>
     <body>
@@ -17,54 +17,50 @@
     </a>
     &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><div class="admonition note">
 <p class="admonition-title">This tutorial is available in other languages</p>
-<p><a href="./amavisd.wblist-it_IT.html">Italiano</a> /</p>
+<p><a href="./amavisd.wblist.html">English</a> /</p>
 </div>
-<h1 id="whitelists-and-blacklists">Whitelists and Blacklists</h1>
+<h1 id="whitelist-e-blacklist">WhiteList e BlackList</h1>
 <div class="toc">
 <ul>
-<li><a href="#whitelists-and-blacklists">Whitelists and Blacklists</a><ul>
-<li><a href="#manage-whitelists-and-blacklists-with-iredadmin-pro">Manage whitelists and blacklists with iRedAdmin-Pro</a></li>
-<li><a href="#manage-whitelists-and-blacklists-with-sql-commands">Manage whitelists and blacklists with SQL commands</a></li>
+<li><a href="#whitelist-e-blacklist">WhiteList e BlackList</a><ul>
+<li><a href="#gestire-whitelist-e-blaclist-con-iredadmin-pro">Gestire whitelist e blaclist con iRedAdmin-Pro</a></li>
+<li><a href="#gestire-whitelist-e-blacklist-con-comandi-sql">Gestire whitelist e blacklist con comandi SQL</a></li>
 </ul>
 </li>
 </ul>
 </div>
-<p>This tutorial shows you how to whitelist and blacklist senders or recipients
-with iRedAdmin-Pro and script shipped in iRedAPD (since iRedAPD-1.7.1).</p>
-<h2 id="manage-whitelists-and-blacklists-with-iredadmin-pro">Manage whitelists and blacklists with iRedAdmin-Pro</h2>
-<p>With iRedAdmin-Pro, you can manage several levels of whitelists and blacklists:</p>
+<p>questo tutorial mostra come mettere in whitelist e blacklist mittenti o destinatari con iRedAmdin-Pro e gli script annessi ad iRedADP (sin dalla versione 1.7.1).</p>
+<h2 id="gestire-whitelist-e-blaclist-con-iredadmin-pro">Gestire whitelist e blaclist con iRedAdmin-Pro</h2>
+<p>Con iRedAdmin-Pro potete gestire diversi livelli di whitelist e blacklist:</p>
 <ul>
-<li>Global white/blacklists: under menu <code>System -&gt; Anti Spam -&gt; Whitelists &amp; Blacklists</code>.</li>
-<li>Per-domain white/blacklists: in domain profile page, under tab <code>Whitelists and Blacklists</code>.</li>
-<li>Per-user white/blacklists: in user profile page, under tab <code>Whitelists and Blacklists</code>.</li>
+<li>White/Blacklist: nel menu <code>System -&gt; Anti Spam -&gt; Whitelists &amp; Blacklists</code>.</li>
+<li>White/Balcklist per dominio: nel pagina del profilo dominio, nel pannello <code>Whitelists and Blacklists</code>.</li>
+<li>White/Balcklist per utente: nella pagina del profilo utente, nel pannello <code>Whitelists and Blacklists</code>.</li>
 </ul>
-<p>Screenshot attached below.</p>
-<h2 id="manage-whitelists-and-blacklists-with-sql-commands">Manage whitelists and blacklists with SQL commands</h2>
-<p>Since iRedAPD-1.7.1, iRedAPD ships script <code>tools/wblist_admin.py</code> to help you
-manage white/blacklists. To get full usage message, please run this script
-without argument like this:</p>
+<p>Screenshot allegati in alla fine del documento.</p>
+<h2 id="gestire-whitelist-e-blacklist-con-comandi-sql">Gestire whitelist e blacklist con comandi SQL</h2>
+<p>Dalla versione 1.7.1 di iRedAPD viene allegato lo script <code>tools/wblist_admin.py</code> per aiutarvi a gestire whitelist/blacklist. Per avere la lista dei parametri di utilizzo eseguire lo script senza argomenti così come riportato sotto:</p>
 <pre><code># cd /opt/iredapd/tools/
 # python wblist_admin.py
 </code></pre>
 
-<p>Sample usages:</p>
+<p>Esempi di utilizzo:</p>
 <ul>
-<li>Add server-wide whitelisted or blacklisted senders:</li>
+<li>Aggiungere globalmente in whitelist o blacklist mittenti:</li>
 </ul>
 <pre><code># python wblist_admin.py --add --whitelist 202.96.134.133 john@example.com @test.com @.abc.com
 # python wblist_admin.py --add --blacklist 202.96.134.133 john@example.com @test.com @.abc.com
 </code></pre>
 
 <ul>
-<li>Show server-wide whitelisted and blacklisted senders:</li>
+<li>Elencare mittenti inseriti in whitelist o blacklist a livello globale:</li>
 </ul>
 <pre><code># python wblist_admin.py --list --whitelist
 # python wblist_admin.py --list --blacklist
 </code></pre>
 
 <ul>
-<li>For per-domain or per-user white/blacklists, please add argument <code>--account</code>.
-  like below:</li>
+<li>Per gestire a livello utente o dominio le white/backlist aggiungete il parametro <code>--account</code> come sotto riportato:</li>
 </ul>
 <pre><code># python wblist_admin.py --account mydomain.com --add --whitelist 202.96.134.133
 # python wblist_admin.py --account user@mydomain.com --add --blacklist 202.96.134.133
@@ -74,12 +70,12 @@ without argument like this:</p>
 </code></pre>
 
 <ul>
-<li>For outbound messages, please add argument <code>--outbound</code>. like below:</li>
+<li>Per le mail in uscita aggiungete il parametro <code>--outbound</code> come sotto riportato:</li>
 </ul>
 <pre><code># python wblist_admin.py --outbound --account mydomain.com --add --whitelist 202.96.134.133
 </code></pre>
 
-<p>Screenshot of iRedAdmin-Pro:</p>
+<p>Screenshot di iRedAdmin-Pro:</p>
 <p><img alt="" src="http://www.iredmail.org/images/iredadmin/system_wblist.png" /></p><div class="footer">
     <p style="text-align: center; color: grey;">All documents are available in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://bitbucket.org/zhb/iredmail-docs/get/tip.tar.bz2">download the latest version</a> for offline reading. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
 </div>

@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title>允许列表成员以列表邮件地址作为发件人发送邮件</title>
+        <title>Abilitare utente ad inviare mail senza l'autenticazione smtp</title>
         <link rel="stylesheet" type="text/css" href="./css/markdown.css" />
     </head>
     <body>
@@ -17,22 +17,26 @@
     </a>
     &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><div class="admonition note">
 <p class="admonition-title">This tutorial is available in other languages</p>
-<p><a href="./allow.member.to.send.email.as.mail.list.html">English</a> / <a href="./allow.member.to.send.email.as.mail.list-it_IT.html">Italiano</a> /</p>
+<p><a href="./allow.user.to.send.email.without.authentication.html">English</a> / <a href="./allow.user.to.send.email.without.authentication-zh_CN.html">简体中文</a> /</p>
 </div>
-<h1 id="_1">允许列表成员以列表邮件地址作为发件人发送邮件</h1>
-<p>要允许列表成员以列表邮件地址作为发件人发送邮件，请按照以下步骤操作：</p>
-<ul>
-<li>在 Postfix 配置文件 <code>/etc/postfix/main.cf</code> 中移除参数 <code>reject_sender_login_mismatch</code>。</li>
-<li>在 iRedAPD 配置文件 <code>/opt/iredapd/settings.py</code> 中启用插件 <code>reject_sender_login_mismatch</code>。</li>
-<li>在 iRedAPD 配置文件 <code>/opt/iredapd/settings.py</code> 中添加如下参数，允许列表成员
-  以列表邮件地址作为发件人发送邮件：</li>
-</ul>
-<pre><code>ALLOWED_LOGIN_MISMATCH_LIST_MEMBER = True
+<h1 id="abilitare-utente-ad-inviare-mail-senza-lautenticazione-smtp">Abilitare utente ad inviare mail senza l'autenticazione smtp</h1>
+<p>Create questo file di testo: <code>/etc/postfix/accepted_unauth_senders</code>, elencandoci tutti gli indirizzi mail degli utenti abilitati ad inviare posta senza l'autenticazione smtp. Verrà usato l'indirizzo <code>user@example.com</code> come esempio:</p>
+<pre><code>user@example.com OK
 </code></pre>
 
-<ul>
-<li>修改后需要重启 Postfix 和 iRedAPD 服务。</li>
-</ul><div class="footer">
+<p>Create un file db hash con il comando <code>postmap</code> :</p>
+<pre><code># postmap hash:/etc/postfix/accepted_unauth_senders
+</code></pre>
+
+<p>Modificate il file di configurazione di Postfix <code>/etc/postmap/main.cf</code> affinché uso questo file di testo:</p>
+<pre><code>smtpd_sender_restrictions = 
+    check_sender_access hash:/etc/postfix/accepted_unauth_senders,
+    [...OTHER RESTRICTIONS HERE...]
+</code></pre>
+
+<p>Riavviate/ricaricate Postfix per rendere effettiva la modifica.</p>
+<pre><code># /etc/init.d/postfix restart
+</code></pre><div class="footer">
     <p style="text-align: center; color: grey;">All documents are available in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://bitbucket.org/zhb/iredmail-docs/get/tip.tar.bz2">download the latest version</a> for offline reading. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
 </div>
 <script type="text/javascript">
