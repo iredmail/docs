@@ -232,6 +232,16 @@ RESTFUL_API_CLIENTS = ['172.16.244.1', ...]
 <td><code>cn=My New Name</code></td>
 </tr>
 <tr>
+<td><code>password</code></td>
+<td>Password</td>
+<td><code>password=u0tBF82cIV@vi8Gme</code></td>
+</tr>
+<tr>
+<td><code>quota</code></td>
+<td>Mailbox quota (in MB)</td>
+<td><code>quota=1024</code></td>
+</tr>
+<tr>
 <td><code>accountStatus</code></td>
 <td>Enable or disable user</td>
 <td><code>accountStatus=active</code> (or <code>disabled</code>)</td>
@@ -252,27 +262,6 @@ RESTFUL_API_CLIENTS = ['172.16.244.1', ...]
 
 </div>
 <div class="admonition api">
-<p class="admonition-title"><code class="put">PUT</code> <code class="url">/api/user/&lt;mail&gt;/password</code> <code class="comment">Update user's password</code> <code class="upcoming">upcoming</code> <code class="has_params">Parameters</code></p>
-<div class="params">
-
-<table>
-<thead>
-<tr>
-<th>Parameter Name</th>
-<th>Comment</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>password</code></td>
-<td>Password</td>
-</tr>
-</tbody>
-</table>
-</div>
-
-</div>
-<div class="admonition api">
 <p class="admonition-title"><code class="put">PUT</code> <code class="url">/api/users/&lt;domain&gt;</code> <code class="comment">Update profiles of all users under domain</code> <code class="upcoming">upcoming</code> <code class="has_params">Parameters</code></p>
 <div class="params">
 
@@ -285,37 +274,20 @@ RESTFUL_API_CLIENTS = ['172.16.244.1', ...]
 </thead>
 <tbody>
 <tr>
-<td>accountStatus</td>
+<td><code>accountStatus</code></td>
 <td>Account status. Possible value is: active, disabled.</td>
 </tr>
 <tr>
-<td>language</td>
+<td><code>password</code></td>
+<td>Password</td>
+</tr>
+<tr>
+<td><code>language</code></td>
 <td>Preferred language of web UI</td>
 </tr>
 <tr>
-<td>transport</td>
+<td><code>transport</code></td>
 <td>Per-user transport</td>
-</tr>
-</tbody>
-</table>
-</div>
-
-</div>
-<div class="admonition api">
-<p class="admonition-title"><code class="put">PUT</code> <code class="url">/api/users/&lt;domain&gt;/password</code> <code class="comment">Update passwords of all users under domain</code> <code class="upcoming">upcoming</code> <code class="has_params">Parameters</code></p>
-<div class="params">
-
-<table>
-<thead>
-<tr>
-<th>Parameter Name</th>
-<th>Comment</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>password</code></td>
-<td>Password</td>
 </tr>
 </tbody>
 </table>
@@ -364,7 +336,34 @@ please use mail alias account as mailing list.</p>
 </div>
 <h3 class="toggle" id="mail-alias">Mail Alias</h3>
 <div class="admonition api">
-<p class="admonition-title"><code class="post">POST</code> <code class="url">/api/alias/&lt;mail&gt;</code> <code class="comment">Create a new mail alias</code></p>
+<p class="admonition-title"><code class="post">POST</code> <code class="url">/api/alias/&lt;mail&gt;</code> <code class="comment">Create a new mail alias</code> <code class="upcoming">upcoming</code> <code class="has_params">Parameters</code></p>
+<div class="params">
+
+<table>
+<thead>
+<tr>
+<th>Parameter Name</th>
+<th>Summary</th>
+<th>Sample Usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>cn</code></td>
+<td>display name</td>
+<td><code>cn=My List Name</code></td>
+</tr>
+</tbody>
+</table>
+<!--
+<code>accessPolicy</code> | Defines who can send email to this mail alias account | <code>accessPolicy=public</code>
+-->
+
+<blockquote>
+<p>Note: <code>accessPolicy</code> for mail alias account is only available for SQL backends.</p>
+</blockquote>
+</div>
+
 </div>
 <div class="admonition api">
 <p class="admonition-title"><code class="delete">DELETE</code> <code class="url">/api/alias/&lt;mail&gt;</code> <code class="comment">Delete an existing mail alias</code></p>

@@ -124,19 +124,11 @@ Notes:
     Parameter Name | Summary | Sample Usage
     --- |--- |---
     `cn` | Display name | `cn=My New Name`
+    `password` | Password | `password=u0tBF82cIV@vi8Gme`
+    `quota` | Mailbox quota (in MB) | `quota=1024`
     `accountStatus` | Enable or disable user | `accountStatus=active` (or `disabled`)
     `language` | Preferred language of web UI | `language=en_US`
     `transport` | Transport program | `transport=dovecot`
-
-    </div>
-
-!!! api "`PUT`{: .put } `/api/user/<mail>/password`{: .url } `Update user's password`{: .comment } `upcoming`{: .upcoming } `Parameters`{: .has_params }"
-
-    <div class="params">
-
-    Parameter Name | Comment
-    --- |---
-    `password` | Password
 
     </div>
 
@@ -146,19 +138,10 @@ Notes:
 
     Parameter Name | Comment
     --- |---
-    accountStatus | Account status. Possible value is: active, disabled.
-    language | Preferred language of web UI
-    transport | Per-user transport
-
-    </div>
-
-!!! api "`PUT`{: .put } `/api/users/<domain>/password`{: .url } `Update passwords of all users under domain`{: .comment } `upcoming`{: .upcoming } `Parameters`{: .has_params }"
-
-    <div class="params">
-
-    Parameter Name | Comment
-    --- |---
+    `accountStatus` | Account status. Possible value is: active, disabled.
     `password` | Password
+    `language` | Preferred language of web UI
+    `transport` | Per-user transport
 
     </div>
 
@@ -184,7 +167,22 @@ Notes:
 
 ### Mail Alias {: .toggle }
 
-!!! api "`POST`{: .post } `/api/alias/<mail>`{: .url } `Create a new mail alias`{: .comment }"
+!!! api "`POST`{: .post } `/api/alias/<mail>`{: .url } `Create a new mail alias`{: .comment } `upcoming`{: .upcoming} `Parameters`{: .has_params}"
+
+    <div class="params">
+
+    Parameter Name | Summary | Sample Usage
+    --- |--- |---
+    `cn` | display name | `cn=My List Name`
+
+    <!--
+    `accessPolicy` | Defines who can send email to this mail alias account | `accessPolicy=public`
+    -->
+
+    > Note: `accessPolicy` for mail alias account is only available for SQL backends.
+
+    </div>
+
 !!! api "`DELETE`{: .delete } `/api/alias/<mail>`{: .url } `Delete an existing mail alias`{: .comment }"
 !!! api "`PUT`{: .put } `/api/alias/<mail>`{: .url } `Update profile of an existing mail alias`{: .comment } `Parameters`{: .has_params }"
 

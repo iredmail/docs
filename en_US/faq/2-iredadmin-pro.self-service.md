@@ -4,20 +4,27 @@
 
 ## Introduction
 
-The latest iRedAdmin-Pro release provides self-service, it's a per-domain
-setting and disabled by default, domain admin can enable it in domain profile
-page, under tab `Advanced`, and it's able to control which data are allowed to
-be updated by users themselves.
+!!! attention
 
-With self-service, users are able to manage:
+    Self-service is available in iRedAdmin-Pro versions which were released
+    after Jan 1, 2015.
 
-* Update full name, preferred language
+With self-service, end users are able to manage:
+
+* Full name
+* Preferred language of iRedAdmin-Pro web interface
 * Change password
 * Mail forwarding control
 * Manager per-user whitelists & blacklists
 * Manage quarantined mails
 * Check received mails and blacklist certain senders if they're spammers.
 * Manage basic spam policy
+
+## How to enable self-service
+
+Self-service is a per-domain setting and disabled by default, domain admin can
+enable it in domain profile page, under tab `Advanced`, and it's able to
+control which preferences are allowed to be managed by end users themselves.
 
 ## Screenshots
 
