@@ -56,7 +56,9 @@ update it with new values. This way you will keep custom settings after
 upgrading iRedAPD -- because iRedAPD upgrade tool will copy
 `/opt/iredapd/settings.py` to new iRedAPD release during upgrading.
 
-## Feature: Sender address control
+## Features
+
+### Sender Address Restrictions
 
 Plugin `reject_sender_login_mismatch` will reject emails if:
 
@@ -100,9 +102,9 @@ ALLOWED_LOGIN_MISMATCH_STRICTLY = True
 ALLOWED_LOGIN_MISMATCH_LIST_MEMBER = False
 ```
 
-## Feature: White/Blacklisting
+### White/Blacklisting
 
-### How to disable white/blacklists completely
+#### How to disable white/blacklists completely
 
 To disable white/blacklists completely, please remove plugin name
 `amavisd_wblist` in iRedAPD config file `/opt/iredapd/settings.py`,
@@ -114,7 +116,7 @@ plugins = [..., 'amavisd_wblist', ...]
 
 Restarting iRedAPD service is required.
 
-### Manage white/blacklists
+#### Manage white/blacklists
 
 > * White/blacklisting is available in iRedAPD-1.4.4 and later releases.
 > * Script `tools/wblist_admin.py` is available in iRedAPD-1.7.0 and later releases.
@@ -123,7 +125,7 @@ White/blacklisting is controlled by plugin `amavisd_wblist` (file
 `/opt/iredapd/plugins/amavisd_wblist.py`), you can manage it with script
 `/opt/iredapd/tools/wblist_admin.py`.
 
-#### Available arguments
+##### Available arguments
 
 ```
     --outbound
@@ -163,7 +165,7 @@ White/blacklisting is controlled by plugin `amavisd_wblist` (file
     WARNING: Do not use --list, --add-whitelist, --add-blacklist at the same time.
 ```
 
-#### Sample usages
+##### Sample usages
 
 * Show and add server-wide whitelists or blacklists:
 
@@ -185,7 +187,7 @@ White/blacklisting is controlled by plugin `amavisd_wblist` (file
 # python wblist_admin.py --account user@mydomain.com --list --blacklist
 ```
 
-## Feature: Greylisting
+### Greylisting
 
 !!! attention
 
@@ -193,7 +195,7 @@ White/blacklisting is controlled by plugin `amavisd_wblist` (file
 
 For technical details about greylisting, please visit <http://greylisting.org/>
 
-### How to disable greylisting completely
+#### How to disable greylisting completely
 
 To disable greylisting completely, please remove plugin name `greylisting`
 in iRedAPD config file `/opt/iredapd/settings.py`, parameter `plugins =`:
@@ -204,7 +206,7 @@ plugins = [..., 'greylisting', ...]
 
 Restarting iRedAPD service is required.
 
-### General settings
+#### General settings
 
 There're several settings for greylisting behaviour, default values are defined
 in `/opt/iredapd/libs/default_settings.py`. If you want to modify them, please
@@ -222,7 +224,7 @@ add the settings with custom values in `/opt/iredapd/settings.py`.
   if client didn't pass the greylisting, and no further deliver attempts.
   Defaults to `2` days.
 
-### Manage greylisting settings
+#### Manage greylisting settings
 
 > * Script `tools/greylisting_admin.py` is available in iRedAPD-1.8.0 and
 >   later releases.
@@ -231,7 +233,7 @@ Greylisting is controlled by plugin `greylisting` (file
 `/opt/iredapd/plugins/greylisting.py`), you can manage it with script
 `/opt/iredapd/tools/greylisting_admin.py`.
 
-#### Available arguments
+##### Available arguments
 
 ```
     --list-whitelist-domains
@@ -275,7 +277,7 @@ Greylisting is controlled by plugin `greylisting` (file
         Delete specified greylisting setting.
 ```
 
-#### Sample usages
+##### Sample usages
 
 * List all existing greylisting settings:
 
@@ -337,7 +339,7 @@ python greylisting_admin.py --disable --from '@gmail.com' --to 'user@example.com
 python greylisting_admin.py --delete --to '@test.com'
 ```
 
-#### RECOMMENDED: Additional greylisting whitelist support
+##### RECOMMENDED: Additional greylisting whitelist support
 
 Seems many companies setup their mail servers to re-deliver returned email
 immediately from another server, this causes trouble with greylisting.
