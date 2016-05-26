@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Promote a mail user to be global admin</title>
+        <link rel="stylesheet" type="text/css" href="./css/markdown.css" />
+    </head>
+    <body>
+    
+    <div id="navigation">
+    <a href="/index.html" target="_blank">
+        <img alt="iRedMail web site"
+             src="./images/logo-iredmail.png"
+             style="vertical-align: middle; height: 30px;"
+             />&nbsp;
+        <span>iRedMail</span>
+    </a>
+    &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><h1 id="promote-a-mail-user-to-be-global-admin">Promote a mail user to be global admin</h1>
+<div class="toc">
+<ul>
+<li><a href="#promote-a-mail-user-to-be-global-admin">Promote a mail user to be global admin</a><ul>
+<li><a href="#summary">Summary</a></li>
+<li><a href="#promote-user-to-be-global-admin">Promote user to be global admin</a><ul>
+<li><a href="#sql-backends">SQL backends</a></li>
+<li><a href="#ldap-backends">LDAP backends</a></li>
+</ul>
+</li>
+<li><a href="#see-also">See also</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<h2 id="summary">Summary</h2>
+<p>If you forgot password of existing global admin account, or mistakenly removed
+global admin, you can promote an existing mail user to be a global admin by
+following this tutorial.</p>
+<h2 id="promote-user-to-be-global-admin">Promote user to be global admin</h2>
+<h3 id="sql-backends">SQL backends</h3>
+<p>Let's say you want to promote existing mail user <code>john@example.com</code> to be
+<strong>global admin</strong>, here's SQL commands to achieve this goal (note: we use MySQL
+for example):</p>
+<pre><code>sql&gt; USE vmail;
+sql&gt; UPDATE mailbox SET isadmin=1, isglobaladmin=1 WHERE username='john@example.com';
+sql&gt; INSERT INTO domain_admins (username, domain) VALUES ('john@example.com', 'ALL');
+</code></pre>
+
+<p>That's it, you can now login to iRedAdmin as <code>john@example.com</code> (with <code>john@example.com</code>'s password).</p>
+<p>To promote user <code>smith@test.com</code> to be admin of domain <code>test.com</code>:</p>
+<pre><code>sql&gt; USE vmail;
+sql&gt; UPDATE mailbox SET isadmin=1, isglobaladmin=0 WHERE username='smith@test.com';
+sql&gt; INSERT INTO domain_admins (username, domain) VALUES ('smith@test.com', 'test.com');
+</code></pre>
+
+<h3 id="ldap-backends">LDAP backends</h3>
+<p>To promote existing mail user <code>john@example.com</code> to be <strong>global admin</strong>:</p>
+<ul>
+<li>Update LDAP object of mail user <code>john@example.com</code> (its full dn is:
+  <code>mail=john@example.com,ou=Users,domainName=example.com,o=domains,dc=xx,dc=xx</code>),
+  add LDAP attribute <code>enabledService=domainadmin</code> and <code>domainGlobalAdmin=yes</code>.</li>
+</ul>
+<p>To promote existing mail user <code>smith@test.com</code> to be admin of domain <code>test.com</code>:</p>
+<ol>
+<li>
+<p>Update LDAP object of mail user <code>smith@test.com</code> (its full dn is:
+   <code>mail=smith@test.com,ou=Users,domainName=test.com,o=domains,dc=xx,dc=xx</code>),
+   add LDAP attribute/value pair: <code>enabledService=domainadmin</code>.</p>
+</li>
+<li>
+<p>Update LDAP object of mail domain <code>test.com</code> (its full dn is:
+   <code>domainName=test.com,o=domains,dc=xx,dc=xx</code>), add LDAP attribute/value pair:
+   <code>domainAdmin=smith@test.com</code>.</p>
+</li>
+</ol>
+<h2 id="see-also">See also</h2>
+<ul>
+<li><a href="./reset.user.password.html">Reset user password</a></li>
+<li><a href="./password.hashes.html">Password hashes used/supported by iRedMail</a></li>
+</ul><div class="footer">
+    <p style="text-align: center; color: grey;">All documents are available in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://bitbucket.org/zhb/iredmail-docs/get/tip.tar.bz2">download the latest version</a> for offline reading. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
+</div>
+<script type="text/javascript">
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-3293801-21', 'auto');
+  ga('send', 'pageview');
+</script>
+</body></html>

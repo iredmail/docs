@@ -52,3 +52,4 @@ sql> UPDATE mailbox SET password='{PLAIN}123456' WHERE username='user@domain.ltd
 ## See also
 
 * [Password hashes used/supported by iRedMail](./password.hashes.html)
+* [Promote a mail user to be global admin](./promote.user.to.global.admin.html)
