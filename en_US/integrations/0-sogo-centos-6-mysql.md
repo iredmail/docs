@@ -22,7 +22,8 @@ epel              Extra Packages for Enterprise Linux 6 - x86_64          11,109
 ```
 [SOGo]
 name=Inverse SOGo Repository
-baseurl=http://inverse.ca/downloads/SOGo/RHEL6/$basearch
+baseurl=http://inverse.ca/rhel-v3/$releasever/$basearch
+enabled=1
 gpgcheck=0
 ```
 
@@ -50,24 +51,23 @@ Execute command to update alias db:
 ## Create required SQL database
 
 SOGo will store some data (e.g. user preferences, sieve rules) in SQL database,
-so we need to create a database for it.
+so we need to create a database for it. Please login to SQL server as `root`
+user, then execute SQL commands below:
 
 ```
-$ mysql -u root -p
+CREATE DATABASE sogo CHARSET='UTF8';
+GRANT ALL ON sogo.* TO sogo@localhost IDENTIFIED BY 'password';
 
-mysql> CREATE DATABASE sogo CHARSET='UTF8';
-mysql> GRANT ALL ON sogo.* TO sogo@localhost IDENTIFIED BY 'password';
+GRANT SELECT ON vmail.mailbox TO sogo@localhost;
 
-mysql> GRANT SELECT ON vmail.mailbox TO sogo@localhost;
-
-mysql> CREATE VIEW sogo.users (c_uid, c_name, c_password, c_cn, mail, domain) AS SELECT username, username, password, name, username, domain FROM vmail.mailbox WHERE enablesogo=1 AND active=1;
+CREATE VIEW sogo.users (c_uid, c_name, c_password, c_cn, mail, domain) AS SELECT username, username, password, name, username, domain FROM vmail.mailbox WHERE enablesogo=1 AND active=1;
 ```
 
 !!! note
 
     * SOGo will create required SQL tables automatically, we don't need to
       import a SQL template file or create them manually.
-    * SQL column `mailbox.enablesogo` is available in iRedMail-0.9.5, if you
+    * SQL column `mailbox.enablesogo` is available since iRedMail-0.9.5, if you
       don't have it, it's safe to remove this SQL condition (`enablesogo=1`).
 
 ## Configure SOGo
@@ -77,7 +77,7 @@ for you, just replace MySQL username/password in this file, then it's done.
 
 With below config file, SOGo will listen on address `127.0.0.1`, port `20000`.
 
-!!! note
+!!! warning
 
     Sample config file below may be out of date, please check the [latest one
     in iRedMail source code repository](https://bitbucket.org/zhb/iredmail/src/default/iRedMail/samples/sogo/sogo.conf).
@@ -216,25 +216,48 @@ web server.
 ### Apache web server
 
 * SOGo installs Apache config file `/etc/httpd/conf.d/SOGo.conf` by default,
-please open it and find below lines:
+  please open it, comment out 2 `ProxyPass` directives as shown below:
 
 ```
-#ProxyPass /Microsoft-Server-ActiveSync \
-# http://127.0.0.1:20000/SOGo/Microsoft-Server-ActiveSync \
-# retry=60 connectiontimeout=5 timeout=360
+#ProxyPass /Microsoft-Server-ActiveSync ...
+#ProxyPass /SOGo http://127.0.0.1:20000/SOGo retry=0
 ```
 
-Remove `#` at the beginning to enable ActiveSync support:
-
+* Add 2 `ProxyPass` directives in `/etc/httpd/conf.d/ssl.conf`, so that SOGo
+  is only accessible via https.
 ```
 ProxyPass /Microsoft-Server-ActiveSync \
- http://127.0.0.1:20000/SOGo/Microsoft-Server-ActiveSync \
- retry=60 connectiontimeout=5 timeout=360
+    http://127.0.0.1:20000/SOGo/Microsoft-Server-ActiveSync \
+    retry=60 connectiontimeout=5 timeout=360
+
+ProxyPass /SOGo http://127.0.0.1:20000/SOGo retry=0
 ```
 
-* Find string `yourhostname` in the same file, replace all `yourhostname` by
-your FQDN server hostname. (Tip: you can get your FQDN hostname with command
-`hostname -f`.)
+* Open `/etc/httpd/conf.d/SOGo.conf` again, find 3 `RequestHeader` directives
+  like below:
+
+```
+    RequestHeader set "x-webobjects-server-port" ...
+    RequestHeader set "x-webobjects-server-name" ...
+    RequestHeader set "x-webobjects-server-url" ...
+```
+
+Replace them by below settings:
+
+```
+    RequestHeader set "x-webobjects-server-port" "443"
+    RequestHeader set "x-webobjects-server-name" "%{HTTP_HOST}e" env=HTTP_HOST
+    RequestHeader set "x-webobjects-server-url" "https://%{HTTP_HOST}e" env=HTTP_HOST
+```
+
+* Append line below in `/etc/httpd/conf/httpd.conf` to make Apache always
+  redirect http access to https.
+
+```
+RewriteRule /SOGo(.*) https://%{HTTP_HOST}%{REQUEST_URI}
+```
+
+* Restart Apache service.
 
 ### Nginx web server
 
@@ -247,38 +270,46 @@ server {
     listen 443;
     ...
 
-    # Add below lines for SOGo
-    # SOGo
+    #
+    # Add lines below for SOGo
+    #
     location ~ ^/sogo { rewrite ^ https://$host/SOGo; }
     location ~ ^/SOGO { rewrite ^ https://$host/SOGo; }
 
     # For IOS 7
-    location = /principals/ {
-        rewrite ^ https://$server_name/SOGo/dav;
-        allow all;
-    }
+    rewrite ^/.well-known/caldav    /SOGo/dav permanent;
+    rewrite ^/.well-known/carddav   /SOGo/dav permanent;
+    rewrite ^/principals           /SOGo/dav permanent;
 
     location ^~ /SOGo {
         proxy_pass http://127.0.0.1:20000;
-        #proxy_redirect http://127.0.0.1:20000/SOGo/ /SOGo;
+
         # forward user's IP address
         #proxy_set_header X-Real-IP $remote_addr;
         #proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         #proxy_set_header Host $host;
+
+        proxy_set_header x-webobjects-server-port 443;
+        proxy_set_header x-webobjects-server-name $host;
+        proxy_set_header x-webobjects-server-url $scheme://$host;
+
         proxy_set_header x-webobjects-server-protocol HTTP/1.0;
-        #proxy_set_header x-webobjects-remote-host 127.0.0.1;
-        #proxy_set_header x-webobjects-server-name $server_name;
-        #proxy_set_header x-webobjects-server-url $scheme://$host;
     }
 
     location ^~ /Microsoft-Server-ActiveSync {
         proxy_pass http://127.0.0.1:20000/SOGo/Microsoft-Server-ActiveSync;
-        proxy_redirect http://127.0.0.1:20000/Microsoft-Server-ActiveSync /;
+
+        proxy_connect_timeout 360;
+        proxy_send_timeout 360;
+        proxy_read_timeout 360;
     }
 
     location ^~ /SOGo/Microsoft-Server-ActiveSync {
         proxy_pass http://127.0.0.1:20000/SOGo/Microsoft-Server-ActiveSync;
-        proxy_redirect http://127.0.0.1:20000/SOGo/Microsoft-Server-ActiveSync /;
+
+        proxy_connect_timeout 360;
+        proxy_send_timeout 360;
+        proxy_read_timeout 360;
     }
 
     location /SOGo.woa/WebServerResources/ {
@@ -336,16 +367,14 @@ Please add below cron jobs for SOGo daemon user `sogo`. You can add them with
 command: `crontab -l -u sogo`
 
 ```
-# iRedMail: SOGo email reminder, should be run every minute.
-*   *   *   *   *   /usr/sbin/sogo-ealarms-notify
+# 1) SOGo email reminder, should be run every minute.
+# 2) SOGo session cleanup, should be run every minute.
+#    Ajust the [X]Minutes parameter to suit your needs
+#    Example: Sessions without activity since 30 minutes will be dropped:
+*   *   *   *   *   /usr/sbin/sogo-ealarms-notify; /usr/sbin/sogo-tool expire-sessions 30
 
-# iRedMail: SOGo session cleanup, should be run every minute.
-# Ajust the [X]Minutes parameter to suit your needs
-# Example: Sessions without activity since 30 minutes will be dropped:
-*   *   *   *   *   /usr/sbin/sogo-tool expire-sessions 30
-
-# iRedMail: SOGo vacation messages expiration
-# The credentials file should contain the sieve admin credentials (username:passwd)
+# 3) SOGo vacation messages expiration
+#    The credentials file should contain the sieve admin credentials (username:passwd)
 0   0   *   *   *   /usr/sbin/sogo-tool expire-autoreply -p /etc/sogo/sieve.cred
 ```
 
@@ -364,7 +393,6 @@ to configure your mail clients or mobile devices.
 
 * [SOGo web site](http://sogo.nu)
 * Outlook plugins:
-
     * [Outlook CalDav Synchronizer](https://github.com/aluxnimm/outlookcaldavsynchronizer)
 
         > Outlook Plugin, which synchronizes events, tasks and contacts(beta) between Outlook and Google, SOGo, Horde or any other CalDAV or CardDAV server. Supported Outlook versions are 2016, 2013, 2010 and 2007.

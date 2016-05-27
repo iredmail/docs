@@ -57,7 +57,8 @@ epel              Extra Packages for Enterprise Linux 6 - x86_64          11,109
 </ul>
 <pre><code>[SOGo]
 name=Inverse SOGo Repository
-baseurl=http://inverse.ca/downloads/SOGo/RHEL6/$basearch
+baseurl=http://inverse.ca/rhel-v3/$releasever/$basearch
+enabled=1
 gpgcheck=0
 </code></pre>
 
@@ -82,15 +83,14 @@ sogo: root
 
 <h2 id="create-required-sql-database">Create required SQL database</h2>
 <p>SOGo will store some data (e.g. user preferences, sieve rules) in SQL database,
-so we need to create a database for it.</p>
-<pre><code>$ mysql -u root -p
+so we need to create a database for it. Please login to SQL server as <code>root</code>
+user, then execute SQL commands below:</p>
+<pre><code>CREATE DATABASE sogo CHARSET='UTF8';
+GRANT ALL ON sogo.* TO sogo@localhost IDENTIFIED BY 'password';
 
-mysql&gt; CREATE DATABASE sogo CHARSET='UTF8';
-mysql&gt; GRANT ALL ON sogo.* TO sogo@localhost IDENTIFIED BY 'password';
+GRANT SELECT ON vmail.mailbox TO sogo@localhost;
 
-mysql&gt; GRANT SELECT ON vmail.mailbox TO sogo@localhost;
-
-mysql&gt; CREATE VIEW sogo.users (c_uid, c_name, c_password, c_cn, mail, domain) AS SELECT username, username, password, name, username, domain FROM vmail.mailbox WHERE enablesogo=1 AND active=1;
+CREATE VIEW sogo.users (c_uid, c_name, c_password, c_cn, mail, domain) AS SELECT username, username, password, name, username, domain FROM vmail.mailbox WHERE enablesogo=1 AND active=1;
 </code></pre>
 
 <div class="admonition note">
@@ -98,7 +98,7 @@ mysql&gt; CREATE VIEW sogo.users (c_uid, c_name, c_password, c_cn, mail, domain)
 <ul>
 <li>SOGo will create required SQL tables automatically, we don't need to
   import a SQL template file or create them manually.</li>
-<li>SQL column <code>mailbox.enablesogo</code> is available in iRedMail-0.9.5, if you
+<li>SQL column <code>mailbox.enablesogo</code> is available since iRedMail-0.9.5, if you
   don't have it, it's safe to remove this SQL condition (<code>enablesogo=1</code>).</li>
 </ul>
 </div>
@@ -106,8 +106,8 @@ mysql&gt; CREATE VIEW sogo.users (c_uid, c_name, c_password, c_cn, mail, domain)
 <p>Default SOGo config file is <code>/etc/sogo/sogo.conf</code>. We have a sample config file
 for you, just replace MySQL username/password in this file, then it's done.</p>
 <p>With below config file, SOGo will listen on address <code>127.0.0.1</code>, port <code>20000</code>.</p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
 <p>Sample config file below may be out of date, please check the <a href="https://bitbucket.org/zhb/iredmail/src/default/iRedMail/samples/sogo/sogo.conf">latest one
 in iRedMail source code repository</a>.</p>
 </div>
@@ -240,23 +240,47 @@ web server.</p>
 <h3 id="apache-web-server">Apache web server</h3>
 <ul>
 <li>SOGo installs Apache config file <code>/etc/httpd/conf.d/SOGo.conf</code> by default,
-please open it and find below lines:</li>
+  please open it, comment out 2 <code>ProxyPass</code> directives as shown below:</li>
 </ul>
-<pre><code>#ProxyPass /Microsoft-Server-ActiveSync \
-# http://127.0.0.1:20000/SOGo/Microsoft-Server-ActiveSync \
-# retry=60 connectiontimeout=5 timeout=360
-</code></pre>
-
-<p>Remove <code>#</code> at the beginning to enable ActiveSync support:</p>
-<pre><code>ProxyPass /Microsoft-Server-ActiveSync \
- http://127.0.0.1:20000/SOGo/Microsoft-Server-ActiveSync \
- retry=60 connectiontimeout=5 timeout=360
+<pre><code>#ProxyPass /Microsoft-Server-ActiveSync ...
+#ProxyPass /SOGo http://127.0.0.1:20000/SOGo retry=0
 </code></pre>
 
 <ul>
-<li>Find string <code>yourhostname</code> in the same file, replace all <code>yourhostname</code> by
-your FQDN server hostname. (Tip: you can get your FQDN hostname with command
-<code>hostname -f</code>.)</li>
+<li>Add 2 <code>ProxyPass</code> directives in <code>/etc/httpd/conf.d/ssl.conf</code>, so that SOGo
+  is only accessible via https.</li>
+</ul>
+<pre><code>ProxyPass /Microsoft-Server-ActiveSync \
+    http://127.0.0.1:20000/SOGo/Microsoft-Server-ActiveSync \
+    retry=60 connectiontimeout=5 timeout=360
+
+ProxyPass /SOGo http://127.0.0.1:20000/SOGo retry=0
+</code></pre>
+
+<ul>
+<li>Open <code>/etc/httpd/conf.d/SOGo.conf</code> again, find 3 <code>RequestHeader</code> directives
+  like below:</li>
+</ul>
+<pre><code>    RequestHeader set &quot;x-webobjects-server-port&quot; ...
+    RequestHeader set &quot;x-webobjects-server-name&quot; ...
+    RequestHeader set &quot;x-webobjects-server-url&quot; ...
+</code></pre>
+
+<p>Replace them by below settings:</p>
+<pre><code>    RequestHeader set &quot;x-webobjects-server-port&quot; &quot;443&quot;
+    RequestHeader set &quot;x-webobjects-server-name&quot; &quot;%{HTTP_HOST}e&quot; env=HTTP_HOST
+    RequestHeader set &quot;x-webobjects-server-url&quot; &quot;https://%{HTTP_HOST}e&quot; env=HTTP_HOST
+</code></pre>
+
+<ul>
+<li>Append line below in <code>/etc/httpd/conf/httpd.conf</code> to make Apache always
+  redirect http access to https.</li>
+</ul>
+<pre><code>RewriteRule /SOGo(.*) https://%{HTTP_HOST}%{REQUEST_URI}
+</code></pre>
+
+<ul>
+<li>Restart Apache service.</li>
 </ul>
 <h3 id="nginx-web-server">Nginx web server</h3>
 <p>If you're running Nginx web server configured by iRedMail, please open file
@@ -266,38 +290,46 @@ HTTPS:</p>
     listen 443;
     ...
 
-    # Add below lines for SOGo
-    # SOGo
+    #
+    # Add lines below for SOGo
+    #
     location ~ ^/sogo { rewrite ^ https://$host/SOGo; }
     location ~ ^/SOGO { rewrite ^ https://$host/SOGo; }
 
     # For IOS 7
-    location = /principals/ {
-        rewrite ^ https://$server_name/SOGo/dav;
-        allow all;
-    }
+    rewrite ^/.well-known/caldav    /SOGo/dav permanent;
+    rewrite ^/.well-known/carddav   /SOGo/dav permanent;
+    rewrite ^/principals           /SOGo/dav permanent;
 
     location ^~ /SOGo {
         proxy_pass http://127.0.0.1:20000;
-        #proxy_redirect http://127.0.0.1:20000/SOGo/ /SOGo;
+
         # forward user's IP address
         #proxy_set_header X-Real-IP $remote_addr;
         #proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         #proxy_set_header Host $host;
+
+        proxy_set_header x-webobjects-server-port 443;
+        proxy_set_header x-webobjects-server-name $host;
+        proxy_set_header x-webobjects-server-url $scheme://$host;
+
         proxy_set_header x-webobjects-server-protocol HTTP/1.0;
-        #proxy_set_header x-webobjects-remote-host 127.0.0.1;
-        #proxy_set_header x-webobjects-server-name $server_name;
-        #proxy_set_header x-webobjects-server-url $scheme://$host;
     }
 
     location ^~ /Microsoft-Server-ActiveSync {
         proxy_pass http://127.0.0.1:20000/SOGo/Microsoft-Server-ActiveSync;
-        proxy_redirect http://127.0.0.1:20000/Microsoft-Server-ActiveSync /;
+
+        proxy_connect_timeout 360;
+        proxy_send_timeout 360;
+        proxy_read_timeout 360;
     }
 
     location ^~ /SOGo/Microsoft-Server-ActiveSync {
         proxy_pass http://127.0.0.1:20000/SOGo/Microsoft-Server-ActiveSync;
-        proxy_redirect http://127.0.0.1:20000/SOGo/Microsoft-Server-ActiveSync /;
+
+        proxy_connect_timeout 360;
+        proxy_send_timeout 360;
+        proxy_read_timeout 360;
     }
 
     location /SOGo.woa/WebServerResources/ {
@@ -343,16 +375,14 @@ format: <code>username:password</code>. For example:</p>
 <h2 id="add-required-cron-jobs">Add required cron jobs</h2>
 <p>Please add below cron jobs for SOGo daemon user <code>sogo</code>. You can add them with
 command: <code>crontab -l -u sogo</code></p>
-<pre><code># iRedMail: SOGo email reminder, should be run every minute.
-*   *   *   *   *   /usr/sbin/sogo-ealarms-notify
+<pre><code># 1) SOGo email reminder, should be run every minute.
+# 2) SOGo session cleanup, should be run every minute.
+#    Ajust the [X]Minutes parameter to suit your needs
+#    Example: Sessions without activity since 30 minutes will be dropped:
+*   *   *   *   *   /usr/sbin/sogo-ealarms-notify; /usr/sbin/sogo-tool expire-sessions 30
 
-# iRedMail: SOGo session cleanup, should be run every minute.
-# Ajust the [X]Minutes parameter to suit your needs
-# Example: Sessions without activity since 30 minutes will be dropped:
-*   *   *   *   *   /usr/sbin/sogo-tool expire-sessions 30
-
-# iRedMail: SOGo vacation messages expiration
-# The credentials file should contain the sieve admin credentials (username:passwd)
+# 3) SOGo vacation messages expiration
+#    The credentials file should contain the sieve admin credentials (username:passwd)
 0   0   *   *   *   /usr/sbin/sogo-tool expire-autoreply -p /etc/sogo/sieve.cred
 </code></pre>
 
@@ -365,9 +395,7 @@ to configure your mail clients or mobile devices.</p>
 <h2 id="references">References</h2>
 <ul>
 <li><a href="http://sogo.nu">SOGo web site</a></li>
-<li>
-<p>Outlook plugins:</p>
-<ul>
+<li>Outlook plugins:<ul>
 <li>
 <p><a href="https://github.com/aluxnimm/outlookcaldavsynchronizer">Outlook CalDav Synchronizer</a></p>
 <blockquote>
