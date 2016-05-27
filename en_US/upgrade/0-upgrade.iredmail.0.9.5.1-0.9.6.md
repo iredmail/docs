@@ -17,6 +17,7 @@
 
 ## ChangeLog
 
+* May 27, 2016: Fixed: not enable opportunistic TLS support in Postfix.
 * May 24, 2016: initial __DRAFT__.
 
 ## General (All backends should apply these steps)
@@ -51,3 +52,13 @@ latest stable release immediately: [How to upgrade Roundcube](https://github.com
 
 Note: package `rsync` must be installed on your server before upgrading.
 
+### Fixed: not enable opportunistic TLS support in Postfix
+
+iRedMail-0.9.5 and iRedMail-0.9.5-1 didn't enable opportunistic TLS support in
+Postfix, this causes other servers cannot transfer emails via TLS secure
+connection. Please fix it with commands below.
+
+```
+postconf -e smtpd_tls_security_level='may'
+postfix reload
+```

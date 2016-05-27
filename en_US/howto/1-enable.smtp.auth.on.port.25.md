@@ -24,7 +24,6 @@ below to enable it.
 #smtpd_sasl_auth_enable = yes
 #smtpd_tls_auth_only = yes
 #smtpd_sasl_security_options = noanonymous
-#smtpd_tls_security_level = may
 ```
 
 !!! note
@@ -39,7 +38,6 @@ below to enable it.
 smtpd_sasl_auth_enable = yes
 smtpd_tls_auth_only = yes
 smtpd_sasl_security_options = noanonymous
-smtpd_tls_security_level = may
 ```
 
 * Restart or reload Postfix service.

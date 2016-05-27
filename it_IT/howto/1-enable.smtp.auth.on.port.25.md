@@ -17,7 +17,6 @@ Sin dalla versione 0.9.5 di iRedMail, l'autenticazione su porta 25 è disabilita
 #smtpd_sasl_auth_enable = yes
 #smtpd_tls_auth_only = yes
 #smtpd_sasl_security_options = noanonymous
-#smtpd_tls_security_level = may
 ```
 
 * decommentate le ultime 4 righe:
@@ -26,7 +25,6 @@ Sin dalla versione 0.9.5 di iRedMail, l'autenticazione su porta 25 è disabilita
 smtpd_sasl_auth_enable = yes
 smtpd_tls_auth_only = yes
 smtpd_sasl_security_options = noanonymous
-smtpd_tls_security_level = may
 ```
 * Riavvia o ricarica il servizio Postfix
 
