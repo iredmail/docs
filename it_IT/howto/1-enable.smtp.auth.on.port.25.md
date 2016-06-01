@@ -19,6 +19,9 @@ Sin dalla versione 0.9.5 di iRedMail, l'autenticazione su porta 25 è disabilita
 #smtpd_sasl_security_options = noanonymous
 ```
 
+!!! note
+    Con `smtpd_tls_auth_only = yes` si rende necessaria l'abilitazione di STARTTLS per una connessione sicura, Se non la volete per qualsivoglia motivo, commentatelo.
+
 * decommentate le ultime 4 righe:
 
 ```

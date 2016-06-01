@@ -29,6 +29,7 @@
 <li><a href="#enable-restful-api">Enable RESTful API</a></li>
 <li><a href="#sample-code-to-interact-with-iredadmin-pro-restful-api">Sample code to interact with iRedAdmin-Pro RESTful API</a></li>
 <li><a href="#apis">APIs</a><ul>
+<li><a href="#changelog">ChangeLog</a></li>
 <li><a href="#domain">Domain</a></li>
 <li><a href="#user">User</a></li>
 <li><a href="#mailing-list">Mailing List</a></li>
@@ -84,6 +85,10 @@ RESTFUL_API_CLIENTS = ['172.16.244.1', ...]
 <li>replace <code>&lt;mail&gt;</code> in URL by the real email address.</li>
 </ul>
 <p><button type="button" class="toggle_all">Expand/Collapse All API Parameters</button></p>
+<h3 id="changelog">ChangeLog</h3>
+<ul>
+<li>Variable name <code>cn</code> has been renamed to <code>name</code>.</li>
+</ul>
 <h3 class="toggle" id="domain">Domain</h3>
 <!--
 !!! api "`GET`{: .get } `/api/domain/<domain>`{: .url } `Get profile of an existing domain`{: .comment }"
@@ -103,9 +108,9 @@ RESTFUL_API_CLIENTS = ['172.16.244.1', ...]
 </thead>
 <tbody>
 <tr>
-<td><code>cn</code></td>
+<td><code>name</code></td>
 <td>Short description of this domain name. e.g. company name</td>
-<td><code>cn=Google Inc</code></td>
+<td><code>name=Google Inc</code></td>
 </tr>
 <tr>
 <td><code>quota</code></td>
@@ -116,6 +121,11 @@ RESTFUL_API_CLIENTS = ['172.16.244.1', ...]
 <td><code>language</code></td>
 <td>Default preferred language for newly created mail user</td>
 <td><code>language=en_US</code></td>
+</tr>
+<tr>
+<td><code>transport</code></td>
+<td>Transport program</td>
+<td><code>transport=dovecot</code></td>
 </tr>
 <tr>
 <td><code>defaultQuota</code></td>
@@ -142,6 +152,16 @@ RESTFUL_API_CLIENTS = ['172.16.244.1', ...]
 <td>Max number of mailing list accounts (LDAP only)</td>
 <td><code>numberOfLists=40</code></td>
 </tr>
+<tr>
+<td><code>senderBcc</code></td>
+<td>Per-domain sender bcc</td>
+<td><code>senderBcc=user@domain.com</code></td>
+</tr>
+<tr>
+<td><code>recipientBcc</code></td>
+<td>Per-domain recipient bcc</td>
+<td><code>recipientBcc=user@domain.com</code></td>
+</tr>
 </tbody>
 </table>
 </div>
@@ -150,27 +170,74 @@ RESTFUL_API_CLIENTS = ['172.16.244.1', ...]
 <div class="admonition api">
 <p class="admonition-title"><code class="delete">DELETE</code> <code class="url">/api/domain/&lt;domain&gt;</code> <code class="comment">Delete an existing domain</code></p>
 </div>
-<!--
-!!! api "`PUT`{: .put } `/api/domain/<domain>`{: .url } `Update profile of an existing domain`{: .comment } `Parameters`{: .has_params }"
+<div class="admonition api">
+<p class="admonition-title"><code class="put">PUT</code> <code class="url">/api/domain/&lt;domain&gt;</code> <code class="comment">Update profile of an existing domain</code> <code class="upcoming">upcoming</code> <code class="has_params">Parameters</code></p>
+<div class="params params_domain">
 
-    <div class="params params_domain">
+<table>
+<thead>
+<tr>
+<th>Parameter Name</th>
+<th>Summary</th>
+<th>Sample Usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>name</code></td>
+<td>Short description of this domain name. e.g. company name</td>
+<td><code>name=Google Inc</code></td>
+</tr>
+<tr>
+<td><code>accountStatus</code></td>
+<td>Enable or disable domain</td>
+<td><code>accountStatus=active</code> (or <code>disabled</code>)</td>
+</tr>
+<tr>
+<td><code>quota</code></td>
+<td>Mailbox quota for whole domain, in MB.</td>
+<td><code>quota=2048</code></td>
+</tr>
+<tr>
+<td><code>language</code></td>
+<td>Default preferred language for newly created mail user</td>
+<td><code>language=en_US</code></td>
+</tr>
+<tr>
+<td><code>transport</code></td>
+<td>Transport program</td>
+<td><code>transport=dovecot</code></td>
+</tr>
+<tr>
+<td><code>backupmx</code></td>
+<td>Mark domain as Backup MX</td>
+<td><code>backupmx=yes</code></td>
+</tr>
+<tr>
+<td><code>defaultQuota</code></td>
+<td>Default per-user mailbox quota for newly created user</td>
+<td><code>defaultQuota=1024</code></td>
+</tr>
+<tr>
+<td><code>maxUserQuota</code></td>
+<td>Max mailbox quota of a mail user</td>
+<td><code>maxUserQuota=2048</code></td>
+</tr>
+<tr>
+<td><code>numberOfUsers</code></td>
+<td>Max number of mail user accounts</td>
+<td><code>numberOfUsers=20</code></td>
+</tr>
+<tr>
+<td><code>numberOfAliases</code></td>
+<td>Max number of mail alias accounts</td>
+<td><code>numberOfAliases=30</code></td>
+</tr>
+</tbody>
+</table>
+</div>
 
-    Parameter Name | Summary | Sample Usage
-    --- |--- |---
-    `cn` | Short description of this domain name. e.g. company name | `cn=Google Inc`
-    `accountStatus` | Enable or disable domain | `accountStatus=active` (or `disabled`)
-    `quota` | Mailbox quota for whole domain, in MB. | `quota=2048`
-    `transport` | Transport program | `transport=dovecot`
-    `numberOfUsers` | Max number of mail user accounts | `numberOfUsers=20`
-    `numberOfAliases` | Max number of mail alias accounts | `numberOfAliases=30`
-    `backupmx` | Mark domain as Backup MX | `backupmx=yes`
-
-    `defaultQuota` | Default per-user mailbox quota for newly created user | `defaultQuota=1024`
-    `maxUserQuota` | Max mailbox quota of a mail user | `maxUserQuota=2048`
-    `language` | Default preferred language for newly created mail user | `language=en_US`
-    </div>
--->
-
+</div>
 <h3 class="toggle" id="user">User</h3>
 <div class="admonition api">
 <p class="admonition-title"><code class="post">POST</code> <code class="url">/api/user/&lt;mail&gt;</code> <code class="comment">Create a new mail user</code> <code class="has_params">Parameters</code></p>
@@ -186,9 +253,9 @@ RESTFUL_API_CLIENTS = ['172.16.244.1', ...]
 </thead>
 <tbody>
 <tr>
-<td><code>cn</code></td>
+<td><code>name</code></td>
 <td>Display name</td>
-<td><code>cn=My New Name</code></td>
+<td><code>name=My New Name</code></td>
 </tr>
 <tr>
 <td><code>password</code></td>
@@ -227,9 +294,9 @@ RESTFUL_API_CLIENTS = ['172.16.244.1', ...]
 </thead>
 <tbody>
 <tr>
-<td><code>cn</code></td>
+<td><code>name</code></td>
 <td>Display name</td>
-<td><code>cn=My New Name</code></td>
+<td><code>name=My New Name</code></td>
 </tr>
 <tr>
 <td><code>password</code></td>
@@ -320,9 +387,9 @@ please use mail alias account as mailing list.</p>
 </thead>
 <tbody>
 <tr>
-<td><code>cn</code></td>
+<td><code>name</code></td>
 <td>display name</td>
-<td><code>cn=My List Name</code></td>
+<td><code>name=My List Name</code></td>
 </tr>
 <tr>
 <td><code>accessPolicy</code></td>
@@ -349,16 +416,17 @@ please use mail alias account as mailing list.</p>
 </thead>
 <tbody>
 <tr>
-<td><code>cn</code></td>
+<td><code>name</code></td>
 <td>display name</td>
-<td><code>cn=My List Name</code></td>
+<td><code>name=My List Name</code></td>
+</tr>
+<tr>
+<td><code>accessPolicy</code></td>
+<td>Defines who can send email to this mail alias account</td>
+<td><code>accessPolicy=public</code></td>
 </tr>
 </tbody>
 </table>
-<!--
-<code>accessPolicy</code> | Defines who can send email to this mail alias account | <code>accessPolicy=public</code>
--->
-
 <blockquote>
 <p>Note: <code>accessPolicy</code> for mail alias account is only available for SQL backends.</p>
 </blockquote>
@@ -382,9 +450,9 @@ please use mail alias account as mailing list.</p>
 </thead>
 <tbody>
 <tr>
-<td><code>cn</code></td>
+<td><code>name</code></td>
 <td>display name</td>
-<td><code>cn=My List Name</code></td>
+<td><code>name=My List Name</code></td>
 </tr>
 <tr>
 <td><code>accessPolicy</code></td>

@@ -56,6 +56,10 @@ Notes:
 
 <button type="button" class="toggle_all">Expand/Collapse All API Parameters</button>
 
+### ChangeLog
+
+* Variable name `cn` has been renamed to `name`.
+
 ### Domain {: .toggle }
 
 <!--
@@ -67,39 +71,39 @@ Notes:
 
     Parameter Name | Summary | Sample Usage
     --- |--- |---
-    `cn` | Short description of this domain name. e.g. company name | `cn=Google Inc`
+    `name` | Short description of this domain name. e.g. company name | `name=Google Inc`
     `quota` | Per-domain mailbox quota, in MB. | `quota=2048`
     `language` | Default preferred language for newly created mail user | `language=en_US`
+    `transport` | Transport program | `transport=dovecot`
     `defaultQuota` | Default per-user mailbox quota for newly created user, in MB. | `defaultQuota=1024`
     `maxUserQuota` | Max mailbox quota of a mail user, in MB. | `maxUserQuota=2048`
     `numberOfUsers` | Max number of mail user accounts | `numberOfUsers=20`
     `numberOfAliases` | Max number of mail alias accounts | `numberOfAliases=30`
     `numberOfLists` | Max number of mailing list accounts (LDAP only)| `numberOfLists=40`
+    `senderBcc` | Per-domain sender bcc | `senderBcc=user@domain.com`
+    `recipientBcc` | Per-domain recipient bcc | `recipientBcc=user@domain.com`
 
     </div>
 
 !!! api "`DELETE`{: .delete } `/api/domain/<domain>`{: .url } `Delete an existing domain`{: .comment }"
-
-<!--
-!!! api "`PUT`{: .put } `/api/domain/<domain>`{: .url } `Update profile of an existing domain`{: .comment } `Parameters`{: .has_params }"
+!!! api "`PUT`{: .put } `/api/domain/<domain>`{: .url } `Update profile of an existing domain`{: .comment } `upcoming`{: .upcoming } `Parameters`{: .has_params }"
 
     <div class="params params_domain">
 
     Parameter Name | Summary | Sample Usage
     --- |--- |---
-    `cn` | Short description of this domain name. e.g. company name | `cn=Google Inc`
+    `name` | Short description of this domain name. e.g. company name | `name=Google Inc`
     `accountStatus` | Enable or disable domain | `accountStatus=active` (or `disabled`)
     `quota` | Mailbox quota for whole domain, in MB. | `quota=2048`
+    `language` | Default preferred language for newly created mail user | `language=en_US`
     `transport` | Transport program | `transport=dovecot`
-    `numberOfUsers` | Max number of mail user accounts | `numberOfUsers=20`
-    `numberOfAliases` | Max number of mail alias accounts | `numberOfAliases=30`
     `backupmx` | Mark domain as Backup MX | `backupmx=yes`
-
     `defaultQuota` | Default per-user mailbox quota for newly created user | `defaultQuota=1024`
     `maxUserQuota` | Max mailbox quota of a mail user | `maxUserQuota=2048`
-    `language` | Default preferred language for newly created mail user | `language=en_US`
+    `numberOfUsers` | Max number of mail user accounts | `numberOfUsers=20`
+    `numberOfAliases` | Max number of mail alias accounts | `numberOfAliases=30`
+
     </div>
--->
 
 ### User {: .toggle }
 
@@ -109,7 +113,7 @@ Notes:
 
     Parameter Name | Summary | Sample Usage
     --- |--- |---
-    `cn` | Display name | `cn=My New Name`
+    `name` | Display name | `name=My New Name`
     `password` | Password| `password=AsTr0ng@`
     `language` | Preferred language of web UI | `language=en_US`
     `quota` | Mailbox quota (in MB) | `quota=1024`
@@ -123,7 +127,7 @@ Notes:
 
     Parameter Name | Summary | Sample Usage
     --- |--- |---
-    `cn` | Display name | `cn=My New Name`
+    `name` | Display name | `name=My New Name`
     `password` | Password | `password=u0tBF82cIV@vi8Gme`
     `quota` | Mailbox quota (in MB) | `quota=1024`
     `accountStatus` | Enable or disable user | `accountStatus=active` (or `disabled`)
@@ -160,7 +164,7 @@ Notes:
 
     Parameter Name | Summary | Sample Usage
     --- |--- |---
-    `cn` | display name | `cn=My List Name`
+    `name` | display name | `name=My List Name`
     `accessPolicy` | Defines who can send email to this mailing list | `accessPolicy=public`
 
     </div>
@@ -173,11 +177,8 @@ Notes:
 
     Parameter Name | Summary | Sample Usage
     --- |--- |---
-    `cn` | display name | `cn=My List Name`
-
-    <!--
+    `name` | display name | `name=My List Name`
     `accessPolicy` | Defines who can send email to this mail alias account | `accessPolicy=public`
-    -->
 
     > Note: `accessPolicy` for mail alias account is only available for SQL backends.
 
@@ -190,7 +191,7 @@ Notes:
 
     Parameter Name | Summary | Sample Usage
     --- |--- |---
-    `cn` | display name | `cn=My List Name`
+    `name` | display name | `name=My List Name`
     `accessPolicy` | Defines who can send email to this mail alias account | `accessPolicy=public`
 
     > Note: `accessPolicy` for mail alias account is only available for SQL backends.

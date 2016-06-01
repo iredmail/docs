@@ -14,6 +14,7 @@
 ## TODO
 
 * Separated SOGo address book for LDAP backend.
+* Set correct file owner for config file of Roundcube password plugin (0600, apache/nginx).
 
 ## ChangeLog
 
