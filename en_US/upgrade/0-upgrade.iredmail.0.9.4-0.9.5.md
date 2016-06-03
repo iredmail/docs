@@ -423,7 +423,7 @@ iRedMail server:
 
 ```
 cd /tmp
-wget https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/samples/iredmail.schema
+wget https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/samples/iredmail/iredmail.schema
 
 cd /etc/openldap/schema/
 cp iredmail.schema iredmail.schema.bak
@@ -435,7 +435,7 @@ service slapd restart
 * On Debian/Ubuntu:
 ```
 cd /tmp
-wget https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/samples/iredmail.schema
+wget https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/samples/iredmail/iredmail.schema
 
 cd /etc/ldap/schema/
 cp iredmail.schema iredmail.schema.bak
@@ -448,7 +448,7 @@ service slapd restart
 
 ```
 cd /tmp
-wget https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/samples/iredmail.schema
+wget https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/samples/iredmail/iredmail.schema
 
 cd /usr/local/etc/ldap/schema/
 cp iredmail.schema iredmail.schema.bak
@@ -461,7 +461,7 @@ service slapd restart
 
 ```
 cd /tmp
-ftp https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/samples/iredmail.schema
+ftp https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/samples/iredmail/iredmail.schema
 
 cd /etc/openldap/schema/
 cp iredmail.schema iredmail.schema.bak
