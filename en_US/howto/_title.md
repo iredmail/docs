@@ -1,1 +1,1 @@
-How to
+How to {: #howto }

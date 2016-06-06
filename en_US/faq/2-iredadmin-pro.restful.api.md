@@ -7,12 +7,18 @@
 
 [TOC]
 
+### ChangeLog
+
+* Variable name `cn` has been renamed to `name`.
+* Variable names in returned JSON data has been changed to:
+  `{'_success': ..., '_msg': ...}` (was `{'success': ..., 'msg': ...}`).
+
 ## Summary
 
 iRedAdmin-Pro RESTful API will return message in JSON format.
 
-* If operation succeed, iRedAdmin-Pro returns JSON data: `{'success': true}`.
-* If operation failed, iRedAdmin-Pro returns JSON data: `{'success': false, 'msg': '<error_reason>'}`.
+* If operation succeed, iRedAdmin-Pro returns JSON data: `{'_success': true}`.
+* If operation failed, iRedAdmin-Pro returns JSON data: `{'_success': false, '_msg': '<error_reason>'}`.
 
 ## Requirements
 
@@ -56,10 +62,6 @@ Notes:
 
 <button type="button" class="toggle_all">Expand/Collapse All API Parameters</button>
 
-### ChangeLog
-
-* Variable name `cn` has been renamed to `name`.
-
 ### Domain {: .toggle }
 
 <!--
@@ -97,11 +99,14 @@ Notes:
     `quota` | Mailbox quota for whole domain, in MB. | `quota=2048`
     `language` | Default preferred language for newly created mail user | `language=en_US`
     `transport` | Transport program | `transport=dovecot`
-    `backupmx` | Mark domain as Backup MX | `backupmx=yes`
     `defaultQuota` | Default per-user mailbox quota for newly created user | `defaultQuota=1024`
     `maxUserQuota` | Max mailbox quota of a mail user | `maxUserQuota=2048`
     `numberOfUsers` | Max number of mail user accounts | `numberOfUsers=20`
     `numberOfAliases` | Max number of mail alias accounts | `numberOfAliases=30`
+    `senderBcc` | Per-domain sender bcc address | `senderBcc=user@domain.com`
+    `recipientBcc` | Per-domain recipient bcc address | `recipientBcc=user@domain.com`
+    `backupmx` | Mark domain as Backup MX. Must be used with parameter `primarymx`. Conflicts with `transport`. | `backupmx=yes` (or `no`)
+    `primarymx` | IP address of primary MX. Must be used with parameter `backupmx`. Conflicts with `transport`. | `primarymx=202.96.134.133`
 
     </div>
 

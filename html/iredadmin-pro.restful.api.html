@@ -24,12 +24,12 @@
 <div class="toc">
 <ul>
 <li><a href="#iredadmin-pro-restful-api">iRedAdmin-Pro: RESTful API</a><ul>
+<li><a href="#changelog">ChangeLog</a></li>
 <li><a href="#summary">Summary</a></li>
 <li><a href="#requirements">Requirements</a></li>
 <li><a href="#enable-restful-api">Enable RESTful API</a></li>
 <li><a href="#sample-code-to-interact-with-iredadmin-pro-restful-api">Sample code to interact with iRedAdmin-Pro RESTful API</a></li>
 <li><a href="#apis">APIs</a><ul>
-<li><a href="#changelog">ChangeLog</a></li>
 <li><a href="#domain">Domain</a></li>
 <li><a href="#user">User</a></li>
 <li><a href="#mailing-list">Mailing List</a></li>
@@ -45,11 +45,17 @@
 </li>
 </ul>
 </div>
+<h3 id="changelog">ChangeLog</h3>
+<ul>
+<li>Variable name <code>cn</code> has been renamed to <code>name</code>.</li>
+<li>Variable names in returned JSON data has been changed to:
+  <code>{'_success': ..., '_msg': ...}</code> (was <code>{'success': ..., 'msg': ...}</code>).</li>
+</ul>
 <h2 id="summary">Summary</h2>
 <p>iRedAdmin-Pro RESTful API will return message in JSON format.</p>
 <ul>
-<li>If operation succeed, iRedAdmin-Pro returns JSON data: <code>{'success': true}</code>.</li>
-<li>If operation failed, iRedAdmin-Pro returns JSON data: <code>{'success': false, 'msg': '&lt;error_reason&gt;'}</code>.</li>
+<li>If operation succeed, iRedAdmin-Pro returns JSON data: <code>{'_success': true}</code>.</li>
+<li>If operation failed, iRedAdmin-Pro returns JSON data: <code>{'_success': false, '_msg': '&lt;error_reason&gt;'}</code>.</li>
 </ul>
 <h2 id="requirements">Requirements</h2>
 <ul>
@@ -85,10 +91,6 @@ RESTFUL_API_CLIENTS = ['172.16.244.1', ...]
 <li>replace <code>&lt;mail&gt;</code> in URL by the real email address.</li>
 </ul>
 <p><button type="button" class="toggle_all">Expand/Collapse All API Parameters</button></p>
-<h3 id="changelog">ChangeLog</h3>
-<ul>
-<li>Variable name <code>cn</code> has been renamed to <code>name</code>.</li>
-</ul>
 <h3 class="toggle" id="domain">Domain</h3>
 <!--
 !!! api "`GET`{: .get } `/api/domain/<domain>`{: .url } `Get profile of an existing domain`{: .comment }"
@@ -209,11 +211,6 @@ RESTFUL_API_CLIENTS = ['172.16.244.1', ...]
 <td><code>transport=dovecot</code></td>
 </tr>
 <tr>
-<td><code>backupmx</code></td>
-<td>Mark domain as Backup MX</td>
-<td><code>backupmx=yes</code></td>
-</tr>
-<tr>
 <td><code>defaultQuota</code></td>
 <td>Default per-user mailbox quota for newly created user</td>
 <td><code>defaultQuota=1024</code></td>
@@ -232,6 +229,26 @@ RESTFUL_API_CLIENTS = ['172.16.244.1', ...]
 <td><code>numberOfAliases</code></td>
 <td>Max number of mail alias accounts</td>
 <td><code>numberOfAliases=30</code></td>
+</tr>
+<tr>
+<td><code>senderBcc</code></td>
+<td>Per-domain sender bcc address</td>
+<td><code>senderBcc=user@domain.com</code></td>
+</tr>
+<tr>
+<td><code>recipientBcc</code></td>
+<td>Per-domain recipient bcc address</td>
+<td><code>recipientBcc=user@domain.com</code></td>
+</tr>
+<tr>
+<td><code>backupmx</code></td>
+<td>Mark domain as Backup MX. Must be used with parameter <code>primarymx</code>. Conflicts with <code>transport</code>.</td>
+<td><code>backupmx=yes</code> (or <code>no</code>)</td>
+</tr>
+<tr>
+<td><code>primarymx</code></td>
+<td>IP address of primary MX. Must be used with parameter <code>backupmx</code>. Conflicts with <code>transport</code>.</td>
+<td><code>primarymx=202.96.134.133</code></td>
 </tr>
 </tbody>
 </table>
