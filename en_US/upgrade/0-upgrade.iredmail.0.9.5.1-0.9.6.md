@@ -2,24 +2,25 @@
 
 [TOC]
 
+!!! warning
+
+    This tutorial is still a __DRAFT__, do not apply it.
+
 !!! note "Paid Remote Upgrade Support"
 
     We offer remote upgrade support if you don't want to get your hands dirty,
     check [the details](../support.html) and [contact us](../contact.html).
 
-!!! warning
-
-    This tutorial is still a __DRAFT__, do not apply it.
-
 ## TODO
 
 * Separated SOGo address book for LDAP backend.
-* Set correct file owner for config file of Roundcube password plugin (0600, apache/nginx).
 
 ## ChangeLog
 
+* Jun  8, 2016: Set correct file owner for config file of Roundcube password plugin.
+* Jun  8, 2016: Fixed: one incorrect HELO restriction rule in Postfix
 * May 27, 2016: Fixed: not enable opportunistic TLS support in Postfix.
-* May 24, 2016: initial __DRAFT__.
+* May 24, 2016: Initial __DRAFT__.
 
 ## General (All backends should apply these steps)
 
@@ -62,4 +63,61 @@ connection. Please fix it with commands below.
 ```
 postconf -e smtpd_tls_security_level='may'
 postfix reload
+```
+
+### Fixed: one incorrect HELO restriction rule in Postfix
+
+There's one incorrect HELO restriction rule file `helo_access.pcre`
+
+* on Linux/OpenBSD, it's `/etc/postfix/helo_access.pcre`
+* on FreeBSD, it's `/usr/local/etc/postfix/helo_access.pcre`
+
+It will match HELO identity like `[192.168.1.1]` which is legal.
+```
+/(\d{1,3}[\.-]\d{1,3}[\.-]\d{1,3}[\.-]\d{1,3})/ REJECT ACCESS DENIED. Your email was rejected because the sending mail server appears to be on a dynamic IP address that should not be doing direct mail delivery (${1})
+```
+
+Please replace it by the correct one below (it matches the IP address with
+`/^IP$/` strictly):
+```
+/^(\d{1,3}[\.-]\d{1,3}[\.-]\d{1,3}[\.-]\d{1,3})$/ REJECT ACCESS DENIED. Your email was rejected because the sending mail server appears to be on a dynamic IP address that should not be doing direct mail delivery (${1})
+```
+
+### Fixed: incorrect file owner and permission of config file of Roundcube password plugin
+
+iRedMail-0.9.5-1 and earlier versions didn't correct set file owner and
+permission of config file of Roundcube password plugin, other system users may
+be able to see the SQL/LDAP username and password in the config file. Please
+follow steps below to fix it.
+
+* On RHEL/CentOS:
+
+<h5>For Apache server:</h5>
+```
+chown apache:apache /var/www/roundcubemail/plugins/password/config.inc.php
+chmod 0400 /var/www/roundcubemail/plugins/password/config.inc.php
+```
+<h5>For Nginx:</h5>
+```
+chown nginx:nginx /var/www/roundcubemail/plugins/password/config.inc.php
+chmod 0400 /var/www/roundcubemail/plugins/password/config.inc.php
+```
+
+* On Debian/Ubuntu (Note: with old iRedMail release, Roundcube directory is
+  `/usr/share/apache2/roundcubemail`):
+```
+chown www-data:www-data /opt/www/roundcubemail/plugins/password/config.inc.php
+chmod 0400 /opt/www/roundcubemail/plugins/password/config.inc.php
+```
+
+* On FreeBSD:
+```
+chown www:www /usr/local/www/roundcubemail/plugins/password/config.inc.php
+chmod 0400 /usr/local/www/roundcubemail/plugins/password/config.inc.php
+```
+
+* On FreeBSD:
+```
+chown www:www /var/www/roundcubemail/plugins/password/config.inc.php
+chmod 0400 /var/www/roundcubemail/plugins/password/config.inc.php
 ```

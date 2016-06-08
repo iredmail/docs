@@ -27,30 +27,33 @@
 <li><a href="#upgrade-iredadmin-open-source-edition-to-the-latest-stable-release-072">Upgrade iRedAdmin (open source edition) to the latest stable release (0.7.2)</a></li>
 <li><a href="#upgrade-roundcube-webmail-to-the-latest-stable-release-120">Upgrade Roundcube webmail to the latest stable release (1.2.0)</a></li>
 <li><a href="#fixed-not-enable-opportunistic-tls-support-in-postfix">Fixed: not enable opportunistic TLS support in Postfix</a></li>
+<li><a href="#fixed-one-incorrect-helo-restriction-rule-in-postfix">Fixed: one incorrect HELO restriction rule in Postfix</a></li>
+<li><a href="#fixed-incorrect-file-owner-and-permission-of-config-file-of-roundcube-password-plugin">Fixed: incorrect file owner and permission of config file of Roundcube password plugin</a></li>
 </ul>
 </li>
 </ul>
 </li>
 </ul>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This tutorial is still a <strong>DRAFT</strong>, do not apply it.</p>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Paid Remote Upgrade Support</p>
 <p>We offer remote upgrade support if you don't want to get your hands dirty,
 check <a href="../support.html">the details</a> and <a href="../contact.html">contact us</a>.</p>
 </div>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>This tutorial is still a <strong>DRAFT</strong>, do not apply it.</p>
-</div>
 <h2 id="todo">TODO</h2>
 <ul>
 <li>Separated SOGo address book for LDAP backend.</li>
-<li>Set correct file owner for config file of Roundcube password plugin (0600, apache/nginx).</li>
 </ul>
 <h2 id="changelog">ChangeLog</h2>
 <ul>
+<li>Jun  8, 2016: Set correct file owner for config file of Roundcube password plugin.</li>
+<li>Jun  8, 2016: Fixed: one incorrect HELO restriction rule in Postfix</li>
 <li>May 27, 2016: Fixed: not enable opportunistic TLS support in Postfix.</li>
-<li>May 24, 2016: initial <strong>DRAFT</strong>.</li>
+<li>May 24, 2016: Initial <strong>DRAFT</strong>.</li>
 </ul>
 <h2 id="general-all-backends-should-apply-these-steps">General (All backends should apply these steps)</h2>
 <h3 id="update-etciredmail-release-with-new-iredmail-version-number">Update <code>/etc/iredmail-release</code> with new iRedMail version number</h3>
@@ -78,6 +81,63 @@ Postfix, this causes other servers cannot transfer emails via TLS secure
 connection. Please fix it with commands below.</p>
 <pre><code>postconf -e smtpd_tls_security_level='may'
 postfix reload
+</code></pre>
+
+<h3 id="fixed-one-incorrect-helo-restriction-rule-in-postfix">Fixed: one incorrect HELO restriction rule in Postfix</h3>
+<p>There's one incorrect HELO restriction rule file <code>helo_access.pcre</code></p>
+<ul>
+<li>on Linux/OpenBSD, it's <code>/etc/postfix/helo_access.pcre</code></li>
+<li>on FreeBSD, it's <code>/usr/local/etc/postfix/helo_access.pcre</code></li>
+</ul>
+<p>It will match HELO identity like <code>[192.168.1.1]</code> which is legal.</p>
+<pre><code>/(\d{1,3}[\.-]\d{1,3}[\.-]\d{1,3}[\.-]\d{1,3})/ REJECT ACCESS DENIED. Your email was rejected because the sending mail server appears to be on a dynamic IP address that should not be doing direct mail delivery (${1})
+</code></pre>
+
+<p>Please replace it by the correct one below (it matches the IP address with
+<code>/^IP$/</code> strictly):</p>
+<pre><code>/^(\d{1,3}[\.-]\d{1,3}[\.-]\d{1,3}[\.-]\d{1,3})$/ REJECT ACCESS DENIED. Your email was rejected because the sending mail server appears to be on a dynamic IP address that should not be doing direct mail delivery (${1})
+</code></pre>
+
+<h3 id="fixed-incorrect-file-owner-and-permission-of-config-file-of-roundcube-password-plugin">Fixed: incorrect file owner and permission of config file of Roundcube password plugin</h3>
+<p>iRedMail-0.9.5-1 and earlier versions didn't correct set file owner and
+permission of config file of Roundcube password plugin, other system users may
+be able to see the SQL/LDAP username and password in the config file. Please
+follow steps below to fix it.</p>
+<ul>
+<li>On RHEL/CentOS:</li>
+</ul>
+<h5>For Apache server:</h5>
+
+<pre><code>chown apache:apache /var/www/roundcubemail/plugins/password/config.inc.php
+chmod 0400 /var/www/roundcubemail/plugins/password/config.inc.php
+</code></pre>
+
+<h5>For Nginx:</h5>
+
+<pre><code>chown nginx:nginx /var/www/roundcubemail/plugins/password/config.inc.php
+chmod 0400 /var/www/roundcubemail/plugins/password/config.inc.php
+</code></pre>
+
+<ul>
+<li>On Debian/Ubuntu (Note: with old iRedMail release, Roundcube directory is
+  <code>/usr/share/apache2/roundcubemail</code>):</li>
+</ul>
+<pre><code>chown www-data:www-data /opt/www/roundcubemail/plugins/password/config.inc.php
+chmod 0400 /opt/www/roundcubemail/plugins/password/config.inc.php
+</code></pre>
+
+<ul>
+<li>On FreeBSD:</li>
+</ul>
+<pre><code>chown www:www /usr/local/www/roundcubemail/plugins/password/config.inc.php
+chmod 0400 /usr/local/www/roundcubemail/plugins/password/config.inc.php
+</code></pre>
+
+<ul>
+<li>On FreeBSD:</li>
+</ul>
+<pre><code>chown www:www /var/www/roundcubemail/plugins/password/config.inc.php
+chmod 0400 /var/www/roundcubemail/plugins/password/config.inc.php
 </code></pre><div class="footer">
     <p style="text-align: center; color: grey;">All documents are available in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://bitbucket.org/zhb/iredmail-docs/get/tip.tar.bz2">download the latest version</a> for offline reading. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
 </div>
