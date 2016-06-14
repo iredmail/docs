@@ -29,6 +29,7 @@
 <li><a href="#fixed-not-enable-opportunistic-tls-support-in-postfix">Fixed: not enable opportunistic TLS support in Postfix</a></li>
 <li><a href="#fixed-one-incorrect-helo-restriction-rule-in-postfix">Fixed: one incorrect HELO restriction rule in Postfix</a></li>
 <li><a href="#fixed-incorrect-file-owner-and-permission-of-config-file-of-roundcube-password-plugin">Fixed: incorrect file owner and permission of config file of Roundcube password plugin</a></li>
+<li><a href="#fixed-nginx-doesnt-forward-real-client-ip-address-to-sogo">Fixed: Nginx doesn't forward real client IP address to SOGo</a></li>
 </ul>
 </li>
 </ul>
@@ -50,8 +51,9 @@ check <a href="../support.html">the details</a> and <a href="../contact.html">co
 </ul>
 <h2 id="changelog">ChangeLog</h2>
 <ul>
+<li>Jun 10, 2016: Fixed: Nginx doesn't forward real client IP address to SOGo.</li>
 <li>Jun  8, 2016: Set correct file owner for config file of Roundcube password plugin.</li>
-<li>Jun  8, 2016: Fixed: one incorrect HELO restriction rule in Postfix</li>
+<li>Jun  8, 2016: Fixed: one incorrect HELO restriction rule in Postfix.</li>
 <li>May 27, 2016: Fixed: not enable opportunistic TLS support in Postfix.</li>
 <li>May 24, 2016: Initial <strong>DRAFT</strong>.</li>
 </ul>
@@ -138,7 +140,34 @@ chmod 0400 /usr/local/www/roundcubemail/plugins/password/config.inc.php
 </ul>
 <pre><code>chown www:www /var/www/roundcubemail/plugins/password/config.inc.php
 chmod 0400 /var/www/roundcubemail/plugins/password/config.inc.php
-</code></pre><div class="footer">
+</code></pre>
+
+<h3 id="fixed-nginx-doesnt-forward-real-client-ip-address-to-sogo">Fixed: Nginx doesn't forward real client IP address to SOGo</h3>
+<p>iRedMail-0.9.5-1 and earlier releases didn't correctly configure Nginx to
+forward real client IP address to SOGo, this causes Fail2ban cannot catch
+bad clients with failed authentication while logging to SOGo. Please try
+steps below to fix it.</p>
+<ul>
+<li>Open file <code>/etc/nginx/templates/sogo.tmpl</code> (on Linux or OpenBSD) or
+  <code>/usr/local/etc/nginx/templates/sogo.tmpl</code> (on FreeBSD), find 3 lines like
+  below:</li>
+</ul>
+<pre><code>    #proxy_set_header X-Real-IP $remote_addr;
+    #proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    #proxy_set_header Host $host;
+</code></pre>
+
+<ul>
+<li>Remove the leading <code>#</code> to uncomment them:</li>
+</ul>
+<pre><code>    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header Host $host;
+</code></pre>
+
+<ul>
+<li>Restart Nginx service.</li>
+</ul><div class="footer">
     <p style="text-align: center; color: grey;">All documents are available in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://bitbucket.org/zhb/iredmail-docs/get/tip.tar.bz2">download the latest version</a> for offline reading. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
 </div>
 <script type="text/javascript">

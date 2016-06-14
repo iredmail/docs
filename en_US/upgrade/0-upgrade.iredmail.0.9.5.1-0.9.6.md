@@ -17,8 +17,9 @@
 
 ## ChangeLog
 
+* Jun 10, 2016: Fixed: Nginx doesn't forward real client IP address to SOGo.
 * Jun  8, 2016: Set correct file owner for config file of Roundcube password plugin.
-* Jun  8, 2016: Fixed: one incorrect HELO restriction rule in Postfix
+* Jun  8, 2016: Fixed: one incorrect HELO restriction rule in Postfix.
 * May 27, 2016: Fixed: not enable opportunistic TLS support in Postfix.
 * May 24, 2016: Initial __DRAFT__.
 
@@ -121,3 +122,30 @@ chmod 0400 /usr/local/www/roundcubemail/plugins/password/config.inc.php
 chown www:www /var/www/roundcubemail/plugins/password/config.inc.php
 chmod 0400 /var/www/roundcubemail/plugins/password/config.inc.php
 ```
+
+### Fixed: Nginx doesn't forward real client IP address to SOGo
+
+iRedMail-0.9.5-1 and earlier releases didn't correctly configure Nginx to
+forward real client IP address to SOGo, this causes Fail2ban cannot catch
+bad clients with failed authentication while logging to SOGo. Please try
+steps below to fix it.
+
+* Open file `/etc/nginx/templates/sogo.tmpl` (on Linux or OpenBSD) or
+  `/usr/local/etc/nginx/templates/sogo.tmpl` (on FreeBSD), find 3 lines like
+  below:
+
+```
+    #proxy_set_header X-Real-IP $remote_addr;
+    #proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    #proxy_set_header Host $host;
+```
+
+* Remove the leading `#` to uncomment them:
+
+```
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header Host $host;
+```
+
+* Restart Nginx service.

@@ -44,7 +44,7 @@ ssl=required
 
 ## Allow insecure SMTP connection
 
-Please comment out below line in Postfix config file `/etc/postfix/main.cf`
+Please comment out lines below in Postfix config file `/etc/postfix/main.cf`
 and reload or restart Postfix service:
 
 ```
