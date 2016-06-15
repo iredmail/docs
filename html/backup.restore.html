@@ -45,6 +45,7 @@ to backup SQL/LDAP databases, you can find them in downloaded iRedMail release,
 or find them in <a href="https://bitbucket.org/zhb/iredmail/src/default/iRedMail/tools/">iRedMail source code repository</a>:</p>
 <ul>
 <li><code>iRedMail-[VERSION]/tools/backup_openldap.sh</code>: used to backup OpenLDAP data.</li>
+<li><code>iRedMail-[VERSION]/tools/backup_ldapd.sh</code>: used to backup OpenBSD ldapd(8).</li>
 <li><code>iRedMail-[VERSION]/tools/backup_mysql.sh</code>: used to backup MySQL/MariaDB databases.</li>
 <li><code>iRedMail-[VERSION]/tools/backup_pgsql.sh</code>: used to backup PostgreSQL databases.</li>
 </ul>
@@ -102,6 +103,15 @@ the same SQL accounts with different passwords, so please do not restore
 SQL credentials.</p>
 </blockquote>
 <h3 id="ldap">LDAP</h3>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<ul>
+<li>If you backup with <code>slapcat</code> command, you must restore the backup with
+  <code>slapadd</code> command.</li>
+<li>If you backup with <code>ldapsearch</code> command or phpLDAPadmin, you must restore
+  the backup with <code>ldapadd</code> command.</li>
+</ul>
+</div>
 <h4 id="how-to-restore-openldap-backup">How to restore OpenLDAP backup</h4>
 <p>Backup script runs command <code>slapcat</code> to dump whole LDAP tree as a backup, it
 must be so restored with command <code>slapadd</code>.</p>

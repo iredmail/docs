@@ -10,6 +10,7 @@ to backup SQL/LDAP databases, you can find them in downloaded iRedMail release,
 or find them in [iRedMail source code repository](https://bitbucket.org/zhb/iredmail/src/default/iRedMail/tools/):
 
 * `iRedMail-[VERSION]/tools/backup_openldap.sh`: used to backup OpenLDAP data.
+* `iRedMail-[VERSION]/tools/backup_ldapd.sh`: used to backup OpenBSD ldapd(8).
 * `iRedMail-[VERSION]/tools/backup_mysql.sh`: used to backup MySQL/MariaDB databases.
 * `iRedMail-[VERSION]/tools/backup_pgsql.sh`: used to backup PostgreSQL databases.
 
@@ -69,6 +70,14 @@ You can simply restore plain SQL files backed up by above backup scripts.
 > SQL credentials.
 
 ### LDAP
+
+!!! attention
+
+    * If you backup with `slapcat` command, you must restore the backup with
+      `slapadd` command.
+    * If you backup with `ldapsearch` command or phpLDAPadmin, you must restore
+      the backup with `ldapadd` command.
+
 #### How to restore OpenLDAP backup
 
 Backup script runs command `slapcat` to dump whole LDAP tree as a backup, it
