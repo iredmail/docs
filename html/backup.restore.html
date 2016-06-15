@@ -93,15 +93,16 @@ defined as cron jobs with below commands:</p>
 <h2 id="restore">Restore</h2>
 <h3 id="how-to-restore-sql-databases">How to restore SQL databases</h3>
 <p>You can simply restore plain SQL files backed up by above backup scripts.</p>
-<blockquote>
-<p>If you're restoring on a <strong>NEW</strong> iRedMail server, do <em>NOT</em>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>If you're restoring on a <strong>NEW</strong> iRedMail server, do <strong>NOT</strong>
 restore the database which is named <code>mysql</code> exported from old server, it
 contains SQL usernames and passwords used in many components (e.g. Postfix,
 Dovecot, Roundcube webmail) on old server. New iRedMail server already has
 the same SQL accounts with different passwords, so please do not restore
 <code>mysql</code> database, otherwise almost all services won't work due to incorrect
 SQL credentials.</p>
-</blockquote>
+</div>
 <h3 id="ldap">LDAP</h3>
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>

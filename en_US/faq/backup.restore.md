@@ -61,13 +61,15 @@ Notes:
 
 You can simply restore plain SQL files backed up by above backup scripts.
 
-> If you're restoring on a __NEW__ iRedMail server, do *NOT*
-> restore the database which is named `mysql` exported from old server, it
-> contains SQL usernames and passwords used in many components (e.g. Postfix,
-> Dovecot, Roundcube webmail) on old server. New iRedMail server already has
-> the same SQL accounts with different passwords, so please do not restore
-> `mysql` database, otherwise almost all services won't work due to incorrect
-> SQL credentials.
+!!! warning
+
+    If you're restoring on a __NEW__ iRedMail server, do __NOT__
+    restore the database which is named `mysql` exported from old server, it
+    contains SQL usernames and passwords used in many components (e.g. Postfix,
+    Dovecot, Roundcube webmail) on old server. New iRedMail server already has
+    the same SQL accounts with different passwords, so please do not restore
+    `mysql` database, otherwise almost all services won't work due to incorrect
+    SQL credentials.
 
 ### LDAP
 
