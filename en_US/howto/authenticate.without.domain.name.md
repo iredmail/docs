@@ -1,10 +1,12 @@
 # Authenticate without domain part in email address
 
+[TOC]
+
 With default settings, client must use full email address as username for
 POP3/IMAP/SMTP/webmail login, if you want to login without domain name part in
 email address, please follow below steps.
 
-### Dovecot
+## Dovecot
 
 Open Dovecot config file `/etc/dovecot/dovecot.conf` (Linux/OpenBSD) or
 `/usr/local/etc/dovecot/dovecot.conf` (FreeBSD), find parameter
@@ -19,7 +21,7 @@ Restarting Dovecot is required. After restarted Dovecot, user logins as
 `john.smith` will be rewritten to `john.smith@mydomain.com` by Dovecot.
 This works for POP3/IMAP/SMTP services.
 
-### [OPTIONAL] Roundcube Webmail
+## Roundcube Webmail
 
 Open Roundcube webmail
 [config file `config/main.inc.php`](./file.locations.html#roundcube-webmail),

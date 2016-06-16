@@ -20,13 +20,20 @@
 <p><a href="./mailbox.sharing.html">English</a> /</p>
 </div>
 <h1 id="imap">共享邮箱（将 IMAP 目录共享给其他用户）</h1>
-<blockquote>
-<p>自 iRedMail-<code>0.9.0</code>版起，共享邮箱功能默认开户，用户不需要任何额外的配置。</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul>
+<li>自 iRedMail-<code>0.9.0</code>版起，共享邮箱功能默认开启，用户不需要任何额外的配置。</li>
+<li>
 <p>自 iRedMail-<code>0.7.0</code> 版起，Dovecot 已包含共享邮箱的相关设置，但没有启用。
-只需要按照以下文档中启用 <code>acl</code> 插件的步骤即可启用该功能。</p>
-<p>请勿将<code>共享目录</code>误理解为<code>公共目录</code>的概念混淆。对于共享目录而言，用户必须
-选择一个要共享的目录并指定共享给谁。</p>
-</blockquote>
+  只需要按照以下文档中启用 <code>acl</code> 插件的步骤即可启用该功能。</p>
+</li>
+<li>
+<p>请勿混淆<code>共享邮箱</code>和<code>公共邮箱</code>。用户在共享邮箱时必须选择要共享的目录并
+  指定共享给谁。</p>
+</li>
+</ul>
+</div>
 <h2 id="_1">共享邮箱</h2>
 <p>要开启邮箱共享功能，请确保 <code>acl</code> 插件已在Dovecot 的配置文件
 <code>/etc/dovecot/dovecot.conf</code> 里启用。以下是配置示例：</p>

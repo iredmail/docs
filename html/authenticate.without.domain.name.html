@@ -16,10 +16,19 @@
         <span>iRedMail</span>
     </a>
     &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><h1 id="authenticate-without-domain-part-in-email-address">Authenticate without domain part in email address</h1>
+<div class="toc">
+<ul>
+<li><a href="#authenticate-without-domain-part-in-email-address">Authenticate without domain part in email address</a><ul>
+<li><a href="#dovecot">Dovecot</a></li>
+<li><a href="#roundcube-webmail">Roundcube Webmail</a></li>
+</ul>
+</li>
+</ul>
+</div>
 <p>With default settings, client must use full email address as username for
 POP3/IMAP/SMTP/webmail login, if you want to login without domain name part in
 email address, please follow below steps.</p>
-<h3 id="dovecot">Dovecot</h3>
+<h2 id="dovecot">Dovecot</h2>
 <p>Open Dovecot config file <code>/etc/dovecot/dovecot.conf</code> (Linux/OpenBSD) or
 <code>/usr/local/etc/dovecot/dovecot.conf</code> (FreeBSD), find parameter
 <code>auth_default_realm</code>, set the domain name you want to allow user to login
@@ -30,7 +39,7 @@ without domain name part in email address. For example:</p>
 <p>Restarting Dovecot is required. After restarted Dovecot, user logins as
 <code>john.smith</code> will be rewritten to <code>john.smith@mydomain.com</code> by Dovecot.
 This works for POP3/IMAP/SMTP services.</p>
-<h3 id="optional-roundcube-webmail">[OPTIONAL] Roundcube Webmail</h3>
+<h2 id="roundcube-webmail">Roundcube Webmail</h2>
 <p>Open Roundcube webmail
 <a href="./file.locations.html#roundcube-webmail">config file <code>config/main.inc.php</code></a>,
 find parameter <code>$config['username_domain']</code>, list your domain name
