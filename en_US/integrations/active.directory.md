@@ -96,6 +96,7 @@ postconf -e sender_bcc_maps=''
 postconf -e recipient_bcc_maps=''
 postconf -e relay_domains=''
 postconf -e relay_recipient_maps=''
+postconf -e sender_dependent_relayhost_maps=''
 ```
 
 Add your mail domain name in `smtpd_sasl_local_domain` and `virtual_mailbox_domains`:
