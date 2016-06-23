@@ -82,9 +82,14 @@ mx.example.com
 
 现在可以运行 iRedMail 安装程序了，它会问你几个简单的问题，仅此而已。
 
+!!! warning
+
+    由于 iredmail.org 域名在国内无法访问，所以需要指定 `IREDMAIL_MIRROR` 参数
+    使用另外的镜像站点。
+
 ```
 # cd /root/iRedMail-x.y.z/
-# bash iRedMail.sh
+# IREDMAIL_MIRROR='http://42.159.241.31' bash iRedMail.sh
 ```
 
 ## 安装过程的截图

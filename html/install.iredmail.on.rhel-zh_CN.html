@@ -119,15 +119,16 @@ mx.example.com
 
 <h2 id="iredmail_1">运行 iRedMail 安装程序</h2>
 <p>现在可以运行 iRedMail 安装程序了，它会问你几个简单的问题，仅此而已。</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>由于 iredmail.org 域名在国内无法访问，所以需要指定 <code>IREDMAIL_MIRROR</code> 参数
+使用国内镜像站点。<code>IREDMAIL_EPEL_MIRROR</code> 参数则是为了加快安装速度而选择的
+国内阿里云提供的 EPEL 软件包仓库镜像。</p>
+</div>
 <pre><code># cd /root/iRedMail-x.y.z/
 # IREDMAIL_MIRROR='http://42.159.241.31' IREDMAIL_EPEL_MIRROR='http://mirrors.aliyun.com/epel' bash iRedMail.sh
 </code></pre>
 
-<blockquote>
-<p>由于 iredmail.org 域名在国内无法访问，所以需要指定 <code>IREDMAIL_MIRROR</code> 参数使用
-国内镜像站点。<code>IREDMAIL_EPEL_MIRROR</code> 则是为了加快安装速度而选择的国内的阿里云
-提供的 EPEL 软件包仓库镜像。</p>
-</blockquote>
 <h2 id="_3">安装过程的截图</h2>
 <ul>
 <li>欢迎和感谢使用</li>
