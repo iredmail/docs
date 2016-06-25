@@ -47,9 +47,13 @@
 </div>
 <h3 id="changelog">ChangeLog</h3>
 <ul>
-<li>Variable name <code>cn</code> has been renamed to <code>name</code>.</li>
 <li>Variable names in returned JSON data has been changed to:
   <code>{'_success': ..., '_msg': ...}</code> (was <code>{'success': ..., 'msg': ...}</code>).</li>
+<li>Some variable names have been renamed:<ul>
+<li><code>cn</code> -&gt; <code>name</code>.</li>
+<li><code>mailQuota</code> -&gt; <code>quota</code></li>
+</ul>
+</li>
 </ul>
 <h2 id="summary">Summary</h2>
 <p>iRedAdmin-Pro RESTful API will return message in JSON format.</p>
@@ -444,9 +448,10 @@ please use mail alias account as mailing list.</p>
 </tr>
 </tbody>
 </table>
-<blockquote>
-<p>Note: <code>accessPolicy</code> for mail alias account is only available for SQL backends.</p>
-</blockquote>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p><code>accessPolicy</code> for mail alias account is only available for SQL backends.</p>
+</div>
 </div>
 
 </div>
@@ -457,6 +462,10 @@ please use mail alias account as mailing list.</p>
 <p class="admonition-title"><code class="put">PUT</code> <code class="url">/api/alias/&lt;mail&gt;</code> <code class="comment">Update profile of an existing mail alias</code> <code class="has_params">Parameters</code></p>
 <div class="params">
 
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p><code>accessPolicy</code> for mail alias account is only available for SQL backends.</p>
+</div>
 <table>
 <thead>
 <tr>
@@ -478,9 +487,6 @@ please use mail alias account as mailing list.</p>
 </tr>
 </tbody>
 </table>
-<blockquote>
-<p>Note: <code>accessPolicy</code> for mail alias account is only available for SQL backends.</p>
-</blockquote>
 </div>
 
 </div>

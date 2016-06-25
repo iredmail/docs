@@ -9,9 +9,11 @@
 
 ### ChangeLog
 
-* Variable name `cn` has been renamed to `name`.
 * Variable names in returned JSON data has been changed to:
   `{'_success': ..., '_msg': ...}` (was `{'success': ..., 'msg': ...}`).
+* Some variable names have been renamed:
+    * `cn` -> `name`.
+    * `mailQuota` -> `quota`
 
 ## Summary
 
@@ -185,7 +187,9 @@ Notes:
     `name` | display name | `name=My List Name`
     `accessPolicy` | Defines who can send email to this mail alias account | `accessPolicy=public`
 
-    > Note: `accessPolicy` for mail alias account is only available for SQL backends.
+    !!! attention
+
+        `accessPolicy` for mail alias account is only available for SQL backends.
 
     </div>
 
@@ -194,12 +198,14 @@ Notes:
 
     <div class="params">
 
+    !!! attention
+
+        `accessPolicy` for mail alias account is only available for SQL backends.
+
     Parameter Name | Summary | Sample Usage
     --- |--- |---
     `name` | display name | `name=My List Name`
     `accessPolicy` | Defines who can send email to this mail alias account | `accessPolicy=public`
-
-    > Note: `accessPolicy` for mail alias account is only available for SQL backends.
 
     </div>
 
