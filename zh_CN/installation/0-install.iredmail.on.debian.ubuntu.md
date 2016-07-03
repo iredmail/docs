@@ -58,7 +58,7 @@ mx.example.com
 
 ### 启用 Debian/Ubuntu 默认的官方 apt 软件源
 
-* iRedMail 依赖 Debian/Ubuntu 官方的 apt 软件源，请在 `/etc/apt/sources.lists`
+* iRedMail 依赖 Debian/Ubuntu 官方的 apt 软件源，请在 `/etc/apt/sources.list`
   文件里启用它们。
 * 安装 `bzip2` 程序用于解压缩文件：
 

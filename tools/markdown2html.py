@@ -11,8 +11,12 @@ import commands
 import web
 import markdown
 
+# https://github.com/FND/markdown-checklist
+from markdown_checklist.extension import ChecklistExtension
+
 # Markdown extensions
-MD_EXTENSIONS = ['toc', 'meta', 'extra', 'footnotes', 'admonition', 'tables', 'attr_list']
+MD_EXTENSIONS = ['toc', 'meta', 'extra', 'footnotes', 'admonition',
+                 'tables', 'attr_list', ChecklistExtension()]
 
 # Get file name
 filename = sys.argv[1]
@@ -31,7 +35,7 @@ for arg in args:
         cmd_opts[var] = value
 
 # Get article title
-if not 'title' in cmd_opts:
+if 'title' not in cmd_opts:
     cmd_opts['title'] = commands.getoutput("""grep 'Title:' %s |awk -F'Title: ' '{print $2}'""" % filename)
 cmd_opts['title'] = cmd_opts['title'].strip()
 

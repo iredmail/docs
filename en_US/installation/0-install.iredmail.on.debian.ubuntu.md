@@ -68,7 +68,7 @@ mx.example.com
 ### Enable default official Debian/Ubuntu apt repositories
 
 * iRedMail needs official Debian/Ubuntu apt repositories, please enable them in
-  `/etc/apt/sources.lists`.
+  `/etc/apt/sources.list`.
 * Install package `bzip2` so that you can uncompress downloaded iRedMail package.
 
 ```

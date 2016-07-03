@@ -19,6 +19,7 @@
 
 ## ChangeLog
 
+* Jul  2, 2016: Fixed: SOGo-3.1.3 (and later releases) changed argument used by `sogo-tool` command
 * Jun 10, 2016: Fixed: Nginx doesn't forward real client IP address to SOGo.
 * Jun  8, 2016: Set correct file owner for config file of Roundcube password plugin.
 * Jun  8, 2016: Fixed: one incorrect HELO restriction rule in Postfix.
@@ -151,3 +152,16 @@ steps below to fix it.
 ```
 
 * Restart Nginx service.
+
+### Fixed: SOGo-3.1.3 (and later releases) changed argument used by `sogo-tool` command
+
+SOGo-3.1.3 (and late releases) changed `sogo-tool` argument `expire-autoreply`
+to `update-autoreply`, and it's used in a daily cron job. Please update SOGo
+cron job to fix it.
+
+* Edit SOGo deamon user's cron job with command.
+    * On Linux: ```crontab -e -u sogo```
+    * On FreeBSD: ```crontab -e -u sogod```
+    * On OpenBSD: ```crontab -e -u _sogo```
+
+* Replace the argument `expire-autoreply` by `update-autoreply`.

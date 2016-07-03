@@ -30,6 +30,7 @@
 <li><a href="#fixed-one-incorrect-helo-restriction-rule-in-postfix">Fixed: one incorrect HELO restriction rule in Postfix</a></li>
 <li><a href="#fixed-incorrect-file-owner-and-permission-of-config-file-of-roundcube-password-plugin">Fixed: incorrect file owner and permission of config file of Roundcube password plugin</a></li>
 <li><a href="#fixed-nginx-doesnt-forward-real-client-ip-address-to-sogo">Fixed: Nginx doesn't forward real client IP address to SOGo</a></li>
+<li><a href="#fixed-sogo-313-and-later-releases-changed-argument-used-by-sogo-tool-command">Fixed: SOGo-3.1.3 (and later releases) changed argument used by sogo-tool command</a></li>
 </ul>
 </li>
 </ul>
@@ -53,6 +54,7 @@ check <a href="../support.html">the details</a> and <a href="../contact.html">co
 </ul>
 <h2 id="changelog">ChangeLog</h2>
 <ul>
+<li>Jul  2, 2016: Fixed: SOGo-3.1.3 (and later releases) changed argument used by <code>sogo-tool</code> command</li>
 <li>Jun 10, 2016: Fixed: Nginx doesn't forward real client IP address to SOGo.</li>
 <li>Jun  8, 2016: Set correct file owner for config file of Roundcube password plugin.</li>
 <li>Jun  8, 2016: Fixed: one incorrect HELO restriction rule in Postfix.</li>
@@ -169,6 +171,23 @@ steps below to fix it.</p>
 
 <ul>
 <li>Restart Nginx service.</li>
+</ul>
+<h3 id="fixed-sogo-313-and-later-releases-changed-argument-used-by-sogo-tool-command">Fixed: SOGo-3.1.3 (and later releases) changed argument used by <code>sogo-tool</code> command</h3>
+<p>SOGo-3.1.3 (and late releases) changed <code>sogo-tool</code> argument <code>expire-autoreply</code>
+to <code>update-autoreply</code>, and it's used in a daily cron job. Please update SOGo
+cron job to fix it.</p>
+<ul>
+<li>
+<p>Edit SOGo deamon user's cron job with command.</p>
+<ul>
+<li>On Linux: <code>crontab -e -u sogo</code></li>
+<li>On FreeBSD: <code>crontab -e -u sogod</code></li>
+<li>On OpenBSD: <code>crontab -e -u _sogo</code></li>
+</ul>
+</li>
+<li>
+<p>Replace the argument <code>expire-autoreply</code> by <code>update-autoreply</code>.</p>
+</li>
 </ul><div class="footer">
     <p style="text-align: center; color: grey;">All documents are available in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://bitbucket.org/zhb/iredmail-docs/get/tip.tar.bz2">download the latest version</a> for offline reading. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
 </div>
