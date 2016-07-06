@@ -154,7 +154,7 @@ mx.example.com
 * [如何配置邮件客户端程序](../index.html#configure-mail-client-applications)
 * 强烈建议获取 SSL 证书以避免每次访问 web 程序时烦人的自签名 SSL 证书警告，
   [Let's Encrypt 提供免费的 SSL 证书](https://letsencrypt.org)。可根据该文档
-  配置获取的证书：[use a SSL certificate](../use.a.bought.ssl.certificate.html).
+  配置获取的证书：[use a SSL certificate](./use.a.bought.ssl.certificate.html).
 * 如果需要批量添加邮件账号，可以参考以下针对不同数据库的批量建账号的文档：
   [OpenLDAP](../ldap.bulk.create.mail.users.html)，
   [MySQL/MariaDB/PostgreSQL](../sql.bulk.create.mail.users.html)。

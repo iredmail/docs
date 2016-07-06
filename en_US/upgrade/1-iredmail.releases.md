@@ -1,6 +1,6 @@
 # iRedMail release notes and upgrade tutorials
 
-!!! note
+!!! attention
 
     * iRedMail source code is hosted on [BitBucket](https://bitbucket.org/zhb/iredmail/src).
     * Download the [latest iRedMail stable release](../download.html).
@@ -30,8 +30,9 @@
 
 !!! note "Paid Remote Upgrade Support"
 
-    We offer remote upgrade support if you don't want to get your hands dirty,
-    check [the details](../support.html) and [contact us](../contact.html).
+    We offer professional remote upgrade support if you don't want to get your
+    hands dirty, please check [the details](../support.html) and
+    [contact us](../contact.html).
 
 * [0.9.5-1](http://www.iredmail.org/forum/topic11049.html), May 10, 2016. [Upgrade from iRedMail-0.9.5](./upgrade.iredmail.0.9.5-0.9.5-1.html) (Small bug fix release)
 * [0.9.5](http://www.iredmail.org/forum/topic10994.html), May 3, 2016. [Upgrade from iRedMail-0.9.4](./upgrade.iredmail.0.9.4-0.9.5.html) (contains SQL/LDAP structure changes)
