@@ -165,18 +165,18 @@ SELINUX=permissive
 * 阅读 `/root/iRedMail-x.y.z/iRedMail.tips` 文件，它包含了：
 
     * 各个 web 程序的访问地址（URL），用户名和密码。
-    * 各个组件的配置文件路径。除此之外还应该阅读文档：[Locations of configuration and log files of major components](../file.locations.html).
+    * 各个组件的配置文件路径。除此之外还应该阅读文档：[Locations of configuration and log files of major components](./file.locations.html).
     * 以及其它一些重要和敏感信息
 
-* [设置 DNS 记录](../setup.dns.html)
-* [如何配置邮件客户端程序](../index.html#configure-mail-client-applications)
+* [设置 DNS 记录](./setup.dns.html)
+* [如何配置邮件客户端程序](./index.html#configure-mail-client-applications)
 * 强烈建议获取 SSL 证书以避免每次访问 web 程序时烦人的自签名 SSL 证书警告，
   [Let's Encrypt 提供免费的 SSL 证书](https://letsencrypt.org)。可根据该文档
   配置获取的证书：[use a SSL certificate](./use.a.bought.ssl.certificate.html).
 * 如果需要批量添加邮件账号，可以参考以下针对不同数据库的批量建账号的文档：
-  [OpenLDAP](../ldap.bulk.create.mail.users.html)，
-  [MySQL/MariaDB/PostgreSQL](../sql.bulk.create.mail.users.html)。
-* 如果这是一台繁忙的服务器，这里有[一些提升性能的建议](../performance.tuning.html)。
+  [OpenLDAP](./ldap.bulk.create.mail.users.html)，
+  [MySQL/MariaDB/PostgreSQL](./sql.bulk.create.mail.users.html)。
+* 如果这是一台繁忙的服务器，这里有[一些提升性能的建议](./performance.tuning.html)。
 
 ## 访问 webmail 和其它 web 程序
 
