@@ -23,6 +23,7 @@
 <li><a href="#manage-access-control-with-doveadm">Manage Access Control with doveadm</a></li>
 <li><a href="#manage-access-control-manually">Manage Access Control manually</a></li>
 <li><a href="#troubleshooting">Troubleshooting</a></li>
+<li><a href="#use-someones-mailbox-as-public-folder">Use someone's mailbox as public folder</a></li>
 <li><a href="#references">References</a></li>
 <li><a href="#see-also">See Also</a></li>
 </ul>
@@ -207,6 +208,18 @@ permissions:</p>
 <pre><code>doveadm -D acl ...
 </code></pre>
 
+<h2 id="use-someones-mailbox-as-public-folder">Use someone's mailbox as public folder</h2>
+<p>If you want to use someone's mailbox as public folder, here's a simplest way to
+achieve it.</p>
+<p>Let's say you want to share user <code>public@domain.com</code>'s mailbox as public folder
+<code>PublicMailbox</code>,
+and its maildir path is
+<code>/var/vmail/vmail1/domain.com/p/u/b/public-20160714100502/Maildir/</code>. What you
+need to do is just creating a symbol link to this maildir path like this:</p>
+<pre><code>ln -s /var/vmail/vmail1/domain.com/p/u/b/public-20160714100502/Maildir /var/vmail/public/.PublicMailbox
+</code></pre>
+
+<p>Note: there's a dot prepended in public mailbox name.</p>
 <h2 id="references">References</h2>
 <ul>
 <li>

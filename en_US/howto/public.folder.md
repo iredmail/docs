@@ -208,6 +208,23 @@ echo 'anyone lr' >> /var/vmail/public/.TestFolder/dovecot-acl
 doveadm -D acl ...
 ```
 
+## Use someone's mailbox as public folder
+
+If you want to use someone's mailbox as public folder, here's a simplest way to
+achieve it.
+
+Let's say you want to share user `public@domain.com`'s mailbox as public folder
+`PublicMailbox`,
+and its maildir path is
+`/var/vmail/vmail1/domain.com/p/u/b/public-20160714100502/Maildir/`. What you
+need to do is just creating a symbol link to this maildir path like this:
+
+```
+ln -s /var/vmail/vmail1/domain.com/p/u/b/public-20160714100502/Maildir /var/vmail/public/.PublicMailbox
+```
+
+Note: there's a dot prepended in public mailbox name.
+
 ## References
 
 * Dovecot official documents:

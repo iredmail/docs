@@ -1,6 +1,6 @@
 # Enable DNSBL service in Postfix to reduce spam
 
-!!! note "Important Note"
+!!! attention
 
     If you're running a high-traffic mail server, you'd better setup a local
     DNS server to cache DNS queries, because free RBL services like
