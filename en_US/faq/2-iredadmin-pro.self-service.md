@@ -4,11 +4,6 @@
 
 ## Introduction
 
-!!! attention
-
-    Self-service is available in iRedAdmin-Pro versions which were released
-    after Jan 1, 2015.
-
 With self-service, end users are able to manage:
 
 * Full name
