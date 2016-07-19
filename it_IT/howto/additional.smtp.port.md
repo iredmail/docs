@@ -14,6 +14,8 @@ Per supportare apparati di rete che non supportano STARTTLS e SSL, posiamo chied
 
 ```
 2525      inet  n       -       -       -       -       smtpd
+  -o smtpd_sasl_auth_enable=yes
+  -o smtpd_sasl_security_options=noanonymous
 ```
 
 `2525` è il nuovo numero di porta per il servizio smtp. potete cambiarlo nel valore che preferite.

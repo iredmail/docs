@@ -60,8 +60,8 @@ iRedMail-0.9.5 sets incorrect command for parameter `compresscmd` and
 * On RHEL/CentOS:
 
 ```
-perl -pi -e 's#\$\(which bzip2\)#/usr/bin/bzip2#g' /etc/logrotate.d/*
-perl -pi -e 's#\$\(which bunzip2\)#/usr/bin/bunzip2#g' /etc/logrotate.d/*
+perl -pi -e 's#\$\(which bzip2\)#/bin/bzip2#g' /etc/logrotate.d/*
+perl -pi -e 's#\$\(which bunzip2\)#/bin/bunzip2#g' /etc/logrotate.d/*
 ```
 
 * On Debian/Ubuntu:

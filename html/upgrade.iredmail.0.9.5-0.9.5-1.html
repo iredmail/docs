@@ -79,8 +79,8 @@ iRedMail-0.9.4 or earlier release, it's safe to ignore this step.</p>
 <ul>
 <li>On RHEL/CentOS:</li>
 </ul>
-<pre><code>perl -pi -e 's#\$\(which bzip2\)#/usr/bin/bzip2#g' /etc/logrotate.d/*
-perl -pi -e 's#\$\(which bunzip2\)#/usr/bin/bunzip2#g' /etc/logrotate.d/*
+<pre><code>perl -pi -e 's#\$\(which bzip2\)#/bin/bzip2#g' /etc/logrotate.d/*
+perl -pi -e 's#\$\(which bunzip2\)#/bin/bunzip2#g' /etc/logrotate.d/*
 </code></pre>
 
 <ul>

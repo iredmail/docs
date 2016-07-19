@@ -36,6 +36,8 @@
 <p>Dalla versione 0.9.3 di iRedMail con le configurazioni di default, la porta 25 è utilizzata dal servizio postscreen, tutti i client di posta sono obbligati a passare attraverso la pota 587 con STARTTL per ottenere connessioni sicure.</p>
 <p>Per supportare apparati di rete che non supportano STARTTLS e SSL, posiamo chiedere a Postfix ti ascoltare su una porta aggiuntiva per il servizio smtp, aggiungendo la linea seguente in <code>/etc/postfix/master.cf</code>(su Linux/OpenBSD) oppure <code>/usr/local/etc/postfix/master.cf</code> (su FreeBSD):</p>
 <pre><code>2525      inet  n       -       -       -       -       smtpd
+  -o smtpd_sasl_auth_enable=yes
+  -o smtpd_sasl_security_options=noanonymous
 </code></pre>
 
 <p><code>2525</code> è il nuovo numero di porta per il servizio smtp. potete cambiarlo nel valore che preferite.</p>

@@ -21,6 +21,8 @@ in `/etc/postfix/master.cf` (on Linux/OpenBSD) or
 
 ```
 2525      inet  n       -       -       -       -       smtpd
+  -o smtpd_sasl_auth_enable=yes
+  -o smtpd_sasl_security_options=noanonymous
 ```
 
 `2525` is the new port number for smtp service, you're free to change it to

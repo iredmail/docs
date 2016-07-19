@@ -62,10 +62,18 @@ tutorial to [add DKIM DNS record](setup.dns.html#dkim-record-for-your-mail-domai
 # amavisd-new genrsa /var/lib/dkim/new_domain.com.pem 1024
 ```
 
-> * if you're running CentOS, you may need to specify its config file on
->   command line. For example:
-> 
-> `# amavisd -c /etc/amavisd/amavisd.conf genrsa /var/lib/dkim/new_domain.com.pem 1024`
+!!! note
+
+    * on different Linux/BSD distributions, the command may be `amavisd`.
+    * on RHEL/CentOS, you must specify the config file on command line like this:
+
+    ```# amavisd -c /etc/amavisd/amavisd.conf genrsa /var/lib/dkim/new_domain.com.pem```
+
+    * Not all DNS vendors support 2048-bit key length as TXT type record, so
+      iRedMail generates the key in 1024-bit. If you want to use 2048-bit
+      instead, please specify the key length on command line:
+
+    ```# amavisd -c /etc/amavisd/amavisd.conf genrsa /var/lib/dkim/new_domain.com.pem 2048```
 
 * Find below setting in Amavisd config file `amavisd.conf`:
 
