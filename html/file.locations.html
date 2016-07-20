@@ -19,31 +19,31 @@
 <div class="toc">
 <ul>
 <li><a href="#locations-of-configuration-and-log-files-of-major-components">Locations of configuration and log files of major components</a><ul>
-<li><a href="#ssl-certificate">SSL certificate</a></li>
+<li><a href="#ssl">SSL certificate</a></li>
 <li><a href="#postfix">Postfix</a><ul>
-<li><a href="#main-config-files">Main config files:</a></li>
-<li><a href="#log-files">Log files</a></li>
+<li><a href="#postfix-config">Main config files:</a></li>
+<li><a href="#postfix-log">Log files</a></li>
 </ul>
 </li>
 <li><a href="#dovecot">Dovecot</a><ul>
-<li><a href="#config-files">Config files</a></li>
-<li><a href="#log-files_1">Log files</a></li>
+<li><a href="#dovecot-config">Config files</a></li>
+<li><a href="#dovecot-log">Log files</a></li>
 </ul>
 </li>
 <li><a href="#apache">Apache</a></li>
 <li><a href="#nginx">Nginx</a></li>
 <li><a href="#php">PHP</a></li>
 <li><a href="#openldap">OpenLDAP</a></li>
-<li><a href="#mysql-mariadb">MySQL, MariaDB</a></li>
-<li><a href="#roundcube-webmail">Roundcube webmail</a></li>
+<li><a href="#mysql">MySQL, MariaDB</a></li>
+<li><a href="#roundcube">Roundcube webmail</a></li>
 <li><a href="#amavisd">Amavisd</a><ul>
-<li><a href="#main-config-files_1">Main config files</a></li>
-<li><a href="#log-files_2">Log files</a></li>
+<li><a href="#amavisd-config">Main config files</a></li>
+<li><a href="#amavisd-log">Log files</a></li>
 </ul>
 </li>
 <li><a href="#spamassassin">SpamAssassin</a></li>
 <li><a href="#fail2ban">Fail2ban</a></li>
-<li><a href="#sogo-groupware">SOGo Groupware</a></li>
+<li><a href="#sogo">SOGo Groupware</a></li>
 <li><a href="#iredapd">iRedAPD</a></li>
 <li><a href="#iredadmin">iRedAdmin</a></li>
 <li><a href="#cluebringer"><strike>Cluebringer</strike></a></li>
@@ -51,7 +51,7 @@
 </li>
 </ul>
 </div>
-<h2 id="ssl-certificate">SSL certificate</h2>
+<h2 id="ssl">SSL certificate</h2>
 <p>The self-signed SSL certificate generated during iRedMail installation:</p>
 <ul>
 <li>
@@ -88,7 +88,7 @@
 <li>on <code>Linux</code> and OpenBSD, Postfix config files are placed under <code>/etc/postfix/</code>.</li>
 <li>on FreeBSD, Postfix config files are placed under <code>/usr/local/etc/postfix/</code>.</li>
 </ul>
-<h3 id="main-config-files">Main config files:</h3>
+<h3 id="postfix-config">Main config files:</h3>
 <ul>
 <li><code>main.cf</code>: contains most configurations.</li>
 <li><code>master.cf</code>: contains transport related settings.</li>
@@ -98,7 +98,7 @@
 <li><code>mysql/*.cf</code>: used to query mail accounts. MySQL/MariaDB backends only.</li>
 <li><code>pgsql/*.cf</code>: used to query mail accounts. PostgreSQL backend only.</li>
 </ul>
-<h3 id="log-files">Log files</h3>
+<h3 id="postfix-log">Log files</h3>
 <ul>
 <li>on RHEL/CentOS, FreeBSD, OpenBSD, it's <code>/var/log/maillog</code>.</li>
 <li>on Debian, Ubuntu, it's <code>/var/log/mail.log</code>.</li>
@@ -108,7 +108,7 @@
 <li>on <code>Linux</code> and OpenBSD, Dovecot config files are placed under <code>/etc/dovecot/</code>.</li>
 <li>on FreeBSD, Dovecot config files are placed under <code>/usr/local/etc/dovecot/</code>.</li>
 </ul>
-<h3 id="config-files">Config files</h3>
+<h3 id="dovecot-config">Config files</h3>
 <p>Main config file is <code>dovecot.conf</code>. It contains most configurations.</p>
 <p>Additional config files under <code>/etc/dovecot/</code>:</p>
 <ul>
@@ -119,7 +119,7 @@
 <li><code>dovecot-share-folder.conf</code>: used to store settings of shared IMAP mailboxes.</li>
 <li><code>dovecot-master-users-password</code> or <code>dovecot-master-users</code>: used to store Dovecot master user accounts.</li>
 </ul>
-<h3 id="log-files_1">Log files</h3>
+<h3 id="dovecot-log">Log files</h3>
 <ul>
 <li><code>/var/log/dovecot.log</code>: main log file. IMAP/POP3 sessions, login, lotout,
   some error messages will be logged in this file.</li>
@@ -221,7 +221,7 @@
 <p>OpenLDAP is configured to log to <code>/var/log/openldap.log</code> by default, if it's
 empty, please check normal syslog log file <code>/var/log/messages</code> or
 <code>/var/log/syslog</code> instead.</p>
-<h2 id="mysql-mariadb">MySQL, MariaDB</h2>
+<h2 id="mysql">MySQL, MariaDB</h2>
 <p>Main config file:</p>
 <ul>
 <li>on RHEL/CentOS: <code>/etc/my.cnf</code>.</li>
@@ -230,7 +230,7 @@ empty, please check normal syslog log file <code>/var/log/messages</code> or
 <li>on FreeBSD: <code>/var/db/mysql/my.cnf</code>.</li>
 <li>on OpenBSD: <code>/etc/my.cnf</code>.</li>
 </ul>
-<h2 id="roundcube-webmail">Roundcube webmail</h2>
+<h2 id="roundcube">Roundcube webmail</h2>
 <ul>
 <li>
 <p>Root Directory. Roundcube webmail is installed under below directory by default:</p>
@@ -247,7 +247,7 @@ empty, please check normal syslog log file <code>/var/log/messages</code> or
 </ul>
 </li>
 <li>
-<p>Config files:</p>
+<p id="roundcube-config">Config files:</p>
 <ul>
 <li>
 <p>Main config file is <code>config/config.inc.php</code> under Roundcube webmail
@@ -262,6 +262,9 @@ releases), it has two separate config files: <code>config/db.inc.php</code> and
 </li>
 </ul>
 </li>
+<li>
+<p id="roundcube-log">Log file. Roundcube is configured to log to <a href="#postfix">Postfix log</a> file by default.</p>
+</li>
 </ul>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
@@ -270,11 +273,8 @@ not modify it, instead, you should copy the settings you want to modify from
 <code>config/defaults.inc.php</code> to <code>config/config.inc.php</code>, then modify the one in
 <code>config/config.inc.php</code>.</p>
 </div>
-<ul>
-<li>Log file. Roundcube is configured to log to <a href="#postfix">Postfix log</a> file by default.</li>
-</ul>
 <h2 id="amavisd">Amavisd</h2>
-<h3 id="main-config-files_1">Main config files</h3>
+<h3 id="amavisd-config">Main config files</h3>
 <ul>
 <li>on RHEL/CentOS: it's <code>/etc/amavisd/amavisd.conf</code>.</li>
 <li>
@@ -289,22 +289,22 @@ on Debian/Ubuntu.</p>
 </li>
 <li>on OpenBSD: it's <code>/etc/amavisd.conf</code>.</li>
 </ul>
-<h3 id="log-files_2">Log files</h3>
+<h3 id="amavisd-log">Log files</h3>
 <p>Amavisd is configured to log to <a href="#postfix">Postfix log file</a> by iRedMail.</p>
 <h2 id="spamassassin">SpamAssassin</h2>
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>
 <p>With default iRedMail settings, SpamAssassin is called by Amavisd, not run as a daemon.</p>
 </div>
-<p>Main config file:</p>
+<p id="spamassassin-config">Main config file:</p>
 <ul>
 <li>On Linux/OpenBSD, it's <code>/etc/mail/spamassassin/local.cf</code>.</li>
 <li>On FreeBSD, it's <code>/usr/local/etc/mail/spamassassin/local.cf</code>.</li>
 </ul>
-<p>SpamAssassin doesn't have a separated log file, to debug SpamAssassin, please
+<p id="spamassassin-log">SpamAssassin doesn't have a separated log file, to debug SpamAssassin, please
 set <code>$sa_debug = 1;</code> in Amavisd config file, then restart Amavisd service.</p>
 <h2 id="fail2ban">Fail2ban</h2>
-<p>Main config file:</p>
+<p id="fail2ban-config">Main config file:</p>
 <ul>
 <li>On Linux/OpenBSD, it's <code>/etc/fail2ban/jail.local</code>.</li>
 <li>On FreeBSD, it's <code>/usr/local/etc/fail2ban/jail.local</code>.</li>
@@ -325,7 +325,12 @@ your custom settings.</p>
 <li>On Linux/OpenBSD, all actions are defined in files under <code>/etc/fail2ban/action.d/</code>.</li>
 <li>On FreeBSD, all filters are defined in files under <code>/usr/local/etc/fail2ban/action.d/</code>.</li>
 </ul>
-<h2 id="sogo-groupware">SOGo Groupware</h2>
+<p id="fail2ban-log">Log file: Fail2ban logs to default syslog log file.</p>
+<ul>
+<li>on RHEL/CentOS/OpenBSD/FreeBSD, it's <code>/var/log/messages</code>.</li>
+<li>on Debian/Ubuntu, it's <code>/var/log/syslog</code>.</li>
+</ul>
+<h2 id="sogo">SOGo Groupware</h2>
 <ul>
 <li>Main config file is <code>/etc/sogo/sogo.conf</code>.</li>
 <li>Log file is <code>/var/log/sogo/sogo.log</code>.</li>

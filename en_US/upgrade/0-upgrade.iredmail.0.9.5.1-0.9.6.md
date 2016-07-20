@@ -14,8 +14,7 @@
 ## TODO
 
 * Separated SOGo address book for LDAP backend.
-* List all contacts by default in SOGo global address book (`listRequiresDot`).
-* Postfix parameter `smtpd_command_filter`.
+* List all contacts by default in SOGo global LDAP address book (`listRequiresDot`).
 
 ## ChangeLog
 

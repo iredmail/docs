@@ -2,7 +2,7 @@
 
 [TOC]
 
-## SSL certificate
+## SSL certificate {: #ssl }
 
 The self-signed SSL certificate generated during iRedMail installation:
 
@@ -26,12 +26,12 @@ The self-signed SSL certificate generated during iRedMail installation:
     * `/etc/ssl/iRedMail.crt`
     * Private key: `/etc/ssl/iRedMail.key`
 
-## Postfix
+## Postfix {: #postfix }
 
 * on `Linux` and OpenBSD, Postfix config files are placed under `/etc/postfix/`.
 * on FreeBSD, Postfix config files are placed under `/usr/local/etc/postfix/`.
 
-### Main config files:
+### Main config files: {: #postfix-config }
 
 * `main.cf`: contains most configurations.
 * `master.cf`: contains transport related settings.
@@ -41,17 +41,17 @@ The self-signed SSL certificate generated during iRedMail installation:
 * `mysql/*.cf`: used to query mail accounts. MySQL/MariaDB backends only.
 * `pgsql/*.cf`: used to query mail accounts. PostgreSQL backend only.
 
-### Log files
+### Log files {: #postfix-log }
 
 * on RHEL/CentOS, FreeBSD, OpenBSD, it's `/var/log/maillog`.
 * on Debian, Ubuntu, it's `/var/log/mail.log`.
 
-## Dovecot
+## Dovecot {: #dovecot }
 
 * on `Linux` and OpenBSD, Dovecot config files are placed under `/etc/dovecot/`.
 * on FreeBSD, Dovecot config files are placed under `/usr/local/etc/dovecot/`.
 
-### Config files
+### Config files {: #dovecot-config }
 
 Main config file is `dovecot.conf`. It contains most configurations.
 
@@ -64,7 +64,7 @@ Additional config files under `/etc/dovecot/`:
 * `dovecot-share-folder.conf`: used to store settings of shared IMAP mailboxes.
 * `dovecot-master-users-password` or `dovecot-master-users`: used to store Dovecot master user accounts.
 
-### Log files
+### Log files {: #dovecot-log }
 
 * `/var/log/dovecot.log`: main log file. IMAP/POP3 sessions, login, lotout,
   some error messages will be logged in this file.
@@ -75,7 +75,7 @@ Additional config files under `/etc/dovecot/`:
   related log will be logged in this file. Note: there's no such file on
   iRedMail-0.8.6 and old iRedMail releases.
 
-## Apache
+## Apache {: #apache }
 
 * On RHEL/CentOS: Apache config files are placed under `/etc/httpd/`.
 
@@ -113,7 +113,7 @@ Additional config files under `/etc/dovecot/`:
       document root is `/var/www/htdocs/`.
     * Log files are placed under `/var/www/logs/`.
 
-## Nginx
+## Nginx {: #nginx }
 
 * On `Linux` and OpenBSD: Nginx config files are placed under `/etc/nginx/`,
   uWSGI config files are placed under `/etc/uwsgi/`.
@@ -125,7 +125,7 @@ Main config files are `nginx.conf` and `default.conf`.
 * On `Linux` and FreeBSD: log files are placed under `/var/log/nginx/`.
 * On OpenBSD: log files are placed under `/var/www/logs/` (same as Apache).
 
-## PHP
+## PHP {: #php }
 
 Main config file:
 
@@ -140,7 +140,7 @@ Main config file:
 * on FreeBSD: it's `/usr/local/etc/php.ini`.
 * on OpenBSD: it's `/etc/php-5.X.ini`
 
-## OpenLDAP
+## OpenLDAP {: #openldap }
 
 Main config file:
 
@@ -155,7 +155,7 @@ OpenLDAP is configured to log to `/var/log/openldap.log` by default, if it's
 empty, please check normal syslog log file `/var/log/messages` or
 `/var/log/syslog` instead.
 
-## MySQL, MariaDB
+## MySQL, MariaDB {: #mysql }
 
 Main config file:
 
@@ -165,7 +165,7 @@ Main config file:
 * on FreeBSD: `/var/db/mysql/my.cnf`.
 * on OpenBSD: `/etc/my.cnf`.
 
-## Roundcube webmail
+## Roundcube webmail {: #roundcube }
 
 * Root Directory. Roundcube webmail is installed under below directory by default:
 
@@ -180,6 +180,7 @@ Main config file:
       `/var/www/roundcubemail-x.y.z/`.
 
 * Config files:
+  {: #roundcube-config }
 
     * Main config file is `config/config.inc.php` under Roundcube webmail
       directory.
@@ -191,6 +192,9 @@ Main config file:
     * Config files of plugins are placed under plugin directory. for example,
       config file of `password` plugin is `plugins/password/config.inc.php`.
 
+* Log file. Roundcube is configured to log to [Postfix log](#postfix) file by default.
+  {: #roundcube-log }
+
 !!! warning
 
     Roundcube stores all default settings in `config/defaults.inc.php`, please do
@@ -198,11 +202,9 @@ Main config file:
     `config/defaults.inc.php` to `config/config.inc.php`, then modify the one in
     `config/config.inc.php`.
 
-* Log file. Roundcube is configured to log to [Postfix log](#postfix) file by default.
+## Amavisd {: #amavisd }
 
-## Amavisd
-
-### Main config files
+### Main config files {: #amavisd-config }
 
 * on RHEL/CentOS: it's `/etc/amavisd/amavisd.conf`.
 * on Debian/Ubuntu: it's `/etc/amavis/conf.d/50-user`.
@@ -215,27 +217,30 @@ Main config file:
 * on FreeBSD: it's `/usr/local/etc/amavisd.conf`.
 * on OpenBSD: it's `/etc/amavisd.conf`.
 
-### Log files
+### Log files {: #amavisd-log }
 
 Amavisd is configured to log to [Postfix log file](#postfix) by iRedMail.
 
-## SpamAssassin
+## SpamAssassin {: #spamassassin }
 
 !!! attention
 
     With default iRedMail settings, SpamAssassin is called by Amavisd, not run as a daemon.
 
 Main config file:
+{: #spamassassin-config }
 
 * On Linux/OpenBSD, it's `/etc/mail/spamassassin/local.cf`.
 * On FreeBSD, it's `/usr/local/etc/mail/spamassassin/local.cf`.
 
 SpamAssassin doesn't have a separated log file, to debug SpamAssassin, please
 set `$sa_debug = 1;` in Amavisd config file, then restart Amavisd service.
+{: #spamassassin-log }
 
-## Fail2ban
+## Fail2ban {: #fail2ban }
 
 Main config file:
+{: #fail2ban-config }
 
 * On Linux/OpenBSD, it's `/etc/fail2ban/jail.local`.
 * On FreeBSD, it's `/usr/local/etc/fail2ban/jail.local`.
@@ -256,13 +261,18 @@ Ban/Unban actions:
 * On Linux/OpenBSD, all actions are defined in files under `/etc/fail2ban/action.d/`.
 * On FreeBSD, all filters are defined in files under `/usr/local/etc/fail2ban/action.d/`.
 
+Log file: Fail2ban logs to default syslog log file.
+{: #fail2ban-log }
 
-## SOGo Groupware
+* on RHEL/CentOS/OpenBSD/FreeBSD, it's `/var/log/messages`.
+* on Debian/Ubuntu, it's `/var/log/syslog`.
+
+## SOGo Groupware {: #sogo }
 
 * Main config file is `/etc/sogo/sogo.conf`.
 * Log file is `/var/log/sogo/sogo.log`.
 
-## iRedAPD
+## iRedAPD {: #iredapd }
 
 * Main config file is `/opt/iredapd/settings.py` on all Linux/BSD distributions.
 * Log file:
@@ -270,7 +280,7 @@ Ban/Unban actions:
     * With iRedAPD-1.7.0 and later releases, log file is `/var/log/iredapd/iredapd.log`.
     * With iRedAPD-1.6.0 and older releases, log file is `/var/log/iredapd.log`.
 
-## iRedAdmin
+## iRedAdmin {: #iredadmin }
 
 Main config file:
 
