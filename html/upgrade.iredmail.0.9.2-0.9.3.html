@@ -901,7 +901,7 @@ to store white/blacklists for outbound message, required by iRedAPD plugin
 <pre><code># su - postgres
 $ psql -d amavisd
 sql&gt; CREATE TABLE outbound_wblist (rid integer NOT NULL CHECK (rid &gt;= 0), sid integer NOT NULL CHECK (sid &gt;= 0), wb varchar(10) NOT NULL, PRIMARY KEY (rid,sid));
-sql&gt; ALTER TABLE outbound_wblist OWNER TO 'amavisd';
+sql&gt; ALTER TABLE outbound_wblist OWNER TO amavisd;
 </code></pre>
 
 <p>After table created, please restart iRedAPD service.</p>

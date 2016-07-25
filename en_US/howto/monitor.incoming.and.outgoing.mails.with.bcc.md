@@ -81,6 +81,18 @@ enabledService=recipientbcc
 userRecipientBccAddress=inbound@example.com
 ```
 
+## Monitor all inbound and outbound
+
+To monitor all inbound and outbound on the server, please specify the email
+address used to receive BCCed email in Postfix parameter `always_bcc`. For
+example:
+
+```
+always_bcc = user@domain.com
+```
+
+Then all inbound and outbound will be BCCed to `user@domain.com`.
+
 ## Screenshot of iRedAdmin-Pro
 
 Per-domain bcc settings:

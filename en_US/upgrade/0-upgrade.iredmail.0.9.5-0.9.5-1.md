@@ -57,18 +57,13 @@ Restarting or reloading Postfix service is required.
 iRedMail-0.9.5 sets incorrect command for parameter `compresscmd` and
 `uncompresscmd`, please fix it with commands below:
 
-* On RHEL/CentOS:
+* On RHEL/CentOS/Debian/Ubuntu:
 
 ```
-perl -pi -e 's#\$\(which bzip2\)#/bin/bzip2#g' /etc/logrotate.d/*
-perl -pi -e 's#\$\(which bunzip2\)#/bin/bunzip2#g' /etc/logrotate.d/*
-```
-
-* On Debian/Ubuntu:
-
-```
-perl -pi -e 's#\$\(which bzip2\)#/bin/bzip2#g' /etc/logrotate.d/*
-perl -pi -e 's#\$\(which bunzip2\)#/bin/bunzip2#g' /etc/logrotate.d/*
+export _Z="$(which bzip2)"
+export _UZ="$(which bunzip2)"
+perl -pi -e 's# /bin/bzip2#$ENV{_Z}#g' /etc/logrotate.d/*
+perl -pi -e 's# /bin/bunzip2#$ENV{_UZ}#g' /etc/logrotate.d/*
 ```
 
 * On FreeBSD, OpenBSD: no fix required since FreeBSD/OpenBSD rotates log files

@@ -22,6 +22,7 @@
 <li><a href="#manage-bcc-settings-with-iredadmin-pro">Manage BCC settings with iRedAdmin-Pro</a></li>
 <li><a href="#sql-manage-bcc-settings-with-sql-command-line-tools">SQL: Manage BCC settings with SQL command line tools</a></li>
 <li><a href="#ldap-manage-bcc-settings-with-phpldapadmin-or-other-ldap-client-tools">LDAP: Manage BCC settings with phpLDAPadmin or other LDAP client tools</a></li>
+<li><a href="#monitor-all-inbound-and-outbound">Monitor all inbound and outbound</a></li>
 <li><a href="#screenshot-of-iredadmin-pro">Screenshot of iRedAdmin-Pro</a></li>
 </ul>
 </li>
@@ -104,6 +105,14 @@ enabledService=recipientbcc
 userRecipientBccAddress=inbound@example.com
 </code></pre>
 
+<h2 id="monitor-all-inbound-and-outbound">Monitor all inbound and outbound</h2>
+<p>To monitor all inbound and outbound on the server, please specify the email
+address used to receive BCCed email in Postfix parameter <code>always_bcc</code>. For
+example:</p>
+<pre><code>always_bcc = user@domain.com
+</code></pre>
+
+<p>Then all inbound and outbound will be BCCed to <code>user@domain.com</code>.</p>
 <h2 id="screenshot-of-iredadmin-pro">Screenshot of iRedAdmin-Pro</h2>
 <p>Per-domain bcc settings:</p>
 <p><img alt="" src="../images/iredadmin/domain_profile_bcc.png" /></p>

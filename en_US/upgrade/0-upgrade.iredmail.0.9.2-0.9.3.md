@@ -959,7 +959,7 @@ Please switch to PostgreSQL daemon user, then execute SQL commands to import it:
 # su - postgres
 $ psql -d amavisd
 sql> CREATE TABLE outbound_wblist (rid integer NOT NULL CHECK (rid >= 0), sid integer NOT NULL CHECK (sid >= 0), wb varchar(10) NOT NULL, PRIMARY KEY (rid,sid));
-sql> ALTER TABLE outbound_wblist OWNER TO 'amavisd';
+sql> ALTER TABLE outbound_wblist OWNER TO amavisd;
 ```
 
 After table created, please restart iRedAPD service.
