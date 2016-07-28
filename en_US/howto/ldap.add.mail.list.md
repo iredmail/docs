@@ -90,7 +90,7 @@ Available access policies are:
 
 Access restriction is implemented in iRedAPD (a simple Postfix policy server),
 iRedMail has it enabled by default. You'd better check its config file
-`/opt/iredapd/settings.py` to make sure plugin `ldap_alias_access_policy` is
+`/opt/iredapd/settings.py` to make sure plugin `ldap_maillist_access_policy` is
 enabled in parameter `plugins = []`.
 
 ## See also
