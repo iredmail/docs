@@ -81,8 +81,8 @@ iRedMail-0.9.4 or earlier release, it's safe to ignore this step.</p>
 </ul>
 <pre><code>export _Z=&quot;$(which bzip2)&quot;
 export _UZ=&quot;$(which bunzip2)&quot;
-perl -pi -e 's# /bin/bzip2#$ENV{_Z}#g' /etc/logrotate.d/*
-perl -pi -e 's# /bin/bunzip2#$ENV{_UZ}#g' /etc/logrotate.d/*
+perl -pi -e 's# /bin/bzip2# $ENV{_Z}#g' /etc/logrotate.d/*
+perl -pi -e 's# /bin/bunzip2# $ENV{_UZ}#g' /etc/logrotate.d/*
 </code></pre>
 
 <ul>

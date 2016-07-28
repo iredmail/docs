@@ -62,8 +62,8 @@ iRedMail-0.9.5 sets incorrect command for parameter `compresscmd` and
 ```
 export _Z="$(which bzip2)"
 export _UZ="$(which bunzip2)"
-perl -pi -e 's# /bin/bzip2#$ENV{_Z}#g' /etc/logrotate.d/*
-perl -pi -e 's# /bin/bunzip2#$ENV{_UZ}#g' /etc/logrotate.d/*
+perl -pi -e 's# /bin/bzip2# $ENV{_Z}#g' /etc/logrotate.d/*
+perl -pi -e 's# /bin/bunzip2# $ENV{_UZ}#g' /etc/logrotate.d/*
 ```
 
 * On FreeBSD, OpenBSD: no fix required since FreeBSD/OpenBSD rotates log files
