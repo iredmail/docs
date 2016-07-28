@@ -6,7 +6,7 @@ In iRedMail, Amavisd provides below features:
 
 * content-based spam scanning (invoke SpamAssassin)
 * Virus scanning (invoke ClamAV)
-* DKIM singing
+* DKIM signing
 * DKIM verification (through SpamAssassin + Perl module)
 * SPF verification (through SpamAssassin + Perl module)
 * Disclaimer (throught AlterMIME)
