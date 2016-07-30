@@ -259,6 +259,39 @@ RESTFUL_API_CLIENTS = ['172.16.244.1', ...]
 </div>
 
 </div>
+<div class="admonition api">
+<p class="admonition-title"><code class="put">PUT</code> <code class="url">/api/domain/services/&lt;domain&gt;</code> <code class="comment">Update enabled per-domain services</code> <code class="upcoming">upcoming</code> <code class="has_params">Parameters</code></p>
+<div class="params params_domain_services">
+
+<table>
+<thead>
+<tr>
+<th>Parameter Name</th>
+<th>Summary</th>
+<th>Sample Usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>enableService</code></td>
+<td>Enable new services</td>
+<td><code>enableService=sogo,vpn,xmpp</code></td>
+</tr>
+<tr>
+<td><code>disableService</code></td>
+<td>Disable existing services</td>
+<td><code>disableService=sogo,vpn,xmpp</code></td>
+</tr>
+<tr>
+<td><code>removeAllServices</code></td>
+<td>Disable all services (including mail service)</td>
+<td><code>removeAllServices=</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+
+</div>
 <h3 class="toggle" id="user">User</h3>
 <div class="admonition api">
 <p class="admonition-title"><code class="post">POST</code> <code class="url">/api/user/&lt;mail&gt;</code> <code class="comment">Create a new mail user</code> <code class="has_params">Parameters</code></p>
