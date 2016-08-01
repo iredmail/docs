@@ -20,10 +20,10 @@
 <ul>
 <li><a href="#errors-you-may-see-while-maintaining-iredmail-server">Errors you may see while maintaining iRedMail server</a><ul>
 <li><a href="#postfix">Postfix</a><ul>
+<li><a href="#intended-policy-rejection-please-try-again-later">Intended policy rejection, please try again later</a></li>
 <li><a href="#sender-address-rejected-not-logged-in">Sender address rejected: not logged in</a></li>
 <li><a href="#sender-address-rejected-not-owned-by-user-userdomainltd">Sender address rejected: not owned by user user@domain.ltd</a></li>
 <li><a href="#unreasonable-virtual_alias_maps-map-expansion-size-for-userdomaincom">unreasonable virtual_alias_maps map expansion size for user@domain.com</a></li>
-<li><a href="#intentional-policy-rejection-please-try-again-later">Intentional policy rejection, please try again later</a></li>
 </ul>
 </li>
 <li><a href="#amavisd">Amavisd</a><ul>
@@ -35,12 +35,27 @@
 </ul>
 </div>
 <h2 id="postfix">Postfix</h2>
+<h3 id="intended-policy-rejection-please-try-again-later">Intended policy rejection, please try again later</h3>
+<p>Sample error message in Postfix log file:</p>
+<blockquote>
+<p>Jul 24 06:43:08 mx0 postfix/smtpd[12719]: NOQUEUE: reject: RCPT from sender.com[xx.xx.xx.xx]: 451 4.7.1 <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#114;&#101;&#99;&#105;&#112;&#105;&#101;&#110;&#116;&#64;&#109;&#121;&#45;&#100;&#111;&#109;&#97;&#105;&#110;&#46;&#99;&#111;&#109;">&#114;&#101;&#99;&#105;&#112;&#105;&#101;&#110;&#116;&#64;&#109;&#121;&#45;&#100;&#111;&#109;&#97;&#105;&#110;&#46;&#99;&#111;&#109;</a>: Recipient address rejected: <strong class="red">Intentional policy rejection, please try again later</strong>; from=<a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#115;&#101;&#110;&#100;&#101;&#114;&#64;&#115;&#101;&#110;&#100;&#101;&#114;&#45;&#100;&#111;&#109;&#97;&#105;&#110;&#46;&#99;&#111;&#109;">&#115;&#101;&#110;&#100;&#101;&#114;&#64;&#115;&#101;&#110;&#100;&#101;&#114;&#45;&#100;&#111;&#109;&#97;&#105;&#110;&#46;&#99;&#111;&#109;</a> to=<a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#114;&#101;&#99;&#105;&#112;&#105;&#101;&#110;&#116;&#64;&#109;&#121;&#45;&#100;&#111;&#109;&#97;&#105;&#110;&#46;&#99;&#111;&#109;">&#114;&#101;&#99;&#105;&#112;&#105;&#101;&#110;&#116;&#64;&#109;&#121;&#45;&#100;&#111;&#109;&#97;&#105;&#110;&#46;&#99;&#111;&#109;</a> proto=SMTP helo=<mx2.sender.com></p>
+</blockquote>
+<p>This error is caused by greylisting service, sender server will retry to
+deliver the same email, and your server will accept it after few retries.</p>
+<ul>
+<li>For more technical details about Greylisting, please visit:<ul>
+<li><a href="http://greylisting.org">Homepage: What is greylisting?</a></li>
+<li><a href="http://greylisting.org/articles/">Articles about greylisting</a></li>
+</ul>
+</li>
+<li>To manage greylisting service, please read iRedAPD tutorial: <a href="./manage.iredapd.html#feature-greylisting">Manage iRedAPD: Greylisting</a></li>
+</ul>
 <h3 id="sender-address-rejected-not-logged-in">Sender address rejected: not logged in</h3>
 <p>Sample error message in Postfix log file:</p>
 <blockquote>
 <p>Jun 24 11:57:13 mx1 postfix/smtpd[2667]: NOQUEUE: reject: RCPT from
-mail.mydomain.com[1.2.3.4]: 553 5.7.1 &lt;sombody@my-domain.com>: Sender address
-rejected: not logged in; from=&lt;sombody@my-domain.com>
+mail.mydomain.com[1.2.3.4]: 553 5.7.1 &lt;sombody@my-domain.com>: <strong class="red">Sender address
+rejected: not logged in</strong>; from=&lt;sombody@my-domain.com>
 to=&lt;receipent@receipentdomain.com> proto=ESMTP helo=&lt;client_helo.com></p>
 </blockquote>
 <p>This error is caused by incorrectly configured mail client application, not a
@@ -78,8 +93,8 @@ restart iRedAPD service. That's all.</p>
 <p>Sample error message in Postfix log file:</p>
 <blockquote>
 <p>Feb 11 19:59:06 mail postfix/cleanup[30575]: warning: 23C334232FB3:
-unreasonable virtual_alias_maps map expansion size for user@domain.com
--- deferring delivery</p>
+<strong class="red">unreasonable virtual_alias_maps map expansion size</strong> for
+user@domain.com -- deferring delivery</p>
 </blockquote>
 <p>It means the maximal number of addresses that virtual alias expansion produces
 from each original recipient exceeds hard limit, please either increase the
@@ -90,17 +105,6 @@ Postfix config file <code>/etc/postfix/main.cf</code>:</p>
 </code></pre>
 
 <p>Reference: <a href="http://www.postfix.org/postconf.5.html#virtual_alias_expansion_limit">Postfix Configuration Parameters</a></p>
-<h3 id="intentional-policy-rejection-please-try-again-later">Intentional policy rejection, please try again later</h3>
-<p>Sample error message in Postfix log file:</p>
-<blockquote>
-<p>May 15 15:59:27 mail postfix/smtpd[8451]: NOQUEUE: reject: RCPT from smtpweb149.aruba.it[62.149.158.149]: 451 4.7.1 <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#114;&#99;&#112;&#116;&#64;&#109;&#121;&#100;&#111;&#109;&#97;&#105;&#110;&#46;&#99;&#111;&#109;">&#114;&#99;&#112;&#116;&#64;&#109;&#121;&#100;&#111;&#109;&#97;&#105;&#110;&#46;&#99;&#111;&#109;</a>: Recipient address rejected: Intentional policy rejection, please try again later; from=<a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#115;&#101;&#110;&#100;&#101;&#114;&#64;&#115;&#101;&#110;&#100;&#101;&#114;&#95;&#100;&#111;&#109;&#97;&#105;&#110;&#46;&#99;&#111;&#109;">&#115;&#101;&#110;&#100;&#101;&#114;&#64;&#115;&#101;&#110;&#100;&#101;&#114;&#95;&#100;&#111;&#109;&#97;&#105;&#110;&#46;&#99;&#111;&#109;</a> to=<a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#114;&#99;&#112;&#116;&#64;&#109;&#121;&#100;&#111;&#109;&#97;&#105;&#110;">&#114;&#99;&#112;&#116;&#64;&#109;&#121;&#100;&#111;&#109;&#97;&#105;&#110;</a> proto=ESMTP helo=<smtpcmd05149.aruba.it></p>
-</blockquote>
-<p>This is caused by greylisting service, sender server will retry delivery, and
-you will receive the email in few minutes to 30 minutes.</p>
-<ul>
-<li>For more technical details about Greylisting, please visit: <a href="http://greylisting.org">http://greylisting.org</a>.</li>
-<li>To manage greylisting service, please read iRedAPD tutorial: <a href="./manage.iredapd.html#feature-greylisting">Manage iRedAPD: Greylisting</a></li>
-</ul>
 <h2 id="amavisd">Amavisd</h2>
 <h3 id="connect-to-12700112700110024-connection-refused">connect to 127.0.0.1[127.0.0.1]:10024: Connection refused</h3>
 <p>This error means Amavisd service is not running, please try to start it first.</p>

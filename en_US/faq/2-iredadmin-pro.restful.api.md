@@ -112,6 +112,18 @@ Notes:
 
     </div>
 
+!!! api "`PUT`{: .put } `/api/domain/services/<domain>`{: .url } `Update enabled per-domain services`{: .comment } `upcoming`{: .upcoming } `Parameters`{: .has_params }"
+
+    <div class="params params_domain_services">
+
+    Parameter Name | Summary | Sample Usage
+    --- |--- |---
+    `enableService` | Enable new services | `enableService=sogo,vpn,xmpp`
+    `disableService` | Disable existing services | `disableService=sogo,vpn,xmpp`
+    `removeAllServices` | Disable all services (including mail service) | `removeAllServices=`
+
+    </div>
+
 ### User {: .toggle }
 
 !!! api "`POST`{: .post } `/api/user/<mail>`{: .url } `Create a new mail user`{: .comment } `Parameters`{: .has_params }"
