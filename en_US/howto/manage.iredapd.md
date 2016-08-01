@@ -341,7 +341,7 @@ python greylisting_admin.py --delete --to '@test.com'
 
 ##### RECOMMENDED: Additional greylisting whitelist support
 
-Seems many companies setup their mail servers to re-deliver returned email
+Since many companies setup their mail servers to re-deliver returned email
 immediately from another server, this causes trouble with greylisting.
 
 Possible solutions:
