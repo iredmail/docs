@@ -19,8 +19,10 @@
 
 iRedAdmin-Pro RESTful API will return message in JSON format.
 
-* If operation succeed, iRedAdmin-Pro returns JSON data: `{'_success': true}`.
-* If operation failed, iRedAdmin-Pro returns JSON data: `{'_success': false, '_msg': '<error_reason>'}`.
+* If operation succeed:
+    * For `POST`, `DELETE`, `PUT` actions, it returns JSON data: `{'_success': true}`.
+    * For `GET` action, it returns JSON data: `{'_success': true, '_data': <program_output>}`.
+* If operation failed, it returns JSON data: `{'_success': false, '_msg': '<error_reason>'}`.
 
 ## Requirements
 
@@ -112,15 +114,28 @@ Notes:
 
     </div>
 
-!!! api "`PUT`{: .put } `/api/domain/services/<domain>`{: .url } `Update enabled per-domain services`{: .comment } `upcoming`{: .upcoming } `Parameters`{: .has_params }"
+!!! api "`GET`{: .get } `/api/domain/services/<domain>`{: .url } `Get/List all enabled per-domain services`{: .comment } `upcoming`{: .upcoming }"
+!!! api "`PUT`{: .put } `/api/domain/services/<domain>`{: .url } `Manage enabled per-domain services`{: .comment } `upcoming`{: .upcoming } `Parameters`{: .has_params }"
 
     <div class="params params_domain_services">
 
     Parameter Name | Summary | Sample Usage
     --- |--- |---
-    `enableService` | Enable new services | `enableService=sogo,vpn,xmpp`
-    `disableService` | Disable existing services | `disableService=sogo,vpn,xmpp`
-    `removeAllServices` | Disable all services (including mail service) | `removeAllServices=`
+    `enableService` | Enable new services. Multiple services must be separated by comma. | `enableService=sogo,vpn,xmpp`
+    `disableService` | Disable existing services. Multiple services must be separated by comma. | `disableService=sogo,vpn,xmpp`
+    `removeAllServices` | Disable all services (including mail service) | `removeAllServices=` (empty value)
+
+    </div>
+
+!!! api "`PUT`{: .put } `/api/domain/admins/<domain>`{: .url } `Manage normal domain admins.`{: .comment } `upcoming`{: .upcoming } `Parameters`{: .has_params }"
+
+    <div class="params params_domain_admins">
+
+    Parameter Name | Summary | Sample Usage
+    --- |--- |---
+    `addAdmin` | Add new domain admins. Multiple services must be separated by comma. | `addAdmin=one@domain.com,two@domain.com`
+    `removeAdmin` | Remove existing domain admins. Multiple services must be separated by comma. | `removeAdmin=one@domain.com,two@domain.com`
+    `removeAllAdmins` | Remove all existing domain admins. | `removeAllAdmins=` (empty value)
 
     </div>
 

@@ -58,8 +58,12 @@
 <h2 id="summary">Summary</h2>
 <p>iRedAdmin-Pro RESTful API will return message in JSON format.</p>
 <ul>
-<li>If operation succeed, iRedAdmin-Pro returns JSON data: <code>{'_success': true}</code>.</li>
-<li>If operation failed, iRedAdmin-Pro returns JSON data: <code>{'_success': false, '_msg': '&lt;error_reason&gt;'}</code>.</li>
+<li>If operation succeed:<ul>
+<li>For <code>POST</code>, <code>DELETE</code>, <code>PUT</code> actions, it returns JSON data: <code>{'_success': true}</code>.</li>
+<li>For <code>GET</code> action, it returns JSON data: <code>{'_success': true, '_data': &lt;program_output&gt;}</code>.</li>
+</ul>
+</li>
+<li>If operation failed, it returns JSON data: <code>{'_success': false, '_msg': '&lt;error_reason&gt;'}</code>.</li>
 </ul>
 <h2 id="requirements">Requirements</h2>
 <ul>
@@ -260,7 +264,10 @@ RESTFUL_API_CLIENTS = ['172.16.244.1', ...]
 
 </div>
 <div class="admonition api">
-<p class="admonition-title"><code class="put">PUT</code> <code class="url">/api/domain/services/&lt;domain&gt;</code> <code class="comment">Update enabled per-domain services</code> <code class="upcoming">upcoming</code> <code class="has_params">Parameters</code></p>
+<p class="admonition-title"><code class="get">GET</code> <code class="url">/api/domain/services/&lt;domain&gt;</code> <code class="comment">Get/List all enabled per-domain services</code> <code class="upcoming">upcoming</code></p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code class="put">PUT</code> <code class="url">/api/domain/services/&lt;domain&gt;</code> <code class="comment">Manage enabled per-domain services</code> <code class="upcoming">upcoming</code> <code class="has_params">Parameters</code></p>
 <div class="params params_domain_services">
 
 <table>
@@ -274,18 +281,51 @@ RESTFUL_API_CLIENTS = ['172.16.244.1', ...]
 <tbody>
 <tr>
 <td><code>enableService</code></td>
-<td>Enable new services</td>
+<td>Enable new services. Multiple services must be separated by comma.</td>
 <td><code>enableService=sogo,vpn,xmpp</code></td>
 </tr>
 <tr>
 <td><code>disableService</code></td>
-<td>Disable existing services</td>
+<td>Disable existing services. Multiple services must be separated by comma.</td>
 <td><code>disableService=sogo,vpn,xmpp</code></td>
 </tr>
 <tr>
 <td><code>removeAllServices</code></td>
 <td>Disable all services (including mail service)</td>
-<td><code>removeAllServices=</code></td>
+<td><code>removeAllServices=</code> (empty value)</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code class="put">PUT</code> <code class="url">/api/domain/admins/&lt;domain&gt;</code> <code class="comment">Manage normal domain admins.</code> <code class="upcoming">upcoming</code> <code class="has_params">Parameters</code></p>
+<div class="params params_domain_admins">
+
+<table>
+<thead>
+<tr>
+<th>Parameter Name</th>
+<th>Summary</th>
+<th>Sample Usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>addAdmin</code></td>
+<td>Add new domain admins. Multiple services must be separated by comma.</td>
+<td><code>addAdmin=one@domain.com,two@domain.com</code></td>
+</tr>
+<tr>
+<td><code>removeAdmin</code></td>
+<td>Remove existing domain admins. Multiple services must be separated by comma.</td>
+<td><code>removeAdmin=one@domain.com,two@domain.com</code></td>
+</tr>
+<tr>
+<td><code>removeAllAdmins</code></td>
+<td>Remove all existing domain admins.</td>
+<td><code>removeAllAdmins=</code> (empty value)</td>
 </tr>
 </tbody>
 </table>
