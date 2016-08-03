@@ -38,11 +38,9 @@ auth_debug_passwords = yes
 auth_verbose_passwords = yes
 </code></pre>
 
-<p>If you see many error message (like <code>dovecot fails, spawning too quickly</code>) in
-Dovecot error log while restarting Dovecot, there might be something wrong
-in Dovecot config file. Please try to start it on command line manually, it
-will report configuration error if any, fix them and start it again:</p>
-<pre><code># dovecot -c /etc/dovecot/dovecot.conf
+<p>If Dovecot service cannot start, please run it manually, it will print the
+error message on console:</p>
+<pre><code class="shell">dovecot -c /etc/dovecot/dovecot.conf
 </code></pre><div class="footer">
     <p style="text-align: center; color: grey;">All documents are available in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://bitbucket.org/zhb/iredmail-docs/get/tip.tar.bz2">download the latest version</a> for offline reading. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
 </div>

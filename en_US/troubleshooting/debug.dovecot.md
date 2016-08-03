@@ -22,11 +22,9 @@ auth_debug_passwords = yes
 auth_verbose_passwords = yes
 ```
 
-If you see many error message (like `dovecot fails, spawning too quickly`) in
-Dovecot error log while restarting Dovecot, there might be something wrong
-in Dovecot config file. Please try to start it on command line manually, it
-will report configuration error if any, fix them and start it again:
+If Dovecot service cannot start, please run it manually, it will print the
+error message on console:
 
-```
-# dovecot -c /etc/dovecot/dovecot.conf
+```shell
+dovecot -c /etc/dovecot/dovecot.conf
 ```
