@@ -18,20 +18,20 @@
     &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><h1 id="use-openldap-as-address-book-in-microsoft-outlook">Use OpenLDAP as address book in Microsoft Outlook</h1>
 <p>Tested with Outlook 2007:</p>
 <ul>
-<li>on account settings choose address book tabs</li>
-<li>click new</li>
-<li>choose Internet directory service(LDAP)</li>
-<li>insert the servername (for me, i set it to IP of the server)</li>
-<li>checked this " this server requires me to logon"</li>
-<li>Fill the username with --&gt; mail=www@testserver.com,ou=Users,domainName=testserver.com,o=domains,dc=testserver,dc=com, dont forget to insert user passwd</li>
-<li>Click "More Settings"</li>
-<li>Leave by default,</li>
-<li>Click "Search"</li>
-<li>Choose "custom" and insert with --&gt; ou=Users,domainName=testserver.com,o=domains,dc=testserver,dc=com</li>
-<li>Finish</li>
+<li>on account settings choose address book tab</li>
+<li>click <code>New</code></li>
+<li>choose <code>Internet directory service (LDAP)</code></li>
+<li>Input the server name or IP address.</li>
+<li>Check the box <code>This server requires me to logon</code></li>
+<li>Input the full LDAP dn of your mail account as login username. For example: <code>mail=www@testserver.com,ou=Users,domainName=testserver.com,o=domains,dc=testserver,dc=com</code>, dont forget to input the correct user password.</li>
+<li>Click <code>More Settings</code></li>
+<li>Leave by default</li>
+<li>Click <code>Search</code></li>
+<li>Choose <code>Custom</code> and input the LDAP dn or your mail domain: <code>ou=Users,domainName=testserver.com,o=domains,dc=testserver,dc=com</code></li>
+<li>Done.</li>
 </ul>
-<p>you need make sure network port 389 (OpenLDAP service) is open on your iRedMail
-server, otherwise, you need config the iptables.</p><div class="footer">
+<p>Please make sure network port <code>389</code> (OpenLDAP service) is open to external
+network on your iRedMail server, it's blocked in iRedMail by default..</p><div class="footer">
     <p style="text-align: center; color: grey;">All documents are available in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://bitbucket.org/zhb/iredmail-docs/get/tip.tar.bz2">download the latest version</a> for offline reading. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
 </div>
 <script type="text/javascript">
