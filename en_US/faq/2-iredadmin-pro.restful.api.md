@@ -131,6 +131,11 @@ Notes:
 
     <div class="params params_domain_admins">
 
+    !!! attention
+
+        Normal domain admin can only promote mail users under managed domains
+        to be a domain admin.
+
     Parameter Name | Summary | Sample Usage
     --- |--- |---
     `addAdmin` | Add new domain admins. Multiple services must be separated by comma. | `addAdmin=one@domain.com,two@domain.com`

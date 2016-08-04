@@ -44,7 +44,19 @@ Screenshot:</p>
 <li>Add new attribute <code>accountStatus</code> with value <code>active</code>. This is required.</li>
 <li>Add alias members (full email address) in attribute <code>mailForwardingAddress</code>.
   You can add as many members as you want.</li>
-</ul><div class="footer">
+</ul>
+<p>Full LDIF data of a sample mail alias account:</p>
+<pre><code>dn: mail=myalias@mydomain.com,ou=Aliases,domainName=mydomain.com,o=domains,dc=iredmail,dc=org
+objectClass: mailAlias
+accountStatus: active
+cn: Test Name
+enabledService: mail
+enabledService: deliver
+mail: myalias@mydomain.com
+mailForwardingAddress: user1@mydomain.com
+mailForwardingAddress: someone@gmail.com
+mailForwardingAddress: someone@hotmail.com
+</code></pre><div class="footer">
     <p style="text-align: center; color: grey;">All documents are available in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://bitbucket.org/zhb/iredmail-docs/get/tip.tar.bz2">download the latest version</a> for offline reading. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
 </div>
 <script type="text/javascript">
