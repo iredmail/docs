@@ -74,8 +74,8 @@ Now let's create required folder and our first shared folder `TestFolder`.
 
 ```
 mkdir -p /var/vmail/public/.TestFolder
-chown -R vmail:vmail /var/vmail/public
-chmod -R 0700 /var/vmail/public
+chown -R vmail:vmail /var/vmail/public/.TestFolder
+chmod -R 0700 /var/vmail/public/.TestFolder
 ```
 
 !!! note "Notes"
@@ -108,12 +108,30 @@ You can see output like below, no access control at all:
 Username ID Global Rights
 ```
 
-With shell command below, we grant `lookup`, `read`, `write`, `insert`,
-`delete`, `expunge` and `create` (sub-directory) permissions to user
+Below is list of all available permissions. Please check [Dovecot web
+site](http://wiki2.dovecot.org/ACL) for more details or update.
+
+!!! note "Permissions"
+
+    Permission name (short) | Permission name (full) | Comment
+    ---|---|---
+    l | lookup | Mailbox is visible in mailbox list. Mailbox can be subscribed to.
+    r | read | Mailbox can be opened for reading.
+    w | write | Message flags and keywords can be changed, except `\Seen` and `\Deleted`
+    s | write-seen | `\Seen` flag can be changed
+    t | write-deleted | `\Deleted` flag can be changed
+    i | insert | Messages can be written or copied to the mailbox
+    p | post | Messages can be posted to the mailbox by LDA, e.g. from Sieve scripts
+    e | expunge | Messages can be expunged
+    k | create | Mailboxes can be created (or renamed) directly under this mailbox
+    x | delete | Mailbox can be deleted
+    a | admin | Administration rights to the mailbox (currently: ability to change ACLs for mailbox)
+
+With shell command below, we grant some permissions to user
 `postmaster@test.com` (again, this user is hosted on same server):
 
 ```
-doveadm acl set -A "Public/TestFolder" "user=postmaster@test.com" lookup read write insert delete expunge create
+doveadm acl set -A "Public/TestFolder" "user=postmaster@test.com" lookup read write write-seen write-deleted insert delete expunge create
 ```
 
 Check the ACl with `doveadm` again:

@@ -91,8 +91,8 @@ please also remove the comment mark in below line in <code>dovecot.conf</code>:<
 </ul>
 <p>Now let's create required folder and our first shared folder <code>TestFolder</code>.</p>
 <pre><code>mkdir -p /var/vmail/public/.TestFolder
-chown -R vmail:vmail /var/vmail/public
-chmod -R 0700 /var/vmail/public
+chown -R vmail:vmail /var/vmail/public/.TestFolder
+chmod -R 0700 /var/vmail/public/.TestFolder
 </code></pre>
 
 <div class="admonition note">
@@ -124,10 +124,80 @@ folder first with command <code>doveadm acl get</code>:</p>
 <pre><code>Username ID Global Rights
 </code></pre>
 
-<p>With shell command below, we grant <code>lookup</code>, <code>read</code>, <code>write</code>, <code>insert</code>,
-<code>delete</code>, <code>expunge</code> and <code>create</code> (sub-directory) permissions to user
+<p>Below is list of all available permissions. Please check <a href="http://wiki2.dovecot.org/ACL">Dovecot web
+site</a> for more details or update.</p>
+<div class="admonition note">
+<p class="admonition-title">Permissions</p>
+<table>
+<thead>
+<tr>
+<th>Permission name (short)</th>
+<th>Permission name (full)</th>
+<th>Comment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>l</td>
+<td>lookup</td>
+<td>Mailbox is visible in mailbox list. Mailbox can be subscribed to.</td>
+</tr>
+<tr>
+<td>r</td>
+<td>read</td>
+<td>Mailbox can be opened for reading.</td>
+</tr>
+<tr>
+<td>w</td>
+<td>write</td>
+<td>Message flags and keywords can be changed, except <code>\Seen</code> and <code>\Deleted</code></td>
+</tr>
+<tr>
+<td>s</td>
+<td>write-seen</td>
+<td><code>\Seen</code> flag can be changed</td>
+</tr>
+<tr>
+<td>t</td>
+<td>write-deleted</td>
+<td><code>\Deleted</code> flag can be changed</td>
+</tr>
+<tr>
+<td>i</td>
+<td>insert</td>
+<td>Messages can be written or copied to the mailbox</td>
+</tr>
+<tr>
+<td>p</td>
+<td>post</td>
+<td>Messages can be posted to the mailbox by LDA, e.g. from Sieve scripts</td>
+</tr>
+<tr>
+<td>e</td>
+<td>expunge</td>
+<td>Messages can be expunged</td>
+</tr>
+<tr>
+<td>k</td>
+<td>create</td>
+<td>Mailboxes can be created (or renamed) directly under this mailbox</td>
+</tr>
+<tr>
+<td>x</td>
+<td>delete</td>
+<td>Mailbox can be deleted</td>
+</tr>
+<tr>
+<td>a</td>
+<td>admin</td>
+<td>Administration rights to the mailbox (currently: ability to change ACLs for mailbox)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>With shell command below, we grant some permissions to user
 <code>postmaster@test.com</code> (again, this user is hosted on same server):</p>
-<pre><code>doveadm acl set -A &quot;Public/TestFolder&quot; &quot;user=postmaster@test.com&quot; lookup read write insert delete expunge create
+<pre><code>doveadm acl set -A &quot;Public/TestFolder&quot; &quot;user=postmaster@test.com&quot; lookup read write write-seen write-deleted insert delete expunge create
 </code></pre>
 
 <p>Check the ACl with <code>doveadm</code> again:</p>
