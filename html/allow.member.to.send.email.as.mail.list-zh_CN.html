@@ -23,7 +23,12 @@
 <p>要允许列表成员以列表邮件地址作为发件人发送邮件，请按照以下步骤操作：</p>
 <ul>
 <li>在 Postfix 配置文件 <code>/etc/postfix/main.cf</code> 中移除参数 <code>reject_sender_login_mismatch</code>。</li>
-<li>在 iRedAPD 配置文件 <code>/opt/iredapd/settings.py</code> 中启用插件 <code>reject_sender_login_mismatch</code>。</li>
+<li>在 iRedAPD 配置文件 <code>/opt/iredapd/settings.py</code> 中启用插件 <code>reject_sender_login_mismatch</code>。示例：</li>
+</ul>
+<pre><code>plugins = [..., 'reject_sender_login_mismatch']
+</code></pre>
+
+<ul>
 <li>在 iRedAPD 配置文件 <code>/opt/iredapd/settings.py</code> 中添加如下参数，允许列表成员
   以列表邮件地址作为发件人发送邮件：</li>
 </ul>

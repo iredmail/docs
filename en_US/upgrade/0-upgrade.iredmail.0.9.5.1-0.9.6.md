@@ -14,7 +14,7 @@
 ## TODO
 
 * Separated SOGo address book for LDAP backend.
-* List all contacts by default in SOGo global LDAP address book (`listRequiresDot`).
+* Roundcube Engima plugin error: `Identity must have a user name defined!`
 
 ## ChangeLog
 
