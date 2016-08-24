@@ -16,7 +16,7 @@ deliver the same email, and your server will accept it after few retries.
 * For more technical details about Greylisting, please visit:
     * [Homepage: What is greylisting?](http://greylisting.org)
     * [Articles about greylisting](http://greylisting.org/articles/)
-* To manage greylisting service, please read iRedAPD tutorial: [Manage iRedAPD: Greylisting](./manage.iredapd.html#feature-greylisting)
+* To manage greylisting service, please read iRedAPD tutorial: [Manage iRedAPD: Greylisting](./manage.iredapd.html#greylisting)
 
 ### Sender address rejected: not logged in
 
