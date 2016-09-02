@@ -29,6 +29,8 @@
 * Articles will be ordered automatically, if you want to specify the order,
   prepend a digit number and `-` in article files, script `convert.sh` will
   remove this prefix during converting Markdown source file to HTML file. e.g.
+* The first line in article file will be used as article title. Note: it must
+  be the first line in file, not the first non-empty line.
 
 ```
 - chapter_name_x/

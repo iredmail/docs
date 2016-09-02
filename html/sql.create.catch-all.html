@@ -24,7 +24,7 @@ existing domain <code>domain.com</code> in SQL table <code>vmail.alias</code> li
 <pre><code class="sql">$ mysql -u root -p
 sql&gt; USE vmail;
 sql&gt; INSERT INTO alias (address, goto, domain)
-                 VALUES ('domain.com', 'dest@example.com', 'domain.com');
+                VALUES ('domain.com', 'dest@example.com', 'domain.com');
 </code></pre>
 
 <p>This sql command creates catch-all address for domain <code>domain.com</code>, all mails
