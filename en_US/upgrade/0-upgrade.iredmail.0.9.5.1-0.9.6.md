@@ -14,10 +14,10 @@
 ## TODO
 
 * Separated SOGo address book for LDAP backend.
-* Roundcube Engima plugin error: `Identity must have a user name defined!`
 
 ## ChangeLog
 
+* Sep  8, 2016: Fixed: HTTProxy vulnerability in Apache and Nginx
 * Jul  2, 2016: Fixed: SOGo-3.1.3 (and later releases) changed argument used by `sogo-tool` command
 * Jun 10, 2016: Fixed: Nginx doesn't forward real client IP address to SOGo.
 * Jun  8, 2016: Set correct file owner for config file of Roundcube password plugin.
@@ -56,6 +56,47 @@ Please follow Roundcube official tutorial to upgrade Roundcube webmail to the
 latest stable release immediately: [How to upgrade Roundcube](https://github.com/roundcube/roundcubemail/wiki/Upgrade).
 
 Note: package `rsync` must be installed on your server before upgrading.
+
+### Fixed: HTTProxy vulnerability in Apache and Nginx
+
+For more details about HTTPROXY vulnerability, please read this website: <https://httpoxy.org/>
+
+#### Apache
+
+Please append setting below in Apache config file:
+
+* on RHEL/CentOS, it's `/etc/httpd/conf/httpd.conf`.
+* on Debian/Ubuntu, it's `/etc/apache2/apache2.conf`.
+* on FreeBSD, it's `/usr/local/etc/apache2[X]/httpd.conf`. Please replace
+  `apache2[X]` by the real Apache version number here.
+* on OpenBSD: not applicable because iRedMail doesn't use Apache on OpenBSD.
+
+```
+RequestHeader unset Proxy early
+```
+
+Restarting Apache service is required.
+
+#### Nginx
+
+Please open all files under below directories which contains `fastcgi_pass`
+parameter:
+
+* On Linux/OpenBSD:
+    * `/etc/nginx/templates/`
+    * `/etc/nginx/conf.d/`
+* On FreeBSD:
+    * `/usr/local/etc/nginx/templates`
+    * `/usr/local/etc/nginx/conf.d/`
+
+If config file contains `fastcgi_pass` parameter, please append below one after
+it:
+
+```
+fastcgi_param HTTP_PROXY '';
+```
+
+Restart Nginx service is required.
 
 ### Fixed: not enable opportunistic TLS support in Postfix
 

@@ -26,6 +26,11 @@
 <li><a href="#upgrade-iredapd-postfix-policy-server-to-the-latest-stable-release-192">Upgrade iRedAPD (Postfix policy server) to the latest stable release (1.9.2)</a></li>
 <li><a href="#upgrade-iredadmin-open-source-edition-to-the-latest-stable-release-072">Upgrade iRedAdmin (open source edition) to the latest stable release (0.7.2)</a></li>
 <li><a href="#upgrade-roundcube-webmail-to-the-latest-stable-release-120">Upgrade Roundcube webmail to the latest stable release (1.2.0)</a></li>
+<li><a href="#fixed-httproxy-vulnerability-in-apache-and-nginx">Fixed: HTTProxy vulnerability in Apache and Nginx</a><ul>
+<li><a href="#apache">Apache</a></li>
+<li><a href="#nginx">Nginx</a></li>
+</ul>
+</li>
 <li><a href="#fixed-not-enable-opportunistic-tls-support-in-postfix">Fixed: not enable opportunistic TLS support in Postfix</a></li>
 <li><a href="#fixed-one-incorrect-helo-restriction-rule-in-postfix">Fixed: one incorrect HELO restriction rule in Postfix</a></li>
 <li><a href="#fixed-incorrect-file-owner-and-permission-of-config-file-of-roundcube-password-plugin">Fixed: incorrect file owner and permission of config file of Roundcube password plugin</a></li>
@@ -53,6 +58,7 @@ check <a href="../support.html">the details</a> and <a href="../contact.html">co
 </ul>
 <h2 id="changelog">ChangeLog</h2>
 <ul>
+<li>Sep  8, 2016: Fixed: HTTProxy vulnerability in Apache and Nginx</li>
 <li>Jul  2, 2016: Fixed: SOGo-3.1.3 (and later releases) changed argument used by <code>sogo-tool</code> command</li>
 <li>Jun 10, 2016: Fixed: Nginx doesn't forward real client IP address to SOGo.</li>
 <li>Jun  8, 2016: Set correct file owner for config file of Roundcube password plugin.</li>
@@ -80,6 +86,30 @@ latest stable release:
 <p>Please follow Roundcube official tutorial to upgrade Roundcube webmail to the
 latest stable release immediately: <a href="https://github.com/roundcube/roundcubemail/wiki/Upgrade">How to upgrade Roundcube</a>.</p>
 <p>Note: package <code>rsync</code> must be installed on your server before upgrading.</p>
+<h3 id="fixed-httproxy-vulnerability-in-apache-and-nginx">Fixed: HTTProxy vulnerability in Apache and Nginx</h3>
+<p>For more details about HTTPROXY vulnerability, please read this website: <a href="https://httpoxy.org/">https://httpoxy.org/</a></p>
+<h4 id="apache">Apache</h4>
+<h4 id="nginx">Nginx</h4>
+<p>Please open all files under below directories which contains <code>fastcgi_pass</code>
+parameter:</p>
+<ul>
+<li>On Linux/OpenBSD:<ul>
+<li><code>/etc/nginx/templates/</code></li>
+<li><code>/etc/nginx/conf.d/</code></li>
+</ul>
+</li>
+<li>On FreeBSD:<ul>
+<li><code>/usr/local/etc/nginx/templates</code></li>
+<li><code>/usr/local/etc/nginx/conf.d/</code></li>
+</ul>
+</li>
+</ul>
+<p>If config file contains <code>fastcgi_pass</code> parameter, please append below one after
+it:</p>
+<pre><code>fastcgi_param HTTP_PROXY '';
+</code></pre>
+
+<p>Restart Nginx service is required.</p>
 <h3 id="fixed-not-enable-opportunistic-tls-support-in-postfix">Fixed: not enable opportunistic TLS support in Postfix</h3>
 <p>iRedMail-0.9.5 and iRedMail-0.9.5-1 didn't enable opportunistic TLS support in
 Postfix, this causes other servers cannot transfer emails via TLS secure
