@@ -107,7 +107,7 @@ Restart the iptables service.
 
 ### Web Access Ejabberd Admin Console
 
-Now you can access http://192.168.1.10:5280/admin/
+Now you can access <http://192.168.1.10:5280/admin/>
 
 Login in the ejabberd web admin, We have seting www@example.com as admin for the ejabberd server
 
@@ -122,19 +122,26 @@ If you want to add the second virtual domain, you need first create a new domain
 {hosts, ["example.com","test.com"]}. 
 ```
 
-### XMPP Client: Pidgin
+### XMPP Clients
 
-You can choose your favor XMPP client, now I use Pidgin for test. Download the newst version of Pidgin and install. The setting is simple.
+There're many free and open source XMPP clients available, you can choose the
+one you prefer listed on this page: <http://xmpp.org/software/clients.html>
+
+On Linux/BSD, Pidgin is a good choice: <http://pidgin.im>
 
 ### XMPP Federation and DNS Link
 
-To ensure that your ejabberd instance will federate properly with the rest of the XMPP network, particularly with Google's "GTalk" service (i.e. the "@gmail.com" chat tool,) we must set the SRV records for the domain to point to the server where the ejabberd instance is running. We need three records, which can be created in the DNS Management tool of your choice:
+To ensure that your ejabberd instance will federate properly with the rest of
+the XMPP network, we must set the SRV records for the domain to point to the
+server where the ejabberd instance is running. We need two records, which can
+be created in the DNS Management tool of your choice:
 
-* Service: _xmpp-server Protocol: TCP Port: 5269
-* Service: _xmpp-client Protocol: TCP Port: 5222
-* Service: _jabber Protocol: TCP Port: 5269
+```
+_xmpp-client._tcp.example.net. 86400 IN SRV 5 0 5222 example.net.
+_xmpp-server._tcp.example.net. 86400 IN SRV 5 0 5269 example.net.
+```
 
-The "target" of the SRV record should point to the publicly routable hostname for that machine (e.g. "mail.example.com"). The priority and weight should both be set to 0.
+For more examples, please read this tutorial: <http://wiki.xmpp.org/web/SRV_Records>
 
 ## Troubleshooting
 

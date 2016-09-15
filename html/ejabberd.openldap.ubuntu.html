@@ -26,7 +26,7 @@
 <li><a href="#start-ejabberd-service">Start ejabberd service</a></li>
 <li><a href="#config-iptables">Config iptables</a></li>
 <li><a href="#web-access-ejabberd-admin-console">Web Access Ejabberd Admin Console</a></li>
-<li><a href="#xmpp-client-pidgin">XMPP Client: Pidgin</a></li>
+<li><a href="#xmpp-clients">XMPP Clients</a></li>
 <li><a href="#xmpp-federation-and-dns-link">XMPP Federation and DNS Link</a></li>
 </ul>
 </li>
@@ -121,7 +121,7 @@ ejabberd is running
 </code></pre>
 
 <h3 id="web-access-ejabberd-admin-console">Web Access Ejabberd Admin Console</h3>
-<p>Now you can access http://192.168.1.10:5280/admin/</p>
+<p>Now you can access <a href="http://192.168.1.10:5280/admin/">http://192.168.1.10:5280/admin/</a></p>
 <p>Login in the ejabberd web admin, We have seting www@example.com as admin for the ejabberd server</p>
 <p>You can not create user in webadmin. If you want to create user, you need first add user in iRedAdmin, then enable the jabber service for the user in phpldapadmin.</p>
 <p>If you want to add the second virtual domain, you need first create a new domain in iRedAdmin, then modify /etc/ejabberd/ejabberd.cfg .</p>
@@ -132,16 +132,20 @@ ejabberd is running
 {hosts, [&quot;example.com&quot;,&quot;test.com&quot;]}. 
 </code></pre>
 
-<h3 id="xmpp-client-pidgin">XMPP Client: Pidgin</h3>
-<p>You can choose your favor XMPP client, now I use Pidgin for test. Download the newst version of Pidgin and install. The setting is simple.</p>
+<h3 id="xmpp-clients">XMPP Clients</h3>
+<p>There're many free and open source XMPP clients available, you can choose the
+one you prefer listed on this page: <a href="http://xmpp.org/software/clients.html">http://xmpp.org/software/clients.html</a></p>
+<p>On Linux/BSD, Pidgin is a good choice: <a href="http://pidgin.im">http://pidgin.im</a></p>
 <h3 id="xmpp-federation-and-dns-link">XMPP Federation and DNS Link</h3>
-<p>To ensure that your ejabberd instance will federate properly with the rest of the XMPP network, particularly with Google's "GTalk" service (i.e. the "@gmail.com" chat tool,) we must set the SRV records for the domain to point to the server where the ejabberd instance is running. We need three records, which can be created in the DNS Management tool of your choice:</p>
-<ul>
-<li>Service: _xmpp-server Protocol: TCP Port: 5269</li>
-<li>Service: _xmpp-client Protocol: TCP Port: 5222</li>
-<li>Service: _jabber Protocol: TCP Port: 5269</li>
-</ul>
-<p>The "target" of the SRV record should point to the publicly routable hostname for that machine (e.g. "mail.example.com"). The priority and weight should both be set to 0.</p>
+<p>To ensure that your ejabberd instance will federate properly with the rest of
+the XMPP network, we must set the SRV records for the domain to point to the
+server where the ejabberd instance is running. We need two records, which can
+be created in the DNS Management tool of your choice:</p>
+<pre><code>_xmpp-client._tcp.example.net. 86400 IN SRV 5 0 5222 example.net.
+_xmpp-server._tcp.example.net. 86400 IN SRV 5 0 5269 example.net.
+</code></pre>
+
+<p>For more examples, please read this tutorial: <a href="http://wiki.xmpp.org/web/SRV_Records">http://wiki.xmpp.org/web/SRV_Records</a></p>
 <h2 id="troubleshooting">Troubleshooting</h2>
 <ol>
 <li><a href="./debug.openldap.html">Debug OpenLDAP</a></li>
