@@ -100,3 +100,38 @@ WOMaxUploadSize = 102400;
 ```
 
 修改后需要重启 SOGo 服务。
+
+## 修改 Outlook 程序的附件大小限制
+
+Outlook 有自己的附件大小限制，如果超出限制会弹出错误信息 `The
+attachment size exceeds the allowable limit.`
+
+如需要在 Windows 系统上修改 Outlook 程序的附件大小限制，请参照以下步骤：
+
+* 退出 Outlook 程序
+* 运行注册表编辑器：开始 -> 运行 -> 输入 "regedit"
+* 找到并选择以下任意一个条目：
+
+```
+HKEY_CURRENT_USER\Software\Microsoft\Office\14.0\Outlook\Preferences
+HKEY_CURRENT_USER\Software\Policies\Microsoft\Office\14.0\Outlook\Preferences
+```
+
+注意：
+
+    * 如果不存在可自行创建。
+    * 14.04 表示 Outlook 的版本号，在你的系统上可能不一样。
+
+* 在以上条目底下添加注册表项：
+
+    * 类型：DWORD
+    * 名称：MaximumAttachmentSize
+    * 值：一个用于表示最大附件大小的整数。例如，30720 表示 30MB 限制。
+
+注意：
+
+    * 设置为 0 表示无限制。
+    * 默认限制为 20MB。可设置小于 20MB 的附件大小。
+
+* 退出注册表编辑器。
+* 启动 Outlook。

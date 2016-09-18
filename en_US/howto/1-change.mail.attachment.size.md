@@ -109,3 +109,42 @@ WOMaxUploadSize = 102400;
 ```
 
 Restarting SOGo service is required.
+
+## Change attachment size limit in Microsoft Outlook
+
+Outlook has its own attachment size limit, and will raise error like `The
+attachment size exceeds the allowable limit.`
+
+To modify the default attachment limit size in Outlook on Windows system,
+follow these steps:
+
+* Exit Outlook.
+* Start Registry Editor.
+* Locate and then select one of the following registry subkeys:
+
+```
+HKEY_CURRENT_USER\Software\Microsoft\Office\14.0\Outlook\Preferences
+HKEY_CURRENT_USER\Software\Policies\Microsoft\Office\14.0\Outlook\Preferences
+```
+
+Notes:
+
+    * Manually create the path in the registry if it does not currently exist.
+    * `14.01 means Outlook version number, it may be different on your system.
+
+* Add the following registry data under this subkey:
+
+    * Value type: DWORD
+    * Value name: MaximumAttachmentSize
+    * Value data: An integer that specifies the total maximum allowable
+      attachment size. For example, specify 30720 (Decimal) to configure a
+      30-MB limit.
+
+Notes:
+
+    * Specify a value of zero (0) if you want to configure no limit for attachments.
+    * Specify a value that is less than 20 MB if you want to configure a limit
+      that is less than the default 20 MB.
+
+* Exit Registry Editor
+* Start Outlook.

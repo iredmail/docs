@@ -31,6 +31,7 @@
 </li>
 <li><a href="#change-upload-file-size-in-nginx">Change upload file size in Nginx</a></li>
 <li><a href="#change-upload-file-size-in-sogo-3x">Change upload file size in SOGo-3.x</a></li>
+<li><a href="#change-attachment-size-limit-in-microsoft-outlook">Change attachment size limit in Microsoft Outlook</a></li>
 </ul>
 </li>
 </ul>
@@ -119,7 +120,46 @@ size.</p>
 WOMaxUploadSize = 102400;
 </code></pre>
 
-<p>Restarting SOGo service is required.</p><div class="footer">
+<p>Restarting SOGo service is required.</p>
+<h2 id="change-attachment-size-limit-in-microsoft-outlook">Change attachment size limit in Microsoft Outlook</h2>
+<p>Outlook has its own attachment size limit, and will raise error like <code>The
+attachment size exceeds the allowable limit.</code></p>
+<p>To modify the default attachment limit size in Outlook on Windows system,
+follow these steps:</p>
+<ul>
+<li>Exit Outlook.</li>
+<li>Start Registry Editor.</li>
+<li>Locate and then select one of the following registry subkeys:</li>
+</ul>
+<pre><code>HKEY_CURRENT_USER\Software\Microsoft\Office\14.0\Outlook\Preferences
+HKEY_CURRENT_USER\Software\Policies\Microsoft\Office\14.0\Outlook\Preferences
+</code></pre>
+
+<p>Notes:</p>
+<pre><code>* Manually create the path in the registry if it does not currently exist.
+* `14.01 means Outlook version number, it may be different on your system.
+</code></pre>
+<ul>
+<li>
+<p>Add the following registry data under this subkey:</p>
+<ul>
+<li>Value type: DWORD</li>
+<li>Value name: MaximumAttachmentSize</li>
+<li>Value data: An integer that specifies the total maximum allowable
+  attachment size. For example, specify 30720 (Decimal) to configure a
+  30-MB limit.</li>
+</ul>
+</li>
+</ul>
+<p>Notes:</p>
+<pre><code>* Specify a value of zero (0) if you want to configure no limit for attachments.
+* Specify a value that is less than 20 MB if you want to configure a limit
+  that is less than the default 20 MB.
+</code></pre>
+<ul>
+<li>Exit Registry Editor</li>
+<li>Start Outlook.</li>
+</ul><div class="footer">
     <p style="text-align: center; color: grey;">All documents are available in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://bitbucket.org/zhb/iredmail-docs/get/tip.tar.bz2">download the latest version</a> for offline reading. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
 </div>
 <script type="text/javascript">
