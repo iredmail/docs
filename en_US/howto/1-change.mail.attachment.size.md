@@ -148,3 +148,5 @@ Notes:
 
 * Exit Registry Editor
 * Start Outlook.
+
+Reference: <https://support.microsoft.com/en-us/kb/2222370>

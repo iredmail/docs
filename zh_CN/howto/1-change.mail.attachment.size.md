@@ -135,3 +135,5 @@ HKEY_CURRENT_USER\Software\Policies\Microsoft\Office\14.0\Outlook\Preferences
 
 * 退出注册表编辑器。
 * 启动 Outlook。
+
+参考文档： <https://support.microsoft.com/en-us/kb/2222370>
