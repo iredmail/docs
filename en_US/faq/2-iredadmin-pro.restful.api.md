@@ -14,6 +14,7 @@
 * Some variable names have been renamed:
     * `cn` -> `name`.
     * `mailQuota` -> `quota`
+    * `preferredLanguage` -> `language`
 
 ## Summary
 
