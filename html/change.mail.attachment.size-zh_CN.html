@@ -119,16 +119,16 @@ attachment size exceeds the allowable limit.</code></p>
 <ul>
 <li>退出 Outlook 程序</li>
 <li>运行注册表编辑器：开始 -&gt; 运行 -&gt; 输入 "regedit"</li>
-<li>找到并选择以下任意一个条目：</li>
+<li>找到并选择以下任意一个条目：<ul>
+<li>如果不存在可自行创建。</li>
+<li>14.04 表示 Outlook 的版本号，在你的系统上可能不一样。</li>
+</ul>
+</li>
 </ul>
 <pre><code>HKEY_CURRENT_USER\Software\Microsoft\Office\14.0\Outlook\Preferences
 HKEY_CURRENT_USER\Software\Policies\Microsoft\Office\14.0\Outlook\Preferences
 </code></pre>
 
-<p>注意：</p>
-<pre><code>* 如果不存在可自行创建。
-* 14.04 表示 Outlook 的版本号，在你的系统上可能不一样。
-</code></pre>
 <ul>
 <li>
 <p>在以上条目底下添加注册表项：</p>
@@ -137,14 +137,15 @@ HKEY_CURRENT_USER\Software\Policies\Microsoft\Office\14.0\Outlook\Preferences
 <li>名称：MaximumAttachmentSize</li>
 <li>值：一个用于表示最大附件大小的整数。例如，30720 表示 30MB 限制。</li>
 </ul>
-</li>
-</ul>
 <p>注意：</p>
-<pre><code>* 设置为 0 表示无限制。
-* 默认限制为 20MB。可设置小于 20MB 的附件大小。
-</code></pre>
 <ul>
-<li>退出注册表编辑器。</li>
+<li>设置为 0 表示无限制。</li>
+<li>默认限制为 20MB。可设置小于 20MB 的附件大小。</li>
+</ul>
+</li>
+<li>
+<p>退出注册表编辑器。</p>
+</li>
 <li>启动 Outlook。</li>
 </ul>
 <p>参考文档： <a href="https://support.microsoft.com/en-us/kb/2222370">https://support.microsoft.com/en-us/kb/2222370</a></p><div class="footer">

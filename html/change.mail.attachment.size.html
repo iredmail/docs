@@ -129,16 +129,16 @@ follow these steps:</p>
 <ul>
 <li>Exit Outlook.</li>
 <li>Start Registry Editor.</li>
-<li>Locate and then select one of the following registry subkeys:</li>
+<li>Locate and then select one of the following registry subkeys:<ul>
+<li>Manually create the path in the registry if it does not currently exist.</li>
+<li>`14.01 means Outlook version number, it may be different on your system.</li>
+</ul>
+</li>
 </ul>
 <pre><code>HKEY_CURRENT_USER\Software\Microsoft\Office\14.0\Outlook\Preferences
 HKEY_CURRENT_USER\Software\Policies\Microsoft\Office\14.0\Outlook\Preferences
 </code></pre>
 
-<p>Notes:</p>
-<pre><code>* Manually create the path in the registry if it does not currently exist.
-* `14.01 means Outlook version number, it may be different on your system.
-</code></pre>
 <ul>
 <li>
 <p>Add the following registry data under this subkey:</p>
@@ -149,15 +149,16 @@ HKEY_CURRENT_USER\Software\Policies\Microsoft\Office\14.0\Outlook\Preferences
   attachment size. For example, specify 30720 (Decimal) to configure a
   30-MB limit.</li>
 </ul>
-</li>
-</ul>
 <p>Notes:</p>
-<pre><code>* Specify a value of zero (0) if you want to configure no limit for attachments.
-* Specify a value that is less than 20 MB if you want to configure a limit
-  that is less than the default 20 MB.
-</code></pre>
 <ul>
-<li>Exit Registry Editor</li>
+<li>Specify a value of zero (0) if you want to configure no limit for attachments.</li>
+<li>Specify a value that is less than 20 MB if you want to configure a limit
+  that is less than the default 20 MB.</li>
+</ul>
+</li>
+<li>
+<p>Exit Registry Editor</p>
+</li>
 <li>Start Outlook.</li>
 </ul>
 <p>Reference: <a href="https://support.microsoft.com/en-us/kb/2222370">https://support.microsoft.com/en-us/kb/2222370</a></p><div class="footer">
