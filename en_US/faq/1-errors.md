@@ -87,6 +87,21 @@ virtual_alias_expansion_limit = 1500
 
 Reference: [Postfix Configuration Parameters](http://www.postfix.org/postconf.5.html#virtual_alias_expansion_limit)
 
+### Helo command rejected: ACCESS DENIED. Your email was rejected because the sending mail server does not identify itself correctly (.local)
+
+It means sender mail server uses a FQDN hostname which ends with `.local` as
+HELO identity. `.local` is not a valid top level domain name, and all mail
+servers should use a valid domain name which is resolvable from DNS query.
+
+Two solutions:
+
+1. Temporarily remove this HELO check rule on YOUR server, in file
+   `/etc/postfix/helo_access.pcre` (Linux/OpenBSD) or
+   `/usr/local/etc/postfix/helo_access.pcre` (FreeBSD), then reload Postfix
+   service.
+1. Ask sender server system administrator to correct their HELO identity, they
+   will experience same issue while sending email to others.
+
 ## Amavisd
 
 ### connect to 127.0.0.1[127.0.0.1]:10024: Connection refused
