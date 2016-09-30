@@ -54,7 +54,6 @@ check <a href="../support.html">the details</a> and <a href="../contact.html">co
 <h2 id="todo">TODO</h2>
 <ul>
 <li>Separated SOGo address book for LDAP backend.</li>
-<li>Roundcube Engima plugin error: <code>Identity must have a user name defined!</code></li>
 </ul>
 <h2 id="changelog">ChangeLog</h2>
 <ul>
@@ -89,6 +88,18 @@ latest stable release immediately: <a href="https://github.com/roundcube/roundcu
 <h3 id="fixed-httproxy-vulnerability-in-apache-and-nginx">Fixed: HTTProxy vulnerability in Apache and Nginx</h3>
 <p>For more details about HTTPROXY vulnerability, please read this website: <a href="https://httpoxy.org/">https://httpoxy.org/</a></p>
 <h4 id="apache">Apache</h4>
+<p>Please append setting below in Apache config file:</p>
+<ul>
+<li>on RHEL/CentOS, it's <code>/etc/httpd/conf/httpd.conf</code>.</li>
+<li>on Debian/Ubuntu, it's <code>/etc/apache2/apache2.conf</code>.</li>
+<li>on FreeBSD, it's <code>/usr/local/etc/apache2[X]/httpd.conf</code>. Please replace
+  <code>apache2[X]</code> by the real Apache version number here.</li>
+<li>on OpenBSD: not applicable because iRedMail doesn't use Apache on OpenBSD.</li>
+</ul>
+<pre><code>RequestHeader unset Proxy early
+</code></pre>
+
+<p>Restarting Apache service is required.</p>
 <h4 id="nginx">Nginx</h4>
 <p>Please open all files under below directories which contains <code>fastcgi_pass</code>
 parameter:</p>

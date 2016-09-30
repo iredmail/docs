@@ -269,7 +269,9 @@ Log file: Fail2ban logs to default syslog log file.
 
 ## SOGo Groupware {: #sogo }
 
-* Main config file is `/etc/sogo/sogo.conf`.
+* Main config file is
+    * on Linux/OpenBSD: `/etc/sogo/sogo.conf`
+    * on FreeBSD: `/usr/local/etc/sogo/sogo.conf`
 * Log file is `/var/log/sogo/sogo.log`.
 
 ## iRedAPD {: #iredapd }
