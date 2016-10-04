@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Upgrade SOGo SQL schema</title>
+        <link rel="stylesheet" type="text/css" href="./css/markdown.css" />
+    </head>
+    <body>
+    
+    <div id="navigation">
+    <a href="/index.html" target="_blank">
+        <img alt="iRedMail web site"
+             src="./images/logo-iredmail.png"
+             style="vertical-align: middle; height: 30px;"
+             />&nbsp;
+        <span>iRedMail</span>
+    </a>
+    &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><h1 id="upgrade-sogo-sql-schema">Upgrade SOGo SQL schema</h1>
+<p>With default SOGo settings in iRedMail-0.9.5-1 and earler releases, SOGo will
+create 3 SQL tables for each user, this introduces some issues:</p>
+<ul>
+<li>Your <code>sogo</code> database will contains lots of sql tables.</li>
+<li>MySQL limits the table name to 64 characters, if your email address is long,
+  SOGo cannot create required table for you. Related bug report in SOGo bug
+  tracker: <a href="https://sogo.nu/bugs/view.php?id=3447">https://sogo.nu/bugs/view.php?id=3447</a></li>
+</ul>
+<p>We need few steps to migrate SOGo to use 9 SQL tables in total instead of
+creating 3 tables for each user. This solution was first introduced in
+SOGo-3.0.0.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning and Disclaimer</p>
+<p>It's strongly recommended to try steps below on a testing machine BEFORE
+you do it in production, we (iRedMail team) don't take any responsibility
+for data lose. You have been warned.</p>
+</div>
+<ul>
+<li>
+<p><strong>BACKUP BACKUP BACKUP!!!</strong></p>
+<p>Backup all SOGo data before you try any commands mentioned in this tutorial,
+including SOGo database, and config file (<code>/etc/sogo/sogo.conf</code> on
+Linux/OpenBSD, <code>/usr/local/etc/sogo/sogo.conf</code> on FreeBSD).</p>
+</li>
+<li>
+<p>Stop SOGo service.</p>
+</li>
+<li>Stop memcached service.</li>
+<li>Convert old data to new format by running one shell script shipped in SOGo
+  package. You can find it with the package management tool like
+  <code>rpm -ql sogo | grep 'combined'</code> on (RHEL/CentOS),
+  <code>dpkg -L sogo | grep 'combined'</code> on Debian/Ubuntu, etc.
+  Below is sample output on CentOS:</li>
+</ul>
+<pre><code># rpm -ql sogo | grep 'combined'
+/usr/share/doc/sogo-3.1.5.20160928/sql-update-3.0.0-to-combined-mysql.sh
+/usr/share/doc/sogo-3.1.5.20160928/sql-update-3.0.0-to-combined.sh
+</code></pre>
+
+<p>If you are running iRedMail with OpenLDAP or MySQL/MariaDB backend, you need
+the first one with <code>mysql</code> in file name: <code>sql-update-3.0.0-to-combined-mysql.sh</code>,
+if you are running iRedMail with PostgreSQL backend, you need the second one
+(<code>sql-update-3.0.0-to-combined.sh</code>). We use MySQL one for example.</p>
+<p>Now run the script as root user (or with <code>sudo</code>):</p>
+<pre><code>bash /usr/share/doc/sogo-3.1.5.20160928/sql-update-3.0.0-to-combined-mysql.sh
+</code></pre>
+
+<ul>
+<li>
+<p>Open <code>/etc/sogo/sogo.conf</code>, make sure you have 3 NEW parameters:</p>
+<ul>
+<li><code>OCSCacheFolderURL</code></li>
+<li><code>OCSStoreURL</code></li>
+<li><code>OCSAclURL</code></li>
+</ul>
+<p>If you don't have them after running above command, add them manually
+like below (please use the correct SQL username and password):</p>
+</li>
+</ul>
+<pre><code>OCSCacheFolderURL = &quot;mysql://sogo:&lt;password&gt;@127.0.0.1:3306/sogo/sogo_cache_folder&quot;;
+OCSStoreURL = &quot;mysql://sogo:&lt;password&gt;@127.0.0.1:3306/sogo/sogo_store&quot;;
+OCSAclURL = &quot;mysql://sogo:&lt;password&gt;@127.0.0.1:3306/sogo/sogo_acl&quot;;
+</code></pre>
+
+<ul>
+<li>Start memcached service.</li>
+<li>
+<p>Start SOGo service. SOGo will create new SQL tables as defined in above new
+  parameters:</p>
+<ul>
+<li><code>sogo_cache_folder</code></li>
+<li><code>sogo_store</code></li>
+<li><code>sogo_acl</code></li>
+</ul>
+</li>
+<li>
+<p>Login to SOGo webmail, make sure no data lost.</p>
+</li>
+</ul>
+<p>If there's something wrong, please check SOGo log file (<code>/var/log/sogo/sogo.log</code>)
+to see whether or not it reports some error. Report errors, issues, questions
+in our online support forum: <a href="http://www.iredmail.org/forum/">http://www.iredmail.org/forum/</a>.</p><div class="footer">
+    <p style="text-align: center; color: grey;">All documents are available in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://bitbucket.org/zhb/iredmail-docs/get/tip.tar.bz2">download the latest version</a> for offline reading. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
+</div>
+<script type="text/javascript">
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-3293801-21', 'auto');
+  ga('send', 'pageview');
+</script>
+</body></html>
