@@ -31,7 +31,7 @@
 <li><a href="#sample-code-to-interact-with-iredadmin-pro-restful-api">Sample code to interact with iRedAdmin-Pro RESTful API</a></li>
 <li><a href="#apis">APIs</a><ul>
 <li><a href="#domain">Domain</a></li>
-<li><a href="#user">User</a></li>
+<li><a href="#mail-user">Mail User</a></li>
 <li><a href="#mailing-list">Mailing List</a></li>
 <li><a href="#mail-alias">Mail Alias</a></li>
 <li><a href="#throttling">Throttling</a></li>
@@ -101,10 +101,9 @@ RESTFUL_API_CLIENTS = ['172.16.244.1', ...]
 </ul>
 <p><button type="button" class="toggle_all">Expand/Collapse All API Parameters</button></p>
 <h3 class="toggle" id="domain">Domain</h3>
-<!--
-!!! api "`GET`{: .get } `/api/domain/<domain>`{: .url } `Get profile of an existing domain`{: .comment }"
--->
-
+<div class="admonition api">
+<p class="admonition-title"><code class="get">GET</code> <code class="url">/api/domain/&lt;domain&gt;</code> <code class="comment">Get profile of an existing domain</code> <code class="upcoming">upcoming</code></p>
+</div>
 <div class="admonition api">
 <p class="admonition-title"><code class="post">POST</code> <code class="url">/api/domain/&lt;domain&gt;</code> <code class="comment">Create a new domain</code> <code class="has_params">Parameters</code></p>
 <div class="params params_domain">
@@ -338,7 +337,10 @@ to be a domain admin.</p>
 </div>
 
 </div>
-<h3 class="toggle" id="user">User</h3>
+<h3 class="toggle" id="mail-user">Mail User</h3>
+<div class="admonition api">
+<p class="admonition-title"><code class="get">GET</code> <code class="url">/api/user/&lt;mail&gt;</code> <code class="comment">Get profile of an existing mail user</code> <code class="upcoming">upcoming</code></p>
+</div>
 <div class="admonition api">
 <p class="admonition-title"><code class="post">POST</code> <code class="url">/api/user/&lt;mail&gt;</code> <code class="comment">Create a new mail user</code> <code class="has_params">Parameters</code></p>
 <div class="params params_user">
@@ -461,6 +463,29 @@ to be a domain admin.</p>
 </div>
 
 </div>
+<div class="admonition api">
+<p class="admonition-title"><code class="post">POST</code> <code class="url">/api/verify_password/user/&lt;mail&gt;</code> <code class="comment">Verify given (plain) password against the one stored in SQL/LDAP</code> <code class="upcoming">upcoming</code> <code class="has_params">Parameters</code> </p>
+<div class="params params_user">
+
+<table>
+<thead>
+<tr>
+<th>Parameter Name</th>
+<th>Summary</th>
+<th>Sample Usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>password</code></td>
+<td>Plain password</td>
+<td><code>password=u0tBF82cIV@vi8Gme</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+
+</div>
 <h3 class="toggle" id="mailing-list">Mailing List</h3>
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>
@@ -502,6 +527,9 @@ please use mail alias account as mailing list.</p>
 
 </div>
 <h3 class="toggle" id="mail-alias">Mail Alias</h3>
+<div class="admonition api">
+<p class="admonition-title"><code class="get">GET</code> <code class="url">/api/alias/&lt;mail&gt;</code> <code class="comment">Get profile of an existing mail alias</code> <code class="upcoming">upcoming</code></p>
+</div>
 <div class="admonition api">
 <p class="admonition-title"><code class="post">POST</code> <code class="url">/api/alias/&lt;mail&gt;</code> <code class="comment">Create a new mail alias</code> <code class="upcoming">upcoming</code> <code class="has_params">Parameters</code></p>
 <div class="params">

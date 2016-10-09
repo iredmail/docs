@@ -260,8 +260,7 @@ h2, h3, h4, h5 { padding-top: 20px; }
 pre, code {
     background: #f5f5f5;
     border: 1px solid #ccc;
-    /*border-radius: 3px;*/
-    overflow-x: auto;
+    border-radius: 2px;
     padding: 5px 10px 5px 10px;
     word-wrap: normal;
     font-size: 14px;
@@ -420,7 +419,6 @@ button, .button { font-size: 16px; padding: 5px 5px 5px 5px; }
     float: right;
     width: auto;
     cursor: pointer;
-    -webkit-appearance: button;
 }
 .api code.comment {
     color: black;

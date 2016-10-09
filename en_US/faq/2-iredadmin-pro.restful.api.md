@@ -69,9 +69,7 @@ Notes:
 
 ### Domain {: .toggle }
 
-<!--
-!!! api "`GET`{: .get } `/api/domain/<domain>`{: .url } `Get profile of an existing domain`{: .comment }"
--->
+!!! api "`GET`{: .get } `/api/domain/<domain>`{: .url } `Get profile of an existing domain`{: .comment } `upcoming`{: .upcoming }"
 !!! api "`POST`{: .post } `/api/domain/<domain>`{: .url } `Create a new domain`{: .comment } `Parameters`{: .has_params }"
 
     <div class="params params_domain">
@@ -145,8 +143,9 @@ Notes:
 
     </div>
 
-### User {: .toggle }
+### Mail User {: .toggle }
 
+!!! api "`GET`{: .get } `/api/user/<mail>`{: .url } `Get profile of an existing mail user`{: .comment } `upcoming`{: .upcoming }"
 !!! api "`POST`{: .post } `/api/user/<mail>`{: .url } `Create a new mail user`{: .comment } `Parameters`{: .has_params }"
 
     <div class="params params_user">
@@ -189,6 +188,16 @@ Notes:
 
     </div>
 
+!!! api "`POST`{: .post } `/api/verify_password/user/<mail>`{: .url } `Verify given (plain) password against the one stored in SQL/LDAP`{: .comment } `upcoming`{: .upcoming } `Parameters`{: .has_params} "
+
+    <div class="params params_user">
+
+    Parameter Name | Summary | Sample Usage
+    --- |--- |---
+    `password` | Plain password | `password=u0tBF82cIV@vi8Gme`
+
+    </div>
+
 ### Mailing List {: .toggle }
 
 !!! attention
@@ -211,6 +220,7 @@ Notes:
 
 ### Mail Alias {: .toggle }
 
+!!! api "`GET`{: .get } `/api/alias/<mail>`{: .url } `Get profile of an existing mail alias`{: .comment } `upcoming`{: .upcoming }"
 !!! api "`POST`{: .post } `/api/alias/<mail>`{: .url } `Create a new mail alias`{: .comment } `upcoming`{: .upcoming} `Parameters`{: .has_params}"
 
     <div class="params">
