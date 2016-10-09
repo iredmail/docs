@@ -98,7 +98,7 @@ Notes:
     Parameter Name | Summary | Sample Usage
     --- |--- |---
     `name` | Short description of this domain name. e.g. company name | `name=Google Inc`
-    `accountStatus` | Enable or disable domain | `accountStatus=active` (or `disabled`)
+    `accountStatus` | Enable or disable domain. Possible values: `active`, `disabled`. | `accountStatus=active`
     `quota` | Mailbox quota for whole domain, in MB. | `quota=2048`
     `language` | Default preferred language for newly created mail user | `language=en_US`
     `transport` | Transport program | `transport=dovecot`
@@ -154,7 +154,7 @@ Notes:
     --- |--- |---
     `name` | Display name | `name=My New Name`
     `password` | Password| `password=AsTr0ng@`
-    `language` | Preferred language of web UI | `language=en_US`
+    `language` | Preferred language of iRedAdmin web UI | `language=en_US`
     `quota` | Mailbox quota (in MB) | `quota=1024`
 
     </div>
@@ -169,9 +169,10 @@ Notes:
     `name` | Display name | `name=My New Name`
     `password` | Password | `password=u0tBF82cIV@vi8Gme`
     `quota` | Mailbox quota (in MB) | `quota=1024`
-    `accountStatus` | Enable or disable user | `accountStatus=active` (or `disabled`)
-    `language` | Preferred language of web UI | `language=en_US`
+    `accountStatus` | Enable or disable user. Possible values: `active`, `disabled`. | `accountStatus=active`
+    `language` | Preferred language of iRedAdmin web UI | `language=en_US`
     `transport` | Transport program | `transport=dovecot`
+    `forwarding` | Per-user mail forwarding. Multiple addresses must be separated by comma. To save an email copy in mailbox, add original email address as one of forwarding addresses. | `forwarding=user1@domain.com,user2@domain.com,user3@domain.com`
 
     </div>
 
@@ -183,7 +184,7 @@ Notes:
     --- |---
     `accountStatus` | Account status. Possible value is: active, disabled.
     `password` | Password
-    `language` | Preferred language of web UI
+    `language` | Preferred language of iRedAdmin web UI
     `transport` | Per-user transport
 
     </div>

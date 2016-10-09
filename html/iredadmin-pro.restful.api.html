@@ -200,8 +200,8 @@ RESTFUL_API_CLIENTS = ['172.16.244.1', ...]
 </tr>
 <tr>
 <td><code>accountStatus</code></td>
-<td>Enable or disable domain</td>
-<td><code>accountStatus=active</code> (or <code>disabled</code>)</td>
+<td>Enable or disable domain. Possible values: <code>active</code>, <code>disabled</code>.</td>
+<td><code>accountStatus=active</code></td>
 </tr>
 <tr>
 <td><code>quota</code></td>
@@ -366,7 +366,7 @@ to be a domain admin.</p>
 </tr>
 <tr>
 <td><code>language</code></td>
-<td>Preferred language of web UI</td>
+<td>Preferred language of iRedAdmin web UI</td>
 <td><code>language=en_US</code></td>
 </tr>
 <tr>
@@ -412,18 +412,23 @@ to be a domain admin.</p>
 </tr>
 <tr>
 <td><code>accountStatus</code></td>
-<td>Enable or disable user</td>
-<td><code>accountStatus=active</code> (or <code>disabled</code>)</td>
+<td>Enable or disable user. Possible values: <code>active</code>, <code>disabled</code>.</td>
+<td><code>accountStatus=active</code></td>
 </tr>
 <tr>
 <td><code>language</code></td>
-<td>Preferred language of web UI</td>
+<td>Preferred language of iRedAdmin web UI</td>
 <td><code>language=en_US</code></td>
 </tr>
 <tr>
 <td><code>transport</code></td>
 <td>Transport program</td>
 <td><code>transport=dovecot</code></td>
+</tr>
+<tr>
+<td><code>forwarding</code></td>
+<td>Per-user mail forwarding. Multiple addresses must be separated by comma. To save an email copy in mailbox, add original email address as one of forwarding addresses.</td>
+<td><code>forwarding=user1@domain.com,user2@domain.com,user3@domain.com</code></td>
 </tr>
 </tbody>
 </table>
@@ -452,7 +457,7 @@ to be a domain admin.</p>
 </tr>
 <tr>
 <td><code>language</code></td>
-<td>Preferred language of web UI</td>
+<td>Preferred language of iRedAdmin web UI</td>
 </tr>
 <tr>
 <td><code>transport</code></td>
