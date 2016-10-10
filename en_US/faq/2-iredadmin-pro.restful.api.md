@@ -84,7 +84,7 @@ Notes:
     `maxUserQuota` | Max mailbox quota of a mail user, in MB. | `maxUserQuota=2048`
     `numberOfUsers` | Max number of mail user accounts | `numberOfUsers=20`
     `numberOfAliases` | Max number of mail alias accounts | `numberOfAliases=30`
-    `numberOfLists` | Max number of mailing list accounts (LDAP only)| `numberOfLists=40`
+    `numberOfLists` | Max number of mailing list accounts (Available in LDAP backends)| `numberOfLists=40`
     `senderBcc` | Per-domain sender bcc | `senderBcc=user@domain.com`
     `recipientBcc` | Per-domain recipient bcc | `recipientBcc=user@domain.com`
 
@@ -249,8 +249,9 @@ Notes:
 
     Parameter Name | Summary | Sample Usage
     --- |--- |---
-    `name` | display name | `name=My List Name`
+    `name` | Display name | `name=My List Name`
     `accessPolicy` | Defines who can send email to this mail alias account | `accessPolicy=public`
+    `members` | Members of mail alias. Multiple members must be separated by comma. | `members=user1@domain.com,user2@domain.com`
 
     </div>
 

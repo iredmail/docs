@@ -159,7 +159,7 @@ RESTFUL_API_CLIENTS = ['172.16.244.1', ...]
 </tr>
 <tr>
 <td><code>numberOfLists</code></td>
-<td>Max number of mailing list accounts (LDAP only)</td>
+<td>Max number of mailing list accounts (Available in LDAP backends)</td>
 <td><code>numberOfLists=40</code></td>
 </tr>
 <tr>
@@ -594,13 +594,18 @@ please use mail alias account as mailing list.</p>
 <tbody>
 <tr>
 <td><code>name</code></td>
-<td>display name</td>
+<td>Display name</td>
 <td><code>name=My List Name</code></td>
 </tr>
 <tr>
 <td><code>accessPolicy</code></td>
 <td>Defines who can send email to this mail alias account</td>
 <td><code>accessPolicy=public</code></td>
+</tr>
+<tr>
+<td><code>members</code></td>
+<td>Members of mail alias. Multiple members must be separated by comma.</td>
+<td><code>members=user1@domain.com,user2@domain.com</code></td>
 </tr>
 </tbody>
 </table>
