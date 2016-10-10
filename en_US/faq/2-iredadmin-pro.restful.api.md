@@ -228,8 +228,9 @@ Notes:
 
     Parameter Name | Summary | Sample Usage
     --- |--- |---
-    `name` | display name | `name=My List Name`
+    `name` | Display name | `name=My List Name`
     `accessPolicy` | Defines who can send email to this mail alias account | `accessPolicy=public`
+    `members` | Members of mail alias. Multiple members must be separated by comma. | `members=user1@domain.com,user2@domain.com`
 
     !!! attention
 

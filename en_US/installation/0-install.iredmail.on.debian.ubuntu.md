@@ -109,10 +109,6 @@ questions, that's all required to setup a full-featured mail server.
 
     `IREDMAIL_MIRROR='http://42.159.241.31' bash iRedMail.sh`
 
-    Additional variables are:
-
-    * SOGo repo: `SOGO_PKG_MIRROR='http://42.159.241.31/SOGo'`
-
 ## Screenshots of installation:
 
 * Welcome and thanks for your use
