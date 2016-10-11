@@ -179,6 +179,40 @@ TLSCertificateKeyFile /etc/pki/tls/private/server.key
 
 Restarting OpenLDAP service is required.
 
+If you want to connect with TLS (port 389) or SSL (port 636) for secure
+connection from command line tools like `ldapsearch`, please update parameter
+`TLS_CACERT` in OpenLDAP client config file also, otherwise you will get
+error message like `Peer's Certificate issuer is not recognized`.
+
+* On Red Hat and CentOS, it's defined in `/etc/openldap/ldap.conf`.
+* On Debian and Ubuntu, it's defined in `/etc/ldap/ldap.conf`.
+* On FreeBSD, it's defined in `/usr/local/etc/openldap/ldap.conf`.
+* On OpenBSD, it's defined in `/etc/openldap/ldap.conf`.
+
+```
+TLS_CACERT /etc/pki/tls/certs/server.ca-bundle
+```
+
+To connect with TLS, please run `ldapsearch` with argument `-Z` and use
+`ldap://<your_server_name>:389` as ldap host. For example:
+
+```
+ldapsearch -x -W -Z \
+    -H 'ldap://mail.example.com:389' \
+    -D 'cn=vmail,dc=example,dc=com' \
+    -b 'o=domains,dc=example,dc=com' mail
+```
+
+* To connection with SSL, use `ldaps://<your_server_name>:636` as ldap host.
+  for example:
+
+```
+ldapsearch -x -W \
+    -H 'ldaps://mail.example.com:636' \
+    -D 'cn=vmail,dc=example,dc=com' \
+    -b 'o=domains,dc=example,dc=com' mail
+```
+
 ### MySQL, MariaDB
 
 > If MySQL/MariaDB is listening on localhost and not accessible from external

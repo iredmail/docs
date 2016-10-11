@@ -192,6 +192,37 @@ TLSCertificateKeyFile /etc/pki/tls/private/server.key
 </code></pre>
 
 <p>Restarting OpenLDAP service is required.</p>
+<p>If you want to connect with TLS (port 389) or SSL (port 636) for secure
+connection from command line tools like <code>ldapsearch</code>, please update parameter
+<code>TLS_CACERT</code> in OpenLDAP client config file also, otherwise you will get
+error message like <code>Peer's Certificate issuer is not recognized</code>.</p>
+<ul>
+<li>On Red Hat and CentOS, it's defined in <code>/etc/openldap/ldap.conf</code>.</li>
+<li>On Debian and Ubuntu, it's defined in <code>/etc/ldap/ldap.conf</code>.</li>
+<li>On FreeBSD, it's defined in <code>/usr/local/etc/openldap/ldap.conf</code>.</li>
+<li>On OpenBSD, it's defined in <code>/etc/openldap/ldap.conf</code>.</li>
+</ul>
+<pre><code>TLS_CACERT /etc/pki/tls/certs/server.ca-bundle
+</code></pre>
+
+<p>To connect with TLS, please run <code>ldapsearch</code> with argument <code>-Z</code> and use
+<code>ldap://&lt;your_server_name&gt;:389</code> as ldap host. For example:</p>
+<pre><code>ldapsearch -x -W -Z \
+    -H 'ldap://mail.example.com:389' \
+    -D 'cn=vmail,dc=example,dc=com' \
+    -b 'o=domains,dc=example,dc=com' mail
+</code></pre>
+
+<ul>
+<li>To connection with SSL, use <code>ldaps://&lt;your_server_name&gt;:636</code> as ldap host.
+  for example:</li>
+</ul>
+<pre><code>ldapsearch -x -W \
+    -H 'ldaps://mail.example.com:636' \
+    -D 'cn=vmail,dc=example,dc=com' \
+    -b 'o=domains,dc=example,dc=com' mail
+</code></pre>
+
 <h3 id="mysql-mariadb">MySQL, MariaDB</h3>
 <blockquote>
 <p>If MySQL/MariaDB is listening on localhost and not accessible from external
