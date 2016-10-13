@@ -498,7 +498,40 @@ to be a domain admin.</p>
 please use mail alias account as mailing list.</p>
 </div>
 <div class="admonition api">
-<p class="admonition-title"><code class="post">POST</code> <code class="url">/api/maillist/&lt;mail&gt;</code> <code class="comment">Create a new mailing list</code></p>
+<p class="admonition-title"><code class="get">GET</code> <code class="url">/api/maillist/&lt;mail&gt;</code> <code class="comment">Get profile of an existing mailing list account</code> <code class="upcoming">upcoming</code></p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code class="post">POST</code> <code class="url">/api/maillist/&lt;mail&gt;</code> <code class="comment">Create a new mailing list</code> <code class="upcoming">upcoming</code> <code class="has_params">Parameters</code></p>
+<div class="params">
+
+<table>
+<thead>
+<tr>
+<th>Parameter Name</th>
+<th>Summary</th>
+<th>Sample Usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>name</code></td>
+<td>Display name</td>
+<td><code>name=My List Name</code></td>
+</tr>
+<tr>
+<td><code>accessPolicy</code></td>
+<td>Defines who can send email to this mail alias account</td>
+<td><code>accessPolicy=public</code></td>
+</tr>
+<tr>
+<td><code>members</code></td>
+<td>Members of mailing list. Multiple members must be separated by comma.</td>
+<td><code>members=user1@domain.com,user2@domain.com</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+
 </div>
 <div class="admonition api">
 <p class="admonition-title"><code class="delete">DELETE</code> <code class="url">/api/maillist/&lt;mail&gt;</code> <code class="comment">Delete an existing mailing list</code></p>

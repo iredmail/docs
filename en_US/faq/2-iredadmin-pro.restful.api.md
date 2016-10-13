@@ -206,7 +206,18 @@ Notes:
     Mailing list is only available in OpenLDAP backend. For SQL backends,
     please use mail alias account as mailing list.
 
-!!! api "`POST`{: .post } `/api/maillist/<mail>`{: .url } `Create a new mailing list`{: .comment }"
+!!! api "`GET`{: .get } `/api/maillist/<mail>`{: .url } `Get profile of an existing mailing list account`{: .comment } `upcoming`{: .upcoming }"
+!!! api "`POST`{: .post } `/api/maillist/<mail>`{: .url } `Create a new mailing list`{: .comment } `upcoming`{: .upcoming } `Parameters`{: .has_params }"
+    <div class="params">
+
+    Parameter Name | Summary | Sample Usage
+    --- |--- |---
+    `name` | Display name | `name=My List Name`
+    `accessPolicy` | Defines who can send email to this mail alias account | `accessPolicy=public`
+    `members` | Members of mailing list. Multiple members must be separated by comma. | `members=user1@domain.com,user2@domain.com`
+
+    </div>
+
 !!! api "`DELETE`{: .delete } `/api/maillist/<mail>`{: .url } `Delete an existing mailing list`{: .comment }"
 !!! api "`PUT`{: .put } `/api/maillist/<mail>`{: .url } `Update profile of an existing mailing list`{: .comment } `Parameters`{: .has_params }"
 
