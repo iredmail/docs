@@ -25,25 +25,29 @@
 find the correct one for your server in this tutorial:
 <a href="./file.locations.html#amavisd">Locations of configuration and log files of major components</a></p>
 </blockquote>
-<p>To understand whether Amavisd + SpamAssassin are working, you can add this
-setting to Amavisd config file:</p>
+<p>If you just want to know whether Amavisd + SpamAssassin are working, you can
+add setting below to Amavisd config file, then restart Amavisd service. Amavisd
+will log verbose message for each processed message in its log file.</p>
 <pre><code>$log_templ = $log_verbose_templ;
 </code></pre>
 
-<p>Then restart Amavisd service, it will log verbose message in log file. For
-example:</p>
-<blockquote>
-<p>May 18 09:54:15 ob amavis[24548]: (24548-01) Passed CLEAN {RelayedInbound}, [127.0.0.1] /ESMTP <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#114;&#111;&#111;&#116;&#64;&#46;&#46;&#46;&#109;&#97;&#105;&#108;&#46;&#111;&#114;&#103;">&#114;&#111;&#111;&#116;&#64;&#46;&#46;&#46;&#109;&#97;&#105;&#108;&#46;&#111;&#114;&#103;</a> -&gt; <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#98;&#117;&#103;&#115;&#64;&#46;&#46;&#46;&#98;&#115;&#100;&#46;&#111;&#114;&#103;">&#98;&#117;&#103;&#115;&#64;&#46;&#46;&#46;&#98;&#115;&#100;&#46;&#111;&#114;&#103;</a>, (), Message-ID: <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#50;&#48;&#49;&#54;&#48;&#53;&#49;&#56;&#48;&#49;&#53;&#51;&#48;&#49;&#46;&#66;&#50;&#65;&#55;&#52;&#49;&#51;&#52;&#52;&#68;&#64;&#46;&#46;&#46;&#109;&#97;&#105;&#108;&#46;&#111;&#114;&#103;">&#50;&#48;&#49;&#54;&#48;&#53;&#49;&#56;&#48;&#49;&#53;&#51;&#48;&#49;&#46;&#66;&#50;&#65;&#55;&#52;&#49;&#51;&#52;&#52;&#68;&#64;&#46;&#46;&#46;&#109;&#97;&#105;&#108;&#46;&#111;&#114;&#103;</a>, mail_id: JcfAanaWAP-2, b: efIM2W-Q-, Hits: -, size: 161634, queued_as: 4756B13453, Subject: "ldapd(8) doesn't correctly handle MOD_DELETE operation", From: <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#122;&#104;&#98;&#64;&#46;&#46;&#46;&#109;&#97;&#105;&#108;&#46;&#111;&#114;&#103;">&#122;&#104;&#98;&#64;&#46;&#46;&#46;&#109;&#97;&#105;&#108;&#46;&#111;&#114;&#103;</a>, helo=...mail.org, 160 ms</p>
-</blockquote>
-<pre><code>
-If you really want `X-Spam-*` headers in email, please decrease Amavisd setting
-`$sa_tag_level_deflt` to a very low score, e.g. `-999`, then restart Amavisd
-service. it will always insert `X-Spam-*` headers in email:
-
+<p>Sample log:</p>
+<pre><code>Oct 12 21:26:34 d8 amavis[1389]: (01389-01) Passed CLEAN {RelayedInternal},
+ORIGINATING/MYNETS LOCAL [172.16.100.1]:54180 ESMTP/ESMTP &lt;postmaster@a.cn&gt; -&gt;
+&lt;amavis@d8.iredmail.org&gt;, (), Queue-ID: 2F322E003E, mail_id: 47G-u3kjLkOz, b:
+3tnIDXRGW, Hits: -0.428, size: 316, queued_as: 58A90DFC34, Subject: &quot;mail subject&quot;,
+From: &lt;postmaster@a.cn&gt;, helo=test.com, Tests: [ALL_TRUSTED=-1,INVALID_DATE=0.432,
+MISSING_MID=0.14], autolearn=no autolearn_force=no, autolearnscore=0.572,
+dkim_new=dkim:a.cn, 19162 ms
 </code></pre>
 
-<p>$sa_tag_level_deflt  = -999;
-```</p>
+<p>The "Tests:" flag includes spam scanning result from SpamAssassin.</p>
+<p>If you want Amavisd to insert <code>X-Spam-*</code> headers in each email, please decrease
+Amavisd setting <code>$sa_tag_level_deflt</code> (in Amavisd config file )to a very low
+score, e.g. <code>-999</code>, then restart Amavisd service:</p>
+<pre><code>$sa_tag_level_deflt  = -999;
+</code></pre>
+
 <p>That means Amavisd will insert <code>X-Spam-Flag</code> and other <code>X-Spam-*</code> headers when
 email score &gt;= <code>-999</code>.</p><div class="footer">
     <p style="text-align: center; color: grey;">All documents are available in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://bitbucket.org/zhb/iredmail-docs/get/tip.tar.bz2">download the latest version</a> for offline reading. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
