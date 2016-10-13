@@ -201,7 +201,8 @@ hostname or IP address.
 * __Roundcube webmail__: <https://your_server/mail/>
 * __SOGo Groupware__: <https://your_server/SOGo>
 * __Web admin panel (iRedAdmin)__: <httpS://your_server/iredadmin/>
-* __Awstats__: <httpS://your_server/awstats/awstats.pl?config=web> (or `?config=smtp` for SMTP log)
+* __Awstats__: <httpS://your_server/awstats/awstats.pl?config=web> (or
+  `?config=smtp` for SMTP traffic log)
 
 ## Get technical support
 
