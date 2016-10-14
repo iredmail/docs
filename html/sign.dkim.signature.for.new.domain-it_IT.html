@@ -79,7 +79,9 @@ vostro cliente di aggiungere un record DNS DIKIM sul proprio dominio. Fate rifer
 <ul>
 <li>Generare una  nuova chiave DKIM (lunghezza della chiave 1024`) per il nuovo dominio.</li>
 </ul>
-<pre><code class="shell"># amavisd-new genrsa /var/lib/dkim/new_domain.com.pem 1024
+<pre><code class="shell">amavisd-new genrsa /var/lib/dkim/new_domain.com.pem 1024
+chown amavis:amavis /var/lib/dkim/new_domain.com.pem
+chmod 0400 /var/lib/dkim/new_domain.com.pem
 </code></pre>
 
 <blockquote>

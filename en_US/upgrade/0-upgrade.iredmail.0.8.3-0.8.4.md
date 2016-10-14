@@ -113,11 +113,11 @@ Here we go:
 # cd /tmp
 # wget https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/samples/iredmail/iredmail.schema
 
-# cd /usr/local/etc/ldap/schema/
+# cd /usr/local/etc/openldap/schema/
 # cp iredmail.schema iredmail.schema.bak
 
 # cp -f /tmp/iredmail.schema /usr/local/etc/openldap/schema/
-# /usr/local/etc/rc.d/slapd restart
+# service slapd restart
 ```
 
 #### Update existing accounts

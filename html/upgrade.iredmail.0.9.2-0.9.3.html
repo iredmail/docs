@@ -166,7 +166,7 @@ postalias /etc/postfix/aliases
   already have line <code>virusalert: root</code>, please ignore this step. if not, please
   run commands below to add it.</li>
 </ul>
-<pre><code class="shell">perl -pi -e 's/(virusalert:.*)/#${1}/g' /etc/postfix/aliases
+<pre><code class="shell">perl -pi -e 's/(virusalert:.*)/#${1}/g' /usr/local/etc/postfix/aliases
 echo -e '\nvirusalert: root' &gt;&gt; /usr/local/etc/postfix/aliases
 postalias /usr/local/etc/postfix/aliases
 </code></pre>

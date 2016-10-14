@@ -56,15 +56,18 @@ If you or your customer prefer to use their own DKIM key, you can generate
 a new DKIM key and ask your customer to add DKIM DNS record. Refer to our
 tutorial to [add DKIM DNS record](setup.dns.html#dkim-record-for-your-mail-domain-name).
 
-* Generate new DKIM key (key length `1024`) for new domain.
+* Generate new DKIM key (key length `1024`) for new domain, and set correct
+  file owner and permission
 
 ```shell
-# amavisd-new genrsa /var/lib/dkim/new_domain.com.pem 1024
+amavisd-new genrsa /var/lib/dkim/new_domain.com.pem 1024
+chown amavisd:amavisd /var/lib/dkim/new_domain.com.pem
+chmod 0400 /var/lib/dkim/new_domain.com.pem
 ```
 
 !!! note
 
-    * on different Linux/BSD distributions, the command may be `amavisd`.
+    * on different Linux/BSD distributions, the command may be `amavisd`
     * on RHEL/CentOS, you must specify the config file on command line like this:
 
     ```# amavisd -c /etc/amavisd/amavisd.conf genrsa /var/lib/dkim/new_domain.com.pem```

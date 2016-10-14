@@ -223,7 +223,7 @@ __NOTE__: For OpenBSD users, please replace `user = postfix` by
 # /etc/init.d/dovecot restart
 
 # ---- On FreeBSD ----
-# /usr/local/etc/rc.d/dovecot restart
+# service dovecot restart
 
 # ---- On OpenBSD ----
 # /etc/rc.d/dovecot restart

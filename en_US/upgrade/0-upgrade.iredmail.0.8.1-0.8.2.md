@@ -165,11 +165,11 @@ Here we go:
 # cd /tmp
 # wget https://bitbucket.org/zhb/iredmail/raw/a4d8b730d147/iRedMail/samples/iredmail/iredmail.schema
 
-# cd /usr/local/etc/ldap/schema/
+# cd /usr/local/etc/openldap/schema/
 # cp iredmail.schema iredmail.schema.bak
 
 # cp -f /tmp/iredmail.schema /usr/local/etc/openldap/schema/
-# /etc/init.d/slapd restart
+# service slapd restart
 ```
 
 ### Return correct maildir path while using `virtual` transport

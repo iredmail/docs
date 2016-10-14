@@ -112,7 +112,7 @@ postalias /etc/postfix/aliases
   run commands below to add it.
 
 ```shell
-perl -pi -e 's/(virusalert:.*)/#${1}/g' /etc/postfix/aliases
+perl -pi -e 's/(virusalert:.*)/#${1}/g' /usr/local/etc/postfix/aliases
 echo -e '\nvirusalert: root' >> /usr/local/etc/postfix/aliases
 postalias /usr/local/etc/postfix/aliases
 ```
