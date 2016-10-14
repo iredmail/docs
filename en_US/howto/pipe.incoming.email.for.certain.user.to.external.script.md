@@ -1,6 +1,10 @@
 # Pipe incoming email for certain user to external script 
 
-This tutorial explains how to pipe incoming email for certain user to external script.
+[TOC]
+
+This tutorial explains how to pipe incoming email for certain user to an
+external script (it must be a file on your mail server, not a remote file
+accessible via ssh/http/ftp/...).
 
 ## Configure Postfix to use your external script as transport
 

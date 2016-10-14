@@ -16,7 +16,18 @@
         <span>iRedMail</span>
     </a>
     &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><h1 id="pipe-incoming-email-for-certain-user-to-external-script">Pipe incoming email for certain user to external script</h1>
-<p>This tutorial explains how to pipe incoming email for certain user to external script.</p>
+<div class="toc">
+<ul>
+<li><a href="#pipe-incoming-email-for-certain-user-to-external-script">Pipe incoming email for certain user to external script</a><ul>
+<li><a href="#configure-postfix-to-use-your-external-script-as-transport">Configure Postfix to use your external script as transport</a></li>
+<li><a href="#update-per-user-transport-to-use-this-new-transport">Update per-user transport to use this new transport</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<p>This tutorial explains how to pipe incoming email for certain user to an
+external script (it must be a file on your mail server, not a remote file
+accessible via ssh/http/ftp/...).</p>
 <h2 id="configure-postfix-to-use-your-external-script-as-transport">Configure Postfix to use your external script as transport</h2>
 <p>To pipe incoming emails to external script, you must add your external script
 as Postfix transport program. Please add below line at the bottom of Postfix
