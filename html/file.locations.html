@@ -361,9 +361,17 @@ your custom settings.</p>
 <li>on OpenBSD, it's <code>/var/www/iredadmin/settings.py</code>.</li>
 </ul>
 <p>iRedAdmin is a web application, when debug mode is turned on, it will log error
-message to <a href="#apache">Apache ssl error log file</a>, or uwsgi log file (if you're running
-Nginx). uwsgi log file is under <code>/var/log/uwsgi/</code> on Linux/FreeBSD, and
-<code>/var/www/logs/</code> on OpenBSD.</p>
+message to:</p>
+<ul>
+<li>If you're running Apache, it logs to <a href="#apache">Apache ssl error log file</a>.</li>
+<li>If you're running Nginx with uwsgi:<ul>
+<li>on Debian/Ubuntu, it logs to <code>/var/log/uwsgi/app/iredadmin.log</code>.</li>
+<li>on RHEL/CentOS, it logs to <code>/var/log/messages</code>.</li>
+<li>on OpenBSD, it logs to <code>/var/www/logs/uwsgi.log</code>.</li>
+<li>on FreeBSD, it logs to <code>/var/log/uwsgi-iredadmin.log</code>.</li>
+</ul>
+</li>
+</ul>
 <p>Note: If you modified any iRedAdmin files (not just config file), please restart
 Apache or uwsgi service (if you're running Nginx) to reload modified files.</p>
 <h2 id="cluebringer"><strike>Cluebringer</strike></h2>
