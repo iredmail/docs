@@ -61,24 +61,39 @@ for lang in ${all_languages}; do
         break
     fi
 
-    # Markdown file used to store index of chapters/articles.
-    INDEX_MD="${OUTPUT_DIR}/index.md"
-
-    # Generate a index file.
-    has_index='NO'
+    # Generate a Markdown file used to store index of chapters/articles.
     if [ X"${lang}" == X'en_US' ]; then
-        has_index='YES'
+        INDEX_MD="${OUTPUT_DIR}/index.md"
+    else
+        INDEX_MD="${OUTPUT_DIR}/index-${lang}.md"
     fi
 
     cd ${src_dir}
 
-    # Initial index file.
-    if [ X"${has_index}" == X'YES' ]; then
-        if [ -f ${src_dir}/_title.md ]; then
-            cat ${src_dir}/_title.md > ${INDEX_MD}
-        else
-            echo '' > ${INDEX_MD}
+    # Show different languages
+    echo -e '!!! note "Some tutorials have been translated to different languages:"' > ${INDEX_MD}
+
+    _md_lang=''
+    for l in ${all_languages}; do
+        # Latvian has only one tutorial which is hidden due to file name starts
+        # with '0-'. So we hide this language temporarily.
+        if [ X"${l}" == X'lv_LV' ]; then
+            continue
         fi
+
+        if [ X"${l}" != X"${lang}" ]; then
+            if [ X"${l}" == X'en_US' ]; then
+                _md_lang="${_md_lang} [$(cat ${ROOTDIR}/${l}/_lang.md)](./index.html) /"
+            else
+                _md_lang="${_md_lang} [$(cat ${ROOTDIR}/${l}/_lang.md)](./index-${l}.html) /"
+            fi
+        fi
+    done
+    echo -e "\t${_md_lang}\n" >> ${INDEX_MD}
+
+    # Initial index file.
+    if [ -f ${src_dir}/_title.md ]; then
+        cat ${src_dir}/_title.md >> ${INDEX_MD}
     fi
 
     # Used for prettier printing
@@ -104,19 +119,17 @@ for lang in ${all_languages}; do
         _title_md="${chapter_dir}/_title.md"
         _summary_md="${chapter_dir}/_summary.md"
 
-        if [ X"${has_index}" == X'YES' ]; then
-            if [ -f ${_title_md} ]; then
-                # generate index info of chapter
-                _chapter_title="$(cat ${_title_md})"
-                echo -e "### ${_chapter_title}" >> ${INDEX_MD}
+        if [ -f ${_title_md} ]; then
+            # generate index info of chapter
+            _chapter_title="$(cat ${_title_md})"
+            echo -e "### ${_chapter_title}" >> ${INDEX_MD}
 
-                if [ -f ${_summary_md} ]; then
-                    echo '' >> ${INDEX_MD}
-                    cat ${_summary_md} >> ${INDEX_MD}
+            if [ -f ${_summary_md} ]; then
+                echo '' >> ${INDEX_MD}
+                cat ${_summary_md} >> ${INDEX_MD}
 
-                    # Insert an empty line to not mess up other formats like list.
-                    echo '' >> ${INDEX_MD}
-                fi
+                # Insert an empty line to not mess up other formats like list.
+                echo '' >> ${INDEX_MD}
             fi
         fi
 
@@ -148,7 +161,7 @@ for lang in ${all_languages}; do
             # Get title in markdown file: '<h1>title</h1>'
             #_article_title="$(head -1 ${article_file} | awk -F'[<|>]' '{print $3}')"
 
-            if [ X"${hide_article_in_index}" == X'NO' -a X"${has_index}" == X'YES' ]; then
+            if [ X"${hide_article_in_index}" == X'NO' ]; then
                 echo "* [${_article_title}](${article_html_file})" >> ${INDEX_MD}
             fi
 
@@ -230,13 +243,11 @@ for lang in ${all_languages}; do
         done
 
         # Append addition links at the chapter bottom on index page.
-        if [ X"${has_index}" == X'YES' ]; then
-            _links_md="${chapter_dir}/_links.md"
-            if [ -f ${_links_md} ]; then
-                echo '' >> ${INDEX_MD}
-                cat ${_links_md} >> ${INDEX_MD}
-                echo '' >> ${INDEX_MD}
-            fi
+        _links_md="${chapter_dir}/_links.md"
+        if [ -f ${_links_md} ]; then
+            echo '' >> ${INDEX_MD}
+            cat ${_links_md} >> ${INDEX_MD}
+            echo '' >> ${INDEX_MD}
         fi
     done
 
@@ -248,13 +259,11 @@ for lang in ${all_languages}; do
     echo ''
     echo "* ${article_counter} files total for ${lang}."
 
-    if [ X"${has_index}" == X'YES' ]; then
-        echo "* Converting ${INDEX_MD} for index page."
-        ${CMD_CONVERT} ${INDEX_MD} ${OUTPUT_DIR} title="iRedMail Documentations"
+    echo "* Converting ${INDEX_MD} for index page."
+    ${CMD_CONVERT} ${INDEX_MD} ${OUTPUT_DIR} title="iRedMail Documentations"
 
-        # Cleanup and reset variables
-        rm -f ${INDEX_MD}
-    fi
+    # Cleanup and reset variables
+    rm -f ${INDEX_MD}
 
     article_counter=0
 done
