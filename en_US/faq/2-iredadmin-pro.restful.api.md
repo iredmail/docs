@@ -108,8 +108,8 @@ Notes:
     `numberOfAliases` | Max number of mail alias accounts | `numberOfAliases=30`
     `senderBcc` | Per-domain sender bcc address | `senderBcc=user@domain.com`
     `recipientBcc` | Per-domain recipient bcc address | `recipientBcc=user@domain.com`
-    `backupmx` | Mark domain as Backup MX. Must be used with parameter `primarymx`. Conflicts with `transport`. | `backupmx=yes` (or `no`)
-    `primarymx` | IP address of primary MX. Must be used with parameter `backupmx`. Conflicts with `transport`. | `primarymx=202.96.134.133`
+    `is_backupmx` | Mark domain as Backup MX. Must be used with parameter `primarymx`. Conflicts with parameter `transport`. | `is_backupmx=yes` (or `no`)
+    `primarymx` | Hostname or IP address of primary MX, smtp port number is optional. Must be used with parameter `is_backupmx`. Conflicts with parameter `transport`. | `primarymx=202.96.134.133`, `primarymx=[mail.iredmail.org]:25`
 
     </div>
 

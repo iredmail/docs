@@ -249,14 +249,14 @@ RESTFUL_API_CLIENTS = ['172.16.244.1', ...]
 <td><code>recipientBcc=user@domain.com</code></td>
 </tr>
 <tr>
-<td><code>backupmx</code></td>
-<td>Mark domain as Backup MX. Must be used with parameter <code>primarymx</code>. Conflicts with <code>transport</code>.</td>
-<td><code>backupmx=yes</code> (or <code>no</code>)</td>
+<td><code>is_backupmx</code></td>
+<td>Mark domain as Backup MX. Must be used with parameter <code>primarymx</code>. Conflicts with parameter <code>transport</code>.</td>
+<td><code>is_backupmx=yes</code> (or <code>no</code>)</td>
 </tr>
 <tr>
 <td><code>primarymx</code></td>
-<td>IP address of primary MX. Must be used with parameter <code>backupmx</code>. Conflicts with <code>transport</code>.</td>
-<td><code>primarymx=202.96.134.133</code></td>
+<td>Hostname or IP address of primary MX, smtp port number is optional. Must be used with parameter <code>is_backupmx</code>. Conflicts with parameter <code>transport</code>.</td>
+<td><code>primarymx=202.96.134.133</code>, <code>primarymx=[mail.iredmail.org]:25</code></td>
 </tr>
 </tbody>
 </table>
