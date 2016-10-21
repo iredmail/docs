@@ -101,13 +101,12 @@ SELINUX=permissive
 
 !!! warning
 
-    由于 iredmail.org 域名在国内无法访问，所以需要指定 `IREDMAIL_MIRROR` 参数
-    使用国内镜像站点。`IREDMAIL_EPEL_MIRROR` 参数则是为了加快安装速度而选择的
-    国内阿里云提供的 EPEL 软件包仓库镜像。
+    * 由于 iredmail.org 域名在国内无法访问，所以需要指定 `IREDMAIL_MIRROR` 参数使用 IP 地址。
+    * IREDMAIL_EPEL_MIRROR` 参数则是为了加快安装速度而选用阿里云提供的 EPEL 软件包仓库镜像。
 
 ```
 # cd /root/iRedMail-x.y.z/
-# IREDMAIL_MIRROR='http://42.159.241.31' IREDMAIL_EPEL_MIRROR='http://mirrors.aliyun.com/epel' bash iRedMail.sh
+# IREDMAIL_MIRROR='http://173.254.22.21' IREDMAIL_EPEL_MIRROR='http://mirrors.aliyun.com/epel' bash iRedMail.sh
 ```
 
 ## 安装过程的截图

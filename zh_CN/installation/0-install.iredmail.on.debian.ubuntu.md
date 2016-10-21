@@ -84,12 +84,11 @@ mx.example.com
 
 !!! warning
 
-    由于 iredmail.org 域名在国内无法访问，所以需要指定 `IREDMAIL_MIRROR` 参数
-    使用另外的镜像站点。
+    由于 iredmail.org 域名在国内无法访问，所以需要指定 `IREDMAIL_MIRROR` 参数使用 IP 地址。
 
 ```
 # cd /root/iRedMail-x.y.z/
-# IREDMAIL_MIRROR='http://42.159.241.31' bash iRedMail.sh
+# IREDMAIL_MIRROR='http://173.254.22.21' bash iRedMail.sh
 ```
 
 ## 安装过程的截图
