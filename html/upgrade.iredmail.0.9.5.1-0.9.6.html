@@ -43,6 +43,7 @@
 <li><a href="#update-openldap-config-file-to-index-new-attribute-name-domainstatus">Update OpenLDAP config file to index new attribute name: domainStatus</a></li>
 <li><a href="#use-the-latest-iredmail-ldap-schema-file">Use the latest iRedMail LDAP schema file</a></li>
 <li><a href="#update-postfixdovecot-ldap-lookup-files">Update Postfix/Dovecot LDAP lookup files</a></li>
+<li><a href="#add-required-ldap-attributevalue-for-existing-mail-accounts-under-disabled-domains">Add required LDAP attribute/value for existing mail accounts under disabled domains</a></li>
 </ul>
 </li>
 </ul>
@@ -358,7 +359,36 @@ perl -pi -e 's#\(accountStatus=active\)#(accountStatus=active)(!(domainStatus=di
 <li>on OpenBSD: <code>rcctl restart postfix; rcctl restart dovecot</code></li>
 </ul>
 </li>
-</ul><div class="footer">
+</ul>
+<h4 id="add-required-ldap-attributevalue-for-existing-mail-accounts-under-disabled-domains">Add required LDAP attribute/value for existing mail accounts under disabled domains</h4>
+<ul>
+<li>Download script to update existing mail accounts:</li>
+</ul>
+<pre><code>cd /root/
+wget https://bitbucket.org/zhb/iredmail/raw/default/extra/update/updateLDAPValues_095_1_to_096.py
+</code></pre>
+
+<ul>
+<li>Open downloaded file <code>updateLDAPValues_095_1_to_096.py</code>, set LDAP server
+  related settings in this file. For example:</li>
+</ul>
+<pre><code># Part of file: updateLDAPValues_095_1_to_096.py
+
+uri = 'ldap://127.0.0.1:389'
+basedn = 'o=domains,dc=example,dc=com'
+bind_dn = 'cn=vmailadmin,dc=example,dc=com'
+bind_pw = 'passwd'
+</code></pre>
+
+<p>You can find required LDAP credential in iRedAdmin config file or
+<code>iRedMail.tips</code> file under your iRedMail installation directory. Using either
+<code>cn=Manager,dc=xx,dc=xx</code> or <code>cn=vmailadmin,dc=xx,dc=xx</code> as bind dn is ok, both
+of them have read-write privilege to update mail accounts.</p>
+<ul>
+<li>Execute this script, it will add required data:</li>
+</ul>
+<pre><code># python updateLDAPValues_095_1_to_096.py
+</code></pre><div class="footer">
     <p style="text-align: center; color: grey;">All documents are available in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://bitbucket.org/zhb/iredmail-docs/get/tip.tar.bz2">download the latest version</a> for offline reading. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
 </div>
 <script type="text/javascript">

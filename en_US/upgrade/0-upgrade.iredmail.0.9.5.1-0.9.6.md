@@ -322,3 +322,35 @@ perl -pi -e 's#\(accountStatus=active\)#(accountStatus=active)(!(domainStatus=di
     * on Linux: `service postfix restart; service dovecot restart`
     * on FreeBSD: `service postfix restart; service dovecot restart`
     * on OpenBSD: `rcctl restart postfix; rcctl restart dovecot`
+
+#### Add required LDAP attribute/value for existing mail accounts under disabled domains
+
+* Download script to update existing mail accounts:
+
+```
+cd /root/
+wget https://bitbucket.org/zhb/iredmail/raw/default/extra/update/updateLDAPValues_095_1_to_096.py
+```
+
+* Open downloaded file `updateLDAPValues_095_1_to_096.py`, set LDAP server
+  related settings in this file. For example:
+
+```
+# Part of file: updateLDAPValues_095_1_to_096.py
+
+uri = 'ldap://127.0.0.1:389'
+basedn = 'o=domains,dc=example,dc=com'
+bind_dn = 'cn=vmailadmin,dc=example,dc=com'
+bind_pw = 'passwd'
+```
+
+You can find required LDAP credential in iRedAdmin config file or
+`iRedMail.tips` file under your iRedMail installation directory. Using either
+`cn=Manager,dc=xx,dc=xx` or `cn=vmailadmin,dc=xx,dc=xx` as bind dn is ok, both
+of them have read-write privilege to update mail accounts.
+
+* Execute this script, it will add required data:
+
+```
+# python updateLDAPValues_095_1_to_096.py
+```
