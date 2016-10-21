@@ -90,6 +90,7 @@ for lang in ${all_languages}; do
         fi
     done
     echo -e "\t${_md_lang}\n" >> ${INDEX_MD}
+    unset _md_lang
 
     # Initial index file.
     if [ -f ${src_dir}/_title.md ]; then
@@ -133,13 +134,12 @@ for lang in ${all_languages}; do
             fi
         fi
 
-        # Article info:
-        #   - title: first line (without '#') of markdown file
         for article_file in ${all_chapter_articles}; do
             article_counter="$((article_counter+1))"
             article_file_basename="$(basename ${article_file})"
             article_html_file_orig="$(strip_name_prefix ${article_file_basename})"
-            # Replace '.md' suffix by '.html', and append lang code
+
+            # Replace '.md' suffix by '-<lang>.html'
             if [ X"${lang}" == X'en_US' ]; then
                 article_html_file="$(echo ${article_html_file_orig/%.md/.html})"
             else
@@ -151,7 +151,7 @@ for lang in ${all_languages}; do
                 hide_article_in_index='YES'
             fi
 
-            # Get title in markdown file: '# title'
+            # Get first line (without the leading '# ') as article title
             _article_title="$(head -1 ${article_file} | awk -F'# ' '{print $2}')"
 
             #
