@@ -24,7 +24,7 @@
 <li><a href="#general-all-backends-should-apply-these-steps">General (All backends should apply these steps)</a><ul>
 <li><a href="#update-etciredmail-release-with-new-iredmail-version-number">Update /etc/iredmail-release with new iRedMail version number</a></li>
 <li><a href="#upgrade-iredapd-postfix-policy-server-to-the-latest-stable-release-192">Upgrade iRedAPD (Postfix policy server) to the latest stable release (1.9.2)</a></li>
-<li><a href="#upgrade-iredadmin-open-source-edition-to-the-latest-stable-release-072">Upgrade iRedAdmin (open source edition) to the latest stable release (0.7.2)</a></li>
+<li><a href="#upgrade-iredadmin-open-source-edition-to-the-latest-stable-release-063">Upgrade iRedAdmin (open source edition) to the latest stable release (0.6.3)</a></li>
 <li><a href="#upgrade-roundcube-webmail-to-the-latest-stable-release-120">Upgrade Roundcube webmail to the latest stable release (1.2.0)</a></li>
 <li><a href="#fixed-httproxy-vulnerability-in-apache-and-nginx">Fixed: HTTProxy vulnerability in Apache and Nginx</a><ul>
 <li><a href="#apache">Apache</a></li>
@@ -36,6 +36,15 @@
 <li><a href="#fixed-incorrect-file-owner-and-permission-of-config-file-of-roundcube-password-plugin">Fixed: incorrect file owner and permission of config file of Roundcube password plugin</a></li>
 <li><a href="#fixed-nginx-doesnt-forward-real-client-ip-address-to-sogo">Fixed: Nginx doesn't forward real client IP address to SOGo</a></li>
 <li><a href="#fixed-sogo-313-and-later-releases-changed-argument-used-by-sogo-tool-command">Fixed: SOGo-3.1.3 (and later releases) changed argument used by sogo-tool command</a></li>
+</ul>
+</li>
+<li><a href="#openldap-backend-special">OpenLDAP backend special</a><ul>
+<li><a href="#fixed-mail-accounts-user-alias-list-are-still-active-when-domain-is-disabled">Fixed: mail accounts (user, alias, list) are still active when domain is disabled</a><ul>
+<li><a href="#update-openldap-config-file-to-index-new-attribute-name-domainstatus">Update OpenLDAP config file to index new attribute name: domainStatus</a></li>
+<li><a href="#use-the-latest-iredmail-ldap-schema-file">Use the latest iRedMail LDAP schema file</a></li>
+<li><a href="#update-postfixdovecot-ldap-lookup-files">Update Postfix/Dovecot LDAP lookup files</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -57,8 +66,9 @@ check <a href="../support.html">the details</a> and <a href="../contact.html">co
 </ul>
 <h2 id="changelog">ChangeLog</h2>
 <ul>
-<li>Sep  8, 2016: Fixed: HTTProxy vulnerability in Apache and Nginx</li>
-<li>Jul  2, 2016: Fixed: SOGo-3.1.3 (and later releases) changed argument used by <code>sogo-tool</code> command</li>
+<li>Oct 21, 2016: Fixed: [ldap] mail accounts (user, alias, list) are still active when domain is disabled.</li>
+<li>Sep  8, 2016: Fixed: HTTProxy vulnerability in Apache and Nginx.</li>
+<li>Jul  2, 2016: Fixed: SOGo-3.1.3 (and later releases) changed argument used by <code>sogo-tool</code> command.</li>
 <li>Jun 10, 2016: Fixed: Nginx doesn't forward real client IP address to SOGo.</li>
 <li>Jun  8, 2016: Set correct file owner for config file of Roundcube password plugin.</li>
 <li>Jun  8, 2016: Fixed: one incorrect HELO restriction rule in Postfix.</li>
@@ -77,7 +87,7 @@ so that you can know which version of iRedMail you're running. For example:</p>
 <p>Please follow below tutorial to upgrade iRedAPD to the latest stable release:
 <a href="./upgrade.iredapd.html">Upgrade iRedAPD to the latest stable release</a></p>
 <p>Detailed release notes are available <a href="./iredapd.releases.html">here</a>.</p>
-<h3 id="upgrade-iredadmin-open-source-edition-to-the-latest-stable-release-072">Upgrade iRedAdmin (open source edition) to the latest stable release (0.7.2)</h3>
+<h3 id="upgrade-iredadmin-open-source-edition-to-the-latest-stable-release-063">Upgrade iRedAdmin (open source edition) to the latest stable release (0.6.3)</h3>
 <p>Please follow this tutorial to upgrade iRedAdmin open source edition to the
 latest stable release:
 <a href="./migrate.or.upgrade.iredadmin.html">Upgrade iRedAdmin to the latest stable release</a></p>
@@ -227,6 +237,126 @@ cron job to fix it.</p>
 </li>
 <li>
 <p>Replace the argument <code>expire-autoreply</code> by <code>update-autoreply</code>.</p>
+</li>
+</ul>
+<h2 id="openldap-backend-special">OpenLDAP backend special</h2>
+<h3 id="fixed-mail-accounts-user-alias-list-are-still-active-when-domain-is-disabled">Fixed: mail accounts (user, alias, list) are still active when domain is disabled</h3>
+<blockquote>
+<p>This fix is applicable to OpenBSD ldapd backend also.</p>
+</blockquote>
+<p>In iRedMail-0.9.5-1 and all earlier releases, if we disable a mail domain,
+all mail accounts (mail users, aliases, lists) are still active and Postfix
+will accept emails sent to them. Steps below fix the issue.</p>
+<h4 id="update-openldap-config-file-to-index-new-attribute-name-domainstatus">Update OpenLDAP config file to index new attribute name: <code>domainStatus</code></h4>
+<ul>
+<li>Please open OpenLDAP config file <code>slapd.conf</code>, find line below:<ul>
+<li>On RHEL/CentOS, it's <code>/etc/openldap/slapd.conf</code></li>
+<li>On Debian/Ubuntu, it's <code>/etc/ldap/slapd.conf</code></li>
+<li>On FreeBSD, it's <code>/usr/local/etc/openldap/slapd.conf</code></li>
+<li>On OpenBSD, it's <code>/etc/openldap/slapd.conf</code>. If you're running ldapd as
+  LDAP server, please add a new line <code>index domainStats</code> in the <code>namespace
+  xxx {}</code> block.</li>
+</ul>
+</li>
+</ul>
+<pre><code>access to attrs=&quot;employeeNumber,mail,...&quot;
+</code></pre>
+
+<ul>
+<li>Add new attribute name <code>domainStatus</code> in this line (<strong>WARNING</strong>: don't leave
+  any whitespace between attribute names and comma):</li>
+</ul>
+<pre><code>access to attrs=&quot;domainStatus,employeeNumber,mail,...&quot;
+</code></pre>
+
+<h4 id="use-the-latest-iredmail-ldap-schema-file">Use the latest iRedMail LDAP schema file</h4>
+<ul>
+<li>On RHEL/CentOS:</li>
+</ul>
+<pre><code>cd /tmp
+wget https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/samples/iredmail/iredmail.schema
+
+cd /etc/openldap/schema/
+cp iredmail.schema iredmail.schema.bak
+
+cp -f /tmp/iredmail.schema /etc/openldap/schema/
+service slapd restart
+</code></pre>
+
+<ul>
+<li>On Debian/Ubuntu:</li>
+</ul>
+<pre><code>cd /tmp
+wget https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/samples/iredmail/iredmail.schema
+
+cd /etc/ldap/schema/
+cp iredmail.schema iredmail.schema.bak
+
+cp -f /tmp/iredmail.schema /etc/ldap/schema/
+service slapd restart
+</code></pre>
+
+<ul>
+<li>On FreeBSD:</li>
+</ul>
+<pre><code>cd /tmp
+wget https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/samples/iredmail/iredmail.schema
+
+cd /usr/local/etc/openldap/schema/
+cp iredmail.schema iredmail.schema.bak
+
+cp -f /tmp/iredmail.schema /usr/local/etc/openldap/schema/
+service slapd restart
+</code></pre>
+
+<ul>
+<li>
+<p>On OpenBSD:</p>
+<blockquote>
+<p>Note: if you're running ldapd as LDAP server, the schema directory is
+<code>/etc/ldap</code>, and service name is <code>ldapd</code>.</p>
+</blockquote>
+</li>
+</ul>
+<pre><code>cd /tmp
+ftp https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/samples/iredmail/iredmail.schema
+
+cd /etc/openldap/schema/
+cp iredmail.schema iredmail.schema.bak
+
+cp -f /tmp/iredmail.schema /etc/openldap/schema/
+rcctl restart slapd
+</code></pre>
+
+<h4 id="update-postfixdovecot-ldap-lookup-files">Update Postfix/Dovecot LDAP lookup files</h4>
+<ul>
+<li>On Linux and OpenBSD, run commands:</li>
+</ul>
+<pre><code>cp -rf /etc/postfix/ldap /etc/postfix/ldap.$(date +%Y%m%d)
+cd /etc/postfix/ldap/
+perl -pi -e 's#\(accountStatus=active\)#(accountStatus=active)(!(domainStatus=disabled))#g' catchall_maps.cf recipient_bcc_maps_user.cf sender_bcc_maps_user.cf sender_dependent_relayhost_maps_user.cf sender_login_maps.cf transport_maps_user.cf virtual_alias_maps.cf virtual_group_maps.cf virtual_group_members_maps.cf virtual_mailbox_maps.cf
+
+cp /etc/dovecot/dovecot-ldap.conf /etc/dovecot/dovecot-ldap.conf.$(date +%Y%m%d)
+perl -pi -e 's#\(accountStatus=active\)#(accountStatus=active)(!(domainStatus=disabled))#g' /etc/dovecot/dovecot-ldap.conf
+</code></pre>
+
+<ul>
+<li>On FreeBSD, run commands:</li>
+</ul>
+<pre><code>cp -rf /usr/local/etc/postfix/ldap /usr/local/etc/postfix/ldap.$(date +%Y%m%d)
+cd /usr/local/etc/postfix/ldap/
+perl -pi -e 's#\(accountStatus=active\)#(accountStatus=active)(!(domainStatus=disabled))#g' catchall_maps.cf recipient_bcc_maps_user.cf sender_bcc_maps_user.cf sender_dependent_relayhost_maps_user.cf sender_login_maps.cf transport_maps_user.cf virtual_alias_maps.cf virtual_group_maps.cf virtual_group_members_maps.cf virtual_mailbox_maps.cf
+
+cp /usr/local/etc/dovecot/dovecot-ldap.conf /usr/local/etc/dovecot/dovecot-ldap.conf.$(date +%Y%m%d)
+perl -pi -e 's#\(accountStatus=active\)#(accountStatus=active)(!(domainStatus=disabled))#g' /usr/local/etc/dovecot/dovecot-ldap.conf
+</code></pre>
+
+<ul>
+<li>Restart both Postfix and Dovecot services:<ul>
+<li>on Linux: <code>service postfix restart; service dovecot restart</code></li>
+<li>on FreeBSD: <code>service postfix restart; service dovecot restart</code></li>
+<li>on OpenBSD: <code>rcctl restart postfix; rcctl restart dovecot</code></li>
+</ul>
 </li>
 </ul><div class="footer">
     <p style="text-align: center; color: grey;">All documents are available in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://bitbucket.org/zhb/iredmail-docs/get/tip.tar.bz2">download the latest version</a> for offline reading. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.</p>

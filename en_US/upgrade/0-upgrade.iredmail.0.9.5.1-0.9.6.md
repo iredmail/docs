@@ -17,8 +17,9 @@
 
 ## ChangeLog
 
-* Sep  8, 2016: Fixed: HTTProxy vulnerability in Apache and Nginx
-* Jul  2, 2016: Fixed: SOGo-3.1.3 (and later releases) changed argument used by `sogo-tool` command
+* Oct 21, 2016: Fixed: [ldap] mail accounts (user, alias, list) are still active when domain is disabled.
+* Sep  8, 2016: Fixed: HTTProxy vulnerability in Apache and Nginx.
+* Jul  2, 2016: Fixed: SOGo-3.1.3 (and later releases) changed argument used by `sogo-tool` command.
 * Jun 10, 2016: Fixed: Nginx doesn't forward real client IP address to SOGo.
 * Jun  8, 2016: Set correct file owner for config file of Roundcube password plugin.
 * Jun  8, 2016: Fixed: one incorrect HELO restriction rule in Postfix.
@@ -44,7 +45,7 @@ Please follow below tutorial to upgrade iRedAPD to the latest stable release:
 
 Detailed release notes are available [here](./iredapd.releases.html).
 
-### Upgrade iRedAdmin (open source edition) to the latest stable release (0.7.2)
+### Upgrade iRedAdmin (open source edition) to the latest stable release (0.6.3)
 
 Please follow this tutorial to upgrade iRedAdmin open source edition to the
 latest stable release:
@@ -205,3 +206,119 @@ cron job to fix it.
     * On OpenBSD: ```crontab -e -u _sogo```
 
 * Replace the argument `expire-autoreply` by `update-autoreply`.
+
+## OpenLDAP backend special
+
+### Fixed: mail accounts (user, alias, list) are still active when domain is disabled
+
+> This fix is applicable to OpenBSD ldapd backend also.
+
+In iRedMail-0.9.5-1 and all earlier releases, if we disable a mail domain,
+all mail accounts (mail users, aliases, lists) are still active and Postfix
+will accept emails sent to them. Steps below fix the issue.
+
+#### Update OpenLDAP config file to index new attribute name: `domainStatus`
+
+* Please open OpenLDAP config file `slapd.conf`, find line below:
+    * On RHEL/CentOS, it's `/etc/openldap/slapd.conf`
+    * On Debian/Ubuntu, it's `/etc/ldap/slapd.conf`
+    * On FreeBSD, it's `/usr/local/etc/openldap/slapd.conf`
+    * On OpenBSD, it's `/etc/openldap/slapd.conf`. If you're running ldapd as
+      LDAP server, please add a new line `index domainStats` in the `namespace
+      xxx {}` block.
+
+```
+access to attrs="employeeNumber,mail,..."
+```
+
+* Add new attribute name `domainStatus` in this line (__WARNING__: don't leave
+  any whitespace between attribute names and comma):
+
+```
+access to attrs="domainStatus,employeeNumber,mail,..."
+```
+
+#### Use the latest iRedMail LDAP schema file
+
+* On RHEL/CentOS:
+
+```
+cd /tmp
+wget https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/samples/iredmail/iredmail.schema
+
+cd /etc/openldap/schema/
+cp iredmail.schema iredmail.schema.bak
+
+cp -f /tmp/iredmail.schema /etc/openldap/schema/
+service slapd restart
+```
+
+* On Debian/Ubuntu:
+```
+cd /tmp
+wget https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/samples/iredmail/iredmail.schema
+
+cd /etc/ldap/schema/
+cp iredmail.schema iredmail.schema.bak
+
+cp -f /tmp/iredmail.schema /etc/ldap/schema/
+service slapd restart
+```
+
+* On FreeBSD:
+
+```
+cd /tmp
+wget https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/samples/iredmail/iredmail.schema
+
+cd /usr/local/etc/openldap/schema/
+cp iredmail.schema iredmail.schema.bak
+
+cp -f /tmp/iredmail.schema /usr/local/etc/openldap/schema/
+service slapd restart
+```
+
+* On OpenBSD:
+
+    > Note: if you're running ldapd as LDAP server, the schema directory is
+    > `/etc/ldap`, and service name is `ldapd`.
+
+```
+cd /tmp
+ftp https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/samples/iredmail/iredmail.schema
+
+cd /etc/openldap/schema/
+cp iredmail.schema iredmail.schema.bak
+
+cp -f /tmp/iredmail.schema /etc/openldap/schema/
+rcctl restart slapd
+```
+
+#### Update Postfix/Dovecot LDAP lookup files
+
+* On Linux and OpenBSD, run commands:
+
+```
+cp -rf /etc/postfix/ldap /etc/postfix/ldap.$(date +%Y%m%d)
+cd /etc/postfix/ldap/
+perl -pi -e 's#\(accountStatus=active\)#(accountStatus=active)(!(domainStatus=disabled))#g' catchall_maps.cf recipient_bcc_maps_user.cf sender_bcc_maps_user.cf sender_dependent_relayhost_maps_user.cf sender_login_maps.cf transport_maps_user.cf virtual_alias_maps.cf virtual_group_maps.cf virtual_group_members_maps.cf virtual_mailbox_maps.cf
+
+cp /etc/dovecot/dovecot-ldap.conf /etc/dovecot/dovecot-ldap.conf.$(date +%Y%m%d)
+perl -pi -e 's#\(accountStatus=active\)#(accountStatus=active)(!(domainStatus=disabled))#g' /etc/dovecot/dovecot-ldap.conf
+```
+
+* On FreeBSD, run commands:
+
+```
+cp -rf /usr/local/etc/postfix/ldap /usr/local/etc/postfix/ldap.$(date +%Y%m%d)
+cd /usr/local/etc/postfix/ldap/
+perl -pi -e 's#\(accountStatus=active\)#(accountStatus=active)(!(domainStatus=disabled))#g' catchall_maps.cf recipient_bcc_maps_user.cf sender_bcc_maps_user.cf sender_dependent_relayhost_maps_user.cf sender_login_maps.cf transport_maps_user.cf virtual_alias_maps.cf virtual_group_maps.cf virtual_group_members_maps.cf virtual_mailbox_maps.cf
+
+cp /usr/local/etc/dovecot/dovecot-ldap.conf /usr/local/etc/dovecot/dovecot-ldap.conf.$(date +%Y%m%d)
+perl -pi -e 's#\(accountStatus=active\)#(accountStatus=active)(!(domainStatus=disabled))#g' /usr/local/etc/dovecot/dovecot-ldap.conf
+```
+
+* Restart both Postfix and Dovecot services:
+    * on Linux: `service postfix restart; service dovecot restart`
+    * on FreeBSD: `service postfix restart; service dovecot restart`
+    * on OpenBSD: `rcctl restart postfix; rcctl restart dovecot`

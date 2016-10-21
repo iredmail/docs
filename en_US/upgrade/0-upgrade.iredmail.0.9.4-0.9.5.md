@@ -467,7 +467,7 @@ cd /etc/openldap/schema/
 cp iredmail.schema iredmail.schema.bak
 
 cp -f /tmp/iredmail.schema /etc/openldap/schema/
-rcctl restart ldapd
+rcctl restart slapd
 ```
 
 #### Create LDAP lookup files
