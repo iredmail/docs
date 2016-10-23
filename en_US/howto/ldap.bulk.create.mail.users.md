@@ -8,7 +8,7 @@ iRedMail ships 2 scripts to help you create many mail users quickly.
   from a plain text file and generate a LDIF file, you can import this LDIF
   file to create mail users.
 
-## Create mail users with `tools/create_mail_user_OpenLDAP.sh`
+## Create mail users with create_mail_user_OpenLDAP.sh
 
 * Open this script and update some variables related to your LDAP server (note:
   you can find them in `iRedMail.tips` file):
@@ -42,7 +42,7 @@ It will create users `user1@example.com`, `user2@example.com`, `user3@example.co
 
 Note: you don't need to create the mail domain name `example.com` with iRedAdmin first.
 
-## Create mail users with `tools/create_mail_user_OpenLDAP.py`
+## Create mail users with create_mail_user_OpenLDAP.py
 
 `tools/create_mail_user_OpenLDAP.py` will read mail accounts from a plain
 text file and generate a LDIF file, you can import this LDIF file to create
