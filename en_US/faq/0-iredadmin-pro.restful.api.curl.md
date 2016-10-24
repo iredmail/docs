@@ -6,9 +6,6 @@
       [iRedAdmin-Pro: RESTful API](./iredadmin-pro.restful.api.html).
     * If you need an API which has not yet been implemented, don't hesitate to
       [contact us](../contact.html).
-    * Our sample code below requires thiard-party Python module `requests`. For
-      more details, please read its official documentation:
-      [Requests: HTTP for Humans](http://docs.python-requests.org/en/master/)
 
 Sample `curl` commands to interact iRedAdmin-Pro RESTful API.
 
