@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Fixes you need after upgrading Ubuntu to 16.04 from 14.04</title>
+        <link rel="stylesheet" type="text/css" href="./css/markdown.css" />
+    </head>
+    <body>
+    
+    <div id="navigation">
+    <a href="/index.html" target="_blank">
+        <img alt="iRedMail web site"
+             src="./images/logo-iredmail.png"
+             style="vertical-align: middle; height: 30px;"
+             />&nbsp;
+        <span>iRedMail</span>
+    </a>
+    &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><h1 id="fixes-you-need-after-upgrading-ubuntu-to-1604-from-1404">Fixes you need after upgrading Ubuntu to 16.04 from 14.04</h1>
+<div class="toc">
+<ul>
+<li><a href="#fixes-you-need-after-upgrading-ubuntu-to-1604-from-1404">Fixes you need after upgrading Ubuntu to 16.04 from 14.04</a><ul>
+<li><a href="#postfix">Postfix</a></li>
+<li><a href="#php-optional">PHP [OPTIONAL]</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<h2 id="postfix">Postfix</h2>
+<pre><code>postconf -e daemon_directory='/usr/lib/postfix/sbin’
+postconf -e shlib_directory='/usr/lib/postfix'
+</code></pre>
+
+<ul>
+<li>Incorrect <code>daemon_directory</code> causes Postfix cannot start.</li>
+<li>Incorrect <code>shlib_directory</code> causes Postfix cannot find pcre/mysql/pgsql/ldap modules.</li>
+</ul>
+<h2 id="php-optional">PHP [OPTIONAL]</h2>
+<blockquote>
+<p>NOTE: This step is toally optional if you're fine with old PHP release.</p>
+</blockquote>
+<p>php was not upgraded to 7.0 automatically, have to install them manually:</p>
+<pre><code>apt-get install php-json php-gd php-mcrypt php-curl mcrypt php-intl php-xml php-mbstring php-mysql libapache2-mod-php
+</code></pre><div class="footer">
+    <p style="text-align: center; color: grey;">All documents are available in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://bitbucket.org/zhb/iredmail-docs/get/tip.tar.bz2">download the latest version</a> for offline reading. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
+</div>
+<script type="text/javascript">
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-3293801-21', 'auto');
+  ga('send', 'pageview');
+</script>
+</body></html>
