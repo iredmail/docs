@@ -1,6 +1,6 @@
 # Upgrade SOGo SQL schema
 
-With default SOGo settings in iRedMail-0.9.5-1 and earler releases, SOGo will
+With default SOGo settings in iRedMail-0.9.5-1 and earlier releases, SOGo will
 create 3 SQL tables for each user, this introduces some issues:
 
 * Your `sogo` database will contains lots of sql tables.
