@@ -43,7 +43,7 @@ cp /etc/sysconfig/sogo /root/sogo-backup/sysconfig/
 <ul>
 <li>Open file <code>/etc/yum.repos.d/sogo.repo</code>, change the <code>baseurl=</code> setting to:</li>
 </ul>
-<pre><code>baseurl=http://inverse.ca/rhel-v3/$releasever/$basearch/
+<pre><code>baseurl=https://packages.inverse.ca/SOGo/release/3/rhel/$releasever/$basearch/
 </code></pre>
 
 <ul>
@@ -78,9 +78,13 @@ cp /etc/default/sogo /root/sogo-backup/default/
 <ul>
 <li>
 <p>Open file <code>/etc/apt/sources.list</code>,</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Please make sure you have correct distribution name (the <code>jessie</code>, <code>xenial</code> in examples below) in <code>/etc/apt/sources.list</code>.</p>
+</div>
 <ul>
-<li>On Debian, please replace URL <code>http://inverse.ca/downloads/SOGo/Debian/</code> by: <code>http://inverse.ca/debian-v3/</code></li>
-<li>On Ubuntu, please replace URL <code>http://inverse.ca/downloads/SOGo/Ubuntu/</code> by: <code>http://inverse.ca/ubuntu-v3/</code></li>
+<li>On Debian, make sure you have SOGo repo like below: <code>https://packages.inverse.ca/SOGo/nightly/debian jessie jessie</code></li>
+<li>On Ubuntu, make sure you have SOGo repo like below: <code>https://packages.inverse.ca/SOGo/nightly/ubuntu xenial xenial</code></li>
 </ul>
 </li>
 <li>

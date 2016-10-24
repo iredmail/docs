@@ -23,7 +23,7 @@ cp /etc/sysconfig/sogo /root/sogo-backup/sysconfig/
 * Open file `/etc/yum.repos.d/sogo.repo`, change the `baseurl=` setting to:
 
 ```
-baseurl=http://inverse.ca/rhel-v3/$releasever/$basearch/
+baseurl=https://packages.inverse.ca/SOGo/release/3/rhel/$releasever/$basearch/
 ```
 
 * Remove `sope` and `sogo` packages first, then install SOGo again:
@@ -58,8 +58,12 @@ cp /etc/default/sogo /root/sogo-backup/default/
 
 * Open file `/etc/apt/sources.list`,
 
-    * On Debian, please replace URL `http://inverse.ca/downloads/SOGo/Debian/` by: `http://inverse.ca/debian-v3/`
-    * On Ubuntu, please replace URL `http://inverse.ca/downloads/SOGo/Ubuntu/` by: `http://inverse.ca/ubuntu-v3/`
+    !!! warning
+
+        Please make sure you have correct distribution name (the `jessie`, `xenial` in examples below) in `/etc/apt/sources.list`.
+
+    * On Debian, make sure you have SOGo repo like below: ```https://packages.inverse.ca/SOGo/nightly/debian jessie jessie```
+    * On Ubuntu, make sure you have SOGo repo like below: ```https://packages.inverse.ca/SOGo/nightly/ubuntu xenial xenial```
 
 * Remove `sope` and `sogo` packages first, then install SOGo again:
 
