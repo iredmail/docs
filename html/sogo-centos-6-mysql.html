@@ -146,6 +146,13 @@ in iRedMail source code repository</a>.</p>
     SOGoProfileURL = &quot;mysql://sogo:password@127.0.0.1:3306/sogo/sogo_user_profile&quot;;
     OCSFolderInfoURL = &quot;mysql://sogo:password@127.0.0.1:3306/sogo/sogo_folder_info&quot;;
     OCSSessionsFolderURL = &quot;mysql://sogo:password@127.0.0.1:3306/sogo/sogo_sessions_folder&quot;;
+    OCSEMailAlarmsFolderURL = &quot;mysql://sogo:password@127.0.0.1:3306/sogo/sogo_alarms_folder&quot;;
+
+    // With 3 parameters below, SOGo requires only 9 SQL tables in total
+    // instead of creating 4 SQL tables for each user.
+    OCSCacheFolderURL = &quot;mysql://sogo:password@127.0.0.1:3306/sogo/sogo_cache_folder&quot;;
+    OCSStoreURL = &quot;mysql://sogo:password@127.0.0.1:3306/sogo/sogo_store&quot;;
+    OCSAclURL = &quot;mysql://sogo:password@127.0.0.1:3306/sogo/sogo_acl&quot;;
 
     // Default language in the web interface
     SOGoLanguage = English;
@@ -161,7 +168,6 @@ in iRedMail source code repository</a>.</p>
 
     // Enable email-based alarms on events and tasks.
     SOGoEnableEMailAlarms = YES;
-    OCSEMailAlarmsFolderURL = &quot;mysql://sogo:password@127.0.0.1:3306/sogo/sogo_alarms_folder&quot;;
 
     // IMAP server
     //SOGoIMAPServer = &quot;imaps://127.0.0.1:143/?tls=YES&quot;;

@@ -118,6 +118,13 @@ With below config file, SOGo will listen on address `127.0.0.1`, port `20000`.
     SOGoProfileURL = "mysql://sogo:password@127.0.0.1:3306/sogo/sogo_user_profile";
     OCSFolderInfoURL = "mysql://sogo:password@127.0.0.1:3306/sogo/sogo_folder_info";
     OCSSessionsFolderURL = "mysql://sogo:password@127.0.0.1:3306/sogo/sogo_sessions_folder";
+    OCSEMailAlarmsFolderURL = "mysql://sogo:password@127.0.0.1:3306/sogo/sogo_alarms_folder";
+
+    // With 3 parameters below, SOGo requires only 9 SQL tables in total
+    // instead of creating 4 SQL tables for each user.
+    OCSCacheFolderURL = "mysql://sogo:password@127.0.0.1:3306/sogo/sogo_cache_folder";
+    OCSStoreURL = "mysql://sogo:password@127.0.0.1:3306/sogo/sogo_store";
+    OCSAclURL = "mysql://sogo:password@127.0.0.1:3306/sogo/sogo_acl";
 
     // Default language in the web interface
     SOGoLanguage = English;
@@ -133,7 +140,6 @@ With below config file, SOGo will listen on address `127.0.0.1`, port `20000`.
 
     // Enable email-based alarms on events and tasks.
     SOGoEnableEMailAlarms = YES;
-    OCSEMailAlarmsFolderURL = "mysql://sogo:password@127.0.0.1:3306/sogo/sogo_alarms_folder";
 
     // IMAP server
     //SOGoIMAPServer = "imaps://127.0.0.1:143/?tls=YES";
