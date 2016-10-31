@@ -13,6 +13,7 @@
 
 ## TODO
 
+* Update memcached config file to listen on 127.0.0.1.
 * Separated SOGo address book for LDAP backend.
 
 ## ChangeLog

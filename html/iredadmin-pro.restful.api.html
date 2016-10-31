@@ -559,6 +559,21 @@ please use mail alias account as mailing list.</p>
 <td>Defines who can send email to this mailing list</td>
 <td><code>accessPolicy=public</code></td>
 </tr>
+<tr>
+<td><code>members</code></td>
+<td>Members of mailing list. Multiple members must be separated by comma. Conflict with parameter <code>addMember</code> and <code>removeMember</code>.</td>
+<td><code>members=user1@domain.com,user2@domain.com</code></td>
+</tr>
+<tr>
+<td><code>addMember</code></td>
+<td>Add new members of mailing list. Multiple members must be separated by comma. Conflict with parameter <code>members</code>.</td>
+<td><code>addMember=user1@domain.com,user2@domain.com</code></td>
+</tr>
+<tr>
+<td><code>removeMember</code></td>
+<td>Remove existing members of mailing list. Multiple members must be separated by comma. Conflict with parameter <code>members</code>.</td>
+<td><code>removeMember=user1@domain.com,user2@domain.com</code></td>
+</tr>
 </tbody>
 </table>
 </div>

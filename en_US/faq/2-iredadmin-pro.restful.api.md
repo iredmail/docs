@@ -227,6 +227,9 @@ Notes:
     --- |--- |---
     `name` | display name | `name=My List Name`
     `accessPolicy` | Defines who can send email to this mailing list | `accessPolicy=public`
+    `members` | Members of mailing list. Multiple members must be separated by comma. Conflict with parameter `addMember` and `removeMember`. | `members=user1@domain.com,user2@domain.com`
+    `addMember` | Add new members of mailing list. Multiple members must be separated by comma. Conflict with parameter `members`. | `addMember=user1@domain.com,user2@domain.com`
+    `removeMember` | Remove existing members of mailing list. Multiple members must be separated by comma. Conflict with parameter `members`. | `removeMember=user1@domain.com,user2@domain.com`
 
     </div>
 
