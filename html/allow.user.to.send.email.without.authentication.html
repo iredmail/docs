@@ -26,6 +26,15 @@ authentication. We use user email address <code>user@example.com</code> for exam
 <pre><code>user@example.com OK
 </code></pre>
 
+<p>It's ok to use IP address instead like below:</p>
+<blockquote>
+<p>For more allowed sender format, please check Postfix manual page: <a href="http://www.postfix.org/access.5.html">access(5)</a>.</p>
+</blockquote>
+<pre><code>192.168.1.1 OK
+192.168.2   OK
+172.16      OK
+</code></pre>
+
 <p>Create hash db file with <code>postmap</code> command:</p>
 <pre><code># postmap hash:/etc/postfix/accepted_unauth_senders
 </code></pre>

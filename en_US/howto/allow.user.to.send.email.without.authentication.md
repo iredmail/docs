@@ -8,6 +8,16 @@ authentication. We use user email address `user@example.com` for example:
 user@example.com OK
 ```
 
+It's ok to use IP address instead like below:
+
+> For more allowed sender format, please check Postfix manual page: [access(5)](http://www.postfix.org/access.5.html).
+
+```
+192.168.1.1 OK
+192.168.2   OK
+172.16      OK
+```
+
 Create hash db file with `postmap` command:
 
 ```
