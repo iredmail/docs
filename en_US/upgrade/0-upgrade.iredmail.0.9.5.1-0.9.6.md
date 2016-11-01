@@ -18,6 +18,7 @@
 
 ## ChangeLog
 
+* Nov  1, 2016: Fixed: invalid default (datetime) value for some SQL columns in 'vmail' database.
 * Oct 21, 2016: Fixed: [ldap] mail accounts (user, alias, list) are still active when domain is disabled.
 * Sep  8, 2016: Fixed: HTTProxy vulnerability in Apache and Nginx.
 * Jul  2, 2016: Fixed: SOGo-3.1.3 (and later releases) changed argument used by `sogo-tool` command.
@@ -354,4 +355,68 @@ of them have read-write privilege to update mail accounts.
 
 ```
 # python updateLDAPValues_095_1_to_096.py
+```
+
+## MySQL/MariaDB backend special
+
+### Fix invalid default (datetime) value for some SQL columns in 'vmail' database
+
+If you're going to upgrade MySQL/MariaDB to MySQL 5.7, or already upgraded,
+please run SQL commands below as SQL root user to fix invalid default value
+for some SQL columns in `vmail` database.
+
+```
+USE vmail;
+
+ALTER TABLE admin \
+	MODIFY passwordlastchange DATETIME NOT NULL DEFAULT '1970-01-01 01:01:01', \
+	MODIFY created DATETIME NOT NULL DEFAULT '1970-01-01 01:01:01', \
+	MODIFY modified DATETIME NOT NULL DEFAULT '1970-01-01 01:01:01', \
+	MODIFY expired DATETIME NOT NULL DEFAULT '1970-01-01 01:01:01';
+
+ALTER TABLE admin \
+	MODIFY created DATETIME NOT NULL DEFAULT '1970-01-01 01:01:01', \
+	MODIFY modified DATETIME NOT NULL DEFAULT '1970-01-01 01:01:01', \
+	MODIFY expired DATETIME NOT NULL DEFAULT '1970-01-01 01:01:01';
+
+ALTER TABLE alias_domain \
+	MODIFY created DATETIME NOT NULL DEFAULT '1970-01-01 01:01:01', \
+	MODIFY modified DATETIME NOT NULL DEFAULT '1970-01-01 01:01:01';
+
+ALTER TABLE domain \
+	MODIFY created DATETIME NOT NULL DEFAULT '1970-01-01 01:01:01', \
+	MODIFY modified DATETIME NOT NULL DEFAULT '1970-01-01 01:01:01', \
+	MODIFY expired DATETIME NOT NULL DEFAULT '1970-01-01 01:01:01';
+
+ALTER TABLE domain_admins \
+	MODIFY created DATETIME NOT NULL DEFAULT '1970-01-01 01:01:01', \
+	MODIFY modified DATETIME NOT NULL DEFAULT '1970-01-01 01:01:01', \
+	MODIFY expired DATETIME NOT NULL DEFAULT '1970-01-01 01:01:01';
+
+ALTER TABLE mailbox \
+	MODIFY lastlogindate DATETIME NOT NULL DEFAULT '1970-01-01 01:01:01', \
+	MODIFY passwordlastchange DATETIME NOT NULL DEFAULT '1970-01-01 01:01:01', \
+	MODIFY created DATETIME NOT NULL DEFAULT '1970-01-01 01:01:01', \
+	MODIFY modified DATETIME NOT NULL DEFAULT '1970-01-01 01:01:01', \
+	MODIFY expired DATETIME NOT NULL DEFAULT '1970-01-01 01:01:01';
+
+ALTER TABLE recipient_bcc_domain \
+	MODIFY created DATETIME NOT NULL DEFAULT '1970-01-01 01:01:01', \
+	MODIFY modified DATETIME NOT NULL DEFAULT '1970-01-01 01:01:01', \
+	MODIFY expired DATETIME NOT NULL DEFAULT '1970-01-01 01:01:01';
+
+ALTER TABLE recipient_bcc_user \
+	MODIFY created DATETIME NOT NULL DEFAULT '1970-01-01 01:01:01', \
+	MODIFY modified DATETIME NOT NULL DEFAULT '1970-01-01 01:01:01', \
+	MODIFY expired DATETIME NOT NULL DEFAULT '1970-01-01 01:01:01';
+
+ALTER TABLE sender_bcc_domain \
+	MODIFY created DATETIME NOT NULL DEFAULT '1970-01-01 01:01:01', \
+	MODIFY modified DATETIME NOT NULL DEFAULT '1970-01-01 01:01:01', \
+	MODIFY expired DATETIME NOT NULL DEFAULT '1970-01-01 01:01:01';
+
+ALTER TABLE sender_bcc_user \
+	MODIFY created DATETIME NOT NULL DEFAULT '1970-01-01 01:01:01', \
+	MODIFY modified DATETIME NOT NULL DEFAULT '1970-01-01 01:01:01', \
+	MODIFY expired DATETIME NOT NULL DEFAULT '1970-01-01 01:01:01';
 ```
