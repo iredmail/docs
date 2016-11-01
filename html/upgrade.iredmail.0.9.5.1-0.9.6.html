@@ -406,13 +406,11 @@ for some SQL columns in <code>vmail</code> database.</p>
 ALTER TABLE admin \
     MODIFY passwordlastchange DATETIME NOT NULL DEFAULT '1970-01-01 01:01:01', \
     MODIFY created DATETIME NOT NULL DEFAULT '1970-01-01 01:01:01', \
-    MODIFY modified DATETIME NOT NULL DEFAULT '1970-01-01 01:01:01', \
-    MODIFY expired DATETIME NOT NULL DEFAULT '1970-01-01 01:01:01';
+    MODIFY modified DATETIME NOT NULL DEFAULT '1970-01-01 01:01:01';
 
-ALTER TABLE admin \
+ALTER TABLE alias \
     MODIFY created DATETIME NOT NULL DEFAULT '1970-01-01 01:01:01', \
-    MODIFY modified DATETIME NOT NULL DEFAULT '1970-01-01 01:01:01', \
-    MODIFY expired DATETIME NOT NULL DEFAULT '1970-01-01 01:01:01';
+    MODIFY modified DATETIME NOT NULL DEFAULT '1970-01-01 01:01:01';
 
 ALTER TABLE alias_domain \
     MODIFY created DATETIME NOT NULL DEFAULT '1970-01-01 01:01:01', \
@@ -420,40 +418,33 @@ ALTER TABLE alias_domain \
 
 ALTER TABLE domain \
     MODIFY created DATETIME NOT NULL DEFAULT '1970-01-01 01:01:01', \
-    MODIFY modified DATETIME NOT NULL DEFAULT '1970-01-01 01:01:01', \
-    MODIFY expired DATETIME NOT NULL DEFAULT '1970-01-01 01:01:01';
+    MODIFY modified DATETIME NOT NULL DEFAULT '1970-01-01 01:01:01';
 
 ALTER TABLE domain_admins \
     MODIFY created DATETIME NOT NULL DEFAULT '1970-01-01 01:01:01', \
-    MODIFY modified DATETIME NOT NULL DEFAULT '1970-01-01 01:01:01', \
-    MODIFY expired DATETIME NOT NULL DEFAULT '1970-01-01 01:01:01';
+    MODIFY modified DATETIME NOT NULL DEFAULT '1970-01-01 01:01:01';
 
 ALTER TABLE mailbox \
     MODIFY lastlogindate DATETIME NOT NULL DEFAULT '1970-01-01 01:01:01', \
     MODIFY passwordlastchange DATETIME NOT NULL DEFAULT '1970-01-01 01:01:01', \
     MODIFY created DATETIME NOT NULL DEFAULT '1970-01-01 01:01:01', \
-    MODIFY modified DATETIME NOT NULL DEFAULT '1970-01-01 01:01:01', \
-    MODIFY expired DATETIME NOT NULL DEFAULT '1970-01-01 01:01:01';
+    MODIFY modified DATETIME NOT NULL DEFAULT '1970-01-01 01:01:01';
 
 ALTER TABLE recipient_bcc_domain \
     MODIFY created DATETIME NOT NULL DEFAULT '1970-01-01 01:01:01', \
-    MODIFY modified DATETIME NOT NULL DEFAULT '1970-01-01 01:01:01', \
-    MODIFY expired DATETIME NOT NULL DEFAULT '1970-01-01 01:01:01';
+    MODIFY modified DATETIME NOT NULL DEFAULT '1970-01-01 01:01:01';
 
 ALTER TABLE recipient_bcc_user \
     MODIFY created DATETIME NOT NULL DEFAULT '1970-01-01 01:01:01', \
-    MODIFY modified DATETIME NOT NULL DEFAULT '1970-01-01 01:01:01', \
-    MODIFY expired DATETIME NOT NULL DEFAULT '1970-01-01 01:01:01';
+    MODIFY modified DATETIME NOT NULL DEFAULT '1970-01-01 01:01:01';
 
 ALTER TABLE sender_bcc_domain \
     MODIFY created DATETIME NOT NULL DEFAULT '1970-01-01 01:01:01', \
-    MODIFY modified DATETIME NOT NULL DEFAULT '1970-01-01 01:01:01', \
-    MODIFY expired DATETIME NOT NULL DEFAULT '1970-01-01 01:01:01';
+    MODIFY modified DATETIME NOT NULL DEFAULT '1970-01-01 01:01:01';
 
 ALTER TABLE sender_bcc_user \
     MODIFY created DATETIME NOT NULL DEFAULT '1970-01-01 01:01:01', \
-    MODIFY modified DATETIME NOT NULL DEFAULT '1970-01-01 01:01:01', \
-    MODIFY expired DATETIME NOT NULL DEFAULT '1970-01-01 01:01:01';
+    MODIFY modified DATETIME NOT NULL DEFAULT '1970-01-01 01:01:01';
 </code></pre><div class="footer">
     <p style="text-align: center; color: grey;">All documents are available in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://bitbucket.org/zhb/iredmail-docs/get/tip.tar.bz2">download the latest version</a> for offline reading. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
 </div>
