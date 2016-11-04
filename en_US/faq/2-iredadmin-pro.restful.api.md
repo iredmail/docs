@@ -173,6 +173,9 @@ Notes:
     `language` | Preferred language of iRedAdmin web UI | `language=en_US`
     `transport` | Transport program | `transport=dovecot`
     `forwarding` | Per-user mail forwarding. Multiple addresses must be separated by comma. To save an email copy in mailbox, add original email address as one of forwarding addresses. | `forwarding=user1@domain.com,user2@domain.com,user3@domain.com`
+    `aliases` | Per-user alias addresses. Multiple addresses must be separated by comma. If empty, all per-user alias addresses owned by this user will be removed. Conflicts with parameter `addAlias` and `removeAlias`. | `aliases=user1@domain.com,user2@domain.com,user3@domain.com`
+    `addAlias` | Add new per-user alias addresses. Multiple addresses must be separated by comma. Conflicts with parameter `aliases`. | `aliases=user1@domain.com,user2@domain.com,user3@domain.com`
+    `removeAlias` | Remove existing per-user alias addresses. Multiple addresses must be separated by comma. Conflicts with parameter `aliases`. | `aliases=user1@domain.com,user2@domain.com,user3@domain.com`
 
     </div>
 
@@ -265,7 +268,9 @@ Notes:
     --- |--- |---
     `name` | Display name | `name=My List Name`
     `accessPolicy` | Defines who can send email to this mail alias account | `accessPolicy=public`
-    `members` | Members of mail alias. Multiple members must be separated by comma. | `members=user1@domain.com,user2@domain.com`
+    `members` | Members of mail alias. Multiple members must be separated by comma. Conflict with parameter `addMember` and `removeMember`. | `members=user1@domain.com,user2@domain.com`
+    `addMember` | Add new members of mail alias. Multiple members must be separated by comma. Conflict with parameter `members`. | `addMember=user1@domain.com,user2@domain.com`
+    `removeMember` | Remove existing members of mail alias. Multiple members must be separated by comma. Conflict with parameter `members`. | `removeMember=user1@domain.com,user2@domain.com`
 
     </div>
 

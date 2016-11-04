@@ -430,6 +430,21 @@ to be a domain admin.</p>
 <td>Per-user mail forwarding. Multiple addresses must be separated by comma. To save an email copy in mailbox, add original email address as one of forwarding addresses.</td>
 <td><code>forwarding=user1@domain.com,user2@domain.com,user3@domain.com</code></td>
 </tr>
+<tr>
+<td><code>aliases</code></td>
+<td>Per-user alias addresses. Multiple addresses must be separated by comma. If empty, all per-user alias addresses owned by this user will be removed. Conflicts with parameter <code>addAlias</code> and <code>removeAlias</code>.</td>
+<td><code>aliases=user1@domain.com,user2@domain.com,user3@domain.com</code></td>
+</tr>
+<tr>
+<td><code>addAlias</code></td>
+<td>Add new per-user alias addresses. Multiple addresses must be separated by comma. Conflicts with parameter <code>aliases</code>.</td>
+<td><code>aliases=user1@domain.com,user2@domain.com,user3@domain.com</code></td>
+</tr>
+<tr>
+<td><code>removeAlias</code></td>
+<td>Remove existing per-user alias addresses. Multiple addresses must be separated by comma. Conflicts with parameter <code>aliases</code>.</td>
+<td><code>aliases=user1@domain.com,user2@domain.com,user3@domain.com</code></td>
+</tr>
 </tbody>
 </table>
 </div>
@@ -652,8 +667,18 @@ please use mail alias account as mailing list.</p>
 </tr>
 <tr>
 <td><code>members</code></td>
-<td>Members of mail alias. Multiple members must be separated by comma.</td>
+<td>Members of mail alias. Multiple members must be separated by comma. Conflict with parameter <code>addMember</code> and <code>removeMember</code>.</td>
 <td><code>members=user1@domain.com,user2@domain.com</code></td>
+</tr>
+<tr>
+<td><code>addMember</code></td>
+<td>Add new members of mail alias. Multiple members must be separated by comma. Conflict with parameter <code>members</code>.</td>
+<td><code>addMember=user1@domain.com,user2@domain.com</code></td>
+</tr>
+<tr>
+<td><code>removeMember</code></td>
+<td>Remove existing members of mail alias. Multiple members must be separated by comma. Conflict with parameter <code>members</code>.</td>
+<td><code>removeMember=user1@domain.com,user2@domain.com</code></td>
 </tr>
 </tbody>
 </table>
