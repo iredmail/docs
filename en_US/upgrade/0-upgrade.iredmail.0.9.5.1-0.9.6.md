@@ -13,11 +13,12 @@
 
 ## TODO
 
-* Update memcached config file to listen on 127.0.0.1.
 * Separated SOGo address book for LDAP backend.
 
 ## ChangeLog
 
+* Nov  9, 2016: Fixed: Memcached listens on all available IP addresses instead of `127.0.0.1`
+* Nov  9, 2016: Fixed: not allow access to '/.well-known/' in Nginx
 * Nov  1, 2016: Fixed: invalid default (datetime) value for some SQL columns in 'vmail' database.
 * Oct 21, 2016: Fixed: [ldap] mail accounts (user, alias, list) are still active when domain is disabled.
 * Sep  8, 2016: Fixed: HTTProxy vulnerability in Apache and Nginx.
@@ -100,6 +101,37 @@ fastcgi_param HTTP_PROXY '';
 ```
 
 Restart Nginx service is required.
+
+### Fixed: not allow access to '/.well-known/' in Nginx
+
+It's popular to use Let's Encrypt ssl cert nowadays, but default Nginx config
+file will return a "403 Forbidden" error if you're trying to request new SSL
+cert from Let's Encrypt. Step below will allow access to `/.well-known/` and
+fix this issue.
+
+Open Nginx template file `misc.tmpl`, find lines below:
+
+* On Linux/OpenBSD, it's `/etc/nginx/templates/misc.tmpl`.
+* On FreeBSD, it's `/usr/local/etc/nginx/templates/misc.tmpl`.
+
+```
+# Deny all attempts to access hidden files such as .htaccess.
+location ~ /\. { deny all; }
+```
+
+Add lines below ABOVE lines found above:
+
+```
+# Allow access to '^/.well-known/'
+location ~ ^/.well-known/ {
+    allow all;
+    access_log off;
+    log_not_found off;
+    autoindex off;
+}
+```
+
+Save your change and reload Nginx service.
 
 ### Fixed: not enable opportunistic TLS support in Postfix
 
@@ -208,6 +240,77 @@ cron job to fix it.
     * On OpenBSD: ```crontab -e -u _sogo```
 
 * Replace the argument `expire-autoreply` by `update-autoreply`.
+
+### Fixed: Memcached listens on all available IP addresses instead of `127.0.0.1`
+
+> This step is only applicable when you have SOGo installed, otherwise
+> memcached was not installed and running on your server.
+
+[Memcached](http://memcached.org) is an open-source distributed memory object caching system
+which is generic in nature but often used for speeding up dynamic web
+applications. Memcached does not support any forms of authorization.
+Thus, anyone who can connect to the memcached server has unrestricted
+access to the data stored in it. This allows attackers e.g. to steal
+sensitive data like login credentials for web applications or any other
+kind of content stored with memcached.
+
+iRedMail-0.9.5-1 and earlier releases didn't configure Memcached to listen on
+only `127.0.0.1`, steps below fix this issue.
+
+* On RHEL/CentOS, please open file `/etc/sysconfig/memcached` and update
+  parameter `OPTIONS=` with `-l 127.0.0.1` option like below:
+
+```
+OPTIONS="-l 127.0.0.1"
+```
+
+Then restart memcached service:
+
+```
+service memcached restart
+```
+
+* On Debian/Ubuntu, please make sure you have setting below in config file
+  `/etc/memcached.conf`
+
+```
+-l 127.0.0.1
+```
+
+Then restart memcached service:
+
+```
+service memcached restart
+```
+
+* On FreeBSD, please append line below in `/etc/rc.conf`:
+
+    !!! note
+
+        If you're updating a jailed FreeBSD system, please change `127.0.0.1`
+        to the IP address of your jail.
+
+```
+memcached_flags='-l 127.0.0.1'
+```
+
+Then restart memcached service:
+
+```
+service memcached restart
+```
+
+* On OpenBSD, please append line below in `/etc/rc.conf.local`:
+
+```
+memcached_flags='-u _memcached -l 127.0.0.1'
+```
+
+Then restart memcached service:
+
+```
+rcctl restart memcached
+```
 
 ## OpenLDAP backend special
 

@@ -31,11 +31,13 @@
 <li><a href="#nginx">Nginx</a></li>
 </ul>
 </li>
+<li><a href="#fixed-not-allow-access-to-well-known-in-nginx">Fixed: not allow access to '/.well-known/' in Nginx</a></li>
 <li><a href="#fixed-not-enable-opportunistic-tls-support-in-postfix">Fixed: not enable opportunistic TLS support in Postfix</a></li>
 <li><a href="#fixed-one-incorrect-helo-restriction-rule-in-postfix">Fixed: one incorrect HELO restriction rule in Postfix</a></li>
 <li><a href="#fixed-incorrect-file-owner-and-permission-of-config-file-of-roundcube-password-plugin">Fixed: incorrect file owner and permission of config file of Roundcube password plugin</a></li>
 <li><a href="#fixed-nginx-doesnt-forward-real-client-ip-address-to-sogo">Fixed: Nginx doesn't forward real client IP address to SOGo</a></li>
 <li><a href="#fixed-sogo-313-and-later-releases-changed-argument-used-by-sogo-tool-command">Fixed: SOGo-3.1.3 (and later releases) changed argument used by sogo-tool command</a></li>
+<li><a href="#fixed-memcached-listens-on-all-available-ip-addresses-instead-of-127001">Fixed: Memcached listens on all available IP addresses instead of 127.0.0.1</a></li>
 </ul>
 </li>
 <li><a href="#openldap-backend-special">OpenLDAP backend special</a><ul>
@@ -67,11 +69,12 @@ check <a href="../support.html">the details</a> and <a href="../contact.html">co
 </div>
 <h2 id="todo">TODO</h2>
 <ul>
-<li>Update memcached config file to listen on 127.0.0.1.</li>
 <li>Separated SOGo address book for LDAP backend.</li>
 </ul>
 <h2 id="changelog">ChangeLog</h2>
 <ul>
+<li>Nov  9, 2016: Fixed: Memcached listens on all available IP addresses instead of <code>127.0.0.1</code></li>
+<li>Nov  9, 2016: Fixed: not allow access to '/.well-known/' in Nginx</li>
 <li>Nov  1, 2016: Fixed: invalid default (datetime) value for some SQL columns in 'vmail' database.</li>
 <li>Oct 21, 2016: Fixed: [ldap] mail accounts (user, alias, list) are still active when domain is disabled.</li>
 <li>Sep  8, 2016: Fixed: HTTProxy vulnerability in Apache and Nginx.</li>
@@ -138,6 +141,31 @@ it:</p>
 </code></pre>
 
 <p>Restart Nginx service is required.</p>
+<h3 id="fixed-not-allow-access-to-well-known-in-nginx">Fixed: not allow access to '/.well-known/' in Nginx</h3>
+<p>It's popular to use Let's Encrypt ssl cert nowadays, but default Nginx config
+file will return a "403 Forbidden" error if you're trying to request new SSL
+cert from Let's Encrypt. Step below will allow access to <code>/.well-known/</code> and
+fix this issue.</p>
+<p>Open Nginx template file <code>misc.tmpl</code>, find lines below:</p>
+<ul>
+<li>On Linux/OpenBSD, it's <code>/etc/nginx/templates/misc.tmpl</code>.</li>
+<li>On FreeBSD, it's <code>/usr/local/etc/nginx/templates/misc.tmpl</code>.</li>
+</ul>
+<pre><code># Deny all attempts to access hidden files such as .htaccess.
+location ~ /\. { deny all; }
+</code></pre>
+
+<p>Add lines below ABOVE lines found above:</p>
+<pre><code># Allow access to '^/.well-known/'
+location ~ ^/.well-known/ {
+    allow all;
+    access_log off;
+    log_not_found off;
+    autoindex off;
+}
+</code></pre>
+
+<p>Save your change and reload Nginx service.</p>
 <h3 id="fixed-not-enable-opportunistic-tls-support-in-postfix">Fixed: not enable opportunistic TLS support in Postfix</h3>
 <p>iRedMail-0.9.5 and iRedMail-0.9.5-1 didn't enable opportunistic TLS support in
 Postfix, this causes other servers cannot transfer emails via TLS secure
@@ -246,6 +274,69 @@ cron job to fix it.</p>
 <p>Replace the argument <code>expire-autoreply</code> by <code>update-autoreply</code>.</p>
 </li>
 </ul>
+<h3 id="fixed-memcached-listens-on-all-available-ip-addresses-instead-of-127001">Fixed: Memcached listens on all available IP addresses instead of <code>127.0.0.1</code></h3>
+<blockquote>
+<p>This step is only applicable when you have SOGo installed, otherwise
+memcached was not installed and running on your server.</p>
+</blockquote>
+<p><a href="http://memcached.org">Memcached</a> is an open-source distributed memory object caching system
+which is generic in nature but often used for speeding up dynamic web
+applications. Memcached does not support any forms of authorization.
+Thus, anyone who can connect to the memcached server has unrestricted
+access to the data stored in it. This allows attackers e.g. to steal
+sensitive data like login credentials for web applications or any other
+kind of content stored with memcached.</p>
+<p>iRedMail-0.9.5-1 and earlier releases didn't configure Memcached to listen on
+only <code>127.0.0.1</code>, steps below fix this issue.</p>
+<ul>
+<li>On RHEL/CentOS, please open file <code>/etc/sysconfig/memcached</code> and update
+  parameter <code>OPTIONS=</code> with <code>-l 127.0.0.1</code> option like below:</li>
+</ul>
+<pre><code>OPTIONS=&quot;-l 127.0.0.1&quot;
+</code></pre>
+
+<p>Then restart memcached service:</p>
+<pre><code>service memcached restart
+</code></pre>
+
+<ul>
+<li>On Debian/Ubuntu, please make sure you have setting below in config file
+  <code>/etc/memcached.conf</code></li>
+</ul>
+<pre><code>-l 127.0.0.1
+</code></pre>
+
+<p>Then restart memcached service:</p>
+<pre><code>service memcached restart
+</code></pre>
+
+<ul>
+<li>
+<p>On FreeBSD, please append line below in <code>/etc/rc.conf</code>:</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you're updating a jailed FreeBSD system, please change <code>127.0.0.1</code>
+to the IP address of your jail.</p>
+</div>
+</li>
+</ul>
+<pre><code>memcached_flags='-l 127.0.0.1'
+</code></pre>
+
+<p>Then restart memcached service:</p>
+<pre><code>service memcached restart
+</code></pre>
+
+<ul>
+<li>On OpenBSD, please append line below in <code>/etc/rc.conf.local</code>:</li>
+</ul>
+<pre><code>memcached_flags='-u _memcached -l 127.0.0.1'
+</code></pre>
+
+<p>Then restart memcached service:</p>
+<pre><code>rcctl restart memcached
+</code></pre>
+
 <h2 id="openldap-backend-special">OpenLDAP backend special</h2>
 <h3 id="fixed-mail-accounts-user-alias-list-are-still-active-when-domain-is-disabled">Fixed: mail accounts (user, alias, list) are still active when domain is disabled</h3>
 <blockquote>
