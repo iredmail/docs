@@ -179,6 +179,7 @@ Notes:
 
     </div>
 
+!!! api "`POST`{: .put } `/api/user/<mail>/change_email/<new_mail>`{: .url } `Change user's email address (from '<mail>' to '<new_mail>')`{: .comment }"
 !!! api "`PUT`{: .put } `/api/users/<domain>`{: .url } `Update profiles of all users under domain`{: .comment } `upcoming`{: .upcoming } `Parameters`{: .has_params }"
 
     <div class="params">
@@ -274,6 +275,7 @@ Notes:
 
     </div>
 
+!!! api "`POST`{: .put } `/api/alias/<mail>/change_email/<new_mail>`{: .url } `Change email address of alias account (from '<mail>' to '<new_mail>')`{: .comment }"
 
 ### Throttling {: .toggle }
 
