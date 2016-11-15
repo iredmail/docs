@@ -331,6 +331,9 @@ address book setting added by iRedMail, and add new setting for AD like below:</
 #
 $config['autocomplete_addressbooks'] = array(&quot;sql&quot;, &quot;global_ldap_abook&quot;);
 
+# Enable setting below if Roundcube returns 'user@127.0.0.1' as email address
+#$config['mail_domain'] = '%d';
+
 #
 # Global LDAP Address Book with AD.
 #
@@ -352,18 +355,6 @@ $config['ldap_public'][&quot;global_ldap_abook&quot;] = array(
 
     // mapping of contact fields to directory attributes
     'fieldmap' =&gt; array(
-        'name'        =&gt; 'cn',
-        'surname'     =&gt; 'sn',
-        'firstname'   =&gt; 'givenName',
-        'title'       =&gt; 'title',
-        'email'       =&gt; 'mail:*',
-        'phone:work'  =&gt; 'telephoneNumber',
-        'phone:mobile' =&gt; 'mobile',
-        'street'      =&gt; 'street',
-        'zipcode'     =&gt; 'postalCode',
-        'locality'    =&gt; 'l',
-        'department'  =&gt; 'departmentNumber',
-        'notes'       =&gt; 'description',
         'name'        =&gt; 'cn',
         'surname'     =&gt; 'sn',
         'firstname'   =&gt; 'givenName',

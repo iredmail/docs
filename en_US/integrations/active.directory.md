@@ -331,6 +331,9 @@ address book setting added by iRedMail, and add new setting for AD like below:
 #
 $config['autocomplete_addressbooks'] = array("sql", "global_ldap_abook");
 
+# Enable setting below if Roundcube returns 'user@127.0.0.1' as email address
+#$config['mail_domain'] = '%d';
+
 #
 # Global LDAP Address Book with AD.
 #
@@ -359,18 +362,6 @@ $config['ldap_public']["global_ldap_abook"] = array(
         'email'       => 'mail:*',
         'phone:work'  => 'telephoneNumber',
         'phone:mobile' => 'mobile',
-        'street'      => 'street',
-        'zipcode'     => 'postalCode',
-        'locality'    => 'l',
-        'department'  => 'departmentNumber',
-        'notes'       => 'description',
-        'name'        => 'cn',
-        'surname'     => 'sn',
-        'firstname'   => 'givenName',
-        'title'       => 'title',
-        'email'       => 'mail:*',
-        'phone:work'  => 'telephoneNumber',
-        'phone:mobile' => 'mobile',
         'phone:workfax' => 'facsimileTelephoneNumber',
         'street'      => 'street',
         'zipcode'     => 'postalCode',
@@ -381,7 +372,7 @@ $config['ldap_public']["global_ldap_abook"] = array(
     ),
     'sort'          => 'cn',
     'scope'         => 'sub',
-    'filter'        => "(&(objectclass=person)(!(userAccountControl:1.2.840.113556.1.4.803:=2)))",
+    'filter'        => "(&(|(objectclass=person)(objectclass=group))(!(userAccountControl:1.2.840.113556.1.4.803:=2)))",
     'fuzzy_search'  => true,
     'vlv'           => false,   // Enable Virtual List View to more
                                 // efficiently fetch paginated data
