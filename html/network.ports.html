@@ -16,82 +16,151 @@
         <span>iRedMail</span>
     </a>
     &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><h1 id="which-network-ports-are-open-by-iredmail">Which network ports are open by iRedMail</h1>
-<div class="toc">
-<ul>
-<li><a href="#which-network-ports-are-open-by-iredmail">Which network ports are open by iRedMail</a><ul>
-<li><a href="#smtp-postfix">SMTP (Postfix)</a></li>
-<li><a href="#pop3imap-dovecot">POP3/IMAP (Dovecot)</a></li>
-<li><a href="#web-server-apache-or-nginx">Web server (Apache or Nginx)</a></li>
-<li><a href="#mysql">MySQL</a></li>
-<li><a href="#postgresql">PostgreSQL</a></li>
-<li><a href="#openldap">OpenLDAP</a></li>
-<li><a href="#amavisd-new">Amavisd-new</a></li>
-<li><a href="#iredapd-postfix-policy-server">iRedAPD (Postfix policy server)</a></li>
-<li><a href="#policyd-or-cluebringer-postfix-policy-server">Policyd or Cluebringer (Postfix policy server)</a></li>
-</ul>
-</li>
-</ul>
-</div>
-<h2 id="smtp-postfix">SMTP (Postfix)</h2>
-<ul>
-<li>25: normal smtp port, used for server-to-server communication.</li>
-<li>587: Submission (SMTP over TLS), used for mail clients to send email.</li>
-<li>465: smtps (SMTP over SSL). Deprecated, and disabled by default, please use
-  port 587 instead.</li>
-</ul>
-<h2 id="pop3imap-dovecot">POP3/IMAP (Dovecot)</h2>
-<ul>
-<li>110: POP3 service, insecure connection. Supports STARTTLS for secure connection.</li>
-<li>995: POP3S (Secure POP3 over SSL). Deprecated, recommended to use port 110 with STARTTLS.</li>
-<li>143: IMAP service, insecure connection. Supports STARTTLS for secure connection.</li>
-<li>993: IMAPS (Secure IMAP over SSL). Deprecated,  recommended to use port 143 with STARTTLS.</li>
-<li>4190: managesieve service. (Refuse connections from external network in iptables by default). Note: in old iRedMail releases, it's port 2000, it's deprecated and not even listed in <code>/etc/services</code> file.</li>
-</ul>
-<h2 id="web-server-apache-or-nginx">Web server (Apache or Nginx)</h2>
-<ul>
-<li>80: normal web service port</li>
-<li>443: HTTPS (http over SSL, secure connection)</li>
-</ul>
-<p>SOGo groupware provides Exchange ActiveSync (EAS) support through port 443.</p>
-<h2 id="mysql">MySQL</h2>
-<ul>
-<li>3306: default listen port. Listening on IP address <code>127.0.0.1</code> by default.</li>
-</ul>
-<h2 id="postgresql">PostgreSQL</h2>
-<ul>
-<li>5432: default listen port. Listening on IP address <code>127.0.0.1</code> by default.</li>
-</ul>
-<h2 id="openldap">OpenLDAP</h2>
-<ul>
-<li>389: normal LDAP port, supports STARTTLS for secure connection.</li>
-<li>636: LDAP over SSL. Deprecated, recommended to use port 387 with STARTTLS for
-  secure connection.</li>
-</ul>
-<p>Listening on all available network interfaces by default, but access from
-external network is blocked by firewall (iptables, pf).</p>
-<h2 id="amavisd-new">Amavisd-new</h2>
-<ul>
-<li>10024: port used for inbound messages, includes spam/virus scanning, DKIM
-  verification, applying spam policy.</li>
-<li>10026: port used for outbound messages, includes spam/virus scanning, DKIM
-  signing, apply spam policy.</li>
-<li>9998: port used to manage quarantined emails.</li>
-</ul>
-<p>All ports are listening on <code>127.0.0.1</code> by default.</p>
-<h2 id="iredapd-postfix-policy-server">iRedAPD (Postfix policy server)</h2>
-<ul>
-<li>7777: default listen port. Listening on IP address <code>127.0.0.1</code> by default,
-  offers greylisting, whitelisting, blacklists, throttling, and other features.</li>
-</ul>
-<h2 id="policyd-or-cluebringer-postfix-policy-server">Policyd or Cluebringer (Postfix policy server)</h2>
+<table>
+<thead>
+<tr>
+<th>Port</th>
+<th>Service</th>
+<th>Software</th>
+<th>Comment</th>
+<th>Allow Public Access?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>25</td>
+<td>smtp</td>
+<td>Postfix</td>
+<td>Normal smtp service, used for server-to-server communication.</td>
+<td>YES</td>
+</tr>
+<tr>
+<td>587</td>
+<td>submission</td>
+<td>Postfix</td>
+<td>a.k.a. SMTP over TLS. Used by end users to send/submit email.</td>
+<td>YES (open to your end users)</td>
+</tr>
+<tr>
+<td>465</td>
+<td>smtps</td>
+<td>Postfix</td>
+<td>a.k.a. SMTP over SSL. Deprecated and disabled by default, please use port 587 instead.</td>
+<td>YES (open to your end users)</td>
+</tr>
+<tr>
+<td>110</td>
+<td>pop3</td>
+<td>Dovecot</td>
+<td>Used by end users to retrieve emails via POP3 protocol, secure connection over STARTTLS is available by default.</td>
+<td>YES (open to your end users)</td>
+</tr>
+<tr>
+<td>995</td>
+<td>pop3s</td>
+<td>Dovecot</td>
+<td>Used by end users to restrieve emails via POP3 protocol over SSL. Port 110 with STARTTLS is recommended.</td>
+<td>YES (open to your rend users)</td>
+</tr>
+<tr>
+<td>143</td>
+<td>imap</td>
+<td>Dovecot</td>
+<td>Used by end users to retrieve emails via IMAP protocol, secure connection over STARTTLS is available by default.</td>
+<td>YES (open to your end users)</td>
+</tr>
+<tr>
+<td>993</td>
+<td>imaps</td>
+<td>Dovecot</td>
+<td>Used by end users to restrieve emails via IMAP protocol over SSL. Port 143 with STARTTLS is recommended.</td>
+<td>YES (open to your rend users)</td>
+</tr>
+<tr>
+<td>4190</td>
+<td>managesieve</td>
+<td>Dovecot</td>
+<td>Sieve service used by end users to manage mail filters. Note: in old iRedMail releases, it's port 2000 (deprecated and not even listed in <code>/etc/services</code> file).</td>
+<td>YES (open to your end users, or disabled and force users to manage mail filters with webmail)</td>
+</tr>
+<tr>
+<td>80</td>
+<td>http</td>
+<td>Apache/Nginx</td>
+<td>Web service</td>
+<td>YES (open to your webmail users)</td>
+</tr>
+<tr>
+<td>443</td>
+<td>https</td>
+<td>Apache/Nginx</td>
+<td>Web service over over SSL, secure connection. SOGo groupware provides Exchange ActiveSync (EAS) support through port 443.</td>
+<td>YES (open to your webmail users)</td>
+</tr>
+<tr>
+<td>3306</td>
+<td>mysql</td>
+<td>MySQL/MariaDB</td>
+<td>MySQL/MariaDB database service</td>
+<td>NO (listen on <code>127.0.0.1</code> by default)</td>
+</tr>
+<tr>
+<td>5432</td>
+<td>postgresql</td>
+<td>PostgreSQL</td>
+<td>PostgreSQL database service</td>
+<td>NO (listen on <code>127.0.0.1</code> by default)</td>
+</tr>
+<tr>
+<td>389</td>
+<td>ldap</td>
+<td>OpenLDAP (or OpenBSD ldapd)</td>
+<td>LDAP service, STARTTLS is available for secure connection.</td>
+<td>NO (listen on <code>127.0.0.1</code> by default)</td>
+</tr>
+<tr>
+<td>636</td>
+<td>ldaps</td>
+<td>OpenLDAP (or OpenBSD ldapd)</td>
+<td>LDAP service over SSL. Deprecated, port 389 with STARTTLS is recommended.</td>
+<td>NO (listen on <code>127.0.0.1</code> by default)</td>
+</tr>
+<tr>
+<td>10024</td>
+<td></td>
+<td>Amavisd-new</td>
+<td>Used to scan inbound messages, includes spam/virus scanning, DKIM verification, applying spam policy.</td>
+<td>NO (listen on <code>127.0.0.1</code> by default)</td>
+</tr>
+<tr>
+<td>10026</td>
+<td></td>
+<td>Amavisd-new</td>
+<td>Used to scan outbound messages, includes spam/virus scanning, DKIM signing, applying spam policy.</td>
+<td>NO (listen on <code>127.0.0.1</code> by default)</td>
+</tr>
+<tr>
+<td>9998</td>
+<td></td>
+<td>Amavisd-new</td>
+<td>Used to manage quarantined emails.</td>
+<td>NO (listen on <code>127.0.0.1</code> by default)</td>
+</tr>
+<tr>
+<td>7777</td>
+<td></td>
+<td>iRedAPD</td>
+<td>Postfix policy service for greylisting, whitelisting, blacklists, throttling, etc</td>
+<td>NO (listen on <code>127.0.0.1</code> by default)</td>
+</tr>
+</tbody>
+</table>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Policyd and Cluebringer were removed since iRedMail-0.9.3, they're replaced
-by iRedAPD.</p>
-</div>
-<ul>
-<li>10031: default listen port. Listening on IP address <code>127.0.0.1</code> by default.</li>
-</ul><div class="footer">
+<p>In iRedMail-0.9.2 and earlier releases, Policyd or Cluebringer listens on
+port 10031. They have been removed in iRedMail-0.9.3, and replaced by
+iRedAPD.</p>
+</div><div class="footer">
     <p style="text-align: center; color: grey;">All documents are available in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://bitbucket.org/zhb/iredmail-docs/get/tip.tar.bz2">download the latest version</a> for offline reading. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
 </div>
 <script type="text/javascript">
