@@ -80,8 +80,6 @@ Notes:
     `quota` | Per-domain mailbox quota, in MB. | `quota=2048`
     `language` | Default preferred language for newly created mail user | `language=en_US`
     `transport` | Transport program | `transport=dovecot`
-    `minPasswordLength` | Minimal password length | `minPasswordLength=8`
-    `maxPasswordLength` | Maximum password length | `minPasswordLength=20`
     `defaultQuota` | Default per-user mailbox quota for newly created user, in MB. | `defaultQuota=1024`
     `maxUserQuota` | Max mailbox quota of a mail user, in MB. | `maxUserQuota=2048`
     `numberOfUsers` | Max number of mail user accounts | `numberOfUsers=20`
@@ -104,6 +102,8 @@ Notes:
     `quota` | Mailbox quota for whole domain, in MB. | `quota=2048`
     `language` | Default preferred language for newly created mail user | `language=en_US`
     `transport` | Transport program | `transport=dovecot`
+    `minPasswordLength` | Minimal password length | `minPasswordLength=8`
+    `maxPasswordLength` | Maximum password length | `minPasswordLength=20`
     `defaultQuota` | Default per-user mailbox quota for newly created user | `defaultQuota=1024`
     `maxUserQuota` | Max mailbox quota of a mail user | `maxUserQuota=2048`
     `numberOfUsers` | Max number of mail user accounts | `numberOfUsers=20`
