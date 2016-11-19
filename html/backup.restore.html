@@ -20,6 +20,7 @@
 <ul>
 <li><a href="#backup-and-restore">Backup and restore</a><ul>
 <li><a href="#backup">Backup</a><ul>
+<li><a href="#backup-mailboxes">Backup mailboxes</a></li>
 <li><a href="#backup-mail-accounts">Backup mail accounts</a></li>
 <li><a href="#backup-additional-data-manually">Backup additional data manually</a></li>
 </ul>
@@ -39,6 +40,13 @@
 </ul>
 </div>
 <h2 id="backup">Backup</h2>
+<h3 id="backup-mailboxes">Backup mailboxes</h3>
+<p>All mailboxes are stored under <code>/var/vmail/vmail</code> by default, this path is
+configurable during iRedMail installation, so the real directory may be
+different on your server.</p>
+<p>Mail messages are stored in Maildir format by default, that means one mail
+message is one plain text file (but mail body is encoded), you can backup
+mailboxes with tool like <code>rsync</code> or other backup tools.</p>
 <h3 id="backup-mail-accounts">Backup mail accounts</h3>
 <p>Mail accounts are stored in SQL/LDAP database. iRedMail provides shell scripts
 to backup SQL/LDAP databases, you can find them in downloaded iRedMail release,

@@ -3,6 +3,17 @@
 [TOC]
 
 ## Backup
+
+### Backup mailboxes
+
+All mailboxes are stored under `/var/vmail/vmail` by default, this path is
+configurable during iRedMail installation, so the real directory may be
+different on your server.
+
+Mail messages are stored in Maildir format by default, that means one mail
+message is one plain text file (but mail body is encoded), you can backup
+mailboxes with tool like `rsync` or other backup tools.
+
 ### Backup mail accounts
 
 Mail accounts are stored in SQL/LDAP database. iRedMail provides shell scripts
