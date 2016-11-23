@@ -5,7 +5,7 @@
     * [FreeBSD (without Jail)](./install.iredmail.on.freebsd.html), [FreeBSD with Jail (ezjail)](./install.iredmail.on.freebsd.with.jail.html)
     * [OpenBSD](./install.iredmail.on.openbsd.html)
 
-* After installtion:
+* After installation:
 
     * [Setup DNS records for your iRedMail server (A, PTR, MX, SPF, DKIM)](./setup.dns.html)
 
