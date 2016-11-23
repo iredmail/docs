@@ -81,6 +81,15 @@ cp /root/sogo-backup/sogo/* /etc/sogo/
 cp /root/sogo-backup/default/sogo /etc/default/
 ```
 
+* Make sure SOGo log file is owned by SOGo daemon user and group:
+    * On Linux, user/group names are: `sogo:sogo`.
+    * on FreeBSD, user/group names are: `sogod:sogod`.
+    * on OpenBSD, user/group names are: `_sogo:_sogo`.
+
+```
+chown sogo:sogo /var/log/sogo/sogo.log
+```
+
 * Restart SOGo service:
 
 ```
