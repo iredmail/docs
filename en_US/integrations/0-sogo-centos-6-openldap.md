@@ -22,7 +22,7 @@ epel              Extra Packages for Enterprise Linux 6 - x86_64          11,109
 ```
 [SOGo]
 name=Inverse SOGo Repository
-baseurl=http://inverse.ca/downloads/SOGo/RHEL6/$basearch
+baseurl=http://packages.inverse.ca/SOGo/nightly/3/rhel/6/$basearch
 gpgcheck=0
 ```
 
