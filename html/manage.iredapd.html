@@ -97,8 +97,13 @@ upgrading iRedAPD -- because iRedAPD upgrade tool will copy
 <h3 id="sender-address-restrictions">Sender Address Restrictions</h3>
 <p>Plugin <code>reject_sender_login_mismatch</code> will reject emails if:</p>
 <ul>
-<li>smtp authentication username (<code>sasl_username</code>) is different than than sender address (<code>From:</code>). This is usually called <code>sender login mismatch</code>. Note: This can be performed by Postfix with restriction rule <code>reject_sender_login_mismatch</code> in <code>smtpd_sender_restrictions =</code>.</li>
-<li>sender address is forged (sender doesn't perform smtp auth and sender domain is hosted on localhost)</li>
+<li>smtp authentication username (<code>sasl_username</code>) is different from sender
+  address (<code>From:</code> in mail header). This is called <code>sender login mismatch</code>.
+  Note: This can be performed by Postfix with restriction rule
+  <code>reject_sender_login_mismatch</code> in <code>smtpd_sender_restrictions =</code>, but iRedAPD
+  plugin does more work.</li>
+<li>sender domain is hosted on localhost, but sender doesn't perform smtp auth
+  to send email. This is called "forged" email.</li>
 </ul>
 <p>It offers some parameters to control whether or not to reject email:</p>
 <ul>
