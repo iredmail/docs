@@ -373,6 +373,15 @@ To whitelist IP addresses/networks of some mail domain, for example,
 # python spf_to_greylist_whitelists.py outlook.com microsoft.com
 ```
 
+!!! note
+
+    Above command stores server addresses/networks in SPF/MX records in SQL
+    table, but doesn't store whitelisted domain name in SQL, that means
+    iRedAPD won't re-query their DNS records regularly (via cron job) to get
+    the latest servers listed in SPF record. To store domain names and update
+    their server addresses/networks, please run above command with `--submit`
+    option.
+
 If you want to whitelist more mail domains, just run the command with the
 domain names like above sample.
 

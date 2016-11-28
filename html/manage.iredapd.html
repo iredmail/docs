@@ -383,6 +383,15 @@ converted IP addresses/networks defined in SPF/MX records in SQL table
 # python spf_to_greylist_whitelists.py outlook.com microsoft.com
 </code></pre>
 
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Above command stores server addresses/networks in SPF/MX records in SQL
+table, but doesn't store whitelisted domain name in SQL, that means
+iRedAPD won't re-query their DNS records regularly (via cron job) to get
+the latest servers listed in SPF record. To store domain names and update
+their server addresses/networks, please run above command with <code>--submit</code>
+option.</p>
+</div>
 <p>If you want to whitelist more mail domains, just run the command with the
 domain names like above sample.</p>
 <p>Since iRedAPD-1.8.0, we have SQL table <code>iredapd.greylisting_whitelist_domains</code>
