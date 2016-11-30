@@ -268,6 +268,11 @@ RESTFUL_API_CLIENTS = ['172.16.244.1', ...]
 <td>Hostname or IP address of primary MX, smtp port number is optional. Must be used with parameter <code>is_backupmx</code>. Conflicts with parameter <code>transport</code>.</td>
 <td><code>primarymx=202.96.134.133</code>, <code>primarymx=[mail.iredmail.org]:25</code></td>
 </tr>
+<tr>
+<td><code>catchall</code></td>
+<td>Per-domain catch-all account (a list of email addresses used to receive emails sent to non-existing addresses under same domain). Multiple addresses must be separated by comma. Set an empty value to disable catch-all support.</td>
+<td><code>catchall=user@domain.com,user2@domain.com</code> or <code>catchall=</code> (disable catch-all)</td>
+</tr>
 </tbody>
 </table>
 </div>
@@ -429,6 +434,11 @@ to be a domain admin.</p>
 <td><code>language</code></td>
 <td>Preferred language of iRedAdmin web UI</td>
 <td><code>language=en_US</code></td>
+</tr>
+<tr>
+<td><code>employeeid</code></td>
+<td>User ID (or Employee Number)</td>
+<td><code>employeeid=My Employee ID</code></td>
 </tr>
 <tr>
 <td><code>transport</code></td>

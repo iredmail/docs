@@ -112,6 +112,7 @@ Notes:
     `recipientBcc` | Per-domain recipient bcc address | `recipientBcc=user@domain.com`
     `is_backupmx` | Mark domain as Backup MX. Must be used with parameter `primarymx`. Conflicts with parameter `transport`. | `is_backupmx=yes` (or `no`)
     `primarymx` | Hostname or IP address of primary MX, smtp port number is optional. Must be used with parameter `is_backupmx`. Conflicts with parameter `transport`. | `primarymx=202.96.134.133`, `primarymx=[mail.iredmail.org]:25`
+    `catchall` | Per-domain catch-all account (a list of email addresses used to receive emails sent to non-existing addresses under same domain). Multiple addresses must be separated by comma. Set an empty value to disable catch-all support. | `catchall=user@domain.com,user2@domain.com` or `catchall=` (disable catch-all)
 
     </div>
 
@@ -173,6 +174,7 @@ Notes:
     `quota` | Mailbox quota (in MB) | `quota=1024`
     `accountStatus` | Enable or disable user. Possible values: `active`, `disabled`. | `accountStatus=active`
     `language` | Preferred language of iRedAdmin web UI | `language=en_US`
+    `employeeid` | User ID (or Employee Number) | `employeeid=My Employee ID`
     `transport` | Transport program | `transport=dovecot`
     `forwarding` | Per-user mail forwarding. Multiple addresses must be separated by comma. To save an email copy in mailbox, add original email address as one of forwarding addresses. | `forwarding=user1@domain.com,user2@domain.com,user3@domain.com`
     `aliases` | Per-user alias addresses. Multiple addresses must be separated by comma. If empty, all per-user alias addresses owned by this user will be removed. Conflicts with parameter `addAlias` and `removeAlias`. | `aliases=user1@domain.com,user2@domain.com,user3@domain.com`
