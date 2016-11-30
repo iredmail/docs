@@ -113,6 +113,7 @@ Notes:
     `is_backupmx` | Mark domain as Backup MX. Must be used with parameter `primarymx`. Conflicts with parameter `transport`. | `is_backupmx=yes` (or `no`)
     `primarymx` | Hostname or IP address of primary MX, smtp port number is optional. Must be used with parameter `is_backupmx`. Conflicts with parameter `transport`. | `primarymx=202.96.134.133`, `primarymx=[mail.iredmail.org]:25`
     `catchall` | Per-domain catch-all account (a list of email addresses used to receive emails sent to non-existing addresses under same domain). Multiple addresses must be separated by comma. Set an empty value to disable catch-all support. | `catchall=user@domain.com,user2@domain.com` or `catchall=` (disable catch-all)
+    `outboundRelay` | Per-domain outbound relay. Set an empty value to disable outbound relay. | `outboundRelay=smtp:[192.168.1.2]:25` or `outboundRelay=` (disable outbound relay)
 
     </div>
 

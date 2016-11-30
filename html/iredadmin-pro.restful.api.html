@@ -273,6 +273,11 @@ RESTFUL_API_CLIENTS = ['172.16.244.1', ...]
 <td>Per-domain catch-all account (a list of email addresses used to receive emails sent to non-existing addresses under same domain). Multiple addresses must be separated by comma. Set an empty value to disable catch-all support.</td>
 <td><code>catchall=user@domain.com,user2@domain.com</code> or <code>catchall=</code> (disable catch-all)</td>
 </tr>
+<tr>
+<td><code>outboundRelay</code></td>
+<td>Per-domain outbound relay. Set an empty value to disable outbound relay.</td>
+<td><code>outboundRelay=smtp:[192.168.1.2]:25</code> or <code>outboundRelay=</code> (disable outbound relay)</td>
+</tr>
 </tbody>
 </table>
 </div>
