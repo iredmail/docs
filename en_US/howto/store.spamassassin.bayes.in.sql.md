@@ -86,11 +86,17 @@ bayes_sql_dsn      DBI:mysql:sa_bayes:127.0.0.1:3306
 bayes_sql_username sa_user
 bayes_sql_password sa_user_password
 
-# Override the username used for storing
-# data in the database. This could be used to group users together to
-# share bayesian filter data. You can also use this config option to
-# trick sa-learn to learn data as a specific user.
-bayes_sql_override_username vmail
+# Override the username used for storing data in the database.
+# This could be used to group users together to share bayesian filter data.
+# You can also use this config option to trick sa-learn to learn data as a
+# specific user.
+#
+# In iRedMail, SpamAssassin is called by Amavisd, so we must set it to be
+# same as Amavisd daemon user:
+#   - on Linux, it's user `amavis`.
+#   - on FreeBSD, it's user `vscan`.
+#   - on OpenBSD, it's user `_vscan`.
+bayes_sql_override_username amavis
 ```
 
 Make sure SpamAssassin will load bayes modules:
@@ -102,15 +108,14 @@ May 16 09:59:33 ... SpamAssassin loaded plugins: ..., Bayes, ...
 May 16 10:27:38 ... extra modules loaded after daemonizing/chrooting:
     Mail/SpamAssassin/BayesStore/MySQL.pm, Mail/SpamAssassin/BayesStore/SQL.pm, ...
 ```
-Looks fine. Now press `Ctrl-C` to terminate above command.
-
-Start Amavisd service:
+Looks fine, now press `Ctrl-C` to terminate above command, and start Amavisd
+service again normally:
 
 ```
 # /etc/init.d/amavisd restart
 ```
 
-It is required we initialize the database by learning a message. We use the
+It is required to initialize the database by learning a message. We use the
 sample spam email shipped in the RPM package provided by CentOS 6:
 
 ```
