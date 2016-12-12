@@ -17,6 +17,7 @@
 
 ## ChangeLog
 
+* Dec 12, 2016: Improve Fail2ban filter regular expression to catch more POP3/IMAP spams
 * Nov  9, 2016: Fixed: Memcached listens on all available IP addresses instead of `127.0.0.1`
 * Nov  9, 2016: Fixed: not allow access to '/.well-known/' in Nginx
 * Nov  1, 2016: Fixed: invalid default (datetime) value for some SQL columns in 'vmail' database.
@@ -311,6 +312,30 @@ Then restart memcached service:
 ```
 rcctl restart memcached
 ```
+
+### Improve Fail2ban filter regular expression to catch more POP3/IMAP spams
+
+> This step is applicable to Linux system.
+
+We have one new Fail2ban filter regular expression to catch unauth clients
+which generates log like below:
+
+> Dec 11 16:49:41 imap-login: Info: Disconnected (auth failed, 1 attempts in
+> 2 secs): user=<admin@example.net>, method=PLAIN, rip=212.8.246.222,
+> lip=10.11.12.13, TLS: Disconnected, session=<xxfH9mhDwgDUCPbe>
+
+Steps:
+
+* On Linux:
+
+```
+cd /etc/fail2ban/filter.d/
+rm -f dovecot.iredmail.conf
+wget https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/samples/fail2ban/filter.d/dovecot.iredmail.conf
+service fail2ban reload
+```
+
+* On FreeBSD and OpenBSD, we don't have Fail2ban configured, so not applicable.
 
 ## OpenLDAP backend special
 
