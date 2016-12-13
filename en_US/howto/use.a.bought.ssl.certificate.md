@@ -164,7 +164,7 @@ Restarting Nginx service is required.
 ### OpenLDAP
 
 > If OpenLDAP is listening on localhost and not accessible from external
-> network, this could be optional setup.
+> network, this is OPTIONAL.
 
 * On Red Hat and CentOS, it's defined in `/etc/openldap/slapd.conf`.
 * On Debian and Ubuntu, it's defined in `/etc/ldap/slapd.conf`.
@@ -216,7 +216,7 @@ ldapsearch -x -W \
 ### MySQL, MariaDB
 
 > If MySQL/MariaDB is listening on localhost and not accessible from external
-> network, this could be optional setup.
+> network, this is OPTIONAL.
 
 * On Red Hat and CentOS, it's defined in `/etc/my.cnf`
 * On Debian and Ubuntu, it's defined in `/etc/mysql/my.cnf`.
