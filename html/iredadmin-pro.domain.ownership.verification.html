@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>iRedAdmin-Pro: Domain ownership verification</title>
+        <link rel="stylesheet" type="text/css" href="./css/markdown.css" />
+    </head>
+    <body>
+    
+    <div id="navigation">
+    <a href="/index.html" target="_blank">
+        <img alt="iRedMail web site"
+             src="./images/logo-iredmail.png"
+             style="vertical-align: middle; height: 30px;"
+             />&nbsp;
+        <span>iRedMail</span>
+    </a>
+    &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><h1 id="iredadmin-pro-domain-ownership-verification">iRedAdmin-Pro: Domain ownership verification</h1>
+<div class="toc">
+<ul>
+<li><a href="#iredadmin-pro-domain-ownership-verification">iRedAdmin-Pro: Domain ownership verification</a><ul>
+<li><a href="#summary">Summary</a></li>
+<li><a href="#how-to-enable-or-disable-domain-ownership-verification">How to enable or disable domain ownership verification</a></li>
+<li><a href="#how-to-verify-domain-ownership">How to verify domain ownership</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<h2 id="summary">Summary</h2>
+<p>Since iRedAdmin-Pro-SQL-2.5.0 and iRedAdmin-Pro-LDAP-2.7.0, it's able to grant
+permission to normal domain admin to create new mail domains. All new domains
+added by normal domain admin requires domain ownership verification, to ensure:</p>
+<ul>
+<li>the newly added mail domain is an valid domain</li>
+<li>the domain admin have the required privileges in the domain to manage the
+  email services.</li>
+</ul>
+<p>Mail services are disabled for pending domains, and will be activated
+automatically after verified.</p>
+<h2 id="how-to-enable-or-disable-domain-ownership-verification">How to enable or disable domain ownership verification</h2>
+<p>There're few parameters used to control domain ownership verifivation, you can
+find default settings in file <code>libs/default_settings.py</code> under iRedAdmin-Pro
+directory. If you want to change any of them, please copy the parameter to
+iRedAdmin-Pro config file <code>settings.py</code>, set proper value, then restart
+Apache or uwsgi (if you're running Nginx) service to reload the changes.</p>
+<pre><code># Require domain ownership verification if it was added by normal domain admin.
+REQUIRE_DOMAIN_OWNERSHIP_VERIFICATION = True
+
+# How long should we remove verified or (inactive) unverified domain ownerships.
+#
+# iRedAdmin-Pro stores verified ownership in SQL database, if (same) admin
+# removed the domain and re-adds it, no verification required.
+#
+# Usually normal domain admin won't frequently remove and re-add same domain
+# name, so it's ok to remove saved ownership after X days.
+DOMAIN_OWNERSHIP_EXPIRE_DAYS = 30
+
+# The string prefixed to verify code. Must be shorter than than 60 characters.
+DOMAIN_OWNERSHIP_VERIFY_CODE_PREFIX = 'iredmail-domain-verification-'
+
+# Timeout while performing each verification.
+DOMAIN_OWNERSHIP_VERIFY_TIMEOUT = 10
+</code></pre>
+
+<h2 id="how-to-verify-domain-ownership">How to verify domain ownership</h2>
+<p>There're several ways to verify domain ownership:</p>
+<ul>
+<li>
+<p>Create a text file under top directory of the web site of new domain, both
+  file name and file content must be same as verify code. For example, for
+  pending domain <code>example.com</code> with verify code
+  <code>iredmail-domain-verification-5tzh5gHjU688yyWK7cSV</code>, we will verify 2 URLs:</p>
+<ul>
+<li>http: <code>http://example.com/iredmail-domain-verification-5tzh5gHjU688yyWK7cSV</code></li>
+<li>https: <code>https://example.com/iredmail-domain-verification-5tzh5gHjU688yyWK7cSV</code></li>
+</ul>
+<p>If you visit the URL with a web browser, it's expected to display verify
+code as page content.</p>
+</li>
+<li>
+<p>Create a TXT type DNS record of the domain name, use the verify code as its
+  value. For example, for pending domain <code>example.com</code> with verify code
+  <code>iredmail-domain-verification-5tzh5gHjU688yyWK7cSV</code>, DNS query by command
+  <code>nslookup -type=txt example.com</code> should return a record which is same as
+  verify code.</p>
+<p>Sample DNS query with <code>nslookup</code>:</p>
+</li>
+</ul>
+<pre><code>$ nslookup -type=txt example.com
+
+Non-authoritative answer:
+example.com     text = &quot;iredmail-domain-verification-5tzh5gHjU688yyWK7cSV&quot;
+example.com     text = &quot;v=spf1 ...&quot;
+example.com     text = &quot;...&quot;
+</code></pre>
+
+<pre><code>Sample DNS query with `dig`:
+</code></pre>
+<pre><code>$ dig -t txt example.com
+
+...
+;; ANSWER SECTION:
+iredmail.org.       4173    IN  TXT &quot;iredmail-domain-verification-5tzh5gHjU688yyWK7cSV&quot;
+iredmail.org.       4173    IN  TXT &quot;v=spf1 ...&quot;
+iredmail.org.       4173    IN  TXT &quot;...&quot;
+</code></pre><div class="footer">
+    <p style="text-align: center; color: grey;">All documents are available in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://bitbucket.org/zhb/iredmail-docs/get/tip.tar.bz2">download the latest version</a> for offline reading. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
+</div>
+<script type="text/javascript">
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-3293801-21', 'auto');
+  ga('send', 'pageview');
+</script>
+</body></html>
