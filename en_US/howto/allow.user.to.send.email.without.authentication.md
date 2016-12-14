@@ -1,5 +1,7 @@
 # Allow user to send email without smtp authentication
 
+## Postfix
+
 Create a plain text file: `/etc/postfix/accepted_unauth_senders`, list all
 users' email addresses which are allowed to send email without smtp
 authentication. We use user email address `user@example.com` for example:
@@ -37,3 +39,28 @@ Restart/reload postfix to make it work:
 ```
 # /etc/init.d/postfix restart
 ```
+
+## iRedAPD
+
+iRedAPD plugin `reject_sender_login_mismatch` will check forged sender address.
+If sender domain is hosted on your server, but no smtp auth, it will be
+considered as a forged email. In this case, iRedAPD will reject this email
+(with rejection message: `Policy rejection not logged in`), so we need to
+bypass either sender email address. If email is sent by an internal network
+device like printer, fax, we can also its IP address directly.
+
+* To bypass sender email address `user@example.com`, please add setting in
+  `/opt/iredapd/settings.py` like below:
+
+```
+ALLOWED_FORGED_SENDERS = ['user@example.com']
+```
+
+* To bypass sender IP address, for example, `192.168.0.1`, please add setting
+  in `/opt/iredapd/settings.py` like below:
+
+```
+MYNETWORKS = ['192.168.0.1']
+```
+
+Restarting iRedAPD service is required if you updated `/opt/iredapd/settings.py`.

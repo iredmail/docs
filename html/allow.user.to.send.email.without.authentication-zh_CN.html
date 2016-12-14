@@ -20,6 +20,7 @@
 <p><a href="./allow.user.to.send.email.without.authentication.html">English</a> / <a href="./allow.user.to.send.email.without.authentication-it_IT.html">Italiano</a> /</p>
 </div>
 <h1 id="_1">允许用户无需身份验证发送邮件</h1>
+<h2 id="postfix">Postfix</h2>
 <p>创建文本文件 <code>/etc/postfix/accepted_unauth_senders</code>，列出无需身份验证就可以
 发送邮件的用户邮件地址。下面以用户 <code>user@example.com</code> 为例：</p>
 <pre><code>user@example.com OK
@@ -37,7 +38,29 @@
 
 <p>重启 postfix 服务以使设置生效：</p>
 <pre><code># /etc/init.d/postfix restart
-</code></pre><div class="footer">
+</code></pre>
+
+<h2 id="iredapd">iRedAPD</h2>
+<p>iRedAPD 插件 <code>reject_sender_login_mismatch</code> 会检测伪造的发件人地址。如果发件人
+的域名在你的服务器托管，并且邮件不是经由 SMTP 验证发送的，就会被认为是伪造的
+发件人。这种情况下 iRedAPD 会直接拒收邮件（拒收提示信息为：<code>Policy rejection
+not logged in</code>），因此需要在 iRedAPD 里放行将该收件人邮件地址。如果邮件是由
+固定的内部网络设备发送（例如，打印机、传真机），可以直接放行 IP 地址。</p>
+<ul>
+<li>放行发件人邮件地址 <code>user@example.com</code>，请在  <code>/opt/iredapd/settings.py</code> 里
+  加以下参数：</li>
+</ul>
+<pre><code>ALLOWED_FORGED_SENDERS = ['user@example.com']
+</code></pre>
+
+<ul>
+<li>放行发件人 IP 地址，例如, <code>192.168.0.1</code>，请在 <code>/opt/iredapd/settings.py</code> 里
+  加以下参数：</li>
+</ul>
+<pre><code>MYNETWORKS = ['192.168.0.1']
+</code></pre>
+
+<p>修改后需要重启 iRedAPD 服务。</p><div class="footer">
     <p style="text-align: center; color: grey;">All documents are available in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://bitbucket.org/zhb/iredmail-docs/get/tip.tar.bz2">download the latest version</a> for offline reading. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
 </div>
 <script type="text/javascript">

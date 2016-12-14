@@ -20,6 +20,7 @@
 <p><a href="./allow.user.to.send.email.without.authentication-it_IT.html">Italiano</a> / <a href="./allow.user.to.send.email.without.authentication-zh_CN.html">简体中文</a> /</p>
 </div>
 <h1 id="allow-user-to-send-email-without-smtp-authentication">Allow user to send email without smtp authentication</h1>
+<h2 id="postfix">Postfix</h2>
 <p>Create a plain text file: <code>/etc/postfix/accepted_unauth_senders</code>, list all
 users' email addresses which are allowed to send email without smtp
 authentication. We use user email address <code>user@example.com</code> for example:</p>
@@ -47,7 +48,30 @@ authentication. We use user email address <code>user@example.com</code> for exam
 
 <p>Restart/reload postfix to make it work:</p>
 <pre><code># /etc/init.d/postfix restart
-</code></pre><div class="footer">
+</code></pre>
+
+<h2 id="iredapd">iRedAPD</h2>
+<p>iRedAPD plugin <code>reject_sender_login_mismatch</code> will check forged sender address.
+If sender domain is hosted on your server, but no smtp auth, it will be
+considered as a forged email. In this case, iRedAPD will reject this email
+(with rejection message: <code>Policy rejection not logged in</code>), so we need to
+bypass either sender email address. If email is sent by an internal network
+device like printer, fax, we can also its IP address directly.</p>
+<ul>
+<li>To bypass sender email address <code>user@example.com</code>, please add setting in
+  <code>/opt/iredapd/settings.py</code> like below:</li>
+</ul>
+<pre><code>ALLOWED_FORGED_SENDERS = ['user@example.com']
+</code></pre>
+
+<ul>
+<li>To bypass sender IP address, for example, <code>192.168.0.1</code>, please add setting
+  in <code>/opt/iredapd/settings.py</code> like below:</li>
+</ul>
+<pre><code>MYNETWORKS = ['192.168.0.1']
+</code></pre>
+
+<p>Restarting iRedAPD service is required if you updated <code>/opt/iredapd/settings.py</code>.</p><div class="footer">
     <p style="text-align: center; color: grey;">All documents are available in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://bitbucket.org/zhb/iredmail-docs/get/tip.tar.bz2">download the latest version</a> for offline reading. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
 </div>
 <script type="text/javascript">
