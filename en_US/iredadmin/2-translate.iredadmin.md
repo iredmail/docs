@@ -1,4 +1,4 @@
-# iRedAdmin-Pro: Translate iRedAdmin to your local language
+# iRedAdmin: Translate iRedAdmin to your local language
 
 If you want to help translate iRedAdmin to your local language, please contact
 us to get the latest file which contains all translation items. You can open
@@ -16,9 +16,9 @@ To verify translated items, you can translate the items first (e.g.
 it:
 
 ```
-# cd /path/to/iRedAdmin-Pro/
-# cd i18n/
-# bash translation.sh es_ES     # <- Update Spainish language (es_ES)
+cd /path/to/iRedAdmin-Pro/
+cd i18n/
+bash translation.sh es_ES     # <- Update Spainish language (es_ES)
 ```
 
 Restarting Apache or uwsgi (if you're running Nginx) service is required to

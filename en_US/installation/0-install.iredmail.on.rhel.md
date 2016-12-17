@@ -215,6 +215,7 @@ automatically. Type `y` or `Y` and press `Enter` to start.
 
 * [Setup DNS records for your mail server](./setup.dns.html)
 * [How to configure your mail clients](./index.html#configure-mail-client-applications)
+* [Locations of configuration and log files of major components](./file.locations.html)
 * It's highly recommended to get a SSL cert to avoid annonying warning
   message in web browser or mail clients when accessing mailbox via
   HTTPS/IMAPS/POP3/SMTPS. [Let's Encrypt offers __FREE__ SSL certificate](https://letsencrypt.org).

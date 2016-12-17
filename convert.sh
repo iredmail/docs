@@ -40,6 +40,7 @@ export all_chapter_dirs="overview \
                          howto \
                          integrations \
                          cluster \
+                         iredadmin \
                          troubleshooting \
                          faq"
 

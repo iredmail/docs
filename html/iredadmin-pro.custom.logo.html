@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title>iRedAdmin: Translate iRedAdmin to your local language</title>
+        <title>iRedAdmin-Pro: Custom logo image, brand name, short product description</title>
         <link rel="stylesheet" type="text/css" href="./css/markdown.css" />
     </head>
     <body>
@@ -15,27 +15,20 @@
              />&nbsp;
         <span>iRedMail</span>
     </a>
-    &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><h1 id="iredadmin-translate-iredadmin-to-your-local-language">iRedAdmin: Translate iRedAdmin to your local language</h1>
-<p>If you want to help translate iRedAdmin to your local language, please contact
-us to get the latest file which contains all translation items. You can open
-the file with your faviourte text editor, translate new items and/or fix existing
-improper items. Mail the translated file to email address
-<code>support _at_ iredmail.org</code>, we will handle rest work.</p>
-<p>If you already have iRedAdmin or iRedAdmin-Pro installed, you can find
-translated languages under <code>i18n/</code> directory. If you are about to translate
-it to a new language, you can copy file <code>i18n/iredadmin.po</code>, translate it,
-and mail translated file to us.</p>
-<p>To verify translated items, you can translate the items first (e.g.
-<code>i18n/es_ES/LC_MESSAGES/iredadmin.po</code> for Spainish), then run script to compile
-it:</p>
-<pre><code>cd /path/to/iRedAdmin-Pro/
-cd i18n/
-bash translation.sh es_ES     # &lt;- Update Spainish language (es_ES)
-</code></pre>
+    &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><h1 id="iredadmin-pro-custom-logo-image-brand-name-short-product-description">iRedAdmin-Pro: Custom logo image, brand name, short product description</h1>
+<p>You can easily change default iRedAdmin-Pro logo image to your company logo,
+and set a brand name, and short product description by adding parameters listed
+below in iRedAdmin-Pro config file. If you don't know the config file location,
+please check our tutorial: <a href="./file.locations.html">Locations of configuration and log files of major components</a></p>
+<pre><code># Path to the logo image.
+# Please copy your logo image to 'static/' folder, then put the image file name
+# in BRAND_LOGO.  e.g.: 'logo.png' (will load file 'static/logo.png').
+BRAND_LOGO = ''
 
-<p>Restarting Apache or uwsgi (if you're running Nginx) service is required to
-reload new translation.</p>
-<p>Your help is greatly appreciated.</p><div class="footer">
+# Product name, short description.
+BRAND_NAME = 'iRedAdmin-Pro'
+BRAND_DESC = 'iRedMail Admin Panel'
+</code></pre><div class="footer">
     <p style="text-align: center; color: grey;">All documents are available in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://bitbucket.org/zhb/iredmail-docs/get/tip.tar.bz2">download the latest version</a> for offline reading. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
 </div>
 <script type="text/javascript">
