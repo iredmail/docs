@@ -66,14 +66,20 @@ Additional config files under `/etc/dovecot/`:
 
 ### Log files {: #dovecot-log }
 
-* `/var/log/dovecot.log`: main log file. IMAP/POP3 sessions, login, lotout,
-  some error messages will be logged in this file.
-* `/var/log/dovecot-sieve.log`: sieve LDA (Local Delivery Agent) related log.
-  Mail delivery related log will be logged in this file. NOTE: on old iRedMail
-  releases, it's `/var/log/sieve.log`.
-* `/var/log/dovecot-lmtp.log`: LMTP related log. Mail delivery (via LMTP)
-  related log will be logged in this file. Note: there's no such file on
-  iRedMail-0.8.6 and old iRedMail releases.
+* `/var/log/dovecot.log`: main log file.
+
+* Since iRedMail-0.9.6, on Linux:
+    * `/var/log/dovecot-imap.log`: IMAP related log.
+    * `/var/log/dovecot-pop3.log`: POP3 related log.
+    * `/var/log/dovecot-lda.log`: sieve and LMTP related log.
+
+* In iRedMail-0.9.5 and earlier versions, all Linux and BSD system:
+    * `/var/log/dovecot-sieve.log`: sieve LDA (Local Delivery Agent) related log.
+      Mail delivery related log will be logged in this file. NOTE: on old iRedMail
+      releases, it's `/var/log/sieve.log`.
+    * `/var/log/dovecot-lmtp.log`: LMTP related log. Mail delivery (via LMTP)
+      related log will be logged in this file. Note: there's no such file on
+      iRedMail-0.8.6 and old iRedMail releases.
 
 ## Apache {: #apache }
 
