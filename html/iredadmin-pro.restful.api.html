@@ -34,6 +34,7 @@
 <li><a href="#mail-user">Mail User</a></li>
 <li><a href="#mailing-list">Mailing List</a></li>
 <li><a href="#mail-alias">Mail Alias</a></li>
+<li><a href="#spam-policy">Spam Policy</a></li>
 <li><a href="#throttling">Throttling</a></li>
 <li><a href="#export-accounts">Export Accounts</a><ul>
 <li><a href="#ldif-ldap-backend-only">LDIF (LDAP backend only)</a></li>
@@ -716,6 +717,108 @@ please use mail alias account as mailing list.</p>
 <div class="admonition api">
 <p class="admonition-title"><code class="put">POST</code> <code class="url">/api/alias/&lt;mail&gt;/change_email/&lt;new_mail&gt;</code> <code class="comment">Change email address of alias account (from '&lt;mail&gt;' to '&lt;new_mail&gt;')</code></p>
 </div>
+<h3 class="toggle" id="spam-policy">Spam Policy</h3>
+<div class="admonition api">
+<p class="admonition-title"><code class="get">GET</code> <code class="url">/api/spampolicy/global</code> <code class="comment">Get global spam policy</code> <code class="upcoming">upcoming</code></p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code class="put">PUT</code> <code class="url">/api/spampolicy/global</code> <code class="comment">Set global spam policy</code> <code class="upcoming">upcoming</code> <code class="has_params_spampolicy">Parameters</code></p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code class="delete">DELETE</code> <code class="url">/api/spampolicy/global</code> <code class="comment">Delete global spam policy</code> <code class="upcoming">upcoming</code></p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code class="get">GET</code> <code class="url">/api/spampolicy/domain/&lt;domain&gt;</code> <code class="comment">Get per-domain spam policy</code> <code class="upcoming">upcoming</code></p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code class="put">PUT</code> <code class="url">/api/spampolicy/domain/&lt;domain&gt;</code> <code class="comment">Set per-domain spam policy</code> <code class="upcoming">upcoming</code> <code class="has_params_spampolicy">Parameters</code></p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code class="delete">DELETE</code> <code class="url">/api/spampolicy/domain/&lt;domain&gt;</code> <code class="comment">Delete per-domain spam policy</code> <code class="upcoming">upcoming</code></p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code class="get">GET</code> <code class="url">/api/spampolicy/user/&lt;mail&gt;</code> <code class="comment">Get per-user spam policy</code> <code class="upcoming">upcoming</code></p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code class="put">PUT</code> <code class="url">/api/spampolicy/user/&lt;mail&gt;</code> <code class="comment">Set per-user spam policy</code> <code class="upcoming">upcoming</code> <code class="has_params_spampolicy">Parameters</code></p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code class="delete">DELETE</code> <code class="url">/api/spampolicy/user/&lt;mail&gt;</code> <code class="comment">Delete per-user spam policy</code> <code class="upcoming">upcoming</code></p>
+<div class="params params_spampolicy">
+
+<p>Parameters available for global, per-domain, per-user spam policies.</p>
+<blockquote>
+<p>Per-user policy has the highest priority, then per-domain policy, then global policy.</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Parameter Name</th>
+<th>Summary</th>
+<th>Sample Usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>bypass_spam_checks</code></td>
+<td>Bypass spam checks</td>
+<td><code>bypass_spam_checks=yes</code> (default is <code>no</code>)</td>
+</tr>
+<tr>
+<td><code>bypass_virus_checks</code></td>
+<td>Bypass virus checks</td>
+<td><code>bypass_virus_checks=yes</code> (default is <code>no</code>)</td>
+</tr>
+<tr>
+<td><code>bypass_banned_checks</code></td>
+<td>Bypass banned file type checks</td>
+<td><code>bypass_banned_checks=yes</code> (default is <code>no</code>)</td>
+</tr>
+<tr>
+<td><code>bypass_header_checks</code></td>
+<td>Bypass bad header checks</td>
+<td><code>bypass_header_checks=yes</code> (default is <code>no</code>)</td>
+</tr>
+<tr>
+<td><code>quarantine_spam</code></td>
+<td>Quarantine detected spam into SQL database</td>
+<td><code>quarantine_spam=yes</code> (default is <code>no</code>)</td>
+</tr>
+<tr>
+<td><code>quarantine_virus</code></td>
+<td>Quarantine detected virus into SQL database</td>
+<td><code>quarantine_virus=no</code> (default is <code>yes</code>)</td>
+</tr>
+<tr>
+<td><code>quarantine_banned</code></td>
+<td>Quarantine email with banned file type into SQL database</td>
+<td><code>quarantine_banned=yes</code> (default is <code>no</code>)</td>
+</tr>
+<tr>
+<td><code>quarantine_bad_header</code></td>
+<td>Quarantine email with bad header into SQL database</td>
+<td><code>quarantine_bad_header=yes</code> (default is <code>no</code>)</td>
+</tr>
+<tr>
+<td><code>prefix_spam_in_subject</code></td>
+<td>Prefix string <code>[SPAM]</code> in mail subject if it's spam</td>
+<td><code>prefix_spam_in_subject=yes</code> (default is <code>no</code>)</td>
+</tr>
+<tr>
+<td><code>always_insert_x_spam_headers</code></td>
+<td>Always insert <code>X-Spam-*</code> headers in email. It contains spam score and matched SpamAssassin rules. <strong>Don't enable this unless you want to debug spam checking.</strong></td>
+<td><code>always_insert_x_spam_headers=yes</code> (default is <code>no</code>)</td>
+</tr>
+<tr>
+<td><code>spam_score</code></td>
+<td>Set a preferred spam score, if scanned email has higher score than this one, it will be marked as spam.</td>
+<td><code>spam_score=4</code> (defaults to use system setting defined in Amavisd config file.)</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+</div>
 <h3 class="toggle" id="throttling">Throttling</h3>
 <div class="admonition api">
 <p class="admonition-title"><code class="get">GET</code> <code class="url">/api/throttle/global/inbound</code> <code class="comment">Get global inbound throttle settings</code></p>
@@ -817,7 +920,7 @@ $(document).ready(function(){
     $('.params').hide();
 
     /* Expand/Collapse ALL parameters */
-    $('.toggle_all').bind('click', function(){$('.params').toggle();});  
+    $('.toggle_all').bind('click', function(){$('.params').toggle();});
 
     /* Expand/Collapse parameters under same title/category */
     $('.toggle').on('click', function() {
@@ -830,7 +933,8 @@ $(document).ready(function(){
     });
 
     /* Expand/Collapse specific parameters */
-    $('.has_params_throttle').bind('click', function(){$('.params_throttle').toggle();});  
+    $('.has_params_throttle').bind('click', function(){$('.params_throttle').toggle();});
+    $('.has_params_spampolicy').bind('click', function(){$('.params_spampolicy').toggle();});
 });
 </script><div class="footer">
     <p style="text-align: center; color: grey;">All documents are available in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://bitbucket.org/zhb/iredmail-docs/get/tip.tar.bz2">download the latest version</a> for offline reading. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.</p>

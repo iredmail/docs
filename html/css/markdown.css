@@ -400,7 +400,8 @@ button, .button { font-size: 16px; padding: 5px 5px 5px 5px; }
 .api code.put,
 .api code.delete,
 .api code.has_params,
-.api code.has_params_throttle
+.api code.has_params_throttle,
+.api code.has_params_spampolicy
 {
     display: inline-block;
     width: 60px;
@@ -413,7 +414,9 @@ button, .button { font-size: 16px; padding: 5px 5px 5px 5px; }
 .api code.upcoming { background-color: #0f6ab4; text-transform: uppercase; font-size: 12px; }
 .api code.new { background-color: #10a54a; text-transform: uppercase; }
 .api code.has_params,
-.api code.has_params_throttle {
+.api code.has_params_throttle,
+.api code.has_params_spampolicy
+{
     background-color: #0064cd;
     font-size: 12px;
     float: right;

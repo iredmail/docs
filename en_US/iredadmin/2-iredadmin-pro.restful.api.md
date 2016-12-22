@@ -282,6 +282,40 @@ Notes:
 
 !!! api "`POST`{: .put } `/api/alias/<mail>/change_email/<new_mail>`{: .url } `Change email address of alias account (from '<mail>' to '<new_mail>')`{: .comment }"
 
+### Spam Policy {: .toggle }
+
+!!! api "`GET`{: .get } `/api/spampolicy/global`{: .url } `Get global spam policy`{: .comment } `upcoming`{: .upcoming }"
+!!! api "`PUT`{: .put } `/api/spampolicy/global`{: .url } `Set global spam policy`{: .comment } `upcoming`{: .upcoming } `Parameters`{: .has_params_spampolicy }"
+!!! api "`DELETE`{: .delete } `/api/spampolicy/global`{: .url } `Delete global spam policy`{: .comment } `upcoming`{: .upcoming }"
+!!! api "`GET`{: .get } `/api/spampolicy/domain/<domain>`{: .url } `Get per-domain spam policy`{: .comment } `upcoming`{: .upcoming }"
+!!! api "`PUT`{: .put } `/api/spampolicy/domain/<domain>`{: .url } `Set per-domain spam policy`{: .comment } `upcoming`{: .upcoming } `Parameters`{: .has_params_spampolicy }"
+!!! api "`DELETE`{: .delete } `/api/spampolicy/domain/<domain>`{: .url } `Delete per-domain spam policy`{: .comment } `upcoming`{: .upcoming }"
+!!! api "`GET`{: .get } `/api/spampolicy/user/<mail>`{: .url } `Get per-user spam policy`{: .comment } `upcoming`{: .upcoming }"
+!!! api "`PUT`{: .put } `/api/spampolicy/user/<mail>`{: .url } `Set per-user spam policy`{: .comment } `upcoming`{: .upcoming } `Parameters`{: .has_params_spampolicy }"
+!!! api "`DELETE`{: .delete } `/api/spampolicy/user/<mail>`{: .url } `Delete per-user spam policy`{: .comment } `upcoming`{: .upcoming }"
+
+    <div class="params params_spampolicy">
+
+    Parameters available for global, per-domain, per-user spam policies.
+
+    > Per-user policy has the highest priority, then per-domain policy, then global policy.
+
+    Parameter Name | Summary | Sample Usage
+    --- |--- |---
+    `bypass_spam_checks` | Bypass spam checks | `bypass_spam_checks=yes` (default is `no`)
+    `bypass_virus_checks` | Bypass virus checks | `bypass_virus_checks=yes` (default is `no`)
+    `bypass_banned_checks` | Bypass banned file type checks | `bypass_banned_checks=yes` (default is `no`)
+    `bypass_header_checks` | Bypass bad header checks | `bypass_header_checks=yes` (default is `no`)
+    `quarantine_spam` | Quarantine detected spam into SQL database | `quarantine_spam=yes` (default is `no`)
+    `quarantine_virus` | Quarantine detected virus into SQL database | `quarantine_virus=no` (default is `yes`)
+    `quarantine_banned` | Quarantine email with banned file type into SQL database | `quarantine_banned=yes` (default is `no`)
+    `quarantine_bad_header` | Quarantine email with bad header into SQL database | `quarantine_bad_header=yes` (default is `no`)
+    `prefix_spam_in_subject` | Prefix string `[SPAM] ` in mail subject if it's spam | `prefix_spam_in_subject=yes` (default is `no`)
+    `always_insert_x_spam_headers` | Always insert `X-Spam-*` headers in email. It contains spam score and matched SpamAssassin rules. __Don't enable this unless you want to debug spam checking.__ | `always_insert_x_spam_headers=yes` (default is `no`)
+    `spam_score` | Set a preferred spam score, if scanned email has higher score than this one, it will be marked as spam. | `spam_score=4` (defaults to use system setting defined in Amavisd config file.)
+
+    </div>
+
 ### Throttling {: .toggle }
 
 !!! api "`GET`{: .get } `/api/throttle/global/inbound`{: .url } `Get global inbound throttle settings`{: .comment }"
@@ -338,7 +372,7 @@ $(document).ready(function(){
     $('.params').hide();
 
     /* Expand/Collapse ALL parameters */
-    $('.toggle_all').bind('click', function(){$('.params').toggle();});  
+    $('.toggle_all').bind('click', function(){$('.params').toggle();});
 
     /* Expand/Collapse parameters under same title/category */
 	$('.toggle').on('click', function() {
@@ -351,6 +385,7 @@ $(document).ready(function(){
     });
 
     /* Expand/Collapse specific parameters */
-	$('.has_params_throttle').bind('click', function(){$('.params_throttle').toggle();});  
+	$('.has_params_throttle').bind('click', function(){$('.params_throttle').toggle();});
+	$('.has_params_spampolicy').bind('click', function(){$('.params_spampolicy').toggle();});
 });
 </script>
