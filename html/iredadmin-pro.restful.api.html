@@ -97,8 +97,9 @@ RESTFUL_API_CLIENTS = ['172.16.244.1', ...]
 <p>Notes:</p>
 <ul>
 <li>Parameter name with a <code>*</code> mark means the parameter is required, otherwise is optional.</li>
-<li>replace <code>&lt;domain&gt;</code> in URL by the real domain name.</li>
-<li>replace <code>&lt;mail&gt;</code> in URL by the real email address.</li>
+<li>replace <code>&lt;domain&gt;</code> in URL by the real domain name. e.g. <code>example.com</code></li>
+<li>replace <code>&lt;mail&gt;</code> in URL by the real email address. e.g. <code>user@domain.com</code></li>
+<li>replace <code>&lt;number&gt;</code> in URL by an integer number. e.g. <code>30</code>, <code>200</code></li>
 </ul>
 <p><button type="button" class="toggle_all">Expand/Collapse All API Parameters</button></p>
 <h3 class="toggle" id="domain">Domain</h3>
@@ -179,7 +180,10 @@ RESTFUL_API_CLIENTS = ['172.16.244.1', ...]
 
 </div>
 <div class="admonition api">
-<p class="admonition-title"><code class="delete">DELETE</code> <code class="url">/api/domain/&lt;domain&gt;</code> <code class="comment">Delete an existing domain</code></p>
+<p class="admonition-title"><code class="delete">DELETE</code> <code class="url">/api/domain/&lt;domain&gt;</code> <code class="comment">Delete an existing domain (all mail messages will NOT be removed)</code></p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code class="delete">DELETE</code> <code class="url">/api/domain/&lt;domain&gt;/keep_mailbox_days/&lt;number&gt;</code> <code class="comment">Delete domain, and keep all mail messages for given days</code> <code class="upcoming">upcoming</code></p>
 </div>
 <div class="admonition api">
 <p class="admonition-title"><code class="put">PUT</code> <code class="url">/api/domain/&lt;domain&gt;</code> <code class="comment">Update profile of an existing domain</code> <code class="upcoming">upcoming</code> <code class="has_params">Parameters</code></p>

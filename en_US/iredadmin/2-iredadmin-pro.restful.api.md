@@ -62,8 +62,9 @@ Restarting Apache or uwsgi (if you're running Nginx) is required.
 Notes:
 
 * Parameter name with a `*` mark means the parameter is required, otherwise is optional.
-* replace `<domain>` in URL by the real domain name.
-* replace `<mail>` in URL by the real email address.
+* replace `<domain>` in URL by the real domain name. e.g. `example.com`
+* replace `<mail>` in URL by the real email address. e.g. `user@domain.com`
+* replace `<number>` in URL by an integer number. e.g. `30`, `200`
 
 <button type="button" class="toggle_all">Expand/Collapse All API Parameters</button>
 
@@ -90,7 +91,8 @@ Notes:
 
     </div>
 
-!!! api "`DELETE`{: .delete } `/api/domain/<domain>`{: .url } `Delete an existing domain`{: .comment }"
+!!! api "`DELETE`{: .delete } `/api/domain/<domain>`{: .url } `Delete an existing domain (all mail messages will NOT be removed)`{: .comment }"
+!!! api "`DELETE`{: .delete } `/api/domain/<domain>/keep_mailbox_days/<number>`{: .url } `Delete domain, and keep all mail messages for given days`{: .comment } `upcoming`{: .upcoming }"
 !!! api "`PUT`{: .put } `/api/domain/<domain>`{: .url } `Update profile of an existing domain`{: .comment } `upcoming`{: .upcoming } `Parameters`{: .has_params }"
 
     <div class="params params_domain">
