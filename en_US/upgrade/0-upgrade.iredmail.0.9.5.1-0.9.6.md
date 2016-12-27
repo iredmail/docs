@@ -17,6 +17,7 @@
 
 ## ChangeLog
 
+* Dec 27, 2016: Add more banned file types/extensions in Amavisd.
 * Dec 12, 2016: Improve Fail2ban filter regular expression to catch more POP3/IMAP spams
 * Nov  9, 2016: Fixed: Memcached listens on all available IP addresses instead of `127.0.0.1`
 * Nov  9, 2016: Fixed: not allow access to '/.well-known/' in Nginx
@@ -336,6 +337,40 @@ service fail2ban reload
 ```
 
 * On FreeBSD and OpenBSD, we don't have Fail2ban configured, so not applicable.
+
+### Add more banned file types/extensions in Amavisd.
+
+> Note: this is applicable to all Linux/BSD distributions.
+
+We extended banned attachment file types and file name extensions to help
+catch more dangerous email attachments. Please follow steps below to update
+your Amavisd config file.
+
+* Open Amavisd config file:
+    * on RHEL/CentOS: it's `/etc/amavisd/amavisd.conf`
+    * on Debian/Ubuntu: it's `/etc/amavis/conf.d/50-user`
+    * on FreeBSD: it's `/usr/local/etc/amavisd.conf`
+    * on OpenBSD: it's `/etc/amavisd.conf`
+
+* If you already have parameter `$banned_namepath_re` in Amavisd config file,
+  please replace it by below one. If you don't have it, please add it before
+  the last line (`1;  # insure a defined return`) in Amavisd config file.
+
+```
+$banned_namepath_re = new_RE(
+    [qr'T=(zip|rar|arc|arj|zoo|gz|bz2)(,|\t)'xmi => 'DISCARD'],     # Compressed file types
+    [qr'T=x-(msdownload|msdos-program|msmetafile|wmf)(,|\t)'xmi => 'DISCARD'],
+    [qr'T=(hta)(,|\t)'xmi => 'DISCARD'],
+
+    # Dangerous file types
+    [qr'T=(9|386|LeChiffre|aaa|abc|aepl|ani|aru|atm|aut|b64|bat|bhx|bin|bkd|blf|bll|bmw|boo|bps|bqf|breaking_bad|buk|bup|bxz|cc|ccc|ce0|ceo|cfxxe|chm|cih|cla|class|cmd|com|cpl|crinf|crjoker|crypt|cryptolocker|cryptowall|ctbl|cxq|cyw|dbd|delf|dev|dlb|dli|dll|dllx|dom|drv|dx|dxz|dyv|dyz|ecc|exe|exe-ms|exe1|exe_renamed|exx|ezt|ezz|fag|fjl|fnr|fuj|good|gzquar|hlp|hlw|hqx|hsq|hts|iva|iws|jar|js|kcd|keybtc@inbox_com|let|lik|lkh|lnk|locky|lok|lol!|lpaq5|magic|mfu|micro|mim|mjg|mjz|mp3|nls|oar|ocx|osa|ozd|pcx|pgm|php2|php3|pid|pif|plc|pr|pzdc|qit|qrn|r5a|rhk|rna|rsc_tmp|s7p|scr|shs|ska|smm|smtmp|sop|spam|ssy|swf|sys|tko|tps|tsa|tti|ttt|txs|upa|uu|uue|uzy|vb|vba|vbe|vbs|vbx|vexe|vxd|vzr|wlpginstall|wmf|ws|wsc|wsf|wsh|wss|xdu|xir|xlm|xlv|xnt|xnxx|xtbl|xxe|xxx|xyz|zix|zvz|zzz)(,|\t)'xmi => 'DISCARD'],
+
+    # Dangerous file name extensions
+    [qr'N=.*\.(9|386|LeChiffre|aaa|abc|aepl|ani|aru|atm|aut|b64|bat|bhx|bin|bkd|blf|bll|bmw|boo|bps|bqf|breaking_bad|buk|bup|bxz|cc|ccc|ce0|ceo|cfxxe|chm|cih|cla|class|cmd|com|cpl|crinf|crjoker|crypt|cryptolocker|cryptowall|ctbl|cxq|cyw|dbd|delf|dev|dlb|dli|dll|dllx|dom|drv|dx|dxz|dyv|dyz|ecc|exe|exe-ms|exe1|exe_renamed|exx|ezt|ezz|fag|fjl|fnr|fuj|good|gzquar|hlp|hlw|hqx|hsq|hts|iva|iws|jar|js|kcd|keybtc@inbox_com|let|lik|lkh|lnk|locky|lok|lol!|lpaq5|magic|mfu|micro|mim|mjg|mjz|mp3|nls|oar|ocx|osa|ozd|pcx|pgm|php2|php3|pid|pif|plc|pr|pzdc|qit|qrn|r5a|rhk|rna|rsc_tmp|s7p|scr|shs|ska|smm|smtmp|sop|spam|ssy|swf|sys|tko|tps|tsa|tti|ttt|txs|upa|uu|uue|uzy|vb|vba|vbe|vbs|vbx|vexe|vxd|vzr|wlpginstall|wmf|ws|wsc|wsf|wsh|wss|xdu|xir|xlm|xlv|xnt|xnxx|xtbl|xxe|xxx|xyz|zix|zvz|zzz)$'xmi => 'DISCARD'],
+);
+```
+
+* Restart Amavisd service is required.
 
 ## OpenLDAP backend special
 

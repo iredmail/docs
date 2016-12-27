@@ -39,6 +39,7 @@
 <li><a href="#fixed-sogo-313-and-later-releases-changed-argument-used-by-sogo-tool-command">Fixed: SOGo-3.1.3 (and later releases) changed argument used by sogo-tool command</a></li>
 <li><a href="#fixed-memcached-listens-on-all-available-ip-addresses-instead-of-127001">Fixed: Memcached listens on all available IP addresses instead of 127.0.0.1</a></li>
 <li><a href="#improve-fail2ban-filter-regular-expression-to-catch-more-pop3imap-spams">Improve Fail2ban filter regular expression to catch more POP3/IMAP spams</a></li>
+<li><a href="#add-more-banned-file-typesextensions-in-amavisd">Add more banned file types/extensions in Amavisd.</a></li>
 </ul>
 </li>
 <li><a href="#openldap-backend-special">OpenLDAP backend special</a><ul>
@@ -74,6 +75,7 @@ check <a href="../support.html">the details</a> and <a href="../contact.html">co
 </ul>
 <h2 id="changelog">ChangeLog</h2>
 <ul>
+<li>Dec 27, 2016: Add more banned file types/extensions in Amavisd.</li>
 <li>Dec 12, 2016: Improve Fail2ban filter regular expression to catch more POP3/IMAP spams</li>
 <li>Nov  9, 2016: Fixed: Memcached listens on all available IP addresses instead of <code>127.0.0.1</code></li>
 <li>Nov  9, 2016: Fixed: not allow access to '/.well-known/' in Nginx</li>
@@ -362,6 +364,45 @@ service fail2ban reload
 
 <ul>
 <li>On FreeBSD and OpenBSD, we don't have Fail2ban configured, so not applicable.</li>
+</ul>
+<h3 id="add-more-banned-file-typesextensions-in-amavisd">Add more banned file types/extensions in Amavisd.</h3>
+<blockquote>
+<p>Note: this is applicable to all Linux/BSD distributions.</p>
+</blockquote>
+<p>We extended banned attachment file types and file name extensions to help
+catch more dangerous email attachments. Please follow steps below to update
+your Amavisd config file.</p>
+<ul>
+<li>
+<p>Open Amavisd config file:</p>
+<ul>
+<li>on RHEL/CentOS: it's <code>/etc/amavisd/amavisd.conf</code></li>
+<li>on Debian/Ubuntu: it's <code>/etc/amavis/conf.d/50-user</code></li>
+<li>on FreeBSD: it's <code>/usr/local/etc/amavisd.conf</code></li>
+<li>on OpenBSD: it's <code>/etc/amavisd.conf</code></li>
+</ul>
+</li>
+<li>
+<p>If you already have parameter <code>$banned_namepath_re</code> in Amavisd config file,
+  please replace it by below one. If you don't have it, please add it before
+  the last line (<code>1;  # insure a defined return</code>) in Amavisd config file.</p>
+</li>
+</ul>
+<pre><code>$banned_namepath_re = new_RE(
+    [qr'T=(zip|rar|arc|arj|zoo|gz|bz2)(,|\t)'xmi =&gt; 'DISCARD'],     # Compressed file types
+    [qr'T=x-(msdownload|msdos-program|msmetafile|wmf)(,|\t)'xmi =&gt; 'DISCARD'],
+    [qr'T=(hta)(,|\t)'xmi =&gt; 'DISCARD'],
+
+    # Dangerous file types
+    [qr'T=(9|386|LeChiffre|aaa|abc|aepl|ani|aru|atm|aut|b64|bat|bhx|bin|bkd|blf|bll|bmw|boo|bps|bqf|breaking_bad|buk|bup|bxz|cc|ccc|ce0|ceo|cfxxe|chm|cih|cla|class|cmd|com|cpl|crinf|crjoker|crypt|cryptolocker|cryptowall|ctbl|cxq|cyw|dbd|delf|dev|dlb|dli|dll|dllx|dom|drv|dx|dxz|dyv|dyz|ecc|exe|exe-ms|exe1|exe_renamed|exx|ezt|ezz|fag|fjl|fnr|fuj|good|gzquar|hlp|hlw|hqx|hsq|hts|iva|iws|jar|js|kcd|keybtc@inbox_com|let|lik|lkh|lnk|locky|lok|lol!|lpaq5|magic|mfu|micro|mim|mjg|mjz|mp3|nls|oar|ocx|osa|ozd|pcx|pgm|php2|php3|pid|pif|plc|pr|pzdc|qit|qrn|r5a|rhk|rna|rsc_tmp|s7p|scr|shs|ska|smm|smtmp|sop|spam|ssy|swf|sys|tko|tps|tsa|tti|ttt|txs|upa|uu|uue|uzy|vb|vba|vbe|vbs|vbx|vexe|vxd|vzr|wlpginstall|wmf|ws|wsc|wsf|wsh|wss|xdu|xir|xlm|xlv|xnt|xnxx|xtbl|xxe|xxx|xyz|zix|zvz|zzz)(,|\t)'xmi =&gt; 'DISCARD'],
+
+    # Dangerous file name extensions
+    [qr'N=.*\.(9|386|LeChiffre|aaa|abc|aepl|ani|aru|atm|aut|b64|bat|bhx|bin|bkd|blf|bll|bmw|boo|bps|bqf|breaking_bad|buk|bup|bxz|cc|ccc|ce0|ceo|cfxxe|chm|cih|cla|class|cmd|com|cpl|crinf|crjoker|crypt|cryptolocker|cryptowall|ctbl|cxq|cyw|dbd|delf|dev|dlb|dli|dll|dllx|dom|drv|dx|dxz|dyv|dyz|ecc|exe|exe-ms|exe1|exe_renamed|exx|ezt|ezz|fag|fjl|fnr|fuj|good|gzquar|hlp|hlw|hqx|hsq|hts|iva|iws|jar|js|kcd|keybtc@inbox_com|let|lik|lkh|lnk|locky|lok|lol!|lpaq5|magic|mfu|micro|mim|mjg|mjz|mp3|nls|oar|ocx|osa|ozd|pcx|pgm|php2|php3|pid|pif|plc|pr|pzdc|qit|qrn|r5a|rhk|rna|rsc_tmp|s7p|scr|shs|ska|smm|smtmp|sop|spam|ssy|swf|sys|tko|tps|tsa|tti|ttt|txs|upa|uu|uue|uzy|vb|vba|vbe|vbs|vbx|vexe|vxd|vzr|wlpginstall|wmf|ws|wsc|wsf|wsh|wss|xdu|xir|xlm|xlv|xnt|xnxx|xtbl|xxe|xxx|xyz|zix|zvz|zzz)$'xmi =&gt; 'DISCARD'],
+);
+</code></pre>
+
+<ul>
+<li>Restart Amavisd service is required.</li>
 </ul>
 <h2 id="openldap-backend-special">OpenLDAP backend special</h2>
 <h3 id="fixed-mail-accounts-user-alias-list-are-still-active-when-domain-is-disabled">Fixed: mail accounts (user, alias, list) are still active when domain is disabled</h3>
