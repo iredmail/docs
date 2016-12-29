@@ -41,16 +41,24 @@ __NOTES__:
     * in iRedMail-0.9.0 and later versions: `SSHA512`
     * in iRedMail-0.8.7 and earlier versions: `salted MD5`
 
-* For LDAP backend: `SSHA`.
+* For LDAP backends:
+    * in iRedMail-0.9.5 and later versions:
+        * Debian 8, Ubuntu 16.04, FreeBSD: `SSHA512`
+        * RHEL/CentOS 6/7, Ubuntu 14.04, OpenBSD: `SSHA`. OpenLDAP package
+          shipped in these distributions don't support SHA-2 password
+          verification by default.
+    * in iRedMail-0.9.4 and earlier versions: `SSHA`.
 
-    OpenLDAP's builtin password verification doesn't support SHA-2 password
-    hash formats directly, so if you have third-party applications which need
-    OpenLDAP's builtin password verification, you'd better use `SSHA` hash.
+    !!! note
 
-    But if you don't have this concern, it's ok to store `SSHA512/BCRYPT`
-    hash as mail user password, then set `ldap_bind = no` in
-    `/etc/dovecot/dovecot.conf`. SMTP/IMAP/POP3 services work with it, but
-    Apache basic auth doesn't.
+        OpenLDAP's builtin password verification doesn't support SHA-2 password
+        hash formats directly, so if you have third-party applications which need
+        OpenLDAP's builtin password verification, you'd better use `SSHA` hash.
+
+        If you don't have such concern, it's ok to store `SSHA512/BCRYPT`
+        hash as mail user password, then set `ldap_bind = no` in
+        `/etc/dovecot/dovecot.conf`. SMTP/IMAP/POP3 services work with it, but
+        Apache basic auth doesn't.
 
 ## How to use different password hashes in iRedMail
 
