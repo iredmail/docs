@@ -372,7 +372,7 @@ $config['ldap_public'][&quot;global_ldap_abook&quot;] = array(
     ),
     'sort'          =&gt; 'cn',
     'scope'         =&gt; 'sub',
-    'filter'        =&gt; &quot;(&amp;(objectclass=person)(!(userAccountControl:1.2.840.113556.1.4.803:=2)))&quot;,
+    'filter'        =&gt; &quot;(&amp;(|(objectclass=person)(objectclass=group))(!(userAccountControl:1.2.840.113556.1.4.803:=2)))&quot;,
     'fuzzy_search'  =&gt; true,
     'vlv'           =&gt; false,   // Enable Virtual List View to more
                                 // efficiently fetch paginated data

@@ -161,6 +161,25 @@ Then update `ssl_certificate` parameter in `/etc/nginx/conf.d/default.conf`:
 
 Restarting Nginx service is required.
 
+### MySQL, MariaDB
+
+> If MySQL/MariaDB is listening on localhost and not accessible from external
+> network, this is OPTIONAL.
+
+* On Red Hat and CentOS, it's defined in `/etc/my.cnf`
+* On Debian and Ubuntu, it's defined in `/etc/mysql/my.cnf`.
+    * Since Ubuntu 15.04, it's defined in `/etc/mysql/mariadb.conf.d/mysqld.cnf`.
+* On FreeBSD, it's defined in `/usr/local/etc/my.cnf`.
+* On OpenBSD, it's defined in `/etc/my.cnf`.
+
+```
+[mysqld]
+
+ssl-ca = /etc/pki/tls/certs/server.ca-bundle
+ssl-cert = /etc/pki/tls/certs/server.crt
+ssl-key = /etc/pki/tls/private/server.key
+```
+
 ### OpenLDAP
 
 > If OpenLDAP is listening on localhost and not accessible from external
@@ -213,23 +232,47 @@ ldapsearch -x -W \
     -b 'o=domains,dc=example,dc=com' mail
 ```
 
-### MySQL, MariaDB
+### OpenBSD ldapd(8)
 
-> If MySQL/MariaDB is listening on localhost and not accessible from external
+> If ldapd(8) is listening on localhost and not accessible from external
 > network, this is OPTIONAL.
+>
+> For more details about ldapd config file, please check its manual page: ldapd.conf(5).
 
-* On Red Hat and CentOS, it's defined in `/etc/my.cnf`
-* On Debian and Ubuntu, it's defined in `/etc/mysql/my.cnf`.
-    * Since Ubuntu 15.04, it's defined in `/etc/mysql/mariadb.conf.d/mysqld.cnf`.
-* On FreeBSD, it's defined in `/usr/local/etc/my.cnf`.
-* On OpenBSD, it's defined in `/etc/my.cnf`.
+To make ldapd(8) listening on network interface for external network, please
+make sure you have setting in `/etc/ldapd.conf` to listen on the interface. We
+use `em0` as external network interface here for example.
 
 ```
-[mysqld]
+# Listen on network interface 'em0', port 389, use STARTTLS for secure connection.
+listen on em0 port 389 tls
+```
 
-ssl-ca = /etc/pki/tls/certs/server.ca-bundle
-ssl-cert = /etc/pki/tls/certs/server.crt
-ssl-key = /etc/pki/tls/private/server.key
+If you want to use port 636 with SSL, try this:
+
+```
+# Listen on network interface 'em0', port 636, use SSL for secure connection.
+listen on em0 port 636 ldaps
+```
+
+ldapd(8) will look for SSL cert and key from directory `/etc/ldap/certs/` by
+default, the cert file name is `<interface_name>.crt` and `<interface_name>.key`.
+In our case, it will look for `/etc/ldap/certs/em0.crt` and `/etc/ldap/certs/em0.key`.
+
+Since iRedMail already generates a cert and key, we can use it directly. If you
+have bought SSL cert/key, or requested one from LetsEncrypt, you can use them
+too.
+
+```
+cd /etc/ldap/certs/
+ln -s /etc/ssl/iRedMail.crt em0.crt
+ln -s /etc/ssl/iRedMail.key em0.key
+```
+
+Now restart ldapd(8) service:
+
+```
+rcctl restart ldapd
 ```
 
 ## Reference

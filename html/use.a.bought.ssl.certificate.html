@@ -29,8 +29,9 @@
 <li><a href="#dovecot-pop3imap-server">Dovecot (POP3/IMAP server)</a></li>
 <li><a href="#apache-web-server">Apache (web server)</a></li>
 <li><a href="#nginx-web-server">Nginx (web server)</a></li>
-<li><a href="#openldap">OpenLDAP</a></li>
 <li><a href="#mysql-mariadb">MySQL, MariaDB</a></li>
+<li><a href="#openldap">OpenLDAP</a></li>
+<li><a href="#openbsd-ldapd8">OpenBSD ldapd(8)</a></li>
 </ul>
 </li>
 <li><a href="#reference">Reference</a></li>
@@ -175,6 +176,27 @@ certificates in the combined file:</p>
 </code></pre>
 
 <p>Restarting Nginx service is required.</p>
+<h3 id="mysql-mariadb">MySQL, MariaDB</h3>
+<blockquote>
+<p>If MySQL/MariaDB is listening on localhost and not accessible from external
+network, this is OPTIONAL.</p>
+</blockquote>
+<ul>
+<li>On Red Hat and CentOS, it's defined in <code>/etc/my.cnf</code></li>
+<li>On Debian and Ubuntu, it's defined in <code>/etc/mysql/my.cnf</code>.<ul>
+<li>Since Ubuntu 15.04, it's defined in <code>/etc/mysql/mariadb.conf.d/mysqld.cnf</code>.</li>
+</ul>
+</li>
+<li>On FreeBSD, it's defined in <code>/usr/local/etc/my.cnf</code>.</li>
+<li>On OpenBSD, it's defined in <code>/etc/my.cnf</code>.</li>
+</ul>
+<pre><code>[mysqld]
+
+ssl-ca = /etc/pki/tls/certs/server.ca-bundle
+ssl-cert = /etc/pki/tls/certs/server.crt
+ssl-key = /etc/pki/tls/private/server.key
+</code></pre>
+
 <h3 id="openldap">OpenLDAP</h3>
 <blockquote>
 <p>If OpenLDAP is listening on localhost and not accessible from external
@@ -223,25 +245,37 @@ error message like <code>Peer's Certificate issuer is not recognized</code>.</p>
     -b 'o=domains,dc=example,dc=com' mail
 </code></pre>
 
-<h3 id="mysql-mariadb">MySQL, MariaDB</h3>
+<h3 id="openbsd-ldapd8">OpenBSD ldapd(8)</h3>
 <blockquote>
-<p>If MySQL/MariaDB is listening on localhost and not accessible from external
+<p>If ldapd(8) is listening on localhost and not accessible from external
 network, this is OPTIONAL.</p>
+<p>For more details about ldapd config file, please check its manual page: ldapd.conf(5).</p>
 </blockquote>
-<ul>
-<li>On Red Hat and CentOS, it's defined in <code>/etc/my.cnf</code></li>
-<li>On Debian and Ubuntu, it's defined in <code>/etc/mysql/my.cnf</code>.<ul>
-<li>Since Ubuntu 15.04, it's defined in <code>/etc/mysql/mariadb.conf.d/mysqld.cnf</code>.</li>
-</ul>
-</li>
-<li>On FreeBSD, it's defined in <code>/usr/local/etc/my.cnf</code>.</li>
-<li>On OpenBSD, it's defined in <code>/etc/my.cnf</code>.</li>
-</ul>
-<pre><code>[mysqld]
+<p>To make ldapd(8) listening on network interface for external network, please
+make sure you have setting in <code>/etc/ldapd.conf</code> to listen on the interface. We
+use <code>em0</code> as external network interface here for example.</p>
+<pre><code># Listen on network interface 'em0', port 389, use STARTTLS for secure connection.
+listen on em0 port 389 tls
+</code></pre>
 
-ssl-ca = /etc/pki/tls/certs/server.ca-bundle
-ssl-cert = /etc/pki/tls/certs/server.crt
-ssl-key = /etc/pki/tls/private/server.key
+<p>If you want to use port 636 with SSL, try this:</p>
+<pre><code># Listen on network interface 'em0', port 636, use SSL for secure connection.
+listen on em0 port 636 ldaps
+</code></pre>
+
+<p>ldapd(8) will look for SSL cert and key from directory <code>/etc/ldap/certs/</code> by
+default, the cert file name is <code>&lt;interface_name&gt;.crt</code> and <code>&lt;interface_name&gt;.key</code>.
+In our case, it will look for <code>/etc/ldap/certs/em0.crt</code> and <code>/etc/ldap/certs/em0.key</code>.</p>
+<p>Since iRedMail already generates a cert and key, we can use it directly. If you
+have bought SSL cert/key, or requested one from LetsEncrypt, you can use them
+too.</p>
+<pre><code>cd /etc/ldap/certs/
+ln -s /etc/ssl/iRedMail.crt em0.crt
+ln -s /etc/ssl/iRedMail.key em0.key
+</code></pre>
+
+<p>Now restart ldapd(8) service:</p>
+<pre><code>rcctl restart ldapd
 </code></pre>
 
 <h2 id="reference">Reference</h2>
