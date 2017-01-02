@@ -5,6 +5,12 @@
     Restarting Apache or uwsgi (if you're running Nginx) service is required
     after updated iRedAdmin config file.
 
+!!! warning
+
+    The weakest part of a mail server is user's weak password. Email spammers
+    don't want to hack your server, they just want to send spam from your
+    server. Please ALWAYS ALWAYS ALWAYS force users to use strong password.
+
 iRedAdmin-Pro has some default password restrictions, you can find default
 settings in file `libs/default_settings.py` under iRedAdmin-Pro directory.
 If you want to change them, please copy the parameters to iRedAdmin-Pro config
