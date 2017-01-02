@@ -1,5 +1,10 @@
 # iRedAdmin-Pro: Default password restrictions
 
+!!! attention
+
+    Restarting Apache or uwsgi (if you're running Nginx) service is required
+    after updated iRedAdmin config file.
+
 iRedAdmin-Pro has some default password restrictions, you can find default
 settings in file `libs/default_settings.py` under iRedAdmin-Pro directory.
 If you want to change them, please copy the parameters to iRedAdmin-Pro config

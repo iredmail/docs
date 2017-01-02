@@ -1,5 +1,10 @@
 # iRedAdmin-Pro: Custom logo image, brand name, short product description
 
+!!! attention
+
+    Restarting Apache or uwsgi (if you're running Nginx) service is required
+    after updated iRedAdmin config file.
+
 You can easily change default iRedAdmin-Pro logo image to your company logo,
 and set a brand name, and short product description by adding parameters listed
 below in iRedAdmin-Pro config file. If you don't know the config file location,

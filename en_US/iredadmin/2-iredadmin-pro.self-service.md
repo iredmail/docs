@@ -2,6 +2,11 @@
 
 [TOC]
 
+!!! attention
+
+    Restarting Apache or uwsgi (if you're running Nginx) service is required
+    after updated iRedAdmin config file.
+
 ## Introduction
 
 With self-service, end users are able to manage:
