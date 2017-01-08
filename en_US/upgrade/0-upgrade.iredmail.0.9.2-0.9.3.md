@@ -288,7 +288,7 @@ Please edit `root`'s cron job with command below:
 # crontab -e -u root
 ```
 
-Then add cron job below:
+Then add cron job like below:
 
 * RHEL/CentOS:
 

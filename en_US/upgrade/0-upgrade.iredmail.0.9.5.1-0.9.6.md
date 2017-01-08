@@ -17,6 +17,7 @@
 
 ## ChangeLog
 
+* Jan  8, 2016: Fixed: missing cron job used to clean up old Roundcube temporary files.
 * Dec 27, 2016: Add more banned file types/extensions in Amavisd.
 * Dec 12, 2016: Improve Fail2ban filter regular expression to catch more POP3/IMAP spams
 * Nov  9, 2016: Fixed: Memcached listens on all available IP addresses instead of `127.0.0.1`
@@ -56,7 +57,7 @@ Please follow this tutorial to upgrade iRedAdmin open source edition to the
 latest stable release:
 [Upgrade iRedAdmin to the latest stable release](./migrate.or.upgrade.iredadmin.html)
 
-### Upgrade Roundcube webmail to the latest stable release (1.2.0)
+### Upgrade Roundcube webmail to the latest stable release (1.2.3)
 
 Please follow Roundcube official tutorial to upgrade Roundcube webmail to the
 latest stable release immediately: [How to upgrade Roundcube](https://github.com/roundcube/roundcubemail/wiki/Upgrade).
@@ -201,6 +202,52 @@ chmod 0400 /usr/local/www/roundcubemail/plugins/password/config.inc.php
 ```
 chown www:www /var/www/roundcubemail/plugins/password/config.inc.php
 chmod 0400 /var/www/roundcubemail/plugins/password/config.inc.php
+```
+
+### Fixed: missing cron job used to clean up old Roundcube temporary files
+
+iRedMail didn't run script `roundcubemail/bin/gc.sh` to clean up old files
+under `roundcubemail/temp/` directory regularly, this directory will grow
+larger and larger with temporary files.
+
+Please edit `root`'s cron job with command below:
+
+```
+# crontab -e -u root
+```
+
+Then add cron job like below:
+
+* RHEL/CentOS:
+
+```
+# Roundcube: Cleanup old temp files (defaults to keep for 2 days)
+2   2   *   *   *   php /var/www/roundcubemail/bin/gc.sh >/dev/null
+```
+
+* Debian/Ubuntu:
+
+    > __WARNING__: with old iRedMail release, Roundcube directory is
+    > `/usr/share/apache2/roundcubemail`, please make sure you're using the
+    > correct one on your server.
+
+```
+# Roundcube: Cleanup old temp files (defaults to keep for 2 days)
+2   2   *   *   *   php /opt/www/roundcubemail/bin/gc.sh >/dev/null
+```
+
+* FreeBSD:
+
+```
+# Roundcube: Cleanup old temp files (defaults to keep for 2 days)
+2   2   *   *   *   php /usr/local/www/roundcube/bin/gc.sh >/dev/null
+```
+
+* OpenBSD:
+
+```
+# Roundcube: Cleanup old temp files (defaults to keep for 2 days)
+2   2   *   *   *   php /var/www/roundcubemail/bin/gc.sh >/dev/null
 ```
 
 ### Fixed: Nginx doesn't forward real client IP address to SOGo
