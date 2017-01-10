@@ -23,6 +23,7 @@
 <li><a href="#intended-policy-rejection-please-try-again-later">Intended policy rejection, please try again later</a></li>
 <li><a href="#sender-address-rejected-not-logged-in">Sender address rejected: not logged in</a></li>
 <li><a href="#sender-address-rejected-not-owned-by-user-userdomainltd">Sender address rejected: not owned by user user@domain.ltd</a></li>
+<li><a href="#recipient-address-rejected-sender-is-not-same-as-smtp-authenticate-username">Recipient address rejected: Sender is not same as SMTP authenticate username</a></li>
 <li><a href="#unreasonable-virtual_alias_maps-map-expansion-size-for-userdomaincom">unreasonable virtual_alias_maps map expansion size for user@domain.com</a></li>
 <li><a href="#helo-command-rejected-access-denied-your-email-was-rejected-because-the-sending-mail-server-does-not-identify-itself-correctly-local">Helo command rejected: ACCESS DENIED. Your email was rejected because the sending mail server does not identify itself correctly (.local)</a></li>
 </ul>
@@ -90,6 +91,22 @@ instead (requires iRedAPD-1.4.4 or later releases).</p>
 then enable it in iRedAPD config file <code>/opt/iredapd/settings.py</code> (<code>plugins =</code>),
 restart iRedAPD service. That's all.</p>
 </div>
+<h3 id="recipient-address-rejected-sender-is-not-same-as-smtp-authenticate-username">Recipient address rejected: Sender is not same as SMTP authenticate username</h3>
+<p>If the smtp authenticate username is different than the address in mail header
+<code>From:</code> field, you will get this rejection (by iRedAPD).</p>
+<p>Solutions:</p>
+<ul>
+<li>If you don't need to send as different sender, please update your mail
+  composer (like Outlook, Thunderbird, webmail, your own script used to send
+  email, etc) to use same address as smtp authenticate username and sender
+  address in <code>From:</code>.</li>
+<li>If you do need to send as different sender address (<code>From:</code>), please add one
+  setting in iRedAPD config file <code>/opt/iredapd/settings.py</code>:</li>
+</ul>
+<pre><code>ALLOWED_LOGIN_MISMATCH_SENDERS = ['user@mydomain.com']
+</code></pre>
+
+<p>Notes: <code>user@mydomain.com</code> is the email address you used for smtp authentication.</p>
 <h3 id="unreasonable-virtual_alias_maps-map-expansion-size-for-userdomaincom">unreasonable virtual_alias_maps map expansion size for user@domain.com</h3>
 <p>Sample error message in Postfix log file:</p>
 <blockquote>

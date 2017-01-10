@@ -66,6 +66,26 @@ this issue.
     then enable it in iRedAPD config file `/opt/iredapd/settings.py` (`plugins = `),
     restart iRedAPD service. That's all.
 
+### Recipient address rejected: Sender is not same as SMTP authenticate username
+
+If the smtp authenticate username is different than the address in mail header
+`From:` field, you will get this rejection (by iRedAPD).
+
+Solutions:
+
+* If you don't need to send as different sender, please update your mail
+  composer (like Outlook, Thunderbird, webmail, your own script used to send
+  email, etc) to use same address as smtp authenticate username and sender
+  address in `From:`.
+* If you do need to send as different sender address (`From:`), please add one
+  setting in iRedAPD config file `/opt/iredapd/settings.py`:
+
+```
+ALLOWED_LOGIN_MISMATCH_SENDERS = ['user@mydomain.com']
+```
+
+Notes: `user@mydomain.com` is the email address you used for smtp authentication.
+
 ### unreasonable virtual_alias_maps map expansion size for user@domain.com
 
 Sample error message in Postfix log file:
