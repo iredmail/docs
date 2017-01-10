@@ -101,7 +101,8 @@ restart iRedAPD service. That's all.</p>
   email, etc) to use same address as smtp authenticate username and sender
   address in <code>From:</code>.</li>
 <li>If you do need to send as different sender address (<code>From:</code>), please add one
-  setting in iRedAPD config file <code>/opt/iredapd/settings.py</code>:</li>
+  setting in iRedAPD config file <code>/opt/iredapd/settings.py</code>, then restart
+  iRedAPD service:</li>
 </ul>
 <pre><code>ALLOWED_LOGIN_MISMATCH_SENDERS = ['user@mydomain.com']
 </code></pre>
