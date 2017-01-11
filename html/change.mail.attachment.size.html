@@ -31,6 +31,7 @@
 </li>
 <li><a href="#change-upload-file-size-in-nginx">Change upload file size in Nginx</a></li>
 <li><a href="#change-upload-file-size-in-sogo-3x">Change upload file size in SOGo-3.x</a></li>
+<li><a href="#change-message-size-in-sogo-3x">Change message size in SOGo-3.x</a></li>
 <li><a href="#change-attachment-size-limit-in-microsoft-outlook">Change attachment size limit in Microsoft Outlook</a></li>
 </ul>
 </li>
@@ -111,13 +112,25 @@ php_value    post_max_size  100M
 <p>SOGo-3.x introduces parameter <code>WOMaxUploadSize</code> to limit upload file size, you
 can add it in SOGo config file <code>/etc/sogo/sogo.conf</code> with a proper attachment
 size.</p>
-<pre><code>// set the maximum allowed size for content being sent to SOGo using a PUT or
-// a POST call. This can also limit the file attachment size being uploaded
-// to SOGo when composing a mail.
-//
-//  - The value is in kilobyte.
-//  - By default, the value is 0, or disabled so no limit will be set.
-WOMaxUploadSize = 102400;
+<pre><code>    // set the maximum allowed size for content being sent to SOGo using a PUT or
+    // a POST call. This can also limit the file attachment size being uploaded
+    // to SOGo when composing a mail.
+    //
+    //  - The value is in kilobyte.
+    //  - By default, the value is 0, or disabled so no limit will be set.
+    WOMaxUploadSize = 102400;
+</code></pre>
+
+<p>Restarting SOGo service is required.</p>
+<h2 id="change-message-size-in-sogo-3x">Change message size in SOGo-3.x</h2>
+<p>SOGo-3.2.5 introduces parameter <code>SOGoMaximumMessageSizeLimit</code> to limit message
+size, you can add it in SOGo config file <code>/etc/sogo/sogo.conf</code> with a proper
+size:</p>
+<pre><code>    // Parameter used to set the maximum allowed email message size when
+    // composing a mail.
+    // The value is in kilobytes. By default, the value is 0, or disabled so
+    // no limit will be set.
+    SOGoMaximumMessageSizeLimit = 102400;
 </code></pre>
 
 <p>Restarting SOGo service is required.</p>
