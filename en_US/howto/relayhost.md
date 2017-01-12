@@ -107,3 +107,6 @@ senderRelayHost: [mail.gmail.com]:25
 
 ![](../images/iredadmin/user_profile_relay.png)
 
+## See Also
+
+* [Use SendGrid as relay server](https://sendgrid.com/docs/Integrate/Mail_Servers/postfix.html)
