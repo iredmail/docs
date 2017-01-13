@@ -149,6 +149,42 @@ Notes:
 
     </div>
 
+### Domain Admin {: .toggle }
+
+!!! attention
+
+    * This is standalone domain admin account, not mail user with admin privileges.
+    * Only global admin can access these APIs.
+
+!!! api "`GET`{: .get } `/api/admin/<mail>`{: .url } `Get profile of an existing domain admin`{: .comment } `upcoming`{: .upcoming }"
+!!! api "`POST`{: .post } `/api/admin/<mail>`{: .url } `Create a new domain admin`{: .comment } `upcoming`{: .upcoming } `Parameters`{: .has_params }"
+
+    <div class="params params_admin">
+
+    Parameter Name | Summary | Sample Usage
+    --- |--- |---
+    `name` | Display name | `name=My Admin Name`
+    `password` | Password| `password=AsTr0ng@`
+    `language` | Preferred language of iRedAdmin web UI | `language=en_US`
+    `domainGlobalAdmin` | Mark this admin as global admin | `domainGlobalAdmin=yes`
+
+    </div>
+
+!!! api "`DELETE`{: .delete } `/api/admin/<mail>`{: .url } `Delete an existing domain admin`{: .comment } `upcoming`{: .upcoming }"
+!!! api "`POST`{: .post } `/api/verify_password/admin/<mail>`{: .url } `Verify given (plain) password against the one stored in SQL/LDAP`{: .comment } `upcoming`{: .upcoming } `Parameters`{: .has_params} "
+
+    <div class="params params_admin">
+
+    !!! attention
+
+        Password verification is limited to global domain admin.
+
+    Parameter Name | Summary | Sample Usage
+    --- |--- |---
+    `password` | Plain password | `password=u0tBF82cIV@vi8Gme`
+
+    </div>
+
 ### Mail User {: .toggle }
 
 !!! api "`GET`{: .get } `/api/user/<mail>`{: .url } `Get profile of an existing mail user`{: .comment } `upcoming`{: .upcoming }"
@@ -203,6 +239,10 @@ Notes:
 !!! api "`POST`{: .post } `/api/verify_password/user/<mail>`{: .url } `Verify given (plain) password against the one stored in SQL/LDAP`{: .comment } `upcoming`{: .upcoming } `Parameters`{: .has_params} "
 
     <div class="params params_user">
+
+    !!! attention
+
+        Password verification is limited to global domain admin.
 
     Parameter Name | Summary | Sample Usage
     --- |--- |---

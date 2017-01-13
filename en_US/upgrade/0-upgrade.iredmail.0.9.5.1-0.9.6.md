@@ -11,12 +11,9 @@
     We offer remote upgrade support if you don't want to get your hands dirty,
     check [the details](../support.html) and [contact us](../contact.html).
 
-## TODO
-
-* Separated SOGo address book for LDAP backend.
-
 ## ChangeLog
 
+* Jan 13, 2016: Fixed: Awstats is world-accessible with Apache.
 * Jan  8, 2016: Fixed: missing cron job used to clean up old Roundcube temporary files.
 * Dec 27, 2016: Add more banned file types/extensions in Amavisd.
 * Dec 12, 2016: Improve Fail2ban filter regular expression to catch more POP3/IMAP spams
@@ -360,6 +357,26 @@ Then restart memcached service:
 ```
 rcctl restart memcached
 ```
+
+### Fixed: Awstats is world-accessible with Apache
+
+> This is not applicable on OpenBSD system, because we don't have Apache nor Awstats installed.
+
+With iRedMail-0.9.5-1 and earlier release, Awstats was incorrectly configured
+and accessible without authentication. Please follow steps below to fix it.
+
+* Open Awstats config file for Apache, find below lines:
+    * On RHEL/CentOS, it's `/etc/httpd/conf.d/awstats.conf`
+    * On Debian/Ubuntu, it's `/etc/apache2/conf-available/awstats.conf`
+    * On FreeBSD, it's `/usr/local/etc/apache2?/Includes/awstats.conf`
+
+```
+   Require all granted
+   Require valid-user
+```
+
+* Remove `Require all granted`, keep `Require valid-user`.
+* Restart Apache service.
 
 ### Improve Fail2ban filter regular expression to catch more POP3/IMAP spams
 

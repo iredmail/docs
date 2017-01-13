@@ -19,7 +19,6 @@
 <div class="toc">
 <ul>
 <li><a href="#upgrade-iredmail-from-095-1-to-096">Upgrade iRedMail from 0.9.5-1 to 0.9.6</a><ul>
-<li><a href="#todo">TODO</a></li>
 <li><a href="#changelog">ChangeLog</a></li>
 <li><a href="#general-all-backends-should-apply-these-steps">General (All backends should apply these steps)</a><ul>
 <li><a href="#update-etciredmail-release-with-new-iredmail-version-number">Update /etc/iredmail-release with new iRedMail version number</a></li>
@@ -39,6 +38,7 @@
 <li><a href="#fixed-nginx-doesnt-forward-real-client-ip-address-to-sogo">Fixed: Nginx doesn't forward real client IP address to SOGo</a></li>
 <li><a href="#fixed-sogo-313-and-later-releases-changed-argument-used-by-sogo-tool-command">Fixed: SOGo-3.1.3 (and later releases) changed argument used by sogo-tool command</a></li>
 <li><a href="#fixed-memcached-listens-on-all-available-ip-addresses-instead-of-127001">Fixed: Memcached listens on all available IP addresses instead of 127.0.0.1</a></li>
+<li><a href="#fixed-awstats-is-world-accessible-with-apache">Fixed: Awstats is world-accessible with Apache</a></li>
 <li><a href="#improve-fail2ban-filter-regular-expression-to-catch-more-pop3imap-spams">Improve Fail2ban filter regular expression to catch more POP3/IMAP spams</a></li>
 <li><a href="#add-more-banned-file-typesextensions-in-amavisd">Add more banned file types/extensions in Amavisd.</a></li>
 </ul>
@@ -70,12 +70,9 @@
 <p>We offer remote upgrade support if you don't want to get your hands dirty,
 check <a href="../support.html">the details</a> and <a href="../contact.html">contact us</a>.</p>
 </div>
-<h2 id="todo">TODO</h2>
-<ul>
-<li>Separated SOGo address book for LDAP backend.</li>
-</ul>
 <h2 id="changelog">ChangeLog</h2>
 <ul>
+<li>Jan 13, 2016: Fixed: Awstats is world-accessible with Apache.</li>
 <li>Jan  8, 2016: Fixed: missing cron job used to clean up old Roundcube temporary files.</li>
 <li>Dec 27, 2016: Add more banned file types/extensions in Amavisd.</li>
 <li>Dec 12, 2016: Improve Fail2ban filter regular expression to catch more POP3/IMAP spams</li>
@@ -387,6 +384,28 @@ to the IP address of your jail.</p>
 <pre><code>rcctl restart memcached
 </code></pre>
 
+<h3 id="fixed-awstats-is-world-accessible-with-apache">Fixed: Awstats is world-accessible with Apache</h3>
+<blockquote>
+<p>This is not applicable on OpenBSD system, because we don't have Apache nor Awstats installed.</p>
+</blockquote>
+<p>With iRedMail-0.9.5-1 and earlier release, Awstats was incorrectly configured
+and accessible without authentication. Please follow steps below to fix it.</p>
+<ul>
+<li>Open Awstats config file for Apache, find below lines:<ul>
+<li>On RHEL/CentOS, it's <code>/etc/httpd/conf.d/awstats.conf</code></li>
+<li>On Debian/Ubuntu, it's <code>/etc/apache2/conf-available/awstats.conf</code></li>
+<li>On FreeBSD, it's <code>/usr/local/etc/apache2?/Includes/awstats.conf</code></li>
+</ul>
+</li>
+</ul>
+<pre><code>   Require all granted
+   Require valid-user
+</code></pre>
+
+<ul>
+<li>Remove <code>Require all granted</code>, keep <code>Require valid-user</code>.</li>
+<li>Restart Apache service.</li>
+</ul>
 <h3 id="improve-fail2ban-filter-regular-expression-to-catch-more-pop3imap-spams">Improve Fail2ban filter regular expression to catch more POP3/IMAP spams</h3>
 <blockquote>
 <p>This step is applicable to Linux system.</p>

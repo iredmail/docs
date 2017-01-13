@@ -31,6 +31,7 @@
 <li><a href="#sample-code-to-interact-with-iredadmin-pro-restful-api">Sample code to interact with iRedAdmin-Pro RESTful API</a></li>
 <li><a href="#apis">APIs</a><ul>
 <li><a href="#domain">Domain</a></li>
+<li><a href="#domain-admin">Domain Admin</a></li>
 <li><a href="#mail-user">Mail User</a></li>
 <li><a href="#mailing-list">Mailing List</a></li>
 <li><a href="#mail-alias">Mail Alias</a></li>
@@ -362,6 +363,85 @@ to be a domain admin.</p>
 </div>
 
 </div>
+<h3 class="toggle" id="domain-admin">Domain Admin</h3>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<ul>
+<li>This is standalone domain admin account, not mail user with admin privileges.</li>
+<li>Only global admin can access these APIs.</li>
+</ul>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code class="get">GET</code> <code class="url">/api/admin/&lt;mail&gt;</code> <code class="comment">Get profile of an existing domain admin</code> <code class="upcoming">upcoming</code></p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code class="post">POST</code> <code class="url">/api/admin/&lt;mail&gt;</code> <code class="comment">Create a new domain admin</code> <code class="upcoming">upcoming</code> <code class="has_params">Parameters</code></p>
+<div class="params params_admin">
+
+<table>
+<thead>
+<tr>
+<th>Parameter Name</th>
+<th>Summary</th>
+<th>Sample Usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>name</code></td>
+<td>Display name</td>
+<td><code>name=My Admin Name</code></td>
+</tr>
+<tr>
+<td><code>password</code></td>
+<td>Password</td>
+<td><code>password=AsTr0ng@</code></td>
+</tr>
+<tr>
+<td><code>language</code></td>
+<td>Preferred language of iRedAdmin web UI</td>
+<td><code>language=en_US</code></td>
+</tr>
+<tr>
+<td><code>domainGlobalAdmin</code></td>
+<td>Mark this admin as global admin</td>
+<td><code>domainGlobalAdmin=yes</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code class="delete">DELETE</code> <code class="url">/api/admin/&lt;mail&gt;</code> <code class="comment">Delete an existing domain admin</code> <code class="upcoming">upcoming</code></p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code class="post">POST</code> <code class="url">/api/verify_password/admin/&lt;mail&gt;</code> <code class="comment">Verify given (plain) password against the one stored in SQL/LDAP</code> <code class="upcoming">upcoming</code> <code class="has_params">Parameters</code> </p>
+<div class="params params_admin">
+
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>Password verification is limited to global domain admin.</p>
+</div>
+<table>
+<thead>
+<tr>
+<th>Parameter Name</th>
+<th>Summary</th>
+<th>Sample Usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>password</code></td>
+<td>Plain password</td>
+<td><code>password=u0tBF82cIV@vi8Gme</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+
+</div>
 <h3 class="toggle" id="mail-user">Mail User</h3>
 <div class="admonition api">
 <p class="admonition-title"><code class="get">GET</code> <code class="url">/api/user/&lt;mail&gt;</code> <code class="comment">Get profile of an existing mail user</code> <code class="upcoming">upcoming</code></p>
@@ -520,6 +600,10 @@ to be a domain admin.</p>
 <p class="admonition-title"><code class="post">POST</code> <code class="url">/api/verify_password/user/&lt;mail&gt;</code> <code class="comment">Verify given (plain) password against the one stored in SQL/LDAP</code> <code class="upcoming">upcoming</code> <code class="has_params">Parameters</code> </p>
 <div class="params params_user">
 
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>Password verification is limited to global domain admin.</p>
+</div>
 <table>
 <thead>
 <tr>
