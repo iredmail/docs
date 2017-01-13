@@ -114,7 +114,7 @@ RESTFUL_API_CLIENTS = ['172.16.244.1', ...]
 <table>
 <thead>
 <tr>
-<th>Parameter Name</th>
+<th>Parameter</th>
 <th>Summary</th>
 <th>Sample Usage</th>
 </tr>
@@ -193,7 +193,7 @@ RESTFUL_API_CLIENTS = ['172.16.244.1', ...]
 <table>
 <thead>
 <tr>
-<th>Parameter Name</th>
+<th>Parameter</th>
 <th>Summary</th>
 <th>Sample Usage</th>
 </tr>
@@ -299,7 +299,7 @@ RESTFUL_API_CLIENTS = ['172.16.244.1', ...]
 <table>
 <thead>
 <tr>
-<th>Parameter Name</th>
+<th>Parameter</th>
 <th>Summary</th>
 <th>Sample Usage</th>
 </tr>
@@ -337,7 +337,7 @@ to be a domain admin.</p>
 <table>
 <thead>
 <tr>
-<th>Parameter Name</th>
+<th>Parameter</th>
 <th>Summary</th>
 <th>Sample Usage</th>
 </tr>
@@ -381,7 +381,7 @@ to be a domain admin.</p>
 <table>
 <thead>
 <tr>
-<th>Parameter Name</th>
+<th>Parameter</th>
 <th>Summary</th>
 <th>Sample Usage</th>
 </tr>
@@ -398,14 +398,19 @@ to be a domain admin.</p>
 <td><code>password=AsTr0ng@</code></td>
 </tr>
 <tr>
+<td><code>accountStatus</code></td>
+<td>Enable or disable account. Possible values: <code>active</code>, <code>disabled</code>.</td>
+<td><code>accountStatus=active</code></td>
+</tr>
+<tr>
 <td><code>language</code></td>
 <td>Preferred language of iRedAdmin web UI</td>
 <td><code>language=en_US</code></td>
 </tr>
 <tr>
-<td><code>domainGlobalAdmin</code></td>
+<td><code>isGlobalAdmin</code></td>
 <td>Mark this admin as global admin</td>
-<td><code>domainGlobalAdmin=yes</code></td>
+<td><code>isGlobalAdmin=yes</code></td>
 </tr>
 </tbody>
 </table>
@@ -414,6 +419,91 @@ to be a domain admin.</p>
 </div>
 <div class="admonition api">
 <p class="admonition-title"><code class="delete">DELETE</code> <code class="url">/api/admin/&lt;mail&gt;</code> <code class="comment">Delete an existing domain admin</code> <code class="upcoming">upcoming</code></p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code class="put">PUT</code> <code class="url">/api/admin/&lt;mail&gt;</code> <code class="comment">Update profile of an existing domain admin</code> <code class="upcoming">upcoming</code> <code class="has_params">Parameters</code></p>
+<div class="params params_admin">
+
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Summary</th>
+<th>Sample Usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>name</code></td>
+<td>Display name</td>
+<td><code>name=My Admin Name</code></td>
+</tr>
+<tr>
+<td><code>password</code></td>
+<td>Password</td>
+<td><code>password=AsTr0ng@</code></td>
+</tr>
+<tr>
+<td><code>accountStatus</code></td>
+<td>Enable or disable account. Possible values: <code>active</code>, <code>disabled</code>.</td>
+<td><code>accountStatus=active</code></td>
+</tr>
+<tr>
+<td><code>language</code></td>
+<td>Preferred language of iRedAdmin web UI</td>
+<td><code>language=en_US</code></td>
+</tr>
+<tr>
+<td><code>isGlobalAdmin</code></td>
+<td>Mark this admin as global admin</td>
+<td><code>isGlobalAdmin=yes</code></td>
+</tr>
+</tbody>
+</table>
+<p>Below parameters are used by normal domain admin. With <code>isGlobalAdmin=yes</code>, they will be removed.</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Summary</th>
+<th>Sample Usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>maxDomains</code></td>
+<td>how many mail domains this admin can create</td>
+<td><code>maxDomains=5</code></td>
+</tr>
+<tr>
+<td><code>maxQuota</code></td>
+<td>how much mailbox quota this admin can create. Quota is shared by all domains created/managed by this admin. Must be used with parameter <code>quotaUnit</code>. Sample: 10TB, 20GB, 100MB.</td>
+<td><code>maxQuota=2</code></td>
+</tr>
+<tr>
+<td><code>quotaUnit</code></td>
+<td>Quota unit used by <code>maxQuota</code> parameter. Must be used with parameter <code>maxQuota</code>. Possible values: TB, GB, MB.</td>
+<td><code>quotaUnit=TB</code></td>
+</tr>
+<tr>
+<td><code>maxUsers</code></td>
+<td>how many mail users this admin can create. It's shared by all domains created/managed by this admin.</td>
+<td><code>maxUsers=100</code></td>
+</tr>
+<tr>
+<td><code>maxAliases</code></td>
+<td>how many mail aliases this admin can create. It's shared by all domains created/managed by this admin.</td>
+<td><code>maxAliases=200</code></td>
+</tr>
+<tr>
+<td><code>maxLists</code></td>
+<td>how many mailing lists this admin can create. It's shared by all domains created/managed by this admin.</td>
+<td><code>maxLists=300</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+
 </div>
 <div class="admonition api">
 <p class="admonition-title"><code class="post">POST</code> <code class="url">/api/verify_password/admin/&lt;mail&gt;</code> <code class="comment">Verify given (plain) password against the one stored in SQL/LDAP</code> <code class="upcoming">upcoming</code> <code class="has_params">Parameters</code> </p>
@@ -426,7 +516,7 @@ to be a domain admin.</p>
 <table>
 <thead>
 <tr>
-<th>Parameter Name</th>
+<th>Parameter</th>
 <th>Summary</th>
 <th>Sample Usage</th>
 </tr>
@@ -453,7 +543,7 @@ to be a domain admin.</p>
 <table>
 <thead>
 <tr>
-<th>Parameter Name</th>
+<th>Parameter</th>
 <th>Summary</th>
 <th>Sample Usage</th>
 </tr>
@@ -494,7 +584,7 @@ to be a domain admin.</p>
 <table>
 <thead>
 <tr>
-<th>Parameter Name</th>
+<th>Parameter</th>
 <th>Summary</th>
 <th>Sample Usage</th>
 </tr>
@@ -570,7 +660,7 @@ to be a domain admin.</p>
 <table>
 <thead>
 <tr>
-<th>Parameter Name</th>
+<th>Parameter</th>
 <th>Comment</th>
 </tr>
 </thead>
@@ -607,7 +697,7 @@ to be a domain admin.</p>
 <table>
 <thead>
 <tr>
-<th>Parameter Name</th>
+<th>Parameter</th>
 <th>Summary</th>
 <th>Sample Usage</th>
 </tr>
@@ -639,7 +729,7 @@ please use mail alias account as mailing list.</p>
 <table>
 <thead>
 <tr>
-<th>Parameter Name</th>
+<th>Parameter</th>
 <th>Summary</th>
 <th>Sample Usage</th>
 </tr>
@@ -675,7 +765,7 @@ please use mail alias account as mailing list.</p>
 <table>
 <thead>
 <tr>
-<th>Parameter Name</th>
+<th>Parameter</th>
 <th>Summary</th>
 <th>Sample Usage</th>
 </tr>
@@ -722,7 +812,7 @@ please use mail alias account as mailing list.</p>
 <table>
 <thead>
 <tr>
-<th>Parameter Name</th>
+<th>Parameter</th>
 <th>Summary</th>
 <th>Sample Usage</th>
 </tr>
@@ -766,7 +856,7 @@ please use mail alias account as mailing list.</p>
 <table>
 <thead>
 <tr>
-<th>Parameter Name</th>
+<th>Parameter</th>
 <th>Summary</th>
 <th>Sample Usage</th>
 </tr>
@@ -841,7 +931,7 @@ please use mail alias account as mailing list.</p>
 <table>
 <thead>
 <tr>
-<th>Parameter Name</th>
+<th>Parameter</th>
 <th>Summary</th>
 <th>Sample Usage</th>
 </tr>
@@ -949,7 +1039,7 @@ please use mail alias account as mailing list.</p>
 <table>
 <thead>
 <tr>
-<th>Parameter Name</th>
+<th>Parameter</th>
 <th>Summary</th>
 <th>Sample Usage</th>
 </tr>

@@ -75,7 +75,7 @@ Notes:
 
     <div class="params params_domain">
 
-    Parameter Name | Summary | Sample Usage
+    Parameter | Summary | Sample Usage
     --- |--- |---
     `name` | Short description of this domain name. e.g. company name | `name=Google Inc`
     `quota` | Per-domain mailbox quota, in MB. | `quota=2048`
@@ -97,7 +97,7 @@ Notes:
 
     <div class="params params_domain">
 
-    Parameter Name | Summary | Sample Usage
+    Parameter | Summary | Sample Usage
     --- |--- |---
     `name` | Short description of this domain name. e.g. company name | `name=Google Inc`
     `accountStatus` | Enable or disable domain. Possible values: `active`, `disabled`. | `accountStatus=active`
@@ -124,7 +124,7 @@ Notes:
 
     <div class="params params_domain_services">
 
-    Parameter Name | Summary | Sample Usage
+    Parameter | Summary | Sample Usage
     --- |--- |---
     `enableService` | Enable new services. Multiple services must be separated by comma. | `enableService=sogo,vpn,xmpp`
     `disableService` | Disable existing services. Multiple services must be separated by comma. | `disableService=sogo,vpn,xmpp`
@@ -141,7 +141,7 @@ Notes:
         Normal domain admin can only promote mail users under managed domains
         to be a domain admin.
 
-    Parameter Name | Summary | Sample Usage
+    Parameter | Summary | Sample Usage
     --- |--- |---
     `addAdmin` | Add new domain admins. Multiple services must be separated by comma. | `addAdmin=one@domain.com,two@domain.com`
     `removeAdmin` | Remove existing domain admins. Multiple services must be separated by comma. | `removeAdmin=one@domain.com,two@domain.com`
@@ -161,16 +161,42 @@ Notes:
 
     <div class="params params_admin">
 
-    Parameter Name | Summary | Sample Usage
+    Parameter | Summary | Sample Usage
     --- |--- |---
     `name` | Display name | `name=My Admin Name`
     `password` | Password| `password=AsTr0ng@`
+    `accountStatus` | Enable or disable account. Possible values: `active`, `disabled`. | `accountStatus=active`
     `language` | Preferred language of iRedAdmin web UI | `language=en_US`
-    `domainGlobalAdmin` | Mark this admin as global admin | `domainGlobalAdmin=yes`
+    `isGlobalAdmin` | Mark this admin as global admin | `isGlobalAdmin=yes`
 
     </div>
 
 !!! api "`DELETE`{: .delete } `/api/admin/<mail>`{: .url } `Delete an existing domain admin`{: .comment } `upcoming`{: .upcoming }"
+!!! api "`PUT`{: .put } `/api/admin/<mail>`{: .url } `Update profile of an existing domain admin`{: .comment } `upcoming`{: .upcoming } `Parameters`{: .has_params }"
+
+    <div class="params params_admin">
+
+    Parameter | Summary | Sample Usage
+    --- |--- |---
+    `name` | Display name | `name=My Admin Name`
+    `password` | Password| `password=AsTr0ng@`
+    `accountStatus` | Enable or disable account. Possible values: `active`, `disabled`. | `accountStatus=active`
+    `language` | Preferred language of iRedAdmin web UI | `language=en_US`
+    `isGlobalAdmin` | Mark this admin as global admin | `isGlobalAdmin=yes`
+
+    Below parameters are used by normal domain admin. With `isGlobalAdmin=yes`, they will be removed.
+
+    Parameter | Summary | Sample Usage
+    --- |--- |---
+    `maxDomains` | how many mail domains this admin can create | `maxDomains=5`
+    `maxQuota` | how much mailbox quota this admin can create. Quota is shared by all domains created/managed by this admin. Must be used with parameter `quotaUnit`. Sample: 10TB, 20GB, 100MB.| `maxQuota=2`
+    `quotaUnit` | Quota unit used by `maxQuota` parameter. Must be used with parameter `maxQuota`. Possible values: TB, GB, MB. | `quotaUnit=TB`
+    `maxUsers` | how many mail users this admin can create. It's shared by all domains created/managed by this admin. | `maxUsers=100`
+    `maxAliases` | how many mail aliases this admin can create. It's shared by all domains created/managed by this admin. | `maxAliases=200`
+    `maxLists` | how many mailing lists this admin can create. It's shared by all domains created/managed by this admin. | `maxLists=300`
+
+    </div>
+
 !!! api "`POST`{: .post } `/api/verify_password/admin/<mail>`{: .url } `Verify given (plain) password against the one stored in SQL/LDAP`{: .comment } `upcoming`{: .upcoming } `Parameters`{: .has_params} "
 
     <div class="params params_admin">
@@ -179,7 +205,7 @@ Notes:
 
         Password verification is limited to global domain admin.
 
-    Parameter Name | Summary | Sample Usage
+    Parameter | Summary | Sample Usage
     --- |--- |---
     `password` | Plain password | `password=u0tBF82cIV@vi8Gme`
 
@@ -192,7 +218,7 @@ Notes:
 
     <div class="params params_user">
 
-    Parameter Name | Summary | Sample Usage
+    Parameter | Summary | Sample Usage
     --- |--- |---
     `name` | Display name | `name=My New Name`
     `password` | Password| `password=AsTr0ng@`
@@ -206,7 +232,7 @@ Notes:
 
     <div class="params params_user">
 
-    Parameter Name | Summary | Sample Usage
+    Parameter | Summary | Sample Usage
     --- |--- |---
     `name` | Display name | `name=My New Name`
     `password` | Password | `password=u0tBF82cIV@vi8Gme`
@@ -227,7 +253,7 @@ Notes:
 
     <div class="params">
 
-    Parameter Name | Comment
+    Parameter | Comment
     --- |---
     `accountStatus` | Account status. Possible value is: active, disabled.
     `password` | Password
@@ -244,7 +270,7 @@ Notes:
 
         Password verification is limited to global domain admin.
 
-    Parameter Name | Summary | Sample Usage
+    Parameter | Summary | Sample Usage
     --- |--- |---
     `password` | Plain password | `password=u0tBF82cIV@vi8Gme`
 
@@ -261,7 +287,7 @@ Notes:
 !!! api "`POST`{: .post } `/api/maillist/<mail>`{: .url } `Create a new mailing list`{: .comment } `upcoming`{: .upcoming } `Parameters`{: .has_params }"
     <div class="params">
 
-    Parameter Name | Summary | Sample Usage
+    Parameter | Summary | Sample Usage
     --- |--- |---
     `name` | Display name | `name=My List Name`
     `accessPolicy` | Defines who can send email to this mail alias account | `accessPolicy=public`
@@ -274,7 +300,7 @@ Notes:
 
     <div class="params">
 
-    Parameter Name | Summary | Sample Usage
+    Parameter | Summary | Sample Usage
     --- |--- |---
     `name` | display name | `name=My List Name`
     `accessPolicy` | Defines who can send email to this mailing list | `accessPolicy=public`
@@ -291,7 +317,7 @@ Notes:
 
     <div class="params">
 
-    Parameter Name | Summary | Sample Usage
+    Parameter | Summary | Sample Usage
     --- |--- |---
     `name` | Display name | `name=My List Name`
     `accessPolicy` | Defines who can send email to this mail alias account | `accessPolicy=public`
@@ -312,7 +338,7 @@ Notes:
 
         `accessPolicy` for mail alias account is only available for SQL backends.
 
-    Parameter Name | Summary | Sample Usage
+    Parameter | Summary | Sample Usage
     --- |--- |---
     `name` | Display name | `name=My List Name`
     `accessPolicy` | Defines who can send email to this mail alias account | `accessPolicy=public`
@@ -342,7 +368,7 @@ Notes:
 
     > Per-user policy has the highest priority, then per-domain policy, then global policy.
 
-    Parameter Name | Summary | Sample Usage
+    Parameter | Summary | Sample Usage
     --- |--- |---
     `bypass_spam_checks` | Bypass spam checks | `bypass_spam_checks=yes` (default is `no`)
     `bypass_virus_checks` | Bypass virus checks | `bypass_virus_checks=yes` (default is `no`)
@@ -377,7 +403,7 @@ Notes:
 
     Parameters available for global, per-domain, per-user throttle settings.
 
-    Parameter Name | Summary | Sample Usage
+    Parameter | Summary | Sample Usage
     --- |--- |---
     `period` * | Period of time, in seconds | `period=3600` (one hour)
     `msg_size` | Max size of single email, in bytes | `msg_size=10485760` (10 MB)
