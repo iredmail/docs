@@ -169,6 +169,17 @@ Notes:
     `language` | Preferred language of iRedAdmin web UI | `language=en_US`
     `isGlobalAdmin` | Mark this admin as global admin | `isGlobalAdmin=yes`
 
+    Below parameters are used by normal domain admin (`isGlobalAdmin=no`). With `isGlobalAdmin=yes`, these parameters will be discarded.
+
+    Parameter | Summary | Sample Usage
+    --- |--- |---
+    `maxDomains` | how many mail domains this admin can create | `maxDomains=5`
+    `maxQuota` | how much mailbox quota this admin can create. Quota is shared by all domains created/managed by this admin. Must be used with parameter `quotaUnit`. Sample: 10TB, 20GB, 100MB.| `maxQuota=2`
+    `quotaUnit` | Quota unit used by `maxQuota` parameter. Must be used with parameter `maxQuota`. Possible values: TB, GB, MB. | `quotaUnit=TB`
+    `maxUsers` | how many mail users this admin can create. It's shared by all domains created/managed by this admin. | `maxUsers=100`
+    `maxAliases` | how many mail aliases this admin can create. It's shared by all domains created/managed by this admin. | `maxAliases=200`
+    `maxLists` | how many mailing lists this admin can create. It's shared by all domains created/managed by this admin. | `maxLists=300`
+
     </div>
 
 !!! api "`DELETE`{: .delete } `/api/admin/<mail>`{: .url } `Delete an existing domain admin`{: .comment } `upcoming`{: .upcoming }"
@@ -184,7 +195,7 @@ Notes:
     `language` | Preferred language of iRedAdmin web UI | `language=en_US`
     `isGlobalAdmin` | Mark this admin as global admin | `isGlobalAdmin=yes`
 
-    Below parameters are used by normal domain admin. With `isGlobalAdmin=yes`, they will be removed.
+    Below parameters are used by normal domain admin (`isGlobalAdmin=no`). With `isGlobalAdmin=yes`, these parameters will be discarded.
 
     Parameter | Summary | Sample Usage
     --- |--- |---
