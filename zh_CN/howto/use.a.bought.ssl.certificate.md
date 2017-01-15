@@ -68,7 +68,6 @@ __注意__：有一些 web 服务器只能识别 `Common Name` 里指定的服�
 直接使用 `postconf` 命令来更新 SSL 证书相关的设置：
 
 ```
-postconf -e smtpd_use_tls='yes'
 postconf -e smtpd_tls_cert_file='/etc/pki/tls/certs/server.crt'
 postconf -e smtpd_tls_key_file='/etc/pki/tls/private/server.key'
 postconf -e smtpd_tls_CAfile='/etc/pki/tls/certs/server.ca-bundle'

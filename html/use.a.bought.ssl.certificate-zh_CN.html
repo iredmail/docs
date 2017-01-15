@@ -93,8 +93,7 @@ __不要__使用长度小于 2048 位的密钥，那是不安全的。</p>
 <p>下面示例中我们以 CentOS 系统为例，请根据你的发行版调整相关文件路径（已在上面注明）。</p>
 <h3 id="postfix-smtp">Postfix (SMTP 服务器)</h3>
 <p>直接使用 <code>postconf</code> 命令来更新 SSL 证书相关的设置：</p>
-<pre><code>postconf -e smtpd_use_tls='yes'
-postconf -e smtpd_tls_cert_file='/etc/pki/tls/certs/server.crt'
+<pre><code>postconf -e smtpd_tls_cert_file='/etc/pki/tls/certs/server.crt'
 postconf -e smtpd_tls_key_file='/etc/pki/tls/private/server.key'
 postconf -e smtpd_tls_CAfile='/etc/pki/tls/certs/server.ca-bundle'
 </code></pre>

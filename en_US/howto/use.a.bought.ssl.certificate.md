@@ -78,7 +78,6 @@ one on your server according to above description.
 
 We can use `postconf` command to update SSL related settings directly:
 ```
-postconf -e smtpd_use_tls='yes'
 postconf -e smtpd_tls_cert_file='/etc/pki/tls/certs/server.crt'
 postconf -e smtpd_tls_key_file='/etc/pki/tls/private/server.key'
 postconf -e smtpd_tls_CAfile='/etc/pki/tls/certs/server.ca-bundle'
