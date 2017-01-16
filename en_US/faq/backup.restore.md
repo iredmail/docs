@@ -60,6 +60,8 @@ Notes:
   document to generate DKIM key and update DNS record:
   [Sign DKIM signature on outgoing emails for new mail domain](./sign.dkim.signature.for.new.domain.html).
 
+* SOGo (Calendar, Contacts, Tasks): check SOGo official document:
+  <http://wiki.sogo.nu/backupRestore>
 * OpenLDAP backend:
 
     * If you enabled additional LDAP schema files in OpenLDAP, you should
