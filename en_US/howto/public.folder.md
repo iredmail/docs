@@ -173,45 +173,6 @@ doveadm acl delete -A "Public/TestFolder" "user=postmaster@test.com"
 For more details about ACL control, please read Dovecot tutorials mentioned in
 [References](#references) below.
 
-## Manage Access Control manually
-
-!!! note
-
-    * if you're running Dovecot-2, it's recommended to manage ACL with `doveadm`
-      command.
-    * Dovecot will create file `/var/vmail/public/dovecot-acl-list` automatically,
-      it lists all mailboxes that have `l` rights assigned. If you manually
-      add/edit `dovecot-acl` files, you may need to delete the `dovecot-acl-list`
-      to get the mailboxes visible.
-
-Access permission is controlled in file `dovecot-acl` under each shared folder,
-let's create it before showing you some examples:
-
-```
-touch /var/vmail/public/.TestFolder/dovecot-acl
-chown vmail:vmail /var/vmail/public/.TestFolder/dovecot-acl
-chmod 0700 /var/vmail/public/.TestFolder/dovecot-acl
-```
-
-With shell command below, we grant `lookup` (l), `read` (r), `write` (w),
-`insert` (i), `delete` (x), `expunge` (e) and `create sub-directory` (k) permissions to user
-`postmaster@test.com` (again, this user is hosted on same server):
-
-```
-echo 'user=postmaster@test.com lrwixke' >> /var/vmail/public/.TestFolder/dovecot-acl
-```
-
-With shell command below, we grant all users `lookup` (l) and `read` (r)
-permissions:
-
-!!! note "Reminder"
-
-    It requires Dovecot setting `acl_anyone = allow` in `dovecot.conf`.
-
-```
-echo 'anyone lr' >> /var/vmail/public/.TestFolder/dovecot-acl
-```
-
 ## Troubleshooting
 
 * If public folder doesn't work as expected, please [turn on debug mode in

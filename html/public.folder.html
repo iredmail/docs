@@ -21,7 +21,6 @@
 <li><a href="#how-to-create-and-manage-public-folder">How to create and manage public folder</a><ul>
 <li><a href="#enable-public-folder-in-dovecot">Enable public folder in Dovecot</a></li>
 <li><a href="#manage-access-control-with-doveadm">Manage Access Control with doveadm</a></li>
-<li><a href="#manage-access-control-manually">Manage Access Control manually</a></li>
 <li><a href="#troubleshooting">Troubleshooting</a></li>
 <li><a href="#use-someones-mailbox-as-public-folder">Use someone's mailbox as public folder</a></li>
 <li><a href="#references">References</a></li>
@@ -228,40 +227,6 @@ server, you can see a new folder <code>TestFolder</code>.</p>
 
 <p>For more details about ACL control, please read Dovecot tutorials mentioned in
 <a href="#references">References</a> below.</p>
-<h2 id="manage-access-control-manually">Manage Access Control manually</h2>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<ul>
-<li>if you're running Dovecot-2, it's recommended to manage ACL with <code>doveadm</code>
-  command.</li>
-<li>Dovecot will create file <code>/var/vmail/public/dovecot-acl-list</code> automatically,
-  it lists all mailboxes that have <code>l</code> rights assigned. If you manually
-  add/edit <code>dovecot-acl</code> files, you may need to delete the <code>dovecot-acl-list</code>
-  to get the mailboxes visible.</li>
-</ul>
-</div>
-<p>Access permission is controlled in file <code>dovecot-acl</code> under each shared folder,
-let's create it before showing you some examples:</p>
-<pre><code>touch /var/vmail/public/.TestFolder/dovecot-acl
-chown vmail:vmail /var/vmail/public/.TestFolder/dovecot-acl
-chmod 0700 /var/vmail/public/.TestFolder/dovecot-acl
-</code></pre>
-
-<p>With shell command below, we grant <code>lookup</code> (l), <code>read</code> (r), <code>write</code> (w),
-<code>insert</code> (i), <code>delete</code> (x), <code>expunge</code> (e) and <code>create sub-directory</code> (k) permissions to user
-<code>postmaster@test.com</code> (again, this user is hosted on same server):</p>
-<pre><code>echo 'user=postmaster@test.com lrwixke' &gt;&gt; /var/vmail/public/.TestFolder/dovecot-acl
-</code></pre>
-
-<p>With shell command below, we grant all users <code>lookup</code> (l) and <code>read</code> (r)
-permissions:</p>
-<div class="admonition note">
-<p class="admonition-title">Reminder</p>
-<p>It requires Dovecot setting <code>acl_anyone = allow</code> in <code>dovecot.conf</code>.</p>
-</div>
-<pre><code>echo 'anyone lr' &gt;&gt; /var/vmail/public/.TestFolder/dovecot-acl
-</code></pre>
-
 <h2 id="troubleshooting">Troubleshooting</h2>
 <ul>
 <li>
