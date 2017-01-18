@@ -44,9 +44,12 @@
 </ul>
 </li>
 <li><a href="#openldap-backend-special">OpenLDAP backend special</a><ul>
+<li><a href="#use-the-latest-iredmail-ldap-schema-file">Use the latest iRedMail LDAP schema file</a><ul>
+<li><a href="#update-openldap-config-file-to-index-new-attributes">Update OpenLDAP config file to index new attributes</a></li>
+<li><a href="#download-the-latest-iredmail-ldap-schema-file">Download the latest iRedMail LDAP schema file</a></li>
+</ul>
+</li>
 <li><a href="#fixed-mail-accounts-user-alias-list-are-still-active-when-domain-is-disabled">Fixed: mail accounts (user, alias, list) are still active when domain is disabled</a><ul>
-<li><a href="#update-openldap-config-file-to-index-new-attribute-name-domainstatus">Update OpenLDAP config file to index new attribute name: domainStatus</a></li>
-<li><a href="#use-the-latest-iredmail-ldap-schema-file">Use the latest iRedMail LDAP schema file</a></li>
 <li><a href="#update-postfixdovecot-ldap-lookup-files">Update Postfix/Dovecot LDAP lookup files</a></li>
 <li><a href="#add-required-ldap-attributevalue-for-existing-mail-accounts-under-disabled-domains">Add required LDAP attribute/value for existing mail accounts under disabled domains</a></li>
 </ul>
@@ -470,36 +473,55 @@ your Amavisd config file.</p>
 <li>Restart Amavisd service is required.</li>
 </ul>
 <h2 id="openldap-backend-special">OpenLDAP backend special</h2>
-<h3 id="fixed-mail-accounts-user-alias-list-are-still-active-when-domain-is-disabled">Fixed: mail accounts (user, alias, list) are still active when domain is disabled</h3>
-<blockquote>
-<p>This fix is applicable to OpenBSD ldapd backend also.</p>
-</blockquote>
-<p>In iRedMail-0.9.5-1 and all earlier releases, if we disable a mail domain,
-all mail accounts (mail users, aliases, lists) are still active and Postfix
-will accept emails sent to them. Steps below fix the issue.</p>
-<h4 id="update-openldap-config-file-to-index-new-attribute-name-domainstatus">Update OpenLDAP config file to index new attribute name: <code>domainStatus</code></h4>
+<h3 id="use-the-latest-iredmail-ldap-schema-file">Use the latest iRedMail LDAP schema file</h3>
+<p>iRedMail-0.9.6 introduces 2 new LDAP attributes:</p>
 <ul>
-<li>Please open OpenLDAP config file <code>slapd.conf</code>, find line below:<ul>
+<li><code>domainPendingAliasName</code>: used by mail domain account, to store new alias
+  domain names which is pending for domain ownership verification. Required by
+  iRedAdmin-Pro.</li>
+<li><code>domainStatus</code>: used by mail user/alias/list accounts, to indicate domain
+  status.</li>
+</ul>
+<h4 id="update-openldap-config-file-to-index-new-attributes">Update OpenLDAP config file to index new attributes</h4>
+<ul>
+<li>
+<p>Please open OpenLDAP config file <code>slapd.conf</code>:</p>
+<ul>
 <li>On RHEL/CentOS, it's <code>/etc/openldap/slapd.conf</code></li>
 <li>On Debian/Ubuntu, it's <code>/etc/ldap/slapd.conf</code></li>
 <li>On FreeBSD, it's <code>/usr/local/etc/openldap/slapd.conf</code></li>
-<li>On OpenBSD, it's <code>/etc/openldap/slapd.conf</code>. If you're running ldapd as
-  LDAP server, please add a new line <code>index domainStats</code> in the <code>namespace
-  xxx {}</code> block.</li>
+<li>On OpenBSD:<ul>
+<li>if you're running OpenLDAP, it's <code>/etc/openldap/slapd.conf</code>.</li>
+<li>if you're running ldapd(8) LDAP server, please add a new line
+  <code>index domainStats</code> in the <code>namespace xxx {}</code> block.</li>
 </ul>
 </li>
+</ul>
+</li>
+<li>
+<p>for new attribute <code>domainPendingAliasName</code>, please find line below:</p>
+</li>
+</ul>
+<pre><code>access to attrs=&quot;objectclass,domainName,mtaTransport,...&quot;
+</code></pre>
+
+<p>Add new attribute name <code>domainPendingAliasName</code> in this line (<strong>WARNING</strong>:
+don't leave any whitespace between attribute names and comma):</p>
+<pre><code>access to attrs=&quot;domainPendingAliasName,objectclass,domainName,mtaTransport,...&quot;
+</code></pre>
+
+<ul>
+<li>for new attribute <code>domainStatus</code>, please find line below:</li>
 </ul>
 <pre><code>access to attrs=&quot;employeeNumber,mail,...&quot;
 </code></pre>
 
-<ul>
-<li>Add new attribute name <code>domainStatus</code> in this line (<strong>WARNING</strong>: don't leave
-  any whitespace between attribute names and comma):</li>
-</ul>
+<p>Add new attribute name <code>domainStatus</code> in this line (<strong>WARNING</strong>: don't leave
+any whitespace between attribute names and comma):</p>
 <pre><code>access to attrs=&quot;domainStatus,employeeNumber,mail,...&quot;
 </code></pre>
 
-<h4 id="use-the-latest-iredmail-ldap-schema-file">Use the latest iRedMail LDAP schema file</h4>
+<h4 id="download-the-latest-iredmail-ldap-schema-file">Download the latest iRedMail LDAP schema file</h4>
 <ul>
 <li>On RHEL/CentOS:</li>
 </ul>
@@ -558,6 +580,13 @@ cp -f /tmp/iredmail.schema /etc/openldap/schema/
 rcctl restart slapd
 </code></pre>
 
+<h3 id="fixed-mail-accounts-user-alias-list-are-still-active-when-domain-is-disabled">Fixed: mail accounts (user, alias, list) are still active when domain is disabled</h3>
+<blockquote>
+<p>This fix is applicable to OpenBSD ldapd backend also.</p>
+</blockquote>
+<p>In iRedMail-0.9.5-1 and all earlier releases, if we disable a mail domain,
+all mail accounts (mail users, aliases, lists) are still active and Postfix
+will accept emails sent to them. Steps below fix the issue.</p>
 <h4 id="update-postfixdovecot-ldap-lookup-files">Update Postfix/Dovecot LDAP lookup files</h4>
 <ul>
 <li>On Linux and OpenBSD, run commands:</li>

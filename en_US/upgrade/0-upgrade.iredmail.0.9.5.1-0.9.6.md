@@ -438,36 +438,53 @@ $banned_namepath_re = new_RE(
 
 ## OpenLDAP backend special
 
-### Fixed: mail accounts (user, alias, list) are still active when domain is disabled
+### Use the latest iRedMail LDAP schema file
 
-> This fix is applicable to OpenBSD ldapd backend also.
+iRedMail-0.9.6 introduces 2 new LDAP attributes:
 
-In iRedMail-0.9.5-1 and all earlier releases, if we disable a mail domain,
-all mail accounts (mail users, aliases, lists) are still active and Postfix
-will accept emails sent to them. Steps below fix the issue.
+* `domainPendingAliasName`: used by mail domain account, to store new alias
+  domain names which is pending for domain ownership verification. Required by
+  iRedAdmin-Pro.
+* `domainStatus`: used by mail user/alias/list accounts, to indicate domain
+  status.
 
-#### Update OpenLDAP config file to index new attribute name: `domainStatus`
+#### Update OpenLDAP config file to index new attributes
 
-* Please open OpenLDAP config file `slapd.conf`, find line below:
+* Please open OpenLDAP config file `slapd.conf`:
     * On RHEL/CentOS, it's `/etc/openldap/slapd.conf`
     * On Debian/Ubuntu, it's `/etc/ldap/slapd.conf`
     * On FreeBSD, it's `/usr/local/etc/openldap/slapd.conf`
-    * On OpenBSD, it's `/etc/openldap/slapd.conf`. If you're running ldapd as
-      LDAP server, please add a new line `index domainStats` in the `namespace
-      xxx {}` block.
+    * On OpenBSD:
+        * if you're running OpenLDAP, it's `/etc/openldap/slapd.conf`.
+        * if you're running ldapd(8) LDAP server, please add a new line
+          `index domainStats` in the `namespace xxx {}` block.
+
+* for new attribute `domainPendingAliasName`, please find line below:
+
+```
+access to attrs="objectclass,domainName,mtaTransport,..."
+```
+
+Add new attribute name `domainPendingAliasName` in this line (__WARNING__:
+don't leave any whitespace between attribute names and comma):
+
+```
+access to attrs="domainPendingAliasName,objectclass,domainName,mtaTransport,..."
+```
+
+* for new attribute `domainStatus`, please find line below:
 
 ```
 access to attrs="employeeNumber,mail,..."
 ```
 
-* Add new attribute name `domainStatus` in this line (__WARNING__: don't leave
-  any whitespace between attribute names and comma):
+Add new attribute name `domainStatus` in this line (__WARNING__: don't leave
+any whitespace between attribute names and comma):
 
 ```
 access to attrs="domainStatus,employeeNumber,mail,..."
 ```
-
-#### Use the latest iRedMail LDAP schema file
+#### Download the latest iRedMail LDAP schema file
 
 * On RHEL/CentOS:
 
@@ -523,12 +540,20 @@ cp -f /tmp/iredmail.schema /etc/openldap/schema/
 rcctl restart slapd
 ```
 
+### Fixed: mail accounts (user, alias, list) are still active when domain is disabled
+
+> This fix is applicable to OpenBSD ldapd backend also.
+
+In iRedMail-0.9.5-1 and all earlier releases, if we disable a mail domain,
+all mail accounts (mail users, aliases, lists) are still active and Postfix
+will accept emails sent to them. Steps below fix the issue.
+
 #### Update Postfix/Dovecot LDAP lookup files
 
 * On Linux and OpenBSD, run commands:
 
 ```
-cp -rf /etc/postfix/ldap /etc/postfix/ldap.$(date +%Y%m%d)
+cp -rf /etc/postfix/ldap /etc/postfix/ldap.bak
 cd /etc/postfix/ldap/
 perl -pi -e 's#\(accountStatus=active\)#(accountStatus=active)(!(domainStatus=disabled))#g' catchall_maps.cf recipient_bcc_maps_user.cf sender_bcc_maps_user.cf sender_dependent_relayhost_maps_user.cf sender_login_maps.cf transport_maps_user.cf virtual_alias_maps.cf virtual_group_maps.cf virtual_group_members_maps.cf virtual_mailbox_maps.cf
 
@@ -539,7 +564,7 @@ perl -pi -e 's#\(accountStatus=active\)#(accountStatus=active)(!(domainStatus=di
 * On FreeBSD, run commands:
 
 ```
-cp -rf /usr/local/etc/postfix/ldap /usr/local/etc/postfix/ldap.$(date +%Y%m%d)
+cp -rf /usr/local/etc/postfix/ldap /usr/local/etc/postfix/ldap.bak
 cd /usr/local/etc/postfix/ldap/
 perl -pi -e 's#\(accountStatus=active\)#(accountStatus=active)(!(domainStatus=disabled))#g' catchall_maps.cf recipient_bcc_maps_user.cf sender_bcc_maps_user.cf sender_dependent_relayhost_maps_user.cf sender_login_maps.cf transport_maps_user.cf virtual_alias_maps.cf virtual_group_maps.cf virtual_group_members_maps.cf virtual_mailbox_maps.cf
 
