@@ -116,6 +116,51 @@ Notes:
     `primarymx` | Hostname or IP address of primary MX, smtp port number is optional. Must be used with parameter `is_backupmx`. Conflicts with parameter `transport`. | `primarymx=202.96.134.133`, `primarymx=[mail.iredmail.org]:25`
     `catchall` | Per-domain catch-all account (a list of email addresses used to receive emails sent to non-existing addresses under same domain). Multiple addresses must be separated by comma. Set an empty value to disable catch-all support. | `catchall=user@domain.com,user2@domain.com` or `catchall=` (disable catch-all)
     `outboundRelay` | Per-domain outbound relay. Set an empty value to disable outbound relay. | `outboundRelay=smtp:[192.168.1.2]:25` or `outboundRelay=` (disable outbound relay)
+    `disableDomainProfile` | disable given domain profiles. Normal admin cannot view and update disabled profiles in domain profile page. Available domain profiles are listed below. | `disableDomainProfile=bcc,relay,aliases`
+    `enableDomainProfile` | enable given domain profiles. Normal admin can view and update disabled profiles in domain profile page. Available domain profiles are listed below. | `enableDomainProfile=bcc,relay,aliases`
+    `disableUserProfile` | disable given user profiles. Normal admin cannot view and update disabled profiles in user profile page. Available user profiles are listed below. | `disableUserProfile=bcc,relay,aliases`
+    `enableUserProfile` | enable given domain profiles. Normal admin can view and update disabled profiles in user profile page. Available user profiles are listed below. | `enableUserProfile=bcc,relay,aliases`
+    `disableUserPreference` | disable given user preferences in self-service page. Normal mail user cannot view and update disabled preferences. Available user preferences are listed below. | `disableUserPreference=forwarding,wblist`
+    `enableUserPreference` | disable given user preferences in self-service page. Normal mail user can view and update disabled preferences. Available user preferences are listed below. | `enableUserProfile=forwarding,wblist`
+
+    Available domain profiles:
+
+    Profile | Comment
+    --- |---
+    bcc | Per-domain sender bcc and recipient bcc
+    relay | Per-domain inbound relay and outbound relay
+    catchall | Per-domain catchall account
+    aliases | Alias domains
+    throttle | Per-domain inbound and outbound throttling
+    greylisting | Per-domain greylisting service
+    wblist | Per-domain whitelists and blacklists
+    spampolicy | Per-domain spam policy
+    backupmx | Backup MX
+    advanced | Some extra settings
+
+    Available user profiles:
+
+    Profile | Comment
+    --- |---
+    bcc | Per-user sender bcc and recipient bcc
+    forwarding | Per-user mail forwarding addresses
+    relay | Per-user inbound relay and outbound relay
+    aliases | Per-user alias addresses
+    throttle | Per-user inbound and outbound throttling
+    greylisting | Per-user greylisting service
+    wblist | Per-user whitelists and blacklists
+    spampolicy | Per-user spam policy
+
+    Available user preferences (self-service):
+
+    Profile | Comment
+    --- |---
+    personal_info | Name, time zone, preferred language of web UI
+    forwarding | Per-user mail forwarding addresses
+    wblist | Per-user whitelists and blacklists
+    quarantine | Manage quarantined mails
+    rcvd_mails | View basic info of received mails, and whitelist/blacklist mail sender directly.
+    spampolicy | Per-user spam policy
 
     </div>
 

@@ -284,6 +284,165 @@ RESTFUL_API_CLIENTS = ['172.16.244.1', ...]
 <td>Per-domain outbound relay. Set an empty value to disable outbound relay.</td>
 <td><code>outboundRelay=smtp:[192.168.1.2]:25</code> or <code>outboundRelay=</code> (disable outbound relay)</td>
 </tr>
+<tr>
+<td><code>disableDomainProfile</code></td>
+<td>disable given domain profiles. Normal admin cannot view and update disabled profiles in domain profile page. Available domain profiles are listed below.</td>
+<td><code>disableDomainProfile=bcc,relay,aliases</code></td>
+</tr>
+<tr>
+<td><code>enableDomainProfile</code></td>
+<td>enable given domain profiles. Normal admin can view and update disabled profiles in domain profile page. Available domain profiles are listed below.</td>
+<td><code>enableDomainProfile=bcc,relay,aliases</code></td>
+</tr>
+<tr>
+<td><code>disableUserProfile</code></td>
+<td>disable given user profiles. Normal admin cannot view and update disabled profiles in user profile page. Available user profiles are listed below.</td>
+<td><code>disableUserProfile=bcc,relay,aliases</code></td>
+</tr>
+<tr>
+<td><code>enableUserProfile</code></td>
+<td>enable given domain profiles. Normal admin can view and update disabled profiles in user profile page. Available user profiles are listed below.</td>
+<td><code>enableUserProfile=bcc,relay,aliases</code></td>
+</tr>
+<tr>
+<td><code>disableUserPreference</code></td>
+<td>disable given user preferences in self-service page. Normal mail user cannot view and update disabled preferences. Available user preferences are listed below.</td>
+<td><code>disableUserPreference=forwarding,wblist</code></td>
+</tr>
+<tr>
+<td><code>enableUserPreference</code></td>
+<td>disable given user preferences in self-service page. Normal mail user can view and update disabled preferences. Available user preferences are listed below.</td>
+<td><code>enableUserProfile=forwarding,wblist</code></td>
+</tr>
+</tbody>
+</table>
+<p>Available domain profiles:</p>
+<table>
+<thead>
+<tr>
+<th>Profile</th>
+<th>Comment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>bcc</td>
+<td>Per-domain sender bcc and recipient bcc</td>
+</tr>
+<tr>
+<td>relay</td>
+<td>Per-domain inbound relay and outbound relay</td>
+</tr>
+<tr>
+<td>catchall</td>
+<td>Per-domain catchall account</td>
+</tr>
+<tr>
+<td>aliases</td>
+<td>Alias domains</td>
+</tr>
+<tr>
+<td>throttle</td>
+<td>Per-domain inbound and outbound throttling</td>
+</tr>
+<tr>
+<td>greylisting</td>
+<td>Per-domain greylisting service</td>
+</tr>
+<tr>
+<td>wblist</td>
+<td>Per-domain whitelists and blacklists</td>
+</tr>
+<tr>
+<td>spampolicy</td>
+<td>Per-domain spam policy</td>
+</tr>
+<tr>
+<td>backupmx</td>
+<td>Backup MX</td>
+</tr>
+<tr>
+<td>advanced</td>
+<td>Some extra settings</td>
+</tr>
+</tbody>
+</table>
+<p>Available user profiles:</p>
+<table>
+<thead>
+<tr>
+<th>Profile</th>
+<th>Comment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>bcc</td>
+<td>Per-user sender bcc and recipient bcc</td>
+</tr>
+<tr>
+<td>forwarding</td>
+<td>Per-user mail forwarding addresses</td>
+</tr>
+<tr>
+<td>relay</td>
+<td>Per-user inbound relay and outbound relay</td>
+</tr>
+<tr>
+<td>aliases</td>
+<td>Per-user alias addresses</td>
+</tr>
+<tr>
+<td>throttle</td>
+<td>Per-user inbound and outbound throttling</td>
+</tr>
+<tr>
+<td>greylisting</td>
+<td>Per-user greylisting service</td>
+</tr>
+<tr>
+<td>wblist</td>
+<td>Per-user whitelists and blacklists</td>
+</tr>
+<tr>
+<td>spampolicy</td>
+<td>Per-user spam policy</td>
+</tr>
+</tbody>
+</table>
+<p>Available user preferences (self-service):</p>
+<table>
+<thead>
+<tr>
+<th>Profile</th>
+<th>Comment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>personal_info</td>
+<td>Name, time zone, preferred language of web UI</td>
+</tr>
+<tr>
+<td>forwarding</td>
+<td>Per-user mail forwarding addresses</td>
+</tr>
+<tr>
+<td>wblist</td>
+<td>Per-user whitelists and blacklists</td>
+</tr>
+<tr>
+<td>quarantine</td>
+<td>Manage quarantined mails</td>
+</tr>
+<tr>
+<td>rcvd_mails</td>
+<td>View basic info of received mails, and whitelist/blacklist mail sender directly.</td>
+</tr>
+<tr>
+<td>spampolicy</td>
+<td>Per-user spam policy</td>
+</tr>
 </tbody>
 </table>
 </div>
