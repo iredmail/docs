@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title>SQL: Bulk create mail users</title>
+        <title>SQL: Create new mail user</title>
         <link rel="stylesheet" type="text/css" href="./css/markdown.css" />
     </head>
     <body>
@@ -15,54 +15,57 @@
              />&nbsp;
         <span>iRedMail</span>
     </a>
-    &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><h1 id="sql-bulk-create-mail-users">SQL: Bulk create mail users</h1>
-<div class="admonition warning">
-<p class="admonition-title">Deprecated</p>
-<p>This document is applicable to iRedMail-0.9.5-1 and earlier releases.
-If you're running iRedMail-0.9.6 or newer releases, please check tutorial
-<a href="./sql.create.mail.user.html">SQL: Create new mail user</a> instead.</p>
+    &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><h1 id="sql-create-new-mail-user">SQL: Create new mail user</h1>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>This document is applicable to iRedMail-0.9.6 and later releases.
+If you're running iRedMail-0.9.5-1 or earlier releases, please check
+tutorial <a href="./sql.bulk.create.mail.users.html">SQL: Bulk create new mail users</a>
+instead.</p>
 </div>
 <p>iRedMail ships the shell script <code>tools/create_mail_user_SQL.sh</code> to help you
-create many mail users quickly.</p>
+create new mail user quickly. With some shell scripting trick, it's easy to
+create many mail users.</p>
 <p>Sample usage:</p>
 <ul>
 <li>Create the mail domain name <code>example.com</code> with iRedAdmin first.</li>
-<li>Bulk create mail users with the shell script:</li>
+<li>Create a new mail user with the shell script:</li>
 </ul>
-<pre><code class="shell"># cd iRedMail-0.9.4/tools/
-# bash create_mail_user_SQL.sh example.com user1 user2 user3
+<pre><code class="shell"># cd iRedMail-0.9.6/tools/
+# bash create_mail_user_SQL.sh user1@example.com plain_password
 </code></pre>
 
-<p>It will generate the plain SQL file <code>output.sql</code> in current directory, please
-login to SQL server as root user, then import it. for example:</p>
+<p>It will print SQL commands used to create this new user, you can save it to a
+file, then login to SQL server as root user and import this file. for example:</p>
 <ul>
 <li>MySQL or MariaDB:</li>
 </ul>
-<pre><code class="shell"># mysql -uroot -p
+<pre><code class="shell"># cd iRedMail-0.9.6/tools/
+# bash create_mail_user_SQL.sh user1@example.com plain_password &gt; user.sql
+
+# mysql -uroot -p
 sql&gt; USE vmail;
-sql&gt; SOURCE output.sql;
+sql&gt; SOURCE user.sql;
 </code></pre>
 
 <ul>
 <li>PostgreSQL:</li>
 </ul>
-<pre><code># cp output.sql /tmp
-# chmod +r /tmp/output.sql
+<pre><code># cd iRedMail-0.9.6/tools/
+# bash create_mail_user_SQL.sh user1@example.com plain_password &gt; /tmp/user.sql
 
 # su - postgres
 $ psql -d vmail
 sql&gt; \i output.sql;
 </code></pre>
 
+<p>Don't forget to remove /tmp/user.sql.</p>
 <p>Notes:</p>
 <ul>
-<li>Default password is same as username. if you prefer to set a password for all
-  created users, please open the script and update variable <code>DEFAULT_PASSWD</code>
-  with new password and set <code>USE_DEFAULT_PASSWD='YES'</code>.</li>
 <li>Password scheme is defined in variable <code>PASSWORD_SCHEME</code>, default is <code>SSHA512</code>.
   <code>BCRYPT</code> is recommended on FreeBSD and OpenBSD.</li>
 <li>Per-user mailbox quota is defined in variable <code>DEFAULT_QUOTA</code>, default is
-  <code>1024</code> (1024 MB).</li>
+  <code>1024</code> (1 GB).</li>
 <li>Maildir path is hashed like  <code>domain.ltd/u/s/e/username-20150929</code>. If you
   prefer <code>domain.ltd/username/</code>, please set <code>MAILDIR_STYLE='normal'</code>.</li>
 <li>Mailbox storage path is defined in variable <code>STORAGE_BASE_DIRECTORY</code>, default

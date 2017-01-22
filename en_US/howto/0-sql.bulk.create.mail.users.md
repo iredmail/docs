@@ -1,5 +1,11 @@
 # SQL: Bulk create mail users
 
+!!! warning "Deprecated"
+
+    This document is applicable to iRedMail-0.9.5-1 and earlier releases.
+    If you're running iRedMail-0.9.6 or newer releases, please check tutorial
+    [SQL: Create new mail user](./sql.create.mail.user.html) instead.
+
 iRedMail ships the shell script `tools/create_mail_user_SQL.sh` to help you
 create many mail users quickly.
 
