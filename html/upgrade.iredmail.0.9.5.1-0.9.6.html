@@ -31,6 +31,7 @@
 </ul>
 </li>
 <li><a href="#fixed-not-allow-access-to-well-known-in-nginx">Fixed: not allow access to '/.well-known/' in Nginx</a></li>
+<li><a href="#fixed-postfix-allows-email-sent-through-port-587-without-smtp-authentication-from-trusted-clients">Fixed: Postfix allows email sent through port 587 without smtp authentication from trusted clients</a></li>
 <li><a href="#fixed-not-enable-opportunistic-tls-support-in-postfix">Fixed: not enable opportunistic TLS support in Postfix</a></li>
 <li><a href="#fixed-one-incorrect-helo-restriction-rule-in-postfix">Fixed: one incorrect HELO restriction rule in Postfix</a></li>
 <li><a href="#fixed-incorrect-file-owner-and-permission-of-config-file-of-roundcube-password-plugin">Fixed: incorrect file owner and permission of config file of Roundcube password plugin</a></li>
@@ -75,6 +76,7 @@ check <a href="../support.html">the details</a> and <a href="../contact.html">co
 </div>
 <h2 id="changelog">ChangeLog</h2>
 <ul>
+<li>Jan 22, 2016: Fixed: Postfix allows email sent through port 587 without smtp authentication from trusted clients </li>
 <li>Jan 13, 2016: Fixed: Awstats is world-accessible with Apache.</li>
 <li>Jan  8, 2016: Fixed: missing cron job used to clean up old Roundcube temporary files.</li>
 <li>Dec 27, 2016: Add more banned file types/extensions in Amavisd.</li>
@@ -172,6 +174,36 @@ location ~ ^/.well-known/ {
 </code></pre>
 
 <p>Save your change and reload Nginx service.</p>
+<h3 id="fixed-postfix-allows-email-sent-through-port-587-without-smtp-authentication-from-trusted-clients">Fixed: Postfix allows email sent through port 587 without smtp authentication from trusted clients</h3>
+<p>iRedMail-0.9.5 and iRedMail-0.9.5-1 allows trusted clients (listed in parameter
+<code>mynetworks=</code>) to send email through port 587 without smtp authentication, this
+is not strict enough and may be used by spammers. All users should be forced
+to send email through port 587 with smtp authentication. Please follow steps
+below to fix it.</p>
+<ul>
+<li>Open Postfix config file <code>master.cf</code>, find the transport <code>submission</code> like
+  below:<ul>
+<li>on Linux and OpenBSD, it's <code>/etc/postfix/master.cf</code></li>
+<li>on FreeBSD, it's <code>/usr/local/etc/postfix/master.cf</code></li>
+</ul>
+</li>
+</ul>
+<pre><code>submission ...
+    ...
+    -o smtpd_client_restrictions=permit_mynetworks,permit_sasl_authenticated,reject
+</code></pre>
+
+<ul>
+<li>Remove <code>permit_mynetworks,</code> and save your change. After modification, it's:</li>
+</ul>
+<pre><code>submission ...
+    ...
+    -o smtpd_client_restrictions=permit_sasl_authenticated,reject
+</code></pre>
+
+<ul>
+<li>Restart Postfix service is required to load the changed config file.</li>
+</ul>
 <h3 id="fixed-not-enable-opportunistic-tls-support-in-postfix">Fixed: not enable opportunistic TLS support in Postfix</h3>
 <p>iRedMail-0.9.5 and iRedMail-0.9.5-1 didn't enable opportunistic TLS support in
 Postfix, this causes other servers cannot transfer emails via TLS secure
@@ -591,7 +623,7 @@ will accept emails sent to them. Steps below fix the issue.</p>
 <ul>
 <li>On Linux and OpenBSD, run commands:</li>
 </ul>
-<pre><code>cp -rf /etc/postfix/ldap /etc/postfix/ldap.$(date +%Y%m%d)
+<pre><code>cp -rf /etc/postfix/ldap /etc/postfix/ldap.bak
 cd /etc/postfix/ldap/
 perl -pi -e 's#\(accountStatus=active\)#(accountStatus=active)(!(domainStatus=disabled))#g' catchall_maps.cf recipient_bcc_maps_user.cf sender_bcc_maps_user.cf sender_dependent_relayhost_maps_user.cf sender_login_maps.cf transport_maps_user.cf virtual_alias_maps.cf virtual_group_maps.cf virtual_group_members_maps.cf virtual_mailbox_maps.cf
 
@@ -602,7 +634,7 @@ perl -pi -e 's#\(accountStatus=active\)#(accountStatus=active)(!(domainStatus=di
 <ul>
 <li>On FreeBSD, run commands:</li>
 </ul>
-<pre><code>cp -rf /usr/local/etc/postfix/ldap /usr/local/etc/postfix/ldap.$(date +%Y%m%d)
+<pre><code>cp -rf /usr/local/etc/postfix/ldap /usr/local/etc/postfix/ldap.bak
 cd /usr/local/etc/postfix/ldap/
 perl -pi -e 's#\(accountStatus=active\)#(accountStatus=active)(!(domainStatus=disabled))#g' catchall_maps.cf recipient_bcc_maps_user.cf sender_bcc_maps_user.cf sender_dependent_relayhost_maps_user.cf sender_login_maps.cf transport_maps_user.cf virtual_alias_maps.cf virtual_group_maps.cf virtual_group_members_maps.cf virtual_mailbox_maps.cf
 

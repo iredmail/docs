@@ -13,6 +13,7 @@
 
 ## ChangeLog
 
+* Jan 22, 2016: Fixed: Postfix allows email sent through port 587 without smtp authentication from trusted clients 
 * Jan 13, 2016: Fixed: Awstats is world-accessible with Apache.
 * Jan  8, 2016: Fixed: missing cron job used to clean up old Roundcube temporary files.
 * Dec 27, 2016: Add more banned file types/extensions in Amavisd.
@@ -132,6 +133,35 @@ location ~ ^/.well-known/ {
 ```
 
 Save your change and reload Nginx service.
+
+### Fixed: Postfix allows email sent through port 587 without smtp authentication from trusted clients 
+
+iRedMail-0.9.5 and iRedMail-0.9.5-1 allows trusted clients (listed in parameter
+`mynetworks=`) to send email through port 587 without smtp authentication, this
+is not strict enough and may be used by spammers. All users should be forced
+to send email through port 587 with smtp authentication. Please follow steps
+below to fix it.
+
+* Open Postfix config file `master.cf`, find the transport `submission` like
+  below:
+    * on Linux and OpenBSD, it's `/etc/postfix/master.cf`
+    * on FreeBSD, it's `/usr/local/etc/postfix/master.cf`
+
+```
+submission ...
+    ...
+    -o smtpd_client_restrictions=permit_mynetworks,permit_sasl_authenticated,reject
+```
+
+* Remove `permit_mynetworks,` and save your change. After modification, it's:
+
+```
+submission ...
+    ...
+    -o smtpd_client_restrictions=permit_sasl_authenticated,reject
+```
+
+* Restart Postfix service is required to load the changed config file.
 
 ### Fixed: not enable opportunistic TLS support in Postfix
 

@@ -284,6 +284,7 @@ Notes:
     </div>
 
 !!! api "`DELETE`{: .delete } `/api/user/<mail>`{: .url } `Delete an existing mail user`{: .comment }"
+!!! api "`DELETE`{: .delete } `/api/user/<mail>/keep_mailbox_days/<number>`{: .url } `Delete an existing mail user, and keep the mailbox for given days. Defaults to 100 years.`{: .comment } `upcoming`{: .upcoming }"
 !!! api "`PUT`{: .put } `/api/user/<mail>`{: .url } `Update profile of an existing mail user`{: .comment } `Parameters`{: .has_params} "
 
     <div class="params params_user">
