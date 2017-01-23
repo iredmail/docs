@@ -1,11 +1,12 @@
 # iRedAdmin-Pro: RESTful API
 
-!!! note
-
-    If you need an API which has not yet been implemented, don't hesitate to
-    [contact us](../contact.html).
-
 [TOC]
+
+!!! attention
+
+    * If you need an API which has not yet been implemented, don't hesitate to
+      [contact us](../contact.html).
+    * This document is applicable to iRedAdmin-Pro-LDAP-2.7.0 and iRedAdmin-Pro-SQL-2.5.0.
 
 ### ChangeLog
 
@@ -21,14 +22,13 @@
 iRedAdmin-Pro RESTful API will return message in JSON format.
 
 * If operation succeed:
-    * For `POST`, `DELETE`, `PUT` actions, it returns JSON data: `{'_success': true}`.
-    * For `GET` action, it returns JSON data: `{'_success': true, '_data': <program_output>}`.
+    * For http `POST`, `DELETE`, `PUT` methods, it returns JSON data: `{'_success': true}`.
+    * For http `GET` method, it returns JSON data: `{'_success': true, '_data': <program_output>}`.
 * If operation failed, it returns JSON data: `{'_success': false, '_msg': '<error_reason>'}`.
 
 ## Requirements
 
-* At least iRedAdmin-Pro-SQL-2.4.0 or iRedAdmin-Pro-LDAP-2.6.0. Earlier releases
-  didn't offer RESTful API.
+This document is applicable to iRedAdmin-Pro-LDAP-2.7.0 and iRedAdmin-Pro-SQL-2.5.0.
 
 ## Enable RESTful API
 
@@ -70,7 +70,7 @@ Notes:
 
 ### Domain {: .toggle }
 
-!!! api "`GET`{: .get } `/api/domain/<domain>`{: .url } `Get profile of an existing domain`{: .comment } `upcoming`{: .upcoming }"
+!!! api "`GET`{: .get } `/api/domain/<domain>`{: .url } `Get profile of an existing domain`{: .comment }"
 !!! api "`POST`{: .post } `/api/domain/<domain>`{: .url } `Create a new domain`{: .comment } `Parameters`{: .has_params }"
 
     <div class="params params_domain">
@@ -92,8 +92,8 @@ Notes:
     </div>
 
 !!! api "`DELETE`{: .delete } `/api/domain/<domain>`{: .url } `Delete an existing domain (all mail messages will NOT be removed)`{: .comment }"
-!!! api "`DELETE`{: .delete } `/api/domain/<domain>/keep_mailbox_days/<number>`{: .url } `Delete domain, and keep all mail messages for given days`{: .comment } `upcoming`{: .upcoming }"
-!!! api "`PUT`{: .put } `/api/domain/<domain>`{: .url } `Update profile of an existing domain`{: .comment } `upcoming`{: .upcoming } `Parameters`{: .has_params }"
+!!! api "`DELETE`{: .delete } `/api/domain/<domain>/keep_mailbox_days/<number>`{: .url } `Delete domain, and keep all mail messages for given days`{: .comment }"
+!!! api "`PUT`{: .put } `/api/domain/<domain>`{: .url } `Update profile of an existing domain`{: .comment } `Parameters`{: .has_params }"
 
     <div class="params params_domain">
 
@@ -177,7 +177,7 @@ Notes:
 
     </div>
 
-!!! api "`PUT`{: .put } `/api/domain/admins/<domain>`{: .url } `Manage normal domain admins.`{: .comment } `upcoming`{: .upcoming } `Parameters`{: .has_params }"
+!!! api "`PUT`{: .put } `/api/domain/admins/<domain>`{: .url } `Manage normal domain admins.`{: .comment } `Parameters`{: .has_params }"
 
     <div class="params params_domain_admins">
 
@@ -201,8 +201,8 @@ Notes:
     * This is standalone domain admin account, not mail user with admin privileges.
     * Only global admin can access these APIs.
 
-!!! api "`GET`{: .get } `/api/admin/<mail>`{: .url } `Get profile of an existing domain admin`{: .comment } `upcoming`{: .upcoming }"
-!!! api "`POST`{: .post } `/api/admin/<mail>`{: .url } `Create a new domain admin`{: .comment } `upcoming`{: .upcoming } `Parameters`{: .has_params }"
+!!! api "`GET`{: .get } `/api/admin/<mail>`{: .url } `Get profile of an existing domain admin`{: .comment }"
+!!! api "`POST`{: .post } `/api/admin/<mail>`{: .url } `Create a new domain admin`{: .comment } `Parameters`{: .has_params }"
 
     <div class="params params_admin">
 
@@ -227,8 +227,8 @@ Notes:
 
     </div>
 
-!!! api "`DELETE`{: .delete } `/api/admin/<mail>`{: .url } `Delete an existing domain admin`{: .comment } `upcoming`{: .upcoming }"
-!!! api "`PUT`{: .put } `/api/admin/<mail>`{: .url } `Update profile of an existing domain admin`{: .comment } `upcoming`{: .upcoming } `Parameters`{: .has_params }"
+!!! api "`DELETE`{: .delete } `/api/admin/<mail>`{: .url } `Delete an existing domain admin`{: .comment }"
+!!! api "`PUT`{: .put } `/api/admin/<mail>`{: .url } `Update profile of an existing domain admin`{: .comment } `Parameters`{: .has_params }"
 
     <div class="params params_admin">
 
@@ -253,7 +253,7 @@ Notes:
 
     </div>
 
-!!! api "`POST`{: .post } `/api/verify_password/admin/<mail>`{: .url } `Verify given (plain) password against the one stored in SQL/LDAP`{: .comment } `upcoming`{: .upcoming } `Parameters`{: .has_params} "
+!!! api "`POST`{: .post } `/api/verify_password/admin/<mail>`{: .url } `Verify given (plain) password against the one stored in SQL/LDAP`{: .comment } `Parameters`{: .has_params} "
 
     <div class="params params_admin">
 
@@ -269,7 +269,7 @@ Notes:
 
 ### Mail User {: .toggle }
 
-!!! api "`GET`{: .get } `/api/user/<mail>`{: .url } `Get profile of an existing mail user`{: .comment } `upcoming`{: .upcoming }"
+!!! api "`GET`{: .get } `/api/user/<mail>`{: .url } `Get profile of an existing mail user`{: .comment }"
 !!! api "`POST`{: .post } `/api/user/<mail>`{: .url } `Create a new mail user`{: .comment } `Parameters`{: .has_params }"
 
     <div class="params params_user">
@@ -284,7 +284,7 @@ Notes:
     </div>
 
 !!! api "`DELETE`{: .delete } `/api/user/<mail>`{: .url } `Delete an existing mail user`{: .comment }"
-!!! api "`DELETE`{: .delete } `/api/user/<mail>/keep_mailbox_days/<number>`{: .url } `Delete an existing mail user, and keep the mailbox for given days. Defaults to 100 years.`{: .comment } `upcoming`{: .upcoming }"
+!!! api "`DELETE`{: .delete } `/api/user/<mail>/keep_mailbox_days/<number>`{: .url } `Delete an existing mail user, and keep the mailbox for given days. Defaults to 100 years.`{: .comment }"
 !!! api "`PUT`{: .put } `/api/user/<mail>`{: .url } `Update profile of an existing mail user`{: .comment } `Parameters`{: .has_params} "
 
     <div class="params params_user">
@@ -306,7 +306,7 @@ Notes:
     </div>
 
 !!! api "`POST`{: .put } `/api/user/<mail>/change_email/<new_mail>`{: .url } `Change user's email address (from '<mail>' to '<new_mail>')`{: .comment }"
-!!! api "`PUT`{: .put } `/api/users/<domain>`{: .url } `Update profiles of all users under domain`{: .comment } `upcoming`{: .upcoming } `Parameters`{: .has_params }"
+!!! api "`PUT`{: .put } `/api/users/<domain>`{: .url } `Update profiles of all users under domain`{: .comment } `Parameters`{: .has_params }"
 
     <div class="params">
 
@@ -319,7 +319,7 @@ Notes:
 
     </div>
 
-!!! api "`POST`{: .post } `/api/verify_password/user/<mail>`{: .url } `Verify given (plain) password against the one stored in SQL/LDAP`{: .comment } `upcoming`{: .upcoming } `Parameters`{: .has_params} "
+!!! api "`POST`{: .post } `/api/verify_password/user/<mail>`{: .url } `Verify given (plain) password against the one stored in SQL/LDAP`{: .comment } `Parameters`{: .has_params} "
 
     <div class="params params_user">
 
@@ -340,8 +340,8 @@ Notes:
     Mailing list is only available in OpenLDAP backend. For SQL backends,
     please use mail alias account as mailing list.
 
-!!! api "`GET`{: .get } `/api/maillist/<mail>`{: .url } `Get profile of an existing mailing list account`{: .comment } `upcoming`{: .upcoming }"
-!!! api "`POST`{: .post } `/api/maillist/<mail>`{: .url } `Create a new mailing list`{: .comment } `upcoming`{: .upcoming } `Parameters`{: .has_params }"
+!!! api "`GET`{: .get } `/api/maillist/<mail>`{: .url } `Get profile of an existing mailing list account`{: .comment }"
+!!! api "`POST`{: .post } `/api/maillist/<mail>`{: .url } `Create a new mailing list`{: .comment } `Parameters`{: .has_params }"
     <div class="params">
 
     Parameter | Summary | Sample Usage
@@ -369,8 +369,8 @@ Notes:
 
 ### Mail Alias {: .toggle }
 
-!!! api "`GET`{: .get } `/api/alias/<mail>`{: .url } `Get profile of an existing mail alias`{: .comment } `upcoming`{: .upcoming }"
-!!! api "`POST`{: .post } `/api/alias/<mail>`{: .url } `Create a new mail alias`{: .comment } `upcoming`{: .upcoming} `Parameters`{: .has_params}"
+!!! api "`GET`{: .get } `/api/alias/<mail>`{: .url } `Get profile of an existing mail alias`{: .comment }"
+!!! api "`POST`{: .post } `/api/alias/<mail>`{: .url } `Create a new mail alias`{: .comment } `Parameters`{: .has_params}"
 
     <div class="params">
 
@@ -409,15 +409,15 @@ Notes:
 
 ### Spam Policy {: .toggle }
 
-!!! api "`GET`{: .get } `/api/spampolicy/global`{: .url } `Get global spam policy`{: .comment } `upcoming`{: .upcoming }"
-!!! api "`PUT`{: .put } `/api/spampolicy/global`{: .url } `Set global spam policy`{: .comment } `upcoming`{: .upcoming } `Parameters`{: .has_params_spampolicy }"
-!!! api "`DELETE`{: .delete } `/api/spampolicy/global`{: .url } `Delete global spam policy`{: .comment } `upcoming`{: .upcoming }"
-!!! api "`GET`{: .get } `/api/spampolicy/domain/<domain>`{: .url } `Get per-domain spam policy`{: .comment } `upcoming`{: .upcoming }"
-!!! api "`PUT`{: .put } `/api/spampolicy/domain/<domain>`{: .url } `Set per-domain spam policy`{: .comment } `upcoming`{: .upcoming } `Parameters`{: .has_params_spampolicy }"
-!!! api "`DELETE`{: .delete } `/api/spampolicy/domain/<domain>`{: .url } `Delete per-domain spam policy`{: .comment } `upcoming`{: .upcoming }"
-!!! api "`GET`{: .get } `/api/spampolicy/user/<mail>`{: .url } `Get per-user spam policy`{: .comment } `upcoming`{: .upcoming }"
-!!! api "`PUT`{: .put } `/api/spampolicy/user/<mail>`{: .url } `Set per-user spam policy`{: .comment } `upcoming`{: .upcoming } `Parameters`{: .has_params_spampolicy }"
-!!! api "`DELETE`{: .delete } `/api/spampolicy/user/<mail>`{: .url } `Delete per-user spam policy`{: .comment } `upcoming`{: .upcoming }"
+!!! api "`GET`{: .get } `/api/spampolicy/global`{: .url } `Get global spam policy`{: .comment }"
+!!! api "`PUT`{: .put } `/api/spampolicy/global`{: .url } `Set global spam policy`{: .comment } `Parameters`{: .has_params_spampolicy }"
+!!! api "`DELETE`{: .delete } `/api/spampolicy/global`{: .url } `Delete global spam policy`{: .comment }"
+!!! api "`GET`{: .get } `/api/spampolicy/domain/<domain>`{: .url } `Get per-domain spam policy`{: .comment }"
+!!! api "`PUT`{: .put } `/api/spampolicy/domain/<domain>`{: .url } `Set per-domain spam policy`{: .comment } `Parameters`{: .has_params_spampolicy }"
+!!! api "`DELETE`{: .delete } `/api/spampolicy/domain/<domain>`{: .url } `Delete per-domain spam policy`{: .comment }"
+!!! api "`GET`{: .get } `/api/spampolicy/user/<mail>`{: .url } `Get per-user spam policy`{: .comment }"
+!!! api "`PUT`{: .put } `/api/spampolicy/user/<mail>`{: .url } `Set per-user spam policy`{: .comment } `Parameters`{: .has_params_spampolicy }"
+!!! api "`DELETE`{: .delete } `/api/spampolicy/user/<mail>`{: .url } `Delete per-user spam policy`{: .comment }"
 
     <div class="params params_spampolicy">
 
@@ -474,12 +474,12 @@ Notes:
 
 #### LDIF (LDAP backend only) {: .toggle }
 
-!!! api "`GET`{: .get } `/api/ldif/domain/<domain>`{: .url } `Export domain to LDIF`{: .comment } `upcoming`{: .upcoming }"
-!!! api "`GET`{: .get } `/api/ldif/catchall/<domain>`{: .url } `Export per-domain catch-all account to LDIF`{: .comment } `upcoming`{: .upcoming }"
-!!! api "`GET`{: .get } `/api/ldif/admin/<mail>`{: .url } `Export (separated) domain admin to LDIF`{: .comment } `upcoming`{: .upcoming }"
-!!! api "`GET`{: .get } `/api/ldif/user/<mail>`{: .url } `Export mail user to LDIF`{: .comment } `upcoming`{: .upcoming }"
-!!! api "`GET`{: .get } `/api/ldif/maillist/<mail>`{: .url } `Export mailing list account to LDIF`{: .comment } `upcoming`{: .upcoming }"
-!!! api "`GET`{: .get } `/api/ldif/alias/<mail>`{: .url } `Export mail alias account to LDIF`{: .comment } `upcoming`{: .upcoming }"
+!!! api "`GET`{: .get } `/api/ldif/domain/<domain>`{: .url } `Export domain to LDIF`{: .comment }"
+!!! api "`GET`{: .get } `/api/ldif/catchall/<domain>`{: .url } `Export per-domain catch-all account to LDIF`{: .comment }"
+!!! api "`GET`{: .get } `/api/ldif/admin/<mail>`{: .url } `Export (separated) domain admin to LDIF`{: .comment }"
+!!! api "`GET`{: .get } `/api/ldif/user/<mail>`{: .url } `Export mail user to LDIF`{: .comment }"
+!!! api "`GET`{: .get } `/api/ldif/maillist/<mail>`{: .url } `Export mailing list account to LDIF`{: .comment }"
+!!! api "`GET`{: .get } `/api/ldif/alias/<mail>`{: .url } `Export mail alias account to LDIF`{: .comment }"
 
 
 

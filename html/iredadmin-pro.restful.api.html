@@ -16,11 +16,6 @@
         <span>iRedMail</span>
     </a>
     &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><h1 id="iredadmin-pro-restful-api">iRedAdmin-Pro: RESTful API</h1>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>If you need an API which has not yet been implemented, don't hesitate to
-<a href="../contact.html">contact us</a>.</p>
-</div>
 <div class="toc">
 <ul>
 <li><a href="#iredadmin-pro-restful-api">iRedAdmin-Pro: RESTful API</a><ul>
@@ -47,6 +42,14 @@
 </li>
 </ul>
 </div>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<ul>
+<li>If you need an API which has not yet been implemented, don't hesitate to
+  <a href="../contact.html">contact us</a>.</li>
+<li>This document is applicable to iRedAdmin-Pro-LDAP-2.7.0 and iRedAdmin-Pro-SQL-2.5.0.</li>
+</ul>
+</div>
 <h3 id="changelog">ChangeLog</h3>
 <ul>
 <li>Variable names in returned JSON data has been changed to:
@@ -62,17 +65,14 @@
 <p>iRedAdmin-Pro RESTful API will return message in JSON format.</p>
 <ul>
 <li>If operation succeed:<ul>
-<li>For <code>POST</code>, <code>DELETE</code>, <code>PUT</code> actions, it returns JSON data: <code>{'_success': true}</code>.</li>
-<li>For <code>GET</code> action, it returns JSON data: <code>{'_success': true, '_data': &lt;program_output&gt;}</code>.</li>
+<li>For http <code>POST</code>, <code>DELETE</code>, <code>PUT</code> methods, it returns JSON data: <code>{'_success': true}</code>.</li>
+<li>For http <code>GET</code> method, it returns JSON data: <code>{'_success': true, '_data': &lt;program_output&gt;}</code>.</li>
 </ul>
 </li>
 <li>If operation failed, it returns JSON data: <code>{'_success': false, '_msg': '&lt;error_reason&gt;'}</code>.</li>
 </ul>
 <h2 id="requirements">Requirements</h2>
-<ul>
-<li>At least iRedAdmin-Pro-SQL-2.4.0 or iRedAdmin-Pro-LDAP-2.6.0. Earlier releases
-  didn't offer RESTful API.</li>
-</ul>
+<p>This document is applicable to iRedAdmin-Pro-LDAP-2.7.0 and iRedAdmin-Pro-SQL-2.5.0.</p>
 <h2 id="enable-restful-api">Enable RESTful API</h2>
 <p>RESTful API is disabled by default, to enable it, please add setting below in
 iRedAdmin-Pro config file <code>settings.py</code>:</p>
@@ -105,7 +105,7 @@ RESTFUL_API_CLIENTS = ['172.16.244.1', ...]
 <p><button type="button" class="toggle_all">Expand/Collapse All API Parameters</button></p>
 <h3 class="toggle" id="domain">Domain</h3>
 <div class="admonition api">
-<p class="admonition-title"><code class="get">GET</code> <code class="url">/api/domain/&lt;domain&gt;</code> <code class="comment">Get profile of an existing domain</code> <code class="upcoming">upcoming</code></p>
+<p class="admonition-title"><code class="get">GET</code> <code class="url">/api/domain/&lt;domain&gt;</code> <code class="comment">Get profile of an existing domain</code></p>
 </div>
 <div class="admonition api">
 <p class="admonition-title"><code class="post">POST</code> <code class="url">/api/domain/&lt;domain&gt;</code> <code class="comment">Create a new domain</code> <code class="has_params">Parameters</code></p>
@@ -184,10 +184,10 @@ RESTFUL_API_CLIENTS = ['172.16.244.1', ...]
 <p class="admonition-title"><code class="delete">DELETE</code> <code class="url">/api/domain/&lt;domain&gt;</code> <code class="comment">Delete an existing domain (all mail messages will NOT be removed)</code></p>
 </div>
 <div class="admonition api">
-<p class="admonition-title"><code class="delete">DELETE</code> <code class="url">/api/domain/&lt;domain&gt;/keep_mailbox_days/&lt;number&gt;</code> <code class="comment">Delete domain, and keep all mail messages for given days</code> <code class="upcoming">upcoming</code></p>
+<p class="admonition-title"><code class="delete">DELETE</code> <code class="url">/api/domain/&lt;domain&gt;/keep_mailbox_days/&lt;number&gt;</code> <code class="comment">Delete domain, and keep all mail messages for given days</code></p>
 </div>
 <div class="admonition api">
-<p class="admonition-title"><code class="put">PUT</code> <code class="url">/api/domain/&lt;domain&gt;</code> <code class="comment">Update profile of an existing domain</code> <code class="upcoming">upcoming</code> <code class="has_params">Parameters</code></p>
+<p class="admonition-title"><code class="put">PUT</code> <code class="url">/api/domain/&lt;domain&gt;</code> <code class="comment">Update profile of an existing domain</code> <code class="has_params">Parameters</code></p>
 <div class="params params_domain">
 
 <table>
@@ -495,7 +495,7 @@ RESTFUL_API_CLIENTS = ['172.16.244.1', ...]
 
 </div>
 <div class="admonition api">
-<p class="admonition-title"><code class="put">PUT</code> <code class="url">/api/domain/admins/&lt;domain&gt;</code> <code class="comment">Manage normal domain admins.</code> <code class="upcoming">upcoming</code> <code class="has_params">Parameters</code></p>
+<p class="admonition-title"><code class="put">PUT</code> <code class="url">/api/domain/admins/&lt;domain&gt;</code> <code class="comment">Manage normal domain admins.</code> <code class="has_params">Parameters</code></p>
 <div class="params params_domain_admins">
 
 <div class="admonition attention">
@@ -541,10 +541,10 @@ to be a domain admin.</p>
 </ul>
 </div>
 <div class="admonition api">
-<p class="admonition-title"><code class="get">GET</code> <code class="url">/api/admin/&lt;mail&gt;</code> <code class="comment">Get profile of an existing domain admin</code> <code class="upcoming">upcoming</code></p>
+<p class="admonition-title"><code class="get">GET</code> <code class="url">/api/admin/&lt;mail&gt;</code> <code class="comment">Get profile of an existing domain admin</code></p>
 </div>
 <div class="admonition api">
-<p class="admonition-title"><code class="post">POST</code> <code class="url">/api/admin/&lt;mail&gt;</code> <code class="comment">Create a new domain admin</code> <code class="upcoming">upcoming</code> <code class="has_params">Parameters</code></p>
+<p class="admonition-title"><code class="post">POST</code> <code class="url">/api/admin/&lt;mail&gt;</code> <code class="comment">Create a new domain admin</code> <code class="has_params">Parameters</code></p>
 <div class="params params_admin">
 
 <table>
@@ -629,10 +629,10 @@ to be a domain admin.</p>
 
 </div>
 <div class="admonition api">
-<p class="admonition-title"><code class="delete">DELETE</code> <code class="url">/api/admin/&lt;mail&gt;</code> <code class="comment">Delete an existing domain admin</code> <code class="upcoming">upcoming</code></p>
+<p class="admonition-title"><code class="delete">DELETE</code> <code class="url">/api/admin/&lt;mail&gt;</code> <code class="comment">Delete an existing domain admin</code></p>
 </div>
 <div class="admonition api">
-<p class="admonition-title"><code class="put">PUT</code> <code class="url">/api/admin/&lt;mail&gt;</code> <code class="comment">Update profile of an existing domain admin</code> <code class="upcoming">upcoming</code> <code class="has_params">Parameters</code></p>
+<p class="admonition-title"><code class="put">PUT</code> <code class="url">/api/admin/&lt;mail&gt;</code> <code class="comment">Update profile of an existing domain admin</code> <code class="has_params">Parameters</code></p>
 <div class="params params_admin">
 
 <table>
@@ -717,7 +717,7 @@ to be a domain admin.</p>
 
 </div>
 <div class="admonition api">
-<p class="admonition-title"><code class="post">POST</code> <code class="url">/api/verify_password/admin/&lt;mail&gt;</code> <code class="comment">Verify given (plain) password against the one stored in SQL/LDAP</code> <code class="upcoming">upcoming</code> <code class="has_params">Parameters</code> </p>
+<p class="admonition-title"><code class="post">POST</code> <code class="url">/api/verify_password/admin/&lt;mail&gt;</code> <code class="comment">Verify given (plain) password against the one stored in SQL/LDAP</code> <code class="has_params">Parameters</code> </p>
 <div class="params params_admin">
 
 <div class="admonition attention">
@@ -745,7 +745,7 @@ to be a domain admin.</p>
 </div>
 <h3 class="toggle" id="mail-user">Mail User</h3>
 <div class="admonition api">
-<p class="admonition-title"><code class="get">GET</code> <code class="url">/api/user/&lt;mail&gt;</code> <code class="comment">Get profile of an existing mail user</code> <code class="upcoming">upcoming</code></p>
+<p class="admonition-title"><code class="get">GET</code> <code class="url">/api/user/&lt;mail&gt;</code> <code class="comment">Get profile of an existing mail user</code></p>
 </div>
 <div class="admonition api">
 <p class="admonition-title"><code class="post">POST</code> <code class="url">/api/user/&lt;mail&gt;</code> <code class="comment">Create a new mail user</code> <code class="has_params">Parameters</code></p>
@@ -789,7 +789,7 @@ to be a domain admin.</p>
 <p class="admonition-title"><code class="delete">DELETE</code> <code class="url">/api/user/&lt;mail&gt;</code> <code class="comment">Delete an existing mail user</code></p>
 </div>
 <div class="admonition api">
-<p class="admonition-title"><code class="delete">DELETE</code> <code class="url">/api/user/&lt;mail&gt;/keep_mailbox_days/&lt;number&gt;</code> <code class="comment">Delete an existing mail user, and keep the mailbox for given days. Defaults to 100 years.</code> <code class="upcoming">upcoming</code></p>
+<p class="admonition-title"><code class="delete">DELETE</code> <code class="url">/api/user/&lt;mail&gt;/keep_mailbox_days/&lt;number&gt;</code> <code class="comment">Delete an existing mail user, and keep the mailbox for given days. Defaults to 100 years.</code></p>
 </div>
 <div class="admonition api">
 <p class="admonition-title"><code class="put">PUT</code> <code class="url">/api/user/&lt;mail&gt;</code> <code class="comment">Update profile of an existing mail user</code> <code class="has_params">Parameters</code> </p>
@@ -868,7 +868,7 @@ to be a domain admin.</p>
 <p class="admonition-title"><code class="put">POST</code> <code class="url">/api/user/&lt;mail&gt;/change_email/&lt;new_mail&gt;</code> <code class="comment">Change user's email address (from '&lt;mail&gt;' to '&lt;new_mail&gt;')</code></p>
 </div>
 <div class="admonition api">
-<p class="admonition-title"><code class="put">PUT</code> <code class="url">/api/users/&lt;domain&gt;</code> <code class="comment">Update profiles of all users under domain</code> <code class="upcoming">upcoming</code> <code class="has_params">Parameters</code></p>
+<p class="admonition-title"><code class="put">PUT</code> <code class="url">/api/users/&lt;domain&gt;</code> <code class="comment">Update profiles of all users under domain</code> <code class="has_params">Parameters</code></p>
 <div class="params">
 
 <table>
@@ -901,7 +901,7 @@ to be a domain admin.</p>
 
 </div>
 <div class="admonition api">
-<p class="admonition-title"><code class="post">POST</code> <code class="url">/api/verify_password/user/&lt;mail&gt;</code> <code class="comment">Verify given (plain) password against the one stored in SQL/LDAP</code> <code class="upcoming">upcoming</code> <code class="has_params">Parameters</code> </p>
+<p class="admonition-title"><code class="post">POST</code> <code class="url">/api/verify_password/user/&lt;mail&gt;</code> <code class="comment">Verify given (plain) password against the one stored in SQL/LDAP</code> <code class="has_params">Parameters</code> </p>
 <div class="params params_user">
 
 <div class="admonition attention">
@@ -934,10 +934,10 @@ to be a domain admin.</p>
 please use mail alias account as mailing list.</p>
 </div>
 <div class="admonition api">
-<p class="admonition-title"><code class="get">GET</code> <code class="url">/api/maillist/&lt;mail&gt;</code> <code class="comment">Get profile of an existing mailing list account</code> <code class="upcoming">upcoming</code></p>
+<p class="admonition-title"><code class="get">GET</code> <code class="url">/api/maillist/&lt;mail&gt;</code> <code class="comment">Get profile of an existing mailing list account</code></p>
 </div>
 <div class="admonition api">
-<p class="admonition-title"><code class="post">POST</code> <code class="url">/api/maillist/&lt;mail&gt;</code> <code class="comment">Create a new mailing list</code> <code class="upcoming">upcoming</code> <code class="has_params">Parameters</code></p>
+<p class="admonition-title"><code class="post">POST</code> <code class="url">/api/maillist/&lt;mail&gt;</code> <code class="comment">Create a new mailing list</code> <code class="has_params">Parameters</code></p>
 <div class="params">
 
 <table>
@@ -1017,10 +1017,10 @@ please use mail alias account as mailing list.</p>
 </div>
 <h3 class="toggle" id="mail-alias">Mail Alias</h3>
 <div class="admonition api">
-<p class="admonition-title"><code class="get">GET</code> <code class="url">/api/alias/&lt;mail&gt;</code> <code class="comment">Get profile of an existing mail alias</code> <code class="upcoming">upcoming</code></p>
+<p class="admonition-title"><code class="get">GET</code> <code class="url">/api/alias/&lt;mail&gt;</code> <code class="comment">Get profile of an existing mail alias</code></p>
 </div>
 <div class="admonition api">
-<p class="admonition-title"><code class="post">POST</code> <code class="url">/api/alias/&lt;mail&gt;</code> <code class="comment">Create a new mail alias</code> <code class="upcoming">upcoming</code> <code class="has_params">Parameters</code></p>
+<p class="admonition-title"><code class="post">POST</code> <code class="url">/api/alias/&lt;mail&gt;</code> <code class="comment">Create a new mail alias</code> <code class="has_params">Parameters</code></p>
 <div class="params">
 
 <table>
@@ -1111,31 +1111,31 @@ please use mail alias account as mailing list.</p>
 </div>
 <h3 class="toggle" id="spam-policy">Spam Policy</h3>
 <div class="admonition api">
-<p class="admonition-title"><code class="get">GET</code> <code class="url">/api/spampolicy/global</code> <code class="comment">Get global spam policy</code> <code class="upcoming">upcoming</code></p>
+<p class="admonition-title"><code class="get">GET</code> <code class="url">/api/spampolicy/global</code> <code class="comment">Get global spam policy</code></p>
 </div>
 <div class="admonition api">
-<p class="admonition-title"><code class="put">PUT</code> <code class="url">/api/spampolicy/global</code> <code class="comment">Set global spam policy</code> <code class="upcoming">upcoming</code> <code class="has_params_spampolicy">Parameters</code></p>
+<p class="admonition-title"><code class="put">PUT</code> <code class="url">/api/spampolicy/global</code> <code class="comment">Set global spam policy</code> <code class="has_params_spampolicy">Parameters</code></p>
 </div>
 <div class="admonition api">
-<p class="admonition-title"><code class="delete">DELETE</code> <code class="url">/api/spampolicy/global</code> <code class="comment">Delete global spam policy</code> <code class="upcoming">upcoming</code></p>
+<p class="admonition-title"><code class="delete">DELETE</code> <code class="url">/api/spampolicy/global</code> <code class="comment">Delete global spam policy</code></p>
 </div>
 <div class="admonition api">
-<p class="admonition-title"><code class="get">GET</code> <code class="url">/api/spampolicy/domain/&lt;domain&gt;</code> <code class="comment">Get per-domain spam policy</code> <code class="upcoming">upcoming</code></p>
+<p class="admonition-title"><code class="get">GET</code> <code class="url">/api/spampolicy/domain/&lt;domain&gt;</code> <code class="comment">Get per-domain spam policy</code></p>
 </div>
 <div class="admonition api">
-<p class="admonition-title"><code class="put">PUT</code> <code class="url">/api/spampolicy/domain/&lt;domain&gt;</code> <code class="comment">Set per-domain spam policy</code> <code class="upcoming">upcoming</code> <code class="has_params_spampolicy">Parameters</code></p>
+<p class="admonition-title"><code class="put">PUT</code> <code class="url">/api/spampolicy/domain/&lt;domain&gt;</code> <code class="comment">Set per-domain spam policy</code> <code class="has_params_spampolicy">Parameters</code></p>
 </div>
 <div class="admonition api">
-<p class="admonition-title"><code class="delete">DELETE</code> <code class="url">/api/spampolicy/domain/&lt;domain&gt;</code> <code class="comment">Delete per-domain spam policy</code> <code class="upcoming">upcoming</code></p>
+<p class="admonition-title"><code class="delete">DELETE</code> <code class="url">/api/spampolicy/domain/&lt;domain&gt;</code> <code class="comment">Delete per-domain spam policy</code></p>
 </div>
 <div class="admonition api">
-<p class="admonition-title"><code class="get">GET</code> <code class="url">/api/spampolicy/user/&lt;mail&gt;</code> <code class="comment">Get per-user spam policy</code> <code class="upcoming">upcoming</code></p>
+<p class="admonition-title"><code class="get">GET</code> <code class="url">/api/spampolicy/user/&lt;mail&gt;</code> <code class="comment">Get per-user spam policy</code></p>
 </div>
 <div class="admonition api">
-<p class="admonition-title"><code class="put">PUT</code> <code class="url">/api/spampolicy/user/&lt;mail&gt;</code> <code class="comment">Set per-user spam policy</code> <code class="upcoming">upcoming</code> <code class="has_params_spampolicy">Parameters</code></p>
+<p class="admonition-title"><code class="put">PUT</code> <code class="url">/api/spampolicy/user/&lt;mail&gt;</code> <code class="comment">Set per-user spam policy</code> <code class="has_params_spampolicy">Parameters</code></p>
 </div>
 <div class="admonition api">
-<p class="admonition-title"><code class="delete">DELETE</code> <code class="url">/api/spampolicy/user/&lt;mail&gt;</code> <code class="comment">Delete per-user spam policy</code> <code class="upcoming">upcoming</code></p>
+<p class="admonition-title"><code class="delete">DELETE</code> <code class="url">/api/spampolicy/user/&lt;mail&gt;</code> <code class="comment">Delete per-user spam policy</code></p>
 <div class="params params_spampolicy">
 
 <p>Parameters available for global, per-domain, per-user spam policies.</p>
@@ -1287,22 +1287,22 @@ please use mail alias account as mailing list.</p>
 <h3 class="toggle" id="export-accounts">Export Accounts</h3>
 <h4 class="toggle" id="ldif-ldap-backend-only">LDIF (LDAP backend only)</h4>
 <div class="admonition api">
-<p class="admonition-title"><code class="get">GET</code> <code class="url">/api/ldif/domain/&lt;domain&gt;</code> <code class="comment">Export domain to LDIF</code> <code class="upcoming">upcoming</code></p>
+<p class="admonition-title"><code class="get">GET</code> <code class="url">/api/ldif/domain/&lt;domain&gt;</code> <code class="comment">Export domain to LDIF</code></p>
 </div>
 <div class="admonition api">
-<p class="admonition-title"><code class="get">GET</code> <code class="url">/api/ldif/catchall/&lt;domain&gt;</code> <code class="comment">Export per-domain catch-all account to LDIF</code> <code class="upcoming">upcoming</code></p>
+<p class="admonition-title"><code class="get">GET</code> <code class="url">/api/ldif/catchall/&lt;domain&gt;</code> <code class="comment">Export per-domain catch-all account to LDIF</code></p>
 </div>
 <div class="admonition api">
-<p class="admonition-title"><code class="get">GET</code> <code class="url">/api/ldif/admin/&lt;mail&gt;</code> <code class="comment">Export (separated) domain admin to LDIF</code> <code class="upcoming">upcoming</code></p>
+<p class="admonition-title"><code class="get">GET</code> <code class="url">/api/ldif/admin/&lt;mail&gt;</code> <code class="comment">Export (separated) domain admin to LDIF</code></p>
 </div>
 <div class="admonition api">
-<p class="admonition-title"><code class="get">GET</code> <code class="url">/api/ldif/user/&lt;mail&gt;</code> <code class="comment">Export mail user to LDIF</code> <code class="upcoming">upcoming</code></p>
+<p class="admonition-title"><code class="get">GET</code> <code class="url">/api/ldif/user/&lt;mail&gt;</code> <code class="comment">Export mail user to LDIF</code></p>
 </div>
 <div class="admonition api">
-<p class="admonition-title"><code class="get">GET</code> <code class="url">/api/ldif/maillist/&lt;mail&gt;</code> <code class="comment">Export mailing list account to LDIF</code> <code class="upcoming">upcoming</code></p>
+<p class="admonition-title"><code class="get">GET</code> <code class="url">/api/ldif/maillist/&lt;mail&gt;</code> <code class="comment">Export mailing list account to LDIF</code></p>
 </div>
 <div class="admonition api">
-<p class="admonition-title"><code class="get">GET</code> <code class="url">/api/ldif/alias/&lt;mail&gt;</code> <code class="comment">Export mail alias account to LDIF</code> <code class="upcoming">upcoming</code></p>
+<p class="admonition-title"><code class="get">GET</code> <code class="url">/api/ldif/alias/&lt;mail&gt;</code> <code class="comment">Export mail alias account to LDIF</code></p>
 </div>
 <script src="./js/jquery-1.12.3.min.js"></script>
 
