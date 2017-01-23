@@ -2,10 +2,6 @@
 
 [TOC]
 
-!!! warning
-
-    This tutorial is still a __DRAFT__, do not apply it.
-
 !!! note "Paid Remote Upgrade Support"
 
     We offer remote upgrade support if you don't want to get your hands dirty,
@@ -13,22 +9,7 @@
 
 ## ChangeLog
 
-* Jan 22, 2016: Fixed: Postfix allows email sent through port 587 without smtp authentication from trusted clients 
-* Jan 13, 2016: Fixed: Awstats is world-accessible with Apache.
-* Jan  8, 2016: Fixed: missing cron job used to clean up old Roundcube temporary files.
-* Dec 27, 2016: Add more banned file types/extensions in Amavisd.
-* Dec 12, 2016: Improve Fail2ban filter regular expression to catch more POP3/IMAP spams
-* Nov  9, 2016: Fixed: Memcached listens on all available IP addresses instead of `127.0.0.1`
-* Nov  9, 2016: Fixed: not allow access to '/.well-known/' in Nginx
-* Nov  1, 2016: Fixed: invalid default (datetime) value for some SQL columns in 'vmail' database.
-* Oct 21, 2016: Fixed: [ldap] mail accounts (user, alias, list) are still active when domain is disabled.
-* Sep  8, 2016: Fixed: HTTProxy vulnerability in Apache and Nginx.
-* Jul  2, 2016: Fixed: SOGo-3.1.3 (and later releases) changed argument used by `sogo-tool` command.
-* Jun 10, 2016: Fixed: Nginx doesn't forward real client IP address to SOGo.
-* Jun  8, 2016: Set correct file owner for config file of Roundcube password plugin.
-* Jun  8, 2016: Fixed: one incorrect HELO restriction rule in Postfix.
-* May 27, 2016: Fixed: not enable opportunistic TLS support in Postfix.
-* May 24, 2016: Initial __DRAFT__.
+* Jan 23, 2016: Initial publish.
 
 ## General (All backends should apply these steps)
 
@@ -42,14 +23,14 @@ so that you can know which version of iRedMail you're running. For example:
 0.9.6
 ```
 
-### Upgrade iRedAPD (Postfix policy server) to the latest stable release (1.9.2)
+### Upgrade iRedAPD (Postfix policy server) to the latest stable release (2.0)
 
 Please follow below tutorial to upgrade iRedAPD to the latest stable release:
 [Upgrade iRedAPD to the latest stable release](./upgrade.iredapd.html)
 
 Detailed release notes are available [here](./iredapd.releases.html).
 
-### Upgrade iRedAdmin (open source edition) to the latest stable release (0.6.3)
+### Upgrade iRedAdmin (open source edition) to the latest stable release (0.7)
 
 Please follow this tutorial to upgrade iRedAdmin open source edition to the
 latest stable release:
