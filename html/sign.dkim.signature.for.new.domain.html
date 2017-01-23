@@ -78,8 +78,14 @@ line like below:</p>
 a new DKIM key and ask your customer to add DKIM DNS record. Refer to our
 tutorial to <a href="setup.dns.html#dkim-record-for-your-mail-domain-name">add DKIM DNS record</a>.</p>
 <ul>
-<li>Generate new DKIM key (key length <code>1024</code>) for new domain, and set correct
-  file owner and permission</li>
+<li>
+<p>Generate new DKIM key (key length <code>1024</code>) for new domain, and set correct
+  file owner and permission</p>
+<ul>
+<li>on RHEL/CentOS, FreeBSD, OpenBSD, the command is <code>amavisd</code></li>
+<li>on Debian/Ubuntu, the command is <code>amavisd-new</code></li>
+</ul>
+</li>
 </ul>
 <pre><code class="shell">amavisd-new genrsa /var/lib/dkim/new_domain.com.pem 1024
 chown amavisd:amavisd /var/lib/dkim/new_domain.com.pem

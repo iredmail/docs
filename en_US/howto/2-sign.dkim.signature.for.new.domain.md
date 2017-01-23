@@ -59,6 +59,9 @@ tutorial to [add DKIM DNS record](setup.dns.html#dkim-record-for-your-mail-domai
 * Generate new DKIM key (key length `1024`) for new domain, and set correct
   file owner and permission
 
+    * on RHEL/CentOS, FreeBSD, OpenBSD, the command is `amavisd`
+    * on Debian/Ubuntu, the command is `amavisd-new`
+
 ```shell
 amavisd-new genrsa /var/lib/dkim/new_domain.com.pem 1024
 chown amavisd:amavisd /var/lib/dkim/new_domain.com.pem
