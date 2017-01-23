@@ -285,6 +285,21 @@ RESTFUL_API_CLIENTS = ['172.16.244.1', ...]
 <td><code>outboundRelay=smtp:[192.168.1.2]:25</code> or <code>outboundRelay=</code> (disable outbound relay)</td>
 </tr>
 <tr>
+<td><code>enableService</code></td>
+<td>Enable new services. Multiple services must be separated by comma. Available services are listed below.</td>
+<td><code>enableService=self-service</code></td>
+</tr>
+<tr>
+<td><code>disableService</code></td>
+<td>Disable existing services. Multiple services must be separated by comma. Available services are listed below.</td>
+<td><code>disableService=self-service</code></td>
+</tr>
+<tr>
+<td><code>removeAllServices</code></td>
+<td>Disable all services (including mail service)</td>
+<td><code>removeAllServices=</code> (empty value)</td>
+</tr>
+<tr>
 <td><code>disableDomainProfile</code></td>
 <td>disable given domain profiles. Normal admin cannot view and update disabled profiles in domain profile page. Available domain profiles are listed below.</td>
 <td><code>disableDomainProfile=bcc,relay,aliases</code></td>
@@ -313,6 +328,37 @@ RESTFUL_API_CLIENTS = ['172.16.244.1', ...]
 <td><code>enableUserPreference</code></td>
 <td>disable given user preferences in self-service page. Normal mail user can view and update disabled preferences. Available user preferences are listed below.</td>
 <td><code>enableUserProfile=forwarding,wblist</code></td>
+</tr>
+</tbody>
+</table>
+<p>Available mail services:</p>
+<table>
+<thead>
+<tr>
+<th>Profile</th>
+<th>Comment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>self-service</td>
+<td>Enable self-service for the mail domain.</td>
+</tr>
+<tr>
+<td>mail</td>
+<td>All mail services. (LDAP backends only)</td>
+</tr>
+<tr>
+<td>domainalias</td>
+<td>Alias domain support. (LDAP backends only)</td>
+</tr>
+<tr>
+<td>senderbcc</td>
+<td>Per-domain sender bcc. (LDAP backends only)</td>
+</tr>
+<tr>
+<td>recipientbcc</td>
+<td>Per-domain recipient bcc. (LDAP backends only)</td>
 </tr>
 </tbody>
 </table>
@@ -442,42 +488,6 @@ RESTFUL_API_CLIENTS = ['172.16.244.1', ...]
 <tr>
 <td>spampolicy</td>
 <td>Per-user spam policy</td>
-</tr>
-</tbody>
-</table>
-</div>
-
-</div>
-<div class="admonition api">
-<p class="admonition-title"><code class="get">GET</code> <code class="url">/api/domain/services/&lt;domain&gt;</code> <code class="comment">Get/List all enabled per-domain services</code> <code class="upcoming">upcoming</code></p>
-</div>
-<div class="admonition api">
-<p class="admonition-title"><code class="put">PUT</code> <code class="url">/api/domain/services/&lt;domain&gt;</code> <code class="comment">Manage enabled per-domain services</code> <code class="upcoming">upcoming</code> <code class="has_params">Parameters</code></p>
-<div class="params params_domain_services">
-
-<table>
-<thead>
-<tr>
-<th>Parameter</th>
-<th>Summary</th>
-<th>Sample Usage</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>enableService</code></td>
-<td>Enable new services. Multiple services must be separated by comma.</td>
-<td><code>enableService=sogo,vpn,xmpp</code></td>
-</tr>
-<tr>
-<td><code>disableService</code></td>
-<td>Disable existing services. Multiple services must be separated by comma.</td>
-<td><code>disableService=sogo,vpn,xmpp</code></td>
-</tr>
-<tr>
-<td><code>removeAllServices</code></td>
-<td>Disable all services (including mail service)</td>
-<td><code>removeAllServices=</code> (empty value)</td>
 </tr>
 </tbody>
 </table>

@@ -116,12 +116,25 @@ Notes:
     `primarymx` | Hostname or IP address of primary MX, smtp port number is optional. Must be used with parameter `is_backupmx`. Conflicts with parameter `transport`. | `primarymx=202.96.134.133`, `primarymx=[mail.iredmail.org]:25`
     `catchall` | Per-domain catch-all account (a list of email addresses used to receive emails sent to non-existing addresses under same domain). Multiple addresses must be separated by comma. Set an empty value to disable catch-all support. | `catchall=user@domain.com,user2@domain.com` or `catchall=` (disable catch-all)
     `outboundRelay` | Per-domain outbound relay. Set an empty value to disable outbound relay. | `outboundRelay=smtp:[192.168.1.2]:25` or `outboundRelay=` (disable outbound relay)
+    `enableService` | Enable new services. Multiple services must be separated by comma. Available services are listed below. | `enableService=self-service`
+    `disableService` | Disable existing services. Multiple services must be separated by comma. Available services are listed below. | `disableService=self-service`
+    `removeAllServices` | Disable all services (including mail service) | `removeAllServices=` (empty value)
     `disableDomainProfile` | disable given domain profiles. Normal admin cannot view and update disabled profiles in domain profile page. Available domain profiles are listed below. | `disableDomainProfile=bcc,relay,aliases`
     `enableDomainProfile` | enable given domain profiles. Normal admin can view and update disabled profiles in domain profile page. Available domain profiles are listed below. | `enableDomainProfile=bcc,relay,aliases`
     `disableUserProfile` | disable given user profiles. Normal admin cannot view and update disabled profiles in user profile page. Available user profiles are listed below. | `disableUserProfile=bcc,relay,aliases`
     `enableUserProfile` | enable given domain profiles. Normal admin can view and update disabled profiles in user profile page. Available user profiles are listed below. | `enableUserProfile=bcc,relay,aliases`
     `disableUserPreference` | disable given user preferences in self-service page. Normal mail user cannot view and update disabled preferences. Available user preferences are listed below. | `disableUserPreference=forwarding,wblist`
     `enableUserPreference` | disable given user preferences in self-service page. Normal mail user can view and update disabled preferences. Available user preferences are listed below. | `enableUserProfile=forwarding,wblist`
+
+    Available mail services:
+
+    Profile | Comment
+    --- |---
+    self-service | Enable self-service for the mail domain.
+    mail | All mail services. (LDAP backends only)
+    domainalias | Alias domain support. (LDAP backends only)
+    senderbcc | Per-domain sender bcc. (LDAP backends only)
+    recipientbcc | Per-domain recipient bcc. (LDAP backends only)
 
     Available domain profiles:
 
@@ -161,19 +174,6 @@ Notes:
     quarantine | Manage quarantined mails
     rcvd_mails | View basic info of received mails, and whitelist/blacklist mail sender directly.
     spampolicy | Per-user spam policy
-
-    </div>
-
-!!! api "`GET`{: .get } `/api/domain/services/<domain>`{: .url } `Get/List all enabled per-domain services`{: .comment } `upcoming`{: .upcoming }"
-!!! api "`PUT`{: .put } `/api/domain/services/<domain>`{: .url } `Manage enabled per-domain services`{: .comment } `upcoming`{: .upcoming } `Parameters`{: .has_params }"
-
-    <div class="params params_domain_services">
-
-    Parameter | Summary | Sample Usage
-    --- |--- |---
-    `enableService` | Enable new services. Multiple services must be separated by comma. | `enableService=sogo,vpn,xmpp`
-    `disableService` | Disable existing services. Multiple services must be separated by comma. | `disableService=sogo,vpn,xmpp`
-    `removeAllServices` | Disable all services (including mail service) | `removeAllServices=` (empty value)
 
     </div>
 
