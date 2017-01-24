@@ -202,14 +202,14 @@ chmod 0400 /opt/www/roundcubemail/plugins/password/config.inc.php
 
 * On FreeBSD:
 ```
-chown www:www /usr/local/www/roundcubemail/plugins/password/config.inc.php
-chmod 0400 /usr/local/www/roundcubemail/plugins/password/config.inc.php
+chown www:www /usr/local/www/roundcube/plugins/password/config.inc.php
+chmod 0400 /usr/local/www/roundcube/plugins/password/config.inc.php
 ```
 
 * On FreeBSD:
 ```
-chown www:www /var/www/roundcubemail/plugins/password/config.inc.php
-chmod 0400 /var/www/roundcubemail/plugins/password/config.inc.php
+chown www:www /var/www/roundcube/plugins/password/config.inc.php
+chmod 0400 /var/www/roundcube/plugins/password/config.inc.php
 ```
 
 ### Fixed: missing cron job used to clean up old Roundcube temporary files
