@@ -148,7 +148,8 @@ submission ...
 
 iRedMail-0.9.5 and iRedMail-0.9.5-1 didn't enable opportunistic TLS support in
 Postfix, this causes other servers cannot transfer emails via TLS secure
-connection. Please fix it with commands below.
+connection. Please fix it with commands below. If you already have this
+setting in `/etc/postfix/main.cf`, it's safe to ignore this step.
 
 ```
 postconf -e smtpd_tls_security_level='may'

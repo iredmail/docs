@@ -188,7 +188,8 @@ below to fix it.</p>
 <h3 id="fixed-not-enable-opportunistic-tls-support-in-postfix">Fixed: not enable opportunistic TLS support in Postfix</h3>
 <p>iRedMail-0.9.5 and iRedMail-0.9.5-1 didn't enable opportunistic TLS support in
 Postfix, this causes other servers cannot transfer emails via TLS secure
-connection. Please fix it with commands below.</p>
+connection. Please fix it with commands below. If you already have this
+setting in <code>/etc/postfix/main.cf</code>, it's safe to ignore this step.</p>
 <pre><code>postconf -e smtpd_tls_security_level='may'
 postfix reload
 </code></pre>
