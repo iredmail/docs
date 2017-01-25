@@ -25,6 +25,7 @@
 <li><a href="#enable-restful-api">Enable RESTful API</a></li>
 <li><a href="#sample-code-to-interact-with-iredadmin-pro-restful-api">Sample code to interact with iRedAdmin-Pro RESTful API</a></li>
 <li><a href="#apis">APIs</a><ul>
+<li><a href="#login">Login</a></li>
 <li><a href="#domain">Domain</a></li>
 <li><a href="#domain-admin">Domain Admin</a></li>
 <li><a href="#mail-user">Mail User</a></li>
@@ -103,6 +104,35 @@ RESTFUL_API_CLIENTS = ['172.16.244.1', ...]
 <li>replace <code>&lt;number&gt;</code> in URL by an integer number. e.g. <code>30</code>, <code>200</code></li>
 </ul>
 <p><button type="button" class="toggle_all">Expand/Collapse All API Parameters</button></p>
+<h3 class="toggle" id="login">Login</h3>
+<div class="admonition api">
+<p class="admonition-title"><code class="post">POST</code> <code class="url">/api/login</code> <code class="comment">Login with an admin username (full email address) and password</code> <code class="has_params">Parameters</code></p>
+<div class="params params_domain">
+
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Summary</th>
+<th>Sample Usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>username</code></td>
+<td>Admin username. Must be a full email address.</td>
+<td><code>username=admin@mydomain.com</code></td>
+</tr>
+<tr>
+<td><code>password</code></td>
+<td>(Plain) admin password.</td>
+<td><code>password=AsTr0ng@</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+
+</div>
 <h3 class="toggle" id="domain">Domain</h3>
 <div class="admonition api">
 <p class="admonition-title"><code class="get">GET</code> <code class="url">/api/domain/&lt;domain&gt;</code> <code class="comment">Get profile of an existing domain</code></p>

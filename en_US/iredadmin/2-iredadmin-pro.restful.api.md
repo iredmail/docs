@@ -68,6 +68,19 @@ Notes:
 
 <button type="button" class="toggle_all">Expand/Collapse All API Parameters</button>
 
+### Login {: .toggle }
+
+!!! api "`POST`{: .post } `/api/login`{: .url } `Login with an admin username (full email address) and password`{: .comment } `Parameters`{: .has_params }"
+
+    <div class="params params_domain">
+
+    Parameter | Summary | Sample Usage
+    --- |--- |---
+    `username` | Admin username. Must be a full email address. | `username=admin@mydomain.com`
+    `password` | (Plain) admin password. | `password=AsTr0ng@`
+
+    </div>
+
 ### Domain {: .toggle }
 
 !!! api "`GET`{: .get } `/api/domain/<domain>`{: .url } `Get profile of an existing domain`{: .comment }"
