@@ -66,7 +66,7 @@ tutorial to [add DKIM DNS record](setup.dns.html#dkim-record-for-your-mail-domai
 
 ```shell
 amavisd-new genrsa /var/lib/dkim/new_domain.com.pem 1024
-chown amavisd:amavisd /var/lib/dkim/new_domain.com.pem
+chown amavis:amavis /var/lib/dkim/new_domain.com.pem
 chmod 0400 /var/lib/dkim/new_domain.com.pem
 ```
 
