@@ -263,7 +263,8 @@ larger and larger with temporary files.</p>
 <ul>
 <li>RHEL/CentOS:</li>
 </ul>
-<pre><code># Roundcube: Cleanup old temp files (defaults to keep for 2 days)
+<pre><code># Roundcube: Cleanup old temp files.
+# Defaults to keep for 2 days, controlled by Roundcube parameter $config['temp_dir_ttl'].
 2   2   *   *   *   php /var/www/roundcubemail/bin/gc.sh &gt;/dev/null
 </code></pre>
 
@@ -277,21 +278,24 @@ correct one on your server.</p>
 </blockquote>
 </li>
 </ul>
-<pre><code># Roundcube: Cleanup old temp files (defaults to keep for 2 days)
+<pre><code># Roundcube: Cleanup old temp files.
+# Defaults to keep for 2 days, controlled by Roundcube parameter $config['temp_dir_ttl'].
 2   2   *   *   *   php /opt/www/roundcubemail/bin/gc.sh &gt;/dev/null
 </code></pre>
 
 <ul>
 <li>FreeBSD:</li>
 </ul>
-<pre><code># Roundcube: Cleanup old temp files (defaults to keep for 2 days)
+<pre><code># Roundcube: Cleanup old temp files.
+# Defaults to keep for 2 days, controlled by Roundcube parameter $config['temp_dir_ttl'].
 2   2   *   *   *   php /usr/local/www/roundcube/bin/gc.sh &gt;/dev/null
 </code></pre>
 
 <ul>
 <li>OpenBSD:</li>
 </ul>
-<pre><code># Roundcube: Cleanup old temp files (defaults to keep for 2 days)
+<pre><code># Roundcube: Cleanup old temp files.
+# Defaults to keep for 2 days, controlled by Roundcube parameter $config['temp_dir_ttl'].
 2   2   *   *   *   php /var/www/roundcubemail/bin/gc.sh &gt;/dev/null
 </code></pre>
 

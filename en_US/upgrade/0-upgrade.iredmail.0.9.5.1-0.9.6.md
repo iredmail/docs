@@ -230,7 +230,8 @@ Then add cron job like below:
 * RHEL/CentOS:
 
 ```
-# Roundcube: Cleanup old temp files (defaults to keep for 2 days)
+# Roundcube: Cleanup old temp files.
+# Defaults to keep for 2 days, controlled by Roundcube parameter $config['temp_dir_ttl'].
 2   2   *   *   *   php /var/www/roundcubemail/bin/gc.sh >/dev/null
 ```
 
@@ -241,21 +242,24 @@ Then add cron job like below:
     > correct one on your server.
 
 ```
-# Roundcube: Cleanup old temp files (defaults to keep for 2 days)
+# Roundcube: Cleanup old temp files.
+# Defaults to keep for 2 days, controlled by Roundcube parameter $config['temp_dir_ttl'].
 2   2   *   *   *   php /opt/www/roundcubemail/bin/gc.sh >/dev/null
 ```
 
 * FreeBSD:
 
 ```
-# Roundcube: Cleanup old temp files (defaults to keep for 2 days)
+# Roundcube: Cleanup old temp files.
+# Defaults to keep for 2 days, controlled by Roundcube parameter $config['temp_dir_ttl'].
 2   2   *   *   *   php /usr/local/www/roundcube/bin/gc.sh >/dev/null
 ```
 
 * OpenBSD:
 
 ```
-# Roundcube: Cleanup old temp files (defaults to keep for 2 days)
+# Roundcube: Cleanup old temp files.
+# Defaults to keep for 2 days, controlled by Roundcube parameter $config['temp_dir_ttl'].
 2   2   *   *   *   php /var/www/roundcubemail/bin/gc.sh >/dev/null
 ```
 
