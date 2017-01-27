@@ -629,9 +629,9 @@ of them have read-write privilege to update mail accounts.
 
 ### Fix invalid default (datetime) value for some SQL columns in 'vmail' database
 
-If you're going to upgrade MySQL/MariaDB to MySQL 5.7, or already upgraded,
-please run SQL commands below as SQL root user to fix invalid default value
-for some SQL columns in `vmail` database.
+Default value of some SQL columns in `vmail` database will become invalid (an error)
+in MySQL 5.7, no matter which version of MySQL you're running, please run SQL
+commands below as SQL root user to fix them.
 
 ```
 USE vmail;

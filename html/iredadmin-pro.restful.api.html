@@ -876,7 +876,7 @@ to be a domain admin.</p>
 </tr>
 <tr>
 <td><code>aliases</code></td>
-<td>Per-user alias addresses. Multiple addresses must be separated by comma. If empty, all per-user alias addresses owned by this user will be removed. Conflicts with parameter <code>addAlias</code> and <code>removeAlias</code>.</td>
+<td>Per-user alias addresses. Multiple addresses must be separated by comma. If empty, all per-user alias addresses owned by this user will be removed. <strong>If given addresses exist on system before this assignment, they won't be assigned to the user.</strong> Conflicts with parameter <code>addAlias</code> and <code>removeAlias</code>.</td>
 <td><code>aliases=user1@domain.com,user2@domain.com,user3@domain.com</code></td>
 </tr>
 <tr>

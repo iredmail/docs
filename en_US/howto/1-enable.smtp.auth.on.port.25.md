@@ -32,7 +32,7 @@ below to enable it.
     for secure connection, if you don't want this for some reason, please
     comment it out.
 
-* uncomment the last 4 lines:
+* uncomment lines below:
 
 ```
 smtpd_sasl_auth_enable = yes
