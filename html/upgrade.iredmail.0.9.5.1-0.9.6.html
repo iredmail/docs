@@ -245,10 +245,10 @@ chmod 0400 /usr/local/www/roundcube/plugins/password/config.inc.php
 </code></pre>
 
 <ul>
-<li>On FreeBSD:</li>
+<li>On OpenBSD:</li>
 </ul>
-<pre><code>chown www:www /var/www/roundcube/plugins/password/config.inc.php
-chmod 0400 /var/www/roundcube/plugins/password/config.inc.php
+<pre><code>chown www:www /var/www/roundcubemail/plugins/password/config.inc.php
+chmod 0400 /var/www/roundcubemail/plugins/password/config.inc.php
 </code></pre>
 
 <h3 id="fixed-missing-cron-job-used-to-clean-up-old-roundcube-temporary-files">Fixed: missing cron job used to clean up old Roundcube temporary files</h3>
@@ -288,7 +288,7 @@ correct one on your server.</p>
 </ul>
 <pre><code># Roundcube: Cleanup old temp files.
 # Defaults to keep for 2 days, controlled by Roundcube parameter $config['temp_dir_ttl'].
-2   2   *   *   *   php /usr/local/www/roundcube/bin/gc.sh &gt;/dev/null
+2   2   *   *   *   /usr/local/bin/php /usr/local/www/roundcube/bin/gc.sh &gt;/dev/null
 </code></pre>
 
 <ul>

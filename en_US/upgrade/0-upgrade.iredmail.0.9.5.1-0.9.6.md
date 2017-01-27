@@ -207,10 +207,10 @@ chown www:www /usr/local/www/roundcube/plugins/password/config.inc.php
 chmod 0400 /usr/local/www/roundcube/plugins/password/config.inc.php
 ```
 
-* On FreeBSD:
+* On OpenBSD:
 ```
-chown www:www /var/www/roundcube/plugins/password/config.inc.php
-chmod 0400 /var/www/roundcube/plugins/password/config.inc.php
+chown www:www /var/www/roundcubemail/plugins/password/config.inc.php
+chmod 0400 /var/www/roundcubemail/plugins/password/config.inc.php
 ```
 
 ### Fixed: missing cron job used to clean up old Roundcube temporary files
@@ -252,7 +252,7 @@ Then add cron job like below:
 ```
 # Roundcube: Cleanup old temp files.
 # Defaults to keep for 2 days, controlled by Roundcube parameter $config['temp_dir_ttl'].
-2   2   *   *   *   php /usr/local/www/roundcube/bin/gc.sh >/dev/null
+2   2   *   *   *   /usr/local/bin/php /usr/local/www/roundcube/bin/gc.sh >/dev/null
 ```
 
 * OpenBSD:
