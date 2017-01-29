@@ -20,13 +20,17 @@
 <ul>
 <li><a href="#fixes-you-need-after-upgrading-ubuntu-to-1604-from-1404">Fixes you need after upgrading Ubuntu to 16.04 from 14.04</a><ul>
 <li><a href="#postfix">Postfix</a></li>
-<li><a href="#php-optional">PHP [OPTIONAL]</a></li>
+<li><a href="#iredapd">iRedAPD</a></li>
+<li><a href="#php-optional">PHP [OPTIONAL]</a><ul>
+<li><a href="#nginx-and-php-fpm">Nginx and php-fpm</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
 </div>
 <h2 id="postfix">Postfix</h2>
-<pre><code>postconf -e daemon_directory='/usr/lib/postfix/sbin’
+<pre><code>postconf -e daemon_directory='/usr/lib/postfix/sbin'
 postconf -e shlib_directory='/usr/lib/postfix'
 </code></pre>
 
@@ -34,13 +38,31 @@ postconf -e shlib_directory='/usr/lib/postfix'
 <li>Incorrect <code>daemon_directory</code> causes Postfix cannot start.</li>
 <li>Incorrect <code>shlib_directory</code> causes Postfix cannot find pcre/mysql/pgsql/ldap modules.</li>
 </ul>
+<h2 id="iredapd">iRedAPD</h2>
+<p>iRedAPD requires package <code>python-pymysql</code>:</p>
+<pre><code>apt -y install python-pymysql
+</code></pre>
+
 <h2 id="php-optional">PHP [OPTIONAL]</h2>
 <blockquote>
 <p>NOTE: This step is toally optional if you're fine with old PHP release.</p>
 </blockquote>
 <p>php was not upgraded to 7.0 automatically, have to install them manually:</p>
 <pre><code>apt-get install php-json php-gd php-mcrypt php-curl mcrypt php-intl php-xml php-mbstring php-mysql libapache2-mod-php
-</code></pre><div class="footer">
+</code></pre>
+
+<h3 id="nginx-and-php-fpm">Nginx and php-fpm</h3>
+<p>If you're running Nginx, you must install package <code>php-fpm</code> too:</p>
+<pre><code>apt install php-fpm
+</code></pre>
+
+<p>php-fpm daemon socket file is changed:</p>
+<ul>
+<li>old one: <code>/var/run/php-fpm.socket</code></li>
+<li>new one: <code>/var/run/php/php7.0-fpm.sock</code></li>
+</ul>
+<p>iRedMail hard-codes php-fpm socket file in <code>/etc/nginx/nginx.conf</code> or
+<code>/etc/nginx/conf.d/default.conf</code>, you must update them to use new socket file.</p><div class="footer">
     <p style="text-align: center; color: grey;">All documents are available in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://bitbucket.org/zhb/iredmail-docs/get/tip.tar.bz2">download the latest version</a> for offline reading. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
 </div>
 <script type="text/javascript">
