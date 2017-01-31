@@ -21,6 +21,7 @@
 <li><a href="#fixes-you-need-after-upgrading-ubuntu-to-1604-from-1404">Fixes you need after upgrading Ubuntu to 16.04 from 14.04</a><ul>
 <li><a href="#postfix">Postfix</a></li>
 <li><a href="#iredapd">iRedAPD</a></li>
+<li><a href="#roundcube-webmail">Roundcube webmail</a></li>
 <li><a href="#php-optional">PHP [OPTIONAL]</a><ul>
 <li><a href="#nginx-and-php-fpm">Nginx and php-fpm</a></li>
 </ul>
@@ -41,6 +42,25 @@ postconf -e shlib_directory='/usr/lib/postfix'
 <h2 id="iredapd">iRedAPD</h2>
 <p>iRedAPD requires package <code>python-pymysql</code>:</p>
 <pre><code>apt -y install python-pymysql
+</code></pre>
+
+<h2 id="roundcube-webmail">Roundcube webmail</h2>
+<p>Make sure you have settings below in Roundcube config file <code>config/config.inc.php</code>:</p>
+<pre><code>// Required if you're running PHP 5.6 or later
+$config['imap_conn_options'] = array(
+    'ssl' =&gt; array(
+        'verify_peer'  =&gt; false,
+        'verify_peer_name' =&gt; false,
+    ),
+);
+
+// Required if you're running PHP 5.6 or later
+$config['smtp_conn_options'] = array(
+    'ssl' =&gt; array(
+        'verify_peer'      =&gt; false,
+        'verify_peer_name' =&gt; false,
+    ),
+);
 </code></pre>
 
 <h2 id="php-optional">PHP [OPTIONAL]</h2>

@@ -20,6 +20,28 @@ iRedAPD requires package `python-pymysql`:
 apt -y install python-pymysql
 ```
 
+## Roundcube webmail
+
+Make sure you have settings below in Roundcube config file `config/config.inc.php`:
+
+```
+// Required if you're running PHP 5.6 or later
+$config['imap_conn_options'] = array(
+    'ssl' => array(
+        'verify_peer'  => false,
+        'verify_peer_name' => false,
+    ),
+);
+
+// Required if you're running PHP 5.6 or later
+$config['smtp_conn_options'] = array(
+    'ssl' => array(
+        'verify_peer'      => false,
+        'verify_peer_name' => false,
+    ),
+);
+```
+
 ## PHP [OPTIONAL]
 
 > NOTE: This step is toally optional if you're fine with old PHP release.
