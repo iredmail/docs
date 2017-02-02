@@ -475,7 +475,7 @@ your Amavisd config file.</p>
 </li>
 </ul>
 <pre><code>$banned_namepath_re = new_RE(
-    [qr'T=(zip|rar|arc|arj|zoo|gz|bz2)(,|\t)'xmi =&gt; 'DISCARD'],     # Compressed file types
+    [qr'T=(rar|arc|arj|zoo|gz|bz2)(,|\t)'xmi =&gt; 'DISCARD'],     # Compressed file types
     [qr'T=x-(msdownload|msdos-program|msmetafile|wmf)(,|\t)'xmi =&gt; 'DISCARD'],
     [qr'T=(hta)(,|\t)'xmi =&gt; 'DISCARD'],
 
