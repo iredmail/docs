@@ -107,7 +107,7 @@ questions, that's all required to setup a full-featured mail server.
     years (since Jun 04, 2011), please run command below to finish the
     installation:
 
-    `IREDMAIL_MIRROR='http://42.159.241.31' bash iRedMail.sh`
+    `IREDMAIL_MIRROR='http://173.254.22.21' bash iRedMail.sh`
 
 ## Screenshots of installation:
 
