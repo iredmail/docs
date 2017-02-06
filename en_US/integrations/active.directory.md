@@ -8,9 +8,9 @@ __NOTES__:
   authenticate mail users against Active Directory, you have to manage mail
   accounts with Active Directory management tools.
 
-* This tutorial has been verified on Windows 2000, 2003, 2008, 2012 server, if
-  you tested it on other versions and works well, please let us know.
-  [Contact us](http://www.iredmail.org/contact.html)
+* This tutorial has been verified on Windows 2000, 2003, 2008, 2012, 2016
+  servers, if you tested it on other versions and works well, please let us
+  know. [Contact us](http://www.iredmail.org/contact.html)
 
 ## Summary
 
