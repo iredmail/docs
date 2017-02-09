@@ -28,19 +28,23 @@ DNS server speeds up the mail flow.</p>
 <code>zen.spamhaus.org</code> for example below.</p>
 <ul>
 <li>Open Postfix config file <code>/etc/postfix/main.cf</code> or
-<code>/usr/local/etc/postfix/main.cf</code> (on FreeBSD), append
-<code>reject_rbl_client zen.spamhaus.org</code> to parameter <code>smtpd_recipient_restrictions</code>.
-Final setting looks like below:</li>
+  <code>/usr/local/etc/postfix/main.cf</code> (on FreeBSD), append
+  <code>reject_rbl_client zen.spamhaus.org</code> to parameter <code>smtpd_recipient_restrictions</code>.
+  Final setting looks like below:</li>
 </ul>
 <pre><code>smtpd_recipient_restrictions =
     ...
     reject_unauth_destination
-    reject_rbl_client zen.spamhaus.org
+    reject_rbl_client zen.spamhaus.org=127.0.0.[2..11]*3
 </code></pre>
 
 <p>It must be placed after <code>reject_unauth_destination</code>. You can add more DNSBL
 services after <code>reject_unauth_destination</code>, and they will be queried in the
 specified order.</p>
+<p>Postfix will perform DNS query against <code>zen.spamhaus.org</code>, and wait for the
+response code, only <code>127.0.0.2</code> to <code>127.0.0.11</code> are meaningful, so we use
+<code>=127.0.0.[2..11]</code> to tell Postfix only reject clients when we get those
+response code.</p>
 <ul>
 <li>Restart or reload Postfix service is required.</li>
 </ul>
