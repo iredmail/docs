@@ -19,6 +19,7 @@ To install iRedMail on Debian or Ubuntu Linux, you need:
   [Download](../download.html) page.
 * `2 GB` of memory is recommended for a low traffic production server.
   Spam/Virus scanning will take most system resource.
+* Make sure 3 UID/GID are not used by other user/group: 2000, 2001, 2002.
 
 Notes:
 

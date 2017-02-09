@@ -28,6 +28,8 @@ To install iRedMail on OpenBSD, you need:
     * man[XX].tgz
     * xbase[XX].tgz
 
+* Make sure 3 UID/GID are not used by other user/group: 2000, 2001, 2002.
+
 !!! note
 
     * All binary packages will be installed with command `pkg_add -i`. It will

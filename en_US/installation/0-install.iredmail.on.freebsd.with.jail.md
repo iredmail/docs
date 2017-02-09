@@ -28,6 +28,7 @@ and it may not be working as expected.
 
 * The latest stable release of iRedMail. You can download it here: http://www.iredmail.org/download.html
 * Port `sysutils/ezjail` for FreeBSD.
+* Make sure 3 UID/GID are not used by other user/group: 2000, 2001, 2002.
 
 ## Preparations
 
