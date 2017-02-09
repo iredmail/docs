@@ -34,7 +34,7 @@ iRedMail ships 2 scripts to help you create many mail users quickly.
 * Create mail users:
 
 ```shell
-# cd iRedMail-0.9.2/tools/
+# cd iRedMail-0.9.6/tools/
 # bash create_mail_user_OpenLDAP.sh example.com user1 user2 user3
 ```
 
@@ -82,7 +82,7 @@ mydomain.com, user3, plain_password, , 104857600, group1:group2
 * Run this script with plain text file `my_users.csv`:
 
 ```
-# cd iRedMail-0.9.2/tools/
+# cd iRedMail-0.9.6/tools/
 # python create_mail_user_OpenLDAP.py my_users.csv
 ```
 
