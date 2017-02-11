@@ -41,9 +41,9 @@ service postfix restart
 
 ## Sender dependent relay host
 
-!!! note
+!!! attention
 
-    * Sender dependent relay host is available in iRedMail-0.9.5 or later releases.
+    Sender dependent relay host is available in iRedMail-0.9.5 or later releases.
 
 ### Manage with iRedAdmin-Pro
 
