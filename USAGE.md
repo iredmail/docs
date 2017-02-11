@@ -60,3 +60,8 @@ To recompile all files, append flag `--all`:
 ```bash
 $ bash convert.sh --all
 ```
+
+## Required Python modules
+
+* markdown
+* markdown_checklist
