@@ -104,40 +104,69 @@ Screenshots attached at the bottom.
 
 ### Notify users about quarantined mails
 
-!!! note
-    This feature requires you to enable self-service for mail domain -- you can
-    enable it in domain profile page.
+iRedAdmin-Pro ships script `tools/notify_quarantined_recipients.py` to notify
+users which have email quarantined in SQL database.
 
-iRedAdmin-Pro ships a script you can run to notify users about quarantined
-mails: `tools/notify_quarantined_recipients.py`.
+Default notification email contains basic info of each quarantined email:
 
-The notification email is read from template file
-`tools/notify_quarantined_recipients.html`, you're free to modify it to match
-your needs. (don't forget to backup it before upgrading iRedAdmin-Pro.)
+* mail subject
+* sender
+* recipient
+* spam level (score)
+* mail arrived time
 
-The notification email will show the link of iRedAdmin-Pro so that users can
-click it and login to manage quarantined mails. You must change the URL by
-adding below parameter with proper URL in iRedAdmin-Pro config file:
+The notification email message is read from (HTML) template file
+`tools/notify_quarantined_recipients.html`, if you want to modify it, please
+copy it to `tools/notify_quarantined_recipients.local.html` then modify it.
+During upgrading iRedAdmin-Pro, this custom file will be copied to
+new iRedAdmin-Pro directory, so you won't lose your customization.
 
-```
-NOTIFICATION_IREDADMIN_URL = 'https://[your_server]/iredadmin/'
-```
-
-To notify user, please add a cron job to run
-`tools/notify_quarantined_recipients.py`. for example, every 6 hours:
+Several parameters are required by this script in iRedAdmin-Pro config file:
 
 ```
-1 */12 * * * python /path/to/tools/notify_quarantined_recipients.py >/dev/null
+# SMTP server address, port, username, password used to send notification mail.
+NOTIFICATION_SMTP_SERVER = 'localhost'
+NOTIFICATION_SMTP_PORT = 587
+NOTIFICATION_SMTP_STARTTLS = True
+NOTIFICATION_SMTP_USER = 'no-reply@localhost.local'
+NOTIFICATION_SMTP_PASSWORD = ''
+NOTIFICATION_SMTP_DEBUG_LEVEL = 0
+
+# URL of your iRedAdmin-Pro login page which will be shown in notification
+# email, so that user can login to manage quarantined emails.
+# Sample: 'https://your_server.com/iredadmin/'
+NOTIFICATION_URL_SELF_SERVICE = 'https://[your_server]/iredadmin/'
+
+# Subject of notification email. Available placeholders:
+#   - %(total)d -- number of quarantined mails in total
+NOTIFICATION_QUARANTINE_MAIL_SUBJECT = '[Attention] You have %(total)d emails quarantined and not delivered to mailbox'
+```
+
+To notify user periodly, please add a cron job for root user to run
+`tools/notify_quarantined_recipients.py`. For example, every 6 hours ('6 hours'
+is just an example, the period is totally up to you):
+
+```
+1 */6 * * * /usr/bin/python /var/www/iredadmin/tools/notify_quarantined_recipients.py --force-all >/dev/null
 ```
 
 Don't forget to use the correct path to `notify_quarantined_recipients.py` on your server.
 
-You can also run this script manually to notify users. for example, on RHEL/CentOS:
+You can also run this script manually to notify users. for example,
+on RHEL/CentOS:
 
 ```
 cd /var/www/iredadmin/tools/
-python notify_quarantined_recipients.py
+python notify_quarantined_recipients.py --force-all
 ```
+
+`notify_quarantined_recipients.py` supports few arguments:
+
+Argument | Comment
+---|---
+`--force-all` | Send notification to all users which have email quarantined
+`--force-all-time` |  Notify users for their all quarantined emails instead of just new ones since last notification.
+`--notify-backupmx` |  Send notification to all recipients under backup mx domain
 
 ## Quarantine clean emails
 
