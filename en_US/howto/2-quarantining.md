@@ -117,7 +117,7 @@ Default notification email contains basic info of each quarantined email:
 
 The notification email message is read from (HTML) template file
 `tools/notify_quarantined_recipients.html`, if you want to modify it, please
-copy it to `tools/notify_quarantined_recipients.local.html` then modify it.
+copy it to `tools/notify_quarantined_recipients.html.custom` then modify it.
 During upgrading iRedAdmin-Pro, this custom file will be copied to
 new iRedAdmin-Pro directory, so you won't lose your customization.
 
