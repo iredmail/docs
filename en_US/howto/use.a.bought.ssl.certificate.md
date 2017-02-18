@@ -1,4 +1,4 @@
-# Use a bought SSL certificate
+# Use a SSL certificate
 
 [TOC]
 
@@ -10,13 +10,28 @@ annoying message, you have to buy a SSL certificate from SSL certificate
 provider. Search `buy ssl certificate` in Google will give you many SSL
 providers, choose the one you prefer.
 
-> ["Let's Encrypt" offers free SSL certificate](https://letsencrypt.org)
+## Get a SSL certificate
 
-## Generate SSL private key and buy one SSL certificate
+### Get a free LetsEncrypt ssl cert
 
-First of all, you need to generate a new SSL certificate on your server
-with `openssl` command. __WARNING__: do NOT use key length smaller than `2048` bit,
-it's insecure.
+["Let's Encrypt"](https://letsencrypt.org) offers free SSL certificate, please
+follow its official tutorial to get one: <https://certbot.eff.org>
+
+!!! attention
+
+    The `--apache` option of `certbot` program will modify Apache config
+    files, most time it messes up iRedMail configurations, so it's better
+    to get the cert with `--webroot` option while requesting cert, then
+    follow tutorial below to update config files to use the cert.
+
+### Buy from a trusted SSL vendor
+
+To buy ssl cert from a trusted vendor, you need to generate a new SSL
+key and signing request file on your server with `openssl` command:
+
+!!! warning
+
+    Do NOT use key length smaller than `2048` bit, it's insecure.
 
 ```
 # openssl req -new -newkey rsa:2048 -nodes -keyout server.key -out server.csr
