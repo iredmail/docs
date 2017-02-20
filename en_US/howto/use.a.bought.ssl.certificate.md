@@ -21,7 +21,7 @@ follow its official tutorial to get one: <https://certbot.eff.org>
 
     The `--apache` option of `certbot` program will modify Apache config
     files, most time it messes up iRedMail configurations, so it's better
-    to get the cert with `--webroot` option while requesting cert, then
+    to get the cert with `certonly --webroot` option while requesting cert, then
     follow tutorial below to update config files to use the cert.
 
 ### Buy from a trusted SSL vendor
