@@ -123,6 +123,25 @@ Two solutions:
 1. Ask sender server system administrator to correct their HELO identity, they
    will experience same issue while sending email to others.
 
+### warning: do not list domain mydomain.com in BOTH mydestination and virtual_mailbox_domains
+
+Sample log in Postfix log file:
+
+> Feb 20 03:31:54 mail postfix/trivial-rewrite[2216]: warning: do not list
+> domain mydomain.com in BOTH mydestination and virtual_mailbox_domains
+
+This error message means mail domain name `mydomain.com` is:
+
+* listed in Postfix parameter `mydestination`. Most probably, this domain name
+  is value of Postfix parameter `myhostname`, and `myhostname` is value of
+  `mydestination`.
+* a virtual mail domain name. Most probably, you added this domain with
+  iRedAdmin.
+
+To solve this, please either use a different `myhostname` or don't use this
+domain name as mail domain (remove it with iRedAdmin). To use a different value
+for Postfix parameter `myhostname`, you must also change server hostname.
+
 ## Amavisd
 
 ### connect to 127.0.0.1[127.0.0.1]:10024: Connection refused

@@ -26,6 +26,7 @@
 <li><a href="#recipient-address-rejected-sender-is-not-same-as-smtp-authenticate-username">Recipient address rejected: Sender is not same as SMTP authenticate username</a></li>
 <li><a href="#unreasonable-virtual_alias_maps-map-expansion-size-for-userdomaincom">unreasonable virtual_alias_maps map expansion size for user@domain.com</a></li>
 <li><a href="#helo-command-rejected-access-denied-your-email-was-rejected-because-the-sending-mail-server-does-not-identify-itself-correctly-local">Helo command rejected: ACCESS DENIED. Your email was rejected because the sending mail server does not identify itself correctly (.local)</a></li>
+<li><a href="#warning-do-not-list-domain-mydomaincom-in-both-mydestination-and-virtual_mailbox_domains">warning: do not list domain mydomain.com in BOTH mydestination and virtual_mailbox_domains</a></li>
 </ul>
 </li>
 <li><a href="#amavisd">Amavisd</a><ul>
@@ -137,6 +138,23 @@ servers should use a valid domain name which is resolvable from DNS query.</p>
 <li>Ask sender server system administrator to correct their HELO identity, they
    will experience same issue while sending email to others.</li>
 </ol>
+<h3 id="warning-do-not-list-domain-mydomaincom-in-both-mydestination-and-virtual_mailbox_domains">warning: do not list domain mydomain.com in BOTH mydestination and virtual_mailbox_domains</h3>
+<p>Sample log in Postfix log file:</p>
+<blockquote>
+<p>Feb 20 03:31:54 mail postfix/trivial-rewrite[2216]: warning: do not list
+domain mydomain.com in BOTH mydestination and virtual_mailbox_domains</p>
+</blockquote>
+<p>This error message means mail domain name <code>mydomain.com</code> is:</p>
+<ul>
+<li>listed in Postfix parameter <code>mydestination</code>. Most probably, this domain name
+  is value of Postfix parameter <code>myhostname</code>, and <code>myhostname</code> is value of
+  <code>mydestination</code>.</li>
+<li>a virtual mail domain name. Most probably, you added this domain with
+  iRedAdmin.</li>
+</ul>
+<p>To solve this, please either use a different <code>myhostname</code> or don't use this
+domain name as mail domain (remove it with iRedAdmin). To use a different value
+for Postfix parameter <code>myhostname</code>, you must also change server hostname.</p>
 <h2 id="amavisd">Amavisd</h2>
 <h3 id="connect-to-12700112700110024-connection-refused">connect to 127.0.0.1[127.0.0.1]:10024: Connection refused</h3>
 <p>This error means Amavisd service is not running, please try to start it first.</p>
