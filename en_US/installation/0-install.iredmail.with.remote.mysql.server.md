@@ -4,9 +4,8 @@
 
 ## Summary
 
-This article describes how to install iRedMail (iRedMail-0.8.6 or later
-releases) with a remote MySQL server, and you must choose MySQL backend in
-iRedMail installation wizard.
+This article introduces how to install iRedMail-__0.9.6__ with an existing remote
+MySQL server.
 
 We use below server IP addresses in our example:
 
@@ -15,7 +14,8 @@ We use below server IP addresses in our example:
   on this server.
 
 iRedMail won't install MySQL server (RPM/DEB package) on localhost with remote
-MySQL server, but MySQL client tools are still required for remote connection.
+MySQL server, but MySQL client tools are still required for remote SQL
+connection.
 
 ## Requirements
 
@@ -98,21 +98,21 @@ mysql> DROP USER 'vmailadmin'@'192.168.1.200';
 Please follow iRedMail installation guide strictly, but start iRedMail
 installer with below command instead of the original one (`bash iRedMail.sh`):
 
-> WARNING:
->
-> * The variable names (`MYSQL_SERVER_ADDRESS`, `MYSQL_SERVER_PORT`,
->   `MYSQL_ROOT_USER`, `MYSQL_GRANT_HOST`) are __CASE SENSITIVE__.
-> * With `iRedMail-0.9.2` and earlier releases, it's `MYSQL_SERVER`, not
->   `MYSQL_SERVER_ADDRESS`.
-
 ```
-# MYSQL_SERVER_ADDRESS='192.168.1.100' MYSQL_SERVER_PORT='3306' MYSQL_ROOT_USER='admin_iredmail' MYSQL_ROOT_PASSWD='admin_password' MYSQL_GRANT_HOST='192.168.1.200' bash iRedMail.sh
+USE_EXISTING_MYSQL='YES' \
+    MYSQL_SERVER_ADDRESS='192.168.1.100' \
+    MYSQL_SERVER_PORT='3306' \
+    MYSQL_ROOT_USER='admin_iredmail' \
+    MYSQL_ROOT_PASSWD='admin_password' \
+    MYSQL_GRANT_HOST='192.168.1.200' \
+    bash iRedMail.sh
 ```
 
 It will launch iRedMail installation wizard as usual.
 
 Parameters we used in above command line:
 
+* `USE_EXISTING_MYSQL`: Remote MySQL server address.
 * `MYSQL_SERVER_ADDRESS`: Remote MySQL server address.
 * `MYSQL_SERVER_PORT`: Remote MySQL server port. Default is `3306`.
 * `MYSQL_ROOT_USER`: MySQL user name we created on remote MySQL server before installing iRedMail.
@@ -123,9 +123,10 @@ iRedMail will create new SQL users for applications like Postfix, Amavisd,
 Roundcube webmail, etc, and grant proper privileges to them which will connect
 from iRedMail server.
 
-One more optional parameter is `MYSQL_SERVER_PORT`. it specifies listen port
-of remote MySQL server. Default one is `3306`, you can change it if remote
-MySQL server is running on a different port.
+One more optional parameter is `INITIALIZE_SQL_DATA`. If you don't want
+iRedMail installer to initialize any sql records, please set
+`INITIALIZE_SQL_DATA=NO`. This way iRedMail installer will just configure
+related config files to use remote MySQL server.
 
 ## After iRedMail installation
 

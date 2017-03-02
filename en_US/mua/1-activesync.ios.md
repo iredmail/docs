@@ -11,11 +11,7 @@
     * Outlook 2010 for Windows supports MAPI.
 
     iRedMail doesn't integrate [OpenChange](http://www.openchange.org) and
-    [Samba4](http://www.samba.org) for native MAPI support, so SOGo groupware
-    in iRedMail doesn't provide full support for Microsoft Outlook clients,
-    Mac OS X Mail.app and all iOS devices, don't try to add your mail account
-    as an `Exchange` account in these mail clients. You have to add account as
-    POP3/IMAP account, caldav/carddav account instead.
+    [Samba4](http://www.samba.org) for native MAPI support.
 
 ## Requirements
 
