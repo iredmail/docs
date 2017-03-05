@@ -24,7 +24,7 @@
 <ul>
 <li><a href="#allow-insecure-pop3imapsmtp-connections-without-starttls">Allow insecure POP3/IMAP/SMTP connections without STARTTLS</a><ul>
 <li><a href="#allow-insecure-pop3imap-connections">Allow insecure POP3/IMAP connections</a></li>
-<li><a href="#allow-insecure-smtp-connection">Allow insecure SMTP connection</a></li>
+<li><a href="#allow-insecure-smtp-connection-on-port-25">Allow insecure SMTP connection on port 25</a></li>
 </ul>
 </li>
 </ul>
@@ -61,10 +61,14 @@ ssl=yes
 ssl=required
 </code></pre>
 
-<h2 id="allow-insecure-smtp-connection">Allow insecure SMTP connection</h2>
+<h2 id="allow-insecure-smtp-connection-on-port-25">Allow insecure SMTP connection on port 25</h2>
 <p>Please comment out lines below in Postfix config file <code>/etc/postfix/main.cf</code>
 and reload or restart Postfix service:</p>
-<pre><code>smtpd_tls_auth_only=yes
+<pre><code>smtpd_sasl_auth_enable = yes
+smtpd_sasl_security_options = noanonymous
+
+# force all clients to use secure connection through port 25
+#smtpd_tls_auth_only=yes
 </code></pre><div class="footer">
     <p style="text-align: center; color: grey;">All documents are available in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://bitbucket.org/zhb/iredmail-docs/get/tip.tar.bz2">download the latest version</a> for offline reading. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
 </div>

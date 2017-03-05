@@ -22,57 +22,57 @@ Sample `curl` commands to interact iRedAdmin-Pro RESTful API.
 # Replace `<username>` by the real admin email address.
 # Replace `<password>` by the real admin password.
 # It will create a plain text file `cookie.txt` under current directory.
-curl -X POST -c cookie.txt -d "username=<username>&password=<password>" https://<server>/api/login
+curl -X POST -c cookie.txt -d "username=<username>&password=<password>" https://<server>/iredadmin/api/login
 
 #
 # Create domain (POST)
 #
 # cn=ABC Inc. (display name: "ABC Inc."
 # quota=20480 (quota: 20 GB)
-curl -X POST -i -b cookie.txt -d "cn=ABC Inc.&quota=20480" https://<server>/api/domain/<domain>
+curl -X POST -i -b cookie.txt -d "cn=ABC Inc.&quota=20480" https://<server>/iredadmin/api/domain/<domain>
 
 #
 # Create mail user (POST)
 #
 # cn=Zhang Huangbin (display name: "Zhang Huangbin")
 # mailQuota=1024 (mailbox quota: 1 GB)
-curl -X POST -i -b cookie.txt -d "cn=Zhang Huangbin&mailQuota=1024" https://<server>/api/user/<mail>
+curl -X POST -i -b cookie.txt -d "cn=Zhang Huangbin&mailQuota=1024" https://<server>/iredadmin/api/user/<mail>
 
 #
 # Delete mail user (DELETE)
 #
-curl -X DELETE -i -b cookie.txt https://<server>/api/user/<mail>
+curl -X DELETE -i -b cookie.txt https://<server>/iredadmin/api/user/<mail>
 
 #
 # Update mail user profiles (PUT)
 #
-curl -X PUT -i -b cookie.txt -d "cn=John Smith&mailQuota=2048" https://<server>/api/user/<mail>
+curl -X PUT -i -b cookie.txt -d "cn=John Smith&mailQuota=2048" https://<server>/iredadmin/api/user/<mail>
 
 #
 # Create mail alias (POST)
 #
 # cn=My Alias (display name: "My Alias")
-curl -X POST -i -b cookie.txt -d "cn=My Alias" https://<server>/api/alias/<mail>
+curl -X POST -i -b cookie.txt -d "cn=My Alias" https://<server>/iredadmin/api/alias/<mail>
 
 #
 # Delete mail alias (DELETE)
 #
-curl -X DELETE -i -b cookie.txt https://<server>/api/alias/<mail>
+curl -X DELETE -i -b cookie.txt https://<server>/iredadmin/api/alias/<mail>
 
 #
 # Create mailing list (POST, OpenLDAP backend only)
 #
-curl -X POST -i -b cookie.txt -d "cn=My List" https://<server>/api/maillist/<mail>
+curl -X POST -i -b cookie.txt -d "cn=My List" https://<server>/iredadmin/api/maillist/<mail>
 
 #
 # Delete mail alias (DELETE)
 #
-curl -X DELETE -i -b cookie.txt https://<server>/api/maillist/<mail>
+curl -X DELETE -i -b cookie.txt https://<server>/iredadmin/api/maillist/<mail>
 
 #
 # Delete domain (DELETE)
 #
-curl -X DELETE -i -b cookie.txt https://<server>/api/domain/<domain>
+curl -X DELETE -i -b cookie.txt https://<server>/iredadmin/api/domain/<domain>
 ```
 
 ## See Also

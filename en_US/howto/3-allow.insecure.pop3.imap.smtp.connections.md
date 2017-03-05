@@ -42,11 +42,16 @@ disable_plaintext_auth=yes
 ssl=required
 ```
 
-## Allow insecure SMTP connection
+## Allow insecure SMTP connection on port 25
 
 Please comment out lines below in Postfix config file `/etc/postfix/main.cf`
 and reload or restart Postfix service:
 
 ```
-smtpd_tls_auth_only=yes
+smtpd_sasl_auth_enable = yes
+smtpd_sasl_security_options = noanonymous
+
+# force all clients to use secure connection through port 25
+#smtpd_tls_auth_only=yes
 ```
+

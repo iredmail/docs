@@ -39,57 +39,57 @@
 # Replace `&lt;username&gt;` by the real admin email address.
 # Replace `&lt;password&gt;` by the real admin password.
 # It will create a plain text file `cookie.txt` under current directory.
-curl -X POST -c cookie.txt -d &quot;username=&lt;username&gt;&amp;password=&lt;password&gt;&quot; https://&lt;server&gt;/api/login
+curl -X POST -c cookie.txt -d &quot;username=&lt;username&gt;&amp;password=&lt;password&gt;&quot; https://&lt;server&gt;/iredadmin/api/login
 
 #
 # Create domain (POST)
 #
 # cn=ABC Inc. (display name: &quot;ABC Inc.&quot;
 # quota=20480 (quota: 20 GB)
-curl -X POST -i -b cookie.txt -d &quot;cn=ABC Inc.&amp;quota=20480&quot; https://&lt;server&gt;/api/domain/&lt;domain&gt;
+curl -X POST -i -b cookie.txt -d &quot;cn=ABC Inc.&amp;quota=20480&quot; https://&lt;server&gt;/iredadmin/api/domain/&lt;domain&gt;
 
 #
 # Create mail user (POST)
 #
 # cn=Zhang Huangbin (display name: &quot;Zhang Huangbin&quot;)
 # mailQuota=1024 (mailbox quota: 1 GB)
-curl -X POST -i -b cookie.txt -d &quot;cn=Zhang Huangbin&amp;mailQuota=1024&quot; https://&lt;server&gt;/api/user/&lt;mail&gt;
+curl -X POST -i -b cookie.txt -d &quot;cn=Zhang Huangbin&amp;mailQuota=1024&quot; https://&lt;server&gt;/iredadmin/api/user/&lt;mail&gt;
 
 #
 # Delete mail user (DELETE)
 #
-curl -X DELETE -i -b cookie.txt https://&lt;server&gt;/api/user/&lt;mail&gt;
+curl -X DELETE -i -b cookie.txt https://&lt;server&gt;/iredadmin/api/user/&lt;mail&gt;
 
 #
 # Update mail user profiles (PUT)
 #
-curl -X PUT -i -b cookie.txt -d &quot;cn=John Smith&amp;mailQuota=2048&quot; https://&lt;server&gt;/api/user/&lt;mail&gt;
+curl -X PUT -i -b cookie.txt -d &quot;cn=John Smith&amp;mailQuota=2048&quot; https://&lt;server&gt;/iredadmin/api/user/&lt;mail&gt;
 
 #
 # Create mail alias (POST)
 #
 # cn=My Alias (display name: &quot;My Alias&quot;)
-curl -X POST -i -b cookie.txt -d &quot;cn=My Alias&quot; https://&lt;server&gt;/api/alias/&lt;mail&gt;
+curl -X POST -i -b cookie.txt -d &quot;cn=My Alias&quot; https://&lt;server&gt;/iredadmin/api/alias/&lt;mail&gt;
 
 #
 # Delete mail alias (DELETE)
 #
-curl -X DELETE -i -b cookie.txt https://&lt;server&gt;/api/alias/&lt;mail&gt;
+curl -X DELETE -i -b cookie.txt https://&lt;server&gt;/iredadmin/api/alias/&lt;mail&gt;
 
 #
 # Create mailing list (POST, OpenLDAP backend only)
 #
-curl -X POST -i -b cookie.txt -d &quot;cn=My List&quot; https://&lt;server&gt;/api/maillist/&lt;mail&gt;
+curl -X POST -i -b cookie.txt -d &quot;cn=My List&quot; https://&lt;server&gt;/iredadmin/api/maillist/&lt;mail&gt;
 
 #
 # Delete mail alias (DELETE)
 #
-curl -X DELETE -i -b cookie.txt https://&lt;server&gt;/api/maillist/&lt;mail&gt;
+curl -X DELETE -i -b cookie.txt https://&lt;server&gt;/iredadmin/api/maillist/&lt;mail&gt;
 
 #
 # Delete domain (DELETE)
 #
-curl -X DELETE -i -b cookie.txt https://&lt;server&gt;/api/domain/&lt;domain&gt;
+curl -X DELETE -i -b cookie.txt https://&lt;server&gt;/iredadmin/api/domain/&lt;domain&gt;
 </code></pre>
 
 <h2 id="see-also">See Also</h2>
