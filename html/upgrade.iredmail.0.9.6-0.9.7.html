@@ -22,6 +22,7 @@
 <li><a href="#changelog">ChangeLog</a></li>
 <li><a href="#general-all-backends-should-apply-these-steps">General (All backends should apply these steps)</a><ul>
 <li><a href="#update-etciredmail-release-with-new-iredmail-version-number">Update /etc/iredmail-release with new iRedMail version number</a></li>
+<li><a href="#fixed-incorrect-sessionsave_path-in-php-fpm-pool-config-file-on-rhelcentos">Fixed: incorrect session.save_path in php-fpm pool config file on RHEL/CentOS</a></li>
 <li><a href="#fixed-improper-fail2ban-filter-which-causes-incorrect-ban">Fixed: Improper Fail2ban filter which causes incorrect ban</a></li>
 </ul>
 </li>
@@ -40,7 +41,8 @@ check <a href="../support.html">the details</a> and <a href="../contact.html">co
 </div>
 <h2 id="changelog">ChangeLog</h2>
 <ul>
-<li>Feb 9, 2016: Fixed improper Fail2ban filter for Dovecot.</li>
+<li>Mar 8, 2017: [RHEL/CentOS][Nginx] Fix incorrect session.save_path in php-fpm pool config file.</li>
+<li>Feb 9, 2017: Fixed improper Fail2ban filter for Dovecot.</li>
 </ul>
 <h2 id="general-all-backends-should-apply-these-steps">General (All backends should apply these steps)</h2>
 <h3 id="update-etciredmail-release-with-new-iredmail-version-number">Update <code>/etc/iredmail-release</code> with new iRedMail version number</h3>
@@ -48,6 +50,32 @@ check <a href="../support.html">the details</a> and <a href="../contact.html">co
 installation, it's recommended to update this file after you upgraded iRedMail,
 so that you can know which version of iRedMail you're running. For example:</p>
 <pre><code>0.9.7
+</code></pre>
+
+<h3 id="fixed-incorrect-sessionsave_path-in-php-fpm-pool-config-file-on-rhelcentos">Fixed: incorrect session.save_path in php-fpm pool config file on RHEL/CentOS</h3>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>This is applicable to RHEL/CentOS system, and Nginx web server.</p>
+</div>
+<p>iRedMail-0.9.6 doesn't set path for <code>session.save_path</code> parameter in php-fpm
+pool config file <code>/etc/php-fpm.d/www.conf</code>, please fix it with steps below:</p>
+<ul>
+<li>Open file <code>/etc/php-fpm.d/www.conf</code>, find line:</li>
+</ul>
+<pre><code>php_value[session.save_path] = &quot;/var/lib/php/session&quot;
+</code></pre>
+
+<ul>
+<li>The directory name should be <code>sessions</code> (ends with <code>s</code>), not <code>session</code>. So
+  please change it to:</li>
+</ul>
+<pre><code>php_value[session.save_path] = &quot;/var/lib/php/sessions&quot;
+</code></pre>
+
+<ul>
+<li>Restarting php-fpm service is required:</li>
+</ul>
+<pre><code>service php-fpm restart
 </code></pre>
 
 <h3 id="fixed-improper-fail2ban-filter-which-causes-incorrect-ban">Fixed: Improper Fail2ban filter which causes incorrect ban</h3>
