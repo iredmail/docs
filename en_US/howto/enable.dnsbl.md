@@ -20,7 +20,7 @@ You can enable additional DNSBL services in Postfix to reduce spam. We use
 smtpd_recipient_restrictions =
     ...
     reject_unauth_destination
-    reject_rbl_client zen.spamhaus.org=127.0.0.[2..11]*3
+    reject_rbl_client zen.spamhaus.org=127.0.0.[2..11]
 ```
 
 It must be placed after `reject_unauth_destination`. You can add more DNSBL
@@ -31,6 +31,16 @@ Postfix will perform DNS query against `zen.spamhaus.org`, and wait for the
 response code, only `127.0.0.2` to `127.0.0.11` are meaningful, so we use
 `=127.0.0.[2..11]` to tell Postfix only reject clients when we get those
 response code.
+
+* If you have postscreen service enabled, you should add DNSBL services for
+  postscreen service instead, so please don't use any `reject_rbl_client` in
+  `smtpd_recipient_restrictions` parameter, but use below one instead:
+
+```
+postscreen_dnsbl_sites =
+    zen.spamhaus.org=127.0.0.[2..11]*3
+    b.barracudacentral.org=127.0.0.[2..11]*2
+```
 
 * Restart or reload Postfix service is required.
 

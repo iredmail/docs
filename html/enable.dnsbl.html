@@ -35,7 +35,7 @@ DNS server speeds up the mail flow.</p>
 <pre><code>smtpd_recipient_restrictions =
     ...
     reject_unauth_destination
-    reject_rbl_client zen.spamhaus.org=127.0.0.[2..11]*3
+    reject_rbl_client zen.spamhaus.org=127.0.0.[2..11]
 </code></pre>
 
 <p>It must be placed after <code>reject_unauth_destination</code>. You can add more DNSBL
@@ -45,6 +45,16 @@ specified order.</p>
 response code, only <code>127.0.0.2</code> to <code>127.0.0.11</code> are meaningful, so we use
 <code>=127.0.0.[2..11]</code> to tell Postfix only reject clients when we get those
 response code.</p>
+<ul>
+<li>If you have postscreen service enabled, you should add DNSBL services for
+  postscreen service instead, so please don't use any <code>reject_rbl_client</code> in
+  <code>smtpd_recipient_restrictions</code> parameter, but use below one instead:</li>
+</ul>
+<pre><code>postscreen_dnsbl_sites =
+    zen.spamhaus.org=127.0.0.[2..11]*3
+    b.barracudacentral.org=127.0.0.[2..11]*2
+</code></pre>
+
 <ul>
 <li>Restart or reload Postfix service is required.</li>
 </ul>
