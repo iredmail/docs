@@ -108,6 +108,12 @@ latest stable release immediately: <a href="https://github.com/roundcube/roundcu
 <pre><code>RequestHeader unset Proxy early
 </code></pre>
 
+<ul>
+<li>On Debian/Ubuntu, please make sure Apache module <code>headers</code> are enabled:</li>
+</ul>
+<pre><code>a2enmod headers
+</code></pre>
+
 <p>Restarting Apache service is required.</p>
 <h4 id="nginx">Nginx</h4>
 <p>Please open all files under below directories which contains <code>fastcgi_pass</code>

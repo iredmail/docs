@@ -61,6 +61,12 @@ Please append setting below in Apache config file:
 RequestHeader unset Proxy early
 ```
 
+* On Debian/Ubuntu, please make sure Apache module `headers` are enabled:
+
+```
+a2enmod headers
+```
+
 Restarting Apache service is required.
 
 #### Nginx
