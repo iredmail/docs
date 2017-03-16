@@ -22,8 +22,17 @@
 <li><a href="#changelog">ChangeLog</a></li>
 <li><a href="#general-all-backends-should-apply-these-steps">General (All backends should apply these steps)</a><ul>
 <li><a href="#update-etciredmail-release-with-new-iredmail-version-number">Update /etc/iredmail-release with new iRedMail version number</a></li>
+<li><a href="#upgrade-roundcube-webmail-to-the-latest-stable-release-124">Upgrade Roundcube webmail to the latest stable release (1.2.4)</a></li>
 <li><a href="#fixed-incorrect-sessionsave_path-in-php-fpm-pool-config-file-on-rhelcentos">Fixed: incorrect session.save_path in php-fpm pool config file on RHEL/CentOS</a></li>
 <li><a href="#fixed-improper-fail2ban-filter-which-causes-incorrect-ban">Fixed: Improper Fail2ban filter which causes incorrect ban</a></li>
+</ul>
+</li>
+<li><a href="#openldap-backend-special">OpenLDAP backend special</a><ul>
+<li><a href="#fixed-avoid-possible-backdooring-mysqldump-backups">Fixed: Avoid possible backdooring mysqldump backups</a></li>
+</ul>
+</li>
+<li><a href="#mysqlmariadb-backend-special">MySQL/MariaDB backend special</a><ul>
+<li><a href="#fixed-avoid-possible-backdooring-mysqldump-backups_1">Fixed: Avoid possible backdooring mysqldump backups</a></li>
 </ul>
 </li>
 </ul>
@@ -41,8 +50,9 @@ check <a href="../support.html">the details</a> and <a href="../contact.html">co
 </div>
 <h2 id="changelog">ChangeLog</h2>
 <ul>
-<li>Mar 8, 2017: [RHEL/CentOS][Nginx] Fix incorrect session.save_path in php-fpm pool config file.</li>
-<li>Feb 9, 2017: Fixed improper Fail2ban filter for Dovecot.</li>
+<li>Mar 16, 2017: Fixed: Avoid possible backdooring mysqldump backups</li>
+<li>Mar  8, 2017: [RHEL/CentOS][Nginx] Fix incorrect <code>session.save_path</code> in php-fpm pool config file.</li>
+<li>Feb  9, 2017: Fixed improper Fail2ban filter for Dovecot.</li>
 </ul>
 <h2 id="general-all-backends-should-apply-these-steps">General (All backends should apply these steps)</h2>
 <h3 id="update-etciredmail-release-with-new-iredmail-version-number">Update <code>/etc/iredmail-release</code> with new iRedMail version number</h3>
@@ -52,6 +62,17 @@ so that you can know which version of iRedMail you're running. For example:</p>
 <pre><code>0.9.7
 </code></pre>
 
+<h3 id="upgrade-roundcube-webmail-to-the-latest-stable-release-124">Upgrade Roundcube webmail to the latest stable release (1.2.4)</h3>
+<blockquote>
+<p>Roundcube 1.2.4 fixes a security issue, all users are encouraged to upgrade
+it as soon as possible. For more details about this release, please check
+Roundcube <a href="https://github.com/roundcube/roundcubemail/releases/tag/1.2.4">release note</a>.</p>
+</blockquote>
+<p>Please follow Roundcube official tutorial to upgrade Roundcube webmail to the
+latest stable release immediately:</p>
+<ul>
+<li><a href="https://github.com/roundcube/roundcubemail/wiki/Upgrade">How to upgrade Roundcube</a>.</li>
+</ul>
 <h3 id="fixed-incorrect-sessionsave_path-in-php-fpm-pool-config-file-on-rhelcentos">Fixed: incorrect session.save_path in php-fpm pool config file on RHEL/CentOS</h3>
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>
@@ -84,7 +105,67 @@ below:</p>
 <pre><code>            \(no auth attempts in .* rip=&lt;HOST&gt;
 </code></pre>
 
-<p>Then restart or reload Fail2ban service.</p><div class="footer">
+<p>Then restart or reload Fail2ban service.</p>
+<h2 id="openldap-backend-special">OpenLDAP backend special</h2>
+<h3 id="fixed-avoid-possible-backdooring-mysqldump-backups">Fixed: Avoid possible backdooring mysqldump backups</h3>
+<p>For more details about this backdooring mysqldump backup issue, please read
+blog post:</p>
+<ul>
+<li><a href="https://blog.tarq.io/cve-2016-5483-backdooring-mysqldump-backups/">[CVE-2016-5483] Backdooring mysqldump backups</a>.</li>
+</ul>
+<p>Steps to fix it:</p>
+<ul>
+<li>
+<p>Open the daily MySQL backup script, it's <code>/var/vmail/backup/backup_mysql.sh</code>
+  by default. if you use different storage directory during iRedMail
+  installation, you can find the base directory with command <code>postconf virtual_mailbox_base</code>.</p>
+</li>
+<li>
+<p>Find variable name <code>CMD_MYSQLDUMP</code> like below:</p>
+</li>
+</ul>
+<pre><code>export CMD_MYSQLDUMP=&quot;mysqldump ...&quot;
+</code></pre>
+
+<ul>
+<li>Make sure it has argument <code>--skip-comments</code> like below:</li>
+</ul>
+<pre><code>export CMD_MYSQLDUMP=&quot;mysqldump ... --skip-comments&quot;
+</code></pre>
+
+<ul>
+<li>Save your change. That's it.</li>
+</ul>
+<h2 id="mysqlmariadb-backend-special">MySQL/MariaDB backend special</h2>
+<h3 id="fixed-avoid-possible-backdooring-mysqldump-backups_1">Fixed: Avoid possible backdooring mysqldump backups</h3>
+<p>For more details about this backdooring mysqldump backup issue, please read
+blog post:</p>
+<ul>
+<li><a href="https://blog.tarq.io/cve-2016-5483-backdooring-mysqldump-backups/">[CVE-2016-5483] Backdooring mysqldump backups</a>.</li>
+</ul>
+<p>Steps to fix it:</p>
+<ul>
+<li>
+<p>Open the daily MySQL backup script, it's <code>/var/vmail/backup/backup_mysql.sh</code>
+  by default. if you use different storage directory during iRedMail
+  installation, you can find the base directory with command <code>postconf virtual_mailbox_base</code>.</p>
+</li>
+<li>
+<p>Find variable name <code>CMD_MYSQLDUMP</code> like below:</p>
+</li>
+</ul>
+<pre><code>export CMD_MYSQLDUMP=&quot;mysqldump ...&quot;
+</code></pre>
+
+<ul>
+<li>Make sure it has argument <code>--skip-comments</code> like below:</li>
+</ul>
+<pre><code>export CMD_MYSQLDUMP=&quot;mysqldump ... --skip-comments&quot;
+</code></pre>
+
+<ul>
+<li>Save your change. That's it.</li>
+</ul><div class="footer">
     <p style="text-align: center; color: grey;">All documents are available in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://bitbucket.org/zhb/iredmail-docs/get/tip.tar.bz2">download the latest version</a> for offline reading. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
 </div>
 <script type="text/javascript">

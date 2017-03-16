@@ -13,8 +13,9 @@
 
 ## ChangeLog
 
-* Mar 8, 2017: [RHEL/CentOS][Nginx] Fix incorrect session.save_path in php-fpm pool config file.
-* Feb 9, 2017: Fixed improper Fail2ban filter for Dovecot.
+* Mar 16, 2017: Fixed: Avoid possible backdooring mysqldump backups
+* Mar  8, 2017: [RHEL/CentOS][Nginx] Fix incorrect `session.save_path` in php-fpm pool config file.
+* Feb  9, 2017: Fixed improper Fail2ban filter for Dovecot.
 
 ## General (All backends should apply these steps)
 
@@ -27,6 +28,17 @@ so that you can know which version of iRedMail you're running. For example:
 ```
 0.9.7
 ```
+
+### Upgrade Roundcube webmail to the latest stable release (1.2.4)
+
+> Roundcube 1.2.4 fixes a security issue, all users are encouraged to upgrade
+> it as soon as possible. For more details about this release, please check
+> Roundcube [release note](https://github.com/roundcube/roundcubemail/releases/tag/1.2.4).
+
+Please follow Roundcube official tutorial to upgrade Roundcube webmail to the
+latest stable release immediately:
+
+* [How to upgrade Roundcube](https://github.com/roundcube/roundcubemail/wiki/Upgrade).
 
 ### Fixed: incorrect session.save_path in php-fpm pool config file on RHEL/CentOS
 
@@ -66,3 +78,61 @@ below:
 ```
 
 Then restart or reload Fail2ban service.
+
+## OpenLDAP backend special
+
+### Fixed: Avoid possible backdooring mysqldump backups
+
+For more details about this backdooring mysqldump backup issue, please read
+blog post:
+
+* [[CVE-2016-5483] Backdooring mysqldump backups](https://blog.tarq.io/cve-2016-5483-backdooring-mysqldump-backups/).
+
+Steps to fix it:
+
+* Open the daily MySQL backup script, it's `/var/vmail/backup/backup_mysql.sh`
+  by default. if you use different storage directory during iRedMail
+  installation, you can find the base directory with command `postconf virtual_mailbox_base`.
+
+* Find variable name `CMD_MYSQLDUMP` like below:
+
+```
+export CMD_MYSQLDUMP="mysqldump ..."
+```
+
+* Make sure it has argument `--skip-comments` like below:
+
+```
+export CMD_MYSQLDUMP="mysqldump ... --skip-comments"
+```
+
+* Save your change. That's it.
+
+## MySQL/MariaDB backend special
+
+### Fixed: Avoid possible backdooring mysqldump backups
+
+For more details about this backdooring mysqldump backup issue, please read
+blog post:
+
+* [[CVE-2016-5483] Backdooring mysqldump backups](https://blog.tarq.io/cve-2016-5483-backdooring-mysqldump-backups/).
+
+Steps to fix it:
+
+* Open the daily MySQL backup script, it's `/var/vmail/backup/backup_mysql.sh`
+  by default. if you use different storage directory during iRedMail
+  installation, you can find the base directory with command `postconf virtual_mailbox_base`.
+
+* Find variable name `CMD_MYSQLDUMP` like below:
+
+```
+export CMD_MYSQLDUMP="mysqldump ..."
+```
+
+* Make sure it has argument `--skip-comments` like below:
+
+```
+export CMD_MYSQLDUMP="mysqldump ... --skip-comments"
+```
+
+* Save your change. That's it.

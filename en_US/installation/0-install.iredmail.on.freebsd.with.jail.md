@@ -26,7 +26,7 @@ and configure them for you automatically. Otherwise it may override your
 existing files/configurations althought it will backup files before modifying,
 and it may not be working as expected.
 
-* The latest stable release of iRedMail. You can download it here: http://www.iredmail.org/download.html
+* The latest stable release of iRedMail. You can download it here: <http://www.iredmail.org/download.html>
 * Port `sysutils/ezjail` for FreeBSD.
 * Make sure 3 UID/GID are not used by other user/group: 2000, 2001, 2002.
 
@@ -62,7 +62,7 @@ ezjail_enable="YES"
 # ezjail-admin install -p
 ```
 
-* Create Jail
+* Create a new jail
 
     * hostname `mx.example.com`
     * bound IP address `172.16.244.254` to network interface `em0`
@@ -105,11 +105,11 @@ nameserver 172.16.244.2
 * In Jail, install binary package `bash-static`, it's required by iRedMail.
 
 ```
-# -- For FreeBSD 9 or earlier releases --
-# pkg_add -r bash-static
-
 # -- For FreeBSD 10 or later releases --
 # pkg install bash-static
+
+# -- For FreeBSD 9 or earlier releases --
+# pkg_add -r bash-static
 ```
 
 ## Start iRedMail installer
