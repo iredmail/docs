@@ -52,15 +52,16 @@ from iRedMail server (<code>192.168.1.200</code> in our case).</p>
 tcp        0      0 0.0.0.0:3306            0.0.0.0:*               LISTEN      2479/mysqld
 </code></pre>
 
-<p>If MySQL server is listening on only 127.0.0.1, you should comment out
-<code>bind-address</code> parameter in MySQL config file <code>my.cnf</code> to make it listen on all
-available network interfaces, and restart MySQL service.</p>
+<p>If MySQL server is listening on only 127.0.0.1, please update parameter
+<code>bind-address</code> in MySQL config file <code>my.cnf</code> to make sure it listens on all
+available IPv4 addresses like below, restarting MySQL service is required:</p>
 <ul>
 <li>On Red Hat Enterprise Linux, CentOS, openSUSE, OpenBSD, it's <code>/etc/my.cnf</code>.</li>
 <li>On Debian, Ubuntu, it's <code>/etc/mysql/my.cnf</code>.</li>
 <li>On FreeBSD, it's <code>/var/db/mysql/my.cnf</code>.</li>
 </ul>
-<pre><code>#bind-address = 127.0.0.1
+<pre><code># If you comment out this parameter, it listens on all available IPv6 addresses
+bind-address = 0.0.0.0
 </code></pre>
 
 <ul>
@@ -74,9 +75,10 @@ available network interfaces, and restart MySQL service.</p>
   strong password):</p>
 </li>
 </ul>
-<pre><code>mysql&gt; GRANT ALL PRIVILEGES ON *.* TO 'admin_iredmail'@'192.168.1.200' IDENTIFIED BY 'admin_password' WITH GRANT OPTION;
-mysql&gt; FLUSH PRIVILEGES;
-mysql&gt; FLUSH HOSTS;
+<pre><code>-- Run on remote MySQL server as root user
+GRANT ALL PRIVILEGES ON *.* TO 'admin_iredmail'@'192.168.1.200' IDENTIFIED BY 'admin_password' WITH GRANT OPTION;
+FLUSH PRIVILEGES;
+FLUSH HOSTS;
 </code></pre>
 
 <p>With above commands, MySQL user <code>admin_iredmail</code> is allowed to connect from IP
@@ -96,20 +98,23 @@ address <code>192.168.1.200</code> with password <code>admin_password</code>.</p
 backup existing databases <strong>on remote MySQL server first</strong>, then drop them and
 delete related MySQL users, because they will be created by iRedMail
 automatically on remote MySQL server:</p>
-<pre><code>mysql&gt; DROP DATABASE amavisd;
-mysql&gt; DROP DATABASE cluebringer;
-mysql&gt; DROP DATABASE iredadmin;
-mysql&gt; DROP DATABASE roundcubemail;
-mysql&gt; DROP DATABASE sogo;
-mysql&gt; DROP DATABASE vmail;
+<pre><code>-- Run on remote MySQL server as root user
+DROP DATABASE amavisd;
+DROP DATABASE cluebringer;
+DROP DATABASE iredadmin;
+DROP DATABASE iredapd;
+DROP DATABASE roundcubemail;
+DROP DATABASE sogo;
+DROP DATABASE vmail;
 
-mysql&gt; DROP USER 'amavisd'@'192.168.1.200';
-mysql&gt; DROP USER 'cluebringer'@'192.168.1.200';
-mysql&gt; DROP USER 'iredadmin'@'192.168.1.200';
-mysql&gt; DROP USER 'roundcube'@'192.168.1.200';
-mysql&gt; DROP USER 'sogo'@'192.168.1.200';
-mysql&gt; DROP USER 'vmail'@'192.168.1.200';
-mysql&gt; DROP USER 'vmailadmin'@'192.168.1.200';
+DROP USER 'amavisd'@'192.168.1.200';
+DROP USER 'cluebringer'@'192.168.1.200';
+DROP USER 'iredadmin'@'192.168.1.200';
+DROP USER 'iredapd'@'192.168.1.200';
+DROP USER 'roundcube'@'192.168.1.200';
+DROP USER 'sogo'@'192.168.1.200';
+DROP USER 'vmail'@'192.168.1.200';
+DROP USER 'vmailadmin'@'192.168.1.200';
 </code></pre>
 
 <h2 id="install-iredmail">Install iRedMail</h2>

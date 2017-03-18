@@ -32,16 +32,17 @@ from iRedMail server (`192.168.1.200` in our case).
 tcp        0      0 0.0.0.0:3306            0.0.0.0:*               LISTEN      2479/mysqld
 ```
 
-If MySQL server is listening on only 127.0.0.1, you should comment out
-`bind-address` parameter in MySQL config file `my.cnf` to make it listen on all
-available network interfaces, and restart MySQL service.
+If MySQL server is listening on only 127.0.0.1, please update parameter
+`bind-address` in MySQL config file `my.cnf` to make sure it listens on all
+available IPv4 addresses like below, restarting MySQL service is required:
 
 * On Red Hat Enterprise Linux, CentOS, openSUSE, OpenBSD, it's `/etc/my.cnf`.
 * On Debian, Ubuntu, it's `/etc/mysql/my.cnf`.
 * On FreeBSD, it's `/var/db/mysql/my.cnf`.
 
 ```
-#bind-address = 127.0.0.1
+# If you comment out this parameter, it listens on all available IPv6 addresses
+bind-address = 0.0.0.0
 ```
 
 * Make sure remote MySQL request will not be blocked by network firewall like
@@ -52,9 +53,10 @@ available network interfaces, and restart MySQL service.
   strong password):
 
 ```
-mysql> GRANT ALL PRIVILEGES ON *.* TO 'admin_iredmail'@'192.168.1.200' IDENTIFIED BY 'admin_password' WITH GRANT OPTION;
-mysql> FLUSH PRIVILEGES;
-mysql> FLUSH HOSTS;
+-- Run on remote MySQL server as root user
+GRANT ALL PRIVILEGES ON *.* TO 'admin_iredmail'@'192.168.1.200' IDENTIFIED BY 'admin_password' WITH GRANT OPTION;
+FLUSH PRIVILEGES;
+FLUSH HOSTS;
 ```
 
 With above commands, MySQL user `admin_iredmail` is allowed to connect from IP
@@ -77,20 +79,23 @@ delete related MySQL users, because they will be created by iRedMail
 automatically on remote MySQL server:
 
 ```
-mysql> DROP DATABASE amavisd;
-mysql> DROP DATABASE cluebringer;
-mysql> DROP DATABASE iredadmin;
-mysql> DROP DATABASE roundcubemail;
-mysql> DROP DATABASE sogo;
-mysql> DROP DATABASE vmail;
+-- Run on remote MySQL server as root user
+DROP DATABASE amavisd;
+DROP DATABASE cluebringer;
+DROP DATABASE iredadmin;
+DROP DATABASE iredapd;
+DROP DATABASE roundcubemail;
+DROP DATABASE sogo;
+DROP DATABASE vmail;
 
-mysql> DROP USER 'amavisd'@'192.168.1.200';
-mysql> DROP USER 'cluebringer'@'192.168.1.200';
-mysql> DROP USER 'iredadmin'@'192.168.1.200';
-mysql> DROP USER 'roundcube'@'192.168.1.200';
-mysql> DROP USER 'sogo'@'192.168.1.200';
-mysql> DROP USER 'vmail'@'192.168.1.200';
-mysql> DROP USER 'vmailadmin'@'192.168.1.200';
+DROP USER 'amavisd'@'192.168.1.200';
+DROP USER 'cluebringer'@'192.168.1.200';
+DROP USER 'iredadmin'@'192.168.1.200';
+DROP USER 'iredapd'@'192.168.1.200';
+DROP USER 'roundcube'@'192.168.1.200';
+DROP USER 'sogo'@'192.168.1.200';
+DROP USER 'vmail'@'192.168.1.200';
+DROP USER 'vmailadmin'@'192.168.1.200';
 ```
 
 ## Install iRedMail
