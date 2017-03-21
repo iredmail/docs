@@ -2,6 +2,16 @@
 
 [TOC]
 
+## Apache
+
+Ubuntu 16.04 ships Apache 2.4, there's no mysql auth module for Apache
+available, so you must disable all mysql auth related settings in Apache
+config files. For example:
+
+* /etc/apache2/apache2.conf
+* /etc/apache2/conf-available/awstats.conf
+* /etc/apache2/conf-available/cluebringer.conf
+
 ## Postfix
 
 ```
