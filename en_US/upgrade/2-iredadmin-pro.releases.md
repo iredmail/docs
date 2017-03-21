@@ -22,6 +22,7 @@ this tutorial with just one shell command:
 
 Version | Release Date | Comment
 ---|---|---
+[2.8.0](http://www.iredmail.org/forum/topic12499.html) | Mar 21, 2017 | Bug fix release.
 [2.7.0](http://www.iredmail.org/forum/topic12266.html) | Jan 23, 2017 | Improved RESTful API support.
 [2.6.1](http://www.iredmail.org/forum/topic11809.html) | Oct 10, 2016 | Fixes an __CRITICAL SECURITY ISSUE__ on FreeBSD and OpenBSD.
 [2.6.0](http://www.iredmail.org/forum/topic10995.html) | May 3, 2016 | With __RESTful API__ support.
@@ -53,6 +54,7 @@ Version | Release Date | Comment
 
 Version | Release Date | Comment
 ---|---|---
+[2.6.0](http://www.iredmail.org/forum/topic12498.html) | Mar 21, 2017 | Bug fix release.
 [2.5.0](http://www.iredmail.org/forum/topic12267.html) | Jan 23, 2017 | Improved RESTful API support.
 [2.4.1](http://www.iredmail.org/forum/topic11809.html) | Oct 10, 2016 | Fixes an __CRITICAL SECURITY ISSUE__ on FreeBSD and OpenBSD.
 [2.4.0](http://www.iredmail.org/forum/topic10996.html) | May 3, 2016 | With __RESTful API__ support.
