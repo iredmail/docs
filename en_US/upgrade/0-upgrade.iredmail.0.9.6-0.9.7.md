@@ -13,6 +13,7 @@
 
 ## ChangeLog
 
+* Mar 22, 2017: New backup script for SOGo.
 * Mar 16, 2017: Fixed: Avoid possible backdooring mysqldump backups
 * Mar  8, 2017: [RHEL/CentOS][Nginx] Fix incorrect `session.save_path` in php-fpm pool config file.
 * Feb  9, 2017: Fixed improper Fail2ban filter for Dovecot.
@@ -78,6 +79,55 @@ below:
 ```
 
 Then restart or reload Fail2ban service.
+
+### NEW: New backup script for SOGo
+
+!!! attention
+
+    This is not applicable to SOGo-2.x because it doesn't support backing up
+    all users' data with command `sogo-tool backup /path/to/backup/dir ALL`.
+
+iRedMail has script `/var/vmail/backup/backup_mysql.sh` (or `backup_pgsql.sh`)
+to backup SOGo database and generates a plain SQL file as backup file. This is
+fine, but it's not good enough, because it's hard to restore single user's
+data. So we write this simple script to backup SOGo data with `sogo-tool backup`
+command. it will dump users' data in separated file named with users' email
+addresses, this way it's easy to restore with `sogo-tool restore` command.
+Please follow steps below to setup this daily cron job.
+
+* Download backup script. We store it under `/var/vmail/backup`, if you prefer
+  a different directory, feel free to change the directory name used in commands
+  below:
+
+```
+cd /var/vmail/backup/
+wget https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/tools/backup_sogo.sh
+chmod +x backup_sogo.sh
+```
+
+* This script will create new directory under `/var/vmail/backup` like below
+  to store backup files:
+
+```
+/var/vmail/backup
+            |- sogo/
+                |- 2017/                # <- year
+                    |- 03/              # <- month
+                        |- 22.tar.bz2   # <- day (file name is: <day>.tar.bz2)
+```
+
+    If you prefer a different backup root directory, please open
+    `backup_sogo.sh`, update variable `BACKUP_ROOTDIR` with the new directory.
+
+* Open file `backup_sogo.sh`, modify 
+
+* Run command `crontab -e -u root` to setup root user's cron job. Add content
+  below as new job:
+
+```
+# SOGo: backup all users' data at 3:05AM everyday.
+5   3   *   *   *   bash /var/vmail/backup/backup_sogo.sh
+```
 
 ## OpenLDAP backend special
 

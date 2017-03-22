@@ -25,6 +25,7 @@
 <li><a href="#upgrade-roundcube-webmail-to-the-latest-stable-release-124">Upgrade Roundcube webmail to the latest stable release (1.2.4)</a></li>
 <li><a href="#fixed-incorrect-sessionsave_path-in-php-fpm-pool-config-file-on-rhelcentos">Fixed: incorrect session.save_path in php-fpm pool config file on RHEL/CentOS</a></li>
 <li><a href="#fixed-improper-fail2ban-filter-which-causes-incorrect-ban">Fixed: Improper Fail2ban filter which causes incorrect ban</a></li>
+<li><a href="#new-new-backup-script-for-sogo">NEW: New backup script for SOGo</a></li>
 </ul>
 </li>
 <li><a href="#openldap-backend-special">OpenLDAP backend special</a><ul>
@@ -50,6 +51,7 @@ check <a href="../support.html">the details</a> and <a href="../contact.html">co
 </div>
 <h2 id="changelog">ChangeLog</h2>
 <ul>
+<li>Mar 22, 2017: New backup script for SOGo.</li>
 <li>Mar 16, 2017: Fixed: Avoid possible backdooring mysqldump backups</li>
 <li>Mar  8, 2017: [RHEL/CentOS][Nginx] Fix incorrect <code>session.save_path</code> in php-fpm pool config file.</li>
 <li>Feb  9, 2017: Fixed improper Fail2ban filter for Dovecot.</li>
@@ -106,6 +108,56 @@ below:</p>
 </code></pre>
 
 <p>Then restart or reload Fail2ban service.</p>
+<h3 id="new-new-backup-script-for-sogo">NEW: New backup script for SOGo</h3>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>This is not applicable to SOGo-2.x because it doesn't support backing up
+all users' data with command <code>sogo-tool backup /path/to/backup/dir ALL</code>.</p>
+</div>
+<p>iRedMail has script <code>/var/vmail/backup/backup_mysql.sh</code> (or <code>backup_pgsql.sh</code>)
+to backup SOGo database and generates a plain SQL file as backup file. This is
+fine, but it's not good enough, because it's hard to restore single user's
+data. So we write this simple script to backup SOGo data with <code>sogo-tool backup</code>
+command. it will dump users' data in separated file named with users' email
+addresses, this way it's easy to restore with <code>sogo-tool restore</code> command.
+Please follow steps below to setup this daily cron job.</p>
+<ul>
+<li>Download backup script. We store it under <code>/var/vmail/backup</code>, if you prefer
+  a different directory, feel free to change the directory name used in commands
+  below:</li>
+</ul>
+<pre><code>cd /var/vmail/backup/
+wget https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/tools/backup_sogo.sh
+chmod +x backup_sogo.sh
+</code></pre>
+
+<ul>
+<li>This script will create new directory under <code>/var/vmail/backup</code> like below
+  to store backup files:</li>
+</ul>
+<pre><code>/var/vmail/backup
+            |- sogo/
+                |- 2017/                # &lt;- year
+                    |- 03/              # &lt;- month
+                        |- 22.tar.bz2   # &lt;- day (file name is: &lt;day&gt;.tar.bz2)
+</code></pre>
+
+<pre><code>If you prefer a different backup root directory, please open
+`backup_sogo.sh`, update variable `BACKUP_ROOTDIR` with the new directory.
+</code></pre>
+<ul>
+<li>
+<p>Open file <code>backup_sogo.sh</code>, modify </p>
+</li>
+<li>
+<p>Run command <code>crontab -e -u root</code> to setup root user's cron job. Add content
+  below as new job:</p>
+</li>
+</ul>
+<pre><code># SOGo: backup all users' data at 3:05AM everyday.
+5   3   *   *   *   bash /var/vmail/backup/backup_sogo.sh
+</code></pre>
+
 <h2 id="openldap-backend-special">OpenLDAP backend special</h2>
 <h3 id="fixed-avoid-possible-backdooring-mysqldump-backups">Fixed: Avoid possible backdooring mysqldump backups</h3>
 <p>For more details about this backdooring mysqldump backup issue, please read
