@@ -115,12 +115,16 @@ below:</p>
 all users' data with command <code>sogo-tool backup /path/to/backup/dir ALL</code>.</p>
 </div>
 <p>iRedMail has script <code>/var/vmail/backup/backup_mysql.sh</code> (or <code>backup_pgsql.sh</code>)
-to backup SOGo database and generates a plain SQL file as backup file. This is
-fine, but it's not good enough, because it's hard to restore single user's
-data. So we write this simple script to backup SOGo data with <code>sogo-tool backup</code>
-command. it will dump users' data in separated file named with users' email
-addresses, this way it's easy to restore with <code>sogo-tool restore</code> command.
-Please follow steps below to setup this daily cron job.</p>
+to backup SOGo database by dumping whole database to a plain SQL file as
+backup. It's not ideal because:</p>
+<ul>
+<li>it's hard to restore single user's data with a plain SQL file.</li>
+<li>if SOGo changes some SQL structure, it's hard to restore all data.</li>
+</ul>
+<p>This new script does backup with <code>sogo-tool backup</code> command to avoid issues
+mentioned above, you can restore a single user's data or all users data with
+<code>sogo-tool restore</code>.</p>
+<p>Please follow steps below to setup this daily cron job.</p>
 <ul>
 <li>Download backup script. We store it under <code>/var/vmail/backup</code>, if you prefer
   a different directory, feel free to change the directory name used in commands

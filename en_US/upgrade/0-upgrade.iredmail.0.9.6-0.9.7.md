@@ -88,11 +88,16 @@ Then restart or reload Fail2ban service.
     all users' data with command `sogo-tool backup /path/to/backup/dir ALL`.
 
 iRedMail has script `/var/vmail/backup/backup_mysql.sh` (or `backup_pgsql.sh`)
-to backup SOGo database and generates a plain SQL file as backup file. This is
-fine, but it's not good enough, because it's hard to restore single user's
-data. So we write this simple script to backup SOGo data with `sogo-tool backup`
-command. it will dump users' data in separated file named with users' email
-addresses, this way it's easy to restore with `sogo-tool restore` command.
+to backup SOGo database by dumping whole database to a plain SQL file as
+backup. It's not ideal because:
+
+* it's hard to restore single user's data with a plain SQL file.
+* if SOGo changes some SQL structure, it's hard to restore all data.
+
+This new script does backup with `sogo-tool backup` command to avoid issues
+mentioned above, you can restore a single user's data or all users data with
+`sogo-tool restore`.
+
 Please follow steps below to setup this daily cron job.
 
 * Download backup script. We store it under `/var/vmail/backup`, if you prefer
