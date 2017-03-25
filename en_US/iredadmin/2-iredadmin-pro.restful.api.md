@@ -6,7 +6,9 @@
 
     * If you need an API which has not yet been implemented, don't hesitate to
       [contact us](../contact.html).
-    * This document is applicable to iRedAdmin-Pro-LDAP-2.7.0 and iRedAdmin-Pro-SQL-2.5.0.
+    * This document is applicable to
+        * iRedAdmin-Pro-SQL-2.5.0, 2.6.0
+        * iRedAdmin-Pro-LDAP-2.7.0, 2.8.0
 
 ### ChangeLog
 
