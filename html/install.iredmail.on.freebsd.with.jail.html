@@ -85,6 +85,13 @@ ezjail_enable=&quot;YES&quot;
 </code></pre>
 
 <ul>
+<li>Enable a new parameter in <code>/etc/sysctl.conf</code>, this is required if you're
+  going to install iRedMail with PostgreSQL backend.</li>
+</ul>
+<pre><code>security.jail.sysvipc_allowed=1
+</code></pre>
+
+<ul>
 <li>Rebooting system is required after changing <code>/etc/rc.conf</code>.</li>
 </ul>
 <pre><code># reboot
