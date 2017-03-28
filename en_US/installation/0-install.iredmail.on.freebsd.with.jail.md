@@ -41,14 +41,17 @@ and it may not be working as expected.
 # make install clean
 ```
 
-* Enable ezjail service by appending below line in `/etc/rc.conf`:
+* Enable ezjail service and sysvipc by appending lines below to `/etc/rc.conf`:
 
 ```
 # Start ezjail while system start up
 ezjail_enable="YES"
+
+# Enable sysvipc. Required by PostgreSQL.
+jail_sysvipc_allow="YES"
 ```
 
-* Enable a new parameter in `/etc/sysctl.conf`, this is required if you're
+* Add parameter in `/etc/sysctl.conf`, this is required if you're
   going to install iRedMail with PostgreSQL backend.
 
 ```

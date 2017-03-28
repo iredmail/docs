@@ -78,14 +78,17 @@ and it may not be working as expected.</p>
 </code></pre>
 
 <ul>
-<li>Enable ezjail service by appending below line in <code>/etc/rc.conf</code>:</li>
+<li>Enable ezjail service and sysvipc by appending lines below to <code>/etc/rc.conf</code>:</li>
 </ul>
 <pre><code># Start ezjail while system start up
 ezjail_enable=&quot;YES&quot;
+
+# Enable sysvipc. Required by PostgreSQL.
+jail_sysvipc_allow=&quot;YES&quot;
 </code></pre>
 
 <ul>
-<li>Enable a new parameter in <code>/etc/sysctl.conf</code>, this is required if you're
+<li>Add parameter in <code>/etc/sysctl.conf</code>, this is required if you're
   going to install iRedMail with PostgreSQL backend.</li>
 </ul>
 <pre><code>security.jail.sysvipc_allowed=1
