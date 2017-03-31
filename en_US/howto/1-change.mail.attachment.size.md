@@ -25,7 +25,7 @@ Restart postfix to make it work:
 
 __NOTES__:
 
-* `104857600` is 100 (MB) x 1024 (KB) x 1024 (Bit).
+* `104857600` is 100 (MB) x 1024 (KB) x 1024 (Byte).
 * Mail will be encoded by mail user agent (Outlook, Thunderbird, etc) before
   transferred, the actual message size will be larger than 100MB, you can
   simplily increase above setting to 110Mb or 120Mb to make it work as expected.
