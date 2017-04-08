@@ -86,7 +86,7 @@ Available access policies are:
   are email addresses stored in SQL column `alias.moderators`. With iRedAPD-1.4.5,
   it's ok to use `*@domain.com` as (one of) moderator for all users under
   mail domain 'domain.com'.
-* `memebersAndModeratorsOnly`: only members and moderators of this mail list are allowed.
+* `membersAndModeratorsOnly`: only members and moderators of this mail list are allowed.
 
 Access restriction is implemented in iRedAPD (a simple Postfix policy server),
 iRedMail has it enabled by default. You'd better check its config file
