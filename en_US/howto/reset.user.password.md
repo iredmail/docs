@@ -15,19 +15,28 @@ time to reset password to prevent mail message leak.
 > * BCRYPT is recommended on BSD systems.
 > * MD5 is not safe, DO NOT USE IT no matter what reasons you have.
 
-To generate password hash for new password, please use `doveadm` command. For
-example: generate a SSHA512 password hash:
+To generate password hash for new password, please use `doveadm` command.
+
+* Generate a SSHA512 password hash:
 
 ```
 $ doveadm pw -s 'ssha512' -p '123456'
 {SSHA512}jOcGSlKEz95VeuLGecbL0MwJKy0yWY9foj6UlUVfZ2O2SNkEExU3n42YJLXDbLnu3ghnIRBkwDMsM31q7OI0jY5B/5E=
 ```
 
+* Generate a BCRYPT password hash on BSD system:
+
+```
+$ doveadm pw -s 'blf-crypt' -p '123'
+{BLF-CRYPT}$2a$05$9CTW6FZtjHeK6W.2YMmzOeAj2YFvDpP4JEH0uH/YLQI81jPWDtzQW
+```
+
 ### SQL backends
 
 To reset password for user `user@domain.ltd`, please login to SQL server as
 either SQL root user or `vmailadmin` user (note: sql user `vmail` has read-only
-privilege to `vmail` database, so you cannot use it to change user password):
+privilege to `vmail` database, so you cannot use it to change user password),
+then execute SQL commands to reset password:
 
 ```
 sql> USE vmail;
@@ -42,6 +51,10 @@ which needs to perform authentication with ldap dn directly, then `SSHA` is
 preferred.
 
 ## Reset password with scripts shipped in iRedAdmin-Pro
+
+!!! attention
+
+    iRedAdmin-Pro scripts support both SQL and LDAP backends.
 
 ### Reset password for one user
 
