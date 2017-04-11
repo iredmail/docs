@@ -36,9 +36,10 @@ sql> USE vmail;
 sql> UPDATE mailbox SET password='{SSHA512}jOcGSlKEz95VeuLGecbL0MwJKy0yWY9foj6UlUVfZ2O2SNkEExU3n42YJLXDbLnu3ghnIRBkwDMsM31q7OI0jY5B/5E=' WHERE username='user@domain.ltd';
 ```
 
-With OpenLDAP backend, you can reset it with phpLDAPadmin or other LDAP client
-tools, `SSHA` is preferred if you have other applications to authenticate
-users against OpenLDAP.
+With OpenLDAP backend, you can reset it with `ldapvi`, phpLDAPadmin or other
+LDAP client tools. `SSHA512` is recommended, but if you have some application
+which needs to perform authentication with ldap dn directly, then `SSHA` is
+preferred.
 
 It's ok to use plain password temporarily, then login to Roundcube webmail
 or iRedAdmin-Pro (with self-service enabled) to reset password immediately.
