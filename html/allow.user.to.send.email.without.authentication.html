@@ -65,10 +65,10 @@ device like printer, fax, we can also its IP address directly.</p>
 </code></pre>
 
 <ul>
-<li>To bypass sender IP address, for example, <code>192.168.0.1</code>, please add setting
-  in <code>/opt/iredapd/settings.py</code> like below:</li>
+<li>To bypass sender IP address or network, for example, <code>192.168.0.1</code> and
+  <code>192.168.1.0/24', please add setting in</code>/opt/iredapd/settings.py` like below:</li>
 </ul>
-<pre><code>MYNETWORKS = ['192.168.0.1']
+<pre><code>MYNETWORKS = ['192.168.0.1', '192.168.1.0/24']
 </code></pre>
 
 <p>Restarting iRedAPD service is required if you updated <code>/opt/iredapd/settings.py</code>.</p><div class="footer">

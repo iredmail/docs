@@ -54,10 +54,10 @@ not logged in</code>），因此需要在 iRedAPD 里放行将该收件人邮件
 </code></pre>
 
 <ul>
-<li>放行发件人 IP 地址，例如, <code>192.168.0.1</code>，请在 <code>/opt/iredapd/settings.py</code> 里
-  加以下参数：</li>
+<li>放行发件人 IP 地址或网段，例如, <code>192.168.0.1</code> 和 <code>192.168.1.0/24</code>，请在
+  <code>/opt/iredapd/settings.py</code> 里加以下参数：</li>
 </ul>
-<pre><code>MYNETWORKS = ['192.168.0.1']
+<pre><code>MYNETWORKS = ['192.168.0.1', '192.168.1.0/24']
 </code></pre>
 
 <p>修改后需要重启 iRedAPD 服务。</p><div class="footer">

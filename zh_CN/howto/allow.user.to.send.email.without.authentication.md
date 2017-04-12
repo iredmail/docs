@@ -44,11 +44,11 @@ not logged in`），因此需要在 iRedAPD 里放行将该收件人邮件地址
 ALLOWED_FORGED_SENDERS = ['user@example.com']
 ```
 
-* 放行发件人 IP 地址，例如, `192.168.0.1`，请在 `/opt/iredapd/settings.py` 里
-  加以下参数：
+* 放行发件人 IP 地址或网段，例如, `192.168.0.1` 和 `192.168.1.0/24`，请在
+  `/opt/iredapd/settings.py` 里加以下参数：
 
 ```
-MYNETWORKS = ['192.168.0.1']
+MYNETWORKS = ['192.168.0.1', '192.168.1.0/24']
 ```
 
 修改后需要重启 iRedAPD 服务。
