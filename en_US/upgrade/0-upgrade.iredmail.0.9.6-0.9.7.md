@@ -13,6 +13,7 @@
 
 ## ChangeLog
 
+* Apr 13, 2017: Fixed: incorrect owner and permission for rotated Dovecot log files
 * Mar 22, 2017: New backup script for SOGo.
 * Mar 16, 2017: Fixed: Avoid possible backdooring mysqldump backups
 * Mar  8, 2017: [RHEL/CentOS][Nginx] Fix incorrect `session.save_path` in php-fpm pool config file.
@@ -40,6 +41,20 @@ Please follow Roundcube official tutorial to upgrade Roundcube webmail to the
 latest stable release immediately:
 
 * [How to upgrade Roundcube](https://github.com/roundcube/roundcubemail/wiki/Upgrade).
+
+### Fixed: incorrect owner and permission for rotated Dovecot log files
+
+iRedMail-0.9.6 and earlier releases have an incorrect logrotate setting for
+Dovecot log file, it causes all Dovecot log files are empty due to no required
+permission to open log files. Please follow steps below to fix it.
+
+Please open file `/etc/logrotate.d/dovecot`, find line below:
+
+```
+    create 0600 vmail vmail
+```
+
+Remove above line and save the change.
 
 ### Fixed: incorrect session.save_path in php-fpm pool config file on RHEL/CentOS
 

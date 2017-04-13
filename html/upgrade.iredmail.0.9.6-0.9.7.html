@@ -23,6 +23,7 @@
 <li><a href="#general-all-backends-should-apply-these-steps">General (All backends should apply these steps)</a><ul>
 <li><a href="#update-etciredmail-release-with-new-iredmail-version-number">Update /etc/iredmail-release with new iRedMail version number</a></li>
 <li><a href="#upgrade-roundcube-webmail-to-the-latest-stable-release-124">Upgrade Roundcube webmail to the latest stable release (1.2.4)</a></li>
+<li><a href="#fixed-incorrect-owner-and-permission-for-rotated-dovecot-log-files">Fixed: incorrect owner and permission for rotated Dovecot log files</a></li>
 <li><a href="#fixed-incorrect-sessionsave_path-in-php-fpm-pool-config-file-on-rhelcentos">Fixed: incorrect session.save_path in php-fpm pool config file on RHEL/CentOS</a></li>
 <li><a href="#fixed-improper-fail2ban-filter-which-causes-incorrect-ban">Fixed: Improper Fail2ban filter which causes incorrect ban</a></li>
 <li><a href="#new-new-backup-script-for-sogo">NEW: New backup script for SOGo</a></li>
@@ -51,6 +52,7 @@ check <a href="../support.html">the details</a> and <a href="../contact.html">co
 </div>
 <h2 id="changelog">ChangeLog</h2>
 <ul>
+<li>Apr 13, 2017: Fixed: incorrect owner and permission for rotated Dovecot log files</li>
 <li>Mar 22, 2017: New backup script for SOGo.</li>
 <li>Mar 16, 2017: Fixed: Avoid possible backdooring mysqldump backups</li>
 <li>Mar  8, 2017: [RHEL/CentOS][Nginx] Fix incorrect <code>session.save_path</code> in php-fpm pool config file.</li>
@@ -75,6 +77,15 @@ latest stable release immediately:</p>
 <ul>
 <li><a href="https://github.com/roundcube/roundcubemail/wiki/Upgrade">How to upgrade Roundcube</a>.</li>
 </ul>
+<h3 id="fixed-incorrect-owner-and-permission-for-rotated-dovecot-log-files">Fixed: incorrect owner and permission for rotated Dovecot log files</h3>
+<p>iRedMail-0.9.6 and earlier releases have an incorrect logrotate setting for
+Dovecot log file, it causes all Dovecot log files are empty due to no required
+permission to open log files. Please follow steps below to fix it.</p>
+<p>Please open file <code>/etc/logrotate.d/dovecot</code>, find line below:</p>
+<pre><code>    create 0600 vmail vmail
+</code></pre>
+
+<p>Remove above line and save the change.</p>
 <h3 id="fixed-incorrect-sessionsave_path-in-php-fpm-pool-config-file-on-rhelcentos">Fixed: incorrect session.save_path in php-fpm pool config file on RHEL/CentOS</h3>
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>
