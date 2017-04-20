@@ -57,7 +57,7 @@ ALLOWED_FORGED_SENDERS = ['user@example.com']
 ```
 
 * To bypass sender IP address or network, for example, `192.168.0.1` and
-  `192.168.1.0/24', please add setting in `/opt/iredapd/settings.py` like below:
+  `192.168.1.0/24`, please add setting in `/opt/iredapd/settings.py` like below:
 
 ```
 MYNETWORKS = ['192.168.0.1', '192.168.1.0/24']
