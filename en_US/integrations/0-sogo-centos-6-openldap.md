@@ -364,7 +364,7 @@ command: `crontab -l -u sogo`
 
 # iRedMail: SOGo vacation messages expiration
 # The credentials file should contain the sieve admin credentials (username:passwd)
-0   0   *   *   *   /usr/sbin/sogo-tool expire-autoreply -p /etc/sogo/sieve.cred
+0   0   *   *   *   /usr/sbin/sogo-tool update-autoreply -p /etc/sogo/sieve.cred
 ```
 
 ## Access SOGo from web browser
