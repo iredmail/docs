@@ -64,6 +64,7 @@ Restarting Apache or uwsgi (if you're running Nginx) is required.
 Notes:
 
 * Parameter name with a `*` mark means the parameter is required, otherwise is optional.
+* __Parameter names are cAsE-sensitive.__
 * replace `<domain>` in URL by the real domain name. e.g. `example.com`
 * replace `<mail>` in URL by the real email address. e.g. `user@domain.com`
 * replace `<number>` in URL by an integer number. e.g. `30`, `200`
