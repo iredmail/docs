@@ -31,16 +31,52 @@ so that you can know which version of iRedMail you're running. For example:
 0.9.7
 ```
 
-### Upgrade Roundcube webmail to the latest stable release (1.2.4)
+### Upgrade Roundcube webmail to the latest stable release (1.2.5)
 
-> Roundcube 1.2.4 fixes a security issue, all users are encouraged to upgrade
-> it as soon as possible. For more details about this release, please check
-> Roundcube [release note](https://github.com/roundcube/roundcubemail/releases/tag/1.2.4).
+> There're several security fixes in Roundcube 1.2.4 and 1.2.5, all users are
+> encouraged to upgrade it as soon as possible. For more details about this
+> release, please check Roundcube release notes:
+>
+> * [1.2.4](https://github.com/roundcube/roundcubemail/releases/tag/1.2.4)
+> * [1.2.5](https://github.com/roundcube/roundcubemail/releases/tag/1.2.5)
 
 Please follow Roundcube official tutorial to upgrade Roundcube webmail to the
 latest stable release immediately:
 
 * [How to upgrade Roundcube](https://github.com/roundcube/roundcubemail/wiki/Upgrade).
+
+### Fixed: improper order of restriction rules in Postfix smtpd_helo_restrictions
+
+iRedMail-0.9.6 and earlier releases didn't configure Postfix to apply custom
+HELO restriction rule before FQDN helo hostname check and DNS verification,
+this way you cannot whitelist some bad HELO hostnames. Please follow steps
+below to fix it.
+
+* Open file `/etc/postfix/main.cf` (Linux/OpenBSD) or
+`/usr/local/etc/postfix/main.cf` (FreeBSD), find parameter
+`smtpd_helo_restrictions` like below:
+
+```
+smtpd_helo_restrictions =
+    permit_mynetworks
+    permit_sasl_authenticated
+    reject_non_fqdn_helo_hostname
+    reject_unknown_helo_hostname
+    check_helo_access pcre:/etc/postfix/helo_access.pcre
+```
+
+* Move the `check_helo_access` line after `permit_sasl_authenticated`:
+
+```
+smtpd_helo_restrictions =
+    permit_mynetworks
+    permit_sasl_authenticated
+    check_helo_access pcre:/etc/postfix/helo_access.pcre
+    reject_non_fqdn_helo_hostname
+    reject_unknown_helo_hostname
+```
+
+* Reloading or restarting Postfix service is required.
 
 ### Fixed: incorrect owner and permission for rotated Dovecot log files
 

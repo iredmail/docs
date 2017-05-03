@@ -22,7 +22,8 @@
 <li><a href="#changelog">ChangeLog</a></li>
 <li><a href="#general-all-backends-should-apply-these-steps">General (All backends should apply these steps)</a><ul>
 <li><a href="#update-etciredmail-release-with-new-iredmail-version-number">Update /etc/iredmail-release with new iRedMail version number</a></li>
-<li><a href="#upgrade-roundcube-webmail-to-the-latest-stable-release-124">Upgrade Roundcube webmail to the latest stable release (1.2.4)</a></li>
+<li><a href="#upgrade-roundcube-webmail-to-the-latest-stable-release-125">Upgrade Roundcube webmail to the latest stable release (1.2.5)</a></li>
+<li><a href="#fixed-improper-order-of-restriction-rules-in-postfix-smtpd_helo_restrictions">Fixed: improper order of restriction rules in Postfix smtpd_helo_restrictions</a></li>
 <li><a href="#fixed-incorrect-owner-and-permission-for-rotated-dovecot-log-files">Fixed: incorrect owner and permission for rotated Dovecot log files</a></li>
 <li><a href="#fixed-incorrect-sessionsave_path-in-php-fpm-pool-config-file-on-rhelcentos">Fixed: incorrect session.save_path in php-fpm pool config file on RHEL/CentOS</a></li>
 <li><a href="#fixed-improper-fail2ban-filter-which-causes-incorrect-ban">Fixed: Improper Fail2ban filter which causes incorrect ban</a></li>
@@ -66,16 +67,52 @@ so that you can know which version of iRedMail you're running. For example:</p>
 <pre><code>0.9.7
 </code></pre>
 
-<h3 id="upgrade-roundcube-webmail-to-the-latest-stable-release-124">Upgrade Roundcube webmail to the latest stable release (1.2.4)</h3>
+<h3 id="upgrade-roundcube-webmail-to-the-latest-stable-release-125">Upgrade Roundcube webmail to the latest stable release (1.2.5)</h3>
 <blockquote>
-<p>Roundcube 1.2.4 fixes a security issue, all users are encouraged to upgrade
-it as soon as possible. For more details about this release, please check
-Roundcube <a href="https://github.com/roundcube/roundcubemail/releases/tag/1.2.4">release note</a>.</p>
+<p>There're several security fixes in Roundcube 1.2.4 and 1.2.5, all users are
+encouraged to upgrade it as soon as possible. For more details about this
+release, please check Roundcube release notes:</p>
+<ul>
+<li><a href="https://github.com/roundcube/roundcubemail/releases/tag/1.2.4">1.2.4</a></li>
+<li><a href="https://github.com/roundcube/roundcubemail/releases/tag/1.2.5">1.2.5</a></li>
+</ul>
 </blockquote>
 <p>Please follow Roundcube official tutorial to upgrade Roundcube webmail to the
 latest stable release immediately:</p>
 <ul>
 <li><a href="https://github.com/roundcube/roundcubemail/wiki/Upgrade">How to upgrade Roundcube</a>.</li>
+</ul>
+<h3 id="fixed-improper-order-of-restriction-rules-in-postfix-smtpd_helo_restrictions">Fixed: improper order of restriction rules in Postfix smtpd_helo_restrictions</h3>
+<p>iRedMail-0.9.6 and earlier releases didn't configure Postfix to apply custom
+HELO restriction rule before FQDN helo hostname check and DNS verification,
+this way you cannot whitelist some bad HELO hostnames. Please follow steps
+below to fix it.</p>
+<ul>
+<li>Open file <code>/etc/postfix/main.cf</code> (Linux/OpenBSD) or
+<code>/usr/local/etc/postfix/main.cf</code> (FreeBSD), find parameter
+<code>smtpd_helo_restrictions</code> like below:</li>
+</ul>
+<pre><code>smtpd_helo_restrictions =
+    permit_mynetworks
+    permit_sasl_authenticated
+    reject_non_fqdn_helo_hostname
+    reject_unknown_helo_hostname
+    check_helo_access pcre:/etc/postfix/helo_access.pcre
+</code></pre>
+
+<ul>
+<li>Move the <code>check_helo_access</code> line after <code>permit_sasl_authenticated</code>:</li>
+</ul>
+<pre><code>smtpd_helo_restrictions =
+    permit_mynetworks
+    permit_sasl_authenticated
+    check_helo_access pcre:/etc/postfix/helo_access.pcre
+    reject_non_fqdn_helo_hostname
+    reject_unknown_helo_hostname
+</code></pre>
+
+<ul>
+<li>Reloading or restarting Postfix service is required.</li>
 </ul>
 <h3 id="fixed-incorrect-owner-and-permission-for-rotated-dovecot-log-files">Fixed: incorrect owner and permission for rotated Dovecot log files</h3>
 <p>iRedMail-0.9.6 and earlier releases have an incorrect logrotate setting for
