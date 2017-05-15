@@ -12,6 +12,8 @@
 
 ## ChangeLog
 
+### iRedAdmin-Pro-SQL-2.6.0, iRedAdmin-Pro-LDAP-2.8.0
+
 * Variable names in returned JSON data has been changed to:
   `{'_success': ..., '_msg': ...}` (was `{'success': ..., 'msg': ...}`).
 * Some variable names have been renamed:
