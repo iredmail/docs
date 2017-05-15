@@ -13,6 +13,8 @@
 
 ## ChangeLog
 
+* May 15, 2017: SQL structure change in `vmail.alias` SQL table
+* May  3, 2017: Fixed: improper order of Postfix HELO restriction rules.
 * Apr 13, 2017: Fixed: incorrect owner and permission for rotated Dovecot log files
 * Mar 22, 2017: New backup script for SOGo.
 * Mar 16, 2017: Fixed: Avoid possible backdooring mysqldump backups
@@ -45,7 +47,7 @@ latest stable release immediately:
 
 * [How to upgrade Roundcube](https://github.com/roundcube/roundcubemail/wiki/Upgrade).
 
-### Fixed: improper order of restriction rules in Postfix smtpd_helo_restrictions
+### Fixed: improper order of Postfix HELO restriction rules.
 
 iRedMail-0.9.6 and earlier releases didn't configure Postfix to apply custom
 HELO restriction rule before FQDN helo hostname check and DNS verification,
@@ -216,6 +218,116 @@ export CMD_MYSQLDUMP="mysqldump ... --skip-comments"
 
 ## MySQL/MariaDB backend special
 
+### SQL structure change in `vmail.alias` SQL table
+
+We've made some changes to `vmail.alias` SQL table for easier account
+management, you can find details about this change here:
+[SQL structure changes in `vmail.alias` table](https://bitbucket.org/zhb/iredmail/issues/101/sql-structure-changes-in-vmailalias-table).
+
+This change introduces 2 new SQL tables (`forwardings`, `alias_moderators`),
+and (optionally) dropped few columns in `vmail.alias` table.
+
+iRedAPD and iRedAdmin (and iRedAdmin-Pro) have been upgraded to use this new
+SQL structure.
+
+#### Create required new SQL tables
+
+Please connect to MySQL server as MySQL root user, and execute SQL commands
+below to create required new tables:
+
+```
+USE vmail;
+
+CREATE TABLE IF NOT EXISTS alias_moderators (
+    id BIGINT(20) UNSIGNED AUTO_INCREMENT,
+    address VARCHAR(255) NOT NULL DEFAULT '',
+    moderator VARCHAR(255) NOT NULL DEFAULT '',
+    domain VARCHAR(255) NOT NULL DEFAULT '',
+    PRIMARY KEY (id),
+    UNIQUE INDEX (address, moderator),
+    INDEX (domain)
+) ENGINE=InnoDB;
+
+CREATE TABLE IF NOT EXISTS forwardings (
+    id BIGINT(20) UNSIGNED AUTO_INCREMENT,
+    address VARCHAR(255) NOT NULL DEFAULT '',
+    forwarding VARCHAR(255) NOT NULL DEFAULT '',
+    domain VARCHAR(255) NOT NULL DEFAULT '',
+    -- defines whether it's a standalone mail alias account. 0=no, 1=yes.
+    is_list TINYINT(1) NOT NULL DEFAULT 0,
+    -- defines whether it's a mail forwarding address of mail user. 0=no, 1=yes.
+    is_forwarding TINYINT(1) NOT NULL DEFAULT 0,
+    -- defines whether it's a per-account alias address. 0=no, 1=yes.
+    is_alias TINYINT(1) NOT NULL DEFAULT 0,
+    active TINYINT(1) NOT NULL DEFAULT 1,
+    PRIMARY KEY (id),
+    UNIQUE INDEX (address, forwarding),
+    INDEX (domain),
+    INDEX (is_list),
+    INDEX (is_alias)
+) ENGINE=InnoDB;
+```
+
+#### Migrate mail accounts
+
+Please download script used to migrate mail accounts, and run it directly:
+
+```
+cd /root/
+wget https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/tools/migrate_sql_alias_table.py
+python migrate_sql_alias_table.py
+```
+
+Note: It will try to read iRedAdmin config file from one of paths below, and
+connects to SQL server as user `vmailadmin`:
+
+* /opt/www/iredadmin/settings.py (Debian/Ubuntu)
+* /var/www/iredadmin/settings.py (CentOS/OpenBSD)
+* /usr/share/apache2/iredadmin/settings.py (Debian/Ubuntu with old iRedMail releases)
+* /usr/local/www/iredadmin/settings.py (FreeBSD)
+
+#### Update Postfix config files
+
+Please run shell commands below to tell Postfix to use new SQL tables.
+
+Notes: on FreeBSD, the path is `/usr/local/etc/postfix/mysql`.
+
+```
+cd /etc/postfix/mysql/
+perl -pi -e 's#alias\.address#forwardings.address#g' *.cf
+perl -pi -e 's#alias\.goto#forwardings.forwarding#g' *.cf
+perl -pi -e 's#alias\.active#forwardings.active#g' *.cf
+perl -pi -e 's#alias\.domain#forwardings.domain#g' *.cf
+perl -pi -e 's#alias,#forwardings,#g' *.cf
+```
+
+Restarting Postfix service is required.
+
+#### [OPTIONAL] Drop unused SQL columns in `vmail.alias` table
+
+After migration, few columns in `vmail.alias` table are not used anymore, it's
+ok to drop them. But it's strongly recommended to keep them for few more days
+until you can confirm all features are working as expected.
+
+Please connect to MySQL server as MySQL root user, then execute SQL commands
+below:
+
+```
+USE vmail;
+
+-- Remove non-mail-alias account
+DELETE FROM alias WHERE islist <> 1;
+
+-- per-domain catch-all account
+DELETE FROM alias WHERE address=domain;
+
+-- Drop unused columns
+ALTER TABLE alias DROP COLUMN goto;
+ALTER TABLE alias DROP COLUMN moderators;
+ALTER TABLE alias DROP COLUMN islist;
+ALTER TABLE alias DROP COLUMN is_alias;
+ALTER TABLE alias DROP COLUMN alias_to;
+```
 ### Fixed: Avoid possible backdooring mysqldump backups
 
 For more details about this backdooring mysqldump backup issue, please read
@@ -242,3 +354,122 @@ export CMD_MYSQLDUMP="mysqldump ... --skip-comments"
 ```
 
 * Save your change. That's it.
+
+## PostgreSQL backend specific
+
+### SQL structure change in `vmail.alias` SQL table
+
+We've made some changes to `vmail.alias` SQL table for easier account
+management, you can find details about this change here:
+[SQL structure changes in `vmail.alias` table](https://bitbucket.org/zhb/iredmail/issues/101/sql-structure-changes-in-vmailalias-table).
+
+This change introduces 2 new SQL tables (`forwardings`, `alias_moderators`),
+and (optionally) dropped few columns in `vmail.alias` table.
+
+iRedAPD and iRedAdmin (and iRedAdmin-Pro) have been upgraded to use this new
+SQL structure.
+
+#### Create required new SQL tables
+
+Please connect to PostgreSQL server as `vmailadmin` user, then execute SQL
+commands below to create required new tables:
+
+```
+su - postgres
+psql -U vmailadmin -d vmail
+
+CREATE TABLE forwardings (
+    id SERIAL PRIMARY KEY,
+    address VARCHAR(255) NOT NULL DEFAULT '',
+    forwarding VARCHAR(255) NOT NULL DEFAULT '',
+    domain VARCHAR(255) NOT NULL DEFAULT '',
+    -- defines whether it's a standalone mail alias account. 0=no, 1=yes.
+    is_list INT2 NOT NULL DEFAULT 0,
+    -- defines whether it's a mail forwarding address of mail user. 0=no, 1=yes.
+    is_forwarding INT2 NOT NULL DEFAULT 0,
+    -- defines whether it's a per-account alias address. 0=no, 1=yes.
+    is_alias INT2 NOT NULL DEFAULT 0,
+    active INT2 NOT NULL DEFAULT 1
+);
+CREATE INDEX idx_forwardings_address ON forwardings (address);
+CREATE INDEX idx_forwardings_forwarding ON forwardings (forwarding);
+CREATE UNIQUE INDEX idx_forwardings_address_forwarding ON forwardings (address, forwarding);
+CREATE INDEX idx_forwardings_domain ON forwardings (domain);
+CREATE INDEX idx_forwardings_is_list ON forwardings (is_list);
+CREATE INDEX idx_forwardings_is_forwarding ON forwardings (is_forwarding);
+CREATE INDEX idx_forwardings_is_alias ON forwardings (is_alias);
+
+CREATE TABLE alias_moderators (
+    id SERIAL PRIMARY KEY,
+    address VARCHAR(255) NOT NULL DEFAULT '',
+    moderator VARCHAR(255) NOT NULL DEFAULT '',
+    domain VARCHAR(255) NOT NULL DEFAULT ''
+);
+CREATE INDEX idx_alias_moderators_address ON alias_moderators (address);
+CREATE INDEX idx_alias_moderators_moderator ON alias_moderators (moderator);
+CREATE INDEX idx_alias_moderators_domain ON alias_moderators (domain);
+CREATE UNIQUE INDEX idx_alias_moderators_address_moderator ON alias_moderators (address, moderator);
+
+-- Grant required privilege to vmail user
+GRANT SELECT ON TABLE forwardings to vmail;
+GRANT SELECT ON TABLE alias_moderators to vmail;
+```
+
+#### Migrate mail accounts
+
+Please download script used to migrate mail accounts, and run it directly:
+
+```
+cd /root/
+wget https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/tools/migrate_sql_alias_table.py
+python migrate_sql_alias_table.py
+```
+
+Note: It will try to read iRedAdmin config file from one of paths below, and
+connects to SQL server as user `vmailadmin`:
+
+* /opt/www/iredadmin/settings.py (Debian/Ubuntu)
+* /var/www/iredadmin/settings.py (CentOS/OpenBSD)
+* /usr/share/apache2/iredadmin/settings.py (Debian/Ubuntu with old iRedMail releases)
+* /usr/local/www/iredadmin/settings.py (FreeBSD)
+
+#### Update Postfix config files
+
+Please run shell commands below to tell Postfix to use new SQL tables.
+
+Notes: on FreeBSD, the path is `/usr/local/etc/postfix/pgsql`.
+
+```
+cd /etc/postfix/pgsql/
+perl -pi -e 's#alias\.address#forwardings.address#g' *.cf
+perl -pi -e 's#alias\.goto#forwardings.forwarding#g' *.cf
+perl -pi -e 's#alias\.active#forwardings.active#g' *.cf
+perl -pi -e 's#alias\.domain#forwardings.domain#g' *.cf
+perl -pi -e 's#alias,#forwardings,#g' *.cf
+```
+
+Restarting Postfix service is required.
+
+#### [OPTIONAL] Drop unused SQL columns in `vmail.alias` table
+
+After migration, few columns in `vmail.alias` table are not used anymore, it's
+ok to drop them. But it's strongly recommended to keep them for few more days
+until you can confirm all features are working as expected.
+
+```
+su - postgres
+psql -U vmailadmin -d vmail
+
+-- Remove non-mail-alias account
+DELETE FROM alias WHERE islist <> 1;
+
+-- per-domain catch-all account
+DELETE FROM alias WHERE address=domain;
+
+-- Drop unused columns
+ALTER TABLE alias DROP COLUMN goto;
+ALTER TABLE alias DROP COLUMN moderators;
+ALTER TABLE alias DROP COLUMN islist;
+ALTER TABLE alias DROP COLUMN is_alias;
+ALTER TABLE alias DROP COLUMN alias_to;
+```
