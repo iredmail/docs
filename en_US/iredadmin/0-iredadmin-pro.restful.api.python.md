@@ -28,7 +28,7 @@ r = requests.post(url + '/login', data={'username': admin,
 
 # Get returned JSON data
 data = r.json()
-if not data['success']:
+if not data['_success']:
     sys.exit('Login failed')
 
 cookies = r.cookies

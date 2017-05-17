@@ -401,6 +401,7 @@ button, .button { font-size: 16px; padding: 5px 5px 5px 5px; }
 .api code.delete,
 .api code.has_params,
 .api code.has_params_throttle,
+.api code.has_params_greylisting,
 .api code.has_params_spampolicy
 {
     display: inline-block;
@@ -415,6 +416,7 @@ button, .button { font-size: 16px; padding: 5px 5px 5px 5px; }
 .api code.new { background-color: #10a54a; text-transform: uppercase; }
 .api code.has_params,
 .api code.has_params_throttle,
+.api code.has_params_greylisting,
 .api code.has_params_spampolicy
 {
     background-color: #0064cd;
