@@ -1354,19 +1354,25 @@ please use mail alias account as mailing list.</p>
 <p class="admonition-title"><code class="get">GET</code> <code class="url">/api/greylisting/all</code> <code class="comment">Get all existing greylisting settings</code></p>
 </div>
 <div class="admonition api">
-<p class="admonition-title"><code class="get">GET</code> <code class="url">/api/greylisting/global</code> <code class="comment">Get global greylisting settings</code></p>
+<p class="admonition-title"><code class="get">GET</code> <code class="url">/api/greylisting/global</code> <code class="comment">Get global greylisting setting</code></p>
 </div>
 <div class="admonition api">
-<p class="admonition-title"><code class="get">GET</code> <code class="url">/api/greylisting/&lt;domain&gt;</code> <code class="comment">Get per-domain greylisting settings</code></p>
+<p class="admonition-title"><code class="get">GET</code> <code class="url">/api/greylisting/&lt;domain&gt;</code> <code class="comment">Get per-domain greylisting setting</code></p>
 </div>
 <div class="admonition api">
-<p class="admonition-title"><code class="get">GET</code> <code class="url">/api/greylisting/&lt;mail&gt;</code> <code class="comment">Get per-user greylisting settings</code></p>
+<p class="admonition-title"><code class="get">GET</code> <code class="url">/api/greylisting/&lt;mail&gt;</code> <code class="comment">Get per-user greylisting setting</code></p>
 </div>
 <div class="admonition api">
-<p class="admonition-title"><code class="post">POST</code> <code class="url">/api/greylisting/global</code> <code class="comment">Set global greylisting settings</code> <code class="has_params">Parameters</code></p>
-<div class="params">
+<p class="admonition-title"><code class="post">POST</code> <code class="url">/api/greylisting/global</code> <code class="comment">Set global greylisting setting</code> <code class="has_params_greylisting">Parameters</code></p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code class="post">POST</code> <code class="url">/api/greylisting/&lt;domain&gt;</code> <code class="comment">Set per-domain greylisting setting</code> <code class="has_params_greylisting">Parameters</code></p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code class="post">POST</code> <code class="url">/api/greylisting/&lt;mail&gt;</code> <code class="comment">Set per-user greylisting setting</code> <code class="has_params_greylisting">Parameters</code></p>
+<div class="params params_greylisting">
 
-<p>Parameters available for global greylisting settings.</p>
+<p>Parameters available for global, per-domain and per-user greylisting settings.</p>
 <table>
 <thead>
 <tr>
@@ -1387,52 +1393,13 @@ please use mail alias account as mailing list.</p>
 
 </div>
 <div class="admonition api">
-<p class="admonition-title"><code class="post">POST</code> <code class="url">/api/greylisting/&lt;domain&gt;</code> <code class="comment">Set per-domain greylisting settings</code> <code class="has_params">Parameters</code></p>
-<div class="params">
-
-<p>Parameters available for per-domain greylisting settings.</p>
-<table>
-<thead>
-<tr>
-<th>Parameter</th>
-<th>Summary</th>
-<th>Sample Usage</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>status</code></td>
-<td>Explicitly enable or disable greylisting service. With value <code>inherit</code>, per-domain setting will be removed and use global setting instead.</td>
-<td><code>status=enable</code> (or <code>disable</code>, <code>inherit</code>)</td>
-</tr>
-</tbody>
-</table>
-</div>
-
+<p class="admonition-title"><code class="delete">DELETE</code> <code class="url">/api/greylisting/global</code> <code class="comment">Delete global greylisting setting</code></p>
 </div>
 <div class="admonition api">
-<p class="admonition-title"><code class="post">POST</code> <code class="url">/api/greylisting/&lt;mail&gt;</code> <code class="comment">Set per-user greylisting settings</code> <code class="has_params">Parameters</code></p>
-<div class="params">
-
-<p>Parameters available for per-user greylisting settings.</p>
-<table>
-<thead>
-<tr>
-<th>Parameter</th>
-<th>Summary</th>
-<th>Sample Usage</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>status</code></td>
-<td>Explicitly enable or disable greylisting service. With value <code>inherit</code>, per-user setting will be removed and use per-domain setting (if present) or global setting instead.</td>
-<td><code>status=enable</code> (or <code>disable</code>, <code>inherit</code>)</td>
-</tr>
-</tbody>
-</table>
+<p class="admonition-title"><code class="delete">DELETE</code> <code class="url">/api/greylisting/&lt;domain&gt;</code> <code class="comment">Delete per-domain greylisting setting</code></p>
 </div>
-
+<div class="admonition api">
+<p class="admonition-title"><code class="delete">DELETE</code> <code class="url">/api/greylisting/&lt;mail&gt;</code> <code class="comment">Delete per-user greylisting setting</code></p>
 </div>
 <div class="admonition api">
 <p class="admonition-title"><code class="post">POST</code> <code class="url">/api/greylisting/global/whitelists</code> <code class="comment">Whitelist senders for greylisting service globally</code> <code class="has_params">Parameters</code></p>

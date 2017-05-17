@@ -505,14 +505,16 @@ Notes:
 ### Greylisting {: .toggle }
 
 !!! api "`GET`{: .get } `/api/greylisting/all`{: .url } `Get all existing greylisting settings`{: .comment }"
-!!! api "`GET`{: .get } `/api/greylisting/global`{: .url } `Get global greylisting settings`{: .comment }"
-!!! api "`GET`{: .get } `/api/greylisting/<domain>`{: .url } `Get per-domain greylisting settings`{: .comment }"
-!!! api "`GET`{: .get } `/api/greylisting/<mail>`{: .url } `Get per-user greylisting settings`{: .comment }"
-!!! api "`POST`{: .post } `/api/greylisting/global`{: .url } `Set global greylisting settings`{: .comment } `Parameters`{: .has_params }"
+!!! api "`GET`{: .get } `/api/greylisting/global`{: .url } `Get global greylisting setting`{: .comment }"
+!!! api "`GET`{: .get } `/api/greylisting/<domain>`{: .url } `Get per-domain greylisting setting`{: .comment }"
+!!! api "`GET`{: .get } `/api/greylisting/<mail>`{: .url } `Get per-user greylisting setting`{: .comment }"
+!!! api "`POST`{: .post } `/api/greylisting/global`{: .url } `Set global greylisting setting`{: .comment } `Parameters`{: .has_params_greylisting }"
+!!! api "`POST`{: .post } `/api/greylisting/<domain>`{: .url } `Set per-domain greylisting setting`{: .comment } `Parameters`{: .has_params_greylisting }"
+!!! api "`POST`{: .post } `/api/greylisting/<mail>`{: .url } `Set per-user greylisting setting`{: .comment } `Parameters`{: .has_params_greylisting }"
 
-    <div class="params">
+    <div class="params params_greylisting">
 
-    Parameters available for global greylisting settings.
+    Parameters available for global, per-domain and per-user greylisting settings.
 
     Parameter | Summary | Sample Usage
     --- |--- |---
@@ -520,30 +522,9 @@ Notes:
 
     </div>
 
-!!! api "`POST`{: .post } `/api/greylisting/<domain>`{: .url } `Set per-domain greylisting settings`{: .comment } `Parameters`{: .has_params }"
-
-    <div class="params">
-
-    Parameters available for per-domain greylisting settings.
-
-    Parameter | Summary | Sample Usage
-    --- |--- |---
-    `status` | Explicitly enable or disable greylisting service. With value `inherit`, per-domain setting will be removed and use global setting instead. | `status=enable` (or `disable`, `inherit`)
-
-    </div>
-
-!!! api "`POST`{: .post } `/api/greylisting/<mail>`{: .url } `Set per-user greylisting settings`{: .comment } `Parameters`{: .has_params }"
-
-    <div class="params">
-
-    Parameters available for per-user greylisting settings.
-
-    Parameter | Summary | Sample Usage
-    --- |--- |---
-    `status` | Explicitly enable or disable greylisting service. With value `inherit`, per-user setting will be removed and use per-domain setting (if present) or global setting instead. | `status=enable` (or `disable`, `inherit`)
-
-    </div>
-
+!!! api "`DELETE`{: .delete } `/api/greylisting/global`{: .url } `Delete global greylisting setting`{: .comment }"
+!!! api "`DELETE`{: .delete } `/api/greylisting/<domain>`{: .url } `Delete per-domain greylisting setting`{: .comment }"
+!!! api "`DELETE`{: .delete } `/api/greylisting/<mail>`{: .url } `Delete per-user greylisting setting`{: .comment }"
 !!! api "`POST`{: .post } `/api/greylisting/global/whitelists`{: .url } `Whitelist senders for greylisting service globally`{: .comment } `Parameters`{: .has_params }"
 
     <div class="params">
