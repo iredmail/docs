@@ -26,7 +26,7 @@
 <li><a href="#fixed-improper-order-of-postfix-helo-restriction-rules">Fixed: improper order of Postfix HELO restriction rules.</a></li>
 <li><a href="#fixed-incorrect-owner-and-permission-for-rotated-dovecot-log-files">Fixed: incorrect owner and permission for rotated Dovecot log files</a></li>
 <li><a href="#fixed-incorrect-sessionsave_path-in-php-fpm-pool-config-file-on-rhelcentos">Fixed: incorrect session.save_path in php-fpm pool config file on RHEL/CentOS</a></li>
-<li><a href="#fixed-improper-fail2ban-filter-which-causes-incorrect-ban">Fixed: Improper Fail2ban filter which causes incorrect ban</a></li>
+<li><a href="#fail2ban-fixes-an-improper-filter-and-add-new-filter-rule">Fail2ban: fixes an improper filter and add new filter rule</a></li>
 <li><a href="#new-new-backup-script-for-sogo">NEW: New backup script for SOGo</a></li>
 </ul>
 </li>
@@ -70,13 +70,13 @@ check <a href="../support.html">the details</a> and <a href="../contact.html">co
 </div>
 <h2 id="changelog">ChangeLog</h2>
 <ul>
+<li>May 22, 2017: Fixed improper Fail2ban filter for Dovecot, add new filter for Roundcube.</li>
 <li>May 15, 2017: SQL structure change in <code>vmail.alias</code> SQL table</li>
 <li>May  3, 2017: Fixed: improper order of Postfix HELO restriction rules.</li>
 <li>Apr 13, 2017: Fixed: incorrect owner and permission for rotated Dovecot log files</li>
 <li>Mar 22, 2017: New backup script for SOGo.</li>
 <li>Mar 16, 2017: Fixed: Avoid possible backdooring mysqldump backups</li>
 <li>Mar  8, 2017: [RHEL/CentOS][Nginx] Fix incorrect <code>session.save_path</code> in php-fpm pool config file.</li>
-<li>Feb  9, 2017: Fixed improper Fail2ban filter for Dovecot.</li>
 </ul>
 <h2 id="general-all-backends-should-apply-these-steps">General (All backends should apply these steps)</h2>
 <h3 id="update-etciredmail-release-with-new-iredmail-version-number">Update <code>/etc/iredmail-release</code> with new iRedMail version number</h3>
@@ -168,13 +168,20 @@ pool config file <code>/etc/php-fpm.d/www.conf</code>, please fix it with steps 
 <pre><code>service php-fpm restart
 </code></pre>
 
-<h3 id="fixed-improper-fail2ban-filter-which-causes-incorrect-ban">Fixed: Improper Fail2ban filter which causes incorrect ban</h3>
-<p>Please open file <code>/etc/fail2ban/filter.d/dovecot.iredmail.conf</code>, remove line
-below:</p>
-<pre><code>            \(no auth attempts in .* rip=&lt;HOST&gt;
+<h3 id="fail2ban-fixes-an-improper-filter-and-add-new-filter-rule">Fail2ban: fixes an improper filter and add new filter rule</h3>
+<p>iRedMail-0.9.7 fixes an improper filter for Dovecot log file which may cause
+incorrect ban, and adds a new filter for Roundcube log file to help ban bad
+client while Roundcube is running behind a proxy server.</p>
+<ul>
+<li>On Linux:</li>
+</ul>
+<pre><code>cd /etc/fail2ban/filter.d/
+rm -f dovecot.iredmail.conf roundcube.iredmail.conf
+wget https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/samples/fail2ban/filter.d/dovecot.iredmail.conf
+wget https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/samples/fail2ban/filter.d/roundcube.iredmail.conf
 </code></pre>
 
-<p>Then restart or reload Fail2ban service.</p>
+<p>Restarting Fail2ban service is required.</p>
 <h3 id="new-new-backup-script-for-sogo">NEW: New backup script for SOGo</h3>
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>
