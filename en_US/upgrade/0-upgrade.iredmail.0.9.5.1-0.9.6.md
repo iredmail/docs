@@ -99,8 +99,12 @@ fix this issue.
 
 Open Nginx template file `misc.tmpl`, find lines below:
 
-* On Linux/OpenBSD, it's `/etc/nginx/templates/misc.tmpl`.
-* On FreeBSD, it's `/usr/local/etc/nginx/templates/misc.tmpl`.
+* If your iRedMail server was installed with iRedMail-0.9.4, it's
+  `/etc/nginx/templates/misc.tmpl` (Linux/OpenBSD) or
+  `/usr/local/etc/nginx/templates/misc.tmpl` (FreeBSD).
+* If your iRedMail server was installed with early release and upgraded to
+  iRedMail-0.9.4, it's `/etc/nginx/conf.d/default.conf` (Linux/OpenBSD)
+  or `/usr/local/etc/nginx/conf.d/default.conf` (FreeBSD).
 
 ```
 # Deny all attempts to access hidden files such as .htaccess.

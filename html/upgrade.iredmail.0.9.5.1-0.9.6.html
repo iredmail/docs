@@ -143,8 +143,12 @@ cert from Let's Encrypt. Step below will allow access to <code>/.well-known/</co
 fix this issue.</p>
 <p>Open Nginx template file <code>misc.tmpl</code>, find lines below:</p>
 <ul>
-<li>On Linux/OpenBSD, it's <code>/etc/nginx/templates/misc.tmpl</code>.</li>
-<li>On FreeBSD, it's <code>/usr/local/etc/nginx/templates/misc.tmpl</code>.</li>
+<li>If your iRedMail server was installed with iRedMail-0.9.4, it's
+  <code>/etc/nginx/templates/misc.tmpl</code> (Linux/OpenBSD) or
+  <code>/usr/local/etc/nginx/templates/misc.tmpl</code> (FreeBSD).</li>
+<li>If your iRedMail server was installed with early release and upgraded to
+  iRedMail-0.9.4, it's <code>/etc/nginx/conf.d/default.conf</code> (Linux/OpenBSD)
+  or <code>/usr/local/etc/nginx/conf.d/default.conf</code> (FreeBSD).</li>
 </ul>
 <pre><code># Deny all attempts to access hidden files such as .htaccess.
 location ~ /\. { deny all; }
