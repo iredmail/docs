@@ -443,14 +443,14 @@ Notes:
 ### Spam Policy {: .toggle }
 
 !!! api "`GET`{: .get } `/api/spampolicy/global`{: .url } `Get global spam policy`{: .comment }"
-!!! api "`PUT`{: .put } `/api/spampolicy/global`{: .url } `Set global spam policy`{: .comment } `Parameters`{: .has_params_spampolicy }"
-!!! api "`DELETE`{: .delete } `/api/spampolicy/global`{: .url } `Delete global spam policy`{: .comment }"
 !!! api "`GET`{: .get } `/api/spampolicy/domain/<domain>`{: .url } `Get per-domain spam policy`{: .comment }"
-!!! api "`PUT`{: .put } `/api/spampolicy/domain/<domain>`{: .url } `Set per-domain spam policy`{: .comment } `Parameters`{: .has_params_spampolicy }"
-!!! api "`DELETE`{: .delete } `/api/spampolicy/domain/<domain>`{: .url } `Delete per-domain spam policy`{: .comment }"
 !!! api "`GET`{: .get } `/api/spampolicy/user/<mail>`{: .url } `Get per-user spam policy`{: .comment }"
-!!! api "`PUT`{: .put } `/api/spampolicy/user/<mail>`{: .url } `Set per-user spam policy`{: .comment } `Parameters`{: .has_params_spampolicy }"
+!!! api "`DELETE`{: .delete } `/api/spampolicy/global`{: .url } `Delete global spam policy`{: .comment }"
+!!! api "`DELETE`{: .delete } `/api/spampolicy/domain/<domain>`{: .url } `Delete per-domain spam policy`{: .comment }"
 !!! api "`DELETE`{: .delete } `/api/spampolicy/user/<mail>`{: .url } `Delete per-user spam policy`{: .comment }"
+!!! api "`PUT`{: .put } `/api/spampolicy/global`{: .url } `Set global spam policy`{: .comment } `Parameters`{: .has_params_spampolicy }"
+!!! api "`PUT`{: .put } `/api/spampolicy/domain/<domain>`{: .url } `Set per-domain spam policy`{: .comment } `Parameters`{: .has_params_spampolicy }"
+!!! api "`PUT`{: .put } `/api/spampolicy/user/<mail>`{: .url } `Set per-user spam policy`{: .comment } `Parameters`{: .has_params_spampolicy }"
 
     <div class="params params_spampolicy">
 
@@ -525,6 +525,7 @@ Notes:
 !!! api "`DELETE`{: .delete } `/api/greylisting/global`{: .url } `Delete global greylisting setting`{: .comment }"
 !!! api "`DELETE`{: .delete } `/api/greylisting/<domain>`{: .url } `Delete per-domain greylisting setting`{: .comment }"
 !!! api "`DELETE`{: .delete } `/api/greylisting/<mail>`{: .url } `Delete per-user greylisting setting`{: .comment }"
+!!! api "`GET`{: .get } `/api/greylisting/global/whitelists`{: .url } `Get globally whitelisted senders for greylisting service`{: .comment }"
 !!! api "`POST`{: .post } `/api/greylisting/global/whitelists`{: .url } `Whitelist senders for greylisting service globally`{: .comment } `Parameters`{: .has_params }"
 
     <div class="params">
@@ -534,9 +535,9 @@ Notes:
     `whitelistSenderDomains` | Reset whitelisted sender domains for global greylisting service to given sender domains. __Note: given sender domain names are not used directly while checking whitelisting, instead, there's a cron job to query SPF and MX DNS records of given sender domains, then whitelist the IP addresses/networks listed in DNS records.__ Multiple domains must be separated by comma. | `whitelistSenderDomains=iredmail.org,gmail.com`
     `addWhitelistSenderDomain` | Add new whitelist sender domains for global greylisting service. __Note: given sender domain names are not used directly while checking whitelisting, instead, there's a cron job to query SPF and MX DNS records of given sender domains, then whitelist the IP addresses/networks listed in DNS records.__ Multiple domains must be separated by comma. | `addWhitelistSenderDomain=iredmail.org,gmail.com`
     `removeWhitelistSenderDomain` | Remove existing whitelisted sender domains for global greylisting service. __Note: given sender domain names are not used directly while checking whitelisting, instead, there's a cron job to query SPF and MX DNS records of given sender domains, then whitelist the IP addresses/networks listed in DNS records.__ Multiple domains must be separated by comma. | `removeWhitelistSenderDomain=iredmail.org,gmail.com`
-    `whitelistSenders` | Reset whitelisted senders for global greylisting service to given senders. Multiple addresses must be separated by comma. Conflicts with parameter `addWhitelistSender` and `removeWhitelistSender`. | `whitelistSenders=192.168.1.0/24,172.16.10.1`
-    `addWhitelistSender` | Whitelist new senders for greylisting service globally. Multiple addresses must be separated by comma. Conflicts with parameter `whitelistSenders`. | `addWhitelistSender=192.168.1.0/24`
-    `removeWhitelistSender` | Remove existing whitelisted senders for greylisting service globally. Multiple addresses must be separated by comma. Conflicts with parameter `whitelistSenders`. | `removeWhitelistSender=192.168.1.0/24`
+    `whitelistSenders` | Reset whitelisted senders for global greylisting service to given senders. Multiple addresses must be separated by comma. Conflicts with parameter `addWhitelistSender` and `removeWhitelistSender`. | `whitelistSenders=192.168.1.0/24,172.16.10.1,@example.com`
+    `addWhitelistSender` | Whitelist new senders for greylisting service globally. Multiple addresses must be separated by comma. Conflicts with parameter `whitelistSenders`. | `addWhitelistSender=192.168.1.0/24,@example.com`
+    `removeWhitelistSender` | Remove existing whitelisted senders for greylisting service globally. Multiple addresses must be separated by comma. Conflicts with parameter `whitelistSenders`. | `removeWhitelistSender=192.168.1.0/24,@example.com`
 
     Valid sender address formats:
 
@@ -550,6 +551,7 @@ Notes:
 
     </div>
 
+!!! api "`GET`{: .get } `/api/greylisting/<domain>/whitelists`{: .url } `Get whitelisted senders for greylisting service for specified domain`{: .comment }"
 !!! api "`POST`{: .post } `/api/greylisting/<domain>/whitelists`{: .url } `Whitelist senders for greylisting service for specified domain`{: .comment } `Parameters`{: .has_params }"
 
     <div class="params">
@@ -572,6 +574,7 @@ Notes:
 
     </div>
 
+!!! api "`GET`{: .get } `/api/greylisting/<mail>/whitelists`{: .url } `Get whitelisted senders for greylisting service for specified user`{: .comment }"
 !!! api "`POST`{: .post } `/api/greylisting/<mail>/whitelists`{: .url } `Whitelist senders for greylisting services for specified user`{: .comment } `Parameters`{: .has_params }"
 
     <div class="params">

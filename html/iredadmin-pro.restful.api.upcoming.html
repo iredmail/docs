@@ -1179,28 +1179,28 @@ please use mail alias account as mailing list.</p>
 <p class="admonition-title"><code class="get">GET</code> <code class="url">/api/spampolicy/global</code> <code class="comment">Get global spam policy</code></p>
 </div>
 <div class="admonition api">
-<p class="admonition-title"><code class="put">PUT</code> <code class="url">/api/spampolicy/global</code> <code class="comment">Set global spam policy</code> <code class="has_params_spampolicy">Parameters</code></p>
-</div>
-<div class="admonition api">
-<p class="admonition-title"><code class="delete">DELETE</code> <code class="url">/api/spampolicy/global</code> <code class="comment">Delete global spam policy</code></p>
-</div>
-<div class="admonition api">
 <p class="admonition-title"><code class="get">GET</code> <code class="url">/api/spampolicy/domain/&lt;domain&gt;</code> <code class="comment">Get per-domain spam policy</code></p>
-</div>
-<div class="admonition api">
-<p class="admonition-title"><code class="put">PUT</code> <code class="url">/api/spampolicy/domain/&lt;domain&gt;</code> <code class="comment">Set per-domain spam policy</code> <code class="has_params_spampolicy">Parameters</code></p>
-</div>
-<div class="admonition api">
-<p class="admonition-title"><code class="delete">DELETE</code> <code class="url">/api/spampolicy/domain/&lt;domain&gt;</code> <code class="comment">Delete per-domain spam policy</code></p>
 </div>
 <div class="admonition api">
 <p class="admonition-title"><code class="get">GET</code> <code class="url">/api/spampolicy/user/&lt;mail&gt;</code> <code class="comment">Get per-user spam policy</code></p>
 </div>
 <div class="admonition api">
-<p class="admonition-title"><code class="put">PUT</code> <code class="url">/api/spampolicy/user/&lt;mail&gt;</code> <code class="comment">Set per-user spam policy</code> <code class="has_params_spampolicy">Parameters</code></p>
+<p class="admonition-title"><code class="delete">DELETE</code> <code class="url">/api/spampolicy/global</code> <code class="comment">Delete global spam policy</code></p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code class="delete">DELETE</code> <code class="url">/api/spampolicy/domain/&lt;domain&gt;</code> <code class="comment">Delete per-domain spam policy</code></p>
 </div>
 <div class="admonition api">
 <p class="admonition-title"><code class="delete">DELETE</code> <code class="url">/api/spampolicy/user/&lt;mail&gt;</code> <code class="comment">Delete per-user spam policy</code></p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code class="put">PUT</code> <code class="url">/api/spampolicy/global</code> <code class="comment">Set global spam policy</code> <code class="has_params_spampolicy">Parameters</code></p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code class="put">PUT</code> <code class="url">/api/spampolicy/domain/&lt;domain&gt;</code> <code class="comment">Set per-domain spam policy</code> <code class="has_params_spampolicy">Parameters</code></p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code class="put">PUT</code> <code class="url">/api/spampolicy/user/&lt;mail&gt;</code> <code class="comment">Set per-user spam policy</code> <code class="has_params_spampolicy">Parameters</code></p>
 <div class="params params_spampolicy">
 
 <p>Parameters available for global, per-domain, per-user spam policies.</p>
@@ -1402,6 +1402,9 @@ please use mail alias account as mailing list.</p>
 <p class="admonition-title"><code class="delete">DELETE</code> <code class="url">/api/greylisting/&lt;mail&gt;</code> <code class="comment">Delete per-user greylisting setting</code></p>
 </div>
 <div class="admonition api">
+<p class="admonition-title"><code class="get">GET</code> <code class="url">/api/greylisting/global/whitelists</code> <code class="comment">Get globally whitelisted senders for greylisting service</code></p>
+</div>
+<div class="admonition api">
 <p class="admonition-title"><code class="post">POST</code> <code class="url">/api/greylisting/global/whitelists</code> <code class="comment">Whitelist senders for greylisting service globally</code> <code class="has_params">Parameters</code></p>
 <div class="params">
 
@@ -1432,17 +1435,17 @@ please use mail alias account as mailing list.</p>
 <tr>
 <td><code>whitelistSenders</code></td>
 <td>Reset whitelisted senders for global greylisting service to given senders. Multiple addresses must be separated by comma. Conflicts with parameter <code>addWhitelistSender</code> and <code>removeWhitelistSender</code>.</td>
-<td><code>whitelistSenders=192.168.1.0/24,172.16.10.1</code></td>
+<td><code>whitelistSenders=192.168.1.0/24,172.16.10.1,@example.com</code></td>
 </tr>
 <tr>
 <td><code>addWhitelistSender</code></td>
 <td>Whitelist new senders for greylisting service globally. Multiple addresses must be separated by comma. Conflicts with parameter <code>whitelistSenders</code>.</td>
-<td><code>addWhitelistSender=192.168.1.0/24</code></td>
+<td><code>addWhitelistSender=192.168.1.0/24,@example.com</code></td>
 </tr>
 <tr>
 <td><code>removeWhitelistSender</code></td>
 <td>Remove existing whitelisted senders for greylisting service globally. Multiple addresses must be separated by comma. Conflicts with parameter <code>whitelistSenders</code>.</td>
-<td><code>removeWhitelistSender=192.168.1.0/24</code></td>
+<td><code>removeWhitelistSender=192.168.1.0/24,@example.com</code></td>
 </tr>
 </tbody>
 </table>
@@ -1479,6 +1482,9 @@ please use mail alias account as mailing list.</p>
 </table>
 </div>
 
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code class="get">GET</code> <code class="url">/api/greylisting/&lt;domain&gt;/whitelists</code> <code class="comment">Get whitelisted senders for greylisting service for specified domain</code></p>
 </div>
 <div class="admonition api">
 <p class="admonition-title"><code class="post">POST</code> <code class="url">/api/greylisting/&lt;domain&gt;/whitelists</code> <code class="comment">Whitelist senders for greylisting service for specified domain</code> <code class="has_params">Parameters</code></p>
@@ -1543,6 +1549,9 @@ please use mail alias account as mailing list.</p>
 </table>
 </div>
 
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code class="get">GET</code> <code class="url">/api/greylisting/&lt;mail&gt;/whitelists</code> <code class="comment">Get whitelisted senders for greylisting service for specified user</code></p>
 </div>
 <div class="admonition api">
 <p class="admonition-title"><code class="post">POST</code> <code class="url">/api/greylisting/&lt;mail&gt;/whitelists</code> <code class="comment">Whitelist senders for greylisting services for specified user</code> <code class="has_params">Parameters</code></p>
