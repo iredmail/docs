@@ -513,9 +513,9 @@ Notes:
 
     Parameter | Summary | Sample Usage
     --- |--- |---
-    `whitelistSenders` | Reset whitelisted senders for global greylisting service to given senders. Multiple addresses must be separated by comma. Conflicts with parameter `addWhitelistSender` and `removeWhitelistSender`. | `whitelistSenders=192.168.1.0/24,172.16.10.1,@example.com`
-    `addWhitelistSenders` | Whitelist new senders for greylisting service globally. Multiple addresses must be separated by comma. Conflicts with parameter `whitelistSenders`. | `addWhitelistSender=192.168.1.0/24,@example.com`
-    `removeWhitelistSenders` | Remove existing whitelisted senders for greylisting service globally. Multiple addresses must be separated by comma. Conflicts with parameter `whitelistSenders`. | `removeWhitelistSender=192.168.1.0/24,@example.com`
+    `senders` | Reset whitelisted senders for global greylisting service to given senders. Multiple addresses must be separated by comma. Conflicts with parameter `addSenders` and `removeSenders`. | `senders=192.168.1.0/24,172.16.10.1,@example.com`
+    `addSenders` | Whitelist new senders for greylisting service globally. Multiple addresses must be separated by comma. Conflicts with parameter `senders`. | `addSenders=192.168.1.0/24,@example.com`
+    `removeSenders` | Remove existing whitelisted senders for greylisting service globally. Multiple addresses must be separated by comma. Conflicts with parameter `senders`. | `removeSenders=192.168.1.0/24,@example.com`
 
     Valid sender address formats:
 
