@@ -16,6 +16,8 @@
 
 ### iRedAdmin-Pro-SQL-2.7.0, iRedAdmin-Pro-LDAP-2.9.0
 
+* New: Able to manage global, per-domain and per-user greylisting settings,
+  whitelist senders, and global whitelisted SPF domains.
 * Variable names changed in returned JSON data of user profile (`GET /api/user/<mail>`):
     * name `forwarding` is replaced by `forwardings`, and it's now a list
       object of user forwarding email addresses (was a string, multiple
@@ -526,41 +528,19 @@ Notes:
 !!! api "`DELETE`{: .delete } `/api/greylisting/<domain>`{: .url } `Delete per-domain greylisting setting`{: .comment }"
 !!! api "`DELETE`{: .delete } `/api/greylisting/<mail>`{: .url } `Delete per-user greylisting setting`{: .comment }"
 !!! api "`GET`{: .get } `/api/greylisting/global/whitelists`{: .url } `Get globally whitelisted senders for greylisting service`{: .comment }"
-!!! api "`POST`{: .post } `/api/greylisting/global/whitelists`{: .url } `Whitelist senders for greylisting service globally`{: .comment } `Parameters`{: .has_params }"
-
-    <div class="params">
-
-    Parameter | Summary | Sample Usage
-    --- |--- |---
-    `whitelistSenderDomains` | Reset whitelisted sender domains for global greylisting service to given sender domains. __Note: given sender domain names are not used directly while checking whitelisting, instead, there's a cron job to query SPF and MX DNS records of given sender domains, then whitelist the IP addresses/networks listed in DNS records.__ Multiple domains must be separated by comma. | `whitelistSenderDomains=iredmail.org,gmail.com`
-    `addWhitelistSenderDomain` | Add new whitelist sender domains for global greylisting service. __Note: given sender domain names are not used directly while checking whitelisting, instead, there's a cron job to query SPF and MX DNS records of given sender domains, then whitelist the IP addresses/networks listed in DNS records.__ Multiple domains must be separated by comma. | `addWhitelistSenderDomain=iredmail.org,gmail.com`
-    `removeWhitelistSenderDomain` | Remove existing whitelisted sender domains for global greylisting service. __Note: given sender domain names are not used directly while checking whitelisting, instead, there's a cron job to query SPF and MX DNS records of given sender domains, then whitelist the IP addresses/networks listed in DNS records.__ Multiple domains must be separated by comma. | `removeWhitelistSenderDomain=iredmail.org,gmail.com`
-    `whitelistSenders` | Reset whitelisted senders for global greylisting service to given senders. Multiple addresses must be separated by comma. Conflicts with parameter `addWhitelistSender` and `removeWhitelistSender`. | `whitelistSenders=192.168.1.0/24,172.16.10.1,@example.com`
-    `addWhitelistSender` | Whitelist new senders for greylisting service globally. Multiple addresses must be separated by comma. Conflicts with parameter `whitelistSenders`. | `addWhitelistSender=192.168.1.0/24,@example.com`
-    `removeWhitelistSender` | Remove existing whitelisted senders for greylisting service globally. Multiple addresses must be separated by comma. Conflicts with parameter `whitelistSenders`. | `removeWhitelistSender=192.168.1.0/24,@example.com`
-
-    Valid sender address formats:
-
-    Sender Address | Comment
-    ---|---
-    `192.168.2.10` | Single IP address
-    `192.168.1.0/24` | CIDR network
-    `user@example.com` | Single email address
-    `@example.com` | Entire domain
-    `@.example.com` | Entire domain and all its sub-domains
-
-    </div>
-
 !!! api "`GET`{: .get } `/api/greylisting/<domain>/whitelists`{: .url } `Get whitelisted senders for greylisting service for specified domain`{: .comment }"
-!!! api "`POST`{: .post } `/api/greylisting/<domain>/whitelists`{: .url } `Whitelist senders for greylisting service for specified domain`{: .comment } `Parameters`{: .has_params }"
+!!! api "`GET`{: .get } `/api/greylisting/<mail>/whitelists`{: .url } `Get whitelisted senders for greylisting service for specified user`{: .comment }"
+!!! api "`POST`{: .post } `/api/greylisting/global/whitelists`{: .url } `Whitelist senders for greylisting service globally`{: .comment } `Parameters`{: .has_params_greylisting_whitelists }"
+!!! api "`POST`{: .post } `/api/greylisting/<domain>/whitelists`{: .url } `Whitelist senders for greylisting service for specified domain`{: .comment } `Parameters`{: .has_params_greylisting_whitelists }"
+!!! api "`POST`{: .post } `/api/greylisting/<mail>/whitelists`{: .url } `Whitelist senders for greylisting services for specified user`{: .comment } `Parameters`{: .has_params_greylisting_whitelists }"
 
-    <div class="params">
+    <div class="params params_greylisting_whitelists">
 
     Parameter | Summary | Sample Usage
     --- |--- |---
-    `whitelistSenders` | Reset whitelisted senders for __per-domain__ greylisting service to given senders. Multiple addresses must be separated by comma. Conflicts with parameter `addWhitelistSender` and `removeWhitelistSender`. | `whitelistSenders=192.168.1.0/24,172.16.10.1`
-    `addWhitelistSender` | Whitelist new senders for __per-domain__ greylisting service. Multiple addresses must be separated by comma. Conflicts with parameter `whitelistSenders`. | `addWhitelistSender=192.168.1.0/24`
-    `removeWhitelistSender` | Remove existing whitelisted senders for __per-domain__ greylisting service. Multiple addresses must be separated by comma. Conflicts with parameter `whitelistSenders`. | `removeWhitelistSender=192.168.1.0/24`
+    `whitelistSenders` | Reset whitelisted senders for global greylisting service to given senders. Multiple addresses must be separated by comma. Conflicts with parameter `addWhitelistSender` and `removeWhitelistSender`. | `whitelistSenders=192.168.1.0/24,172.16.10.1,@example.com`
+    `addWhitelistSenders` | Whitelist new senders for greylisting service globally. Multiple addresses must be separated by comma. Conflicts with parameter `whitelistSenders`. | `addWhitelistSender=192.168.1.0/24,@example.com`
+    `removeWhitelistSenders` | Remove existing whitelisted senders for greylisting service globally. Multiple addresses must be separated by comma. Conflicts with parameter `whitelistSenders`. | `removeWhitelistSender=192.168.1.0/24,@example.com`
 
     Valid sender address formats:
 
@@ -574,26 +554,23 @@ Notes:
 
     </div>
 
-!!! api "`GET`{: .get } `/api/greylisting/<mail>/whitelists`{: .url } `Get whitelisted senders for greylisting service for specified user`{: .comment }"
-!!! api "`POST`{: .post } `/api/greylisting/<mail>/whitelists`{: .url } `Whitelist senders for greylisting services for specified user`{: .comment } `Parameters`{: .has_params }"
+!!! api "`POST`{: .post } `/api/greylisting/whitelist_spf_domains`{: .url } `Whitelist IP addresses and networks listed in SPF/MX DNS record of given sender domains for greylisting service globally`{: .comment } `Parameters`{: .has_params }"
 
     <div class="params">
 
+    Given sender domain names are not used directly while checking whitelisting, instead, there's a cron job to query SPF and MX DNS records of given sender domains, then whitelist the IP addresses/networks listed in DNS records.
+
+    Multiple domains must be separated by comma.
+
     Parameter | Summary | Sample Usage
     --- |--- |---
-    `whitelistSenders` | Reset whitelisted senders for __per-user__ greylisting service to given senders. Multiple addresses must be separated by comma. Conflicts with parameter `addWhitelistSender` and `removeWhitelistSender`. | `whitelistSenders=192.168.1.0/24,172.16.10.1`
-    `addWhitelistSender` | Whitelist new senders for __per-user__ greylisting service. Multiple addresses must be separated by comma. Conflicts with parameter `whitelistSenders`. | `addWhitelistSender=192.168.1.0/24`
-    `removeWhitelistSender` | Remove existing whitelisted senders for __per-user__ greylisting service. Multiple addresses must be separated by comma. Conflicts with parameter `whitelistSenders`. | `removeWhitelistSender=192.168.1.0/24`
+    `domains` | Reset whitelisted sender domains for global greylisting service to given sender domains. Conflicts with parameters `addDomains` and `removeDomains`. | `domains=iredmail.org,gmail.com`
+    `addDomains` | Add new whitelist sender domains for global greylisting service. Conflicts with parameter `domains`. | `addDomains=iredmail.org,gmail.com`
+    `removeDomains` | Remove existing whitelisted sender domains for global greylisting service. Conflicts with parameter `domains`. | `removeDomains=iredmail.org,gmail.com`
 
-    Valid sender address formats:
-
-    Sender Address | Comment
-    ---|---
-    `192.168.2.10` | Single IP address
-    `192.168.1.0/24` | CIDR network
-    `user@example.com` | Single email address
-    `@example.com` | Entire domain
-    `@.example.com` | Entire domain and all its sub-domains
+    <!--
+    `query_dns_immediately` | Query SPF/MX/A DNS records of given sender domains immediately, and whitelist returned IP/networks | `query_dns_immediately=yes`
+    -->
 
     </div>
 
@@ -639,6 +616,7 @@ $(document).ready(function(){
     /* Expand/Collapse specific parameters */
 	$('.has_params_throttle').bind('click', function(){$('.params_throttle').toggle();});
 	$('.has_params_greylisting').bind('click', function(){$('.params_greylisting').toggle();});
+	$('.has_params_greylisting_whitelists').bind('click', function(){$('.params_greylisting_whitelists').toggle();});
 	$('.has_params_spampolicy').bind('click', function(){$('.params_spampolicy').toggle();});
 });
 </script>

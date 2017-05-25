@@ -12,7 +12,8 @@ export TMP_DIR="${OUTPUT_DIR}/tmp"
 
 export CONVERTER="${ROOTDIR}/tools/markdown2html.py"
 export CMD_CONVERT="python ${CONVERTER}"
-export CHANGED_FILES="$(hg st | grep '\.md$')"
+export CMD_CHECK_CHANGE="hg st"
+export CHANGED_FILES="$(${CMD_CHECK_CHANGE} | grep '\.md$')"
 export TODAY="$(date +%Y-%m-%d)"
 
 [ -d ${OUTPUT_DIR} ] || mkdir -p ${OUTPUT_DIR}
@@ -53,13 +54,19 @@ if echo "$@" | grep -q -- '--all' &>/dev/null; then
 fi
 
 article_counter=0
-echo -n "* Processing Markdown files: "
 
 for lang in ${all_languages}; do
     src_dir="${ROOTDIR}/${lang}"
     if [ ! -d ${src_dir} ]; then
-        echo "* [SKIP] No translation for ${lang} (${src_dir})."
+        echo "* [SKIP] No translation for language: ${lang}."
         break
+    fi
+
+    if ${CMD_CHECK_CHANGE} | grep "${lang}/" &>/dev/null; then
+        echo "* Change found for language: ${lang}."
+    else
+        echo "* [SKIP] No change found for language: ${lang}."
+        continue
     fi
 
     # Generate a Markdown file used to store index of chapters/articles.
@@ -283,5 +290,5 @@ fi
 # Show changed files.
 echo "* Changed files:"
 echo "---------------"
-hg st
+${CMD_CHECK_CHANGE}
 echo "---------------"

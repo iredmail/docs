@@ -64,6 +64,8 @@
 <h2 id="changelog">ChangeLog</h2>
 <h3 id="iredadmin-pro-sql-270-iredadmin-pro-ldap-290">iRedAdmin-Pro-SQL-2.7.0, iRedAdmin-Pro-LDAP-2.9.0</h3>
 <ul>
+<li>New: Able to manage global, per-domain and per-user greylisting settings,
+  whitelist senders, and global whitelisted SPF domains.</li>
 <li>Variable names changed in returned JSON data of user profile (<code>GET /api/user/&lt;mail&gt;</code>):<ul>
 <li>name <code>forwarding</code> is replaced by <code>forwardings</code>, and it's now a list
   object of user forwarding email addresses (was a string, multiple
@@ -1405,8 +1407,20 @@ please use mail alias account as mailing list.</p>
 <p class="admonition-title"><code class="get">GET</code> <code class="url">/api/greylisting/global/whitelists</code> <code class="comment">Get globally whitelisted senders for greylisting service</code></p>
 </div>
 <div class="admonition api">
-<p class="admonition-title"><code class="post">POST</code> <code class="url">/api/greylisting/global/whitelists</code> <code class="comment">Whitelist senders for greylisting service globally</code> <code class="has_params">Parameters</code></p>
-<div class="params">
+<p class="admonition-title"><code class="get">GET</code> <code class="url">/api/greylisting/&lt;domain&gt;/whitelists</code> <code class="comment">Get whitelisted senders for greylisting service for specified domain</code></p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code class="get">GET</code> <code class="url">/api/greylisting/&lt;mail&gt;/whitelists</code> <code class="comment">Get whitelisted senders for greylisting service for specified user</code></p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code class="post">POST</code> <code class="url">/api/greylisting/global/whitelists</code> <code class="comment">Whitelist senders for greylisting service globally</code> <code class="has_params_greylisting_whitelists">Parameters</code></p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code class="post">POST</code> <code class="url">/api/greylisting/&lt;domain&gt;/whitelists</code> <code class="comment">Whitelist senders for greylisting service for specified domain</code> <code class="has_params_greylisting_whitelists">Parameters</code></p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code class="post">POST</code> <code class="url">/api/greylisting/&lt;mail&gt;/whitelists</code> <code class="comment">Whitelist senders for greylisting services for specified user</code> <code class="has_params_greylisting_whitelists">Parameters</code></p>
+<div class="params params_greylisting_whitelists">
 
 <table>
 <thead>
@@ -1418,32 +1432,17 @@ please use mail alias account as mailing list.</p>
 </thead>
 <tbody>
 <tr>
-<td><code>whitelistSenderDomains</code></td>
-<td>Reset whitelisted sender domains for global greylisting service to given sender domains. <strong>Note: given sender domain names are not used directly while checking whitelisting, instead, there's a cron job to query SPF and MX DNS records of given sender domains, then whitelist the IP addresses/networks listed in DNS records.</strong> Multiple domains must be separated by comma.</td>
-<td><code>whitelistSenderDomains=iredmail.org,gmail.com</code></td>
-</tr>
-<tr>
-<td><code>addWhitelistSenderDomain</code></td>
-<td>Add new whitelist sender domains for global greylisting service. <strong>Note: given sender domain names are not used directly while checking whitelisting, instead, there's a cron job to query SPF and MX DNS records of given sender domains, then whitelist the IP addresses/networks listed in DNS records.</strong> Multiple domains must be separated by comma.</td>
-<td><code>addWhitelistSenderDomain=iredmail.org,gmail.com</code></td>
-</tr>
-<tr>
-<td><code>removeWhitelistSenderDomain</code></td>
-<td>Remove existing whitelisted sender domains for global greylisting service. <strong>Note: given sender domain names are not used directly while checking whitelisting, instead, there's a cron job to query SPF and MX DNS records of given sender domains, then whitelist the IP addresses/networks listed in DNS records.</strong> Multiple domains must be separated by comma.</td>
-<td><code>removeWhitelistSenderDomain=iredmail.org,gmail.com</code></td>
-</tr>
-<tr>
 <td><code>whitelistSenders</code></td>
 <td>Reset whitelisted senders for global greylisting service to given senders. Multiple addresses must be separated by comma. Conflicts with parameter <code>addWhitelistSender</code> and <code>removeWhitelistSender</code>.</td>
 <td><code>whitelistSenders=192.168.1.0/24,172.16.10.1,@example.com</code></td>
 </tr>
 <tr>
-<td><code>addWhitelistSender</code></td>
+<td><code>addWhitelistSenders</code></td>
 <td>Whitelist new senders for greylisting service globally. Multiple addresses must be separated by comma. Conflicts with parameter <code>whitelistSenders</code>.</td>
 <td><code>addWhitelistSender=192.168.1.0/24,@example.com</code></td>
 </tr>
 <tr>
-<td><code>removeWhitelistSender</code></td>
+<td><code>removeWhitelistSenders</code></td>
 <td>Remove existing whitelisted senders for greylisting service globally. Multiple addresses must be separated by comma. Conflicts with parameter <code>whitelistSenders</code>.</td>
 <td><code>removeWhitelistSender=192.168.1.0/24,@example.com</code></td>
 </tr>
@@ -1484,12 +1483,11 @@ please use mail alias account as mailing list.</p>
 
 </div>
 <div class="admonition api">
-<p class="admonition-title"><code class="get">GET</code> <code class="url">/api/greylisting/&lt;domain&gt;/whitelists</code> <code class="comment">Get whitelisted senders for greylisting service for specified domain</code></p>
-</div>
-<div class="admonition api">
-<p class="admonition-title"><code class="post">POST</code> <code class="url">/api/greylisting/&lt;domain&gt;/whitelists</code> <code class="comment">Whitelist senders for greylisting service for specified domain</code> <code class="has_params">Parameters</code></p>
+<p class="admonition-title"><code class="post">POST</code> <code class="url">/api/greylisting/whitelist_spf_domains</code> <code class="comment">Whitelist IP addresses and networks listed in SPF/MX DNS record of given sender domains for greylisting service globally</code> <code class="has_params">Parameters</code></p>
 <div class="params">
 
+<p>Given sender domain names are not used directly while checking whitelisting, instead, there's a cron job to query SPF and MX DNS records of given sender domains, then whitelist the IP addresses/networks listed in DNS records.</p>
+<p>Multiple domains must be separated by comma.</p>
 <table>
 <thead>
 <tr>
@@ -1500,120 +1498,26 @@ please use mail alias account as mailing list.</p>
 </thead>
 <tbody>
 <tr>
-<td><code>whitelistSenders</code></td>
-<td>Reset whitelisted senders for <strong>per-domain</strong> greylisting service to given senders. Multiple addresses must be separated by comma. Conflicts with parameter <code>addWhitelistSender</code> and <code>removeWhitelistSender</code>.</td>
-<td><code>whitelistSenders=192.168.1.0/24,172.16.10.1</code></td>
+<td><code>domains</code></td>
+<td>Reset whitelisted sender domains for global greylisting service to given sender domains. Conflicts with parameters <code>addDomains</code> and <code>removeDomains</code>.</td>
+<td><code>domains=iredmail.org,gmail.com</code></td>
 </tr>
 <tr>
-<td><code>addWhitelistSender</code></td>
-<td>Whitelist new senders for <strong>per-domain</strong> greylisting service. Multiple addresses must be separated by comma. Conflicts with parameter <code>whitelistSenders</code>.</td>
-<td><code>addWhitelistSender=192.168.1.0/24</code></td>
+<td><code>addDomains</code></td>
+<td>Add new whitelist sender domains for global greylisting service. Conflicts with parameter <code>domains</code>.</td>
+<td><code>addDomains=iredmail.org,gmail.com</code></td>
 </tr>
 <tr>
-<td><code>removeWhitelistSender</code></td>
-<td>Remove existing whitelisted senders for <strong>per-domain</strong> greylisting service. Multiple addresses must be separated by comma. Conflicts with parameter <code>whitelistSenders</code>.</td>
-<td><code>removeWhitelistSender=192.168.1.0/24</code></td>
+<td><code>removeDomains</code></td>
+<td>Remove existing whitelisted sender domains for global greylisting service. Conflicts with parameter <code>domains</code>.</td>
+<td><code>removeDomains=iredmail.org,gmail.com</code></td>
 </tr>
 </tbody>
 </table>
-<p>Valid sender address formats:</p>
-<table>
-<thead>
-<tr>
-<th>Sender Address</th>
-<th>Comment</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>192.168.2.10</code></td>
-<td>Single IP address</td>
-</tr>
-<tr>
-<td><code>192.168.1.0/24</code></td>
-<td>CIDR network</td>
-</tr>
-<tr>
-<td><code>user@example.com</code></td>
-<td>Single email address</td>
-</tr>
-<tr>
-<td><code>@example.com</code></td>
-<td>Entire domain</td>
-</tr>
-<tr>
-<td><code>@.example.com</code></td>
-<td>Entire domain and all its sub-domains</td>
-</tr>
-</tbody>
-</table>
-</div>
+<!--
+<code>query_dns_immediately</code> | Query SPF/MX/A DNS records of given sender domains immediately, and whitelist returned IP/networks | <code>query_dns_immediately=yes</code>
+-->
 
-</div>
-<div class="admonition api">
-<p class="admonition-title"><code class="get">GET</code> <code class="url">/api/greylisting/&lt;mail&gt;/whitelists</code> <code class="comment">Get whitelisted senders for greylisting service for specified user</code></p>
-</div>
-<div class="admonition api">
-<p class="admonition-title"><code class="post">POST</code> <code class="url">/api/greylisting/&lt;mail&gt;/whitelists</code> <code class="comment">Whitelist senders for greylisting services for specified user</code> <code class="has_params">Parameters</code></p>
-<div class="params">
-
-<table>
-<thead>
-<tr>
-<th>Parameter</th>
-<th>Summary</th>
-<th>Sample Usage</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>whitelistSenders</code></td>
-<td>Reset whitelisted senders for <strong>per-user</strong> greylisting service to given senders. Multiple addresses must be separated by comma. Conflicts with parameter <code>addWhitelistSender</code> and <code>removeWhitelistSender</code>.</td>
-<td><code>whitelistSenders=192.168.1.0/24,172.16.10.1</code></td>
-</tr>
-<tr>
-<td><code>addWhitelistSender</code></td>
-<td>Whitelist new senders for <strong>per-user</strong> greylisting service. Multiple addresses must be separated by comma. Conflicts with parameter <code>whitelistSenders</code>.</td>
-<td><code>addWhitelistSender=192.168.1.0/24</code></td>
-</tr>
-<tr>
-<td><code>removeWhitelistSender</code></td>
-<td>Remove existing whitelisted senders for <strong>per-user</strong> greylisting service. Multiple addresses must be separated by comma. Conflicts with parameter <code>whitelistSenders</code>.</td>
-<td><code>removeWhitelistSender=192.168.1.0/24</code></td>
-</tr>
-</tbody>
-</table>
-<p>Valid sender address formats:</p>
-<table>
-<thead>
-<tr>
-<th>Sender Address</th>
-<th>Comment</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>192.168.2.10</code></td>
-<td>Single IP address</td>
-</tr>
-<tr>
-<td><code>192.168.1.0/24</code></td>
-<td>CIDR network</td>
-</tr>
-<tr>
-<td><code>user@example.com</code></td>
-<td>Single email address</td>
-</tr>
-<tr>
-<td><code>@example.com</code></td>
-<td>Entire domain</td>
-</tr>
-<tr>
-<td><code>@.example.com</code></td>
-<td>Entire domain and all its sub-domains</td>
-</tr>
-</tbody>
-</table>
 </div>
 
 </div>
@@ -1660,6 +1564,7 @@ $(document).ready(function(){
     /* Expand/Collapse specific parameters */
     $('.has_params_throttle').bind('click', function(){$('.params_throttle').toggle();});
     $('.has_params_greylisting').bind('click', function(){$('.params_greylisting').toggle();});
+    $('.has_params_greylisting_whitelists').bind('click', function(){$('.params_greylisting_whitelists').toggle();});
     $('.has_params_spampolicy').bind('click', function(){$('.params_spampolicy').toggle();});
 });
 </script><div class="footer">
