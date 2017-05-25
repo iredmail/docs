@@ -22,6 +22,13 @@ iRedAdmin-Pro RESTful API will return message in JSON format.
 
 ## Enable RESTful API
 
+!!! note "iRedAdmin-Pro config file location"
+
+    * on RHEL/CentOS, it's `/var/www/iredadmin/settings.py`.
+    * on Debian/Ubuntu, it's `/opt/www/iredadmin/settings.py` (in recent iRedMail releases) or `/usr/share/apache2/iredadmin/settings.py` (in old iRedMail releases).
+    * on FreeBSD, it's `/usr/local/www/iredadmin/settings.py`.
+    * on OpenBSD, it's `/var/www/iredadmin/settings.py`.
+
 RESTful API is disabled by default, to enable it, please add setting below in
 iRedAdmin-Pro config file `settings.py`:
 
