@@ -4,12 +4,22 @@
 
 !!! attention
 
-    * This document is applicable to `iRedAdmin-Pro-SQL-2.7.0` and
-      `iRedAdmin-Pro-LDAP-2.9.0`. If you're running an old release, please
-      upgrade iRedAdmin-Pro to the latest release, or check
-      [document for old releases](./iredadmin-pro.releases.html).
     * If you need an API which has not yet been implemented, don't hesitate to
       [contact us](../contact.html).
+    * This document is applicable to
+        * iRedAdmin-Pro-SQL-2.5.0, 2.6.0
+        * iRedAdmin-Pro-LDAP-2.7.0, 2.8.0
+
+## ChangeLog
+
+### iRedAdmin-Pro-SQL-2.6.0, iRedAdmin-Pro-LDAP-2.8.0
+
+* Variable names in returned JSON data has been changed to:
+  `{'_success': ..., '_msg': ...}` (was `{'success': ..., 'msg': ...}`).
+* Some variable names have been renamed:
+    * `cn` -> `name`.
+    * `mailQuota` -> `quota`
+    * `preferredLanguage` -> `language`
 
 ## Summary
 
@@ -19,6 +29,10 @@ iRedAdmin-Pro RESTful API will return message in JSON format.
     * For http `POST`, `DELETE`, `PUT` methods, it returns JSON data: `{'_success': true}`.
     * For http `GET` method, it returns JSON data: `{'_success': true, '_data': <program_output>}`.
 * If operation failed, it returns JSON data: `{'_success': false, '_msg': '<error_reason>'}`.
+
+## Requirements
+
+This document is applicable to iRedAdmin-Pro-LDAP-2.7.0 and iRedAdmin-Pro-SQL-2.5.0.
 
 ## Enable RESTful API
 
@@ -52,6 +66,7 @@ Restarting Apache or uwsgi (if you're running Nginx) is required.
 Notes:
 
 * Parameter name with a `*` mark means the parameter is required, otherwise is optional.
+* __Parameter names are cAsE-sensitive.__
 * replace `<domain>` in URL by the real domain name. e.g. `example.com`
 * replace `<mail>` in URL by the real email address. e.g. `user@domain.com`
 * replace `<number>` in URL by an integer number. e.g. `30`, `200`
@@ -302,7 +317,7 @@ Notes:
     `employeeid` | User ID (or Employee Number) | `employeeid=My Employee ID`
     `transport` | Transport program | `transport=dovecot`
     `forwarding` | Per-user mail forwarding. Multiple addresses must be separated by comma. To save an email copy in mailbox, add original email address as one of forwarding addresses. | `forwarding=user1@domain.com,user2@domain.com,user3@domain.com`
-    `aliases` | Per-user alias addresses. Multiple addresses must be separated by comma. If empty, all per-user alias addresses owned by this user will be removed. Conflicts with parameter `addAlias` and `removeAlias`. | `aliases=user1@domain.com,user2@domain.com,user3@domain.com`
+    `aliases` | Per-user alias addresses. Multiple addresses must be separated by comma. If empty, all per-user alias addresses owned by this user will be removed. __If given addresses exist on system before this assignment, they won't be assigned to the user.__ Conflicts with parameter `addAlias` and `removeAlias`. | `aliases=user1@domain.com,user2@domain.com,user3@domain.com`
     `addAlias` | Add new per-user alias addresses. Multiple addresses must be separated by comma. Conflicts with parameter `aliases`. | `aliases=user1@domain.com,user2@domain.com,user3@domain.com`
     `removeAlias` | Remove existing per-user alias addresses. Multiple addresses must be separated by comma. Conflicts with parameter `aliases`. | `aliases=user1@domain.com,user2@domain.com,user3@domain.com`
 
@@ -413,14 +428,14 @@ Notes:
 ### Spam Policy {: .toggle }
 
 !!! api "`GET`{: .get } `/api/spampolicy/global`{: .url } `Get global spam policy`{: .comment }"
-!!! api "`GET`{: .get } `/api/spampolicy/domain/<domain>`{: .url } `Get per-domain spam policy`{: .comment }"
-!!! api "`GET`{: .get } `/api/spampolicy/user/<mail>`{: .url } `Get per-user spam policy`{: .comment }"
-!!! api "`DELETE`{: .delete } `/api/spampolicy/global`{: .url } `Delete global spam policy`{: .comment }"
-!!! api "`DELETE`{: .delete } `/api/spampolicy/domain/<domain>`{: .url } `Delete per-domain spam policy`{: .comment }"
-!!! api "`DELETE`{: .delete } `/api/spampolicy/user/<mail>`{: .url } `Delete per-user spam policy`{: .comment }"
 !!! api "`PUT`{: .put } `/api/spampolicy/global`{: .url } `Set global spam policy`{: .comment } `Parameters`{: .has_params_spampolicy }"
+!!! api "`DELETE`{: .delete } `/api/spampolicy/global`{: .url } `Delete global spam policy`{: .comment }"
+!!! api "`GET`{: .get } `/api/spampolicy/domain/<domain>`{: .url } `Get per-domain spam policy`{: .comment }"
 !!! api "`PUT`{: .put } `/api/spampolicy/domain/<domain>`{: .url } `Set per-domain spam policy`{: .comment } `Parameters`{: .has_params_spampolicy }"
+!!! api "`DELETE`{: .delete } `/api/spampolicy/domain/<domain>`{: .url } `Delete per-domain spam policy`{: .comment }"
+!!! api "`GET`{: .get } `/api/spampolicy/user/<mail>`{: .url } `Get per-user spam policy`{: .comment }"
 !!! api "`PUT`{: .put } `/api/spampolicy/user/<mail>`{: .url } `Set per-user spam policy`{: .comment } `Parameters`{: .has_params_spampolicy }"
+!!! api "`DELETE`{: .delete } `/api/spampolicy/user/<mail>`{: .url } `Delete per-user spam policy`{: .comment }"
 
     <div class="params params_spampolicy">
 
@@ -472,75 +487,6 @@ Notes:
 
     </div>
 
-### Greylisting {: .toggle }
-
-!!! api "`GET`{: .get } `/api/greylisting/all`{: .url } `Get all existing greylisting settings`{: .comment }"
-!!! api "`GET`{: .get } `/api/greylisting/global`{: .url } `Get global greylisting setting`{: .comment }"
-!!! api "`GET`{: .get } `/api/greylisting/<domain>`{: .url } `Get per-domain greylisting setting`{: .comment }"
-!!! api "`GET`{: .get } `/api/greylisting/<mail>`{: .url } `Get per-user greylisting setting`{: .comment }"
-!!! api "`POST`{: .post } `/api/greylisting/global`{: .url } `Set global greylisting setting`{: .comment } `Parameters`{: .has_params_greylisting }"
-!!! api "`POST`{: .post } `/api/greylisting/<domain>`{: .url } `Set per-domain greylisting setting`{: .comment } `Parameters`{: .has_params_greylisting }"
-!!! api "`POST`{: .post } `/api/greylisting/<mail>`{: .url } `Set per-user greylisting setting`{: .comment } `Parameters`{: .has_params_greylisting }"
-
-    <div class="params params_greylisting">
-
-    Parameters available for global, per-domain and per-user greylisting settings.
-
-    Parameter | Summary | Sample Usage
-    --- |--- |---
-    `status` | Explicitly enable or disable greylisting service. | `status=enable` (or `disable`)
-
-    </div>
-
-!!! api "`DELETE`{: .delete } `/api/greylisting/global`{: .url } `Delete global greylisting setting`{: .comment }"
-!!! api "`DELETE`{: .delete } `/api/greylisting/<domain>`{: .url } `Delete per-domain greylisting setting`{: .comment }"
-!!! api "`DELETE`{: .delete } `/api/greylisting/<mail>`{: .url } `Delete per-user greylisting setting`{: .comment }"
-!!! api "`GET`{: .get } `/api/greylisting/global/whitelists`{: .url } `Get globally whitelisted senders for greylisting service`{: .comment }"
-!!! api "`GET`{: .get } `/api/greylisting/<domain>/whitelists`{: .url } `Get whitelisted senders for greylisting service for specified domain`{: .comment }"
-!!! api "`GET`{: .get } `/api/greylisting/<mail>/whitelists`{: .url } `Get whitelisted senders for greylisting service for specified user`{: .comment }"
-!!! api "`POST`{: .post } `/api/greylisting/global/whitelists`{: .url } `Whitelist senders for greylisting service globally`{: .comment } `Parameters`{: .has_params_greylisting_whitelists }"
-!!! api "`POST`{: .post } `/api/greylisting/<domain>/whitelists`{: .url } `Whitelist senders for greylisting service for specified domain`{: .comment } `Parameters`{: .has_params_greylisting_whitelists }"
-!!! api "`POST`{: .post } `/api/greylisting/<mail>/whitelists`{: .url } `Whitelist senders for greylisting services for specified user`{: .comment } `Parameters`{: .has_params_greylisting_whitelists }"
-
-    <div class="params params_greylisting_whitelists">
-
-    Parameter | Summary | Sample Usage
-    --- |--- |---
-    `whitelistSenders` | Reset whitelisted senders for global greylisting service to given senders. Multiple addresses must be separated by comma. Conflicts with parameter `addWhitelistSender` and `removeWhitelistSender`. | `whitelistSenders=192.168.1.0/24,172.16.10.1,@example.com`
-    `addWhitelistSenders` | Whitelist new senders for greylisting service globally. Multiple addresses must be separated by comma. Conflicts with parameter `whitelistSenders`. | `addWhitelistSender=192.168.1.0/24,@example.com`
-    `removeWhitelistSenders` | Remove existing whitelisted senders for greylisting service globally. Multiple addresses must be separated by comma. Conflicts with parameter `whitelistSenders`. | `removeWhitelistSender=192.168.1.0/24,@example.com`
-
-    Valid sender address formats:
-
-    Sender Address | Comment
-    ---|---
-    `192.168.2.10` | Single IP address
-    `192.168.1.0/24` | CIDR network
-    `user@example.com` | Single email address
-    `@example.com` | Entire domain
-    `@.example.com` | Entire domain and all its sub-domains
-
-    </div>
-
-!!! api "`POST`{: .post } `/api/greylisting/whitelist_spf_domains`{: .url } `Whitelist IP addresses and networks listed in SPF/MX DNS record of given sender domains for greylisting service globally`{: .comment } `Parameters`{: .has_params }"
-
-    <div class="params">
-
-    Given sender domain names are not used directly while checking whitelisting, instead, there's a cron job to query SPF and MX DNS records of given sender domains, then whitelist the IP addresses/networks listed in DNS records.
-
-    Multiple domains must be separated by comma.
-
-    Parameter | Summary | Sample Usage
-    --- |--- |---
-    `domains` | Reset whitelisted sender domains for global greylisting service to given sender domains. Conflicts with parameters `addDomains` and `removeDomains`. | `domains=iredmail.org,gmail.com`
-    `addDomains` | Add new whitelist sender domains for global greylisting service. Conflicts with parameter `domains`. | `addDomains=iredmail.org,gmail.com`
-    `removeDomains` | Remove existing whitelisted sender domains for global greylisting service. Conflicts with parameter `domains`. | `removeDomains=iredmail.org,gmail.com`
-
-    <!--
-    `query_dns_immediately` | Query SPF/MX/A DNS records of given sender domains immediately, and whitelist returned IP/networks | `query_dns_immediately=yes`
-    -->
-
-    </div>
 
 ### Export Accounts {: .toggle }
 
@@ -557,39 +503,7 @@ Notes:
 
 
 
-## ChangeLog
 
-### iRedAdmin-Pro-SQL-2.7.0, iRedAdmin-Pro-LDAP-2.9.0
-
-* New: Able to manage global, per-domain and per-user greylisting settings,
-  whitelist senders, and global whitelisted SPF domains.
-* iRedAdmin-Pro-SQL-2.7.0:
-    * Variable names changed in returned JSON data of user profile (`GET /api/user/<mail>`):
-        * name `forwarding` is replaced by `forwardings`, and it's now a list
-          object of user forwarding email addresses (was a string, multiple
-          addresses were separated by comma).
-    * Variable names in returned JSON data of mail alias profile (`GET /api/alias/<mail>`):
-        * name `islist` is gone.
-        * name `goto` is replaced by `members`, and it's now a list object of
-          member email addresses (was a string, multiple addresses were separated
-          by comma).
-    * Variable names in returned JSON data of domain profile (`GET /api/domain/<domain>`):
-        * name `catchall` always presents, and it's now a list object of catch-all
-          email address (was a string, multiple addresses were separated by comma).
-    * Fixed bugs:
-        * Cannot set per-user alias addresses while creating new mail user.
-        * Cannot add or remove per-user alias addresses while updating user profile.
-        * User mailbox quota was removed while updating user profile.
-        * Not use default transport setting while creating new domain.
-
-### iRedAdmin-Pro-SQL-2.6.0, iRedAdmin-Pro-LDAP-2.8.0
-
-* Variable names in returned JSON data has been changed to:
-  `{'_success': ..., '_msg': ...}` (was `{'success': ..., 'msg': ...}`).
-* Some variable names have been renamed:
-    * `cn` -> `name`.
-    * `mailQuota` -> `quota`
-    * `preferredLanguage` -> `language`
 
 
 
@@ -615,8 +529,6 @@ $(document).ready(function(){
 
     /* Expand/Collapse specific parameters */
 	$('.has_params_throttle').bind('click', function(){$('.params_throttle').toggle();});
-	$('.has_params_greylisting').bind('click', function(){$('.params_greylisting').toggle();});
-	$('.has_params_greylisting_whitelists').bind('click', function(){$('.params_greylisting_whitelists').toggle();});
 	$('.has_params_spampolicy').bind('click', function(){$('.params_spampolicy').toggle();});
 });
 </script>
