@@ -66,33 +66,32 @@
 <ul>
 <li>New: Able to manage global, per-domain and per-user greylisting settings,
   whitelist senders, and global whitelisted SPF domains.</li>
+<li>iRedAdmin-Pro-SQL-2.7.0:<ul>
 <li>Variable names changed in returned JSON data of user profile (<code>GET /api/user/&lt;mail&gt;</code>):<ul>
 <li>name <code>forwarding</code> is replaced by <code>forwardings</code>, and it's now a list
   object of user forwarding email addresses (was a string, multiple
   addresses were separated by comma).</li>
 </ul>
 </li>
-<li>Variable names in returned JSON data of mail alias profile<ul>
+<li>Variable names in returned JSON data of mail alias profile (<code>GET /api/alias/&lt;mail&gt;</code>):<ul>
 <li>name <code>islist</code> is gone.</li>
 <li>name <code>goto</code> is replaced by <code>members</code>, and it's now a list object of
   member email addresses (was a string, multiple addresses were separated
   by comma).</li>
 </ul>
 </li>
-<li>
-<p>Variable names in returned JSON data of domain profile (<code>GET /api/domain/&lt;domain&gt;</code>):</p>
-<ul>
+<li>Variable names in returned JSON data of domain profile (<code>GET /api/domain/&lt;domain&gt;</code>):<ul>
 <li>name <code>catchall</code> always presents, and it's now a list object of catch-all
   email address (was a string, multiple addresses were separated by comma).</li>
 </ul>
 </li>
-<li>
-<p>iRedAdmin-Pro-SQL-2.7.0 also fixes several bugs:</p>
-<ul>
+<li>Fixed bugs:<ul>
 <li>Cannot set per-user alias addresses while creating new mail user.</li>
 <li>Cannot add or remove per-user alias addresses while updating user profile.</li>
 <li>User mailbox quota was removed while updating user profile.</li>
 <li>Not use default transport setting while creating new domain.</li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
