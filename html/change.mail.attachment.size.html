@@ -52,7 +52,7 @@ attachment.</p>
 <p>They don't have to be same. but <code>mailbox_size_limit</code> (size of the mailbox)
 MUST be equal to or LARGER than <code>message_size_limit</code> (size of single email
 message). Since per-user mailbox quota is enforced by Dovecot, so the
-<code>mailbox_size_limit</code> is useless.</p>
+<code>mailbox_size_limit</code> is useless but required by Postfix.</p>
 </div>
 <p>Restart postfix to make it work:</p>
 <pre><code># /etc/init.d/postfix restart

@@ -22,7 +22,7 @@ For example, to allow mail with 100Mb attachment, please change both
     They don't have to be same. but `mailbox_size_limit` (size of the mailbox)
     MUST be equal to or LARGER than `message_size_limit` (size of single email
     message). Since per-user mailbox quota is enforced by Dovecot, so the
-    `mailbox_size_limit` is useless.
+    `mailbox_size_limit` is useless but required by Postfix.
 
 Restart postfix to make it work:
 
