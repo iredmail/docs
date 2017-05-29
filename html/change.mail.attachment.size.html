@@ -43,10 +43,17 @@
 attachment.</p>
 <p>For example, to allow mail with 100Mb attachment, please change both
 <code>message_size_limit</code> and <code>mailbox_size_limit</code> settings like below:</p>
-<pre><code># postconf -e message_size_limit='104857600'
-# postconf -e mailbox_size_limit='104857600'
+<pre><code># postconf -e message_size_limit=104857600
+# postconf -e mailbox_size_limit=104857600
 </code></pre>
 
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>They don't have to be same. but <code>mailbox_size_limit</code> (size of the mailbox)
+MUST be equal to or LARGER than <code>message_size_limit</code> (size of single email
+message). Since per-user mailbox quota is enforced by Dovecot, so the
+<code>mailbox_size_limit</code> is useless.</p>
+</div>
 <p>Restart postfix to make it work:</p>
 <pre><code># /etc/init.d/postfix restart
 </code></pre>
