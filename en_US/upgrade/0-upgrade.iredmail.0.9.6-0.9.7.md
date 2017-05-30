@@ -13,6 +13,7 @@
 
 ## ChangeLog
 
+* May 30, 2017: Fixed: incorrect freshclam parameter `UpdateLogFile`.
 * May 22, 2017: Fixed improper Fail2ban filter for Dovecot, add new filter for Roundcube.
 * May 15, 2017: SQL structure change in `vmail.alias` SQL table
 * May  3, 2017: Fixed: improper order of Postfix HELO restriction rules.
@@ -121,6 +122,12 @@ php_value[session.save_path] = "/var/lib/php/sessions"
 ```
 service php-fpm restart
 ```
+
+### Fixed: incorrect freshclam setting `UpdateLogFile`
+
+With iRedMail-0.9.6, freshclam program cannot update ClamAV signatures due to
+improper log file permission, please open its config file `/etc/freshclam.conf`,
+comment out setting `UpdateLogFile` to use syslog for logging.
 
 ### Fail2ban: fixes an improper filter and add new filter rule
 

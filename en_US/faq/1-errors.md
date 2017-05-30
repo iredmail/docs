@@ -68,6 +68,8 @@ this issue.
 
 ### Recipient address rejected: Sender is not same as SMTP authenticate username
 
+#### case #1
+
 If the smtp authenticate username is different than the address in mail header
 `From:` field, you will get this rejection (by iRedAPD).
 
@@ -86,6 +88,19 @@ ALLOWED_LOGIN_MISMATCH_SENDERS = ['user@mydomain.com']
 ```
 
 Notes: `user@mydomain.com` is the email address you used for smtp authentication.
+
+#### case #2
+
+If you're a member of mailing list or mail alias, and trying to send email with
+the email address of mailing list/alias as sender address, you will get same
+error. There's another setting you can try (either one is ok):
+
+```
+ALLOWED_LOGIN_MISMATCH_LIST_MEMBER = True
+```
+
+It will allow all members of mailing list/alias to send email with the email
+of mailing list/alias as the sender address.
 
 ### unreasonable virtual_alias_maps map expansion size for user@domain.com
 

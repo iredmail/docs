@@ -23,7 +23,11 @@
 <li><a href="#intended-policy-rejection-please-try-again-later">Intended policy rejection, please try again later</a></li>
 <li><a href="#sender-address-rejected-not-logged-in">Sender address rejected: not logged in</a></li>
 <li><a href="#sender-address-rejected-not-owned-by-user-userdomainltd">Sender address rejected: not owned by user user@domain.ltd</a></li>
-<li><a href="#recipient-address-rejected-sender-is-not-same-as-smtp-authenticate-username">Recipient address rejected: Sender is not same as SMTP authenticate username</a></li>
+<li><a href="#recipient-address-rejected-sender-is-not-same-as-smtp-authenticate-username">Recipient address rejected: Sender is not same as SMTP authenticate username</a><ul>
+<li><a href="#case-1">case #1</a></li>
+<li><a href="#case-2">case #2</a></li>
+</ul>
+</li>
 <li><a href="#unreasonable-virtual_alias_maps-map-expansion-size-for-userdomaincom">unreasonable virtual_alias_maps map expansion size for user@domain.com</a></li>
 <li><a href="#helo-command-rejected-access-denied-your-email-was-rejected-because-the-sending-mail-server-does-not-identify-itself-correctly-local">Helo command rejected: ACCESS DENIED. Your email was rejected because the sending mail server does not identify itself correctly (.local)</a></li>
 <li><a href="#warning-do-not-list-domain-mydomaincom-in-both-mydestination-and-virtual_mailbox_domains">warning: do not list domain mydomain.com in BOTH mydestination and virtual_mailbox_domains</a></li>
@@ -93,6 +97,7 @@ then enable it in iRedAPD config file <code>/opt/iredapd/settings.py</code> (<co
 restart iRedAPD service. That's all.</p>
 </div>
 <h3 id="recipient-address-rejected-sender-is-not-same-as-smtp-authenticate-username">Recipient address rejected: Sender is not same as SMTP authenticate username</h3>
+<h4 id="case-1">case #1</h4>
 <p>If the smtp authenticate username is different than the address in mail header
 <code>From:</code> field, you will get this rejection (by iRedAPD).</p>
 <p>Solutions:</p>
@@ -109,6 +114,15 @@ restart iRedAPD service. That's all.</p>
 </code></pre>
 
 <p>Notes: <code>user@mydomain.com</code> is the email address you used for smtp authentication.</p>
+<h4 id="case-2">case #2</h4>
+<p>If you're a member of mailing list or mail alias, and trying to send email with
+the email address of mailing list/alias as sender address, you will get same
+error. There's another setting you can try (either one is ok):</p>
+<pre><code>ALLOWED_LOGIN_MISMATCH_LIST_MEMBER = True
+</code></pre>
+
+<p>It will allow all members of mailing list/alias to send email with the email
+of mailing list/alias as the sender address.</p>
 <h3 id="unreasonable-virtual_alias_maps-map-expansion-size-for-userdomaincom">unreasonable virtual_alias_maps map expansion size for user@domain.com</h3>
 <p>Sample error message in Postfix log file:</p>
 <blockquote>

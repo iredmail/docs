@@ -26,6 +26,7 @@
 <li><a href="#fixed-improper-order-of-postfix-helo-restriction-rules">Fixed: improper order of Postfix HELO restriction rules.</a></li>
 <li><a href="#fixed-incorrect-owner-and-permission-for-rotated-dovecot-log-files">Fixed: incorrect owner and permission for rotated Dovecot log files</a></li>
 <li><a href="#fixed-incorrect-sessionsave_path-in-php-fpm-pool-config-file-on-rhelcentos">Fixed: incorrect session.save_path in php-fpm pool config file on RHEL/CentOS</a></li>
+<li><a href="#fixed-incorrect-freshclam-setting-updatelogfile">Fixed: incorrect freshclam setting UpdateLogFile</a></li>
 <li><a href="#fail2ban-fixes-an-improper-filter-and-add-new-filter-rule">Fail2ban: fixes an improper filter and add new filter rule</a></li>
 <li><a href="#new-new-backup-script-for-sogo">NEW: New backup script for SOGo</a></li>
 </ul>
@@ -70,6 +71,7 @@ check <a href="../support.html">the details</a> and <a href="../contact.html">co
 </div>
 <h2 id="changelog">ChangeLog</h2>
 <ul>
+<li>May 30, 2017: Fixed: incorrect freshclam parameter <code>UpdateLogFile</code>.</li>
 <li>May 22, 2017: Fixed improper Fail2ban filter for Dovecot, add new filter for Roundcube.</li>
 <li>May 15, 2017: SQL structure change in <code>vmail.alias</code> SQL table</li>
 <li>May  3, 2017: Fixed: improper order of Postfix HELO restriction rules.</li>
@@ -168,6 +170,10 @@ pool config file <code>/etc/php-fpm.d/www.conf</code>, please fix it with steps 
 <pre><code>service php-fpm restart
 </code></pre>
 
+<h3 id="fixed-incorrect-freshclam-setting-updatelogfile">Fixed: incorrect freshclam setting <code>UpdateLogFile</code></h3>
+<p>With iRedMail-0.9.6, freshclam program cannot update ClamAV signatures due to
+improper log file permission, please open its config file <code>/etc/freshclam.conf</code>,
+comment out setting <code>UpdateLogFile</code> to use syslog for logging.</p>
 <h3 id="fail2ban-fixes-an-improper-filter-and-add-new-filter-rule">Fail2ban: fixes an improper filter and add new filter rule</h3>
 <p>iRedMail-0.9.7 fixes an improper filter for Dovecot log file which may cause
 incorrect ban, and adds a new filter for Roundcube log file to help ban bad
