@@ -318,7 +318,12 @@ Restarting Postfix service is required.
 
 #### [OPTIONAL] Drop unused SQL columns in `vmail.alias` table
 
-After migration, few columns in `vmail.alias` table are not used anymore, it's
+!!! warning
+
+    Please upgrade iRedAPD and iRedAdmin-Pro also, they need the new SQL
+    structure also.
+
+After migration, few columns in `vmail.alias` table are not used anymore. it's
 ok to drop them. But it's strongly recommended to keep them for few more days
 until you can confirm all features are working as expected.
 
@@ -464,6 +469,11 @@ perl -pi -e 's#alias,#forwardings,#g' *.cf
 Restarting Postfix service is required.
 
 #### [OPTIONAL] Drop unused SQL columns in `vmail.alias` table
+
+!!! warning
+
+    Please upgrade iRedAPD and iRedAdmin-Pro also, they need the new SQL
+    structure also.
 
 After migration, few columns in `vmail.alias` table are not used anymore, it's
 ok to drop them. But it's strongly recommended to keep them for few more days
