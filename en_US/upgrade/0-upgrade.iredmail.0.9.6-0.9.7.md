@@ -243,6 +243,10 @@ and (optionally) dropped few columns in `vmail.alias` table.
 iRedAPD and iRedAdmin (and iRedAdmin-Pro) have been upgraded to use this new
 SQL structure.
 
+!!! warning
+
+    Please backup SQL database `vmail` before you run any SQL commands below.
+
 #### Create required new SQL tables
 
 Please connect to MySQL server as MySQL root user, and execute SQL commands
@@ -316,12 +320,13 @@ perl -pi -e 's#alias,#forwardings,#g' *.cf
 
 Restarting Postfix service is required.
 
-#### [OPTIONAL] Drop unused SQL columns in `vmail.alias` table
+#### Drop unused SQL columns in `vmail.alias` table
 
 !!! warning
 
-    Please upgrade iRedAPD and iRedAdmin-Pro also, they need the new SQL
-    structure also.
+    * Make sure you have a backup of SQL database `vmail`.
+    * Please also upgrade iRedAPD and iRedAdmin-Pro, they need the new SQL
+      structure too.
 
 After migration, few columns in `vmail.alias` table are not used anymore. it's
 ok to drop them. But it's strongly recommended to keep them for few more days
@@ -386,6 +391,10 @@ and (optionally) dropped few columns in `vmail.alias` table.
 
 iRedAPD and iRedAdmin (and iRedAdmin-Pro) have been upgraded to use this new
 SQL structure.
+
+!!! warning
+
+    Please backup SQL database `vmail` before you run any SQL commands below.
 
 #### Create required new SQL tables
 
@@ -468,12 +477,13 @@ perl -pi -e 's#alias,#forwardings,#g' *.cf
 
 Restarting Postfix service is required.
 
-#### [OPTIONAL] Drop unused SQL columns in `vmail.alias` table
+#### Drop unused SQL columns in `vmail.alias` table
 
 !!! warning
 
-    Please upgrade iRedAPD and iRedAdmin-Pro also, they need the new SQL
-    structure also.
+    * Make sure you have a backup of SQL database `vmail`.
+    * Please also upgrade iRedAPD and iRedAdmin-Pro, they need the new SQL
+      structure too.
 
 After migration, few columns in `vmail.alias` table are not used anymore, it's
 ok to drop them. But it's strongly recommended to keep them for few more days

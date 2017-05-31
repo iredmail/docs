@@ -40,7 +40,7 @@
 <li><a href="#create-required-new-sql-tables">Create required new SQL tables</a></li>
 <li><a href="#migrate-mail-accounts">Migrate mail accounts</a></li>
 <li><a href="#update-postfix-config-files">Update Postfix config files</a></li>
-<li><a href="#optional-drop-unused-sql-columns-in-vmailalias-table">[OPTIONAL] Drop unused SQL columns in vmail.alias table</a></li>
+<li><a href="#drop-unused-sql-columns-in-vmailalias-table">Drop unused SQL columns in vmail.alias table</a></li>
 </ul>
 </li>
 <li><a href="#fixed-avoid-possible-backdooring-mysqldump-backups_1">Fixed: Avoid possible backdooring mysqldump backups</a></li>
@@ -51,7 +51,7 @@
 <li><a href="#create-required-new-sql-tables_1">Create required new SQL tables</a></li>
 <li><a href="#migrate-mail-accounts_1">Migrate mail accounts</a></li>
 <li><a href="#update-postfix-config-files_1">Update Postfix config files</a></li>
-<li><a href="#optional-drop-unused-sql-columns-in-vmailalias-table_1">[OPTIONAL] Drop unused SQL columns in vmail.alias table</a></li>
+<li><a href="#drop-unused-sql-columns-in-vmailalias-table_1">Drop unused SQL columns in vmail.alias table</a></li>
 </ul>
 </li>
 </ul>
@@ -281,6 +281,10 @@ management, you can find details about this change here:
 and (optionally) dropped few columns in <code>vmail.alias</code> table.</p>
 <p>iRedAPD and iRedAdmin (and iRedAdmin-Pro) have been upgraded to use this new
 SQL structure.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Please backup SQL database <code>vmail</code> before you run any SQL commands below.</p>
+</div>
 <h4 id="create-required-new-sql-tables">Create required new SQL tables</h4>
 <p>Please connect to MySQL server as MySQL root user, and execute SQL commands
 below to create required new tables:</p>
@@ -343,11 +347,14 @@ perl -pi -e 's#alias,#forwardings,#g' *.cf
 </code></pre>
 
 <p>Restarting Postfix service is required.</p>
-<h4 id="optional-drop-unused-sql-columns-in-vmailalias-table">[OPTIONAL] Drop unused SQL columns in <code>vmail.alias</code> table</h4>
+<h4 id="drop-unused-sql-columns-in-vmailalias-table">Drop unused SQL columns in <code>vmail.alias</code> table</h4>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>Please upgrade iRedAPD and iRedAdmin-Pro also, they need the new SQL
-structure also.</p>
+<ul>
+<li>Make sure you have a backup of SQL database <code>vmail</code>.</li>
+<li>Please also upgrade iRedAPD and iRedAdmin-Pro, they need the new SQL
+  structure too.</li>
+</ul>
 </div>
 <p>After migration, few columns in <code>vmail.alias</code> table are not used anymore. it's
 ok to drop them. But it's strongly recommended to keep them for few more days
@@ -408,6 +415,10 @@ management, you can find details about this change here:
 and (optionally) dropped few columns in <code>vmail.alias</code> table.</p>
 <p>iRedAPD and iRedAdmin (and iRedAdmin-Pro) have been upgraded to use this new
 SQL structure.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Please backup SQL database <code>vmail</code> before you run any SQL commands below.</p>
+</div>
 <h4 id="create-required-new-sql-tables_1">Create required new SQL tables</h4>
 <p>Please connect to PostgreSQL server as <code>vmailadmin</code> user, then execute SQL
 commands below to create required new tables:</p>
@@ -478,11 +489,14 @@ perl -pi -e 's#alias,#forwardings,#g' *.cf
 </code></pre>
 
 <p>Restarting Postfix service is required.</p>
-<h4 id="optional-drop-unused-sql-columns-in-vmailalias-table_1">[OPTIONAL] Drop unused SQL columns in <code>vmail.alias</code> table</h4>
+<h4 id="drop-unused-sql-columns-in-vmailalias-table_1">Drop unused SQL columns in <code>vmail.alias</code> table</h4>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>Please upgrade iRedAPD and iRedAdmin-Pro also, they need the new SQL
-structure also.</p>
+<ul>
+<li>Make sure you have a backup of SQL database <code>vmail</code>.</li>
+<li>Please also upgrade iRedAPD and iRedAdmin-Pro, they need the new SQL
+  structure too.</li>
+</ul>
 </div>
 <p>After migration, few columns in <code>vmail.alias</code> table are not used anymore, it's
 ok to drop them. But it's strongly recommended to keep them for few more days
