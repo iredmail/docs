@@ -34,6 +34,27 @@ All mail users are forced to perform SMTP auth before sending email, so you
 must configure your mail client applications (Outlook, Thunderbird, ...) to
 enable SMTP authentication.
 
+### Helo command rejected: need fully-qualified hostname
+
+Sample error message in Postfix log file:
+
+> Sep 22 08:51:03 mail postfix/smtpd[22067]: NOQUEUE: reject: RCPT from
+> dslb-092-074-062-133.092.074.pools.vodafone-ip.de[92.74.62.133]: 504 5.5.2
+> <EHSGmbHLUCASPC\>: __Helo command rejected: need fully-qualified hostname__;
+> from=<user@domain-a.com> to=<user@domain-b.com> proto=ESMTP helo=<EHSGmbHLUCASPC\>
+
+According to RFC document, HELO identity must be a FQDN (fully-qualified
+hostname). Sender sends `EHSGmbHLUCASPC` as HELO hostname, but it's not a FQDN.
+It's sender's fault, not your mistake.
+
+As a temporary solution, you can whitelist this HELO hostname
+by adding a line like below at the top of file `/etc/postfix/helo_access.pcre`
+(Linux/OpenBSD) or `/usr/local/etc/postfix/helo_access.pcre`:
+
+```
+/^EHSGmbHLUCASPC$/ OK
+```
+
 ### Sender address rejected: not owned by user user@domain.ltd
 
 This error is caused by restriction rule `reject_sender_login_mismatch` in

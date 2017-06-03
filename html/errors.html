@@ -22,6 +22,7 @@
 <li><a href="#postfix">Postfix</a><ul>
 <li><a href="#intended-policy-rejection-please-try-again-later">Intended policy rejection, please try again later</a></li>
 <li><a href="#sender-address-rejected-not-logged-in">Sender address rejected: not logged in</a></li>
+<li><a href="#helo-command-rejected-need-fully-qualified-hostname">Helo command rejected: need fully-qualified hostname</a></li>
 <li><a href="#sender-address-rejected-not-owned-by-user-userdomainltd">Sender address rejected: not owned by user user@domain.ltd</a></li>
 <li><a href="#recipient-address-rejected-sender-is-not-same-as-smtp-authenticate-username">Recipient address rejected: Sender is not same as SMTP authenticate username</a><ul>
 <li><a href="#case-1">case #1</a></li>
@@ -70,6 +71,23 @@ server issue.</p>
 <p>All mail users are forced to perform SMTP auth before sending email, so you
 must configure your mail client applications (Outlook, Thunderbird, ...) to
 enable SMTP authentication.</p>
+<h3 id="helo-command-rejected-need-fully-qualified-hostname">Helo command rejected: need fully-qualified hostname</h3>
+<p>Sample error message in Postfix log file:</p>
+<blockquote>
+<p>Sep 22 08:51:03 mail postfix/smtpd[22067]: NOQUEUE: reject: RCPT from
+dslb-092-074-062-133.092.074.pools.vodafone-ip.de[92.74.62.133]: 504 5.5.2
+&lt;EHSGmbHLUCASPC>: <strong>Helo command rejected: need fully-qualified hostname</strong>;
+from=<a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#117;&#115;&#101;&#114;&#64;&#100;&#111;&#109;&#97;&#105;&#110;&#45;&#97;&#46;&#99;&#111;&#109;">&#117;&#115;&#101;&#114;&#64;&#100;&#111;&#109;&#97;&#105;&#110;&#45;&#97;&#46;&#99;&#111;&#109;</a> to=<a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#117;&#115;&#101;&#114;&#64;&#100;&#111;&#109;&#97;&#105;&#110;&#45;&#98;&#46;&#99;&#111;&#109;">&#117;&#115;&#101;&#114;&#64;&#100;&#111;&#109;&#97;&#105;&#110;&#45;&#98;&#46;&#99;&#111;&#109;</a> proto=ESMTP helo=&lt;EHSGmbHLUCASPC></p>
+</blockquote>
+<p>According to RFC document, HELO identity must be a FQDN (fully-qualified
+hostname). Sender sends <code>EHSGmbHLUCASPC</code> as HELO hostname, but it's not a FQDN.
+It's sender's fault, not your mistake.</p>
+<p>As a temporary solution, you can whitelist this HELO hostname
+by adding a line like below at the top of file <code>/etc/postfix/helo_access.pcre</code>
+(Linux/OpenBSD) or <code>/usr/local/etc/postfix/helo_access.pcre</code>:</p>
+<pre><code>/^EHSGmbHLUCASPC$/ OK
+</code></pre>
+
 <h3 id="sender-address-rejected-not-owned-by-user-userdomainltd">Sender address rejected: not owned by user user@domain.ltd</h3>
 <p>This error is caused by restriction rule <code>reject_sender_login_mismatch</code> in
 Postfix parameter <code>smtpd_recipient_restrictions</code>, in file <code>/etc/postfix/main.cf</code>:</p>
