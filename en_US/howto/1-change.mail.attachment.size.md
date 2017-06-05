@@ -53,7 +53,9 @@ You should change `memory_limit`, `upload_max_filesize` and `post_max_size` in
 PHP config file `/etc/php.ini`
 
 * on RHEL/CentOS: it's `/etc/php.ini`
-* on Debian/Ubuntu, it's `/etc/php5/apache2/php.ini`
+* on Debian/Ubuntu, it's `/etc/php5/apache2/php.ini`.
+    * on Ubuntu 16.04 and later releases, it's `/etc/php/7.0/apache2/php.ini`
+      for Apache, or `/etc/php/7.0/fpm/php.ini` for Nginx + php-fpm.
 * on FreeBSD, it's `/usr/local/etc/php.ini` for Apache, or
   `/etc/php5/fpm/php.ini` for Nginx.
 * on OpenBSD, it's `/etc/php-5.4.ini`. If you're running different PHP release,

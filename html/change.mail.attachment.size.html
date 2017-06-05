@@ -77,7 +77,11 @@ ok to sent large attachment with above setting.</p>
 PHP config file <code>/etc/php.ini</code></p>
 <ul>
 <li>on RHEL/CentOS: it's <code>/etc/php.ini</code></li>
-<li>on Debian/Ubuntu, it's <code>/etc/php5/apache2/php.ini</code></li>
+<li>on Debian/Ubuntu, it's <code>/etc/php5/apache2/php.ini</code>.<ul>
+<li>on Ubuntu 16.04 and later releases, it's <code>/etc/php/7.0/apache2/php.ini</code>
+  for Apache, or <code>/etc/php/7.0/fpm/php.ini</code> for Nginx + php-fpm.</li>
+</ul>
+</li>
 <li>on FreeBSD, it's <code>/usr/local/etc/php.ini</code> for Apache, or
   <code>/etc/php5/fpm/php.ini</code> for Nginx.</li>
 <li>on OpenBSD, it's <code>/etc/php-5.4.ini</code>. If you're running different PHP release,

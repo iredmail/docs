@@ -237,6 +237,9 @@ in iRedAPD config file <code>/opt/iredapd/settings.py</code>, parameter <code>pl
 in <code>/opt/iredapd/libs/default_settings.py</code>. If you want to modify them, please
 add the settings with custom values in <code>/opt/iredapd/settings.py</code>.</p>
 <ul>
+<li><code>GREYLISTING_TRAINING_MODE</code>: enable greylisting service, but don't reject
+  any emails. This training mode is useful if this is a new mail server, it
+  collects information of sender servers for further use.</li>
 <li><code>GREYLISTING_MESSAGE</code>: the rejection message which will be sent to sender
   server. Default is <code>Intentional policy rejection, please try again later</code>.</li>
 <li><code>GREYLISTING_BLOCK_EXPIRE</code>: Time (in MINUTES) to wait before client retrying,
