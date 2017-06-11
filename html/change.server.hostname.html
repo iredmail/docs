@@ -24,13 +24,16 @@
 files to replace old hostname by the new one:</p>
 <h2 id="system-config-files">System config files</h2>
 <ul>
-<li>
-<p><code>/etc/hosts</code></p>
+<li><code>/etc/hosts</code></li>
+<li>RHEL/CentOS:<ul>
+<li>for RHEL/CentOS 6: <code>/etc/sysconfig/network</code></li>
+</ul>
 </li>
-<li>
-<p>Debian/Ubuntu: <code>/etc/hostname</code></p>
+<li>Debian/Ubuntu:<ul>
+<li><code>/etc/hostname</code></li>
+<li><code>/etc/mailname</code></li>
+</ul>
 </li>
-<li>Debian/Ubuntu: <code>/etc/mailname</code></li>
 </ul>
 <h2 id="postfix">Postfix</h2>
 <ul>

@@ -71,6 +71,18 @@ service postfix restart
 <p class="admonition-title">Attention</p>
 <p>Sender dependent relay host is available in iRedMail-0.9.5 or later releases.</p>
 </div>
+<div class="admonition note">
+<p class="admonition-title">If your sender dependent relay host requires SMTP Authentication</p>
+<p>If your sender dependent relay host requires SMTP Authentication, please
+add one more Postfix parameter in <code>/etc/postfix/main.cf</code> (Linux/OpenBSD)
+or <code>/usr/local/etc/postfix/main.cf</code> (FreeBSD):</p>
+<p><code>smtp_sender_dependent_authentication = yes</code></p>
+<p>Then add smtp username and password in file <code>/etc/password/sasl_password</code>
+like below:</p>
+<p><code>user@domain.com         smtp_user:smtp_password</code></p>
+<p>Don't forget to run <code>postmap hash:/etc/postfix/sasl_password</code> after
+modified this file.</p>
+</div>
 <h3 id="manage-with-iredadmin-pro">Manage with iRedAdmin-Pro</h3>
 <p>Since iRedAdmin-Pro-SQL-2.4.0 or iRedAdmin-Pro-LDAp-2.6.0, it's able to manage
 per-domain or per-user sender dependent relay host in domain or user profile

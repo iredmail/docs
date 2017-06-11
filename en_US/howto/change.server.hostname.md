@@ -6,9 +6,11 @@ files to replace old hostname by the new one:
 ## System config files
 
 * `/etc/hosts`
-
-* Debian/Ubuntu: `/etc/hostname`
-* Debian/Ubuntu: `/etc/mailname`
+* RHEL/CentOS:
+    * for RHEL/CentOS 6: `/etc/sysconfig/network`
+* Debian/Ubuntu:
+    * `/etc/hostname`
+    * `/etc/mailname`
 
 ## Postfix
 
