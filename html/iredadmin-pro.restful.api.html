@@ -19,12 +19,7 @@
 <div class="toc">
 <ul>
 <li><a href="#iredadmin-pro-restful-api">iRedAdmin-Pro: RESTful API</a><ul>
-<li><a href="#changelog">ChangeLog</a><ul>
-<li><a href="#iredadmin-pro-sql-260-iredadmin-pro-ldap-280">iRedAdmin-Pro-SQL-2.6.0, iRedAdmin-Pro-LDAP-2.8.0</a></li>
-</ul>
-</li>
 <li><a href="#summary">Summary</a></li>
-<li><a href="#requirements">Requirements</a></li>
 <li><a href="#enable-restful-api">Enable RESTful API</a></li>
 <li><a href="#sample-code-to-interact-with-iredadmin-pro-restful-api">Sample code to interact with iRedAdmin-Pro RESTful API</a></li>
 <li><a href="#apis">APIs</a><ul>
@@ -36,10 +31,16 @@
 <li><a href="#mail-alias">Mail Alias</a></li>
 <li><a href="#spam-policy">Spam Policy</a></li>
 <li><a href="#throttling">Throttling</a></li>
+<li><a href="#greylisting">Greylisting</a></li>
 <li><a href="#export-accounts">Export Accounts</a><ul>
 <li><a href="#ldif-ldap-backend-only">LDIF (LDAP backend only)</a></li>
 </ul>
 </li>
+</ul>
+</li>
+<li><a href="#changelog">ChangeLog</a><ul>
+<li><a href="#iredadmin-pro-sql-270-iredadmin-pro-ldap-290">iRedAdmin-Pro-SQL-2.7.0, iRedAdmin-Pro-LDAP-2.9.0</a></li>
+<li><a href="#iredadmin-pro-sql-260-iredadmin-pro-ldap-280">iRedAdmin-Pro-SQL-2.6.0, iRedAdmin-Pro-LDAP-2.8.0</a></li>
 </ul>
 </li>
 </ul>
@@ -49,27 +50,14 @@
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>
 <ul>
+<li>This document is applicable to <code>iRedAdmin-Pro-SQL-2.7.0</code> and
+  <code>iRedAdmin-Pro-LDAP-2.9.0</code>. If you're running an old release, please
+  upgrade iRedAdmin-Pro to the latest release, or check
+  <a href="./iredadmin-pro.releases.html">document for old releases</a>.</li>
 <li>If you need an API which has not yet been implemented, don't hesitate to
   <a href="../contact.html">contact us</a>.</li>
-<li>This document is applicable to<ul>
-<li>iRedAdmin-Pro-SQL-2.5.0, 2.6.0</li>
-<li>iRedAdmin-Pro-LDAP-2.7.0, 2.8.0</li>
-</ul>
-</li>
 </ul>
 </div>
-<h2 id="changelog">ChangeLog</h2>
-<h3 id="iredadmin-pro-sql-260-iredadmin-pro-ldap-280">iRedAdmin-Pro-SQL-2.6.0, iRedAdmin-Pro-LDAP-2.8.0</h3>
-<ul>
-<li>Variable names in returned JSON data has been changed to:
-  <code>{'_success': ..., '_msg': ...}</code> (was <code>{'success': ..., 'msg': ...}</code>).</li>
-<li>Some variable names have been renamed:<ul>
-<li><code>cn</code> -&gt; <code>name</code>.</li>
-<li><code>mailQuota</code> -&gt; <code>quota</code></li>
-<li><code>preferredLanguage</code> -&gt; <code>language</code></li>
-</ul>
-</li>
-</ul>
 <h2 id="summary">Summary</h2>
 <p>iRedAdmin-Pro RESTful API will return message in JSON format.</p>
 <ul>
@@ -80,9 +68,16 @@
 </li>
 <li>If operation failed, it returns JSON data: <code>{'_success': false, '_msg': '&lt;error_reason&gt;'}</code>.</li>
 </ul>
-<h2 id="requirements">Requirements</h2>
-<p>This document is applicable to iRedAdmin-Pro-LDAP-2.7.0 and iRedAdmin-Pro-SQL-2.5.0.</p>
 <h2 id="enable-restful-api">Enable RESTful API</h2>
+<div class="admonition note">
+<p class="admonition-title">iRedAdmin-Pro config file location</p>
+<ul>
+<li>on RHEL/CentOS, it's <code>/var/www/iredadmin/settings.py</code>.</li>
+<li>on Debian/Ubuntu, it's <code>/opt/www/iredadmin/settings.py</code> (in recent iRedMail releases) or <code>/usr/share/apache2/iredadmin/settings.py</code> (in old iRedMail releases).</li>
+<li>on FreeBSD, it's <code>/usr/local/www/iredadmin/settings.py</code>.</li>
+<li>on OpenBSD, it's <code>/var/www/iredadmin/settings.py</code>.</li>
+</ul>
+</div>
 <p>RESTful API is disabled by default, to enable it, please add setting below in
 iRedAdmin-Pro config file <code>settings.py</code>:</p>
 <pre><code>ENABLE_RESTFUL_API = True
@@ -107,7 +102,6 @@ RESTFUL_API_CLIENTS = ['172.16.244.1', ...]
 <p>Notes:</p>
 <ul>
 <li>Parameter name with a <code>*</code> mark means the parameter is required, otherwise is optional.</li>
-<li><strong>Parameter names are cAsE-sensitive.</strong></li>
 <li>replace <code>&lt;domain&gt;</code> in URL by the real domain name. e.g. <code>example.com</code></li>
 <li>replace <code>&lt;mail&gt;</code> in URL by the real email address. e.g. <code>user@domain.com</code></li>
 <li>replace <code>&lt;number&gt;</code> in URL by an integer number. e.g. <code>30</code>, <code>200</code></li>
@@ -885,7 +879,7 @@ to be a domain admin.</p>
 </tr>
 <tr>
 <td><code>aliases</code></td>
-<td>Per-user alias addresses. Multiple addresses must be separated by comma. If empty, all per-user alias addresses owned by this user will be removed. <strong>If given addresses exist on system before this assignment, they won't be assigned to the user.</strong> Conflicts with parameter <code>addAlias</code> and <code>removeAlias</code>.</td>
+<td>Per-user alias addresses. Multiple addresses must be separated by comma. If empty, all per-user alias addresses owned by this user will be removed. Conflicts with parameter <code>addAlias</code> and <code>removeAlias</code>.</td>
 <td><code>aliases=user1@domain.com,user2@domain.com,user3@domain.com</code></td>
 </tr>
 <tr>
@@ -1153,28 +1147,28 @@ please use mail alias account as mailing list.</p>
 <p class="admonition-title"><code class="get">GET</code> <code class="url">/api/spampolicy/global</code> <code class="comment">Get global spam policy</code></p>
 </div>
 <div class="admonition api">
-<p class="admonition-title"><code class="put">PUT</code> <code class="url">/api/spampolicy/global</code> <code class="comment">Set global spam policy</code> <code class="has_params_spampolicy">Parameters</code></p>
-</div>
-<div class="admonition api">
-<p class="admonition-title"><code class="delete">DELETE</code> <code class="url">/api/spampolicy/global</code> <code class="comment">Delete global spam policy</code></p>
-</div>
-<div class="admonition api">
 <p class="admonition-title"><code class="get">GET</code> <code class="url">/api/spampolicy/domain/&lt;domain&gt;</code> <code class="comment">Get per-domain spam policy</code></p>
-</div>
-<div class="admonition api">
-<p class="admonition-title"><code class="put">PUT</code> <code class="url">/api/spampolicy/domain/&lt;domain&gt;</code> <code class="comment">Set per-domain spam policy</code> <code class="has_params_spampolicy">Parameters</code></p>
-</div>
-<div class="admonition api">
-<p class="admonition-title"><code class="delete">DELETE</code> <code class="url">/api/spampolicy/domain/&lt;domain&gt;</code> <code class="comment">Delete per-domain spam policy</code></p>
 </div>
 <div class="admonition api">
 <p class="admonition-title"><code class="get">GET</code> <code class="url">/api/spampolicy/user/&lt;mail&gt;</code> <code class="comment">Get per-user spam policy</code></p>
 </div>
 <div class="admonition api">
-<p class="admonition-title"><code class="put">PUT</code> <code class="url">/api/spampolicy/user/&lt;mail&gt;</code> <code class="comment">Set per-user spam policy</code> <code class="has_params_spampolicy">Parameters</code></p>
+<p class="admonition-title"><code class="delete">DELETE</code> <code class="url">/api/spampolicy/global</code> <code class="comment">Delete global spam policy</code></p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code class="delete">DELETE</code> <code class="url">/api/spampolicy/domain/&lt;domain&gt;</code> <code class="comment">Delete per-domain spam policy</code></p>
 </div>
 <div class="admonition api">
 <p class="admonition-title"><code class="delete">DELETE</code> <code class="url">/api/spampolicy/user/&lt;mail&gt;</code> <code class="comment">Delete per-user spam policy</code></p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code class="put">PUT</code> <code class="url">/api/spampolicy/global</code> <code class="comment">Set global spam policy</code> <code class="has_params_spampolicy">Parameters</code></p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code class="put">PUT</code> <code class="url">/api/spampolicy/domain/&lt;domain&gt;</code> <code class="comment">Set per-domain spam policy</code> <code class="has_params_spampolicy">Parameters</code></p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code class="put">PUT</code> <code class="url">/api/spampolicy/user/&lt;mail&gt;</code> <code class="comment">Set per-user spam policy</code> <code class="has_params_spampolicy">Parameters</code></p>
 <div class="params params_spampolicy">
 
 <p>Parameters available for global, per-domain, per-user spam policies.</p>
@@ -1323,6 +1317,176 @@ please use mail alias account as mailing list.</p>
 </div>
 
 </div>
+<h3 class="toggle" id="greylisting">Greylisting</h3>
+<div class="admonition api">
+<p class="admonition-title"><code class="get">GET</code> <code class="url">/api/greylisting/all</code> <code class="comment">Get all existing greylisting settings</code></p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code class="get">GET</code> <code class="url">/api/greylisting/global</code> <code class="comment">Get global greylisting setting</code></p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code class="get">GET</code> <code class="url">/api/greylisting/&lt;domain&gt;</code> <code class="comment">Get per-domain greylisting setting</code></p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code class="get">GET</code> <code class="url">/api/greylisting/&lt;mail&gt;</code> <code class="comment">Get per-user greylisting setting</code></p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code class="post">POST</code> <code class="url">/api/greylisting/global</code> <code class="comment">Set global greylisting setting</code> <code class="has_params_greylisting">Parameters</code></p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code class="post">POST</code> <code class="url">/api/greylisting/&lt;domain&gt;</code> <code class="comment">Set per-domain greylisting setting</code> <code class="has_params_greylisting">Parameters</code></p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code class="post">POST</code> <code class="url">/api/greylisting/&lt;mail&gt;</code> <code class="comment">Set per-user greylisting setting</code> <code class="has_params_greylisting">Parameters</code></p>
+<div class="params params_greylisting">
+
+<p>Parameters available for global, per-domain and per-user greylisting settings.</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Summary</th>
+<th>Sample Usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>status</code></td>
+<td>Explicitly enable or disable greylisting service.</td>
+<td><code>status=enable</code> (or <code>disable</code>)</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code class="delete">DELETE</code> <code class="url">/api/greylisting/global</code> <code class="comment">Delete global greylisting setting</code></p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code class="delete">DELETE</code> <code class="url">/api/greylisting/&lt;domain&gt;</code> <code class="comment">Delete per-domain greylisting setting</code></p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code class="delete">DELETE</code> <code class="url">/api/greylisting/&lt;mail&gt;</code> <code class="comment">Delete per-user greylisting setting</code></p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code class="get">GET</code> <code class="url">/api/greylisting/global/whitelists</code> <code class="comment">Get globally whitelisted senders for greylisting service</code></p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code class="get">GET</code> <code class="url">/api/greylisting/&lt;domain&gt;/whitelists</code> <code class="comment">Get whitelisted senders for greylisting service for specified domain</code></p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code class="get">GET</code> <code class="url">/api/greylisting/&lt;mail&gt;/whitelists</code> <code class="comment">Get whitelisted senders for greylisting service for specified user</code></p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code class="post">POST</code> <code class="url">/api/greylisting/global/whitelists</code> <code class="comment">Whitelist senders for greylisting service globally</code> <code class="has_params_greylisting_whitelists">Parameters</code></p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code class="post">POST</code> <code class="url">/api/greylisting/&lt;domain&gt;/whitelists</code> <code class="comment">Whitelist senders for greylisting service for specified domain</code> <code class="has_params_greylisting_whitelists">Parameters</code></p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code class="post">POST</code> <code class="url">/api/greylisting/&lt;mail&gt;/whitelists</code> <code class="comment">Whitelist senders for greylisting services for specified user</code> <code class="has_params_greylisting_whitelists">Parameters</code></p>
+<div class="params params_greylisting_whitelists">
+
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Summary</th>
+<th>Sample Usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>senders</code></td>
+<td>Reset whitelisted senders for global greylisting service to given senders. Multiple addresses must be separated by comma. Conflicts with parameter <code>addSenders</code> and <code>removeSenders</code>.</td>
+<td><code>senders=192.168.1.0/24,172.16.10.1,@example.com</code></td>
+</tr>
+<tr>
+<td><code>addSenders</code></td>
+<td>Whitelist new senders for greylisting service globally. Multiple addresses must be separated by comma. Conflicts with parameter <code>senders</code>.</td>
+<td><code>addSenders=192.168.1.0/24,@example.com</code></td>
+</tr>
+<tr>
+<td><code>removeSenders</code></td>
+<td>Remove existing whitelisted senders for greylisting service globally. Multiple addresses must be separated by comma. Conflicts with parameter <code>senders</code>.</td>
+<td><code>removeSenders=192.168.1.0/24,@example.com</code></td>
+</tr>
+</tbody>
+</table>
+<p>Valid sender address formats:</p>
+<table>
+<thead>
+<tr>
+<th>Sender Address</th>
+<th>Comment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>192.168.2.10</code></td>
+<td>Single IP address</td>
+</tr>
+<tr>
+<td><code>192.168.1.0/24</code></td>
+<td>CIDR network</td>
+</tr>
+<tr>
+<td><code>user@example.com</code></td>
+<td>Single email address</td>
+</tr>
+<tr>
+<td><code>@example.com</code></td>
+<td>Entire domain</td>
+</tr>
+<tr>
+<td><code>@.example.com</code></td>
+<td>Entire domain and all its sub-domains</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code class="post">POST</code> <code class="url">/api/greylisting/whitelist_spf_domains</code> <code class="comment">Whitelist IP addresses and networks listed in SPF/MX DNS record of given sender domains for greylisting service globally</code> <code class="has_params">Parameters</code></p>
+<div class="params">
+
+<p>Given sender domain names are not used directly while checking whitelisting, instead, there's a cron job to query SPF and MX DNS records of given sender domains, then whitelist the IP addresses/networks listed in DNS records.</p>
+<p>Multiple domains must be separated by comma.</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Summary</th>
+<th>Sample Usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>domains</code></td>
+<td>Reset whitelisted sender domains for global greylisting service to given sender domains. Conflicts with parameters <code>addDomains</code> and <code>removeDomains</code>.</td>
+<td><code>domains=iredmail.org,gmail.com</code></td>
+</tr>
+<tr>
+<td><code>addDomains</code></td>
+<td>Add new whitelist sender domains for global greylisting service. Conflicts with parameter <code>domains</code>.</td>
+<td><code>addDomains=iredmail.org,gmail.com</code></td>
+</tr>
+<tr>
+<td><code>removeDomains</code></td>
+<td>Remove existing whitelisted sender domains for global greylisting service. Conflicts with parameter <code>domains</code>.</td>
+<td><code>removeDomains=iredmail.org,gmail.com</code></td>
+</tr>
+</tbody>
+</table>
+<!--
+<code>query_dns_immediately</code> | Query SPF/MX/A DNS records of given sender domains immediately, and whitelist returned IP/networks | <code>query_dns_immediately=yes</code>
+-->
+
+</div>
+
+</div>
 <h3 class="toggle" id="export-accounts">Export Accounts</h3>
 <h4 class="toggle" id="ldif-ldap-backend-only">LDIF (LDAP backend only)</h4>
 <div class="admonition api">
@@ -1343,6 +1507,51 @@ please use mail alias account as mailing list.</p>
 <div class="admonition api">
 <p class="admonition-title"><code class="get">GET</code> <code class="url">/api/ldif/alias/&lt;mail&gt;</code> <code class="comment">Export mail alias account to LDIF</code></p>
 </div>
+<h2 id="changelog">ChangeLog</h2>
+<h3 id="iredadmin-pro-sql-270-iredadmin-pro-ldap-290">iRedAdmin-Pro-SQL-2.7.0, iRedAdmin-Pro-LDAP-2.9.0</h3>
+<ul>
+<li>New: Able to manage global, per-domain and per-user greylisting settings,
+  whitelist senders, and global whitelisted SPF domains.</li>
+<li>iRedAdmin-Pro-SQL-2.7.0:<ul>
+<li>Variable names changed in returned JSON data of user profile (<code>GET /api/user/&lt;mail&gt;</code>):<ul>
+<li>name <code>forwarding</code> is replaced by <code>forwardings</code>, and it's now a list
+  object of user forwarding email addresses (was a string, multiple
+  addresses were separated by comma).</li>
+</ul>
+</li>
+<li>Variable names in returned JSON data of mail alias profile (<code>GET /api/alias/&lt;mail&gt;</code>):<ul>
+<li>name <code>islist</code> is gone.</li>
+<li>name <code>goto</code> is replaced by <code>members</code>, and it's now a list object of
+  member email addresses (was a string, multiple addresses were separated
+  by comma).</li>
+</ul>
+</li>
+<li>Variable names in returned JSON data of domain profile (<code>GET /api/domain/&lt;domain&gt;</code>):<ul>
+<li>name <code>catchall</code> always presents, and it's now a list object of catch-all
+  email address (was a string, multiple addresses were separated by comma).</li>
+</ul>
+</li>
+<li>Fixed bugs:<ul>
+<li>Cannot set per-user alias addresses while creating new mail user.</li>
+<li>Cannot add or remove per-user alias addresses while updating user profile.</li>
+<li>User mailbox quota was removed while updating user profile.</li>
+<li>Not use default transport setting while creating new domain.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="iredadmin-pro-sql-260-iredadmin-pro-ldap-280">iRedAdmin-Pro-SQL-2.6.0, iRedAdmin-Pro-LDAP-2.8.0</h3>
+<ul>
+<li>Variable names in returned JSON data has been changed to:
+  <code>{'_success': ..., '_msg': ...}</code> (was <code>{'success': ..., 'msg': ...}</code>).</li>
+<li>Some variable names have been renamed:<ul>
+<li><code>cn</code> -&gt; <code>name</code>.</li>
+<li><code>mailQuota</code> -&gt; <code>quota</code></li>
+<li><code>preferredLanguage</code> -&gt; <code>language</code></li>
+</ul>
+</li>
+</ul>
 <script src="./js/jquery-1.12.3.min.js"></script>
 
 <script type="text/javascript">
@@ -1365,6 +1574,8 @@ $(document).ready(function(){
 
     /* Expand/Collapse specific parameters */
     $('.has_params_throttle').bind('click', function(){$('.params_throttle').toggle();});
+    $('.has_params_greylisting').bind('click', function(){$('.params_greylisting').toggle();});
+    $('.has_params_greylisting_whitelists').bind('click', function(){$('.params_greylisting_whitelists').toggle();});
     $('.has_params_spampolicy').bind('click', function(){$('.params_spampolicy').toggle();});
 });
 </script><div class="footer">

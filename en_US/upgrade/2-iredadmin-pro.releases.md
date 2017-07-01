@@ -22,6 +22,7 @@ this tutorial with just one shell command:
 
 Version | Release Date | Comment | Extra
 ---|---|---|---
+[2.9.0](http://www.iredmail.org/forum/) | Jul 1, 2017 | Bug fix release. | [RESTful API document](./iredadmin-pro.restful.api.html)
 [2.8.0](http://www.iredmail.org/forum/topic12499.html) | Mar 21, 2017 | Bug fix release. | [RESTful API document](./iredadmin-pro.restful.api-20170123.html)
 [2.7.0](http://www.iredmail.org/forum/topic12266.html) | Jan 23, 2017 | Improved RESTful API support. | [RESTful API document](./iredadmin-pro.restful.api-20170123.html)
 [2.6.1](http://www.iredmail.org/forum/topic11809.html) | Oct 10, 2016 | Fixes an __CRITICAL SECURITY ISSUE__ on FreeBSD and OpenBSD. | [RESTful API document](./iredadmin-pro.restful.api-20170123.html)
@@ -54,6 +55,7 @@ Version | Release Date | Comment | Extra
 
 Version | Release Date | Comment | RESTful API Document
 ---|---|---|---
+[2.7.0](http://www.iredmail.org/forum/) | Jul 1, 2017 | Bug fix release. | [RESTful API document](./iredadmin-pro.restful.api.html)
 [2.6.0](http://www.iredmail.org/forum/topic12498.html) | Mar 21, 2017 | Bug fix release. | [RESTful API document](./iredadmin-pro.restful.api-20170123.html)
 [2.5.0](http://www.iredmail.org/forum/topic12267.html) | Jan 23, 2017 | Improved RESTful API support. | [RESTful API document](./iredadmin-pro.restful.api-20170123.html)
 [2.4.1](http://www.iredmail.org/forum/topic11809.html) | Oct 10, 2016 | Fixes an __CRITICAL SECURITY ISSUE__ on FreeBSD and OpenBSD. | [RESTful API document](./iredadmin-pro.restful.api-20170123.html)
