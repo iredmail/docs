@@ -36,7 +36,7 @@
 
 Version | Release Date | Upgrade tutorial | Comment
 ---|---|---|---
-[0.9.7](http://www.iredmail.org/forum/topic12262.html) | Jul 1, 2017 | [Upgrade from iRedMail-0.9.6](./upgrade.iredmail.0.9.6-0.9.7.html) | Contains SQL structure change
+[0.9.7](http://www.iredmail.org/forum/topic12944.html) | Jul 1, 2017 | [Upgrade from iRedMail-0.9.6](./upgrade.iredmail.0.9.6-0.9.7.html) | Contains SQL structure change
 [0.9.6](http://www.iredmail.org/forum/topic12262.html) | Jan 23, 2017 | [Upgrade from iRedMail-0.9.5-1](./upgrade.iredmail.0.9.5.1-0.9.6.html) | Contains SQL/LDAP structure changes
 [0.9.5-1](http://www.iredmail.org/forum/topic11049.html) | May 10, 2016 | [Upgrade from iRedMail-0.9.5](./upgrade.iredmail.0.9.5-0.9.5-1.html) | Small bug fix release
 [0.9.5](http://www.iredmail.org/forum/topic10994.html) | May 3, 2016 | [Upgrade from iRedMail-0.9.4](./upgrade.iredmail.0.9.4-0.9.5.html) | Contains SQL/LDAP structure changes
