@@ -174,6 +174,10 @@ pool config file <code>/etc/php-fpm.d/www.conf</code>, please fix it with steps 
 <p>With iRedMail-0.9.6, freshclam program cannot update ClamAV signatures due to
 improper log file permission, please open its config file <code>/etc/freshclam.conf</code>,
 comment out setting <code>UpdateLogFile</code> to use syslog for logging.</p>
+<pre><code>#UpdateLogFile ...          # &lt;- Comment out this parameter
+LogSyslog true              # &lt;- Make sure you have this line. If not present, please add it manually.
+</code></pre>
+
 <h3 id="fail2ban-fixes-an-improper-filter-and-add-new-filter-rule">Fail2ban: fixes an improper filter and add new filter rule</h3>
 <p>iRedMail-0.9.7 fixes an improper filter for Dovecot log file which may cause
 incorrect ban, and adds a new filter for Roundcube log file to help ban bad
@@ -212,7 +216,6 @@ mentioned above, you can restore a single user's data or all users data with
 </ul>
 <pre><code>cd /var/vmail/backup/
 wget https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/tools/backup_sogo.sh
-chmod +x backup_sogo.sh
 </code></pre>
 
 <ul>
@@ -226,17 +229,11 @@ chmod +x backup_sogo.sh
                         |- 22.tar.bz2   # &lt;- day (file name is: &lt;day&gt;.tar.bz2)
 </code></pre>
 
-<pre><code>If you prefer a different backup root directory, please open
-`backup_sogo.sh`, update variable `BACKUP_ROOTDIR` with the new directory.
-</code></pre>
+<p>If you want to use another directory to store backup files, please open file
+<code>backup_sogo.sh</code>, update variable <code>BACKUP_ROOTDIR</code> with the new directory.</p>
 <ul>
-<li>
-<p>Open file <code>backup_sogo.sh</code>, modify </p>
-</li>
-<li>
-<p>Run command <code>crontab -e -u root</code> to setup root user's cron job. Add content
-  below as new job:</p>
-</li>
+<li>Run command <code>crontab -e -u root</code> to setup root user's cron job. Add content
+  below as new job:</li>
 </ul>
 <pre><code># SOGo: backup all users' data at 3:05AM everyday.
 5   3   *   *   *   bash /var/vmail/backup/backup_sogo.sh

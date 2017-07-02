@@ -130,6 +130,11 @@ With iRedMail-0.9.6, freshclam program cannot update ClamAV signatures due to
 improper log file permission, please open its config file `/etc/freshclam.conf`,
 comment out setting `UpdateLogFile` to use syslog for logging.
 
+```
+#UpdateLogFile ...          # <- Comment out this parameter
+LogSyslog true              # <- Make sure you have this line. If not present, please add it manually.
+```
+
 ### Fail2ban: fixes an improper filter and add new filter rule
 
 iRedMail-0.9.7 fixes an improper filter for Dovecot log file which may cause
@@ -174,7 +179,6 @@ Please follow steps below to setup this daily cron job.
 ```
 cd /var/vmail/backup/
 wget https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/tools/backup_sogo.sh
-chmod +x backup_sogo.sh
 ```
 
 * This script will create new directory under `/var/vmail/backup` like below
@@ -188,10 +192,8 @@ chmod +x backup_sogo.sh
                         |- 22.tar.bz2   # <- day (file name is: <day>.tar.bz2)
 ```
 
-    If you prefer a different backup root directory, please open
-    `backup_sogo.sh`, update variable `BACKUP_ROOTDIR` with the new directory.
-
-* Open file `backup_sogo.sh`, modify 
+If you want to use another directory to store backup files, please open file
+`backup_sogo.sh`, update variable `BACKUP_ROOTDIR` with the new directory.
 
 * Run command `crontab -e -u root` to setup root user's cron job. Add content
   below as new job:
