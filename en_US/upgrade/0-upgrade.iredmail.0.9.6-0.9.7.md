@@ -9,6 +9,7 @@
 
 ## ChangeLog
 
+* Jul  2, 2017: Mentions Roundcube 1.3.0 requires PHP 5.4.
 * Jul  1, 2017: Initial publish.
 
 ## General (All backends should apply these steps)
@@ -23,7 +24,18 @@ so that you can know which version of iRedMail you're running. For example:
 0.9.7
 ```
 
-### Upgrade Roundcube webmail to the latest stable release (1.2.5)
+### Upgrade Roundcube webmail to the latest stable release (1.3.0)
+
+!!! warning "PHP 5.4 required"
+    
+    Roundcubemail 1.3.0 requires PHP 5.4, if your server is still running
+    PHP 5.3, please upgrade to Roundcube 1.2.5 instead. Or, upgrading PHP to
+    5.4 or even newer release first, then upgrade Roundcube.
+
+    With the release of Roundcube 1.3.0, the previous stable release branches
+    1.2.x and 1.1.x will switch in to LTS low maintenance mode which means
+    they will only receive important security updates but no longer any regular
+    improvement updates.
 
 > There're several security fixes in Roundcube 1.2.4 and 1.2.5, all users are
 > encouraged to upgrade it as soon as possible. For more details about this
