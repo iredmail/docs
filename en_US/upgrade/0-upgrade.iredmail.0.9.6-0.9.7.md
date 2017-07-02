@@ -2,10 +2,6 @@
 
 [TOC]
 
-!!! warning
-
-    THIS IS A DRAFT, DO NOT APPLY ANY STEPS MENTIONED IN THIS TUTORIAL.
-
 !!! note "Paid Remote Upgrade Support"
 
     We offer remote upgrade support if you don't want to get your hands dirty,
@@ -13,14 +9,7 @@
 
 ## ChangeLog
 
-* May 30, 2017: Fixed: incorrect freshclam parameter `UpdateLogFile`.
-* May 22, 2017: Fixed improper Fail2ban filter for Dovecot, add new filter for Roundcube.
-* May 15, 2017: SQL structure change in `vmail.alias` SQL table
-* May  3, 2017: Fixed: improper order of Postfix HELO restriction rules.
-* Apr 13, 2017: Fixed: incorrect owner and permission for rotated Dovecot log files
-* Mar 22, 2017: New backup script for SOGo.
-* Mar 16, 2017: Fixed: Avoid possible backdooring mysqldump backups
-* Mar  8, 2017: [RHEL/CentOS][Nginx] Fix incorrect `session.save_path` in php-fpm pool config file.
+* Jul  1, 2017: Initial publish.
 
 ## General (All backends should apply these steps)
 
