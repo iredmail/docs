@@ -133,8 +133,9 @@ service php-fpm restart
 ### Fixed: incorrect freshclam setting `UpdateLogFile`
 
 With iRedMail-0.9.6, freshclam program cannot update ClamAV signatures due to
-improper log file permission, please open its config file `/etc/freshclam.conf`,
-comment out setting `UpdateLogFile` to use syslog for logging.
+improper log file permission, please open its config file `/etc/freshclam.conf`
+or `/etc/clamav/freshclam.conf`, comment out setting `UpdateLogFile` to use
+syslog for logging.
 
 ```
 #UpdateLogFile ...          # <- Comment out this parameter

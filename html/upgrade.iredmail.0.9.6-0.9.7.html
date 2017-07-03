@@ -179,8 +179,9 @@ pool config file <code>/etc/php-fpm.d/www.conf</code>, please fix it with steps 
 
 <h3 id="fixed-incorrect-freshclam-setting-updatelogfile">Fixed: incorrect freshclam setting <code>UpdateLogFile</code></h3>
 <p>With iRedMail-0.9.6, freshclam program cannot update ClamAV signatures due to
-improper log file permission, please open its config file <code>/etc/freshclam.conf</code>,
-comment out setting <code>UpdateLogFile</code> to use syslog for logging.</p>
+improper log file permission, please open its config file <code>/etc/freshclam.conf</code>
+or <code>/etc/clamav/freshclam.conf</code>, comment out setting <code>UpdateLogFile</code> to use
+syslog for logging.</p>
 <pre><code>#UpdateLogFile ...          # &lt;- Comment out this parameter
 LogSyslog true              # &lt;- Make sure you have this line. If not present, please add it manually.
 </code></pre>
