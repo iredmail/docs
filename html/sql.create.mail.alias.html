@@ -21,10 +21,20 @@
 <li><a href="#sql-add-a-mail-alias-account">SQL: Add a mail alias account</a><ul>
 <li><a href="#create-mail-alias-account-with-iredadmin-pro">Create mail alias account with iRedAdmin-Pro</a></li>
 <li><a href="#create-mail-alias-account-with-sql-command-line">Create mail alias account with SQL command line</a></li>
-<li><a href="#access-policy">Access policy</a></li>
+<li><a href="#access-policy">Access policy</a><ul>
+<li><a href="#how-to-assign-a-moderator">How to assign a moderator</a></li>
+</ul>
+</li>
 <li><a href="#see-also">See also</a></li>
 </ul>
 </li>
+</ul>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul>
+<li>This document is applicable to iRedMail-0.9.7 and later releases.</li>
+<li>Here's <a href="./sql.create.mail.alias-20170701.html">doc for iRedMail-0.9.6 and earlier releases</a>.</li>
 </ul>
 </div>
 <h2 id="create-mail-alias-account-with-iredadmin-pro">Create mail alias account with iRedAdmin-Pro</h2>
@@ -33,47 +43,100 @@
 navigation bar.</p>
 <p><img alt="" src="../images/iredadmin/maillist_create.png" /></p>
 <h2 id="create-mail-alias-account-with-sql-command-line">Create mail alias account with SQL command line</h2>
-<p>To create an mail alias account, you can simply insert a SQL record in table
-<code>vmail.alias</code>. For example:</p>
+<p>To create an mail alias account, you need to add SQL records in 2 sql tables.
+for example: create a mail alias account <code>alias@mydomain.com</code> and forward emails
+to two addresses <code>someone@gmail.com</code> and <code>someone@test.com</code>:</p>
 <pre><code class="mysql">sql&gt; USE vmail;
-sql&gt; INSERT INTO alias (address, goto, domain, islist) \
-     VALUES ('original@example.com', \
-             'user1@example.com,user2@example.com,user1@test.com', \
-             'example.com', \
-             1);
+
+-- Create mail alias account
+sql&gt; INSERT INTO alias (address, domain, active)
+                VALUES ('alias@mydomain.com', 'mydomain.com', 1);
+
+-- Forward email to 'someone@gmail.com'
+sql&gt; INSERT INTO forwardings (address, forwarding,
+                              domain, dest_domain,
+                              is_list, active)
+                      VALUES ('alias@mydomain.com', 'someone@gmail.com',
+                              'mydomain.com', 'gmail.com',
+                              1, 1);
+
+-- Forward email to 'someone@test.com'
+sql&gt; INSERT INTO forwardings (address, forwarding,
+                              domain, dest_domain,
+                              is_list, active)
+                      VALUES ('alias@mydomain.com', 'someone@test.com',
+                              'mydomain.com', 'test.com',
+                              1, 1);
 </code></pre>
 
 <p><strong>NOTES</strong>:</p>
 <ul>
 <li>Please always use lower cases for email addresses.</li>
-<li>Multiple destination addresses must be separated by comma.</li>
 <li>If destination address is a mail user under domain hosted on localhost,
   it must exist. Otherwise emails sent to alias account will be bounced after
   expanded to destination addresses.</li>
 </ul>
 <h2 id="access-policy">Access policy</h2>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>Access restriction requires iRedAPD plugin <code>sql_alias_access_policy</code>,
+please make sure it's enabled in iRedAPD config file
+<code>/opt/iredapd/settings.py</code>.</p>
+</div>
 <p>You can restrict which senders are allowed to send email to this mail alias
 account by adding proper policy name in SQL column <code>alias.accesspolicy</code>.
 For example:</p>
-<pre><code>sql&gt; UPDATE alias SET accesspolicy='domain' WHERE address='original@example.com';
+<pre><code>sql&gt; UPDATE alias SET accesspolicy='domain' WHERE address='alias@mydomain.com';
 </code></pre>
 
-<p>Available access policies are:</p>
-<ul>
-<li><code>public</code>: no restrictions.</li>
-<li><code>domain</code>: all users under same domain are allowed to send email to this mail list.</li>
-<li><code>subdomain</code>: all users under same domain and sub-domains are allowed to send email to this mail list.</li>
-<li><code>membersOnly</code>: only members of this mail list are allowd.</li>
-<li><code>allowedOnly</code>: only moderators of this mail list are allowed. Moderators
-  are email addresses stored in SQL column <code>alias.moderators</code>. With iRedAPD-1.4.5,
-  it's ok to use <code>*@domain.com</code> as (one of) moderator for all users under
-  mail domain 'domain.com'.</li>
-<li><code>membersAndModeratorsOnly</code>: only members and moderators of this mail list are allowed.</li>
-</ul>
-<p>Access restriction is implemented in iRedAPD (a simple Postfix policy server),
-iRedMail has it enabled by default. You'd better check its config file
-<code>/opt/iredapd/settings.py</code> to make sure plugin <code>sql_alias_access_policy</code> is
-enabled in parameter <code>plugins = []</code>.</p>
+<p>Available access policies:</p>
+<table>
+<thead>
+<tr>
+<th>Access Policy Name</th>
+<th>Comment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>public</code></td>
+<td>no restrictions</td>
+</tr>
+<tr>
+<td><code>domain</code></td>
+<td>all users under same domain are allowed to send email to this mail list.</td>
+</tr>
+<tr>
+<td><code>subdomain</code></td>
+<td>all users under same domain and all sub-domains are allowed to send email to this mail list.</td>
+</tr>
+<tr>
+<td><code>membersonly</code></td>
+<td>only members of this mail list are allowd.</td>
+</tr>
+<tr>
+<td><code>moderatorsonly</code></td>
+<td>only moderators of this mail list are allowed.</td>
+</tr>
+<tr>
+<td><code>membersandmoderatorsonly</code></td>
+<td>only members and moderators of this mail list are allowed.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="how-to-assign-a-moderator">How to assign a moderator</h3>
+<p>Moderators are email addresses stored in SQL table <code>alias_moderators</code>. With
+iRedAPD-1.4.5 and later releases, it's ok to use <code>*@domain.com</code> as (one of)
+moderator for all users under mail domain 'domain.com'.</p>
+<p>To assign user <code>someone@gmail.com</code> and <code>someone@outlook.com</code> as moderator of
+mail alias <code>alias@mydomain.com</code>:</p>
+<pre><code>sql&gt; INSERT INTO alias_moderators (address, moderator, domain, dest_domain)
+                          VALUES ('alias@mydomain.com', 'someone@gmail.com', 'mydomain.com', 'gmail.com');
+
+sql&gt; INSERT INTO alias_moderators (address, moderator, domain, dest_domain)
+                          VALUES ('alias@mydomain.com', 'someone@outlook.com', 'mydomain.com', 'outlook.com');
+</code></pre>
+
 <h2 id="see-also">See also</h2>
 <ul>
 <li><a href="./ldap.add.mail.list.html">Create mailing list for OpenLDAP backend</a></li>
