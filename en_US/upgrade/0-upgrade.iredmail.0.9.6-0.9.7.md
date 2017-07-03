@@ -9,7 +9,7 @@
 
 ## ChangeLog
 
-* Jul  3, 2017: Mention how to upgrade uwsgi (OpenBSD only) and iRedAdmin.
+* Jul  3, 2017: Mention how to upgrade uwsgi (OpenBSD only), iRedAdmin and iRedAPD.
 * Jul  2, 2017: Mention Roundcube 1.3.0 requires PHP 5.4.
 * Jul  1, 2017: Initial publish.
 
@@ -24,6 +24,11 @@ so that you can know which version of iRedMail you're running. For example:
 ```
 0.9.7
 ```
+
+### Upgrade iRedAPD (Postfix policy server) to the latest stable release (2.1)
+
+Please follow below tutorial to upgrade iRedAPD to the latest stable release:
+[Upgrade iRedAPD to the latest stable release](./upgrade.iredapd.html)
 
 ### Upgrade iRedAdmin (open source edition) to the latest stable release (0.8)
 
