@@ -22,6 +22,7 @@
 <li><a href="#changelog">ChangeLog</a></li>
 <li><a href="#general-all-backends-should-apply-these-steps">General (All backends should apply these steps)</a><ul>
 <li><a href="#update-etciredmail-release-with-new-iredmail-version-number">Update /etc/iredmail-release with new iRedMail version number</a></li>
+<li><a href="#upgrade-iredadmin-open-source-edition-to-the-latest-stable-release-08">Upgrade iRedAdmin (open source edition) to the latest stable release (0.8)</a></li>
 <li><a href="#upgrade-roundcube-webmail-to-the-latest-stable-release-130">Upgrade Roundcube webmail to the latest stable release (1.3.0)</a></li>
 <li><a href="#fixed-improper-order-of-postfix-helo-restriction-rules">Fixed: improper order of Postfix HELO restriction rules.</a></li>
 <li><a href="#fixed-incorrect-owner-and-permission-for-rotated-dovecot-log-files">Fixed: incorrect owner and permission for rotated Dovecot log files</a></li>
@@ -29,6 +30,7 @@
 <li><a href="#fixed-incorrect-freshclam-setting-updatelogfile">Fixed: incorrect freshclam setting UpdateLogFile</a></li>
 <li><a href="#fail2ban-fixes-an-improper-filter-and-add-new-filter-rule">Fail2ban: fixes an improper filter and add new filter rule</a></li>
 <li><a href="#new-new-backup-script-for-sogo">NEW: New backup script for SOGo</a></li>
+<li><a href="#openbsd-upgrade-uwsgi-to-the-latest-2015">OpenBSD: Upgrade uwsgi to the latest 2.0.15</a></li>
 </ul>
 </li>
 <li><a href="#openldap-backend-special">OpenLDAP backend special</a><ul>
@@ -67,7 +69,8 @@ check <a href="../support.html">the details</a> and <a href="../contact.html">co
 </div>
 <h2 id="changelog">ChangeLog</h2>
 <ul>
-<li>Jul  2, 2017: Mentions Roundcube 1.3.0 requires PHP 5.4.</li>
+<li>Jul  3, 2017: Mention how to upgrade uwsgi (OpenBSD only) and iRedAdmin.</li>
+<li>Jul  2, 2017: Mention Roundcube 1.3.0 requires PHP 5.4.</li>
 <li>Jul  1, 2017: Initial publish.</li>
 </ul>
 <h2 id="general-all-backends-should-apply-these-steps">General (All backends should apply these steps)</h2>
@@ -78,6 +81,10 @@ so that you can know which version of iRedMail you're running. For example:</p>
 <pre><code>0.9.7
 </code></pre>
 
+<h3 id="upgrade-iredadmin-open-source-edition-to-the-latest-stable-release-08">Upgrade iRedAdmin (open source edition) to the latest stable release (0.8)</h3>
+<p>Please follow this tutorial to upgrade iRedAdmin open source edition to the
+latest stable release:
+<a href="./migrate.or.upgrade.iredadmin.html">Upgrade iRedAdmin to the latest stable release</a></p>
 <h3 id="upgrade-roundcube-webmail-to-the-latest-stable-release-130">Upgrade Roundcube webmail to the latest stable release (1.3.0)</h3>
 <div class="admonition warning">
 <p class="admonition-title">Roundcube 1.3</p>
@@ -245,6 +252,21 @@ wget https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/tools/backup_sogo.s
 </ul>
 <pre><code># SOGo: backup all users' data at 3:05AM everyday.
 5   3   *   *   *   bash /var/vmail/backup/backup_sogo.sh
+</code></pre>
+
+<h3 id="openbsd-upgrade-uwsgi-to-the-latest-2015">OpenBSD: Upgrade uwsgi to the latest 2.0.15</h3>
+<p>uwsgi is the interface between Nginx and iRedAdmin, so if you're running
+iRedAdmin, it's recommended to upgrade uwsgi to the latest version, 2.0.15.</p>
+<p>Steps: Download the latest uwsgi, compile it, then restart uwsgi service.</p>
+<pre><code>cd /root/
+ftp https://projects.unbit.it/downloads/uwsgi-2.0.15.tar.gz
+tar zxf uwsgi-2.0.15.tar.gz
+cd uwsgi-2.0.15
+python setup.py install
+</code></pre>
+
+<p>uwsgi should be succesfully installed, then restart uwsgi service:</p>
+<pre><code>rcctl restart uwsgi
 </code></pre>
 
 <h2 id="openldap-backend-special">OpenLDAP backend special</h2>

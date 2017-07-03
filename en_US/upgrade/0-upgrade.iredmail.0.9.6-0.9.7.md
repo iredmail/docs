@@ -9,7 +9,8 @@
 
 ## ChangeLog
 
-* Jul  2, 2017: Mentions Roundcube 1.3.0 requires PHP 5.4.
+* Jul  3, 2017: Mention how to upgrade uwsgi (OpenBSD only) and iRedAdmin.
+* Jul  2, 2017: Mention Roundcube 1.3.0 requires PHP 5.4.
 * Jul  1, 2017: Initial publish.
 
 ## General (All backends should apply these steps)
@@ -23,6 +24,12 @@ so that you can know which version of iRedMail you're running. For example:
 ```
 0.9.7
 ```
+
+### Upgrade iRedAdmin (open source edition) to the latest stable release (0.8)
+
+Please follow this tutorial to upgrade iRedAdmin open source edition to the
+latest stable release:
+[Upgrade iRedAdmin to the latest stable release](./migrate.or.upgrade.iredadmin.html)
 
 ### Upgrade Roundcube webmail to the latest stable release (1.3.0)
 
@@ -208,6 +215,27 @@ If you want to use another directory to store backup files, please open file
 ```
 # SOGo: backup all users' data at 3:05AM everyday.
 5   3   *   *   *   bash /var/vmail/backup/backup_sogo.sh
+```
+
+### OpenBSD: Upgrade uwsgi to the latest 2.0.15
+
+uwsgi is the interface between Nginx and iRedAdmin, so if you're running
+iRedAdmin, it's recommended to upgrade uwsgi to the latest version, 2.0.15.
+
+Steps: Download the latest uwsgi, compile it, then restart uwsgi service.
+
+```
+cd /root/
+ftp https://projects.unbit.it/downloads/uwsgi-2.0.15.tar.gz
+tar zxf uwsgi-2.0.15.tar.gz
+cd uwsgi-2.0.15
+python setup.py install
+```
+
+uwsgi should be succesfully installed, then restart uwsgi service:
+
+```
+rcctl restart uwsgi
 ```
 
 ## OpenLDAP backend special

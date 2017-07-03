@@ -62,11 +62,13 @@ for lang in ${all_languages}; do
         break
     fi
 
-    if ${CMD_CHECK_CHANGE} | grep "${lang}/" &>/dev/null; then
-        echo "* Change found for language: ${lang}."
-    else
-        echo "* [SKIP] No change found for language: ${lang}."
-        continue
+    if [ X"${compile_all}" != X'YES' ]; then
+        if ${CMD_CHECK_CHANGE} | grep "${lang}/" &>/dev/null; then
+            echo "* Change found for language: ${lang}."
+        else
+            echo "* [SKIP] No change found for language: ${lang}."
+            continue
+        fi
     fi
 
     # Generate a Markdown file used to store index of chapters/articles.
