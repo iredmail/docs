@@ -1,10 +1,5 @@
 # SQL: Add per-domain catch-all account
 
-!!! note
-
-    * This document is applicable to iRedMail-0.9.7 and later releases.
-    * Here's [doc for iRedMail-0.9.6 and earlier releases](./sql.create.catch-all-20170701.html).
-
 With default setting, iRedMail will reject emails sent to non-existing mail
 accounts under hosted mail domains. If you want to accept these emails, you
 need a domain catch-all account.
@@ -15,8 +10,8 @@ existing domain `domain.com` in SQL table `vmail.alias` like below:
 ```sql
 $ mysql -u root -p
 sql> USE vmail;
-sql> INSERT INTO forwardings (address, forwarding, domain, dest_domain)
-                      VALUES ('domain.com', 'dest@example.com', 'domain.com', 'example.com');
+sql> INSERT INTO alias (address, goto, domain)
+                VALUES ('domain.com', 'dest@example.com', 'domain.com');
 ```
 
 This sql command creates catch-all address for domain `domain.com`, all mails
