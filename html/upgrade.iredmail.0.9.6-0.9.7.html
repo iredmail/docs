@@ -395,9 +395,9 @@ perl -pi -e 's#alias,#forwardings,#g' *.cf
   structure too.</li>
 </ul>
 </div>
-<p>After migration, few columns in <code>vmail.alias</code> table are not used anymore. it's
-ok to drop them. But it's strongly recommended to keep them for few more days
-until you can confirm all features are working as expected.</p>
+<p>After migration, <code>vmail.alias</code> table contains few sql columns we will never
+use, also old records (accounts) will cause ghost accounts if we don't remove
+them.</p>
 <p>Please connect to MySQL server as MySQL root user, then execute SQL commands
 below:</p>
 <pre><code>USE vmail;
@@ -405,7 +405,7 @@ below:</p>
 -- Remove non-mail-alias account
 DELETE FROM alias WHERE islist &lt;&gt; 1;
 
--- per-domain catch-all account
+-- Remove per-domain catch-all account
 DELETE FROM alias WHERE address=domain;
 
 -- Drop unused columns

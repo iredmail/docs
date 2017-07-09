@@ -379,9 +379,9 @@ Restarting Postfix service is required.
     * Please also upgrade iRedAPD and iRedAdmin-Pro, they need the new SQL
       structure too.
 
-After migration, few columns in `vmail.alias` table are not used anymore. it's
-ok to drop them. But it's strongly recommended to keep them for few more days
-until you can confirm all features are working as expected.
+After migration, `vmail.alias` table contains few sql columns we will never
+use, also old records (accounts) will cause ghost accounts if we don't remove
+them.
 
 Please connect to MySQL server as MySQL root user, then execute SQL commands
 below:
@@ -392,7 +392,7 @@ USE vmail;
 -- Remove non-mail-alias account
 DELETE FROM alias WHERE islist <> 1;
 
--- per-domain catch-all account
+-- Remove per-domain catch-all account
 DELETE FROM alias WHERE address=domain;
 
 -- Drop unused columns
