@@ -2,9 +2,10 @@
 
 [TOC]
 
-!!! note
+!!! attention
 
-    This document is applicable to iRedMail-0.9.6 and earlier releases.
+    * This document is applicable to iRedMail-0.9.6 and earlier releases.
+    * Here's [doc for iRedMail-0.9.7 and later releases](./sql.create.mail.alias.html).
 
 ## Create mail alias account with iRedAdmin-Pro
 

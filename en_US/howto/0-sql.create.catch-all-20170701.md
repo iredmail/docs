@@ -1,5 +1,10 @@
 # SQL: Add per-domain catch-all account
 
+!!! attention
+
+    * This document is applicable to iRedMail-0.9.6 and earlier releases.
+    * Here's [doc for iRedMail-0.9.7 and later releases](./sql.create.catch-all.html).
+
 With default setting, iRedMail will reject emails sent to non-existing mail
 accounts under hosted mail domains. If you want to accept these emails, you
 need a domain catch-all account.

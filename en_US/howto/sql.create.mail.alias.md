@@ -2,7 +2,7 @@
 
 [TOC]
 
-!!! note
+!!! attention
 
     * This document is applicable to iRedMail-0.9.7 and later releases.
     * Here's [doc for iRedMail-0.9.6 and earlier releases](./sql.create.mail.alias-20170701.html).

@@ -1,6 +1,6 @@
 # SQL: Add per-domain catch-all account
 
-!!! note
+!!! attention
 
     * This document is applicable to iRedMail-0.9.7 and later releases.
     * Here's [doc for iRedMail-0.9.6 and earlier releases](./sql.create.catch-all-20170701.html).
