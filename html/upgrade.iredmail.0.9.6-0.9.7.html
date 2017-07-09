@@ -43,7 +43,7 @@
 <li><a href="#create-required-new-sql-tables">Create required new SQL tables</a></li>
 <li><a href="#migrate-mail-accounts">Migrate mail accounts</a></li>
 <li><a href="#update-postfix-config-files">Update Postfix config files</a></li>
-<li><a href="#drop-unused-sql-columns-in-vmailalias-table">Drop unused SQL columns in vmail.alias table</a></li>
+<li><a href="#drop-unused-sql-columns-and-records-in-vmailalias-table">Drop unused SQL columns and records in vmail.alias table</a></li>
 </ul>
 </li>
 <li><a href="#fixed-avoid-possible-backdooring-mysqldump-backups_1">Fixed: Avoid possible backdooring mysqldump backups</a></li>
@@ -54,7 +54,7 @@
 <li><a href="#create-required-new-sql-tables_1">Create required new SQL tables</a></li>
 <li><a href="#migrate-mail-accounts_1">Migrate mail accounts</a></li>
 <li><a href="#update-postfix-config-files_1">Update Postfix config files</a></li>
-<li><a href="#drop-unused-sql-columns-in-vmailalias-table_1">Drop unused SQL columns in vmail.alias table</a></li>
+<li><a href="#drop-unused-sql-columns-in-vmailalias-table">Drop unused SQL columns in vmail.alias table</a></li>
 </ul>
 </li>
 </ul>
@@ -386,7 +386,7 @@ perl -pi -e 's#alias,#forwardings,#g' *.cf
 </code></pre>
 
 <p>Restarting Postfix service is required.</p>
-<h4 id="drop-unused-sql-columns-in-vmailalias-table">Drop unused SQL columns in <code>vmail.alias</code> table</h4>
+<h4 id="drop-unused-sql-columns-and-records-in-vmailalias-table">Drop unused SQL columns and records in <code>vmail.alias</code> table</h4>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <ul>
@@ -535,7 +535,7 @@ perl -pi -e 's#alias,#forwardings,#g' *.cf
 </code></pre>
 
 <p>Restarting Postfix service is required.</p>
-<h4 id="drop-unused-sql-columns-in-vmailalias-table_1">Drop unused SQL columns in <code>vmail.alias</code> table</h4>
+<h4 id="drop-unused-sql-columns-in-vmailalias-table">Drop unused SQL columns in <code>vmail.alias</code> table</h4>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <ul>

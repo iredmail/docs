@@ -371,7 +371,7 @@ perl -pi -e 's#alias,#forwardings,#g' *.cf
 
 Restarting Postfix service is required.
 
-#### Drop unused SQL columns in `vmail.alias` table
+#### Drop unused SQL columns and records in `vmail.alias` table
 
 !!! warning
 
