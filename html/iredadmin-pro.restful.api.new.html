@@ -920,8 +920,54 @@ to be a domain admin.</p>
 <td>Remove existing per-user alias addresses. Multiple addresses must be separated by comma. Conflicts with parameter <code>aliases</code>.</td>
 <td><code>aliases=user1@domain.com,user2@domain.com,user3@domain.com</code></td>
 </tr>
+<tr>
+<td><code>services</code></td>
+<td>Reset per-user enabled mail services to given values. Conflicts with parameter <code>addService</code> and <code>removeService</code>. See additional notes below.</td>
+<td><code>services=mail,smtp,pop3,imap</code></td>
+</tr>
+<tr>
+<td><code>addService</code></td>
+<td>Add new per-user enabled mail service(s). Multiple values must be separated by comma. Conflicts with parameter <code>services</code>. See additional notes below.</td>
+<td><code>addService=vpn,owncloud</code></td>
+</tr>
+<tr>
+<td><code>removeService</code></td>
+<td>Add new per-user enabled mail service(s). Multiple values must be separated by comma. Conflicts with parameter <code>services</code>. See additional notes below.</td>
+<td><code>removeService=forward,senderbcc</code></td>
+</tr>
 </tbody>
 </table>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>Notes about <code>services</code>, <code>addService</code>, <code>removeService</code> parameters:</p>
+<ul>
+<li>
+<p>Available service names in iRedMail:</p>
+<ul>
+<li>smtp</li>
+<li>smtpsecured (SMTP over TLS or SSL)</li>
+<li>pop3</li>
+<li>pop3secured (POP3 over TLS or SSL)</li>
+<li>imap</li>
+<li>imapsecured (IMAP over TLS or SSL)</li>
+<li>managesieve</li>
+<li>managesievesecured (Managesieve over TLS or SSL)</li>
+<li>deliver (deliver received email to local mailbox)</li>
+<li>sogo (SOGo groupware)</li>
+</ul>
+</li>
+<li>
+<p>For LDAP backends, you're free to add custom service names, because
+  the LDAP attribute name used to store service names supports storing
+  multiple values and we don't need to change LDAP schema.</p>
+</li>
+<li>
+<p>For SQL backends, column <code>enable&lt;service&gt;</code> in SQL table
+  <code>vmail.mailbox</code> must be present, if not, specified service name will
+  be silently ignored.</p>
+</li>
+</ul>
+</div>
 </div>
 
 </div>

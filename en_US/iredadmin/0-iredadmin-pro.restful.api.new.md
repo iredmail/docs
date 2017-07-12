@@ -323,6 +323,33 @@ Notes:
     `aliases` | Per-user alias addresses. Multiple addresses must be separated by comma. If empty, all per-user alias addresses owned by this user will be removed. Conflicts with parameter `addAlias` and `removeAlias`. | `aliases=user1@domain.com,user2@domain.com,user3@domain.com`
     `addAlias` | Add new per-user alias addresses. Multiple addresses must be separated by comma. Conflicts with parameter `aliases`. | `aliases=user1@domain.com,user2@domain.com,user3@domain.com`
     `removeAlias` | Remove existing per-user alias addresses. Multiple addresses must be separated by comma. Conflicts with parameter `aliases`. | `aliases=user1@domain.com,user2@domain.com,user3@domain.com`
+    `services` | Reset per-user enabled mail services to given values. Conflicts with parameter `addService` and `removeService`. See additional notes below. | `services=mail,smtp,pop3,imap`
+    `addService` | Add new per-user enabled mail service(s). Multiple values must be separated by comma. Conflicts with parameter `services`. See additional notes below. | `addService=vpn,owncloud`
+    `removeService` | Add new per-user enabled mail service(s). Multiple values must be separated by comma. Conflicts with parameter `services`. See additional notes below. | `removeService=forward,senderbcc`
+
+    !!! attention
+    
+        Notes about `services`, `addService`, `removeService` parameters:
+
+        * Available service names in iRedMail:
+            * smtp
+            * smtpsecured (SMTP over TLS or SSL)
+            * pop3
+            * pop3secured (POP3 over TLS or SSL)
+            * imap
+            * imapsecured (IMAP over TLS or SSL)
+            * managesieve
+            * managesievesecured (Managesieve over TLS or SSL)
+            * deliver (deliver received email to local mailbox)
+            * sogo (SOGo groupware)
+
+        * For LDAP backends, you're free to add custom service names, because
+          the LDAP attribute name used to store service names supports storing
+          multiple values and we don't need to change LDAP schema.
+
+        * For SQL backends, column `enable<service>` in SQL table
+          `vmail.mailbox` must be present, if not, specified service name will
+          be silently ignored.
 
     </div>
 
