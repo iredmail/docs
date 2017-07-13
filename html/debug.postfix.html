@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Turn on debug mode in Postfix</title>
+        <link rel="stylesheet" type="text/css" href="./css/markdown.css" />
+    </head>
+    <body>
+    
+    <div id="navigation">
+    <a href="/index.html" target="_blank">
+        <img alt="iRedMail web site"
+             src="./images/logo-iredmail.png"
+             style="vertical-align: middle; height: 30px;"
+             />&nbsp;
+        <span>iRedMail</span>
+    </a>
+    &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><h1 id="turn-on-debug-mode-in-postfix">Turn on debug mode in Postfix</h1>
+<p>There're few ways to turn on debug mode in Postfix, you can choose the one you
+prefer.</p>
+<h2 id="verbose-logging-for-specific-smtp-connections">Verbose logging for specific SMTP connections</h2>
+<p>To debug smtp connection from particular client or sender server,  list client
+hostname or IP address in the <code>debug_peer_list</code> parameter (in
+<code>/etc/postfix/main.cf</code>). For example:</p>
+<pre><code>debug_peer_list = 192.168.0.1
+</code></pre>
+
+<p>You can specify one or more hosts, domains, addresses or net/masks. Execute
+command <code>postfix reload</code> to make the change effective immediately.</p>
+<h2 id="making-postfix-daemon-programs-more-verbose">Making Postfix daemon programs more verbose</h2>
+<p>There're many daemon services defined in <code>/etc/postfix/master.cf</code>, for example:</p>
+<pre><code>smtp      inet  n       -       n       -       -       smtpd
+</code></pre>
+
+<p>To make Postfix logging verbose info of this daemon, please append one or more
+<code>-v</code> options to selected daemon and execute command <code>postfix reload</code>.</p>
+<pre><code>smtp      inet  n       -       n       -       -       smtpd -v
+</code></pre>
+
+<ul>
+<li>To diagnose problems with address rewriting specify a <code>-v</code> option for the
+  <code>cleanup(8)</code> and/or <code>trivial-rewrite(8)</code> daemon.</li>
+<li>To diagnose problems with mail delivery specify a <code>-v</code> option for the
+  <code>qmgr(8)</code> or <code>oqmgr(8)</code> queue manager, or for the <code>lmtp(8)</code>, <code>local(8)</code>,
+  <code>pipe(8)</code>, <code>smtp(8)</code>, or <code>virtual(8)</code> delivery agent.</li>
+</ul>
+<h2 id="see-also">See also</h2>
+<ul>
+<li><a href="http://www.postfix.org/DEBUG_README.html">Postfix Debugging Howto</a></li>
+</ul><div class="footer">
+    <p style="text-align: center; color: grey;">All documents are available in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://bitbucket.org/zhb/iredmail-docs/get/tip.tar.bz2">download the latest version</a> for offline reading. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
+</div>
+<script type="text/javascript">
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-3293801-21', 'auto');
+  ga('send', 'pageview');
+</script>
+</body></html>
