@@ -200,12 +200,16 @@ __Important note__:  There's only __ONE__ colon after `userPassword` string
   due to missing required attributes.
 
 * Remove all files under OpenLDAP data directory defined in LDAP config file
-  `slapd.conf` (parameter `directory`) except one file (`DB_CONFIG`). For example:
+  `slapd.conf` (parameter `directory`) except file `DB_CONFIG` (this file
+  doesn't exist if you're running `mdb` backend, so you can ignore it if you're
+  running `mdb` backend).
+  For example:
 
-!!! note
+!!! note "About file DB_CONFIG"
 
-    File `DB_CONFIG` is present if you're use `bdb` database type (specified in
-    parameter `database`), `mdb` database doesn't have this file.
+    File `DB_CONFIG` is present if you're running `bdb` backend.
+    But `mdb` backend doesn't need any config file for database, so you can
+    ignore this file if you're running `mdb` backend.
 
 ```
 # File: /etc/openldap/slapd.conf
