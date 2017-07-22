@@ -84,11 +84,16 @@ mx.example.com
 
 !!! warning
 
-    由于 iredmail.org 域名在国内无法访问，所以需要指定 `IREDMAIL_MIRROR` 参数使用 IP 地址。
+    * 由于 iredmail.org 域名在国内无法访问，所以使用 `IREDMAIL_MIRROR` 指定
+      国内镜像站点。
+    * 由于 SOGo 网站在国内访问非常慢，且网络容易出问题，因此使用
+      `SOGO_PKG_MIRROR` 指定国内镜像站点。
 
 ```
-# cd /root/iRedMail-x.y.z/
-# IREDMAIL_MIRROR='http://173.254.22.21' bash iRedMail.sh
+cd /root/iRedMail-x.y.z/
+IREDMAIL_MIRROR='https://cnmirror.iredmail.org' \
+    SOGO_PKG_MIRROR='https://cnmirror.iredmail.org' \
+    bash iRedMail.sh
 ```
 
 ## 安装过程的截图
