@@ -551,7 +551,7 @@ until you can confirm all features are working as expected.
 
 ```
 su - postgres
-psql -U vmailadmin -d vmail
+psql -d vmail
 
 -- Remove non-mail-alias account
 DELETE FROM alias WHERE islist <> 1;

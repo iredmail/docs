@@ -548,7 +548,7 @@ perl -pi -e 's#alias,#forwardings,#g' *.cf
 ok to drop them. But it's strongly recommended to keep them for few more days
 until you can confirm all features are working as expected.</p>
 <pre><code>su - postgres
-psql -U vmailadmin -d vmail
+psql -d vmail
 
 -- Remove non-mail-alias account
 DELETE FROM alias WHERE islist &lt;&gt; 1;
