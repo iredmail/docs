@@ -319,6 +319,7 @@ Notes:
     `language` | Preferred language of iRedAdmin web UI | `language=en_US`
     `employeeid` | User ID (or Employee Number) | `employeeid=My Employee ID`
     `transport` | Transport program | `transport=dovecot`
+    `isGlobalAdmin` | Promote user to be a global admin. Possible values: `yes`, `no` | `isGlobalAdmin=yes`
     `forwarding` | Per-user mail forwarding. Multiple addresses must be separated by comma. To save an email copy in mailbox, add original email address as one of forwarding addresses. | `forwarding=user1@domain.com,user2@domain.com,user3@domain.com`
     `aliases` | Per-user alias addresses. Multiple addresses must be separated by comma. If empty, all per-user alias addresses owned by this user will be removed. Conflicts with parameter `addAlias` and `removeAlias`. | `aliases=user1@domain.com,user2@domain.com,user3@domain.com`
     `addAlias` | Add new per-user alias addresses. Multiple addresses must be separated by comma. Conflicts with parameter `aliases`. | `addAlias=user1@domain.com,user2@domain.com,user3@domain.com`
