@@ -69,3 +69,7 @@ In domain object, please add LDAP attribute/value pair like below:
 domainBackupMX: yes
 mtaTransport: relay:[45.56.127.226]:25
 ```
+
+## See also
+
+* [Backup MX (wikipedia)](https://en.wikipedia.org/wiki/MX_record#The_backup_MX)
