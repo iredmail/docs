@@ -1,4 +1,4 @@
-# Fixes you need after upgrading Ubuntu to 16.04 from 14.04
+# Fixes you need after upgrading Ubuntu from 14.04 to 16.04
 
 [TOC]
 
