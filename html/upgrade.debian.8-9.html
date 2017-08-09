@@ -19,15 +19,47 @@
 <div class="toc">
 <ul>
 <li><a href="#fixes-you-need-after-upgrading-debian-from-8-to-9">Fixes you need after upgrading Debian from 8 to 9</a><ul>
+<li><a href="#postfix">Postfix</a></li>
 <li><a href="#dovecot">Dovecot</a></li>
+<li><a href="#fail2ban">Fail2ban</a></li>
 </ul>
 </li>
 </ul>
 </div>
+<h2 id="postfix">Postfix</h2>
+<p>Run commands:</p>
+<pre><code># Backup files
+cp /etc/postfix/main.cf /etc/postfix/main.cf.bak
+cp /etc/postfix/master.cf /etc/postfix/master.cf
+
+# Update main.cf and master.cf
+postconf -e daemon_directory='/usr/lib/postfix/sbin'
+postconf -e shlib_directory='/usr/lib/postfix'
+postconf -e compatibility_level=2
+for i in $(postconf -Mf | grep '^[0-9a-zA-Z]' | awk '{print $1&quot;/&quot;$2&quot;/chroot=n&quot;}'); do postconf -F $i; done
+</code></pre>
+
+<ul>
+<li>Incorrect <code>daemon_directory</code> causes Postfix cannot start.</li>
+<li>Incorrect <code>shlib_directory</code> causes Postfix cannot find pcre/mysql/pgsql/ldap modules.</li>
+<li>Debian 8 ships Postfix 2.x, but Debian 9 ships Postfix 3.x, we need to disable compatible mode.</li>
+</ul>
 <h2 id="dovecot">Dovecot</h2>
 <p>Please remove <code>!SSLv2</code> from parameter <code>ssl_protocols</code>, and restart Dovecot service:</p>
 <pre><code>ssl_protocols = !SSLv3
-</code></pre><div class="footer">
+</code></pre>
+
+<h2 id="fail2ban">Fail2ban</h2>
+<p>There's a duplicate parameter in file <code>/etc/fail2ban/jail.conf</code>, under section
+<code>[pam-generic]</code> like below:</p>
+<pre><code>[pam-generic]
+...
+port = all
+...
+port = anyport
+</code></pre>
+
+<p>Comment out <code>port = anyport</code> and restart fail2ban service.</p><div class="footer">
     <p style="text-align: center; color: grey;">All documents are available in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://bitbucket.org/zhb/iredmail-docs/get/tip.tar.bz2">download the latest version</a> for offline reading. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
 </div>
 <script type="text/javascript">
