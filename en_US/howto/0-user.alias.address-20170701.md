@@ -4,8 +4,8 @@
 
 !!! attention
 
-    * This document is applicable to iRedMail-0.9.7 and later releases.
-    * Here's [doc for iRedMail-0.9.6 and earlier releases](./user.alias.address-20170701.html).
+    * This document is applicable to iRedMail-0.9.6 and earlier releases.
+    * Here's [doc for iRedMail-0.9.7 and later releases](./user.alias.address.html).
 
 Since iRedMail-0.9.3, we have per-user alias address support, that means mail
 user `john.smith@domain.com` can have additional email addresses like
@@ -24,31 +24,22 @@ page, under tab "Aliases".
 ## SQL backend: Manage per-user alias addresses with SQL command line
 
 Add additional email addresses `sales@domain.com`, `bill@domain.com` for
-__existing__ user `john@domain.com`:
+existing user `john@domain.com`:
 
 ```
 sql> USE vmail;
 
-sql> INSERT INTO forwardings (address, forwarding,
-                              domain, dest_domain,
-                              is_alias, active)
-                      VALUES ('sales@domain.com', 'john@domain.com',
-                              'domain.com', 'domain.com',
-                              1, 1);
+sql> INSERT INTO alias (address, goto, alias_to, is_alias, domain)
+                VALUES ('sales@domain.com', 'john@domain.com', 'john@domain.com', 1, 'domain.com');
 
-sql> INSERT INTO forwardings (address, forwarding,
-                              domain, dest_domain,
-                              is_alias, active)
-                      VALUES ('bill@domain.com', 'john@domain.com',
-                              'domain.com', 'domain.com',
-                              1, 1);
+sql> INSERT INTO alias (address, goto, alias_to, is_alias, domain)
+                VALUES ('bill@domain.com', 'john@domain.com', 'john@domain.com', 1, 'domain.com');
 ```
 
-* Account `sales@domain.com` and `bill@domain.com` are NOT existing mail user
-  accounts.
-* In above sample, `bill@domain.com` could be an email address which belongs
-  to your alias domain.
-* You can add as many additional email addresses as you want.
+* Account `sales@domain.com` and `bill@domain.com` are NOT existing mail user accounts.
+* Values of column `alias.goto` and `alias.alias_to` must be the same -- email address of the existing mail user.
+* In above sample, `bill@domain.com` could be an email address which belongs to your alias domain.
+* You're free to add as many additional email addresses as you want.
 
 ## LDAP backend: Manage per-user alias addresses
 
