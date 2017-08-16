@@ -42,13 +42,6 @@
 <td>YES (open to your end users)</td>
 </tr>
 <tr>
-<td>465</td>
-<td>smtps</td>
-<td>Postfix</td>
-<td>a.k.a. SMTP over SSL. Deprecated and disabled by default, please use port 587 instead.</td>
-<td>YES (open to your end users)</td>
-</tr>
-<tr>
 <td>110</td>
 <td>pop3</td>
 <td>Dovecot</td>
@@ -157,9 +150,17 @@
 </table>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
+<ul>
+<li>
 <p>In iRedMail-0.9.2 and earlier releases, Policyd or Cluebringer listens on
-port 10031. They have been removed in iRedMail-0.9.3, and replaced by
-iRedAPD.</p>
+  port 10031. They have been removed in iRedMail-0.9.3, and replaced by
+  iRedAPD.</p>
+</li>
+<li>
+<p>Port 465, a.k.a. SMTP over SSL, has been deprecated for years. Please use
+  port 587 instead.</p>
+</li>
+</ul>
 </div><div class="footer">
     <p style="text-align: center; color: grey;">All documents are available in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://bitbucket.org/zhb/iredmail-docs/get/tip.tar.bz2">download the latest version</a> for offline reading. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
 </div>

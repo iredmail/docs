@@ -605,6 +605,23 @@ Notes:
 
 ## ChangeLog
 
+### iRedAdmin-Pro-SQL-2.8.0, iRedAdmin-Pro-LDAP-3.0
+
++ NEW: Able to list all managed domains (/domains).
++ NEW: Able to manage per-usre enabled mail services (/user/<mail>).
++ NEW: Able to promote mail user to be a global admin (/user/<mail>).
++ Enhancement: Return managed domain names while getting user (must
+  have admin privilege) or admin profile.
+
+* Fixed issues:
+    * It always requires password while updating domain admin profile.
+
+* iRedAdmin-Pro-LDAP-3.0:
+    * LDAP attribute 'accountSetting' is now converted to a Python dictionary in returned JSON.
+
+        * Old value: `{'accountSetting': ['create_new_domains:yes', 'create_max_domains:5', ...], ...}`
+        * New value: `{'accountSetting': {'create_new_domains': 'yes', 'create_max_domains': 5, ...}}`
+
 ### iRedAdmin-Pro-SQL-2.7.0, iRedAdmin-Pro-LDAP-2.9.0
 
 * New: Able to manage global, per-domain and per-user greylisting settings,

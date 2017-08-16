@@ -39,6 +39,7 @@
 </ul>
 </li>
 <li><a href="#changelog">ChangeLog</a><ul>
+<li><a href="#iredadmin-pro-sql-280-iredadmin-pro-ldap-30">iRedAdmin-Pro-SQL-2.8.0, iRedAdmin-Pro-LDAP-3.0</a></li>
 <li><a href="#iredadmin-pro-sql-270-iredadmin-pro-ldap-290">iRedAdmin-Pro-SQL-2.7.0, iRedAdmin-Pro-LDAP-2.9.0</a></li>
 <li><a href="#iredadmin-pro-sql-260-iredadmin-pro-ldap-280">iRedAdmin-Pro-SQL-2.6.0, iRedAdmin-Pro-LDAP-2.8.0</a></li>
 </ul>
@@ -1587,6 +1588,34 @@ please use mail alias account as mailing list.</p>
 <p class="admonition-title"><code class="get">GET</code> <code class="url">/api/ldif/alias/&lt;mail&gt;</code> <code class="comment">Export mail alias account to LDIF</code></p>
 </div>
 <h2 id="changelog">ChangeLog</h2>
+<h3 id="iredadmin-pro-sql-280-iredadmin-pro-ldap-30">iRedAdmin-Pro-SQL-2.8.0, iRedAdmin-Pro-LDAP-3.0</h3>
+<ul>
+<li>NEW: Able to list all managed domains (/domains).</li>
+<li>NEW: Able to manage per-usre enabled mail services (/user/<mail>).</li>
+<li>NEW: Able to promote mail user to be a global admin (/user/<mail>).</li>
+<li>
+<p>Enhancement: Return managed domain names while getting user (must
+  have admin privilege) or admin profile.</p>
+</li>
+<li>
+<p>Fixed issues:</p>
+<ul>
+<li>It always requires password while updating domain admin profile.</li>
+</ul>
+</li>
+<li>
+<p>iRedAdmin-Pro-LDAP-3.0:</p>
+<ul>
+<li>
+<p>LDAP attribute 'accountSetting' is now converted to a Python dictionary in returned JSON.</p>
+<ul>
+<li>Old value: <code>{'accountSetting': ['create_new_domains:yes', 'create_max_domains:5', ...], ...}</code></li>
+<li>New value: <code>{'accountSetting': {'create_new_domains': 'yes', 'create_max_domains': 5, ...}}</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
 <h3 id="iredadmin-pro-sql-270-iredadmin-pro-ldap-290">iRedAdmin-Pro-SQL-2.7.0, iRedAdmin-Pro-LDAP-2.9.0</h3>
 <ul>
 <li>New: Able to manage global, per-domain and per-user greylisting settings,
