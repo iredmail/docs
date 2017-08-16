@@ -62,6 +62,22 @@ Notes:
 
 * SOGo (Calendar, Contacts, Tasks): check SOGo official document:
   <http://wiki.sogo.nu/backupRestore>
+
+    * since iRedMail-0.9.7, iRedMail will setup a daily cron job to backup SOGo
+      data during iRedMail installation.
+    * When restoring (with `sogo-tool`), you have to first restore all users
+      and their folders, then their preferences. Afterwards you have to restore
+      all preferences again to get back shared calendars.
+
+        That is because first it sets the sharing privileges on the folders
+        (which have to exist, before you can set them). The sharing will not
+        work in most cases, because the privileges of the origin is not yet set.
+        Only the second restore of the preferences can set the shared folders,
+        because now the privileges are OK.
+
+        Make sure to restart memcached between the two restores of the
+        privileges, else SOGo will use old infos from the first run.
+
 * OpenLDAP backend:
 
     * If you enabled additional LDAP schema files in OpenLDAP, you should
