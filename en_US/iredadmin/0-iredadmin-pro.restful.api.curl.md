@@ -19,15 +19,13 @@ Sample `curl` commands to interact iRedAdmin-Pro RESTful API.
 #
 # Login
 #
-# Replace `<username>` by the real admin email address.
-# Replace `<password>` by the real admin password.
 # It will create a plain text file `cookie.txt` under current directory.
 curl -X POST -c cookie.txt -d "username=<username>&password=<password>" https://<server>/iredadmin/api/login
 
 #
 # Create domain (POST)
 #
-# cn=ABC Inc. (display name: "ABC Inc."
+# cn=ABC Inc. (display name: "ABC Inc.")
 # quota=20480 (quota: 20 GB)
 curl -X POST -i -b cookie.txt -d "cn=ABC Inc.&quota=20480" https://<server>/iredadmin/api/domain/<domain>
 
