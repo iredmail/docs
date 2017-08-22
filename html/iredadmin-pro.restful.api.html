@@ -69,6 +69,13 @@
 <li>If operation failed, it returns JSON data: <code>{'_success': false, '_msg': '&lt;error_reason&gt;'}</code>.</li>
 </ul>
 <h2 id="enable-restful-api">Enable RESTful API</h2>
+<p>RESTful API is disabled by default, to enable it, please add setting below in
+iRedAdmin-Pro config file <code>settings.py</code>:</p>
+<pre><code>ENABLE_RESTFUL_API = True
+</code></pre>
+
+<p>Restarting Apache or uwsgi (if you're running Nginx) is required after changed
+iRedAdmin config file.</p>
 <div class="admonition note">
 <p class="admonition-title">iRedAdmin-Pro config file location</p>
 <ul>
@@ -78,11 +85,6 @@
 <li>on OpenBSD, it's <code>/var/www/iredadmin/settings.py</code>.</li>
 </ul>
 </div>
-<p>RESTful API is disabled by default, to enable it, please add setting below in
-iRedAdmin-Pro config file <code>settings.py</code>:</p>
-<pre><code>ENABLE_RESTFUL_API = True
-</code></pre>
-
 <p>To restrict API access to few IP addresses, please also add settings below in
 iRedAdmin-Pro config file:</p>
 <pre><code># Enable restriction
@@ -92,7 +94,6 @@ RESTRICT_API_ACCESS = True
 RESTFUL_API_CLIENTS = ['172.16.244.1', ...]
 </code></pre>
 
-<p>Restarting Apache or uwsgi (if you're running Nginx) is required.</p>
 <h2 id="sample-code-to-interact-with-iredadmin-pro-restful-api">Sample code to interact with iRedAdmin-Pro RESTful API</h2>
 <ul>
 <li><a href="./iredadmin-pro.restful.api.curl.html">iRedAdmin-Pro RESTful API (interact with <code>curl</code>)</a></li>

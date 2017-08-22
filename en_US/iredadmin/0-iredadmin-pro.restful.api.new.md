@@ -22,19 +22,22 @@ iRedAdmin-Pro RESTful API will return message in JSON format.
 
 ## Enable RESTful API
 
-!!! note "iRedAdmin-Pro config file location"
-
-    * on RHEL/CentOS, it's `/var/www/iredadmin/settings.py`.
-    * on Debian/Ubuntu, it's `/opt/www/iredadmin/settings.py` (in recent iRedMail releases) or `/usr/share/apache2/iredadmin/settings.py` (in old iRedMail releases).
-    * on FreeBSD, it's `/usr/local/www/iredadmin/settings.py`.
-    * on OpenBSD, it's `/var/www/iredadmin/settings.py`.
-
 RESTful API is disabled by default, to enable it, please add setting below in
 iRedAdmin-Pro config file `settings.py`:
 
 ```
 ENABLE_RESTFUL_API = True
 ```
+
+Restarting Apache or uwsgi (if you're running Nginx) is required after changed
+iRedAdmin config file.
+
+!!! note "iRedAdmin-Pro config file location"
+
+    * on RHEL/CentOS, it's `/var/www/iredadmin/settings.py`.
+    * on Debian/Ubuntu, it's `/opt/www/iredadmin/settings.py` (in recent iRedMail releases) or `/usr/share/apache2/iredadmin/settings.py` (in old iRedMail releases).
+    * on FreeBSD, it's `/usr/local/www/iredadmin/settings.py`.
+    * on OpenBSD, it's `/var/www/iredadmin/settings.py`.
 
 To restrict API access to few IP addresses, please also add settings below in
 iRedAdmin-Pro config file:
@@ -46,8 +49,6 @@ RESTRICT_API_ACCESS = True
 # List all IP addresses of allowed client for API access.
 RESTFUL_API_CLIENTS = ['172.16.244.1', ...]
 ```
-
-Restarting Apache or uwsgi (if you're running Nginx) is required.
 
 ##  Sample code to interact with iRedAdmin-Pro RESTful API
 
