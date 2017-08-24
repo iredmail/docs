@@ -9,7 +9,7 @@ Run commands:
 ```
 # Backup files
 cp /etc/postfix/main.cf /etc/postfix/main.cf.bak
-cp /etc/postfix/master.cf /etc/postfix/master.cf
+cp /etc/postfix/master.cf /etc/postfix/master.cf.bak
 
 # Update main.cf and master.cf
 postconf -e daemon_directory='/usr/lib/postfix/sbin'
