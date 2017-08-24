@@ -4,8 +4,8 @@
 
 !!! attention
 
-    * This document is applicable to `iRedAdmin-Pro-SQL-2.7.0` and
-      `iRedAdmin-Pro-LDAP-2.9.0`. If you're running an old release, please
+    * This document is applicable to `iRedAdmin-Pro-SQL-2.8.0` and
+      `iRedAdmin-Pro-LDAP-3.0`. If you're running an old release, please
       upgrade iRedAdmin-Pro to the latest release, or check
       [document for old releases](./iredadmin-pro.releases.html).
     * If you need an API which has not yet been implemented, don't hesitate to
@@ -81,6 +81,17 @@ Notes:
 
 ### Domain {: .toggle }
 
+!!! api "`GET`{: .get } `/api/domains`{: .url } `Get profiles of all managed mail domains`{: .comment } `Parameters`{: .has_params }"
+
+    <div class="params params_domain">
+
+    Parameter | Summary | Sample Usage
+    --- |--- |---
+    `name_only` | Return only mail domain names | `name_only=yes`
+    `disabled_only` | Return only disabled mail domains | `disabled_only=yes`
+
+    </div>
+
 !!! api "`GET`{: .get } `/api/domain/<domain>`{: .url } `Get profile of an existing domain`{: .comment }"
 !!! api "`POST`{: .post } `/api/domain/<domain>`{: .url } `Create a new domain`{: .comment } `Parameters`{: .has_params }"
 
@@ -88,7 +99,7 @@ Notes:
 
     Parameter | Summary | Sample Usage
     --- |--- |---
-    `name` | Short description of this domain name. e.g. company name | `name=Google Inc`
+    `name`* | Short description of this domain name. e.g. company name | `name=Google Inc`
     `quota` | Per-domain mailbox quota, in MB. | `quota=2048`
     `language` | Default preferred language for newly created mail user | `language=en_US`
     `transport` | Transport program | `transport=dovecot`
@@ -103,7 +114,7 @@ Notes:
     </div>
 
 !!! api "`DELETE`{: .delete } `/api/domain/<domain>`{: .url } `Delete an existing domain (all mail messages will NOT be removed)`{: .comment }"
-!!! api "`DELETE`{: .delete } `/api/domain/<domain>/keep_mailbox_days/<number>`{: .url } `Delete domain, and keep all mail messages for given days`{: .comment }"
+!!! api "`DELETE`{: .delete } `/api/domain/<domain>/keep_mailbox_days/<number>`{: .url } `Delete domain, and keep all mail messages for given days. Defaults to keep forever.`{: .comment }"
 !!! api "`PUT`{: .put } `/api/domain/<domain>`{: .url } `Update profile of an existing domain`{: .comment } `Parameters`{: .has_params }"
 
     <div class="params params_domain">
@@ -295,7 +306,7 @@ Notes:
     </div>
 
 !!! api "`DELETE`{: .delete } `/api/user/<mail>`{: .url } `Delete an existing mail user`{: .comment }"
-!!! api "`DELETE`{: .delete } `/api/user/<mail>/keep_mailbox_days/<number>`{: .url } `Delete an existing mail user, and keep the mailbox for given days. Defaults to 100 years.`{: .comment }"
+!!! api "`DELETE`{: .delete } `/api/user/<mail>/keep_mailbox_days/<number>`{: .url } `Delete an existing mail user, and keep the mailbox for given days. Defaults to keep forever.`{: .comment }"
 !!! api "`PUT`{: .put } `/api/user/<mail>`{: .url } `Update profile of an existing mail user`{: .comment } `Parameters`{: .has_params} "
 
     <div class="params params_user">
@@ -309,10 +320,38 @@ Notes:
     `language` | Preferred language of iRedAdmin web UI | `language=en_US`
     `employeeid` | User ID (or Employee Number) | `employeeid=My Employee ID`
     `transport` | Transport program | `transport=dovecot`
+    `isGlobalAdmin` | Promote user to be a global admin. Possible values: `yes`, `no` | `isGlobalAdmin=yes`
     `forwarding` | Per-user mail forwarding. Multiple addresses must be separated by comma. To save an email copy in mailbox, add original email address as one of forwarding addresses. | `forwarding=user1@domain.com,user2@domain.com,user3@domain.com`
     `aliases` | Per-user alias addresses. Multiple addresses must be separated by comma. If empty, all per-user alias addresses owned by this user will be removed. Conflicts with parameter `addAlias` and `removeAlias`. | `aliases=user1@domain.com,user2@domain.com,user3@domain.com`
     `addAlias` | Add new per-user alias addresses. Multiple addresses must be separated by comma. Conflicts with parameter `aliases`. | `addAlias=user1@domain.com,user2@domain.com,user3@domain.com`
     `removeAlias` | Remove existing per-user alias addresses. Multiple addresses must be separated by comma. Conflicts with parameter `aliases`. | `removeAlias=user1@domain.com,user2@domain.com,user3@domain.com`
+    `services` | Reset per-user enabled mail services to given values. Conflicts with parameter `addService` and `removeService`. See additional notes below. | `services=mail,smtp,pop3,imap`
+    `addService` | Add new per-user enabled mail service(s). Multiple values must be separated by comma. Conflicts with parameter `services`. See additional notes below. | `addService=vpn,owncloud`
+    `removeService` | Add new per-user enabled mail service(s). Multiple values must be separated by comma. Conflicts with parameter `services`. See additional notes below. | `removeService=forward,senderbcc`
+
+    !!! attention
+    
+        Notes about `services`, `addService`, `removeService` parameters:
+
+        * Available service names in iRedMail:
+            * smtp
+            * smtpsecured (SMTP over TLS or SSL)
+            * pop3
+            * pop3secured (POP3 over TLS or SSL)
+            * imap
+            * imapsecured (IMAP over TLS or SSL)
+            * managesieve
+            * managesievesecured (Managesieve over TLS or SSL)
+            * deliver (deliver received email to local mailbox)
+            * sogo (SOGo groupware)
+
+        * For LDAP backends, you're free to add custom service names, because
+          the LDAP attribute name used to store service names supports storing
+          multiple values and we don't need to change LDAP schema.
+
+        * For SQL backends, column `enable<service>` in SQL table
+          `vmail.mailbox` must be present, if not, specified service name will
+          be silently ignored.
 
     </div>
 
@@ -566,6 +605,25 @@ Notes:
 
 
 ## ChangeLog
+
+### iRedAdmin-Pro-SQL-2.8.0, iRedAdmin-Pro-LDAP-3.0
+
+* NEW: Able to list all managed domains (`/domains`).
+* NEW: Able to manage per-usre enabled mail services (`/user/<mail>`).
+* NEW: Able to promote mail user to be a global admin (`/user/<mail>`).
+* Enhancement: Return managed domain names while getting user (must
+  have admin privilege) or admin profile.
+
+* Fixed issues:
+    * It always requires password while updating domain admin profile.
+
+* iRedAdmin-Pro-LDAP-3.0:
+    * Enhancement: Return per-domain catchall addresses in domain profile.
+    * LDAP attribute 'accountSetting' is now converted to a dictionary
+      in returned JSON.
+
+        * Old value: `{'accountSetting': ['create_new_domains:yes', 'create_max_domains:5', ...], ...}`
+        * New value: `{'accountSetting': {'create_new_domains': 'yes', 'create_max_domains': 5, ...}}`
 
 ### iRedAdmin-Pro-SQL-2.7.0, iRedAdmin-Pro-LDAP-2.9.0
 

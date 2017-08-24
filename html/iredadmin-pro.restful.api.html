@@ -39,6 +39,7 @@
 </ul>
 </li>
 <li><a href="#changelog">ChangeLog</a><ul>
+<li><a href="#iredadmin-pro-sql-280-iredadmin-pro-ldap-30">iRedAdmin-Pro-SQL-2.8.0, iRedAdmin-Pro-LDAP-3.0</a></li>
 <li><a href="#iredadmin-pro-sql-270-iredadmin-pro-ldap-290">iRedAdmin-Pro-SQL-2.7.0, iRedAdmin-Pro-LDAP-2.9.0</a></li>
 <li><a href="#iredadmin-pro-sql-260-iredadmin-pro-ldap-280">iRedAdmin-Pro-SQL-2.6.0, iRedAdmin-Pro-LDAP-2.8.0</a></li>
 </ul>
@@ -50,8 +51,8 @@
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>
 <ul>
-<li>This document is applicable to <code>iRedAdmin-Pro-SQL-2.7.0</code> and
-  <code>iRedAdmin-Pro-LDAP-2.9.0</code>. If you're running an old release, please
+<li>This document is applicable to <code>iRedAdmin-Pro-SQL-2.8.0</code> and
+  <code>iRedAdmin-Pro-LDAP-3.0</code>. If you're running an old release, please
   upgrade iRedAdmin-Pro to the latest release, or check
   <a href="./iredadmin-pro.releases.html">document for old releases</a>.</li>
 <li>If you need an API which has not yet been implemented, don't hesitate to
@@ -139,6 +140,34 @@ RESTFUL_API_CLIENTS = ['172.16.244.1', ...]
 </div>
 <h3 class="toggle" id="domain">Domain</h3>
 <div class="admonition api">
+<p class="admonition-title"><code class="get">GET</code> <code class="url">/api/domains</code> <code class="comment">Get profiles of all managed mail domains</code> <code class="has_params">Parameters</code></p>
+<div class="params params_domain">
+
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Summary</th>
+<th>Sample Usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>name_only</code></td>
+<td>Return only mail domain names</td>
+<td><code>name_only=yes</code></td>
+</tr>
+<tr>
+<td><code>disabled_only</code></td>
+<td>Return only disabled mail domains</td>
+<td><code>disabled_only=yes</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+
+</div>
+<div class="admonition api">
 <p class="admonition-title"><code class="get">GET</code> <code class="url">/api/domain/&lt;domain&gt;</code> <code class="comment">Get profile of an existing domain</code></p>
 </div>
 <div class="admonition api">
@@ -155,7 +184,7 @@ RESTFUL_API_CLIENTS = ['172.16.244.1', ...]
 </thead>
 <tbody>
 <tr>
-<td><code>name</code></td>
+<td><code>name</code>*</td>
 <td>Short description of this domain name. e.g. company name</td>
 <td><code>name=Google Inc</code></td>
 </tr>
@@ -218,7 +247,7 @@ RESTFUL_API_CLIENTS = ['172.16.244.1', ...]
 <p class="admonition-title"><code class="delete">DELETE</code> <code class="url">/api/domain/&lt;domain&gt;</code> <code class="comment">Delete an existing domain (all mail messages will NOT be removed)</code></p>
 </div>
 <div class="admonition api">
-<p class="admonition-title"><code class="delete">DELETE</code> <code class="url">/api/domain/&lt;domain&gt;/keep_mailbox_days/&lt;number&gt;</code> <code class="comment">Delete domain, and keep all mail messages for given days</code></p>
+<p class="admonition-title"><code class="delete">DELETE</code> <code class="url">/api/domain/&lt;domain&gt;/keep_mailbox_days/&lt;number&gt;</code> <code class="comment">Delete domain, and keep all mail messages for given days. Defaults to keep forever.</code></p>
 </div>
 <div class="admonition api">
 <p class="admonition-title"><code class="put">PUT</code> <code class="url">/api/domain/&lt;domain&gt;</code> <code class="comment">Update profile of an existing domain</code> <code class="has_params">Parameters</code></p>
@@ -823,7 +852,7 @@ to be a domain admin.</p>
 <p class="admonition-title"><code class="delete">DELETE</code> <code class="url">/api/user/&lt;mail&gt;</code> <code class="comment">Delete an existing mail user</code></p>
 </div>
 <div class="admonition api">
-<p class="admonition-title"><code class="delete">DELETE</code> <code class="url">/api/user/&lt;mail&gt;/keep_mailbox_days/&lt;number&gt;</code> <code class="comment">Delete an existing mail user, and keep the mailbox for given days. Defaults to 100 years.</code></p>
+<p class="admonition-title"><code class="delete">DELETE</code> <code class="url">/api/user/&lt;mail&gt;/keep_mailbox_days/&lt;number&gt;</code> <code class="comment">Delete an existing mail user, and keep the mailbox for given days. Defaults to keep forever.</code></p>
 </div>
 <div class="admonition api">
 <p class="admonition-title"><code class="put">PUT</code> <code class="url">/api/user/&lt;mail&gt;</code> <code class="comment">Update profile of an existing mail user</code> <code class="has_params">Parameters</code> </p>
@@ -874,6 +903,11 @@ to be a domain admin.</p>
 <td><code>transport=dovecot</code></td>
 </tr>
 <tr>
+<td><code>isGlobalAdmin</code></td>
+<td>Promote user to be a global admin. Possible values: <code>yes</code>, <code>no</code></td>
+<td><code>isGlobalAdmin=yes</code></td>
+</tr>
+<tr>
 <td><code>forwarding</code></td>
 <td>Per-user mail forwarding. Multiple addresses must be separated by comma. To save an email copy in mailbox, add original email address as one of forwarding addresses.</td>
 <td><code>forwarding=user1@domain.com,user2@domain.com,user3@domain.com</code></td>
@@ -893,8 +927,54 @@ to be a domain admin.</p>
 <td>Remove existing per-user alias addresses. Multiple addresses must be separated by comma. Conflicts with parameter <code>aliases</code>.</td>
 <td><code>removeAlias=user1@domain.com,user2@domain.com,user3@domain.com</code></td>
 </tr>
+<tr>
+<td><code>services</code></td>
+<td>Reset per-user enabled mail services to given values. Conflicts with parameter <code>addService</code> and <code>removeService</code>. See additional notes below.</td>
+<td><code>services=mail,smtp,pop3,imap</code></td>
+</tr>
+<tr>
+<td><code>addService</code></td>
+<td>Add new per-user enabled mail service(s). Multiple values must be separated by comma. Conflicts with parameter <code>services</code>. See additional notes below.</td>
+<td><code>addService=vpn,owncloud</code></td>
+</tr>
+<tr>
+<td><code>removeService</code></td>
+<td>Add new per-user enabled mail service(s). Multiple values must be separated by comma. Conflicts with parameter <code>services</code>. See additional notes below.</td>
+<td><code>removeService=forward,senderbcc</code></td>
+</tr>
 </tbody>
 </table>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>Notes about <code>services</code>, <code>addService</code>, <code>removeService</code> parameters:</p>
+<ul>
+<li>
+<p>Available service names in iRedMail:</p>
+<ul>
+<li>smtp</li>
+<li>smtpsecured (SMTP over TLS or SSL)</li>
+<li>pop3</li>
+<li>pop3secured (POP3 over TLS or SSL)</li>
+<li>imap</li>
+<li>imapsecured (IMAP over TLS or SSL)</li>
+<li>managesieve</li>
+<li>managesievesecured (Managesieve over TLS or SSL)</li>
+<li>deliver (deliver received email to local mailbox)</li>
+<li>sogo (SOGo groupware)</li>
+</ul>
+</li>
+<li>
+<p>For LDAP backends, you're free to add custom service names, because
+  the LDAP attribute name used to store service names supports storing
+  multiple values and we don't need to change LDAP schema.</p>
+</li>
+<li>
+<p>For SQL backends, column <code>enable&lt;service&gt;</code> in SQL table
+  <code>vmail.mailbox</code> must be present, if not, specified service name will
+  be silently ignored.</p>
+</li>
+</ul>
+</div>
 </div>
 
 </div>
@@ -1509,6 +1589,36 @@ please use mail alias account as mailing list.</p>
 <p class="admonition-title"><code class="get">GET</code> <code class="url">/api/ldif/alias/&lt;mail&gt;</code> <code class="comment">Export mail alias account to LDIF</code></p>
 </div>
 <h2 id="changelog">ChangeLog</h2>
+<h3 id="iredadmin-pro-sql-280-iredadmin-pro-ldap-30">iRedAdmin-Pro-SQL-2.8.0, iRedAdmin-Pro-LDAP-3.0</h3>
+<ul>
+<li>NEW: Able to list all managed domains (<code>/domains</code>).</li>
+<li>NEW: Able to manage per-usre enabled mail services (<code>/user/&lt;mail&gt;</code>).</li>
+<li>NEW: Able to promote mail user to be a global admin (<code>/user/&lt;mail&gt;</code>).</li>
+<li>
+<p>Enhancement: Return managed domain names while getting user (must
+  have admin privilege) or admin profile.</p>
+</li>
+<li>
+<p>Fixed issues:</p>
+<ul>
+<li>It always requires password while updating domain admin profile.</li>
+</ul>
+</li>
+<li>
+<p>iRedAdmin-Pro-LDAP-3.0:</p>
+<ul>
+<li>Enhancement: Return per-domain catchall addresses in domain profile.</li>
+<li>
+<p>LDAP attribute 'accountSetting' is now converted to a dictionary
+  in returned JSON.</p>
+<ul>
+<li>Old value: <code>{'accountSetting': ['create_new_domains:yes', 'create_max_domains:5', ...], ...}</code></li>
+<li>New value: <code>{'accountSetting': {'create_new_domains': 'yes', 'create_max_domains': 5, ...}}</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
 <h3 id="iredadmin-pro-sql-270-iredadmin-pro-ldap-290">iRedAdmin-Pro-SQL-2.7.0, iRedAdmin-Pro-LDAP-2.9.0</h3>
 <ul>
 <li>New: Able to manage global, per-domain and per-user greylisting settings,
