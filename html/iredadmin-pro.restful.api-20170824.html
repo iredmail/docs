@@ -1,0 +1,1704 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>iRedAdmin-Pro: RESTful API</title>
+        <link rel="stylesheet" type="text/css" href="./css/markdown.css" />
+    </head>
+    <body>
+    
+    <div id="navigation">
+    <a href="/index.html" target="_blank">
+        <img alt="iRedMail web site"
+             src="./images/logo-iredmail.png"
+             style="vertical-align: middle; height: 30px;"
+             />&nbsp;
+        <span>iRedMail</span>
+    </a>
+    &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><h1 id="iredadmin-pro-restful-api">iRedAdmin-Pro: RESTful API</h1>
+<div class="toc">
+<ul>
+<li><a href="#iredadmin-pro-restful-api">iRedAdmin-Pro: RESTful API</a><ul>
+<li><a href="#summary">Summary</a></li>
+<li><a href="#enable-restful-api">Enable RESTful API</a></li>
+<li><a href="#sample-code-to-interact-with-iredadmin-pro-restful-api">Sample code to interact with iRedAdmin-Pro RESTful API</a></li>
+<li><a href="#apis">APIs</a><ul>
+<li><a href="#login">Login</a></li>
+<li><a href="#domain">Domain</a></li>
+<li><a href="#domain-admin">Domain Admin</a></li>
+<li><a href="#mail-user">Mail User</a></li>
+<li><a href="#mailing-list">Mailing List</a></li>
+<li><a href="#mail-alias">Mail Alias</a></li>
+<li><a href="#spam-policy">Spam Policy</a></li>
+<li><a href="#throttling">Throttling</a></li>
+<li><a href="#greylisting">Greylisting</a></li>
+<li><a href="#export-accounts">Export Accounts</a><ul>
+<li><a href="#ldif-ldap-backend-only">LDIF (LDAP backend only)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#changelog">ChangeLog</a><ul>
+<li><a href="#iredadmin-pro-sql-280-iredadmin-pro-ldap-30">iRedAdmin-Pro-SQL-2.8.0, iRedAdmin-Pro-LDAP-3.0</a></li>
+<li><a href="#iredadmin-pro-sql-270-iredadmin-pro-ldap-290">iRedAdmin-Pro-SQL-2.7.0, iRedAdmin-Pro-LDAP-2.9.0</a></li>
+<li><a href="#iredadmin-pro-sql-260-iredadmin-pro-ldap-280">iRedAdmin-Pro-SQL-2.6.0, iRedAdmin-Pro-LDAP-2.8.0</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<ul>
+<li>This document is applicable to <code>iRedAdmin-Pro-SQL-2.8.0</code> and
+  <code>iRedAdmin-Pro-LDAP-3.0</code>. If you're running an old release, please
+  upgrade iRedAdmin-Pro to the latest release, or check
+  <a href="./iredadmin-pro.releases.html">document for old releases</a>.</li>
+<li>If you need an API which has not yet been implemented, don't hesitate to
+  <a href="../contact.html">contact us</a>.</li>
+</ul>
+</div>
+<h2 id="summary">Summary</h2>
+<p>iRedAdmin-Pro RESTful API will return message in JSON format.</p>
+<ul>
+<li>If operation succeed:<ul>
+<li>For http <code>POST</code>, <code>DELETE</code>, <code>PUT</code> methods, it returns JSON data: <code>{'_success': true}</code>.</li>
+<li>For http <code>GET</code> method, it returns JSON data: <code>{'_success': true, '_data': &lt;program_output&gt;}</code>.</li>
+</ul>
+</li>
+<li>If operation failed, it returns JSON data: <code>{'_success': false, '_msg': '&lt;error_reason&gt;'}</code>.</li>
+</ul>
+<h2 id="enable-restful-api">Enable RESTful API</h2>
+<p>RESTful API is disabled by default, to enable it, please add setting below in
+iRedAdmin-Pro config file <code>settings.py</code>:</p>
+<pre><code>ENABLE_RESTFUL_API = True
+</code></pre>
+
+<p>Restarting Apache or uwsgi (if you're running Nginx) is required after changed
+iRedAdmin config file.</p>
+<div class="admonition note">
+<p class="admonition-title">iRedAdmin-Pro config file location</p>
+<ul>
+<li>on RHEL/CentOS, it's <code>/var/www/iredadmin/settings.py</code>.</li>
+<li>on Debian/Ubuntu, it's <code>/opt/www/iredadmin/settings.py</code> (in recent iRedMail releases) or <code>/usr/share/apache2/iredadmin/settings.py</code> (in old iRedMail releases).</li>
+<li>on FreeBSD, it's <code>/usr/local/www/iredadmin/settings.py</code>.</li>
+<li>on OpenBSD, it's <code>/var/www/iredadmin/settings.py</code>.</li>
+</ul>
+</div>
+<p>To restrict API access to few IP addresses, please also add settings below in
+iRedAdmin-Pro config file:</p>
+<pre><code># Enable restriction
+RESTRICT_API_ACCESS = True
+
+# List all IP addresses of allowed client for API access.
+RESTFUL_API_CLIENTS = ['172.16.244.1', ...]
+</code></pre>
+
+<h2 id="sample-code-to-interact-with-iredadmin-pro-restful-api">Sample code to interact with iRedAdmin-Pro RESTful API</h2>
+<ul>
+<li><a href="./iredadmin-pro.restful.api.curl.html">iRedAdmin-Pro RESTful API (interact with <code>curl</code>)</a></li>
+<li><a href="./iredadmin-pro.restful.api.python.html">iRedAdmin-Pro RESTful API (interact with Python)</a></li>
+</ul>
+<h2 id="apis">APIs</h2>
+<p>Notes:</p>
+<ul>
+<li>Parameter name with a <code>*</code> mark means the parameter is required, otherwise is optional.</li>
+<li>replace <code>&lt;domain&gt;</code> in URL by the real domain name. e.g. <code>example.com</code></li>
+<li>replace <code>&lt;mail&gt;</code> in URL by the real email address. e.g. <code>user@domain.com</code></li>
+<li>replace <code>&lt;number&gt;</code> in URL by an integer number. e.g. <code>30</code>, <code>200</code></li>
+</ul>
+<p><button type="button" class="toggle_all">Expand/Collapse All API Parameters</button></p>
+<h3 class="toggle" id="login">Login</h3>
+<div class="admonition api">
+<p class="admonition-title"><code class="post">POST</code> <code class="url">/api/login</code> <code class="comment">Login with an admin username (full email address) and password</code> <code class="has_params">Parameters</code></p>
+<div class="params params_domain">
+
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Summary</th>
+<th>Sample Usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>username</code></td>
+<td>Admin username. Must be a full email address.</td>
+<td><code>username=admin@mydomain.com</code></td>
+</tr>
+<tr>
+<td><code>password</code></td>
+<td>(Plain) admin password.</td>
+<td><code>password=AsTr0ng@</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+
+</div>
+<h3 class="toggle" id="domain">Domain</h3>
+<div class="admonition api">
+<p class="admonition-title"><code class="get">GET</code> <code class="url">/api/domains</code> <code class="comment">Get profiles of all managed mail domains</code> <code class="has_params">Parameters</code></p>
+<div class="params params_domain">
+
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Summary</th>
+<th>Sample Usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>name_only</code></td>
+<td>Return only mail domain names</td>
+<td><code>name_only=yes</code></td>
+</tr>
+<tr>
+<td><code>disabled_only</code></td>
+<td>Return only disabled mail domains</td>
+<td><code>disabled_only=yes</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code class="get">GET</code> <code class="url">/api/domain/&lt;domain&gt;</code> <code class="comment">Get profile of an existing domain</code></p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code class="post">POST</code> <code class="url">/api/domain/&lt;domain&gt;</code> <code class="comment">Create a new domain</code> <code class="has_params">Parameters</code></p>
+<div class="params params_domain">
+
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Summary</th>
+<th>Sample Usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>name</code>*</td>
+<td>Short description of this domain name. e.g. company name</td>
+<td><code>name=Google Inc</code></td>
+</tr>
+<tr>
+<td><code>quota</code></td>
+<td>Per-domain mailbox quota, in MB.</td>
+<td><code>quota=2048</code></td>
+</tr>
+<tr>
+<td><code>language</code></td>
+<td>Default preferred language for newly created mail user</td>
+<td><code>language=en_US</code></td>
+</tr>
+<tr>
+<td><code>transport</code></td>
+<td>Transport program</td>
+<td><code>transport=dovecot</code></td>
+</tr>
+<tr>
+<td><code>defaultQuota</code></td>
+<td>Default per-user mailbox quota for newly created user, in MB.</td>
+<td><code>defaultQuota=1024</code></td>
+</tr>
+<tr>
+<td><code>maxUserQuota</code></td>
+<td>Max mailbox quota of a mail user, in MB.</td>
+<td><code>maxUserQuota=2048</code></td>
+</tr>
+<tr>
+<td><code>numberOfUsers</code></td>
+<td>Max number of mail user accounts</td>
+<td><code>numberOfUsers=20</code></td>
+</tr>
+<tr>
+<td><code>numberOfAliases</code></td>
+<td>Max number of mail alias accounts</td>
+<td><code>numberOfAliases=30</code></td>
+</tr>
+<tr>
+<td><code>numberOfLists</code></td>
+<td>Max number of mailing list accounts (Available in LDAP backends)</td>
+<td><code>numberOfLists=40</code></td>
+</tr>
+<tr>
+<td><code>senderBcc</code></td>
+<td>Per-domain sender bcc</td>
+<td><code>senderBcc=user@domain.com</code></td>
+</tr>
+<tr>
+<td><code>recipientBcc</code></td>
+<td>Per-domain recipient bcc</td>
+<td><code>recipientBcc=user@domain.com</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code class="delete">DELETE</code> <code class="url">/api/domain/&lt;domain&gt;</code> <code class="comment">Delete an existing domain (all mail messages will NOT be removed)</code></p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code class="delete">DELETE</code> <code class="url">/api/domain/&lt;domain&gt;/keep_mailbox_days/&lt;number&gt;</code> <code class="comment">Delete domain, and keep all mail messages for given days. Defaults to keep forever.</code></p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code class="put">PUT</code> <code class="url">/api/domain/&lt;domain&gt;</code> <code class="comment">Update profile of an existing domain</code> <code class="has_params">Parameters</code></p>
+<div class="params params_domain">
+
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Summary</th>
+<th>Sample Usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>name</code></td>
+<td>Short description of this domain name. e.g. company name</td>
+<td><code>name=Google Inc</code></td>
+</tr>
+<tr>
+<td><code>accountStatus</code></td>
+<td>Enable or disable domain. Possible values: <code>active</code>, <code>disabled</code>.</td>
+<td><code>accountStatus=active</code></td>
+</tr>
+<tr>
+<td><code>quota</code></td>
+<td>Mailbox quota for whole domain, in MB.</td>
+<td><code>quota=2048</code></td>
+</tr>
+<tr>
+<td><code>language</code></td>
+<td>Default preferred language for newly created mail user</td>
+<td><code>language=en_US</code></td>
+</tr>
+<tr>
+<td><code>transport</code></td>
+<td>Transport program</td>
+<td><code>transport=dovecot</code></td>
+</tr>
+<tr>
+<td><code>minPasswordLength</code></td>
+<td>Minimal password length</td>
+<td><code>minPasswordLength=8</code></td>
+</tr>
+<tr>
+<td><code>maxPasswordLength</code></td>
+<td>Maximum password length</td>
+<td><code>minPasswordLength=20</code></td>
+</tr>
+<tr>
+<td><code>defaultQuota</code></td>
+<td>Default per-user mailbox quota for newly created user</td>
+<td><code>defaultQuota=1024</code></td>
+</tr>
+<tr>
+<td><code>maxUserQuota</code></td>
+<td>Max mailbox quota of a mail user</td>
+<td><code>maxUserQuota=2048</code></td>
+</tr>
+<tr>
+<td><code>numberOfUsers</code></td>
+<td>Max number of mail user accounts</td>
+<td><code>numberOfUsers=20</code></td>
+</tr>
+<tr>
+<td><code>numberOfAliases</code></td>
+<td>Max number of mail alias accounts</td>
+<td><code>numberOfAliases=30</code></td>
+</tr>
+<tr>
+<td><code>senderBcc</code></td>
+<td>Per-domain sender bcc address</td>
+<td><code>senderBcc=user@domain.com</code></td>
+</tr>
+<tr>
+<td><code>recipientBcc</code></td>
+<td>Per-domain recipient bcc address</td>
+<td><code>recipientBcc=user@domain.com</code></td>
+</tr>
+<tr>
+<td><code>is_backupmx</code></td>
+<td>Mark domain as Backup MX. Must be used with parameter <code>primarymx</code>. Conflicts with parameter <code>transport</code>.</td>
+<td><code>is_backupmx=yes</code> (or <code>no</code>)</td>
+</tr>
+<tr>
+<td><code>primarymx</code></td>
+<td>Hostname or IP address of primary MX, smtp port number is optional. Must be used with parameter <code>is_backupmx</code>. Conflicts with parameter <code>transport</code>.</td>
+<td><code>primarymx=202.96.134.133</code>, <code>primarymx=[mail.iredmail.org]:25</code></td>
+</tr>
+<tr>
+<td><code>catchall</code></td>
+<td>Per-domain catch-all account (a list of email addresses used to receive emails sent to non-existing addresses under same domain). Multiple addresses must be separated by comma. Set an empty value to disable catch-all support.</td>
+<td><code>catchall=user@domain.com,user2@domain.com</code> or <code>catchall=</code> (disable catch-all)</td>
+</tr>
+<tr>
+<td><code>outboundRelay</code></td>
+<td>Per-domain outbound relay. Set an empty value to disable outbound relay.</td>
+<td><code>outboundRelay=smtp:[192.168.1.2]:25</code> or <code>outboundRelay=</code> (disable outbound relay)</td>
+</tr>
+<tr>
+<td><code>enableService</code></td>
+<td>Enable new services. Multiple services must be separated by comma. Available services are listed below.</td>
+<td><code>enableService=self-service</code></td>
+</tr>
+<tr>
+<td><code>disableService</code></td>
+<td>Disable existing services. Multiple services must be separated by comma. Available services are listed below.</td>
+<td><code>disableService=self-service</code></td>
+</tr>
+<tr>
+<td><code>removeAllServices</code></td>
+<td>Disable all services (including mail service)</td>
+<td><code>removeAllServices=</code> (empty value)</td>
+</tr>
+<tr>
+<td><code>disableDomainProfile</code></td>
+<td>disable given domain profiles. Normal admin cannot view and update disabled profiles in domain profile page. Available domain profiles are listed below.</td>
+<td><code>disableDomainProfile=bcc,relay,aliases</code></td>
+</tr>
+<tr>
+<td><code>enableDomainProfile</code></td>
+<td>enable given domain profiles. Normal admin can view and update disabled profiles in domain profile page. Available domain profiles are listed below.</td>
+<td><code>enableDomainProfile=bcc,relay,aliases</code></td>
+</tr>
+<tr>
+<td><code>disableUserProfile</code></td>
+<td>disable given user profiles. Normal admin cannot view and update disabled profiles in user profile page. Available user profiles are listed below.</td>
+<td><code>disableUserProfile=bcc,relay,aliases</code></td>
+</tr>
+<tr>
+<td><code>enableUserProfile</code></td>
+<td>enable given domain profiles. Normal admin can view and update disabled profiles in user profile page. Available user profiles are listed below.</td>
+<td><code>enableUserProfile=bcc,relay,aliases</code></td>
+</tr>
+<tr>
+<td><code>disableUserPreference</code></td>
+<td>disable given user preferences in self-service page. Normal mail user cannot view and update disabled preferences. Available user preferences are listed below.</td>
+<td><code>disableUserPreference=forwarding,wblist</code></td>
+</tr>
+<tr>
+<td><code>enableUserPreference</code></td>
+<td>disable given user preferences in self-service page. Normal mail user can view and update disabled preferences. Available user preferences are listed below.</td>
+<td><code>enableUserProfile=forwarding,wblist</code></td>
+</tr>
+</tbody>
+</table>
+<p>Available mail services:</p>
+<table>
+<thead>
+<tr>
+<th>Profile</th>
+<th>Comment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>self-service</td>
+<td>Enable self-service for the mail domain.</td>
+</tr>
+<tr>
+<td>mail</td>
+<td>All mail services. (LDAP backends only)</td>
+</tr>
+<tr>
+<td>domainalias</td>
+<td>Alias domain support. (LDAP backends only)</td>
+</tr>
+<tr>
+<td>senderbcc</td>
+<td>Per-domain sender bcc. (LDAP backends only)</td>
+</tr>
+<tr>
+<td>recipientbcc</td>
+<td>Per-domain recipient bcc. (LDAP backends only)</td>
+</tr>
+</tbody>
+</table>
+<p>Available domain profiles:</p>
+<table>
+<thead>
+<tr>
+<th>Profile</th>
+<th>Comment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>bcc</td>
+<td>Per-domain sender bcc and recipient bcc</td>
+</tr>
+<tr>
+<td>relay</td>
+<td>Per-domain inbound relay and outbound relay</td>
+</tr>
+<tr>
+<td>catchall</td>
+<td>Per-domain catchall account</td>
+</tr>
+<tr>
+<td>aliases</td>
+<td>Alias domains</td>
+</tr>
+<tr>
+<td>throttle</td>
+<td>Per-domain inbound and outbound throttling</td>
+</tr>
+<tr>
+<td>greylisting</td>
+<td>Per-domain greylisting service</td>
+</tr>
+<tr>
+<td>wblist</td>
+<td>Per-domain whitelists and blacklists</td>
+</tr>
+<tr>
+<td>spampolicy</td>
+<td>Per-domain spam policy</td>
+</tr>
+<tr>
+<td>backupmx</td>
+<td>Backup MX</td>
+</tr>
+<tr>
+<td>advanced</td>
+<td>Some extra settings</td>
+</tr>
+</tbody>
+</table>
+<p>Available user profiles:</p>
+<table>
+<thead>
+<tr>
+<th>Profile</th>
+<th>Comment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>bcc</td>
+<td>Per-user sender bcc and recipient bcc</td>
+</tr>
+<tr>
+<td>forwarding</td>
+<td>Per-user mail forwarding addresses</td>
+</tr>
+<tr>
+<td>relay</td>
+<td>Per-user inbound relay and outbound relay</td>
+</tr>
+<tr>
+<td>aliases</td>
+<td>Per-user alias addresses</td>
+</tr>
+<tr>
+<td>throttle</td>
+<td>Per-user inbound and outbound throttling</td>
+</tr>
+<tr>
+<td>greylisting</td>
+<td>Per-user greylisting service</td>
+</tr>
+<tr>
+<td>wblist</td>
+<td>Per-user whitelists and blacklists</td>
+</tr>
+<tr>
+<td>spampolicy</td>
+<td>Per-user spam policy</td>
+</tr>
+</tbody>
+</table>
+<p>Available user preferences (self-service):</p>
+<table>
+<thead>
+<tr>
+<th>Profile</th>
+<th>Comment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>personal_info</td>
+<td>Name, time zone, preferred language of web UI</td>
+</tr>
+<tr>
+<td>forwarding</td>
+<td>Per-user mail forwarding addresses</td>
+</tr>
+<tr>
+<td>wblist</td>
+<td>Per-user whitelists and blacklists</td>
+</tr>
+<tr>
+<td>quarantine</td>
+<td>Manage quarantined mails</td>
+</tr>
+<tr>
+<td>rcvd_mails</td>
+<td>View basic info of received mails, and whitelist/blacklist mail sender directly.</td>
+</tr>
+<tr>
+<td>spampolicy</td>
+<td>Per-user spam policy</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code class="put">PUT</code> <code class="url">/api/domain/admins/&lt;domain&gt;</code> <code class="comment">Manage normal domain admins.</code> <code class="has_params">Parameters</code></p>
+<div class="params params_domain_admins">
+
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>Normal domain admin can only promote mail users under managed domains
+to be a domain admin.</p>
+</div>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Summary</th>
+<th>Sample Usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>addAdmin</code></td>
+<td>Add new domain admins. Multiple services must be separated by comma.</td>
+<td><code>addAdmin=one@domain.com,two@domain.com</code></td>
+</tr>
+<tr>
+<td><code>removeAdmin</code></td>
+<td>Remove existing domain admins. Multiple services must be separated by comma.</td>
+<td><code>removeAdmin=one@domain.com,two@domain.com</code></td>
+</tr>
+<tr>
+<td><code>removeAllAdmins</code></td>
+<td>Remove all existing domain admins.</td>
+<td><code>removeAllAdmins=</code> (empty value)</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+</div>
+<h3 class="toggle" id="domain-admin">Domain Admin</h3>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<ul>
+<li>This is standalone domain admin account, not mail user with admin privileges.</li>
+<li>Only global admin can access these APIs.</li>
+</ul>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code class="get">GET</code> <code class="url">/api/admin/&lt;mail&gt;</code> <code class="comment">Get profile of an existing domain admin</code></p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code class="post">POST</code> <code class="url">/api/admin/&lt;mail&gt;</code> <code class="comment">Create a new domain admin</code> <code class="has_params">Parameters</code></p>
+<div class="params params_admin">
+
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Summary</th>
+<th>Sample Usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>name</code></td>
+<td>Display name</td>
+<td><code>name=My Admin Name</code></td>
+</tr>
+<tr>
+<td><code>password</code></td>
+<td>Password</td>
+<td><code>password=AsTr0ng@</code></td>
+</tr>
+<tr>
+<td><code>accountStatus</code></td>
+<td>Enable or disable account. Possible values: <code>active</code>, <code>disabled</code>.</td>
+<td><code>accountStatus=active</code></td>
+</tr>
+<tr>
+<td><code>language</code></td>
+<td>Preferred language of iRedAdmin web UI</td>
+<td><code>language=en_US</code></td>
+</tr>
+<tr>
+<td><code>isGlobalAdmin</code></td>
+<td>Mark this admin as global admin</td>
+<td><code>isGlobalAdmin=yes</code></td>
+</tr>
+</tbody>
+</table>
+<p>Below parameters are used by normal domain admin (<code>isGlobalAdmin=no</code>). With <code>isGlobalAdmin=yes</code>, these parameters will be discarded.</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Summary</th>
+<th>Sample Usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>maxDomains</code></td>
+<td>how many mail domains this admin can create</td>
+<td><code>maxDomains=5</code></td>
+</tr>
+<tr>
+<td><code>maxQuota</code></td>
+<td>how much mailbox quota this admin can create. Quota is shared by all domains created/managed by this admin. Must be used with parameter <code>quotaUnit</code>. Sample: 10TB, 20GB, 100MB.</td>
+<td><code>maxQuota=2</code></td>
+</tr>
+<tr>
+<td><code>quotaUnit</code></td>
+<td>Quota unit used by <code>maxQuota</code> parameter. Must be used with parameter <code>maxQuota</code>. Possible values: TB, GB, MB.</td>
+<td><code>quotaUnit=TB</code></td>
+</tr>
+<tr>
+<td><code>maxUsers</code></td>
+<td>how many mail users this admin can create. It's shared by all domains created/managed by this admin.</td>
+<td><code>maxUsers=100</code></td>
+</tr>
+<tr>
+<td><code>maxAliases</code></td>
+<td>how many mail aliases this admin can create. It's shared by all domains created/managed by this admin.</td>
+<td><code>maxAliases=200</code></td>
+</tr>
+<tr>
+<td><code>maxLists</code></td>
+<td>how many mailing lists this admin can create. It's shared by all domains created/managed by this admin.</td>
+<td><code>maxLists=300</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code class="delete">DELETE</code> <code class="url">/api/admin/&lt;mail&gt;</code> <code class="comment">Delete an existing domain admin</code></p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code class="put">PUT</code> <code class="url">/api/admin/&lt;mail&gt;</code> <code class="comment">Update profile of an existing domain admin</code> <code class="has_params">Parameters</code></p>
+<div class="params params_admin">
+
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Summary</th>
+<th>Sample Usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>name</code></td>
+<td>Display name</td>
+<td><code>name=My Admin Name</code></td>
+</tr>
+<tr>
+<td><code>password</code></td>
+<td>Password</td>
+<td><code>password=AsTr0ng@</code></td>
+</tr>
+<tr>
+<td><code>accountStatus</code></td>
+<td>Enable or disable account. Possible values: <code>active</code>, <code>disabled</code>.</td>
+<td><code>accountStatus=active</code></td>
+</tr>
+<tr>
+<td><code>language</code></td>
+<td>Preferred language of iRedAdmin web UI</td>
+<td><code>language=en_US</code></td>
+</tr>
+<tr>
+<td><code>isGlobalAdmin</code></td>
+<td>Mark this admin as global admin</td>
+<td><code>isGlobalAdmin=yes</code></td>
+</tr>
+</tbody>
+</table>
+<p>Below parameters are used by normal domain admin (<code>isGlobalAdmin=no</code>). With <code>isGlobalAdmin=yes</code>, these parameters will be discarded.</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Summary</th>
+<th>Sample Usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>maxDomains</code></td>
+<td>how many mail domains this admin can create</td>
+<td><code>maxDomains=5</code></td>
+</tr>
+<tr>
+<td><code>maxQuota</code></td>
+<td>how much mailbox quota this admin can create. Quota is shared by all domains created/managed by this admin. Must be used with parameter <code>quotaUnit</code>. Sample: 10TB, 20GB, 100MB.</td>
+<td><code>maxQuota=2</code></td>
+</tr>
+<tr>
+<td><code>quotaUnit</code></td>
+<td>Quota unit used by <code>maxQuota</code> parameter. Must be used with parameter <code>maxQuota</code>. Possible values: TB, GB, MB.</td>
+<td><code>quotaUnit=TB</code></td>
+</tr>
+<tr>
+<td><code>maxUsers</code></td>
+<td>how many mail users this admin can create. It's shared by all domains created/managed by this admin.</td>
+<td><code>maxUsers=100</code></td>
+</tr>
+<tr>
+<td><code>maxAliases</code></td>
+<td>how many mail aliases this admin can create. It's shared by all domains created/managed by this admin.</td>
+<td><code>maxAliases=200</code></td>
+</tr>
+<tr>
+<td><code>maxLists</code></td>
+<td>how many mailing lists this admin can create. It's shared by all domains created/managed by this admin.</td>
+<td><code>maxLists=300</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code class="post">POST</code> <code class="url">/api/verify_password/admin/&lt;mail&gt;</code> <code class="comment">Verify given (plain) password against the one stored in SQL/LDAP</code> <code class="has_params">Parameters</code> </p>
+<div class="params params_admin">
+
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>Password verification is limited to global domain admin.</p>
+</div>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Summary</th>
+<th>Sample Usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>password</code></td>
+<td>Plain password</td>
+<td><code>password=u0tBF82cIV@vi8Gme</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+
+</div>
+<h3 class="toggle" id="mail-user">Mail User</h3>
+<div class="admonition api">
+<p class="admonition-title"><code class="get">GET</code> <code class="url">/api/user/&lt;mail&gt;</code> <code class="comment">Get profile of an existing mail user</code></p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code class="post">POST</code> <code class="url">/api/user/&lt;mail&gt;</code> <code class="comment">Create a new mail user</code> <code class="has_params">Parameters</code></p>
+<div class="params params_user">
+
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Summary</th>
+<th>Sample Usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>name</code></td>
+<td>Display name</td>
+<td><code>name=My New Name</code></td>
+</tr>
+<tr>
+<td><code>password</code></td>
+<td>Password</td>
+<td><code>password=AsTr0ng@</code></td>
+</tr>
+<tr>
+<td><code>language</code></td>
+<td>Preferred language of iRedAdmin web UI</td>
+<td><code>language=en_US</code></td>
+</tr>
+<tr>
+<td><code>quota</code></td>
+<td>Mailbox quota (in MB)</td>
+<td><code>quota=1024</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code class="delete">DELETE</code> <code class="url">/api/user/&lt;mail&gt;</code> <code class="comment">Delete an existing mail user</code></p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code class="delete">DELETE</code> <code class="url">/api/user/&lt;mail&gt;/keep_mailbox_days/&lt;number&gt;</code> <code class="comment">Delete an existing mail user, and keep the mailbox for given days. Defaults to keep forever.</code></p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code class="put">PUT</code> <code class="url">/api/user/&lt;mail&gt;</code> <code class="comment">Update profile of an existing mail user</code> <code class="has_params">Parameters</code> </p>
+<div class="params params_user">
+
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Summary</th>
+<th>Sample Usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>name</code></td>
+<td>Display name</td>
+<td><code>name=My New Name</code></td>
+</tr>
+<tr>
+<td><code>password</code></td>
+<td>Password</td>
+<td><code>password=u0tBF82cIV@vi8Gme</code></td>
+</tr>
+<tr>
+<td><code>quota</code></td>
+<td>Mailbox quota (in MB)</td>
+<td><code>quota=1024</code></td>
+</tr>
+<tr>
+<td><code>accountStatus</code></td>
+<td>Enable or disable user. Possible values: <code>active</code>, <code>disabled</code>.</td>
+<td><code>accountStatus=active</code></td>
+</tr>
+<tr>
+<td><code>language</code></td>
+<td>Preferred language of iRedAdmin web UI</td>
+<td><code>language=en_US</code></td>
+</tr>
+<tr>
+<td><code>employeeid</code></td>
+<td>User ID (or Employee Number)</td>
+<td><code>employeeid=My Employee ID</code></td>
+</tr>
+<tr>
+<td><code>transport</code></td>
+<td>Transport program</td>
+<td><code>transport=dovecot</code></td>
+</tr>
+<tr>
+<td><code>isGlobalAdmin</code></td>
+<td>Promote user to be a global admin. Possible values: <code>yes</code>, <code>no</code></td>
+<td><code>isGlobalAdmin=yes</code></td>
+</tr>
+<tr>
+<td><code>forwarding</code></td>
+<td>Per-user mail forwarding. Multiple addresses must be separated by comma. To save an email copy in mailbox, add original email address as one of forwarding addresses.</td>
+<td><code>forwarding=user1@domain.com,user2@domain.com,user3@domain.com</code></td>
+</tr>
+<tr>
+<td><code>aliases</code></td>
+<td>Per-user alias addresses. Multiple addresses must be separated by comma. If empty, all per-user alias addresses owned by this user will be removed. Conflicts with parameter <code>addAlias</code> and <code>removeAlias</code>.</td>
+<td><code>aliases=user1@domain.com,user2@domain.com,user3@domain.com</code></td>
+</tr>
+<tr>
+<td><code>addAlias</code></td>
+<td>Add new per-user alias addresses. Multiple addresses must be separated by comma. Conflicts with parameter <code>aliases</code>.</td>
+<td><code>addAlias=user1@domain.com,user2@domain.com,user3@domain.com</code></td>
+</tr>
+<tr>
+<td><code>removeAlias</code></td>
+<td>Remove existing per-user alias addresses. Multiple addresses must be separated by comma. Conflicts with parameter <code>aliases</code>.</td>
+<td><code>removeAlias=user1@domain.com,user2@domain.com,user3@domain.com</code></td>
+</tr>
+<tr>
+<td><code>services</code></td>
+<td>Reset per-user enabled mail services to given values. Conflicts with parameter <code>addService</code> and <code>removeService</code>. See additional notes below.</td>
+<td><code>services=mail,smtp,pop3,imap</code></td>
+</tr>
+<tr>
+<td><code>addService</code></td>
+<td>Add new per-user enabled mail service(s). Multiple values must be separated by comma. Conflicts with parameter <code>services</code>. See additional notes below.</td>
+<td><code>addService=vpn,owncloud</code></td>
+</tr>
+<tr>
+<td><code>removeService</code></td>
+<td>Add new per-user enabled mail service(s). Multiple values must be separated by comma. Conflicts with parameter <code>services</code>. See additional notes below.</td>
+<td><code>removeService=forward,senderbcc</code></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>Notes about <code>services</code>, <code>addService</code>, <code>removeService</code> parameters:</p>
+<ul>
+<li>
+<p>Available service names in iRedMail:</p>
+<ul>
+<li>smtp</li>
+<li>smtpsecured (SMTP over TLS or SSL)</li>
+<li>pop3</li>
+<li>pop3secured (POP3 over TLS or SSL)</li>
+<li>imap</li>
+<li>imapsecured (IMAP over TLS or SSL)</li>
+<li>managesieve</li>
+<li>managesievesecured (Managesieve over TLS or SSL)</li>
+<li>deliver (deliver received email to local mailbox)</li>
+<li>sogo (SOGo groupware)</li>
+</ul>
+</li>
+<li>
+<p>For LDAP backends, you're free to add custom service names, because
+  the LDAP attribute name used to store service names supports storing
+  multiple values and we don't need to change LDAP schema.</p>
+</li>
+<li>
+<p>For SQL backends, column <code>enable&lt;service&gt;</code> in SQL table
+  <code>vmail.mailbox</code> must be present, if not, specified service name will
+  be silently ignored.</p>
+</li>
+</ul>
+</div>
+</div>
+
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code class="put">POST</code> <code class="url">/api/user/&lt;mail&gt;/change_email/&lt;new_mail&gt;</code> <code class="comment">Change user's email address (from '&lt;mail&gt;' to '&lt;new_mail&gt;')</code></p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code class="put">PUT</code> <code class="url">/api/users/&lt;domain&gt;</code> <code class="comment">Update profiles of all users under domain</code> <code class="has_params">Parameters</code></p>
+<div class="params">
+
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Comment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>accountStatus</code></td>
+<td>Account status. Possible value is: active, disabled.</td>
+</tr>
+<tr>
+<td><code>password</code></td>
+<td>Password</td>
+</tr>
+<tr>
+<td><code>language</code></td>
+<td>Preferred language of iRedAdmin web UI</td>
+</tr>
+<tr>
+<td><code>transport</code></td>
+<td>Per-user transport</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code class="post">POST</code> <code class="url">/api/verify_password/user/&lt;mail&gt;</code> <code class="comment">Verify given (plain) password against the one stored in SQL/LDAP</code> <code class="has_params">Parameters</code> </p>
+<div class="params params_user">
+
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>Password verification is limited to global domain admin.</p>
+</div>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Summary</th>
+<th>Sample Usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>password</code></td>
+<td>Plain password</td>
+<td><code>password=u0tBF82cIV@vi8Gme</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+
+</div>
+<h3 class="toggle" id="mailing-list">Mailing List</h3>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>Mailing list is only available in OpenLDAP backend. For SQL backends,
+please use mail alias account as mailing list.</p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code class="get">GET</code> <code class="url">/api/maillist/&lt;mail&gt;</code> <code class="comment">Get profile of an existing mailing list account</code></p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code class="post">POST</code> <code class="url">/api/maillist/&lt;mail&gt;</code> <code class="comment">Create a new mailing list</code> <code class="has_params">Parameters</code></p>
+<div class="params">
+
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Summary</th>
+<th>Sample Usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>name</code></td>
+<td>Display name</td>
+<td><code>name=My List Name</code></td>
+</tr>
+<tr>
+<td><code>accessPolicy</code></td>
+<td>Defines who can send email to this mail alias account</td>
+<td><code>accessPolicy=public</code></td>
+</tr>
+<tr>
+<td><code>members</code></td>
+<td>Members of mailing list. Multiple members must be separated by comma.</td>
+<td><code>members=user1@domain.com,user2@domain.com</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code class="delete">DELETE</code> <code class="url">/api/maillist/&lt;mail&gt;</code> <code class="comment">Delete an existing mailing list</code></p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code class="put">PUT</code> <code class="url">/api/maillist/&lt;mail&gt;</code> <code class="comment">Update profile of an existing mailing list</code> <code class="has_params">Parameters</code></p>
+<div class="params">
+
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Summary</th>
+<th>Sample Usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>name</code></td>
+<td>display name</td>
+<td><code>name=My List Name</code></td>
+</tr>
+<tr>
+<td><code>accessPolicy</code></td>
+<td>Defines who can send email to this mailing list</td>
+<td><code>accessPolicy=public</code></td>
+</tr>
+<tr>
+<td><code>members</code></td>
+<td>Members of mailing list. Multiple members must be separated by comma. Conflict with parameter <code>addMember</code> and <code>removeMember</code>.</td>
+<td><code>members=user1@domain.com,user2@domain.com</code></td>
+</tr>
+<tr>
+<td><code>addMember</code></td>
+<td>Add new members of mailing list. Multiple members must be separated by comma. Conflict with parameter <code>members</code>.</td>
+<td><code>addMember=user1@domain.com,user2@domain.com</code></td>
+</tr>
+<tr>
+<td><code>removeMember</code></td>
+<td>Remove existing members of mailing list. Multiple members must be separated by comma. Conflict with parameter <code>members</code>.</td>
+<td><code>removeMember=user1@domain.com,user2@domain.com</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+
+</div>
+<h3 class="toggle" id="mail-alias">Mail Alias</h3>
+<div class="admonition api">
+<p class="admonition-title"><code class="get">GET</code> <code class="url">/api/alias/&lt;mail&gt;</code> <code class="comment">Get profile of an existing mail alias</code></p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code class="post">POST</code> <code class="url">/api/alias/&lt;mail&gt;</code> <code class="comment">Create a new mail alias</code> <code class="has_params">Parameters</code></p>
+<div class="params">
+
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Summary</th>
+<th>Sample Usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>name</code></td>
+<td>Display name</td>
+<td><code>name=My List Name</code></td>
+</tr>
+<tr>
+<td><code>accessPolicy</code></td>
+<td>Defines who can send email to this mail alias account</td>
+<td><code>accessPolicy=public</code></td>
+</tr>
+<tr>
+<td><code>members</code></td>
+<td>Members of mail alias. Multiple members must be separated by comma.</td>
+<td><code>members=user1@domain.com,user2@domain.com</code></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p><code>accessPolicy</code> for mail alias account is only available for SQL backends.</p>
+</div>
+</div>
+
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code class="delete">DELETE</code> <code class="url">/api/alias/&lt;mail&gt;</code> <code class="comment">Delete an existing mail alias</code></p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code class="put">PUT</code> <code class="url">/api/alias/&lt;mail&gt;</code> <code class="comment">Update profile of an existing mail alias</code> <code class="has_params">Parameters</code></p>
+<div class="params">
+
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p><code>accessPolicy</code> for mail alias account is only available for SQL backends.</p>
+</div>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Summary</th>
+<th>Sample Usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>name</code></td>
+<td>Display name</td>
+<td><code>name=My List Name</code></td>
+</tr>
+<tr>
+<td><code>accessPolicy</code></td>
+<td>Defines who can send email to this mail alias account</td>
+<td><code>accessPolicy=public</code></td>
+</tr>
+<tr>
+<td><code>members</code></td>
+<td>Members of mail alias. Multiple members must be separated by comma. Conflict with parameter <code>addMember</code> and <code>removeMember</code>.</td>
+<td><code>members=user1@domain.com,user2@domain.com</code></td>
+</tr>
+<tr>
+<td><code>addMember</code></td>
+<td>Add new members of mail alias. Multiple members must be separated by comma. Conflict with parameter <code>members</code>.</td>
+<td><code>addMember=user1@domain.com,user2@domain.com</code></td>
+</tr>
+<tr>
+<td><code>removeMember</code></td>
+<td>Remove existing members of mail alias. Multiple members must be separated by comma. Conflict with parameter <code>members</code>.</td>
+<td><code>removeMember=user1@domain.com,user2@domain.com</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code class="put">POST</code> <code class="url">/api/alias/&lt;mail&gt;/change_email/&lt;new_mail&gt;</code> <code class="comment">Change email address of alias account (from '&lt;mail&gt;' to '&lt;new_mail&gt;')</code></p>
+</div>
+<h3 class="toggle" id="spam-policy">Spam Policy</h3>
+<div class="admonition api">
+<p class="admonition-title"><code class="get">GET</code> <code class="url">/api/spampolicy/global</code> <code class="comment">Get global spam policy</code></p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code class="get">GET</code> <code class="url">/api/spampolicy/domain/&lt;domain&gt;</code> <code class="comment">Get per-domain spam policy</code></p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code class="get">GET</code> <code class="url">/api/spampolicy/user/&lt;mail&gt;</code> <code class="comment">Get per-user spam policy</code></p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code class="delete">DELETE</code> <code class="url">/api/spampolicy/global</code> <code class="comment">Delete global spam policy</code></p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code class="delete">DELETE</code> <code class="url">/api/spampolicy/domain/&lt;domain&gt;</code> <code class="comment">Delete per-domain spam policy</code></p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code class="delete">DELETE</code> <code class="url">/api/spampolicy/user/&lt;mail&gt;</code> <code class="comment">Delete per-user spam policy</code></p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code class="put">PUT</code> <code class="url">/api/spampolicy/global</code> <code class="comment">Set global spam policy</code> <code class="has_params_spampolicy">Parameters</code></p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code class="put">PUT</code> <code class="url">/api/spampolicy/domain/&lt;domain&gt;</code> <code class="comment">Set per-domain spam policy</code> <code class="has_params_spampolicy">Parameters</code></p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code class="put">PUT</code> <code class="url">/api/spampolicy/user/&lt;mail&gt;</code> <code class="comment">Set per-user spam policy</code> <code class="has_params_spampolicy">Parameters</code></p>
+<div class="params params_spampolicy">
+
+<p>Parameters available for global, per-domain, per-user spam policies.</p>
+<blockquote>
+<p>Per-user policy has the highest priority, then per-domain policy, then global policy.</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Summary</th>
+<th>Sample Usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>bypass_spam_checks</code></td>
+<td>Bypass spam checks</td>
+<td><code>bypass_spam_checks=yes</code> (default is <code>no</code>)</td>
+</tr>
+<tr>
+<td><code>bypass_virus_checks</code></td>
+<td>Bypass virus checks</td>
+<td><code>bypass_virus_checks=yes</code> (default is <code>no</code>)</td>
+</tr>
+<tr>
+<td><code>bypass_banned_checks</code></td>
+<td>Bypass banned file type checks</td>
+<td><code>bypass_banned_checks=yes</code> (default is <code>no</code>)</td>
+</tr>
+<tr>
+<td><code>bypass_header_checks</code></td>
+<td>Bypass bad header checks</td>
+<td><code>bypass_header_checks=yes</code> (default is <code>no</code>)</td>
+</tr>
+<tr>
+<td><code>quarantine_spam</code></td>
+<td>Quarantine detected spam into SQL database</td>
+<td><code>quarantine_spam=yes</code> (default is <code>no</code>)</td>
+</tr>
+<tr>
+<td><code>quarantine_virus</code></td>
+<td>Quarantine detected virus into SQL database</td>
+<td><code>quarantine_virus=no</code> (default is <code>yes</code>)</td>
+</tr>
+<tr>
+<td><code>quarantine_banned</code></td>
+<td>Quarantine email with banned file type into SQL database</td>
+<td><code>quarantine_banned=yes</code> (default is <code>no</code>)</td>
+</tr>
+<tr>
+<td><code>quarantine_bad_header</code></td>
+<td>Quarantine email with bad header into SQL database</td>
+<td><code>quarantine_bad_header=yes</code> (default is <code>no</code>)</td>
+</tr>
+<tr>
+<td><code>prefix_spam_in_subject</code></td>
+<td>Prefix string <code>[SPAM]</code> in mail subject if it's spam</td>
+<td><code>prefix_spam_in_subject=yes</code> (default is <code>no</code>)</td>
+</tr>
+<tr>
+<td><code>always_insert_x_spam_headers</code></td>
+<td>Always insert <code>X-Spam-*</code> headers in email. It contains spam score and matched SpamAssassin rules. <strong>Don't enable this unless you want to debug spam checking.</strong></td>
+<td><code>always_insert_x_spam_headers=yes</code> (default is <code>no</code>)</td>
+</tr>
+<tr>
+<td><code>spam_score</code></td>
+<td>Set a preferred spam score, if scanned email has higher score than this one, it will be marked as spam.</td>
+<td><code>spam_score=4</code> (defaults to use system setting defined in Amavisd config file.)</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+</div>
+<h3 class="toggle" id="throttling">Throttling</h3>
+<div class="admonition api">
+<p class="admonition-title"><code class="get">GET</code> <code class="url">/api/throttle/global/inbound</code> <code class="comment">Get global inbound throttle settings</code></p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code class="post">POST</code> <code class="url">/api/throttle/global/inbound</code> <code class="comment">Set global inbound throttle settings</code> <code class="has_params_throttle">Parameters</code></p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code class="get">GET</code> <code class="url">/api/throttle/global/outbound</code> <code class="comment">Get global outbound throttle settings</code></p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code class="post">POST</code> <code class="url">/api/throttle/global/outbound</code> <code class="comment">Set global inbound throttle settings</code> <code class="has_params_throttle">Parameters</code></p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code class="get">GET</code> <code class="url">/api/throttle/&lt;domain&gt;/inbound</code> <code class="comment">Get domain inbound throttle settings</code></p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code class="post">POST</code> <code class="url">/api/throttle/&lt;domain&gt;/inbound</code> <code class="comment">Set domain inbound throttle settings</code> <code class="has_params_throttle">Parameters</code></p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code class="get">GET</code> <code class="url">/api/throttle/&lt;domain&gt;/outbound</code> <code class="comment">Get domain outbound throttle settings</code></p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code class="post">POST</code> <code class="url">/api/throttle/&lt;domain&gt;/outbound</code> <code class="comment">Set domain outbound throttle settings</code> <code class="has_params_throttle">Parameters</code></p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code class="get">GET</code> <code class="url">/api/throttle/&lt;mail&gt;/inbound</code> <code class="comment">Get user inbound throttle settings</code></p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code class="post">POST</code> <code class="url">/api/throttle/&lt;mail&gt;/inbound</code> <code class="comment">Set user inbound throttle settings</code> <code class="has_params_throttle">Parameters</code></p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code class="get">GET</code> <code class="url">/api/throttle/&lt;mail&gt;/outbound</code> <code class="comment">Get user outbound throttle settings</code></p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code class="post">POST</code> <code class="url">/api/throttle/&lt;mail&gt;/outbound</code> <code class="comment">Set user outbound throttle settings</code> <code class="has_params_throttle">Parameters</code></p>
+<div class="params params_throttle">
+
+<p>Parameters available for global, per-domain, per-user throttle settings.</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Summary</th>
+<th>Sample Usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>period</code> *</td>
+<td>Period of time, in seconds</td>
+<td><code>period=3600</code> (one hour)</td>
+</tr>
+<tr>
+<td><code>msg_size</code></td>
+<td>Max size of single email, in bytes</td>
+<td><code>msg_size=10485760</code> (10 MB)</td>
+</tr>
+<tr>
+<td><code>max_msgs</code></td>
+<td>Number of max inbound emails</td>
+<td><code>max_msgs=20</code> (up to 20 messages)</td>
+</tr>
+<tr>
+<td><code>max_quota</code></td>
+<td>Cumulative size of inbound or outbound emails, in bytes</td>
+<td><code>max_quota=1048576000</code> (1 GB)</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+</div>
+<h3 class="toggle" id="greylisting">Greylisting</h3>
+<div class="admonition api">
+<p class="admonition-title"><code class="get">GET</code> <code class="url">/api/greylisting/all</code> <code class="comment">Get all existing greylisting settings</code></p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code class="get">GET</code> <code class="url">/api/greylisting/global</code> <code class="comment">Get global greylisting setting</code></p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code class="get">GET</code> <code class="url">/api/greylisting/&lt;domain&gt;</code> <code class="comment">Get per-domain greylisting setting</code></p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code class="get">GET</code> <code class="url">/api/greylisting/&lt;mail&gt;</code> <code class="comment">Get per-user greylisting setting</code></p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code class="post">POST</code> <code class="url">/api/greylisting/global</code> <code class="comment">Set global greylisting setting</code> <code class="has_params_greylisting">Parameters</code></p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code class="post">POST</code> <code class="url">/api/greylisting/&lt;domain&gt;</code> <code class="comment">Set per-domain greylisting setting</code> <code class="has_params_greylisting">Parameters</code></p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code class="post">POST</code> <code class="url">/api/greylisting/&lt;mail&gt;</code> <code class="comment">Set per-user greylisting setting</code> <code class="has_params_greylisting">Parameters</code></p>
+<div class="params params_greylisting">
+
+<p>Parameters available for global, per-domain and per-user greylisting settings.</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Summary</th>
+<th>Sample Usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>status</code></td>
+<td>Explicitly enable or disable greylisting service.</td>
+<td><code>status=enable</code> (or <code>disable</code>)</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code class="delete">DELETE</code> <code class="url">/api/greylisting/global</code> <code class="comment">Delete global greylisting setting</code></p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code class="delete">DELETE</code> <code class="url">/api/greylisting/&lt;domain&gt;</code> <code class="comment">Delete per-domain greylisting setting</code></p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code class="delete">DELETE</code> <code class="url">/api/greylisting/&lt;mail&gt;</code> <code class="comment">Delete per-user greylisting setting</code></p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code class="get">GET</code> <code class="url">/api/greylisting/global/whitelists</code> <code class="comment">Get globally whitelisted senders for greylisting service</code></p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code class="get">GET</code> <code class="url">/api/greylisting/&lt;domain&gt;/whitelists</code> <code class="comment">Get whitelisted senders for greylisting service for specified domain</code></p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code class="get">GET</code> <code class="url">/api/greylisting/&lt;mail&gt;/whitelists</code> <code class="comment">Get whitelisted senders for greylisting service for specified user</code></p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code class="post">POST</code> <code class="url">/api/greylisting/global/whitelists</code> <code class="comment">Whitelist senders for greylisting service globally</code> <code class="has_params_greylisting_whitelists">Parameters</code></p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code class="post">POST</code> <code class="url">/api/greylisting/&lt;domain&gt;/whitelists</code> <code class="comment">Whitelist senders for greylisting service for specified domain</code> <code class="has_params_greylisting_whitelists">Parameters</code></p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code class="post">POST</code> <code class="url">/api/greylisting/&lt;mail&gt;/whitelists</code> <code class="comment">Whitelist senders for greylisting services for specified user</code> <code class="has_params_greylisting_whitelists">Parameters</code></p>
+<div class="params params_greylisting_whitelists">
+
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Summary</th>
+<th>Sample Usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>senders</code></td>
+<td>Reset whitelisted senders for global greylisting service to given senders. Multiple addresses must be separated by comma. Conflicts with parameter <code>addSenders</code> and <code>removeSenders</code>.</td>
+<td><code>senders=192.168.1.0/24,172.16.10.1,@example.com</code></td>
+</tr>
+<tr>
+<td><code>addSenders</code></td>
+<td>Whitelist new senders for greylisting service globally. Multiple addresses must be separated by comma. Conflicts with parameter <code>senders</code>.</td>
+<td><code>addSenders=192.168.1.0/24,@example.com</code></td>
+</tr>
+<tr>
+<td><code>removeSenders</code></td>
+<td>Remove existing whitelisted senders for greylisting service globally. Multiple addresses must be separated by comma. Conflicts with parameter <code>senders</code>.</td>
+<td><code>removeSenders=192.168.1.0/24,@example.com</code></td>
+</tr>
+</tbody>
+</table>
+<p>Valid sender address formats:</p>
+<table>
+<thead>
+<tr>
+<th>Sender Address</th>
+<th>Comment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>192.168.2.10</code></td>
+<td>Single IP address</td>
+</tr>
+<tr>
+<td><code>192.168.1.0/24</code></td>
+<td>CIDR network</td>
+</tr>
+<tr>
+<td><code>user@example.com</code></td>
+<td>Single email address</td>
+</tr>
+<tr>
+<td><code>@example.com</code></td>
+<td>Entire domain</td>
+</tr>
+<tr>
+<td><code>@.example.com</code></td>
+<td>Entire domain and all its sub-domains</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code class="post">POST</code> <code class="url">/api/greylisting/whitelist_spf_domains</code> <code class="comment">Whitelist IP addresses and networks listed in SPF/MX DNS record of given sender domains for greylisting service globally</code> <code class="has_params">Parameters</code></p>
+<div class="params">
+
+<p>Given sender domain names are not used directly while checking whitelisting, instead, there's a cron job to query SPF and MX DNS records of given sender domains, then whitelist the IP addresses/networks listed in DNS records.</p>
+<p>Multiple domains must be separated by comma.</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Summary</th>
+<th>Sample Usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>domains</code></td>
+<td>Reset whitelisted sender domains for global greylisting service to given sender domains. Conflicts with parameters <code>addDomains</code> and <code>removeDomains</code>.</td>
+<td><code>domains=iredmail.org,gmail.com</code></td>
+</tr>
+<tr>
+<td><code>addDomains</code></td>
+<td>Add new whitelist sender domains for global greylisting service. Conflicts with parameter <code>domains</code>.</td>
+<td><code>addDomains=iredmail.org,gmail.com</code></td>
+</tr>
+<tr>
+<td><code>removeDomains</code></td>
+<td>Remove existing whitelisted sender domains for global greylisting service. Conflicts with parameter <code>domains</code>.</td>
+<td><code>removeDomains=iredmail.org,gmail.com</code></td>
+</tr>
+</tbody>
+</table>
+<!--
+<code>query_dns_immediately</code> | Query SPF/MX/A DNS records of given sender domains immediately, and whitelist returned IP/networks | <code>query_dns_immediately=yes</code>
+-->
+
+</div>
+
+</div>
+<h3 class="toggle" id="export-accounts">Export Accounts</h3>
+<h4 class="toggle" id="ldif-ldap-backend-only">LDIF (LDAP backend only)</h4>
+<div class="admonition api">
+<p class="admonition-title"><code class="get">GET</code> <code class="url">/api/ldif/domain/&lt;domain&gt;</code> <code class="comment">Export domain to LDIF</code></p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code class="get">GET</code> <code class="url">/api/ldif/catchall/&lt;domain&gt;</code> <code class="comment">Export per-domain catch-all account to LDIF</code></p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code class="get">GET</code> <code class="url">/api/ldif/admin/&lt;mail&gt;</code> <code class="comment">Export (separated) domain admin to LDIF</code></p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code class="get">GET</code> <code class="url">/api/ldif/user/&lt;mail&gt;</code> <code class="comment">Export mail user to LDIF</code></p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code class="get">GET</code> <code class="url">/api/ldif/maillist/&lt;mail&gt;</code> <code class="comment">Export mailing list account to LDIF</code></p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code class="get">GET</code> <code class="url">/api/ldif/alias/&lt;mail&gt;</code> <code class="comment">Export mail alias account to LDIF</code></p>
+</div>
+<h2 id="changelog">ChangeLog</h2>
+<h3 id="iredadmin-pro-sql-280-iredadmin-pro-ldap-30">iRedAdmin-Pro-SQL-2.8.0, iRedAdmin-Pro-LDAP-3.0</h3>
+<ul>
+<li>NEW: Able to list all managed domains (<code>/domains</code>).</li>
+<li>NEW: Able to manage per-usre enabled mail services (<code>/user/&lt;mail&gt;</code>).</li>
+<li>NEW: Able to promote mail user to be a global admin (<code>/user/&lt;mail&gt;</code>).</li>
+<li>
+<p>Enhancement: Return managed domain names while getting user (must
+  have admin privilege) or admin profile.</p>
+</li>
+<li>
+<p>Fixed issues:</p>
+<ul>
+<li>It always requires password while updating domain admin profile.</li>
+</ul>
+</li>
+<li>
+<p>iRedAdmin-Pro-LDAP-3.0:</p>
+<ul>
+<li>Enhancement: Return per-domain catchall addresses in domain profile.</li>
+<li>
+<p>LDAP attribute 'accountSetting' is now converted to a dictionary
+  in returned JSON.</p>
+<ul>
+<li>Old value: <code>{'accountSetting': ['create_new_domains:yes', 'create_max_domains:5', ...], ...}</code></li>
+<li>New value: <code>{'accountSetting': {'create_new_domains': 'yes', 'create_max_domains': 5, ...}}</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="iredadmin-pro-sql-270-iredadmin-pro-ldap-290">iRedAdmin-Pro-SQL-2.7.0, iRedAdmin-Pro-LDAP-2.9.0</h3>
+<ul>
+<li>New: Able to manage global, per-domain and per-user greylisting settings,
+  whitelist senders, and global whitelisted SPF domains.</li>
+<li>iRedAdmin-Pro-SQL-2.7.0:<ul>
+<li>Variable names changed in returned JSON data of user profile (<code>GET /api/user/&lt;mail&gt;</code>):<ul>
+<li>name <code>forwarding</code> is replaced by <code>forwardings</code>, and it's now a list
+  object of user forwarding email addresses (was a string, multiple
+  addresses were separated by comma).</li>
+</ul>
+</li>
+<li>Variable names in returned JSON data of mail alias profile (<code>GET /api/alias/&lt;mail&gt;</code>):<ul>
+<li>name <code>islist</code> is gone.</li>
+<li>name <code>goto</code> is replaced by <code>members</code>, and it's now a list object of
+  member email addresses (was a string, multiple addresses were separated
+  by comma).</li>
+</ul>
+</li>
+<li>Variable names in returned JSON data of domain profile (<code>GET /api/domain/&lt;domain&gt;</code>):<ul>
+<li>name <code>catchall</code> always presents, and it's now a list object of catch-all
+  email address (was a string, multiple addresses were separated by comma).</li>
+</ul>
+</li>
+<li>Fixed bugs:<ul>
+<li>Cannot set per-user alias addresses while creating new mail user.</li>
+<li>Cannot add or remove per-user alias addresses while updating user profile.</li>
+<li>User mailbox quota was removed while updating user profile.</li>
+<li>Not use default transport setting while creating new domain.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="iredadmin-pro-sql-260-iredadmin-pro-ldap-280">iRedAdmin-Pro-SQL-2.6.0, iRedAdmin-Pro-LDAP-2.8.0</h3>
+<ul>
+<li>Variable names in returned JSON data has been changed to:
+  <code>{'_success': ..., '_msg': ...}</code> (was <code>{'success': ..., 'msg': ...}</code>).</li>
+<li>Some variable names have been renamed:<ul>
+<li><code>cn</code> -&gt; <code>name</code>.</li>
+<li><code>mailQuota</code> -&gt; <code>quota</code></li>
+<li><code>preferredLanguage</code> -&gt; <code>language</code></li>
+</ul>
+</li>
+</ul>
+<script src="./js/jquery-1.12.3.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+    /* Collapse all parameters by default */
+    $('.params').hide();
+
+    /* Expand/Collapse ALL parameters */
+    $('.toggle_all').bind('click', function(){$('.params').toggle();});
+
+    /* Expand/Collapse parameters under same title/category */
+    $('.toggle').on('click', function() {
+        $(this).nextUntil('.toggle').children('.params').toggle();
+    });
+
+    /* Expand/Collapse parameter for current API */
+    $('.has_params').on('click', function() {
+        $(this).parent().nextUntil('.has_params').toggle();
+    });
+
+    /* Expand/Collapse specific parameters */
+    $('.has_params_throttle').bind('click', function(){$('.params_throttle').toggle();});
+    $('.has_params_greylisting').bind('click', function(){$('.params_greylisting').toggle();});
+    $('.has_params_greylisting_whitelists').bind('click', function(){$('.params_greylisting_whitelists').toggle();});
+    $('.has_params_spampolicy').bind('click', function(){$('.params_spampolicy').toggle();});
+});
+</script><div class="footer">
+    <p style="text-align: center; color: grey;">All documents are available in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://bitbucket.org/zhb/iredmail-docs/get/tip.tar.bz2">download the latest version</a> for offline reading. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
+</div>
+<script type="text/javascript">
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-3293801-21', 'auto');
+  ga('send', 'pageview');
+</script>
+</body></html>
