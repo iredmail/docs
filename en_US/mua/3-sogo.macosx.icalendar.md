@@ -37,11 +37,11 @@
 
 3: on right panel, click `Add Other Account` at the bottom
 
-![](./images/sogo/macosx.add.other.account.png)
+![](./images/sogo/macosx.add.other.account.png){: width="700px" }
 
 4: choose `Add a CalDAV account` in popup window
 
-![](./images/sogo/macosx.choose.account.type.caldav.png)
+![](./images/sogo/macosx.choose.account.type.caldav.png){: width="700px" }
 
 5: Fill up the form with your server address and email account credential
 
@@ -53,11 +53,11 @@
 * Port: `443`
 * Use SSL: checked
 
-![](./images/sogo/macosx.add.caldav.account.png)
+![](./images/sogo/macosx.add.caldav.account.png){: width="700px" }
 
 6: Click `Create` button to create account. You can also enable Reminders (task
    service) if you want.
 
-![](./images/sogo/macosx.add.reminder.png)
+![](./images/sogo/macosx.add.reminder.png){: width="700px" }
 
 That's all.

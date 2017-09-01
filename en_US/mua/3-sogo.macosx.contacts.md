@@ -33,22 +33,25 @@
 
 2: Click `Internet Accounts`:
 
-![](./images/sogo/macosx.internet.accounts.png)
+![](./images/sogo/macosx.internet.accounts.png){: width="700px" }
 
 3: on right panel, click `Add Other Account` at the bottom
 
-![](./images/sogo/macosx.add.other.account.png)
+![](./images/sogo/macosx.add.other.account.png){: width="700px" }
 
 4: choose `Add a CardDAV account` in popup window
 
-![](./images/sogo/macosx.choose.account.type.carddav.png)
+![](./images/sogo/macosx.choose.account.type.carddav.png){: width="700px" }
 
-5: Fill up the form with your server address and email account credential
+5: Choose `Advanced` in the `Account Type` drop-down menu, then fill up the
+   form with your server address and email account credential
 
 * User Name: `your full email address`
 * Password: `password of your email account`
-* Server Address: `https://[server name or IP address]/SOGo/dav/[your full email address]`
+* Server Address: `your server name`. For example, `mail.iredmail.org`.
+* Server Path: `/SOGo/dav/[your full email address]`
+* Port: `443`, check `Use SSL`.
 
-![](./images/sogo/macosx.add.carddav.account.png)
+![](./images/sogo/macosx.add.carddav.account.png){: width="700px" }
 
 That's all.

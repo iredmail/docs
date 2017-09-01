@@ -36,20 +36,20 @@
 ```
 
 * Articles will be ordered automatically, if you want to specify the order,
-  prepend a digit number and `-` in article files, script `convert.sh` will
+  prepend a digit number and `-` in article file name, script `convert.sh` will
   remove this prefix during converting Markdown source file to HTML file. e.g.
   `1-file1.md`, `2-file2.md`.
 * If you don't want to show an article in index page, prepend `0-` in its
-  file name as shown above.
+  file name like below.
 
 ```
 - chapter_name_x/
     |- _title.md
+    |- 0-hidden_article.md  # This article will not be displayed on index page
     |- 1-article-a.md       # This article will be displayed as first one on index page
     |- 2-article-b.md       # 2nd article on index page
     |- 3-article-c.md       # 3rd article on index page
     ...
-    |- 0-hidden_article.md  # This article will not be displayed on index page
 ```
 
 * The first line in article file will be used as article title (string `# `
