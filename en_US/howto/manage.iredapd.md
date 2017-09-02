@@ -341,6 +341,12 @@ python greylisting_admin.py --disable --to 'user@example.com'
 python greylisting_admin.py --disable --from '@gmail.com' --to 'user@example.com'
 ```
 
+* Disable greylisting for sender IP:
+
+```
+python greylisting_admin.py --disable --from '45.56.127.226'
+```
+
 * Delete greylisting setting for emails which are sent from anyone to local domain `test.com`:
 
 ```
