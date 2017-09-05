@@ -25,7 +25,7 @@ iRedMail ships 2 scripts to help you create many mail users quickly.
     * Password scheme is defined in variable `PASSWORD_SCHEME` (or `CRYPT_MECH` in
       old iRedMail releases), default is `SSHA`.
     * Per-user mailbox quota is defined in variable `QUOTA`, default is
-      `1048576000` (100 MB, equals to 100 * 1024 * 1024).
+      `104857600` (100 MB, equals to 100 * 1024 * 1024).
     * Maildir path is hashed like  `domain.ltd/u/s/e/username-20150929`. If you
       prefer `domain.ltd/username/`, please set `MAILDIR_STYLE='normal'`.
     * Mailbox storage path is defined in variable `STORAGE_BASE_DIRECTORY`, default
