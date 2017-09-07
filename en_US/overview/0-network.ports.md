@@ -2,13 +2,13 @@
 
 Port | Service | Software | Comment | Allow Public Access?
 --- |--- |--- |--- |---
-25 | smtp | Postfix | Normal smtp service, used for server-to-server communication. | YES
+25 | smtp | Postfix | Normal smtp service, used for server-to-server communication. __WARNING__: This port __MUST__ be open, otherwise you cannot receive email sent from other servers. | YES
 587 | submission | Postfix | a.k.a. SMTP over TLS. Used by end users to send/submit email. | YES (open to your end users)
 110 | pop3 | Dovecot | Used by end users to retrieve emails via POP3 protocol, secure connection over STARTTLS is available by default. | YES (open to your end users)
 995 | pop3s | Dovecot | Used by end users to restrieve emails via POP3 protocol over SSL. Port 110 with STARTTLS is recommended. | YES (open to your end users)
 143 | imap |Dovecot | Used by end users to retrieve emails via IMAP protocol, secure connection over STARTTLS is available by default. | YES (open to your end users)
 993 | imaps | Dovecot | Used by end users to restrieve emails via IMAP protocol over SSL. Port 143 with STARTTLS is recommended. | YES (open to your end users)
-4190 | managesieve | Dovecot | Sieve service used by end users to manage mail filters. Note: in old iRedMail releases, it's port 2000 (deprecated and not even listed in `/etc/services` file). | YES (open to your end users, or disabled and force users to manage mail filters with webmail)
+4190 | managesieve | Dovecot | Sieve service used by end users to manage mail filters. Note: in old iRedMail releases, it's port 2000 (deprecated and not even listed in `/etc/services` file). | NO (disabled by default and users are forced to manage mail filters with webmail)
 80 | http | Apache/Nginx | Web service | YES (open to your webmail users)
 443 | https | Apache/Nginx | Web service over over SSL, secure connection. SOGo groupware provides Exchange ActiveSync (EAS) support through port 443. | YES (open to your webmail users)
 3306 | mysql | MySQL/MariaDB | MySQL/MariaDB database service | NO (listen on `127.0.0.1` by default)

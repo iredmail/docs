@@ -31,7 +31,7 @@
 <td>25</td>
 <td>smtp</td>
 <td>Postfix</td>
-<td>Normal smtp service, used for server-to-server communication.</td>
+<td>Normal smtp service, used for server-to-server communication. <strong>WARNING</strong>: This port <strong>MUST</strong> be open, otherwise you cannot receive email sent from other servers.</td>
 <td>YES</td>
 </tr>
 <tr>
@@ -74,7 +74,7 @@
 <td>managesieve</td>
 <td>Dovecot</td>
 <td>Sieve service used by end users to manage mail filters. Note: in old iRedMail releases, it's port 2000 (deprecated and not even listed in <code>/etc/services</code> file).</td>
-<td>YES (open to your end users, or disabled and force users to manage mail filters with webmail)</td>
+<td>NO (disabled by default and users are forced to manage mail filters with webmail)</td>
 </tr>
 <tr>
 <td>80</td>
