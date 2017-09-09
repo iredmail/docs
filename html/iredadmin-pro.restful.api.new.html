@@ -359,9 +359,9 @@ RESTFUL_API_CLIENTS = ['172.16.244.1', ...]
 <td><code>removeService=self-service</code></td>
 </tr>
 <tr>
-<td><code>removeAllServices</code></td>
-<td>Disable all services (including mail service)</td>
-<td><code>removeAllServices=</code> (empty value)</td>
+<td><code>services</code></td>
+<td>Reset all services. If empty, all existing services will be removed.</td>
+<td><code>services=mail,self-service</code></td>
 </tr>
 <tr>
 <td><code>disableDomainProfile</code></td>
@@ -1596,6 +1596,7 @@ please use mail alias account as mailing list.</p>
 <li>While updating domain profile (<code>PUT /api/domain/&lt;domain&gt;</code>):<ul>
 <li><code>enableService</code> was renamed to <code>addService</code></li>
 <li><code>disableService</code> was renamed to <code>removeService</code></li>
+<li><code>removeAllServices</code> was renamed to <code>services</code></li>
 </ul>
 </li>
 </ul>

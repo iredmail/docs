@@ -140,7 +140,7 @@ Notes:
     `outboundRelay` | Per-domain outbound relay. Set an empty value to disable outbound relay. | `outboundRelay=smtp:[192.168.1.2]:25` or `outboundRelay=` (disable outbound relay)
     `addService` | Enable new services. Multiple services must be separated by comma. Available services are listed below. | `addService=self-service`
     `removeService` | Disable existing services. Multiple services must be separated by comma. Available services are listed below. | `removeService=self-service`
-    `removeAllServices` | Disable all services (including mail service) | `removeAllServices=` (empty value)
+    `services` | Reset all services. If empty, all existing services will be removed. | `services=mail,self-service`
     `disableDomainProfile` | disable given domain profiles. Normal admin cannot view and update disabled profiles in domain profile page. Available domain profiles are listed below. | `disableDomainProfile=bcc,relay,aliases`
     `enableDomainProfile` | enable given domain profiles. Normal admin can view and update disabled profiles in domain profile page. Available domain profiles are listed below. | `enableDomainProfile=bcc,relay,aliases`
     `disableUserProfile` | disable given user profiles. Normal admin cannot view and update disabled profiles in user profile page. Available user profiles are listed below. | `disableUserProfile=bcc,relay,aliases`
@@ -612,6 +612,7 @@ Notes:
     * While updating domain profile (`PUT /api/domain/<domain>`):
         * `enableService` was renamed to `addService`
         * `disableService` was renamed to `removeService`
+        * `removeAllServices` was renamed to `services`
 
 ### iRedAdmin-Pro-SQL-2.8.0, iRedAdmin-Pro-LDAP-3.0
 
