@@ -1,5 +1,7 @@
 # Install iRedAdmin on Red Hat Enterprise Linux, CentOS, Scientific Linux
 
+[TOC]
+
 > This tutorial is used to install iRedAdmin from scratch, running under Apache
 > web server.
 >

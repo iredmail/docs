@@ -1,5 +1,7 @@
 # Install iRedAdmin on Debian, Ubuntu
 
+[TOC]
+
 > This tutorial is used to install iRedAdmin from scratch, running under Apache
 > web server.
 >
