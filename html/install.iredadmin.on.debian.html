@@ -24,10 +24,8 @@ installed, you can simply migrate it to the latest iRedAdmin by follow our short
 tutorial: <a href="./migrate.or.upgrade.iredadmin.html">Migrate or upgrade iRedAdmin</a>.</p>
 </blockquote>
 <h2 id="requirements">Requirements</h2>
-<blockquote>
 <p>iRedMail will install all required packages for you, you don't need to
-install them manually.</p>
-</blockquote>
+install them manually, below info just for your reference.</p>
 <ul>
 <li>
 <p>The latest iRedMail release. <a href="../download.html">Download the latest iRedMail</a>.
@@ -57,11 +55,11 @@ install them manually.</p>
   to get download link of iRedAdmin-Pro.</p>
 </li>
 <li>
-<p>Copy iRedAdmin to <code>/usr/share/apache2/</code>, set correct file permissions, and create symbol link.</p>
+<p>Copy iRedAdmin to <code>/opt/www</code>, set correct file permissions, and create symbol link.</p>
 </li>
 </ul>
-<pre><code># tar xjf iRedAdmin-x.y.z.tar.bz2 -C /usr/share/apache2/
-# cd /usr/share/apache2/
+<pre><code># tar xjf iRedAdmin-x.y.z.tar.bz2 -C /opt/www/
+# cd /opt/www/
 # chown -R iredadmin:iredadmin iRedAdmin-x.y.z
 # chmod -R 0555 iRedAdmin-x.y.z
 # ln -s iRedAdmin-x.y.z iredadmin
@@ -81,7 +79,7 @@ WSGIProcessGroup iredadmin
 
 AddType text/html .py
 
-&lt;Directory /usr/share/apache2/iredadmin/&gt;
+&lt;Directory /opt/www/iredadmin/&gt;
     Order deny,allow
     Allow from all
 &lt;/Directory&gt;
@@ -91,15 +89,15 @@ AddType text/html .py
 <li>Edit <code>/etc/apache2/sites-enabled/default-ssl</code>, make iredadmin accessible via HTTPS.
   Add below lines before <code>&lt;/VirtualHost&gt;</code>:</li>
 </ul>
-<pre><code>WSGIScriptAlias /iredadmin /usr/share/apache2/iredadmin/iredadmin.py/
-Alias /iredadmin/static /usr/share/apache2/iredadmin/static/
+<pre><code>WSGIScriptAlias /iredadmin /opt/www/iredadmin/iredadmin.py/
+Alias /iredadmin/static /opt/www/iredadmin/static/
 </code></pre>
 
 <ul>
-<li>Restart apache to enable mod_wsgi:</li>
+<li>Enable mod_wsgi module and restart Apache service:</li>
 </ul>
 <pre><code># a2enmod wsgi
-# /etc/init.d/apache2 restart
+# service apache2 restart
 </code></pre>
 
 <h2 id="create-required-mysql-database-and-grant-privileges">Create required MySQL database and grant privileges</h2>
@@ -109,7 +107,7 @@ Alias /iredadmin/static /usr/share/apache2/iredadmin/static/
 <pre><code># mysql -uroot -p
 mysql&gt; CREATE DATABASE iredadmin DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 mysql&gt; USE iredadmin;
-mysql&gt; SOURCE /usr/share/apache2/iredadmin/docs/samples/iredadmin.sql;
+mysql&gt; SOURCE /opt/www/iredadmin/docs/samples/iredadmin.sql;
 </code></pre>
 
 <ul>
@@ -133,7 +131,7 @@ mysql&gt; FLUSH PRIVILEGES;
 </ul>
 </li>
 </ul>
-<pre><code># cd /usr/share/apache2/iredadmin/
+<pre><code># cd /opt/www/iredadmin/
 # cp settings.py.[backend].sample settings.py
 # chown iredadmin:iredadmin settings.py
 # chmod 0400 settings.py
@@ -148,7 +146,7 @@ mysql&gt; FLUSH PRIVILEGES;
 <p>Restart apache web server.</p>
 </li>
 </ul>
-<pre><code># /etc/init.d/apache2 restart
+<pre><code># service apache2 restart
 </code></pre>
 
 <h2 id="access-iredadmin">Access iRedAdmin</h2>

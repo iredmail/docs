@@ -9,8 +9,8 @@
 
 ## Requirements
 
-> iRedMail will install all required packages for you, you don't need to
-> install them manually.
+iRedMail will install all required packages for you, you don't need to
+install them manually, below info just for your reference.
 
 * The latest iRedMail release. [Download the latest iRedMail](../download.html).
   NOTE: You must have iRedMail installed on server first.
@@ -32,11 +32,11 @@
   If you're trying to install iRedAdmin-Pro, please [contact us](../contact.html)
   to get download link of iRedAdmin-Pro.
 
-* Copy iRedAdmin to `/usr/share/apache2/`, set correct file permissions, and create symbol link.
+* Copy iRedAdmin to `/opt/www`, set correct file permissions, and create symbol link.
 
 ```
-# tar xjf iRedAdmin-x.y.z.tar.bz2 -C /usr/share/apache2/
-# cd /usr/share/apache2/
+# tar xjf iRedAdmin-x.y.z.tar.bz2 -C /opt/www/
+# cd /opt/www/
 # chown -R iredadmin:iredadmin iRedAdmin-x.y.z
 # chmod -R 0555 iRedAdmin-x.y.z
 # ln -s iRedAdmin-x.y.z iredadmin
@@ -55,7 +55,7 @@ WSGIProcessGroup iredadmin
 
 AddType text/html .py
 
-<Directory /usr/share/apache2/iredadmin/>
+<Directory /opt/www/iredadmin/>
     Order deny,allow
     Allow from all
 </Directory>
@@ -65,15 +65,15 @@ AddType text/html .py
   Add below lines before `</VirtualHost>`:
 
 ```
-WSGIScriptAlias /iredadmin /usr/share/apache2/iredadmin/iredadmin.py/
-Alias /iredadmin/static /usr/share/apache2/iredadmin/static/
+WSGIScriptAlias /iredadmin /opt/www/iredadmin/iredadmin.py/
+Alias /iredadmin/static /opt/www/iredadmin/static/
 ```
 
-* Restart apache to enable mod_wsgi:
+* Enable mod_wsgi module and restart Apache service:
 
 ```
 # a2enmod wsgi
-# /etc/init.d/apache2 restart
+# service apache2 restart
 ```
 
 ## Create required MySQL database and grant privileges
@@ -84,7 +84,7 @@ Alias /iredadmin/static /usr/share/apache2/iredadmin/static/
 # mysql -uroot -p
 mysql> CREATE DATABASE iredadmin DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 mysql> USE iredadmin;
-mysql> SOURCE /usr/share/apache2/iredadmin/docs/samples/iredadmin.sql;
+mysql> SOURCE /opt/www/iredadmin/docs/samples/iredadmin.sql;
 ```
 
 * Grant privileges to iredadmin user and set password for it. WARNING: Here we
@@ -106,7 +106,7 @@ mysql> FLUSH PRIVILEGES;
     * settings.py.pgsql.sample: sample config file for PostgreSQL backend
 
 ```
-# cd /usr/share/apache2/iredadmin/
+# cd /opt/www/iredadmin/
 # cp settings.py.[backend].sample settings.py
 # chown iredadmin:iredadmin settings.py
 # chmod 0400 settings.py
@@ -118,7 +118,7 @@ mysql> FLUSH PRIVILEGES;
 * Restart apache web server.
 
 ```
-# /etc/init.d/apache2 restart
+# service apache2 restart
 ```
 
 ## Access iRedAdmin

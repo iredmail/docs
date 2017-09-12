@@ -14,8 +14,8 @@ NOTE: This tutorial must be rewritten to use Nginx as web server since OpenBSD
 
 ## Requirements
 
-> iRedMail will install all required packages for you, you don't need to
-> install them manually.
+iRedMail will install all required packages for you, you don't need to
+install them manually, below info just for your reference.
 
 * The latest iRedMail release. [Download the latest iRedMail](../download.html).
   NOTE: You must have iRedMail installed on server first.
