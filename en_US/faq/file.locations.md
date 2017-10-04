@@ -107,7 +107,7 @@ Additional config files under `/etc/dovecot/`:
     * Main config file is `/usr/local/etc/apache2/httpd.conf`.
     * Module config files are placed under `/usr/local/etc/apache2/Includes/`.
     * Root directory used to store web applications is `/usr/local/www/`,
-      document root is `/usr/local/www/apache22/data/`.
+      document root is `/usr/local/www/apacheXX/data/`.
     * Log files are placed under `/var/log/`, main log files are
       `/var/log/httpd-access.log` and `/var/log/httpd-error.log`.
 
@@ -122,10 +122,13 @@ Additional config files under `/etc/dovecot/`:
 
 ## Nginx {: #nginx }
 
-* On `Linux` and OpenBSD: Nginx config files are placed under `/etc/nginx/`,
-  uWSGI config files are placed under `/etc/uwsgi/`.
-* On FreeBSD: Nginx config files are placed under `/usr/local/etc/nginx`,
-  uWSGI config files are placed under `/usr/local/etc/uwsgi/`.
+* On `Linux` and OpenBSD:
+    * Nginx config files are placed under `/etc/nginx/`
+    * uWSGI config files are placed under `/etc/uwsgi/`
+* On FreeBSD:
+    * Nginx config files are placed under `/usr/local/etc/nginx`
+    * Web applications are stored under `/usr/local/www`
+    * uWSGI config files are placed under `/usr/local/etc/uwsgi/`
 
 Main config files are `nginx.conf` and `default.conf`.
 

@@ -13,6 +13,11 @@
 
 ## ChangeLog
 
+* TODO [SQL backends] Update SQL structure:
+    * New column: `domain.maillists`
+    * New table: `vmail.maillists`
+* TODO Update Postfix main.cf: `b.barracudacentral.org=127.0.0.[2..11]*2` -> `b.barracudacentral.org=127.0.0.2*2`
+* TODO Update sogo backup script.
 
 ## General (All backends should apply these steps)
 

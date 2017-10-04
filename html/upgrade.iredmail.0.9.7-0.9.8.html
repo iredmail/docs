@@ -47,6 +47,15 @@
 check <a href="../support.html">the details</a> and <a href="../contact.html">contact us</a>.</p>
 </div>
 <h2 id="changelog">ChangeLog</h2>
+<ul>
+<li>TODO [SQL backends] Update SQL structure:<ul>
+<li>New column: <code>domain.maillists</code></li>
+<li>New table: <code>vmail.maillists</code></li>
+</ul>
+</li>
+<li>TODO Update Postfix main.cf: <code>b.barracudacentral.org=127.0.0.[2..11]*2</code> -&gt; <code>b.barracudacentral.org=127.0.0.2*2</code></li>
+<li>TODO Update sogo backup script.</li>
+</ul>
 <h2 id="general-all-backends-should-apply-these-steps">General (All backends should apply these steps)</h2>
 <h3 id="update-etciredmail-release-with-new-iredmail-version-number">Update <code>/etc/iredmail-release</code> with new iRedMail version number</h3>
 <p>iRedMail stores the release version in <code>/etc/iredmail-release</code> after

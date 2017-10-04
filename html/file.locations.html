@@ -175,7 +175,7 @@
 <li>Main config file is <code>/usr/local/etc/apache2/httpd.conf</code>.</li>
 <li>Module config files are placed under <code>/usr/local/etc/apache2/Includes/</code>.</li>
 <li>Root directory used to store web applications is <code>/usr/local/www/</code>,
-  document root is <code>/usr/local/www/apache22/data/</code>.</li>
+  document root is <code>/usr/local/www/apacheXX/data/</code>.</li>
 <li>Log files are placed under <code>/var/log/</code>, main log files are
   <code>/var/log/httpd-access.log</code> and <code>/var/log/httpd-error.log</code>.</li>
 </ul>
@@ -194,10 +194,17 @@
 </ul>
 <h2 id="nginx">Nginx</h2>
 <ul>
-<li>On <code>Linux</code> and OpenBSD: Nginx config files are placed under <code>/etc/nginx/</code>,
-  uWSGI config files are placed under <code>/etc/uwsgi/</code>.</li>
-<li>On FreeBSD: Nginx config files are placed under <code>/usr/local/etc/nginx</code>,
-  uWSGI config files are placed under <code>/usr/local/etc/uwsgi/</code>.</li>
+<li>On <code>Linux</code> and OpenBSD:<ul>
+<li>Nginx config files are placed under <code>/etc/nginx/</code></li>
+<li>uWSGI config files are placed under <code>/etc/uwsgi/</code></li>
+</ul>
+</li>
+<li>On FreeBSD:<ul>
+<li>Nginx config files are placed under <code>/usr/local/etc/nginx</code></li>
+<li>Web applications are stored under <code>/usr/local/www</code></li>
+<li>uWSGI config files are placed under <code>/usr/local/etc/uwsgi/</code></li>
+</ul>
+</li>
 </ul>
 <p>Main config files are <code>nginx.conf</code> and <code>default.conf</code>.</p>
 <ul>

@@ -198,6 +198,7 @@ Please follow steps below to setup this daily cron job.
 ```
 cd /var/vmail/backup/
 wget https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/tools/backup_sogo.sh
+chmod 0400 backup_sogo.sh
 ```
 
 * This script will create new directory under `/var/vmail/backup` like below
