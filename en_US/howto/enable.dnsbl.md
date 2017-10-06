@@ -39,7 +39,7 @@ response code.
 ```
 postscreen_dnsbl_sites =
     zen.spamhaus.org=127.0.0.[2..11]*3
-    b.barracudacentral.org=127.0.0.[2..11]*2
+    b.barracudacentral.org=127.0.0.2*2
 ```
 
 * Restart or reload Postfix service is required.
