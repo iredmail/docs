@@ -102,6 +102,10 @@ smtpd_helo_restrictions =
 
 ### Fixed: incorrect owner and permission for rotated Dovecot log files
 
+!!! attention
+
+    This is applicable to Linux, not FreeBSD and OpenBSD.
+
 iRedMail-0.9.6 and earlier releases have an incorrect logrotate setting for
 Dovecot log file, it causes all Dovecot log files are empty due to no required
 permission to open log files. Please follow steps below to fix it.
@@ -143,6 +147,10 @@ service php-fpm restart
 ```
 
 ### Fixed: incorrect freshclam setting `UpdateLogFile`
+
+!!! attention
+
+    This is applicable to RHEL/CentOS system.
 
 With iRedMail-0.9.6, freshclam program cannot update ClamAV signatures due to
 improper log file permission, please open its config file `/etc/freshclam.conf`
