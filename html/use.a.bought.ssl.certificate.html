@@ -68,12 +68,12 @@ key and signing request file on your server with <code>openssl</code> command:</
 <p class="admonition-title">Warning</p>
 <p>Do NOT use key length smaller than <code>2048</code> bit, it's insecure.</p>
 </div>
-<pre><code># openssl req -new -newkey rsa:2048 -nodes -keyout server.key -out server.csr
+<pre><code># openssl req -new -newkey rsa:2048 -nodes -keyout privkey.pem -out server.csr
 </code></pre>
 
 <p>This command will generate two files:</p>
 <ul>
-<li><code>server.key</code>: the private key for the decryption of your SSL certificate.</li>
+<li><code>privkey.pem</code>: the private key for the decryption of your SSL certificate.</li>
 <li><code>server.csr</code>: the certificate signing request (CSR) file used to apply
   for your SSL certificate. <strong>This file is required by SSL certificate
   provider.</strong></li>
@@ -99,21 +99,21 @@ specified during enrollment. For example, a certificate for the domain
 <code>domain.com</code> will receive a warning if accessing a site named <code>www.domain.com</code>
 or <code>secure.domain.com</code>, because <code>www.domain.com</code> and <code>secure.domain.com</code> are
 different from <code>domain.com</code>.</p>
-<p>Now you have two files: <code>server.key</code> and <code>server.csr</code>. Go to the website of
+<p>Now you have two files: <code>privkey.pem</code> and <code>server.csr</code>. Go to the website of
 your preferred SSL privider, it will ask you to upload <code>server.csr</code> file to
 issue an SSL certificate.</p>
 <p>Usually, SSL provider will give you 2 files:</p>
 <ul>
-<li>server.crt</li>
-<li>server.ca-bundle</li>
+<li>cert.pem</li>
+<li>fullchain.pem (some SSL providers use name <code>server.ca-bundle</code>)</li>
 </ul>
-<p>We need above 2 files, and <code>server.key</code>. Upload them to your server, you can
+<p>We need above 2 files, and <code>privkey.pem</code>. Upload them to your server, you can
 store them in any directory you like, recommended directories are:</p>
 <ul>
-<li>on RHEL/CentOS: <code>server.crt</code> and <code>server.ca-bundle</code> should be placed under
-  <code>/etc/pki/tls/certs/</code>, <code>server.key</code> should be <code>/etc/pki/tls/private/</code>.</li>
-<li>on Debian/Ubuntu, FreeBSD: <code>server.crt</code> and <code>server.ca-bundle</code> should be
-  placed under <code>/etc/ssl/certs/</code>, <code>server.key</code> should be <code>/etc/ssl/private/</code>.</li>
+<li>on RHEL/CentOS: <code>cert.pem</code> and <code>fullchain.pem</code> should be placed under
+  <code>/etc/pki/tls/certs/</code>, <code>privkey.pem</code> should be <code>/etc/pki/tls/private/</code>.</li>
+<li>on Debian/Ubuntu, FreeBSD: <code>cert.pem</code> and <code>fullchain.pem</code> should be
+  placed under <code>/etc/ssl/certs/</code>, <code>privkey.pem</code> should be <code>/etc/ssl/private/</code>.</li>
 <li>on OpenBSD: <code>/etc/ssl/</code>.</li>
 </ul>
 <h2 id="configure-postfixdovecotapachenginx-to-use-bought-ssl-certificate">Configure Postfix/Dovecot/Apache/Nginx to use bought SSL certificate</h2>
@@ -121,9 +121,9 @@ store them in any directory you like, recommended directories are:</p>
 one on your server according to above description.</p>
 <h3 id="postfix-smtp-server">Postfix (SMTP server)</h3>
 <p>We can use <code>postconf</code> command to update SSL related settings directly:</p>
-<pre><code>postconf -e smtpd_tls_cert_file='/etc/pki/tls/certs/server.crt'
-postconf -e smtpd_tls_key_file='/etc/pki/tls/private/server.key'
-postconf -e smtpd_tls_CAfile='/etc/pki/tls/certs/server.ca-bundle'
+<pre><code>postconf -e smtpd_tls_cert_file='/etc/pki/tls/certs/cert.pem'
+postconf -e smtpd_tls_key_file='/etc/pki/tls/private/privkey.pem'
+postconf -e smtpd_tls_CAfile='/etc/pki/tls/certs/fullchain.pem'
 </code></pre>
 
 <p>Restarting Postfix service is required.</p>
@@ -132,9 +132,9 @@ postconf -e smtpd_tls_CAfile='/etc/pki/tls/certs/server.ca-bundle'
 <code>/etc/dovecot/dovecot.conf</code> (Linux/OpenBSD) or
 <code>/usr/local/etc/dovecot/dovecot.conf</code> (FreeBSD):</p>
 <pre><code>ssl = required
-ssl_cert = &lt;/etc/pki/tls/certs/server.crt
-ssl_key = &lt;/etc/pki/tls/private/server.key
-ssl_ca = &lt;/etc/pki/tls/certs/server.ca-bundle
+ssl_cert = &lt;/etc/pki/tls/certs/cert.pem
+ssl_key = &lt;/etc/pki/tls/private/privkey.pem
+ssl_ca = &lt;/etc/pki/tls/certs/fullchain.pem
 </code></pre>
 
 <p>Restarting Dovecot service is required.</p>
@@ -151,9 +151,9 @@ ssl_ca = &lt;/etc/pki/tls/certs/server.ca-bundle
   ship Apache anymore.</li>
 </ul>
 <p>Example:</p>
-<pre><code>SSLCertificateFile /etc/pki/tls/certs/server.crt
-SSLCertificateKeyFile /etc/pki/tls/private/server.key
-SSLCertificateChainFile /etc/pki/tls/certs/server.ca-bundle
+<pre><code>SSLCertificateFile /etc/pki/tls/certs/cert.pem
+SSLCertificateKeyFile /etc/pki/tls/private/privkey.pem
+SSLCertificateChainFile /etc/pki/tls/certs/fullchain.pem
 </code></pre>
 
 <p>Restarting Apache service is required.</p>
@@ -166,8 +166,8 @@ SSLCertificateChainFile /etc/pki/tls/certs/server.ca-bundle
     listen 443;
     ...
     ssl on;
-    ssl_certificate /etc/pki/tls/certs/server.crt;
-    ssl_certificate_key /etc/pki/tls/private/server.key;
+    ssl_certificate /etc/pki/tls/certs/cert.pem;
+    ssl_certificate_key /etc/pki/tls/private/privkey.pem;
     ...
 }
 </code></pre>
@@ -182,7 +182,7 @@ bundle of chained certificates which should be concatenated to the signed
 server certificate. The server certificate must appear before the chained
 certificates in the combined file:</p>
 <pre><code># cd /etc/pki/tls/certs/
-# cat server.crt server.ca-bundle &gt; server.chained.crt
+# cat cert.pem fullchain.pem &gt; server.chained.crt
 </code></pre>
 
 <p>Then update <code>ssl_certificate</code> parameter in <code>/etc/nginx/conf.d/default.conf</code>:</p>
@@ -206,9 +206,9 @@ network, this is OPTIONAL.</p>
 </ul>
 <pre><code>[mysqld]
 
-ssl-ca = /etc/pki/tls/certs/server.ca-bundle
-ssl-cert = /etc/pki/tls/certs/server.crt
-ssl-key = /etc/pki/tls/private/server.key
+ssl-ca = /etc/pki/tls/certs/fullchain.pem
+ssl-cert = /etc/pki/tls/certs/cert.pem
+ssl-key = /etc/pki/tls/private/privkey.pem
 </code></pre>
 
 <h3 id="openldap">OpenLDAP</h3>
@@ -222,9 +222,9 @@ network, this is OPTIONAL.</p>
 <li>On FreeBSD, it's defined in <code>/usr/local/etc/openldap/slapd.conf</code>.</li>
 <li>On OpenBSD, it's defined in <code>/etc/openldap/slapd.conf</code>.</li>
 </ul>
-<pre><code>TLSCACertificateFile /etc/pki/tls/certs/server.ca-bundle
-TLSCertificateFile /etc/pki/tls/certs/server.crt
-TLSCertificateKeyFile /etc/pki/tls/private/server.key
+<pre><code>TLSCACertificateFile /etc/pki/tls/certs/fullchain.pem
+TLSCertificateFile /etc/pki/tls/certs/cert.pem
+TLSCertificateKeyFile /etc/pki/tls/private/privkey.pem
 </code></pre>
 
 <p>Restarting OpenLDAP service is required.</p>
@@ -238,7 +238,7 @@ error message like <code>Peer's Certificate issuer is not recognized</code>.</p>
 <li>On FreeBSD, it's defined in <code>/usr/local/etc/openldap/ldap.conf</code>.</li>
 <li>On OpenBSD, it's defined in <code>/etc/openldap/ldap.conf</code>.</li>
 </ul>
-<pre><code>TLS_CACERT /etc/pki/tls/certs/server.ca-bundle
+<pre><code>TLS_CACERT /etc/pki/tls/certs/fullchain.pem
 </code></pre>
 
 <p>To connect with TLS, please run <code>ldapsearch</code> with argument <code>-Z</code> and use
