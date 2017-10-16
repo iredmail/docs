@@ -27,6 +27,7 @@
 <li><a href="#nginx-and-php-fpm">Nginx and php-fpm</a></li>
 </ul>
 </li>
+<li><a href="#fail2ban">Fail2ban</a></li>
 </ul>
 </li>
 </ul>
@@ -92,7 +93,19 @@ $config['smtp_conn_options'] = array(
 <li>new one: <code>/var/run/php/php7.0-fpm.sock</code></li>
 </ul>
 <p>iRedMail hard-codes php-fpm socket file in <code>/etc/nginx/nginx.conf</code> or
-<code>/etc/nginx/conf.d/default.conf</code>, you must update them to use new socket file.</p><div class="footer">
+<code>/etc/nginx/conf.d/default.conf</code>, you must update them to use new socket file.</p>
+<h2 id="fail2ban">Fail2ban</h2>
+<p>After upgrading Fail2ban, it will fail to start due to duplicate parameter
+<code>port =</code> in file <code>/etc/fail2ban/jail.conf</code> under section <code>[pam-generic]</code> like
+below:</p>
+<pre><code>[pam-generic]
+...
+port = all
+...
+port = anyport
+</code></pre>
+
+<p>Please comment out either one of them, then Fail2ban should be happy to start.</p><div class="footer">
     <p style="text-align: center; color: grey;">All documents are available in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://bitbucket.org/zhb/iredmail-docs/get/tip.tar.bz2">download the latest version</a> for offline reading. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
 </div>
 <script type="text/javascript">

@@ -77,3 +77,19 @@ php-fpm daemon socket file is changed:
 
 iRedMail hard-codes php-fpm socket file in `/etc/nginx/nginx.conf` or
 `/etc/nginx/conf.d/default.conf`, you must update them to use new socket file.
+
+## Fail2ban
+
+After upgrading Fail2ban, it will fail to start due to duplicate parameter
+`port =` in file `/etc/fail2ban/jail.conf` under section `[pam-generic]` like
+below:
+
+```
+[pam-generic]
+...
+port = all
+...
+port = anyport
+```
+
+Please comment out either one of them, then Fail2ban should be happy to start.
