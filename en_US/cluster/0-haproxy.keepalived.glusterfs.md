@@ -365,8 +365,8 @@ mount -a
 * on both servers (mail1 & mail2):
 
 ```
-rpm  -ivh  http://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-5.noarch.rpm
-wget -P /etc/yum.repos.d http://download.gluster.org/pub/gluster/glusterfs/3.7/3.7.5/CentOS/glusterfs-epel.repo
+yum -y install epel-release
+yum -y install centos-release-gluster38.noarch
 yum -y install glusterfs glusterfs-fuse glusterfs-server
 ```
 
@@ -510,19 +510,24 @@ syncprov-sessionlog 200
 
 * on mail2 (SLAVE), update `/etc/openldap/slapd.conf`:
 
+!!! attention
+
+    You can find password of bind dn `cn=vmail,dc=xx,dc=xx` in Postfix LDAP
+    query files under `/etc/postfix/ldap/`.
+
 ```
-syncrepl   rid=001
-           provider=ldap://mail1:389
-           searchbase="dc=iredmail,dc=kom"
-           bindmethod=simple
-           binddn="cn=vmail,dc=iredmail,dc=kom"
-           credentials=erec3xiThBUW9QnnU9Bnifp3434
-           schemachecking=on
-           type=refreshOnly
-           retry="60 +"
-           scope=sub
-           interval=00:00:01:00
-           attrs="*,+"
+syncrepl rid=001
+         provider=ldap://mail1:389
+         searchbase="dc=iredmail,dc=kom"
+         bindmethod=simple
+         binddn="cn=vmail,dc=iredmail,dc=kom"
+         credentials=erec3xiThBUW9QnnU9Bnifp3434
+         schemachecking=on
+         type=refreshOnly
+         retry="60 +"
+         scope=sub
+         interval=00:00:01:00
+         attrs="*,+"
 ```
 
 on both servers set firewalld to accept gluster port, ldap port, and database to each servers,
