@@ -1,5 +1,7 @@
 # Force mail user to change password in 90 days
 
+[TOC]
+
 ## How it works
 
 iRedMail configures Roundcube webmail to store last password change date while
@@ -46,3 +48,11 @@ CHANGE_PASSWORD_MESSAGE = 'Please change your password in webmail before sending
 ```
 
 Then restart iRedAPD service.
+
+## Roundcube plugin: `force_password_change`
+
+There's a third-party Roundcube plugin can force user to change password.
+<https://bitbucket.org/wainlake/force_password_change>
+
+Roundcube will __ALWAYS__ redirect user to `Password` page (offered by official
+Roundcube plugin password) until user changed the password.
