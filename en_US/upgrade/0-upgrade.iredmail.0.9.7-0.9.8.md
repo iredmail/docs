@@ -16,7 +16,7 @@
 * TODO [SQL backends] Update SQL structure:
     * New column: `domain.maillists`
     * New table: `vmail.maillists`
-* Oct 6, 2017: Fixed: SOGo backup script contains 2 issues
+* Oct 6, 2017: Fixed: SOGo backup script contains 3 issues
 * Oct 6, 2017: [OPTIONAL] Fix improper expected DNSBL filter for site `b.barracudacentral.org`
 * Oct 6, 2017: [OPTIONAL] Log mail subject, sender, size in mail deliver log.
 
@@ -37,12 +37,13 @@ so that you can know which version of iRedMail you're running. For example:
 Please follow below tutorial to upgrade iRedAPD to the latest stable release:
 [Upgrade iRedAPD to the latest stable release](./upgrade.iredapd.html)
 
-### Fixed: SOGo backup script contains 2 issues
+### Fixed: SOGo backup script contains 3 issues
 
 SOGo backup script `/var/vmail/backup/backup_sogo.sh` shipped in iRedMail-0.9.7
-and earlier releases contains 2 issues:
+and earlier releases contains 3 issues:
 - it cannot remove old backup files
 - it doesn't set correct owner and permission on backup files
+- it cannot find command `sogo-tool` on FreeBSD
 
 To fix them, please download the latest version and override the one on your
 system:
