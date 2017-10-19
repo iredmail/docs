@@ -50,6 +50,12 @@ and earlier releases contains 3 issues:
 To fix them, please download the latest version and override the one on your
 system:
 
+!!! attention
+
+    Script `backup_sogo.sh` uses `/var/vmail/backup` to store backup files by
+    default, if you use a different directory, please edit this file and modify
+    parameter `BACKUP_ROOTDIR=` to use the correct one.
+
 ```
 cd /var/vmail/backup/
 wget https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/tools/backup_sogo.sh

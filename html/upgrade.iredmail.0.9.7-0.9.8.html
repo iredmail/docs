@@ -82,6 +82,12 @@ and earlier releases contains 3 issues:</p>
 </ul>
 <p>To fix them, please download the latest version and override the one on your
 system:</p>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>Script <code>backup_sogo.sh</code> uses <code>/var/vmail/backup</code> to store backup files by
+default, if you use a different directory, please edit this file and modify
+parameter <code>BACKUP_ROOTDIR=</code> to use the correct one.</p>
+</div>
 <pre><code>cd /var/vmail/backup/
 wget https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/tools/backup_sogo.sh
 chown root backup_sogo.sh
