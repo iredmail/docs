@@ -139,8 +139,8 @@ Restarting Apache service is required.
 
 ### Nginx (web server)
 
-* On Linux and OpenBSD, it's defined in `/etc/nginx/conf.d/default.conf`.
-* On FreeBSD, it's defined in `/usr/local/etc/nginx/conf.d/default.conf`.
+* On Linux and OpenBSD, it's defined in `/etc/nginx/templates/ssl.tmpl` (or `/etc/nginx/conf.d/default.conf` on old iRedMail release)
+* On FreeBSD, it's defined in `/usr/local/etc/nginx/templates/ssl.tmpl` (or `/usr/local/etc/nginx/conf.d/default.conf` on old iRedMail release)
 
 ```
 server {
