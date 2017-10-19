@@ -41,9 +41,11 @@ Please follow below tutorial to upgrade iRedAPD to the latest stable release:
 
 SOGo backup script `/var/vmail/backup/backup_sogo.sh` shipped in iRedMail-0.9.7
 and earlier releases contains 3 issues:
+
 - it cannot remove old backup files
 - it doesn't set correct owner and permission on backup files
-- it cannot find command `sogo-tool` on FreeBSD
+- it cannot find command `sogo-tool` on FreeBSD. This issue causes our script
+  didn't backup any sogo data at all.
 
 To fix them, please download the latest version and override the one on your
 system:

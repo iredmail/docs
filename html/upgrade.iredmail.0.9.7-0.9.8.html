@@ -73,10 +73,13 @@ so that you can know which version of iRedMail you're running. For example:</p>
 <a href="./upgrade.iredapd.html">Upgrade iRedAPD to the latest stable release</a></p>
 <h3 id="fixed-sogo-backup-script-contains-3-issues">Fixed: SOGo backup script contains 3 issues</h3>
 <p>SOGo backup script <code>/var/vmail/backup/backup_sogo.sh</code> shipped in iRedMail-0.9.7
-and earlier releases contains 3 issues:
-- it cannot remove old backup files
-- it doesn't set correct owner and permission on backup files
-- it cannot find command <code>sogo-tool</code> on FreeBSD</p>
+and earlier releases contains 3 issues:</p>
+<ul>
+<li>it cannot remove old backup files</li>
+<li>it doesn't set correct owner and permission on backup files</li>
+<li>it cannot find command <code>sogo-tool</code> on FreeBSD. This issue causes our script
+  didn't backup any sogo data at all.</li>
+</ul>
 <p>To fix them, please download the latest version and override the one on your
 system:</p>
 <pre><code>cd /var/vmail/backup/
