@@ -1,6 +1,6 @@
 # [DEPRECATED] Per-user outbound restrictions
 
-__WARNING: THIS DOCUMENT IS *DEPRECATED*, PLEASE DO NOT APPLY IT.__
+__WARNING: THIS DOCUMENT IS *DEPRECATED*, PLEASE use per-user white/blacklists instead, [doc here](./manage.iredapd.html).__
 
 ## SQL backends
 
