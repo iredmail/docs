@@ -133,5 +133,5 @@ Make sure you use `HTTPS://` instead of `HTTP://`.
 
 If iRedAdmin doesn't work as expected, you can simplily set `DEBUG = True` in
 `settings.py`, restart apache web server, use your favourite web browser to
-access it again, create a new [forum](http://www.iredmail.org/forum/) topic and
+access it again, create a new [forum](https://forum.iredmail.org/) topic and
 paste error message in your forum topic.

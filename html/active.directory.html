@@ -110,7 +110,7 @@ achieve this AD integration by simply modifying some configure files.</p>
 <p>With iRedMail (OpenLDAP backend), we have a low-privileged account
 <code>cn=vmail,dc=xxx,dc=xxx</code> with read-only privilege. And we suggest you create a
 same account <code>vmail</code> in AD, with strong and complex password.</p>
-<p><strong>NOTE</strong>: <a href="http://www.iredmail.org/forum/post8630.html#p8630">Dovecot will treat characters as comment after a inline <code>#</code>, so
+<p><strong>NOTE</strong>: <a href="https://forum.iredmail.org/post8630.html#p8630">Dovecot will treat characters as comment after a inline <code>#</code>, so
 please just don't use <code>#</code> in password</a></p>
 <p>Please make sure this newly created user is able to connect to AD server with
 below command on iRedMail server:</p>
@@ -255,7 +255,7 @@ example.com/user/Maildir/
 result. Please set <code>debuglevel = 1</code> file <code>/etc/postfix/ad_virtual_mailbox_maps.cf</code>,
 then query again, it now will print detailed debug message. If you're not
 familiar with LDAP related info, please post the debug message in our
-<a href="http://www.iredmail.org/forum/">online support forum</a> to get help.</p>
+<a href="https://forum.iredmail.org/">online support forum</a> to get help.</p>
 <p>Verify sender login check:</p>
 <pre><code># postmap -q user@example.com ldap:/etc/postfix/ad_sender_login_maps.cf
 user@example.com
@@ -391,7 +391,7 @@ $config['ldap_public'][&quot;global_ldap_abook&quot;] = array(
 
 <h2 id="additions-documents">Additions documents</h2>
 <ul>
-<li>If your mail domain name is different than Windows Active Directory domain: <a href="http://www.iredmail.org/forum/topic3165-integration-with-windows-domain.html">http://www.iredmail.org/forum/topic3165-integration-with-windows-domain.html</a></li>
+<li>If your mail domain name is different than Windows Active Directory domain: <a href="https://forum.iredmail.org/topic3165-integration-with-windows-domain.html">https://forum.iredmail.org/topic3165-integration-with-windows-domain.html</a></li>
 </ul><div class="footer">
     <p style="text-align: center; color: grey;">All documents are available in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://bitbucket.org/zhb/iredmail-docs/get/tip.tar.bz2">download the latest version</a> for offline reading. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
 </div>

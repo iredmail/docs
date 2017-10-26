@@ -101,4 +101,4 @@ service sogo restart
 If SOGo doesn't work as expected, please check its log file
 `/var/log/sogo/sogo.log`. If you don't understand what the error message means,
 please extract related error message and post to our online support forum:
-<http://www.iredmail.org/forum/>.
+<https://forum.iredmail.org/>.

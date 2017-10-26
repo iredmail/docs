@@ -3,7 +3,7 @@
 [TOC]
 
 This tutorial was contributed by Setyo Prayitno <<jrsetyo@gmail.com>> (forum user
-name `t10`) [on March 13, 2016](http://www.iredmail.org/forum/topic10773.html).
+name `t10`) [on March 13, 2016](https://forum.iredmail.org/topic10773.html).
 Thanks Setyo. :)
 
 ## TODO

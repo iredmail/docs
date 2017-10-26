@@ -57,7 +57,7 @@ its log file. If you don't understand what the log says, please create a new
 topic in our forum and paste related log:
 
 * [Debug Dovecot](./debug.dovecot.html)
-* [iRedMail online support forum](http://www.iredmail.org/forum/)
+* [iRedMail online support forum](https://forum.iredmail.org/)
 
 ## References
 

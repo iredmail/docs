@@ -76,4 +76,4 @@ OCSAclURL = "mysql://sogo:<password>@127.0.0.1:3306/sogo/sogo_acl";
 
 If there's something wrong, please check SOGo log file (`/var/log/sogo/sogo.log`)
 to see whether or not it reports some error. Report errors, issues, questions
-in our online support forum: <http://www.iredmail.org/forum/>.
+in our online support forum: <https://forum.iredmail.org/>.

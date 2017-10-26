@@ -241,7 +241,7 @@ hostname or IP address.
 ## Get technical support
 
 Please post all issues, feedbacks, feature requests, suggestions in our [online
-support forum](http://www.iredmail.org/forum/), it's more responsible than you
+support forum](https://forum.iredmail.org/), it's more responsible than you
 expected.
 
 ## Some Tips for FreeBSD Jail

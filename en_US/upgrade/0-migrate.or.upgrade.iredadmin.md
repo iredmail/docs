@@ -59,7 +59,7 @@ either open source edition or iRedAdmin-Pro).
 ```
 
 That's all. If it doesn't work for you, please post a new topic in our
-[online support forum](http://www.iredmail.org/forum/).
+[online support forum](https://forum.iredmail.org/).
 
 ## Additional steps
 
@@ -75,4 +75,4 @@ That's all. If it doesn't work for you, please post a new topic in our
     Note: Cluebringer still provides white/blacklists, but iRedAdmin-Pro
     doesn't manage them anymore after iRedMail-0.9.0 release. So please
     migreate Cluebringer white/blacklists to Amavisd database by following
-    this [forum post](http://www.iredmail.org/forum/post35480.html#p35480).
+    this [forum post](https://forum.iredmail.org/post35480.html#p35480).

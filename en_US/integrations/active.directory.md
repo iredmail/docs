@@ -74,7 +74,7 @@ With iRedMail (OpenLDAP backend), we have a low-privileged account
 same account `vmail` in AD, with strong and complex password.
 
 __NOTE__: [Dovecot will treat characters as comment after a inline `#`, so
-please just don't use `#` in password](http://www.iredmail.org/forum/post8630.html#p8630)
+please just don't use `#` in password](https://forum.iredmail.org/post8630.html#p8630)
 
 Please make sure this newly created user is able to connect to AD server with
 below command on iRedMail server:
@@ -236,7 +236,7 @@ If nothing returned by the command, it means LDAP query doesn't get expected
 result. Please set `debuglevel = 1` file `/etc/postfix/ad_virtual_mailbox_maps.cf`,
 then query again, it now will print detailed debug message. If you're not
 familiar with LDAP related info, please post the debug message in our
-[online support forum](http://www.iredmail.org/forum/) to get help.
+[online support forum](https://forum.iredmail.org/) to get help.
 
 Verify sender login check:
 
@@ -391,4 +391,4 @@ $config['ldap_public']["global_ldap_abook"] = array(
 
 ## Additions documents
 
-* If your mail domain name is different than Windows Active Directory domain: [http://www.iredmail.org/forum/topic3165-integration-with-windows-domain.html](http://www.iredmail.org/forum/topic3165-integration-with-windows-domain.html)
+* If your mail domain name is different than Windows Active Directory domain: [https://forum.iredmail.org/topic3165-integration-with-windows-domain.html](https://forum.iredmail.org/topic3165-integration-with-windows-domain.html)

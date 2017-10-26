@@ -5,7 +5,7 @@
 > We provide remote upgrade service, check [the price](../support.html) and [contact us](../contact.html).
 
 __NOTE__: Horde webmail was removed. Users want to migrate to Roundcube webmail
-please go to our [online support forum](http://www.iredmail.org/forum/) for help.
+please go to our [online support forum](https://forum.iredmail.org/) for help.
 
 ## Issues Fixed & Notify
 

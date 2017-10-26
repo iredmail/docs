@@ -16,8 +16,8 @@
 
 ### Apply hotfix for iRedMail-0.5.1
 
-* [Incorrect crontab job of vmail user](http://www.iredmail.org/forum/topic418-fixed-in-051-incorrect-crontab-job-of-vmail-user.html)
-* [iRedAdmin-0.1.1 (shipped in iRedMail-0.5.1): not all arguments converted during string formatting](http://www.iredmail.org/forum/topic398-fixed-in-iredadmin011-not-all-arguments-converted.html)
+* [Incorrect crontab job of vmail user](https://forum.iredmail.org/topic418-fixed-in-051-incorrect-crontab-job-of-vmail-user.html)
+* [iRedAdmin-0.1.1 (shipped in iRedMail-0.5.1): not all arguments converted during string formatting](https://forum.iredmail.org/topic398-fixed-in-iredadmin011-not-all-arguments-converted.html)
 
 ### Add missing MySQL table (Debian/Ubuntu only)
 
@@ -215,7 +215,7 @@ and we have to config plugins separately.
 
 * Apply two patches. About these two patches:
 
-    * Refer to this forum topic for more detail about patch for CVE-2010-0464: [http://www.iredmail.org/forum/topic673-security-fix-in-roundcube-disable-dns-prefetching-cve20100464.html Security fix in Roundcube: Disable DNS prefetching. (CVE-2010-0464)]
+    * Refer to this forum topic for more detail about patch for CVE-2010-0464: [https://forum.iredmail.org/topic673-security-fix-in-roundcube-disable-dns-prefetching-cve20100464.html Security fix in Roundcube: Disable DNS prefetching. (CVE-2010-0464)]
     * Patch `managesieve_rule_width_on_safari.patch` is used to fix page width in filter plugin, for Safari web browser.
 
 Steps to patch your roundcube 0.3.1:

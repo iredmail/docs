@@ -16,9 +16,9 @@
 
 ### Apply hotfixes
 
-* 2009-10-28: [Missing syslog setting. (Ubuntu 8.04 + LDAP backend only)](http://www.iredmail.org/forum/topic373-fixed-in-050-missed-syslog-setting-ubuntu-804-ldap-only.html)
-* 2009-09-10: [Maill forwarding and bcc are invalid](http://www.iredmail.org/forum/topic236-fixed-in-050-maill-forwarding-and-bcc-are-invalid.html)
-* 2009-08-21: [per-user mail filter setting](http://www.iredmail.org/forum/topic182-fixed-in-050-peruser-mail-filter-setting.html)
+* 2009-10-28: [Missing syslog setting. (Ubuntu 8.04 + LDAP backend only)](https://forum.iredmail.org/topic373-fixed-in-050-missed-syslog-setting-ubuntu-804-ldap-only.html)
+* 2009-09-10: [Maill forwarding and bcc are invalid](https://forum.iredmail.org/topic236-fixed-in-050-maill-forwarding-and-bcc-are-invalid.html)
+* 2009-08-21: [per-user mail filter setting](https://forum.iredmail.org/topic182-fixed-in-050-peruser-mail-filter-setting.html)
 
 ### Enable `proxymap` in SQL/LDAP query maps
 
