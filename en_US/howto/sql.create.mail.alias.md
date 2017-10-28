@@ -13,7 +13,7 @@ With iRedAdmin-Pro, you can easily add mail list account by click menu:
 `Add -> Mail List` (or `Add -> Alias` for SQL backends) in main
 navigation bar.
 
-![](../images/iredadmin/maillist_create.png)
+![](./images/iredadmin/maillist_create.png)
 
 ## Create mail alias account with SQL command line
 

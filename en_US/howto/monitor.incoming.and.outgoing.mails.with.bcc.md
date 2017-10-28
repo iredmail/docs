@@ -97,8 +97,8 @@ Then all inbound and outbound will be BCCed to `user@domain.com`.
 
 Per-domain bcc settings:
 
-![](../images/iredadmin/domain_profile_bcc.png)
+![](./images/iredadmin/domain_profile_bcc.png)
 
 Per-user bcc settings:
 
-![](../images/iredadmin/user_profile_bcc.png)
+![](./images/iredadmin/user_profile_bcc.png)

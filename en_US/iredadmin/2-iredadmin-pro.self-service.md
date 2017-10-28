@@ -30,30 +30,30 @@ control which preferences are allowed to be managed by end users themselves.
 
 ### Update name, preferred language
 
-![](../images/iredadmin/self-service.preferences.general.png)
+![](./images/iredadmin/self-service.preferences.general.png)
 
 ### Change password
 
-![](../images/iredadmin/self-service.preferences.password.png)
+![](./images/iredadmin/self-service.preferences.password.png)
 
 ### Mail forwarding control
 
-![](../images/iredadmin/self-service.preferences.forwarding.png)
+![](./images/iredadmin/self-service.preferences.forwarding.png)
 
 ### Manager per-user whitelists & blacklists
 
-![](../images/iredadmin/self-service.wblist.png)
+![](./images/iredadmin/self-service.wblist.png)
 
 ### Manage quarantined mails
 
-![](../images/iredadmin/self-service.quarantined.png)
+![](./images/iredadmin/self-service.quarantined.png)
 
-![](../images/iredadmin/self-service.quarantined.2.png)
+![](./images/iredadmin/self-service.quarantined.2.png)
 
 ### Check received mails and blacklist certain senders if they're spammers.
 
-![](../images/iredadmin/self-service.received.png)
+![](./images/iredadmin/self-service.received.png)
 
 ### Manage spam policy
 
-![](../images/iredadmin/self-service.spampolicy.png)
+![](./images/iredadmin/self-service.spampolicy.png)

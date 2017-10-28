@@ -7,7 +7,7 @@
 With iRedAdmin-Pro, please click menu in main navigation bar: `Add -> Mail Alias'.
 Screenshot:
 
-![](../images/iredadmin/alias_create.png)
+![](./images/iredadmin/alias_create.png)
 
 ## Add mail alias with phpLDAPadmin
 

@@ -14,7 +14,7 @@ under tab `Aliases`.
 
 Screenshot:
 
-![](../images/iredadmin/domain_profile_alias.png)
+![](./images/iredadmin/domain_profile_alias.png)
 
 ## How to add an alias domain with phpLDAPadmin:
 

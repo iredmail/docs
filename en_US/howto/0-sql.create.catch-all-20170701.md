@@ -26,7 +26,7 @@ sent to non-existing accounts under `domain.com` will be delivered to
 __NOTE__: With iRedAdmin-Pro, you can manage catch-all account in domain
 profile directly. Screenshot attached.
 
-![](../images/iredadmin/domain_profile_catchall.png)
+![](./images/iredadmin/domain_profile_catchall.png)
 
 ## See also
 

@@ -121,11 +121,11 @@ senderRelayHost: [mail.gmail.com]:25
 
 * iRedAdmin-Pro: Per-domain relay setting:
 
-![](../images/iredadmin/domain_profile_relay.png)
+![](./images/iredadmin/domain_profile_relay.png)
 
 * iRedAdmin-Pro: Per-user relay setting:
 
-![](../images/iredadmin/user_profile_relay.png)
+![](./images/iredadmin/user_profile_relay.png)
 
 ## See Also
 

@@ -14,7 +14,7 @@ profile page, under tab `Forwarding`.
 
 Screenshot:
 
-![](../images/iredadmin/user_profile_mail_forwarding.png){: width=1000px }
+![](./images/iredadmin/user_profile_mail_forwarding.png){: width=1000px }
 
 ## Set mail forwarding with SQL command line
 

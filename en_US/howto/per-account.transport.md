@@ -40,8 +40,8 @@ account profile page. Screenshots attached.
 
 * Per-domain transport/relay:
 
-![](../images/iredadmin/domain_profile_relay.png)
+![](./images/iredadmin/domain_profile_relay.png)
 
 * Per-user transport/relay:
 
-![](../images/iredadmin/user_profile_relay.png)
+![](./images/iredadmin/user_profile_relay.png)

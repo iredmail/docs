@@ -26,7 +26,7 @@ forwarded to both `user_1@example.com` and `user_2@example.com`.
 __NOTE__: With iRedAdmin-Pro, you can manage catch-all account in domain
 profile directly. Screenshot attached.
 
-![](../images/iredadmin/domain_profile_catchall.png)
+![](./images/iredadmin/domain_profile_catchall.png)
 
 ## See also
 

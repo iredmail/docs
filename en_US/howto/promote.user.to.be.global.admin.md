@@ -55,7 +55,7 @@ To promote existing mail user `smith@test.com` to be admin of domain `test.com`:
 With iRedAdmin-Pro, you can mark user as either global domain admin or normal
 domain admin in user profile page, under tab `General`.
 
-![](../images/iredadmin/user_profile_general.png)
+![](./images/iredadmin/user_profile_general.png)
 
 ## See also
 

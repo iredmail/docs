@@ -19,7 +19,7 @@ anymore.
 You can manage per-user alias addresses with iRedAdmin-Pro in user profile
 page, under tab "Aliases".
 
-![](../images/iredadmin/user_profile_aliases.png){:width="1024px"}
+![](./images/iredadmin/user_profile_aliases.png){:width="1024px"}
 
 ## SQL backend: Manage per-user alias addresses with SQL command line
 

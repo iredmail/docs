@@ -7,7 +7,7 @@
 With iRedAdmin-Pro, you can easily add mail list account by click menu:
 `Add -> Mail List` in main navigation bar.
 
-![](../images/iredadmin/maillist_create.png)
+![](./images/iredadmin/maillist_create.png)
 
 ## Add mail list with phpLDAPadmin
 
