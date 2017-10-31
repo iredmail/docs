@@ -120,6 +120,11 @@ DROP USER 'vmailadmin'@'192.168.1.200';
 <h2 id="install-iredmail">Install iRedMail</h2>
 <p>Please follow iRedMail installation guide strictly, but start iRedMail
 installer with below command instead of the original one (<code>bash iRedMail.sh</code>):</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>If you use an IPv6 address for remote MySQL server address , please
+surround it with <code>[]</code> like this: <code>[fd01:2345:6789:1::1]</code>.</p>
+</div>
 <pre><code>USE_EXISTING_MYSQL='YES' \
     MYSQL_SERVER_ADDRESS='192.168.1.100' \
     MYSQL_SERVER_PORT='3306' \

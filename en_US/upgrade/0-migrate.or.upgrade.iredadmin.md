@@ -51,6 +51,11 @@ either open source edition or iRedAdmin-Pro).
   the version number).
 * Uncompress and upgrade iRedAdmin:
 
+!!! warning
+
+    Do not rename the extracted directory (`iRedAdmin-x.y.z`), otherwise
+    upgrade may fail.
+
 ```
 # cd /root/
 # tar xjf iRedAdmin-x.y.z.tar.bz2
