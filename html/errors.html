@@ -35,6 +35,10 @@
 <li><a href="#warning-do-not-list-domain-mydomaincom-in-both-mydestination-and-virtual_mailbox_domains">warning: do not list domain mydomain.com in BOTH mydestination and virtual_mailbox_domains</a></li>
 </ul>
 </li>
+<li><a href="#dovecot">Dovecot</a><ul>
+<li><a href="#plaintext-authentication-not-allowed-without-ssltls">Plaintext authentication not allowed without SSL/TLS</a></li>
+</ul>
+</li>
 <li><a href="#amavisd">Amavisd</a><ul>
 <li><a href="#connect-to-12700112700110024-connection-refused">connect to 127.0.0.1[127.0.0.1]:10024: Connection refused</a></li>
 </ul>
@@ -216,6 +220,25 @@ domain mydomain.com in BOTH mydestination and virtual_mailbox_domains</p>
 <p>To solve this, please either use a different <code>myhostname</code> or don't use this
 domain name as mail domain (remove it with iRedAdmin). To use a different value
 for Postfix parameter <code>myhostname</code>, you must also change server hostname.</p>
+<h2 id="dovecot">Dovecot</h2>
+<h3 id="plaintext-authentication-not-allowed-without-ssltls">Plaintext authentication not allowed without SSL/TLS</h3>
+<p>Error message in Dovecot log file:</p>
+<blockquote>
+<p>[ALERT] Plaintext authentication not allowed without SSL/TLS, but your client
+did it anyway. If anyone was listening, the password was exposed.</p>
+</blockquote>
+<p>Dovecot is configured to force clients to use secure IMAP/POP3 connections,
+but your client is trying to use plain and insecure connection without TLS or
+SSL.</p>
+<p>The <strong>BEST</strong> solution is updating IMAP/POP3 settings in the mail client
+application (e.g. Outlook, Thunderbird) to enable secure connection. Please
+check <a href="./index.html#mua">this link</a> to see network port numbers and secure
+connection types.</p>
+<p>The <strong>NOT RECOMMENDED</strong> solution is updating Dovecot config file to allow
+insecure connection, this is dangerous because your password is sent in plain
+text, if someone can trace the network traffic with network gateway / firewall,
+your password is explosed. if you clearly understand the risk and still want
+to enable insecure connections, please check <a href="./allow.insecure.pop3.imap.smtp.connections.html">this document</a>.</p>
 <h2 id="amavisd">Amavisd</h2>
 <h3 id="connect-to-12700112700110024-connection-refused">connect to 127.0.0.1[127.0.0.1]:10024: Connection refused</h3>
 <p>This error means Amavisd service is not running, please try to start it first.</p>

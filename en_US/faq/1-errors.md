@@ -201,6 +201,30 @@ To solve this, please either use a different `myhostname` or don't use this
 domain name as mail domain (remove it with iRedAdmin). To use a different value
 for Postfix parameter `myhostname`, you must also change server hostname.
 
+## Dovecot
+
+### Plaintext authentication not allowed without SSL/TLS
+
+Error message in Dovecot log file:
+
+> [ALERT] Plaintext authentication not allowed without SSL/TLS, but your client
+> did it anyway. If anyone was listening, the password was exposed.
+
+Dovecot is configured to force clients to use secure IMAP/POP3 connections,
+but your client is trying to use plain and insecure connection without TLS or
+SSL.
+
+The __BEST__ solution is updating IMAP/POP3 settings in the mail client
+application (e.g. Outlook, Thunderbird) to enable secure connection. Please
+check [this link](./index.html#mua) to see network port numbers and secure
+connection types.
+
+The __NOT RECOMMENDED__ solution is updating Dovecot config file to allow
+insecure connection, this is dangerous because your password is sent in plain
+text, if someone can trace the network traffic with network gateway / firewall,
+your password is explosed. if you clearly understand the risk and still want
+to enable insecure connections, please check [this document](./allow.insecure.pop3.imap.smtp.connections.html).
+
 ## Amavisd
 
 ### connect to 127.0.0.1[127.0.0.1]:10024: Connection refused
