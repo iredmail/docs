@@ -51,9 +51,19 @@ check <a href="../support.html">the details</a> and <a href="../contact.html">co
 </div>
 <h2 id="changelog">ChangeLog</h2>
 <ul>
+<li>TODO [LDAP backends] Update LDAP schema and slapd.conf<ul>
+<li>slapd.conf:<ul>
+<li>add new index for <code>member</code> and <code>uniqueMember</code></li>
+</ul>
+</li>
+</ul>
+</li>
 <li>TODO [SQL backends] Update SQL structure:<ul>
 <li>New column: <code>domain.maillists</code></li>
+<li>New column: <code>forwardings.is_maillist</code></li>
 <li>New table: <code>vmail.maillists</code></li>
+<li>New doc: how to add a standalone (mlmmj) mailing list account</li>
+<li>New doc: how to deploy mlmmj + mlmmj-admin</li>
 </ul>
 </li>
 <li>Oct 6, 2017: Fixed: SOGo backup script contains 3 issues</li>

@@ -13,9 +13,15 @@
 
 ## ChangeLog
 
+* TODO [LDAP backends] Update LDAP schema and slapd.conf
+    * slapd.conf:
+        - add new index for `member` and `uniqueMember`
 * TODO [SQL backends] Update SQL structure:
     * New column: `domain.maillists`
+    * New column: `forwardings.is_maillist`
     * New table: `vmail.maillists`
+    * New doc: how to add a standalone (mlmmj) mailing list account
+    * New doc: how to deploy mlmmj + mlmmj-admin
 * Oct 6, 2017: Fixed: SOGo backup script contains 3 issues
 * Oct 6, 2017: [OPTIONAL] Fix improper expected DNSBL filter for site `b.barracudacentral.org`
 * Oct 6, 2017: [OPTIONAL] Log mail subject, sender, size in mail deliver log.
