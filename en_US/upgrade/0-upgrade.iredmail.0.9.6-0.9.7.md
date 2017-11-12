@@ -9,6 +9,7 @@
 
 ## ChangeLog
 
+* Nov 12, 2017: Add Fail2ban jail `nginx-http-auth`.
 * Jul  3, 2017: Mention how to upgrade uwsgi (OpenBSD only), iRedAdmin and iRedAPD.
 * Jul  2, 2017: Mention Roundcube 1.3.0 requires PHP 5.4.
 * Jul  1, 2017: Initial publish.
@@ -175,6 +176,30 @@ cd /etc/fail2ban/filter.d/
 rm -f dovecot.iredmail.conf	roundcube.iredmail.conf
 wget https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/samples/fail2ban/filter.d/dovecot.iredmail.conf
 wget https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/samples/fail2ban/filter.d/roundcube.iredmail.conf
+```
+
+Restarting Fail2ban service is required.
+
+### Fail2ban: Add new jail for Nginx
+
+!!! attention
+
+    This is applicable if you run Nginx as web server.
+
+Let's add a new jail to stop bad clients which tried to perform http basic auth 
+but failed.
+
+Create file `/etc/fail2ban/jail.d/nginx-http-auth.local` with content below:
+
+    If directory `/etc/fail2ban/jail.d/` doesn't exist, you can append content
+    below in file `/etc/fail2ban/jail.local` instead.
+
+```
+[nginx-http-auth]
+enabled     = true
+filter      = nginx-http-auth
+action      = iptables-multiporti[name=nginx, port="80,443", protocol=tcp]
+logpath     = /var/log/nginx/error.log
 ```
 
 Restarting Fail2ban service is required.
