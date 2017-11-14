@@ -229,13 +229,15 @@ wget https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/samples/fail2ban/fi
 <p>Let's add a new jail to stop bad clients which tried to perform http basic auth 
 but failed.</p>
 <p>Create file <code>/etc/fail2ban/jail.d/nginx-http-auth.local</code> with content below:</p>
-<pre><code>If directory `/etc/fail2ban/jail.d/` doesn't exist, you can append content
-below in file `/etc/fail2ban/jail.local` instead.
-</code></pre>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>If directory <code>/etc/fail2ban/jail.d/</code> doesn't exist, you can append content
+below in file <code>/etc/fail2ban/jail.local</code> instead.</p>
+</div>
 <pre><code>[nginx-http-auth]
 enabled     = true
 filter      = nginx-http-auth
-action      = iptables-multiporti[name=nginx, port=&quot;80,443&quot;, protocol=tcp]
+action      = iptables-multiport[name=nginx, port=&quot;80,443&quot;, protocol=tcp]
 logpath     = /var/log/nginx/error.log
 </code></pre>
 

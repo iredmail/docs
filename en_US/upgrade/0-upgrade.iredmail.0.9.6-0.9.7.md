@@ -191,6 +191,8 @@ but failed.
 
 Create file `/etc/fail2ban/jail.d/nginx-http-auth.local` with content below:
 
+!!! attention
+
     If directory `/etc/fail2ban/jail.d/` doesn't exist, you can append content
     below in file `/etc/fail2ban/jail.local` instead.
 
@@ -198,7 +200,7 @@ Create file `/etc/fail2ban/jail.d/nginx-http-auth.local` with content below:
 [nginx-http-auth]
 enabled     = true
 filter      = nginx-http-auth
-action      = iptables-multiporti[name=nginx, port="80,443", protocol=tcp]
+action      = iptables-multiport[name=nginx, port="80,443", protocol=tcp]
 logpath     = /var/log/nginx/error.log
 ```
 
