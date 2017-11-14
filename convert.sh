@@ -119,7 +119,7 @@ for lang in ${all_languages}; do
         fi
 
         # Get articles
-        all_chapter_articles="$(find ${chapter_dir} -type f -iname '[0-9a-z]*.md')"
+        all_chapter_articles="$(find ${chapter_dir} -type f -iname '[0-9a-z]*.md' | sort)"
 
         # Output directory.
         # Remove prefix '[number]-' in chapter directory name.
