@@ -23,6 +23,7 @@
     * New table: `vmail.maillists`
     * New doc: how to add a standalone (mlmmj) mailing list account
     * New doc: how to deploy mlmmj + mlmmj-admin
+* Nov 17, 2017: Fixed: Improper Postfix SQL queries used to query per-user bcc address.
 * Oct 6, 2017: Fixed: SOGo backup script contains 3 issues
 * Oct 6, 2017: [OPTIONAL] Fix improper expected DNSBL filter for site `b.barracudacentral.org`
 * Oct 6, 2017: [OPTIONAL] Log mail subject, sender, size in mail deliver log.
@@ -112,9 +113,9 @@ deliver_log_format = from=%{from}, envelope_sender=%{from_envelope}, subject=%{s
 
 Dovecot is IMAP/POP3/Managesieve server, also a SASL auth server for Postfix.
 If mail domain is disabled, users under this domain are not able to use
-IMAP/POP3/Managesieve services, but there's a bug in Dovecot SQL query, it
-doesn't check domain status while performing smtp sasl auth.
-Please follow steps below to fix it.
+IMAP/POP3/Managesieve services, but there's a bug in Dovecot SQL query
+configured by iRedMail, it doesn't check domain status while performing smtp
+sasl auth. Please follow steps below to fix it.
 
 * Open file `/etc/dovecot/dovecot-mysql.conf` (Linux/OpenBSD) or
   `/usr/local/etc/dovecot/dovecot-mysql.conf` (FreeBSD), find the
@@ -139,15 +140,54 @@ password_query = SELECT mailbox.password, mailbox.allow_nets \
 
 * Save your change and restart Dovecot service.
 
+### Fixed: Improper Postfix SQL queries used to query per-user bcc address.
+
+There're 2 Postfix SQL queries configured by iRedMail are improper, they won't
+return per-user bcc address. Please follow steps below to fix it:
+
+* Open file `/etc/postfix/mysql/recipient_bcc_maps_user.cf` (Linux/OpenBSD) or
+  `/usr/local/etc/postfix/mysql/recipient_bcc_maps_user.cf` (FreeBSD),
+  __REPLACE__ the `query =` line by lines below:
+
+```
+query       = SELECT recipient_bcc_user.bcc_address
+                FROM recipient_bcc_user,domain,alias_domain
+               WHERE recipient_bcc_user.username='%s'
+                     AND recipient_bcc_user.domain='%d'
+                     AND ((recipient_bcc_user.domain=domain.domain)
+                          OR (recipient_bcc_user.domain=alias_domain.alias_domain AND domain.domain = alias_domain.target_domain))
+                     AND domain.backupmx=0
+                     AND domain.active=1
+                     AND recipient_bcc_user.active=1
+```
+
+* Open file `/etc/postfix/mysql/sender_bcc_maps_user.cf` (Linux/OpenBSD) or
+  `/usr/local/etc/postfix/mysql/sender_bcc_maps_user.cf` (FreeBSD),
+  __REPLACE__ the `query =` line by lines below:
+
+```
+query       = SELECT sender_bcc_user.bcc_address
+                FROM sender_bcc_user,domain,alias_domain
+               WHERE sender_bcc_user.username='%s'
+                     AND sender_bcc_user.domain='%d'
+                     AND ((sender_bcc_user.domain=domain.domain)
+                          OR (sender_bcc_user.domain=alias_domain.alias_domain AND domain.domain = alias_domain.target_domain))
+                     AND domain.backupmx=0
+                     AND domain.active=1
+                     AND sender_bcc_user.active=1
+```
+
+* Save your changes and restart Postfix service.
+
 ## PostgreSQL backend
 
 ### Fixed: User under disabled domain is able to send email with smtp protocol
 
 Dovecot is IMAP/POP3/Managesieve server, also a SASL auth server for Postfix.
 If mail domain is disabled, users under this domain are not able to use
-IMAP/POP3/Managesieve services, but there's a bug in Dovecot SQL query, it
-doesn't check domain status while performing smtp sasl auth.
-Please follow steps below to fix it.
+IMAP/POP3/Managesieve services, but there's a bug in Dovecot SQL query
+configured by iRedMail, it doesn't check domain status while performing smtp
+sasl auth. Please follow steps below to fix it.
 
 * Open file `/etc/dovecot/dovecot-pgsql.conf` (Linux/OpenBSD) or
   `/usr/local/etc/dovecot/dovecot-pgsql.conf` (FreeBSD), find the
@@ -171,3 +211,41 @@ password_query = SELECT mailbox.password, mailbox.allow_nets \
 ```
 
 * Save your change and restart Dovecot service.
+
+### Fixed: Improper Postfix SQL queries used to query per-user bcc address.
+
+There're 2 Postfix SQL queries configured by iRedMail are improper, they won't
+return per-user bcc address. Please follow steps below to fix it:
+
+* Open file `/etc/postfix/pgsql/recipient_bcc_maps_user.cf` (Linux/OpenBSD) or
+  `/usr/local/etc/postfix/pgsql/recipient_bcc_maps_user.cf` (FreeBSD),
+  __REPLACE__ the `query =` line by lines below:
+
+```
+query       = SELECT recipient_bcc_user.bcc_address
+                FROM recipient_bcc_user,domain,alias_domain
+               WHERE recipient_bcc_user.username='%s'
+                     AND recipient_bcc_user.domain='%d'
+                     AND ((recipient_bcc_user.domain=domain.domain)
+                          OR (recipient_bcc_user.domain=alias_domain.alias_domain AND domain.domain = alias_domain.target_domain))
+                     AND domain.backupmx=0
+                     AND domain.active=1
+                     AND recipient_bcc_user.active=1
+```
+
+* Open file `/etc/postfix/pgsql/sender_bcc_maps_user.cf`, REPLACE the
+  `query =` line by lines below:
+
+```
+query       = SELECT sender_bcc_user.bcc_address
+                FROM sender_bcc_user,domain,alias_domain
+               WHERE sender_bcc_user.username='%s'
+                     AND sender_bcc_user.domain='%d'
+                     AND ((sender_bcc_user.domain=domain.domain)
+                          OR (sender_bcc_user.domain=alias_domain.alias_domain AND domain.domain = alias_domain.target_domain))
+                     AND domain.backupmx=0
+                     AND domain.active=1
+                     AND sender_bcc_user.active=1
+```
+
+* Save your changes and restart Postfix service.

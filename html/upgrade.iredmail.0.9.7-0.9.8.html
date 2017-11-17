@@ -30,10 +30,12 @@
 </li>
 <li><a href="#mysqlmariadb-backends">MySQL/MariaDB backends</a><ul>
 <li><a href="#fixed-user-under-disabled-domain-is-able-to-send-email-with-smtp-protocol">Fixed: User under disabled domain is able to send email with smtp protocol</a></li>
+<li><a href="#fixed-improper-postfix-sql-queries-used-to-query-per-user-bcc-address">Fixed: Improper Postfix SQL queries used to query per-user bcc address.</a></li>
 </ul>
 </li>
 <li><a href="#postgresql-backend">PostgreSQL backend</a><ul>
 <li><a href="#fixed-user-under-disabled-domain-is-able-to-send-email-with-smtp-protocol_1">Fixed: User under disabled domain is able to send email with smtp protocol</a></li>
+<li><a href="#fixed-improper-postfix-sql-queries-used-to-query-per-user-bcc-address_1">Fixed: Improper Postfix SQL queries used to query per-user bcc address.</a></li>
 </ul>
 </li>
 </ul>
@@ -67,6 +69,7 @@ check <a href="https://www.iredmail.org/support.html">the details</a> and
 <li>New doc: how to deploy mlmmj + mlmmj-admin</li>
 </ul>
 </li>
+<li>Nov 17, 2017: Fixed: Improper Postfix SQL queries used to query per-user bcc address.</li>
 <li>Oct 6, 2017: Fixed: SOGo backup script contains 3 issues</li>
 <li>Oct 6, 2017: [OPTIONAL] Fix improper expected DNSBL filter for site <code>b.barracudacentral.org</code></li>
 <li>Oct 6, 2017: [OPTIONAL] Log mail subject, sender, size in mail deliver log.</li>
@@ -136,9 +139,9 @@ file <code>dovecot.conf</code>, then restart or reload Dovecot service.
 <h3 id="fixed-user-under-disabled-domain-is-able-to-send-email-with-smtp-protocol">Fixed: User under disabled domain is able to send email with smtp protocol</h3>
 <p>Dovecot is IMAP/POP3/Managesieve server, also a SASL auth server for Postfix.
 If mail domain is disabled, users under this domain are not able to use
-IMAP/POP3/Managesieve services, but there's a bug in Dovecot SQL query, it
-doesn't check domain status while performing smtp sasl auth.
-Please follow steps below to fix it.</p>
+IMAP/POP3/Managesieve services, but there's a bug in Dovecot SQL query
+configured by iRedMail, it doesn't check domain status while performing smtp
+sasl auth. Please follow steps below to fix it.</p>
 <ul>
 <li>Open file <code>/etc/dovecot/dovecot-mysql.conf</code> (Linux/OpenBSD) or
   <code>/usr/local/etc/dovecot/dovecot-mysql.conf</code> (FreeBSD), find the
@@ -163,13 +166,51 @@ Please follow steps below to fix it.</p>
 <ul>
 <li>Save your change and restart Dovecot service.</li>
 </ul>
+<h3 id="fixed-improper-postfix-sql-queries-used-to-query-per-user-bcc-address">Fixed: Improper Postfix SQL queries used to query per-user bcc address.</h3>
+<p>There're 2 Postfix SQL queries configured by iRedMail are improper, they won't
+return per-user bcc address. Please follow steps below to fix it:</p>
+<ul>
+<li>Open file <code>/etc/postfix/mysql/recipient_bcc_maps_user.cf</code> (Linux/OpenBSD) or
+  <code>/usr/local/etc/postfix/mysql/recipient_bcc_maps_user.cf</code> (FreeBSD),
+  <strong>REPLACE</strong> the <code>query =</code> line by lines below:</li>
+</ul>
+<pre><code>query       = SELECT recipient_bcc_user.bcc_address
+                FROM recipient_bcc_user,domain,alias_domain
+               WHERE recipient_bcc_user.username='%s'
+                     AND recipient_bcc_user.domain='%d'
+                     AND ((recipient_bcc_user.domain=domain.domain)
+                          OR (recipient_bcc_user.domain=alias_domain.alias_domain AND domain.domain = alias_domain.target_domain))
+                     AND domain.backupmx=0
+                     AND domain.active=1
+                     AND recipient_bcc_user.active=1
+</code></pre>
+
+<ul>
+<li>Open file <code>/etc/postfix/mysql/sender_bcc_maps_user.cf</code> (Linux/OpenBSD) or
+  <code>/usr/local/etc/postfix/mysql/sender_bcc_maps_user.cf</code> (FreeBSD),
+  <strong>REPLACE</strong> the <code>query =</code> line by lines below:</li>
+</ul>
+<pre><code>query       = SELECT sender_bcc_user.bcc_address
+                FROM sender_bcc_user,domain,alias_domain
+               WHERE sender_bcc_user.username='%s'
+                     AND sender_bcc_user.domain='%d'
+                     AND ((sender_bcc_user.domain=domain.domain)
+                          OR (sender_bcc_user.domain=alias_domain.alias_domain AND domain.domain = alias_domain.target_domain))
+                     AND domain.backupmx=0
+                     AND domain.active=1
+                     AND sender_bcc_user.active=1
+</code></pre>
+
+<ul>
+<li>Save your changes and restart Postfix service.</li>
+</ul>
 <h2 id="postgresql-backend">PostgreSQL backend</h2>
 <h3 id="fixed-user-under-disabled-domain-is-able-to-send-email-with-smtp-protocol_1">Fixed: User under disabled domain is able to send email with smtp protocol</h3>
 <p>Dovecot is IMAP/POP3/Managesieve server, also a SASL auth server for Postfix.
 If mail domain is disabled, users under this domain are not able to use
-IMAP/POP3/Managesieve services, but there's a bug in Dovecot SQL query, it
-doesn't check domain status while performing smtp sasl auth.
-Please follow steps below to fix it.</p>
+IMAP/POP3/Managesieve services, but there's a bug in Dovecot SQL query
+configured by iRedMail, it doesn't check domain status while performing smtp
+sasl auth. Please follow steps below to fix it.</p>
 <ul>
 <li>Open file <code>/etc/dovecot/dovecot-pgsql.conf</code> (Linux/OpenBSD) or
   <code>/usr/local/etc/dovecot/dovecot-pgsql.conf</code> (FreeBSD), find the
@@ -193,6 +234,43 @@ Please follow steps below to fix it.</p>
 
 <ul>
 <li>Save your change and restart Dovecot service.</li>
+</ul>
+<h3 id="fixed-improper-postfix-sql-queries-used-to-query-per-user-bcc-address_1">Fixed: Improper Postfix SQL queries used to query per-user bcc address.</h3>
+<p>There're 2 Postfix SQL queries configured by iRedMail are improper, they won't
+return per-user bcc address. Please follow steps below to fix it:</p>
+<ul>
+<li>Open file <code>/etc/postfix/pgsql/recipient_bcc_maps_user.cf</code> (Linux/OpenBSD) or
+  <code>/usr/local/etc/postfix/pgsql/recipient_bcc_maps_user.cf</code> (FreeBSD),
+  <strong>REPLACE</strong> the <code>query =</code> line by lines below:</li>
+</ul>
+<pre><code>query       = SELECT recipient_bcc_user.bcc_address
+                FROM recipient_bcc_user,domain,alias_domain
+               WHERE recipient_bcc_user.username='%s'
+                     AND recipient_bcc_user.domain='%d'
+                     AND ((recipient_bcc_user.domain=domain.domain)
+                          OR (recipient_bcc_user.domain=alias_domain.alias_domain AND domain.domain = alias_domain.target_domain))
+                     AND domain.backupmx=0
+                     AND domain.active=1
+                     AND recipient_bcc_user.active=1
+</code></pre>
+
+<ul>
+<li>Open file <code>/etc/postfix/pgsql/sender_bcc_maps_user.cf</code>, REPLACE the
+  <code>query =</code> line by lines below:</li>
+</ul>
+<pre><code>query       = SELECT sender_bcc_user.bcc_address
+                FROM sender_bcc_user,domain,alias_domain
+               WHERE sender_bcc_user.username='%s'
+                     AND sender_bcc_user.domain='%d'
+                     AND ((sender_bcc_user.domain=domain.domain)
+                          OR (sender_bcc_user.domain=alias_domain.alias_domain AND domain.domain = alias_domain.target_domain))
+                     AND domain.backupmx=0
+                     AND domain.active=1
+                     AND sender_bcc_user.active=1
+</code></pre>
+
+<ul>
+<li>Save your changes and restart Postfix service.</li>
 </ul><div class="footer">
     <p style="text-align: center; color: grey;">All documents are available in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://bitbucket.org/zhb/iredmail-docs/get/tip.tar.bz2">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
 </div>
