@@ -121,7 +121,9 @@ restart iRedAPD service. That's all.</p>
 </div>
 <h3 id="recipient-address-rejected-smtp-auth-is-required-for-users-under-this-sender-domain">Recipient address rejected: SMTP AUTH is required for users under this sender domain</h3>
 <blockquote>
-<p>Old error message was: <code>SMTP AUTH is required, or it is a spam with forged sender domain</code></p>
+<p>With old iRedAPD releases, the error messages may be one of below:</p>
+<p><code>SMTP AUTH is required, or it is a spam with forged sender domain</code></p>
+<p><code>Recipient address rejected: Policy rejection not logged in</code></p>
 </blockquote>
 <p>Sender domain is hosted locally on your iRedMail server, but sender doesn't
 perform SMTP AUTH to send email.</p>
@@ -132,20 +134,15 @@ perform SMTP AUTH to send email.</p>
 </li>
 <li>
 <p>If this is sent by a server or device under your control and you want to
-  allow it, please add the IP address of this server/device in 2 config files
-  (NOTE: parameter names are case SeNsItIvE):</p>
-<ul>
-<li>
-<p><code>/opt/iredapd/settnigs.py</code>, parameter <code>MYNETWORKS =</code> (doesn't exist by
-  default, feel free to add it). For example:</p>
+  allow it, please add the IP address of this server/device in iRedAPD config
+  file <code>/opt/iredapd/settnigs.py</code>, parameter <code>MYNETWORKS =</code> like below:</p>
 <p><code>MYNETWORKS = ['192.168.0.10', '192.168.0.20', '192.168.0.30']</code></p>
 </li>
-<li>
-<p><code>/etc/postfix/main.cf</code>, parameter <code>mynetworks =</code>. For example:</p>
-<p><code>mynetworks = 127.0.0.1 192.168.0.10 192.168.0.20 192.168.0.30</code></p>
-</li>
 </ul>
-</li>
+<p>Notes:</p>
+<ul>
+<li>This parameter doesn't exist by default, feel free to add it.</li>
+<li>Parameter name is case SeNsItIvE.</li>
 </ul>
 <h3 id="recipient-address-rejected-sender-is-not-same-as-smtp-authenticate-username">Recipient address rejected: Sender is not same as SMTP authenticate username</h3>
 <h4 id="case-1">case #1</h4>

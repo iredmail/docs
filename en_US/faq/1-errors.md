@@ -89,7 +89,11 @@ this issue.
 
 ### Recipient address rejected: SMTP AUTH is required for users under this sender domain
 
-> Old error message was: `SMTP AUTH is required, or it is a spam with forged sender domain`
+> With old iRedAPD releases, the error messages may be one of below:
+>
+> `SMTP AUTH is required, or it is a spam with forged sender domain`
+>
+> `Recipient address rejected: Policy rejection not logged in`
 
 Sender domain is hosted locally on your iRedMail server, but sender doesn't
 perform SMTP AUTH to send email.
@@ -98,17 +102,15 @@ perform SMTP AUTH to send email.
   email is spam with forged sender address.
 
 * If this is sent by a server or device under your control and you want to
-  allow it, please add the IP address of this server/device in 2 config files
-  (NOTE: parameter names are case SeNsItIvE):
+  allow it, please add the IP address of this server/device in iRedAPD config
+  file `/opt/iredapd/settnigs.py`, parameter `MYNETWORKS =` like below:
 
-    * `/opt/iredapd/settnigs.py`, parameter `MYNETWORKS =` (doesn't exist by
-      default, feel free to add it). For example:
+    `MYNETWORKS = ['192.168.0.10', '192.168.0.20', '192.168.0.30']`
 
-        `MYNETWORKS = ['192.168.0.10', '192.168.0.20', '192.168.0.30']`
+Notes:
 
-    * `/etc/postfix/main.cf`, parameter `mynetworks =`. For example:
-
-        `mynetworks = 127.0.0.1 192.168.0.10 192.168.0.20 192.168.0.30`
+* This parameter doesn't exist by default, feel free to add it.
+* Parameter name is case SeNsItIvE.
 
 ### Recipient address rejected: Sender is not same as SMTP authenticate username
 
