@@ -5,7 +5,8 @@
 !!! note "Paid Remote Upgrade Support"
 
     We offer remote upgrade support if you don't want to get your hands dirty,
-    check [the details](../support.html) and [contact us](../contact.html).
+    check [the details](https://www.iredmail.org/support.html) and
+    [contact us](https://www.iredmail.org/contact.html).
 
 This tutorial describes how to update or migrate iRedAdmin (either open source
 edition or old iRedAdmin-Pro release) to the latest iRedAdmin release (again,
@@ -30,7 +31,7 @@ either open source edition or iRedAdmin-Pro).
 
 ## Download the latest iRedAdmin
 
-* iRedAdmin open source edition is available for download [here](http://www.iredmail.org/yum/misc/).
+* iRedAdmin open source edition is available for download [here](https://dl.iredmail.org/yum/misc/).
 * iRedAdmin-Pro customers can get download link of new release by following
   steps below:
     * Login to iRedAdmin-Pro as global admin.
@@ -41,7 +42,7 @@ either open source edition or iRedAdmin-Pro).
       enabled, it may take longer, please be patient and don't request download
       link again and again.
 
-    If you cannot download iRedAdmin-Pro for some reason, please [contact us](../contact.html).
+    If you cannot download iRedAdmin-Pro for some reason, please [contact us](https://www.iredmail.org/contact.html).
 
 ## Upgrade Steps
 

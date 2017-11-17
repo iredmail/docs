@@ -4,7 +4,9 @@
 
     * If you're trying to upgrade iRedAPD-1.4.0 or later releases to the latest
       iRedAPD, please check this tutorial instead: [Upgrade iRedAPD](./upgrade.iredapd.html)
-    * We provide remote upgrade service, check [the price](../support.html) and [contact us](../contact.html).
+    * We provide remote upgrade service, check
+      [the price](https://www.iredmail.org/support.html) and
+      [contact us](https://www.iredmail.org/contact.html).
 
 This tutorial describes how to upgrade iRedAPD from v1.3.x or earlier versions
 to the later releases, it's applicable on all Linux/BSD distributions supported
@@ -19,7 +21,7 @@ by iRedMail.
 
 Steps to upgrade iRedAPD-1.3.x or earlier versions:
 
-* Download the latest stable release here: [http://iredmail.org/yum/misc/](http://iredmail.org/yum/misc/)
+* Download the latest stable release here: [https://dl.iredmail.org/yum/misc/](https://dl.iredmail.org/yum/misc/)
   For example, iRedAPD-1.4.4.tar.bz2.
 * Upload it to your iRedMail server. Assume it's `/root/iRedAPD-1.4.4.tar.bz2`
   on the server.

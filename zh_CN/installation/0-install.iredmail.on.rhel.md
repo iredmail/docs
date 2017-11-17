@@ -18,7 +18,7 @@
 
 要在 Red Hat Enterprise Linux （以下简称 RHEL）或 CentOS 上安装 iRedMail，你需要：
 
-* 一个全新安装的 RHEL 或 CentOS 系统。支持的版本号在[下载](../download.html)页面有注明。
+* 一个全新安装的 RHEL 或 CentOS 系统。支持的版本号在[下载](https://www.iredmail.org/download.html)页面有注明。
 * 要运行一个低流量的邮件服务器，要求至少`2 GB` 内存才能使用完整的垃圾邮件和病毒扫描功能。
 
 ## 准备
@@ -90,7 +90,7 @@ SELINUX=permissive
 
 ### 下载最新的 iRedMail
 
-* 访问[下载页面](../download.html)下载最新的版本。
+* 访问[下载页面](https://www.iredmail.org/download.html)下载最新的版本。
 * 上传 iRedMail 到服务器上。假设上传后的路径是 `/root/iRedMail-x.y.z.tar.bz2`
   （这里以 `x.y.z` 代替实际的版本号）。
 * 解压缩 iRedMail 安装包：
@@ -202,5 +202,5 @@ IREDMAIL_MIRROR='https://cnmirror.iredmail.org' \
 
 * 遇到问题、疑问，或有建议、功能需求，都可以发到活跃的在线论坛：
     * [英文论坛](https://forum.iredmail.org/)
-    * [中文论坛](http://www.iredmail.com/bbs/)
-* 如需及时快速的专业技术支持，请查看网页：[获取专业的技术支持](../support.html).
+    * [中文论坛](https://www.iredmail.com/)
+* 如需及时快速的专业技术支持，请查看网页：[获取专业的技术支持](https://www.iredmail.org/support.html).

@@ -4,7 +4,9 @@
 
 ## ChangeLog
 
-> We provide remote upgrade service, check [the price](../support.html) and [contact us](../contact.html).
+> We provide remote upgrade service, check
+> [the price](https://www.iredmail.org/support.html) and
+> [contact us](https://www.iredmail.org/contact.html).
 
 * 2011-08-01 readability and hints in config-files
 * 2011-05-04 Remove MySQL backend special changes. Not required.

@@ -57,7 +57,7 @@ Normally, LDAP data can be exported into LDIF format. Here's backup/restore proc
 Notes:
 
 * There might be some changes in LDAP schema, please find scripts [here](https://bitbucket.org/zhb/iredmail/src/default/extra/update/) to apply all required changes.
-* Here are all [upgrade tutorials for iRedMail](http://www.iredmail.org/docs/iredmail.releases.html).
+* Here are all [upgrade tutorials for iRedMail](https://docs.iredmail.org/iredmail.releases.html).
 
 ## MySQL/PostgreSQL: Migrate mail accounts
 

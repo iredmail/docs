@@ -4,7 +4,9 @@
 
 ## ChangeLog
 
-> We provide remote upgrade service, check [the price](../support.html) and [contact us](../contact.html).
+> We provide remote upgrade service, check
+> [the price](https://www.iredmail.org/support.html) and
+> [contact us](https://www.iredmail.org/contact.html).
 
 * 2010-06-19: Fixed: Add new column in MySQL database after upgarding PostfixAdmin.
 * 2010-06-18: [OpenLDAP] New: Index missed LDAP attributes.
@@ -288,7 +290,7 @@ and copy old config file into new version.
 * Download new version and uncompress it:
 ```
 # cd /root/
-# wget http://iredmail.org/yum/misc/phpMyAdmin-2.11.10-all-languages.tar.bz2
+# wget https://dl.iredmail.org/yum/misc/phpMyAdmin-2.11.10-all-languages.tar.bz2
 # tar xjf phpMyAdmin-2.11.10-all-languages.tar.bz2
 ```
 
@@ -647,7 +649,7 @@ version and copy sample config file to make it work.
 * Download new version and uncompress it:
 ```
 # cd /root/
-# wget http://iredmail.org/yum/misc/phpldapadmin-1.2.0.5.tgz
+# wget https://dl.iredmail.org/yum/misc/phpldapadmin-1.2.0.5.tgz
 # tar zxf phpldapadmin-1.2.0.5.tgz
 ```
 
@@ -816,7 +818,7 @@ Steps:
 * Download and uncompress new version:
 ```
 # cd /root/
-# wget http://iredmail.org/yum/misc/postfixadmin_2.3.tar.gz
+# wget https://dl.iredmail.org/yum/misc/postfixadmin_2.3.tar.gz
 # tar zxf postfixadmin_2.3.tar.gz
 ```
 

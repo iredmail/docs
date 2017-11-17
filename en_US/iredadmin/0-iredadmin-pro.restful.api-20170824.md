@@ -9,7 +9,7 @@
       upgrade iRedAdmin-Pro to the latest release, or check
       [document for old releases](./iredadmin-pro.releases.html).
     * If you need an API which has not yet been implemented, don't hesitate to
-      [contact us](../contact.html).
+      [contact us](https://www.iredmail.org/contact.html).
 
 ## Summary
 

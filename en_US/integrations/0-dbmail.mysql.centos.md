@@ -45,7 +45,7 @@ Notes:
     * CentOS 5.x or 6.x
     * Scientific Linux 5.x or 6.x
 
-* A running iRedMail server. MySQL server is installed by default in both OpenLDAP and MySQL backends, so either backend is OK. If you don't have a running iRedMail server, please follow our installation guide here: [http://www.iredmail.org/doc.html](http://www.iredmail.org/doc.html).
+* A running iRedMail server. MySQL server is installed by default in both OpenLDAP and MySQL backends, so either backend is OK. If you don't have a running iRedMail server, please follow our installation guide here: [https://docs.iredmail.org/](https://docs.iredmail.org/).
 
 * DBMail version:
 

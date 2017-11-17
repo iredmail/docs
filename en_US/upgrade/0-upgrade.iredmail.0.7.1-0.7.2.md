@@ -2,7 +2,11 @@
 
 [TOC]
 
-> We provide remote upgrade service, check [the price](../support.html) and [contact us](../contact.html).
+!!! note "Paid Remote Upgrade Support"
+
+    We offer remote upgrade support if you don't want to get your hands dirty,
+    check [the details](https://www.iredmail.org/support.html) and
+    [contact us](https://www.iredmail.org/contact.html).
 
 ## General (All backends should apply these upgrade steps)
 

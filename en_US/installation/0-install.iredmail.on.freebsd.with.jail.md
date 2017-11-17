@@ -26,7 +26,7 @@ and configure them for you automatically. Otherwise it may override your
 existing files/configurations althought it will backup files before modifying,
 and it may not be working as expected.
 
-* The latest stable release of iRedMail. You can download it here: <http://www.iredmail.org/download.html>
+* The latest stable release of iRedMail. You can download it here: <https://www.iredmail.org/download.html>
 * Port `sysutils/ezjail` for FreeBSD.
 * Make sure 3 UID/GID are not used by other user/group: 2000, 2001, 2002.
 

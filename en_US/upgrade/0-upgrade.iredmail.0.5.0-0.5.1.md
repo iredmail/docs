@@ -2,9 +2,13 @@
 
 [TOC]
 
-## ChangeLog
+!!! note "Paid Remote Upgrade Support"
 
-> We provide remote upgrade service, check [the price](../support.html) and [contact us](../contact.html).
+    We offer remote upgrade support if you don't want to get your hands dirty,
+    check [the details](https://www.iredmail.org/support.html) and
+    [contact us](https://www.iredmail.org/contact.html).
+
+## ChangeLog
 
 * 2009-11-03: Explain why we need extra SQL columns. Thanks Rashef@forum.
 * 2009-11-03: Fix file name of LDAP schema. Thanks Bronkoo@twitter.

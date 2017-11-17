@@ -1,4 +1,4 @@
-Please visit [http://www.iredmail.org/docs/](http://www.iredmail.org/docs/)
+Please visit [https://docs.iredmail.org/](https://docs.iredmail.org/)
 to read converted documents in HTML format, get support in our forum:
 [https://forum.iredmail.org/](https://forum.iredmail.org/).
 
@@ -24,4 +24,4 @@ All documents are published under Creative Commons License.
 
 If you found something wrong, even just a grammar error or spelling mistake,
 please don't hesitate to send us a pull request or
-[contact us](http://www.iredmail.org/contact.html) to fix it.
+[contact us](https://www.iredmail.org/contact.html) to fix it.

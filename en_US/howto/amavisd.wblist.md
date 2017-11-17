@@ -61,4 +61,4 @@ Sample usages:
 
 Screenshot of iRedAdmin-Pro:
 
-![](http://www.iredmail.org/images/iredadmin/system_wblist.png)
+![](./images/iredadmin/system_wblist.png)

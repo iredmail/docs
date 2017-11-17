@@ -9,7 +9,8 @@
 !!! note "Paid Remote Upgrade Support"
 
     We offer remote upgrade support if you don't want to get your hands dirty,
-    check [the details](../support.html) and [contact us](../contact.html).
+    check [the details](https://www.iredmail.org/support.html) and
+    [contact us](https://www.iredmail.org/contact.html).
 
 ## ChangeLog
 

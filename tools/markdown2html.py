@@ -59,7 +59,7 @@ html = """<!DOCTYPE html>
 # Link to iRedMail.org
 html += """
     <div id="navigation">
-    <a href="http://www.iredmail.org" target="_blank">
+    <a href="https://www.iredmail.org" target="_blank">
         <img alt="iRedMail web site"
              src="./images/logo-iredmail.png"
              style="vertical-align: middle; height: 30px;"
@@ -83,7 +83,7 @@ orig_content = web.safeunicode(open(filename).read())
 html += markdown.markdown(orig_content, extensions=MD_EXTENSIONS)
 
 html += """<div class="footer">
-    <p style="text-align: center; color: grey;">All documents are available in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://bitbucket.org/zhb/iredmail-docs/get/tip.tar.bz2">download the latest version</a> for offline reading. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
+    <p style="text-align: center; color: grey;">All documents are available in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://bitbucket.org/zhb/iredmail-docs/get/tip.tar.bz2">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
 </div>"""
 
 

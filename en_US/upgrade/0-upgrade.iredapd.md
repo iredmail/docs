@@ -9,13 +9,16 @@
     * iRedMail and iRedAdmin-Pro completely drop support for Cluebringer, if
       you're still running Cluebringer, please migrate to iRedAPD by following
       [our tutorial](./cluebringer.to.iredapd.html).
-    * We offer remote upgrade service, check [the price](../support.html) and [contact us](../contact.html).
+    * We offer remote upgrade service, 
+    * We offer remote upgrade support, check
+      [the details](https://www.iredmail.org/support.html) and
+      [contact us](https://www.iredmail.org/contact.html).
 
 This tutorial describes how to upgrade iRedAPD from `1.4.0` or later releases
 to the latest stable release. It's applicable on all Linux/BSD distributions
 supported by iRedMail.
 
-1. Download the latest stable release here: <http://www.iredmail.org/yum/misc/>.
+1. Download the latest stable release here: <https://dl.iredmail.org/yum/misc/>.
    For example, iRedAPD-1.7.0.tar.bz2.
 1. Upload it to your iRedMail server. Assume it's `/root/iRedAPD-1.7.0.tar.bz2`.
 1. Extract downloaded package and execute upgrade script:

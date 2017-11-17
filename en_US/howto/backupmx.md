@@ -38,7 +38,7 @@ connect to `mx02.example.com`.
 It's easy to manage domain profile With iRedAdmin-Pro, including backup MX setting.
 Go to domain profile page, click tab `Backup MX`:
 
-![](http://www.iredmail.org/images/iredadmin/domain_profile_backupmx.png){: width=1000px }
+![](./images/iredadmin/domain_profile_backupmx.png){: width=1000px }
 
 ## Mark domain as backup MX with command line tools
 

@@ -6,12 +6,12 @@ This tutorial is for only RHEL/CentOS 5.x, Debian 5.
 
 ### on RHEL/CentOS 5
 
-Dovecot 1.2 is available in [another iRedMail yum repository](http://iredmail.org/yum/rpms/dovecot/), you should append below lines in `/etc/yum.repos.d/iRedMail.repo` to enable it:
+Dovecot 1.2 is available in [another iRedMail yum repository](https://dl.iredmail.org/yum/rpms/dovecot/), you should append below lines in `/etc/yum.repos.d/iRedMail.repo` to enable it:
 
 ```
 [iRedMail-Dovecot-12]
 name=iRedMail-Dovecot-12
-baseurl=http://iredmail.org/yum/rpms/dovecot/rhel5/
+baseurl=https://dl.iredmail.org/yum/rpms/dovecot/rhel5/
 enabled=1
 gpgcheck=0
 priority=1

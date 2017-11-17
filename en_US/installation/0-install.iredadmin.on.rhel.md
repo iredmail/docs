@@ -14,7 +14,7 @@
 iRedMail will install all required packages for you, you don't need to
 install them manually, below info just for your reference.
 
-* The latest iRedMail release. [Download the latest iRedMail](../download.html).
+* The latest iRedMail release. [Download the latest iRedMail](https://www.iredmail.org/download.html).
   NOTE: You must have iRedMail installed on server first.
 
 * `Apache` 2.2+. Web server.
@@ -30,8 +30,8 @@ install them manually, below info just for your reference.
 
 ## Download iRedAdmin and configure Apache web server
 
-* Download iRedAdmin open source edition [here](http://www.iredmail.org/yum/misc/).
-  If you're trying to install iRedAdmin-Pro, please [contact us](../contact.html)
+* Download iRedAdmin open source edition [here](https://dl.iredmail.org/yum/misc/).
+  If you're trying to install iRedAdmin-Pro, please [contact us](https://www.iredmail.org/contact.html)
   to get download link of iRedAdmin-Pro.
 
 * Copy iRedAdmin to `/var/www/`, set correct file permissions, and create symbol link.

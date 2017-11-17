@@ -41,15 +41,15 @@ Version | Release Date | Comment | Extra
 [1.9.0](https://forum.iredmail.org/topic4647-news-announcements-bug-fixes-iredadminproldap190-has-been-released.html) | 2013-03-26 | Bug fix release.
 [1.8.0](https://forum.iredmail.org/topic3919-news-announcements-bug-fixes-iredadminproldap180-has-been-released.html) | 2012-09-19 | Bug fix release.
 [1.7.0](https://forum.iredmail.org/topic3369-news-announcements-bug-fixes-iredadminproldap172-has-been-released.html) | 2012-05-10 | Bug fix release.
-[1.6.3](http://www.iredmail.org/wiki/index.php?title=Release.Notes/iRedAdmin-Pro/LDAP/1.6.3) | 2012-01-10 | Bug fix release.
-[1.6.2](http://www.iredmail.org/wiki/index.php?title=Release.Notes/iRedAdmin-Pro/LDAP/1.6.2) | 2011-08-07 | Bug fix release.
-[1.6.1](http://www.iredmail.org/wiki/index.php?title=Release.Notes/iRedAdmin-Pro/LDAP/1.6.1) | 2011-06-26 | Bug fix release.
-[1.6.0](http://www.iredmail.org/wiki/index.php?title=Release.Notes/iRedAdmin-Pro/LDAP/1.6.0) | 2011-06-10 | security fix release.
-[1.5.0](http://www.iredmail.org/wiki/index.php?title=Release.Notes/iRedAdmin-Pro/LDAP/1.5.0) | 2011-05-03
-[1.4.1](http://www.iredmail.org/wiki/index.php?title=Release.Notes/iRedAdmin-Pro/LDAP/1.4.1) | 2011-03-03
-[1.4.0](http://www.iredmail.org/wiki/index.php?title=Release.Notes/iRedAdmin-Pro/LDAP/1.4.0) | 2011-02-01
-[1.3.0](http://www.iredmail.org/wiki/index.php?title=Release.Notes/iRedAdmin-Pro/LDAP/1.3.0) | 2010-10-01
-[1.2.0](http://www.iredmail.org/wiki/index.php?title=Release.Notes/iRedAdmin-Pro/LDAP/1.2.0) | 2010-06-18
+1.6.3 | 2012-01-10 | Bug fix release.
+1.6.2 | 2011-08-07 | Bug fix release.
+1.6.1 | 2011-06-26 | Bug fix release.
+1.6.0 | 2011-06-10 | security fix release.
+1.5.0 | 2011-05-03
+1.4.1 | 2011-03-03
+1.4.0 | 2011-02-01
+1.3.0 | 2010-10-01
+1.2.0 | 2010-06-18
 1.0 | 2009-11-01
 
 ### iRedAdmin-Pro-SQL (For MySQL, MariaDB, PostgreSQL backends)
@@ -78,12 +78,12 @@ Version | Release Date | Comment | RESTful API Document
 [1.6.0](https://forum.iredmail.org/topic4649.html) | March 26, 2013 | Bug fix release.
 [1.5.0](https://forum.iredmail.org/topic3920.html) | Sept 19, 2012 | Bug fix release.
 [1.4.0](https://forum.iredmail.org/topic3370.html) | May 10, 2012 | Bug fix release.
-[1.3.1](http://www.iredmail.org/wiki/index.php?title=Release.Notes/iRedAdmin-Pro/MySQL/1.3.1) | Jan 10, 2012 | Bug fix release.
-[1.3.0](http://www.iredmail.org/wiki/index.php?title=Release.Notes/iRedAdmin-Pro/MySQL/1.3.0) | Aug 7, 2011
-[1.2.1](http://www.iredmail.org/wiki/index.php?title=Release.Notes/iRedAdmin-Pro/MySQL/1.2.1) | June 26, 2011 | Bug fix release. 
-[1.2.0](http://www.iredmail.org/wiki/index.php?title=Release.Notes/iRedAdmin-Pro/MySQL/1.2.0) | June 10, 2011 | Security fix release.
-[1.1.0](http://www.iredmail.org/wiki/index.php?title=Release.Notes/iRedAdmin-Pro/MySQL/1.1.0) | May 3, 2011
-[1.0](http://www.iredmail.org/wiki/index.php?title=Release.Notes/iRedAdmin-Pro/MySQL/1.0) | Feb 1, 2011
+1.3.1 | Jan 10, 2012 | Bug fix release.
+1.3.0 | Aug 7, 2011 |
+1.2.1 | June 26, 2011 | Bug fix release. 
+1.2.0 | June 10, 2011 | Security fix release.
+1.1.0 | May 3, 2011
+1.0 | Feb 1, 2011
 
 iRedAdmin-Pro-MySQL and iRedAdmin-Pro-PGSQL were merged into one edition:
 iRedAdmin-Pro-SQL. Below are changelog of old iRedAdmin-Pro-PGSQL editions.
@@ -98,4 +98,4 @@ Version | Release Date | Comment
 [1.3.0](https://forum.iredmail.org/topic5170.html) | July 16, 2013 | Bug fix release.
 [1.2.0](https://forum.iredmail.org/topic4650.html) | March 26, 2013 | Bug fix release.
 [1.1](https://forum.iredmail.org/topic3921.html) | Sept 19, 2012 | Bug fix release.
-[1.0](http://www.iredmail.org/wiki/index.php?title=Release.Notes/iRedAdmin-Pro/PGSQL/1.0) | May 10, 2012 | Initial release.
+1.0 | May 10, 2012 | Initial release.

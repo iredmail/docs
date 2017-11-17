@@ -154,8 +154,8 @@ Ora tutte le mail pulite inviate dal vostro utente verranno messe in quarantena 
 
 * Vedi mail in quarantena:
 
-![](../images/iredadmin/system_maillog_quarantined.png)
+![](./images/iredadmin/system_maillog_quarantined.png)
 
 * Espandi la mail in quarantena cosi da vedere il corpo e le intestazioni.
 
-![](../images/iredadmin/system_maillog_quarantined_expanded.png)
+![](./images/iredadmin/system_maillog_quarantined_expanded.png)

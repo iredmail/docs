@@ -5,7 +5,7 @@
     * For more details about iRedAdmin-Pro RESTful API, please read document:
       [iRedAdmin-Pro: RESTful API](./iredadmin-pro.restful.api.html).
     * If you need an API which has not yet been implemented, don't hesitate to
-      [contact us](../contact.html).
+      [contact us](https://www.iredmail.org/contact.html).
 
 Sample `curl` commands to interact iRedAdmin-Pro RESTful API.
 

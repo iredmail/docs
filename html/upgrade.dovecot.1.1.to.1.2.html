@@ -8,7 +8,7 @@
     <body>
     
     <div id="navigation">
-    <a href="http://www.iredmail.org" target="_blank">
+    <a href="https://www.iredmail.org" target="_blank">
         <img alt="iRedMail web site"
              src="./images/logo-iredmail.png"
              style="vertical-align: middle; height: 30px;"
@@ -19,10 +19,10 @@
 <p>This tutorial is for only RHEL/CentOS 5.x, Debian 5.</p>
 <h2 id="install-dovecot-12">Install Dovecot 1.2</h2>
 <h3 id="on-rhelcentos-5">on RHEL/CentOS 5</h3>
-<p>Dovecot 1.2 is available in <a href="http://iredmail.org/yum/rpms/dovecot/">another iRedMail yum repository</a>, you should append below lines in <code>/etc/yum.repos.d/iRedMail.repo</code> to enable it:</p>
+<p>Dovecot 1.2 is available in <a href="https://dl.iredmail.org/yum/rpms/dovecot/">another iRedMail yum repository</a>, you should append below lines in <code>/etc/yum.repos.d/iRedMail.repo</code> to enable it:</p>
 <pre><code>[iRedMail-Dovecot-12]
 name=iRedMail-Dovecot-12
-baseurl=http://iredmail.org/yum/rpms/dovecot/rhel5/
+baseurl=https://dl.iredmail.org/yum/rpms/dovecot/rhel5/
 enabled=1
 gpgcheck=0
 priority=1
@@ -116,7 +116,7 @@ You need to run the following commands to mass rename the RoundCube rules and re
 find /var/vmail/sieve/ -type f -name 'roundcube' -exec rename 'roundcube' 'roundcube.sieve' '{}' \;
 find /var/vmail/sieve/ -type f -name 'roundcube.sieve' -execdir ln -s '{}' dovecot.sieve \;
 </code></pre><div class="footer">
-    <p style="text-align: center; color: grey;">All documents are available in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://bitbucket.org/zhb/iredmail-docs/get/tip.tar.bz2">download the latest version</a> for offline reading. If you found something wrong, please do <a href="http://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
+    <p style="text-align: center; color: grey;">All documents are available in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://bitbucket.org/zhb/iredmail-docs/get/tip.tar.bz2">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
 </div>
 <!-- Global site tag (gtag.js) - Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=UA-3293801-21"></script>

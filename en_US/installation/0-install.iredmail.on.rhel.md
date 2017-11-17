@@ -16,7 +16,7 @@
 To install iRedMail on RHEL or CentOS Linux, you need:
 
 * A __FRESH__, working RHEL or CentOS system. Supported releases are listed on
-  [Download](../download.html) page.
+  [Download](https://www.iredmail.org/download.html) page.
 * `2 GB` of memory is recommended for a low traffic production server.
   Spam/Virus scanning will take most system resource.
 * Make sure 3 UID/GID are not used by other user/group: 2000, 2001, 2002.
@@ -100,14 +100,14 @@ Disable it immediately without rebooting your server.
     required packages with the needed features, iRedMail team has built these
     packages and made them available trough the iRedMail repository enabled by
     default at installation time. You can view all available packages
-    [here](http://www.iredmail.org/yum/rpms/), please check `README` and
+    [here](https://dl.iredmail.org/yum/rpms/), please check `README` and
     `ChangeLog` files under each directory for more details. Source RPMs (srpm)
     used by iRedMail team to build the binary packages are available
-    [here](http://www.iredmail.org/yum/srpms/).
+    [here](https://dl.iredmail.org/yum/srpms/).
 
 ### Download the latest release of iRedMail
 
-* Visit [Download page](../download.html) to get the
+* Visit [Download page](https://www.iredmail.org/download.html) to get the
   latest stable release of iRedMail.
 
 * Upload iRedMail to your mail server via ftp or scp or whatever method you
@@ -243,7 +243,7 @@ hostname or IP address.
 ## Get technical support
 
 * You are welcome to post issues, feedbacks, feature requests, suggestions in
-  our [online support forum](../forum/), it's more
+  our [online support forum](https://forum.iredmail.org/), it's more
   responsible than you expected.
 * We offer paid professional support service too, check our web site for more
-  details: [Get Professional Support from iRedMail Team](../support.html).
+  details: [Get Professional Support from iRedMail Team](https://www.iredmail.org/support.html).

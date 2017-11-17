@@ -10,7 +10,7 @@ __NOTES__:
 
 * This tutorial has been verified on Windows Server 2000, 2003, 2008, 2012,
   2016, if you tested it on other versions and works well, please let us
-  know. [Contact us](http://www.iredmail.org/contact.html)
+  know. [Contact us](https://www.iredmail.org/contact.html)
 
 ## Summary
 

@@ -5,7 +5,8 @@
 !!! note "Paid Remote Upgrade Support"
 
     We offer remote upgrade support if you don't want to get your hands dirty,
-    check [the details](../support.html) and [contact us](../contact.html).
+    check [the details](https://www.iredmail.org/support.html) and
+    [contact us](https://www.iredmail.org/contact.html).
 
 !!! note
 
@@ -14,8 +15,6 @@
     and wait for our upgrade tutorial if you want to upgrade to Cluebringer.
 
 ## ChangeLog
-
-> We provide remote upgrade service, check [the price](../support.html) and [contact us](../contact.html).
 
 * 2014-01-08: Remove backup mx related sections, it's wrong.
 * 2013-12-17: New section: Alter Cluebringer database.

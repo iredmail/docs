@@ -4,7 +4,9 @@
 
 ## ChangeLog
 
-> We provide remote upgrade service, check [the price](../support.html) and [contact us](../contact.html).
+> We provide remote upgrade service, check
+> [the price](https://www.iredmail.org/support.html) and
+> [contact us](https://www.iredmail.org/contact.html).
 
 * 2011-08-23: Add upgrade tutorial or links for iRedAdmin (open source edition), phpMyAdmin, Roundcube.
 * 2011-08-17: initial public.

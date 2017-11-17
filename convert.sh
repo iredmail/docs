@@ -280,15 +280,6 @@ done
 
 rm -rf ${TMP_DIR} &>/dev/null
 
-# Sync newly generated HTML files to local diretories.
-#if echo "$@" | grep -q -- '--sync-local'; then
-#    # Copy to local hg repo of http://www.iredmail.org/docs/
-#    echo "* Syncing converted HTML files."
-#    rm -rf ../web/docs/*
-#    cp -rf ${ROOTDIR}/html/* ${ROOTDIR}/../web/docs/
-#    cp -rf ${ROOTDIR}/html/images/* ${ROOTDIR}/../web/docs/images/
-#fi
-
 # Show changed files.
 echo "* Changed files:"
 echo "---------------"

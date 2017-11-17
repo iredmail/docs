@@ -5,7 +5,7 @@
 !!! note
 
     All iRedAPD features listed in current page can be managed with our
-    web-based admin panel - [iRedAdmin-Pro](../admin_panel.html).
+    web-based admin panel - [iRedAdmin-Pro](https://www.iredmail.org/admin_panel.html).
 
 ## Introduce iRedAPD
 
