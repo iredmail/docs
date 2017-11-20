@@ -202,5 +202,5 @@ IREDMAIL_MIRROR='https://cnmirror.iredmail.org' \
 
 * 遇到问题、疑问，或有建议、功能需求，都可以发到活跃的在线论坛：
     * [英文论坛](https://forum.iredmail.org/)
-    * [中文论坛](https://www.iredmail.com/)
+    * [中文论坛](https://bbs.iredmail.org/)
 * 如需及时快速的专业技术支持，请查看网页：[获取专业的技术支持](https://www.iredmail.org/support.html).
