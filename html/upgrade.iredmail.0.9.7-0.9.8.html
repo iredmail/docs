@@ -28,14 +28,20 @@
 <li><a href="#optional-log-mail-subject-sender-size-in-mail-deliver-log">[OPTIONAL] Log mail subject, sender, size in mail deliver log</a></li>
 </ul>
 </li>
+<li><a href="#openldap-backend">OpenLDAP backend</a><ul>
+<li><a href="#amavisd-add-new-sql-column-maddremail_raw-to-store-mail-address-without-address-extension">Amavisd: Add new SQL column maddr.email_raw to store mail address without address extension</a></li>
+</ul>
+</li>
 <li><a href="#mysqlmariadb-backends">MySQL/MariaDB backends</a><ul>
 <li><a href="#fixed-user-under-disabled-domain-is-able-to-send-email-with-smtp-protocol">Fixed: User under disabled domain is able to send email with smtp protocol</a></li>
 <li><a href="#fixed-improper-postfix-sql-queries-used-to-query-per-user-bcc-address">Fixed: Improper Postfix SQL queries used to query per-user bcc address.</a></li>
+<li><a href="#amavisd-add-new-sql-column-maddremail_raw-to-store-mail-address-without-address-extension_1">Amavisd: Add new SQL column maddr.email_raw to store mail address without address extension</a></li>
 </ul>
 </li>
 <li><a href="#postgresql-backend">PostgreSQL backend</a><ul>
 <li><a href="#fixed-user-under-disabled-domain-is-able-to-send-email-with-smtp-protocol_1">Fixed: User under disabled domain is able to send email with smtp protocol</a></li>
 <li><a href="#fixed-improper-postfix-sql-queries-used-to-query-per-user-bcc-address_1">Fixed: Improper Postfix SQL queries used to query per-user bcc address.</a></li>
+<li><a href="#amavisd-add-new-sql-column-maddremail_raw-to-store-mail-address-without-address-extension_2">Amavisd: Add new SQL column maddr.email_raw to store mail address without address extension</a></li>
 </ul>
 </li>
 </ul>
@@ -69,6 +75,7 @@ check <a href="https://www.iredmail.org/support.html">the details</a> and
 <li>New doc: how to deploy mlmmj + mlmmj-admin</li>
 </ul>
 </li>
+<li>Nov 24, 2017: Amavisd: Add new SQL column <code>maddr.email_raw</code> to store mail address without address extension.</li>
 <li>Nov 17, 2017: Fixed: Improper Postfix SQL queries used to query per-user bcc address.</li>
 <li>Oct 6, 2017: Fixed: SOGo backup script contains 3 issues</li>
 <li>Oct 6, 2017: [OPTIONAL] Fix improper expected DNSBL filter for site <code>b.barracudacentral.org</code></li>
@@ -133,6 +140,29 @@ file <code>dovecot.conf</code>, then restart or reload Dovecot service.
 <em> On Linux/OpenBSD, it's <code>/etc/dovecot/dovecot.conf</code>
 </em> On FreeBSD, it's <code>/usr/local/etc/dovecot/dovecot.conf</code></p>
 <pre><code>deliver_log_format = from=%{from}, envelope_sender=%{from_envelope}, subject=%{subject}, msgid=%m, size=%{size}, %$
+</code></pre>
+
+<h2 id="openldap-backend">OpenLDAP backend</h2>
+<h3 id="amavisd-add-new-sql-column-maddremail_raw-to-store-mail-address-without-address-extension">Amavisd: Add new SQL column <code>maddr.email_raw</code> to store mail address without address extension</h3>
+<p>Many sender/recipient addresses contain address extension like
+<code>user+extension@domain.com</code>, this is annoying if we try to get top 10
+senders/recipients from Amavisd SQL database, because address
+<code>user+ext1@domain.com</code> and <code>user+ext2@domain.com</code> are considered as different
+user. To avoid this issue, we create a SQL trigger to store email address
+without address extension in a new column <code>maddr.email_raw</code>. Please follow
+steps below to apply the SQL structure change.</p>
+<ul>
+<li>Download SQL template file used to update SQL database:</li>
+</ul>
+<pre><code>cd /tmp/
+wget https://bitbucket.org/zhb/iredmail/raw/default/extra/update/0.9.8-amavisd.mysql
+</code></pre>
+
+<ul>
+<li>Connect to MySQL server as MySQL root user, and execute SQL commands:</li>
+</ul>
+<pre><code>$ mysql amavisd
+mysql&gt; SOURCE /tmp/0.9.8-amavisd.mysql;
 </code></pre>
 
 <h2 id="mysqlmariadb-backends">MySQL/MariaDB backends</h2>
@@ -204,6 +234,27 @@ return per-user bcc address. Please follow steps below to fix it:</p>
 <ul>
 <li>Save your changes and restart Postfix service.</li>
 </ul>
+<h3 id="amavisd-add-new-sql-column-maddremail_raw-to-store-mail-address-without-address-extension_1">Amavisd: Add new SQL column <code>maddr.email_raw</code> to store mail address without address extension</h3>
+<p>Many sender/recipient addresses contain address extension like
+<code>user+extension@domain.com</code>, this is annoying if we try to get top 10
+senders/recipients from Amavisd SQL database, because address
+<code>user+ext1@domain.com</code> and <code>user+ext2@domain.com</code> should be considered as same
+user, but it's not. To avoid this issue, we create a SQL trigger to store email
+address without address extension in a new column <code>maddr.email_raw</code>. Steps:</p>
+<ul>
+<li>Download SQL template file used to update SQL database:</li>
+</ul>
+<pre><code>cd /tmp/
+wget https://bitbucket.org/zhb/iredmail/raw/default/extra/update/0.9.8-amavisd.mysql
+</code></pre>
+
+<ul>
+<li>Connect to MySQL server as MySQL root user, and execute SQL commands:</li>
+</ul>
+<pre><code># mysql amavisd
+sql&gt; SOURCE /tmp/0.9.8-amavisd.mysql;
+</code></pre>
+
 <h2 id="postgresql-backend">PostgreSQL backend</h2>
 <h3 id="fixed-user-under-disabled-domain-is-able-to-send-email-with-smtp-protocol_1">Fixed: User under disabled domain is able to send email with smtp protocol</h3>
 <p>Dovecot is IMAP/POP3/Managesieve server, also a SASL auth server for Postfix.
@@ -271,7 +322,28 @@ return per-user bcc address. Please follow steps below to fix it:</p>
 
 <ul>
 <li>Save your changes and restart Postfix service.</li>
-</ul><div class="footer">
+</ul>
+<h3 id="amavisd-add-new-sql-column-maddremail_raw-to-store-mail-address-without-address-extension_2">Amavisd: Add new SQL column <code>maddr.email_raw</code> to store mail address without address extension</h3>
+<p>Many sender/recipient addresses contain address extension like
+<code>user+extension@domain.com</code>, this is annoying if we try to get top 10
+senders/recipients from Amavisd SQL database, because address
+<code>user+ext1@domain.com</code> and <code>user+ext2@domain.com</code> should be considered as same
+user, but it's not. To avoid this issue, we create a SQL trigger to store email
+address without address extension in a new column <code>maddr.email_raw</code>. Steps:</p>
+<ul>
+<li>Download SQL template file used to update SQL database:</li>
+</ul>
+<pre><code>cd /tmp/
+wget https://bitbucket.org/zhb/iredmail/raw/default/extra/update/0.9.8-amavisd.pgsql
+</code></pre>
+
+<ul>
+<li>Run shell commands as root user below to connect to PostgreSQL server:</li>
+</ul>
+<pre><code># su - postgres
+$ psql -U amavisd -d vmail
+sql&gt; \i /tmp/0.9.8-amavisd.pgsql
+</code></pre><div class="footer">
     <p style="text-align: center; color: grey;">All documents are available in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://bitbucket.org/zhb/iredmail-docs/get/tip.tar.bz2">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
 </div>
 <!-- Global site tag (gtag.js) - Google Analytics -->

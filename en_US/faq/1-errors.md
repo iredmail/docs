@@ -2,7 +2,7 @@
 
 [TOC]
 
-## Postfix
+## Postfix (SMTP)
 
 ### Intended policy rejection, please try again later
 
@@ -203,7 +203,7 @@ To solve this, please either use a different `myhostname` or don't use this
 domain name as mail domain (remove it with iRedAdmin). To use a different value
 for Postfix parameter `myhostname`, you must also change server hostname.
 
-## Dovecot
+## Dovecot (IMAP / POP3)
 
 ### Plaintext authentication not allowed without SSL/TLS
 

@@ -23,6 +23,7 @@
     * New table: `vmail.maillists`
     * New doc: how to add a standalone (mlmmj) mailing list account
     * New doc: how to deploy mlmmj + mlmmj-admin
+* Nov 24, 2017: Amavisd: Add new SQL column `maddr.email_raw` to store mail address without address extension.
 * Nov 17, 2017: Fixed: Improper Postfix SQL queries used to query per-user bcc address.
 * Oct 6, 2017: Fixed: SOGo backup script contains 3 issues
 * Oct 6, 2017: [OPTIONAL] Fix improper expected DNSBL filter for site `b.barracudacentral.org`
@@ -107,6 +108,32 @@ file `dovecot.conf`, then restart or reload Dovecot service.
 deliver_log_format = from=%{from}, envelope_sender=%{from_envelope}, subject=%{subject}, msgid=%m, size=%{size}, %$
 ```
 
+## OpenLDAP backend
+
+### Amavisd: Add new SQL column `maddr.email_raw` to store mail address without address extension
+
+Many sender/recipient addresses contain address extension like
+`user+extension@domain.com`, this is annoying if we try to get top 10
+senders/recipients from Amavisd SQL database, because address
+`user+ext1@domain.com` and `user+ext2@domain.com` are considered as different
+user. To avoid this issue, we create a SQL trigger to store email address
+without address extension in a new column `maddr.email_raw`. Please follow
+steps below to apply the SQL structure change.
+
+* Download SQL template file used to update SQL database:
+
+```
+cd /tmp/
+wget https://bitbucket.org/zhb/iredmail/raw/default/extra/update/0.9.8-amavisd.mysql
+```
+
+* Connect to MySQL server as MySQL root user, and execute SQL commands:
+
+```
+$ mysql amavisd
+mysql> SOURCE /tmp/0.9.8-amavisd.mysql;
+```
+
 ## MySQL/MariaDB backends
 
 ### Fixed: User under disabled domain is able to send email with smtp protocol
@@ -179,6 +206,29 @@ query       = SELECT sender_bcc_user.bcc_address
 
 * Save your changes and restart Postfix service.
 
+### Amavisd: Add new SQL column `maddr.email_raw` to store mail address without address extension
+
+Many sender/recipient addresses contain address extension like
+`user+extension@domain.com`, this is annoying if we try to get top 10
+senders/recipients from Amavisd SQL database, because address
+`user+ext1@domain.com` and `user+ext2@domain.com` should be considered as same
+user, but it's not. To avoid this issue, we create a SQL trigger to store email
+address without address extension in a new column `maddr.email_raw`. Steps:
+
+* Download SQL template file used to update SQL database:
+
+```
+cd /tmp/
+wget https://bitbucket.org/zhb/iredmail/raw/default/extra/update/0.9.8-amavisd.mysql
+```
+
+* Connect to MySQL server as MySQL root user, and execute SQL commands:
+
+```
+# mysql amavisd
+sql> SOURCE /tmp/0.9.8-amavisd.mysql;
+```
+
 ## PostgreSQL backend
 
 ### Fixed: User under disabled domain is able to send email with smtp protocol
@@ -249,3 +299,27 @@ query       = SELECT sender_bcc_user.bcc_address
 ```
 
 * Save your changes and restart Postfix service.
+
+### Amavisd: Add new SQL column `maddr.email_raw` to store mail address without address extension
+
+Many sender/recipient addresses contain address extension like
+`user+extension@domain.com`, this is annoying if we try to get top 10
+senders/recipients from Amavisd SQL database, because address
+`user+ext1@domain.com` and `user+ext2@domain.com` should be considered as same
+user, but it's not. To avoid this issue, we create a SQL trigger to store email
+address without address extension in a new column `maddr.email_raw`. Steps:
+
+* Download SQL template file used to update SQL database:
+
+```
+cd /tmp/
+wget https://bitbucket.org/zhb/iredmail/raw/default/extra/update/0.9.8-amavisd.pgsql
+```
+
+* Run shell commands as root user below to connect to PostgreSQL server:
+
+```
+# su - postgres
+$ psql -U amavisd -d vmail
+sql> \i /tmp/0.9.8-amavisd.pgsql
+```

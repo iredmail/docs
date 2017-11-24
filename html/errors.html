@@ -19,7 +19,7 @@
 <div class="toc">
 <ul>
 <li><a href="#errors-you-may-see-while-maintaining-iredmail-server">Errors you may see while maintaining iRedMail server</a><ul>
-<li><a href="#postfix">Postfix</a><ul>
+<li><a href="#postfix-smtp">Postfix (SMTP)</a><ul>
 <li><a href="#intended-policy-rejection-please-try-again-later">Intended policy rejection, please try again later</a></li>
 <li><a href="#sender-address-rejected-not-logged-in">Sender address rejected: not logged in</a></li>
 <li><a href="#helo-command-rejected-need-fully-qualified-hostname">Helo command rejected: need fully-qualified hostname</a></li>
@@ -35,7 +35,7 @@
 <li><a href="#warning-do-not-list-domain-mydomaincom-in-both-mydestination-and-virtual_mailbox_domains">warning: do not list domain mydomain.com in BOTH mydestination and virtual_mailbox_domains</a></li>
 </ul>
 </li>
-<li><a href="#dovecot">Dovecot</a><ul>
+<li><a href="#dovecot-imap-pop3">Dovecot (IMAP / POP3)</a><ul>
 <li><a href="#plaintext-authentication-not-allowed-without-ssltls">Plaintext authentication not allowed without SSL/TLS</a></li>
 </ul>
 </li>
@@ -47,7 +47,7 @@
 </li>
 </ul>
 </div>
-<h2 id="postfix">Postfix</h2>
+<h2 id="postfix-smtp">Postfix (SMTP)</h2>
 <h3 id="intended-policy-rejection-please-try-again-later">Intended policy rejection, please try again later</h3>
 <p>Sample error message in Postfix log file:</p>
 <blockquote>
@@ -217,7 +217,7 @@ domain mydomain.com in BOTH mydestination and virtual_mailbox_domains</p>
 <p>To solve this, please either use a different <code>myhostname</code> or don't use this
 domain name as mail domain (remove it with iRedAdmin). To use a different value
 for Postfix parameter <code>myhostname</code>, you must also change server hostname.</p>
-<h2 id="dovecot">Dovecot</h2>
+<h2 id="dovecot-imap-pop3">Dovecot (IMAP / POP3)</h2>
 <h3 id="plaintext-authentication-not-allowed-without-ssltls">Plaintext authentication not allowed without SSL/TLS</h3>
 <p>Error message in Dovecot log file:</p>
 <blockquote>
