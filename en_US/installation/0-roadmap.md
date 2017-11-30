@@ -28,7 +28,9 @@ Features listed below have been implemented in latest development edition.
 
 * Supports new distribution release:
     + OpenBSD 6.2 (6.1 is not supported anymore)
-    + Ubuntu 17.10 (14.04 LTS, 17.04 are not supported anymore)
+    + Ubuntu 17.10 (14.04 LTS, 17.04 are not supported anymore. With latest
+      iRedMail-0.9.7, installation with 14.04 is only 10% of 16.04, that's why we believe it's
+      safe to drop 14.04 now.)
 
 * Apache has been removed, Nginx is the only one web server available.
 
