@@ -10,8 +10,6 @@ You can also contact us via email directly: [Contact Us](https://www.iredmail.or
 
 ### Work In Progress
 
-* Drop Ubuntu 14.04 for NEW iRedMail installation.
-
 * Integrate [mlmmj](http://mlmmj.org) mailing list manager.
     * [DONE] RESTful API server used to manage mlmmj: [mlmmj-admin](https://bitbucket.org/iredmail/mlmmj-admin/src).
     * [DONE] Integrate mlmmj and mlmmj-admin in iRedAdmin-Pro for SQL backends.
@@ -30,7 +28,7 @@ Features listed below have been implemented in latest development edition.
 
 * Supports new distribution release:
     + OpenBSD 6.2 (6.1 is not supported anymore)
-    + Ubuntu 17.10 (17.04 is not supported anymore)
+    + Ubuntu 17.10 (14.04 LTS, 17.04 are not supported anymore)
 
 * Apache has been removed, Nginx is the only one web server available.
 
