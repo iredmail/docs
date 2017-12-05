@@ -90,13 +90,13 @@ mx.example.com
 !!! warning
 
     * 由于 iredmail.org 域名在国内无法访问，所以使用 `IREDMAIL_MIRROR` 指定
-      国内镜像站点。
+      其它镜像站点。
     * 由于 SOGo 网站在国内访问非常慢，且网络容易出问题，因此使用
       `SOGO_PKG_MIRROR` 指定国内镜像站点。
 
 ```
 cd /root/iRedMail-x.y.z/
-IREDMAIL_MIRROR='https://cnmirror.iredmail.org' \
+IREDMAIL_MIRROR='https://dl.iredmail.org' \
     SOGO_PKG_MIRROR='https://cnmirror.iredmail.org' \
     bash iRedMail.sh
 ```

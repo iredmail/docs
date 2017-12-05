@@ -117,13 +117,13 @@ mx.example.com
 <p class="admonition-title">Warning</p>
 <ul>
 <li>由于 iredmail.org 域名在国内无法访问，所以使用 <code>IREDMAIL_MIRROR</code> 指定
-  国内镜像站点。</li>
+  其它镜像站点。</li>
 <li>由于 SOGo 网站在国内访问非常慢，且网络容易出问题，因此使用
   <code>SOGO_PKG_MIRROR</code> 指定国内镜像站点。</li>
 </ul>
 </div>
 <pre><code>cd /root/iRedMail-x.y.z/
-IREDMAIL_MIRROR='https://cnmirror.iredmail.org' \
+IREDMAIL_MIRROR='https://dl.iredmail.org' \
     SOGO_PKG_MIRROR='https://cnmirror.iredmail.org' \
     bash iRedMail.sh
 </code></pre>
