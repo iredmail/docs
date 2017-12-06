@@ -177,8 +177,12 @@ White/blacklisting is controlled by plugin `amavisd_wblist` (file
 ```
 # python wblist_admin.py --list --whitelist
 # python wblist_admin.py --list --blacklist
-# python wblist_admin.py --add --whitelist 192.168.1.10 user@domain.com
-# python wblist_admin.py --add --blacklist 172.16.1.10 user@domain.com
+
+# Whitelist IP address, email address, entire domain, subdomain (including main domain)
+# python wblist_admin.py --add --whitelist 192.168.1.10 user@domain.com @iredmail.org @.example.com
+
+# Blacklist IP address, email address, entire domain, subdomain (including main domain)
+# python wblist_admin.py --add --blacklist 202.96.134.133 bad-user@domain.com @bad-domain.com @.sub-domain.com
 ```
 
 * For per-user or per-domain whitelists and blacklists, please use option
@@ -265,7 +269,7 @@ Greylisting is controlled by plugin `greylisting` (file
     --to <to_address>
         Manage greylisting setting from email which is sent from <from_address>
         to <to_address>.
-        
+
         Valid formats for both <from_address> and <to_address>:
 
             - a single user: username@domain.com
@@ -396,7 +400,7 @@ domain names like above sample.
 
 Since iRedAPD-1.8.0, we have SQL table `iredapd.greylisting_whitelist_domains`
 to store these mail domain names. if you run `spf_to_greylist_whitelists.py`
-without any argument, it will fetch all mail domains stored in sql table 
+without any argument, it will fetch all mail domains stored in sql table
 `greylisting_whitelist_domains` instead of fetching from command line arguments.
 
 ```

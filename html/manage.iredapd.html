@@ -204,8 +204,12 @@ parameter <code>plugins =</code>:</p>
 </ul>
 <pre><code># python wblist_admin.py --list --whitelist
 # python wblist_admin.py --list --blacklist
-# python wblist_admin.py --add --whitelist 192.168.1.10 user@domain.com
-# python wblist_admin.py --add --blacklist 172.16.1.10 user@domain.com
+
+# Whitelist IP address, email address, entire domain, subdomain (including main domain)
+# python wblist_admin.py --add --whitelist 192.168.1.10 user@domain.com @iredmail.org @.example.com
+
+# Blacklist IP address, email address, entire domain, subdomain (including main domain)
+# python wblist_admin.py --add --blacklist 202.96.134.133 bad-user@domain.com @bad-domain.com @.sub-domain.com
 </code></pre>
 
 <ul>
@@ -405,7 +409,7 @@ option.</p>
 domain names like above sample.</p>
 <p>Since iRedAPD-1.8.0, we have SQL table <code>iredapd.greylisting_whitelist_domains</code>
 to store these mail domain names. if you run <code>spf_to_greylist_whitelists.py</code>
-without any argument, it will fetch all mail domains stored in sql table 
+without any argument, it will fetch all mail domains stored in sql table
 <code>greylisting_whitelist_domains</code> instead of fetching from command line arguments.</p>
 <pre><code># python spf_to_greylist_whitelists.py
 </code></pre>
