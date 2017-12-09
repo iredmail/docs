@@ -10,7 +10,7 @@ accounts under hosted mail domains. If you want to accept these emails, you
 need a domain catch-all account.
 
 With MySQL/MariaDB or PostgreSQL backend, you can add catch-all account for
-existing domain `domain.com` in SQL table `vmail.alias` like below:
+existing domain `domain.com` in SQL table `vmail.forwardings` like below:
 
 ```sql
 $ mysql -u root -p
