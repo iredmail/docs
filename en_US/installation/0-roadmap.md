@@ -66,6 +66,10 @@ Features listed below have been implemented in latest development edition.
 * Updated packages:
     + Roundcube -> 1.3.3
 
+## Planned changes in next iRedMail / iRedAdmin-Pro release
+
+* HIGH: [#14 Allow domain admin to set vacation message for mail user](https://bitbucket.org/zhb/iredmail/issues/14/allow-admin-to-set-vacation-for-user-with)
+
 ## Planned changes in future iRedMail release
 
 * A (new) RESTful API server for general administration (core of API server has
@@ -85,4 +89,9 @@ Features listed below have been implemented in latest development edition.
     * Enable plugin `imap_sieve` for spam learning while user moving message to
       Junk folder. Requires Dovecot-2.2.24+ (dovecot-pigeonhole-0.4.14+).
     * Enable plugin `mail_crypt` to encrypts and decrypts mail. (requires Dovecot-2.2.27+).
-* OpenLDAP: [Configure OpenLDAP with slapd.d instead of slapd.conf](https://bitbucket.org/zhb/iredmail/issue/31/switch-to-slapdd)
+
+* LDAP backends:
+    * Migrate old mailing list (`objectClass=mailList`) to new mlmmj mailing
+      list, convert all old mailing lists to be groups which have ldap dn of
+      all members defined in ldap attribute `member` (or `memberdn`).
+    * [Configure OpenLDAP with slapd.d instead of slapd.conf](https://bitbucket.org/zhb/iredmail/issue/31/switch-to-slapdd)

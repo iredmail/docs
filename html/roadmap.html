@@ -24,6 +24,7 @@
 <li><a href="#done">DONE</a></li>
 </ul>
 </li>
+<li><a href="#planned-changes-in-next-iredmail-iredadmin-pro-release">Planned changes in next iRedMail / iRedAdmin-Pro release</a></li>
 <li><a href="#planned-changes-in-future-iredmail-release">Planned changes in future iRedMail release</a></li>
 </ul>
 </li>
@@ -117,6 +118,10 @@
 </ul>
 </li>
 </ul>
+<h2 id="planned-changes-in-next-iredmail-iredadmin-pro-release">Planned changes in next iRedMail / iRedAdmin-Pro release</h2>
+<ul>
+<li>HIGH: <a href="https://bitbucket.org/zhb/iredmail/issues/14/allow-admin-to-set-vacation-for-user-with">#14 Allow domain admin to set vacation message for mail user</a></li>
+</ul>
 <h2 id="planned-changes-in-future-iredmail-release">Planned changes in future iRedMail release</h2>
 <ul>
 <li>
@@ -145,7 +150,15 @@
 <li>Enable plugin <code>mail_crypt</code> to encrypts and decrypts mail. (requires Dovecot-2.2.27+).</li>
 </ul>
 </li>
-<li>OpenLDAP: <a href="https://bitbucket.org/zhb/iredmail/issue/31/switch-to-slapdd">Configure OpenLDAP with slapd.d instead of slapd.conf</a></li>
+<li>
+<p>LDAP backends:</p>
+<ul>
+<li>Migrate old mailing list (<code>objectClass=mailList</code>) to new mlmmj mailing
+  list, convert all old mailing lists to be groups which have ldap dn of
+  all members defined in ldap attribute <code>member</code> (or <code>memberdn</code>).</li>
+<li><a href="https://bitbucket.org/zhb/iredmail/issue/31/switch-to-slapdd">Configure OpenLDAP with slapd.d instead of slapd.conf</a></li>
+</ul>
+</li>
 </ul><div class="footer">
     <p style="text-align: center; color: grey;">All documents are available in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://bitbucket.org/zhb/iredmail-docs/get/tip.tar.bz2">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
 </div>

@@ -313,7 +313,9 @@ Notes:
 
     Parameter | Summary | Sample Usage
     --- |--- |---
-    `name` | Display name | `name=My New Name`
+    `name` | Display name | `name=Michael Jordon`
+    `gn` | Given name | `gn=Jordon`
+    `sn` | Surname | `sn=Jeffery`
     `password` | Password | `password=u0tBF82cIV@vi8Gme`
     `quota` | Mailbox quota (in MB) | `quota=1024`
     `accountStatus` | Enable or disable user. Possible values: `active`, `disabled`. | `accountStatus=active`
