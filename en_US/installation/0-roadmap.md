@@ -26,16 +26,20 @@ You can also contact us via email directly: [Contact Us](https://www.iredmail.or
 
 Features listed below have been implemented in latest development edition.
 
-* Supports new distribution release:
-    + OpenBSD 6.2 (6.1 is not supported anymore)
-    + Ubuntu 17.10 (14.04 LTS, 17.04 are not supported anymore. With latest
-      iRedMail-0.9.7, installation with 14.04 is only 10% of 16.04, that's why we believe it's
-      safe to drop 14.04 now.)
+* Supports new distribution releases:
+    + OpenBSD 6.2.
+    + Ubuntu 17.10
 
-* Apache has been removed, Nginx is the only one web server available.
+* Drop support for old distribution releases:
+    - CentOS 6
+    - Debian 8
+    - OpenBSD 6.1
+    - Ubuntu 14.04 LTS, 17.04.
+
+* Apache has been removed, Nginx is the only one option you have.
 
 * Improvements:
-    - LDAP backend: Allow mail list account to use 2 attributes: member,
+    - LDAP backend: Allow mailing list account to use 2 attributes: member,
       uniqueMember.
     - Dovecot: Log subject, sender, size in mail deliver log.
     - Amavisd: Add new sql column `maddr.email_raw` and trigger to store
@@ -69,7 +73,6 @@ Features listed below have been implemented in latest development edition.
 ## Planned changes in next iRedMail / iRedAdmin-Pro release
 
 * HIGH: [#14 Allow domain admin to set vacation message for mail user](https://bitbucket.org/zhb/iredmail/issues/14/allow-admin-to-set-vacation-for-user-with)
-
 ## Planned changes in future iRedMail release
 
 * A (new) RESTful API server for general administration (core of API server has
@@ -84,6 +87,7 @@ Features listed below have been implemented in latest development edition.
           query messages with `Message-ID:` or subject, display the full
           message if necessary.
         * Destroy delivered messages which matches given query.
+    * LOW: Allow domain admin to share someone's mailbox folder to others.
 
 * Dovecot:
     * Enable plugin `imap_sieve` for spam learning while user moving message to
