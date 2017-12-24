@@ -11,9 +11,10 @@ You can also contact us via email directly: [Contact Us](https://www.iredmail.or
 ### Work In Progress
 
 * Integrate [mlmmj](http://mlmmj.org) mailing list manager.
+    * Improve iRedAPD to handle access policy of mlmmj mailing list.
     * [DONE] RESTful API server used to manage mlmmj: [mlmmj-admin](https://bitbucket.org/iredmail/mlmmj-admin/src).
     * [DONE] Integrate mlmmj and mlmmj-admin in iRedAdmin-Pro for SQL backends.
-    * Integrate mlmmj and mlmmj-admin in iRedAdmin-Pro for LDAP backends.
+    * [DONE] Integrate mlmmj and mlmmj-admin in iRedAdmin-Pro for LDAP backends.
 
 * Replace Awstats by [netdata](https://my-netdata.io).
     * [DONE] <strike>Remove Awstats.</strike>
@@ -88,6 +89,7 @@ Features listed below have been implemented in latest development edition.
           message if necessary.
         * Destroy delivered messages which matches given query.
     * LOW: Allow domain admin to share someone's mailbox folder to others.
+    * SOGo management via command line tool `sogo-tool`.
 
 * Dovecot:
     * Enable plugin `imap_sieve` for spam learning while user moving message to

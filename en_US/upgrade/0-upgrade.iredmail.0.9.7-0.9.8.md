@@ -23,6 +23,7 @@
     * New table: `vmail.maillists`
     * New doc: how to add a standalone (mlmmj) mailing list account
     * New doc: how to deploy mlmmj + mlmmj-admin
+* Dec 18, 2017: Don't hard-code static file types in Nginx template for iRedAdmin.
 * Nov 24, 2017: Amavisd: Add new SQL column `maddr.email_raw` to store mail address without address extension.
 * Nov 17, 2017: Fixed: Improper Postfix SQL queries used to query per-user bcc address.
 * Oct 6, 2017: Fixed: SOGo backup script contains 3 issues
@@ -71,6 +72,34 @@ wget https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/tools/backup_sogo.s
 chown root backup_sogo.sh
 chmod 0400 backup_sogo.sh
 ```
+
+### Fixed: Nginx snippet file hard-codes static file types for iRedAdmin
+
+!!! attention
+
+    This is only applicable to Nginx.
+
+With default iRedMail settings, Nginx snippet file `/etc/nginx/templates/iredadmin.tmpl`
+(on Linux/OpenBSD) or `/usr/local/etc/nginx/templates/iredadmin.tmpl` (on FreeBSD)
+hard-codes static file types like below:
+
+```
+location ~ ^/iredadmin/static/(.*)\.(png|jpg|gif|css|js) {
+    alias /var/www/iredadmin/static/$1.$2;
+}
+```
+
+Note: The path in `alias` directive is different on different Linux/BSD distributions.
+
+Please replace it by:
+
+```
+location ~ ^/iredadmin/static/(.*) {            # Remove file types
+    alias /var/www/iredadmin/static/$1;         # Remove '.$2'
+}
+```
+
+Reloading or restarting Nginx service is required.
 
 ### [OPTIONAL] Fix improper expected DNSBL filter for site `b.barracudacentral.org`
 
