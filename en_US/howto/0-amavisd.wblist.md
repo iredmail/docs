@@ -2,6 +2,11 @@
 
 [TOC]
 
+!!! warning "DEPRECATED"
+
+    __WARNING: THIS DOCUMENT IS *DEPRECATED*, PLEASE manage white/blacklists
+    with iRedAPD instead, [doc here](./manage.iredapd.html).__
+
 This tutorial shows you how to whitelist and blacklist senders or recipients
 with iRedAdmin-Pro and script shipped in iRedAPD (since iRedAPD-1.7.1).
 

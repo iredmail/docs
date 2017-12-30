@@ -78,9 +78,9 @@ Features listed below have been implemented in latest development edition.
 
 * A (new) RESTful API server for general administration (core of API server has
   been implemented, need to write plugins for each particular tasks):
+    * [HIGH] Manage Nginx virtual web hosts.
     * Network service control: get service status, stop/start/restart service.
     * Manage fail2ban banned/unbanned IPs.
-    * Manage Nginx virtual web hosts.
     * Query user mailbox with `doveadm search`, fetch partial/full messages or
       message information. Possible use cases with iRedAdmin-Pro:
         * View (either partial/full) mail messages in user's mailbox.
