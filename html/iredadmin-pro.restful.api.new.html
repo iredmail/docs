@@ -1095,7 +1095,27 @@ please use mail alias account as mailing list.</p>
 
 </div>
 <div class="admonition api">
-<p class="admonition-title"><code class="delete">DELETE</code> <code class="url">/api/maillist/&lt;mail&gt;</code> <code class="comment">Delete an existing mailing list</code></p>
+<p class="admonition-title"><code class="delete">DELETE</code> <code class="url">/api/maillist/&lt;mail&gt;</code> <code class="comment">Delete an existing mailing list</code> <code class="has_params">Parameters</code></p>
+<div class="params">
+
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Summary</th>
+<th>Sample Usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>archive</code></td>
+<td>Archive subscribable mailing list before deleting the account. NOTE: This option is only applicable to the subscribable mailing list account.</td>
+<td><code>archive=no</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+
 </div>
 <div class="admonition api">
 <p class="admonition-title"><code class="put">PUT</code> <code class="url">/api/maillist/&lt;mail&gt;</code> <code class="comment">Update profile of an existing mailing list</code> <code class="has_params">Parameters</code></p>

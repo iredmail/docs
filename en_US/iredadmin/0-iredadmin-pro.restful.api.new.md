@@ -404,7 +404,16 @@ Notes:
 
     </div>
 
-!!! api "`DELETE`{: .delete } `/api/maillist/<mail>`{: .url } `Delete an existing mailing list`{: .comment }"
+!!! api "`DELETE`{: .delete } `/api/maillist/<mail>`{: .url } `Delete an existing mailing list`{: .comment } `Parameters`{: .has_params }"
+
+    <div class="params">
+
+    Parameter | Summary | Sample Usage
+    --- |--- |---
+    `archive` | Archive subscribable mailing list before deleting the account. NOTE: This option is only applicable to the subscribable mailing list account. | `archive=no`
+
+    </div>
+
 !!! api "`PUT`{: .put } `/api/maillist/<mail>`{: .url } `Update profile of an existing mailing list`{: .comment } `Parameters`{: .has_params }"
 
     <div class="params">
