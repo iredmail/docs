@@ -129,4 +129,5 @@ senderRelayHost: [mail.gmail.com]:25
 
 ## See Also
 
+* [Integrating Amazon SES with Postfix](https://docs.aws.amazon.com/ses/latest/DeveloperGuide/postfix.html)
 * [Use SendGrid as relay server](https://sendgrid.com/docs/Integrate/Mail_Servers/postfix.html)

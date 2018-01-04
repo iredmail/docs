@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>iRedAdmin-Pro: Set a proper time zone</title>
+        <link rel="stylesheet" type="text/css" href="./css/markdown.css" />
+    </head>
+    <body>
+    
+    <div id="navigation">
+    <a href="https://www.iredmail.org" target="_blank">
+        <img alt="iRedMail web site"
+             src="./images/logo-iredmail.png"
+             style="vertical-align: middle; height: 30px;"
+             />&nbsp;
+        <span>iRedMail</span>
+    </a>
+    &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><h1 id="iredadmin-pro-set-a-proper-time-zone">iRedAdmin-Pro: Set a proper time zone</h1>
+<div class="toc">
+<ul>
+<li><a href="#iredadmin-pro-set-a-proper-time-zone">iRedAdmin-Pro: Set a proper time zone</a><ul>
+<li><a href="#server-wide-time-zone">Server wide time zone</a></li>
+<li><a href="#per-account-time-zone">Per-account time zone</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<p>iRedAdmin-Pro uses time zone <code>GMT</code> by default, you can change it in several ways.</p>
+<h2 id="server-wide-time-zone">Server wide time zone</h2>
+<p>To set a server wide time zone, please add setting below with the proper time
+zone in iRedAdmin config file:</p>
+<pre><code>LOCAL_TIMEZONE = 'GMT+05:00'
+</code></pre>
+
+<p>You can find more sample time zones in file <code>libs/default_settings.py</code> under
+iRedAdmin directory.</p>
+<h2 id="per-account-time-zone">Per-account time zone</h2>
+<p>Admin or user can set per-user time zone in their own profile page:</p>
+<p><img alt="" src="./images/iredadmin/user_profile_general.png" /></p><div class="footer">
+    <p style="text-align: center; color: grey;">All documents are available in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://bitbucket.org/zhb/iredmail-docs/get/tip.tar.bz2">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
+</div>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-3293801-21"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-3293801-21');
+</script>
+</body></html>
