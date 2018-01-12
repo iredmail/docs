@@ -22,23 +22,9 @@ in `/etc/postfix/disclaimer/default.txt` (Linux/OpenBSD) or
 `/usr/local/etc/postfix/disclaimer/default.txt`.
 
 If you need a per-domain disclaimer, please update setting `@disclaimer_options_bysender_maps`
-in Amavisd config file:
+in Amavisd config file, add your domain name in correct syntax, then create
+required file with disclaimer text. For example, for domain `example.com`:
 
-```
-@disclaimer_options_bysender_maps = ({
-    # Per-domain disclaimer setting: /etc/postfix/disclaimer/host1.iredmail.org.txt
-    #'host1.iredmail.org' => 'host1.iredmail.org',
-
-    # Per-user disclaimer setting: /etc/postfix/disclaimer/boss.iredmail.org.txt
-    #'boss@iredmail.org'  => 'boss.iredmail.org',
-
-    # Catch-all disclaimer setting: /etc/postfix/disclaimer/default.txt
-    '.' => 'default',
-},);
-```
-
-Just add your domain name with the same syntax, then create required file with
-disclaimer text. For example, for domain `example.com`:
 
 ```
 @disclaimer_options_bysender_maps = ({

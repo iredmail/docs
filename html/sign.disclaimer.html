@@ -35,21 +35,8 @@ enable signing disclaimer on outgoing email, default disclaimer text is stored
 in <code>/etc/postfix/disclaimer/default.txt</code> (Linux/OpenBSD) or
 <code>/usr/local/etc/postfix/disclaimer/default.txt</code>.</p>
 <p>If you need a per-domain disclaimer, please update setting <code>@disclaimer_options_bysender_maps</code>
-in Amavisd config file:</p>
-<pre><code>@disclaimer_options_bysender_maps = ({
-    # Per-domain disclaimer setting: /etc/postfix/disclaimer/host1.iredmail.org.txt
-    #'host1.iredmail.org' =&gt; 'host1.iredmail.org',
-
-    # Per-user disclaimer setting: /etc/postfix/disclaimer/boss.iredmail.org.txt
-    #'boss@iredmail.org'  =&gt; 'boss.iredmail.org',
-
-    # Catch-all disclaimer setting: /etc/postfix/disclaimer/default.txt
-    '.' =&gt; 'default',
-},);
-</code></pre>
-
-<p>Just add your domain name with the same syntax, then create required file with
-disclaimer text. For example, for domain <code>example.com</code>:</p>
+in Amavisd config file, add your domain name in correct syntax, then create
+required file with disclaimer text. For example, for domain <code>example.com</code>:</p>
 <pre><code>@disclaimer_options_bysender_maps = ({
     # domain 'example.com'
     # disclaimer text file: /etc/postfix/disclaimer/example.com.txt
