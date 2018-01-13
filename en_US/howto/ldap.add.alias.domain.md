@@ -1,5 +1,7 @@
 # LDAP: Add an alias domain
 
+[TOC]
+
 ## What an alias domain is used for?
 
 Let's say you have a mail domain `example.com` hosted on your iRedMail server,

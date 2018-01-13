@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title>LDAP: Add an alias domain</title>
+        <title>SQL: Add an alias domain</title>
         <link rel="stylesheet" type="text/css" href="./css/markdown.css" />
     </head>
     <body>
@@ -15,13 +15,13 @@
              />&nbsp;
         <span>iRedMail</span>
     </a>
-    &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><h1 id="ldap-add-an-alias-domain">LDAP: Add an alias domain</h1>
+    &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><h1 id="sql-add-an-alias-domain">SQL: Add an alias domain</h1>
 <div class="toc">
 <ul>
-<li><a href="#ldap-add-an-alias-domain">LDAP: Add an alias domain</a><ul>
+<li><a href="#sql-add-an-alias-domain">SQL: Add an alias domain</a><ul>
 <li><a href="#what-an-alias-domain-is-used-for">What an alias domain is used for?</a></li>
 <li><a href="#add-alias-domain-with-iredadmin-pro">Add alias domain with iRedAdmin-Pro</a></li>
-<li><a href="#how-to-add-an-alias-domain-with-phpldapadmin">How to add an alias domain with phpLDAPadmin:</a></li>
+<li><a href="#how-to-add-an-alias-domain-with-sql-commands">How to add an alias domain with SQL commands</a></li>
 </ul>
 </li>
 </ul>
@@ -36,43 +36,22 @@ emails sent to <code>username@domain.ltd</code> will be delivered to user
 under tab <code>Aliases</code>.</p>
 <p>Screenshot:</p>
 <p><img alt="" src="./images/iredadmin/domain_profile_alias.png" /></p>
-<h2 id="how-to-add-an-alias-domain-with-phpldapadmin">How to add an alias domain with phpLDAPadmin:</h2>
-<ul>
-<li>
-<p>Login to phpLDAPadmin (<code>https://[your_server]/phpldapadmin</code>) as LDAP root dn
-(<code>cn=Manager,dc=xx,dc=xx</code>)</p>
-</li>
-<li>
-<p>Find the LDAP object of your mail domain which you want to add alias
-domain in left panel of phpLDAPadmin, click the ldap object, phpLDAPadmin will
-show detailed LDAP attributes/values of this domain in right panel.</p>
-</li>
-<li>
-<p>Add a new LDAP attribute <code>domainAliasName</code> to this domain account, set value
-to the alias domain (e.g. <code>domain.com</code>). Save your change.</p>
-</li>
-</ul>
-<p>Now you should add additional mail address for all mail users, lists, aliases.
-For example, if you have mail user <code>user@example.com</code>, you should add additional
-email address <code>user@domain.ltd</code> for this user. Steps:</p>
-<ul>
-<li>
-<p>Find the LDAP object of mail account which you want to add additional email
-address in left panel of phpLDAPadmin, for example, user <code>user@example.com</code>,
-click the ldap object, phpLDAPadmin will show detailed LDAP attributes/values
-in right panel.</p>
-</li>
-<li>
-<p>Add a new LDAP attribute <code>shadowAddress</code> to this mail account, set value to
-<code>user@domain.ltd</code>. <strong>WARNING</strong>: You must user the same username part as
-original email address.</p>
-</li>
-<li>
-<p>Save your change.</p>
-</li>
-</ul>
-<p>If you have several mail accounts (mail users, lists, aliases), you have to
-add additional email address for them all.</p><div class="footer">
+<h2 id="how-to-add-an-alias-domain-with-sql-commands">How to add an alias domain with SQL commands</h2>
+<p>Adding alias domain is as simple as inserting one SQL record. Let's create two
+alias domains (<code>alias-1.com</code>, <code>alias-2.com</code>) for the primary domain
+<code>example.com</code> with SQL commands below (Note: we use MySQL for example, but
+PostgreSQL uses exactly same <code>INSERT</code> commands):</p>
+<pre><code>-- Connect to `vmail` database.
+sql&gt; USE vmail;
+
+-- Create alias domain `alias-1.com`
+sql&gt; INSERT INTO alias_domain (alias_domain, target_domain) VALUES ('alias-1.com', 'example.com');
+
+-- Create alias domain `alias-2.com`
+sql&gt; INSERT INTO alias_domain (alias_domain, target_domain) VALUES ('alias-2.com', 'example.com');
+</code></pre>
+
+<p>That's all.</p><div class="footer">
     <p style="text-align: center; color: grey;">All documents are available in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://bitbucket.org/zhb/iredmail-docs/get/tip.tar.bz2">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
 </div>
 <!-- Global site tag (gtag.js) - Google Analytics -->
