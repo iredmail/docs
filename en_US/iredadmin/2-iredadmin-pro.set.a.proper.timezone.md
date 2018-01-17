@@ -2,6 +2,22 @@
 
 [TOC]
 
+!!! attention
+
+    The time zone settings in iRedAdmin is for iRedAdmin itself, not used by
+    SOGo or Roundcube.
+
+    * For per-account time zone setting in SOGo, please login to SOGo web UI
+      and change it in `Preferences` page. For global setting, please update
+      parameter `SOGoTimeZone =` in its config file `sogo.conf`.
+
+    * For per-account time zone setting in Roundcube, please login to Roundcube
+      web ui and change it in `Settings` page. For global setting, please
+      add or update parameter `$config['timezone’]` in its config file.
+
+    You can find locations of their config files in this document:
+    [Locations of configuration and log files of major components)(./file.locations.html).
+
 iRedAdmin-Pro uses time zone `GMT` by default, you can change it in several ways.
 
 ## Server wide time zone

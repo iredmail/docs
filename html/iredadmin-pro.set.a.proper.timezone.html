@@ -25,6 +25,25 @@
 </li>
 </ul>
 </div>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>The time zone settings in iRedAdmin is for iRedAdmin itself, not used by
+SOGo or Roundcube.</p>
+<ul>
+<li>
+<p>For per-account time zone setting in SOGo, please login to SOGo web UI
+  and change it in <code>Preferences</code> page. For global setting, please update
+  parameter <code>SOGoTimeZone =</code> in its config file <code>sogo.conf</code>.</p>
+</li>
+<li>
+<p>For per-account time zone setting in Roundcube, please login to Roundcube
+  web ui and change it in <code>Settings</code> page. For global setting, please
+  add or update parameter <code>$config['timezone’]</code> in its config file.</p>
+</li>
+</ul>
+<p>You can find locations of their config files in this document:
+[Locations of configuration and log files of major components)(./file.locations.html).</p>
+</div>
 <p>iRedAdmin-Pro uses time zone <code>GMT</code> by default, you can change it in several ways.</p>
 <h2 id="server-wide-time-zone">Server wide time zone</h2>
 <p>To set a server wide time zone, please add setting below with the proper time
