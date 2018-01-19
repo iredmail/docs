@@ -30,6 +30,8 @@
 </ul>
 </li>
 <li><a href="#openldap-backend">OpenLDAP backend</a><ul>
+<li><a href="#update-openldap-config-file-to-index-new-attributes-and-fix-an-acl">Update OpenLDAP config file to index new attributes and fix an ACL</a></li>
+<li><a href="#update-iredmail-ldap-schema-file">Update iRedMail LDAP schema file</a></li>
 <li><a href="#amavisd-add-new-sql-column-maddremail_raw-to-store-mail-address-without-address-extension">Amavisd: Add new SQL column maddr.email_raw to store mail address without address extension</a></li>
 </ul>
 </li>
@@ -61,13 +63,7 @@ check <a href="https://www.iredmail.org/support.html">the details</a> and
 </div>
 <h2 id="changelog">ChangeLog</h2>
 <ul>
-<li>TODO [LDAP backends] Update LDAP schema and slapd.conf<ul>
-<li>slapd.conf:<ul>
-<li>add new index for <code>member</code> and <code>uniqueMember</code></li>
-</ul>
-</li>
-</ul>
-</li>
+<li>TODO [LDAP] Update SOGo config file for per-domain global address book.</li>
 <li>TODO [SQL backends] Update SQL structure:<ul>
 <li>New column: <code>domain.maillists</code></li>
 <li>New column: <code>forwardings.is_maillist</code></li>
@@ -76,6 +72,8 @@ check <a href="https://www.iredmail.org/support.html">the details</a> and
 <li>New doc: how to deploy mlmmj + mlmmj-admin</li>
 </ul>
 </li>
+<li>Jan 19, 2018: Update OpenLDAP config file to index new attributes and fix an ACL.</li>
+<li>Jan 19, 2018: Update iRedMail LDAP schema file</li>
 <li>Dec 18, 2017: Don't hard-code static file types in Nginx template for iRedAdmin.</li>
 <li>Nov 24, 2017: Amavisd: Add new SQL column <code>maddr.email_raw</code> to store mail address without address extension.</li>
 <li>Nov 17, 2017: Fixed: Improper Postfix SQL queries used to query per-user bcc address.</li>
@@ -166,6 +164,117 @@ file <code>dovecot.conf</code>, then restart or reload Dovecot service.
 </code></pre>
 
 <h2 id="openldap-backend">OpenLDAP backend</h2>
+<h3 id="update-openldap-config-file-to-index-new-attributes-and-fix-an-acl">Update OpenLDAP config file to index new attributes and fix an ACL</h3>
+<ul>
+<li>
+<p>Please open OpenLDAP config file <code>slapd.conf</code>:</p>
+<ul>
+<li>On RHEL/CentOS, it's <code>/etc/openldap/slapd.conf</code></li>
+<li>On Debian/Ubuntu, it's <code>/etc/ldap/slapd.conf</code></li>
+<li>On FreeBSD, it's <code>/usr/local/etc/openldap/slapd.conf</code></li>
+<li>On OpenBSD:<ul>
+<li>if you're running OpenLDAP, it's <code>/etc/openldap/slapd.conf</code>.</li>
+<li>if you're running <code>ldapd(8)</code> as LDAP server, no need to fix ACL
+  issue (<code>access to dn.subtree=</code>), but still need to index new
+  attributes.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>find lines below:</p>
+</li>
+</ul>
+<pre><code>access to dn.subtree=&quot;o=domains,dc=xxx,dc=xxx&quot;
+    by anonymous                    auth
+    by self                         write
+    by dn.exact=&quot;cn=vmail,dc=xxx,dc=xxx&quot;    read
+    by dn.exact=&quot;cn=vmailadmin,dc=xxx,dc=xxx&quot;  write
+    by users                        none
+</code></pre>
+
+<p>Replace the last line <code>by users none</code> by:</p>
+<pre><code>   by users read
+</code></pre>
+
+<ul>
+<li>Append lines below to the end of OpenLDAP config file <code>slapd.conf</code>:</li>
+</ul>
+<pre><code>index member,uniqueMember eq,pres
+index mailingListID eq
+</code></pre>
+
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>For OpenBSD <code>ldapd(8)</code> server, please add lines below inside the
+<code>namespace xxx {}</code> block:</p>
+<p><pre>
+index member
+index uniqueMember
+index mailingListID
+</pre></p>
+</div>
+<h3 id="update-iredmail-ldap-schema-file">Update iRedMail LDAP schema file</h3>
+<p>iRedMail-0.9.8 introduces 1 new LDAP attribute for mailing list account:</p>
+<ul>
+<li><code>mailingListID</code>: used to store a server-wide unique id, currently is used
+  for mailing list subscription/unsubscription (a.k.a. newsletter).</li>
+</ul>
+<p>Download the latest iRedMail LDAP schema file</p>
+<ul>
+<li>On RHEL/CentOS:</li>
+</ul>
+<pre><code>cd /tmp
+wget https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/samples/iredmail/iredmail.schema
+
+cd /etc/openldap/schema/
+cp iredmail.schema iredmail.schema.bak
+
+cp -f /tmp/iredmail.schema /etc/openldap/schema/
+</code></pre>
+
+<ul>
+<li>On Debian/Ubuntu:</li>
+</ul>
+<pre><code>cd /tmp
+wget https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/samples/iredmail/iredmail.schema
+
+cd /etc/ldap/schema/
+cp iredmail.schema iredmail.schema.bak
+
+cp -f /tmp/iredmail.schema /etc/ldap/schema/
+</code></pre>
+
+<ul>
+<li>On FreeBSD:</li>
+</ul>
+<pre><code>cd /tmp
+wget https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/samples/iredmail/iredmail.schema
+
+cd /usr/local/etc/openldap/schema/
+cp iredmail.schema iredmail.schema.bak
+
+cp -f /tmp/iredmail.schema /usr/local/etc/openldap/schema/
+</code></pre>
+
+<ul>
+<li>
+<p>On OpenBSD:</p>
+<blockquote>
+<p>Note: if you're running ldapd as LDAP server, the schema directory is
+<code>/etc/ldap</code>, and service name is <code>ldapd</code>.</p>
+</blockquote>
+</li>
+</ul>
+<pre><code>cd /tmp
+ftp https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/samples/iredmail/iredmail.schema
+
+cd /etc/openldap/schema/
+cp iredmail.schema iredmail.schema.bak
+
+cp -f /tmp/iredmail.schema /etc/openldap/schema/
+</code></pre>
+
 <h3 id="amavisd-add-new-sql-column-maddremail_raw-to-store-mail-address-without-address-extension">Amavisd: Add new SQL column <code>maddr.email_raw</code> to store mail address without address extension</h3>
 <p>Many sender/recipient addresses contain address extension like
 <code>user+extension@domain.com</code>, this is annoying if we try to get top 10

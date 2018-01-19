@@ -14,15 +14,15 @@
 
 ## ChangeLog
 
-* TODO [LDAP backends] Update LDAP schema and slapd.conf
-    * slapd.conf:
-        - add new index for `member` and `uniqueMember`
+* TODO [LDAP] Update SOGo config file for per-domain global address book.
 * TODO [SQL backends] Update SQL structure:
     * New column: `domain.maillists`
     * New column: `forwardings.is_maillist`
     * New table: `vmail.maillists`
     * New doc: how to add a standalone (mlmmj) mailing list account
     * New doc: how to deploy mlmmj + mlmmj-admin
+* Jan 19, 2018: Update OpenLDAP config file to index new attributes and fix an ACL.
+* Jan 19, 2018: Update iRedMail LDAP schema file
 * Dec 18, 2017: Don't hard-code static file types in Nginx template for iRedAdmin.
 * Nov 24, 2017: Amavisd: Add new SQL column `maddr.email_raw` to store mail address without address extension.
 * Nov 17, 2017: Fixed: Improper Postfix SQL queries used to query per-user bcc address.
@@ -138,6 +138,111 @@ deliver_log_format = from=%{from}, envelope_sender=%{from_envelope}, subject=%{s
 ```
 
 ## OpenLDAP backend
+
+### Update OpenLDAP config file to index new attributes and fix an ACL
+
+* Please open OpenLDAP config file `slapd.conf`:
+    * On RHEL/CentOS, it's `/etc/openldap/slapd.conf`
+    * On Debian/Ubuntu, it's `/etc/ldap/slapd.conf`
+    * On FreeBSD, it's `/usr/local/etc/openldap/slapd.conf`
+    * On OpenBSD:
+        * if you're running OpenLDAP, it's `/etc/openldap/slapd.conf`.
+        * if you're running `ldapd(8)` as LDAP server, no need to fix ACL
+          issue (`access to dn.subtree=`), but still need to index new
+          attributes.
+
+* find lines below:
+```
+access to dn.subtree="o=domains,dc=xxx,dc=xxx"
+    by anonymous                    auth
+    by self                         write
+    by dn.exact="cn=vmail,dc=xxx,dc=xxx"    read
+    by dn.exact="cn=vmailadmin,dc=xxx,dc=xxx"  write
+    by users                        none
+```
+
+Replace the last line `by users none` by:
+
+```
+   by users read
+```
+
+* Append lines below to the end of OpenLDAP config file `slapd.conf`:
+
+```
+index member,uniqueMember eq,pres
+index mailingListID eq
+```
+
+!!! attention
+
+    For OpenBSD `ldapd(8)` server, please add lines below inside the
+    `namespace xxx {}` block:
+
+    <pre>
+    index member
+    index uniqueMember
+    index mailingListID
+    </pre>
+
+### Update iRedMail LDAP schema file
+
+iRedMail-0.9.8 introduces 1 new LDAP attribute for mailing list account:
+
+* `mailingListID`: used to store a server-wide unique id, currently is used
+  for mailing list subscription/unsubscription (a.k.a. newsletter).
+
+Download the latest iRedMail LDAP schema file
+
+* On RHEL/CentOS:
+
+```
+cd /tmp
+wget https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/samples/iredmail/iredmail.schema
+
+cd /etc/openldap/schema/
+cp iredmail.schema iredmail.schema.bak
+
+cp -f /tmp/iredmail.schema /etc/openldap/schema/
+```
+
+* On Debian/Ubuntu:
+```
+cd /tmp
+wget https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/samples/iredmail/iredmail.schema
+
+cd /etc/ldap/schema/
+cp iredmail.schema iredmail.schema.bak
+
+cp -f /tmp/iredmail.schema /etc/ldap/schema/
+```
+
+* On FreeBSD:
+
+```
+cd /tmp
+wget https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/samples/iredmail/iredmail.schema
+
+cd /usr/local/etc/openldap/schema/
+cp iredmail.schema iredmail.schema.bak
+
+cp -f /tmp/iredmail.schema /usr/local/etc/openldap/schema/
+```
+
+* On OpenBSD:
+
+    > Note: if you're running ldapd as LDAP server, the schema directory is
+    > `/etc/ldap`, and service name is `ldapd`.
+
+```
+cd /tmp
+ftp https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/samples/iredmail/iredmail.schema
+
+cd /etc/openldap/schema/
+cp iredmail.schema iredmail.schema.bak
+
+cp -f /tmp/iredmail.schema /etc/openldap/schema/
+```
 
 ### Amavisd: Add new SQL column `maddr.email_raw` to store mail address without address extension
 
