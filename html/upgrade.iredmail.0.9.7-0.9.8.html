@@ -33,6 +33,7 @@
 <li><a href="#update-openldap-config-file-to-index-new-attributes-and-fix-an-acl">Update OpenLDAP config file to index new attributes and fix an ACL</a></li>
 <li><a href="#update-iredmail-ldap-schema-file">Update iRedMail LDAP schema file</a></li>
 <li><a href="#amavisd-add-new-sql-column-maddremail_raw-to-store-mail-address-without-address-extension">Amavisd: Add new SQL column maddr.email_raw to store mail address without address extension</a></li>
+<li><a href="#update-sogo-config-file-for-per-domain-global-address-book">Update SOGo config file for per-domain global address book</a></li>
 </ul>
 </li>
 <li><a href="#mysqlmariadb-backends">MySQL/MariaDB backends</a><ul>
@@ -63,7 +64,6 @@ check <a href="https://www.iredmail.org/support.html">the details</a> and
 </div>
 <h2 id="changelog">ChangeLog</h2>
 <ul>
-<li>TODO [LDAP] Update SOGo config file for per-domain global address book.</li>
 <li>TODO [SQL backends] Update SQL structure:<ul>
 <li>New column: <code>domain.maillists</code></li>
 <li>New column: <code>forwardings.is_maillist</code></li>
@@ -72,6 +72,7 @@ check <a href="https://www.iredmail.org/support.html">the details</a> and
 <li>New doc: how to deploy mlmmj + mlmmj-admin</li>
 </ul>
 </li>
+<li>Jan 21, 2018: [LDAP] Update SOGo config file for per-domain global address book.</li>
 <li>Jan 19, 2018: Update OpenLDAP config file to index new attributes and fix an ACL.</li>
 <li>Jan 19, 2018: Update iRedMail LDAP schema file</li>
 <li>Dec 18, 2017: Don't hard-code static file types in Nginx template for iRedAdmin.</li>
@@ -297,6 +298,38 @@ wget https://bitbucket.org/zhb/iredmail/raw/default/extra/update/0.9.8-amavisd.m
 mysql&gt; SOURCE /tmp/0.9.8-amavisd.mysql;
 </code></pre>
 
+<h3 id="update-sogo-config-file-for-per-domain-global-address-book">Update SOGo config file for per-domain global address book</h3>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>With this change, user can only see other users in same domain. If this is
+<strong>NOT</strong> what you expect, you should <strong>NOT</strong> apply this change.</p>
+</div>
+<p>SOGo is configured by iRedMail to query all users on server while performing
+account search (e.g. global address book, meeting attendees), this may be not
+what you expect if you host multiple mail domains and they should not see
+others on same server. Please follow steps below to fix it.</p>
+<ul>
+<li>Open SOGo config file <code>/etc/sogo/sogo.conf</code> (Linux/OpenBSD) or
+  <code>/usr/local/etc/sogo/sogo.conf</code> (FreeBSD), find lines like below:</li>
+</ul>
+<pre><code>        {
+            // Used for global address book
+            type = ldap;
+            id = global_addressbook;
+            canAuthenticate = NO;
+            isAddressBook = YES;
+            displayName = &quot;Global Address Book&quot;;
+</code></pre>
+
+<ul>
+<li>Add one line after the <code>displayName =</code> line:</li>
+</ul>
+<pre><code>            bindAsCurrentUser = YES;
+</code></pre>
+
+<ul>
+<li>Restarting SOGo service is required to apply this change.</li>
+</ul>
 <h2 id="mysqlmariadb-backends">MySQL/MariaDB backends</h2>
 <h3 id="fixed-user-under-disabled-domain-is-able-to-send-email-with-smtp-protocol">Fixed: User under disabled domain is able to send email with smtp protocol</h3>
 <p>Dovecot is IMAP/POP3/Managesieve server, also a SASL auth server for Postfix.

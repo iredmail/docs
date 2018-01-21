@@ -14,13 +14,13 @@
 
 ## ChangeLog
 
-* TODO [LDAP] Update SOGo config file for per-domain global address book.
 * TODO [SQL backends] Update SQL structure:
     * New column: `domain.maillists`
     * New column: `forwardings.is_maillist`
     * New table: `vmail.maillists`
     * New doc: how to add a standalone (mlmmj) mailing list account
     * New doc: how to deploy mlmmj + mlmmj-admin
+* Jan 21, 2018: [LDAP] Update SOGo config file for per-domain global address book.
 * Jan 19, 2018: Update OpenLDAP config file to index new attributes and fix an ACL.
 * Jan 19, 2018: Update iRedMail LDAP schema file
 * Dec 18, 2017: Don't hard-code static file types in Nginx template for iRedAdmin.
@@ -267,6 +267,39 @@ wget https://bitbucket.org/zhb/iredmail/raw/default/extra/update/0.9.8-amavisd.m
 $ mysql amavisd
 mysql> SOURCE /tmp/0.9.8-amavisd.mysql;
 ```
+
+### Update SOGo config file for per-domain global address book
+
+!!! attention
+
+    With this change, user can only see other users in same domain. If this is
+    __NOT__ what you expect, you should __NOT__ apply this change.
+
+SOGo is configured by iRedMail to query all users on server while performing
+account search (e.g. global address book, meeting attendees), this may be not
+what you expect if you host multiple mail domains and they should not see
+others on same server. Please follow steps below to fix it.
+
+* Open SOGo config file `/etc/sogo/sogo.conf` (Linux/OpenBSD) or
+  `/usr/local/etc/sogo/sogo.conf` (FreeBSD), find lines like below:
+
+```
+        {
+            // Used for global address book
+            type = ldap;
+            id = global_addressbook;
+            canAuthenticate = NO;
+            isAddressBook = YES;
+            displayName = "Global Address Book";
+```
+
+* Add one line after the `displayName =` line:
+
+```
+            bindAsCurrentUser = YES;
+```
+
+* Restarting SOGo service is required to apply this change.
 
 ## MySQL/MariaDB backends
 
