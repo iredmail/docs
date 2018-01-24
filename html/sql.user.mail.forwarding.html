@@ -75,6 +75,13 @@ INSERT INTO forwardings (address, forwarding,
 
 <p>To save a copy of forwarded email in mailbox, please add your own email address
 as a forwarding destination like below:</p>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>This SQL record exists by default, but it's a good idea to make sure it
+exists. If it exists, you will get error like <code>ERROR 1062
+(23000): Duplicate entry 'user@domain.com-user@domain.com' for key
+'address'</code>, don't panic.</p>
+</div>
 <pre><code>INSERT INTO forwardings (address, forwarding,
                          domain, dest_domain,
                          is_forwarding, active)

@@ -59,6 +59,13 @@ INSERT INTO forwardings (address, forwarding,
 To save a copy of forwarded email in mailbox, please add your own email address
 as a forwarding destination like below:
 
+!!! attention
+
+    This SQL record exists by default, but it's a good idea to make sure it
+    exists. If it exists, you will get error like `ERROR 1062
+    (23000): Duplicate entry 'user@domain.com-user@domain.com' for key
+    'address'`, don't panic.
+
 ```
 INSERT INTO forwardings (address, forwarding,
                          domain, dest_domain,
