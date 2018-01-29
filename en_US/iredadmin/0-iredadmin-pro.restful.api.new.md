@@ -138,6 +138,9 @@ Notes:
     `primarymx` | Hostname or IP address of primary MX, smtp port number is optional. Must be used with parameter `is_backupmx`. Conflicts with parameter `transport`. | `primarymx=202.96.134.133`, `primarymx=[mail.iredmail.org]:25`
     `catchall` | Per-domain catch-all account (a list of email addresses used to receive emails sent to non-existing addresses under same domain). Multiple addresses must be separated by comma. Set an empty value to disable catch-all support. | `catchall=user@domain.com,user2@domain.com` or `catchall=` (disable catch-all)
     `outboundRelay` | Per-domain outbound relay. Set an empty value to disable outbound relay. | `outboundRelay=smtp:[192.168.1.2]:25` or `outboundRelay=` (disable outbound relay)
+    `addAliasDomain` | Add new alias domains. Multiple services must be separated by comma. | `addAliasDomain=alias1.com,alias2.com`
+    `removeAliasDomain` | Remove existing alias domains. Multiple services must be separated by comma. | `removeAllServices=alias1.com,alias2.com`
+    `aliasDomains` | Reset all alias domains. If empty, all existing alias domains will be removed. Conflicts with parameter `addAliasDomain` and `removeAliasDomain`. | `aliasDomains=alias1.com,alias2.com`
     `addService` | Enable new services. Multiple services must be separated by comma. Available services are listed below. | `addService=self-service`
     `removeService` | Disable existing services. Multiple services must be separated by comma. Available services are listed below. | `removeService=self-service`
     `services` | Reset all services. If empty, all existing services will be removed. | `services=mail,self-service`

@@ -349,6 +349,21 @@ RESTFUL_API_CLIENTS = ['172.16.244.1', ...]
 <td><code>outboundRelay=smtp:[192.168.1.2]:25</code> or <code>outboundRelay=</code> (disable outbound relay)</td>
 </tr>
 <tr>
+<td><code>addAliasDomain</code></td>
+<td>Add new alias domains. Multiple services must be separated by comma.</td>
+<td><code>addAliasDomain=alias1.com,alias2.com</code></td>
+</tr>
+<tr>
+<td><code>removeAliasDomain</code></td>
+<td>Remove existing alias domains. Multiple services must be separated by comma.</td>
+<td><code>removeAllServices=alias1.com,alias2.com</code></td>
+</tr>
+<tr>
+<td><code>aliasDomains</code></td>
+<td>Reset all alias domains. If empty, all existing alias domains will be removed. Conflicts with parameter <code>addAliasDomain</code> and <code>removeAliasDomain</code>.</td>
+<td><code>aliasDomains=alias1.com,alias2.com</code></td>
+</tr>
+<tr>
 <td><code>addService</code></td>
 <td>Enable new services. Multiple services must be separated by comma. Available services are listed below.</td>
 <td><code>addService=self-service</code></td>
