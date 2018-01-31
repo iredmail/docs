@@ -24,8 +24,9 @@
 <li><a href="#update-etciredmail-release-with-new-iredmail-version-number">Update /etc/iredmail-release with new iRedMail version number</a></li>
 <li><a href="#upgrade-iredapd-postfix-policy-server-to-the-latest-stable-release-22">Upgrade iRedAPD (Postfix policy server) to the latest stable release (2.2)</a></li>
 <li><a href="#fixed-sogo-backup-script-contains-3-issues">Fixed: SOGo backup script contains 3 issues</a></li>
+<li><a href="#new-fail2ban-jail-postfix-pregreet">New fail2ban jail: postfix-pregreet</a></li>
 <li><a href="#fixed-nginx-snippet-file-hard-codes-static-file-types-for-iredadmin">Fixed: Nginx snippet file hard-codes static file types for iRedAdmin</a></li>
-<li><a href="#optional-fix-improper-expected-dnsbl-filter-for-site-bbarracudacentralorg">[OPTIONAL] Fix improper expected DNSBL filter for site b.barracudacentral.org</a></li>
+<li><a href="#fix-unexpected-dnsbl-query-result-for-site-bbarracudacentralorg">Fix unexpected DNSBL query result for site b.barracudacentral.org</a></li>
 <li><a href="#optional-log-mail-subject-sender-size-in-mail-deliver-log">[OPTIONAL] Log mail subject, sender, size in mail deliver log</a></li>
 </ul>
 </li>
@@ -72,6 +73,7 @@ check <a href="https://www.iredmail.org/support.html">the details</a> and
 <li>New doc: how to deploy mlmmj + mlmmj-admin</li>
 </ul>
 </li>
+<li>Jan 31, 2018: New fail2ban jail: postfix-pregreet.</li>
 <li>Jan 21, 2018: [LDAP] Update SOGo config file for per-domain global address book.</li>
 <li>Jan 19, 2018: Update OpenLDAP config file to index new attributes and fix an ACL.</li>
 <li>Jan 19, 2018: Update iRedMail LDAP schema file</li>
@@ -100,7 +102,7 @@ and earlier releases contains 3 issues:</p>
 <li>it cannot remove old backup files</li>
 <li>it doesn't set correct owner and permission on backup files</li>
 <li>it cannot find command <code>sogo-tool</code> on FreeBSD. This issue causes our script
-  didn't backup any sogo data at all.</li>
+  didn't backup any sogo data on FreeBSD at all.</li>
 </ul>
 <p>To fix them, please download the latest version and override the one on your
 system:</p>
@@ -114,6 +116,67 @@ parameter <code>BACKUP_ROOTDIR=</code> to use the correct one.</p>
 wget https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/tools/backup_sogo.sh
 chown root backup_sogo.sh
 chmod 0400 backup_sogo.sh
+</code></pre>
+
+<h3 id="new-fail2ban-jail-postfix-pregreet">New fail2ban jail: postfix-pregreet</h3>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>This is not applicable to OpenBSD because we don't have Fail2ban running on
+OpenBSD.</p>
+</div>
+<p>Quote from <a href="http://www.postfix.org/POSTSCREEN_README.html#pregreet">Postfix website</a>:</p>
+<blockquote>
+<p>The SMTP protocol is a classic example of a protocol where the server speaks
+before the client. postscreen(8) detects zombies that are in a hurry and that
+speak before their turn.</p>
+</blockquote>
+<p>Many spammers are in a hurry to start transfer message to your server, we'd
+like to block them due to not follow RFC.</p>
+<p>During mail server maintenance, we found many spammers from China mainland
+cannot pass this pregreet test and all of them use <code>ylmf-pc</code> as HELO hostname.
+it's very possible that they're running an illegal Windows XP system which were
+installed with a malware Windows XP ISO image.</p>
+<p>Steps to create this new Fail2ban jail:</p>
+<ul>
+<li>Create new file <code>/etc/fail2ban/filter.d/postfix-pregreet.conf</code> with content
+  below:</li>
+</ul>
+<pre><code>[Definition]
+
+# Block clients which cannot pass Postfix postscreen pregreet test.
+# FYI: http://www.postfix.org/POSTSCREEN_README.html#pregreet
+#
+# The SMTP protocol is a classic example of a protocol where the server speaks
+# before the client. postscreen(8) detects zombies that are in a hurry and that
+# speak before their turn.
+failregex = postscreen\[\d+\]: PREGREET .* from \[&lt;HOST&gt;\]:\d+:
+
+# while setting up new account, Thunderbird doesn't wait for server connection
+# greeting/banner, this causes Thunderbird cannot pass the Postfix pregreet
+# test and caught by `failregex` rules listed above (the rule contains
+# 'PREGREET' line).
+# FYI: https://bugzilla.mozilla.org/show_bug.cgi?id=538809#c41
+ignoreregex = postscreen\[\d+\]: PREGREET .* from \[&lt;HOST&gt;\]:\d+: (EHLO|HELO) we-guess.mozilla.org
+</code></pre>
+
+<ul>
+<li>
+<p>Create new file <code>/etc/fail2ban/jail.d/postfix-pregreet.local</code> with content
+  below:</p>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>Please make sure you're using correct Postfix log file in <code>logpath =</code>
+parameter. On RHEL/CentOS/FreeBSD, it's <code>/var/log/maillog</code>. On
+Debian/Ubuntu, it's <code>/var/log/mail.log</code>.</p>
+</div>
+</li>
+</ul>
+<pre><code>[postfix-pregreet-iredmail]
+enabled     = true
+filter      = postfix-pregreet.iredmail
+logpath     = /var/log/maillog
+maxretry    = 1
+action      = iptables-multiports[name=postfix, port=&quot;25&quot;, protocol=tcp]
 </code></pre>
 
 <h3 id="fixed-nginx-snippet-file-hard-codes-static-file-types-for-iredadmin">Fixed: Nginx snippet file hard-codes static file types for iRedAdmin</h3>
@@ -137,7 +200,7 @@ hard-codes static file types like below:</p>
 </code></pre>
 
 <p>Reloading or restarting Nginx service is required.</p>
-<h3 id="optional-fix-improper-expected-dnsbl-filter-for-site-bbarracudacentralorg">[OPTIONAL] Fix improper expected DNSBL filter for site <code>b.barracudacentral.org</code></h3>
+<h3 id="fix-unexpected-dnsbl-query-result-for-site-bbarracudacentralorg">Fix unexpected DNSBL query result for site <code>b.barracudacentral.org</code></h3>
 <p>Postfix config file generated by iRedMail enables DNSBL service for postscreen
 service like below:</p>
 <pre><code>postscreen_dnsbl_sites =
