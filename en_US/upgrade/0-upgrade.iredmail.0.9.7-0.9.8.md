@@ -20,7 +20,7 @@
     * New table: `vmail.maillists`
     * New doc: how to add a standalone (mlmmj) mailing list account
     * New doc: how to deploy mlmmj + mlmmj-admin
-* Jan 31, 2018: New fail2ban jail: postfix-pregreet.
+* Jan 31, 2018: Fail2ban: new jail `postfix-pregreet`.
 * Jan 21, 2018: [LDAP] Update SOGo config file for per-domain global address book.
 * Jan 19, 2018: Update OpenLDAP config file to index new attributes and fix an ACL.
 * Jan 19, 2018: Update iRedMail LDAP schema file
@@ -74,7 +74,7 @@ chown root backup_sogo.sh
 chmod 0400 backup_sogo.sh
 ```
 
-### New fail2ban jail: postfix-pregreet
+### Fail2ban: new jail `postfix-pregreet`
 
 !!! attention
 
