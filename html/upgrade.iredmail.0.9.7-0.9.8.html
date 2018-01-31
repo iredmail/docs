@@ -130,7 +130,7 @@ OpenBSD.</p>
 before the client. postscreen(8) detects zombies that are in a hurry and that
 speak before their turn.</p>
 </blockquote>
-<p>Many spammers are in a hurry to start transfer message to your server, we'd
+<p>Many spammers are in a hurry to transfer message to your server, we'd
 like to block them due to not follow RFC.</p>
 <p>During mail server maintenance, we found many spammers from China mainland
 cannot pass this pregreet test and all of them use <code>ylmf-pc</code> as HELO hostname.
@@ -179,6 +179,9 @@ maxretry    = 1
 action      = iptables-multiports[name=postfix, port=&quot;25&quot;, protocol=tcp]
 </code></pre>
 
+<ul>
+<li>Restarting Fail2ban service is required.</li>
+</ul>
 <h3 id="fixed-nginx-snippet-file-hard-codes-static-file-types-for-iredadmin">Fixed: Nginx snippet file hard-codes static file types for iRedAdmin</h3>
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>

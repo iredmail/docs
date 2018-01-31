@@ -87,7 +87,7 @@ Quote from [Postfix website](http://www.postfix.org/POSTSCREEN_README.html#pregr
 > before the client. postscreen(8) detects zombies that are in a hurry and that
 > speak before their turn.
 
-Many spammers are in a hurry to start transfer message to your server, we'd
+Many spammers are in a hurry to transfer message to your server, we'd
 like to block them due to not follow RFC.
 
 During mail server maintenance, we found many spammers from China mainland
@@ -136,6 +136,8 @@ logpath     = /var/log/maillog
 maxretry    = 1
 action      = iptables-multiports[name=postfix, port="25", protocol=tcp]
 ```
+
+* Restarting Fail2ban service is required.
 
 ### Fixed: Nginx snippet file hard-codes static file types for iRedAdmin
 
