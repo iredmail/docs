@@ -19,6 +19,9 @@ Port | Service | Software | Comment | Allow Public Access?
 10026 | | Amavisd-new | Used to scan outbound messages, includes spam/virus scanning, DKIM signing, applying spam policy. | NO (listen on `127.0.0.1` by default)
 9998 | | Amavisd-new | Used to manage quarantined emails. | NO (listen on `127.0.0.1` by default)
 7777 | | iRedAPD | Postfix policy service for greylisting, whitelisting, blacklists, throttling, etc | NO (listen on `127.0.0.1` by default)
+7779 | | mlmmjadmin | RESTful API server used to manage mlmmj mailing lists. New in iRedMail-0.9.8. | NO (listen on `127.0.0.1` by default)
+24242 | | Dovecot | Dovecot service status. New in iRedMail-0.9.8. | NO (listen on `127.0.0.1` by default)
+19999 | | Netdata | Netdata monitor. New in iRedMail-0.9.8. | NO (listen on `127.0.0.1` by default)
 
 !!! note
 
