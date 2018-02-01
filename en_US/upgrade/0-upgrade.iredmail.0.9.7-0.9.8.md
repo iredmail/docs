@@ -324,14 +324,14 @@ steps below to apply the SQL structure change.
 
 ```
 cd /tmp/
-wget https://bitbucket.org/zhb/iredmail/raw/default/extra/update/0.9.8-amavisd.mysql
+wget https://bitbucket.org/zhb/iredmail/raw/default/extra/update/0.9.8/amavisd.mysql
 ```
 
 * Connect to MySQL server as MySQL root user, and execute SQL commands:
 
 ```
 $ mysql amavisd
-mysql> SOURCE /tmp/0.9.8-amavisd.mysql;
+mysql> SOURCE /tmp/amavisd.mysql;
 ```
 
 ### Update SOGo config file for per-domain global address book
@@ -452,14 +452,14 @@ address without address extension in a new column `maddr.email_raw`. Steps:
 
 ```
 cd /tmp/
-wget https://bitbucket.org/zhb/iredmail/raw/default/extra/update/0.9.8-amavisd.mysql
+wget https://bitbucket.org/zhb/iredmail/raw/default/extra/update/0.9.8/amavisd.mysql
 ```
 
 * Connect to MySQL server as MySQL root user, and execute SQL commands:
 
 ```
 # mysql amavisd
-sql> SOURCE /tmp/0.9.8-amavisd.mysql;
+sql> SOURCE /tmp/amavisd.mysql;
 ```
 
 ## PostgreSQL backend
@@ -546,7 +546,7 @@ address without address extension in a new column `maddr.email_raw`. Steps:
 
 ```
 cd /tmp/
-wget https://bitbucket.org/zhb/iredmail/raw/default/extra/update/0.9.8-amavisd.pgsql
+wget https://bitbucket.org/zhb/iredmail/raw/default/extra/update/0.9.8/amavisd.pgsql
 ```
 
 * Run shell commands as root user below to connect to PostgreSQL server:
@@ -554,5 +554,5 @@ wget https://bitbucket.org/zhb/iredmail/raw/default/extra/update/0.9.8-amavisd.p
 ```
 # su - postgres
 $ psql -U amavisd -d vmail
-sql> \i /tmp/0.9.8-amavisd.pgsql
+sql> \i /tmp/amavisd.pgsql
 ```
