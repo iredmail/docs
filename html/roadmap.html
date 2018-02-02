@@ -19,11 +19,6 @@
 <div class="toc">
 <ul>
 <li><a href="#roadmap">Roadmap</a><ul>
-<li><a href="#upcoming-iredmail-release-098">Upcoming iRedMail release (0.9.8)</a><ul>
-<li><a href="#work-in-progress">Work In Progress</a></li>
-<li><a href="#done">DONE</a></li>
-</ul>
-</li>
 <li><a href="#planned-changes-in-next-iredmail-iredadmin-pro-release">Planned changes in next iRedMail / iRedAdmin-Pro release</a></li>
 <li><a href="#planned-changes-in-future-iredmail-release">Planned changes in future iRedMail release</a></li>
 </ul>
@@ -32,102 +27,9 @@
 </div>
 <p>Feel free to request new features or report bugs in our <a href="https://bitbucket.org/zhb/iredmail/issues?status=new&amp;status=open">issue tracker</a>, direct pull requests are always welcome.</p>
 <p>You can also contact us via email directly: <a href="https://www.iredmail.org/contact.html">Contact Us</a>.</p>
-<h2 id="upcoming-iredmail-release-098">Upcoming iRedMail release (0.9.8)</h2>
-<h3 id="work-in-progress">Work In Progress</h3>
-<ul>
-<li>
-<p>Integrate <a href="http://mlmmj.org">mlmmj</a> mailing list manager.</p>
-<ul>
-<li>Improve iRedAPD to handle access policy of mlmmj mailing list.</li>
-<li>[DONE] RESTful API server used to manage mlmmj: <a href="https://bitbucket.org/iredmail/mlmmj-admin/src">mlmmj-admin</a>.</li>
-<li>[DONE] Integrate mlmmj and mlmmj-admin in iRedAdmin-Pro for SQL backends.</li>
-<li>[DONE] Integrate mlmmj and mlmmj-admin in iRedAdmin-Pro for LDAP backends.</li>
-</ul>
-</li>
-<li>
-<p>Replace Awstats by <a href="https://my-netdata.io">netdata</a>.</p>
-<ul>
-<li>[DONE] <strike>Remove Awstats.</strike></li>
-<li>Install and configure netdata.</li>
-</ul>
-</li>
-<li>
-<p>Issues:</p>
-<ul>
-<li>Postfix: Improper SQL queries used to query per-user bcc address.</li>
-</ul>
-</li>
-</ul>
-<h3 id="done">DONE</h3>
-<p>Features listed below have been implemented in latest development edition.</p>
-<ul>
-<li>
-<p>Supports new distribution releases:</p>
-<ul>
-<li>OpenBSD 6.2.</li>
-<li>Ubuntu 17.10</li>
-</ul>
-</li>
-<li>
-<p>Drop support for old distribution releases:</p>
-<ul>
-<li>CentOS 6</li>
-<li>Debian 8</li>
-<li>OpenBSD 6.1</li>
-<li>Ubuntu 14.04 LTS, 17.04.</li>
-</ul>
-</li>
-<li>
-<p>Apache has been removed, Nginx is the only one option you have.</p>
-</li>
-<li>
-<p>Improvements:</p>
-<ul>
-<li>LDAP backend: Allow mailing list account to use 2 attributes: member,
-  uniqueMember.</li>
-<li>Dovecot: Log subject, sender, size in mail deliver log.</li>
-<li>Amavisd: Add new sql column <code>maddr.email_raw</code> and trigger to store
-  email address without address extension.</li>
-</ul>
-</li>
-<li>
-<p>Fixed issues:</p>
-<ul>
-<li>installer: not correctly configure SOGo with IPv6 SQL server address.
-  Thanks to Wraptor <nijs.thibaut _at_ gmail.com> for the report in
-  forum.</li>
-<li>Nginx: Use single config file for default web hosts.</li>
-<li>SQL backends: User under disabled domain is able to send email with
-  smtp protocol.</li>
-<li>Cannot sync contacts on Android devices via EAS with SOGo.</li>
-<li>scripts under <code>iRedMail-0.9.8/tools/</code>:<ul>
-<li><code>backup_sogo.sh</code>:<ul>
-<li>not set correct owner and permission on backup files.</li>
-<li>cannot remove old backup files.</li>
-</ul>
-</li>
-<li><code>backup_openldap.sh</code>: Cannot log backup result to SQL db.
-  Note: backup is fine, just no log in SQL db.
-  Thanks swejun <ingvar _at_ zebware.com> for the feedback and fix in
-  forum.</li>
-<li><code>create_mail_user_*</code>: not use current date as password last change
-  date for newly created user.</li>
-<li><code>migrate_sql_alias_table.py</code>: doesn't support 'utf8' charset.
-  Thanks Kacper Guzik <kacper.guzik _at_ zenbox _dot_ pl> for the
-  report and code contribution.</li>
-</ul>
-</li>
-</ul>
-</li>
-<li>
-<p>Updated packages:</p>
-<ul>
-<li>Roundcube -&gt; 1.3.3</li>
-</ul>
-</li>
-</ul>
 <h2 id="planned-changes-in-next-iredmail-iredadmin-pro-release">Planned changes in next iRedMail / iRedAdmin-Pro release</h2>
 <ul>
+<li>HIGH: OpenDMARC integration.</li>
 <li>HIGH: <a href="https://bitbucket.org/zhb/iredmail/issues/14/allow-admin-to-set-vacation-for-user-with">#14 Allow domain admin to set vacation message for mail user</a></li>
 </ul>
 <h2 id="planned-changes-in-future-iredmail-release">Planned changes in future iRedMail release</h2>
