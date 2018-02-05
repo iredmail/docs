@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Integrate mlmmj mailing list manager in iRedMail (LDAP backends)</title>
+        <link rel="stylesheet" type="text/css" href="./css/markdown.css" />
+    </head>
+    <body>
+    
+    <div id="navigation">
+    <a href="https://www.iredmail.org" target="_blank">
+        <img alt="iRedMail web site"
+             src="./images/logo-iredmail.png"
+             style="vertical-align: middle; height: 30px;"
+             />&nbsp;
+        <span>iRedMail</span>
+    </a>
+    &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><h1 id="integrate-mlmmj-mailing-list-manager-in-iredmail-ldap-backends">Integrate mlmmj mailing list manager in iRedMail (LDAP backends)</h1>
+<div class="toc">
+<ul>
+<li><a href="#integrate-mlmmj-mailing-list-manager-in-iredmail-ldap-backends">Integrate mlmmj mailing list manager in iRedMail (LDAP backends)</a><ul>
+<li><a href="#summary">Summary</a></li>
+<li><a href="#backup-ldap-data-first">Backup LDAP data first</a></li>
+<li><a href="#create-required-system-account">Create required system account</a></li>
+<li><a href="#postfix-integration">Postfix integration</a></li>
+<li><a href="#amavisd-integration">Amavisd Integration</a></li>
+<li><a href="#setup-mlmmjadmin-a-restful-api-server-used-to-manage-mlmmj-mailing-lists">Setup mlmmjadmin: a RESTful API server used to manage mlmmj mailing lists</a></li>
+<li><a href="#references">References</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<h2 id="summary">Summary</h2>
+<p>In iRedMail-0.9.8, we integrate <a href="http://mlmmj.org">mlmmj</a> - a simple and slim
+mailing list manager. It uses very few resources, and requires no daemons, easy
+to install, configure and manage. if offers a great set of features, including:</p>
+<ul>
+<li>Archive</li>
+<li>Subject prefix</li>
+<li>Subscribers only posting</li>
+<li>Moderators only posting</li>
+<li>Moderation functionality</li>
+<li>Custom headers / footer</li>
+<li>Fully automated bounce handling</li>
+<li>Complete requeueing functionality</li>
+<li>Regular expression access control</li>
+<li>Delivery Status Notification (RFC1891) support</li>
+<li>Rich, customisable texts for automated operations</li>
+<li>and more</li>
+</ul>
+<p>iRedMail team also developes a simple RESTful API server called <code>mlmmjadmin</code>
+to help manage mailing lists, it also offers script tool to manage mailing
+lists from command line.</p>
+<p>We will show you how to integrate both mlmmj and mlmmjadmin in this tutorial.</p>
+<h2 id="backup-ldap-data-first">Backup LDAP data first</h2>
+<p>Before you do any changes, please backup existing LDAP data first.</p>
+<ul>
+<li>For OpenLDAP, please run command <code>bash /var/vmail/backup/backup_openldap.sh</code> to backup.</li>
+<li>For OpenBSD ldapd, please run command <code>bash /var/vmail/backup/backup_ldapd.sh</code> to backup.</li>
+</ul>
+<h2 id="create-required-system-account">Create required system account</h2>
+<p>mlmmj will be ran as user <code>mlmmj</code> and group <code>mlmmj</code>, all mailing list data will
+be stored under its home directory <code>/var/vmail/mlmmj</code>:</p>
+<p>On Linux or OpenBSD:</p>
+<pre><code>groupadd mlmmj
+useradd -m -d /var/vmail/mlmmj -s /sbin/nologin mlmmj
+chown -R mlmmj:mlmmj /var/vmail/mlmmj
+chmod -R 0700 /var/vmail/mlmmj
+</code></pre>
+
+<p>On FreeBSD:</p>
+<pre><code>pw groupadd mlmmj
+pw useradd -m -g mlmmj -s /sbin/nologin -d /var/vmail/mlmmj mlmmj
+chown -R mlmmj:mlmmj /var/vmail/mlmmj
+chmod -R 0700 /var/vmail/mlmmj
+</code></pre>
+
+<h2 id="postfix-integration">Postfix integration</h2>
+<ul>
+<li>Please add lines below in Postfix config file <code>/etc/postfix/master.cf</code>:</li>
+</ul>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<ul>
+<li>Command <code>/usr/bin/mlmmj-amime-receive</code> doesn't exist yet, we will create it
+  later.</li>
+<li>On FreeBSD and OpenBSD, it should be <code>/usr/local/usr/bin/mlmmj-amime-receive</code> instead.</li>
+</ul>
+</div>
+<pre><code># ${nexthop} is '%d/%u' in transport ('mlmmj:%d/%u')
+mlmmj   unix  -       n       n       -       -       pipe
+    flags=ORhu user=mlmmj argv=/usr/bin/mlmmj-amime-receive -L /var/vmail/mlmmj/${nexthop}
+</code></pre>
+
+<ul>
+<li>Open file <code>/etc/postfix/ldap/virtual_group_maps.cf</code>, replace the 
+  <code>query_filter</code> line by below one. It will query old mailing list and new
+  mlmmj mailing list.</li>
+</ul>
+<pre><code>query_filter     = (&amp;(accountStatus=active)(!(domainStatus=disabled))(enabledService=mail)(enabledService=deliver)(|(&amp;(objectClass=mailUser)(|(memberOfGroup=%s)(shadowAddress=%s)))(&amp;(memberOfGroup=%s)(!(shadowAddress=%s))(|(objectClass=mailExternalUser)(&amp;(objectClass=mailList)(!(enabledService=mlmmj)))(objectClass=mailAlias)))(&amp;(objectClass=mailList)(enabledService=mlmmj)(|(mail=%s)(shadowAddress=%s)))))
+</code></pre>
+
+<ul>
+<li>Open file <code>/etc/postfix/ldap/transport_maps_user.cf</code>, replace the 
+  <code>query_filter</code> line by below one. It will query both mail user and mlmmj
+  mailing list.</li>
+</ul>
+<pre><code>query_filter    = (&amp;(|(objectClass=mailUser)(&amp;(objectClass=mailList)(enabledService=mlmmj)))(|(mail=%s)(shadowAddress=%s))(accountStatus=active)(!(domainStatus=disabled))(enabledService=mail))
+</code></pre>
+
+<ul>
+<li>Run commands below to create file <code>/usr/bin/mlmmj-amime-receive</code> (Linux) or
+  <code>/usr/local/bin/mlmmj-amime-receive</code> (Linux/FreeBSD):</li>
+</ul>
+<p>On Linux:</p>
+<pre><code>cd /usr/bin/
+wget https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/samples/mlmmj/mlmmj-amime-receive
+chown mlmmj:mlmmj mlmj-amime-receive
+chmod 0550 mlmmj-amime-receive
+perl -pi -e 's#PH_CMD_MLMMJ_RECEIVE#/usr/bin/mlmmj-receive#g' mlmmj-amime-receive
+perl -pi -e 's#PH_CMD_ALTERMIME#/usr/bin/altermime#g' mlmmj-amime-receive
+</code></pre>
+
+<p>On FreeBSD or OpenBSD:</p>
+<pre><code>cd /usr/local/bin/
+wget https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/samples/mlmmj/mlmmj-amime-receive
+chown mlmmj:mlmmj mlmj-amime-receive
+chmod 0550 mlmmj-amime-receive
+perl -pi -e 's#PH_CMD_MLMMJ_RECEIVE#/usr/local/bin/mlmmj-receive#g' mlmmj-amime-receive
+perl -pi -e 's#PH_CMD_ALTERMIME#/usr/local/bin/altermime#g' mlmmj-amime-receive
+</code></pre>
+
+<h2 id="amavisd-integration">Amavisd Integration</h2>
+<p>We need Amavisd to listen on one more port <code>10027</code>, it will be used to scan
+spam/virus for emails posted to mailing list.</p>
+<ul>
+<li>Please open Amavisd config file, find parameter <code>$inet_socket_port</code>, add new
+  port number <code>10027</code> in the list, like below:<ul>
+<li>On RHEL/CentOS, it's <code>/etc/amavisd/amavisd.conf</code>.</li>
+<li>On Debian/Ubuntu, it's <code>/etc/amavis/conf.d/50-user</code>.</li>
+<li>On OpenBSD, it's <code>/etc/amavisd.conf</code>.</li>
+<li>On FreeBSD, it's <code>/usr/local/etc/amavisd.conf</code>.</li>
+</ul>
+</li>
+</ul>
+<pre><code>$inet_socket_port = [10024, 10026, 10027, 9998];
+</code></pre>
+
+<ul>
+<li>
+<p>Add lines below in Amavisd config file. It creates a new policy bank called
+  <code>MLMMJ</code> for emails submitted by mlmmj from port 10027.</p>
+<p>Note: This policy bank doesn't perform spam/virus/banned/bad-header checks
+because emails sent to mailing list will be scanned either on port 10024
+(incoming email from external senders) or 10026 (outgoing email sent by
+smtp authenticated users).</p>
+</li>
+</ul>
+<pre><code>$interface_policy{'10027'} = 'MLMMJ';
+$policy_bank{'MLMMJ'} = {
+    originating =&gt; 1,           # declare that mail was submitted by our smtp client
+    allow_disclaimers =&gt; 0,     # mailing list should use footer text instead.
+    enable_dkim_signing =&gt; 1,   # sign DKIm signature
+    smtpd_discard_ehlo_keywords =&gt; ['8BITMIME'],
+    terminate_dsn_on_notify_success =&gt; 0,  # don't remove NOTIFY=SUCCESS option
+    bypass_spam_checks_maps =&gt; [1],     # don't check spam
+    bypass_virus_checks_maps =&gt; [1],    # don't check virus
+    bypass_banned_checks_maps =&gt; [1],   # don't check banned file names and types
+    bypass_header_checks_maps =&gt; [1],   # don't check bad header
+};
+</code></pre>
+
+<p>Now restart Amavisd and Postfix servivce, mlmmj mailing list manager is now
+fully integrated. We will setup <code>mlmmjadmin</code> to make managing mailing lists easier.</p>
+<h2 id="setup-mlmmjadmin-a-restful-api-server-used-to-manage-mlmmj-mailing-lists">Setup mlmmjadmin: a RESTful API server used to manage mlmmj mailing lists</h2>
+<ul>
+<li>Download the latest mlmmjadmin release: <a href="https://github.com/iredmail/mlmmjadmin/releases">https://github.com/iredmail/mlmmjadmin/releases</a>,
+  upload to iRedMail server. We assume it's uploaded to <code>/root/</code> directory.</li>
+</ul>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>NOTE: We use <code>mlmmjadmin-1.0</code> for example below.</p>
+</div>
+<ul>
+<li>Extract downloaded mlmmjadmin package to <code>/opt/</code> directory, and create a
+  symbol link:</li>
+</ul>
+<pre><code>tar xjf /root/mlmmjadmin-1.0.tar.bz2 -C /opt
+ln -s /opt/mlmmjadmin-1.0 /opt/mlmmjadmin
+</code></pre>
+
+<ul>
+<li>Generate config file by copying sample file, <code>settings.py.sample</code>:</li>
+</ul>
+<pre><code>cd /opt/mlmmjadmin
+cp settings.py.sample settings.py
+chown mlmmj:mlmmj settings.py
+chmod 0400 settings.py
+</code></pre>
+
+<ul>
+<li>Generate a random, long string as API auth token, it will be used by your
+  API client. For example:</li>
+</ul>
+<pre><code>$ echo $RANDOM | md5sum
+43a89b7aa34354089e629ed9f9be0b3b
+</code></pre>
+
+<ul>
+<li>Add this string in <code>/opt/mlmmjadmin/settings.py</code>, parameter <code>api_auth_tokens</code>
+  like below:</li>
+</ul>
+<pre><code>api_auth_tokens = ['43a89b7aa34354089e629ed9f9be0b3b']
+</code></pre>
+
+<p>You can add as many token as you want for different API clients. For example:</p>
+<pre><code>api_auth_tokens = ['43a89b7aa34354089e629ed9f9be0b3b', '703ed37b20243d7c51c56ce6cd90e94c']
+</code></pre>
+
+<ul>
+<li>if you manage mail accounts <strong>WITH</strong> iRedAdmin-Pro, please set values of
+  parameters <code>backend_api</code> and <code>backend_cli</code> in <code>/opt/mlmmjadmin/settings.py</code>
+  like below:</li>
+</ul>
+<pre><code>backend_api = 'bk_none'
+backend_cli = 'bk_iredmail_ldap'
+</code></pre>
+
+<ul>
+<li>if you do <strong>NOT</strong> manage mail accounts with iRedAdmin-Pro, please set values
+  of parameters <code>backend_api</code> and <code>backend_cli</code> in <code>/opt/mlmmjadmin/settings.py</code>
+  like below:</li>
+</ul>
+<pre><code>backend_api = 'bk_iredmail_ldap'
+backend_cli = 'bk_iredmail_ldap'
+</code></pre>
+
+<ul>
+<li>Add extra required parameters in <code>/opt/mlmmjadmin/settings.py</code>, so that
+  mlmmjadmin can manage mailing lists stored in LDAP server.</li>
+</ul>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<ul>
+<li>You can find LDAP URI, basedn, bind_dn, bind_password in iRedAdmin
+  config file.</li>
+<li>LDAP bind dn must have read and write privilege to access LDAP server.</li>
+</ul>
+</div>
+<pre><code>iredmail_ldap_uri = 'ldap://127.0.0.1'
+iredmail_ldap_basedn = 'o=domains,dc=XXX,dc=XXX'
+iredmail_ldap_bind_dn = 'cn=vmailadmin,dc=XXX,dc=XXX'
+iredmail_ldap_bind_password = 'xxxxxxxx'
+</code></pre>
+
+<ul>
+<li>Copy rc/systemd scripts for service control:</li>
+</ul>
+<pre><code>#
+# For RHEL/CentOS
+#
+cp /opt/mlmmjadmin/rc_scripts/systemd/rhel.service /lib/systemd/system/mlmmjadmin.service
+chmod 0644 /lib/systemd/system/mlmmjadmin.service
+systemctl daemon-reload
+systemctl enable mlmmjadmin
+
+#
+# For Debian 9 and Ubuntu 16.04 which uses systemd
+#
+cp /opt/mlmmjadmin/rc_scripts/systemd/debian.service /lib/systemd/system/mlmmjadmin.service
+chmod 0644 /lib/systemd/system/mlmmjadmin.service
+systemctl daemon-reload
+systemctl enable mlmmjadmin
+
+#
+# For FreeBSD
+#
+cp /opt/mlmmjadmin/rc_scripts/mlmmjadmin.freebsd /usr/local/etc/rc.d/mlmmjadmin
+chmod 0755 /usr/local/etc/rc.d/mlmmjadmin
+echo 'mlmmjadmin_enable=YES' &gt;&gt; /etc/rc.conf.local
+
+#
+# For OpenBSD
+#
+cp /opt/mlmmjadmin/rc_scripts/mlmmjadmin.openbsd /etc/rc.d/mlmmjadmin
+chmod 0755 /etc/rc.d/mlmmjadmin
+rcctl enable mlmmjadmin
+</code></pre>
+
+<ul>
+<li>Create directory used to store mlmmjadmin log file. mlmmjadmin is
+  configured to log to syslog directly.</li>
+</ul>
+<pre><code>#
+# For RHEL/CentOS
+#
+mkdir /var/log/mlmmjadmin
+chown root:root /var/log/mlmmjadmin
+chmod 0755 /var/log/mlmmjadmin
+
+#
+# For Debian/Ubuntu
+#
+mkdir /var/log/mlmmjadmin
+chown syslog:adm /var/log/mlmmjadmin
+chmod 0755 /var/log/mlmmjadmin
+
+#
+# For OpenBSD/FreeBSD
+#
+mkdir /var/log/mlmmjadmin
+chown root:wheel /var/log/mlmmjadmin
+chmod 0755 /var/log/mlmmjadmin
+</code></pre>
+
+<ul>
+<li>Update syslog daemon config file to log mlmmjadmin to dedicated log file:</li>
+</ul>
+<p>For Linux</p>
+<pre><code>cp /opt/mlmmjadmin/samples/rsyslog/mlmmjadmin.conf /etc/rsyslog.d/
+service rsyslog restart
+</code></pre>
+
+<p>For OpenBSD, please append below lines in <code>/etc/syslog.conf</code>:</p>
+<pre><code>!!mlmmjadmin
+local5.*            /var/log/mlmmjadmin/mlmmjadmin.log
+</code></pre>
+
+<p>For FreeBSD, please append below lines in <code>/etc/syslog.conf</code>:</p>
+<pre><code>!mlmmjadmin
+local5.*            /var/log/mlmmjadmin/mlmmjadmin.log
+</code></pre>
+
+<ul>
+<li>Now it's ok to start <code>mlmmjadmin</code> service:</li>
+</ul>
+<pre><code>#
+# On Linux/FreeBSD:
+#
+service mlmmjadmin restart
+
+#
+# On OpenBSD
+#
+rcctl start mlmmjadmin
+</code></pre>
+
+<h2 id="references">References</h2>
+<ul>
+<li>iRedMail: <a href="http://www.iredmail.org">http://www.iredmail.org</a></li>
+<li>Mlmmj: <a href="http://mlmmj.org/">http://mlmmj.org/</a><ul>
+<li>Tunable parameters: <a href="http://mlmmj.org/docs/tunables/">http://mlmmj.org/docs/tunables/</a></li>
+<li>Postfix integration: <a href="http://mlmmj.org/docs/readme-postfix/">http://mlmmj.org/docs/readme-postfix/</a></li>
+</ul>
+</li>
+<li>mlmmjadmin: RESTful API server used to manage mlmmj mailing lists. Developed
+  and maintained by iRedMail team. <a href="https://github.com/iredmail/mlmmjadmin">https://github.com/iredmail/mlmmjadmin</a></li>
+</ul><div class="footer">
+    <p style="text-align: center; color: grey;">All documents are available in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://bitbucket.org/zhb/iredmail-docs/get/tip.tar.bz2">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
+</div>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-3293801-21"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-3293801-21');
+</script>
+</body></html>

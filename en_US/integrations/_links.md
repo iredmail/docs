@@ -2,6 +2,10 @@
 
     * CentOS 6: [MySQL](./sogo-centos-6-mysql.html), [OpenLDAP](./sogo-centos-6-openldap.html).
 
+* Integrate mlmmj mailing list manager:
+    * [For LDAP backends](./integration.mlmmj.ldap.html)
+    * [For MySQL backends](./integration.mlmmj.mysql.html)
+
 Documents contributed by iRedMail users:
 
 * [Integreate OpenFire in iRedMail (MySQL backend)](http://www.murat.ws/openfire-iredmail-yapilandirmasi/) (Turkish)
