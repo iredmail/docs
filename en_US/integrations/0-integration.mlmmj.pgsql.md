@@ -384,6 +384,44 @@ service mlmmjadmin restart
 rcctl start mlmmjadmin
 ```
 
+## Manage mailing lists with mlmmjadmin command line tool
+
+mlmmjadmin ships script `tools/maillist_admin.py` to help you manage mailing
+lists. You can find this script under directory `/opt/mlmmjadmin/tools/`.
+
+!!! attention
+
+    All settings used to create or update mailing list profiles are listed on
+    [mlmmjadmin document](https://github.com/iredmail/mlmmjadmin/blob/master/docs/API.md).
+
+* Create a new mailing list account with additional setting:
+
+```python maillist_admin.py create list@domain.com only_subscriber_can_post=yes disable_archive=no```
+
+* Get settings of an existing mailing list account
+
+```python maillist_admin.py info list@domain.com```
+
+* Update an existing mailing list account
+
+```python maillist_admin.py update list@domain.com only_moderator_can_post=yes disable_subscription=yes```
+
+* Delete an existing mailing list account
+
+```python maillist_admin.py delete list@domain.com archive=yes```
+
+* List all subscribers:
+
+```python maillist_admin.py subscribers list@domain.com```
+
+* Show subscribed lists of a given subscriber:
+
+```python maillist_admin.py subscribed subscriber@domain.com```
+
+* Check whether mailing list has given subscriber:
+
+```python maillist_admin.py has_subscriber list@domain.com subscriber@gmail.com```
+
 ## References
 
 * iRedMail: <http://www.iredmail.org>
