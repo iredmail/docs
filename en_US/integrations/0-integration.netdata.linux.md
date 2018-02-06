@@ -88,8 +88,15 @@ used by iRedMail:
 
 netdata ships a lot modular config files to gather information of softwares
 running on the server, they have very good default settings and most config
-files don't need your attention at all. but some applications do require
-extra settings.
+files don't need your attention at all, including:
+
+* System resources (CPU, RAM, disk I/O, etc)
+* Nginx log file monitoring
+* Fail2ban jails
+* Memcached
+* ...
+
+But some applications do require extra settings, we will cover them below.
 
 ### Monitor Nginx and php-fpm
 
@@ -144,8 +151,48 @@ pm.status_path = /status
 
 * Restart both php-fpm and Nginx service.
 
-### [TODO] Monitor Dovecot
+### Monitor Dovecot
 
+We need to enable statistics module in Dovecot.
+
+* Please open Dovecot config file:
+    * on Linux and OpenBSD, its `/etc/dovecot/dovecot.conf`.
+    * on FreeBSD, it's `/usr/local/etc/dovecot/dovecot.conf`.
+
+* Append plugin `stats` in global parameter `mail_plugins`, and `imap_stats`
+  for imap protocol:
+
+```
+mail_plugins = ... stats
+
+protocol imap {
+    mail_plugins = ... imap_stats
+```
+
+* Append settings below in Dovecot config file:
+
+```
+plugin {
+    # how often to session statistics (must be set)
+    stats_refresh = 30 secs
+    # track per-IMAP command statistics (optional)
+    stats_track_cmds = yes
+}
+
+service stats {
+    fifo_listener stats-mail {
+        user = vmail
+        mode = 0644
+    }
+
+    inet_listener {
+        address = 127.0.0.1
+        port = 24242
+    }
+}
+```
+
+* Restart Dovecot service.
 
 ### Monitor MySQL/MariaDB server
 

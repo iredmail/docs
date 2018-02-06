@@ -24,7 +24,7 @@
 <li><a href="#install-netdata">Install netdata</a></li>
 <li><a href="#configure-netdata">Configure netdata</a><ul>
 <li><a href="#monitor-nginx-and-php-fpm">Monitor Nginx and php-fpm</a></li>
-<li><a href="#todo-monitor-dovecot">[TODO] Monitor Dovecot</a></li>
+<li><a href="#monitor-dovecot">Monitor Dovecot</a></li>
 <li><a href="#monitor-mysqlmariadb-server">Monitor MySQL/MariaDB server</a></li>
 <li><a href="#monitor-postgresql-server">Monitor PostgreSQL server</a></li>
 </ul>
@@ -111,8 +111,15 @@ used by iRedMail:</p>
 
 <p>netdata ships a lot modular config files to gather information of softwares
 running on the server, they have very good default settings and most config
-files don't need your attention at all. but some applications do require
-extra settings.</p>
+files don't need your attention at all, including:</p>
+<ul>
+<li>System resources (CPU, RAM, disk I/O, etc)</li>
+<li>Nginx log file monitoring</li>
+<li>Fail2ban jails</li>
+<li>Memcached</li>
+<li>...</li>
+</ul>
+<p>But some applications do require extra settings, we will cover them below.</p>
 <h3 id="monitor-nginx-and-php-fpm">Monitor Nginx and php-fpm</h3>
 <p>We need to enable <code>stub_status</code> in Nginx to get detailed server info, also
 update php-fpm config file to enable similar feature.</p>
@@ -167,7 +174,53 @@ location = /status {
 <ul>
 <li>Restart both php-fpm and Nginx service.</li>
 </ul>
-<h3 id="todo-monitor-dovecot">[TODO] Monitor Dovecot</h3>
+<h3 id="monitor-dovecot">Monitor Dovecot</h3>
+<p>We need to enable statistics module in Dovecot.</p>
+<ul>
+<li>
+<p>Please open Dovecot config file:</p>
+<ul>
+<li>on Linux and OpenBSD, its <code>/etc/dovecot/dovecot.conf</code>.</li>
+<li>on FreeBSD, it's <code>/usr/local/etc/dovecot/dovecot.conf</code>.</li>
+</ul>
+</li>
+<li>
+<p>Append plugin <code>stats</code> in global parameter <code>mail_plugins</code>, and <code>imap_stats</code>
+  for imap protocol:</p>
+</li>
+</ul>
+<pre><code>mail_plugins = ... stats
+
+protocol imap {
+    mail_plugins = ... imap_stats
+</code></pre>
+
+<ul>
+<li>Append settings below in Dovecot config file:</li>
+</ul>
+<pre><code>plugin {
+    # how often to session statistics (must be set)
+    stats_refresh = 30 secs
+    # track per-IMAP command statistics (optional)
+    stats_track_cmds = yes
+}
+
+service stats {
+    fifo_listener stats-mail {
+        user = vmail
+        mode = 0644
+    }
+
+    inet_listener {
+        address = 127.0.0.1
+        port = 24242
+    }
+}
+</code></pre>
+
+<ul>
+<li>Restart Dovecot service.</li>
+</ul>
 <h3 id="monitor-mysqlmariadb-server">Monitor MySQL/MariaDB server</h3>
 <p>netdata requires a SQL user (we use <code>netdata</code> here) with privilege <code>USAGE</code> to
 gather MySQL server information.</p>

@@ -48,7 +48,7 @@ The self-signed SSL certificate generated during iRedMail installation:
 
 ## Dovecot {: #dovecot }
 
-* on `Linux` and OpenBSD, Dovecot config files are placed under `/etc/dovecot/`.
+* on Linux and OpenBSD, Dovecot config files are placed under `/etc/dovecot/`.
 * on FreeBSD, Dovecot config files are placed under `/usr/local/etc/dovecot/`.
 
 ### Config files {: #dovecot-config }
