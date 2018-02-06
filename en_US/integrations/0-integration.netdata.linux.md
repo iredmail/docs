@@ -2,6 +2,12 @@
 
 [TOC]
 
+!!! attention
+
+    This tutorial is tested on CentOS 7, Debian 9, Ubuntu 16.04.
+    For FreeBSD, please check this tutorial instead:
+    [Integrate netdata on FreeBSD](./integration.netdata.freebsd.html).
+
 ## What's netdata
 
 netdata (<http://my-netdata.io>) is a "Simple. Effective. Awesome!" monitor
