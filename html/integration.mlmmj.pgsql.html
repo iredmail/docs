@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title>Integrate mlmmj mailing list manager in iRedMail (LDAP backends)</title>
+        <title>Integrate mlmmj mailing list manager in iRedMail (PostgreSQL backend)</title>
         <link rel="stylesheet" type="text/css" href="./css/markdown.css" />
     </head>
     <body>
@@ -15,16 +15,17 @@
              />&nbsp;
         <span>iRedMail</span>
     </a>
-    &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><h1 id="integrate-mlmmj-mailing-list-manager-in-iredmail-ldap-backends">Integrate mlmmj mailing list manager in iRedMail (LDAP backends)</h1>
+    &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><h1 id="integrate-mlmmj-mailing-list-manager-in-iredmail-postgresql-backend">Integrate mlmmj mailing list manager in iRedMail (PostgreSQL backend)</h1>
 <div class="toc">
 <ul>
-<li><a href="#integrate-mlmmj-mailing-list-manager-in-iredmail-ldap-backends">Integrate mlmmj mailing list manager in iRedMail (LDAP backends)</a><ul>
+<li><a href="#integrate-mlmmj-mailing-list-manager-in-iredmail-postgresql-backend">Integrate mlmmj mailing list manager in iRedMail (PostgreSQL backend)</a><ul>
 <li><a href="#summary">Summary</a></li>
-<li><a href="#backup-ldap-data-first">Backup LDAP data first</a></li>
+<li><a href="#backup-sql-database-first">Backup SQL database first</a></li>
 <li><a href="#create-required-system-account">Create required system account</a></li>
+<li><a href="#update-sql-tables-in-vmail-database">Update SQL tables in vmail database</a></li>
 <li><a href="#postfix-integration">Postfix integration</a></li>
 <li><a href="#amavisd-integration">Amavisd Integration</a></li>
-<li><a href="#setup-mlmmjadmin-a-restful-api-server-used-to-manage-mlmmj-mailing-lists">Setup mlmmjadmin: a RESTful API server used to manage mlmmj mailing lists</a></li>
+<li><a href="#setup-mlmmjadmin-restful-api-server-used-to-manage-mlmmj-mailing-lists">Setup mlmmjadmin: RESTful API server used to manage mlmmj mailing lists</a></li>
 <li><a href="#references">References</a></li>
 </ul>
 </li>
@@ -52,13 +53,11 @@ to install, configure and manage. if offers a great set of features, including:<
 to help manage mailing lists, it also offers script tool to manage mailing
 lists from command line.</p>
 <p>We will show you how to integrate both mlmmj and mlmmjadmin in this tutorial.</p>
-<h2 id="backup-ldap-data-first">Backup LDAP data first</h2>
-<p>Although we don't modify any existing LDAP data in this tutorial, but it's
+<h2 id="backup-sql-database-first">Backup SQL database first</h2>
+<p>Although we don't modify any existing SQL data in this tutorial, but it's
 a good idea to backup it now before you adding any new mailing lists.</p>
-<ul>
-<li>For OpenLDAP, please run command <code>bash /var/vmail/backup/backup_openldap.sh</code> to backup.</li>
-<li>For OpenBSD ldapd, please run command <code>bash /var/vmail/backup/backup_ldapd.sh</code> to backup.</li>
-</ul>
+<p>Please run command <code>bash /var/vmail/backup/backup_pgsql.sh</code> to backup SQL
+databases.</p>
 <h2 id="create-required-system-account">Create required system account</h2>
 <p>mlmmj will be ran as user <code>mlmmj</code> and group <code>mlmmj</code>, all mailing list data will
 be stored under its home directory <code>/var/vmail/mlmmj</code>:</p>
@@ -76,18 +75,36 @@ chown -R mlmmj:mlmmj /var/vmail/mlmmj
 chmod -R 0700 /var/vmail/mlmmj
 </code></pre>
 
+<h2 id="update-sql-tables-in-vmail-database">Update SQL tables in <code>vmail</code> database</h2>
+<p>We need some updates in <code>vmail</code> SQL database:</p>
+<ul>
+<li>new SQL table <code>maillists</code>: used to store profile of mailing list.</li>
+<li>new SQL column <code>forwardings.is_maillist</code></li>
+<li>new SQL column <code>domain.maillists</code>: used to set per-domain limit of mailing
+  list accounts. This column is mostly used by iRedAdmin-Pro.</li>
+</ul>
+<p>Now apply the SQL changes with SQL commands below:</p>
+<pre><code>cd /tmp
+wget https://bitbucket.org/zhb/iredmail/raw/default/extra/update/0.9.8/mlmmj.pgsql
+su - postgres
+psql -d vmail &lt; /tmp/mlmmj.pgsql
+</code></pre>
+
 <h2 id="postfix-integration">Postfix integration</h2>
 <ul>
-<li>Please add lines below in Postfix config file <code>/etc/postfix/master.cf</code>:</li>
-</ul>
+<li>
+<p>Please add lines below in Postfix config file <code>/etc/postfix/master.cf</code>:</p>
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>
 <ul>
-<li>Command <code>/usr/bin/mlmmj-amime-receive</code> doesn't exist yet, we will create it
-  later.</li>
-<li>On FreeBSD and OpenBSD, it should be <code>/usr/local/usr/bin/mlmmj-amime-receive</code> instead.</li>
+<li>Command <code>/usr/bin/mlmmj-amime-receive</code> doesn't exist yet, we will
+  create it later.</li>
+<li>On FreeBSD and OpenBSD, it should be
+  <code>/usr/local/usr/bin/mlmmj-amime-receive</code> instead.</li>
 </ul>
 </div>
+</li>
+</ul>
 <pre><code># ${nexthop} is '%d/%u' in transport ('mlmmj:%d/%u')
 mlmmj   unix  -       n       n       -       -       pipe
     flags=ORhu user=mlmmj argv=/usr/bin/mlmmj-amime-receive -L /var/vmail/mlmmj/${nexthop}
@@ -100,19 +117,30 @@ mlmmj   unix  -       n       n       -       -       pipe
 </code></pre>
 
 <ul>
-<li>Open file <code>/etc/postfix/ldap/virtual_group_maps.cf</code>, replace the 
-  <code>query_filter</code> line by below one. It will query old mailing list and new
-  mlmmj mailing list.</li>
+<li>Open Postfix config file <code>/etc/postfix/main.cf</code>, update existing parameter
+  <code>transport_maps</code>, add new sql lookup like below. We will create required sql
+  lookup file later.</li>
 </ul>
-<pre><code>query_filter     = (&amp;(accountStatus=active)(!(domainStatus=disabled))(enabledService=mail)(enabledService=deliver)(|(&amp;(objectClass=mailUser)(|(memberOfGroup=%s)(shadowAddress=%s)))(&amp;(memberOfGroup=%s)(!(shadowAddress=%s))(|(objectClass=mailExternalUser)(&amp;(objectClass=mailList)(!(enabledService=mlmmj)))(objectClass=mailAlias)))(&amp;(objectClass=mailList)(enabledService=mlmmj)(|(mail=%s)(shadowAddress=%s)))))
+<pre><code>transport_maps =
+    proxy:pgsql:/etc/postfix/pgsql/transport_maps_user.cf
+    proxy:pgsql:/etc/postfix/pgsql/transport_maps_maillist.cf   # &lt;- Add this line
+    ...
 </code></pre>
 
 <ul>
-<li>Open file <code>/etc/postfix/ldap/transport_maps_user.cf</code>, replace the 
-  <code>query_filter</code> line by below one. It will query both mail user and mlmmj
-  mailing list.</li>
+<li>Now create file <code>/etc/postfix/pgsql/mlmmj_maillists_maps.cf</code>:</li>
 </ul>
-<pre><code>query_filter    = (&amp;(|(objectClass=mailUser)(&amp;(objectClass=mailList)(enabledService=mlmmj)))(|(mail=%s)(shadowAddress=%s))(accountStatus=active)(!(domainStatus=disabled))(enabledService=mail))
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Please update the <code>password =</code> line with the real password of SQL user
+<code>vmail</code>, you can find it in files under <code>/etc/postfix/pgsql/</code>.</p>
+</div>
+<pre><code>user        = vmail
+password    = qsescZvV03f6YUtTMN2bQTejmjatzz
+hosts       = 127.0.0.1
+port        = 3306
+dbname      = vmail
+query       = SELECT maillists.transport FROM maillists,domain WHERE maillists.address='%s' AND maillists.active=1 AND maillists.domain = domain.domain AND domain.active=1
 </code></pre>
 
 <ul>
@@ -184,12 +212,13 @@ $policy_bank{'MLMMJ'} = {
 </code></pre>
 
 <p>Now restart Amavisd and Postfix servivce, mlmmj mailing list manager is now
-fully integrated. We will setup <code>mlmmjadmin</code> to make managing mailing lists easier.</p>
-<h2 id="setup-mlmmjadmin-a-restful-api-server-used-to-manage-mlmmj-mailing-lists">Setup mlmmjadmin: a RESTful API server used to manage mlmmj mailing lists</h2>
+fully integrated.</p>
+<p>We will setup <code>mlmmjadmin</code> program to make managing mailing lists easier.</p>
+<h2 id="setup-mlmmjadmin-restful-api-server-used-to-manage-mlmmj-mailing-lists">Setup mlmmjadmin: RESTful API server used to manage mlmmj mailing lists</h2>
 <ul>
 <li>
 <p>Download the latest mlmmjadmin release: <a href="https://github.com/iredmail/mlmmjadmin/releases">https://github.com/iredmail/mlmmjadmin/releases</a>,
-  upload to iRedMail server. We assume it's uploaded to <code>/root/</code> directory.</p>
+  and upload to iRedMail server. We assume it's uploaded to <code>/root/</code> directory.</p>
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>
 <p>We use <code>mlmmjadmin-1.0</code> for example below.</p>
@@ -238,7 +267,7 @@ chmod 0400 settings.py
   like below:</li>
 </ul>
 <pre><code>backend_api = 'bk_none'
-backend_cli = 'bk_iredmail_ldap'
+backend_cli = 'bk_iredmail_sql'
 </code></pre>
 
 <ul>
@@ -246,27 +275,29 @@ backend_cli = 'bk_iredmail_ldap'
   of parameters <code>backend_api</code> and <code>backend_cli</code> in <code>/opt/mlmmjadmin/settings.py</code>
   like below:</li>
 </ul>
-<pre><code>backend_api = 'bk_iredmail_ldap'
-backend_cli = 'bk_iredmail_ldap'
+<pre><code>backend_api = 'bk_iredmail_sql'
+backend_cli = 'bk_iredmail_sql'
 </code></pre>
 
 <ul>
 <li>
 <p>Add extra required parameters in <code>/opt/mlmmjadmin/settings.py</code>, so that
-  mlmmjadmin can manage mailing lists stored in LDAP server.</p>
+  mlmmjadmin can connect to SQL server and manage mailing lists.</p>
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>
-<p>You can find LDAP URI, basedn, bind_dn, bind_password in iRedAdmin
-config file, the bind dn must have both read and write privileges to
-manage LDAP server, iRedMail server usually use bind dn
-<code>cn=vmailadmin,dc=xx,dc=xx</code> for this purpose.</p>
+<p>You can find SQL server address, port, database name, SQL username and
+password in iRedAdmin config file, the SQL user must have both read and
+write privileges to manage <code>vmail</code> database. iRedMail server usually
+use SQL user <code>vmailadmin</code> for this purpose.</p>
 </div>
 </li>
 </ul>
-<pre><code>iredmail_ldap_uri = 'ldap://127.0.0.1'
-iredmail_ldap_basedn = 'o=domains,dc=XXX,dc=XXX'
-iredmail_ldap_bind_dn = 'cn=vmailadmin,dc=XXX,dc=XXX'
-iredmail_ldap_bind_password = 'xxxxxxxx'
+<pre><code>iredmail_sql_db_type = 'pgsql'
+iredmail_sql_db_server = '127.0.0.1'
+iredmail_sql_db_port = 3306
+iredmail_sql_db_name = 'vmail'
+iredmail_sql_db_user = 'vmailadmin'
+iredmail_sql_db_password = '&lt;password&gt;'
 </code></pre>
 
 <ul>

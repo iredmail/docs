@@ -2,9 +2,10 @@
 
     * CentOS 6: [MySQL](./sogo-centos-6-mysql.html), [OpenLDAP](./sogo-centos-6-openldap.html).
 
-* Integrate mlmmj mailing list manager:
+* Integrate mlmmj mailing list manager (mlmmj is a core component since iRedMail-0.9.8):
     * [For LDAP backends](./integration.mlmmj.ldap.html)
-    * [For MySQL backends](./integration.mlmmj.mysql.html)
+    * [For MySQL/MariaDB backend](./integration.mlmmj.mysql.html)
+    * [For PostgreSQL backend](./integration.mlmmj.pgsql.html)
 
 Documents contributed by iRedMail users:
 
