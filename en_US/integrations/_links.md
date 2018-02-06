@@ -7,6 +7,8 @@
     * [For MySQL/MariaDB backend](./integration.mlmmj.mysql.html)
     * [For PostgreSQL backend](./integration.mlmmj.pgsql.html)
 
+* <a name="integration_netdata"></a>[Integrate netdata monitor](./integration.netdata.html) (netdata is an optional component since iRedMail-0.9.8)
+
 Documents contributed by iRedMail users:
 
 * [Integreate OpenFire in iRedMail (MySQL backend)](http://www.murat.ws/openfire-iredmail-yapilandirmasi/) (Turkish)

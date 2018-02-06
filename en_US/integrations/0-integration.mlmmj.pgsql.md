@@ -116,7 +116,7 @@ transport_maps =
     ...
 ```
 
-* Now create file `/etc/postfix/pgsql/mlmmj_maillists_maps.cf`:
+* Now create file `/etc/postfix/pgsql/transport_maps_maillist.cf`:
 
 !!! warning
 
