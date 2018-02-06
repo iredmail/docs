@@ -4,7 +4,7 @@
 
 ## Summary
 
-In iRedMail-0.9.8, we integrate [mlmmj](http://mlmmj.org) - a simple and slim
+In iRedMail-0.9.8, we integrate mlmmj (<http://mlmmj.org>) - a simple and slim
 mailing list manager. It uses very few resources, and requires no daemons, easy
 to install, configure and manage. if offers a great set of features, including:
 
@@ -20,6 +20,12 @@ to install, configure and manage. if offers a great set of features, including:
 * Delivery Status Notification (RFC1891) support
 * Rich, customisable texts for automated operations
 * and more
+
+With mlmmj integration, you can create as many mailing lists as you want. End
+user can subscribe to mailing list `listname@domain.dom` by sending email to
+`listname+subscribe@domain.com`, unsubscribe from the list by sending email to
+`listname+unsubscribe@domain.com`. Of course you can disable the subscription
+and unsubscription with a setting.
 
 iRedMail team also developes a simple RESTful API server called `mlmmjadmin`
 to help manage mailing lists, it also offers script tool to manage mailing
@@ -382,6 +388,14 @@ service mlmmjadmin restart
 #
 rcctl start mlmmjadmin
 ```
+
+## Manage mailing lists with iRedAdmin-Pro
+
+With [iRedAdmin-Pro](https://www.iredmail.org/admin_panel.html), you can easily
+manage mailing list accounts with its web UI. Here's a screenshot of mailing
+list profile page in iRedAdmin-Pro:
+
+![](./images/iredadmin/mailinglist_profile.png){: width="900px" }
 
 ## Manage mailing lists with mlmmjadmin command line tool
 

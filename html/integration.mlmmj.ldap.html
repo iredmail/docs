@@ -25,6 +25,7 @@
 <li><a href="#postfix-integration">Postfix integration</a></li>
 <li><a href="#amavisd-integration">Amavisd Integration</a></li>
 <li><a href="#setup-mlmmjadmin-a-restful-api-server-used-to-manage-mlmmj-mailing-lists">Setup mlmmjadmin: a RESTful API server used to manage mlmmj mailing lists</a></li>
+<li><a href="#manage-mailing-lists-with-iredadmin-pro">Manage mailing lists with iRedAdmin-Pro</a></li>
 <li><a href="#manage-mailing-lists-with-mlmmjadmin-command-line-tool">Manage mailing lists with mlmmjadmin command line tool</a></li>
 <li><a href="#references">References</a></li>
 </ul>
@@ -32,7 +33,7 @@
 </ul>
 </div>
 <h2 id="summary">Summary</h2>
-<p>In iRedMail-0.9.8, we integrate <a href="http://mlmmj.org">mlmmj</a> - a simple and slim
+<p>In iRedMail-0.9.8, we integrate mlmmj (<a href="http://mlmmj.org">http://mlmmj.org</a>) - a simple and slim
 mailing list manager. It uses very few resources, and requires no daemons, easy
 to install, configure and manage. if offers a great set of features, including:</p>
 <ul>
@@ -49,6 +50,11 @@ to install, configure and manage. if offers a great set of features, including:<
 <li>Rich, customisable texts for automated operations</li>
 <li>and more</li>
 </ul>
+<p>With mlmmj integration, you can create as many mailing lists as you want. End
+user can subscribe to mailing list <code>listname@domain.dom</code> by sending email to
+<code>listname+subscribe@domain.com</code>, unsubscribe from the list by sending email to
+<code>listname+unsubscribe@domain.com</code>. Of course you can disable the subscription
+and unsubscription with a setting.</p>
 <p>iRedMail team also developes a simple RESTful API server called <code>mlmmjadmin</code>
 to help manage mailing lists, it also offers script tool to manage mailing
 lists from command line.</p>
@@ -362,6 +368,11 @@ service mlmmjadmin restart
 rcctl start mlmmjadmin
 </code></pre>
 
+<h2 id="manage-mailing-lists-with-iredadmin-pro">Manage mailing lists with iRedAdmin-Pro</h2>
+<p>With <a href="https://www.iredmail.org/admin_panel.html">iRedAdmin-Pro</a>, you can easily
+manage mailing list accounts with its web UI. Here's a screenshot of mailing
+list profile page in iRedAdmin-Pro:</p>
+<p><img alt="" src="./images/iredadmin/mailinglist_profile.png" width="900px" /></p>
 <h2 id="manage-mailing-lists-with-mlmmjadmin-command-line-tool">Manage mailing lists with mlmmjadmin command line tool</h2>
 <p>mlmmjadmin ships script <code>tools/maillist_admin.py</code> to help you manage mailing
 lists. You can find this script under directory <code>/opt/mlmmjadmin/tools/</code>.</p>
