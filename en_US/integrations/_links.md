@@ -7,7 +7,10 @@
     * [For MySQL/MariaDB backend](./integration.mlmmj.mysql.html)
     * [For PostgreSQL backend](./integration.mlmmj.pgsql.html)
 
-* <a name="integration_netdata"></a>[Integrate netdata monitor](./integration.netdata.html) (netdata is an optional component since iRedMail-0.9.8)
+* <a name="integration_netdata"></a>Integrate netdata monitor (netdata is an optional component since iRedMail-0.9.8):
+    * [For Linux](./integration.netdata.linux.html)
+    * [For FreeBSD](./integration.netdata.freebsd.html)
+    * netdata doesn't work on OpenBSD (yet).
 
 Documents contributed by iRedMail users:
 

@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Integrate netdata monitor (on Linux server)</title>
+        <link rel="stylesheet" type="text/css" href="./css/markdown.css" />
+    </head>
+    <body>
+    
+    <div id="navigation">
+    <a href="https://www.iredmail.org" target="_blank">
+        <img alt="iRedMail web site"
+             src="./images/logo-iredmail.png"
+             style="vertical-align: middle; height: 30px;"
+             />&nbsp;
+        <span>iRedMail</span>
+    </a>
+    &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><h1 id="integrate-netdata-monitor-on-linux-server">Integrate netdata monitor (on Linux server)</h1>
+<div class="toc">
+<ul>
+<li><a href="#integrate-netdata-monitor-on-linux-server">Integrate netdata monitor (on Linux server)</a><ul>
+<li><a href="#whats-netdata">What's netdata</a></li>
+<li><a href="#install-packages-required-by-netdata">Install packages required by netdata</a></li>
+<li><a href="#install-netdata">Install netdata</a></li>
+<li><a href="#configure-netdata">Configure netdata</a><ul>
+<li><a href="#monitor-nginx-and-php-fpm">Monitor Nginx and php-fpm</a></li>
+<li><a href="#todo-monitor-dovecot">[TODO] Monitor Dovecot</a></li>
+<li><a href="#monitor-mysqlmariadb-server">Monitor MySQL/MariaDB server</a></li>
+<li><a href="#monitor-postgresql-server">Monitor PostgreSQL server</a></li>
+</ul>
+</li>
+<li><a href="#configure-nginx-to-forward-requests-to-netdata">Configure Nginx to forward requests to netdata</a></li>
+<li><a href="#system-tuning">System tuning</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<h2 id="whats-netdata">What's netdata</h2>
+<p>netdata (<a href="http://my-netdata.io">http://my-netdata.io</a>) is a "Simple. Effective. Awesome!" monitor
+which can monitor almost everyting on your Linux/FreeBSD system. You can visit
+its website to check online demo.</p>
+<p>We will show you how to install and configure netdata on iRedMail server
+(Linux) to monitor mail service related softwares.</p>
+<h2 id="install-packages-required-by-netdata">Install packages required by netdata</h2>
+<p>netdata requires some tools to get stastics data from other softwares, let's
+install it first.</p>
+<ul>
+<li>On RHEL/CentOS:</li>
+</ul>
+<pre><code>yum install curl libmnl libuuid lm_sensors nc PyYAML zlib iproute MySQL-python python-psycopg2
+</code></pre>
+
+<ul>
+<li>On Debian/Ubuntu:</li>
+</ul>
+<pre><code>apt-get install zlib1g libuuid1 libmnl0 curl lm-sensors iproute netcat python-mysqldb python-psycopg2
+</code></pre>
+
+<h2 id="install-netdata">Install netdata</h2>
+<ul>
+<li>
+<p>Download the latest netdata from its github project page, and upload to
+  iRedMail server: <a href="https://github.com/firehol/netdata/releases">https://github.com/firehol/netdata/releases</a></p>
+<p>We use version <code>1.9.0</code> for example in this tutorial, the package we download
+is: <a href="https://github.com/firehol/netdata/releases/download/v1.9.0/netdata-latest.gz.run">https://github.com/firehol/netdata/releases/download/v1.9.0/netdata-latest.gz.run</a></p>
+<p>We assume you upload the package to <code>/root/netdata-latest.gz.run</code>.</p>
+</li>
+<li>
+<p>Install netdata:</p>
+</li>
+</ul>
+<pre><code>cd /root/
+chmod +x netdata-latest.gz.run
+./netdata-latest.gz.run --accept
+</code></pre>
+
+<p>netdata installs its files under <code>/opt/netdata/</code> by default, let's create
+symbol link of the configuration and log directories:</p>
+<pre><code>ln -s /opt/netdata/etc/netdata /etc/netdata
+ln -s /opt/netdata/var/log/netdata /var/log/netdata
+</code></pre>
+
+<p>netdata will create required systemd script for service control, also logrotate
+config file, so there's not much we need to do after the package installation.</p>
+<h2 id="configure-netdata">Configure netdata</h2>
+<p>Main config file of netdata is <code>/etc/netdata/netdata.conf</code>, it contains many
+parameters with detailed comments. Here's the
+<a href="https://bitbucket.org/zhb/iredmail/src/default/iRedMail/samples/netdata/netdata.conf">config file</a>
+used by iRedMail:</p>
+<ul>
+<li>It binds to address <code>127.0.0.1</code> and port <code>19999</code> by default. Since it doesn't
+  have ACL control, we will run netdata behind Nginx to get ACL control done in
+  Nginx.</li>
+</ul>
+<pre><code>[registry]
+    enabled = no
+
+[global]
+    bind to = 127.0.0.1
+    run as user = netdata
+    default port = 19999
+    update every = 3
+
+[plugin:proc]
+    # Disable IPVS check since iRedMail doesn't use ipvs by default
+    /proc/net/ip_vs/stats = no
+
+    # inbound packets dropped
+    /proc/net/dev = no
+</code></pre>
+
+<p>netdata ships a lot modular config files to gather information of softwares
+running on the server, they have very good default settings and most config
+files don't need your attention at all. but some applications do require
+extra settings.</p>
+<h3 id="monitor-nginx-and-php-fpm">Monitor Nginx and php-fpm</h3>
+<p>We need to enable <code>stub_status</code> in Nginx to get detailed server info, also
+update php-fpm config file to enable similar feature.</p>
+<ul>
+<li>Create Nginx config snippet <code>/etc/nginx/templates/stub_status.tmpl</code> with
+  content below:</li>
+</ul>
+<pre><code>location = /stub_status {
+    stub_status on;
+    access_log off;
+    allow 127.0.0.1;
+    deny all;
+}
+
+location = /status {
+    include fastcgi_params;
+    fastcgi_pass php_workers;
+    fastcgi_param SCRIPT_FILENAME $fastcgi_script_name;
+    access_log off;
+    allow 127.0.0.1;
+    deny all;
+}
+</code></pre>
+
+<ul>
+<li>Update default virtual host config file <code>/etc/nginx/sites-enabled/00-default.conf</code>,
+  include new snippet config file <code>stub_status.tmpl</code> after the
+  <code>redirect_to_https.tmpl</code> line like below:</li>
+</ul>
+<pre><code>server {
+    ...
+    include /etc/nginx/templates/redirect_to_https.tmpl;
+    include /etc/nginx/templates/stub_status.tmpl;      # &lt;- add this line
+    ...
+}
+</code></pre>
+
+<ul>
+<li>Update php-fpm pool config file <code>www.conf</code>, enable parameter <code>pm.status_path</code>
+  like below:<ul>
+<li>On RHEL/CentOS, it's <code>/etc/php-fpm.d/www.conf</code></li>
+<li>On Debian, it's <code>/etc/php5/fpm/pool.d/www.conf</code></li>
+<li>On Ubuntu, it's <code>/etc/php/7.0/fpm/pool.d/www.conf</code> (note: php version number may be different on your server)</li>
+<li>On FreeBSD, it's <code>/usr/local/etc/php-fpm.d/www.conf</code></li>
+<li>On OpenBSD, it's <code>/etc/php-fpm.conf</code></li>
+</ul>
+</li>
+</ul>
+<pre><code>pm.status_path = /status
+</code></pre>
+
+<ul>
+<li>Restart both php-fpm and Nginx service.</li>
+</ul>
+<h3 id="todo-monitor-dovecot">[TODO] Monitor Dovecot</h3>
+<h3 id="monitor-mysqlmariadb-server">Monitor MySQL/MariaDB server</h3>
+<p>netdata requires a SQL user (we use <code>netdata</code> here) with privilege <code>USAGE</code> to
+gather MySQL server information.</p>
+<ul>
+<li>Create the SQL user with a strong password (please replace <code>&lt;password&gt;</code> in
+  command below by the real (and strong) password).</li>
+</ul>
+<pre><code># mysql -u root
+sql&gt; GRANT USAGE ON *.* TO netdata@localhost IDENTIFIED BY '&lt;password&gt;';
+sql&gt; FLUSH PRIVILEGES;
+</code></pre>
+
+<ul>
+<li>
+<p>Create file <code>/etc/netdata/python.d/mysql.conf</code> with content below.</p>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<ul>
+<li>This file already exists, feel free to remove all content in this file
+  and copy content below as its new content.</li>
+<li>Please replace <code>&lt;password&gt;</code> below by the real password.</li>
+</ul>
+</div>
+</li>
+</ul>
+<pre><code>tcp:
+    name: 'local'
+    host: '127.0.0.1'
+    port: '3306'
+    user: 'netdata'
+    pass: '&lt;password&gt;'
+</code></pre>
+
+<h3 id="monitor-postgresql-server">Monitor PostgreSQL server</h3>
+<p>netdata requires a SQL user (we use <code>netdata</code> here) to gather PostgreSQL server
+information.</p>
+<ul>
+<li>Create the SQL user with a strong password (please replace <code>&lt;password&gt;</code> in
+  command below by the real (and strong) password).</li>
+</ul>
+<pre><code># su - postgres
+$ psql
+sql&gt; CREATE USER netdata WITH ENCRYPTED PASSWORD '&lt;password&gt;' NOSUPERUSER NOCREATEDB NOCREATEROLE;
+</code></pre>
+
+<ul>
+<li>
+<p>Create file <code>/etc/netdata/python.d/mysql.conf</code> with content below.</p>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<ul>
+<li>This file already exists, feel free to remove all content in this file
+  and copy content below as its new content.</li>
+<li>Please replace <code>&lt;password&gt;</code> below by the real password.</li>
+</ul>
+</div>
+</li>
+</ul>
+<pre><code>socket:
+    name     : 'local'
+    user     : 'netdata'
+    password : '&lt;password&gt;'
+    database : 'postgres'
+</code></pre>
+
+<h2 id="configure-nginx-to-forward-requests-to-netdata">Configure Nginx to forward requests to netdata</h2>
+<h2 id="system-tuning">System tuning</h2>
+<p>To get better performance, netdata requires few sysctl settings. Please add
+lines below in <code>/etc/sysctl.conf</code>:</p>
+<pre><code>vm.dirty_expire_centisecs=60000
+vm.dirty_background_ratio=80
+vm.dirty_ratio=90
+</code></pre>
+
+<p>Also increase max open files limit. </p>
+<pre><code>mkdir -p /etc/systemd/system/netdata.service.d
+</code></pre>
+
+<p>Create file <code>/etc/systemd/system/netdata.service.d/limits.conf</code>:</p>
+<pre><code>[Service]
+LimitNOFILE=30000
+</code></pre>
+
+<p>Reload systemd daemon:</p>
+<pre><code>systemctl daemon-reload
+</code></pre><div class="footer">
+    <p style="text-align: center; color: grey;">All documents are available in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://bitbucket.org/zhb/iredmail-docs/get/tip.tar.bz2">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
+</div>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-3293801-21"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-3293801-21');
+</script>
+</body></html>
