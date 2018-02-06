@@ -41,6 +41,41 @@ a good idea to backup it now before you adding any new mailing lists.
 * For OpenLDAP, please run command `bash /var/vmail/backup/backup_openldap.sh` to backup.
 * For OpenBSD ldapd, please run command `bash /var/vmail/backup/backup_ldapd.sh` to backup.
 
+## Install mlmmj package
+
+!!! attention
+
+    Package `uwsgi` is required by the RESTful API server `mlmmjadmin`.
+
+* On RHEL/CentOS, `mlmmj` is available in `EPEL` repo, and it's enabled in
+  iRedMail by default. So we can install it directly:
+
+```
+yum install mlmmj uwsgi uwsgi-plugin-python
+```
+
+* On Debian/Ubuntu:
+
+```
+apt-get install mlmmj uwsgi uwsgi-plugin-python
+```
+
+* On FreeBSD:
+
+```
+cd /usr/ports/mail/mlmmj
+make install clean
+cd /usr/ports/www/uwsgi
+make install clean
+```
+
+* On OpenBSD (iRedMail always installs `uwsgi` during installation, so no need
+  to install it here):
+
+```
+pkg_add mlmmj
+```
+
 ## Create required system account
 
 mlmmj will be ran as user `mlmmj` and group `mlmmj`, all mailing list data will
@@ -262,12 +297,26 @@ iredmail_ldap_bind_password = 'xxxxxxxx'
 
 ```
 #
-# For RHEL/CentOS
+# For RHEL/CentOS 6
+#
+cp /opt/mlmmjadmin/rc_scripts/mlmmjadmin.rhel /etc/init.d/mlmmjadmin
+chmod 0644 /etc/init.d/mlmmjadmin
+chkconfig --level 345 on mlmmjadmin
+
+#
+# For RHEL/CentOS 7
 #
 cp /opt/mlmmjadmin/rc_scripts/systemd/rhel.service /lib/systemd/system/mlmmjadmin.service
 chmod 0644 /lib/systemd/system/mlmmjadmin.service
 systemctl daemon-reload
 systemctl enable mlmmjadmin
+
+#
+# For Debian 8, Ubuntu 14.04 and earlier releases which does NOT use systemd
+#
+cp /opt/mlmmjadmin/rc_scripts/mlmmjadmin.debian /etc/init.d/mlmmjadmin
+chmod 0644 /etc/init.d/mlmmjadmin
+update-rc.d mlmmjadmin defaults
 
 #
 # For Debian 9 and Ubuntu 16.04 which uses systemd

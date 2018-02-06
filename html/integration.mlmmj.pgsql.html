@@ -21,6 +21,7 @@
 <li><a href="#integrate-mlmmj-mailing-list-manager-in-iredmail-postgresql-backend">Integrate mlmmj mailing list manager in iRedMail (PostgreSQL backend)</a><ul>
 <li><a href="#summary">Summary</a></li>
 <li><a href="#backup-sql-database-first">Backup SQL database first</a></li>
+<li><a href="#install-mlmmj-package">Install mlmmj package</a></li>
 <li><a href="#create-required-system-account">Create required system account</a></li>
 <li><a href="#update-sql-tables-in-vmail-database">Update SQL tables in vmail database</a></li>
 <li><a href="#postfix-integration">Postfix integration</a></li>
@@ -65,6 +66,33 @@ lists from command line.</p>
 a good idea to backup it now before you adding any new mailing lists.</p>
 <p>Please run command <code>bash /var/vmail/backup/backup_pgsql.sh</code> to backup SQL
 databases.</p>
+<h2 id="install-mlmmj-package">Install mlmmj package</h2>
+<ul>
+<li>On RHEL/CentOS, <code>mlmmj</code> is available in <code>EPEL</code> repo, and it's enabled in
+  iRedMail by default. So we can install it directly:</li>
+</ul>
+<pre><code>yum install mlmmj
+</code></pre>
+
+<ul>
+<li>On Debian/Ubuntu:</li>
+</ul>
+<pre><code>apt-get install mlmmj
+</code></pre>
+
+<ul>
+<li>On FreeBSD:</li>
+</ul>
+<pre><code>cd /usr/ports/mail/mlmmj
+make install clean
+</code></pre>
+
+<ul>
+<li>On OpenBSD:</li>
+</ul>
+<pre><code>pkg_add mlmmj
+</code></pre>
+
 <h2 id="create-required-system-account">Create required system account</h2>
 <p>mlmmj will be ran as user <code>mlmmj</code> and group <code>mlmmj</code>, all mailing list data will
 be stored under its home directory <code>/var/vmail/mlmmj</code>:</p>
@@ -311,12 +339,26 @@ iredmail_sql_db_password = '&lt;password&gt;'
 <li>Copy rc/systemd scripts for service control:</li>
 </ul>
 <pre><code>#
+# For RHEL/CentOS 6
+#
+cp /opt/mlmmjadmin/rc_scripts/mlmmjadmin.rhel /etc/init.d/mlmmjadmin
+chmod 0644 /etc/init.d/mlmmjadmin
+chkconfig --level 345 on mlmmjadmin
+
+#
 # For RHEL/CentOS
 #
 cp /opt/mlmmjadmin/rc_scripts/systemd/rhel.service /lib/systemd/system/mlmmjadmin.service
 chmod 0644 /lib/systemd/system/mlmmjadmin.service
 systemctl daemon-reload
 systemctl enable mlmmjadmin
+
+#
+# For Debian 8, Ubuntu 14.04 and earlier releases which does NOT use systemd
+#
+cp /opt/mlmmjadmin/rc_scripts/mlmmjadmin.debian /etc/init.d/mlmmjadmin
+chmod 0644 /etc/init.d/mlmmjadmin
+update-rc.d mlmmjadmin defaults
 
 #
 # For Debian 9 and Ubuntu 16.04 which uses systemd

@@ -41,6 +41,34 @@ a good idea to backup it now before you adding any new mailing lists.
 Please run command `bash /var/vmail/backup/backup_mysql.sh` to backup SQL
 databases.
 
+## Install mlmmj package
+
+* On RHEL/CentOS, `mlmmj` is available in `EPEL` repo, and it's enabled in
+  iRedMail by default. So we can install it directly:
+
+```
+yum install mlmmj
+```
+
+* On Debian/Ubuntu:
+
+```
+apt-get install mlmmj
+```
+
+* On FreeBSD:
+
+```
+cd /usr/ports/mail/mlmmj
+make install clean
+```
+
+* On OpenBSD:
+
+```
+pkg_add mlmmj
+```
+
 ## Create required system account
 
 mlmmj will be ran as user `mlmmj` and group `mlmmj`, all mailing list data will
@@ -295,12 +323,26 @@ iredmail_sql_db_password = '<password>'
 
 ```
 #
-# For RHEL/CentOS
+# For RHEL/CentOS 6
+#
+cp /opt/mlmmjadmin/rc_scripts/mlmmjadmin.rhel /etc/init.d/mlmmjadmin
+chmod 0644 /etc/init.d/mlmmjadmin
+chkconfig --level 345 on mlmmjadmin
+
+#
+# For RHEL/CentOS 7
 #
 cp /opt/mlmmjadmin/rc_scripts/systemd/rhel.service /lib/systemd/system/mlmmjadmin.service
 chmod 0644 /lib/systemd/system/mlmmjadmin.service
 systemctl daemon-reload
 systemctl enable mlmmjadmin
+
+#
+# For Debian 8, Ubuntu 14.04 and earlier releases which does NOT use systemd
+#
+cp /opt/mlmmjadmin/rc_scripts/mlmmjadmin.debian /etc/init.d/mlmmjadmin
+chmod 0644 /etc/init.d/mlmmjadmin
+update-rc.d mlmmjadmin defaults
 
 #
 # For Debian 9 and Ubuntu 16.04 which uses systemd
