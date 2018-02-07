@@ -337,13 +337,36 @@ server {
 }
 ```
 
-* Create new file `/etc/nginx/netdata.users` and an account used to access
-  netdata. NOTE: Please replace `<password>` below by a real, strong password.
+* Create new file `/etc/nginx/netdata.users` used for basic http auth:
 
 ```
 touch /etc/nginx/netdata.users
+```
+
+* Run command below to generate a SSHA password hash. NOTE: Please replace
+  `<password>` below by a real, strong password.
+
+```
 doveadm pw -s SSHA -p '<password>'
 ```
 
-* Now restart nginx service and access url `https://your-server/netdata/`
-  (please replace `your-server` by the real domain name).
+The password looks like this `{SSHA}Tama1midwSV6XWTlonR6n6sNM8yuEPvv`.
+
+* Now open `/etc/nginx/netdata.users` with your faviourite text
+  editor, add a line like below to create an account used to access netdata.
+  The format is `<username>:<password>`.
+
+```
+postmaster@domain.com:{SSHA}Tama1midwSV6XWTlonR6n6sNM8yuEPvv
+```
+
+* Restart nginx service.
+
+Now open a web browser and access url `https://your-server/netdata/` (please
+replace `your-server` by the real domain name), it will ask you to input
+username and password for authentication, please use the account we just added
+in file `/etc/nginx/netdata.users` to login.
+
+This is what you see after successfully logged in:
+
+![](./images/netdata/system-overview.png){: width="900px" }

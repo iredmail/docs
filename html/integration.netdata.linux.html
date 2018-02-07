@@ -356,17 +356,36 @@ location ~ /netdata/(?&lt;ndpath&gt;.*) {
 </code></pre>
 
 <ul>
-<li>Create new file <code>/etc/nginx/netdata.users</code> and an account used to access
-  netdata. NOTE: Please replace <code>&lt;password&gt;</code> below by a real, strong password.</li>
+<li>Create new file <code>/etc/nginx/netdata.users</code> used for basic http auth:</li>
 </ul>
 <pre><code>touch /etc/nginx/netdata.users
-doveadm pw -s SSHA -p '&lt;password&gt;'
 </code></pre>
 
 <ul>
-<li>Now restart nginx service and access url <code>https://your-server/netdata/</code>
-  (please replace <code>your-server</code> by the real domain name).</li>
-</ul><div class="footer">
+<li>Run command below to generate a SSHA password hash. NOTE: Please replace
+  <code>&lt;password&gt;</code> below by a real, strong password.</li>
+</ul>
+<pre><code>doveadm pw -s SSHA -p '&lt;password&gt;'
+</code></pre>
+
+<p>The password looks like this <code>{SSHA}Tama1midwSV6XWTlonR6n6sNM8yuEPvv</code>.</p>
+<ul>
+<li>Now open <code>/etc/nginx/netdata.users</code> with your faviourite text
+  editor, add a line like below to create an account used to access netdata.
+  The format is <code>&lt;username&gt;:&lt;password&gt;</code>.</li>
+</ul>
+<pre><code>postmaster@domain.com:{SSHA}Tama1midwSV6XWTlonR6n6sNM8yuEPvv
+</code></pre>
+
+<ul>
+<li>Restart nginx service.</li>
+</ul>
+<p>Now open a web browser and access url <code>https://your-server/netdata/</code> (please
+replace <code>your-server</code> by the real domain name), it will ask you to input
+username and password for authentication, please use the account we just added
+in file <code>/etc/nginx/netdata.users</code> to login.</p>
+<p>This is what you see after successfully logged in:</p>
+<p><img alt="" src="./images/netdata/system-overview.png" width="900px" /></p><div class="footer">
     <p style="text-align: center; color: grey;">All documents are available in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://bitbucket.org/zhb/iredmail-docs/get/tip.tar.bz2">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
 </div>
 <!-- Global site tag (gtag.js) - Google Analytics -->
