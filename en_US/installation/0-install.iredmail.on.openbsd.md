@@ -134,7 +134,7 @@ questions, that's all required to setup a full-featured mail server.
 
     `IREDMAIL_MIRROR='https://dl.iredmail.org' bash iRedMail.sh`
 
-## Screenshots of installation:
+## Screenshots of installation
 
 * Welcome and thanks for your use
 
@@ -153,7 +153,7 @@ with iRedAdmin, our web-based iRedMail admin panel.
     it's strongly recommended to choose the one you're familiar with for easier
     management and maintenance after installation.
 
-![](./images/installation/backends.png){: width="700px" }
+![](./images/installation/backends_openbsd.png){: width="700px" }
 
 * If you choose to store mail accounts in OpenLDAP, iRedMail installer will
   ask to set the LDAP suffix.
