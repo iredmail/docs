@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title>Integrate netdata monitor (on Linux server)</title>
+        <title>Integrate netdata monitor (on FreeBSD server)</title>
         <link rel="stylesheet" type="text/css" href="./css/markdown.css" />
     </head>
     <body>
@@ -15,12 +15,11 @@
              />&nbsp;
         <span>iRedMail</span>
     </a>
-    &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><h1 id="integrate-netdata-monitor-on-linux-server">Integrate netdata monitor (on Linux server)</h1>
+    &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><h1 id="integrate-netdata-monitor-on-freebsd-server">Integrate netdata monitor (on FreeBSD server)</h1>
 <div class="toc">
 <ul>
-<li><a href="#integrate-netdata-monitor-on-linux-server">Integrate netdata monitor (on Linux server)</a><ul>
+<li><a href="#integrate-netdata-monitor-on-freebsd-server">Integrate netdata monitor (on FreeBSD server)</a><ul>
 <li><a href="#whats-netdata">What's netdata</a></li>
-<li><a href="#install-packages-required-by-netdata">Install packages required by netdata</a></li>
 <li><a href="#install-netdata">Install netdata</a></li>
 <li><a href="#configure-netdata">Configure netdata</a><ul>
 <li><a href="#monitor-nginx-and-php-fpm">Monitor Nginx and php-fpm</a></li>
@@ -29,7 +28,6 @@
 <li><a href="#monitor-postgresql-server">Monitor PostgreSQL server</a></li>
 </ul>
 </li>
-<li><a href="#system-tuning">System tuning</a></li>
 <li><a href="#configure-nginx-to-forward-requests-to-netdata">Configure Nginx to forward requests to netdata</a></li>
 </ul>
 </li>
@@ -38,9 +36,9 @@
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>
 <ul>
-<li>This tutorial is tested on CentOS 7, Debian 9, Ubuntu 16.04.
-  For FreeBSD, please check this tutorial instead:
-  <a href="./integration.netdata.freebsd.html">Integrate netdata on FreeBSD</a>.</li>
+<li>This tutorial is tested on FreeBSD 11.x. If you need to run netdata on
+  CentOS, Debian, Ubuntu, please check this tutorial instead:
+  <a href="./integration.netdata.linux.html">Integrate netdata on Linux</a>.</li>
 <li>netdata is an optional component since iRedMail-0.9.8.</li>
 </ul>
 </div>
@@ -50,50 +48,14 @@ which can monitor almost everyting on your Linux/FreeBSD system. You can visit
 its website to check online demo.</p>
 <p>We will show you how to install and configure netdata on iRedMail server
 (Linux) to monitor mail service related softwares.</p>
-<h2 id="install-packages-required-by-netdata">Install packages required by netdata</h2>
-<p>netdata requires some tools to get stastics data from other softwares, let's
-install it first.</p>
-<ul>
-<li>On RHEL/CentOS:</li>
-</ul>
-<pre><code>yum install curl libmnl libuuid lm_sensors nc PyYAML zlib iproute MySQL-python python-psycopg2
-</code></pre>
-
-<ul>
-<li>On Debian/Ubuntu:</li>
-</ul>
-<pre><code>apt-get install zlib1g libuuid1 libmnl0 curl lm-sensors iproute netcat python-mysqldb python-psycopg2
-</code></pre>
-
 <h2 id="install-netdata">Install netdata</h2>
-<ul>
-<li>
-<p>Download the latest netdata from its github project page, and upload to
-  iRedMail server: <a href="https://github.com/firehol/netdata/releases">https://github.com/firehol/netdata/releases</a></p>
-<p>We use version <code>1.9.0</code> for example in this tutorial, the package we download
-is: <a href="https://github.com/firehol/netdata/releases/download/v1.9.0/netdata-latest.gz.run">https://github.com/firehol/netdata/releases/download/v1.9.0/netdata-latest.gz.run</a></p>
-<p>We assume you upload the package to <code>/root/netdata-latest.gz.run</code>.</p>
-</li>
-<li>
-<p>Install netdata:</p>
-</li>
-</ul>
-<pre><code>cd /root/
-chmod +x netdata-latest.gz.run
-./netdata-latest.gz.run --accept
+<pre><code>cd /usr/ports/net-mgmt/netdata
+make install clean
 </code></pre>
 
-<p>netdata installs its files under <code>/opt/netdata/</code> by default, let's create
-symbol link of the configuration and log directories:</p>
-<pre><code>ln -s /opt/netdata/etc/netdata /etc/netdata
-ln -s /opt/netdata/var/log/netdata /var/log/netdata
-</code></pre>
-
-<p>netdata will create required systemd script for service control, also logrotate
-config file, so there's not much we need to do after the package installation.</p>
 <h2 id="configure-netdata">Configure netdata</h2>
-<p>Main config file of netdata is <code>/etc/netdata/netdata.conf</code>, it contains many
-parameters with detailed comments. Here's the
+<p>Main config file of netdata is <code>/usr/local/etc/netdata/netdata.conf</code>, it
+contains many parameters with detailed comments. Here's the
 <a href="https://bitbucket.org/zhb/iredmail/src/default/iRedMail/samples/netdata/netdata.conf">config file</a>
 used by iRedMail:</p>
 <ul>
@@ -133,7 +95,7 @@ files don't need your attention at all, including:</p>
 <p>We need to enable <code>stub_status</code> in Nginx to get detailed server info, also
 update php-fpm config file to enable similar feature.</p>
 <ul>
-<li>Create Nginx config snippet <code>/etc/nginx/templates/stub_status.tmpl</code> with
+<li>Create Nginx config snippet <code>/usr/local/etc/nginx/templates/stub_status.tmpl</code> with
   content below:</li>
 </ul>
 <pre><code>location = /stub_status {
@@ -154,26 +116,21 @@ location = /status {
 </code></pre>
 
 <ul>
-<li>Update default virtual host config file <code>/etc/nginx/sites-enabled/00-default.conf</code>,
+<li>Update default virtual host config file <code>/usr/local/etc/nginx/sites-enabled/00-default.conf</code>,
   include new snippet config file <code>stub_status.tmpl</code> after the
   <code>redirect_to_https.tmpl</code> line like below:</li>
 </ul>
 <pre><code>server {
     ...
-    include /etc/nginx/templates/redirect_to_https.tmpl;
-    include /etc/nginx/templates/stub_status.tmpl;      # &lt;- add this line
+    include /usr/local/etc/nginx/templates/redirect_to_https.tmpl;
+    include /usr/local/etc/nginx/templates/stub_status.tmpl;      # &lt;- add this line
     ...
 }
 </code></pre>
 
 <ul>
-<li>Update php-fpm pool config file <code>www.conf</code>, enable parameter <code>pm.status_path</code>
-  like below:<ul>
-<li>On RHEL/CentOS, it's <code>/etc/php-fpm.d/www.conf</code></li>
-<li>On Debian, it's <code>/etc/php5/fpm/pool.d/www.conf</code></li>
-<li>On Ubuntu, it's <code>/etc/php/7.0/fpm/pool.d/www.conf</code> (note: php version number may be different on your server)</li>
-</ul>
-</li>
+<li>Update php-fpm pool config file <code>/usr/local/etc/php-fpm.d/www.conf</code>, enable
+  parameter <code>pm.status_path</code> like below:</li>
 </ul>
 <pre><code>pm.status_path = /status
 </code></pre>
@@ -184,8 +141,9 @@ location = /status {
 <h3 id="monitor-dovecot">Monitor Dovecot</h3>
 <p>We need to enable statistics module in Dovecot.</p>
 <ul>
-<li>Please open Dovecot config file <code>/etc/dovecot/dovecot.conf</code>, append plugin
-  <code>stats</code> in global parameter <code>mail_plugins</code>, and <code>imap_stats</code> for imap protocol:</li>
+<li>Please open Dovecot config file <code>/usr/local/etc/dovecot/dovecot.conf</code>,
+  append plugin <code>stats</code> in global parameter <code>mail_plugins</code>, and <code>imap_stats</code>
+  for imap protocol:</li>
 </ul>
 <pre><code>mail_plugins = ... stats
 
@@ -235,7 +193,7 @@ sql&gt; FLUSH PRIVILEGES;
 
 <ul>
 <li>
-<p>Create file <code>/etc/netdata/python.d/mysql.conf</code> with content below.</p>
+<p>Create file <code>/usr/local/etc/netdata/python.d/mysql.conf</code> with content below.</p>
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>
 <ul>
@@ -268,7 +226,7 @@ sql&gt; CREATE USER netdata WITH ENCRYPTED PASSWORD '&lt;password&gt;' NOSUPERUS
 
 <ul>
 <li>
-<p>Create file <code>/etc/netdata/python.d/mysql.conf</code> with content below.</p>
+<p>Create file <code>/usr/local/etc/netdata/python.d/mysql.conf</code> with content below.</p>
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>
 <ul>
@@ -286,30 +244,9 @@ sql&gt; CREATE USER netdata WITH ENCRYPTED PASSWORD '&lt;password&gt;' NOSUPERUS
     database : 'postgres'
 </code></pre>
 
-<h2 id="system-tuning">System tuning</h2>
-<p>To get better performance, netdata requires few sysctl settings. Please add
-lines below in <code>/etc/sysctl.conf</code>:</p>
-<pre><code>vm.dirty_expire_centisecs=60000
-vm.dirty_background_ratio=80
-vm.dirty_ratio=90
-</code></pre>
-
-<p>Also increase max open files limit. </p>
-<pre><code>mkdir -p /etc/systemd/system/netdata.service.d
-</code></pre>
-
-<p>Create file <code>/etc/systemd/system/netdata.service.d/limits.conf</code>:</p>
-<pre><code>[Service]
-LimitNOFILE=30000
-</code></pre>
-
-<p>Reload systemd daemon:</p>
-<pre><code>systemctl daemon-reload
-</code></pre>
-
 <h2 id="configure-nginx-to-forward-requests-to-netdata">Configure Nginx to forward requests to netdata</h2>
 <ul>
-<li>Create Nginx config snippet <code>/etc/nginx/templates/netdata.tmpl</code> with
+<li>Create Nginx config snippet <code>/usr/local/etc/nginx/templates/netdata.tmpl</code> with
   content below:</li>
 </ul>
 <pre><code># Running netdata as a subfolder to an existing virtual host
@@ -337,29 +274,29 @@ location ~ /netdata/(?&lt;ndpath&gt;.*) {
     gzip_types *;
 
     auth_basic &quot;Authentication Required&quot;;
-    auth_basic_user_file /etc/nginx/netdata.users;
+    auth_basic_user_file /usr/local/etc/nginx/netdata.users;
 }
 </code></pre>
 
 <ul>
 <li>Update default virtual host (https site) config file
-  <code>/etc/nginx/sites-enabled/00-default-ssl.conf</code>,
+  <code>/usr/local/etc/nginx/sites-enabled/00-default-ssl.conf</code>,
   include new snippet config file <code>netdata.tmpl</code> before the
   <code>misc.tmpl</code> line like below:</li>
 </ul>
 <pre><code>server {
     ...
-    include /etc/nginx/templates/netdata.tmpl;      # &lt;- add this line
-    include /etc/nginx/templates/misc.tmpl;
+    include /usr/local/etc/nginx/templates/netdata.tmpl;      # &lt;- add this line
+    include /usr/local/etc/nginx/templates/misc.tmpl;
     ...
 }
 </code></pre>
 
 <ul>
-<li>Create new file <code>/etc/nginx/netdata.users</code> and an account used to access
+<li>Create new file <code>/usr/local/etc/nginx/netdata.users</code> and an account used to access
   netdata. NOTE: Please replace <code>&lt;password&gt;</code> below by a real, strong password.</li>
 </ul>
-<pre><code>touch /etc/nginx/netdata.users
+<pre><code>touch /usr/local/etc/nginx/netdata.users
 doveadm pw -s SSHA -p '&lt;password&gt;'
 </code></pre>
 
