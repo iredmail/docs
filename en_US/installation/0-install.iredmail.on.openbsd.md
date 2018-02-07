@@ -77,9 +77,11 @@ mx.example.com
 
 ### Choose a nearest mirror site for installing binary packages
 
-iRedMail will install all required binary packages with command `pkg_add -i`,
-it will check whether you have mirror site defined in `PKG_PATH` environment
-variable, if defined, `pkg_add` will install packages from defined mirror site.
+iRedMail will install all required binary packages with command `pkg_add -i`
+from mirror site defined in file `/etc/installurl` (FYI:
+[installurl(5)](http://man.openbsd.org/installurl.5)), If no mirror defined,
+iRedMail will use the [fastly CDN](https://fastly.cdn.openbsd.org/pub/OpenBSD/)
+for package installation.
 
 It's recommended to install packages from a mirror site, to reduce server
 load on OpenBSD primary servers. Also, installing package from a nearest
@@ -87,19 +89,16 @@ mirror site will speed up package installation. You can find mirror list
 near you on OpenBSD web site:
 [Getting OpenBSD](http://www.openbsd.org/ftp.html#http).
 
-Now login to the OpenBSD server as root user, set variable `PKG_PATH` in file
-`/root/.profile` like below (use your nearest mirror site instead):
+### Install required packages
+
+Before running iRedMail installer, we need to install few required packages:
 
 ```
-export PKG_PATH="http://ftp.jaist.ac.jp/pub/OpenBSD/`uname -r`/packages/`machine -a`/"
+pkg_add bash bzip2
 ```
 
-Install Bash shell, it's required by iRedMail.
-
-```
-# . /root/.profile    # <- This steps is required, used to set PKG_PATH without re-login.
-# pkg_add bash bzip2
-```
+iRedMail is wrote in Bash shell scripting language, so bash shell interpreter
+is required. And `bzip2` is used to uncompress downloaded iRedMail package. 
 
 ### Download the latest release of iRedMail
 

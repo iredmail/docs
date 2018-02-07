@@ -23,6 +23,7 @@
 <li><a href="#preparations">Preparations</a><ul>
 <li><a href="#set-a-fully-qualified-domain-name-fqdn-hostname-on-your-server">Set a fully qualified domain name (FQDN) hostname on your server</a></li>
 <li><a href="#choose-a-nearest-mirror-site-for-installing-binary-packages">Choose a nearest mirror site for installing binary packages</a></li>
+<li><a href="#install-required-packages">Install required packages</a></li>
 <li><a href="#download-the-latest-release-of-iredmail">Download the latest release of iRedMail</a></li>
 </ul>
 </li>
@@ -106,24 +107,23 @@ mx.example.com
 </code></pre>
 
 <h3 id="choose-a-nearest-mirror-site-for-installing-binary-packages">Choose a nearest mirror site for installing binary packages</h3>
-<p>iRedMail will install all required binary packages with command <code>pkg_add -i</code>,
-it will check whether you have mirror site defined in <code>PKG_PATH</code> environment
-variable, if defined, <code>pkg_add</code> will install packages from defined mirror site.</p>
+<p>iRedMail will install all required binary packages with command <code>pkg_add -i</code>
+from mirror site defined in file <code>/etc/installurl</code> (FYI:
+<a href="http://man.openbsd.org/installurl.5">installurl(5)</a>), If no mirror defined,
+iRedMail will use the <a href="https://fastly.cdn.openbsd.org/pub/OpenBSD/">fastly CDN</a>
+for package installation.</p>
 <p>It's recommended to install packages from a mirror site, to reduce server
 load on OpenBSD primary servers. Also, installing package from a nearest
 mirror site will speed up package installation. You can find mirror list
 near you on OpenBSD web site:
 <a href="http://www.openbsd.org/ftp.html#http">Getting OpenBSD</a>.</p>
-<p>Now login to the OpenBSD server as root user, set variable <code>PKG_PATH</code> in file
-<code>/root/.profile</code> like below (use your nearest mirror site instead):</p>
-<pre><code>export PKG_PATH=&quot;http://ftp.jaist.ac.jp/pub/OpenBSD/`uname -r`/packages/`machine -a`/&quot;
+<h3 id="install-required-packages">Install required packages</h3>
+<p>Before running iRedMail installer, we need to install few required packages:</p>
+<pre><code>pkg_add bash bzip2
 </code></pre>
 
-<p>Install Bash shell, it's required by iRedMail.</p>
-<pre><code># . /root/.profile    # &lt;- This steps is required, used to set PKG_PATH without re-login.
-# pkg_add bash bzip2
-</code></pre>
-
+<p>iRedMail is wrote in Bash shell scripting language, so bash shell interpreter
+is required. And <code>bzip2</code> is used to uncompress downloaded iRedMail package. </p>
 <h3 id="download-the-latest-release-of-iredmail">Download the latest release of iRedMail</h3>
 <ul>
 <li>
