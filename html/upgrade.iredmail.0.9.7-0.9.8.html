@@ -29,24 +29,26 @@
 <li><a href="#fix-unexpected-dnsbl-query-result-for-site-bbarracudacentralorg">Fix unexpected DNSBL query result for site b.barracudacentral.org</a></li>
 <li><a href="#openbsd-upgrade-uwsgi-to-the-latest-2016">OpenBSD: Upgrade uwsgi to the latest 2.0.16</a></li>
 <li><a href="#optional-log-mail-subject-sender-size-in-mail-deliver-log">[OPTIONAL] Log mail subject, sender, size in mail deliver log</a></li>
+<li><a href="#optional-integrate-netdata-fancy-system-monitor">[OPTIONAL] integrate netdata - fancy system monitor</a></li>
 </ul>
 </li>
 <li><a href="#openldap-backend">OpenLDAP backend</a><ul>
 <li><a href="#update-openldap-config-file-to-index-new-attributes-and-fix-an-acl">Update OpenLDAP config file to index new attributes and fix an ACL</a></li>
 <li><a href="#update-iredmail-ldap-schema-file">Update iRedMail LDAP schema file</a></li>
+<li><a href="#mlmmj-mailing-list-manager-integration">mlmmj (mailing list manager) integration</a></li>
 <li><a href="#amavisd-add-new-sql-column-maddremail_raw-to-store-mail-address-without-address-extension">Amavisd: Add new SQL column maddr.email_raw to store mail address without address extension</a></li>
 <li><a href="#update-sogo-config-file-for-per-domain-global-address-book">Update SOGo config file for per-domain global address book</a></li>
 </ul>
 </li>
 <li><a href="#mysqlmariadb-backends">MySQL/MariaDB backends</a><ul>
 <li><a href="#fixed-user-under-disabled-domain-is-able-to-send-email-with-smtp-protocol">Fixed: User under disabled domain is able to send email with smtp protocol</a></li>
-<li><a href="#fixed-improper-postfix-sql-queries-used-to-query-per-user-bcc-address">Fixed: Improper Postfix SQL queries used to query per-user bcc address.</a></li>
+<li><a href="#mlmmj-mailing-list-manager-integration_1">mlmmj (mailing list manager) integration</a></li>
 <li><a href="#amavisd-add-new-sql-column-maddremail_raw-to-store-mail-address-without-address-extension_1">Amavisd: Add new SQL column maddr.email_raw to store mail address without address extension</a></li>
 </ul>
 </li>
 <li><a href="#postgresql-backend">PostgreSQL backend</a><ul>
 <li><a href="#fixed-user-under-disabled-domain-is-able-to-send-email-with-smtp-protocol_1">Fixed: User under disabled domain is able to send email with smtp protocol</a></li>
-<li><a href="#fixed-improper-postfix-sql-queries-used-to-query-per-user-bcc-address_1">Fixed: Improper Postfix SQL queries used to query per-user bcc address.</a></li>
+<li><a href="#mlmmj-mailing-list-manager-integration_2">mlmmj (mailing list manager) integration</a></li>
 <li><a href="#amavisd-add-new-sql-column-maddremail_raw-to-store-mail-address-without-address-extension_2">Amavisd: Add new SQL column maddr.email_raw to store mail address without address extension</a></li>
 </ul>
 </li>
@@ -66,7 +68,8 @@ check <a href="https://www.iredmail.org/support.html">the details</a> and
 </div>
 <h2 id="changelog">ChangeLog</h2>
 <ul>
-<li>[TODO] mlmmj &amp; mlmmjadmin integration.</li>
+<li>Feb 11, 2018: netdata integration.</li>
+<li>Feb 11, 2018: mlmmj &amp; mlmmjadmin integration.</li>
 <li>Feb 11, 2018: OpenBSD: Upgrade uwsgi to the latest 2.0.16</li>
 <li>Jan 31, 2018: Fail2ban: new jail <code>postfix-pregreet</code>.</li>
 <li>Jan 21, 2018: [LDAP] Update SOGo config file for per-domain global address book.</li>
@@ -74,7 +77,6 @@ check <a href="https://www.iredmail.org/support.html">the details</a> and
 <li>Jan 19, 2018: Update iRedMail LDAP schema file</li>
 <li>Dec 18, 2017: Don't hard-code static file types in Nginx template for iRedAdmin.</li>
 <li>Nov 24, 2017: Amavisd: Add new SQL column <code>maddr.email_raw</code> to store mail address without address extension.</li>
-<li>Nov 17, 2017: Fixed: Improper Postfix SQL queries used to query per-user bcc address.</li>
 <li>Oct 6, 2017: Fixed: SOGo backup script contains 3 issues</li>
 <li>Oct 6, 2017: [OPTIONAL] Fix improper expected DNSBL filter for site <code>b.barracudacentral.org</code></li>
 <li>Oct 6, 2017: [OPTIONAL] Log mail subject, sender, size in mail deliver log.</li>
@@ -240,6 +242,15 @@ file <code>dovecot.conf</code>, then restart or reload Dovecot service.
 <pre><code>deliver_log_format = from=%{from}, envelope_sender=%{from_envelope}, subject=%{subject}, msgid=%m, size=%{size}, %$
 </code></pre>
 
+<h3 id="optional-integrate-netdata-fancy-system-monitor">[OPTIONAL] integrate netdata - fancy system monitor</h3>
+<p>iRedMail-0.9.8 integrates netdata as an optional component, it's a fancy system
+monitor to help you understand how your iRedMail server runs.</p>
+<p>To integrate netdata, please follow our tutorial below:</p>
+<ul>
+<li><a href="./integration.netdata.linux.html">Integrate netdata monitor on Linux server</a></li>
+<li><a href="./integration.netdata.freebsd.html">Integrate netdata monitor on FreeBSD server</a></li>
+</ul>
+<p>Unfortunately, netdata doesn't work on OpenBSD.</p>
 <h2 id="openldap-backend">OpenLDAP backend</h2>
 <h3 id="update-openldap-config-file-to-index-new-attributes-and-fix-an-acl">Update OpenLDAP config file to index new attributes and fix an ACL</h3>
 <ul>
@@ -352,6 +363,16 @@ cp iredmail.schema iredmail.schema.bak
 cp -f /tmp/iredmail.schema /etc/openldap/schema/
 </code></pre>
 
+<h3 id="mlmmj-mailing-list-manager-integration">mlmmj (mailing list manager) integration</h3>
+<p>iRedMail-0.9.8 integrates mlmmj as mailing list manager, please follow our
+document below to integrate it:</p>
+<ul>
+<li><a href="./integration.mlmmj.ldap.html">Integrate mlmmj mailing list manager</a></li>
+</ul>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>mlmmj is a core component since iRedMail-0.9.8.</p>
+</div>
 <h3 id="amavisd-add-new-sql-column-maddremail_raw-to-store-mail-address-without-address-extension">Amavisd: Add new SQL column <code>maddr.email_raw</code> to store mail address without address extension</h3>
 <p>Many sender/recipient addresses contain address extension like
 <code>user+extension@domain.com</code>, this is annoying if we try to get top 10
@@ -437,44 +458,16 @@ sasl auth. Please follow steps below to fix it.</p>
 <ul>
 <li>Save your change and restart Dovecot service.</li>
 </ul>
-<h3 id="fixed-improper-postfix-sql-queries-used-to-query-per-user-bcc-address">Fixed: Improper Postfix SQL queries used to query per-user bcc address.</h3>
-<p>There're 2 Postfix SQL queries configured by iRedMail are improper, they won't
-return per-user bcc address. Please follow steps below to fix it:</p>
+<h3 id="mlmmj-mailing-list-manager-integration_1">mlmmj (mailing list manager) integration</h3>
+<p>iRedMail-0.9.8 integrates mlmmj as mailing list manager, please follow our
+document below to integrate it:</p>
 <ul>
-<li>Open file <code>/etc/postfix/mysql/recipient_bcc_maps_user.cf</code> (Linux/OpenBSD) or
-  <code>/usr/local/etc/postfix/mysql/recipient_bcc_maps_user.cf</code> (FreeBSD),
-  <strong>REPLACE</strong> the <code>query =</code> line by lines below:</li>
+<li><a href="./integration.mlmmj.mysql.html">Integrate mlmmj mailing list manager</a></li>
 </ul>
-<pre><code>query       = SELECT recipient_bcc_user.bcc_address
-                FROM recipient_bcc_user,domain,alias_domain
-               WHERE recipient_bcc_user.username='%s'
-                     AND recipient_bcc_user.domain='%d'
-                     AND ((recipient_bcc_user.domain=domain.domain)
-                          OR (recipient_bcc_user.domain=alias_domain.alias_domain AND domain.domain = alias_domain.target_domain))
-                     AND domain.backupmx=0
-                     AND domain.active=1
-                     AND recipient_bcc_user.active=1
-</code></pre>
-
-<ul>
-<li>Open file <code>/etc/postfix/mysql/sender_bcc_maps_user.cf</code> (Linux/OpenBSD) or
-  <code>/usr/local/etc/postfix/mysql/sender_bcc_maps_user.cf</code> (FreeBSD),
-  <strong>REPLACE</strong> the <code>query =</code> line by lines below:</li>
-</ul>
-<pre><code>query       = SELECT sender_bcc_user.bcc_address
-                FROM sender_bcc_user,domain,alias_domain
-               WHERE sender_bcc_user.username='%s'
-                     AND sender_bcc_user.domain='%d'
-                     AND ((sender_bcc_user.domain=domain.domain)
-                          OR (sender_bcc_user.domain=alias_domain.alias_domain AND domain.domain = alias_domain.target_domain))
-                     AND domain.backupmx=0
-                     AND domain.active=1
-                     AND sender_bcc_user.active=1
-</code></pre>
-
-<ul>
-<li>Save your changes and restart Postfix service.</li>
-</ul>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>mlmmj is a core component since iRedMail-0.9.8.</p>
+</div>
 <h3 id="amavisd-add-new-sql-column-maddremail_raw-to-store-mail-address-without-address-extension_1">Amavisd: Add new SQL column <code>maddr.email_raw</code> to store mail address without address extension</h3>
 <p>Many sender/recipient addresses contain address extension like
 <code>user+extension@domain.com</code>, this is annoying if we try to get top 10
@@ -527,43 +520,16 @@ sasl auth. Please follow steps below to fix it.</p>
 <ul>
 <li>Save your change and restart Dovecot service.</li>
 </ul>
-<h3 id="fixed-improper-postfix-sql-queries-used-to-query-per-user-bcc-address_1">Fixed: Improper Postfix SQL queries used to query per-user bcc address.</h3>
-<p>There're 2 Postfix SQL queries configured by iRedMail are improper, they won't
-return per-user bcc address. Please follow steps below to fix it:</p>
+<h3 id="mlmmj-mailing-list-manager-integration_2">mlmmj (mailing list manager) integration</h3>
+<p>iRedMail-0.9.8 integrates mlmmj as mailing list manager, please follow our
+document below to integrate it:</p>
 <ul>
-<li>Open file <code>/etc/postfix/pgsql/recipient_bcc_maps_user.cf</code> (Linux/OpenBSD) or
-  <code>/usr/local/etc/postfix/pgsql/recipient_bcc_maps_user.cf</code> (FreeBSD),
-  <strong>REPLACE</strong> the <code>query =</code> line by lines below:</li>
+<li><a href="./integration.mlmmj.mysql.html">Integrate mlmmj mailing list manager</a></li>
 </ul>
-<pre><code>query       = SELECT recipient_bcc_user.bcc_address
-                FROM recipient_bcc_user,domain,alias_domain
-               WHERE recipient_bcc_user.username='%s'
-                     AND recipient_bcc_user.domain='%d'
-                     AND ((recipient_bcc_user.domain=domain.domain)
-                          OR (recipient_bcc_user.domain=alias_domain.alias_domain AND domain.domain = alias_domain.target_domain))
-                     AND domain.backupmx=0
-                     AND domain.active=1
-                     AND recipient_bcc_user.active=1
-</code></pre>
-
-<ul>
-<li>Open file <code>/etc/postfix/pgsql/sender_bcc_maps_user.cf</code>, REPLACE the
-  <code>query =</code> line by lines below:</li>
-</ul>
-<pre><code>query       = SELECT sender_bcc_user.bcc_address
-                FROM sender_bcc_user,domain,alias_domain
-               WHERE sender_bcc_user.username='%s'
-                     AND sender_bcc_user.domain='%d'
-                     AND ((sender_bcc_user.domain=domain.domain)
-                          OR (sender_bcc_user.domain=alias_domain.alias_domain AND domain.domain = alias_domain.target_domain))
-                     AND domain.backupmx=0
-                     AND domain.active=1
-                     AND sender_bcc_user.active=1
-</code></pre>
-
-<ul>
-<li>Save your changes and restart Postfix service.</li>
-</ul>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>mlmmj is a core component since iRedMail-0.9.8.</p>
+</div>
 <h3 id="amavisd-add-new-sql-column-maddremail_raw-to-store-mail-address-without-address-extension_2">Amavisd: Add new SQL column <code>maddr.email_raw</code> to store mail address without address extension</h3>
 <p>Many sender/recipient addresses contain address extension like
 <code>user+extension@domain.com</code>, this is annoying if we try to get top 10
