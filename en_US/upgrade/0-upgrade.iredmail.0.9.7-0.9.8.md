@@ -14,12 +14,8 @@
 
 ## ChangeLog
 
-* TODO [SQL backends] Update SQL structure:
-    * New column: `domain.maillists`
-    * New column: `forwardings.is_maillist`
-    * New table: `vmail.maillists`
-    * New doc: how to add a standalone (mlmmj) mailing list account
-    * New doc: how to deploy mlmmj + mlmmj-admin
+* [TODO] mlmmj & mlmmjadmin integration.
+* Feb 11, 2018: OpenBSD: Upgrade uwsgi to the latest 2.0.16
 * Jan 31, 2018: Fail2ban: new jail `postfix-pregreet`.
 * Jan 21, 2018: [LDAP] Update SOGo config file for per-domain global address book.
 * Jan 19, 2018: Update OpenLDAP config file to index new attributes and fix an ACL.
@@ -189,6 +185,27 @@ postscreen_dnsbl_sites =
 ```
 
 Reloading or restarting Postfix is required.
+
+### OpenBSD: Upgrade uwsgi to the latest 2.0.16
+
+uwsgi is the interface between Nginx and iRedAdmin, so if you're running
+iRedAdmin, it's recommended to upgrade uwsgi to the latest version, 2.0.16.
+
+Steps: Download the latest uwsgi, compile it, then restart uwsgi service.
+
+```
+cd /root/
+ftp https://projects.unbit.it/downloads/uwsgi-2.0.16.tar.gz
+tar zxf uwsgi-2.0.16.tar.gz
+cd uwsgi-2.0.16
+python setup.py install
+```
+
+uwsgi should be succesfully installed, then restart uwsgi service:
+
+```
+rcctl restart uwsgi
+```
 
 ### [OPTIONAL] Log mail subject, sender, size in mail deliver log
 

@@ -27,6 +27,7 @@
 <li><a href="#fail2ban-new-jail-postfix-pregreet">Fail2ban: new jail postfix-pregreet</a></li>
 <li><a href="#fixed-nginx-snippet-file-hard-codes-static-file-types-for-iredadmin">Fixed: Nginx snippet file hard-codes static file types for iRedAdmin</a></li>
 <li><a href="#fix-unexpected-dnsbl-query-result-for-site-bbarracudacentralorg">Fix unexpected DNSBL query result for site b.barracudacentral.org</a></li>
+<li><a href="#openbsd-upgrade-uwsgi-to-the-latest-2016">OpenBSD: Upgrade uwsgi to the latest 2.0.16</a></li>
 <li><a href="#optional-log-mail-subject-sender-size-in-mail-deliver-log">[OPTIONAL] Log mail subject, sender, size in mail deliver log</a></li>
 </ul>
 </li>
@@ -65,14 +66,8 @@ check <a href="https://www.iredmail.org/support.html">the details</a> and
 </div>
 <h2 id="changelog">ChangeLog</h2>
 <ul>
-<li>TODO [SQL backends] Update SQL structure:<ul>
-<li>New column: <code>domain.maillists</code></li>
-<li>New column: <code>forwardings.is_maillist</code></li>
-<li>New table: <code>vmail.maillists</code></li>
-<li>New doc: how to add a standalone (mlmmj) mailing list account</li>
-<li>New doc: how to deploy mlmmj + mlmmj-admin</li>
-</ul>
-</li>
+<li>[TODO] mlmmj &amp; mlmmjadmin integration.</li>
+<li>Feb 11, 2018: OpenBSD: Upgrade uwsgi to the latest 2.0.16</li>
 <li>Jan 31, 2018: Fail2ban: new jail <code>postfix-pregreet</code>.</li>
 <li>Jan 21, 2018: [LDAP] Update SOGo config file for per-domain global address book.</li>
 <li>Jan 19, 2018: Update OpenLDAP config file to index new attributes and fix an ACL.</li>
@@ -220,6 +215,21 @@ a range from <code>127.0.0.2</code> to <code>127.0.0.11</code>), so we should ch
 </code></pre>
 
 <p>Reloading or restarting Postfix is required.</p>
+<h3 id="openbsd-upgrade-uwsgi-to-the-latest-2016">OpenBSD: Upgrade uwsgi to the latest 2.0.16</h3>
+<p>uwsgi is the interface between Nginx and iRedAdmin, so if you're running
+iRedAdmin, it's recommended to upgrade uwsgi to the latest version, 2.0.16.</p>
+<p>Steps: Download the latest uwsgi, compile it, then restart uwsgi service.</p>
+<pre><code>cd /root/
+ftp https://projects.unbit.it/downloads/uwsgi-2.0.16.tar.gz
+tar zxf uwsgi-2.0.16.tar.gz
+cd uwsgi-2.0.16
+python setup.py install
+</code></pre>
+
+<p>uwsgi should be succesfully installed, then restart uwsgi service:</p>
+<pre><code>rcctl restart uwsgi
+</code></pre>
+
 <h3 id="optional-log-mail-subject-sender-size-in-mail-deliver-log">[OPTIONAL] Log mail subject, sender, size in mail deliver log</h3>
 <p>If you may need to get more info of (locally) delivered mail messages,
 Dovecot setting <code>deliver_log_format</code> can log extra mail subject, sender, and
