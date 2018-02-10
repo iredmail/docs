@@ -293,6 +293,23 @@ iredmail_ldap_bind_dn = 'cn=vmailadmin,dc=XXX,dc=XXX'
 iredmail_ldap_bind_password = 'xxxxxxxx'
 ```
 
+* Add extra required parameters in `/opt/mlmmjadmin/settings.py` to use the
+  directory used to store mailing lists:
+
+```
+MLMMJ_SPOOL_DIR = '/var/vmail/mlmmj'
+MLMMJ_ARCHIVE_DIR = '/var/vmail/mlmmj-archive
+MLMMJ_DEFAULT_PROFILE_SETTINGS.update({'smtp_port': 10027})
+```
+
+* If you're running OpenBSD or FreeBSD, please add parameter `MLMMJ_SKEL_DIR`
+  in `/opt/mlmmjadmin/settings.py` to set the directory which stores mlmmj mail
+  templates:
+
+```
+MLMMJ_SKEL_DIR = '/usr/local/share/mlmmj/text.skel'
+```
+
 * Copy rc/systemd scripts for service control:
 
 ```
