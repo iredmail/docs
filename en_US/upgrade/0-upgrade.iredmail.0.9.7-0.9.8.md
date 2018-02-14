@@ -14,6 +14,7 @@
 
 ## ChangeLog
 
+* Feb 14, 2018: [SECURITY] Fixed: Nginx snippet file doesn't block access to Roundcube sensitive files.
 * Feb 11, 2018: netdata integration.
 * Feb 11, 2018: mlmmj & mlmmjadmin integration.
 * Feb 11, 2018: OpenBSD: Upgrade uwsgi to the latest 2.0.16
@@ -162,6 +163,47 @@ location ~ ^/iredadmin/static/(.*) {            # Remove file types
 ```
 
 Reloading or restarting Nginx service is required.
+
+### [SECURITY] Fixed: Nginx snippet file doesn't block access to Roundcube sensitive files
+
+!!! attention
+
+    This is only applicable to Nginx.
+
+With default iRedMail settings, Nginx doesn't block access to Roundcube
+sensitive files and `.htaccess` file, this may leak users' PGP keys.
+Please follow steps below to fix it.
+
+Please open file `/etc/nginx/templates/roundcube.tmpl` (Linux/OpenBSD) or
+`/usr/local/etc/nginx/templates/roundcube.tmpl` (FreeBSD), add lines below
+__ABOVE__ any existing lines:
+
+```
+location ~ ^/mail/(bin|SQL|README|INSTALL|LICENSE|CHANGELOG|UPGRADING|config|temp|logs|installer)(.*) { deny all; }
+location ~ ^/mail/plugins/enigma/home(.*) { deny all; }
+location ~ (composer.json|jsdeps.json)(.*) { deny all; }
+```
+
+Please open file `/etc/nginx/templates/roundcube-subdomain.tmpl` (Linux/OpenBSD) or
+`/usr/local/etc/nginx/templates/roundcube-subdomain.tmpl` (FreeBSD), add lines below
+__ABOVE__ any existing lines:
+
+```
+location ~ ^/(bin|SQL|README|INSTALL|LICENSE|CHANGELOG|UPGRADING|config|temp|logs|installer)(.*) { deny all; }
+location ~ ^/plugins/enigma/home(.*) { deny all; }
+location ~ (composer.json|jsdeps.json)(.*) { deny all; }
+```
+
+Open both `/etc/nginx/sites-available/00-default.conf` and `00-default-ssl.conf` (Linux/OpenBSD)
+or `/usr/local/etc/nginx/sites-available/00-default.conf.tmpl` and `00-default-ssl.conf` (FreeBSD),
+make sure Nginx template file `misc.tmpl` is loadded first. For example, on
+Linux/OpenBSD, make sure line below is the first one `include` directive:
+
+```
+    include /etc/nginx/templates/misc.tmpl;
+```
+
+Restarting Nginx service is required.
 
 ### Fix unexpected DNSBL query result for site `b.barracudacentral.org`
 
