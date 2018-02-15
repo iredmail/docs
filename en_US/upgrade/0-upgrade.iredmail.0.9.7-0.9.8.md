@@ -179,29 +179,71 @@ Please open file `/etc/nginx/templates/roundcube.tmpl` (Linux/OpenBSD) or
 __ABOVE__ any existing lines:
 
 ```
-location ~ ^/mail/(bin|SQL|README|INSTALL|LICENSE|CHANGELOG|UPGRADING|config|temp|logs|installer)(.*) { deny all; }
-location ~ ^/mail/plugins/enigma/home(.*) { deny all; }
-location ~ (composer.json|jsdeps.json)(.*) { deny all; }
+# Block access to default directories and files under these directories
+location ~ /mail/(bin|config|installer|logs|SQL|temp|vendor)($|/.*) { deny all; }
+
+# Block access to default files under top-directory and files start with same name.
+location ~ /mail/(CHANGELOG|composer.json|INSTALL|jsdeps.json|LICENSE|README|UPGRADING)($|.*) { deny all; }
+
+# Block plugin config files and sample config files.
+location ~ /mail/plugins/.*/config.inc.php.* { deny all; }
+
+# Block access to plugin data
+location ~ /mail/plugins/enigma/home($|/.*) { deny all; }
 ```
 
-Please open file `/etc/nginx/templates/roundcube-subdomain.tmpl` (Linux/OpenBSD) or
-`/usr/local/etc/nginx/templates/roundcube-subdomain.tmpl` (FreeBSD), add lines below
-__ABOVE__ any existing lines:
+Please open file `/etc/nginx/templates/roundcube-subdomain.tmpl`
+(Linux/OpenBSD) or `/usr/local/etc/nginx/templates/roundcube-subdomain.tmpl`
+(FreeBSD), add lines below __ABOVE__ any existing lines:
 
 ```
-location ~ ^/(bin|SQL|README|INSTALL|LICENSE|CHANGELOG|UPGRADING|config|temp|logs|installer)(.*) { deny all; }
-location ~ ^/plugins/enigma/home(.*) { deny all; }
-location ~ (composer.json|jsdeps.json)(.*) { deny all; }
+# Block access to default directories and files under these directories
+location ~ /(bin|config|installer|logs|SQL|temp|vendor)($|/.*) { deny all; }
+
+# Block access to default files under top-directory and files start with same name.
+location ~ /(CHANGELOG|composer.json|INSTALL|jsdeps.json|LICENSE|README|UPGRADING)($|.*) { deny all; }
+
+# Block plugin config files and sample config files.
+location ~ /plugins/.*/config.inc.php.* { deny all; }
+
+# Block access to plugin data
+location ~ /plugins/enigma/home($|/.*) { deny all; }
 ```
 
-Open both `/etc/nginx/sites-available/00-default.conf` and `00-default-ssl.conf` (Linux/OpenBSD)
-or `/usr/local/etc/nginx/sites-available/00-default.conf.tmpl` and `00-default-ssl.conf` (FreeBSD),
-make sure Nginx template file `misc.tmpl` is loadded first. For example, on
-Linux/OpenBSD, make sure line below is the first one `include` directive:
+Open file `/etc/nginx/sites-available/00-default.conf` AND `00-default-ssl.conf`,
+make sure template file `misc.tmpl` is loaded before other template files.
+For example, your existing config file may look like this:
 
 ```
+server {
+    ...
+    include /etc/nginx/templates/...;
+    include /etc/nginx/templates/...;
     include /etc/nginx/templates/misc.tmpl;
+}
 ```
+
+Please move the `misc.tmpl` line __ABOVE__ any other `include` directive.
+Final setting should look like this:
+
+```
+server {
+    ...
+    include /etc/nginx/templates/misc.tmpl;
+    include /etc/nginx/templates/...;
+    include /etc/nginx/templates/...;
+}
+```
+
+Note: Nginx in iRedMail-0.9.7 loads modular config files from
+`/etc/nginx/sites-conf/default/` and `/etc/nginx/sites-conf/default-ssl/`
+instead of storing all configurations for default web hosts in one file, in
+this case you need to:
+
+* rename file `/etc/nginx/sites-conf/default/99-include-tmpl-misc.conf` to
+  `/etc/nginx/sites-conf/default/1-include-tmpl-misc.conf`.
+* rename file `/etc/nginx/sites-conf/default-ssl/99-include-tmpl-misc.conf` to
+  `/etc/nginx/sites-conf/default-ssl/1-include-tmpl-misc.conf`.
 
 Restarting Nginx service is required.
 
