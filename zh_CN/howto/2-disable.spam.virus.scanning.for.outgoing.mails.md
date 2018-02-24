@@ -9,10 +9,10 @@
 * bypass_header_checks_maps
 * bypass_banned_checks_maps
 
-这些设置可以添加到 `$policy_bank{'MYUSERS'}` 配置里。例如：
+这些设置可以添加到 `$policy_bank{'ORIGINATING'}` 配置里。例如：
 
 ```perl
-$policy_bank{'MYUSERS'} = {
+$policy_bank{'ORIGINATING'} = {
     [...此处省略其它配置参数...]
 
     # 不执行垃圾扫描、病毒扫描、邮件头检测

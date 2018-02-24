@@ -29,8 +29,8 @@
 <li>bypass_header_checks_maps</li>
 <li>bypass_banned_checks_maps</li>
 </ul>
-<p>这些设置可以添加到 <code>$policy_bank{'MYUSERS'}</code> 配置里。例如：</p>
-<pre><code class="perl">$policy_bank{'MYUSERS'} = {
+<p>这些设置可以添加到 <code>$policy_bank{'ORIGINATING'}</code> 配置里。例如：</p>
+<pre><code class="perl">$policy_bank{'ORIGINATING'} = {
     [...此处省略其它配置参数...]
 
     # 不执行垃圾扫描、病毒扫描、邮件头检测
