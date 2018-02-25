@@ -45,7 +45,13 @@
 <p>Keep <code>content_filter = smtp-amavis:[127.0.0.1]:10024</code> in Postfix config file <code>/etc/postfix/main.cf</code>.</p>
 </li>
 <li>
-<p>Find below lines in /etc/amavisd/amavisd.conf:</p>
+<p>Find below lines in Amavisd config file:</p>
+<ul>
+<li>On RHEL/CentOS, it's <code>/etc/amavisd/amavisd.conf</code></li>
+<li>On Debian/Ubuntu, it's <code>/etc/amavis/conf.d/50-user</code></li>
+<li>On FreeBSD, it's <code>/usr/local/etc/amavisd.conf</code></li>
+<li>On OpenBSD, it's <code>/etc/amavisd.conf</code></li>
+</ul>
 </li>
 </ul>
 <pre><code class="perl"># @bypass_virus_checks_maps = (1);  # controls running of anti-virus code

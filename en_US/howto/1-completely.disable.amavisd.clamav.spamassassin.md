@@ -17,7 +17,12 @@ If you want to disable virus and spam scanning, but keep DKIM signing and discla
 
 * Keep `content_filter = smtp-amavis:[127.0.0.1]:10024` in Postfix config file `/etc/postfix/main.cf`.
 
-* Find below lines in /etc/amavisd/amavisd.conf:
+* Find below lines in Amavisd config file:
+    - On RHEL/CentOS, it's `/etc/amavisd/amavisd.conf`
+    - On Debian/Ubuntu, it's `/etc/amavis/conf.d/50-user`
+    - On FreeBSD, it's `/usr/local/etc/amavisd.conf`
+    - On OpenBSD, it's `/etc/amavisd.conf`
+
 ```perl
 # @bypass_virus_checks_maps = (1);  # controls running of anti-virus code
 # @bypass_spam_checks_maps  = (1);  # controls running of anti-spam code
