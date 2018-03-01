@@ -43,12 +43,14 @@
 </li>
 <li><a href="#mysqlmariadb-backends">MySQL/MariaDB backends</a><ul>
 <li><a href="#fixed-user-under-disabled-domain-is-able-to-send-email-with-smtp-protocol">Fixed: User under disabled domain is able to send email with smtp protocol</a></li>
+<li><a href="#sql-structure-changes-in-vmail-database">SQL structure changes in vmail database</a></li>
 <li><a href="#mlmmj-mailing-list-manager-integration_1">mlmmj (mailing list manager) integration</a></li>
 <li><a href="#amavisd-add-new-sql-column-maddremail_raw-to-store-mail-address-without-address-extension_1">Amavisd: Add new SQL column maddr.email_raw to store mail address without address extension</a></li>
 </ul>
 </li>
 <li><a href="#postgresql-backend">PostgreSQL backend</a><ul>
 <li><a href="#fixed-user-under-disabled-domain-is-able-to-send-email-with-smtp-protocol_1">Fixed: User under disabled domain is able to send email with smtp protocol</a></li>
+<li><a href="#sql-structure-changes-in-vmail-database_1">SQL structure changes in vmail database</a></li>
 <li><a href="#mlmmj-mailing-list-manager-integration_2">mlmmj (mailing list manager) integration</a></li>
 <li><a href="#amavisd-add-new-sql-column-maddremail_raw-to-store-mail-address-without-address-extension_2">Amavisd: Add new SQL column maddr.email_raw to store mail address without address extension</a></li>
 </ul>
@@ -69,6 +71,7 @@ check <a href="https://www.iredmail.org/support.html">the details</a> and
 </div>
 <h2 id="changelog">ChangeLog</h2>
 <ul>
+<li>Mar 1, SQL structure changes in <code>vmail</code> database.</li>
 <li>Feb 14, 2018: [SECURITY] Fixed: Nginx snippet file doesn't block access to Roundcube sensitive files.</li>
 <li>Feb 11, 2018: netdata integration.</li>
 <li>Feb 11, 2018: mlmmj &amp; mlmmjadmin integration.</li>
@@ -532,6 +535,32 @@ sasl auth. Please follow steps below to fix it.</p>
 <ul>
 <li>Save your change and restart Dovecot service.</li>
 </ul>
+<h3 id="sql-structure-changes-in-vmail-database">SQL structure changes in <code>vmail</code> database</h3>
+<p>We've made some changes to <code>vmail</code> database:</p>
+<ul>
+<li>Drop sql column <code>mailbox.local_part</code>. This column was inherited from
+  PostfixAdmin, but iRedMail didn't use it at all.</li>
+<li>Rename table <code>alias_moderators</code> to <code>moderators</code>. Used to store moderators of
+  both mail alias accounts and mailing lists.</li>
+<li>Add new column <code>domain.maillists</code>. Used to store per-domain limit of mailing
+  list accounts. Note: this is majorly used by iRedAdmin-Pro.</li>
+<li>Add new column <code>forwardings.is_maillist</code>.</li>
+<li>Add new table <code>maillists</code>, used by our new mailing list manager software - mlmmj.</li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Please backup SQL database <code>vmail</code> before you run any SQL commands below.</p>
+<p><code>bash /var/vmail/backup/backup_mysql.sh</code></p>
+</div>
+<p>Download SQL template file used to update SQL database:</p>
+<pre><code>cd /root/
+wget https://bitbucket.org/zhb/iredmail/raw/default/extra/update/0.9.8/iredmail.mysql
+</code></pre>
+
+<p>Connect to MySQL server as MySQL root user, and execute SQL commands:</p>
+<pre><code>mysql vmail &lt; /root/iredmail.mysql
+</code></pre>
+
 <h3 id="mlmmj-mailing-list-manager-integration_1">mlmmj (mailing list manager) integration</h3>
 <p>iRedMail-0.9.8 integrates mlmmj as mailing list manager, please follow our
 document below to integrate it:</p>
@@ -594,6 +623,36 @@ sasl auth. Please follow steps below to fix it.</p>
 <ul>
 <li>Save your change and restart Dovecot service.</li>
 </ul>
+<h3 id="sql-structure-changes-in-vmail-database_1">SQL structure changes in <code>vmail</code> database</h3>
+<p>We've made some changes to <code>vmail</code> database:</p>
+<ul>
+<li>Drop sql column <code>mailbox.local_part</code>. This column was inherited from
+  PostfixAdmin, but iRedMail didn't use it at all.</li>
+<li>Rename table <code>alias_moderators</code> to <code>moderators</code>. Used to store moderators of
+  both mail alias accounts and mailing lists.</li>
+<li>Add new column <code>domain.maillists</code>. Used to store per-domain limit of mailing
+  list accounts. Note: this is majorly used by iRedAdmin-Pro.</li>
+<li>Add new column <code>forwardings.is_maillist</code>.</li>
+<li>Add new table <code>maillists</code>, used by our new mailing list manager software - mlmmj.</li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Please backup SQL database <code>vmail</code> before you run any SQL commands below.</p>
+<p><code>bash /var/vmail/backup/backup_pgsql.sh</code></p>
+</div>
+<p>Download SQL template file used to update SQL database:</p>
+<pre><code>cd /root/
+wget https://bitbucket.org/zhb/iredmail/raw/default/extra/update/0.9.8/iredmail.pgsql
+</code></pre>
+
+<p>Connect to PostgreSQL server as <code>postgres</code> user and import the SQL file:
+<em> on Linux, it's <code>postgres</code> user
+</em> on FreeBSD, it's <code>pgsql</code> user
+* on OpenBSD, it's <code>_postgresql</code> user</p>
+<pre><code>su - postgres
+psql -d vmail &lt; /root/iredmail.mysql
+</code></pre>
+
 <h3 id="mlmmj-mailing-list-manager-integration_2">mlmmj (mailing list manager) integration</h3>
 <p>iRedMail-0.9.8 integrates mlmmj as mailing list manager, please follow our
 document below to integrate it:</p>

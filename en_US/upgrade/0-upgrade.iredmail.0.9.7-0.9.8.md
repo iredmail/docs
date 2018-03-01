@@ -14,6 +14,7 @@
 
 ## ChangeLog
 
+* Mar 1, SQL structure changes in `vmail` database.
 * Feb 14, 2018: [SECURITY] Fixed: Nginx snippet file doesn't block access to Roundcube sensitive files.
 * Feb 11, 2018: netdata integration.
 * Feb 11, 2018: mlmmj & mlmmjadmin integration.
@@ -524,6 +525,38 @@ password_query = SELECT mailbox.password, mailbox.allow_nets \
 
 * Save your change and restart Dovecot service.
 
+### SQL structure changes in `vmail` database
+
+We've made some changes to `vmail` database:
+
+* Drop sql column `mailbox.local_part`. This column was inherited from
+  PostfixAdmin, but iRedMail didn't use it at all.
+* Rename table `alias_moderators` to `moderators`. Used to store moderators of
+  both mail alias accounts and mailing lists.
+* Add new column `domain.maillists`. Used to store per-domain limit of mailing
+  list accounts. Note: this is majorly used by iRedAdmin-Pro.
+* Add new column `forwardings.is_maillist`.
+* Add new table `maillists`, used by our new mailing list manager software - mlmmj.
+
+!!! warning
+
+    Please backup SQL database `vmail` before you run any SQL commands below.
+
+    ```bash /var/vmail/backup/backup_mysql.sh```
+
+Download SQL template file used to update SQL database:
+
+```
+cd /root/
+wget https://bitbucket.org/zhb/iredmail/raw/default/extra/update/0.9.8/iredmail.mysql
+```
+
+Connect to MySQL server as MySQL root user, and execute SQL commands:
+
+```
+mysql vmail < /root/iredmail.mysql
+```
+
 ### mlmmj (mailing list manager) integration
 
 iRedMail-0.9.8 integrates mlmmj as mailing list manager, please follow our
@@ -590,6 +623,42 @@ password_query = SELECT mailbox.password, mailbox.allow_nets \
 ```
 
 * Save your change and restart Dovecot service.
+
+### SQL structure changes in `vmail` database
+
+We've made some changes to `vmail` database:
+
+* Drop sql column `mailbox.local_part`. This column was inherited from
+  PostfixAdmin, but iRedMail didn't use it at all.
+* Rename table `alias_moderators` to `moderators`. Used to store moderators of
+  both mail alias accounts and mailing lists.
+* Add new column `domain.maillists`. Used to store per-domain limit of mailing
+  list accounts. Note: this is majorly used by iRedAdmin-Pro.
+* Add new column `forwardings.is_maillist`.
+* Add new table `maillists`, used by our new mailing list manager software - mlmmj.
+
+!!! warning
+
+    Please backup SQL database `vmail` before you run any SQL commands below.
+
+    ```bash /var/vmail/backup/backup_pgsql.sh```
+
+Download SQL template file used to update SQL database:
+
+```
+cd /root/
+wget https://bitbucket.org/zhb/iredmail/raw/default/extra/update/0.9.8/iredmail.pgsql
+```
+
+Connect to PostgreSQL server as `postgres` user and import the SQL file:
+* on Linux, it's `postgres` user
+* on FreeBSD, it's `pgsql` user
+* on OpenBSD, it's `_postgresql` user
+
+```
+su - postgres
+psql -d vmail < /root/iredmail.mysql
+```
 
 ### mlmmj (mailing list manager) integration
 
