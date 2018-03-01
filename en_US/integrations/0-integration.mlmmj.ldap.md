@@ -51,7 +51,7 @@ a good idea to backup it now before you adding any new mailing lists.
   iRedMail by default. So we can install it directly:
 
 ```
-yum install mlmmj uwsgi uwsgi-plugin-python
+yum install mlmmj uwsgi uwsgi-plugin-python uwsgi-logger-syslog
 ```
 
 * On Debian/Ubuntu:
@@ -85,7 +85,7 @@ On Linux or OpenBSD:
 
 ```
 groupadd mlmmj
-useradd -m -d /var/vmail/mlmmj -s /sbin/nologin mlmmj
+useradd -m -g mlmmj -d /var/vmail/mlmmj -s /sbin/nologin mlmmj
 chown -R mlmmj:mlmmj /var/vmail/mlmmj
 chmod -R 0700 /var/vmail/mlmmj
 ```
@@ -153,7 +153,7 @@ On Linux:
 ```
 cd /usr/bin/
 wget https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/samples/mlmmj/mlmmj-amime-receive
-chown mlmmj:mlmmj mlmj-amime-receive
+chown mlmmj:mlmmj mlmmj-amime-receive
 chmod 0550 mlmmj-amime-receive
 perl -pi -e 's#PH_CMD_MLMMJ_RECEIVE#/usr/bin/mlmmj-receive#g' mlmmj-amime-receive
 perl -pi -e 's#PH_CMD_ALTERMIME#/usr/bin/altermime#g' mlmmj-amime-receive
@@ -164,7 +164,7 @@ On FreeBSD or OpenBSD:
 ```
 cd /usr/local/bin/
 wget https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/samples/mlmmj/mlmmj-amime-receive
-chown mlmmj:mlmmj mlmj-amime-receive
+chown mlmmj:mlmmj mlmmj-amime-receive
 chmod 0550 mlmmj-amime-receive
 perl -pi -e 's#PH_CMD_MLMMJ_RECEIVE#/usr/local/bin/mlmmj-receive#g' mlmmj-amime-receive
 perl -pi -e 's#PH_CMD_ALTERMIME#/usr/local/bin/altermime#g' mlmmj-amime-receive
@@ -208,23 +208,25 @@ $policy_bank{'MLMMJ'} = {
 };
 ```
 
-Now restart Amavisd and Postfix servivce, mlmmj mailing list manager is now
-fully integrated. We will setup `mlmmjadmin` to make managing mailing lists easier.
+Now restart Amavisd and Postfix service, mlmmj mailing list manager is now
+fully integrated.
 
-## Setup mlmmjadmin: a RESTful API server used to manage mlmmj mailing lists
+We will setup `mlmmjadmin` program to make managing mailing lists easier.
+
+## Setup mlmmjadmin: RESTful API server used to manage mlmmj mailing lists
 
 * Download the latest mlmmjadmin release: <https://github.com/iredmail/mlmmjadmin/releases>,
-  upload to iRedMail server. We assume it's uploaded to `/root/` directory.
+  and upload to iRedMail server. We assume it's uploaded to `/root/` directory.
 
     !!! attention
 
-        We use `mlmmjadmin-1.0` for example below.
+        We use `mlmmjadmin-1.0.tar.gz` for example below.
 
 * Extract downloaded mlmmjadmin package to `/opt/` directory, and create a
   symbol link:
 
 ```
-tar xjf /root/mlmmjadmin-1.0.tar.bz2 -C /opt
+tar zxf /root/mlmmjadmin-1.0.tar.gz -C /opt
 ln -s /opt/mlmmjadmin-1.0 /opt/mlmmjadmin
 ```
 

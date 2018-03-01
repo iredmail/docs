@@ -43,17 +43,21 @@ databases.
 
 ## Install mlmmj package
 
+!!! attention
+
+    Package `uwsgi` is required by the RESTful API server `mlmmjadmin`.
+
 * On RHEL/CentOS, `mlmmj` is available in `EPEL` repo, and it's enabled in
   iRedMail by default. So we can install it directly:
 
 ```
-yum install mlmmj
+yum install mlmmj uwsgi uwsgi-plugin-python uwsgi-logger-syslog
 ```
 
 * On Debian/Ubuntu:
 
 ```
-apt-get install mlmmj
+apt-get install mlmmj uwsgi uwsgi-plugin-python
 ```
 
 * On FreeBSD:
@@ -61,9 +65,12 @@ apt-get install mlmmj
 ```
 cd /usr/ports/mail/mlmmj
 make install clean
+cd /usr/ports/www/uwsgi
+make install clean
 ```
 
-* On OpenBSD:
+* On OpenBSD (iRedMail always installs `uwsgi` during installation, so no need
+  to install it here):
 
 ```
 pkg_add mlmmj
@@ -78,7 +85,7 @@ On Linux or OpenBSD:
 
 ```
 groupadd mlmmj
-useradd -m -d /var/vmail/mlmmj -s /sbin/nologin mlmmj
+useradd -m -g mlmmj -d /var/vmail/mlmmj -s /sbin/nologin mlmmj
 chown -R mlmmj:mlmmj /var/vmail/mlmmj
 chmod -R 0700 /var/vmail/mlmmj
 ```
@@ -176,7 +183,7 @@ On Linux:
 ```
 cd /usr/bin/
 wget https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/samples/mlmmj/mlmmj-amime-receive
-chown mlmmj:mlmmj mlmj-amime-receive
+chown mlmmj:mlmmj mlmmj-amime-receive
 chmod 0550 mlmmj-amime-receive
 perl -pi -e 's#PH_CMD_MLMMJ_RECEIVE#/usr/bin/mlmmj-receive#g' mlmmj-amime-receive
 perl -pi -e 's#PH_CMD_ALTERMIME#/usr/bin/altermime#g' mlmmj-amime-receive
@@ -187,7 +194,7 @@ On FreeBSD or OpenBSD:
 ```
 cd /usr/local/bin/
 wget https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/samples/mlmmj/mlmmj-amime-receive
-chown mlmmj:mlmmj mlmj-amime-receive
+chown mlmmj:mlmmj mlmmj-amime-receive
 chmod 0550 mlmmj-amime-receive
 perl -pi -e 's#PH_CMD_MLMMJ_RECEIVE#/usr/local/bin/mlmmj-receive#g' mlmmj-amime-receive
 perl -pi -e 's#PH_CMD_ALTERMIME#/usr/local/bin/altermime#g' mlmmj-amime-receive
@@ -231,7 +238,7 @@ $policy_bank{'MLMMJ'} = {
 };
 ```
 
-Now restart Amavisd and Postfix servivce, mlmmj mailing list manager is now
+Now restart Amavisd and Postfix service, mlmmj mailing list manager is now
 fully integrated.
 
 We will setup `mlmmjadmin` program to make managing mailing lists easier.
@@ -243,13 +250,13 @@ We will setup `mlmmjadmin` program to make managing mailing lists easier.
 
     !!! attention
 
-        We use `mlmmjadmin-1.0` for example below.
+        We use `mlmmjadmin-1.0.tar.gz` for example below.
 
 * Extract downloaded mlmmjadmin package to `/opt/` directory, and create a
   symbol link:
 
 ```
-tar xjf /root/mlmmjadmin-1.0.tar.bz2 -C /opt
+tar zxf /root/mlmmjadmin-1.0.tar.gz -C /opt
 ln -s /opt/mlmmjadmin-1.0 /opt/mlmmjadmin
 ```
 

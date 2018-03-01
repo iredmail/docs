@@ -67,17 +67,21 @@ a good idea to backup it now before you adding any new mailing lists.</p>
 <p>Please run command <code>bash /var/vmail/backup/backup_pgsql.sh</code> to backup SQL
 databases.</p>
 <h2 id="install-mlmmj-package">Install mlmmj package</h2>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>Package <code>uwsgi</code> is required by the RESTful API server <code>mlmmjadmin</code>.</p>
+</div>
 <ul>
 <li>On RHEL/CentOS, <code>mlmmj</code> is available in <code>EPEL</code> repo, and it's enabled in
   iRedMail by default. So we can install it directly:</li>
 </ul>
-<pre><code>yum install mlmmj
+<pre><code>yum install mlmmj uwsgi uwsgi-plugin-python uwsgi-logger-syslog
 </code></pre>
 
 <ul>
 <li>On Debian/Ubuntu:</li>
 </ul>
-<pre><code>apt-get install mlmmj
+<pre><code>apt-get install mlmmj uwsgi uwsgi-plugin-python
 </code></pre>
 
 <ul>
@@ -85,10 +89,13 @@ databases.</p>
 </ul>
 <pre><code>cd /usr/ports/mail/mlmmj
 make install clean
+cd /usr/ports/www/uwsgi
+make install clean
 </code></pre>
 
 <ul>
-<li>On OpenBSD:</li>
+<li>On OpenBSD (iRedMail always installs <code>uwsgi</code> during installation, so no need
+  to install it here):</li>
 </ul>
 <pre><code>pkg_add mlmmj
 </code></pre>
@@ -98,7 +105,7 @@ make install clean
 be stored under its home directory <code>/var/vmail/mlmmj</code>:</p>
 <p>On Linux or OpenBSD:</p>
 <pre><code>groupadd mlmmj
-useradd -m -d /var/vmail/mlmmj -s /sbin/nologin mlmmj
+useradd -m -g mlmmj -d /var/vmail/mlmmj -s /sbin/nologin mlmmj
 chown -R mlmmj:mlmmj /var/vmail/mlmmj
 chmod -R 0700 /var/vmail/mlmmj
 </code></pre>
@@ -193,7 +200,7 @@ it manually</p>
 <p>On Linux:</p>
 <pre><code>cd /usr/bin/
 wget https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/samples/mlmmj/mlmmj-amime-receive
-chown mlmmj:mlmmj mlmj-amime-receive
+chown mlmmj:mlmmj mlmmj-amime-receive
 chmod 0550 mlmmj-amime-receive
 perl -pi -e 's#PH_CMD_MLMMJ_RECEIVE#/usr/bin/mlmmj-receive#g' mlmmj-amime-receive
 perl -pi -e 's#PH_CMD_ALTERMIME#/usr/bin/altermime#g' mlmmj-amime-receive
@@ -202,7 +209,7 @@ perl -pi -e 's#PH_CMD_ALTERMIME#/usr/bin/altermime#g' mlmmj-amime-receive
 <p>On FreeBSD or OpenBSD:</p>
 <pre><code>cd /usr/local/bin/
 wget https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/samples/mlmmj/mlmmj-amime-receive
-chown mlmmj:mlmmj mlmj-amime-receive
+chown mlmmj:mlmmj mlmmj-amime-receive
 chmod 0550 mlmmj-amime-receive
 perl -pi -e 's#PH_CMD_MLMMJ_RECEIVE#/usr/local/bin/mlmmj-receive#g' mlmmj-amime-receive
 perl -pi -e 's#PH_CMD_ALTERMIME#/usr/local/bin/altermime#g' mlmmj-amime-receive
@@ -246,7 +253,7 @@ $policy_bank{'MLMMJ'} = {
 };
 </code></pre>
 
-<p>Now restart Amavisd and Postfix servivce, mlmmj mailing list manager is now
+<p>Now restart Amavisd and Postfix service, mlmmj mailing list manager is now
 fully integrated.</p>
 <p>We will setup <code>mlmmjadmin</code> program to make managing mailing lists easier.</p>
 <h2 id="setup-mlmmjadmin-restful-api-server-used-to-manage-mlmmj-mailing-lists">Setup mlmmjadmin: RESTful API server used to manage mlmmj mailing lists</h2>
@@ -256,7 +263,7 @@ fully integrated.</p>
   and upload to iRedMail server. We assume it's uploaded to <code>/root/</code> directory.</p>
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>
-<p>We use <code>mlmmjadmin-1.0</code> for example below.</p>
+<p>We use <code>mlmmjadmin-1.0.tar.gz</code> for example below.</p>
 </div>
 </li>
 <li>
@@ -264,7 +271,7 @@ fully integrated.</p>
   symbol link:</p>
 </li>
 </ul>
-<pre><code>tar xjf /root/mlmmjadmin-1.0.tar.bz2 -C /opt
+<pre><code>tar zxf /root/mlmmjadmin-1.0.tar.gz -C /opt
 ln -s /opt/mlmmjadmin-1.0 /opt/mlmmjadmin
 </code></pre>
 

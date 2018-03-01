@@ -25,7 +25,7 @@
 <li><a href="#create-required-system-account">Create required system account</a></li>
 <li><a href="#postfix-integration">Postfix integration</a></li>
 <li><a href="#amavisd-integration">Amavisd Integration</a></li>
-<li><a href="#setup-mlmmjadmin-a-restful-api-server-used-to-manage-mlmmj-mailing-lists">Setup mlmmjadmin: a RESTful API server used to manage mlmmj mailing lists</a></li>
+<li><a href="#setup-mlmmjadmin-restful-api-server-used-to-manage-mlmmj-mailing-lists">Setup mlmmjadmin: RESTful API server used to manage mlmmj mailing lists</a></li>
 <li><a href="#manage-mailing-lists-with-iredadmin-pro">Manage mailing lists with iRedAdmin-Pro</a></li>
 <li><a href="#manage-mailing-lists-with-mlmmjadmin-command-line-tool">Manage mailing lists with mlmmjadmin command line tool</a></li>
 <li><a href="#references">References</a></li>
@@ -76,7 +76,7 @@ a good idea to backup it now before you adding any new mailing lists.</p>
 <li>On RHEL/CentOS, <code>mlmmj</code> is available in <code>EPEL</code> repo, and it's enabled in
   iRedMail by default. So we can install it directly:</li>
 </ul>
-<pre><code>yum install mlmmj uwsgi uwsgi-plugin-python
+<pre><code>yum install mlmmj uwsgi uwsgi-plugin-python uwsgi-logger-syslog
 </code></pre>
 
 <ul>
@@ -106,7 +106,7 @@ make install clean
 be stored under its home directory <code>/var/vmail/mlmmj</code>:</p>
 <p>On Linux or OpenBSD:</p>
 <pre><code>groupadd mlmmj
-useradd -m -d /var/vmail/mlmmj -s /sbin/nologin mlmmj
+useradd -m -g mlmmj -d /var/vmail/mlmmj -s /sbin/nologin mlmmj
 chown -R mlmmj:mlmmj /var/vmail/mlmmj
 chmod -R 0700 /var/vmail/mlmmj
 </code></pre>
@@ -172,7 +172,7 @@ it manually</p>
 <p>On Linux:</p>
 <pre><code>cd /usr/bin/
 wget https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/samples/mlmmj/mlmmj-amime-receive
-chown mlmmj:mlmmj mlmj-amime-receive
+chown mlmmj:mlmmj mlmmj-amime-receive
 chmod 0550 mlmmj-amime-receive
 perl -pi -e 's#PH_CMD_MLMMJ_RECEIVE#/usr/bin/mlmmj-receive#g' mlmmj-amime-receive
 perl -pi -e 's#PH_CMD_ALTERMIME#/usr/bin/altermime#g' mlmmj-amime-receive
@@ -181,7 +181,7 @@ perl -pi -e 's#PH_CMD_ALTERMIME#/usr/bin/altermime#g' mlmmj-amime-receive
 <p>On FreeBSD or OpenBSD:</p>
 <pre><code>cd /usr/local/bin/
 wget https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/samples/mlmmj/mlmmj-amime-receive
-chown mlmmj:mlmmj mlmj-amime-receive
+chown mlmmj:mlmmj mlmmj-amime-receive
 chmod 0550 mlmmj-amime-receive
 perl -pi -e 's#PH_CMD_MLMMJ_RECEIVE#/usr/local/bin/mlmmj-receive#g' mlmmj-amime-receive
 perl -pi -e 's#PH_CMD_ALTERMIME#/usr/local/bin/altermime#g' mlmmj-amime-receive
@@ -225,16 +225,17 @@ $policy_bank{'MLMMJ'} = {
 };
 </code></pre>
 
-<p>Now restart Amavisd and Postfix servivce, mlmmj mailing list manager is now
-fully integrated. We will setup <code>mlmmjadmin</code> to make managing mailing lists easier.</p>
-<h2 id="setup-mlmmjadmin-a-restful-api-server-used-to-manage-mlmmj-mailing-lists">Setup mlmmjadmin: a RESTful API server used to manage mlmmj mailing lists</h2>
+<p>Now restart Amavisd and Postfix service, mlmmj mailing list manager is now
+fully integrated.</p>
+<p>We will setup <code>mlmmjadmin</code> program to make managing mailing lists easier.</p>
+<h2 id="setup-mlmmjadmin-restful-api-server-used-to-manage-mlmmj-mailing-lists">Setup mlmmjadmin: RESTful API server used to manage mlmmj mailing lists</h2>
 <ul>
 <li>
 <p>Download the latest mlmmjadmin release: <a href="https://github.com/iredmail/mlmmjadmin/releases">https://github.com/iredmail/mlmmjadmin/releases</a>,
-  upload to iRedMail server. We assume it's uploaded to <code>/root/</code> directory.</p>
+  and upload to iRedMail server. We assume it's uploaded to <code>/root/</code> directory.</p>
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>
-<p>We use <code>mlmmjadmin-1.0</code> for example below.</p>
+<p>We use <code>mlmmjadmin-1.0.tar.gz</code> for example below.</p>
 </div>
 </li>
 <li>
@@ -242,7 +243,7 @@ fully integrated. We will setup <code>mlmmjadmin</code> to make managing mailing
   symbol link:</p>
 </li>
 </ul>
-<pre><code>tar xjf /root/mlmmjadmin-1.0.tar.bz2 -C /opt
+<pre><code>tar zxf /root/mlmmjadmin-1.0.tar.gz -C /opt
 ln -s /opt/mlmmjadmin-1.0 /opt/mlmmjadmin
 </code></pre>
 
