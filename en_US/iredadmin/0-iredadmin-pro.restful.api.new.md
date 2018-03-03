@@ -249,6 +249,8 @@ Notes:
     `maxUsers` | how many mail users this admin can create. It's shared by all domains created/managed by this admin. | `maxUsers=100`
     `maxAliases` | how many mail aliases this admin can create. It's shared by all domains created/managed by this admin. | `maxAliases=200`
     `maxLists` | how many mailing lists this admin can create. It's shared by all domains created/managed by this admin. | `maxLists=300`
+    `disableViewingMailLog` | Disallow this admin to view log of inbound/outbound mails. | `disableViewingMailLog=yes` (or `no`)
+    `disableManagingQuarantinedMails` | Disallow this admin to manage quarantined mails. | `disableManagingQuarantinedMails=yes` (or `no`)
 
     </div>
 
@@ -275,6 +277,8 @@ Notes:
     `maxUsers` | how many mail users this admin can create. It's shared by all domains created/managed by this admin. | `maxUsers=100`
     `maxAliases` | how many mail aliases this admin can create. It's shared by all domains created/managed by this admin. | `maxAliases=200`
     `maxLists` | how many mailing lists this admin can create. It's shared by all domains created/managed by this admin. | `maxLists=300`
+    `disableViewingMailLog` | Disallow this admin to view log of inbound/outbound mails. | `disableViewingMailLog=yes` (or `no`)
+    `disableManagingQuarantinedMails` | Disallow this admin to manage quarantined mails. | `disableManagingQuarantinedMails=yes` (or `no`)
 
     </div>
 
