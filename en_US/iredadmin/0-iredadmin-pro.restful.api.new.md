@@ -392,12 +392,34 @@ Notes:
 
     </div>
 
-### Mailing List {: .toggle }
+### Subscribable Mailing List {: .toggle }
 
 !!! attention
 
-    Mailing list is only available in OpenLDAP backend. For SQL backends,
-    please use mail alias account as mailing list.
+    This subscribable mailing list is available for both SQL and LDAP backends,
+    it requires iRedMail-0.9.8 and later releases (it's implemented with
+    [`mlmmj`](http://mlmmj.org) mailing list manager).
+
+!!! api "`GET`{: .get } `/api/ml/<mail>`{: .url } `Get profile of an existing mailing list account`{: .comment }"
+!!! api "`POST`{: .post } `/api/ml/<mail>`{: .url } `Create a new mailing list`{: .comment } `Parameters`{: .has_params }"
+
+!!! api "`DELETE`{: .delete } `/api/ml/<mail>`{: .url } `Delete an existing mailing list`{: .comment } `Parameters`{: .has_params }"
+
+    <div class="params">
+
+    Parameter | Summary | Sample Usage
+    --- |--- |---
+    `keep_archive` | Archive subscribable mailing list before deleting the account. | `keep_archive=no`
+
+    </div>
+
+!!! api "`PUT`{: .put } `/api/ml/<mail>`{: .url } `Update profile of an existing mailing list`{: .comment } `Parameters`{: .has_params }"
+
+### Mailing List (Unsubscribable, deprecated) {: .toggle }
+
+!!! attention
+
+    This unsubscribable mailing list is only available in __LDAP__ backend.
 
 !!! api "`GET`{: .get } `/api/maillist/<mail>`{: .url } `Get profile of an existing mailing list account`{: .comment }"
 !!! api "`POST`{: .post } `/api/maillist/<mail>`{: .url } `Create a new mailing list`{: .comment } `Parameters`{: .has_params }"

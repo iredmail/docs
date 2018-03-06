@@ -27,7 +27,8 @@
 <li><a href="#domain">Domain</a></li>
 <li><a href="#domain-admin">Domain Admin</a></li>
 <li><a href="#mail-user">Mail User</a></li>
-<li><a href="#mailing-list">Mailing List</a></li>
+<li><a href="#subscribable-mailing-list">Subscribable Mailing List</a></li>
+<li><a href="#mailing-list-unsubscribable-deprecated">Mailing List (Unsubscribable, deprecated)</a></li>
 <li><a href="#mail-alias">Mail Alias</a></li>
 <li><a href="#spam-policy">Spam Policy</a></li>
 <li><a href="#throttling">Throttling</a></li>
@@ -1087,11 +1088,49 @@ to be a domain admin.</p>
 </div>
 
 </div>
-<h3 class="toggle" id="mailing-list">Mailing List</h3>
+<h3 class="toggle" id="subscribable-mailing-list">Subscribable Mailing List</h3>
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>
-<p>Mailing list is only available in OpenLDAP backend. For SQL backends,
-please use mail alias account as mailing list.</p>
+<p>This subscribable mailing list is available for both SQL and LDAP backends,
+it requires iRedMail-0.9.8 and later releases (it's implemented with
+<a href="http://mlmmj.org"><code>mlmmj</code></a> mailing list manager).</p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code class="get">GET</code> <code class="url">/api/ml/&lt;mail&gt;</code> <code class="comment">Get profile of an existing mailing list account</code></p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code class="post">POST</code> <code class="url">/api/ml/&lt;mail&gt;</code> <code class="comment">Create a new mailing list</code> <code class="has_params">Parameters</code></p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code class="delete">DELETE</code> <code class="url">/api/ml/&lt;mail&gt;</code> <code class="comment">Delete an existing mailing list</code> <code class="has_params">Parameters</code></p>
+<div class="params">
+
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Summary</th>
+<th>Sample Usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>keep_archive</code></td>
+<td>Archive subscribable mailing list before deleting the account.</td>
+<td><code>keep_archive=no</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code class="put">PUT</code> <code class="url">/api/ml/&lt;mail&gt;</code> <code class="comment">Update profile of an existing mailing list</code> <code class="has_params">Parameters</code></p>
+</div>
+<h3 class="toggle" id="mailing-list-unsubscribable-deprecated">Mailing List (Unsubscribable, deprecated)</h3>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>This unsubscribable mailing list is only available in <strong>LDAP</strong> backend.</p>
 </div>
 <div class="admonition api">
 <p class="admonition-title"><code class="get">GET</code> <code class="url">/api/maillist/&lt;mail&gt;</code> <code class="comment">Get profile of an existing mailing list account</code></p>

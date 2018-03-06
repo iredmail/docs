@@ -300,7 +300,7 @@ iredmail_ldap_bind_password = 'xxxxxxxx'
 
 ```
 MLMMJ_SPOOL_DIR = '/var/vmail/mlmmj'
-MLMMJ_ARCHIVE_DIR = '/var/vmail/mlmmj-archive
+MLMMJ_ARCHIVE_DIR = '/var/vmail/mlmmj-archive'
 MLMMJ_DEFAULT_PROFILE_SETTINGS.update({'smtp_port': 10027})
 ```
 
