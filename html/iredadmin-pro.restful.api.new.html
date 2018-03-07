@@ -27,8 +27,8 @@
 <li><a href="#domain">Domain</a></li>
 <li><a href="#domain-admin">Domain Admin</a></li>
 <li><a href="#mail-user">Mail User</a></li>
-<li><a href="#subscribable-mailing-list">Subscribable Mailing List</a></li>
-<li><a href="#mailing-list-unsubscribable-deprecated">Mailing List (Unsubscribable, deprecated)</a></li>
+<li><a href="#new-subscribable-mailing-list">[NEW] Subscribable Mailing List</a></li>
+<li><a href="#mailing-list-unsubscribable">Mailing List (Unsubscribable)</a></li>
 <li><a href="#mail-alias">Mail Alias</a></li>
 <li><a href="#spam-policy">Spam Policy</a></li>
 <li><a href="#throttling">Throttling</a></li>
@@ -1088,18 +1088,234 @@ to be a domain admin.</p>
 </div>
 
 </div>
-<h3 class="toggle" id="subscribable-mailing-list">Subscribable Mailing List</h3>
+<h3 class="toggle" id="new-subscribable-mailing-list">[NEW] Subscribable Mailing List</h3>
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>
-<p>This subscribable mailing list is available for both SQL and LDAP backends,
-it requires iRedMail-0.9.8 and later releases (it's implemented with
-<a href="http://mlmmj.org"><code>mlmmj</code></a> mailing list manager).</p>
+<ul>
+<li>Subscribable mailing list requires iRedMail-0.9.8 and later releases,
+  it's implemented with <a href="http://mlmmj.org"><code>mlmmj</code></a> mailing list manager.</li>
+<li>It's available for both SQL and LDAP backends.</li>
+</ul>
 </div>
 <div class="admonition api">
 <p class="admonition-title"><code class="get">GET</code> <code class="url">/api/ml/&lt;mail&gt;</code> <code class="comment">Get profile of an existing mailing list account</code></p>
 </div>
 <div class="admonition api">
 <p class="admonition-title"><code class="post">POST</code> <code class="url">/api/ml/&lt;mail&gt;</code> <code class="comment">Create a new mailing list</code> <code class="has_params">Parameters</code></p>
+<div class="params">
+
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Sample Usage</th>
+<th>Default Value</th>
+<th>Comment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>name</code></td>
+<td><code>name=Sales Team</code></td>
+<td></td>
+<td>Display name of the mailing list.</td>
+</tr>
+<tr>
+<td><code>accountStatus</code></td>
+<td><code>accountStatus=active</code></td>
+<td></td>
+<td>Enable or disable account. Possible values: <code>active</code>, <code>disabled</code>.</td>
+</tr>
+<tr>
+<td><code>maxMailSize</code></td>
+<td><code>maxMailSize=1048576</code> (1M)</td>
+<td></td>
+<td>Max message size (in bytes).</td>
+</tr>
+<tr>
+<td><code>accessPolicy</code></td>
+<td><code>accessPolicy=membersonly</code></td>
+<td></td>
+<td>Defines who can send email to this mailing list. Possible values: <code>public</code>, <code>domain</code>, <code>subdomain</code>, <code>membersonly</code>, <code>moderatorsonly</code>.</td>
+</tr>
+<tr>
+<td><code>close_list</code></td>
+<td><code>close_list=yes</code></td>
+<td><code>no</code></td>
+<td>If set to <code>yes</code>, subscription and unsubscription via mail is disabled.</td>
+</tr>
+<tr>
+<td><code>only_moderator_can_post</code></td>
+<td><code>only_moderator_can_post=yes</code></td>
+<td><code>no</code></td>
+<td>If set to <code>yes</code>, only moderators are allowed to post to it. The check is made against the <code>From:</code> header.</td>
+</tr>
+<tr>
+<td><code>only_subscriber_can_post</code></td>
+<td><code>only_subscriber_can_post=yes</code></td>
+<td><code>yes</code></td>
+<td>If set to <code>yes</code>, only subscribed members are allowed to post to it. The check is made against the <code>From:</code> header.</td>
+</tr>
+<tr>
+<td><code>disable_subscription</code></td>
+<td><code>disable_subscription=yes</code></td>
+<td><code>no</code></td>
+<td>If set to <code>yes</code>, subscription is disabled, but unsubscription is still possible.</td>
+</tr>
+<tr>
+<td><code>disable_subscription_confirm</code></td>
+<td><code>disable_subscription_confirm=yes</code></td>
+<td></td>
+<td>If set to <code>yes</code>, mlmmj won't send mail to subscriber to ask for confirmation to subscribe to the list. <strong>WARNING</strong>: This should in principle never ever be used, but there are times on local lists etc. where this is useful. HANDLE WITH CARE!</td>
+</tr>
+<tr>
+<td><code>disable_digest_subscription</code></td>
+<td><code>disable_digest_subscription=yes</code></td>
+<td></td>
+<td>If set to <code>yes</code>, subscription to the digest version of the mailing list is disabled. Useful if you don't want to allow digests and notify users about it.</td>
+</tr>
+<tr>
+<td><code>disable_digest_text</code></td>
+<td><code>disable_digest_text=yes</code></td>
+<td></td>
+<td>If set to <code>yes</code>, digest mails won't have a text part with a thread summary.</td>
+</tr>
+<tr>
+<td><code>disable_nomail_subscription</code></td>
+<td><code>disable_nomail_subscription=yes</code></td>
+<td></td>
+<td>If set to <code>yes</code>, subscription to the 'nomail' version of the mailing list is disabled. Useful if you don't want to allow 'nomail' and notify users about it.</td>
+</tr>
+<tr>
+<td><code>moderated</code></td>
+<td><code>moderated=yes</code></td>
+<td><code>no</code></td>
+<td>If set to <code>yes</code>. Parameter <code>owner</code> <strong>or</strong> <code>moderators</code> is required to specify the moderators. Note: <code>moderators</code> has higher priority (means only addresses specified by <code>moderators</code> are act as moderators).</td>
+</tr>
+<tr>
+<td><code>moderate_non_subscriber_post</code></td>
+<td><code>moderate_non_subscriber_post=no</code></td>
+<td><code>no</code></td>
+<td>If set to <code>yes</code>, all postings from people who are not allowed to post to the list will be moderated. Default (set to <code>no</code>) is denied.</td>
+</tr>
+<tr>
+<td><code>disable_retrieving_old_posts</code></td>
+<td><code>disable_retrieving_old_posts=yes</code></td>
+<td></td>
+<td>If set to <code>yes</code>, retrieving old posts by sending email to address <code>&lt;listname&gt;+get-N@</code> is disabled.</td>
+</tr>
+<tr>
+<td><code>only_subscriber_can_get_old_posts</code></td>
+<td><code>only_subscriber_can_get_old_posts=no</code></td>
+<td><code>yes</code></td>
+<td>If set to <code>yes</code>, only subscribers can retrieve old posts by sending email to <code>LISTNAME+get-N@</code></td>
+</tr>
+<tr>
+<td><code>disable_retrieving_subscribers</code></td>
+<td><code>disable_retrieving_subscribers=yes</code></td>
+<td><code>yes</code></td>
+<td>If set to <code>yes</code>, (owner) retrieving subscribers by sending email to <code>LISTNAME+list@</code> is disabled. Note: only owner can send to such address.</td>
+</tr>
+<tr>
+<td><code>disable_send_copy_to_sender</code></td>
+<td><code>disable_send_copy_to_sender=yes</code></td>
+<td><code>yes</code></td>
+<td>If set to <code>yes</code>, senders won't receive copies of their own posts.</td>
+</tr>
+<tr>
+<td><code>notify_owner_when_sub_unsub</code></td>
+<td><code>notify_owner_when_sub_unsub=no</code></td>
+<td><code>no</code></td>
+<td>Notify the owner(s) when someone sub/unsubscribing to a mailing list.</td>
+</tr>
+<tr>
+<td><code>notify_sender_when_moderated</code></td>
+<td><code>notify_sender_when_moderated=no</code></td>
+<td><code>no</code></td>
+<td>Notify sender (based on the envelope from) when their post is being moderated.</td>
+</tr>
+<tr>
+<td><code>disable_archive</code></td>
+<td><code>disable_archive=yes</code></td>
+<td><code>no</code></td>
+<td>If set to <code>yes</code>, emails won't be saved in the archive but simply deleted.</td>
+</tr>
+<tr>
+<td><code>moderate_subscription</code></td>
+<td><code>moderate_subscription=yes</code></td>
+<td><code>no</code></td>
+<td>If set to <code>yes</code>, subscription will be moderated by owner(s) or moderators specified by <code>subscription_moderators</code>. Moderators specified by <code>subscription_moderators</code> has higher priority. If set to <code>no</code>, subscription is not moderated, also, all moderators which were specified by <code>subscription_moderators</code> will be removed.</td>
+</tr>
+<tr>
+<td><code>extra_addresses</code></td>
+<td><code>extra_addresses=extra1@domain.com,extra2@domain.com</code></td>
+<td></td>
+<td>Define extra addresses of the mailing list.</td>
+</tr>
+<tr>
+<td><code>subscription_moderators</code></td>
+<td><code>subscription_moderators=&lt;mail1&gt;,&lt;mail2&gt;,&lt;mail3&gt;</code></td>
+<td></td>
+<td>Specify subscription moderators. Note: if <code>subscription_moderators</code> is given, <code>moderate_subscription</code> will be set to <code>yes</code> automatically. If no valid moderators are given, subscription will be moderated by owner(s).</td>
+</tr>
+<tr>
+<td><code>owner</code></td>
+<td><code>owner=&lt;mail1&gt;,&lt;mail2&gt;,&lt;mail3&gt;</code></td>
+<td></td>
+<td>Define owner(s) of the mailing list. Owners will get mails sent to <code>&lt;listname&gt;+owner@&lt;domain.com&gt;</code>.</td>
+</tr>
+<tr>
+<td><code>moderators</code></td>
+<td><code>moderators=&lt;mail1&gt;,&lt;mail2&gt;</code></td>
+<td></td>
+<td>Specify moderators of the mailing list. Set to empty value will remove all existing moderators.</td>
+</tr>
+<tr>
+<td><code>maxmailsize</code></td>
+<td><code>maxmailsize=10240</code></td>
+<td></td>
+<td>Specify max mail message size in <strong>bytes</strong>.</td>
+</tr>
+<tr>
+<td><code>subject_prefix</code></td>
+<td><code>subject_prefix=[prefix text]</code></td>
+<td></td>
+<td>Add a prefix in the <code>Subject:</code> line of mails sent to the list. Set to empty value to remove it.</td>
+</tr>
+<tr>
+<td><code>custom_headers</code></td>
+<td><code>custom_headers=&lt;header1&gt;:&lt;value1&gt;\n&lt;header2&gt;:&lt;value2&gt;</code></td>
+<td></td>
+<td>Add custom headers to every mail coming through. Multiple headers must be separated by <code>\n</code>. Set empty value to remove it. Note: mlmmjadmin will always add <code>X-Mailing-List: &lt;mail&gt;</code> and <code>Reply-To: &lt;mail&gt;</code> for each mailing list account.</td>
+</tr>
+<tr>
+<td><code>remove_headers</code></td>
+<td><code>remove_headers=Message-ID,Received</code></td>
+<td></td>
+<td>Remove given mail headers. NOTE: either <code>header:</code> or <code>header</code> (without <code>:</code>) is ok. Note: mlmmjadmin will always remove <code>DKIM-Signature:</code> and <code>Authentication-Results:</code>.</td>
+</tr>
+<tr>
+<td><code>name</code></td>
+<td><code>name=Short description of list</code></td>
+<td></td>
+<td>Set a short description of the mailing list account.</td>
+</tr>
+<tr>
+<td><code>footer_text</code></td>
+<td><code>footer_text=footer in plain text</code></td>
+<td></td>
+<td>Append footer (in plain text format) to every email sent to the list.</td>
+</tr>
+<tr>
+<td><code>footer_html</code></td>
+<td><code>footer_text=&lt;p&gt;footer in html&lt;/p&gt;</code></td>
+<td></td>
+<td>Append footer (in html format) to every email sent to the list.</td>
+</tr>
+</tbody>
+</table>
+</div>
+
 </div>
 <div class="admonition api">
 <p class="admonition-title"><code class="delete">DELETE</code> <code class="url">/api/ml/&lt;mail&gt;</code> <code class="comment">Delete an existing mailing list</code> <code class="has_params">Parameters</code></p>
@@ -1116,7 +1332,7 @@ it requires iRedMail-0.9.8 and later releases (it's implemented with
 <tbody>
 <tr>
 <td><code>keep_archive</code></td>
-<td>Archive subscribable mailing list before deleting the account.</td>
+<td>Archive account settings and messages before deleting the mailing list.</td>
 <td><code>keep_archive=no</code></td>
 </tr>
 </tbody>
@@ -1126,11 +1342,229 @@ it requires iRedMail-0.9.8 and later releases (it's implemented with
 </div>
 <div class="admonition api">
 <p class="admonition-title"><code class="put">PUT</code> <code class="url">/api/ml/&lt;mail&gt;</code> <code class="comment">Update profile of an existing mailing list</code> <code class="has_params">Parameters</code></p>
+<div class="params">
+
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Sample Usage</th>
+<th>Default Value</th>
+<th>Comment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>name</code></td>
+<td><code>name=Sales Team</code></td>
+<td></td>
+<td>Display name of the mailing list.</td>
+</tr>
+<tr>
+<td><code>accountStatus</code></td>
+<td><code>accountStatus=active</code></td>
+<td></td>
+<td>Enable or disable account. Possible values: <code>active</code>, <code>disabled</code>.</td>
+</tr>
+<tr>
+<td><code>maxMailSize</code></td>
+<td><code>maxMailSize=1048576</code> (1M)</td>
+<td></td>
+<td>Max message size (in bytes).</td>
+</tr>
+<tr>
+<td><code>accessPolicy</code></td>
+<td><code>accessPolicy=membersonly</code></td>
+<td></td>
+<td>Defines who can send email to this mailing list. Possible values: <code>public</code>, <code>domain</code>, <code>subdomain</code>, <code>membersonly</code>, <code>moderatorsonly</code>.</td>
+</tr>
+<tr>
+<td><code>close_list</code></td>
+<td><code>close_list=yes</code></td>
+<td><code>no</code></td>
+<td>If set to <code>yes</code>, subscription and unsubscription via mail is disabled.</td>
+</tr>
+<tr>
+<td><code>only_moderator_can_post</code></td>
+<td><code>only_moderator_can_post=yes</code></td>
+<td><code>no</code></td>
+<td>If set to <code>yes</code>, only moderators are allowed to post to it. The check is made against the <code>From:</code> header.</td>
+</tr>
+<tr>
+<td><code>only_subscriber_can_post</code></td>
+<td><code>only_subscriber_can_post=yes</code></td>
+<td><code>yes</code></td>
+<td>If set to <code>yes</code>, only subscribed members are allowed to post to it. The check is made against the <code>From:</code> header.</td>
+</tr>
+<tr>
+<td><code>disable_subscription</code></td>
+<td><code>disable_subscription=yes</code></td>
+<td><code>no</code></td>
+<td>If set to <code>yes</code>, subscription is disabled, but unsubscription is still possible.</td>
+</tr>
+<tr>
+<td><code>disable_subscription_confirm</code></td>
+<td><code>disable_subscription_confirm=yes</code></td>
+<td></td>
+<td>If set to <code>yes</code>, mlmmj won't send mail to subscriber to ask for confirmation to subscribe to the list. <strong>WARNING</strong>: This should in principle never ever be used, but there are times on local lists etc. where this is useful. HANDLE WITH CARE!</td>
+</tr>
+<tr>
+<td><code>disable_digest_subscription</code></td>
+<td><code>disable_digest_subscription=yes</code></td>
+<td></td>
+<td>If set to <code>yes</code>, subscription to the digest version of the mailing list is disabled. Useful if you don't want to allow digests and notify users about it.</td>
+</tr>
+<tr>
+<td><code>disable_digest_text</code></td>
+<td><code>disable_digest_text=yes</code></td>
+<td></td>
+<td>If set to <code>yes</code>, digest mails won't have a text part with a thread summary.</td>
+</tr>
+<tr>
+<td><code>disable_nomail_subscription</code></td>
+<td><code>disable_nomail_subscription=yes</code></td>
+<td></td>
+<td>If set to <code>yes</code>, subscription to the 'nomail' version of the mailing list is disabled. Useful if you don't want to allow 'nomail' and notify users about it.</td>
+</tr>
+<tr>
+<td><code>moderated</code></td>
+<td><code>moderated=yes</code></td>
+<td><code>no</code></td>
+<td>If set to <code>yes</code>. Parameter <code>owner</code> <strong>or</strong> <code>moderators</code> is required to specify the moderators. Note: <code>moderators</code> has higher priority (means only addresses specified by <code>moderators</code> are act as moderators).</td>
+</tr>
+<tr>
+<td><code>moderate_non_subscriber_post</code></td>
+<td><code>moderate_non_subscriber_post=no</code></td>
+<td><code>no</code></td>
+<td>If set to <code>yes</code>, all postings from people who are not allowed to post to the list will be moderated. Default (set to <code>no</code>) is denied.</td>
+</tr>
+<tr>
+<td><code>disable_retrieving_old_posts</code></td>
+<td><code>disable_retrieving_old_posts=yes</code></td>
+<td></td>
+<td>If set to <code>yes</code>, retrieving old posts by sending email to address <code>&lt;listname&gt;+get-N@</code> is disabled.</td>
+</tr>
+<tr>
+<td><code>only_subscriber_can_get_old_posts</code></td>
+<td><code>only_subscriber_can_get_old_posts=no</code></td>
+<td><code>yes</code></td>
+<td>If set to <code>yes</code>, only subscribers can retrieve old posts by sending email to <code>LISTNAME+get-N@</code></td>
+</tr>
+<tr>
+<td><code>disable_retrieving_subscribers</code></td>
+<td><code>disable_retrieving_subscribers=yes</code></td>
+<td><code>yes</code></td>
+<td>If set to <code>yes</code>, (owner) retrieving subscribers by sending email to <code>LISTNAME+list@</code> is disabled. Note: only owner can send to such address.</td>
+</tr>
+<tr>
+<td><code>disable_send_copy_to_sender</code></td>
+<td><code>disable_send_copy_to_sender=yes</code></td>
+<td><code>yes</code></td>
+<td>If set to <code>yes</code>, senders won't receive copies of their own posts.</td>
+</tr>
+<tr>
+<td><code>notify_owner_when_sub_unsub</code></td>
+<td><code>notify_owner_when_sub_unsub=no</code></td>
+<td><code>no</code></td>
+<td>Notify the owner(s) when someone sub/unsubscribing to a mailing list.</td>
+</tr>
+<tr>
+<td><code>notify_sender_when_moderated</code></td>
+<td><code>notify_sender_when_moderated=no</code></td>
+<td><code>no</code></td>
+<td>Notify sender (based on the envelope from) when their post is being moderated.</td>
+</tr>
+<tr>
+<td><code>disable_archive</code></td>
+<td><code>disable_archive=yes</code></td>
+<td><code>no</code></td>
+<td>If set to <code>yes</code>, emails won't be saved in the archive but simply deleted.</td>
+</tr>
+<tr>
+<td><code>moderate_subscription</code></td>
+<td><code>moderate_subscription=yes</code></td>
+<td><code>no</code></td>
+<td>If set to <code>yes</code>, subscription will be moderated by owner(s) or moderators specified by <code>subscription_moderators</code>. Moderators specified by <code>subscription_moderators</code> has higher priority. If set to <code>no</code>, subscription is not moderated, also, all moderators which were specified by <code>subscription_moderators</code> will be removed.</td>
+</tr>
+<tr>
+<td><code>extra_addresses</code></td>
+<td><code>extra_addresses=extra1@domain.com,extra2@domain.com</code></td>
+<td></td>
+<td>Define extra addresses of the mailing list.</td>
+</tr>
+<tr>
+<td><code>subscription_moderators</code></td>
+<td><code>subscription_moderators=&lt;mail1&gt;,&lt;mail2&gt;,&lt;mail3&gt;</code></td>
+<td></td>
+<td>Specify subscription moderators. Note: if <code>subscription_moderators</code> is given, <code>moderate_subscription</code> will be set to <code>yes</code> automatically. If no valid moderators are given, subscription will be moderated by owner(s).</td>
+</tr>
+<tr>
+<td><code>owner</code></td>
+<td><code>owner=&lt;mail1&gt;,&lt;mail2&gt;,&lt;mail3&gt;</code></td>
+<td></td>
+<td>Define owner(s) of the mailing list. Owners will get mails sent to <code>&lt;listname&gt;+owner@&lt;domain.com&gt;</code>.</td>
+</tr>
+<tr>
+<td><code>moderators</code></td>
+<td><code>moderators=&lt;mail1&gt;,&lt;mail2&gt;</code></td>
+<td></td>
+<td>Specify moderators of the mailing list. Set to empty value will remove all existing moderators.</td>
+</tr>
+<tr>
+<td><code>maxmailsize</code></td>
+<td><code>maxmailsize=10240</code></td>
+<td></td>
+<td>Specify max mail message size in <strong>bytes</strong>.</td>
+</tr>
+<tr>
+<td><code>subject_prefix</code></td>
+<td><code>subject_prefix=[prefix text]</code></td>
+<td></td>
+<td>Add a prefix in the <code>Subject:</code> line of mails sent to the list. Set to empty value to remove it.</td>
+</tr>
+<tr>
+<td><code>custom_headers</code></td>
+<td><code>custom_headers=&lt;header1&gt;:&lt;value1&gt;\n&lt;header2&gt;:&lt;value2&gt;</code></td>
+<td></td>
+<td>Add custom headers to every mail coming through. Multiple headers must be separated by <code>\n</code>. Set empty value to remove it. Note: mlmmjadmin will always add <code>X-Mailing-List: &lt;mail&gt;</code> and <code>Reply-To: &lt;mail&gt;</code> for each mailing list account.</td>
+</tr>
+<tr>
+<td><code>remove_headers</code></td>
+<td><code>remove_headers=Message-ID,Received</code></td>
+<td></td>
+<td>Remove given mail headers. NOTE: either <code>header:</code> or <code>header</code> (without <code>:</code>) is ok. Note: mlmmjadmin will always remove <code>DKIM-Signature:</code> and <code>Authentication-Results:</code>.</td>
+</tr>
+<tr>
+<td><code>name</code></td>
+<td><code>name=Short description of list</code></td>
+<td></td>
+<td>Set a short description of the mailing list account.</td>
+</tr>
+<tr>
+<td><code>footer_text</code></td>
+<td><code>footer_text=footer in plain text</code></td>
+<td></td>
+<td>Append footer (in plain text format) to every email sent to the list.</td>
+</tr>
+<tr>
+<td><code>footer_html</code></td>
+<td><code>footer_text=&lt;p&gt;footer in html&lt;/p&gt;</code></td>
+<td></td>
+<td>Append footer (in html format) to every email sent to the list.</td>
+</tr>
+</tbody>
+</table>
 </div>
-<h3 class="toggle" id="mailing-list-unsubscribable-deprecated">Mailing List (Unsubscribable, deprecated)</h3>
+
+</div>
+<h3 class="toggle" id="mailing-list-unsubscribable">Mailing List (Unsubscribable)</h3>
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>
-<p>This unsubscribable mailing list is only available in <strong>LDAP</strong> backend.</p>
+<ul>
+<li>This unsubscribable mailing list is only available in <strong>LDAP</strong> backend.</li>
+<li>It's recommended to use the Subscribable Mailing List instead, you're
+  free to disable public subscribable.</li>
+</ul>
 </div>
 <div class="admonition api">
 <p class="admonition-title"><code class="get">GET</code> <code class="url">/api/maillist/&lt;mail&gt;</code> <code class="comment">Get profile of an existing mailing list account</code></p>
@@ -1696,11 +2130,36 @@ it requires iRedMail-0.9.8 and later releases (it's implemented with
 <h2 id="changelog">ChangeLog</h2>
 <h3 id="iredadmin-pro-sql-290-iredadmin-pro-ldap-31">iRedAdmin-Pro-SQL-2.9.0, iRedAdmin-Pro-LDAP-3.1</h3>
 <ul>
-<li>Parameter names changed:<ul>
-<li>While updating domain profile (<code>PUT /api/domain/&lt;domain&gt;</code>):<ul>
+<li>New: subscribable mailing list.</li>
+<li>Show allocated domain quota while getting domain profile
+  (<code>GET /api/domain/&lt;domain&gt;</code>).</li>
+<li>Able to manage alias domains while updating domain profile
+  (<code>GET /api/domain/&lt;domain&gt;</code>):<ul>
+<li><code>aliasDomains</code>: reset all alias domains</li>
+<li><code>addAliasDomain</code>: add new alias domains</li>
+<li><code>removeAliasDomain</code>: remove existing alias domains</li>
+</ul>
+</li>
+<li>
+<p>Parameter names changed while updating domain profile
+  (<code>PUT /api/domain/&lt;domain&gt;</code>):</p>
+<ul>
 <li><code>enableService</code> was renamed to <code>addService</code></li>
 <li><code>disableService</code> was renamed to <code>removeService</code></li>
 <li><code>removeAllServices</code> was renamed to <code>services</code></li>
+</ul>
+</li>
+<li>
+<p>iRedAdmin-Pro-LDAP-3.1:</p>
+<ul>
+<li>New user profile parameters (<code>PUT /api/user/&lt;mail&gt;</code>):<ul>
+<li><code>gn</code> - given name</li>
+<li><code>sn</code> - surname</li>
+</ul>
+</li>
+<li>Fixed:<ul>
+<li>Not correctly detect existing mail accounts while updating
+  per-user mail forwarding addresses.</li>
 </ul>
 </li>
 </ul>

@@ -392,16 +392,56 @@ Notes:
 
     </div>
 
-### Subscribable Mailing List {: .toggle }
+### [NEW] Subscribable Mailing List {: .toggle }
 
 !!! attention
 
-    This subscribable mailing list is available for both SQL and LDAP backends,
-    it requires iRedMail-0.9.8 and later releases (it's implemented with
-    [`mlmmj`](http://mlmmj.org) mailing list manager).
+    * Subscribable mailing list requires iRedMail-0.9.8 and later releases,
+      it's implemented with [`mlmmj`](http://mlmmj.org) mailing list manager.
+    * It's available for both SQL and LDAP backends.
 
 !!! api "`GET`{: .get } `/api/ml/<mail>`{: .url } `Get profile of an existing mailing list account`{: .comment }"
 !!! api "`POST`{: .post } `/api/ml/<mail>`{: .url } `Create a new mailing list`{: .comment } `Parameters`{: .has_params }"
+
+    <div class="params">
+
+    Parameter | Sample Usage | Default Value | Comment
+    --- |--- |---|---
+    `name` | `name=Sales Team` | | Display name of the mailing list.
+    `accountStatus` | `accountStatus=active` | | Enable or disable account. Possible values: `active`, `disabled`.
+    `maxMailSize` | `maxMailSize=1048576` (1M) | | Max message size (in bytes).
+    `accessPolicy` | `accessPolicy=membersonly` | | Defines who can send email to this mailing list. Possible values: `public`, `domain`, `subdomain`, `membersonly`, `moderatorsonly`.
+    `close_list` | `close_list=yes` | `no` | If set to `yes`, subscription and unsubscription via mail is disabled.
+    `only_moderator_can_post` | `only_moderator_can_post=yes` | `no` | If set to `yes`, only moderators are allowed to post to it. The check is made against the `From:` header.
+    `only_subscriber_can_post` | `only_subscriber_can_post=yes` | `yes` | If set to `yes`, only subscribed members are allowed to post to it. The check is made against the `From:` header.
+    `disable_subscription` | `disable_subscription=yes` | `no` | If set to `yes`, subscription is disabled, but unsubscription is still possible.
+    `disable_subscription_confirm` | `disable_subscription_confirm=yes` | | If set to `yes`, mlmmj won't send mail to subscriber to ask for confirmation to subscribe to the list. __WARNING__: This should in principle never ever be used, but there are times on local lists etc. where this is useful. HANDLE WITH CARE!
+    `disable_digest_subscription` | `disable_digest_subscription=yes` | | If set to `yes`, subscription to the digest version of the mailing list is disabled. Useful if you don't want to allow digests and notify users about it.
+    `disable_digest_text` | `disable_digest_text=yes` | | If set to `yes`, digest mails won't have a text part with a thread summary.
+    `disable_nomail_subscription` | `disable_nomail_subscription=yes` | | If set to `yes`, subscription to the 'nomail' version of the mailing list is disabled. Useful if you don't want to allow 'nomail' and notify users about it.
+    `moderated` | `moderated=yes` | `no` | If set to `yes`. Parameter `owner` __or__ `moderators` is required to specify the moderators. Note: `moderators` has higher priority (means only addresses specified by `moderators` are act as moderators).
+    `moderate_non_subscriber_post` | `moderate_non_subscriber_post=no` | `no` | If set to `yes`, all postings from people who are not allowed to post to the list will be moderated. Default (set to `no`) is denied.
+    `disable_retrieving_old_posts` | `disable_retrieving_old_posts=yes` | | If set to `yes`, retrieving old posts by sending email to address `<listname>+get-N@` is disabled.
+    `only_subscriber_can_get_old_posts` | `only_subscriber_can_get_old_posts=no` | `yes` | If set to `yes`, only subscribers can retrieve old posts by sending email to `LISTNAME+get-N@`
+    `disable_retrieving_subscribers` | `disable_retrieving_subscribers=yes` | `yes` | If set to `yes`, (owner) retrieving subscribers by sending email to `LISTNAME+list@` is disabled. Note: only owner can send to such address.
+    `disable_send_copy_to_sender` | `disable_send_copy_to_sender=yes` | `yes` | If set to `yes`, senders won't receive copies of their own posts.
+    `notify_owner_when_sub_unsub` | `notify_owner_when_sub_unsub=no` | `no` | Notify the owner(s) when someone sub/unsubscribing to a mailing list.
+    `notify_sender_when_moderated` | `notify_sender_when_moderated=no` | `no` | Notify sender (based on the envelope from) when their post is being moderated.
+    `disable_archive` | `disable_archive=yes` | `no` | If set to `yes`, emails won't be saved in the archive but simply deleted.
+    `moderate_subscription` | `moderate_subscription=yes` | `no` | If set to `yes`, subscription will be moderated by owner(s) or moderators specified by `subscription_moderators`. Moderators specified by `subscription_moderators` has higher priority. If set to `no`, subscription is not moderated, also, all moderators which were specified by `subscription_moderators` will be removed.
+    `extra_addresses` | `extra_addresses=extra1@domain.com,extra2@domain.com` | | Define extra addresses of the mailing list.
+    `subscription_moderators` | `subscription_moderators=<mail1>,<mail2>,<mail3>` | | Specify subscription moderators. Note: if `subscription_moderators` is given, `moderate_subscription` will be set to `yes` automatically. If no valid moderators are given, subscription will be moderated by owner(s).
+    `owner` | `owner=<mail1>,<mail2>,<mail3>` | | Define owner(s) of the mailing list. Owners will get mails sent to `<listname>+owner@<domain.com>`.
+    `moderators` | `moderators=<mail1>,<mail2>` | | Specify moderators of the mailing list. Set to empty value will remove all existing moderators.
+    `maxmailsize` | `maxmailsize=10240` | | Specify max mail message size in __bytes__.
+    `subject_prefix` | `subject_prefix=[prefix text]` | | Add a prefix in the `Subject:` line of mails sent to the list. Set to empty value to remove it.
+    `custom_headers` | `custom_headers=<header1>:<value1>\n<header2>:<value2>` | | Add custom headers to every mail coming through. Multiple headers must be separated by `\n`. Set empty value to remove it. Note: mlmmjadmin will always add `X-Mailing-List: <mail>` and `Reply-To: <mail>` for each mailing list account.
+    `remove_headers` | `remove_headers=Message-ID,Received` | | Remove given mail headers. NOTE: either `header:` or `header` (without `:`) is ok. Note: mlmmjadmin will always remove `DKIM-Signature:` and `Authentication-Results:`.
+    `name` | `name=Short description of list` | | Set a short description of the mailing list account.
+    `footer_text` | `footer_text=footer in plain text` | | Append footer (in plain text format) to every email sent to the list.
+    `footer_html` | `footer_text=<p>footer in html</p>` | | Append footer (in html format) to every email sent to the list.
+
+    </div>
 
 !!! api "`DELETE`{: .delete } `/api/ml/<mail>`{: .url } `Delete an existing mailing list`{: .comment } `Parameters`{: .has_params }"
 
@@ -409,17 +449,59 @@ Notes:
 
     Parameter | Summary | Sample Usage
     --- |--- |---
-    `keep_archive` | Archive subscribable mailing list before deleting the account. | `keep_archive=no`
+    `keep_archive` | Archive account settings and messages before deleting the mailing list. | `keep_archive=no`
 
     </div>
 
 !!! api "`PUT`{: .put } `/api/ml/<mail>`{: .url } `Update profile of an existing mailing list`{: .comment } `Parameters`{: .has_params }"
 
-### Mailing List (Unsubscribable, deprecated) {: .toggle }
+    <div class="params">
+
+    Parameter | Sample Usage | Default Value | Comment
+    --- |--- |---|---
+    `name` | `name=Sales Team` | | Display name of the mailing list.
+    `accountStatus` | `accountStatus=active` | | Enable or disable account. Possible values: `active`, `disabled`.
+    `maxMailSize` | `maxMailSize=1048576` (1M) | | Max message size (in bytes).
+    `accessPolicy` | `accessPolicy=membersonly` | | Defines who can send email to this mailing list. Possible values: `public`, `domain`, `subdomain`, `membersonly`, `moderatorsonly`.
+    `close_list` | `close_list=yes` | `no` | If set to `yes`, subscription and unsubscription via mail is disabled.
+    `only_moderator_can_post` | `only_moderator_can_post=yes` | `no` | If set to `yes`, only moderators are allowed to post to it. The check is made against the `From:` header.
+    `only_subscriber_can_post` | `only_subscriber_can_post=yes` | `yes` | If set to `yes`, only subscribed members are allowed to post to it. The check is made against the `From:` header.
+    `disable_subscription` | `disable_subscription=yes` | `no` | If set to `yes`, subscription is disabled, but unsubscription is still possible.
+    `disable_subscription_confirm` | `disable_subscription_confirm=yes` | | If set to `yes`, mlmmj won't send mail to subscriber to ask for confirmation to subscribe to the list. __WARNING__: This should in principle never ever be used, but there are times on local lists etc. where this is useful. HANDLE WITH CARE!
+    `disable_digest_subscription` | `disable_digest_subscription=yes` | | If set to `yes`, subscription to the digest version of the mailing list is disabled. Useful if you don't want to allow digests and notify users about it.
+    `disable_digest_text` | `disable_digest_text=yes` | | If set to `yes`, digest mails won't have a text part with a thread summary.
+    `disable_nomail_subscription` | `disable_nomail_subscription=yes` | | If set to `yes`, subscription to the 'nomail' version of the mailing list is disabled. Useful if you don't want to allow 'nomail' and notify users about it.
+    `moderated` | `moderated=yes` | `no` | If set to `yes`. Parameter `owner` __or__ `moderators` is required to specify the moderators. Note: `moderators` has higher priority (means only addresses specified by `moderators` are act as moderators).
+    `moderate_non_subscriber_post` | `moderate_non_subscriber_post=no` | `no` | If set to `yes`, all postings from people who are not allowed to post to the list will be moderated. Default (set to `no`) is denied.
+    `disable_retrieving_old_posts` | `disable_retrieving_old_posts=yes` | | If set to `yes`, retrieving old posts by sending email to address `<listname>+get-N@` is disabled.
+    `only_subscriber_can_get_old_posts` | `only_subscriber_can_get_old_posts=no` | `yes` | If set to `yes`, only subscribers can retrieve old posts by sending email to `LISTNAME+get-N@`
+    `disable_retrieving_subscribers` | `disable_retrieving_subscribers=yes` | `yes` | If set to `yes`, (owner) retrieving subscribers by sending email to `LISTNAME+list@` is disabled. Note: only owner can send to such address.
+    `disable_send_copy_to_sender` | `disable_send_copy_to_sender=yes` | `yes` | If set to `yes`, senders won't receive copies of their own posts.
+    `notify_owner_when_sub_unsub` | `notify_owner_when_sub_unsub=no` | `no` | Notify the owner(s) when someone sub/unsubscribing to a mailing list.
+    `notify_sender_when_moderated` | `notify_sender_when_moderated=no` | `no` | Notify sender (based on the envelope from) when their post is being moderated.
+    `disable_archive` | `disable_archive=yes` | `no` | If set to `yes`, emails won't be saved in the archive but simply deleted.
+    `moderate_subscription` | `moderate_subscription=yes` | `no` | If set to `yes`, subscription will be moderated by owner(s) or moderators specified by `subscription_moderators`. Moderators specified by `subscription_moderators` has higher priority. If set to `no`, subscription is not moderated, also, all moderators which were specified by `subscription_moderators` will be removed.
+    `extra_addresses` | `extra_addresses=extra1@domain.com,extra2@domain.com` | | Define extra addresses of the mailing list.
+    `subscription_moderators` | `subscription_moderators=<mail1>,<mail2>,<mail3>` | | Specify subscription moderators. Note: if `subscription_moderators` is given, `moderate_subscription` will be set to `yes` automatically. If no valid moderators are given, subscription will be moderated by owner(s).
+    `owner` | `owner=<mail1>,<mail2>,<mail3>` | | Define owner(s) of the mailing list. Owners will get mails sent to `<listname>+owner@<domain.com>`.
+    `moderators` | `moderators=<mail1>,<mail2>` | | Specify moderators of the mailing list. Set to empty value will remove all existing moderators.
+    `maxmailsize` | `maxmailsize=10240` | | Specify max mail message size in __bytes__.
+    `subject_prefix` | `subject_prefix=[prefix text]` | | Add a prefix in the `Subject:` line of mails sent to the list. Set to empty value to remove it.
+    `custom_headers` | `custom_headers=<header1>:<value1>\n<header2>:<value2>` | | Add custom headers to every mail coming through. Multiple headers must be separated by `\n`. Set empty value to remove it. Note: mlmmjadmin will always add `X-Mailing-List: <mail>` and `Reply-To: <mail>` for each mailing list account.
+    `remove_headers` | `remove_headers=Message-ID,Received` | | Remove given mail headers. NOTE: either `header:` or `header` (without `:`) is ok. Note: mlmmjadmin will always remove `DKIM-Signature:` and `Authentication-Results:`.
+    `name` | `name=Short description of list` | | Set a short description of the mailing list account.
+    `footer_text` | `footer_text=footer in plain text` | | Append footer (in plain text format) to every email sent to the list.
+    `footer_html` | `footer_text=<p>footer in html</p>` | | Append footer (in html format) to every email sent to the list.
+
+    </div>
+
+### Mailing List (Unsubscribable) {: .toggle }
 
 !!! attention
 
-    This unsubscribable mailing list is only available in __LDAP__ backend.
+    * This unsubscribable mailing list is only available in __LDAP__ backend.
+    * It's recommended to use the Subscribable Mailing List instead, you're
+      free to disable public subscribable.
 
 !!! api "`GET`{: .get } `/api/maillist/<mail>`{: .url } `Get profile of an existing mailing list account`{: .comment }"
 !!! api "`POST`{: .post } `/api/maillist/<mail>`{: .url } `Create a new mailing list`{: .comment } `Parameters`{: .has_params }"
@@ -648,11 +730,27 @@ Notes:
 
 ### iRedAdmin-Pro-SQL-2.9.0, iRedAdmin-Pro-LDAP-3.1
 
-* Parameter names changed:
-    * While updating domain profile (`PUT /api/domain/<domain>`):
-        * `enableService` was renamed to `addService`
-        * `disableService` was renamed to `removeService`
-        * `removeAllServices` was renamed to `services`
+* New: subscribable mailing list.
+* Show allocated domain quota while getting domain profile
+  (`GET /api/domain/<domain>`).
+* Able to manage alias domains while updating domain profile
+  (`GET /api/domain/<domain>`):
+    * `aliasDomains`: reset all alias domains
+    * `addAliasDomain`: add new alias domains
+    * `removeAliasDomain`: remove existing alias domains
+* Parameter names changed while updating domain profile
+  (`PUT /api/domain/<domain>`):
+    * `enableService` was renamed to `addService`
+    * `disableService` was renamed to `removeService`
+    * `removeAllServices` was renamed to `services`
+
+* iRedAdmin-Pro-LDAP-3.1:
+    * New user profile parameters (`PUT /api/user/<mail>`):
+        * `gn` - given name
+        * `sn` - surname
+    * Fixed:
+        - Not correctly detect existing mail accounts while updating
+          per-user mail forwarding addresses.
 
 ### iRedAdmin-Pro-SQL-2.8.0, iRedAdmin-Pro-LDAP-3.0
 
