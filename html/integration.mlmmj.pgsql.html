@@ -108,6 +108,7 @@ be stored under its home directory <code>/var/vmail/mlmmj</code>:</p>
 useradd -m -g mlmmj -d /var/vmail/mlmmj -s /sbin/nologin mlmmj
 chown -R mlmmj:mlmmj /var/vmail/mlmmj
 chmod -R 0700 /var/vmail/mlmmj
+chmod 0755 /var/vmail           # Make sure this directory is accessible by other users
 </code></pre>
 
 <p>On FreeBSD:</p>
@@ -115,6 +116,7 @@ chmod -R 0700 /var/vmail/mlmmj
 pw useradd -m -g mlmmj -s /sbin/nologin -d /var/vmail/mlmmj mlmmj
 chown -R mlmmj:mlmmj /var/vmail/mlmmj
 chmod -R 0700 /var/vmail/mlmmj
+chmod 0755 /var/vmail           # Make sure this directory is accessible by other users
 </code></pre>
 
 <h2 id="update-sql-tables-in-vmail-database">Update SQL tables in <code>vmail</code> database</h2>

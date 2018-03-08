@@ -87,6 +87,7 @@ groupadd mlmmj
 useradd -m -g mlmmj -d /var/vmail/mlmmj -s /sbin/nologin mlmmj
 chown -R mlmmj:mlmmj /var/vmail/mlmmj
 chmod -R 0700 /var/vmail/mlmmj
+chmod 0755 /var/vmail           # Make sure this directory is accessible by other users
 ```
 
 On FreeBSD:
@@ -96,6 +97,7 @@ pw groupadd mlmmj
 pw useradd -m -g mlmmj -s /sbin/nologin -d /var/vmail/mlmmj mlmmj
 chown -R mlmmj:mlmmj /var/vmail/mlmmj
 chmod -R 0700 /var/vmail/mlmmj
+chmod 0755 /var/vmail           # Make sure this directory is accessible by other users
 ```
 
 ## Update SQL tables in `vmail` database
