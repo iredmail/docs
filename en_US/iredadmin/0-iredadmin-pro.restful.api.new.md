@@ -411,6 +411,8 @@ Notes:
     `accountStatus` | `accountStatus=active` | | Enable or disable account. Possible values: `active`, `disabled`.
     `maxMailSize` | `maxMailSize=1048576` (1M) | | Max message size (in bytes).
     `accessPolicy` | `accessPolicy=membersonly` | | Defines who can send email to this mailing list. Possible values: `public`, `domain`, `subdomain`, `membersonly`, `moderatorsonly`.
+    `is_newsletter` | `is_newsletter=yes` | `no` | Mark this mailing list as a newsletter, to enable subscription/unsubscription from web site.
+    `newsletter_description` | `newsletter_description=short description text` | | The short description text displayed on newsletter subscription page.
     `close_list` | `close_list=yes` | `no` | If set to `yes`, subscription and unsubscription via mail is disabled.
     `only_moderator_can_post` | `only_moderator_can_post=yes` | `no` | If set to `yes`, only moderators are allowed to post to it. The check is made against the `From:` header.
     `only_subscriber_can_post` | `only_subscriber_can_post=yes` | `yes` | If set to `yes`, only subscribed members are allowed to post to it. The check is made against the `From:` header.
@@ -463,6 +465,8 @@ Notes:
     `accountStatus` | `accountStatus=active` | | Enable or disable account. Possible values: `active`, `disabled`.
     `maxMailSize` | `maxMailSize=1048576` (1M) | | Max message size (in bytes).
     `accessPolicy` | `accessPolicy=membersonly` | | Defines who can send email to this mailing list. Possible values: `public`, `domain`, `subdomain`, `membersonly`, `moderatorsonly`.
+    `is_newsletter` | `is_newsletter=yes` | `no` | Mark this mailing list as a newsletter, to enable subscription/unsubscription from web site.
+    `newsletter_description` | `newsletter_description=short description text` | | The short description text displayed on newsletter subscription page.
     `close_list` | `close_list=yes` | `no` | If set to `yes`, subscription and unsubscription via mail is disabled.
     `only_moderator_can_post` | `only_moderator_can_post=yes` | `no` | If set to `yes`, only moderators are allowed to post to it. The check is made against the `From:` header.
     `only_subscriber_can_post` | `only_subscriber_can_post=yes` | `yes` | If set to `yes`, only subscribed members are allowed to post to it. The check is made against the `From:` header.
