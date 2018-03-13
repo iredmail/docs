@@ -1,4 +1,4 @@
-# Why no Sieve (Vacation, Forwarding) support in SOGo Groupware
+# Why no sieve support (Vacation, Forwarding) in SOGo Groupware
 
 The situation:
 
