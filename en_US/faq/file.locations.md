@@ -284,6 +284,14 @@ Log file: Fail2ban logs to default syslog log file.
     * on FreeBSD: `/usr/local/etc/sogo/sogo.conf`
 * Log file is `/var/log/sogo/sogo.log`.
 
+## mlmmjadmin {: #mlmmjadmin }
+
+* Config file: `/opt/mlmmjadmin/settings.py` (same on all Linux/BSD distributions)
+* Log file: `/var/log/mlmmjadmin/mlmmjadmin.log`
+* Data directories:
+    * All active mailing lists: `/var/vmail/mlmmj`. Including archive.
+    * Removed and archived mailing lists: `/var/vmail/mlmmj-archive`
+
 ## iRedAPD {: #iredapd }
 
 * Main config file is `/opt/iredapd/settings.py` on all Linux/BSD distributions.
@@ -335,4 +343,3 @@ Init script:
 * Debian/Ubuntu: `/etc/init.d/postfix-cluebringer`
 * FreeBSD: `/usr/local/etc/rc.d/policyd2`
 * OpenBSD: N/A. we don't have Cluebringer installed on OpenBSD.
-
