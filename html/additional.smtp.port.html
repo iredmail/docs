@@ -45,17 +45,22 @@ in <code>/etc/postfix/master.cf</code> (on Linux/OpenBSD) or
 <pre><code>2525      inet  n       -       -       -       -       smtpd
   -o smtpd_sasl_auth_enable=yes
   -o smtpd_sasl_security_options=noanonymous
+  -o smtpd_sender_restrictions=permit_mynetworks,permit_sasl_authenticated,reject
 </code></pre>
 
-<p><code>2525</code> is the new port number for smtp service, you're free to change it to
-your favourite port number.</p>
+<ul>
+<li><code>2525</code> is the new port number for smtp service, you're free to change it to
+  your favourite port number.</li>
+<li>Restriction rule <code>permit_mynetworks</code> will allow clients listed in Postfix
+  parameter <code>mynetworks</code> to send email <strong>WITHOUT</strong> smtp auth.</li>
+</ul>
 <p>Restarting Postfix service is required. After restarting, you can check whether
 it's listening on this new port:</p>
 <pre><code>netstat -ntlp | grep 2525
 </code></pre>
 
-<p>Now it's turn to update your network devices to send email through this port
-number, without STARTTLS and SSL.</p>
+<p>Now update your network devices to send email through this port number,
+without STARTTLS and SSL.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>SMTP authentication is still required to send email.</p>

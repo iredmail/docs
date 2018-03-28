@@ -95,7 +95,7 @@ installed with a malware Windows XP ISO image.
 
 Steps to create this new Fail2ban jail:
 
-* Create new file `/etc/fail2ban/filter.d/postfix-pregreet.conf` with content
+* Create new file `/etc/fail2ban/filter.d/postfix-pregreet.iredmail.conf` with content
   below:
 
 ```
@@ -132,7 +132,7 @@ enabled     = true
 filter      = postfix-pregreet.iredmail
 logpath     = /var/log/maillog
 maxretry    = 1
-action      = iptables-multiports[name=postfix, port="25", protocol=tcp]
+action      = iptables-multiport[name=postfix, port="25", protocol=tcp]
 ```
 
 * Restarting Fail2ban service is required.

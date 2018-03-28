@@ -140,7 +140,7 @@ it's very possible that they're running an illegal Windows XP system which were
 installed with a malware Windows XP ISO image.</p>
 <p>Steps to create this new Fail2ban jail:</p>
 <ul>
-<li>Create new file <code>/etc/fail2ban/filter.d/postfix-pregreet.conf</code> with content
+<li>Create new file <code>/etc/fail2ban/filter.d/postfix-pregreet.iredmail.conf</code> with content
   below:</li>
 </ul>
 <pre><code>[Definition]
@@ -178,7 +178,7 @@ enabled     = true
 filter      = postfix-pregreet.iredmail
 logpath     = /var/log/maillog
 maxretry    = 1
-action      = iptables-multiports[name=postfix, port=&quot;25&quot;, protocol=tcp]
+action      = iptables-multiport[name=postfix, port=&quot;25&quot;, protocol=tcp]
 </code></pre>
 
 <ul>
