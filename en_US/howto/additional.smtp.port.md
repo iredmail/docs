@@ -29,6 +29,7 @@ in `/etc/postfix/master.cf` (on Linux/OpenBSD) or
 
 * `2525` is the new port number for smtp service, you're free to change it to
   your favourite port number.
+* `smtpd_tls_security_level=may` allows both secure (TLS) and insecure connections.
 * Restriction rule `permit_mynetworks` will allow clients listed in Postfix
   parameter `mynetworks` to send email __WITHOUT__ smtp auth.
 
