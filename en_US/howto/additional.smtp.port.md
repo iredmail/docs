@@ -23,6 +23,7 @@ in `/etc/postfix/master.cf` (on Linux/OpenBSD) or
 2525      inet  n       -       -       -       -       smtpd
   -o smtpd_sasl_auth_enable=yes
   -o smtpd_sasl_security_options=noanonymous
+  -o smtpd_tls_security_level=may
   -o smtpd_sender_restrictions=permit_mynetworks,permit_sasl_authenticated,reject
 ```
 
