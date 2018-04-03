@@ -233,14 +233,14 @@ server {
 ```
 
 Note: Nginx in iRedMail-0.9.7 loads modular config files from
-`/etc/nginx/sites-conf/default/` and `/etc/nginx/sites-conf/default-ssl/`
+`/etc/nginx/sites-conf.d/default/` and `/etc/nginx/sites-conf.d/default-ssl/`
 instead of storing all configurations for default web hosts in one file, in
 this case you need to:
 
-* rename file `/etc/nginx/sites-conf/default/99-include-tmpl-misc.conf` to
-  `/etc/nginx/sites-conf/default/1-include-tmpl-misc.conf`.
-* rename file `/etc/nginx/sites-conf/default-ssl/99-include-tmpl-misc.conf` to
-  `/etc/nginx/sites-conf/default-ssl/1-include-tmpl-misc.conf`.
+* rename file `/etc/nginx/sites-conf.d/default/99-include-tmpl-misc.conf` to
+  `/etc/nginx/sites-conf.d/default/1-include-tmpl-misc.conf`.
+* rename file `/etc/nginx/sites-conf.d/default-ssl/99-include-tmpl-misc.conf` to
+  `/etc/nginx/sites-conf.d/default-ssl/1-include-tmpl-misc.conf`.
 
 Restarting Nginx service is required.
 

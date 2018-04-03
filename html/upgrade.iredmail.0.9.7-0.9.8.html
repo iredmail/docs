@@ -263,14 +263,14 @@ Final setting should look like this:</p>
 </code></pre>
 
 <p>Note: Nginx in iRedMail-0.9.7 loads modular config files from
-<code>/etc/nginx/sites-conf/default/</code> and <code>/etc/nginx/sites-conf/default-ssl/</code>
+<code>/etc/nginx/sites-conf.d/default/</code> and <code>/etc/nginx/sites-conf.d/default-ssl/</code>
 instead of storing all configurations for default web hosts in one file, in
 this case you need to:</p>
 <ul>
-<li>rename file <code>/etc/nginx/sites-conf/default/99-include-tmpl-misc.conf</code> to
-  <code>/etc/nginx/sites-conf/default/1-include-tmpl-misc.conf</code>.</li>
-<li>rename file <code>/etc/nginx/sites-conf/default-ssl/99-include-tmpl-misc.conf</code> to
-  <code>/etc/nginx/sites-conf/default-ssl/1-include-tmpl-misc.conf</code>.</li>
+<li>rename file <code>/etc/nginx/sites-conf.d/default/99-include-tmpl-misc.conf</code> to
+  <code>/etc/nginx/sites-conf.d/default/1-include-tmpl-misc.conf</code>.</li>
+<li>rename file <code>/etc/nginx/sites-conf.d/default-ssl/99-include-tmpl-misc.conf</code> to
+  <code>/etc/nginx/sites-conf.d/default-ssl/1-include-tmpl-misc.conf</code>.</li>
 </ul>
 <p>Restarting Nginx service is required.</p>
 <h3 id="fix-unexpected-dnsbl-query-result-for-site-bbarracudacentralorg">Fix unexpected DNSBL query result for site <code>b.barracudacentral.org</code></h3>
