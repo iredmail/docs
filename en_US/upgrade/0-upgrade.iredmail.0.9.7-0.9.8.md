@@ -2,10 +2,6 @@
 
 [TOC]
 
-!!! warning "DO NOT APPLY THIS UPGRADE TUTORIAL"
-
-    This document is still a __DRAFT__, do NOT apply it.
-
 !!! note "Paid Remote Upgrade Support"
 
     We offer remote upgrade support if you don't want to get your hands dirty,
