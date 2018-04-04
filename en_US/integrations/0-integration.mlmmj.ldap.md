@@ -222,14 +222,14 @@ We will setup `mlmmjadmin` program to make managing mailing lists easier.
 
     !!! attention
 
-        We use `mlmmjadmin-1.0.tar.gz` for example below.
+        We use `mlmmjadmin-1.1.tar.gz` for example below.
 
 * Extract downloaded mlmmjadmin package to `/opt/` directory, and create a
   symbol link:
 
 ```
-tar zxf /root/mlmmjadmin-1.0.tar.gz -C /opt
-ln -s /opt/mlmmjadmin-1.0 /opt/mlmmjadmin
+tar zxf /root/mlmmjadmin-1.1.tar.gz -C /opt
+ln -s /opt/mlmmjadmin-1.1 /opt/mlmmjadmin
 ```
 
 * Generate config file by copying sample file, `settings.py.sample`:
