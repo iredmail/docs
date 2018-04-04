@@ -107,16 +107,18 @@ be stored under its home directory <code>/var/vmail/mlmmj</code>:</p>
 <p>On Linux or OpenBSD:</p>
 <pre><code>groupadd mlmmj
 useradd -m -g mlmmj -d /var/vmail/mlmmj -s /sbin/nologin mlmmj
-chown -R mlmmj:mlmmj /var/vmail/mlmmj
-chmod -R 0700 /var/vmail/mlmmj
+mkdir /var/vmail/mlmmj-archive
+chown -R mlmmj:mlmmj /var/vmail/mlmmj /var/vmail/mlmmj-archive
+chmod -R 0700 /var/vmail/mlmmj /var/vmail/mlmmj-archive
 chmod 0755 /var/vmail           # Make sure this directory is accessible by other users
 </code></pre>
 
 <p>On FreeBSD:</p>
 <pre><code>pw groupadd mlmmj
 pw useradd -m -g mlmmj -s /sbin/nologin -d /var/vmail/mlmmj mlmmj
-chown -R mlmmj:mlmmj /var/vmail/mlmmj
-chmod -R 0700 /var/vmail/mlmmj
+mkdir /var/vmail/mlmmj-archive
+chown -R mlmmj:mlmmj /var/vmail/mlmmj /var/vmail/mlmmj-archive
+chmod -R 0700 /var/vmail/mlmmj /var/vmail/mlmmj-archive
 chmod 0755 /var/vmail           # Make sure this directory is accessible by other users
 </code></pre>
 
@@ -424,7 +426,8 @@ local5.*            /var/log/mlmmjadmin/mlmmjadmin.log
 </code></pre>
 
 <ul>
-<li>Now it's ok to start <code>mlmmjadmin</code> service:</li>
+<li>Now it's ok to start <code>mlmmjadmin</code> service, it listens on <code>127.0.0.1:7790</code>
+  by default:</li>
 </ul>
 <pre><code>#
 # On Linux/FreeBSD:
@@ -435,6 +438,14 @@ service mlmmjadmin restart
 # On OpenBSD
 #
 rcctl start mlmmjadmin
+</code></pre>
+
+<p>On Linux, you can check the port number with command:</p>
+<pre><code>netstat -ntlp | grep 7790
+</code></pre>
+
+<p>On FreeBSD/OpenBSD, run:</p>
+<pre><code>netdata -anl -p tcp | grep 7790
 </code></pre>
 
 <h2 id="manage-mailing-lists-with-iredadmin-pro">Manage mailing lists with iRedAdmin-Pro</h2>

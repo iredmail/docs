@@ -86,8 +86,9 @@ On Linux or OpenBSD:
 ```
 groupadd mlmmj
 useradd -m -g mlmmj -d /var/vmail/mlmmj -s /sbin/nologin mlmmj
-chown -R mlmmj:mlmmj /var/vmail/mlmmj
-chmod -R 0700 /var/vmail/mlmmj
+mkdir /var/vmail/mlmmj-archive
+chown -R mlmmj:mlmmj /var/vmail/mlmmj /var/vmail/mlmmj-archive
+chmod -R 0700 /var/vmail/mlmmj /var/vmail/mlmmj-archive
 chmod 0755 /var/vmail           # Make sure this directory is accessible by other users
 ```
 
@@ -96,8 +97,9 @@ On FreeBSD:
 ```
 pw groupadd mlmmj
 pw useradd -m -g mlmmj -s /sbin/nologin -d /var/vmail/mlmmj mlmmj
-chown -R mlmmj:mlmmj /var/vmail/mlmmj
-chmod -R 0700 /var/vmail/mlmmj
+mkdir /var/vmail/mlmmj-archive
+chown -R mlmmj:mlmmj /var/vmail/mlmmj /var/vmail/mlmmj-archive
+chmod -R 0700 /var/vmail/mlmmj /var/vmail/mlmmj-archive
 chmod 0755 /var/vmail           # Make sure this directory is accessible by other users
 ```
 
@@ -444,7 +446,8 @@ For FreeBSD, please append below lines in `/etc/syslog.conf`:
 local5.*            /var/log/mlmmjadmin/mlmmjadmin.log
 ```
 
-* Now it's ok to start `mlmmjadmin` service:
+* Now it's ok to start `mlmmjadmin` service, it listens on `127.0.0.1:7790`
+  by default:
 
 ```
 #
@@ -456,6 +459,18 @@ service mlmmjadmin restart
 # On OpenBSD
 #
 rcctl start mlmmjadmin
+```
+
+On Linux, you can check the port number with command:
+
+```
+netstat -ntlp | grep 7790
+```
+
+On FreeBSD/OpenBSD, run:
+
+```
+netdata -anl -p tcp | grep 7790
 ```
 
 ## Manage mailing lists with iRedAdmin-Pro
