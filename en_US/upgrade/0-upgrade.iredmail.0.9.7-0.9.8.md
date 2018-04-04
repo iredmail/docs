@@ -10,6 +10,8 @@
 
 ## ChangeLog
 
+* Mar 4, Upgrade SOGo from v3 to v4.
+* Mar 4, Upgrade Roundcube webmail to the latet version - 1.3.5.
 * Mar 1, SQL structure changes in `vmail` database.
 * Feb 14, 2018: [SECURITY] Fixed: Nginx snippet file doesn't block access to Roundcube sensitive files.
 * Feb 11, 2018: netdata integration.
@@ -41,6 +43,45 @@ so that you can know which version of iRedMail you're running. For example:
 
 Please follow below tutorial to upgrade iRedAPD to the latest stable release:
 [Upgrade iRedAPD to the latest stable release](./upgrade.iredapd.html)
+
+### Upgrade iRedAdmin (open source edition) to the latest stable release (0.9)
+
+Please follow this tutorial to upgrade iRedAdmin open source edition to the
+latest stable release:
+[Upgrade iRedAdmin to the latest stable release](./migrate.or.upgrade.iredadmin.html)
+
+### Upgrade Roundcube webmail to the latest stable release (1.3.5)
+
+!!! warning "Roundcube 1.3"
+
+    * Roundcube 1.3 requires at least __PHP 5.4__. If your server is still running
+      PHP 5.3 and cannot upgrade to 5.4, please upgrade Roundcube to the latest
+      1.2 branch (1.2.5) instead.
+    * Roundcube 1.3 no longer supports IE < 10 and old versions of Firefox,
+      Chrome and Safari.
+    * Roundcube 1.3 uses jQuery 3.2 and will not work with current jQuery
+      mobile plugin. If you use any third-party plugin, please check its
+      website to make sure it's compatible with Roundcube 1.3 before upgrading.
+
+    With the release of Roundcube 1.3.0, the previous stable release branches
+    1.2.x and 1.1.x will switch in to LTS low maintenance mode which means
+    they will only receive important security updates but no longer any regular
+    improvement updates.
+
+Please follow Roundcube official tutorial to upgrade Roundcube webmail to the
+latest stable release immediately:
+
+* [How to upgrade Roundcube](https://github.com/roundcube/roundcubemail/wiki/Upgrade).
+
+### Upgrade SOGo from v3 to v4
+
+SOGo v4 was released on Mar 7, 2018 by the SOGo team (<https://sogo.nu>), it
+will become the main branch with most active development.
+
+If you're satisfied with SOGo v3, you're free to continue running v3. but if
+you want to try v4, please follow our tutorial below to upgrade it.
+
+* [Upgrade SOGo from v3 to v4](./upgrade.sogo.3.to.4.html)
 
 ### Fixed: SOGo backup script contains 3 issues
 
@@ -267,18 +308,18 @@ postscreen_dnsbl_sites =
 
 Reloading or restarting Postfix is required.
 
-### OpenBSD: Upgrade uwsgi to the latest 2.0.16
+### OpenBSD: Upgrade uwsgi to the latest 2.0.17
 
 uwsgi is the interface between Nginx and iRedAdmin, so if you're running
-iRedAdmin, it's recommended to upgrade uwsgi to the latest version, 2.0.16.
+iRedAdmin, it's recommended to upgrade uwsgi to the latest version, 2.0.17.
 
 Steps: Download the latest uwsgi, compile it, then restart uwsgi service.
 
 ```
 cd /root/
-ftp https://projects.unbit.it/downloads/uwsgi-2.0.16.tar.gz
-tar zxf uwsgi-2.0.16.tar.gz
-cd uwsgi-2.0.16
+ftp https://projects.unbit.it/downloads/uwsgi-2.0.17.tar.gz
+tar zxf uwsgi-2.0.17.tar.gz
+cd uwsgi-2.0.17
 python setup.py install
 ```
 

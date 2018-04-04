@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Upgrade SOGo from v3 to v4</title>
+        <link rel="stylesheet" type="text/css" href="./css/markdown.css" />
+    </head>
+    <body>
+    
+    <div id="navigation">
+    <a href="https://www.iredmail.org" target="_blank">
+        <img alt="iRedMail web site"
+             src="./images/logo-iredmail.png"
+             style="vertical-align: middle; height: 30px;"
+             />&nbsp;
+        <span>iRedMail</span>
+    </a>
+    &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><h1 id="upgrade-sogo-from-v3-to-v4">Upgrade SOGo from v3 to v4</h1>
+<div class="toc">
+<ul>
+<li><a href="#upgrade-sogo-from-v3-to-v4">Upgrade SOGo from v3 to v4</a><ul>
+<li><a href="#upgrade-sogo-on-rhelcentos">Upgrade SOGo On RHEL/CentOS</a></li>
+<li><a href="#upgrade-sogo-on-debianubuntu">Upgrade SOGo On Debian/Ubuntu</a></li>
+<li><a href="#upgrade-sogo-on-freebsd">Upgrade SOGo On FreeBSD</a></li>
+<li><a href="#upgrade-sogo-on-openbsd">Upgrade SOGo On OpenBSD</a></li>
+<li><a href="#troubleshooting">Troubleshooting</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<p>SOGo v4 was released on Mar 7, 2018 by the SOGo team (<a href="https://sogo.nu">https://sogo.nu</a>), it
+will become the main branch with most active development.
+If you're satisfied with SOGo v3, you're free to stick to it.</p>
+<h2 id="upgrade-sogo-on-rhelcentos">Upgrade SOGo On RHEL/CentOS</h2>
+<ul>
+<li>Backup config files first:</li>
+</ul>
+<pre><code>mkdir -p /root/sogo-backup/{sogo,sysconfig}
+cp /etc/sogo/* /root/sogo-backup/sogo/
+cp /etc/sysconfig/sogo /root/sogo-backup/sysconfig/
+</code></pre>
+
+<ul>
+<li>Backup its SQL database:</li>
+</ul>
+<pre><code>bash /var/vmail/backup/backup_sogo.sh
+</code></pre>
+
+<ul>
+<li>Open file <code>/etc/yum.repos.d/sogo.repo</code>, change the version number in
+  <code>baseurl=</code> line from <code>3</code> to <code>4</code>:</li>
+</ul>
+<pre><code>baseurl=https://packages.inverse.ca/SOGo/nightly/4/rhel/$releasever/$basearch/
+</code></pre>
+
+<ul>
+<li>Upgrade SOGo packages:</li>
+</ul>
+<pre><code>yum clean all
+yum update sogo* sope*
+</code></pre>
+
+<ul>
+<li>
+<p>Run the script shipped in SOGo-4.x to update SQL structure:</p>
+<ul>
+<li>For LDAP and MySQL/MariaDB backends:</li>
+</ul>
+<p><code>bash /usr/share/doc/sogo-4.*/sql-update-3.2.10_to_4.0.0-mysql.sh</code></p>
+<ul>
+<li>For PostgreSQL backend:</li>
+</ul>
+<p><code>bash /usr/share/doc/sogo-4.*/sql-update-3.2.10_to_4.0.0.sh</code></p>
+</li>
+<li>
+<p>Restart SOGo service:</p>
+</li>
+</ul>
+<pre><code>service sogod restart
+</code></pre>
+
+<h2 id="upgrade-sogo-on-debianubuntu">Upgrade SOGo On Debian/Ubuntu</h2>
+<ul>
+<li>Backup config files first:</li>
+</ul>
+<pre><code>mkdir -p /root/sogo-backup/{sogo,default}
+cp /etc/sogo/* /root/sogo-backup/sogo/
+cp /etc/default/sogo /root/sogo-backup/default/
+</code></pre>
+
+<ul>
+<li>Backup its SQL database:</li>
+</ul>
+<pre><code>bash /var/vmail/backup/backup_sogo.sh
+</code></pre>
+
+<ul>
+<li>Open file <code>/etc/apt/sources.list</code>, change the version number <code>3</code> to <code>4</code>, like
+  below:</li>
+</ul>
+<pre><code># Debian
+https://packages.inverse.ca/SOGo/nightly/4/debian ...
+
+# Ubuntu
+https://packages.inverse.ca/SOGo/nightly/4/ubuntu ...
+</code></pre>
+
+<ul>
+<li>Upgrade SOGo packages:</li>
+</ul>
+<pre><code>apt-get update
+apt-get install --only-upgrade sogo sogo-activesync
+</code></pre>
+
+<ul>
+<li>
+<p>Run the script shipped in SOGo-4.x to update SQL structure:</p>
+<ul>
+<li>For LDAP and MySQL/MariaDB backends:</li>
+</ul>
+<p><code>bash /usr/share/doc/sogo/sql-update-3.2.10_to_4.0.0-mysql.sh</code></p>
+<ul>
+<li>For PostgreSQL backend:</li>
+</ul>
+<p><code>bash /usr/share/doc/sogo/sql-update-3.2.10_to_4.0.0.sh</code></p>
+</li>
+<li>
+<p>Restart SOGo service:</p>
+</li>
+</ul>
+<pre><code>service sogo restart
+</code></pre>
+
+<h2 id="upgrade-sogo-on-freebsd">Upgrade SOGo On FreeBSD</h2>
+<p>FreeBSD ports tree still ships SOGo-3, so no SQL structure change after you
+update ports <code>www/sogo3</code> and <code>www/sogo3-activesync</code>.</p>
+<h2 id="upgrade-sogo-on-openbsd">Upgrade SOGo On OpenBSD</h2>
+<p>OpenBSD 6.3 still ships SOGo-3, so no SQL structure change after you update
+sogo/sope packages with <code>pkg_add</code> command.</p>
+<h2 id="troubleshooting">Troubleshooting</h2>
+<p>If SOGo doesn't work as expected, please check its log file
+<code>/var/log/sogo/sogo.log</code>. If you don't understand what the error message means,
+please extract related error message and post to our online support forum:
+<a href="https://forum.iredmail.org/">https://forum.iredmail.org/</a>.</p><div class="footer">
+    <p style="text-align: center; color: grey;">All documents are available in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://bitbucket.org/zhb/iredmail-docs/get/tip.tar.bz2">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
+</div>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-3293801-21"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-3293801-21');
+</script>
+</body></html>

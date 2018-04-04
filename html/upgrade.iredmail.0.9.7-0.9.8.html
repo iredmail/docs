@@ -23,12 +23,15 @@
 <li><a href="#general-all-backends-should-apply-these-steps">General (All backends should apply these steps)</a><ul>
 <li><a href="#update-etciredmail-release-with-new-iredmail-version-number">Update /etc/iredmail-release with new iRedMail version number</a></li>
 <li><a href="#upgrade-iredapd-postfix-policy-server-to-the-latest-stable-release-22">Upgrade iRedAPD (Postfix policy server) to the latest stable release (2.2)</a></li>
+<li><a href="#upgrade-iredadmin-open-source-edition-to-the-latest-stable-release-09">Upgrade iRedAdmin (open source edition) to the latest stable release (0.9)</a></li>
+<li><a href="#upgrade-roundcube-webmail-to-the-latest-stable-release-135">Upgrade Roundcube webmail to the latest stable release (1.3.5)</a></li>
+<li><a href="#upgrade-sogo-from-v3-to-v4">Upgrade SOGo from v3 to v4</a></li>
 <li><a href="#fixed-sogo-backup-script-contains-3-issues">Fixed: SOGo backup script contains 3 issues</a></li>
 <li><a href="#fail2ban-new-jail-postfix-pregreet">Fail2ban: new jail postfix-pregreet</a></li>
 <li><a href="#fixed-nginx-snippet-file-hard-codes-static-file-types-for-iredadmin">Fixed: Nginx snippet file hard-codes static file types for iRedAdmin</a></li>
 <li><a href="#security-fixed-nginx-snippet-file-doesnt-block-access-to-roundcube-sensitive-files">[SECURITY] Fixed: Nginx snippet file doesn't block access to Roundcube sensitive files</a></li>
 <li><a href="#fix-unexpected-dnsbl-query-result-for-site-bbarracudacentralorg">Fix unexpected DNSBL query result for site b.barracudacentral.org</a></li>
-<li><a href="#openbsd-upgrade-uwsgi-to-the-latest-2016">OpenBSD: Upgrade uwsgi to the latest 2.0.16</a></li>
+<li><a href="#openbsd-upgrade-uwsgi-to-the-latest-2017">OpenBSD: Upgrade uwsgi to the latest 2.0.17</a></li>
 <li><a href="#optional-log-mail-subject-sender-size-in-mail-deliver-log">[OPTIONAL] Log mail subject, sender, size in mail deliver log</a></li>
 <li><a href="#optional-integrate-netdata-fancy-system-monitor">[OPTIONAL] integrate netdata - fancy system monitor</a></li>
 </ul>
@@ -67,6 +70,8 @@ check <a href="https://www.iredmail.org/support.html">the details</a> and
 </div>
 <h2 id="changelog">ChangeLog</h2>
 <ul>
+<li>Mar 4, Upgrade SOGo from v3 to v4.</li>
+<li>Mar 4, Upgrade Roundcube webmail to the latet version - 1.3.5.</li>
 <li>Mar 1, SQL structure changes in <code>vmail</code> database.</li>
 <li>Feb 14, 2018: [SECURITY] Fixed: Nginx snippet file doesn't block access to Roundcube sensitive files.</li>
 <li>Feb 11, 2018: netdata integration.</li>
@@ -93,6 +98,41 @@ so that you can know which version of iRedMail you're running. For example:</p>
 <h3 id="upgrade-iredapd-postfix-policy-server-to-the-latest-stable-release-22">Upgrade iRedAPD (Postfix policy server) to the latest stable release (2.2)</h3>
 <p>Please follow below tutorial to upgrade iRedAPD to the latest stable release:
 <a href="./upgrade.iredapd.html">Upgrade iRedAPD to the latest stable release</a></p>
+<h3 id="upgrade-iredadmin-open-source-edition-to-the-latest-stable-release-09">Upgrade iRedAdmin (open source edition) to the latest stable release (0.9)</h3>
+<p>Please follow this tutorial to upgrade iRedAdmin open source edition to the
+latest stable release:
+<a href="./migrate.or.upgrade.iredadmin.html">Upgrade iRedAdmin to the latest stable release</a></p>
+<h3 id="upgrade-roundcube-webmail-to-the-latest-stable-release-135">Upgrade Roundcube webmail to the latest stable release (1.3.5)</h3>
+<div class="admonition warning">
+<p class="admonition-title">Roundcube 1.3</p>
+<ul>
+<li>Roundcube 1.3 requires at least <strong>PHP 5.4</strong>. If your server is still running
+  PHP 5.3 and cannot upgrade to 5.4, please upgrade Roundcube to the latest
+  1.2 branch (1.2.5) instead.</li>
+<li>Roundcube 1.3 no longer supports IE &lt; 10 and old versions of Firefox,
+  Chrome and Safari.</li>
+<li>Roundcube 1.3 uses jQuery 3.2 and will not work with current jQuery
+  mobile plugin. If you use any third-party plugin, please check its
+  website to make sure it's compatible with Roundcube 1.3 before upgrading.</li>
+</ul>
+<p>With the release of Roundcube 1.3.0, the previous stable release branches
+1.2.x and 1.1.x will switch in to LTS low maintenance mode which means
+they will only receive important security updates but no longer any regular
+improvement updates.</p>
+</div>
+<p>Please follow Roundcube official tutorial to upgrade Roundcube webmail to the
+latest stable release immediately:</p>
+<ul>
+<li><a href="https://github.com/roundcube/roundcubemail/wiki/Upgrade">How to upgrade Roundcube</a>.</li>
+</ul>
+<h3 id="upgrade-sogo-from-v3-to-v4">Upgrade SOGo from v3 to v4</h3>
+<p>SOGo v4 was released on Mar 7, 2018 by the SOGo team (<a href="https://sogo.nu">https://sogo.nu</a>), it
+will become the main branch with most active development.</p>
+<p>If you're satisfied with SOGo v3, you're free to continue running v3. but if
+you want to try v4, please follow our tutorial below to upgrade it.</p>
+<ul>
+<li><a href="./upgrade.sogo.3.to.4.html">Upgrade SOGo from v3 to v4</a></li>
+</ul>
 <h3 id="fixed-sogo-backup-script-contains-3-issues">Fixed: SOGo backup script contains 3 issues</h3>
 <p>SOGo backup script <code>/var/vmail/backup/backup_sogo.sh</code> shipped in iRedMail-0.9.7
 and earlier releases contains 3 issues:</p>
@@ -290,14 +330,14 @@ a range from <code>127.0.0.2</code> to <code>127.0.0.11</code>), so we should ch
 </code></pre>
 
 <p>Reloading or restarting Postfix is required.</p>
-<h3 id="openbsd-upgrade-uwsgi-to-the-latest-2016">OpenBSD: Upgrade uwsgi to the latest 2.0.16</h3>
+<h3 id="openbsd-upgrade-uwsgi-to-the-latest-2017">OpenBSD: Upgrade uwsgi to the latest 2.0.17</h3>
 <p>uwsgi is the interface between Nginx and iRedAdmin, so if you're running
-iRedAdmin, it's recommended to upgrade uwsgi to the latest version, 2.0.16.</p>
+iRedAdmin, it's recommended to upgrade uwsgi to the latest version, 2.0.17.</p>
 <p>Steps: Download the latest uwsgi, compile it, then restart uwsgi service.</p>
 <pre><code>cd /root/
-ftp https://projects.unbit.it/downloads/uwsgi-2.0.16.tar.gz
-tar zxf uwsgi-2.0.16.tar.gz
-cd uwsgi-2.0.16
+ftp https://projects.unbit.it/downloads/uwsgi-2.0.17.tar.gz
+tar zxf uwsgi-2.0.17.tar.gz
+cd uwsgi-2.0.17
 python setup.py install
 </code></pre>
 

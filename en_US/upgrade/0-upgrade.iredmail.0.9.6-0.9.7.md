@@ -41,8 +41,7 @@ latest stable release:
 ### Upgrade Roundcube webmail to the latest stable release (1.3.0)
 
 !!! warning "Roundcube 1.3"
-    
-    
+
     * Roundcube 1.3 requires at least __PHP 5.4__. If your server is still running
       PHP 5.3 and cannot upgrade to 5.4, please upgrade Roundcube to the latest
       1.2 branch (1.2.5) instead.
