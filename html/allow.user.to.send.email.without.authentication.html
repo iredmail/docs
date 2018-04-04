@@ -55,7 +55,7 @@ authentication. We use user email address <code>user@example.com</code> for exam
 If sender domain is hosted on your server, but no smtp auth, it will be
 considered as a forged email. In this case, iRedAPD will reject this email
 (with rejection message: <code>Policy rejection not logged in</code>), so we need to
-bypass either sender email address. If email is sent by an internal network
+bypass the sender email address. If email is sent from an internal network
 device like printer, fax, we can also its IP address directly.</p>
 <ul>
 <li>To bypass sender email address <code>user@example.com</code>, please add setting in
