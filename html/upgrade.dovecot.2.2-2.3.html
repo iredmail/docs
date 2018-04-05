@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Upgrade Dovecot from 2.2.x to 2.3.x</title>
+        <link rel="stylesheet" type="text/css" href="./css/markdown.css" />
+    </head>
+    <body>
+    
+    <div id="navigation">
+    <a href="https://www.iredmail.org" target="_blank">
+        <img alt="iRedMail web site"
+             src="./images/logo-iredmail.png"
+             style="vertical-align: middle; height: 30px;"
+             />&nbsp;
+        <span>iRedMail</span>
+    </a>
+    &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><h1 id="upgrade-dovecot-from-22x-to-23x">Upgrade Dovecot from 2.2.x to 2.3.x</h1>
+<div class="toc">
+<ul>
+<li><a href="#upgrade-dovecot-from-22x-to-23x">Upgrade Dovecot from 2.2.x to 2.3.x</a><ul>
+<li><a href="#upgrade-dovecot-on-linuxopenbsd">Upgrade Dovecot on Linux/OpenBSD</a></li>
+<li><a href="#upgrade-dovecot-on-freebsd">Upgrade Dovecot on FreeBSD</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<p>Dovecot 2.3 breaks some backward compatible, and here's a short tutorial to
+convert your Dovecot 2.2 config file to fully work with Dovecot 2.3.</p>
+<p>For more details, please read Dovecot wiki page: <a href="https://wiki2.dovecot.org/Upgrading/2.3">Upgrading Dovecot v2.2 to v2.3</a>.</p>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>Dovecot 2.3 uses TLSv1 as minimal SSL protocol, if you prefer TLSv1.1 or
+TLSv1.2, please set the protocol version in parameter <code>ssl_min_protocol</code>
+like below:</p>
+<p><code>ssl_min_protocol = TLSv1.2</code></p>
+</div>
+<h2 id="upgrade-dovecot-on-linuxopenbsd">Upgrade Dovecot on Linux/OpenBSD</h2>
+<p>Run commands below as root user:</p>
+<pre><code>perl -pi -e 's/^ssl_protocols/#${1}/g' /etc/dovecot/dovecot.conf
+perl -pi -e 's#^(mail_plugins.*) stats(.*)#${1} old_stats${2}#g' /etc/dovecot/dovecot.conf
+perl -pi -e 's#imap_stats#imap_old_stats#g' /etc/dovecot/dovecot.conf
+perl -pi -e 's#service stats#service old-stats#g' /etc/dovecot/dovecot.conf
+perl -pi -e 's#fifo_listener stats-mail#fifo_listener old-stats-mail#g' /etc/dovecot/dovecot.conf
+perl -pi -e 's#stats_refresh#old_stats_refresh#g' /etc/dovecot/dovecot.conf
+perl -pi -e 's#stats_track_cmds#old_stats_track_cmds#g' /etc/dovecot/dovecot.conf
+perl -pi -e 's#(postmaster_address.*)##g' /etc/dovecot/dovecot.conf
+</code></pre>
+
+<ul>
+<li>On RHEL/CentOS, please add new setting in <code>/etc/dovecot/dovecot.conf</code>:</li>
+</ul>
+<pre><code>ssl_dh = &lt;/etc/pki/tls/dh2048_param.pem
+</code></pre>
+
+<ul>
+<li>On Debian/Ubuntu/OpenBSD, please add new setting in <code>/etc/dovecot/dovecot.conf</code>:</li>
+</ul>
+<pre><code>ssl_dh = &lt;/etc/ssl/dh2048_param.pem
+</code></pre>
+
+<h2 id="upgrade-dovecot-on-freebsd">Upgrade Dovecot on FreeBSD</h2>
+<p>Run commands below as root user:</p>
+<pre><code>perl -pi -e 's/^ssl_protocols/#${1}/g' /usr/local/etc/dovecot/dovecot.conf
+perl -pi -e 's#^(mail_plugins.*) stats(.*)#${1} old_stats${2}#g' /usr/local/etc/dovecot/dovecot.conf
+perl -pi -e 's#imap_stats#imap_old_stats#g' /usr/local/etc/dovecot/dovecot.conf
+perl -pi -e 's#service stats#service old-stats#g' /usr/local/etc/dovecot/dovecot.conf
+perl -pi -e 's#fifo_listener stats-mail#fifo_listener old-stats-mail#g' /usr/local/etc/dovecot/dovecot.conf
+perl -pi -e 's#stats_refresh#old_stats_refresh#g' /usr/local/etc/dovecot/dovecot.conf
+perl -pi -e 's#stats_track_cmds#old_stats_track_cmds#g' /usr/local/etc/dovecot/dovecot.conf
+perl -pi -e 's#(postmaster_address.*)##g' /usr/local/etc/dovecot/dovecot.conf
+</code></pre>
+
+<p>Add new setting in <code>/etc/dovecot/dovecot.conf</code>:</p>
+<pre><code>ssl_dh = &lt;/etc/ssl/dh2048_param.pem
+</code></pre><div class="footer">
+    <p style="text-align: center; color: grey;">All documents are available in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://bitbucket.org/zhb/iredmail-docs/get/tip.tar.bz2">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
+</div>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-3293801-21"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-3293801-21');
+</script>
+</body></html>
