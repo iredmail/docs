@@ -54,6 +54,14 @@ cp /etc/sysconfig/sogo /root/sogo-backup/sysconfig/
 </code></pre>
 
 <ul>
+<li>SOGo relies on the GNUstep packages provided by SOGo team, and must not use
+  the packages from EPEL repo. Please open file <code>/etc/yum.repos.d/epel.repo</code>,
+  make sure you have line like below:</li>
+</ul>
+<pre><code>exclude=gnustep*
+</code></pre>
+
+<ul>
 <li>Upgrade SOGo packages:</li>
 </ul>
 <pre><code>yum clean all

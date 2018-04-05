@@ -29,6 +29,14 @@ bash /var/vmail/backup/backup_sogo.sh
 baseurl=https://packages.inverse.ca/SOGo/nightly/4/rhel/$releasever/$basearch/
 ```
 
+* SOGo relies on the GNUstep packages provided by SOGo team, and must not use
+  the packages from EPEL repo. Please open file `/etc/yum.repos.d/epel.repo`,
+  make sure you have line like below:
+
+```
+exclude=gnustep*
+```
+
 * Upgrade SOGo packages:
 
 ```
