@@ -16,62 +16,68 @@
         <span>iRedMail</span>
     </a>
     &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><h1 id="upgrade-dovecot-from-22x-to-23x">Upgrade Dovecot from 2.2.x to 2.3.x</h1>
-<div class="toc">
-<ul>
-<li><a href="#upgrade-dovecot-from-22x-to-23x">Upgrade Dovecot from 2.2.x to 2.3.x</a><ul>
-<li><a href="#upgrade-dovecot-on-linuxopenbsd">Upgrade Dovecot on Linux/OpenBSD</a></li>
-<li><a href="#upgrade-dovecot-on-freebsd">Upgrade Dovecot on FreeBSD</a></li>
-</ul>
-</li>
-</ul>
-</div>
 <p>Dovecot 2.3 breaks some backward compatible, and here's a short tutorial to
 convert your Dovecot 2.2 config file to fully work with Dovecot 2.3.</p>
 <p>For more details, please read Dovecot wiki page: <a href="https://wiki2.dovecot.org/Upgrading/2.3">Upgrading Dovecot v2.2 to v2.3</a>.</p>
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>
-<p>Dovecot 2.3 uses TLSv1 as minimal SSL protocol, if you prefer TLSv1.1 or
-TLSv1.2, please set the protocol version in parameter <code>ssl_min_protocol</code>
-like below:</p>
+<ul>
+<li>Currently only FreeBSD offers Dovecot 2.3 by the ports tree, other Linux
+  or OpenBSD distributions still offers Dovecot 2.2, you should stick to
+  Dovecot 2.2 if your Linux/BSD vendor doesn't offer 2.3 yet.</li>
+<li>Dovecot 2.3 uses TLSv1 as minimal SSL protocol, if you prefer TLSv1.1 or
+  TLSv1.2, please set the protocol version in parameter <code>ssl_min_protocol</code>
+  like below:</li>
+</ul>
 <p><code>ssl_min_protocol = TLSv1.2</code></p>
 </div>
-<h2 id="upgrade-dovecot-on-linuxopenbsd">Upgrade Dovecot on Linux/OpenBSD</h2>
-<p>Run commands below as root user:</p>
-<pre><code>perl -pi -e 's/^ssl_protocols/#${1}/g' /etc/dovecot/dovecot.conf
-perl -pi -e 's#^(mail_plugins.*) stats(.*)#${1} old_stats${2}#g' /etc/dovecot/dovecot.conf
-perl -pi -e 's#imap_stats#imap_old_stats#g' /etc/dovecot/dovecot.conf
-perl -pi -e 's#service stats#service old-stats#g' /etc/dovecot/dovecot.conf
-perl -pi -e 's#fifo_listener stats-mail#fifo_listener old-stats-mail#g' /etc/dovecot/dovecot.conf
-perl -pi -e 's#stats_refresh#old_stats_refresh#g' /etc/dovecot/dovecot.conf
-perl -pi -e 's#stats_track_cmds#old_stats_track_cmds#g' /etc/dovecot/dovecot.conf
-perl -pi -e 's#(postmaster_address.*)##g' /etc/dovecot/dovecot.conf
+<h2 id="upgrade-dovecot-on-linuxfreebsdopenbsd">Upgrade Dovecot on Linux/FreeBSD/OpenBSD</h2>
+<p>Open a shell terminal, and switch to Dovecot configuration directory first:</p>
+<ul>
+<li>On Linux/OpenBSD:</li>
+</ul>
+<pre><code>cd /etc/dovecot/
 </code></pre>
 
 <ul>
-<li>On RHEL/CentOS, please add new setting in <code>/etc/dovecot/dovecot.conf</code>:</li>
+<li>On FreeBSD:</li>
+</ul>
+<pre><code>cd /usr/local/etc/dovecot/
+</code></pre>
+
+<p>Run commands below as root user, these commands will:</p>
+<ul>
+<li>Comment out parameter <code>ssl_protocols</code></li>
+<li>Remove parameter <code>postmaster_address</code></li>
+<li>Rename plugin names and parameters:<ul>
+<li><code>stats</code> -&gt; <code>old_stats</code></li>
+<li><code>imap_status</code> -&gt; <code>imap_old_stats</code></li>
+<li><code>stats_refresh</code> -&gt; <code>old_stats_refresh</code></li>
+<li><code>service stats {}</code> -&gt; <code>service old-stats {}</code></li>
+<li><code>fifo_listener stats-mail {}</code> -&gt; <code>fifo_listener old-stats-mail {}</code></li>
+<li><code>stats_track_cmds</code> -&gt; <code>old_stats_track_cmds</code></li>
+</ul>
+</li>
+</ul>
+<pre><code>perl -pi -e 's/^ssl_protocols/#${1}/g' dovecot.conf
+perl -pi -e 's#(postmaster_address.*)##g' dovecot.conf
+perl -pi -e 's#^(mail_plugins.*) stats(.*)#${1} old_stats${2}#g' dovecot.conf
+perl -pi -e 's#imap_stats#imap_old_stats#g' dovecot.conf
+perl -pi -e 's#service stats#service old-stats#g' dovecot.conf
+perl -pi -e 's#fifo_listener stats-mail#fifo_listener old-stats-mail#g' dovecot.conf
+perl -pi -e 's#stats_refresh#old_stats_refresh#g' dovecot.conf
+perl -pi -e 's#stats_track_cmds#old_stats_track_cmds#g' dovecot.conf
+</code></pre>
+
+<ul>
+<li>On RHEL/CentOS, please add new setting in <code>dovecot.conf</code>:</li>
 </ul>
 <pre><code>ssl_dh = &lt;/etc/pki/tls/dh2048_param.pem
 </code></pre>
 
 <ul>
-<li>On Debian/Ubuntu/OpenBSD, please add new setting in <code>/etc/dovecot/dovecot.conf</code>:</li>
+<li>On Debian/Ubuntu/OpenBSD/FreeBSD, please add new setting in <code>dovecot.conf</code>:</li>
 </ul>
-<pre><code>ssl_dh = &lt;/etc/ssl/dh2048_param.pem
-</code></pre>
-
-<h2 id="upgrade-dovecot-on-freebsd">Upgrade Dovecot on FreeBSD</h2>
-<p>Run commands below as root user:</p>
-<pre><code>perl -pi -e 's/^ssl_protocols/#${1}/g' /usr/local/etc/dovecot/dovecot.conf
-perl -pi -e 's#^(mail_plugins.*) stats(.*)#${1} old_stats${2}#g' /usr/local/etc/dovecot/dovecot.conf
-perl -pi -e 's#imap_stats#imap_old_stats#g' /usr/local/etc/dovecot/dovecot.conf
-perl -pi -e 's#service stats#service old-stats#g' /usr/local/etc/dovecot/dovecot.conf
-perl -pi -e 's#fifo_listener stats-mail#fifo_listener old-stats-mail#g' /usr/local/etc/dovecot/dovecot.conf
-perl -pi -e 's#stats_refresh#old_stats_refresh#g' /usr/local/etc/dovecot/dovecot.conf
-perl -pi -e 's#stats_track_cmds#old_stats_track_cmds#g' /usr/local/etc/dovecot/dovecot.conf
-perl -pi -e 's#(postmaster_address.*)##g' /usr/local/etc/dovecot/dovecot.conf
-</code></pre>
-
-<p>Add new setting in <code>/etc/dovecot/dovecot.conf</code>:</p>
 <pre><code>ssl_dh = &lt;/etc/ssl/dh2048_param.pem
 </code></pre><div class="footer">
     <p style="text-align: center; color: grey;">All documents are available in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://bitbucket.org/zhb/iredmail-docs/get/tip.tar.bz2">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
