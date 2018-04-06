@@ -112,14 +112,11 @@ We need some updates in `vmail` SQL database:
 * new SQL column `domain.maillists`: used to set per-domain limit of mailing
   list accounts. This column is mostly used by iRedAdmin-Pro.
 
-Now apply the SQL changes with SQL commands below:
+This SQL structure was introduced in iRedMail-0.9.8, if you're running
+an old iRedMail release, please upgrade iRedMail to the latest stable release
+by following our tutorials first:
 
-```
-cd /tmp
-wget https://bitbucket.org/zhb/iredmail/raw/default/extra/update/0.9.8/mlmmj.pgsql
-su - postgres
-psql -d vmail < /tmp/mlmmj.pgsql
-```
+* [iRedMail Upgrade Tutorials](./iredmail.releases.html)
 
 ## Postfix integration
 
