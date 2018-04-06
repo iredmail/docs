@@ -28,6 +28,10 @@ cd /etc/dovecot/
 ```
 
 * On FreeBSD:
+    * Please upgrade ports `mail/dovecot` and `mail/dovecot-pigeonhole` first.
+      You can use tool like `portmaster` or `portupgrade` for this purpose.
+      FYI: [Using the Ports Collection](https://www.freebsd.org/doc/handbook/ports-using.html)
+    * After upgraded both ports, please run:
 
 ```
 cd /usr/local/etc/dovecot/

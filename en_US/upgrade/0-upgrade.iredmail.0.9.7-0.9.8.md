@@ -83,6 +83,20 @@ you want to try v4, please follow our tutorial below to upgrade it.
 
 * [Upgrade SOGo from v3 to v4](./upgrade.sogo.3.to.4.html)
 
+### Upgrade Dovecot from 2.2 to 2.3
+
+!!! attention
+
+    This is only applicable to FreeBSD.
+
+Currently only FreeBSD offers Dovecot 2.3 by the ports tree, other Linux/BSD
+distributions still offers Dovecot 2.2, you should stick to Dovecot 2.2 if your
+Linux/BSD vendor doesn't offer 2.3 yet.
+
+Please follow our tutorial below to upgrade Dovecot:
+
+* [Upgrade Dovecot from 2.2.x to 2.3.x](./upgrade.dovecot.2.2-2.3.html)
+
 ### Fixed: SOGo backup script contains 3 issues
 
 SOGo backup script `/var/vmail/backup/backup_sogo.sh` shipped in iRedMail-0.9.7

@@ -40,7 +40,13 @@ convert your Dovecot 2.2 config file to fully work with Dovecot 2.3.</p>
 </code></pre>
 
 <ul>
-<li>On FreeBSD:</li>
+<li>On FreeBSD:<ul>
+<li>Please upgrade ports <code>mail/dovecot</code> and <code>mail/dovecot-pigeonhole</code> first.
+  You can use tool like <code>portmaster</code> or <code>portupgrade</code> for this purpose.
+  FYI: <a href="https://www.freebsd.org/doc/handbook/ports-using.html">Using the Ports Collection</a></li>
+<li>After upgraded both ports, please run:</li>
+</ul>
+</li>
 </ul>
 <pre><code>cd /usr/local/etc/dovecot/
 </code></pre>
