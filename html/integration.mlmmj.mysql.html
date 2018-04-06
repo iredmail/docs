@@ -421,7 +421,14 @@ chown root:root /var/log/mlmmjadmin
 chmod 0755 /var/log/mlmmjadmin
 
 #
-# For Debian/Ubuntu
+# For Debian
+#
+mkdir /var/log/mlmmjadmin
+chown root:adm /var/log/mlmmjadmin
+chmod 0755 /var/log/mlmmjadmin
+
+#
+# For Ubuntu
 #
 mkdir /var/log/mlmmjadmin
 chown syslog:adm /var/log/mlmmjadmin
