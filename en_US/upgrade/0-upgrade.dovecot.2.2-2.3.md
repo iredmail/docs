@@ -85,6 +85,8 @@ for this change.
 USE vmail;
 ALTER TABLE mailbox ADD COLUMN enableimaptls TINYINT(1) NOT NULL DEFAULT 1;
 ALTER TABLE mailbox ADD INDEX (enableimaptls);
+ALTER TABLE mailbox ADD COLUMN enablepop3tls TINYINT(1) NOT NULL DEFAULT 1;
+ALTER TABLE mailbox ADD INDEX (enablepop3tls);
 ```
 
 * For PostgreSQL backend, please switch to PostgreSQL daemon user with `su`
@@ -94,4 +96,6 @@ ALTER TABLE mailbox ADD INDEX (enableimaptls);
 \c vmail;
 ALTER TABLE mailbox ADD COLUMN enableimaptls INT2 NOT NULL DEFAULT 1;
 CREATE INDEX idx_mailbox_enableimaptls ON mailbox (enableimaptls);
+ALTER TABLE mailbox ADD COLUMN enablepop3tls INT2 NOT NULL DEFAULT 1;
+CREATE INDEX idx_mailbox_enablepop3tls ON mailbox (enablepop3tls);
 ```

@@ -496,18 +496,12 @@ user. To avoid this issue, we create a SQL trigger to store email address
 without address extension in a new column `maddr.email_raw`. Please follow
 steps below to apply the SQL structure change.
 
-* Download SQL template file used to update SQL database:
+* Download and import SQL template file used to update SQL database:
 
 ```
 cd /tmp/
 wget https://bitbucket.org/zhb/iredmail/raw/default/extra/update/0.9.8/amavisd.mysql
-```
-
-* Connect to MySQL server as MySQL root user, and execute SQL commands:
-
-```
-$ mysql amavisd
-mysql> SOURCE /tmp/amavisd.mysql;
+mysql amavisd < amavisd.mysql
 ```
 
 ### Update SOGo config file for per-domain global address book
@@ -629,18 +623,12 @@ senders/recipients from Amavisd SQL database, because address
 user, but it's not. To avoid this issue, we create a SQL trigger to store email
 address without address extension in a new column `maddr.email_raw`. Steps:
 
-* Download SQL template file used to update SQL database:
+* Download and import SQL template file used to update SQL database:
 
 ```
 cd /tmp/
 wget https://bitbucket.org/zhb/iredmail/raw/default/extra/update/0.9.8/amavisd.mysql
-```
-
-* Connect to MySQL server as MySQL root user, and execute SQL commands:
-
-```
-# mysql amavisd
-sql> SOURCE /tmp/amavisd.mysql;
+mysql amavisd < amavisd.mysql
 ```
 
 ## PostgreSQL backend

@@ -98,6 +98,8 @@ for this change.</p>
 <pre><code>USE vmail;
 ALTER TABLE mailbox ADD COLUMN enableimaptls TINYINT(1) NOT NULL DEFAULT 1;
 ALTER TABLE mailbox ADD INDEX (enableimaptls);
+ALTER TABLE mailbox ADD COLUMN enablepop3tls TINYINT(1) NOT NULL DEFAULT 1;
+ALTER TABLE mailbox ADD INDEX (enablepop3tls);
 </code></pre>
 
 <ul>
@@ -107,6 +109,8 @@ ALTER TABLE mailbox ADD INDEX (enableimaptls);
 <pre><code>\c vmail;
 ALTER TABLE mailbox ADD COLUMN enableimaptls INT2 NOT NULL DEFAULT 1;
 CREATE INDEX idx_mailbox_enableimaptls ON mailbox (enableimaptls);
+ALTER TABLE mailbox ADD COLUMN enablepop3tls INT2 NOT NULL DEFAULT 1;
+CREATE INDEX idx_mailbox_enablepop3tls ON mailbox (enablepop3tls);
 </code></pre><div class="footer">
     <p style="text-align: center; color: grey;">All documents are available in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://bitbucket.org/zhb/iredmail-docs/get/tip.tar.bz2">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
 </div>
