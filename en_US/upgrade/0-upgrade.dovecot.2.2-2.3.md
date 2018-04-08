@@ -71,3 +71,27 @@ ssl_dh = </etc/pki/tls/dh2048_param.pem
 ```
 ssl_dh = </etc/ssl/dh2048_param.pem
 ```
+
+### SQL structure changes for MySQL/MariaDB/PostgreSQL backends
+
+Dovecot-2.3 changes the flag for TLS secure connections internally, it's used
+by iRedMail to detect the connection type. We need to create a new SQL column
+for this change.
+
+* For MySQL/MariaDB, please login to SQL server as root user, then run SQL
+  commands below:
+
+```
+USE vmail;
+ALTER TABLE mailbox ADD COLUMN enableimaptls TINYINT(1) NOT NULL DEFAULT 1;
+ALTER TABLE mailbox ADD INDEX (enableimaptls);
+```
+
+* For PostgreSQL backend, please switch to PostgreSQL daemon user with `su`
+  command first, then run SQL commands below:
+
+```
+\c vmail;
+ALTER TABLE mailbox ADD COLUMN enableimaptls INT2 NOT NULL DEFAULT 1;
+CREATE INDEX idx_mailbox_enableimaptls ON mailbox (enableimaptls);
+```

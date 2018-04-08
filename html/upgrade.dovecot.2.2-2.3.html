@@ -85,6 +85,28 @@ perl -pi -e 's#stats_track_cmds#old_stats_track_cmds#g' dovecot.conf
 <li>On Debian/Ubuntu/OpenBSD/FreeBSD, please add new setting in <code>dovecot.conf</code>:</li>
 </ul>
 <pre><code>ssl_dh = &lt;/etc/ssl/dh2048_param.pem
+</code></pre>
+
+<h3 id="sql-structure-changes-for-mysqlmariadbpostgresql-backends">SQL structure changes for MySQL/MariaDB/PostgreSQL backends</h3>
+<p>Dovecot-2.3 changes the flag for TLS secure connections internally, it's used
+by iRedMail to detect the connection type. We need to create a new SQL column
+for this change.</p>
+<ul>
+<li>For MySQL/MariaDB, please login to SQL server as root user, then run SQL
+  commands below:</li>
+</ul>
+<pre><code>USE vmail;
+ALTER TABLE mailbox ADD COLUMN enableimaptls TINYINT(1) NOT NULL DEFAULT 1;
+ALTER TABLE mailbox ADD INDEX (enableimaptls);
+</code></pre>
+
+<ul>
+<li>For PostgreSQL backend, please switch to PostgreSQL daemon user with <code>su</code>
+  command first, then run SQL commands below:</li>
+</ul>
+<pre><code>\c vmail;
+ALTER TABLE mailbox ADD COLUMN enableimaptls INT2 NOT NULL DEFAULT 1;
+CREATE INDEX idx_mailbox_enableimaptls ON mailbox (enableimaptls);
 </code></pre><div class="footer">
     <p style="text-align: center; color: grey;">All documents are available in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://bitbucket.org/zhb/iredmail-docs/get/tip.tar.bz2">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
 </div>
