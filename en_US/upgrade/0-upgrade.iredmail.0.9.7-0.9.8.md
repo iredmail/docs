@@ -587,6 +587,7 @@ We've made some changes to `vmail` database:
 * Add new column `domain.maillists`. Used to store per-domain limit of mailing
   list accounts. Note: this is majorly used by iRedAdmin-Pro.
 * Add new column `forwardings.is_maillist`.
+* Add new column `mailbox.enableimaptls`. Required by Dovecot-2.3.
 * Add new table `maillists`, used by our new mailing list manager software - mlmmj.
 
 !!! warning
@@ -686,6 +687,7 @@ We've made some changes to `vmail` database:
 * Add new column `domain.maillists`. Used to store per-domain limit of mailing
   list accounts. Note: this is majorly used by iRedAdmin-Pro.
 * Add new column `forwardings.is_maillist`.
+* Add new column `mailbox.enableimaptls`. Required by Dovecot-2.3.
 * Add new table `maillists`, used by our new mailing list manager software - mlmmj.
 
 !!! warning
