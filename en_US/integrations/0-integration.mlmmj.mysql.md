@@ -246,17 +246,16 @@ We will setup `mlmmjadmin` program to make managing mailing lists easier.
 ## Setup mlmmjadmin: RESTful API server used to manage mlmmj mailing lists
 
 * Download the latest mlmmjadmin release: <https://github.com/iredmail/mlmmjadmin/releases>,
-  and upload to iRedMail server. We assume it's uploaded to `/root/` directory.
+  extract downloaded package to `/opt/` directory, and create a symbol link:
 
     !!! attention
 
-        We use `mlmmjadmin-1.1.tar.gz` for example below.
-
-* Extract downloaded mlmmjadmin package to `/opt/` directory, and create a
-  symbol link:
+        We use version `1.2` for example below.
 
 ```
-tar zxf /root/mlmmjadmin-1.1.tar.gz -C /opt
+cd /root/
+wget https://github.com/iredmail/mlmmjadmin/archive/1.2.tar.gz
+tar zxf 1.2.tar.gz -C /opt
 ln -s /opt/mlmmjadmin-1.1 /opt/mlmmjadmin
 ```
 

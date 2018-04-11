@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>mlmmjadmin upgrade tutorial (RESTful API server used to manage mlmmj mailing list)</title>
+        <link rel="stylesheet" type="text/css" href="./css/markdown.css" />
+    </head>
+    <body>
+    
+    <div id="navigation">
+    <a href="https://www.iredmail.org" target="_blank">
+        <img alt="iRedMail web site"
+             src="./images/logo-iredmail.png"
+             style="vertical-align: middle; height: 30px;"
+             />&nbsp;
+        <span>iRedMail</span>
+    </a>
+    &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><h1 id="mlmmjadmin-upgrade-tutorial-restful-api-server-used-to-manage-mlmmj-mailing-list">mlmmjadmin upgrade tutorial (RESTful API server used to manage mlmmj mailing list)</h1>
+<h2 id="summary">Summary</h2>
+<ul>
+<li>mlmmjadmin is a RESTful API server used to manage <a href="http://mlmmj.org">mlmmj</a> mailing list.</li>
+<li>Source code is hosted on <a href="https://github.com/iredmail/mlmmjadmin">GitHub</a>.</li>
+<li>Download the <a href="https://github.com/iredmail/mlmmjadmin/releases">latest stable release</a>
+  and check its release notes.</li>
+</ul>
+<h2 id="upgrade-mlmmjadmin">Upgrade mlmmjadmin</h2>
+<ul>
+<li>Login to the iRedMail server first, and switch to root user with <code>su</code> or <code>sudo</code>.</li>
+<li>Download the latest package with <code>wget</code> command, extract download package and
+  run a script to upgrade it. Note: We use version <code>1.2</code> for example here, <code>1.2.tar.gz</code>.</li>
+</ul>
+<pre><code>cd /root/
+wget https://github.com/iredmail/mlmmjadmin/archive/1.2.tar.gz
+tar zxf 1.2.tar.gz
+cd mlmmjadmin-1.2/tools/
+bash upgrade_mlmmjadmin.sh
+</code></pre>
+
+<ul>
+<li>That's all.</li>
+</ul><div class="footer">
+    <p style="text-align: center; color: grey;">All documents are available in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://bitbucket.org/zhb/iredmail-docs/get/tip.tar.bz2">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
+</div>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-3293801-21"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-3293801-21');
+</script>
+</body></html>

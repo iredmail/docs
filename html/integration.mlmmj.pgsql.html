@@ -263,18 +263,16 @@ fully integrated.</p>
 <ul>
 <li>
 <p>Download the latest mlmmjadmin release: <a href="https://github.com/iredmail/mlmmjadmin/releases">https://github.com/iredmail/mlmmjadmin/releases</a>,
-  and upload to iRedMail server. We assume it's uploaded to <code>/root/</code> directory.</p>
+  extract downloaded package to <code>/opt/</code> directory, and create a symbol link:</p>
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>
-<p>We use <code>mlmmjadmin-1.1.tar.gz</code> for example below.</p>
+<p>We use version <code>1.2</code> for example below.</p>
 </div>
 </li>
-<li>
-<p>Extract downloaded mlmmjadmin package to <code>/opt/</code> directory, and create a
-  symbol link:</p>
-</li>
 </ul>
-<pre><code>tar zxf /root/mlmmjadmin-1.1.tar.gz -C /opt
+<pre><code>cd /root/
+wget https://github.com/iredmail/mlmmjadmin/archive/1.2.tar.gz
+tar zxf 1.2.tar.gz -C /opt
 ln -s /opt/mlmmjadmin-1.1 /opt/mlmmjadmin
 </code></pre>
 
