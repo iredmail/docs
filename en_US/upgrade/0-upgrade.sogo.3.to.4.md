@@ -77,8 +77,8 @@ cp /etc/default/sogo /root/sogo-backup/default/
 bash /var/vmail/backup/backup_sogo.sh
 ```
 
-* Open file `/etc/apt/sources.list`, change the version number `3` to `4`, like
-  below:
+* Open file `/etc/apt/sources.list` or `/etc/apt/sources.list.d/sogo-nightly.list`,
+  change the version number `3` to `4`, like below:
 
 ```
 # Debian

@@ -51,13 +51,13 @@ a good idea to backup it now before you adding any new mailing lists.
   iRedMail by default. So we can install it directly:
 
 ```
-yum install mlmmj uwsgi uwsgi-plugin-python uwsgi-logger-syslog
+yum install mlmmj uwsgi uwsgi-plugin-python uwsgi-logger-syslog python-requests
 ```
 
 * On Debian/Ubuntu:
 
 ```
-apt-get install mlmmj uwsgi uwsgi-plugin-python
+apt-get install mlmmj uwsgi uwsgi-plugin-python python-requests
 ```
 
 * On FreeBSD:
@@ -66,6 +66,8 @@ apt-get install mlmmj uwsgi uwsgi-plugin-python
 cd /usr/ports/mail/mlmmj
 make install clean
 cd /usr/ports/www/uwsgi
+make install clean
+cd /usr/ports/www/py-requests
 make install clean
 ```
 
@@ -230,7 +232,7 @@ We will setup `mlmmjadmin` program to make managing mailing lists easier.
 cd /root/
 wget https://github.com/iredmail/mlmmjadmin/archive/1.2.tar.gz
 tar zxf 1.2.tar.gz -C /opt
-ln -s /opt/mlmmjadmin-1.1 /opt/mlmmjadmin
+ln -s /opt/mlmmjadmin-1.2 /opt/mlmmjadmin
 ```
 
 * Generate config file by copying sample file, `settings.py.sample`:

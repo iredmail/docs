@@ -76,13 +76,13 @@ a good idea to backup it now before you adding any new mailing lists.</p>
 <li>On RHEL/CentOS, <code>mlmmj</code> is available in <code>EPEL</code> repo, and it's enabled in
   iRedMail by default. So we can install it directly:</li>
 </ul>
-<pre><code>yum install mlmmj uwsgi uwsgi-plugin-python uwsgi-logger-syslog
+<pre><code>yum install mlmmj uwsgi uwsgi-plugin-python uwsgi-logger-syslog python-requests
 </code></pre>
 
 <ul>
 <li>On Debian/Ubuntu:</li>
 </ul>
-<pre><code>apt-get install mlmmj uwsgi uwsgi-plugin-python
+<pre><code>apt-get install mlmmj uwsgi uwsgi-plugin-python python-requests
 </code></pre>
 
 <ul>
@@ -91,6 +91,8 @@ a good idea to backup it now before you adding any new mailing lists.</p>
 <pre><code>cd /usr/ports/mail/mlmmj
 make install clean
 cd /usr/ports/www/uwsgi
+make install clean
+cd /usr/ports/www/py-requests
 make install clean
 </code></pre>
 
@@ -246,7 +248,7 @@ fully integrated.</p>
 <pre><code>cd /root/
 wget https://github.com/iredmail/mlmmjadmin/archive/1.2.tar.gz
 tar zxf 1.2.tar.gz -C /opt
-ln -s /opt/mlmmjadmin-1.1 /opt/mlmmjadmin
+ln -s /opt/mlmmjadmin-1.2 /opt/mlmmjadmin
 </code></pre>
 
 <ul>
