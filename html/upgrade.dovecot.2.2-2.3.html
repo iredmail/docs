@@ -16,6 +16,16 @@
         <span>iRedMail</span>
     </a>
     &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><h1 id="upgrade-dovecot-from-22x-to-23x">Upgrade Dovecot from 2.2.x to 2.3.x</h1>
+<div class="toc">
+<ul>
+<li><a href="#upgrade-dovecot-from-22x-to-23x">Upgrade Dovecot from 2.2.x to 2.3.x</a><ul>
+<li><a href="#upgrade-dovecot-on-linuxfreebsdopenbsd">Upgrade Dovecot on Linux/FreeBSD/OpenBSD</a></li>
+<li><a href="#sql-structure-changes-for-mysqlmariadbpostgresql-backends">SQL structure changes for MySQL/MariaDB/PostgreSQL backends</a></li>
+<li><a href="#ldap-changes-for-openldapldapd-backends">LDAP changes for OpenLDAP/ldapd backends</a></li>
+</ul>
+</li>
+</ul>
+</div>
 <p>Dovecot 2.3 breaks some backward compatible, and here's a short tutorial to
 convert your Dovecot 2.2 config file to fully work with Dovecot 2.3.</p>
 <p>For more details, please read Dovecot wiki page: <a href="https://wiki2.dovecot.org/Upgrading/2.3">Upgrading Dovecot v2.2 to v2.3</a>.</p>
@@ -87,7 +97,7 @@ perl -pi -e 's#stats_track_cmds#old_stats_track_cmds#g' dovecot.conf
 <pre><code>ssl_dh = &lt;/etc/ssl/dh2048_param.pem
 </code></pre>
 
-<h3 id="sql-structure-changes-for-mysqlmariadbpostgresql-backends">SQL structure changes for MySQL/MariaDB/PostgreSQL backends</h3>
+<h2 id="sql-structure-changes-for-mysqlmariadbpostgresql-backends">SQL structure changes for MySQL/MariaDB/PostgreSQL backends</h2>
 <p>Dovecot-2.3 changes the flag for TLS secure connections internally, it's used
 by iRedMail to detect the connection type. We need to create a new SQL column
 for this change.</p>
@@ -113,7 +123,7 @@ ALTER TABLE mailbox ADD COLUMN enablepop3tls INT2 NOT NULL DEFAULT 1;
 CREATE INDEX idx_mailbox_enablepop3tls ON mailbox (enablepop3tls);
 </code></pre>
 
-<h3 id="ldap-changes-for-openldapldapd-backends">LDAP changes for OpenLDAP/ldapd backends</h3>
+<h2 id="ldap-changes-for-openldapldapd-backends">LDAP changes for OpenLDAP/ldapd backends</h2>
 <p>We need to add new ldap attribute/value pairs for existing mail users.</p>
 <ul>
 <li>Download script used to update existing mail users:</li>

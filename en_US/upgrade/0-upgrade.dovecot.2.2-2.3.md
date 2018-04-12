@@ -1,5 +1,7 @@
 # Upgrade Dovecot from 2.2.x to 2.3.x
 
+[TOC]
+
 Dovecot 2.3 breaks some backward compatible, and here's a short tutorial to
 convert your Dovecot 2.2 config file to fully work with Dovecot 2.3.
 
@@ -72,7 +74,7 @@ ssl_dh = </etc/pki/tls/dh2048_param.pem
 ssl_dh = </etc/ssl/dh2048_param.pem
 ```
 
-### SQL structure changes for MySQL/MariaDB/PostgreSQL backends
+## SQL structure changes for MySQL/MariaDB/PostgreSQL backends
 
 Dovecot-2.3 changes the flag for TLS secure connections internally, it's used
 by iRedMail to detect the connection type. We need to create a new SQL column
@@ -100,7 +102,7 @@ ALTER TABLE mailbox ADD COLUMN enablepop3tls INT2 NOT NULL DEFAULT 1;
 CREATE INDEX idx_mailbox_enablepop3tls ON mailbox (enablepop3tls);
 ```
 
-### LDAP changes for OpenLDAP/ldapd backends
+## LDAP changes for OpenLDAP/ldapd backends
 
 We need to add new ldap attribute/value pairs for existing mail users.
 
