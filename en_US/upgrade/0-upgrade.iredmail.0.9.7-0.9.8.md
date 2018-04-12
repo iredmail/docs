@@ -10,6 +10,7 @@
 
 ## ChangeLog
 
+* Mar 12, Add new ldap attribute/value pairs required by Dovecot-2.3.
 * Mar 4, Upgrade SOGo from v3 to v4.
 * Mar 4, Upgrade Roundcube webmail to the latet version - 1.3.5.
 * Mar 1, SQL structure changes in `vmail` database.
@@ -474,6 +475,46 @@ cd /etc/openldap/schema/
 cp iredmail.schema iredmail.schema.bak
 
 cp -f /tmp/iredmail.schema /etc/openldap/schema/
+```
+
+### Add new ldap attribute/value pairs required by Dovecot-2.3.
+
+Dovecot-2.3 has an internal change which impacts mail accounts created by
+iRedMail, it requires 2 new ldap attribute/value pairs for all mail users:
+
+* enabledService=imaptls
+* enabledService=pop3tls
+
+Please follow steps below to add them.
+
+* Download script used to update existing mail users:
+
+```
+cd /root/
+wget https://bitbucket.org/zhb/iredmail/raw/default/extra/update/update-ldap-dovecot-2.3.py
+```
+
+* Open downloaded file `update-ldap-dovecot-2.3.py`, set LDAP server
+  related settings in this file. For example:
+
+```
+# Part of file: update-ldap-dovecot-2.3.py
+
+uri = 'ldap://127.0.0.1:389'
+basedn = 'o=domains,dc=example,dc=com'
+bind_dn = 'cn=vmailadmin,dc=example,dc=com'
+bind_pw = 'password'
+```
+
+You can find required LDAP credential in iRedAdmin config file or
+`iRedMail.tips` file under your iRedMail installation directory. Using either
+`cn=Manager,dc=xx,dc=xx` or `cn=vmailadmin,dc=xx,dc=xx` as bind dn is ok, both
+of them have read-write privilege to update mail accounts.
+
+* Execute this script, it will add required data:
+
+```
+# python update-ldap-dovecot-2.3.py
 ```
 
 ### mlmmj (mailing list manager) integration
