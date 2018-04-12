@@ -774,6 +774,6 @@ wget https://bitbucket.org/zhb/iredmail/raw/default/extra/update/0.9.8/amavisd.p
 
 ```
 # su - postgres
-$ psql -U amavisd -d vmail
+$ psql -U amavisd -d amavisd
 sql> \i /tmp/amavisd.pgsql
 ```
