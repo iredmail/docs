@@ -111,6 +111,37 @@ ALTER TABLE mailbox ADD COLUMN enableimaptls INT2 NOT NULL DEFAULT 1;
 CREATE INDEX idx_mailbox_enableimaptls ON mailbox (enableimaptls);
 ALTER TABLE mailbox ADD COLUMN enablepop3tls INT2 NOT NULL DEFAULT 1;
 CREATE INDEX idx_mailbox_enablepop3tls ON mailbox (enablepop3tls);
+</code></pre>
+
+<h3 id="ldap-changes-for-openldapldapd-backends">LDAP changes for OpenLDAP/ldapd backends</h3>
+<p>We need to add new ldap attribute/value pairs for existing mail users.</p>
+<ul>
+<li>Download script used to update existing mail users:</li>
+</ul>
+<pre><code>cd /root/
+wget https://bitbucket.org/zhb/iredmail/raw/default/extra/update/update-ldap-dovecot-2.3.py
+</code></pre>
+
+<ul>
+<li>Open downloaded file <code>update-ldap-dovecot-2.3.py</code>, set LDAP server
+  related settings in this file. For example:</li>
+</ul>
+<pre><code># Part of file: update-ldap-dovecot-2.3.py
+
+uri = 'ldap://127.0.0.1:389'
+basedn = 'o=domains,dc=example,dc=com'
+bind_dn = 'cn=vmailadmin,dc=example,dc=com'
+bind_pw = 'password'
+</code></pre>
+
+<p>You can find required LDAP credential in iRedAdmin config file or
+<code>iRedMail.tips</code> file under your iRedMail installation directory. Using either
+<code>cn=Manager,dc=xx,dc=xx</code> or <code>cn=vmailadmin,dc=xx,dc=xx</code> as bind dn is ok, both
+of them have read-write privilege to update mail accounts.</p>
+<ul>
+<li>Execute this script, it will add required data:</li>
+</ul>
+<pre><code># python update-ldap-dovecot-2.3.py
 </code></pre><div class="footer">
     <p style="text-align: center; color: grey;">All documents are available in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://bitbucket.org/zhb/iredmail-docs/get/tip.tar.bz2">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
 </div>

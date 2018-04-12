@@ -99,3 +99,38 @@ CREATE INDEX idx_mailbox_enableimaptls ON mailbox (enableimaptls);
 ALTER TABLE mailbox ADD COLUMN enablepop3tls INT2 NOT NULL DEFAULT 1;
 CREATE INDEX idx_mailbox_enablepop3tls ON mailbox (enablepop3tls);
 ```
+
+### LDAP changes for OpenLDAP/ldapd backends
+
+We need to add new ldap attribute/value pairs for existing mail users.
+
+* Download script used to update existing mail users:
+
+```
+cd /root/
+wget https://bitbucket.org/zhb/iredmail/raw/default/extra/update/update-ldap-dovecot-2.3.py
+```
+
+* Open downloaded file `update-ldap-dovecot-2.3.py`, set LDAP server
+  related settings in this file. For example:
+
+```
+# Part of file: update-ldap-dovecot-2.3.py
+
+uri = 'ldap://127.0.0.1:389'
+basedn = 'o=domains,dc=example,dc=com'
+bind_dn = 'cn=vmailadmin,dc=example,dc=com'
+bind_pw = 'password'
+```
+
+You can find required LDAP credential in iRedAdmin config file or
+`iRedMail.tips` file under your iRedMail installation directory. Using either
+`cn=Manager,dc=xx,dc=xx` or `cn=vmailadmin,dc=xx,dc=xx` as bind dn is ok, both
+of them have read-write privilege to update mail accounts.
+
+* Execute this script, it will add required data:
+
+```
+# python update-ldap-dovecot-2.3.py
+```
+
