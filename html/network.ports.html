@@ -42,6 +42,13 @@
 <td>YES (open to your end users)</td>
 </tr>
 <tr>
+<td>24</td>
+<td>lmtp</td>
+<td>Dovecot</td>
+<td>Used to deliver email to local mailboxes via LMTP protocol.</td>
+<td>No (listen on <code>127.0.0.1</code> by default)</td>
+</tr>
+<tr>
 <td>110</td>
 <td>pop3</td>
 <td>Dovecot</td>
@@ -126,10 +133,24 @@
 <td>NO (listen on <code>127.0.0.1</code> by default)</td>
 </tr>
 <tr>
+<td>10025</td>
+<td>smtp</td>
+<td>Postfix</td>
+<td>Used by Amavisd to inject scanned emails back to Postfix queue.</td>
+<td>NO (listen on <code>127.0.0.1</code> by default)</td>
+</tr>
+<tr>
 <td>10026</td>
 <td></td>
 <td>Amavisd-new</td>
 <td>Used to scan outbound messages, includes spam/virus scanning, DKIM signing, applying spam policy.</td>
+<td>NO (listen on <code>127.0.0.1</code> by default)</td>
+</tr>
+<tr>
+<td>10027</td>
+<td></td>
+<td>Amavisd-new</td>
+<td>Used by mlmmj mailing list manager, it bypasses spam/virus/header/banned checks by default, but have DKIM signing enabled.</td>
 <td>NO (listen on <code>127.0.0.1</code> by default)</td>
 </tr>
 <tr>
@@ -147,11 +168,25 @@
 <td>NO (listen on <code>127.0.0.1</code> by default)</td>
 </tr>
 <tr>
-<td>7779</td>
-<td></td>
+<td>7790</td>
+<td>http</td>
 <td>mlmmjadmin</td>
 <td>RESTful API server used to manage mlmmj mailing lists. New in iRedMail-0.9.8.</td>
 <td>NO (listen on <code>127.0.0.1</code> by default)</td>
+</tr>
+<tr>
+<td>20000</td>
+<td></td>
+<td>SOGo</td>
+<td>SOGo groupware</td>
+<td>NO (listen on <code>127.0.0.1</code> by default)</td>
+</tr>
+<tr>
+<td>11211</td>
+<td></td>
+<td>Memcached</td>
+<td>A distributed, high performance memory object caching system.</td>
+<td>No (listen on <code>127.0.0.1</code> by default)</td>
 </tr>
 <tr>
 <td>24242</td>

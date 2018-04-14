@@ -4,6 +4,7 @@ Port | Service | Software | Comment | Allow Public Access?
 --- |--- |--- |--- |---
 25 | smtp | Postfix | Normal smtp service, used for server-to-server communication. __WARNING__: This port __MUST__ be open, otherwise you cannot receive email sent from other servers. | YES
 587 | submission | Postfix | a.k.a. SMTP over TLS. Used by end users to send/submit email. | YES (open to your end users)
+24 | lmtp | Dovecot | Used to deliver email to local mailboxes via LMTP protocol. | No (listen on `127.0.0.1` by default)
 110 | pop3 | Dovecot | Used by end users to retrieve emails via POP3 protocol, secure connection over STARTTLS is available by default. | YES (open to your end users)
 995 | pop3s | Dovecot | Used by end users to restrieve emails via POP3 protocol over SSL. Port 110 with STARTTLS is recommended. | YES (open to your end users)
 143 | imap |Dovecot | Used by end users to retrieve emails via IMAP protocol, secure connection over STARTTLS is available by default. | YES (open to your end users)
@@ -16,10 +17,14 @@ Port | Service | Software | Comment | Allow Public Access?
 389 | ldap | OpenLDAP (or OpenBSD ldapd) | LDAP service, STARTTLS is available for secure connection. | NO (listen on `127.0.0.1` by default)
 636 |ldaps | OpenLDAP (or OpenBSD ldapd) | LDAP service over SSL. Deprecated, port 389 with STARTTLS is recommended. | NO (listen on `127.0.0.1` by default)
 10024 | | Amavisd-new | Used to scan inbound messages, includes spam/virus scanning, DKIM verification, applying spam policy. | NO (listen on `127.0.0.1` by default)
+10025 | smtp | Postfix | Used by Amavisd to inject scanned emails back to Postfix queue. | NO (listen on `127.0.0.1` by default)
 10026 | | Amavisd-new | Used to scan outbound messages, includes spam/virus scanning, DKIM signing, applying spam policy. | NO (listen on `127.0.0.1` by default)
+10027 | | Amavisd-new | Used by mlmmj mailing list manager, it bypasses spam/virus/header/banned checks by default, but have DKIM signing enabled. | NO (listen on `127.0.0.1` by default)
 9998 | | Amavisd-new | Used to manage quarantined emails. | NO (listen on `127.0.0.1` by default)
 7777 | | iRedAPD | Postfix policy service for greylisting, whitelisting, blacklists, throttling, etc | NO (listen on `127.0.0.1` by default)
-7779 | | mlmmjadmin | RESTful API server used to manage mlmmj mailing lists. New in iRedMail-0.9.8. | NO (listen on `127.0.0.1` by default)
+7790 | http | mlmmjadmin | RESTful API server used to manage mlmmj mailing lists. New in iRedMail-0.9.8. | NO (listen on `127.0.0.1` by default)
+20000 | | SOGo | SOGo groupware  | NO (listen on `127.0.0.1` by default)
+11211 | | Memcached | A distributed, high performance memory object caching system. | No (listen on `127.0.0.1` by default)
 24242 | | Dovecot | Dovecot service status. New in iRedMail-0.9.8. | NO (listen on `127.0.0.1` by default)
 19999 | | Netdata | Netdata monitor. New in iRedMail-0.9.8. | NO (listen on `127.0.0.1` by default)
 
