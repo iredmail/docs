@@ -12,7 +12,7 @@
 
 * Mar 12, Add new ldap attribute/value pairs required by Dovecot-2.3.
 * Mar 4, Upgrade SOGo from v3 to v4.
-* Mar 4, Upgrade Roundcube webmail to the latet version - 1.3.5.
+* Mar 4, Upgrade Roundcube webmail to the latet version - 1.3.6.
 * Mar 1, SQL structure changes in `vmail` database.
 * Feb 14, 2018: [SECURITY] Fixed: Nginx snippet file doesn't block access to Roundcube sensitive files.
 * Feb 11, 2018: netdata integration.
@@ -51,7 +51,7 @@ Please follow this tutorial to upgrade iRedAdmin open source edition to the
 latest stable release:
 [Upgrade iRedAdmin to the latest stable release](./migrate.or.upgrade.iredadmin.html)
 
-### Upgrade Roundcube webmail to the latest stable release (1.3.5)
+### Upgrade Roundcube webmail to the latest stable release (1.3.6)
 
 !!! warning "Roundcube 1.3"
 

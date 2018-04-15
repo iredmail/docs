@@ -353,7 +353,7 @@ MLMMJ_SKEL_DIR = '/usr/local/share/mlmmj/text.skel'
 # For RHEL/CentOS 6
 #
 cp /opt/mlmmjadmin/rc_scripts/mlmmjadmin.rhel /etc/init.d/mlmmjadmin
-chmod 0644 /etc/init.d/mlmmjadmin
+chmod 0755 /etc/init.d/mlmmjadmin
 chkconfig --level 345 on mlmmjadmin
 
 #
@@ -368,7 +368,7 @@ systemctl enable mlmmjadmin
 # For Debian 8, Ubuntu 14.04 and earlier releases which does NOT use systemd
 #
 cp /opt/mlmmjadmin/rc_scripts/mlmmjadmin.debian /etc/init.d/mlmmjadmin
-chmod 0644 /etc/init.d/mlmmjadmin
+chmod 0755 /etc/init.d/mlmmjadmin
 update-rc.d mlmmjadmin defaults
 
 #
