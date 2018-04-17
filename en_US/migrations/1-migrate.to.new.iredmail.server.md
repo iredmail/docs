@@ -146,6 +146,26 @@ mysql> SELECT CONCAT(storagebasedirectory, '/', storagenode, '/', maildir) FROM 
 $ ldapsearch -x -D 'cn=Manager,dc=xx,dc=xx' -b 'o=domains,dc=xx,dc=xx' -W "(mail=user@domain.com)" homeDirectory
 ```
 
+## Migrate (mlmmj) mailing lists
+
+!!! attention
+
+    mlmmj mailing list was introduced in iRedMail-0.9.8.
+
+Mailing lists are stored in 2 places:
+
+- Mailing list accounts are stored in SQL database (for iRedMail SQL backends)
+  or LDAP (for LDAP backends)
+- Mailing list data:
+    - `/var/vmail/mlmmj`: it stores active mailing lists.
+    - `/var/vmail/mlmmj-archive`: it stores removed mailing lists.
+
+For mailing list accounts, they should be migrated while migrating mail
+accounts mentioned in steps above.
+
+For mailing list data, you can simply copy them to new server. After copied,
+the data must be owned by user/group `mlmmj:mlmmj` with permission `0700`.
+
 ## Migrate Roundcube webmail data
 
 * Export/import roundcube webmail database, and upgrade database to work with

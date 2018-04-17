@@ -23,6 +23,7 @@
 <li><a href="#ldap-migrate-mail-accounts">LDAP: migrate mail accounts</a></li>
 <li><a href="#mysqlpostgresql-migrate-mail-accounts">MySQL/PostgreSQL: Migrate mail accounts</a></li>
 <li><a href="#migrate-mailboxes-maildir-format">Migrate mailboxes (Maildir format)</a></li>
+<li><a href="#migrate-mlmmj-mailing-lists">Migrate (mlmmj) mailing lists</a></li>
 <li><a href="#migrate-roundcube-webmail-data">Migrate Roundcube webmail data</a></li>
 <li><a href="#migrate-amavisd-iredapd-iredadmin-databases">Migrate Amavisd, iRedAPD, iRedAdmin databases</a></li>
 <li><a href="#migrate-dkim-keys">Migrate DKIM keys</a></li>
@@ -176,6 +177,25 @@ mysql&gt; SELECT CONCAT(storagebasedirectory, '/', storagenode, '/', maildir) FR
 <pre><code>$ ldapsearch -x -D 'cn=Manager,dc=xx,dc=xx' -b 'o=domains,dc=xx,dc=xx' -W &quot;(mail=user@domain.com)&quot; homeDirectory
 </code></pre>
 
+<h2 id="migrate-mlmmj-mailing-lists">Migrate (mlmmj) mailing lists</h2>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>mlmmj mailing list was introduced in iRedMail-0.9.8.</p>
+</div>
+<p>Mailing lists are stored in 2 places:</p>
+<ul>
+<li>Mailing list accounts are stored in SQL database (for iRedMail SQL backends)
+  or LDAP (for LDAP backends)</li>
+<li>Mailing list data:<ul>
+<li><code>/var/vmail/mlmmj</code>: it stores active mailing lists.</li>
+<li><code>/var/vmail/mlmmj-archive</code>: it stores removed mailing lists.</li>
+</ul>
+</li>
+</ul>
+<p>For mailing list accounts, they should be migrated while migrating mail
+accounts mentioned in steps above.</p>
+<p>For mailing list data, you can simply copy them to new server. After copied,
+the data must be owned by user/group <code>mlmmj:mlmmj</code> with permission <code>0700</code>.</p>
 <h2 id="migrate-roundcube-webmail-data">Migrate Roundcube webmail data</h2>
 <ul>
 <li>Export/import roundcube webmail database, and upgrade database to work with
