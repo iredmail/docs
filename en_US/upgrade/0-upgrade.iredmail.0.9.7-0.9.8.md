@@ -729,7 +729,7 @@ We've made some changes to `vmail` database:
 Download SQL template file used to update SQL database:
 
 ```
-cd /root/
+cd /tmp/
 wget https://bitbucket.org/zhb/iredmail/raw/default/extra/update/0.9.8/iredmail.pgsql
 ```
 
@@ -740,7 +740,7 @@ Connect to PostgreSQL server as `postgres` user and import the SQL file:
 
 ```
 su - postgres
-psql -d vmail < /root/iredmail.mysql
+psql -d vmail < /tmp/iredmail.pgsql
 ```
 
 ### mlmmj (mailing list manager) integration
@@ -748,7 +748,7 @@ psql -d vmail < /root/iredmail.mysql
 iRedMail-0.9.8 integrates mlmmj as mailing list manager, please follow our
 document below to integrate it:
 
-* [Integrate mlmmj mailing list manager](./integration.mlmmj.mysql.html)
+* [Integrate mlmmj mailing list manager](./integration.mlmmj.pgsql.html)
 
 !!! attention
 

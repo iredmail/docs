@@ -165,7 +165,7 @@ transport_maps =
 user        = vmail
 password    = qsescZvV03f6YUtTMN2bQTejmjatzz
 hosts       = 127.0.0.1
-port        = 3306
+port        = 5432
 dbname      = vmail
 query       = SELECT maillists.transport FROM maillists,domain WHERE maillists.address='%s' AND maillists.active=1 AND maillists.domain = domain.domain AND domain.active=1
 ```
@@ -323,7 +323,7 @@ backend_cli = 'bk_iredmail_sql'
 ```
 iredmail_sql_db_type = 'pgsql'
 iredmail_sql_db_server = '127.0.0.1'
-iredmail_sql_db_port = 3306
+iredmail_sql_db_port = 5432
 iredmail_sql_db_name = 'vmail'
 iredmail_sql_db_user = 'vmailadmin'
 iredmail_sql_db_password = '<password>'

@@ -720,7 +720,7 @@ sasl auth. Please follow steps below to fix it.</p>
 <p><code>bash /var/vmail/backup/backup_pgsql.sh</code></p>
 </div>
 <p>Download SQL template file used to update SQL database:</p>
-<pre><code>cd /root/
+<pre><code>cd /tmp/
 wget https://bitbucket.org/zhb/iredmail/raw/default/extra/update/0.9.8/iredmail.pgsql
 </code></pre>
 
@@ -729,14 +729,14 @@ wget https://bitbucket.org/zhb/iredmail/raw/default/extra/update/0.9.8/iredmail.
 </em> on FreeBSD, it's <code>pgsql</code> user
 * on OpenBSD, it's <code>_postgresql</code> user</p>
 <pre><code>su - postgres
-psql -d vmail &lt; /root/iredmail.mysql
+psql -d vmail &lt; /tmp/iredmail.pgsql
 </code></pre>
 
 <h3 id="mlmmj-mailing-list-manager-integration_2">mlmmj (mailing list manager) integration</h3>
 <p>iRedMail-0.9.8 integrates mlmmj as mailing list manager, please follow our
 document below to integrate it:</p>
 <ul>
-<li><a href="./integration.mlmmj.mysql.html">Integrate mlmmj mailing list manager</a></li>
+<li><a href="./integration.mlmmj.pgsql.html">Integrate mlmmj mailing list manager</a></li>
 </ul>
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>
