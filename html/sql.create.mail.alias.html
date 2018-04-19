@@ -30,17 +30,16 @@
 </li>
 </ul>
 </div>
-<div class="admonition attention">
-<p class="admonition-title">Attention</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
 <ul>
 <li>This document is applicable to iRedMail-0.9.7 and later releases.</li>
 <li>Here's <a href="./sql.create.mail.alias-20170701.html">doc for iRedMail-0.9.6 and earlier releases</a>.</li>
 </ul>
 </div>
 <h2 id="create-mail-alias-account-with-iredadmin-pro">Create mail alias account with iRedAdmin-Pro</h2>
-<p>With iRedAdmin-Pro, you can easily add mail list account by click menu:
-<code>Add -&gt; Mail List</code> (or <code>Add -&gt; Alias</code> for SQL backends) in main
-navigation bar.</p>
+<p>With iRedAdmin-Pro, you can easily add mail alias account by click menu:
+<code>Add -&gt; Alias</code> in main navigation bar.</p>
 <p><img alt="" src="./images/iredadmin/maillist_create.png" /></p>
 <h2 id="create-mail-alias-account-with-sql-command-line">Create mail alias account with SQL command line</h2>
 <p>To create an mail alias account, you need to add SQL records in 2 sql tables.
@@ -104,23 +103,23 @@ For example:</p>
 </tr>
 <tr>
 <td><code>domain</code></td>
-<td>all users under same domain are allowed to send email to this mail list.</td>
+<td>all users under same domain are allowed to send email to this mail alias account.</td>
 </tr>
 <tr>
 <td><code>subdomain</code></td>
-<td>all users under same domain and all sub-domains are allowed to send email to this mail list.</td>
+<td>all users under same domain and all sub-domains are allowed to send email to this mail alias account.</td>
 </tr>
 <tr>
 <td><code>membersonly</code></td>
-<td>only members of this mail list are allowd.</td>
+<td>only members of this mail alias account are allowd.</td>
 </tr>
 <tr>
 <td><code>moderatorsonly</code></td>
-<td>only moderators of this mail list are allowed.</td>
+<td>only moderators of this mail alias account are allowed.</td>
 </tr>
 <tr>
 <td><code>membersandmoderatorsonly</code></td>
-<td>only members and moderators of this mail list are allowed.</td>
+<td>only members and moderators of this mail alias account are allowed.</td>
 </tr>
 </tbody>
 </table>

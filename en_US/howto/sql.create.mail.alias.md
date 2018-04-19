@@ -2,16 +2,15 @@
 
 [TOC]
 
-!!! attention
+!!! warning
 
     * This document is applicable to iRedMail-0.9.7 and later releases.
     * Here's [doc for iRedMail-0.9.6 and earlier releases](./sql.create.mail.alias-20170701.html).
 
 ## Create mail alias account with iRedAdmin-Pro
 
-With iRedAdmin-Pro, you can easily add mail list account by click menu:
-`Add -> Mail List` (or `Add -> Alias` for SQL backends) in main
-navigation bar.
+With iRedAdmin-Pro, you can easily add mail alias account by click menu:
+`Add -> Alias` in main navigation bar.
 
 ![](./images/iredadmin/maillist_create.png)
 
@@ -73,11 +72,11 @@ Available access policies:
 Access Policy Name | Comment
 --- |---
 `public` | no restrictions
-`domain` | all users under same domain are allowed to send email to this mail list.
-`subdomain` | all users under same domain and all sub-domains are allowed to send email to this mail list.
-`membersonly` | only members of this mail list are allowd.
-`moderatorsonly` | only moderators of this mail list are allowed.
-`membersandmoderatorsonly` | only members and moderators of this mail list are allowed.
+`domain` | all users under same domain are allowed to send email to this mail alias account.
+`subdomain` | all users under same domain and all sub-domains are allowed to send email to this mail alias account.
+`membersonly` | only members of this mail alias account are allowd.
+`moderatorsonly` | only moderators of this mail alias account are allowed.
+`membersandmoderatorsonly` | only members and moderators of this mail alias account are allowed.
 
 ### How to assign a moderator
 
