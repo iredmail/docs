@@ -37,7 +37,7 @@ installation, it's recommended to update this file after you upgraded iRedMail,
 so that you can know which version of iRedMail you're running. For example:
 
 ```
-0.9.7
+0.9.8
 ```
 
 ### Upgrade iRedAPD (Postfix policy server) to the latest stable release (2.2)
