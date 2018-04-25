@@ -57,7 +57,7 @@ yum install mlmmj uwsgi uwsgi-plugin-python uwsgi-logger-syslog python-requests
 * On Debian/Ubuntu:
 
 ```
-apt-get install mlmmj uwsgi uwsgi-plugin-python python-requests
+apt-get install mlmmj uwsgi uwsgi-plugin-python uwsgi-plugin-syslog python-requests
 ```
 
 * On FreeBSD:
@@ -252,13 +252,13 @@ We will setup `mlmmjadmin` program to make managing mailing lists easier.
 
     !!! attention
 
-        We use version `1.2` for example below.
+        We use version `1.3` for example below.
 
 ```
 cd /root/
-wget https://github.com/iredmail/mlmmjadmin/archive/1.2.tar.gz
-tar zxf 1.2.tar.gz -C /opt
-ln -s /opt/mlmmjadmin-1.2 /opt/mlmmjadmin
+wget https://github.com/iredmail/mlmmjadmin/archive/1.3.tar.gz
+tar zxf 1.3.tar.gz -C /opt
+ln -s /opt/mlmmjadmin-1.3 /opt/mlmmjadmin
 ```
 
 * Generate config file by copying sample file, `settings.py.sample`:
