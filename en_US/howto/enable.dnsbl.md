@@ -21,6 +21,7 @@ smtpd_recipient_restrictions =
     ...
     reject_unauth_destination
     reject_rbl_client zen.spamhaus.org=127.0.0.[2..11]
+    reject_rbl_client b.barracudacentral.org=127.0.0.2
 ```
 
 It must be placed after `reject_unauth_destination`. You can add more DNSBL
@@ -43,12 +44,6 @@ postscreen_dnsbl_sites =
 ```
 
 * Restart or reload Postfix service is required.
-
-!!! note "Another popular DNSBL server"
-
-    Another popular DNSBL server address is `b.barracudacentral.org`. For more
-    details, please read its web site:
-    [Barracuda Reputation Block List (BRBL)](http://www.barracudacentral.org/rbl)
 
 ## See also
 

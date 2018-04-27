@@ -166,6 +166,7 @@ default, if you use a different directory, please edit this file and modify
 parameter <code>BACKUP_ROOTDIR=</code> to use the correct one.</p>
 </div>
 <pre><code>cd /var/vmail/backup/
+rm -f backup_sogo.sh
 wget https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/tools/backup_sogo.sh
 chown root backup_sogo.sh
 chmod 0400 backup_sogo.sh

@@ -119,6 +119,7 @@ system:
 
 ```
 cd /var/vmail/backup/
+rm -f backup_sogo.sh
 wget https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/tools/backup_sogo.sh
 chown root backup_sogo.sh
 chmod 0400 backup_sogo.sh
