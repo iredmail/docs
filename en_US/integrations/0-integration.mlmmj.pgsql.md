@@ -98,7 +98,7 @@ On FreeBSD:
 
 ```
 pw groupadd mlmmj
-pw useradd -m -g mlmmj -s /sbin/nologin -d /var/vmail/mlmmj mlmmj
+pw useradd mlmmj -m -g mlmmj -s /sbin/nologin -d /var/vmail/mlmmj
 mkdir /var/vmail/mlmmj-archive
 chown -R mlmmj:mlmmj /var/vmail/mlmmj /var/vmail/mlmmj-archive
 chmod -R 0700 /var/vmail/mlmmj /var/vmail/mlmmj-archive
