@@ -57,7 +57,7 @@ yum install mlmmj uwsgi uwsgi-plugin-python uwsgi-logger-syslog python-requests
 * On Debian/Ubuntu:
 
 ```
-apt-get install mlmmj uwsgi uwsgi-plugin-python uwsgi-plugin-syslog python-requests
+apt-get install mlmmj uwsgi uwsgi-plugin-python python-requests
 ```
 
 * On FreeBSD:
