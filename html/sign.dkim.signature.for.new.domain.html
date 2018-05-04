@@ -152,32 +152,29 @@ DKIM record can be checked with command below:</p>
 <p>Note: DNS vendor usually cache DNS records for 2 hours, so if above command
 shows "invalid" instead of "pass", you should try again later.</p>
 <h2 id="use-one-dkim-key-for-all-mail-domains">Use one DKIM key for all mail domains</h2>
-<p>For compatibility with dkim_milter the signing domain can include a '*'
-as a wildcard - this is not recommended as this way amavisd could produce
-signatures which have no corresponding public key published in DNS.
-The proper way is to have one dkim_key entry for each mail domain.</p>
-<p>If you still want to try this, please follow below steps:</p>
+<p>If you want to use one DKIM key for all mail domains, please follow steps below:</p>
 <ul>
-<li>Find below setting in Amavisd config file <code>amavisd.conf</code>:</li>
+<li>Make sure you have at least one DKIM key configured like below in Amavisd
+  config file (<code>amavisd.conf</code>):</li>
 </ul>
 <pre><code>dkim_key('mydomain.com', &quot;dkim&quot;, &quot;/var/lib/dkim/mydomain.com.pem&quot;);
 </code></pre>
 
 <ul>
-<li>Replace it by below line:</li>
+<li>Find parameter <code>@dkim_signature_options_bysender_maps</code>, and set it to:</li>
 </ul>
-<pre><code>dkim_key('*', &quot;dkim&quot;, &quot;/var/lib/dkim/mydomain.com.pem&quot;);
+<pre><code>@dkim_signature_options_bysender_maps = ({
+    # catch-all (one dkim key for all domains)
+    '.' =&gt; {d =&gt; 'mydomain.com',
+            a =&gt; 'rsa-sha256',
+            c =&gt; 'relaxed/simple',
+            ttl =&gt; 30*24*3600 },
+});
 </code></pre>
 
 <ul>
 <li>Restart Amavisd serivce.</li>
 </ul>
-<p>With above setting, all outbound emails with be signed with this dkim key.
-And Amavisd will show a warning message when start amavisd service:</p>
-<blockquote>
-<p>dkim: wildcard in signing domain (key#1, *), may produce unverifiable
-signatures with no published public key, avoid!</p>
-</blockquote>
 <h2 id="references">References</h2>
 <ul>
 <li>Amavisd official document: <a href="http://www.ijs.si/software/amavisd/amavisd-new-docs.html#dkim">Setting up DKIM mail signing and verification</a></li>

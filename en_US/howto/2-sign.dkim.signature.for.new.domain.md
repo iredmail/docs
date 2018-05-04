@@ -136,32 +136,28 @@ shows "invalid" instead of "pass", you should try again later.
 
 ## Use one DKIM key for all mail domains
 
-For compatibility with dkim_milter the signing domain can include a '*'
-as a wildcard - this is not recommended as this way amavisd could produce
-signatures which have no corresponding public key published in DNS.
-The proper way is to have one dkim_key entry for each mail domain.
+If you want to use one DKIM key for all mail domains, please follow steps below:
 
-If you still want to try this, please follow below steps:
-
-* Find below setting in Amavisd config file `amavisd.conf`:
+* Make sure you have at least one DKIM key configured like below in Amavisd
+  config file (`amavisd.conf`):
 
 ```
 dkim_key('mydomain.com', "dkim", "/var/lib/dkim/mydomain.com.pem");
 ```
 
-* Replace it by below line:
+* Find parameter `@dkim_signature_options_bysender_maps`, and set it to:
 
 ```
-dkim_key('*', "dkim", "/var/lib/dkim/mydomain.com.pem");
+@dkim_signature_options_bysender_maps = ({
+    # catch-all (one dkim key for all domains)
+    '.' => {d => 'mydomain.com',
+            a => 'rsa-sha256',
+            c => 'relaxed/simple',
+            ttl => 30*24*3600 },
+});
 ```
 
 * Restart Amavisd serivce.
-
-With above setting, all outbound emails with be signed with this dkim key.
-And Amavisd will show a warning message when start amavisd service:
-
-> dkim: wildcard in signing domain (key#1, *), may produce unverifiable
-> signatures with no published public key, avoid!
 
 ## References
 
