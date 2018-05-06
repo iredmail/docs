@@ -1,6 +1,7 @@
-# Customize maildir path
+# iRedAdmin-Pro: Customize maildir path
 
-iRedAdmin offers several settings to customize the maildir path, default values
+iRedAdmin-Pro (and iRedAdmin open source edition) offers several settings to
+customize the maildir path, default values
 are stored in file `libs/default_settings.py`, if you need to change them,
 please write your own setting in iRedAdmin main config file `settings.py`, so
 that your settings will be kept after upgrading iRedAdmin.
