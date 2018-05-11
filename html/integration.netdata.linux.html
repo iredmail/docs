@@ -31,6 +31,7 @@
 </li>
 <li><a href="#system-tuning">System tuning</a></li>
 <li><a href="#configure-nginx-to-forward-requests-to-netdata">Configure Nginx to forward requests to netdata</a></li>
+<li><a href="#update-netdata">Update netdata</a></li>
 </ul>
 </li>
 </ul>
@@ -70,8 +71,8 @@ install it first.</p>
 <li>
 <p>Download the latest netdata from its github project page, and upload to
   iRedMail server: <a href="https://github.com/firehol/netdata/releases">https://github.com/firehol/netdata/releases</a></p>
-<p>We use version <code>1.9.0</code> for example in this tutorial, the package we download
-is: <a href="https://github.com/firehol/netdata/releases/download/v1.9.0/netdata-latest.gz.run">https://github.com/firehol/netdata/releases/download/v1.9.0/netdata-latest.gz.run</a></p>
+<p>We use version <code>1.10.0</code> for example in this tutorial, the package we download
+is: <a href="https://github.com/firehol/netdata/releases/download/v1.10.0/netdata-latest.gz.run">https://github.com/firehol/netdata/releases/download/v1.10.0/netdata-latest.gz.run</a></p>
 <p>We assume you upload the package to <code>/root/netdata-latest.gz.run</code>.</p>
 </li>
 <li>
@@ -385,7 +386,15 @@ replace <code>your-server</code> by the real domain name), it will ask you to in
 username and password for authentication, please use the account we just added
 in file <code>/etc/nginx/netdata.users</code> to login.</p>
 <p>This is what you see after successfully logged in:</p>
-<p><img alt="" src="./images/netdata/system-overview.png" width="900px" /></p><div class="footer">
+<p><img alt="" src="./images/netdata/system-overview.png" width="900px" /></p>
+<h2 id="update-netdata">Update netdata</h2>
+<p>To update netdata, just download new version of the prebuilt package, then run
+it:</p>
+<pre><code>chmod +x netdata-latest.gz.run
+./netdata-latest.gz.run --accept
+</code></pre>
+
+<p>That's it.</p><div class="footer">
     <p style="text-align: center; color: grey;">All documents are available in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://bitbucket.org/zhb/iredmail-docs/get/tip.tar.bz2">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
 </div>
 <!-- Global site tag (gtag.js) - Google Analytics -->

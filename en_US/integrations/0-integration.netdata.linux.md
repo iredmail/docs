@@ -40,8 +40,8 @@ apt-get install zlib1g libuuid1 libmnl0 curl lm-sensors iproute netcat python-my
 * Download the latest netdata from its github project page, and upload to
   iRedMail server: <https://github.com/firehol/netdata/releases>
 
-    We use version `1.9.0` for example in this tutorial, the package we download
-    is: <https://github.com/firehol/netdata/releases/download/v1.9.0/netdata-latest.gz.run>
+    We use version `1.10.0` for example in this tutorial, the package we download
+    is: <https://github.com/firehol/netdata/releases/download/v1.10.0/netdata-latest.gz.run>
 
     We assume you upload the package to `/root/netdata-latest.gz.run`.
 
@@ -370,3 +370,15 @@ in file `/etc/nginx/netdata.users` to login.
 This is what you see after successfully logged in:
 
 ![](./images/netdata/system-overview.png){: width="900px" }
+
+## Update netdata
+
+To update netdata, just download new version of the prebuilt package, then run
+it:
+
+```
+chmod +x netdata-latest.gz.run
+./netdata-latest.gz.run --accept
+```
+
+That's it.
