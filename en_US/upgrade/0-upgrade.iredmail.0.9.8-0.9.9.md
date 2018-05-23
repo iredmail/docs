@@ -64,3 +64,234 @@ Please run commands below to fix incorrect file owner/group and permission:
 chown mlmmj:mlmmj /opt/mlmmjadmin/settings.py
 chmod 0400 /opt/mlmmjadmin/settings.py
 ```
+
+## OpenLDAP special
+
+### Update iRedMail LDAP schema file
+
+iRedMail-0.9.9 introduces 1 new LDAP attribute for mail user account:
+
+* `mailboxFormat`: used to store mailbox format. All formats supported by
+  Dovecot are ok. for example, `maildir`, `mdbox`. For more details, please
+  check Dovecot document here: <https://wiki2.dovecot.org/MailboxFormat>
+
+!!! warning
+
+    If you use different mailbox format, you need to set mailbox format to the
+    one you're using.
+
+Download the latest iRedMail LDAP schema file
+
+* On RHEL/CentOS:
+
+```
+cd /tmp
+wget https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/samples/iredmail/iredmail.schema
+
+cd /etc/openldap/schema/
+cp iredmail.schema iredmail.schema.bak
+
+cp -f /tmp/iredmail.schema /etc/openldap/schema/
+service slapd restart
+```
+
+* On Debian/Ubuntu:
+```
+cd /tmp
+wget https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/samples/iredmail/iredmail.schema
+
+cd /etc/ldap/schema/
+cp iredmail.schema iredmail.schema.bak
+
+cp -f /tmp/iredmail.schema /etc/ldap/schema/
+service slapd restart
+```
+
+* On FreeBSD:
+
+```
+cd /tmp
+wget https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/samples/iredmail/iredmail.schema
+
+cd /usr/local/etc/openldap/schema/
+cp iredmail.schema iredmail.schema.bak
+
+cp -f /tmp/iredmail.schema /usr/local/etc/openldap/schema/
+service slapd restart
+```
+
+* On OpenBSD:
+
+    > Note: if you're running ldapd as LDAP server, the schema directory is
+    > `/etc/ldap`, and service name is `ldapd`.
+
+```
+cd /tmp
+ftp https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/samples/iredmail/iredmail.schema
+
+cd /etc/openldap/schema/
+cp iredmail.schema iredmail.schema.bak
+
+cp -f /tmp/iredmail.schema /etc/openldap/schema/
+rcctl restart slapd
+```
+
+### Dovecot: read mailbox format from LDAP
+
+Please open file `/etc/dovecot/dovecot-ldap.conf` (Linux/OpenBSD) or
+`/usr/local/etc/dovecot/dovecot-ldap.conf` (FreeBSD), find the `user_attrs =`
+line like below:
+
+```
+user_attrs      = mail=master_user,mail=user,homeDirectory=home,=mail=maildir:~/Maildir/,mailQuota=quota_rule=*:bytes=%$
+```
+
+Please replace `maildir:` by `${ldap:mailboxFormat:maildir}`. After modified,
+it looks like below:
+
+```
+user_attrs      = mail=master_user,mail=user,homeDirectory=home,=mail=${ldap:mailboxFormat:maildir}:~/Maildir/,mailQuota=quota_rule=*:bytes=%$
+```
+
+If attribute `mailboxFormat` doesn't present in user object, Dovecot will use
+string `maildir` as default value.
+
+## MySQL/MariaDB special
+
+### SQL structure changes in `vmail` database
+
+We've made some changes to `vmail` database:
+
+* New SQL column `mailbox.mailboxformat`: used to store mailbox format.
+  All formats supported by Dovecot are ok. for example, `maildir`, `mdbox`.
+  __Default value is `maildir`.__
+  For more details, please check Dovecot document here:
+  <https://wiki2.dovecot.org/MailboxFormat>
+
+!!! warning
+
+    If you use different mailbox format, you need to set mailbox format to the
+    one you're using.
+
+Download SQL template file used to update SQL database:
+
+```
+cd /root/
+wget https://bitbucket.org/zhb/iredmail/raw/default/extra/update/0.9.9/iredmail.pgsql
+```
+
+Connect to PostgreSQL server as `postgres` user and import the SQL file:
+* on Linux, it's `postgres` user
+* on FreeBSD, it's `pgsql` user
+* on OpenBSD, it's `_postgresql` user
+
+
+```
+mysql vmail < /root/iredmail.pgsql
+```
+
+### Dovecot: read mailbox format from SQL
+
+Please open file `/etc/dovecot/dovecot-mysql.conf` (Linux/OpenBSD) or
+`/usr/local/etc/dovecot/dovecot-mysql.conf` (FreeBSD), find the `user_attrs =`
+line like below:
+
+```
+user_query = SELECT \
+            ...
+            CONCAT(mailbox.storagebasedirectory, '/', mailbox.storagenode, '/', mailbox.maildir) AS home, \
+            ...
+```
+
+Add a new `CONCAT` line after above `CONCAT()` line:
+
+```
+user_query = SELECT \
+            ...
+            CONCAT(mailbox.storagebasedirectory, '/', mailbox.storagenode, '/', mailbox.maildir) AS home, \
+            CONCAT(mailbox.mailboxformat, ':', mailbox.storagebasedirectory, '/', mailbox.storagenode, '/', mailbox.maildir) AS mail, \
+            ...
+```
+
+## PostgreSQL special
+
+### SQL structure changes in `vmail` database
+
+We've made some changes to `vmail` database:
+
+* New SQL column `mailbox.mailboxformat`: used to store mailbox format.
+  All formats supported by Dovecot are ok. for example, `maildir`, `mdbox`.
+  __Default value is `maildir`.__
+  For more details, please check Dovecot document here:
+  <https://wiki2.dovecot.org/MailboxFormat>
+
+!!! warning
+
+    If you use different mailbox format, you need to set mailbox format to the
+    one you're using.
+
+Download SQL template file used to update SQL database:
+
+```
+cd /root/
+wget https://bitbucket.org/zhb/iredmail/raw/default/extra/update/0.9.9/iredmail.mysql
+```
+
+* Run shell commands as root user below to connect to PostgreSQL server:
+
+```
+# su - postgres
+$ psql -d vmail
+sql> \i /tmp/mysql.pgsql
+```
+
+### Dovecot: read mailbox format from SQL
+
+Please open file `/etc/dovecot/dovecot-pgsql.conf` (Linux/OpenBSD) or
+`/usr/local/etc/dovecot/dovecot-pgsql.conf` (FreeBSD), then
+
+#### PostgreSQL 8.x
+
+If you're running __PostgreSQL 8.x__, you can find the `user_attrs =` line like
+below:
+
+```
+user_query = SELECT \
+    mailbox.storagebasedirectory || '/' || mailbox.storagenode || '/' || mailbox.maildir AS home, \
+    ...
+```
+
+Please Add a line after above line:
+
+```
+user_query = SELECT \
+    mailbox.storagebasedirectory || '/' || mailbox.storagenode || '/' || mailbox.maildir AS home, \
+    mailbox.mailboxformat || ':' || mailbox.storagebasedirectory || '/' || mailbox.storagenode || '/' || mailbox.maildir AS mail, \
+    ...
+```
+
+Restart Dovecot service is required.
+
+#### PostgreSQL 9.x and later releases
+
+If you're running __PostgreSQL 9.x__ and later releases, you can find the
+`user_attrs =` line like below:
+
+```
+user_query = SELECT \
+            ...
+            CONCAT(mailbox.storagebasedirectory, '/', mailbox.storagenode, '/', mailbox.maildir) AS home, \
+            ...
+```
+
+Add a new `CONCAT` line after above `CONCAT()` line:
+
+```
+user_query = SELECT \
+            ...
+            CONCAT(mailbox.storagebasedirectory, '/', mailbox.storagenode, '/', mailbox.maildir) AS home, \
+            CONCAT(mailbox.mailboxformat, ':', mailbox.storagebasedirectory, '/', mailbox.storagenode, '/', mailbox.maildir) AS mail, \
+            ...
+```
+
+Restart Dovecot service is required.

@@ -309,6 +309,7 @@ Notes:
     `password` | Password| `password=AsTr0ng@`
     `language` | Preferred language of iRedAdmin web UI | `language=en_US`
     `quota` | Mailbox quota (in MB) | `quota=1024`
+    `mailbox_format` | Mailbox format. e.g. `maildir`, `mdbox`. Defaults to `maildir` if not present. For more details, please read Dovecot document: <https://wiki2.dovecot.org/MailboxFormat> | `mailbox_format=mdbox`
 
     </div>
 
