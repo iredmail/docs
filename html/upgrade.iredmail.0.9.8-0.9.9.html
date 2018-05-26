@@ -181,9 +181,9 @@ line like below:</p>
 <pre><code>user_attrs      = mail=master_user,mail=user,homeDirectory=home,=mail=maildir:~/Maildir/,mailQuota=quota_rule=*:bytes=%$
 </code></pre>
 
-<p>Please replace <code>maildir:</code> by <code>${ldap:mailboxFormat:maildir}</code>. After modified,
+<p>Please replace <code>maildir:</code> by <code>%{ldap:mailboxFormat:maildir}</code>. After modified,
 it looks like below:</p>
-<pre><code>user_attrs      = mail=master_user,mail=user,homeDirectory=home,=mail=${ldap:mailboxFormat:maildir}:~/Maildir/,mailQuota=quota_rule=*:bytes=%$
+<pre><code>user_attrs      = mail=master_user,mail=user,homeDirectory=home,=mail=%{ldap:mailboxFormat:maildir}:~/Maildir/,mailQuota=quota_rule=*:bytes=%$
 </code></pre>
 
 <p>If attribute <code>mailboxFormat</code> doesn't present in user object, Dovecot will use

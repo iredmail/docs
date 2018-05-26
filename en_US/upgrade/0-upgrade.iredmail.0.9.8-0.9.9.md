@@ -146,11 +146,11 @@ line like below:
 user_attrs      = mail=master_user,mail=user,homeDirectory=home,=mail=maildir:~/Maildir/,mailQuota=quota_rule=*:bytes=%$
 ```
 
-Please replace `maildir:` by `${ldap:mailboxFormat:maildir}`. After modified,
+Please replace `maildir:` by `%{ldap:mailboxFormat:maildir}`. After modified,
 it looks like below:
 
 ```
-user_attrs      = mail=master_user,mail=user,homeDirectory=home,=mail=${ldap:mailboxFormat:maildir}:~/Maildir/,mailQuota=quota_rule=*:bytes=%$
+user_attrs      = mail=master_user,mail=user,homeDirectory=home,=mail=%{ldap:mailboxFormat:maildir}:~/Maildir/,mailQuota=quota_rule=*:bytes=%$
 ```
 
 If attribute `mailboxFormat` doesn't present in user object, Dovecot will use
