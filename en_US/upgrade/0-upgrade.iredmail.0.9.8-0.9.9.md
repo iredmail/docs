@@ -209,7 +209,7 @@ Add a new `CONCAT` line after above `CONCAT()` line:
 user_query = SELECT \
             ...
             CONCAT(mailbox.storagebasedirectory, '/', mailbox.storagenode, '/', mailbox.maildir) AS home, \
-            CONCAT(mailbox.mailboxformat, ':', mailbox.storagebasedirectory, '/', mailbox.storagenode, '/', mailbox.maildir) AS mail, \
+            CONCAT(mailbox.mailboxformat, ':', mailbox.storagebasedirectory, '/', mailbox.storagenode, '/', mailbox.maildir, '/Maildir') AS mail, \
             ...
 ```
 
@@ -266,7 +266,7 @@ Please Add a line after above line:
 ```
 user_query = SELECT \
     mailbox.storagebasedirectory || '/' || mailbox.storagenode || '/' || mailbox.maildir AS home, \
-    mailbox.mailboxformat || ':' || mailbox.storagebasedirectory || '/' || mailbox.storagenode || '/' || mailbox.maildir AS mail, \
+    mailbox.mailboxformat || ':' || mailbox.storagebasedirectory || '/' || mailbox.storagenode || '/' || mailbox.maildir || '/Maildir/' AS mail, \
     ...
 ```
 
@@ -290,7 +290,7 @@ Add a new `CONCAT` line after above `CONCAT()` line:
 user_query = SELECT \
             ...
             CONCAT(mailbox.storagebasedirectory, '/', mailbox.storagenode, '/', mailbox.maildir) AS home, \
-            CONCAT(mailbox.mailboxformat, ':', mailbox.storagebasedirectory, '/', mailbox.storagenode, '/', mailbox.maildir) AS mail, \
+            CONCAT(mailbox.mailboxformat, ':', mailbox.storagebasedirectory, '/', mailbox.storagenode, '/', mailbox.maildir, '/Maildir/') AS mail, \
             ...
 ```
 

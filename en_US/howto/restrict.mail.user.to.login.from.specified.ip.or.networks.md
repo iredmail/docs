@@ -1,5 +1,7 @@
 # Restrict mail user to login from specified IP addresses or networks
 
+[TOC]
+
 Since iRedMail-0.9.1, it's able to restrict mail users to login from specified
 IP addresses or networks.
 
@@ -10,7 +12,19 @@ was given.
 Below sample usage shows how to restrict mail user `user@domaim.com` to login
 from only IP address `172.16.244.1` or network `192.168.1.0/24`.
 
-## SQL backends
+!!! warning
+
+    If webmail is running on same server, and you want to allow user to login
+    from webmail, please allow IP `127.0.0.1` too.
+
+## Manage with iRedAdmin-Pro
+
+With iRedAdmin-Pro, please go to user profile page, click tab `Advanced`,
+you will find setting `Restrict to login from specified addresses` like below:
+
+![](./images/iredadmin/user_profile_advanced.png){: width=1000px }
+
+## Manage with SQL command line for SQL backends
 
 ```
 sql> USE vmail;
@@ -21,7 +35,7 @@ To remove this restriction (allow to login from anywhere), just set
 value of SQL column `mailbox.allow_nets` to NULL. WARNING: It must be NULL,
 not empty string.
 
-## OpenLDAP backend
+## Manage with SQL command line for LDAP backends
 
 To allow user `user@domain.com` to login from IP `172.16.244.1` and network
 `192.168.1.0/24`, please add new attribute `allowNets` to this user:

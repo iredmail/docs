@@ -16,6 +16,17 @@
         <span>iRedMail</span>
     </a>
     &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><h1 id="restrict-mail-user-to-login-from-specified-ip-addresses-or-networks">Restrict mail user to login from specified IP addresses or networks</h1>
+<div class="toc">
+<ul>
+<li><a href="#restrict-mail-user-to-login-from-specified-ip-addresses-or-networks">Restrict mail user to login from specified IP addresses or networks</a><ul>
+<li><a href="#manage-with-iredadmin-pro">Manage with iRedAdmin-Pro</a></li>
+<li><a href="#manage-with-sql-command-line-for-sql-backends">Manage with SQL command line for SQL backends</a></li>
+<li><a href="#manage-with-sql-command-line-for-ldap-backends">Manage with SQL command line for LDAP backends</a></li>
+</ul>
+</li>
+<li><a href="#references">References</a></li>
+</ul>
+</div>
 <p>Since iRedMail-0.9.1, it's able to restrict mail users to login from specified
 IP addresses or networks.</p>
 <p>Allowed IP/networks must be separated by comma. If the user tries to log in
@@ -23,7 +34,16 @@ elsewhere, the authentication will fail the same way as if a wrong password
 was given.</p>
 <p>Below sample usage shows how to restrict mail user <code>user@domaim.com</code> to login
 from only IP address <code>172.16.244.1</code> or network <code>192.168.1.0/24</code>.</p>
-<h2 id="sql-backends">SQL backends</h2>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>If webmail is running on same server, and you want to allow user to login
+from webmail, please allow IP <code>127.0.0.1</code> too.</p>
+</div>
+<h2 id="manage-with-iredadmin-pro">Manage with iRedAdmin-Pro</h2>
+<p>With iRedAdmin-Pro, please go to user profile page, click tab <code>Advanced</code>,
+you will find setting <code>Restrict to login from specified addresses</code> like below:</p>
+<p><img alt="" src="./images/iredadmin/user_profile_advanced.png" width="1000px" /></p>
+<h2 id="manage-with-sql-command-line-for-sql-backends">Manage with SQL command line for SQL backends</h2>
 <pre><code>sql&gt; USE vmail;
 sql&gt; UPDATE mailbox SET allow_nets='172.16.244.1,192.168.1.0/24' WHERE username='user@domain.com';
 </code></pre>
@@ -31,7 +51,7 @@ sql&gt; UPDATE mailbox SET allow_nets='172.16.244.1,192.168.1.0/24' WHERE userna
 <p>To remove this restriction (allow to login from anywhere), just set
 value of SQL column <code>mailbox.allow_nets</code> to NULL. WARNING: It must be NULL,
 not empty string.</p>
-<h2 id="openldap-backend">OpenLDAP backend</h2>
+<h2 id="manage-with-sql-command-line-for-ldap-backends">Manage with SQL command line for LDAP backends</h2>
 <p>To allow user <code>user@domain.com</code> to login from IP <code>172.16.244.1</code> and network
 <code>192.168.1.0/24</code>, please add new attribute <code>allowNets</code> to this user:</p>
 <pre><code>allowNets: 192.168.1.10,192.168.1.0/24
