@@ -104,12 +104,16 @@ chmod 0400 /opt/mlmmjadmin/settings.py
 
 <h2 id="openldap-special">OpenLDAP special</h2>
 <h3 id="update-iredmail-ldap-schema-file">Update iRedMail LDAP schema file</h3>
-<p>iRedMail-0.9.9 introduces 1 new LDAP attribute for mail user account:</p>
+<p>iRedMail-0.9.9 introduces 2 new LDAP attributes for mail user account:</p>
 <ul>
 <li><code>mailboxFormat</code>: used to store mailbox format. All formats supported by
   Dovecot are ok. for example, <code>maildir</code>, <code>mdbox</code>. For more details, please
   check Dovecot document here: <a href="https://wiki2.dovecot.org/MailboxFormat">https://wiki2.dovecot.org/MailboxFormat</a></li>
+<li><code>mailboxFolder</code>: used to store the folder name which will be appended to
+  maildir path. Defaults to <code>Maildir</code>.</li>
 </ul>
+<p>With these 2 new attributes, it will be very easy to switch different mailbox
+format.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>If you use different mailbox format, you need to set mailbox format to the
@@ -181,9 +185,8 @@ line like below:</p>
 <pre><code>user_attrs      = mail=master_user,mail=user,homeDirectory=home,=mail=maildir:~/Maildir/,mailQuota=quota_rule=*:bytes=%$
 </code></pre>
 
-<p>Please replace <code>maildir:</code> by <code>%{ldap:mailboxFormat:maildir}</code>. After modified,
-it looks like below:</p>
-<pre><code>user_attrs      = mail=master_user,mail=user,homeDirectory=home,=mail=%{ldap:mailboxFormat:maildir}:~/Maildir/,mailQuota=quota_rule=*:bytes=%$
+<p>Please replace it by below one:</p>
+<pre><code>user_attrs      = mail=master_user,mail=user,homeDirectory=home,=mail=%{ldap:mailboxFormat:maildir}:~/%{ldap:mailboxFolder:Maildir}/,mailQuota=quota_rule=*:bytes=%$
 </code></pre>
 
 <p>If attribute <code>mailboxFormat</code> doesn't present in user object, Dovecot will use
@@ -197,7 +200,11 @@ string <code>maildir</code> as default value.</p>
   <strong>Default value is <code>maildir</code>.</strong>
   For more details, please check Dovecot document here:
   <a href="https://wiki2.dovecot.org/MailboxFormat">https://wiki2.dovecot.org/MailboxFormat</a></li>
+<li><code>mailboxfolder</code>: used to store the folder name which will be appended to
+  maildir path. Defaults to <code>Maildir</code>.</li>
 </ul>
+<p>With these 2 new columns, it will be very easy to migrate existing mailbox to
+different mailbox format, or set different mailbox for new user.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>If you use different mailbox format, you need to set mailbox format to the
@@ -242,7 +249,11 @@ line like below:</p>
   <strong>Default value is <code>maildir</code>.</strong>
   For more details, please check Dovecot document here:
   <a href="https://wiki2.dovecot.org/MailboxFormat">https://wiki2.dovecot.org/MailboxFormat</a></li>
+<li><code>mailboxfolder</code>: used to store the folder name which will be appended to
+  maildir path. Defaults to <code>Maildir</code>.</li>
 </ul>
+<p>With these 2 new columns, it will be very easy to migrate existing mailbox to
+different mailbox format, or set different mailbox for new user.</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>If you use different mailbox format, you need to set mailbox format to the
@@ -275,7 +286,7 @@ below:</p>
 <p>Please Add a line after above line:</p>
 <pre><code>user_query = SELECT \
     mailbox.storagebasedirectory || '/' || mailbox.storagenode || '/' || mailbox.maildir AS home, \
-    mailbox.mailboxformat || ':' || mailbox.storagebasedirectory || '/' || mailbox.storagenode || '/' || mailbox.maildir || '/Maildir/' AS mail, \
+    mailbox.mailboxformat || ':' || mailbox.storagebasedirectory || '/' || mailbox.storagenode || '/' || mailbox.maildir || '/' || mailbox.mailboxfolder || '/' AS mail, \
     ...
 </code></pre>
 
@@ -293,7 +304,7 @@ below:</p>
 <pre><code>user_query = SELECT \
             ...
             CONCAT(mailbox.storagebasedirectory, '/', mailbox.storagenode, '/', mailbox.maildir) AS home, \
-            CONCAT(mailbox.mailboxformat, ':', mailbox.storagebasedirectory, '/', mailbox.storagenode, '/', mailbox.maildir, '/Maildir/') AS mail, \
+            CONCAT(mailbox.mailboxformat, ':', mailbox.storagebasedirectory, '/', mailbox.storagenode, '/', mailbox.maildir, '/', mailbox.mailboxfolder, '/') AS mail, \
             ...
 </code></pre>
 

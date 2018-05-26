@@ -69,11 +69,16 @@ chmod 0400 /opt/mlmmjadmin/settings.py
 
 ### Update iRedMail LDAP schema file
 
-iRedMail-0.9.9 introduces 1 new LDAP attribute for mail user account:
+iRedMail-0.9.9 introduces 2 new LDAP attributes for mail user account:
 
 * `mailboxFormat`: used to store mailbox format. All formats supported by
   Dovecot are ok. for example, `maildir`, `mdbox`. For more details, please
   check Dovecot document here: <https://wiki2.dovecot.org/MailboxFormat>
+* `mailboxFolder`: used to store the folder name which will be appended to
+  maildir path. Defaults to `Maildir`.
+
+With these 2 new attributes, it will be very easy to switch different mailbox
+format.
 
 !!! warning
 
@@ -146,11 +151,10 @@ line like below:
 user_attrs      = mail=master_user,mail=user,homeDirectory=home,=mail=maildir:~/Maildir/,mailQuota=quota_rule=*:bytes=%$
 ```
 
-Please replace `maildir:` by `%{ldap:mailboxFormat:maildir}`. After modified,
-it looks like below:
+Please replace it by below one:
 
 ```
-user_attrs      = mail=master_user,mail=user,homeDirectory=home,=mail=%{ldap:mailboxFormat:maildir}:~/Maildir/,mailQuota=quota_rule=*:bytes=%$
+user_attrs      = mail=master_user,mail=user,homeDirectory=home,=mail=%{ldap:mailboxFormat:maildir}:~/%{ldap:mailboxFolder:Maildir}/,mailQuota=quota_rule=*:bytes=%$
 ```
 
 If attribute `mailboxFormat` doesn't present in user object, Dovecot will use
@@ -167,6 +171,12 @@ We've made some changes to `vmail` database:
   __Default value is `maildir`.__
   For more details, please check Dovecot document here:
   <https://wiki2.dovecot.org/MailboxFormat>
+* `mailboxfolder`: used to store the folder name which will be appended to
+  maildir path. Defaults to `Maildir`.
+
+With these 2 new columns, it will be very easy to migrate existing mailbox to
+different mailbox format, or set different mailbox for new user.
+
 
 !!! warning
 
@@ -224,6 +234,11 @@ We've made some changes to `vmail` database:
   __Default value is `maildir`.__
   For more details, please check Dovecot document here:
   <https://wiki2.dovecot.org/MailboxFormat>
+* `mailboxfolder`: used to store the folder name which will be appended to
+  maildir path. Defaults to `Maildir`.
+
+With these 2 new columns, it will be very easy to migrate existing mailbox to
+different mailbox format, or set different mailbox for new user.
 
 !!! warning
 
@@ -266,7 +281,7 @@ Please Add a line after above line:
 ```
 user_query = SELECT \
     mailbox.storagebasedirectory || '/' || mailbox.storagenode || '/' || mailbox.maildir AS home, \
-    mailbox.mailboxformat || ':' || mailbox.storagebasedirectory || '/' || mailbox.storagenode || '/' || mailbox.maildir || '/Maildir/' AS mail, \
+    mailbox.mailboxformat || ':' || mailbox.storagebasedirectory || '/' || mailbox.storagenode || '/' || mailbox.maildir || '/' || mailbox.mailboxfolder || '/' AS mail, \
     ...
 ```
 
@@ -290,7 +305,7 @@ Add a new `CONCAT` line after above `CONCAT()` line:
 user_query = SELECT \
             ...
             CONCAT(mailbox.storagebasedirectory, '/', mailbox.storagenode, '/', mailbox.maildir) AS home, \
-            CONCAT(mailbox.mailboxformat, ':', mailbox.storagebasedirectory, '/', mailbox.storagenode, '/', mailbox.maildir, '/Maildir/') AS mail, \
+            CONCAT(mailbox.mailboxformat, ':', mailbox.storagebasedirectory, '/', mailbox.storagenode, '/', mailbox.maildir, '/', mailbox.mailboxfolder, '/') AS mail, \
             ...
 ```
 
