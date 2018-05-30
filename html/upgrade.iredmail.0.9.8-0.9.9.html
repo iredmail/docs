@@ -210,16 +210,10 @@ different mailbox format, or set different mailbox for new user.</p>
 <p>If you use different mailbox format, you need to set mailbox format to the
 one you're using.</p>
 </div>
-<p>Download SQL template file used to update SQL database:</p>
+<p>Download SQL template file and import it:</p>
 <pre><code>cd /root/
-wget https://bitbucket.org/zhb/iredmail/raw/default/extra/update/0.9.9/iredmail.pgsql
-</code></pre>
-
-<p>Connect to PostgreSQL server as <code>postgres</code> user and import the SQL file:
-<em> on Linux, it's <code>postgres</code> user
-</em> on FreeBSD, it's <code>pgsql</code> user
-* on OpenBSD, it's <code>_postgresql</code> user</p>
-<pre><code>mysql vmail &lt; /root/iredmail.pgsql
+wget https://bitbucket.org/zhb/iredmail/raw/default/extra/update/0.9.9/iredmail.mysql
+mysql vmail &lt; /root/iredmail.mysql
 </code></pre>
 
 <h3 id="dovecot-read-mailbox-format-from-sql">Dovecot: read mailbox format from SQL</h3>

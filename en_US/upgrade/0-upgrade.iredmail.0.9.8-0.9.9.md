@@ -183,21 +183,12 @@ different mailbox format, or set different mailbox for new user.
     If you use different mailbox format, you need to set mailbox format to the
     one you're using.
 
-Download SQL template file used to update SQL database:
+Download SQL template file and import it:
 
 ```
 cd /root/
-wget https://bitbucket.org/zhb/iredmail/raw/default/extra/update/0.9.9/iredmail.pgsql
-```
-
-Connect to PostgreSQL server as `postgres` user and import the SQL file:
-* on Linux, it's `postgres` user
-* on FreeBSD, it's `pgsql` user
-* on OpenBSD, it's `_postgresql` user
-
-
-```
-mysql vmail < /root/iredmail.pgsql
+wget https://bitbucket.org/zhb/iredmail/raw/default/extra/update/0.9.9/iredmail.mysql
+mysql vmail < /root/iredmail.mysql
 ```
 
 ### Dovecot: read mailbox format from SQL

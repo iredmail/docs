@@ -885,6 +885,11 @@ to be a domain admin.</p>
 <td>Mailbox format. e.g. <code>maildir</code>, <code>mdbox</code>. Defaults to <code>maildir</code> if not present. For more details, please read Dovecot document: <a href="https://wiki2.dovecot.org/MailboxFormat">https://wiki2.dovecot.org/MailboxFormat</a></td>
 <td><code>mailbox_format=mdbox</code></td>
 </tr>
+<tr>
+<td><code>mailbox_folder</code></td>
+<td>Mailbox folder name (case sensitive) which will be appended to user's home path. Defaults to <code>Maildir</code>. It's not recommended to change this if you're using mailbox format <code>maildir</code>.</td>
+<td><code>mailbox_folder=Maildir</code></td>
+</tr>
 </tbody>
 </table>
 </div>
@@ -998,6 +1003,16 @@ to be a domain admin.</p>
 <td><code>removeService</code></td>
 <td>Add new per-user enabled mail service(s). Multiple values must be separated by comma. Conflicts with parameter <code>services</code>. See additional notes below.</td>
 <td><code>removeService=forward,senderbcc</code></td>
+</tr>
+<tr>
+<td><code>mailbox_format</code></td>
+<td>Mailbox format. e.g. <code>maildir</code>, <code>mdbox</code>. Defaults to <code>maildir</code> if not present. For more details, please read Dovecot document: <a href="https://wiki2.dovecot.org/MailboxFormat">https://wiki2.dovecot.org/MailboxFormat</a></td>
+<td><code>mailbox_format=mdbox</code></td>
+</tr>
+<tr>
+<td><code>mailbox_folder</code></td>
+<td>Mailbox folder name (case sensitive) which will be appended to user's home path. Defaults to <code>Maildir</code>. It's not recommended to change this if you're using mailbox format <code>maildir</code>.</td>
+<td><code>mailbox_folder=Maildir</code></td>
 </tr>
 </tbody>
 </table>
