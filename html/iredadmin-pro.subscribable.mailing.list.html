@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>iRedAdmin-Pro: Subscribable mailing list</title>
+        <link rel="stylesheet" type="text/css" href="./css/markdown.css" />
+    </head>
+    <body>
+    
+    <div id="navigation">
+    <a href="https://www.iredmail.org" target="_blank">
+        <img alt="iRedMail web site"
+             src="./images/logo-iredmail.png"
+             style="vertical-align: middle; height: 30px;"
+             />&nbsp;
+        <span>iRedMail</span>
+    </a>
+    &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><h1 id="iredadmin-pro-subscribable-mailing-list">iRedAdmin-Pro: Subscribable mailing list</h1>
+<div class="toc">
+<ul>
+<li><a href="#iredadmin-pro-subscribable-mailing-list">iRedAdmin-Pro: Subscribable mailing list</a><ul>
+<li><a href="#create-a-subscribable-mailing-list">Create a subscribable mailing list</a></li>
+<li><a href="#enable-subscription-and-unsubscription-from-website">Enable subscription and unsubscription from website</a></li>
+<li><a href="#get-a-newsletter-sign-up-form-or-url-link">Get a newsletter sign up form or URL link</a></li>
+<li><a href="#subscription">Subscription</a></li>
+<li><a href="#unsubscription">Unsubscription</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<p>Since iRedMail-0.9.8 and iRedAdmin-Pro-SQL-2.9.0, iRedAdmin-Pro-LDAP-3.1, you
+can create subscribable mailing list, and allow others to subscribe and
+unsubscribe from the mailing list.</p>
+<h2 id="create-a-subscribable-mailing-list">Create a subscribable mailing list</h2>
+<p>Login to iRedAdmin-Pro as a domain admin (either global admin or normal domain
+admin), click menu on main navigation bar to add a new mailing list:
+<code>Add -&gt; Mailing List (subscribable)</code>.</p>
+<p>While creating, you can control who can send email to this list (of course this
+option is available after created).</p>
+<p><img alt="" src="./images/iredadmin/mlmmj/create.png" width="300px" /></p>
+<h2 id="enable-subscription-and-unsubscription-from-website">Enable subscription and unsubscription from website</h2>
+<p>After created mailing list, you will be redirected to its profile page, click
+tab <code>Newsletter</code>, you will see page like below.</p>
+<p>Please enable option <code>Enable subscription and unsubscription from website</code>,
+also optionally, write some text to introduce this mailing list, then save
+your changes.</p>
+<p><img alt="" src="./images/iredadmin/mlmmj/newsletter.png" width="900px" /></p>
+<h2 id="get-a-newsletter-sign-up-form-or-url-link">Get a newsletter sign up form or URL link</h2>
+<p>Now click the link <code>Get a newsletter signup form</code>, it will show you sample HTML
+code you can embed on any web page of your website, or a simple URL which
+redirects user to the subscription page. Feel free to use either one.</p>
+<p><img alt="" src="./images/iredadmin/mlmmj/get_signup_form.png" width="900px" /></p>
+<h2 id="subscription">Subscription</h2>
+<p>If user clicks the url, it will be redirected to the subscription page like below.
+You can see the mailing list name and introduction text you entered in mailing
+list profile page.</p>
+<p><img alt="" src="./images/iredadmin/mlmmj/subscription.png" width="700px" /></p>
+<p>If user fills his email address and click <code>Subscribe</code>, iRedAdmin-Pro will send
+an email to ask for confirm.</p>
+<p><img alt="" src="./images/iredadmin/mlmmj/subscription_confirm.png" width="700px" /></p>
+<p>The confirm email looks like below in user's mailbox:</p>
+<p><img alt="" src="./images/iredadmin/mlmmj/subscription_email.png" width="900px" /></p>
+<p>After user clicks the link in confirm email, it will be redirected to the
+subscription confirm page like below.</p>
+<p><img alt="" src="./images/iredadmin/mlmmj/subscribed.png" width="700px" /></p>
+<p>Now go to mailing list profile page, click tab <code>Members</code>, you will find this
+member.</p>
+<p><img alt="" src="./images/iredadmin/mlmmj/subscription_members.png" width="900px" /></p>
+<h2 id="unsubscription">Unsubscription</h2>
+<p>To unsubscribe from a mailing list, user can send an email to
+<code>list+unsubscribe@domain.com</code> (with any mail subject and body). Or go to the
+subscription web page, click <code>Unsubscribe</code> to unsubscribe.</p><div class="footer">
+    <p style="text-align: center; color: grey;">All documents are available in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://bitbucket.org/zhb/iredmail-docs/get/tip.tar.bz2">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
+</div>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-3293801-21"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-3293801-21');
+</script>
+</body></html>
