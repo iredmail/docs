@@ -310,7 +310,7 @@ Notes:
     `language` | Preferred language of iRedAdmin web UI | `language=en_US`
     `quota` | Mailbox quota (in MB) | `quota=1024`
     `mailbox_format` | Mailbox format. e.g. `maildir`, `mdbox`. Defaults to `maildir` if not present. For more details, please read Dovecot document: <https://wiki2.dovecot.org/MailboxFormat> | `mailbox_format=mdbox`
-    `mailbox_folder` | Mailbox folder name (case sensitive) which will be appended to user's home path. Defaults to `Maildir`. It's not recommended to change this if you're using mailbox format `maildir`. | `mailbox_folder=Maildir`
+    `mailbox_folder` | Mailbox folder name (case sensitive) which will be appended to user's home path. Defaults to `Maildir`. It's useful if you need to migrate to different mailbox folder. | `mailbox_folder=Maildir`
 
     </div>
 
@@ -341,7 +341,7 @@ Notes:
     `addService` | Add new per-user enabled mail service(s). Multiple values must be separated by comma. Conflicts with parameter `services`. See additional notes below. | `addService=vpn,owncloud`
     `removeService` | Add new per-user enabled mail service(s). Multiple values must be separated by comma. Conflicts with parameter `services`. See additional notes below. | `removeService=forward,senderbcc`
     `mailbox_format` | Mailbox format. e.g. `maildir`, `mdbox`. Defaults to `maildir` if not present. For more details, please read Dovecot document: <https://wiki2.dovecot.org/MailboxFormat> | `mailbox_format=mdbox`
-    `mailbox_folder` | Mailbox folder name (case sensitive) which will be appended to user's home path. Defaults to `Maildir`. It's not recommended to change this if you're using mailbox format `maildir`. | `mailbox_folder=Maildir`
+    `mailbox_folder` | Mailbox folder name (case sensitive) which will be appended to user's home path. Defaults to `Maildir`. It's useful if you need to migrate to different mailbox folder. | `mailbox_folder=Maildir`
 
     !!! attention
     
@@ -369,7 +369,7 @@ Notes:
 
     </div>
 
-!!! api "`POST`{: .put } `/api/user/<mail>/change_email/<new_mail>`{: .url } `Change user's email address (from '<mail>' to '<new_mail>')`{: .comment }"
+!!! api "`POST`{: .post } `/api/user/<mail>/change_email/<new_mail>`{: .url } `Change user's email address (from '<mail>' to '<new_mail>')`{: .comment }"
 !!! api "`PUT`{: .put } `/api/users/<domain>`{: .url } `Update profiles of all users under domain`{: .comment } `Parameters`{: .has_params }"
 
     <div class="params">
