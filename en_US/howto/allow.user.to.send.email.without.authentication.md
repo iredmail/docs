@@ -1,13 +1,15 @@
 # Allow user to send email without smtp authentication
 
+[TOC]
+
 ## Postfix
 
-Create a plain text file: `/etc/postfix/accepted_unauth_senders`, list all
+Create a plain text file: `/etc/postfix/sender_access.pcre`, list all
 users' email addresses which are allowed to send email without smtp
 authentication. We use user email address `user@example.com` for example:
 
 ```
-user@example.com OK
+/^user@example\.com$/ OK
 ```
 
 It's ok to use IP address instead like below:
@@ -15,22 +17,16 @@ It's ok to use IP address instead like below:
 > For more allowed sender format, please check Postfix manual page: [access(5)](http://www.postfix.org/access.5.html).
 
 ```
-192.168.1.1 OK
-192.168.2   OK
-172.16      OK
+/^192\.168\.1\.1$/ OK
+/^192\.168\.2\./   OK
+/^172\.16\./       OK
 ```
 
-Create hash db file with `postmap` command:
-
-```
-# postmap hash:/etc/postfix/accepted_unauth_senders
-```
-
-Modify Postfix config file `/etc/postfix/main.cf` to use this text file:
+Update Postfix config file `/etc/postfix/main.cf` to use this pcre file:
 
 ```
 smtpd_sender_restrictions = 
-    check_sender_access hash:/etc/postfix/accepted_unauth_senders,
+    check_sender_access pcre:/etc/postfix/sender_access.pcre,
     [...OTHER RESTRICTIONS HERE...]
 ```
 
@@ -64,3 +60,10 @@ MYNETWORKS = ['192.168.0.1', '192.168.1.0/24']
 ```
 
 Restarting iRedAPD service is required if you updated `/opt/iredapd/settings.py`.
+
+## References
+
+* Postfix documents:
+    * [check_sender_access](http://www.postfix.org/postconf.5.html#check_sender_access)
+    * Manual page: [access(5)](http://www.postfix.org/access.5.html)
+    * Manual page: [pcre_table(5)](http://www.postfix.org/pcre_table.5.html)

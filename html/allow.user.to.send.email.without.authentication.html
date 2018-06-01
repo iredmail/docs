@@ -21,28 +21,24 @@
 </div>
 <h1 id="allow-user-to-send-email-without-smtp-authentication">Allow user to send email without smtp authentication</h1>
 <h2 id="postfix">Postfix</h2>
-<p>Create a plain text file: <code>/etc/postfix/accepted_unauth_senders</code>, list all
+<p>Create a plain text file: <code>/etc/postfix/sender_access.pcre</code>, list all
 users' email addresses which are allowed to send email without smtp
 authentication. We use user email address <code>user@example.com</code> for example:</p>
-<pre><code>user@example.com OK
+<pre><code>/^user@example\.com$/ OK
 </code></pre>
 
 <p>It's ok to use IP address instead like below:</p>
 <blockquote>
 <p>For more allowed sender format, please check Postfix manual page: <a href="http://www.postfix.org/access.5.html">access(5)</a>.</p>
 </blockquote>
-<pre><code>192.168.1.1 OK
-192.168.2   OK
-172.16      OK
+<pre><code>/^192\.168\.1\.1$/ OK
+/^192\.168\.2\./   OK
+/^172\.16\./       OK
 </code></pre>
 
-<p>Create hash db file with <code>postmap</code> command:</p>
-<pre><code># postmap hash:/etc/postfix/accepted_unauth_senders
-</code></pre>
-
-<p>Modify Postfix config file <code>/etc/postfix/main.cf</code> to use this text file:</p>
+<p>Update Postfix config file <code>/etc/postfix/main.cf</code> to use this pcre file:</p>
 <pre><code>smtpd_sender_restrictions = 
-    check_sender_access hash:/etc/postfix/accepted_unauth_senders,
+    check_sender_access pcre:/etc/postfix/sender_access.pcre,
     [...OTHER RESTRICTIONS HERE...]
 </code></pre>
 
@@ -71,7 +67,16 @@ device like printer, fax, we can also its IP address directly.</p>
 <pre><code>MYNETWORKS = ['192.168.0.1', '192.168.1.0/24']
 </code></pre>
 
-<p>Restarting iRedAPD service is required if you updated <code>/opt/iredapd/settings.py</code>.</p><div class="footer">
+<p>Restarting iRedAPD service is required if you updated <code>/opt/iredapd/settings.py</code>.</p>
+<h2 id="references">References</h2>
+<ul>
+<li>Postfix documents:<ul>
+<li><a href="http://www.postfix.org/postconf.5.html#check_sender_access">check_sender_access</a></li>
+<li>Manual page: <a href="http://www.postfix.org/access.5.html">access(5)</a></li>
+<li>Manual page: <a href="http://www.postfix.org/pcre_table.5.html">pcre_table(5)</a></li>
+</ul>
+</li>
+</ul><div class="footer">
     <p style="text-align: center; color: grey;">All documents are available in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://bitbucket.org/zhb/iredmail-docs/get/tip.tar.bz2">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
 </div>
 <!-- Global site tag (gtag.js) - Google Analytics -->

@@ -41,7 +41,7 @@ exclude=gnustep*
 
 ```
 yum clean all
-yum update sogo* sope*
+yum update 'sogo*' 'sope*'
 ```
 
 * Run the script shipped in SOGo-4.x to update SQL structure:
