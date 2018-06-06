@@ -326,7 +326,7 @@ MLMMJ_SKEL_DIR = '/usr/local/share/mlmmj/text.skel'
 #
 cp /opt/mlmmjadmin/rc_scripts/mlmmjadmin.rhel /etc/init.d/mlmmjadmin
 chmod 0755 /etc/init.d/mlmmjadmin
-chkconfig --level 345 on mlmmjadmin
+chkconfig --level 345 mlmmjadmin on
 
 #
 # For RHEL/CentOS 7
