@@ -26,7 +26,10 @@
 </ul>
 </li>
 <li><a href="#restore">Restore</a><ul>
-<li><a href="#how-to-restore-sql-databases">How to restore SQL databases</a></li>
+<li><a href="#how-to-restore-sql-databases">How to restore SQL databases</a><ul>
+<li><a href="#after-restored-databases">After restored databases</a></li>
+</ul>
+</li>
 <li><a href="#ldap">LDAP</a><ul>
 <li><a href="#how-to-restore-openldap-backup">How to restore OpenLDAP backup</a></li>
 <li><a href="#how-to-restore-openbsd-ldapd8-backup">How to restore OpenBSD ldapd(8) backup</a></li>
@@ -131,6 +134,13 @@ the same SQL accounts with different passwords, so please do not restore
 <code>mysql</code> database, otherwise almost all services won't work due to incorrect
 SQL credentials.</p>
 </div>
+<h4 id="after-restored-databases">After restored databases</h4>
+<p>If you're restoring from an old iRedMail release, you need to update SQL
+structure first.</p>
+<p>For example, If you're restoring iRedMail from <code>0.9.1</code> to <code>0.9.5</code>, you must
+check upgrade tutorials for iRedMail-0.9.1 and newer releases, then apply all
+SQL structure changes mentioned in the upgrade tutorials.</p>
+<p>You can find <a href="./iredmail.releases.html">all iRedMail upgrade tutorials here</a>.</p>
 <h3 id="ldap">LDAP</h3>
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>

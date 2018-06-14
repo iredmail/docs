@@ -100,6 +100,17 @@ You can simply restore plain SQL files backed up by above backup scripts.
     `mysql` database, otherwise almost all services won't work due to incorrect
     SQL credentials.
 
+#### After restored databases
+
+If you're restoring from an old iRedMail release, you need to update SQL
+structure first.
+
+For example, If you're restoring iRedMail from `0.9.1` to `0.9.5`, you must
+check upgrade tutorials for iRedMail-0.9.1 and newer releases, then apply all
+SQL structure changes mentioned in the upgrade tutorials.
+
+You can find [all iRedMail upgrade tutorials here](./iredmail.releases.html).
+
 ### LDAP
 
 !!! attention
