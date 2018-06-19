@@ -350,12 +350,16 @@ Notes:
         * Available service names in iRedMail:
             * smtp
             * smtpsecured (SMTP over TLS or SSL)
+            * smtptls (SMTP over TLS)
             * pop3
             * pop3secured (POP3 over TLS or SSL)
+            * pop3tls (POP3 over TLS)
             * imap
             * imapsecured (IMAP over TLS or SSL)
+            * imaptls (IMAP over TLS)
             * managesieve
             * managesievesecured (Managesieve over TLS or SSL)
+            * managesievetls (Managesieve over TLS)
             * deliver (deliver received email to local mailbox)
             * sogo (SOGo groupware)
 
