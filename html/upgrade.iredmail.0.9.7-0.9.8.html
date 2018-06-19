@@ -30,6 +30,7 @@
 <li><a href="#fixed-sogo-backup-script-contains-3-issues">Fixed: SOGo backup script contains 3 issues</a></li>
 <li><a href="#fail2ban-new-jail-postfix-pregreet">Fail2ban: new jail postfix-pregreet</a></li>
 <li><a href="#fixed-nginx-snippet-file-hard-codes-static-file-types-for-iredadmin">Fixed: Nginx snippet file hard-codes static file types for iRedAdmin</a></li>
+<li><a href="#improve-nginx-config-file-to-handle-mailing-list-subscriptionunsubscription">Improve Nginx config file to handle mailing list subscription/unsubscription</a></li>
 <li><a href="#security-fixed-nginx-snippet-file-doesnt-block-access-to-roundcube-sensitive-files">[SECURITY] Fixed: Nginx snippet file doesn't block access to Roundcube sensitive files</a></li>
 <li><a href="#fix-unexpected-dnsbl-query-result-for-site-bbarracudacentralorg">Fix unexpected DNSBL query result for site b.barracudacentral.org</a></li>
 <li><a href="#openbsd-upgrade-uwsgi-to-the-latest-2017">OpenBSD: Upgrade uwsgi to the latest 2.0.17</a></li>
@@ -72,6 +73,7 @@ check <a href="https://www.iredmail.org/support.html">the details</a> and
 </div>
 <h2 id="changelog">ChangeLog</h2>
 <ul>
+<li>Jun 19, Improve Nginx config file to handle mailing list subscription/unsubscription</li>
 <li>Mar 12, Add new ldap attribute/value pairs required by Dovecot-2.3.</li>
 <li>Mar 4, Upgrade SOGo from v3 to v4.</li>
 <li>Mar 4, Upgrade Roundcube webmail to the latet version - 1.3.6.</li>
@@ -253,6 +255,22 @@ hard-codes static file types like below:</p>
 <p>Please replace it by:</p>
 <pre><code>location ~ ^/iredadmin/static/(.*) {            # Remove file types
     alias /var/www/iredadmin/static/$1;         # Remove '.$2'
+}
+</code></pre>
+
+<p>Reloading or restarting Nginx service is required.</p>
+<h3 id="improve-nginx-config-file-to-handle-mailing-list-subscriptionunsubscription">Improve Nginx config file to handle mailing list subscription/unsubscription</h3>
+<p>iRedMail integrates mlmmj as mailing list manager (integration tutorial
+mentioned later in this tutorial), it supports subscription and unsubscription
+from web page. To hide the application handle the subscription/unsubscription
+behind it, iRedMail requires a new URL <code>https://&lt;server&gt;/newsletter/</code> for this
+purpose.</p>
+<p>Please append lines below to file <code>/etc/nginx/templates/iredadmin.tmpl</code>
+(on Linux/OpenBSD) or <code>/usr/local/etc/nginx/templates/iredadmin.tmpl</code> (on
+FreeBSD)</p>
+<pre><code># Handle newsletter-style subscription/unsubscription supported in iRedAdmin-Pro.
+location ~ ^/newsletter/ {
+    rewrite /newsletter/(.*) /iredadmin/newsletter/$1 last;
 }
 </code></pre>
 

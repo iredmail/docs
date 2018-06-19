@@ -10,6 +10,7 @@
 
 ## ChangeLog
 
+* Jun 19, Improve Nginx config file to handle mailing list subscription/unsubscription
 * Mar 12, Add new ldap attribute/value pairs required by Dovecot-2.3.
 * Mar 4, Upgrade SOGo from v3 to v4.
 * Mar 4, Upgrade Roundcube webmail to the latet version - 1.3.6.
@@ -213,6 +214,27 @@ Please replace it by:
 ```
 location ~ ^/iredadmin/static/(.*) {            # Remove file types
     alias /var/www/iredadmin/static/$1;         # Remove '.$2'
+}
+```
+
+Reloading or restarting Nginx service is required.
+
+### Improve Nginx config file to handle mailing list subscription/unsubscription
+
+iRedMail integrates mlmmj as mailing list manager (integration tutorial
+mentioned later in this tutorial), it supports subscription and unsubscription
+from web page. To hide the application handle the subscription/unsubscription
+behind it, iRedMail requires a new URL `https://<server>/newsletter/` for this
+purpose.
+
+Please append lines below to file `/etc/nginx/templates/iredadmin.tmpl`
+(on Linux/OpenBSD) or `/usr/local/etc/nginx/templates/iredadmin.tmpl` (on
+FreeBSD)
+
+```
+# Handle newsletter-style subscription/unsubscription supported in iRedAdmin-Pro.
+location ~ ^/newsletter/ {
+    rewrite /newsletter/(.*) /iredadmin/newsletter/$1 last;
 }
 ```
 
