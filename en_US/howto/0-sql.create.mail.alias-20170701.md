@@ -52,12 +52,12 @@ Available access policies are:
 * `public`: no restrictions.
 * `domain`: all users under same domain are allowed to send email to this mail list.
 * `subdomain`: all users under same domain and sub-domains are allowed to send email to this mail list.
-* `membersOnly`: only members of this mail list are allowd.
-* `allowedOnly`: only moderators of this mail list are allowed. Moderators
+* `membersonly`: only members of this mail list are allowd.
+* `allowedonly`: only moderators of this mail list are allowed. Moderators
   are email addresses stored in SQL column `alias.moderators`. With iRedAPD-1.4.5,
   it's ok to use `*@domain.com` as (one of) moderator for all users under
   mail domain 'domain.com'.
-* `membersAndModeratorsOnly`: only members and moderators of this mail list are allowed.
+* `membersandmoderatorsonly`: only members and moderators of this mail list are allowed.
 
 Access restriction is implemented in iRedAPD (a simple Postfix policy server),
 iRedMail has it enabled by default. You'd better check its config file
