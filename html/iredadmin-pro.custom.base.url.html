@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>iRedAdmin-Pro: Custom base url (/iredadmin)</title>
+        <link rel="stylesheet" type="text/css" href="./css/markdown.css" />
+    </head>
+    <body>
+    
+    <div id="navigation">
+    <a href="https://www.iredmail.org" target="_blank">
+        <img alt="iRedMail web site"
+             src="./images/logo-iredmail.png"
+             style="vertical-align: middle; height: 30px;"
+             />&nbsp;
+        <span>iRedMail</span>
+    </a>
+    &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><h1 id="iredadmin-pro-custom-base-url-iredadmin">iRedAdmin-Pro: Custom base url (/iredadmin)</h1>
+<p>If you want to replace the base url used to access iRedAdmin (<code>/iredadmin</code>) by,
+for example, <code>/admin</code> (from <code>https://&lt;server&gt;/iredadmin/</code> to
+<code>https://&lt;server&gt;/admin/</code>), you can update Nginx config file
+<code>/etc/nginx/templates/iredadmin.tmpl</code> and replace <code>/iredadmin</code> defined in
+<code>location</code> and <code>rewrite</code>, <code>uwsgi_param SCRIPT_NAME</code> directives.</p>
+<p>Here's a working full example:</p>
+<pre><code># static files under /iredadmin/static
+location ~ ^/admin/static/(.*) {                # &lt;- Changed
+    alias /var/www/iredadmin/static/$1;
+}
+
+# Handle newsletter-style subscription/unsubscription supported in iRedAdmin-Pro.
+location ~ ^/newsletter/ {
+    rewrite /newsletter/(.*) /admin/newsletter/$1 last; # &lt;- Changed
+}
+
+# Python scripts
+location ~ ^/admin(.*) {                        # &lt;- Changed
+    rewrite ^/admin(/.*)$ $1 break;             # &lt;- Changed
+
+    include /etc/nginx/templates/hsts.tmpl;
+
+    include uwsgi_params;
+    uwsgi_pass unix:/run/uwsgi/iredadmin.socket;
+    uwsgi_param UWSGI_CHDIR /var/www/iredadmin;
+    uwsgi_param UWSGI_SCRIPT iredadmin;
+    uwsgi_param SCRIPT_NAME /admin;             # &lt;- Changed
+
+    # Access control
+    #allow 127.0.0.1;
+    #allow 192.168.1.10;
+    #allow 192.168.1.0/24;
+    #deny all;
+}
+
+# iRedAdmin: redirect /iredadmin to /iredadmin/
+location = /admin {                             # &lt;- Changed
+    rewrite ^ /admin/;                          # &lt;- Changed
+}
+</code></pre><div class="footer">
+    <p style="text-align: center; color: grey;">All documents are available in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://bitbucket.org/zhb/iredmail-docs/get/tip.tar.bz2">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
+</div>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-3293801-21"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-3293801-21');
+</script>
+</body></html>
