@@ -1,8 +1,8 @@
 # iRedAdmin-Pro: Customize maildir path
 
 iRedAdmin-Pro (and iRedAdmin open source edition) offers several settings to
-customize the maildir path, default values
-are stored in file `libs/default_settings.py`, if you need to change them,
+customize the maildir path, default values are stored in file
+`libs/default_settings.py`, if you need to change them,
 please write your own setting in iRedAdmin main config file `settings.py`, so
 that your settings will be kept after upgrading iRedAdmin.
 
@@ -21,6 +21,14 @@ MAILDIR_PREPEND_DOMAIN = True
 # - with timestamp:     domain.ltd/username-2010.12.20.13.13.33/
 # - without timestamp:  domain.ltd/username/
 MAILDIR_APPEND_TIMESTAMP = True
+```
+
+Also one setting in `settings.py`:
+
+```
+# Directory used to store mailboxes. Defaults to /var/vmail/vmail1.
+# Note: This directory must be owned by 'vmail:vmail' with permission 0700.
+storage_base_directory = '/var/vmail/vmail1'
 ```
 
 Note: each time you modified iRedAdmin source code (Python source file which

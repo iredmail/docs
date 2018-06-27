@@ -17,8 +17,8 @@
     </a>
     &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><h1 id="iredadmin-pro-customize-maildir-path">iRedAdmin-Pro: Customize maildir path</h1>
 <p>iRedAdmin-Pro (and iRedAdmin open source edition) offers several settings to
-customize the maildir path, default values
-are stored in file <code>libs/default_settings.py</code>, if you need to change them,
+customize the maildir path, default values are stored in file
+<code>libs/default_settings.py</code>, if you need to change them,
 please write your own setting in iRedAdmin main config file <code>settings.py</code>, so
 that your settings will be kept after upgrading iRedAdmin.</p>
 <pre><code># It's RECOMMEND for better performance. Samples:
@@ -35,6 +35,12 @@ MAILDIR_PREPEND_DOMAIN = True
 # - with timestamp:     domain.ltd/username-2010.12.20.13.13.33/
 # - without timestamp:  domain.ltd/username/
 MAILDIR_APPEND_TIMESTAMP = True
+</code></pre>
+
+<p>Also one setting in <code>settings.py</code>:</p>
+<pre><code># Directory used to store mailboxes. Defaults to /var/vmail/vmail1.
+# Note: This directory must be owned by 'vmail:vmail' with permission 0700.
+storage_base_directory = '/var/vmail/vmail1'
 </code></pre>
 
 <p>Note: each time you modified iRedAdmin source code (Python source file which
