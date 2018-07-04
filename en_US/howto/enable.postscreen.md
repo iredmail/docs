@@ -30,6 +30,31 @@ Important notes:
   (FreeBSD) to check the DNSBL servers it enabled, you're free to remove some
   of them (or add new ones) if you want.
 
+## Disable postscreen service
+
+If your iRedMail already have postscreen service enabled, it's easy to disable
+it by following steps below.
+
+* Open file `/etc/postfix/master.cf`, find lines below (usually they're first
+  few lines in this file):
+
+```
+#smtp      inet  n       -       -       -       -       smtpd
+smtp      inet  n       -       -       -       1       postscreen
+smtpd     pass  -       -       n       -       -       smtpd
+```
+
+* Uncomment first line, comment out the other 2 lines:
+
+```
+smtp      inet  n       -       -       -       -       smtpd
+#smtp      inet  n       -       -       -       1       postscreen
+#smtpd     pass  -       -       n       -       -       smtpd
+```
+
+* Now restart or reload Postfix service. That's it. No need to modify any
+  setting in `/etc/postfix/main.cf`.
+
 ## See Also
 
 If you don't want to use postscreen service, you can [enable DNSBL service](./enable.dnsbl.html)

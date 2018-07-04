@@ -12,6 +12,7 @@ below to enable it.
     connection, you may try another tutorial instead:
     [Allow internal network devices to send email with insecure connection](./additional.smtp.port.html)
 
+* Disable postscreen service first: [Disable postscreen service](./enable.postscreen.html#disable-postscreen-service).
 * Find comment out settings in Postfix config file `/etc/postfix/main.cf`
   (Linux/OpenBSD) or `/usr/local/etc/postfix/main.cf` (FreeBSD):
 
