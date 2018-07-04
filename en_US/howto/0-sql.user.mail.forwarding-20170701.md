@@ -2,7 +2,7 @@
 
 [TOC]
 
-!!! attention
+!!! warning
 
     * This document is applicable to iRedMail-0.9.6 and earlier releases.
     * Here's [doc for iRedMail-0.9.7 and later releases](./sql.user.mail.forwarding.html).
