@@ -37,6 +37,7 @@ export all_chapter_dirs="overview \
                          installation \
                          mua \
                          upgrade \
+                         cloud-platform \
                          migrations \
                          howto \
                          integrations \
