@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>What is SSH jump server</title>
+        <link rel="stylesheet" type="text/css" href="./css/markdown.css" />
+    </head>
+    <body>
+    
+    <div id="navigation">
+    <a href="https://www.iredmail.org" target="_blank">
+        <img alt="iRedMail web site"
+             src="./images/logo-iredmail.png"
+             style="vertical-align: middle; height: 30px;"
+             />&nbsp;
+        <span>iRedMail</span>
+    </a>
+    &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><h1 id="what-is-ssh-jump-server">What is SSH jump server</h1>
+<p>It's common that you have a protected Linux/BSD server that isn’t publicly
+accessible. Typically, you may have what is commonly referred to as a
+<em><strong>jump server</strong></em> or <em><strong>bastion server</strong></em> which is accessible from a public
+network (sometimes this jump server would be in a DMZ, and also Linux/BSD),
+you connect to this jump server first, then connect to the protected server
+from jump server.</p>
+<p>Sample setup:</p>
+<pre><code>+--------+       +-------------+      +------------------+
+| Laptop | &lt;---&gt; | Jump server | &lt;--&gt; | Protected server |
++--------+       +-------------+      +------------------+
+</code></pre>
+
+<p>You can connect to the protected server through jump server via ssh with
+command like below:</p>
+<pre><code>ssh -v -J user1@jump-server user2@protected-server
+</code></pre>
+
+<h2 id="references">References</h2>
+<ul>
+<li><a href="https://man.openbsd.org/ssh#J">SSH manual page</a></li>
+</ul><div class="footer">
+    <p style="text-align: center; color: grey;">All documents are available in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://bitbucket.org/zhb/iredmail-docs/get/tip.tar.bz2">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
+</div>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-3293801-21"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-3293801-21');
+</script>
+</body></html>
