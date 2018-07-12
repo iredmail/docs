@@ -1,6 +1,8 @@
 # Setup sudo for cloud deployment
 
-## What is `sudo`
+[TOC]
+
+## What is `sudo` (Linux) and `doas` (OpenBSD)
 
 From [wikipedia](https://en.wikipedia.org/wiki/Sudo):
 
@@ -21,14 +23,16 @@ From [wikipedia](https://en.wikipedia.org/wiki/Sudo):
 > never requiring a password at all for a particular command line. It can also
 > be configured to permit passing arguments or multiple commands.
 
-## Setup sudo for iRedMail cloud deployment
+OpenBSD uses its own sudo-like program for this purpose, it's called `doas`
+which means *__execute commands as another user__*.
 
 With the iRedMail cloud platform, you can deploy iRedMail by connecting to
-target server via ssh as a non-privileged user (e.g. `ubuntu`) which is allowed
-to run command as `root` with `sudo`.
+target server (via ssh) as a non-privileged user (e.g. user `iredmail`) which
+is allowed to run command as `root` with `sudo`.
 
-Let's say you're going to connect as user `ubuntu`, steps to setup sudo for
-`ubuntu` user:
+## Linux: Setup sudo
+
+Let's say you're going to connect as user `iredmail`:
 
 * Run command `visudo` as root user.
 
@@ -40,16 +44,51 @@ Let's say you're going to connect as user `ubuntu`, steps to setup sudo for
 * Add lines below at the end, save your changes and quit `visudo`.
 
 ```
-# Allow user `ubuntu` to run all commands without typing its own password.
-ubuntu  ALL=(ALL) NOPASSWD: ALL
+# Allow user `iredmail` to run all commands without typing its own password.
+iredmail  ALL=(ALL) NOPASSWD: ALL
 
 # We're going to connect without a real tty, below setting will speed up the
 # iRedMail deployment process.
-Defaults:ubuntu !requiretty
+Defaults:iredmail !requiretty
 ```
+
+To verify the sudo configuration, please login as user `iredmail` first, then run
+command:
+
+```
+sudo ls /root/
+```
+
+If sudo is correctly configured, it will show you list of files under `/root`
+directory.
+
+## OpenBSD: Setup doas
+
+Let's say you're going to connect as user `iredmail`.
+
+Append line below to file `/etc/doas.conf` (if this file doesn't exist, please
+create it manually):
+
+```
+permit nopass iredmail as root
+```
+
+To verify the sudo configuration, please login as user `iredmail` first, then run
+command:
+
+```
+doas ls /root/
+```
+
+If sudo is correctly configured, it will show you list of files under `/root`
+directory.
 
 ## References
 
-* [sudo manual page](https://www.sudo.ws/man/1.8.3/sudo.man.html)
-* [10 Useful Sudoers Configurations for Setting ‘sudo’ in Linux](https://www.tecmint.com/sudoers-configurations-for-setting-sudo-in-linux/)
-* [Difference Between su and sudo and How to Configure sudo in Linux](https://www.tecmint.com/su-vs-sudo-and-how-to-configure-sudo-in-linux/)
+* Linux `sudo`:
+    * [sudo manual page](https://www.sudo.ws/man/1.8.3/sudo.man.html)
+    * [10 Useful Sudoers Configurations for Setting ‘sudo’ in Linux](https://www.tecmint.com/sudoers-configurations-for-setting-sudo-in-linux/)
+    * [Difference Between su and sudo and How to Configure sudo in Linux](https://www.tecmint.com/su-vs-sudo-and-how-to-configure-sudo-in-linux/)
+* OpenBSD `doas`:
+    * [doas(5) manual page](https://man.openbsd.org/doas.conf.5)
+    * [doas(1) manual page](https://man.openbsd.org/doas.1)
