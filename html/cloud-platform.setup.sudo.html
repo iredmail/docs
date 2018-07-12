@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Setup sudo</title>
+        <link rel="stylesheet" type="text/css" href="./css/markdown.css" />
+    </head>
+    <body>
+    
+    <div id="navigation">
+    <a href="https://www.iredmail.org" target="_blank">
+        <img alt="iRedMail web site"
+             src="./images/logo-iredmail.png"
+             style="vertical-align: middle; height: 30px;"
+             />&nbsp;
+        <span>iRedMail</span>
+    </a>
+    &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><h1 id="setup-sudo">Setup sudo</h1>
+<h2 id="what-is-sudo">What is <code>sudo</code></h2>
+<p>From <a href="https://en.wikipedia.org/wiki/Sudo">wikipedia</a>:</p>
+<blockquote>
+<p>sudo is a program for Unix-like computer operating systems that allows users
+to run programs with the security privileges of another user, by default the
+superuser <code>root</code>. It originally stood for "superuser do" as the older versions
+of sudo were designed to run commands only as the superuser. However, the later
+versions added support for running commands not only as the superuser but also
+as other (restricted) users, ...</p>
+<p>Unlike the similar command <code>su</code>, users must, by default, supply their own
+password for authentication, rather than the password of the target user.
+After authentication, and if the configuration file, which is typically
+located at <code>/etc/sudoers</code>, permits the user access, the system invokes the
+requested command. The configuration file offers detailed access permissions,
+including enabling commands only from the invoking terminal; requiring a
+password per user or group; requiring re-entry of a password every time or
+never requiring a password at all for a particular command line. It can also
+be configured to permit passing arguments or multiple commands.</p>
+</blockquote>
+<h2 id="setup-sudo-for-iredmail-cloud-deployment">Setup sudo for iRedMail cloud deployment</h2>
+<p>With the iRedMail cloud platform, you can deploy iRedMail by connecting to
+target server via ssh as a non-privileged user (e.g. <code>ubuntu</code>) which is allowed
+to run command as <code>root</code> with <code>sudo</code>.</p>
+<p>Let's say you're going to connect as user <code>ubuntu</code>, steps to setup sudo for
+<code>ubuntu</code> user:</p>
+<ul>
+<li>
+<p>Run command <code>visudo</code> as root user.</p>
+<p>Although you can edit sudo config file <code>/etc/sudoers</code> with your favourite
+text editor, but <code>visudo</code> will help check syntax while saving changes. this
+is helpful to avoid some mistakes like misspelled username, or any other
+keyword.</p>
+</li>
+<li>
+<p>Add lines below at the end, save your changes and quit <code>visudo</code>.</p>
+</li>
+</ul>
+<pre><code># Allow user `ubuntu` to run all commands without typing its own password.
+ubuntu  ALL=(ALL) NOPASSWD: ALL
+
+# We're going to connect without a real tty, below setting will speed up the
+# iRedMail deployment process.
+Defaults:ubuntu !requiretty
+</code></pre>
+
+<h2 id="references">References</h2>
+<ul>
+<li><a href="https://www.sudo.ws/man/1.8.3/sudo.man.html">sudo manual page</a></li>
+<li><a href="https://www.tecmint.com/sudoers-configurations-for-setting-sudo-in-linux/">10 Useful Sudoers Configurations for Setting ‘sudo’ in Linux</a></li>
+<li><a href="https://www.tecmint.com/su-vs-sudo-and-how-to-configure-sudo-in-linux/">Difference Between su and sudo and How to Configure sudo in Linux</a></li>
+</ul><div class="footer">
+    <p style="text-align: center; color: grey;">All documents are available in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://bitbucket.org/zhb/iredmail-docs/get/tip.tar.bz2">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
+</div>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-3293801-21"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-3293801-21');
+</script>
+</body></html>
