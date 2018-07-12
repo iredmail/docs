@@ -1,4 +1,4 @@
-# Setup sudo
+# Setup sudo for cloud deployment
 
 ## What is `sudo`
 
