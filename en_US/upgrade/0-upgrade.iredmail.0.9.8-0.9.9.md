@@ -65,6 +65,51 @@ chown mlmmj:mlmmj /opt/mlmmjadmin/settings.py
 chmod 0400 /opt/mlmmjadmin/settings.py
 ```
 
+### Fix improper Nginx config files for Roundcube
+
+Accurate Nginx url match helps avoid namespace conflicts, we need some fixes
+for Roundcube to get accurate url match.
+
+Please open file `/etc/nginx/templates/roundcube.tmpl`, find `location`
+directives like below:
+
+```
+location ~ /mail/(bin|config|installer|logs|SQL|temp|vendor)($|/.*) { deny all; }
+location ~ /mail/(CHANGELOG|composer.json|INSTALL|jsdeps.json|LICENSE|README|UPGRADING)($|.*) { deny all; }
+location ~ /mail/plugins/.*/config.inc.php.* { deny all; }
+location ~ /mail/plugins/enigma/home($|/.*) { deny all; }
+```
+
+Add a `^` symbol before url path, this will exactly match the url begins
+with the path.
+
+```
++location ~ ^/mail/(bin|config|installer|logs|SQL|temp|vendor)($|/.*) { deny all; }
++location ~ ^/mail/(CHANGELOG|composer.json|INSTALL|jsdeps.json|LICENSE|README|UPGRADING)($|.*) { deny all; }
++location ~ ^/mail/plugins/.*/config.inc.php.* { deny all; }
++location ~ ^/mail/plugins/enigma/home($|/.*) { deny all; }
+```
+
+Open file `/etc/nginx/templates/roundcube-subdomain.tmpl`, find `location`
+directives like below:
+
+
+```
+location ~ /(bin|config|installer|logs|SQL|temp|vendor)($|/.*) { deny all; }
+location ~ /(CHANGELOG|composer.json|INSTALL|jsdeps.json|LICENSE|README|UPGRADING)($|.*) { deny all; }
+location ~ /plugins/.*/config.inc.php.* { deny all; }
+location ~ /plugins/enigma/home($|/.*) { deny all; }
+```
+
+Add `^` symbol like below:
+
+```
+location ~ ^/(bin|config|installer|logs|SQL|temp|vendor)/.* { deny all; }
+location ~ ^/(CHANGELOG|composer.json|INSTALL|jsdeps.json|LICENSE|README|UPGRADING)$ { deny all; }
+location ~ ^/plugins/.*/config.inc.php.* { deny all; }
+location ~ ^/plugins/enigma/home($|/.*) { deny all; }
+```
+
 ## OpenLDAP special
 
 ### Update iRedMail LDAP schema file

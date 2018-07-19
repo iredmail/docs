@@ -26,6 +26,7 @@
 <li><a href="#upgrade-iredadmin-open-source-edition-to-the-latest-stable-release-10">Upgrade iRedAdmin (open source edition) to the latest stable release (1.0)</a></li>
 <li><a href="#upgrade-roundcube-webmail-to-the-latest-stable-release-136">Upgrade Roundcube webmail to the latest stable release (1.3.6)</a></li>
 <li><a href="#fix-incorrect-file-ownergroup-of-mlmmjadmin-config-file">Fix incorrect file owner/group of mlmmjadmin config file</a></li>
+<li><a href="#fix-improper-nginx-config-files-for-roundcube">Fix improper Nginx config files for Roundcube</a></li>
 </ul>
 </li>
 <li><a href="#openldap-special">OpenLDAP special</a><ul>
@@ -100,6 +101,40 @@ latest stable release immediately:</p>
 <p>Please run commands below to fix incorrect file owner/group and permission:</p>
 <pre><code>chown mlmmj:mlmmj /opt/mlmmjadmin/settings.py
 chmod 0400 /opt/mlmmjadmin/settings.py
+</code></pre>
+
+<h3 id="fix-improper-nginx-config-files-for-roundcube">Fix improper Nginx config files for Roundcube</h3>
+<p>Accurate Nginx url match helps avoid namespace conflicts, we need some fixes
+for Roundcube to get accurate url match.</p>
+<p>Please open file <code>/etc/nginx/templates/roundcube.tmpl</code>, find <code>location</code>
+directives like below:</p>
+<pre><code>location ~ /mail/(bin|config|installer|logs|SQL|temp|vendor)($|/.*) { deny all; }
+location ~ /mail/(CHANGELOG|composer.json|INSTALL|jsdeps.json|LICENSE|README|UPGRADING)($|.*) { deny all; }
+location ~ /mail/plugins/.*/config.inc.php.* { deny all; }
+location ~ /mail/plugins/enigma/home($|/.*) { deny all; }
+</code></pre>
+
+<p>Add a <code>^</code> symbol before url path, this will exactly match the url begins
+with the path.</p>
+<pre><code>+location ~ ^/mail/(bin|config|installer|logs|SQL|temp|vendor)($|/.*) { deny all; }
++location ~ ^/mail/(CHANGELOG|composer.json|INSTALL|jsdeps.json|LICENSE|README|UPGRADING)($|.*) { deny all; }
++location ~ ^/mail/plugins/.*/config.inc.php.* { deny all; }
++location ~ ^/mail/plugins/enigma/home($|/.*) { deny all; }
+</code></pre>
+
+<p>Open file <code>/etc/nginx/templates/roundcube-subdomain.tmpl</code>, find <code>location</code>
+directives like below:</p>
+<pre><code>location ~ /(bin|config|installer|logs|SQL|temp|vendor)($|/.*) { deny all; }
+location ~ /(CHANGELOG|composer.json|INSTALL|jsdeps.json|LICENSE|README|UPGRADING)($|.*) { deny all; }
+location ~ /plugins/.*/config.inc.php.* { deny all; }
+location ~ /plugins/enigma/home($|/.*) { deny all; }
+</code></pre>
+
+<p>Add <code>^</code> symbol like below:</p>
+<pre><code>location ~ ^/(bin|config|installer|logs|SQL|temp|vendor)/.* { deny all; }
+location ~ ^/(CHANGELOG|composer.json|INSTALL|jsdeps.json|LICENSE|README|UPGRADING)$ { deny all; }
+location ~ ^/plugins/.*/config.inc.php.* { deny all; }
+location ~ ^/plugins/enigma/home($|/.*) { deny all; }
 </code></pre>
 
 <h2 id="openldap-special">OpenLDAP special</h2>

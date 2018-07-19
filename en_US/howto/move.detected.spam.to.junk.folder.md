@@ -13,7 +13,7 @@ find it, you can still download one from iRedMail project:
 This file must be owned by user `vmail` and group `vmail`, permission `0500`.
 
 Now open Dovecot config file `/etc/dovecot/dovecot.conf` (on Linux/OpenBSD)
-or `/usr/local/etc/dovecot/dovecot.conf` (FreeBSD), find parameter `sieve_before =`
+or `/usr/local/etc/dovecot/dovecot.conf` (FreeBSD), make sure you have setting
 like below:
 
 ```
@@ -21,16 +21,9 @@ like below:
 
 plugin {
     ...
-    #sieve_before = 
+    sieve_before = /var/vmail/sieve/dovecot.sieve
     ...
 }
-```
-
-Uncomment it and set its value to `/var/vmail/sieve/dovecot.sieve` (Note:
-use the correct path on your server).
-
-```
-    sieve_before = /var/vmail/sieve/dovecot.sieve
 ```
 
 Restart Dovecot service to enable it.
