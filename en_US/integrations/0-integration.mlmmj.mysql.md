@@ -475,7 +475,7 @@ netstat -ntlp | grep 7790
 On FreeBSD/OpenBSD, run:
 
 ```
-netdata -anl -p tcp | grep 7790
+netstat -anl -p tcp | grep 7790
 ```
 
 ## Manage mailing lists with iRedAdmin-Pro
