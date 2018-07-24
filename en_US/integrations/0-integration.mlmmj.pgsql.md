@@ -75,7 +75,7 @@ make install clean
   to install it here):
 
 ```
-pkg_add mlmmj
+pkg_add mlmmj altermime
 ```
 
 ## Create required system account

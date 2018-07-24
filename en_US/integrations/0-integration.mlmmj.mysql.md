@@ -74,7 +74,7 @@ make install clean
 * On OpenBSD:
 
 ```
-pkg_add mlmmj
+pkg_add mlmmj altermime
 ```
 
 ## Create required system account
