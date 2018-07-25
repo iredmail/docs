@@ -476,8 +476,9 @@ service mlmmjadmin restart
 rcctl start mlmmjadmin
 </code></pre>
 
-<p>On Linux, you can check the port number with command:</p>
+<p>On Linux, you can check the port number with command <code>netstat</code> or <code>ss</code> like below:</p>
 <pre><code>netstat -ntlp | grep 7790
+ss -ntlp | grep 7790
 </code></pre>
 
 <p>On FreeBSD/OpenBSD, run:</p>
