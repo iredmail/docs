@@ -242,7 +242,7 @@ $ psql
 sql> CREATE USER netdata WITH ENCRYPTED PASSWORD '<password>' NOSUPERUSER NOCREATEDB NOCREATEROLE;
 ```
 
-* Create file `/etc/netdata/python.d/mysql.conf` with content below.
+* Create file `/etc/netdata/python.d/postgres.conf` with content below.
 
     !!! attention
     
