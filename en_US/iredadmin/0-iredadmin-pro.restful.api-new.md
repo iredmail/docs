@@ -309,8 +309,8 @@ Notes:
     `password` | Password| `password=AsTr0ng@`
     `language` | Preferred language of iRedAdmin web UI | `language=en_US`
     `quota` | Mailbox quota (in MB) | `quota=1024`
-    `mailboxFormat` | Mailbox format. e.g. `maildir`, `mdbox`. Defaults to `maildir` if not present. For more details, please read Dovecot document: <https://wiki2.dovecot.org/MailboxFormat> | `mailboxFormat=mdbox`
-    `mailboxFolder` | Mailbox folder name (case sensitive) which will be appended to user's home path. Defaults to `Maildir`. It's useful if you need to migrate to different mailbox folder. | `mailboxFolder=Maildir`
+    `mailboxFormat` | Mailbox format. e.g. `maildir`, `mdbox`. Defaults to `maildir` if not present. For more details, please read Dovecot document: <https://wiki2.dovecot.org/MailboxFormat>. __WARNING__: Changing mailbox format does not migrate the mailbox on file system automatically, you have to migrate it manually. New email will be stored in new mailbox format immediately. | `mailboxFormat=mdbox`
+    `mailboxFolder` | Mailbox folder name (case sensitive) which will be appended to user's home path. Defaults to `Maildir`. It's useful if you need to migrate to different mailbox folder. __WARNING__: New email will be stored in new mailbox folder immediately. | `mailboxFolder=Maildir`
 
     </div>
 
@@ -340,8 +340,8 @@ Notes:
     `services` | Reset per-user enabled mail services to given values. Conflicts with parameter `addService` and `removeService`. See additional notes below. | `services=mail,smtp,pop3,imap`
     `addService` | Add new per-user enabled mail service(s). Multiple values must be separated by comma. Conflicts with parameter `services`. See additional notes below. | `addService=vpn,owncloud`
     `removeService` | Add new per-user enabled mail service(s). Multiple values must be separated by comma. Conflicts with parameter `services`. See additional notes below. | `removeService=forward,senderbcc`
-    `mailboxFormat` | Mailbox format. e.g. `maildir`, `mdbox`. Defaults to `maildir` if not present. For more details, please read Dovecot document: <https://wiki2.dovecot.org/MailboxFormat> | `mailboxFormat=mdbox`
-    `mailboxFolder` | Mailbox folder name (case sensitive) which will be appended to user's home path. Defaults to `Maildir`. It's useful if you need to migrate to different mailbox folder. | `mailboxFolder=Maildir`
+    `mailboxFormat` | Mailbox format. e.g. `maildir`, `mdbox`. Defaults to `maildir` if not present. For more details, please read Dovecot document: <https://wiki2.dovecot.org/MailboxFormat>. __WARNING__: Changing mailbox format does not migrate the mailbox on file system automatically, you have to migrate it manually. New email will be stored in new mailbox format immediately. | `mailboxFormat=mdbox`
+    `mailboxFolder` | Mailbox folder name (case sensitive) which will be appended to user's home path. Defaults to `Maildir`. It's useful if you need to migrate to different mailbox folder. __WARNING__: New email will be stored in new mailbox folder immediately. | `mailboxFolder=Maildir`
 
     !!! attention
     

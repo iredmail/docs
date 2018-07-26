@@ -882,12 +882,12 @@ to be a domain admin.</p>
 </tr>
 <tr>
 <td><code>mailboxFormat</code></td>
-<td>Mailbox format. e.g. <code>maildir</code>, <code>mdbox</code>. Defaults to <code>maildir</code> if not present. For more details, please read Dovecot document: <a href="https://wiki2.dovecot.org/MailboxFormat">https://wiki2.dovecot.org/MailboxFormat</a></td>
+<td>Mailbox format. e.g. <code>maildir</code>, <code>mdbox</code>. Defaults to <code>maildir</code> if not present. For more details, please read Dovecot document: <a href="https://wiki2.dovecot.org/MailboxFormat">https://wiki2.dovecot.org/MailboxFormat</a>. <strong>WARNING</strong>: Changing mailbox format does not migrate the mailbox on file system automatically, you have to migrate it manually. New email will be stored in new mailbox format immediately.</td>
 <td><code>mailboxFormat=mdbox</code></td>
 </tr>
 <tr>
 <td><code>mailboxFolder</code></td>
-<td>Mailbox folder name (case sensitive) which will be appended to user's home path. Defaults to <code>Maildir</code>. It's useful if you need to migrate to different mailbox folder.</td>
+<td>Mailbox folder name (case sensitive) which will be appended to user's home path. Defaults to <code>Maildir</code>. It's useful if you need to migrate to different mailbox folder. <strong>WARNING</strong>: New email will be stored in new mailbox folder immediately.</td>
 <td><code>mailboxFolder=Maildir</code></td>
 </tr>
 </tbody>
@@ -1006,12 +1006,12 @@ to be a domain admin.</p>
 </tr>
 <tr>
 <td><code>mailboxFormat</code></td>
-<td>Mailbox format. e.g. <code>maildir</code>, <code>mdbox</code>. Defaults to <code>maildir</code> if not present. For more details, please read Dovecot document: <a href="https://wiki2.dovecot.org/MailboxFormat">https://wiki2.dovecot.org/MailboxFormat</a></td>
+<td>Mailbox format. e.g. <code>maildir</code>, <code>mdbox</code>. Defaults to <code>maildir</code> if not present. For more details, please read Dovecot document: <a href="https://wiki2.dovecot.org/MailboxFormat">https://wiki2.dovecot.org/MailboxFormat</a>. <strong>WARNING</strong>: Changing mailbox format does not migrate the mailbox on file system automatically, you have to migrate it manually. New email will be stored in new mailbox format immediately.</td>
 <td><code>mailboxFormat=mdbox</code></td>
 </tr>
 <tr>
 <td><code>mailboxFolder</code></td>
-<td>Mailbox folder name (case sensitive) which will be appended to user's home path. Defaults to <code>Maildir</code>. It's useful if you need to migrate to different mailbox folder.</td>
+<td>Mailbox folder name (case sensitive) which will be appended to user's home path. Defaults to <code>Maildir</code>. It's useful if you need to migrate to different mailbox folder. <strong>WARNING</strong>: New email will be stored in new mailbox folder immediately.</td>
 <td><code>mailboxFolder=Maildir</code></td>
 </tr>
 </tbody>
