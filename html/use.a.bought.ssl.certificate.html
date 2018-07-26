@@ -159,17 +159,13 @@ SSLCertificateChainFile /etc/pki/tls/certs/fullchain.pem
 <p>Restarting Apache service is required.</p>
 <h3 id="nginx-web-server">Nginx (web server)</h3>
 <ul>
-<li>On Linux and OpenBSD, it's defined in <code>/etc/nginx/templates/ssl.tmpl</code> (or <code>/etc/nginx/conf.d/default.conf</code> on old iRedMail release)</li>
-<li>On FreeBSD, it's defined in <code>/usr/local/etc/nginx/templates/ssl.tmpl</code> (or <code>/usr/local/etc/nginx/conf.d/default.conf</code> on old iRedMail release)</li>
+<li>On Linux and OpenBSD, it's defined in <code>/etc/nginx/templates/ssl.tmpl</code>
+  (or <code>/etc/nginx/conf.d/default.conf</code> on old iRedMail release)</li>
+<li>On FreeBSD, it's defined in <code>/usr/local/etc/nginx/templates/ssl.tmpl</code>
+  (or <code>/usr/local/etc/nginx/conf.d/default.conf</code> on old iRedMail release)</li>
 </ul>
-<pre><code>server {
-    listen 443;
-    ...
-    ssl on;
-    ssl_certificate /etc/pki/tls/certs/cert.pem;
-    ssl_certificate_key /etc/pki/tls/private/privkey.pem;
-    ...
-}
+<pre><code>ssl_certificate /etc/pki/tls/certs/cert.pem;
+ssl_certificate_key /etc/pki/tls/private/privkey.pem;
 </code></pre>
 
 <p>Some browsers may complain about a certificate signed by a well-known

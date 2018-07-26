@@ -139,18 +139,14 @@ Restarting Apache service is required.
 
 ### Nginx (web server)
 
-* On Linux and OpenBSD, it's defined in `/etc/nginx/templates/ssl.tmpl` (or `/etc/nginx/conf.d/default.conf` on old iRedMail release)
-* On FreeBSD, it's defined in `/usr/local/etc/nginx/templates/ssl.tmpl` (or `/usr/local/etc/nginx/conf.d/default.conf` on old iRedMail release)
+* On Linux and OpenBSD, it's defined in `/etc/nginx/templates/ssl.tmpl`
+  (or `/etc/nginx/conf.d/default.conf` on old iRedMail release)
+* On FreeBSD, it's defined in `/usr/local/etc/nginx/templates/ssl.tmpl`
+  (or `/usr/local/etc/nginx/conf.d/default.conf` on old iRedMail release)
 
 ```
-server {
-    listen 443;
-    ...
-    ssl on;
-    ssl_certificate /etc/pki/tls/certs/cert.pem;
-    ssl_certificate_key /etc/pki/tls/private/privkey.pem;
-    ...
-}
+ssl_certificate /etc/pki/tls/certs/cert.pem;
+ssl_certificate_key /etc/pki/tls/private/privkey.pem;
 ```
 
 Some browsers may complain about a certificate signed by a well-known
