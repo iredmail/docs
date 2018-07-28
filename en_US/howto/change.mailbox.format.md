@@ -14,8 +14,11 @@ is supported in iRedMail.
 
 !!! attention
 
-    If you're running an old iRedMail release, you can upgrade it by following
-    [iRedMail upgrade tutorials](./iredmail.releases.html).
+    * If you're running an iRedMail release earlier than iRedMail-0.9.9, you can
+      upgrade it by following [iRedMail upgrade tutorials](./iredmail.releases.html).
+    * iRedAdmin-Pro RESTful API interface supports changing mailbox format too.
+      Check its [API document](./iredadmin-pro.restful.api.html) (expand all
+      parameters and search 'mailboxformat' or `mailboxFormat`).
 
 !!! warning
 
