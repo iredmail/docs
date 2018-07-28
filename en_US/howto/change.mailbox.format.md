@@ -1,4 +1,4 @@
-# Change mailbox format (e.g. maildir, mdbox)
+# Change per-user mailbox format (e.g. maildir, mdbox)
 
 iRedMail uses `maildir` mailbox format by default, it's easy to migrate and
 maintain, but if mailbox size is growing, the performance will be getting
