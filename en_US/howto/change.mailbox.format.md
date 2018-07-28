@@ -5,12 +5,11 @@ maintain, but if mailbox size is growing, the performance will be getting
 slower due to too much disk I/O. Dovecot's own mailbox format `mdbox` has very
 good performance for large mailbox due to reduced disk I/O.
 
-You may want to switch to other mailbox format supported by Dovecot for some
-other reason, for example, separate attachment from mail message, higher
-performance, etc. To help you switch easily, iRedMail-0.9.9 introduces 2 new
+You may want to switch to other mailbox format for some reason.
+To help you switch easily, iRedMail-0.9.9 introduces 2 new
 SQL columns (for SQL backends) and LDAP attributes (for LDAP backends) to help
 you switch per-user mailbox format easily. All
-[https://wiki2.dovecot.org/MailboxFormat](mailbox formats supported by Dovecot)
+[mailbox formats supported by Dovecot]https://wiki2.dovecot.org/MailboxFormat)
 is supported in iRedMail.
 
 !!! attention
