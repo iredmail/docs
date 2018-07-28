@@ -205,6 +205,9 @@ user_attrs      = mail=master_user,mail=user,homeDirectory=home,=mail=%{ldap:mai
 If attribute `mailboxFormat` doesn't present in user object, Dovecot will use
 string `maildir` as default value.
 
+For more details about changing mailbox format, please check our tutorial:
+[Change mailbox format](./change.mailbox.format.html).
+
 ## MySQL/MariaDB special
 
 ### SQL structure changes in `vmail` database
@@ -258,6 +261,9 @@ user_query = SELECT \
             CONCAT(mailbox.mailboxformat, ':', mailbox.storagebasedirectory, '/', mailbox.storagenode, '/', mailbox.maildir, '/Maildir') AS mail, \
             ...
 ```
+
+For more details about changing mailbox format, please check our tutorial:
+[Change mailbox format](./change.mailbox.format.html).
 
 ## PostgreSQL special
 
@@ -323,6 +329,9 @@ user_query = SELECT \
 
 Restart Dovecot service is required.
 
+For more details about changing mailbox format, please check our tutorial:
+[Change mailbox format](./change.mailbox.format.html).
+
 #### PostgreSQL 9.x and later releases
 
 If you're running __PostgreSQL 9.x__ and later releases, you can find the
@@ -346,3 +355,6 @@ user_query = SELECT \
 ```
 
 Restart Dovecot service is required.
+
+For more details about changing mailbox format, please check our tutorial:
+[Change mailbox format](./change.mailbox.format.html).

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Change mailbox format (e.g. maildir, mdbox)</title>
+        <link rel="stylesheet" type="text/css" href="./css/markdown.css" />
+    </head>
+    <body>
+    
+    <div id="navigation">
+    <a href="https://www.iredmail.org" target="_blank">
+        <img alt="iRedMail web site"
+             src="./images/logo-iredmail.png"
+             style="vertical-align: middle; height: 30px;"
+             />&nbsp;
+        <span>iRedMail</span>
+    </a>
+    &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><h1 id="change-mailbox-format-eg-maildir-mdbox">Change mailbox format (e.g. maildir, mdbox)</h1>
+<p>iRedMail uses <code>maildir</code> mailbox format by default, it's easy to migrate and
+maintain, but if mailbox size is growing, the performance will be getting
+slower due to too much disk I/O. Dovecot's own mailbox format <code>mdbox</code> has very
+good performance for large mailbox due to reduced disk I/O.</p>
+<p>You may want to switch to other mailbox format supported by Dovecot for some
+other reason, for example, separate attachment from mail message, higher
+performance, etc. To help you switch easily, iRedMail-0.9.9 introduces 2 new
+SQL columns (for SQL backends) and LDAP attributes (for LDAP backends) to help
+you switch per-user mailbox format easily. All
+<a href="mailbox formats supported by Dovecot">https://wiki2.dovecot.org/MailboxFormat</a>
+is supported in iRedMail.</p>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>If you're running an old iRedMail release, you can upgrade it by following
+<a href="./iredmail.releases.html">iRedMail upgrade tutorials</a>.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<ul>
+<li>Changing mailbox format does not migrate existing mailbox for you. You
+  have to migrate it <strong>BEFORE</strong> switching to new mailbox format, then
+  update SQL/LDAP data to use new mailbox format right after migrated the
+  mailbox.</li>
+<li>New mailbox format will be used by Dovecot immediately after SQL/LDAP change.</li>
+</ul>
+</div>
+<h2 id="sql-backends">SQL backends</h2>
+<p>You can switch to different mailbox format with SQL commands below. We use
+MySQL for example here.</p>
+<pre><code>USE vmail;
+UPDATE mailbox SET mailboxformat='mdbox', mailboxfolder='mdbox' where username=&quot;user@your-domain.com&quot;;
+</code></pre>
+
+<ul>
+<li>Value of <code>mailboxfolder</code> can be any folder name supported by Linux/BSD file
+  system, but value of <code>mailboxformat</code> must be one of the formats supported by
+  Dovecot, e.g. maildir, sdbox, mdbox.</li>
+<li>Value of <code>mailboxfolder</code> can not be same as previously used one, otherwise
+  old mailbox will be messed up when Dovecot delivers new email.</li>
+</ul>
+<h2 id="ldap-backends">LDAP backends</h2>
+<p>You need some LDAP management tool like <a href="http://phpldapadmin.sourceforge.net/">phpLDAPadmin</a>,
+<a href="https://directory.apache.org/studio/">Apache Directory Studio</a>, or command
+line tool <code>ldapvi</code> (you can install it with <code>yum</code> or <code>apt-get</code> command directly)
+to update mail user's LDIF data.</p>
+<pre><code>mailboxFormat: mdbox
+mailboxFolder: mdbox
+</code></pre>
+
+<ul>
+<li>Value of <code>mailboxFolder</code> can be any folder name supported by Linux/BSD file
+  system, but value of <code>mailboxFormat</code> must be one of the formats supported by
+  Dovecot, e.g. maildir, sdbox, mdbox.</li>
+<li>Value of <code>mailboxfolder</code> can not be same as previously used one, otherwise
+  old mailbox will be messed up when Dovecot delivers new email.</li>
+<li>With iRedMail-0.9.9, if attribute <code>mailboxFormat</code> and <code>mailboxFolder</code> don't
+  present in user LDAP object, Dovecot is configured to use <code>maildir</code> as
+  default mailbox format and <code>Maildir</code> (case-sensitive) as folder name.</li>
+</ul><div class="footer">
+    <p style="text-align: center; color: grey;">All documents are available in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://bitbucket.org/zhb/iredmail-docs/get/tip.tar.bz2">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
+</div>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-3293801-21"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-3293801-21');
+</script>
+</body></html>
