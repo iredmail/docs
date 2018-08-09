@@ -8,6 +8,10 @@
     check [the details](https://www.iredmail.org/support.html) and
     [contact us](https://www.iredmail.org/contact.html).
 
+## TODO
+
+* Add new http headers
+
 ## ChangeLog
 
 ## General (All backends should apply these steps)
