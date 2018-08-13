@@ -2,7 +2,7 @@
 
 [TOC]
 
-This tutorial was contributed by Setyo Prayitno <<jrsetyo@gmail.com>> (forum user
+This tutorial was contributed by Setyo Prayitno <<jrsetyo _at_ gmail.com>> (forum user
 name `t10`) [on March 13, 2016](https://forum.iredmail.org/topic10773.html).
 Thanks Setyo. :)
 
@@ -27,7 +27,7 @@ Build a fail-over cluster with 4 servers (2 backend servers behind HAProxy + Kee
 
 The big picture:
 
-![](https://bytebucket.org/jrt10/catatan/raw/master/iredmailhat10.bmp)
+![](./images/cluster/contrib/iredmailhat10.png)
 
 ## Summary
 
