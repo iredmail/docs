@@ -22,7 +22,6 @@
 <li><a href="#postfix-smtp">Postfix (SMTP)</a><ul>
 <li><a href="#intended-policy-rejection-please-try-again-later">Intended policy rejection, please try again later</a></li>
 <li><a href="#sender-address-rejected-not-logged-in">Sender address rejected: not logged in</a></li>
-<li><a href="#helo-command-rejected-need-fully-qualified-hostname">Helo command rejected: need fully-qualified hostname</a></li>
 <li><a href="#sender-address-rejected-not-owned-by-user-userdomainltd">Sender address rejected: not owned by user user@domain.ltd</a></li>
 <li><a href="#recipient-address-rejected-smtp-auth-is-required-for-users-under-this-sender-domain">Recipient address rejected: SMTP AUTH is required for users under this sender domain</a></li>
 <li><a href="#recipient-address-rejected-sender-is-not-same-as-smtp-authenticate-username">Recipient address rejected: Sender is not same as SMTP authenticate username</a><ul>
@@ -31,6 +30,8 @@
 </ul>
 </li>
 <li><a href="#unreasonable-virtual_alias_maps-map-expansion-size-for-userdomaincom">unreasonable virtual_alias_maps map expansion size for user@domain.com</a></li>
+<li><a href="#helo-command-rejected-need-fully-qualified-hostname">Helo command rejected: need fully-qualified hostname</a></li>
+<li><a href="#helo-command-rejected-host-not-found">Helo command rejected: Host not found</a></li>
 <li><a href="#helo-command-rejected-access-denied-your-email-was-rejected-because-the-sending-mail-server-does-not-identify-itself-correctly-local">Helo command rejected: ACCESS DENIED. Your email was rejected because the sending mail server does not identify itself correctly (.local)</a></li>
 <li><a href="#warning-do-not-list-domain-mydomaincom-in-both-mydestination-and-virtual_mailbox_domains">warning: do not list domain mydomain.com in BOTH mydestination and virtual_mailbox_domains</a></li>
 </ul>
@@ -76,23 +77,6 @@ server issue.</p>
 <p>All mail users are forced to perform SMTP auth before sending email, so you
 must configure your mail client applications (Outlook, Thunderbird, ...) to
 enable SMTP authentication.</p>
-<h3 id="helo-command-rejected-need-fully-qualified-hostname">Helo command rejected: need fully-qualified hostname</h3>
-<p>Sample error message in Postfix log file:</p>
-<blockquote>
-<p>Sep 22 08:51:03 mail postfix/smtpd[22067]: NOQUEUE: reject: RCPT from
-dslb-092-074-062-133.092.074.pools.vodafone-ip.de[92.74.62.133]: 504 5.5.2
-&lt;EHSGmbHLUCASPC>: <strong>Helo command rejected: need fully-qualified hostname</strong>;
-from=<a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#117;&#115;&#101;&#114;&#64;&#100;&#111;&#109;&#97;&#105;&#110;&#45;&#97;&#46;&#99;&#111;&#109;">&#117;&#115;&#101;&#114;&#64;&#100;&#111;&#109;&#97;&#105;&#110;&#45;&#97;&#46;&#99;&#111;&#109;</a> to=<a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#117;&#115;&#101;&#114;&#64;&#100;&#111;&#109;&#97;&#105;&#110;&#45;&#98;&#46;&#99;&#111;&#109;">&#117;&#115;&#101;&#114;&#64;&#100;&#111;&#109;&#97;&#105;&#110;&#45;&#98;&#46;&#99;&#111;&#109;</a> proto=ESMTP helo=&lt;EHSGmbHLUCASPC></p>
-</blockquote>
-<p>According to RFC document, HELO identity must be a FQDN (fully-qualified
-hostname). Sender sends <code>EHSGmbHLUCASPC</code> as HELO hostname, but it's not a FQDN.
-It's sender's fault, not your mistake.</p>
-<p>As a temporary solution, you can whitelist this HELO hostname
-by adding a line like below at the top of file <code>/etc/postfix/helo_access.pcre</code>
-(Linux/OpenBSD) or <code>/usr/local/etc/postfix/helo_access.pcre</code>:</p>
-<pre><code>/^EHSGmbHLUCASPC$/ OK
-</code></pre>
-
 <h3 id="sender-address-rejected-not-owned-by-user-userdomainltd">Sender address rejected: not owned by user user@domain.ltd</h3>
 <p>This error is caused by restriction rule <code>reject_sender_login_mismatch</code> in
 Postfix parameter <code>smtpd_recipient_restrictions</code>, in file <code>/etc/postfix/main.cf</code>:</p>
@@ -187,6 +171,36 @@ Postfix config file <code>/etc/postfix/main.cf</code>:</p>
 </code></pre>
 
 <p>Reference: <a href="http://www.postfix.org/postconf.5.html#virtual_alias_expansion_limit">Postfix Configuration Parameters</a></p>
+<h3 id="helo-command-rejected-need-fully-qualified-hostname">Helo command rejected: need fully-qualified hostname</h3>
+<p>Sample error message in Postfix log file:</p>
+<blockquote>
+<p>Sep 22 08:51:03 mail postfix/smtpd[22067]: NOQUEUE: reject: RCPT from
+dslb-092-074-062-133.092.074.pools.vodafone-ip.de[92.74.62.133]: 504 5.5.2
+&lt;EHSGmbHLUCASPC>: <strong>Helo command rejected: need fully-qualified hostname</strong>;
+from=<a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#117;&#115;&#101;&#114;&#64;&#100;&#111;&#109;&#97;&#105;&#110;&#45;&#97;&#46;&#99;&#111;&#109;">&#117;&#115;&#101;&#114;&#64;&#100;&#111;&#109;&#97;&#105;&#110;&#45;&#97;&#46;&#99;&#111;&#109;</a> to=<a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#117;&#115;&#101;&#114;&#64;&#100;&#111;&#109;&#97;&#105;&#110;&#45;&#98;&#46;&#99;&#111;&#109;">&#117;&#115;&#101;&#114;&#64;&#100;&#111;&#109;&#97;&#105;&#110;&#45;&#98;&#46;&#99;&#111;&#109;</a> proto=ESMTP helo=&lt;EHSGmbHLUCASPC></p>
+</blockquote>
+<p>According to RFC document, HELO identity must be a FQDN (fully-qualified
+hostname). Sender sends <code>EHSGmbHLUCASPC</code> as HELO hostname, but it's not a FQDN.
+It's sender's fault, not your mistake.</p>
+<p>As a temporary solution, you can whitelist this HELO hostname
+by adding a line like below at the top of file <code>/etc/postfix/helo_access.pcre</code>
+(Linux/OpenBSD) or <code>/usr/local/etc/postfix/helo_access.pcre</code> (FreeBSD):</p>
+<pre><code>/^EHSGmbHLUCASPC$/ OK
+</code></pre>
+
+<h3 id="helo-command-rejected-host-not-found">Helo command rejected: Host not found</h3>
+<p>Sample error message in Postfix log file:</p>
+<blockquote>
+<p>Aug 13 08:07:14 mail postfix/smtpd[8606]: NOQUEUE: reject: RCPT from mta02.globetel.com.ph[120.28.49.114]: 450 4.7.1 <mta02.globetel.com>: Helo command rejected: Host not found; from=<a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#116;&#99;&#97;&#100;&#100;&#48;&#49;&#64;&#103;&#108;&#111;&#98;&#101;&#116;&#101;&#108;&#46;&#99;&#111;&#109;&#46;&#112;&#104;">&#116;&#99;&#97;&#100;&#100;&#48;&#49;&#64;&#103;&#108;&#111;&#98;&#101;&#116;&#101;&#108;&#46;&#99;&#111;&#109;&#46;&#112;&#104;</a> to=<a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#117;&#115;&#101;&#114;&#64;&#101;&#120;&#97;&#109;&#112;&#108;&#101;&#46;&#99;&#111;&#109;">&#117;&#115;&#101;&#114;&#64;&#101;&#120;&#97;&#109;&#112;&#108;&#101;&#46;&#99;&#111;&#109;</a> proto=ESMTP helo=<mta02.globetel.com></p>
+</blockquote>
+<p>Postfix does DNS query to verify whether A type of DNS record of HELO domain
+name <code>mta02.globetel.com</code> exists, if not, Postfix rejects the email.</p>
+<p>As a temporary solution, you can whitelist this HELO hostname
+by adding a line like below at the top of file <code>/etc/postfix/helo_access.pcre</code>
+(Linux/OpenBSD) or <code>/usr/local/etc/postfix/helo_access.pcre</code> (FreeBSD):</p>
+<pre><code>/^mta02\.globetel\.com$/ OK
+</code></pre>
+
 <h3 id="helo-command-rejected-access-denied-your-email-was-rejected-because-the-sending-mail-server-does-not-identify-itself-correctly-local">Helo command rejected: ACCESS DENIED. Your email was rejected because the sending mail server does not identify itself correctly (.local)</h3>
 <p>It means sender mail server uses a FQDN hostname which ends with <code>.local</code> as
 HELO identity. <code>.local</code> is not a valid top level domain name, and all mail

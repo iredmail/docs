@@ -34,27 +34,6 @@ All mail users are forced to perform SMTP auth before sending email, so you
 must configure your mail client applications (Outlook, Thunderbird, ...) to
 enable SMTP authentication.
 
-### Helo command rejected: need fully-qualified hostname
-
-Sample error message in Postfix log file:
-
-> Sep 22 08:51:03 mail postfix/smtpd[22067]: NOQUEUE: reject: RCPT from
-> dslb-092-074-062-133.092.074.pools.vodafone-ip.de[92.74.62.133]: 504 5.5.2
-> <EHSGmbHLUCASPC\>: __Helo command rejected: need fully-qualified hostname__;
-> from=<user@domain-a.com> to=<user@domain-b.com> proto=ESMTP helo=<EHSGmbHLUCASPC\>
-
-According to RFC document, HELO identity must be a FQDN (fully-qualified
-hostname). Sender sends `EHSGmbHLUCASPC` as HELO hostname, but it's not a FQDN.
-It's sender's fault, not your mistake.
-
-As a temporary solution, you can whitelist this HELO hostname
-by adding a line like below at the top of file `/etc/postfix/helo_access.pcre`
-(Linux/OpenBSD) or `/usr/local/etc/postfix/helo_access.pcre`:
-
-```
-/^EHSGmbHLUCASPC$/ OK
-```
-
 ### Sender address rejected: not owned by user user@domain.ltd
 
 This error is caused by restriction rule `reject_sender_login_mismatch` in
@@ -168,6 +147,44 @@ virtual_alias_expansion_limit = 1500
 ```
 
 Reference: [Postfix Configuration Parameters](http://www.postfix.org/postconf.5.html#virtual_alias_expansion_limit)
+
+### Helo command rejected: need fully-qualified hostname
+
+Sample error message in Postfix log file:
+
+> Sep 22 08:51:03 mail postfix/smtpd[22067]: NOQUEUE: reject: RCPT from
+> dslb-092-074-062-133.092.074.pools.vodafone-ip.de[92.74.62.133]: 504 5.5.2
+> <EHSGmbHLUCASPC\>: __Helo command rejected: need fully-qualified hostname__;
+> from=<user@domain-a.com> to=<user@domain-b.com> proto=ESMTP helo=<EHSGmbHLUCASPC\>
+
+According to RFC document, HELO identity must be a FQDN (fully-qualified
+hostname). Sender sends `EHSGmbHLUCASPC` as HELO hostname, but it's not a FQDN.
+It's sender's fault, not your mistake.
+
+As a temporary solution, you can whitelist this HELO hostname
+by adding a line like below at the top of file `/etc/postfix/helo_access.pcre`
+(Linux/OpenBSD) or `/usr/local/etc/postfix/helo_access.pcre` (FreeBSD):
+
+```
+/^EHSGmbHLUCASPC$/ OK
+```
+
+### Helo command rejected: Host not found
+
+Sample error message in Postfix log file:
+
+> Aug 13 08:07:14 mail postfix/smtpd[8606]: NOQUEUE: reject: RCPT from mta02.globetel.com.ph[120.28.49.114]: 450 4.7.1 <mta02.globetel.com>: Helo command rejected: Host not found; from=<tcadd01@globetel.com.ph> to=<user@example.com> proto=ESMTP helo=<mta02.globetel.com>
+
+Postfix does DNS query to verify whether A type of DNS record of HELO domain
+name `mta02.globetel.com` exists, if not, Postfix rejects the email.
+
+As a temporary solution, you can whitelist this HELO hostname
+by adding a line like below at the top of file `/etc/postfix/helo_access.pcre`
+(Linux/OpenBSD) or `/usr/local/etc/postfix/helo_access.pcre` (FreeBSD):
+
+```
+/^mta02\.globetel\.com$/ OK
+```
 
 ### Helo command rejected: ACCESS DENIED. Your email was rejected because the sending mail server does not identify itself correctly (.local)
 
