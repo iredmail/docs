@@ -1,27 +1,19 @@
 # iRedAdmin: Translate iRedAdmin to your local language
 
-If you want to help translate iRedAdmin to your local language, please contact
-us to get the latest file which contains all translation items. You can open
-the file with your faviourte text editor, translate new items and/or fix existing
-improper items. Mail the translated file to email address
-`support _at_ iredmail.org`, we will handle rest work.
+iRedAdmin-Pro language files are published on github repository:
+[iredmail/iredadmin-pro-translation](https://github.com/iredmail/iredadmin-pro-translation)
 
-If you already have iRedAdmin or iRedAdmin-Pro installed, you can find
-translated languages under `i18n/` directory. If you are about to translate
-it to a new language, you can copy file `i18n/iredadmin.po`, translate it,
-and mail translated file to us.
+How to help translate:
 
-To verify translated items, you can translate the items first (e.g.
-`i18n/es_ES/LC_MESSAGES/iredadmin.po` for Spainish), then run script to compile
-it:
+* Fork the github repository
+* Translate file `<lang>/LC_MESSAGES/iredadmin.po`
+* Send us a pull request.
 
-```
-cd /path/to/iRedAdmin-Pro/
-cd i18n/
-bash translation.sh es_ES     # <- Update Spainish language (es_ES)
-```
+If there's no directory for your language, feel free to create it, then copy
+file `iredadmin.po` on top directory to your directory.
 
-Restarting Apache or uwsgi (if you're running Nginx) service is required to
-reload new translation.
+We will convert translated file and commit to the repository again, you
+can download it and override the file in your iRedAdmin-Pro directory, then
+restart Apache or uwsgi (if you're running Nginx) service.
 
-Your help is greatly appreciated.
+Your help is greatly appreciated. :)

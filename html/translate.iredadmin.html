@@ -16,26 +16,20 @@
         <span>iRedMail</span>
     </a>
     &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><h1 id="iredadmin-translate-iredadmin-to-your-local-language">iRedAdmin: Translate iRedAdmin to your local language</h1>
-<p>If you want to help translate iRedAdmin to your local language, please contact
-us to get the latest file which contains all translation items. You can open
-the file with your faviourte text editor, translate new items and/or fix existing
-improper items. Mail the translated file to email address
-<code>support _at_ iredmail.org</code>, we will handle rest work.</p>
-<p>If you already have iRedAdmin or iRedAdmin-Pro installed, you can find
-translated languages under <code>i18n/</code> directory. If you are about to translate
-it to a new language, you can copy file <code>i18n/iredadmin.po</code>, translate it,
-and mail translated file to us.</p>
-<p>To verify translated items, you can translate the items first (e.g.
-<code>i18n/es_ES/LC_MESSAGES/iredadmin.po</code> for Spainish), then run script to compile
-it:</p>
-<pre><code>cd /path/to/iRedAdmin-Pro/
-cd i18n/
-bash translation.sh es_ES     # &lt;- Update Spainish language (es_ES)
-</code></pre>
-
-<p>Restarting Apache or uwsgi (if you're running Nginx) service is required to
-reload new translation.</p>
-<p>Your help is greatly appreciated.</p><div class="footer">
+<p>iRedAdmin-Pro language files are published on github repository:
+<a href="https://github.com/iredmail/iredadmin-pro-translation">iredmail/iredadmin-pro-translation</a></p>
+<p>How to help translate:</p>
+<ul>
+<li>Fork the github repository</li>
+<li>Translate file <code>&lt;lang&gt;/LC_MESSAGES/iredadmin.po</code></li>
+<li>Send us a pull request.</li>
+</ul>
+<p>If there's no directory for your language, feel free to create it, then copy
+file <code>iredadmin.po</code> on top directory to your directory.</p>
+<p>We will convert translated file and commit to the repository again, you
+can download it and override the file in your iRedAdmin-Pro directory, then
+restart Apache or uwsgi (if you're running Nginx) service.</p>
+<p>Your help is greatly appreciated. :)</p><div class="footer">
     <p style="text-align: center; color: grey;">All documents are available in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://bitbucket.org/zhb/iredmail-docs/get/tip.tar.bz2">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
 </div>
 <!-- Global site tag (gtag.js) - Google Analytics -->
