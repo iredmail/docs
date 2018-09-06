@@ -10,8 +10,10 @@
 ## Introduce iRedAPD
 
 iRedAPD is a simple Postfix policy server, written in Python, with plugin
-support. it listens on port `7777` by default, and runs as a low-privileged
+support. It listens on `127.0.0.1:7777` by default, and runs as a low-privileged
 user `iredapd`.
+
+Source code is hosted on [BitBucket](https://bitbucket.org/zhb/iredapd/).
 
 ## How to disable iRedAPD service
 

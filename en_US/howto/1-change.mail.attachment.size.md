@@ -56,14 +56,33 @@ __NOTES__:
 If you use mail clients such as Outlook, thunderbird to send mails, it's now
 ok to sent large attachment with above setting.
 
+## Change message size limit in iRedAPD
+
+> * iRedAPD is a Postfix policy server developed and maintained by iRedMail team.
+> * With default iRedMail setting, no message size limit is set.
+> * For more details, please check tutorial: [Manage iRedAPD](./manage.iredapd.html).
+
+With plugin `throttle` enabled in iRedAPD config file (`/opt/iredapd/settings.py`),
+iRedAPD will query throttle settings from SQL database (SQL table `iredapd.throttle`),
+if there's a global, per-domain or per-user message size limit set for sender
+or recipient, it will performs the check.
+
+Both Postfix and iRedAPD check the size of single message, if the message size reaches
+the limit of either Postfix setting or iRedAPD throttle setting, the email will
+be rejected.
+
+You can set the throttle with iRedAdmin-Pro, or with SQL command tool, for more
+details, please check plugin source file, it's detailed with examples and
+explanation: [Throttle plugin](https://bitbucket.org/zhb/iredapd/src/default/plugins/throttle.py).
+
 ## Change upload file size in Roundcube webmail
 
 If you have Roundcube webmail, please change two more settings:
 
-### Change PHP setting to allow to upload large attachment
+### Change PHP settings for uploading large attachment
 
 You should change `memory_limit`, `upload_max_filesize` and `post_max_size` in
-PHP config file `/etc/php.ini`
+PHP config file `/etc/php.ini`.
 
 * on RHEL/CentOS: it's `/etc/php.ini`
 * on Debian/Ubuntu, it's `/etc/php5/apache2/php.ini`.
