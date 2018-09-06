@@ -37,7 +37,17 @@
 </li>
 </ul>
 </div>
-<p>To change mail attachment size, we have to change 3 settings.</p>
+<p>Mail attachment size is configured in multiple places with default iRedMail settings:</p>
+<ul>
+<li>Postfix is the MTA, it checks single message size.</li>
+<li>Dovecot is the LDA (local delivery agent), it checks mailbox size (a.k.a. mailbox quota)</li>
+<li>Nginx / Apache is web server, if you upload mail attachment via webmail, web
+  server checks size of uploaded file.</li>
+<li>Roundcube webmail, SOGo have their own message size limit setting, but it's
+  not enabled by default, so they use web server upload size instead.</li>
+<li>Desktop mail client application like Outlook may have its own message size
+  limit.</li>
+</ul>
 <h2 id="change-message-size-limit-in-postfix">Change message size limit in postfix</h2>
 <p>Postfix is MTA, so we have to change its setting to transfer mail with large
 attachment.</p>
