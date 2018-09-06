@@ -39,12 +39,13 @@
 </div>
 <p>Mail attachment size is configured in multiple places with default iRedMail settings:</p>
 <ul>
-<li>Postfix is the MTA, it checks single message size.</li>
+<li>Postfix is the MTA, it checks the size of each received and sent message.</li>
 <li>Dovecot is the LDA (local delivery agent), it checks mailbox size (a.k.a. mailbox quota)</li>
 <li>Nginx / Apache is web server, if you upload mail attachment via webmail, web
-  server checks size of uploaded file.</li>
-<li>Roundcube webmail, SOGo have their own message size limit setting, but it's
-  not enabled by default, so they use web server upload size instead.</li>
+  server checks the size of uploaded mail attachment.</li>
+<li>Roundcube webmail, SOGo have their own message size limit settings, but
+  they're not enabled by iRedMail by default, so they use web server upload
+  size instead.</li>
 <li>Desktop mail client application like Outlook may have its own message size
   limit.</li>
 </ul>
