@@ -114,11 +114,14 @@ http {
 }
 ```
 
-## Change upload file size in SOGo-3.x
+## Change file size limits in SOGo
 
-SOGo-3.x introduces parameter `WOMaxUploadSize` to limit upload file size, you
-can add it in SOGo config file `/etc/sogo/sogo.conf` with a proper attachment
-size.
+SOGo config file is `/etc/sogo/sogo.conf` (Linux/OpenBSD) or
+`/usr/local/etc/sogo/sogo.conf` (FreeBSD), 2 settings are relevant to message size:
+
+* SOGo-3.x introduces parameter `WOMaxUploadSize` to limit upload file size.
+* SOGo-3.2.5 introduces parameter `SOGoMaximumMessageSizeLimit` to limit single
+  message size.
 
 ```
     // set the maximum allowed size for content being sent to SOGo using a PUT or
@@ -128,17 +131,7 @@ size.
     //  - The value is in kilobyte.
     //  - By default, the value is 0, or disabled so no limit will be set.
     WOMaxUploadSize = 102400;
-```
 
-Restarting SOGo service is required.
-
-## Change message size in SOGo-3.x
-
-SOGo-3.2.5 introduces parameter `SOGoMaximumMessageSizeLimit` to limit message
-size, you can add it in SOGo config file `/etc/sogo/sogo.conf` with a proper
-size:
-
-```
     // Parameter used to set the maximum allowed email message size when
     // composing a mail.
     // The value is in kilobytes. By default, the value is 0, or disabled so
@@ -146,7 +139,7 @@ size:
     SOGoMaximumMessageSizeLimit = 102400;
 ```
 
-Restarting SOGo service is required.
+Restarting SOGo service is required if you changed any setting in SOGo config file.
 
 ## Change attachment size limit in Microsoft Outlook
 
