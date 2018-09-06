@@ -59,10 +59,15 @@ attachment.</p>
 
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>They don't have to be same. but <code>mailbox_size_limit</code> (size of the mailbox)
-MUST be equal to or LARGER than <code>message_size_limit</code> (size of single email
-message). Since per-user mailbox quota is enforced by Dovecot, so the
-<code>mailbox_size_limit</code> is useless but required by Postfix.</p>
+<ul>
+<li>They don't have to be same. but <code>mailbox_size_limit</code> (size of the mailbox)
+  MUST be equal to or LARGER than <code>message_size_limit</code> (size of single email
+  message).</li>
+<li>Postfix is configured to pipe received email to Dovecot for local mail
+  delivery, so the <code>mailbox_size_limit</code> setting is not used, but we still
+  need this setting to surpress Postfix warning while starting Postfix
+  service.</li>
+</ul>
 </div>
 <p>Restart postfix to make it work:</p>
 <pre><code># /etc/init.d/postfix restart
