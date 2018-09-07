@@ -1,44 +1,68 @@
-## Setup LDAPS (LDAP over SSL)
-- system: windows server 2012
-- self-signed certificate
+# Setup SSL support for Windows Active Directory
 
-1. Click on Start --> Server Manager --> Add Roles and Features. Click Next.
+[TOC]
 
-![setup_ldaps_1](./images/windows_ad/setup_ldaps/setup_ldaps_1.png)
+## Summary
 
-2. Choose Role-based or feature-based installation. Click Next.
+Windows Active Directory requires secure connection for updating user password
+from another host via LDAP protocol. In this tutorial, we will show you how to
+setup SSL support for Active Directory with a self-signed ssl cert.
 
-![setup_ldaps_2](./images/windows_ad/setup_ldaps/setup_ldaps_2.png)
+This tutorial has been tested on:
 
-3. Select `ad.iredmail.org` server from the server pool. Click Next.
+- Windows Server 2012
 
-![setup_ldaps_3](./images/windows_ad/setup_ldaps/setup_ldaps_3.png)
+If it works for you on different Windows Server version, please let us know.
 
-4. Choose Active Directory Certificate Services from the list of roles and click Next.
+## Enable Active Directory Certificate Services
 
-![setup_ldaps_4](./images/windows_ad/setup_ldaps/setup_ldaps_4.png)
+- Click `Start` on bottom-left corner of your Windows OS, click `Server Manager`.
 
-5. Choose nothing from the list of features and click Next.
+![](./images/setup.ad.ssl/start-server-manager.png)
 
-![setup_ldaps_5](./images/windows_ad/setup_ldaps/setup_ldaps_5.png)
+- Click `Manage` on top-right corner, click `Add Roles and Features`.
 
-6. Click Next.
+![](./images/setup.ad.ssl/server-manager-add-roles-and-features.png){:width="1024px"}
 
-![setup_ldaps_6](./images/windows_ad/setup_ldaps/setup_ldaps_6.png)
+- Click `Next`:
 
-7. Mark “Certificate Authority” from the list of roles and click Next.
+![](./images/setup.ad.ssl/setup_ad_ssl_1.png)
 
-![setup_ldaps_7](./images/windows_ad/setup_ldaps/setup_ldaps_7.png)
+- Choose `Role-based or feature-based installation`. Click Next.
 
-8. Click Install to confirm installation.
+![](./images/setup.ad.ssl/setup_ad_ssl_2.png)
 
-![setup_ldaps_8](./images/windows_ad/setup_ldaps/setup_ldaps_8.png)
+- Select your server from the server pool. Click Next.
 
-9. Once installation is complete, Click Close.
+![](./images/setup.ad.ssl/setup_ad_ssl_3.png)
 
-![setup_ldaps_9](./images/windows_ad/setup_ldaps/setup_ldaps_9.png)
+- Choose `Active Directory Certificate Services` from the list, and click Next.
 
-10. Now let’s create a certificate using AD CS Configuration Wizard. To open the wizard, click on “Configure Active Directory Certificate Services on the destination server” in the above screen. And then click Close. We can use the currently logged on user azureuser to configure role services since it belongs to the local Administrators group. Click Next.
+![](./images/setup.ad.ssl/setup_ad_ssl_4.png)
+
+- Click Next directly without choosing any item from list on the `Features` page.
+
+![](./images/setup.ad.ssl/setup_ad_ssl_5.png)
+
+- Click Next.
+
+![](./images/setup.ad.ssl/setup_ad_ssl_6.png)
+
+- Toggle on `Certificate Authority` and click Next.
+
+![](./images/setup.ad.ssl/setup_ad_ssl_7.png)
+
+- Click `Install` to install selected roles/features.
+
+![](./images/setup.ad.ssl/setup_ad_ssl_8.png)
+
+- It may take some time to finish, after finished, close the wizard window.
+
+![](./images/setup.ad.ssl/setup_ad_ssl_9.png)
+
+## Create a self-signed certificate
+
+Now let’s create a certificate using AD CS Configuration Wizard. To open the wizard, click on “Configure Active Directory Certificate Services on the destination server” in the above screen. And then click Close. We can use the currently logged on user azureuser to configure role services since it belongs to the local Administrators group. Click Next.
 
 ![setup_ldaps_10](./images/windows_ad/setup_ldaps/setup_ldaps_10.png)
 

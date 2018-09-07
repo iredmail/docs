@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Setup SSL support for Windows Active Directory</title>
+        <link rel="stylesheet" type="text/css" href="./css/markdown.css" />
+    </head>
+    <body>
+    
+    <div id="navigation">
+    <a href="https://www.iredmail.org" target="_blank">
+        <img alt="iRedMail web site"
+             src="./images/logo-iredmail.png"
+             style="vertical-align: middle; height: 30px;"
+             />&nbsp;
+        <span>iRedMail</span>
+    </a>
+    &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><h1 id="setup-ssl-support-for-windows-active-directory">Setup SSL support for Windows Active Directory</h1>
+<div class="toc">
+<ul>
+<li><a href="#setup-ssl-support-for-windows-active-directory">Setup SSL support for Windows Active Directory</a><ul>
+<li><a href="#summary">Summary</a></li>
+<li><a href="#enable-active-directory-certificate-services">Enable Active Directory Certificate Services</a></li>
+<li><a href="#create-a-self-signed-certificate">Create a self-signed certificate</a><ul>
+<li><a href="#test-ldaps">Test LDAPS</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<h2 id="summary">Summary</h2>
+<p>Windows Active Directory requires secure connection for updating user password
+from another host via LDAP protocol. In this tutorial, we will show you how to
+setup SSL support for Active Directory with a self-signed ssl cert.</p>
+<p>This tutorial has been tested on:</p>
+<ul>
+<li>Windows Server 2012</li>
+</ul>
+<p>If it works for you on different Windows Server version, please let us know.</p>
+<h2 id="enable-active-directory-certificate-services">Enable Active Directory Certificate Services</h2>
+<ul>
+<li>Click <code>Start</code> on bottom-left corner of your Windows OS, click <code>Server Manager</code>.</li>
+</ul>
+<p><img alt="" src="./images/setup.ad.ssl/start-server-manager.png" /></p>
+<ul>
+<li>Click <code>Manage</code> on top-right corner, click <code>Add Roles and Features</code>.</li>
+</ul>
+<p><img alt="" src="./images/setup.ad.ssl/server-manager-add-roles-and-features.png" width="1024px" /></p>
+<ul>
+<li>Click <code>Next</code>:</li>
+</ul>
+<p><img alt="" src="./images/setup.ad.ssl/setup_ad_ssl_1.png" /></p>
+<ul>
+<li>Choose <code>Role-based or feature-based installation</code>. Click Next.</li>
+</ul>
+<p><img alt="" src="./images/setup.ad.ssl/setup_ad_ssl_2.png" /></p>
+<ul>
+<li>Select your server from the server pool. Click Next.</li>
+</ul>
+<p><img alt="" src="./images/setup.ad.ssl/setup_ad_ssl_3.png" /></p>
+<ul>
+<li>Choose <code>Active Directory Certificate Services</code> from the list, and click Next.</li>
+</ul>
+<p><img alt="" src="./images/setup.ad.ssl/setup_ad_ssl_4.png" /></p>
+<ul>
+<li>Click Next directly without choosing any item from list on the <code>Features</code> page.</li>
+</ul>
+<p><img alt="" src="./images/setup.ad.ssl/setup_ad_ssl_5.png" /></p>
+<ul>
+<li>Click Next.</li>
+</ul>
+<p><img alt="" src="./images/setup.ad.ssl/setup_ad_ssl_6.png" /></p>
+<ul>
+<li>Toggle on <code>Certificate Authority</code> and click Next.</li>
+</ul>
+<p><img alt="" src="./images/setup.ad.ssl/setup_ad_ssl_7.png" /></p>
+<ul>
+<li>Click <code>Install</code> to install selected roles/features.</li>
+</ul>
+<p><img alt="" src="./images/setup.ad.ssl/setup_ad_ssl_8.png" /></p>
+<ul>
+<li>It may take some time to finish, after finished, close the wizard window.</li>
+</ul>
+<p><img alt="" src="./images/setup.ad.ssl/setup_ad_ssl_9.png" /></p>
+<h2 id="create-a-self-signed-certificate">Create a self-signed certificate</h2>
+<p>Now let’s create a certificate using AD CS Configuration Wizard. To open the wizard, click on “Configure Active Directory Certificate Services on the destination server” in the above screen. And then click Close. We can use the currently logged on user azureuser to configure role services since it belongs to the local Administrators group. Click Next.</p>
+<p><img alt="setup_ldaps_10" src="./images/windows_ad/setup_ldaps/setup_ldaps_10.png" /></p>
+<ol>
+<li>Choose Certification Authority from the list of roles. Click Next.</li>
+</ol>
+<p><img alt="setup_ldaps_11" src="./images/windows_ad/setup_ldaps/setup_ldaps_11.png" /></p>
+<ol>
+<li>Since this is a local box setup without a domain, we are going to choose a Enterprise CA. Click Next.</li>
+</ol>
+<p><img alt="setup_ldaps_12" src="./images/windows_ad/setup_ldaps/setup_ldaps_12.png" /></p>
+<ol>
+<li>Choosing Root CA as the type of CA, click Next.</li>
+</ol>
+<p><img alt="setup_ldaps_13" src="./images/windows_ad/setup_ldaps/setup_ldaps_13.png" /></p>
+<ol>
+<li>Since we do not possess a private key – let’s create a new one. Click Next.</li>
+</ol>
+<p><img alt="setup_ldaps_14" src="./images/windows_ad/setup_ldaps/setup_ldaps_14.png" /></p>
+<ol>
+<li>Choosing SHA1 as the Hash algorithm. Click Next.</li>
+</ol>
+<p><img alt="setup_ldaps_15" src="./images/windows_ad/setup_ldaps/setup_ldaps_15.png" /></p>
+<ol>
+<li>Click Next.</li>
+</ol>
+<p><img alt="setup_ldaps_16" src="./images/windows_ad/setup_ldaps/setup_ldaps_16.png" /></p>
+<ol>
+<li>Specifying validity period of the certificate. Choosing 99 years. Click Next.</li>
+</ol>
+<p><img alt="setup_ldaps_17" src="./images/windows_ad/setup_ldaps/setup_ldaps_17.png" /></p>
+<ol>
+<li>Choosing default database locations, click Next.</li>
+</ol>
+<p><img alt="setup_ldaps_18" src="./images/windows_ad/setup_ldaps/setup_ldaps_18.png" /></p>
+<ol>
+<li>Click Configure to confirm.</li>
+</ol>
+<p><img alt="setup_ldaps_19" src="./images/windows_ad/setup_ldaps/setup_ldaps_19.png" /></p>
+<ol>
+<li>Once the configuration is successful/complete. Click Close.</li>
+</ol>
+<p><img alt="setup_ldaps_20" src="./images/windows_ad/setup_ldaps/setup_ldaps_20.png" /></p>
+<ol>
+<li>Restart system.</li>
+</ol>
+<h3 id="test-ldaps">Test LDAPS</h3>
+<p>After restart system, we can connect to the LDAP server over SSL.
+Now let us try to connect to LDAP Server (with and without SSL) using the ldp.exe tool.</p>
+<p>Connection strings for:
+- <code>LDAP:\\ad.iredmail.org:389</code>
+- <code>LDAPS:\\ad.iredmail.org:636</code></p>
+<ol>
+<li>Click on Start --&gt; Search ldp.exe --&gt; Connection and fill in the following parameters and click OK to connect:</li>
+</ol>
+<p><img alt="test_ldap_1" src="./images/windows_ad/setup_ldaps/test_ldap_1.png" /></p>
+<ol>
+<li>If Connection is successful, you will see the following message in the ldp.exe tool:</li>
+</ol>
+<p><img alt="test_ldap_2" src="./images/windows_ad/setup_ldaps/test_ldap_2.png" /></p>
+<ol>
+<li>To Connect to LDAPS (LDAP over SSL), use port 636 and mark SSL. Click OK to connect.</li>
+</ol>
+<p><img alt="test_ldaps_1" src="./images/windows_ad/setup_ldaps/test_ldaps_1.png" /></p>
+<ol>
+<li>If connection is successful, you will see the following message in the ldp.exe tool:</li>
+</ol>
+<p><img alt="test_ldaps_2" src="./images/windows_ad/setup_ldaps/test_ldaps_2.png" /></p><div class="footer">
+    <p style="text-align: center; color: grey;">All documents are available in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://bitbucket.org/zhb/iredmail-docs/get/tip.tar.bz2">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
+</div>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-3293801-21"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-3293801-21');
+</script>
+</body></html>
