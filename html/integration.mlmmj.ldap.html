@@ -156,6 +156,14 @@ mlmmj   unix  -       n       n       -       -       pipe
 </code></pre>
 
 <ul>
+<li>Open file <code>/etc/postfix/ldap/transport_maps_user.cf</code>, make sure no <code>ou=Users,</code>
+  in <code>search_base =</code> line, and change <code>scope = one</code> to <code>scope = sub</code>:</li>
+</ul>
+<pre><code>search_base     = domainName=%d,o=domains,dc=xx,dc=xx
+scope           = sub
+</code></pre>
+
+<ul>
 <li>Open file <code>/etc/postfix/ldap/transport_maps_user.cf</code>, replace the 
   <code>query_filter</code> line by below one. It will query both mail user and mlmmj
   mailing list.</li>

@@ -135,6 +135,14 @@ mlmmj_destination_recipient_limit = 1
 query_filter     = (&(accountStatus=active)(!(domainStatus=disabled))(enabledService=mail)(enabledService=deliver)(|(&(objectClass=mailUser)(|(memberOfGroup=%s)(shadowAddress=%s)))(&(memberOfGroup=%s)(!(shadowAddress=%s))(|(objectClass=mailExternalUser)(&(objectClass=mailList)(!(enabledService=mlmmj)))(objectClass=mailAlias)))(&(objectClass=mailList)(enabledService=mlmmj)(|(mail=%s)(shadowAddress=%s)))))
 ```
 
+* Open file `/etc/postfix/ldap/transport_maps_user.cf`, make sure no `ou=Users,`
+  in `search_base =` line, and change `scope = one` to `scope = sub`:
+
+```
+search_base     = domainName=%d,o=domains,dc=xx,dc=xx
+scope           = sub
+```
+
 * Open file `/etc/postfix/ldap/transport_maps_user.cf`, replace the 
   `query_filter` line by below one. It will query both mail user and mlmmj
   mailing list.
