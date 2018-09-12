@@ -256,16 +256,16 @@ __ABOVE__ any existing lines:
 
 ```
 # Block access to default directories and files under these directories
-location ~ /mail/(bin|config|installer|logs|SQL|temp|vendor)($|/.*) { deny all; }
+location ~ ^/mail/(bin|config|installer|logs|SQL|temp|vendor)($|/.*) { deny all; }
 
 # Block access to default files under top-directory and files start with same name.
-location ~ /mail/(CHANGELOG|composer.json|INSTALL|jsdeps.json|LICENSE|README|UPGRADING)($|.*) { deny all; }
+location ~ ^/mail/(CHANGELOG|composer.json|INSTALL|jsdeps.json|LICENSE|README|UPGRADING)($|.*) { deny all; }
 
 # Block plugin config files and sample config files.
-location ~ /mail/plugins/.*/config.inc.php.* { deny all; }
+location ~ ^/mail/plugins/.*/config.inc.php.* { deny all; }
 
 # Block access to plugin data
-location ~ /mail/plugins/enigma/home($|/.*) { deny all; }
+location ~ ^/mail/plugins/enigma/home($|/.*) { deny all; }
 ```
 
 Please open file `/etc/nginx/templates/roundcube-subdomain.tmpl`
@@ -274,16 +274,16 @@ Please open file `/etc/nginx/templates/roundcube-subdomain.tmpl`
 
 ```
 # Block access to default directories and files under these directories
-location ~ /(bin|config|installer|logs|SQL|temp|vendor)($|/.*) { deny all; }
+location ~ ^/(bin|config|installer|logs|SQL|temp|vendor)($|/.*) { deny all; }
 
 # Block access to default files under top-directory and files start with same name.
-location ~ /(CHANGELOG|composer.json|INSTALL|jsdeps.json|LICENSE|README|UPGRADING)($|.*) { deny all; }
+location ~ ^/(CHANGELOG|composer.json|INSTALL|jsdeps.json|LICENSE|README|UPGRADING)($|.*) { deny all; }
 
 # Block plugin config files and sample config files.
-location ~ /plugins/.*/config.inc.php.* { deny all; }
+location ~ ^/plugins/.*/config.inc.php.* { deny all; }
 
 # Block access to plugin data
-location ~ /plugins/enigma/home($|/.*) { deny all; }
+location ~ ^/plugins/enigma/home($|/.*) { deny all; }
 ```
 
 Open file `/etc/nginx/sites-available/00-default.conf` AND `00-default-ssl.conf`,

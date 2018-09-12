@@ -287,32 +287,32 @@ Please follow steps below to fix it.</p>
 <code>/usr/local/etc/nginx/templates/roundcube.tmpl</code> (FreeBSD), add lines below
 <strong>ABOVE</strong> any existing lines:</p>
 <pre><code># Block access to default directories and files under these directories
-location ~ /mail/(bin|config|installer|logs|SQL|temp|vendor)($|/.*) { deny all; }
+location ~ ^/mail/(bin|config|installer|logs|SQL|temp|vendor)($|/.*) { deny all; }
 
 # Block access to default files under top-directory and files start with same name.
-location ~ /mail/(CHANGELOG|composer.json|INSTALL|jsdeps.json|LICENSE|README|UPGRADING)($|.*) { deny all; }
+location ~ ^/mail/(CHANGELOG|composer.json|INSTALL|jsdeps.json|LICENSE|README|UPGRADING)($|.*) { deny all; }
 
 # Block plugin config files and sample config files.
-location ~ /mail/plugins/.*/config.inc.php.* { deny all; }
+location ~ ^/mail/plugins/.*/config.inc.php.* { deny all; }
 
 # Block access to plugin data
-location ~ /mail/plugins/enigma/home($|/.*) { deny all; }
+location ~ ^/mail/plugins/enigma/home($|/.*) { deny all; }
 </code></pre>
 
 <p>Please open file <code>/etc/nginx/templates/roundcube-subdomain.tmpl</code>
 (Linux/OpenBSD) or <code>/usr/local/etc/nginx/templates/roundcube-subdomain.tmpl</code>
 (FreeBSD), add lines below <strong>ABOVE</strong> any existing lines:</p>
 <pre><code># Block access to default directories and files under these directories
-location ~ /(bin|config|installer|logs|SQL|temp|vendor)($|/.*) { deny all; }
+location ~ ^/(bin|config|installer|logs|SQL|temp|vendor)($|/.*) { deny all; }
 
 # Block access to default files under top-directory and files start with same name.
-location ~ /(CHANGELOG|composer.json|INSTALL|jsdeps.json|LICENSE|README|UPGRADING)($|.*) { deny all; }
+location ~ ^/(CHANGELOG|composer.json|INSTALL|jsdeps.json|LICENSE|README|UPGRADING)($|.*) { deny all; }
 
 # Block plugin config files and sample config files.
-location ~ /plugins/.*/config.inc.php.* { deny all; }
+location ~ ^/plugins/.*/config.inc.php.* { deny all; }
 
 # Block access to plugin data
-location ~ /plugins/enigma/home($|/.*) { deny all; }
+location ~ ^/plugins/enigma/home($|/.*) { deny all; }
 </code></pre>
 
 <p>Open file <code>/etc/nginx/sites-available/00-default.conf</code> AND <code>00-default-ssl.conf</code>,
