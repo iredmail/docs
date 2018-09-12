@@ -161,10 +161,10 @@ transport_maps =
     `vmail`, you can find it in files under `/etc/postfix/mysql/`.
 
 ```
-user        = vmail
-password    = qsescZvV03f6YUtTMN2bQTejmjatzz
 hosts       = 127.0.0.1
 port        = 3306
+user        = vmail
+password    = qsescZvV03f6YUtTMN2bQTejmjatzz
 dbname      = vmail
 query       = SELECT maillists.transport FROM maillists,domain WHERE maillists.address='%s' AND maillists.active=1 AND maillists.domain = domain.domain AND domain.active=1
 ```

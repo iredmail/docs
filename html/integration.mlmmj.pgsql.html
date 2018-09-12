@@ -182,10 +182,10 @@ mlmmj   unix  -       n       n       -       -       pipe
 <p>Please update the <code>password =</code> line with the real password of SQL user
 <code>vmail</code>, you can find it in files under <code>/etc/postfix/pgsql/</code>.</p>
 </div>
-<pre><code>user        = vmail
-password    = qsescZvV03f6YUtTMN2bQTejmjatzz
-hosts       = 127.0.0.1
+<pre><code>hosts       = 127.0.0.1
 port        = 5432
+user        = vmail
+password    = qsescZvV03f6YUtTMN2bQTejmjatzz
 dbname      = vmail
 query       = SELECT maillists.transport FROM maillists,domain WHERE maillists.address='%s' AND maillists.active=1 AND maillists.domain = domain.domain AND domain.active=1
 </code></pre>
