@@ -50,15 +50,15 @@
 <li><a href="#mysqlmariadb-backends">MySQL/MariaDB backends</a><ul>
 <li><a href="#fixed-user-under-disabled-domain-is-able-to-send-email-with-smtp-protocol">Fixed: User under disabled domain is able to send email with smtp protocol</a></li>
 <li><a href="#sql-structure-changes-in-vmail-database">SQL structure changes in vmail database</a></li>
-<li><a href="#mlmmj-mailing-list-manager-integration_1">mlmmj (mailing list manager) integration</a></li>
 <li><a href="#amavisd-add-new-sql-column-maddremail_raw-to-store-mail-address-without-address-extension_1">Amavisd: Add new SQL column maddr.email_raw to store mail address without address extension</a></li>
+<li><a href="#mlmmj-mailing-list-manager-integration_1">mlmmj (mailing list manager) integration</a></li>
 </ul>
 </li>
 <li><a href="#postgresql-backend">PostgreSQL backend</a><ul>
 <li><a href="#fixed-user-under-disabled-domain-is-able-to-send-email-with-smtp-protocol_1">Fixed: User under disabled domain is able to send email with smtp protocol</a></li>
 <li><a href="#sql-structure-changes-in-vmail-database_1">SQL structure changes in vmail database</a></li>
-<li><a href="#mlmmj-mailing-list-manager-integration_2">mlmmj (mailing list manager) integration</a></li>
 <li><a href="#amavisd-add-new-sql-column-maddremail_raw-to-store-mail-address-without-address-extension_2">Amavisd: Add new SQL column maddr.email_raw to store mail address without address extension</a></li>
+<li><a href="#mlmmj-mailing-list-manager-integration_2">mlmmj (mailing list manager) integration</a></li>
 </ul>
 </li>
 </ul>
@@ -664,16 +664,6 @@ wget https://bitbucket.org/zhb/iredmail/raw/default/extra/update/0.9.8/iredmail.
 <pre><code>mysql vmail &lt; /root/iredmail.mysql
 </code></pre>
 
-<h3 id="mlmmj-mailing-list-manager-integration_1">mlmmj (mailing list manager) integration</h3>
-<p>iRedMail-0.9.8 integrates mlmmj as mailing list manager, please follow our
-document below to integrate it:</p>
-<ul>
-<li><a href="./integration.mlmmj.mysql.html">Integrate mlmmj mailing list manager</a></li>
-</ul>
-<div class="admonition attention">
-<p class="admonition-title">Attention</p>
-<p>mlmmj is a core component since iRedMail-0.9.8.</p>
-</div>
 <h3 id="amavisd-add-new-sql-column-maddremail_raw-to-store-mail-address-without-address-extension_1">Amavisd: Add new SQL column <code>maddr.email_raw</code> to store mail address without address extension</h3>
 <p>Many sender/recipient addresses contain address extension like
 <code>user+extension@domain.com</code>, this is annoying if we try to get top 10
@@ -689,6 +679,16 @@ wget https://bitbucket.org/zhb/iredmail/raw/default/extra/update/0.9.8/amavisd.m
 mysql amavisd &lt; amavisd.mysql
 </code></pre>
 
+<h3 id="mlmmj-mailing-list-manager-integration_1">mlmmj (mailing list manager) integration</h3>
+<p>iRedMail-0.9.8 integrates mlmmj as mailing list manager, please follow our
+document below to integrate it:</p>
+<ul>
+<li><a href="./integration.mlmmj.mysql.html">Integrate mlmmj mailing list manager</a></li>
+</ul>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>mlmmj is a core component since iRedMail-0.9.8.</p>
+</div>
 <h2 id="postgresql-backend">PostgreSQL backend</h2>
 <h3 id="fixed-user-under-disabled-domain-is-able-to-send-email-with-smtp-protocol_1">Fixed: User under disabled domain is able to send email with smtp protocol</h3>
 <p>Dovecot is IMAP/POP3/Managesieve server, also a SASL auth server for Postfix.
@@ -751,16 +751,6 @@ wget https://bitbucket.org/zhb/iredmail/raw/default/extra/update/0.9.8/iredmail.
 psql -d vmail &lt; /tmp/iredmail.pgsql
 </code></pre>
 
-<h3 id="mlmmj-mailing-list-manager-integration_2">mlmmj (mailing list manager) integration</h3>
-<p>iRedMail-0.9.8 integrates mlmmj as mailing list manager, please follow our
-document below to integrate it:</p>
-<ul>
-<li><a href="./integration.mlmmj.pgsql.html">Integrate mlmmj mailing list manager</a></li>
-</ul>
-<div class="admonition attention">
-<p class="admonition-title">Attention</p>
-<p>mlmmj is a core component since iRedMail-0.9.8.</p>
-</div>
 <h3 id="amavisd-add-new-sql-column-maddremail_raw-to-store-mail-address-without-address-extension_2">Amavisd: Add new SQL column <code>maddr.email_raw</code> to store mail address without address extension</h3>
 <p>Many sender/recipient addresses contain address extension like
 <code>user+extension@domain.com</code>, this is annoying if we try to get top 10
@@ -781,7 +771,18 @@ wget https://bitbucket.org/zhb/iredmail/raw/default/extra/update/0.9.8/amavisd.p
 <pre><code># su - postgres
 $ psql -U amavisd -d amavisd
 sql&gt; \i /tmp/amavisd.pgsql
-</code></pre><div class="footer">
+</code></pre>
+
+<h3 id="mlmmj-mailing-list-manager-integration_2">mlmmj (mailing list manager) integration</h3>
+<p>iRedMail-0.9.8 integrates mlmmj as mailing list manager, please follow our
+document below to integrate it:</p>
+<ul>
+<li><a href="./integration.mlmmj.pgsql.html">Integrate mlmmj mailing list manager</a></li>
+</ul>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>mlmmj is a core component since iRedMail-0.9.8.</p>
+</div><div class="footer">
     <p style="text-align: center; color: grey;">All documents are available in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://bitbucket.org/zhb/iredmail-docs/get/tip.tar.bz2">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
 </div>
 <!-- Global site tag (gtag.js) - Google Analytics -->

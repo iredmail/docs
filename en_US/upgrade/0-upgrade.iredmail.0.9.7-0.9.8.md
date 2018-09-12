@@ -668,17 +668,6 @@ Connect to MySQL server as MySQL root user, and execute SQL commands:
 mysql vmail < /root/iredmail.mysql
 ```
 
-### mlmmj (mailing list manager) integration
-
-iRedMail-0.9.8 integrates mlmmj as mailing list manager, please follow our
-document below to integrate it:
-
-* [Integrate mlmmj mailing list manager](./integration.mlmmj.mysql.html)
-
-!!! attention
-
-    mlmmj is a core component since iRedMail-0.9.8.
-
 ### Amavisd: Add new SQL column `maddr.email_raw` to store mail address without address extension
 
 Many sender/recipient addresses contain address extension like
@@ -695,6 +684,17 @@ cd /tmp/
 wget https://bitbucket.org/zhb/iredmail/raw/default/extra/update/0.9.8/amavisd.mysql
 mysql amavisd < amavisd.mysql
 ```
+
+### mlmmj (mailing list manager) integration
+
+iRedMail-0.9.8 integrates mlmmj as mailing list manager, please follow our
+document below to integrate it:
+
+* [Integrate mlmmj mailing list manager](./integration.mlmmj.mysql.html)
+
+!!! attention
+
+    mlmmj is a core component since iRedMail-0.9.8.
 
 ## PostgreSQL backend
 
@@ -766,17 +766,6 @@ su - postgres
 psql -d vmail < /tmp/iredmail.pgsql
 ```
 
-### mlmmj (mailing list manager) integration
-
-iRedMail-0.9.8 integrates mlmmj as mailing list manager, please follow our
-document below to integrate it:
-
-* [Integrate mlmmj mailing list manager](./integration.mlmmj.pgsql.html)
-
-!!! attention
-
-    mlmmj is a core component since iRedMail-0.9.8.
-
 ### Amavisd: Add new SQL column `maddr.email_raw` to store mail address without address extension
 
 Many sender/recipient addresses contain address extension like
@@ -800,3 +789,14 @@ wget https://bitbucket.org/zhb/iredmail/raw/default/extra/update/0.9.8/amavisd.p
 $ psql -U amavisd -d amavisd
 sql> \i /tmp/amavisd.pgsql
 ```
+
+### mlmmj (mailing list manager) integration
+
+iRedMail-0.9.8 integrates mlmmj as mailing list manager, please follow our
+document below to integrate it:
+
+* [Integrate mlmmj mailing list manager](./integration.mlmmj.pgsql.html)
+
+!!! attention
+
+    mlmmj is a core component since iRedMail-0.9.8.
