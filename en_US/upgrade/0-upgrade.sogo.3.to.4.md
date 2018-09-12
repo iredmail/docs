@@ -55,9 +55,10 @@ yum update 'sogo*' 'sope*'
 
     ```bash /usr/share/doc/sogo-4.*/sql-update-3.2.10_to_4.0.0.sh```
 
-* Restart SOGo service:
+* Restart SOGo and memcached services:
 
 ```
+service memcached restart
 service sogod restart
 ```
 
@@ -106,9 +107,10 @@ apt-get install --only-upgrade sogo sogo-activesync
 
     ```bash /usr/share/doc/sogo/sql-update-3.2.10_to_4.0.0.sh```
 
-* Restart SOGo service:
+* Restart SOGo and memcached services:
 
 ```
+service memcached restart
 service sogo restart
 ```
 

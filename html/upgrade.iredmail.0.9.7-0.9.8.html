@@ -253,8 +253,8 @@ hard-codes static file types like below:</p>
 
 <p>Note: The path in <code>alias</code> directive is different on different Linux/BSD distributions.</p>
 <p>Please replace it by:</p>
-<pre><code>location ~ ^/iredadmin/static/(.*) {            # Remove file types
-    alias /var/www/iredadmin/static/$1;         # Remove '.$2'
+<pre><code>location ~ ^/iredadmin/static/(.*) {
+    alias /var/www/iredadmin/static/$1;
 }
 </code></pre>
 

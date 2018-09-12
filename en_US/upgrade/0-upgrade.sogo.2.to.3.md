@@ -40,9 +40,10 @@ cp /root/sogo-backup/sogo/* /etc/sogo/
 cp /root/sogo-backup/sysconfig/sogo /etc/sysconfig/
 ```
 
-* Restart SOGo service:
+* Restart SOGo and memcached services:
 
 ```
+service memcached restart
 service sogod restart
 ```
 
@@ -90,9 +91,10 @@ cp /root/sogo-backup/default/sogo /etc/default/
 chown sogo:sogo /var/log/sogo/sogo.log
 ```
 
-* Restart SOGo service:
+* Restart SOGo and memcached services:
 
 ```
+service memcached restart
 service sogo restart
 ```
 

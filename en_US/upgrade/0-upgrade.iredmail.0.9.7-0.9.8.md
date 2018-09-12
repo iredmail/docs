@@ -212,8 +212,8 @@ Note: The path in `alias` directive is different on different Linux/BSD distribu
 Please replace it by:
 
 ```
-location ~ ^/iredadmin/static/(.*) {            # Remove file types
-    alias /var/www/iredadmin/static/$1;         # Remove '.$2'
+location ~ ^/iredadmin/static/(.*) {
+    alias /var/www/iredadmin/static/$1;
 }
 ```
 

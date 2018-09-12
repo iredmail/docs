@@ -61,9 +61,10 @@ cp /root/sogo-backup/sysconfig/sogo /etc/sysconfig/
 </code></pre>
 
 <ul>
-<li>Restart SOGo service:</li>
+<li>Restart SOGo and memcached services:</li>
 </ul>
-<pre><code>service sogod restart
+<pre><code>service memcached restart
+service sogod restart
 </code></pre>
 
 <h2 id="upgrade-sogo-on-debianubuntu">Upgrade SOGo On Debian/Ubuntu</h2>
@@ -116,9 +117,10 @@ cp /root/sogo-backup/default/sogo /etc/default/
 </code></pre>
 
 <ul>
-<li>Restart SOGo service:</li>
+<li>Restart SOGo and memcached services:</li>
 </ul>
-<pre><code>service sogo restart
+<pre><code>service memcached restart
+service sogo restart
 </code></pre>
 
 <h2 id="troubleshooting">Troubleshooting</h2>
