@@ -77,47 +77,47 @@ Now let’s create a certificate using AD CS Configuration Wizard, To open the w
 
 - Click `Next`:
 
-![setup_ldaps_10](./images/setup.ad.ssl/config_ad_ssl_1.png)
+![](./images/setup.ad.ssl/config_ad_ssl_1.png)
 
 11. Choose `Certification Authority`. Click Next.
 
-![setup_ldaps_11](./images/setup.ad.ssl/config_ad_ssl_2.png)
+![](./images/setup.ad.ssl/config_ad_ssl_2.png)
 
 12. Choose `Enterprise CA`. Click Next.
 
-![setup_ldaps_12](./images/setup.ad.ssl/config_ad_ssl_3.png)
+![](./images/setup.ad.ssl/config_ad_ssl_3.png)
 
 13. Choose `Root CA` as the type of CA, click Next.
 
-![setup_ldaps_13](./images/setup.ad.ssl/config_ad_ssl_4.png)
+![](./images/setup.ad.ssl/config_ad_ssl_4.png)
 
 14. Since we do not possess a private key – let’s create a new one. choose `Create a new private key`, Click Next.
 
-![setup_ldaps_14](./images/setup.ad.ssl/config_ad_ssl_5.png)
+![](./images/setup.ad.ssl/config_ad_ssl_5.png)
 
 15. Choose `SHA1` as the Hash algorithm, change key lenth to `4096`, Click Next.
 
-![setup_ldaps_15](./images/setup.ad.ssl/config_ad_ssl_6.png)
+![](./images/setup.ad.ssl/config_ad_ssl_6.png)
 
 16. Click Next.
 
-![setup_ldaps_16](./images/setup.ad.ssl/config_ad_ssl_7.png)
+![](./images/setup.ad.ssl/config_ad_ssl_7.png)
 
 17. Specifying validity period of the certificate. Choosing `99 years`. Click Next.
 
-![setup_ldaps_17](./images/setup.ad.ssl/config_ad_ssl_8.png)
+![](./images/setup.ad.ssl/config_ad_ssl_8.png)
 
 18. Choose default database locations, click Next.
 
-![setup_ldaps_18](./images/setup.ad.ssl/config_ad_ssl_9.png)
+![](./images/setup.ad.ssl/config_ad_ssl_9.png)
 
 19. Click Configure to confirm.
 
-![setup_ldaps_19](./images/setup.ad.ssl/config_ad_ssl_10.png)
+![](./images/setup.ad.ssl/config_ad_ssl_10.png)
 
 20. Once the configuration is successful/complete. Click Close.
 
-![setup_ldaps_20](./images/setup.ad.ssl/config_ad_ssl_11.png)
+![](./images/setup.ad.ssl/config_ad_ssl_11.png)
 
 21. Restart system.
 
@@ -132,16 +132,16 @@ Connection strings for:
 
 1. Click on Start --> Search ldp.exe --> Connection and fill in the following parameters and click OK to connect:
 
-![test_ldap_1](./images/setup.ad.ssl/test_ldap_1.png)
+![](./images/setup.ad.ssl/test_ldap_1.png)
 
 2. If Connection is successful, you will see the following message in the ldp.exe tool:
 
-![test_ldap_2](./images/setup.ad.ssl/test_ldap_2.png)
+![](./images/setup.ad.ssl/test_ldap_2.png)
 
 3. To Connect to LDAPS (LDAP over SSL), use port 636 and mark SSL. Click OK to connect.
 
-![test_ldaps_1](./images/setup.ad.ssl/test_ldaps_1.png)
+![](./images/setup.ad.ssl/test_ldaps_1.png)
 
 4. If connection is successful, you will see the following message in the ldp.exe tool:
 
-![test_ldaps_2](./images/setup.ad.ssl/test_ldaps_2.png)
+![](./images/setup.ad.ssl/test_ldaps_2.png)
