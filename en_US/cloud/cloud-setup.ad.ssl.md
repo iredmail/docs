@@ -79,47 +79,47 @@ Now let’s create a certificate using AD CS Configuration Wizard, To open the w
 
 ![](./images/setup.ad.ssl/config_ad_ssl_1.png)
 
-11. Choose `Certification Authority`. Click Next.
+- Choose `Certification Authority`. Click Next.
 
 ![](./images/setup.ad.ssl/config_ad_ssl_2.png)
 
-12. Choose `Enterprise CA`. Click Next.
+- Choose `Enterprise CA`. Click Next.
 
 ![](./images/setup.ad.ssl/config_ad_ssl_3.png)
 
-13. Choose `Root CA` as the type of CA, click Next.
+- Choose `Root CA` as the type of CA, click Next.
 
 ![](./images/setup.ad.ssl/config_ad_ssl_4.png)
 
-14. Since we do not possess a private key – let’s create a new one. choose `Create a new private key`, Click Next.
+- Since we do not possess a private key – let’s create a new one. choose `Create a new private key`, Click Next.
 
 ![](./images/setup.ad.ssl/config_ad_ssl_5.png)
 
-15. Choose `SHA1` as the Hash algorithm, change key lenth to `4096`, Click Next.
+- Choose `SHA1` as the Hash algorithm, change key lenth to `4096`, Click Next.
 
 ![](./images/setup.ad.ssl/config_ad_ssl_6.png)
 
-16. Click Next.
+- Click Next.
 
 ![](./images/setup.ad.ssl/config_ad_ssl_7.png)
 
-17. Specifying validity period of the certificate. Choosing `99 years`. Click Next.
+- Specifying validity period of the certificate. Choosing `99 years`. Click Next.
 
 ![](./images/setup.ad.ssl/config_ad_ssl_8.png)
 
-18. Choose default database locations, click Next.
+- Choose default database locations, click Next.
 
 ![](./images/setup.ad.ssl/config_ad_ssl_9.png)
 
-19. Click Configure to confirm.
+- Click Configure to confirm.
 
 ![](./images/setup.ad.ssl/config_ad_ssl_10.png)
 
-20. Once the configuration is successful/complete. Click Close.
+- Once the configuration is successful/complete. Click Close.
 
 ![](./images/setup.ad.ssl/config_ad_ssl_11.png)
 
-21. Restart system.
+- Restart system.
 
 ### Test LDAPS
 After restart system, we can connect to the LDAP server over SSL.
@@ -130,18 +130,20 @@ Connection strings for:
 - `LDAP:\\ad.iredmail.org:389`
 - `LDAPS:\\ad.iredmail.org:636`
 
-1. Click on Start --> Search ldp.exe --> Connection and fill in the following parameters and click OK to connect:
+- Click `Start` on bottom-left corner of your Windows OS,
+- Click `Search` on top-right corner, enter `ldp.exe` in the input box. 
+- Connection and fill in the following parameters and click OK to connect:
 
 ![](./images/setup.ad.ssl/test_ldap_1.png)
 
-2. If Connection is successful, you will see the following message in the ldp.exe tool:
+- If Connection is successful, you will see the following message in the ldp.exe tool:
 
 ![](./images/setup.ad.ssl/test_ldap_2.png)
 
-3. To Connect to LDAPS (LDAP over SSL), use port 636 and mark SSL. Click OK to connect.
+- To Connect to LDAPS (LDAP over SSL), use port 636 and mark SSL. Click OK to connect.
 
 ![](./images/setup.ad.ssl/test_ldaps_1.png)
 
-4. If connection is successful, you will see the following message in the ldp.exe tool:
+- If connection is successful, you will see the following message in the ldp.exe tool:
 
 ![](./images/setup.ad.ssl/test_ldaps_2.png)
