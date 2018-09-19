@@ -11,6 +11,7 @@
 ## TODO
 
 * Add new http headers
+* Fix openldap log file owner/group
 
 ## ChangeLog
 
