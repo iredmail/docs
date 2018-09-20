@@ -188,8 +188,6 @@ it manually</p>
 wget https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/samples/mlmmj/mlmmj-amime-receive
 chown mlmmj:mlmmj mlmmj-amime-receive
 chmod 0550 mlmmj-amime-receive
-perl -pi -e 's#PH_CMD_MLMMJ_RECEIVE#/usr/bin/mlmmj-receive#g' mlmmj-amime-receive
-perl -pi -e 's#PH_CMD_ALTERMIME#/usr/bin/altermime#g' mlmmj-amime-receive
 </code></pre>
 
 <p>On FreeBSD or OpenBSD:</p>
@@ -197,8 +195,6 @@ perl -pi -e 's#PH_CMD_ALTERMIME#/usr/bin/altermime#g' mlmmj-amime-receive
 wget https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/samples/mlmmj/mlmmj-amime-receive
 chown mlmmj:mlmmj mlmmj-amime-receive
 chmod 0550 mlmmj-amime-receive
-perl -pi -e 's#PH_CMD_MLMMJ_RECEIVE#/usr/local/bin/mlmmj-receive#g' mlmmj-amime-receive
-perl -pi -e 's#PH_CMD_ALTERMIME#/usr/local/bin/altermime#g' mlmmj-amime-receive
 </code></pre>
 
 <h2 id="amavisd-integration">Amavisd Integration</h2>
@@ -249,15 +245,15 @@ fully integrated.</p>
   extract downloaded package to <code>/opt/</code> directory, and create a symbol link:</p>
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>
-<p>We use version <code>1.5</code> for example below.</p>
+<p>We use version <code>1.6</code> for example below.</p>
 </div>
 </li>
 </ul>
 <pre><code>cd /root/
-wget https://github.com/iredmail/mlmmjadmin/archive/1.5.tar.gz
-tar zxf 1.5.tar.gz -C /opt
-rm -f 1.5.tar.gz
-ln -s /opt/mlmmjadmin-1.5 /opt/mlmmjadmin
+wget https://github.com/iredmail/mlmmjadmin/archive/1.6.tar.gz
+tar zxf 1.6.tar.gz -C /opt
+rm -f 1.6.tar.gz
+ln -s /opt/mlmmjadmin-1.6 /opt/mlmmjadmin
 </code></pre>
 
 <ul>
