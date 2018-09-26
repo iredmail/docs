@@ -18,7 +18,7 @@ If it works for you on different Windows Server version, please let us know.
 
 - Click `Start` on bottom-left corner of your Windows OS, click `Server Manager`.
 
-![](./images/create.ad.account/start-server-manager.png)
+![](./images/ad/start-server-manager.png)
 
 - Click `Tools` on top-right corner, click `Active Directory Domains and Trusts`.
 
@@ -86,7 +86,7 @@ If it works for you on different Windows Server version, please let us know.
 
 - Click `Start` on bottom-left corner of your Windows OS, click `Server Manager`.
 
-![](./images/create.ad.account/start-server-manager.png)
+![](./images/ad/start-server-manager.png)
 
 - Click `Tools` on top-right corner, click `Active Directory Domains and Trusts`.
 ![](./images/create.ad.account/create_ad_account_1.png)

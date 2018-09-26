@@ -18,7 +18,7 @@ If it works for you on different Windows Server version, please let us know.
 
 - Click `Start` on bottom-left corner of your Windows OS, click `Server Manager`.
 
-![](./images/setup.ad.ssl/start-server-manager.png)
+![](./images/ad/start-server-manager.png)
 
 - Click `Manage` on top-right corner, click `Add Roles and Features`.
 
@@ -69,7 +69,7 @@ Now let’s create a certificate using AD CS Configuration Wizard, To open the w
 
 - Click `Start` on bottom-left corner of your Windows OS, click `Server Manager`.
 
-![](./images/setup.ad.ssl/start-server-manager.png)
+![](./images/ad/start-server-manager.png)
 
 - Click `Alert Flag` on top-right corner, click `Configure Active Directory Certificate Services on the destincation server`.
 
