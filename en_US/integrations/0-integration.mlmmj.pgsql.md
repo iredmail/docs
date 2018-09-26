@@ -188,8 +188,6 @@ cd /usr/bin/
 wget https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/samples/mlmmj/mlmmj-amime-receive
 chown mlmmj:mlmmj mlmmj-amime-receive
 chmod 0550 mlmmj-amime-receive
-perl -pi -e 's#PH_CMD_MLMMJ_RECEIVE#/usr/bin/mlmmj-receive#g' mlmmj-amime-receive
-perl -pi -e 's#PH_CMD_ALTERMIME#/usr/bin/altermime#g' mlmmj-amime-receive
 ```
 
 On FreeBSD or OpenBSD:
@@ -199,8 +197,6 @@ cd /usr/local/bin/
 wget https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/samples/mlmmj/mlmmj-amime-receive
 chown mlmmj:mlmmj mlmmj-amime-receive
 chmod 0550 mlmmj-amime-receive
-perl -pi -e 's#PH_CMD_MLMMJ_RECEIVE#/usr/local/bin/mlmmj-receive#g' mlmmj-amime-receive
-perl -pi -e 's#PH_CMD_ALTERMIME#/usr/local/bin/altermime#g' mlmmj-amime-receive
 ```
 
 ## Amavisd Integration
@@ -253,14 +249,14 @@ We will setup `mlmmjadmin` program to make managing mailing lists easier.
 
     !!! attention
 
-        We use version `1.5` for example below.
+        We use version `1.6` for example below.
 
 ```
 cd /root/
-wget https://github.com/iredmail/mlmmjadmin/archive/1.5.tar.gz
-tar zxf 1.5.tar.gz -C /opt
-rm -f 1.5.tar.gz
-ln -s /opt/mlmmjadmin-1.5 /opt/mlmmjadmin
+wget https://github.com/iredmail/mlmmjadmin/archive/1.6.tar.gz
+tar zxf 1.6.tar.gz -C /opt
+rm -f 1.6.tar.gz
+ln -s /opt/mlmmjadmin-1.6 /opt/mlmmjadmin
 ```
 
 * Generate config file by copying sample file, `settings.py.sample`:

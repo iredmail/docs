@@ -12,6 +12,7 @@
 
 * Add new http headers
 * Fix openldap log file owner/group
+* Fix `mlmmj-amime-receive` and upgrade mlmmjadmin.
 
 ## ChangeLog
 
