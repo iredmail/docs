@@ -18,11 +18,11 @@ $clean_quarantine_to = 'clean-quarantine';
 Restart Amavisd service.
 
 * Append below content to Postfix config file `/etc/postfix/master.cf`, ask
-  Postfix to listen on one additional network port `10026` (you're free to use
+  Postfix to listen on one additional network port `10031` (you're free to use
   another port):
 
 ```
-127.0.0.1:10026 inet n  -   -   -   -  smtpd
+127.0.0.1:10031 inet n  -   -   -   -  smtpd
     -o content_filter=smtp-amavis:[127.0.0.1]:10030
     -o recipient_bcc_maps=
     -o sender_bcc_maps=
@@ -55,7 +55,7 @@ service postfix restart
 ```
 
 * To quarantine all emails sent from/to `user@domain.com`, set its per-user
-  transport to `smtp:[127.0.0.1]:10026`.
+  transport to `smtp:[127.0.0.1]:10031`.
 
 Now all emails sent from/to `user@domain.com` will be quarantined into SQL
 database (specified in Amavisd config file, parameter `@storage_sql_dsn`).
@@ -69,3 +69,4 @@ Send an email to `user@domain.com` for testing:
 ## See also
 
 * [Quarantining](./quarantining.html)
+* [Per-domain or per-user transport (relay)](./per-account.transport.html)
