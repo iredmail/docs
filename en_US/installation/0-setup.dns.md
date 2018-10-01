@@ -79,7 +79,7 @@ are email spam filtering softwares __MIGHT__ block e-mails from your mail server
 You would most likely need to contact your ISP and make a request to create a
 reverse PTR record for your mail server IP address. For example, if your mail
 server hostname is `mail.mydomain.com` then ask your ISP to setup a reverse
-PTR record `192.168.1.5` (your internet public IP address) in their revesre DNS
+PTR record `192.168.1.5` (your internet public IP address) in their reverse DNS
 zone. Reverse DNS zones are handled by your ISP even though you may have your
 own forward lookup DNS zone that you manage.
 

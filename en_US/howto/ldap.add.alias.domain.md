@@ -28,11 +28,14 @@ domain in left panel of phpLDAPadmin, click the ldap object, phpLDAPadmin will
 show detailed LDAP attributes/values of this domain in right panel.
 
 * Add a new LDAP attribute `domainAliasName` to this domain account, set value
-to the alias domain (e.g. `domain.com`). Save your change.
+  to the alias domain (e.g. `alias.com`).
+
+* Make sure LDAP attribute `enabledService` has value `domainalias`, if not,
+  add it manually. Note: `enabledService` has few values by default.
 
 Now you should add additional mail address for all mail users, lists, aliases.
 For example, if you have mail user `user@example.com`, you should add additional
-email address `user@domain.ltd` for this user. Steps:
+email address `user@alias.com` for this user. Steps:
 
 * Find the LDAP object of mail account which you want to add additional email
 address in left panel of phpLDAPadmin, for example, user `user@example.com`,
@@ -40,7 +43,7 @@ click the ldap object, phpLDAPadmin will show detailed LDAP attributes/values
 in right panel.
 
 * Add a new LDAP attribute `shadowAddress` to this mail account, set value to
-`user@domain.ltd`. __WARNING__: You must user the same username part as
+`user@alias.com`. __WARNING__: You must user the same username part as
 original email address.
 
 * Save your change.

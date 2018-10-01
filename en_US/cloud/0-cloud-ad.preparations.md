@@ -35,7 +35,7 @@ all Windows Server versions.
 
 ![](./images/ad/create_ad_account_3.png)
 
-- Input `vmail` as `User logon name`, and fill other fields, then click `Next`.
+- Input `vmail` in `User logon name` field, and fill other fields, then click `Next`.
 
 ![](./images/ad/read_only_account_1.png)
 

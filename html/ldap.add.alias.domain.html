@@ -49,12 +49,16 @@ show detailed LDAP attributes/values of this domain in right panel.</p>
 </li>
 <li>
 <p>Add a new LDAP attribute <code>domainAliasName</code> to this domain account, set value
-to the alias domain (e.g. <code>domain.com</code>). Save your change.</p>
+  to the alias domain (e.g. <code>alias.com</code>).</p>
+</li>
+<li>
+<p>Make sure LDAP attribute <code>enabledService</code> has value <code>domainalias</code>, if not,
+  add it manually. Note: <code>enabledService</code> has few values by default.</p>
 </li>
 </ul>
 <p>Now you should add additional mail address for all mail users, lists, aliases.
 For example, if you have mail user <code>user@example.com</code>, you should add additional
-email address <code>user@domain.ltd</code> for this user. Steps:</p>
+email address <code>user@alias.com</code> for this user. Steps:</p>
 <ul>
 <li>
 <p>Find the LDAP object of mail account which you want to add additional email
@@ -64,7 +68,7 @@ in right panel.</p>
 </li>
 <li>
 <p>Add a new LDAP attribute <code>shadowAddress</code> to this mail account, set value to
-<code>user@domain.ltd</code>. <strong>WARNING</strong>: You must user the same username part as
+<code>user@alias.com</code>. <strong>WARNING</strong>: You must user the same username part as
 original email address.</p>
 </li>
 <li>
