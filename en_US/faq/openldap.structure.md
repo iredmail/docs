@@ -1,5 +1,7 @@
 # OpenLDAP data structure configured by iRedMail
 
+[TOC]
+
 This is a brief introduction of the OpenLDAP data structure configured by
 iRedMail. It may help a little if you want to migrate from/to other LDAP server.
 
