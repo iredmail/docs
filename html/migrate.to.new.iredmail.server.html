@@ -94,57 +94,21 @@ please update your mail client applications to use TLS connection.</p>
 <li>Here are all <a href="https://docs.iredmail.org/iredmail.releases.html">upgrade tutorials for iRedMail</a>.</li>
 </ul>
 <h2 id="mysqlpostgresql-migrate-mail-accounts">MySQL/PostgreSQL: Migrate mail accounts</h2>
-<p>All mail accounts are stored in database <code>vmail</code> by default, to migrate mail
-accounts, you can simply export this database on old server, then import it
-on new server.</p>
-<p><strong>IMPORTANT NOTE</strong>: iRedMail-0.8.7 drops several SQL columns, so before you
-import backup SQL database, please add them first. It's safe to drop them
-after you imported old database on new server.</p>
-<pre><code class="mysql">mysql&gt; USE vmail;
-
-mysql&gt; ALTER TABLE mailbox ADD COLUMN bytes BIGINT(20) NOT NULL DEFAULT 0;
-mysql&gt; ALTER TABLE mailbox ADD COLUMN messages BIGINT(20) NOT NULL DEFAULT 0;
-
-mysql&gt; ALTER TABLE domain ADD COLUMN defaultlanguage VARCHAR(5) NOT NULL DEFAULT 'en_US';
-mysql&gt; ALTER TABLE domain ADD COLUMN defaultuserquota BIGINT(20) NOT NULL DEFAULT '1024';
-mysql&gt; ALTER TABLE domain ADD COLUMN defaultuseraliases TEXT;
-mysql&gt; ALTER TABLE domain ADD COLUMN disableddomainprofiles VARCHAR(255) NOT NULL DEFAULT '';
-mysql&gt; ALTER TABLE domain ADD COLUMN disableduserprofiles VARCHAR(255) NOT NULL DEFAULT '';
-mysql&gt; ALTER TABLE domain ADD COLUMN defaultpasswordscheme VARCHAR(10) NOT NULL DEFAULT '';
-mysql&gt; ALTER TABLE domain ADD COLUMN minpasswordlength INT(10) NOT NULL DEFAULT 0;
-mysql&gt; ALTER TABLE domain ADD COLUMN maxpasswordlength INT(10) NOT NULL DEFAULT 0;
-
-mysql&gt; ALTER TABLE alias ADD COLUMN islist TINYINT(1) NOT NULL DEFAULT 0;
-</code></pre>
-
-<p>After imported backup SQL databases, please execute below commands to mark
-mail alias accounts and drop above newly created columns:</p>
-<pre><code class="mysql">mysql&gt; USE vmail;
-mysql&gt; UPDATE alias SET islist=1 WHERE address NOT IN (SELECT username FROM mailbox);
-mysql&gt; UPDATE alias SET islist=0 WHERE address=domain;    -- domain catch-all account
-
--- Store values into new column: domain.settings and drop them
-mysql&gt; UPDATE domain SET settings='';
-mysql&gt; UPDATE domain SET settings=CONCAT(settings, IF(defaultlanguage IS NULL OR defaultlanguage='', '', CONCAT('default_language:', defaultlanguage, ';')));
-mysql&gt; UPDATE domain SET settings=CONCAT(settings, IF(defaultuserquota IS NULL OR defaultuserquota=0, '', CONCAT('default_user_quota:', defaultuserquota, ';')));
-mysql&gt; UPDATE domain SET settings=CONCAT(settings, IF(defaultuseraliases IS NULL OR defaultuseraliases='', '', CONCAT('default_groups:', defaultuseraliases, ';')));
-mysql&gt; UPDATE domain SET settings=CONCAT(settings, IF(minpasswordlength IS NULL OR minpasswordlength=0, '', CONCAT('min_passwd_length:', minpasswordlength, ';')));
-mysql&gt; UPDATE domain SET settings=CONCAT(settings, IF(maxpasswordlength IS NULL OR maxpasswordlength=0, '', CONCAT('max_passwd_length:', maxpasswordlength, ';')));
-mysql&gt; UPDATE domain SET settings=CONCAT(settings, IF(disableddomainprofiles IS NULL OR disableddomainprofiles='', '', CONCAT('disabled_domain_profiles:', disableddomainprofiles, ';')));
-mysql&gt; UPDATE domain SET settings=CONCAT(settings, IF(disableduserprofiles IS NULL OR disableduserprofiles='', '', CONCAT('disabled_user_profiles:', disableduserprofiles, ';')));
-
-mysql&gt; ALTER TABLE domain DROP defaultlanguage;
-mysql&gt; ALTER TABLE domain DROP defaultuserquota;
-mysql&gt; ALTER TABLE domain DROP defaultuseraliases;
-mysql&gt; ALTER TABLE domain DROP minpasswordlength;
-mysql&gt; ALTER TABLE domain DROP maxpasswordlength;
-mysql&gt; ALTER TABLE domain DROP disableddomainprofiles;
-mysql&gt; ALTER TABLE domain DROP disableduserprofiles;
-</code></pre>
-
-<p><strong>IMPORTANT NOTE</strong>: There might be some changes in SQL structure, please read
-all upgrade tutorials for your current iRedMail release, then apply SQL
-structure related changes. Check <a href="./iredmail.releases.html">upgrade tutorials for iRedMail</a>.</p>
+<p>All mail accounts are stored in database <code>vmail</code>.</p>
+<ul>
+<li>
+<p>If both old and new servers are running same iRedMail version, you can simply
+  export <code>vmail</code> database on old server, then import it on new server.</p>
+</li>
+<li>
+<p>If old server is running an old iRedMail version, there might be some changes
+  in SQL structure, please read all upgrade tutorials for the old iRedMail
+  release, then apply SQL structure related changes to make sure old server
+  has same SQL structure. After you have same SQL structure on both servers,
+  you can simply export <code>vmail</code> database on old server, then import it on new
+  server. Check <a href="./iredmail.releases.html">upgrade tutorials for iRedMail</a>.</p>
+</li>
+</ul>
 <h2 id="migrate-mailboxes-maildir-format">Migrate mailboxes (Maildir format)</h2>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>

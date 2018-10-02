@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>OpenLDAP data structure configured by iRedMail</title>
+        <link rel="stylesheet" type="text/css" href="./css/markdown.css" />
+    </head>
+    <body>
+    
+    <div id="navigation">
+    <a href="https://www.iredmail.org" target="_blank">
+        <img alt="iRedMail web site"
+             src="./images/logo-iredmail.png"
+             style="vertical-align: middle; height: 30px;"
+             />&nbsp;
+        <span>iRedMail</span>
+    </a>
+    &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><h1 id="openldap-data-structure-configured-by-iredmail">OpenLDAP data structure configured by iRedMail</h1>
+<p>This is a brief introduction of the OpenLDAP data structure configured by
+iRedMail. It may help a little if you want to migrate from/to other LDAP server.</p>
+<h2 id="ldap-schema-files">LDAP schema files</h2>
+<p>iRedMail requires 7 LDAP schema files listed below, 5 are shipped by OpenLDAP,
+1 shipped by Amavisd, one by iRedMail:</p>
+<ul>
+<li>core.schema</li>
+<li>corba.schema</li>
+<li>cosine.schema</li>
+<li>inetorgperson.schema</li>
+<li>nis.schema</li>
+<li>amavisd.schema (names are different on different linux/bsd distros)</li>
+<li>iredmail.schema</li>
+</ul>
+<p>If you're migrating to other LDAP server, it must include them all, otherwise
+you may not be able to add or update mail accounts.</p>
+<h2 id="data-structure">Data structure</h2>
+<p>OpenLDAP configured by iRedMail has hard-coded / predictable structure, and
+Postfix / Dovecot / iRedAPD /... are configured to query LDAP based on this
+structure.</p>
+<pre><code>dc=xx,dc=xx
+    |- o=domains
+        |- domainName=example.com
+            |- ou=Aliases
+            |- ou=Groups
+            |- ...
+            |- ou=Users
+                |- mail=postmaster@example.com
+                |- mail=xxx
+                |- ...
+</code></pre>
+
+<p>With this predictable structure:</p>
+<ul>
+<li>
+<p>it's easy to narrow down the query scope, the narrower the scope is, the
+  better performance you gain.</p>
+</li>
+<li>
+<p>no need to performing a query first to get the full dn of ldap object you're
+  going to modify.</p>
+</li>
+</ul>
+<p>If you don't use this structure:</p>
+<ul>
+<li>
+<p>you have to update Postfix/Dovecot/iRedAPD/... config files to use different
+  query scopes and filters.</p>
+</li>
+<li>
+<p>The web-based admin panel - iRedAdmin(-Pro) - heavily relies on the
+  predictable structure, if you use different structure, you cannot manage mail
+  accounts with iRedAdmin(-Pro).</p>
+</li>
+</ul><div class="footer">
+    <p style="text-align: center; color: grey;">All documents are available in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://bitbucket.org/zhb/iredmail-docs/get/tip.tar.bz2">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
+</div>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-3293801-21"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-3293801-21');
+</script>
+</body></html>

@@ -61,62 +61,17 @@ Notes:
 
 ## MySQL/PostgreSQL: Migrate mail accounts
 
-All mail accounts are stored in database `vmail` by default, to migrate mail
-accounts, you can simply export this database on old server, then import it
-on new server.
+All mail accounts are stored in database `vmail`.
 
-__IMPORTANT NOTE__: iRedMail-0.8.7 drops several SQL columns, so before you
-import backup SQL database, please add them first. It's safe to drop them
-after you imported old database on new server.
+* If both old and new servers are running same iRedMail version, you can simply
+  export `vmail` database on old server, then import it on new server.
 
-```mysql
-mysql> USE vmail;
-
-mysql> ALTER TABLE mailbox ADD COLUMN bytes BIGINT(20) NOT NULL DEFAULT 0;
-mysql> ALTER TABLE mailbox ADD COLUMN messages BIGINT(20) NOT NULL DEFAULT 0;
-
-mysql> ALTER TABLE domain ADD COLUMN defaultlanguage VARCHAR(5) NOT NULL DEFAULT 'en_US';
-mysql> ALTER TABLE domain ADD COLUMN defaultuserquota BIGINT(20) NOT NULL DEFAULT '1024';
-mysql> ALTER TABLE domain ADD COLUMN defaultuseraliases TEXT;
-mysql> ALTER TABLE domain ADD COLUMN disableddomainprofiles VARCHAR(255) NOT NULL DEFAULT '';
-mysql> ALTER TABLE domain ADD COLUMN disableduserprofiles VARCHAR(255) NOT NULL DEFAULT '';
-mysql> ALTER TABLE domain ADD COLUMN defaultpasswordscheme VARCHAR(10) NOT NULL DEFAULT '';
-mysql> ALTER TABLE domain ADD COLUMN minpasswordlength INT(10) NOT NULL DEFAULT 0;
-mysql> ALTER TABLE domain ADD COLUMN maxpasswordlength INT(10) NOT NULL DEFAULT 0;
-
-mysql> ALTER TABLE alias ADD COLUMN islist TINYINT(1) NOT NULL DEFAULT 0;
-```
-
-After imported backup SQL databases, please execute below commands to mark
-mail alias accounts and drop above newly created columns:
-
-```mysql
-mysql> USE vmail;
-mysql> UPDATE alias SET islist=1 WHERE address NOT IN (SELECT username FROM mailbox);
-mysql> UPDATE alias SET islist=0 WHERE address=domain;    -- domain catch-all account
-
--- Store values into new column: domain.settings and drop them
-mysql> UPDATE domain SET settings='';
-mysql> UPDATE domain SET settings=CONCAT(settings, IF(defaultlanguage IS NULL OR defaultlanguage='', '', CONCAT('default_language:', defaultlanguage, ';')));
-mysql> UPDATE domain SET settings=CONCAT(settings, IF(defaultuserquota IS NULL OR defaultuserquota=0, '', CONCAT('default_user_quota:', defaultuserquota, ';')));
-mysql> UPDATE domain SET settings=CONCAT(settings, IF(defaultuseraliases IS NULL OR defaultuseraliases='', '', CONCAT('default_groups:', defaultuseraliases, ';')));
-mysql> UPDATE domain SET settings=CONCAT(settings, IF(minpasswordlength IS NULL OR minpasswordlength=0, '', CONCAT('min_passwd_length:', minpasswordlength, ';')));
-mysql> UPDATE domain SET settings=CONCAT(settings, IF(maxpasswordlength IS NULL OR maxpasswordlength=0, '', CONCAT('max_passwd_length:', maxpasswordlength, ';')));
-mysql> UPDATE domain SET settings=CONCAT(settings, IF(disableddomainprofiles IS NULL OR disableddomainprofiles='', '', CONCAT('disabled_domain_profiles:', disableddomainprofiles, ';')));
-mysql> UPDATE domain SET settings=CONCAT(settings, IF(disableduserprofiles IS NULL OR disableduserprofiles='', '', CONCAT('disabled_user_profiles:', disableduserprofiles, ';')));
-
-mysql> ALTER TABLE domain DROP defaultlanguage;
-mysql> ALTER TABLE domain DROP defaultuserquota;
-mysql> ALTER TABLE domain DROP defaultuseraliases;
-mysql> ALTER TABLE domain DROP minpasswordlength;
-mysql> ALTER TABLE domain DROP maxpasswordlength;
-mysql> ALTER TABLE domain DROP disableddomainprofiles;
-mysql> ALTER TABLE domain DROP disableduserprofiles;
-```
-
-__IMPORTANT NOTE__: There might be some changes in SQL structure, please read
-all upgrade tutorials for your current iRedMail release, then apply SQL
-structure related changes. Check [upgrade tutorials for iRedMail](./iredmail.releases.html).
+* If old server is running an old iRedMail version, there might be some changes
+  in SQL structure, please read all upgrade tutorials for the old iRedMail
+  release, then apply SQL structure related changes to make sure old server
+  has same SQL structure. After you have same SQL structure on both servers,
+  you can simply export `vmail` database on old server, then import it on new
+  server. Check [upgrade tutorials for iRedMail](./iredmail.releases.html).
 
 ## Migrate mailboxes (Maildir format)
 
