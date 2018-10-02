@@ -28,9 +28,9 @@
 <p>This is a brief introduction of the OpenLDAP data structure configured by
 iRedMail. It may help a little if you want to migrate from/to other LDAP server.</p>
 <h2 id="ldap-schema-files">LDAP schema files</h2>
-<p>iRedMail requires 7 LDAP schema files listed below, 5 are shipped by OpenLDAP,
-1 shipped by Amavisd, one by iRedMail:</p>
-<ul>
+<p>iRedMail requires 7 LDAP schema files listed below (1-5 are shipped by
+OpenLDAP, no. 6 is shipped by Amavisd, no. 7 is shipped by iRedMail):</p>
+<ol>
 <li>core.schema</li>
 <li>corba.schema</li>
 <li>cosine.schema</li>
@@ -38,7 +38,7 @@ iRedMail. It may help a little if you want to migrate from/to other LDAP server.
 <li>nis.schema</li>
 <li>amavisd.schema (names are different on different linux/bsd distros)</li>
 <li>iredmail.schema</li>
-</ul>
+</ol>
 <p>If you're migrating to other LDAP server, it must include them all, otherwise
 you may not be able to add or update mail accounts.</p>
 <h2 id="data-structure">Data structure</h2>
@@ -49,8 +49,12 @@ structure.</p>
     |- o=domains
         |- domainName=example.com
             |- ou=Aliases
+                | mail=alias@example.com
+                | ...
             |- ou=Groups
-            |- ...
+                | mail=list@example.com
+                | ...
+            ...
             |- ou=Users
                 |- mail=postmaster@example.com
                 |- mail=xxx

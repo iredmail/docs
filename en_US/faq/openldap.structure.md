@@ -7,16 +7,16 @@ iRedMail. It may help a little if you want to migrate from/to other LDAP server.
 
 ## LDAP schema files
 
-iRedMail requires 7 LDAP schema files listed below, 5 are shipped by OpenLDAP,
-1 shipped by Amavisd, one by iRedMail:
+iRedMail requires 7 LDAP schema files listed below (1-5 are shipped by
+OpenLDAP, no. 6 is shipped by Amavisd, no. 7 is shipped by iRedMail):
 
-* core.schema
-* corba.schema
-* cosine.schema
-* inetorgperson.schema
-* nis.schema
-* amavisd.schema (names are different on different linux/bsd distros)
-* iredmail.schema
+1. core.schema
+1. corba.schema
+1. cosine.schema
+1. inetorgperson.schema
+1. nis.schema
+1. amavisd.schema (names are different on different linux/bsd distros)
+1. iredmail.schema
 
 If you're migrating to other LDAP server, it must include them all, otherwise
 you may not be able to add or update mail accounts.
@@ -32,8 +32,12 @@ dc=xx,dc=xx
     |- o=domains
         |- domainName=example.com
             |- ou=Aliases
+                | mail=alias@example.com
+                | ...
             |- ou=Groups
-            |- ...
+                | mail=list@example.com
+                | ...
+            ...
             |- ou=Users
                 |- mail=postmaster@example.com
                 |- mail=xxx
