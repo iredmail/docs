@@ -1,8 +1,8 @@
-# OpenLDAP data structure configured by iRedMail
+# Introduce the OpenLDAP server configured by iRedMail
 
 [TOC]
 
-This is a brief introduction of the OpenLDAP data structure configured by
+This is a brief introduction of the OpenLDAP server configured by
 iRedMail. It may help a little if you want to migrate from/to other LDAP server.
 
 ## LDAP schema files
