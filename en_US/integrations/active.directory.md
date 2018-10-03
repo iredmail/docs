@@ -283,7 +283,7 @@ user_filter     = (&(userPrincipalName=%u)(objectClass=person)(!(userAccountCont
 pass_filter     = (&(userPrincipalName=%u)(objectClass=person)(!(userAccountControl:1.2.840.113556.1.4.803:=2)))
 pass_attrs      = userPassword=password
 default_pass_scheme = CRYPT
-user_attrs      = =home=/var/vmail/vmail1/%Ld/%Ln/Maildir/,=mail=maildir:/var/vmail/vmail1/%Ld/%Ln/Maildir/
+user_attrs      = =home=/var/vmail/vmail1/%Ld/%Ln/,=mail=maildir:~/Maildir/
 ```
 
 Restart dovecot service to make it work.
