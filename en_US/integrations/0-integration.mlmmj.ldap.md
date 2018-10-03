@@ -51,7 +51,7 @@ a good idea to backup it now before you adding any new mailing lists.
   iRedMail by default. So we can install it directly:
 
 ```
-yum install mlmmj uwsgi uwsgi-plugin-python uwsgi-logger-syslog python-requests
+yum install mlmmj uwsgi uwsgi-plugin-python2 uwsgi-logger-syslog python-requests
 ```
 
 * On Debian/Ubuntu:
