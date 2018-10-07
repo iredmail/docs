@@ -26,8 +26,8 @@ all Windows Server versions.
 
 ![](./images/ad/create_ad_account_1.png)
 
-- Right click your AD domain, here is `iredmail.org`,  then click `Manage`. It
-  will show you a new window.
+- Right click your AD domain, then click `Manage`. It will show you a new window.
+  In this example, it's domain `iredmail.org`.
 
 ![](./images/ad/create_ad_account_2.png)
 
@@ -39,8 +39,8 @@ all Windows Server versions.
 
 ![](./images/ad/read_only_account_1.png)
 
-- Input a strong password for `vmail` user, toggle on `Password never expires`,
-  and uncheck other 3 options. Then click `Next`.
+- Input a strong password for `vmail` user, make sure option `Password never
+  expires` is checked, and uncheck other 3 options. Then click `Next`.
 
 ![](./images/ad/read_only_account_2.png)
 
@@ -48,7 +48,9 @@ all Windows Server versions.
 
 ![](./images/ad/read_only_account_3.png)
 
-Now we need to grant `vmail` user required privileges.
+### Grant privileges
+
+We need to grant `vmail` user required privileges.
 
 In the `Active Directory Users and Computers` window, right click your AD
 domian name (in our example it's `iredmail.org`), and select `Delegate Control...`.
@@ -63,7 +65,7 @@ domian name (in our example it's `iredmail.org`), and select `Delegate Control..
 
 ![](./images/ad/create_ad_account_6.png)
 
-- Input read-only account `vmail`, and click `Ok`.
+- Input read-only account `vmail`, and click `OK`.
 
 ![](./images/ad/read_only_account_4.png)
 
@@ -79,9 +81,9 @@ domian name (in our example it's `iredmail.org`), and select `Delegate Control..
 
 ![](./images/ad/read_only_account_7.png)
 
-- Low-privileged account `vmail` created.
+## Create read-write account: vmailadmin
 
-## Create admin account.
+This account is used to manage mail accounts.
 
 - Click `Start` on bottom-left corner of your Windows OS, click `Server Manager`.
 
@@ -91,7 +93,7 @@ domian name (in our example it's `iredmail.org`), and select `Delegate Control..
 
 ![](./images/ad/create_ad_account_1.png)
 
--  Right click your AD domain, here is `iredmail.org`,  then click `Manage`.
+-  Right click your AD domain, then click `Manage`. In this example, it's domain `iredmail.org`.
 
 ![](./images/ad/create_ad_account_2.png)
 
@@ -99,11 +101,11 @@ domian name (in our example it's `iredmail.org`), and select `Delegate Control..
 
 ![](./images/ad/create_ad_account_3.png)
 
-- Input `vmailadmin` account info, click `Next`.
+- Input `vmailadmin` in `User logon name` field, and fill other fields, then click Next.
 
 ![](./images/ad/admin_account_1.png)
 
-- Input `vmailadmin` account passowrd, and select `Password never expires`, click `Next`.
+- Input a strong password for user `vmailadmin`, make sure option `Password never expires` is checked, click `Next`.
 
 ![](./images/ad/admin_account_2.png)
 
@@ -111,7 +113,12 @@ domian name (in our example it's `iredmail.org`), and select `Delegate Control..
 
 ![](./images/ad/admin_account_3.png)
 
-- Now account `vmailadmin` has created, we will set read-only permission for `vmail`,  right click your AD domian here is `iredmail.org`, and select `Delegate Control...`.
+### Grant privileges
+
+Account `vmailadmin` has been created, we need to grant it more privileges than `vmail` user.
+
+In the Active Directory Users and Computers window, right click your AD domian
+and select `Delegate Control...`. In this example, it's domain `iredmail.org`, 
 
 ![](./images/ad/create_ad_account_4.png)
 
@@ -123,7 +130,7 @@ domian name (in our example it's `iredmail.org`), and select `Delegate Control..
 
 ![](./images/ad/create_ad_account_6.png)
 
-- Input admin account `vmailadmin`, and click `Ok`.
+- Input account name `vmailadmin`, and click `OK`.
 
 ![](./images/ad/admin_account_4.png)
 
@@ -131,12 +138,14 @@ domian name (in our example it's `iredmail.org`), and select `Delegate Control..
 
 ![](./images/ad/admin_account_5.png)
 
-- Select `"Create，delete, and manage user accounts"`, `"Reset user passowords and force password change at next logon"`, `"Read all user information"`, click `Next`.
+- Select tasks listed below, then click `Next`:
+    * `Create，delete, and manage user accounts`
+    * `Reset user passowords and force password change at next logon`
+    * `Read all user information`
+    * `Modify the membership of a group`
 
 ![](./images/ad/admin_account_6.png)
 
 - Click `Finish`.
 
 ![](./images/ad/admin_account_7.png)
-
-- Low-privileged account `vmailadmin` created.

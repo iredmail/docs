@@ -20,8 +20,14 @@
 <ul>
 <li><a href="#preparations-for-using-microsoft-active-directory-as-iredmail-backend">Preparations for using Microsoft Active Directory as iRedMail backend</a><ul>
 <li><a href="#summary">Summary</a></li>
-<li><a href="#create-read-only-account-vmail">Create read-only account: vmail</a></li>
-<li><a href="#create-admin-account">Create admin account.</a></li>
+<li><a href="#create-read-only-account-vmail">Create read-only account: vmail</a><ul>
+<li><a href="#grant-privileges">Grant privileges</a></li>
+</ul>
+</li>
+<li><a href="#create-read-write-account-vmailadmin">Create read-write account: vmailadmin</a><ul>
+<li><a href="#grant-privileges_1">Grant privileges</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -47,8 +53,8 @@ all Windows Server versions.</p>
 </ul>
 <p><img alt="" src="./images/ad/create_ad_account_1.png" /></p>
 <ul>
-<li>Right click your AD domain, here is <code>iredmail.org</code>,  then click <code>Manage</code>. It
-  will show you a new window.</li>
+<li>Right click your AD domain, then click <code>Manage</code>. It will show you a new window.
+  In this example, it's domain <code>iredmail.org</code>.</li>
 </ul>
 <p><img alt="" src="./images/ad/create_ad_account_2.png" /></p>
 <ul>
@@ -60,15 +66,16 @@ all Windows Server versions.</p>
 </ul>
 <p><img alt="" src="./images/ad/read_only_account_1.png" /></p>
 <ul>
-<li>Input a strong password for <code>vmail</code> user, toggle on <code>Password never expires</code>,
-  and uncheck other 3 options. Then click <code>Next</code>.</li>
+<li>Input a strong password for <code>vmail</code> user, make sure option <code>Password never
+  expires</code> is checked, and uncheck other 3 options. Then click <code>Next</code>.</li>
 </ul>
 <p><img alt="" src="./images/ad/read_only_account_2.png" /></p>
 <ul>
 <li>Click <code>Finish</code> to finish account creation.</li>
 </ul>
 <p><img alt="" src="./images/ad/read_only_account_3.png" /></p>
-<p>Now we need to grant <code>vmail</code> user required privileges.</p>
+<h3 id="grant-privileges">Grant privileges</h3>
+<p>We need to grant <code>vmail</code> user required privileges.</p>
 <p>In the <code>Active Directory Users and Computers</code> window, right click your AD
 domian name (in our example it's <code>iredmail.org</code>), and select <code>Delegate Control...</code>.</p>
 <p><img alt="" src="./images/ad/create_ad_account_4.png" /></p>
@@ -81,7 +88,7 @@ domian name (in our example it's <code>iredmail.org</code>), and select <code>De
 </ul>
 <p><img alt="" src="./images/ad/create_ad_account_6.png" /></p>
 <ul>
-<li>Input read-only account <code>vmail</code>, and click <code>Ok</code>.</li>
+<li>Input read-only account <code>vmail</code>, and click <code>OK</code>.</li>
 </ul>
 <p><img alt="" src="./images/ad/read_only_account_4.png" /></p>
 <ul>
@@ -96,10 +103,8 @@ domian name (in our example it's <code>iredmail.org</code>), and select <code>De
 <li>Click <code>Finish</code> to confirm.</li>
 </ul>
 <p><img alt="" src="./images/ad/read_only_account_7.png" /></p>
-<ul>
-<li>Low-privileged account <code>vmail</code> created.</li>
-</ul>
-<h2 id="create-admin-account">Create admin account.</h2>
+<h2 id="create-read-write-account-vmailadmin">Create read-write account: vmailadmin</h2>
+<p>This account is used to manage mail accounts.</p>
 <ul>
 <li>Click <code>Start</code> on bottom-left corner of your Windows OS, click <code>Server Manager</code>.</li>
 </ul>
@@ -109,7 +114,7 @@ domian name (in our example it's <code>iredmail.org</code>), and select <code>De
 </ul>
 <p><img alt="" src="./images/ad/create_ad_account_1.png" /></p>
 <ul>
-<li>Right click your AD domain, here is <code>iredmail.org</code>,  then click <code>Manage</code>.</li>
+<li>Right click your AD domain, then click <code>Manage</code>. In this example, it's domain <code>iredmail.org</code>.</li>
 </ul>
 <p><img alt="" src="./images/ad/create_ad_account_2.png" /></p>
 <ul>
@@ -117,20 +122,21 @@ domian name (in our example it's <code>iredmail.org</code>), and select <code>De
 </ul>
 <p><img alt="" src="./images/ad/create_ad_account_3.png" /></p>
 <ul>
-<li>Input <code>vmailadmin</code> account info, click <code>Next</code>.</li>
+<li>Input <code>vmailadmin</code> in <code>User logon name</code> field, and fill other fields, then click Next.</li>
 </ul>
 <p><img alt="" src="./images/ad/admin_account_1.png" /></p>
 <ul>
-<li>Input <code>vmailadmin</code> account passowrd, and select <code>Password never expires</code>, click <code>Next</code>.</li>
+<li>Input a strong password for user <code>vmailadmin</code>, make sure option <code>Password never expires</code> is checked, click <code>Next</code>.</li>
 </ul>
 <p><img alt="" src="./images/ad/admin_account_2.png" /></p>
 <ul>
 <li>Click <code>Finish</code> to finish account creation.</li>
 </ul>
 <p><img alt="" src="./images/ad/admin_account_3.png" /></p>
-<ul>
-<li>Now account <code>vmailadmin</code> has created, we will set read-only permission for <code>vmail</code>,  right click your AD domian here is <code>iredmail.org</code>, and select <code>Delegate Control...</code>.</li>
-</ul>
+<h3 id="grant-privileges_1">Grant privileges</h3>
+<p>Account <code>vmailadmin</code> has been created, we need to grant it more privileges than <code>vmail</code> user.</p>
+<p>In the Active Directory Users and Computers window, right click your AD domian
+and select <code>Delegate Control...</code>. In this example, it's domain <code>iredmail.org</code>, </p>
 <p><img alt="" src="./images/ad/create_ad_account_4.png" /></p>
 <ul>
 <li>Click <code>Next</code>. </li>
@@ -141,7 +147,7 @@ domian name (in our example it's <code>iredmail.org</code>), and select <code>De
 </ul>
 <p><img alt="" src="./images/ad/create_ad_account_6.png" /></p>
 <ul>
-<li>Input admin account <code>vmailadmin</code>, and click <code>Ok</code>.</li>
+<li>Input account name <code>vmailadmin</code>, and click <code>OK</code>.</li>
 </ul>
 <p><img alt="" src="./images/ad/admin_account_4.png" /></p>
 <ul>
@@ -149,16 +155,19 @@ domian name (in our example it's <code>iredmail.org</code>), and select <code>De
 </ul>
 <p><img alt="" src="./images/ad/admin_account_5.png" /></p>
 <ul>
-<li>Select <code>"Create，delete, and manage user accounts"</code>, <code>"Reset user passowords and force password change at next logon"</code>, <code>"Read all user information"</code>, click <code>Next</code>.</li>
+<li>Select tasks listed below, then click <code>Next</code>:<ul>
+<li><code>Create，delete, and manage user accounts</code></li>
+<li><code>Reset user passowords and force password change at next logon</code></li>
+<li><code>Read all user information</code></li>
+<li><code>Modify the membership of a group</code></li>
+</ul>
+</li>
 </ul>
 <p><img alt="" src="./images/ad/admin_account_6.png" /></p>
 <ul>
 <li>Click <code>Finish</code>.</li>
 </ul>
-<p><img alt="" src="./images/ad/admin_account_7.png" /></p>
-<ul>
-<li>Low-privileged account <code>vmailadmin</code> created.</li>
-</ul><div class="footer">
+<p><img alt="" src="./images/ad/admin_account_7.png" /></p><div class="footer">
     <p style="text-align: center; color: grey;">All documents are available in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://bitbucket.org/zhb/iredmail-docs/get/tip.tar.bz2">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
 </div>
 <!-- Global site tag (gtag.js) - Google Analytics -->
