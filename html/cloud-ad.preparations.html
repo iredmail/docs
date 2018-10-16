@@ -28,6 +28,7 @@
 <li><a href="#grant-privileges_1">Grant privileges</a></li>
 </ul>
 </li>
+<li><a href="#store-passwords-on-your-iredmail-server">Store passwords on your iRedMail server</a></li>
 </ul>
 </li>
 </ul>
@@ -167,7 +168,29 @@ and select <code>Delegate Control...</code>. In this example, it's domain <code>
 <ul>
 <li>Click <code>Finish</code>.</li>
 </ul>
-<p><img alt="" src="./images/ad/admin_account_7.png" /></p><div class="footer">
+<p><img alt="" src="./images/ad/admin_account_7.png" /></p>
+<h2 id="store-passwords-on-your-iredmail-server">Store passwords on your iRedMail server</h2>
+<p>iRedMail Cloud Deployment Platform does not store any password on its servers,
+instead, it reads passwords from different files which are stored under
+<code>/root/.iredmail/kv/</code> on YOUR server. So you need to create few files to store
+<code>vmail</code> and <code>vmailadmin</code> account passwords on the iRedMail server you're going
+to integrate with Active Directory.</p>
+<p>Please login to your iRedMail server first, then:</p>
+<ul>
+<li>
+<p>Create directory <code>/root/.iredmail/kv/</code> with command below (NOTE: You may need
+  <code>sudo</code> privilege if you're not root user):</p>
+<p><code>mkdir -p /root/.iredmail/kv</code></p>
+</li>
+<li>
+<p>Create file <code>/root/.iredmail/kv/ad_ldap_vmail_password</code>, input password of
+  <code>vmail</code> user in the file. Do not leave any comment lines or other characters
+  in the file.</p>
+</li>
+<li>Create file <code>/root/.iredmail/kv/ad_ldap_vmailadmin_password</code>, input password
+  of <code>vmailadmin</code> user in the file. Do not leave any comment lines or other characters
+  in the file.</li>
+</ul><div class="footer">
     <p style="text-align: center; color: grey;">All documents are available in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://bitbucket.org/zhb/iredmail-docs/get/tip.tar.bz2">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
 </div>
 <!-- Global site tag (gtag.js) - Google Analytics -->

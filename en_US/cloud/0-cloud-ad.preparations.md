@@ -149,3 +149,25 @@ and select `Delegate Control...`. In this example, it's domain `iredmail.org`,
 - Click `Finish`.
 
 ![](./images/ad/admin_account_7.png)
+
+## Store passwords on your iRedMail server
+
+iRedMail Cloud Deployment Platform does not store any password on its servers,
+instead, it reads passwords from different files which are stored under
+`/root/.iredmail/kv/` on YOUR server. So you need to create few files to store
+`vmail` and `vmailadmin` account passwords on the iRedMail server you're going
+to integrate with Active Directory.
+
+Please login to your iRedMail server first, then:
+
+* Create directory `/root/.iredmail/kv/` with command below (NOTE: You may need
+  `sudo` privilege if you're not root user):
+
+    ```mkdir -p /root/.iredmail/kv```
+
+* Create file `/root/.iredmail/kv/ad_ldap_vmail_password`, input password of
+  `vmail` user in the file. Do not leave any comment lines or other characters
+  in the file.
+* Create file `/root/.iredmail/kv/ad_ldap_vmailadmin_password`, input password
+  of `vmailadmin` user in the file. Do not leave any comment lines or other characters
+  in the file.
