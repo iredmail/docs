@@ -74,10 +74,6 @@ mx.example.com
 ### Install package `bash-static`, it's required by iRedMail
 
 ```bash
-# -- For FreeBSD 9 or earlier releases --
-# pkg_add -r bash-static
-
-# -- For FreeBSD 10 or later releases --
 # pkg install bash-static
 ```
 

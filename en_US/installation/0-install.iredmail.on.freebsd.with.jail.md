@@ -115,11 +115,7 @@ nameserver 172.16.244.2
 * In Jail, install binary package `bash-static`, it's required by iRedMail.
 
 ```
-# -- For FreeBSD 10 or later releases --
 # pkg install bash-static
-
-# -- For FreeBSD 9 or earlier releases --
-# pkg_add -r bash-static
 ```
 
 ## Start iRedMail installer
