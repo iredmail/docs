@@ -104,20 +104,9 @@ SELINUX=permissive
 
 现在可以运行 iRedMail 安装程序了，它会问你几个简单的问题，仅此而已。
 
-!!! warning
-
-    * 由于 iredmail.org 域名在国内无法访问，所以使用 `IREDMAIL_MIRROR` 指定
-      其它镜像站点。
-    * 由于 SOGo 网站在国内访问非常慢，且网络容易出问题，因此使用
-      `SOGO_PKG_MIRROR` 指定国内镜像站点。
-    * `IREDMAIL_EPEL_MIRROR` 参数则是为了加快安装速度而选用阿里云提供的 EPEL 软件包仓库镜像。
-
 ```
 cd /root/iRedMail-x.y.z/
-IREDMAIL_MIRROR='https://dl.iredmail.org' \
-    SOGO_PKG_MIRROR='https://cnmirror.iredmail.org' \
-    IREDMAIL_EPEL_MIRROR='http://mirrors.aliyun.com/epel' \
-    bash iRedMail.sh
+bash iRedMail.sh
 ```
 
 ## 安装过程的截图

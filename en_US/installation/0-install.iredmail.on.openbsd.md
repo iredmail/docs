@@ -126,13 +126,6 @@ questions, that's all required to setup a full-featured mail server.
 # bash iRedMail.sh
 ```
 
-!!! note "To Chinese users"
-
-    Our domain name `iredmail.org` is blocked in mainland
-    China since Jun 04, 2011, please run command below to finish the installation:
-
-    `IREDMAIL_MIRROR='https://dl.iredmail.org' bash iRedMail.sh`
-
 ## Screenshots of installation
 
 * Welcome and thanks for your use
