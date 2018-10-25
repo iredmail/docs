@@ -53,7 +53,7 @@
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>
 <ul>
-<li>This document is applicable to <code>iRedAdmin-Pro-SQL-2.9.1</code> and
+<li>This document is applicable to <code>iRedAdmin-Pro-SQL-3.0</code> and
   <code>iRedAdmin-Pro-LDAP-3.2</code>. If you're running an old release, please
   upgrade iRedAdmin-Pro to the latest release, or check
   <a href="./iredadmin-pro.releases.html">document for old releases</a>.</li>
@@ -1127,7 +1127,54 @@ to be a domain admin.</p>
 </ul>
 </div>
 <div class="admonition api">
-<p class="admonition-title"><code class="get">GET</code> <code class="url">/api/ml/&lt;mail&gt;</code> <code class="comment">Get profile of an existing mailing list account</code></p>
+<p class="admonition-title"><code class="get">GET</code> <code class="url">/api/mls/&lt;domain&gt;</code> <code class="comment">Get profile of all mailing lists under given domain</code> <code class="has_params">Parameters</code></p>
+<div class="params">
+
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Sample Usage</th>
+<th>Default Value</th>
+<th>Comment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>email_only</code></td>
+<td><code>email_only=yes</code></td>
+<td><code>no</code></td>
+<td>Return a list of mailing list email addresses instead of detailed profile.</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code class="get">GET</code> <code class="url">/api/ml/&lt;mail&gt;</code> <code class="comment">Get profile of an existing mailing list account</code> <code class="has_params">Parameters</code></p>
+<div class="params">
+
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Sample Usage</th>
+<th>Default Value</th>
+<th>Comment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>with_subscribers</code></td>
+<td><code>with_subscribers=yes</code></td>
+<td><code>no</code></td>
+<td>Get subscribers of mailing list.</td>
+</tr>
+</tbody>
+</table>
+</div>
+
 </div>
 <div class="admonition api">
 <p class="admonition-title"><code class="post">POST</code> <code class="url">/api/ml/&lt;mail&gt;</code> <code class="comment">Create a new mailing list</code> <code class="has_params">Parameters</code></p>

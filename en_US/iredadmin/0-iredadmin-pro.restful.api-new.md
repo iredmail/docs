@@ -4,7 +4,7 @@
 
 !!! attention
 
-    * This document is applicable to `iRedAdmin-Pro-SQL-2.9.1` and
+    * This document is applicable to `iRedAdmin-Pro-SQL-3.0` and
       `iRedAdmin-Pro-LDAP-3.2`. If you're running an old release, please
       upgrade iRedAdmin-Pro to the latest release, or check
       [document for old releases](./iredadmin-pro.releases.html).
@@ -409,7 +409,26 @@ Notes:
       it's implemented with [`mlmmj`](http://mlmmj.org) mailing list manager.
     * It's available for both SQL and LDAP backends.
 
-!!! api "`GET`{: .get } `/api/ml/<mail>`{: .url } `Get profile of an existing mailing list account`{: .comment }"
+!!! api "`GET`{: .get } `/api/mls/<domain>`{: .url } `Get profile of all mailing lists under given domain`{: .comment } `Parameters`{: .has_params}"
+
+    <div class="params">
+
+    Parameter | Sample Usage | Default Value | Comment
+    --- |--- |---|---
+    `email_only` | `email_only=yes` | `no` | Return a list of mailing list email addresses instead of detailed profile.
+
+    </div>
+
+!!! api "`GET`{: .get } `/api/ml/<mail>`{: .url } `Get profile of an existing mailing list account`{: .comment } `Parameters`{: .has_params}"
+
+    <div class="params">
+
+    Parameter | Sample Usage | Default Value | Comment
+    --- |--- |---|---
+    `with_subscribers` | `with_subscribers=yes` | `no` | Get subscribers of mailing list.
+
+    </div>
+
 !!! api "`POST`{: .post } `/api/ml/<mail>`{: .url } `Create a new mailing list`{: .comment } `Parameters`{: .has_params }"
 
     <div class="params">
