@@ -10,8 +10,6 @@
 
 ## TODO
 
-* Add new http headers
-* Fix openldap log file owner/group
 * Fix `mlmmj-amime-receive` and upgrade mlmmjadmin.
 
 ## ChangeLog
@@ -39,7 +37,7 @@ Please follow this tutorial to upgrade iRedAdmin open source edition to the
 latest stable release:
 [Upgrade iRedAdmin to the latest stable release](./migrate.or.upgrade.iredadmin.html)
 
-### Upgrade Roundcube webmail to the latest stable release (1.3.6)
+### Upgrade Roundcube webmail to the latest stable release (1.3.8)
 
 !!! warning "Roundcube 1.3"
 
@@ -115,6 +113,72 @@ location ~ ^/(CHANGELOG|composer.json|INSTALL|jsdeps.json|LICENSE|README|UPGRADI
 location ~ ^/plugins/.*/config.inc.php.* { deny all; }
 location ~ ^/plugins/enigma/home($|/.*) { deny all; }
 ```
+
+### Fix address mapping issue for mlmmj mailing list
+
+With default settings of iRedMail-0.9.8, if you use a per-user alias address
+as member of a mailing list, Postfix doesn't not expand it to the final
+recipient. For more details of this bug, please check this 
+[forum post](https://forum.iredmail.org/topic14841-mlmmj-subscription-emails-missing.html).
+Please follow steps below to fix it.
+
+* Open Amavisd config file, find the policy bank named `MLMMJ` like below:
+    * on RHEL/CentOS, it's `/etc/amavisd/amavisd.conf`
+    * on Debian/Ubuntu, it's `/etc/amavis/conf.d/50-user`
+    * on FreeBSD, it's `/usr/local/etc/amavisd.conf`
+    * on OpenBSD, it's `/etc/amavisd.conf`
+
+```
+$policy_bank{'MLMMJ'} = {
+    ...
+};
+```
+
+Add a new line inside the {} block:
+
+```
+$policy_bank{'MLMMJ'} = {
+    ...
+    forward_method => 'smtp:[127.0.0.1]:10028',
+};
+```
+
+Here we use a new smtp port 10028.
+
+* Append new lines to file `/etc/postfix/master.cf` (Linux/OpenBSD) or
+  `/usr/local/etc/postfix/master.cf` (FreeBSD):
+
+```
+10028 inet n  -   n   -   -  smtpd
+    -o syslog_name=postfix/10028
+    -o content_filter=
+    -o mynetworks_style=host
+    -o mynetworks=127.0.0.1
+    -o local_recipient_maps=
+    -o relay_recipient_maps=
+    -o strict_rfc821_envelopes=yes
+    -o smtp_tls_security_level=none
+    -o smtpd_tls_security_level=none
+    -o smtpd_restriction_classes=
+    -o smtpd_delay_reject=no
+    -o smtpd_client_restrictions=permit_mynetworks,reject
+    -o smtpd_helo_restrictions=
+    -o smtpd_sender_restrictions=
+    -o smtpd_recipient_restrictions=permit_mynetworks,reject
+    -o smtpd_end_of_data_restrictions=
+    -o smtpd_error_sleep_time=0
+    -o smtpd_soft_error_limit=1001
+    -o smtpd_hard_error_limit=1000
+    -o smtpd_client_connection_count_limit=0
+    -o smtpd_client_connection_rate_limit=0
+    -o receive_override_options=no_header_body_checks,no_unknown_recipient_checks
+```
+
+It's very similar to existing transport '10025', but without option `no_address_mappings`.
+Port 10025 is used __BEFORE__ content filter, but 10028 is used __AFTER__
+content filter.
+
+* Restart both postfix and amavisd services.
 
 ## OpenLDAP special
 
