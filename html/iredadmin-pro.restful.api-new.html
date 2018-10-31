@@ -1402,6 +1402,37 @@ to be a domain admin.</p>
 </tr>
 </tbody>
 </table>
+<p>Parameters used to add subscribers:</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Sample Usage</th>
+<th>Default Value</th>
+<th>Comment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>subscribers</code></td>
+<td><code>subscribers=&lt;mail1&gt;,&lt;mail2&gt;,&lt;mail3&gt;,...</code></td>
+<td></td>
+<td>Subscribe users to mailing list. Multiple subscribers must be separated by comma.</td>
+</tr>
+<tr>
+<td><code>require_confirm</code></td>
+<td><code>require_confirm=no</code></td>
+<td><code>yes</code></td>
+<td>Send email to subscribers and let subscribers confirm the subscription.</td>
+</tr>
+<tr>
+<td><code>subscription</code></td>
+<td><code>subscription=normal</code></td>
+<td><code>normal</code></td>
+<td>Subscribe to different subscription. Valid values are: <code>normal</code>, <code>digest</code>, <code>nomail</code>.</td>
+</tr>
+</tbody>
+</table>
 </div>
 
 </div>
@@ -1651,6 +1682,56 @@ to be a domain admin.</p>
 <td><code>footer_text=&lt;p&gt;footer in html&lt;/p&gt;</code></td>
 <td></td>
 <td>Append footer (in html format) to every email sent to the list.</td>
+</tr>
+</tbody>
+</table>
+<p>Parameters used to add subscribers:</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Sample Usage</th>
+<th>Default Value</th>
+<th>Comment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>add_subscribers</code></td>
+<td><code>add_subscribers=&lt;mail1&gt;,&lt;mail2&gt;,&lt;mail3&gt;,...</code></td>
+<td></td>
+<td>Subscribe users to mailing list. Multiple subscribers must be separated by comma.</td>
+</tr>
+<tr>
+<td><code>require_confirm</code></td>
+<td><code>require_confirm=no</code></td>
+<td><code>yes</code></td>
+<td>Send email to subscribers and let subscribers confirm the subscription.</td>
+</tr>
+<tr>
+<td><code>subscription</code></td>
+<td><code>subscription=normal</code></td>
+<td><code>normal</code></td>
+<td>Subscribe to different subscription. Valid values are: <code>normal</code>, <code>digest</code>, <code>nomail</code>.</td>
+</tr>
+</tbody>
+</table>
+<p>Parameters used to remove subscribers:</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Sample Usage</th>
+<th>Default Value</th>
+<th>Comment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>remove_subscribers</code></td>
+<td><code>remove_subscribers=&lt;mail1&gt;,&lt;mail2&gt;,&lt;mail3&gt;,...</code></td>
+<td></td>
+<td>Remove existing subscribers from mailing list. Multiple subscribers must be separated by comma.</td>
 </tr>
 </tbody>
 </table>
