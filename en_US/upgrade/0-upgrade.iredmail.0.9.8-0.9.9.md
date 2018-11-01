@@ -8,13 +8,11 @@
     check [the details](https://www.iredmail.org/support.html) and
     [contact us](https://www.iredmail.org/contact.html).
 
-## TODO
-
-* Fix `mlmmj-amime-receive` and upgrade mlmmjadmin.
-
 ## ChangeLog
 
-## General (All backends should apply these steps)
+* Nov 2, 2018, initial release.
+
+## General (All backends should apply these changes)
 
 ### Update `/etc/iredmail-release` with new iRedMail version number
 
@@ -60,15 +58,6 @@ latest stable release immediately:
 
 * [How to upgrade Roundcube](https://github.com/roundcube/roundcubemail/wiki/Upgrade).
 
-### Fix incorrect file owner/group of mlmmjadmin config file
-
-Please run commands below to fix incorrect file owner/group and permission:
-
-```
-chown mlmmj:mlmmj /opt/mlmmjadmin/settings.py
-chmod 0400 /opt/mlmmjadmin/settings.py
-```
-
 ### Fix improper Nginx config files for Roundcube
 
 Accurate Nginx url match helps avoid namespace conflicts, we need some fixes
@@ -112,6 +101,40 @@ location ~ ^/(bin|config|installer|logs|SQL|temp|vendor)/.* { deny all; }
 location ~ ^/(CHANGELOG|composer.json|INSTALL|jsdeps.json|LICENSE|README|UPGRADING)$ { deny all; }
 location ~ ^/plugins/.*/config.inc.php.* { deny all; }
 location ~ ^/plugins/enigma/home($|/.*) { deny all; }
+```
+
+### Improve mlmmj script used for appending footer text
+
+Run commands below to create file `/usr/bin/mlmmj-amime-receive` (Linux) or
+`/usr/local/bin/mlmmj-amime-receive` (FreeBSD/OpenBSD):
+
+On Linux:
+
+```
+cd /usr/bin/
+rm -f mlmmj-amime-receive
+wget https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/samples/mlmmj/mlmmj-amime-receive
+chown mlmmj:mlmmj mlmmj-amime-receive
+chmod 0550 mlmmj-amime-receive
+```
+
+On FreeBSD or OpenBSD:
+
+```
+cd /usr/local/bin/
+rm -f mlmmj-amime-receive
+wget https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/samples/mlmmj/mlmmj-amime-receive
+chown mlmmj:mlmmj mlmmj-amime-receive
+chmod 0550 mlmmj-amime-receive
+```
+
+### Fix incorrect file owner/group of mlmmjadmin config file
+
+Please run commands below to fix incorrect file owner/group and permission:
+
+```
+chown mlmmj:mlmmj /opt/mlmmjadmin/settings.py
+chmod 0400 /opt/mlmmjadmin/settings.py
 ```
 
 ### Fix address mapping issue for mlmmj mailing list

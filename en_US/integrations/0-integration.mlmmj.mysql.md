@@ -170,7 +170,7 @@ query       = SELECT maillists.transport FROM maillists,domain WHERE maillists.a
 ```
 
 * Run commands below to create file `/usr/bin/mlmmj-amime-receive` (Linux) or
-  `/usr/local/bin/mlmmj-amime-receive` (Linux/FreeBSD):
+  `/usr/local/bin/mlmmj-amime-receive` (FreeBSD/OpenBSD):
 
 !!! attention
 
@@ -248,14 +248,14 @@ We will setup `mlmmjadmin` program to make managing mailing lists easier.
 
     !!! attention
 
-        We use version `1.8` for example below.
+        We use version `1.9` for example below.
 
 ```
 cd /root/
-wget https://github.com/iredmail/mlmmjadmin/archive/1.8.tar.gz
-tar zxf 1.8.tar.gz -C /opt
-rm -f 1.8.tar.gz
-ln -s /opt/mlmmjadmin-1.8 /opt/mlmmjadmin
+wget https://github.com/iredmail/mlmmjadmin/archive/1.9.tar.gz
+tar zxf 1.9.tar.gz -C /opt
+rm -f 1.9.tar.gz
+ln -s /opt/mlmmjadmin-1.9 /opt/mlmmjadmin
 ```
 
 * Generate config file by copying sample file, `settings.py.sample`:

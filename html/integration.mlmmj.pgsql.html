@@ -192,7 +192,7 @@ query       = SELECT maillists.transport FROM maillists,domain WHERE maillists.a
 
 <ul>
 <li>Run commands below to create file <code>/usr/bin/mlmmj-amime-receive</code> (Linux) or
-  <code>/usr/local/bin/mlmmj-amime-receive</code> (Linux/FreeBSD):</li>
+  <code>/usr/local/bin/mlmmj-amime-receive</code> (FreeBSD/OpenBSD):</li>
 </ul>
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>
@@ -264,15 +264,15 @@ fully integrated.</p>
   extract downloaded package to <code>/opt/</code> directory, and create a symbol link:</p>
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>
-<p>We use version <code>1.8</code> for example below.</p>
+<p>We use version <code>1.9</code> for example below.</p>
 </div>
 </li>
 </ul>
 <pre><code>cd /root/
-wget https://github.com/iredmail/mlmmjadmin/archive/1.8.tar.gz
-tar zxf 1.8.tar.gz -C /opt
-rm -f 1.8.tar.gz
-ln -s /opt/mlmmjadmin-1.8 /opt/mlmmjadmin
+wget https://github.com/iredmail/mlmmjadmin/archive/1.9.tar.gz
+tar zxf 1.9.tar.gz -C /opt
+rm -f 1.9.tar.gz
+ln -s /opt/mlmmjadmin-1.9 /opt/mlmmjadmin
 </code></pre>
 
 <ul>
