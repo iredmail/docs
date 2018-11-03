@@ -311,6 +311,7 @@ Notes:
     `quota` | Mailbox quota (in MB) | `quota=1024`
     `mailboxFormat` | Mailbox format. e.g. `maildir`, `mdbox`. Defaults to `maildir` if not present. For more details, please read Dovecot document: <https://wiki2.dovecot.org/MailboxFormat>. __WARNING__: Changing mailbox format does not migrate the mailbox on file system automatically, you have to migrate it manually. New email will be stored in new mailbox format immediately. | `mailboxFormat=mdbox`
     `mailboxFolder` | Mailbox folder name (case sensitive) which will be appended to user's home path. Defaults to `Maildir`. It's useful if you need to migrate to different mailbox folder. __WARNING__: New email will be stored in new mailbox folder immediately. | `mailboxFolder=Maildir`
+    `maildir` | Absolute path of the mailbox. All characters will be converted to lower cases. | `maildir=/var/vmail/vmail1/example.com/username`
 
     </div>
 
@@ -342,6 +343,7 @@ Notes:
     `removeService` | Add new per-user enabled mail service(s). Multiple values must be separated by comma. Conflicts with parameter `services`. See additional notes below. | `removeService=forward,senderbcc`
     `mailboxFormat` | Mailbox format. e.g. `maildir`, `mdbox`. Defaults to `maildir` if not present. For more details, please read Dovecot document: <https://wiki2.dovecot.org/MailboxFormat>. __WARNING__: Changing mailbox format does not migrate the mailbox on file system automatically, you have to migrate it manually. New email will be stored in new mailbox format immediately. | `mailboxFormat=mdbox`
     `mailboxFolder` | Mailbox folder name (case sensitive) which will be appended to user's home path. Defaults to `Maildir`. It's useful if you need to migrate to different mailbox folder. __WARNING__: New email will be stored in new mailbox folder immediately. | `mailboxFolder=Maildir`
+    `maildir` | Absolute path of the mailbox. All characters will be converted to lower cases. | `maildir=/var/vmail/vmail1/example.com/username`
 
     !!! attention
     

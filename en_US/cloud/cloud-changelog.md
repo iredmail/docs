@@ -1,6 +1,6 @@
 # Release Notes of iRedMail Cloud Platform
 
-## Changes in upcoming release (20181201)
+## Upcoming release (20181201)
 
 * Add rc script and firewall rule for ipv6 on Debian/Ubuntu:
     - /etc/init.d/ip6tables
