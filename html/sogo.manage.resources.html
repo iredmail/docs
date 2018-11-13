@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>SOGo: Manage resources (Free/Busy)</title>
+        <link rel="stylesheet" type="text/css" href="./css/markdown.css" />
+    </head>
+    <body>
+    
+    <div id="navigation">
+    <a href="https://www.iredmail.org" target="_blank">
+        <img alt="iRedMail web site"
+             src="./images/logo-iredmail.png"
+             style="vertical-align: middle; height: 30px;"
+             />&nbsp;
+        <span>iRedMail</span>
+    </a>
+    &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><h1 id="sogo-manage-resources-freebusy">SOGo: Manage resources (Free/Busy)</h1>
+<blockquote>
+<p>This tutorial is a slight rewritten of SOGo wiki tutorial for iRedMail:
+<a href="http://wiki.sogo.nu/ResourceConfiguration">Use Resources with SOGo</a>.</p>
+</blockquote>
+<div class="toc">
+<ul>
+<li><a href="#sogo-manage-resources-freebusy">SOGo: Manage resources (Free/Busy)</a><ul>
+<li><a href="#openldap-backend">OpenLDAP backend</a><ul>
+<li><a href="#add-missing-ldap-schema-files">Add missing LDAP schema files</a></li>
+<li><a href="#add-missing-settings-in-sogo-config-file">Add missing settings in SOGo config file</a></li>
+<li><a href="#testing">Testing</a></li>
+</ul>
+</li>
+<li><a href="#references">References</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<p>SOGo supports the management of resources like meeting rooms. A resource has,
+just like a person, a calendar, an email address and may be invited to events.
+The big difference is that resources auto accept invitations.</p>
+<p>When you mark a mail user as a meeting room resource, SOGo will display its
+Free/Busy info when you invite this user in a calendar event.</p>
+<h2 id="openldap-backend">OpenLDAP backend</h2>
+<h3 id="add-missing-ldap-schema-files">Add missing LDAP schema files</h3>
+<p>We need 2 new LDAP schema files, you can click links below to download them:</p>
+<ul>
+<li><a href="./files/sogo/calresource.schema">calresource</a>. It's defined in
+  <a href="https://tools.ietf.org/id/draft-cal-resource-schema-03.txt">IETF draft</a>
+  (not final yet). Contributed by Martin Lehman on the
+  <a href="https://www.mail-archive.com/users@sogo.nu/msg05186.html">SOGo mailing list</a>
+  (in 29 April 2011).</li>
+<li><a href="./files/sogo/calentry.schema">calentry</a>, defined in RFC 2739.</li>
+</ul>
+<p>Upload downloaded schema files to iRedMail server which runs OpenLDAP backend,
+copy them to default schema directory:</p>
+<ul>
+<li>On RHEL/CentOS, it's <code>/etc/openldap/schema/</code></li>
+<li>On Debian/Ubuntu, it's <code>/etc/ldap/schema/</code></li>
+<li>On FreeBSD, it's <code>/usr/local/etc/openldap/schema/</code></li>
+<li>On OpenBSD, it's <code>/etc/openldap/schema/</code></li>
+</ul>
+<p>Edit OpenLDAP config file <code>slapd.conf</code> with your favourite text editor, add 2
+new <code>include</code> directives right after the <code>iredmail.schema</code> line like
+below:</p>
+<ul>
+<li>On RHEL/CentOS, it's <code>/etc/openldap/slapd.conf</code></li>
+<li>On Debian/Ubuntu, it's <code>/etc/ldap/slapd.conf</code></li>
+<li>On FreeBSD, it's <code>/usr/local/etc/openldap/slapd.conf</code></li>
+<li>On OpenBSD, it's <code>/etc/openldap/slapd.conf</code></li>
+</ul>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>Please make sure you're using the correct schema directory.</p>
+</div>
+<pre><code># this line already exists
+include /etc/openldap/schema/iredmail.schema
+
+# Add below 2 new lines
+include /etc/openldap/schema/calresource.schema
+include /etc/openldap/schema/calentry.schema
+</code></pre>
+
+<p>Since we don't use any new ldap attribute names in LDAP query filter, no index
+required for new attribute names.</p>
+<p>Now restart OpenLDAP service.</p>
+<h3 id="add-missing-settings-in-sogo-config-file">Add missing settings in SOGo config file</h3>
+<p>SOGo needs 2 parameters to understand which LDAP attributes it should query
+to understand the resources:</p>
+<ul>
+<li>
+<p><code>KindFieldName</code>: specify the LDAP attribute name which stores resource type.</p>
+<p>SOGo will try to determine if the value of the field corresponds to either
+"group", "location" or "thing". If that’s the case, SOGo will consider the
+returned entry to be a resource.</p>
+</li>
+<li>
+<p><code>MultipleBookingsFieldName</code>: specify the LDAP attribute name ewhich stores
+  multiple booking type.</p>
+<p>The value of this LDAP attribute is the maximum number of concurrent events
+to which a resource can be part of at any point in time.</p>
+<ul>
+<li>If this is set to <strong>0</strong>, or if the attribute is <strong>missing</strong>, it means no limit.</li>
+<li>If set to <strong>-1</strong>, no limit is imposed but the resource will be marked as
+  busy the first time it is booked.</li>
+</ul>
+</li>
+</ul>
+<p>Edit SOGo config file <code>sogo.conf</code>, add these 2 new parameters in the global
+address book section like below:</p>
+<ul>
+<li>On RHEL/CentOS, it's <code>/etc/sogo/sogo.conf</code></li>
+<li>On Debian/Ubuntu, it's <code>/etc/sogo/sogo.conf</code></li>
+<li>On FreeBSD, it's <code>/usr/local/etc/sogo/sogo.conf</code></li>
+<li>On OpenBSD, it's <code>/etc/sogo/sogo.conf</code></li>
+</ul>
+<pre><code>    SOGoUserSources = (
+        ...
+        {
+            // Used for global address book
+            type = ldap;
+            id = global_addressbook;
+            ...
+
+            // Add below 2 lines
+            KindFieldName = &quot;Kind&quot;;
+            MultipleBookingsFieldName = &quot;MultipleBookings&quot;;
+        }
+        ...
+</code></pre>
+
+<p>Now restart SOGo service.</p>
+<h3 id="testing">Testing</h3>
+<p>We use mail domain name <code>example.com</code> for example below, you need to replace it
+by your real domain name during testing.</p>
+<ul>
+<li>Create a testing mail user with iRedAdmin. for example, user <code>meetingroom@example.com</code>.</li>
+<li>Install package <code>ldapvi</code> on iRedMail server, then run command <code>ldapvi</code> like this:</li>
+</ul>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<ul>
+<li><code>ldapvi</code> is like vi/vim text editor for editing LDIF data directly.</li>
+<li>You need to replace <code>dc=xx,dc=xx</code> by the real LDAP suffix.</li>
+<li>It will ask you to input password of <code>cn=manager,dc=xx,dc=xx</code>.</li>
+</ul>
+</div>
+<pre><code>ldapvi -D 'cn=manager,dc=xx,dc=xx' -b 'o=domains,dc=xx,dc=xx' -W &quot;mail=meetingroom@example.com&quot;
+</code></pre>
+
+<p>In the ldapvi editor, you should see full LDIF data of user
+<code>meetingroom@example.com</code>. Please append few lines for this user:</p>
+<pre><code>objectClass: CalendarResource
+objectClass: calEntry
+Kind: location
+MultipleBookings: 1
+</code></pre>
+
+<p>Save your change and quit ldapvi (just like quitting vi/vim text editor).</p>
+<ul>
+<li>
+<p>Login to SOGo webmail as <code>meetingroom@example.com</code>, then click the <code>Calendar</code>
+  icon on top-right corner.</p>
+</li>
+<li>
+<p>Click the three-dot icon beside <code>Personal Calendar</code>, and choose <code>Sharing...</code>.</p>
+</li>
+<li>In the popup modal window, click <code>Any Authenticated User</code>, set values of
+  options <code>Public</code>, <code>Confidential</code> and <code>Private</code> to <code>View the Date &amp; Time</code>.
+  Save your changes.</li>
+</ul>
+<p><img alt="" src="./images/sogo/resources/access-rights.png" width="600px" /></p>
+<ul>
+<li>Now logout of SOGo webmail, re-login as a different user under same domain.</li>
+<li>Create a new testing event, invite <code>meetingroom@example.com</code> as attendee.</li>
+<li>Create second testing event in same day as first event, invite
+  <code>meetingroom@example.com</code> as attendee, this time SOGo will indicate
+  <code>meetingroom@example.com</code> is busy in the time window of first event.</li>
+</ul>
+<p><img alt="" src="./images/sogo/resources/free-busy.png" width="600px" /></p>
+<h2 id="references">References</h2>
+<ul>
+<li><a href="http://wiki.sogo.nu/ResourceConfiguration">Use Resources with SOGo</a></li>
+</ul><div class="footer">
+    <p style="text-align: center; color: grey;">All documents are available in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://bitbucket.org/zhb/iredmail-docs/get/tip.tar.bz2">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
+</div>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-3293801-21"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-3293801-21');
+</script>
+</body></html>
