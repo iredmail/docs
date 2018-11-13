@@ -55,9 +55,10 @@ below:
 # this line already exists
 include /etc/openldap/schema/iredmail.schema
 
-# Add below 2 new lines
-include /etc/openldap/schema/calresource.schema
+# Add below 2 new lines.
+# WARNING: calentry.schema must be loaded before calresource.schema.
 include /etc/openldap/schema/calentry.schema
+include /etc/openldap/schema/calresource.schema
 ```
 
 Since we don't use any new ldap attribute names in LDAP query filter, no index
