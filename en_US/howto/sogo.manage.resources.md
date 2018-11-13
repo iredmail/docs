@@ -12,6 +12,10 @@ The big difference is that resources auto accept invitations.
 When you mark a mail user as a meeting room resource, SOGo will display its
 Free/Busy info when you invite this user in a calendar event.
 
+## Requirements
+
+This document has been tested with iRedMail-0.9.8 and SOGo-4.0.x, but it should
+work fine with any iRedMail releases and SOGo v2/v3/v4.
 
 ## OpenLDAP backend
 
