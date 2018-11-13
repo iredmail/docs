@@ -1,9 +1,9 @@
 # SOGo: Manage resources (Free/Busy)
 
+[TOC]
+
 > This tutorial is a slight rewritten of SOGo wiki tutorial for iRedMail:
 > [Use Resources with SOGo](http://wiki.sogo.nu/ResourceConfiguration).
-
-[TOC]
 
 SOGo supports the management of resources like meeting rooms. A resource has,
 just like a person, a calendar, an email address and may be invited to events.
