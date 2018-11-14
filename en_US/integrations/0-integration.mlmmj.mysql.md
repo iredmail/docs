@@ -523,9 +523,15 @@ lists. You can find this script under directory `/opt/mlmmjadmin/tools/`.
 
 ## References
 
-* iRedMail: <http://www.iredmail.org>
-* Mlmmj: <http://mlmmj.org/>
-    * Tunable parameters: <http://mlmmj.org/docs/tunables/>
-    * Postfix integration: <http://mlmmj.org/docs/readme-postfix/>
-* mlmmjadmin: RESTful API server used to manage mlmmj mailing lists. Developed
-  and maintained by iRedMail team. <https://github.com/iredmail/mlmmjadmin>
+* Mlmmj:
+    * [web site](http://mlmmj.org/)
+    * [Tunable parameters](http://mlmmj.org/docs/tunables/)
+    * [Postfix integration](http://mlmmj.org/docs/readme-postfix/)
+* [mlmmjadmin](https://github.com/iredmail/mlmmjadmin): RESTful API server used to manage mlmmj mailing lists. Developed
+  and maintained by iRedMail team.
+
+## See Also
+
+* [Integrate mlmmj mailing list manager in iRedMail (OpenLDAP backend)](./integration.mlmmj.ldap.html)
+* [Integrate mlmmj mailing list manager in iRedMail (MySQL/MariaDB backends)](./integration.mlmmj.mysql.html)
+* [Integrate mlmmj mailing list manager in iRedMail (PostgreSQL backend)](./integration.mlmmj.pgsql.html)
