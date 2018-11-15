@@ -88,7 +88,7 @@ include /etc/openldap/schema/calresource.schema
 required for new attribute names.</p>
 <p>Now restart OpenLDAP service.</p>
 <h3 id="add-missing-settings-in-sogo-config-file">Add missing settings in SOGo config file</h3>
-<p>SOGo needs 2 parameters to understand which LDAP attributes it should query
+<p>SOGo needs 2 parameters to understand which LDAP attributes it should check
 to understand the resources:</p>
 <ul>
 <li>
@@ -98,7 +98,7 @@ to understand the resources:</p>
 returned entry to be a resource.</p>
 </li>
 <li>
-<p><code>MultipleBookingsFieldName</code>: specify the LDAP attribute name ewhich stores
+<p><code>MultipleBookingsFieldName</code>: specify the LDAP attribute name which stores
   multiple booking type.</p>
 <p>The value of this LDAP attribute is the maximum number of concurrent events
 to which a resource can be part of at any point in time.</p>
@@ -161,18 +161,23 @@ MultipleBookings: 1
 
 <p>Save your change and quit ldapvi (just like quitting vi/vim text editor).</p>
 <ul>
-<li>
-<p>Login to SOGo webmail as <code>meetingroom@example.com</code>, then click the <code>Calendar</code>
-  icon on top-right corner.</p>
-</li>
-<li>
-<p>Click the three-dot icon beside <code>Personal Calendar</code>, and choose <code>Sharing...</code>.</p>
-</li>
+<li>Login to SOGo webmail as <code>meetingroom@example.com</code>, then click the <code>Calendar</code>
+  icon on top-right corner.</li>
+<li>Click the three-dot icon beside <code>Personal Calendar</code>, and choose <code>Sharing...</code>.</li>
 <li>In the popup modal window, click <code>Any Authenticated User</code>, set values of
   options <code>Public</code>, <code>Confidential</code> and <code>Private</code> to <code>View the Date &amp; Time</code>.
   Save your changes.</li>
 </ul>
 <p><img alt="" src="./images/sogo/resources/access-rights.png" width="600px" /></p>
+<p>Tip: If you don't want to set the access rights from web UI, you can run
+command below instead:</p>
+<pre><code>sogo-tool manage-acl \
+    add meetingroom@example.com \
+    'Calendar/personal' \
+    '&lt;default&gt;' \
+    '[&quot;PublicDAndTViewer&quot;, &quot;ConfidentialDAndTViewer&quot;, &quot;PrivateDAndTViewer&quot;]'
+</code></pre>
+
 <ul>
 <li>Now logout of SOGo webmail, re-login as a different user under same domain.</li>
 <li>Create a new testing event, invite <code>meetingroom@example.com</code> as attendee.</li>

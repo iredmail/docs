@@ -68,7 +68,7 @@ Now restart OpenLDAP service.
 
 ### Add missing settings in SOGo config file
 
-SOGo needs 2 parameters to understand which LDAP attributes it should query
+SOGo needs 2 parameters to understand which LDAP attributes it should check
 to understand the resources:
 
 * `KindFieldName`: specify the LDAP attribute name which stores resource type.
@@ -77,7 +77,7 @@ to understand the resources:
     "group", "location" or "thing". If that’s the case, SOGo will consider the
     returned entry to be a resource.
 
-* `MultipleBookingsFieldName`: specify the LDAP attribute name ewhich stores
+* `MultipleBookingsFieldName`: specify the LDAP attribute name which stores
   multiple booking type.
 
     The value of this LDAP attribute is the maximum number of concurrent events
@@ -145,13 +145,23 @@ Save your change and quit ldapvi (just like quitting vi/vim text editor).
 
 * Login to SOGo webmail as `meetingroom@example.com`, then click the `Calendar`
   icon on top-right corner.
-
 * Click the three-dot icon beside `Personal Calendar`, and choose `Sharing...`.
 * In the popup modal window, click `Any Authenticated User`, set values of
   options `Public`, `Confidential` and `Private` to `View the Date & Time`.
   Save your changes.
 
 ![](./images/sogo/resources/access-rights.png){: width=600px }
+
+Tip: If you don't want to set the access rights from web UI, you can run
+command below instead:
+
+```
+sogo-tool manage-acl \
+    add meetingroom@example.com \
+    'Calendar/personal' \
+    '<default>' \
+    '["PublicDAndTViewer", "ConfidentialDAndTViewer", "PrivateDAndTViewer"]'
+```
 
 * Now logout of SOGo webmail, re-login as a different user under same domain.
 * Create a new testing event, invite `meetingroom@example.com` as attendee.
