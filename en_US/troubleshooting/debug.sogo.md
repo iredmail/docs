@@ -16,3 +16,6 @@ options, like below:
 
 Please uncomment the one you need, then restart SOGo service. You can find
 debug log in its log file `/var/log/sogo/sogo.log`.
+
+If you need source code level debugging, please read this tutorial instead:
+[How do I debug SOGo?](https://sogo.nu/support/faq/how-do-i-debug-sogo.html).
