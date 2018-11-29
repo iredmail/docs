@@ -4,7 +4,7 @@
 
 !!! attention
 
-    * This tutorial is tested on CentOS 7, Debian 9, Ubuntu 16.04.
+    * This tutorial has been tested on CentOS 7, Debian 9, Ubuntu 16.04/18.04.
       For FreeBSD, please check this tutorial instead:
       [Integrate netdata on FreeBSD](./integration.netdata.freebsd.html).
     * netdata is an optional component since iRedMail-0.9.8.
@@ -104,6 +104,76 @@ files don't need your attention at all, including:
 * ...
 
 But some applications do require extra settings, we will cover them below.
+
+### Monitor OpenLDAP
+
+OpenLDAP supports an optional monitoring interface you can use to obtain
+information regarding the current state of your OpenLDAP server. For instance,
+the interface allows you to determine how many clients are connected to the
+server currently. The monitoring information is provided by a specialized
+backend, the `monitor` backend. A manual page, `slapd-monitor(5)` is available.
+
+netdata-1.11.1 (released on 23 Nov 2018) supports monitoring OpenLDAP through
+its `monitor` backend.
+
+To enable `monitor` backend in OpenLDAP, please append lines below in
+`slapd.conf`:
+
+* on RHEL/CentOS, it's `/etc/openldap/slapd.conf`
+* on Debian/Ubuntu, it's `/etc/ldap/slapd.conf`
+
+!!! attention
+
+    You must replace `dc=example,dc=com` by the real LDAP suffix that you use.
+
+```
+database monitor
+access to dn="cn=monitor"
+    by dn.exact="cn=Manager,dc=example,dc=com" read
+    by dn.exact="cn=vmail,dc=example,dc=com" read
+    by * none
+```
+
+It enables OpenLDAP backend `monitor`, also grant `read` access to dn
+`cn=Manager,dc=example,dc=com` and `cn=vmail,dc=example,dc=com`. Again, you
+must replace `dc=example,dc=com` by the real LDAP suffix that you use.
+
+On Debian/Ubuntu, please also find lines in `slapd.conf` like below:
+
+```
+modulepath /usr/lib/ldap
+moduleload back_mdb
+```
+
+Append a new `moduleload` directive right after `moduleload back_mdb` like
+below:
+
+```
+moduleload back_monitor
+```
+
+Now restart OpenLDAP service.
+
+Create file `/opt/netdata/etc/netdata/python.d/openldap.conf` with content below:
+
+!!! attention
+
+    * You must replace `dc=example,dc=com` by the real LDAP suffix that you use.
+    * You must replace `<password-of-vmail>` by the real password of
+      `cn=vmail`. You can find it in files under `/etc/postfix/ldap/`.
+
+```
+update_every: 5
+
+local:
+    username : "cn=vmail,dc=example,dc=com"
+    password : "<password-of-vmail>"
+    server   : "localhost"
+    port     : 389
+    timeout  : 1
+```
+
+Now restart netdata service.
 
 ### Monitor Nginx and php-fpm
 
@@ -373,8 +443,8 @@ This is what you see after successfully logged in:
 
 ## Update netdata
 
-To update netdata, just download new version of the prebuilt package, then run
-it:
+To update netdata, just download new version of the prebuilt package from its
+[github page](https://github.com/netdata/netdata/releases), then run it:
 
 ```
 chmod +x netdata-latest.gz.run
@@ -382,3 +452,7 @@ chmod +x netdata-latest.gz.run
 ```
 
 That's it.
+
+## See Also
+
+* [Integrate netdata monitor (on FreeBSD server)](./integration.netdata.freebsd.html)

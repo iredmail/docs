@@ -66,6 +66,73 @@ files don't need your attention at all, including:
 
 But some applications do require extra settings, we will cover them below.
 
+### Monitor OpenLDAP
+
+OpenLDAP supports an optional monitoring interface you can use to obtain
+information regarding the current state of your OpenLDAP server. For instance,
+the interface allows you to determine how many clients are connected to the
+server currently. The monitoring information is provided by a specialized
+backend, the `monitor` backend. A manual page, `slapd-monitor(5)` is available.
+
+netdata-1.11.1 (released on 23 Nov 2018) supports monitoring OpenLDAP through
+its `monitor` backend.
+
+To enable `monitor` backend in OpenLDAP, please append lines below in
+`/usr/local/etc/openldap/slapd.conf`:
+
+!!! attention
+
+    You must replace `dc=example,dc=com` by the real LDAP suffix that you use.
+
+```
+database monitor
+access to dn="cn=monitor"
+    by dn.exact="cn=Manager,dc=example,dc=com" read
+    by dn.exact="cn=vmail,dc=example,dc=com" read
+    by * none
+```
+
+It enables OpenLDAP backend `monitor`, also grant `read` access to dn
+`cn=Manager,dc=example,dc=com` and `cn=vmail,dc=example,dc=com`. Again, you
+must replace `dc=example,dc=com` by the real LDAP suffix that you use.
+
+Also find lines in `slapd.conf` like below:
+
+```
+modulepath /usr/local/libexec/openldap
+moduleload back_mdb
+```
+
+Append a new `moduleload` directive right after `moduleload back_mdb` like
+below:
+
+```
+moduleload back_monitor
+```
+
+Now restart OpenLDAP service.
+
+Create file `/usr/local/etc/netdata/python.d/openldap.conf` with content below:
+
+!!! attention
+
+    * You must replace `dc=example,dc=com` by the real LDAP suffix that you use.
+    * You must replace `<password-of-vmail>` by the real password of
+      `cn=vmail`. You can find it in files under `/usr/local/etc/postfix/ldap/`.
+
+```
+update_every: 5
+
+local:
+    username : "cn=vmail,dc=example,dc=com"
+    password : "<password-of-vmail>"
+    server   : "localhost"
+    port     : 389
+    timeout  : 1
+```
+
+Now restart netdata service.
+
 ### Monitor Nginx and php-fpm
 
 We need to enable `stub_status` in Nginx to get detailed server info, also
@@ -299,3 +366,7 @@ in file `/usr/local/etc/nginx/netdata.users` to login.
 This is what you see after successfully logged in:
 
 ![](./images/netdata/system-overview.png){: width="900px" }
+
+## See Also
+
+* [Integrate netdata monitor (on Linux server)](./integration.netdata.linux.html)

@@ -29,7 +29,7 @@ so that you can know which version of iRedMail you're running. For example:
 Please follow below tutorial to upgrade iRedAPD to the latest stable release:
 [Upgrade iRedAPD to the latest stable release](./upgrade.iredapd.html)
 
-### Upgrade iRedAdmin (open source edition) to the latest stable release (1.0)
+### Upgrade iRedAdmin (open source edition) to the latest stable release (0.9.2)
 
 Please follow this tutorial to upgrade iRedAdmin open source edition to the
 latest stable release:
@@ -300,6 +300,19 @@ string `maildir` as default value.
 
 For more details about changing mailbox format, please check our tutorial:
 [Change mailbox format](./change.mailbox.format.html).
+
+### [OPTIONAL] Monitoring OpenLDAP with netdata
+
+netdata-1.11.1 (released on 23 Nov 2018) supports monitoring OpenLDAP through its `monitor` backend.
+Please follow this tutorial to upgrade netdata and configure both OpenLDAP and netdata for monitoring.
+
+* On Linux:
+    * [Upgrade netdata](./integration.netdata.linux.html#update-netdata)
+    * [Monitor OpenLDAP](./integration.netdata.linux.html#monitor-openldap)
+* On FreeBSD:
+    * Please update netdata with ports tree first, make sure you're running
+      netdata-1.11.1 or later release.?
+    * [Monitor OpenLDAP](./integration.netdata.freebsd.html#monitor-openldap)
 
 ## MySQL/MariaDB special
 

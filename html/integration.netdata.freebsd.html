@@ -22,6 +22,7 @@
 <li><a href="#whats-netdata">What's netdata</a></li>
 <li><a href="#install-netdata">Install netdata</a></li>
 <li><a href="#configure-netdata">Configure netdata</a><ul>
+<li><a href="#monitor-openldap">Monitor OpenLDAP</a></li>
 <li><a href="#monitor-nginx-and-php-fpm">Monitor Nginx and php-fpm</a></li>
 <li><a href="#monitor-dovecot">Monitor Dovecot</a></li>
 <li><a href="#monitor-mysqlmariadb-server">Monitor MySQL/MariaDB server</a></li>
@@ -29,6 +30,7 @@
 </ul>
 </li>
 <li><a href="#configure-nginx-to-forward-requests-to-netdata">Configure Nginx to forward requests to netdata</a></li>
+<li><a href="#see-also">See Also</a></li>
 </ul>
 </li>
 </ul>
@@ -91,6 +93,61 @@ files don't need your attention at all, including:</p>
 <li>...</li>
 </ul>
 <p>But some applications do require extra settings, we will cover them below.</p>
+<h3 id="monitor-openldap">Monitor OpenLDAP</h3>
+<p>OpenLDAP supports an optional monitoring interface you can use to obtain
+information regarding the current state of your OpenLDAP server. For instance,
+the interface allows you to determine how many clients are connected to the
+server currently. The monitoring information is provided by a specialized
+backend, the <code>monitor</code> backend. A manual page, <code>slapd-monitor(5)</code> is available.</p>
+<p>netdata-1.11.1 (released on 23 Nov 2018) supports monitoring OpenLDAP through
+its <code>monitor</code> backend.</p>
+<p>To enable <code>monitor</code> backend in OpenLDAP, please append lines below in
+<code>/usr/local/etc/openldap/slapd.conf</code>:</p>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>You must replace <code>dc=example,dc=com</code> by the real LDAP suffix that you use.</p>
+</div>
+<pre><code>database monitor
+access to dn=&quot;cn=monitor&quot;
+    by dn.exact=&quot;cn=Manager,dc=example,dc=com&quot; read
+    by dn.exact=&quot;cn=vmail,dc=example,dc=com&quot; read
+    by * none
+</code></pre>
+
+<p>It enables OpenLDAP backend <code>monitor</code>, also grant <code>read</code> access to dn
+<code>cn=Manager,dc=example,dc=com</code> and <code>cn=vmail,dc=example,dc=com</code>. Again, you
+must replace <code>dc=example,dc=com</code> by the real LDAP suffix that you use.</p>
+<p>Also find lines in <code>slapd.conf</code> like below:</p>
+<pre><code>modulepath /usr/local/libexec/openldap
+moduleload back_mdb
+</code></pre>
+
+<p>Append a new <code>moduleload</code> directive right after <code>moduleload back_mdb</code> like
+below:</p>
+<pre><code>moduleload back_monitor
+</code></pre>
+
+<p>Now restart OpenLDAP service.</p>
+<p>Create file <code>/usr/local/etc/netdata/python.d/openldap.conf</code> with content below:</p>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<ul>
+<li>You must replace <code>dc=example,dc=com</code> by the real LDAP suffix that you use.</li>
+<li>You must replace <code>&lt;password-of-vmail&gt;</code> by the real password of
+  <code>cn=vmail</code>. You can find it in files under <code>/usr/local/etc/postfix/ldap/</code>.</li>
+</ul>
+</div>
+<pre><code>update_every: 5
+
+local:
+    username : &quot;cn=vmail,dc=example,dc=com&quot;
+    password : &quot;&lt;password-of-vmail&gt;&quot;
+    server   : &quot;localhost&quot;
+    port     : 389
+    timeout  : 1
+</code></pre>
+
+<p>Now restart netdata service.</p>
 <h3 id="monitor-nginx-and-php-fpm">Monitor Nginx and php-fpm</h3>
 <p>We need to enable <code>stub_status</code> in Nginx to get detailed server info, also
 update php-fpm config file to enable similar feature.</p>
@@ -322,7 +379,11 @@ replace <code>your-server</code> by the real domain name), it will ask you to in
 username and password for authentication, please use the account we just added
 in file <code>/usr/local/etc/nginx/netdata.users</code> to login.</p>
 <p>This is what you see after successfully logged in:</p>
-<p><img alt="" src="./images/netdata/system-overview.png" width="900px" /></p><div class="footer">
+<p><img alt="" src="./images/netdata/system-overview.png" width="900px" /></p>
+<h2 id="see-also">See Also</h2>
+<ul>
+<li><a href="./integration.netdata.linux.html">Integrate netdata monitor (on Linux server)</a></li>
+</ul><div class="footer">
     <p style="text-align: center; color: grey;">All documents are available in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://bitbucket.org/zhb/iredmail-docs/get/tip.tar.bz2">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
 </div>
 <!-- Global site tag (gtag.js) - Google Analytics -->
