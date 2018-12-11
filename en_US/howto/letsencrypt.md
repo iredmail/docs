@@ -3,7 +3,7 @@
 [TOC]
 
 iRedMail generates a self-signed SSL certificate during installation, it's
-strongly recommended to use an valid ssl cert.
+strongly recommended to use a valid ssl cert.
 
 You can either request free cert, or buy one from ssl cert vendors. In this
 tutorial, we will show you how to request a free cert for host name

@@ -9,7 +9,7 @@ normal domain admin permission to create new mail domains. All new domains
 added by normal domain admin require domain ownership verification by deafult,
 to ensure:
 
-* the newly added mail domain name is an valid domain name on internet
+* the newly added mail domain name is a valid domain name on internet
 * the domain admin have the required privileges in the domain to manage the
   email services
 
