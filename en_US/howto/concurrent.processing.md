@@ -1,6 +1,9 @@
 # Process more emails concurrently
 
-__WARNING__: Processing more concurrent emails require more RAM.
+!!! attention
+
+    Processing more emails concurrently require more RAM, please make sure you
+    have enough RAM to handle them.
 
 Amavisd-new is content filter, it invokes SpamAssassin and ClamAV for
 spam/virus scanning, it also offers additional features like DKIM signing and
