@@ -19,7 +19,7 @@ installation guides here: [Install iRedMail](./index.html#install).
 
 !!! warning
 
-    * iRedMail is designed to be deployed on a dedicate server, which means you
+    * iRedMail is designed to be deployed on a dedicated server, which means you
       can not have other network services running on the server __BEFORE__
       iRedMail installation.
     
@@ -102,11 +102,12 @@ Explanation of the form fields (screenshots attached below):
     If you choose option `Generate one for me`, after submitted this form,
     our system will generate a strong (4096 bits) SSH key for you.
 
-* `OS`: Choose the Linux/BSD distribution and release version of your mail server.
-* `Deployment Server`: Please choose one deployment server.
+* `OS`: Choose the Linux/BSD distribution and release version of your mail
+  server.
+* `Deployment Server`: Please choose one deployment server from the list.
 
-    Deployment server connects to your mail server to deploy or upgrade, please
-    choose the nearest one for faster network connection.
+    A deployment server connects to your mail server to deploy or upgrade,
+    please choose the nearest one for faster network connection.
 
     If your mail server sits behind a firewall, please whitelist the IP address
     of selected deployment server.
@@ -122,7 +123,7 @@ Screenshots:
 
 After added mail server, you will be redirected to mail server profile page.
 There're few tabs on the page, let's go through them one by one.
-Screenshot attached below.
+Screenshots attached below.
 
 * Tab (mail server) `Profile`.
 
