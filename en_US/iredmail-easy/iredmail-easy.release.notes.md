@@ -1,4 +1,4 @@
-# Release Notes of __iRedMail Easy__ (Web Deployment Platform)
+# Release Notes
 
 ## Upcoming release (20181201)
 

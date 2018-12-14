@@ -1,4 +1,5 @@
-* Install iRedMail on:
+* [Install iRedMail with __iRedMail Easy__ - the new web deployment platform](./install.iredmail.with.easy.html)
+* Install iRedMail (with downloadable installer) on:
 
     * [Red Hat Enterprise Linux, CentOS](./install.iredmail.on.rhel.html)
     * [Debian, Ubuntu](./install.iredmail.on.debian.ubuntu.html)

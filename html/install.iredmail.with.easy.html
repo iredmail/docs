@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Install iRedMail with iRedMail Easy (web deployment platform)</title>
+        <link rel="stylesheet" type="text/css" href="./css/markdown.css" />
+    </head>
+    <body>
+    
+    <div id="navigation">
+    <a href="https://www.iredmail.org" target="_blank">
+        <img alt="iRedMail web site"
+             src="./images/logo-iredmail.png"
+             style="vertical-align: middle; height: 30px;"
+             />&nbsp;
+        <span>iRedMail</span>
+    </a>
+    &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><h1 id="install-iredmail-with-iredmail-easy-web-deployment-platform">Install iRedMail with iRedMail Easy (web deployment platform)</h1>
+<div class="toc">
+<ul>
+<li><a href="#install-iredmail-with-iredmail-easy-web-deployment-platform">Install iRedMail with iRedMail Easy (web deployment platform)</a><ul>
+<li><a href="#summary">Summary</a></li>
+<li><a href="#system-requirements">System Requirements</a><ul>
+<li><a href="#supported-linux-and-bsd-distribution-releases">Supported Linux and BSD distribution releases</a></li>
+<li><a href="#hardware-requirements">Hardware Requirements</a></li>
+</ul>
+</li>
+<li><a href="#sign-up-and-login">Sign up and login</a></li>
+<li><a href="#add-a-new-mail-server">Add a new mail server</a></li>
+<li><a href="#choose-preferred-backend-and-softwares">Choose preferred backend and softwares</a></li>
+<li><a href="#get-techinical-support-through-the-ticket-system">Get techinical support through the ticket system</a></li>
+<li><a href="#update-account-profile">Update account profile</a></li>
+<li><a href="#see-also">See Also</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<h2 id="summary">Summary</h2>
+<p><strong>iRedMail Easy</strong> is a web-based platform for iRedMail deployment, upgrade, and
+technical support. With this platform, it's easy to deploy and keep the
+iRedMail servers up to date, easy to get the fast and professional technical
+support from iRedMail team.</p>
+<p>We encourage all users to deploy new iRedMail servers with this platform and
+keep the servers up to date.</p>
+<p>If you prefer classic downloadable iRedMail installer, you can find the
+installation guides here: <a href="./index.html#install">Install iRedMail</a>.</p>
+<h2 id="system-requirements">System Requirements</h2>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<ul>
+<li>
+<p>iRedMail is designed to be deployed on a dedicate server, which means you
+  can not have other network services running on the server <strong>BEFORE</strong>
+  iRedMail installation.</p>
+</li>
+<li>
+<p>iRedMail will install and configure all required softwares automatically.</p>
+</li>
+</ul>
+</div>
+<h3 id="supported-linux-and-bsd-distribution-releases">Supported Linux and BSD distribution releases</h3>
+<p>Linux/BSD distribution releases supported by <strong>iRedMail Easy</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Distribution</th>
+<th>Release Versions</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CentOS</td>
+<td>7</td>
+</tr>
+<tr>
+<td>Debian</td>
+<td>9</td>
+</tr>
+<tr>
+<td>Ubuntu</td>
+<td>16.04, 18.04</td>
+</tr>
+<tr>
+<td>OpenBSD</td>
+<td>6.4</td>
+</tr>
+</tbody>
+</table>
+<p>If you need to install iRedMail on FreeBSD, please follow the installation
+guide below:</p>
+<ul>
+<li><a href="./install.iredmail.on.freebsd.html">Install iRedMail on FreeBSD</a></li>
+<li><a href="./install.iredmail.on.freebsd.with.jail.html">Install iRedMail on FreeBSD inside Jail (with ezjail)</a></li>
+</ul>
+<h3 id="hardware-requirements">Hardware Requirements</h3>
+<ul>
+<li>iRedMail requires at least <code>2 GB</code> memory for a low traffic production server.</li>
+<li>If you plan to run SOGo Groupware (which offers webmail, calendar (CalDAV),
+  contacts (CardDAV) and ActiveSync), you need a lot more memory. Consider 16
+  GB memory to support 500 ActiveSync clients.</li>
+</ul>
+<h2 id="sign-up-and-login">Sign up and login</h2>
+<p>To deploy a mail server, you need to sign up and login with a valid email
+address first:</p>
+<ul>
+<li><a href="https://eazy.iredmail.org">Sign Up or Login: https://easy.iredmail.org/</a></li>
+</ul>
+<p>We will send you an email to confirm you're the owner of the email address,
+please click the link in the email to confirm, then login.</p>
+<p>After signed up, you get one-month trial to evaluate this web deployment
+platform, if you don't like or need it, feel free to remove your own account in
+<code>Profile</code> page after login.</p>
+<p>Screenshots of login and sign up web pages:</p>
+<p><img alt="" src="./images/iredmail-easy/installation/login.png" width="350px" />
+<img alt="" src="./images/iredmail-easy/installation/signup.png" width="350px" /></p>
+<h2 id="add-a-new-mail-server">Add a new mail server</h2>
+<p>After login, you will be redirected to the <code>Dashboard</code> page, please click the
+<code>Add a mail server</code> button to add a new mail server.</p>
+<p>Explanation of the form fields (screenshots attached below):</p>
+<ul>
+<li>
+<p><code>Hostname (FQDN)</code>: This is the server hostname you want to set for the mail server.</p>
+<ul>
+<li>It must be a fully qualified domain name (FQDN), for example,
+  <code>mail.example.com</code>, <code>mx.example.com</code>.</li>
+<li>This hostname can <strong>NOT</strong> be used as a virtual mail domain (used in email
+  address like <code>user@example.com</code>) because it's used to accept email sent
+  to Linux/BSD system account like <code>root</code> user.</li>
+</ul>
+</li>
+<li>
+<p><code>IP Address</code>: Public or private IP address of your mail server.</p>
+<p>If this mail server is in internal network and can not be accessed directly
+from external network, you need a Jump Server (or, Bastion Server) so that
+our deployment server can connect to your mail server. For more details
+about Jump Server, please read this short tutorial: <a href="./iredmail-easy.what.is.ssh.jump.server.html">What is SSH jump
+server</a>.</p>
+</li>
+<li>
+<p><code>SSH Port</code>: SSH service port number. Defaults to 22.</p>
+</li>
+<li>
+<p><code>SSH User</code>: The login username for ssh secure connection. Defaults to <code>root</code>.</p>
+<p>If you use a non-root user, <code>sudo</code> on Linux or <code>doas</code> on OpenBSD is
+required to gain root privilege.</p>
+</li>
+<li>
+<p><code>SSH Key</code>: The SSH key used to login to your mail server.</p>
+<p>If you choose option <code>Generate one for me</code>, after submitted this form,
+our system will generate a strong (4096 bits) SSH key for you.</p>
+</li>
+<li>
+<p><code>OS</code>: Choose the Linux/BSD distribution and release version of your mail server.</p>
+</li>
+<li>
+<p><code>Deployment Server</code>: Please choose one deployment server.</p>
+<p>Deployment server connects to your mail server to deploy or upgrade, please
+choose the nearest one for faster network connection.</p>
+<p>If your mail server sits behind a firewall, please whitelist the IP address
+of selected deployment server.</p>
+</li>
+<li>
+<p><code>Comment</code>: Add some text to help you identify this mail server.</p>
+</li>
+</ul>
+<p>Screenshots:</p>
+<p><img alt="" src="./images/iredmail-easy/installation/add_mailserver.png" width="600px" />
+<img alt="" src="./images/iredmail-easy/installation/added_mailserver.png" width="600px" /></p>
+<h2 id="choose-preferred-backend-and-softwares">Choose preferred backend and softwares</h2>
+<p>After added mail server, you will be redirected to mail server profile page.
+There're few tabs on the page, let's go through them one by one.
+Screenshot attached below.</p>
+<ul>
+<li>
+<p>Tab (mail server) <code>Profile</code>.</p>
+<p>We already filled all form fields while creating it, you're free to update
+them here.</p>
+</li>
+<li>
+<p>Tab <code>Backend</code>.</p>
+<p>A backend is a SQL or LDAP database used to store mail domains and
+accounts. We suggest you choose the one you're familiar with for easier
+maintaince.</p>
+</li>
+<li>
+<p>Tab <code>Components</code>.</p>
+<p>A component is a software (or software group) used by mail service. On this
+page you can choose the components you want to deploy on your mail server.</p>
+</li>
+<li>
+<p>Tab <code>Settings</code>.</p>
+<p>Depends on the components you selected, the settings on this page may be
+different. Please fill all required form fields on this page.</p>
+<p>Fields with red asterisk are required, others are optional.</p>
+</li>
+<li>
+<p>Tab <code>Deployment</code>.</p>
+<p>The deployment server will run Ansible to connect to your mail server via
+secure ssh connection, without a password. Please download the prepared
+script and upload it to the mail server, then run it with command below. it will help add ssh public key and
+set correct file permission. If ssh login user is not root, it will help
+setup <code>sudo</code> (on Linux) or <code>doas</code> (on OpenBSD).</p>
+<p><code>bash init_target_server.sh</code></p>
+<p>After you added ssh public key, click the button <code>Perform Full Deployment</code>
+to start the iRedMail deployment.</p>
+<p>Depends on the components you selected, and network connection speed, it
+may take few minutes or even longer to finish. Please be patient.</p>
+</li>
+</ul>
+<p><img alt="" src="./images/iredmail-easy/installation/backends.png" width="700px" />
+<img alt="" src="./images/iredmail-easy/installation/components.png" width="700px" />
+<img alt="" src="./images/iredmail-easy/installation/settings.png" width="700px" />
+<img alt="" src="./images/iredmail-easy/installation/deployment.png" width="700px" /></p>
+<h2 id="get-techinical-support-through-the-ticket-system">Get techinical support through the ticket system</h2>
+<p>If you have any question or issue, feel free to open a new support ticket,
+clearly explain the question or issue, support team will try to reply in time.</p>
+<p><img alt="" src="./images/iredmail-easy/installation/support.png" width="400px" /></p>
+<h2 id="update-account-profile">Update account profile</h2>
+<p>You can update your name, time zone, password on the <code>Profile</code> page. If you
+do not like this platform, you're free to remove your account here too.</p>
+<p><img alt="" src="./images/iredmail-easy/installation/account_profile.png" width="800px" /></p>
+<h2 id="see-also">See Also</h2>
+<ul>
+<li><a href="./iredmail-easy.best.practice.html">Best Practice</a></li>
+<li><a href="./letsencrypt.html">Request a free cert from Let's Encrypt</a></li>
+</ul><div class="footer">
+    <p style="text-align: center; color: grey;">All documents are available in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://bitbucket.org/zhb/iredmail-docs/get/tip.tar.bz2">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
+</div>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-3293801-21"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-3293801-21');
+</script>
+</body></html>
