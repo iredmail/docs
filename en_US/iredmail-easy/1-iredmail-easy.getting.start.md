@@ -72,7 +72,9 @@ Screenshots of login and sign up web pages:
 After login, you will be redirected to the `Dashboard` page, please click the
 `Add a mail server` button to add a new mail server.
 
-Explanation of the form fields (screenshots attached below):
+![](./images/iredmail-easy/installation/add_mailserver.png){: width="600px" }
+
+Explanation of the form fields:
 
 * `Hostname (FQDN)`: This is the server hostname you want to set for the mail server.
 
@@ -113,67 +115,73 @@ Explanation of the form fields (screenshots attached below):
 
 * `Comment`: Add some text to help you identify this mail server.
 
-Screenshots:
+Click the button to create mail server, after created, page will be redirected
+to mail server profile page.  You're free to update profile here.
 
-![](./images/iredmail-easy/installation/add_mailserver.png){: width="600px" }
 ![](./images/iredmail-easy/installation/added_mailserver.png){: width="600px" }
 
-## Choose preferred backend and softwares
+## Choose preferred backend
 
-After added mail server, you will be redirected to mail server profile page.
-There're few tabs on the page, let's go through them one by one.
-Screenshots attached below.
+Tab `Backend` on the mail server profile page.
 
-* Tab (mail server) `Profile`.
-
-    We already filled all form fields while creating it, you're free to update
-    them here.
-
-* Tab `Backend`.
-
-    A backend is a SQL or LDAP database used to store mail domains and
-    accounts. We suggest you choose the one you're familiar with for easier
-    maintaince.
-
-* Tab `Components`.
-
-    A component is a software (or software group) used by mail service. On this
-    page you can choose the components you want to deploy on your mail server.
-
-* Tab `Settings`.
-
-    Depends on the components you selected, the settings on this page may be
-    different. Please fill all required form fields on this page.
-    
-    Fields with red asterisk are required, others are optional.
-
-* Tab `Deployment`.
-
-    The deployment server will run Ansible to connect to your mail server via
-    secure ssh connection, without a password. Please download the prepared
-    script and upload it to the mail server, then run it with command below. it will help add ssh public key and
-    set correct file permission. If ssh login user is not root, it will help
-    setup `sudo` (on Linux) or `doas` (on OpenBSD).
-
-    ```
-    bash init_target_server.sh
-    ```
-    
-    After you added ssh public key, click the button `Perform Full Deployment`
-    to start the iRedMail deployment.
-
-    Depends on the components you selected, and network connection speed, it
-    may take few minutes or even longer to finish. Please be patient.
+A backend is a SQL or LDAP database used to store mail domains and
+accounts. We suggest you choose the one you're familiar with for easier
+maintaince.
 
 ![](./images/iredmail-easy/installation/backends.png){: width="700px" }
+
+## Choose components you want to deploy
+
+Tab `Components` on the mail server profile page.
+
+A component is a software (or software group) used by mail service. On this
+page you can choose the components you want to deploy on your mail server.
+
 ![](./images/iredmail-easy/installation/components.png){: width="700px" }
+
+## Component settings
+
+Tab `Settings` on the mail server profile page.
+
+Depends on the components you selected, the settings on this page may be
+different. Please fill all required form fields on this page.
+    
+Fields with red asterisk are required, others are optional.
+
 ![](./images/iredmail-easy/installation/settings.png){: width="700px" }
+
+## Deploy
+
+Tab `Deployment` on the mail server profile page.
+
+The selected deployment server will run Ansible to connect to your mail server
+via secure ssh connection, without a password. Please download the prepared
+script and upload it to the mail server, then run it with command below. it
+will help add ssh public key and set correct file permission. If ssh login user
+is not root, it will help setup `sudo` (on Linux) or `doas` (on OpenBSD) also.
+
+```
+bash init_target_server.sh
+```
+
+If your mail server sits behind a firewall, please make sure the selected
+deployment server is whitelisted in your firewall.
+
+Now click the button `Perform Full Deployment` to start the deployment.
+
+Depends on the components you selected, and network connection speed, it may
+take few minutes or even longer to finish. Please be patient.
+
+It will refresh the page every 5 seconds and show you the latest output of
+Ansible task, you can watch and (hopefully) have some fun. :)
+
 ![](./images/iredmail-easy/installation/deployment.png){: width="700px" }
 
 ## Get techinical support through the ticket system
 
 If you have any question or issue, feel free to open a new support ticket,
-clearly explain the question or issue, support team will try to reply in time.
+clearly explain the question or issue, support team will try to reply as soon
+as possible.
 
 ![](./images/iredmail-easy/installation/support.png){: width="400px" }
 
