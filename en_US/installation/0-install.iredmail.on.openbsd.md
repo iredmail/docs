@@ -2,6 +2,14 @@
 
 [TOC]
 
+!!! attention
+
+    It's recommended to use the new __iRedMail Easy__ deployment and support
+    platform to deploy and keep your mail server up to date, technical support
+    is available through the ticket system.
+
+    Read more: [iRedMail Easy - Meet our new deployment and support platform](./iredmail-easy.getting.start.html)
+
 ## System Requirements
 
 !!! warning

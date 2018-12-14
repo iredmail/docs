@@ -4,10 +4,9 @@
 
 ## Summary
 
-__iRedMail Easy__ is a web-based platform for iRedMail deployment, upgrade, and
-technical support. With this platform, it's easy to deploy and keep the
-iRedMail servers up to date, easy to get the fast and professional technical
-support from iRedMail team.
+__iRedMail Easy__ is a web-based deployment and support platform.  With this
+platform, it's easy to deploy and keep the iRedMail server up to date, easy to
+get the fast and professional technical support from iRedMail team.
 
 We encourage all users to deploy new iRedMail servers with this platform and
 keep the servers up to date.
