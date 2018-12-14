@@ -1,1 +1,1 @@
-__iRedMail Easy__ - Web Deployment Platform
+__iRedMail Easy__ - Web Deployment Platform {: #easy }

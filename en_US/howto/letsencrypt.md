@@ -176,6 +176,11 @@ restart services which use the cert files.
 
 ### Create symbol links
 
+!!! attention
+
+    If you deployed iRedMail with the __iRedMail Easy__ platform, ssl cert
+    files are stored under `/opt/iredmail/ssl/`.
+
 * On RHEL/CentOS:
 
 ```

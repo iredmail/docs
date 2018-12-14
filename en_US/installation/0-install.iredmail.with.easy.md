@@ -187,4 +187,6 @@ do not like this platform, you're free to remove your account here too.
 ## See Also
 
 * [Best Practice](./iredmail-easy.best.practice.html)
+* [Setup DNS records for your iRedMail server](./setup.dns.html)
 * [Request a free cert from Let's Encrypt](./letsencrypt.html)
+* [Configure mail client applications](./index.html#mua)
