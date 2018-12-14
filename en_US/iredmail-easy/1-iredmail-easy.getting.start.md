@@ -1,4 +1,4 @@
-# Install iRedMail with iRedMail Easy (web deployment platform)
+# Getting start with iRedMail Easy - the deployment and support platform
 
 [TOC]
 
@@ -21,7 +21,7 @@ installation guides here: [Install iRedMail](./index.html#install).
     * iRedMail is designed to be deployed on a dedicated server, which means you
       can not have other network services running on the server __BEFORE__
       iRedMail installation.
-    
+
     * iRedMail will install and configure all required softwares automatically.
 
 ### Supported Linux and BSD distribution releases
@@ -145,7 +145,7 @@ Tab `Settings` on the mail server profile page.
 
 Depends on the components you selected, the settings on this page may be
 different. Please fill all required form fields on this page.
-    
+
 Fields with red asterisk are required, others are optional.
 
 ![](./images/iredmail-easy/installation/settings.png){: width="700px" }
