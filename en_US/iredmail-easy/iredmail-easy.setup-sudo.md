@@ -1,4 +1,4 @@
-# Setup sudo for cloud deployment
+# Setup sudo for deployment with iRedMail Eazy
 
 [TOC]
 
@@ -26,7 +26,7 @@ From [wikipedia](https://en.wikipedia.org/wiki/Sudo):
 OpenBSD uses its own sudo-like program for this purpose, it's called `doas`
 which means *__execute commands as another user__*.
 
-With the iRedMail cloud platform, you can deploy iRedMail by connecting to
+With the iRedMail Eazy, you can deploy iRedMail by connecting to
 target server (via ssh) as a non-privileged user (e.g. user `iredmail`) which
 is allowed to run command as `root` with `sudo`.
 
