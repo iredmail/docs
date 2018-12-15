@@ -53,7 +53,7 @@ guide below:
 To deploy a mail server, you need to sign up and login with a valid email
 address first:
 
-* [Sign Up or Login: https://easy.iredmail.org/](https://eazy.iredmail.org)
+* [Sign Up or Login: https://easy.iredmail.org/](https://easy.iredmail.org)
 
 We will send you an email to confirm you're the owner of the email address,
 please click the link in the email to confirm, then login.
