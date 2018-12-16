@@ -2,6 +2,12 @@
 
 [TOC]
 
+!!! warning
+
+    __iRedMail Easy__ does __NOT__ (yet) support upgrading existing server
+    which was deployed with any downloadable iRedMail installer (e.g.
+    iRedMail-0.9.9, iRedMail-0.9.8 and earlier releases).
+
 ## Summary
 
 __iRedMail Easy__ is a web-based deployment and support platform.  With this
