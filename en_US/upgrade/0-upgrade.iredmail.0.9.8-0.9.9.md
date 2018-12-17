@@ -396,8 +396,8 @@ different mailbox format, or set different mailbox for new user.
 Download SQL template file used to update SQL database:
 
 ```
-cd /root/
-wget https://bitbucket.org/zhb/iredmail/raw/default/extra/update/0.9.9/iredmail.mysql
+cd /tmp/
+wget https://bitbucket.org/zhb/iredmail/raw/default/extra/update/0.9.9/iredmail.pgsql
 ```
 
 * Run shell commands as root user below to connect to PostgreSQL server:
@@ -405,7 +405,7 @@ wget https://bitbucket.org/zhb/iredmail/raw/default/extra/update/0.9.9/iredmail.
 ```
 # su - postgres
 $ psql -d vmail
-sql> \i /tmp/mysql.pgsql
+sql> \i /tmp/iredmail.pgsql
 ```
 
 ### Dovecot: read mailbox format from SQL

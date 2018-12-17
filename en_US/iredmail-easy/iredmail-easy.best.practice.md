@@ -2,7 +2,7 @@
 
 [TOC]
 
-## How fearless upgrade works
+## How the fearless upgrade works
 
 iRedMail Easy splits config files of softwares to 2 parts: Core and Custom,
 this is the magic of fearless one-click upgrade.
@@ -125,7 +125,7 @@ same way.
 
 ### The rest
 
-* SOGo doesn't support any of the ways mentioned above, please read [details below](#sogo).
+* SOGo doesn't support any of the ways mentioned above, if you need to modify any settings, please either use `/opt/iredmail/custom/sogo/custom.sh` to modify please read [details below](#sogo).
 
 ## Softwares
 
