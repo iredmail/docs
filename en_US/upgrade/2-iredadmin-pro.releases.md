@@ -58,7 +58,8 @@ Version | Release Date | Comment | Extra
 
 Version | Release Date | Comment | RESTful API Document
 ---|---|---|---
-[2.9.0](https://forum.iredmail.org/topic14078.html) | Apr 3, 2018 | | [RESTful API document](./iredadmin-pro.restful.api.html)
+[3.0](https://forum.iredmail.org/topic15066.html) | Dec 17, 2018 | | [RESTful API document](./iredadmin-pro.restful.api.html)
+[2.9.0](https://forum.iredmail.org/topic14078.html) | Apr 3, 2018 | | [RESTful API document](./iredadmin-pro.restful.api-20181217.html)
 [2.8.0](https://forum.iredmail.org/topic13213.html) | Aug 24, 2017 | Bug fix release. | [RESTful API document](./iredadmin-pro.restful.api-20180403.html)
 [2.7.0](https://forum.iredmail.org/topic12945.html) | Jul 1, 2017 | Bug fix release. | [RESTful API document](./iredadmin-pro.restful.api-20170824.html)
 [2.6.0](https://forum.iredmail.org/topic12498.html) | Mar 21, 2017 | Bug fix release. | [RESTful API document](./iredadmin-pro.restful.api-20170123.html)

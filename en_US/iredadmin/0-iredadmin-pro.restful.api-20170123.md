@@ -4,22 +4,12 @@
 
 !!! attention
 
-    * If you need an API which has not yet been implemented, don't hesitate to
-      [contact us](https://www.iredmail.org/contact.html).
     * This document is applicable to
         * iRedAdmin-Pro-SQL-2.5.0, 2.6.0
         * iRedAdmin-Pro-LDAP-2.7.0, 2.8.0
-
-## ChangeLog
-
-### iRedAdmin-Pro-SQL-2.6.0, iRedAdmin-Pro-LDAP-2.8.0
-
-* Variable names in returned JSON data has been changed to:
-  `{'_success': ..., '_msg': ...}` (was `{'success': ..., 'msg': ...}`).
-* Some variable names have been renamed:
-    * `cn` -> `name`.
-    * `mailQuota` -> `quota`
-    * `preferredLanguage` -> `language`
+    * If you need an API which has not yet been implemented, don't hesitate to
+      [contact us](https://www.iredmail.org/contact.html).
+    * [Release Notes of all iRedAdmin-Pro releases](./iredadmin-pro.releases.html).
 
 ## Summary
 

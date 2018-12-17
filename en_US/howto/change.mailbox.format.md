@@ -64,3 +64,9 @@ mailboxFolder: mdbox
 * With iRedMail-0.9.9, if attribute `mailboxFormat` and `mailboxFolder` don't
   present in user LDAP object, Dovecot is configured to use `maildir` as
   default mailbox format and `Maildir` (case-sensitive) as folder name.
+
+## Reference
+
+* [Doveadm Sync](https://wiki.dovecot.org/Tools/Doveadm/Sync). It mentions how
+  to easily migrate existing mailbox to new mailbox format with `doveadm sync`
+  command.

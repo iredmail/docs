@@ -10,6 +10,7 @@
       [document for old releases](./iredadmin-pro.releases.html).
     * If you need an API which has not yet been implemented, don't hesitate to
       [contact us](https://www.iredmail.org/contact.html).
+    * [Release Notes of all iRedAdmin-Pro releases](./iredadmin-pro.releases.html).
 
 ## Summary
 
@@ -726,86 +727,6 @@ Notes:
 !!! api "`GET`{: .get } `/api/ldif/maillist/<mail>`{: .url } `Export mailing list account to LDIF`{: .comment }"
 !!! api "`GET`{: .get } `/api/ldif/alias/<mail>`{: .url } `Export mail alias account to LDIF`{: .comment }"
 
-
-
-
-
-## ChangeLog
-
-### iRedAdmin-Pro-SQL-2.9.0, iRedAdmin-Pro-LDAP-3.1
-
-* New: subscribable mailing list.
-* Show allocated domain quota while getting domain profile
-  (`GET /api/domain/<domain>`).
-* Able to manage alias domains while updating domain profile
-  (`GET /api/domain/<domain>`):
-    * `aliasDomains`: reset all alias domains
-    * `addAliasDomain`: add new alias domains
-    * `removeAliasDomain`: remove existing alias domains
-* Parameter names changed while updating domain profile
-  (`PUT /api/domain/<domain>`):
-    * `enableService` was renamed to `addService`
-    * `disableService` was renamed to `removeService`
-    * `removeAllServices` was renamed to `services`
-
-* iRedAdmin-Pro-LDAP-3.1:
-    * New user profile parameters (`PUT /api/user/<mail>`):
-        * `gn` - given name
-        * `sn` - surname
-    * Fixed:
-        - Not correctly detect existing mail accounts while updating
-          per-user mail forwarding addresses.
-
-### iRedAdmin-Pro-SQL-2.8.0, iRedAdmin-Pro-LDAP-3.0
-
-* NEW: Able to list all managed domains (`/domains`).
-* NEW: Able to manage per-usre enabled mail services (`/user/<mail>`).
-* NEW: Able to promote mail user to be a global admin (`/user/<mail>`).
-* Enhancement: Return managed domain names while getting user (must
-  have admin privilege) or admin profile.
-
-* Fixed issues:
-    * It always requires password while updating domain admin profile.
-
-* iRedAdmin-Pro-LDAP-3.0:
-    * Enhancement: Return per-domain catchall addresses in domain profile.
-    * LDAP attribute 'accountSetting' is now converted to a dictionary
-      in returned JSON.
-
-        * Old value: `{'accountSetting': ['create_new_domains:yes', 'create_max_domains:5', ...], ...}`
-        * New value: `{'accountSetting': {'create_new_domains': 'yes', 'create_max_domains': 5, ...}}`
-
-### iRedAdmin-Pro-SQL-2.7.0, iRedAdmin-Pro-LDAP-2.9.0
-
-* New: Able to manage global, per-domain and per-user greylisting settings,
-  whitelist senders, and global whitelisted SPF domains.
-* iRedAdmin-Pro-SQL-2.7.0:
-    * Variable names changed in returned JSON data of user profile (`GET /api/user/<mail>`):
-        * name `forwarding` is replaced by `forwardings`, and it's now a list
-          object of user forwarding email addresses (was a string, multiple
-          addresses were separated by comma).
-    * Variable names in returned JSON data of mail alias profile (`GET /api/alias/<mail>`):
-        * name `islist` is gone.
-        * name `goto` is replaced by `members`, and it's now a list object of
-          member email addresses (was a string, multiple addresses were separated
-          by comma).
-    * Variable names in returned JSON data of domain profile (`GET /api/domain/<domain>`):
-        * name `catchall` always presents, and it's now a list object of catch-all
-          email address (was a string, multiple addresses were separated by comma).
-    * Fixed bugs:
-        * Cannot set per-user alias addresses while creating new mail user.
-        * Cannot add or remove per-user alias addresses while updating user profile.
-        * User mailbox quota was removed while updating user profile.
-        * Not use default transport setting while creating new domain.
-
-### iRedAdmin-Pro-SQL-2.6.0, iRedAdmin-Pro-LDAP-2.8.0
-
-* Variable names in returned JSON data has been changed to:
-  `{'_success': ..., '_msg': ...}` (was `{'success': ..., 'msg': ...}`).
-* Some variable names have been renamed:
-    * `cn` -> `name`.
-    * `mailQuota` -> `quota`
-    * `preferredLanguage` -> `language`
 
 
 

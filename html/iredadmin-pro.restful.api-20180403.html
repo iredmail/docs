@@ -38,12 +38,6 @@
 </li>
 </ul>
 </li>
-<li><a href="#changelog">ChangeLog</a><ul>
-<li><a href="#iredadmin-pro-sql-280-iredadmin-pro-ldap-30">iRedAdmin-Pro-SQL-2.8.0, iRedAdmin-Pro-LDAP-3.0</a></li>
-<li><a href="#iredadmin-pro-sql-270-iredadmin-pro-ldap-290">iRedAdmin-Pro-SQL-2.7.0, iRedAdmin-Pro-LDAP-2.9.0</a></li>
-<li><a href="#iredadmin-pro-sql-260-iredadmin-pro-ldap-280">iRedAdmin-Pro-SQL-2.6.0, iRedAdmin-Pro-LDAP-2.8.0</a></li>
-</ul>
-</li>
 </ul>
 </li>
 </ul>
@@ -57,6 +51,7 @@
   <a href="./iredadmin-pro.releases.html">document for old releases</a>.</li>
 <li>If you need an API which has not yet been implemented, don't hesitate to
   <a href="https://www.iredmail.org/contact.html">contact us</a>.</li>
+<li><a href="./iredadmin-pro.releases.html">Release Notes of all iRedAdmin-Pro releases</a>.</li>
 </ul>
 </div>
 <h2 id="summary">Summary</h2>
@@ -1588,81 +1583,6 @@ please use mail alias account as mailing list.</p>
 <div class="admonition api">
 <p class="admonition-title"><code class="get">GET</code> <code class="url">/api/ldif/alias/&lt;mail&gt;</code> <code class="comment">Export mail alias account to LDIF</code></p>
 </div>
-<h2 id="changelog">ChangeLog</h2>
-<h3 id="iredadmin-pro-sql-280-iredadmin-pro-ldap-30">iRedAdmin-Pro-SQL-2.8.0, iRedAdmin-Pro-LDAP-3.0</h3>
-<ul>
-<li>NEW: Able to list all managed domains (<code>/domains</code>).</li>
-<li>NEW: Able to manage per-usre enabled mail services (<code>/user/&lt;mail&gt;</code>).</li>
-<li>NEW: Able to promote mail user to be a global admin (<code>/user/&lt;mail&gt;</code>).</li>
-<li>
-<p>Enhancement: Return managed domain names while getting user (must
-  have admin privilege) or admin profile.</p>
-</li>
-<li>
-<p>Fixed issues:</p>
-<ul>
-<li>It always requires password while updating domain admin profile.</li>
-</ul>
-</li>
-<li>
-<p>iRedAdmin-Pro-LDAP-3.0:</p>
-<ul>
-<li>Enhancement: Return per-domain catchall addresses in domain profile.</li>
-<li>
-<p>LDAP attribute 'accountSetting' is now converted to a dictionary
-  in returned JSON.</p>
-<ul>
-<li>Old value: <code>{'accountSetting': ['create_new_domains:yes', 'create_max_domains:5', ...], ...}</code></li>
-<li>New value: <code>{'accountSetting': {'create_new_domains': 'yes', 'create_max_domains': 5, ...}}</code></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h3 id="iredadmin-pro-sql-270-iredadmin-pro-ldap-290">iRedAdmin-Pro-SQL-2.7.0, iRedAdmin-Pro-LDAP-2.9.0</h3>
-<ul>
-<li>New: Able to manage global, per-domain and per-user greylisting settings,
-  whitelist senders, and global whitelisted SPF domains.</li>
-<li>iRedAdmin-Pro-SQL-2.7.0:<ul>
-<li>Variable names changed in returned JSON data of user profile (<code>GET /api/user/&lt;mail&gt;</code>):<ul>
-<li>name <code>forwarding</code> is replaced by <code>forwardings</code>, and it's now a list
-  object of user forwarding email addresses (was a string, multiple
-  addresses were separated by comma).</li>
-</ul>
-</li>
-<li>Variable names in returned JSON data of mail alias profile (<code>GET /api/alias/&lt;mail&gt;</code>):<ul>
-<li>name <code>islist</code> is gone.</li>
-<li>name <code>goto</code> is replaced by <code>members</code>, and it's now a list object of
-  member email addresses (was a string, multiple addresses were separated
-  by comma).</li>
-</ul>
-</li>
-<li>Variable names in returned JSON data of domain profile (<code>GET /api/domain/&lt;domain&gt;</code>):<ul>
-<li>name <code>catchall</code> always presents, and it's now a list object of catch-all
-  email address (was a string, multiple addresses were separated by comma).</li>
-</ul>
-</li>
-<li>Fixed bugs:<ul>
-<li>Cannot set per-user alias addresses while creating new mail user.</li>
-<li>Cannot add or remove per-user alias addresses while updating user profile.</li>
-<li>User mailbox quota was removed while updating user profile.</li>
-<li>Not use default transport setting while creating new domain.</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<h3 id="iredadmin-pro-sql-260-iredadmin-pro-ldap-280">iRedAdmin-Pro-SQL-2.6.0, iRedAdmin-Pro-LDAP-2.8.0</h3>
-<ul>
-<li>Variable names in returned JSON data has been changed to:
-  <code>{'_success': ..., '_msg': ...}</code> (was <code>{'success': ..., 'msg': ...}</code>).</li>
-<li>Some variable names have been renamed:<ul>
-<li><code>cn</code> -&gt; <code>name</code>.</li>
-<li><code>mailQuota</code> -&gt; <code>quota</code></li>
-<li><code>preferredLanguage</code> -&gt; <code>language</code></li>
-</ul>
-</li>
-</ul>
 <script src="./js/jquery-1.12.3.min.js"></script>
 
 <script type="text/javascript">
