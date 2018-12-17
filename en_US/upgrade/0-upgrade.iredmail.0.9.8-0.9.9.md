@@ -10,7 +10,7 @@
 
 ## ChangeLog
 
-* Nov 2, 2018, initial release.
+* Dec 17, 2018, initial release.
 
 ## General (All backends should apply these changes)
 
