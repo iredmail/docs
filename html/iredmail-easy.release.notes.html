@@ -16,17 +16,70 @@
         <span>iRedMail</span>
     </a>
     &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><h1 id="release-notes">Release Notes</h1>
-<h2 id="upcoming-release-20181201">Upcoming release (20181201)</h2>
+<div class="toc">
 <ul>
-<li>
-<p>Add rc script and firewall rule for ipv6 on Debian/Ubuntu:</p>
-<ul>
-<li>/etc/init.d/ip6tables</li>
-<li>/etc/default/ip6tables</li>
+<li><a href="#release-notes">Release Notes</a><ul>
+<li><a href="#version-2018121701-dec-17-2018">Version: 2018121701 (Dec 17, 2018)</a></li>
 </ul>
 </li>
-<li>
-<p>OpenLDAP backend: Index attribute <code>departmentNumber</code>.</p>
+</ul>
+</div>
+<h2 id="version-2018121701-dec-17-2018">Version: 2018121701 (Dec 17, 2018)</h2>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<ul>
+<li>This is the first public release. :)</li>
+<li>The version number is the date when it's released, it's easier to
+  understand whether you're running the latest stable release. It's also
+  stored in file <code>/etc/iredmail-release</code> on your server.</li>
+</ul>
+</div>
+<ul>
+<li>New directory <code>/opt/www/well-known</code>, mostly used for Let's Encrypt cert
+  request.</li>
+<li>Download source tarball of web applications to iRedMail deploy server first,
+  then upload it to target host. If target host can not access website like
+  github.com, we can still download required packages for iRedMail deployment.</li>
+<li>Firewall:<ul>
+<li>Add rc script and firewall rule for ipv6 on Debian/Ubuntu:<ul>
+<li><code>/etc/init.d/ip6tables</code></li>
+<li><code>/etc/default/ip6tables</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>OpenLDAP backend:<ul>
+<li>Do not enable TLS/SSL support in OpenLDAP by default.</li>
+<li>Add database <code>monitor</code> by default.</li>
+<li>Include calresource.schema and calentry.schema by default. Required
+  by SOGo for resource management.</li>
+<li>Index attribute <code>departmentNumber</code>.</li>
+</ul>
+</li>
+<li>Fail2ban:<ul>
+<li>Remove duplicate filter rules for Postfix postscreen service.</li>
+</ul>
+</li>
+<li>SOGo:<ul>
+<li>Add new parameters to support resource management.</li>
+<li>Add mail aliases and mailing lists as address book.</li>
+<li>Fix incorrect column name in SQL views.</li>
+</ul>
+</li>
+<li>netdata:<ul>
+<li>Supports monitoring OpenLDAP.</li>
+</ul>
+</li>
+<li>Fixed:<ul>
+<li>Ubuntu: Missing apparmor rule to allow ClamAV to scan emails.</li>
+<li>not enable php-fpm status support in Nginx and netdata.</li>
+<li>not load rsyslog module <code>imjournal</code> for rate limit control.</li>
+</ul>
+</li>
+<li>Package update:<ul>
+<li>netdata -&gt; 1.11.1</li>
+<li>adminer -&gt; 4.7.0</li>
+</ul>
 </li>
 </ul><div class="footer">
     <p style="text-align: center; color: grey;">All documents are available in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://bitbucket.org/zhb/iredmail-docs/get/tip.tar.bz2">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
