@@ -53,8 +53,8 @@
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>
 <ul>
-<li>This document is applicable to <code>iRedAdmin-Pro-SQL-3.0</code> and
-  <code>iRedAdmin-Pro-LDAP-3.2</code>. If you're running an old release, please
+<li>This document is applicable to <code>iRedAdmin-Pro-SQL-2.9.0</code> and
+  <code>iRedAdmin-Pro-LDAP-3.1</code>. If you're running an old release, please
   upgrade iRedAdmin-Pro to the latest release, or check
   <a href="./iredadmin-pro.releases.html">document for old releases</a>.</li>
 <li>If you need an API which has not yet been implemented, don't hesitate to
@@ -880,21 +880,6 @@ to be a domain admin.</p>
 <td>Mailbox quota (in MB)</td>
 <td><code>quota=1024</code></td>
 </tr>
-<tr>
-<td><code>mailboxFormat</code></td>
-<td>Mailbox format. e.g. <code>maildir</code>, <code>mdbox</code>. Defaults to <code>maildir</code> if not present. For more details, please read Dovecot document: <a href="https://wiki2.dovecot.org/MailboxFormat">https://wiki2.dovecot.org/MailboxFormat</a>. <strong>WARNING</strong>: Changing mailbox format does not migrate the mailbox on file system automatically, you have to migrate it manually. New email will be stored in new mailbox format immediately.</td>
-<td><code>mailboxFormat=mdbox</code></td>
-</tr>
-<tr>
-<td><code>mailboxFolder</code></td>
-<td>Mailbox folder name (case sensitive) which will be appended to user's home path. Defaults to <code>Maildir</code>. It's useful if you need to migrate to different mailbox folder. <strong>WARNING</strong>: New email will be stored in new mailbox folder immediately.</td>
-<td><code>mailboxFolder=Maildir</code></td>
-</tr>
-<tr>
-<td><code>maildir</code></td>
-<td>Absolute path of the mailbox. All characters will be converted to lower cases.</td>
-<td><code>maildir=/var/vmail/vmail1/example.com/username</code></td>
-</tr>
 </tbody>
 </table>
 </div>
@@ -936,13 +921,8 @@ to be a domain admin.</p>
 </tr>
 <tr>
 <td><code>password</code></td>
-<td>Set user password to the given one.</td>
+<td>Password</td>
 <td><code>password=u0tBF82cIV@vi8Gme</code></td>
-</tr>
-<tr>
-<td><code>password_hash</code></td>
-<td>Set user password to the given hashed password. Conflict with parameter <code>password</code>.</td>
-<td><code>password={SSHA}qjmhvlsofWDu/AvVhOJX1cU/CvYKLYlwlM5bHw==</code></td>
 </tr>
 <tr>
 <td><code>quota</code></td>
@@ -1009,21 +989,6 @@ to be a domain admin.</p>
 <td>Add new per-user enabled mail service(s). Multiple values must be separated by comma. Conflicts with parameter <code>services</code>. See additional notes below.</td>
 <td><code>removeService=forward,senderbcc</code></td>
 </tr>
-<tr>
-<td><code>mailboxFormat</code></td>
-<td>Mailbox format. e.g. <code>maildir</code>, <code>mdbox</code>. Defaults to <code>maildir</code> if not present. For more details, please read Dovecot document: <a href="https://wiki2.dovecot.org/MailboxFormat">https://wiki2.dovecot.org/MailboxFormat</a>. <strong>WARNING</strong>: Changing mailbox format does not migrate the mailbox on file system automatically, you have to migrate it manually. New email will be stored in new mailbox format immediately.</td>
-<td><code>mailboxFormat=mdbox</code></td>
-</tr>
-<tr>
-<td><code>mailboxFolder</code></td>
-<td>Mailbox folder name (case sensitive) which will be appended to user's home path. Defaults to <code>Maildir</code>. It's useful if you need to migrate to different mailbox folder. <strong>WARNING</strong>: New email will be stored in new mailbox folder immediately.</td>
-<td><code>mailboxFolder=Maildir</code></td>
-</tr>
-<tr>
-<td><code>maildir</code></td>
-<td>Absolute path of the mailbox. All characters will be converted to lower cases.</td>
-<td><code>maildir=/var/vmail/vmail1/example.com/username</code></td>
-</tr>
 </tbody>
 </table>
 <div class="admonition attention">
@@ -1035,16 +1000,12 @@ to be a domain admin.</p>
 <ul>
 <li>smtp</li>
 <li>smtpsecured (SMTP over TLS or SSL)</li>
-<li>smtptls (SMTP over TLS)</li>
 <li>pop3</li>
 <li>pop3secured (POP3 over TLS or SSL)</li>
-<li>pop3tls (POP3 over TLS)</li>
 <li>imap</li>
 <li>imapsecured (IMAP over TLS or SSL)</li>
-<li>imaptls (IMAP over TLS)</li>
 <li>managesieve</li>
 <li>managesievesecured (Managesieve over TLS or SSL)</li>
-<li>managesievetls (Managesieve over TLS)</li>
 <li>deliver (deliver received email to local mailbox)</li>
 <li>sogo (SOGo groupware)</li>
 </ul>
@@ -1065,7 +1026,7 @@ to be a domain admin.</p>
 
 </div>
 <div class="admonition api">
-<p class="admonition-title"><code class="post">POST</code> <code class="url">/api/user/&lt;mail&gt;/change_email/&lt;new_mail&gt;</code> <code class="comment">Change user's email address (from '&lt;mail&gt;' to '&lt;new_mail&gt;')</code></p>
+<p class="admonition-title"><code class="put">POST</code> <code class="url">/api/user/&lt;mail&gt;/change_email/&lt;new_mail&gt;</code> <code class="comment">Change user's email address (from '&lt;mail&gt;' to '&lt;new_mail&gt;')</code></p>
 </div>
 <div class="admonition api">
 <p class="admonition-title"><code class="put">PUT</code> <code class="url">/api/users/&lt;domain&gt;</code> <code class="comment">Update profiles of all users under domain</code> <code class="has_params">Parameters</code></p>
@@ -1137,54 +1098,7 @@ to be a domain admin.</p>
 </ul>
 </div>
 <div class="admonition api">
-<p class="admonition-title"><code class="get">GET</code> <code class="url">/api/mls/&lt;domain&gt;</code> <code class="comment">Get profile of all mailing lists under given domain</code> <code class="has_params">Parameters</code></p>
-<div class="params">
-
-<table>
-<thead>
-<tr>
-<th>Parameter</th>
-<th>Sample Usage</th>
-<th>Default Value</th>
-<th>Comment</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>email_only</code></td>
-<td><code>email_only=yes</code></td>
-<td><code>no</code></td>
-<td>Return a list of mailing list email addresses instead of detailed profile.</td>
-</tr>
-</tbody>
-</table>
-</div>
-
-</div>
-<div class="admonition api">
-<p class="admonition-title"><code class="get">GET</code> <code class="url">/api/ml/&lt;mail&gt;</code> <code class="comment">Get profile of an existing mailing list account</code> <code class="has_params">Parameters</code></p>
-<div class="params">
-
-<table>
-<thead>
-<tr>
-<th>Parameter</th>
-<th>Sample Usage</th>
-<th>Default Value</th>
-<th>Comment</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>with_subscribers</code></td>
-<td><code>with_subscribers=yes</code></td>
-<td><code>no</code></td>
-<td>Get subscribers of mailing list.</td>
-</tr>
-</tbody>
-</table>
-</div>
-
+<p class="admonition-title"><code class="get">GET</code> <code class="url">/api/ml/&lt;mail&gt;</code> <code class="comment">Get profile of an existing mailing list account</code></p>
 </div>
 <div class="admonition api">
 <p class="admonition-title"><code class="post">POST</code> <code class="url">/api/ml/&lt;mail&gt;</code> <code class="comment">Create a new mailing list</code> <code class="has_params">Parameters</code></p>
@@ -1409,37 +1323,6 @@ to be a domain admin.</p>
 <td><code>footer_text=&lt;p&gt;footer in html&lt;/p&gt;</code></td>
 <td></td>
 <td>Append footer (in html format) to every email sent to the list.</td>
-</tr>
-</tbody>
-</table>
-<p>Parameters used to add subscribers:</p>
-<table>
-<thead>
-<tr>
-<th>Parameter</th>
-<th>Sample Usage</th>
-<th>Default Value</th>
-<th>Comment</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>subscribers</code></td>
-<td><code>subscribers=&lt;mail1&gt;,&lt;mail2&gt;,&lt;mail3&gt;,...</code></td>
-<td></td>
-<td>Subscribe users to mailing list. Multiple subscribers must be separated by comma.</td>
-</tr>
-<tr>
-<td><code>require_confirm</code></td>
-<td><code>require_confirm=no</code></td>
-<td><code>yes</code></td>
-<td>Send email to subscribers and let subscribers confirm the subscription.</td>
-</tr>
-<tr>
-<td><code>subscription</code></td>
-<td><code>subscription=normal</code></td>
-<td><code>normal</code></td>
-<td>Subscribe to different subscription. Valid values are: <code>normal</code>, <code>digest</code>, <code>nomail</code>.</td>
 </tr>
 </tbody>
 </table>
@@ -1692,56 +1575,6 @@ to be a domain admin.</p>
 <td><code>footer_text=&lt;p&gt;footer in html&lt;/p&gt;</code></td>
 <td></td>
 <td>Append footer (in html format) to every email sent to the list.</td>
-</tr>
-</tbody>
-</table>
-<p>Parameters used to add subscribers:</p>
-<table>
-<thead>
-<tr>
-<th>Parameter</th>
-<th>Sample Usage</th>
-<th>Default Value</th>
-<th>Comment</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>add_subscribers</code></td>
-<td><code>add_subscribers=&lt;mail1&gt;,&lt;mail2&gt;,&lt;mail3&gt;,...</code></td>
-<td></td>
-<td>Subscribe users to mailing list. Multiple subscribers must be separated by comma.</td>
-</tr>
-<tr>
-<td><code>require_confirm</code></td>
-<td><code>require_confirm=no</code></td>
-<td><code>yes</code></td>
-<td>Send email to subscribers and let subscribers confirm the subscription.</td>
-</tr>
-<tr>
-<td><code>subscription</code></td>
-<td><code>subscription=normal</code></td>
-<td><code>normal</code></td>
-<td>Subscribe to different subscription. Valid values are: <code>normal</code>, <code>digest</code>, <code>nomail</code>.</td>
-</tr>
-</tbody>
-</table>
-<p>Parameters used to remove subscribers:</p>
-<table>
-<thead>
-<tr>
-<th>Parameter</th>
-<th>Sample Usage</th>
-<th>Default Value</th>
-<th>Comment</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>remove_subscribers</code></td>
-<td><code>remove_subscribers=&lt;mail1&gt;,&lt;mail2&gt;,&lt;mail3&gt;,...</code></td>
-<td></td>
-<td>Remove existing subscribers from mailing list. Multiple subscribers must be separated by comma.</td>
 </tr>
 </tbody>
 </table>

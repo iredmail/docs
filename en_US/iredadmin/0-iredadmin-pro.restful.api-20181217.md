@@ -4,8 +4,8 @@
 
 !!! attention
 
-    * This document is applicable to `iRedAdmin-Pro-SQL-3.0` and
-      `iRedAdmin-Pro-LDAP-3.2`. If you're running an old release, please
+    * This document is applicable to `iRedAdmin-Pro-SQL-2.9.0` and
+      `iRedAdmin-Pro-LDAP-3.1`. If you're running an old release, please
       upgrade iRedAdmin-Pro to the latest release, or check
       [document for old releases](./iredadmin-pro.releases.html).
     * If you need an API which has not yet been implemented, don't hesitate to
@@ -309,9 +309,6 @@ Notes:
     `password` | Password| `password=AsTr0ng@`
     `language` | Preferred language of iRedAdmin web UI | `language=en_US`
     `quota` | Mailbox quota (in MB) | `quota=1024`
-    `mailboxFormat` | Mailbox format. e.g. `maildir`, `mdbox`. Defaults to `maildir` if not present. For more details, please read Dovecot document: <https://wiki2.dovecot.org/MailboxFormat>. __WARNING__: Changing mailbox format does not migrate the mailbox on file system automatically, you have to migrate it manually. New email will be stored in new mailbox format immediately. | `mailboxFormat=mdbox`
-    `mailboxFolder` | Mailbox folder name (case sensitive) which will be appended to user's home path. Defaults to `Maildir`. It's useful if you need to migrate to different mailbox folder. __WARNING__: New email will be stored in new mailbox folder immediately. | `mailboxFolder=Maildir`
-    `maildir` | Absolute path of the mailbox. All characters will be converted to lower cases. | `maildir=/var/vmail/vmail1/example.com/username`
 
     </div>
 
@@ -326,8 +323,7 @@ Notes:
     `name` | Display name | `name=Michael Jordon`
     `gn` | Given name | `gn=Jordon`
     `sn` | Surname | `sn=Jeffery`
-    `password` | Set user password to the given one. | `password=u0tBF82cIV@vi8Gme`
-    `password_hash` | Set user password to the given hashed password. Conflict with parameter `password`. | `password={SSHA}qjmhvlsofWDu/AvVhOJX1cU/CvYKLYlwlM5bHw==`
+    `password` | Password | `password=u0tBF82cIV@vi8Gme`
     `quota` | Mailbox quota (in MB) | `quota=1024`
     `accountStatus` | Enable or disable user. Possible values: `active`, `disabled`. | `accountStatus=active`
     `language` | Preferred language of iRedAdmin web UI | `language=en_US`
@@ -341,9 +337,6 @@ Notes:
     `services` | Reset per-user enabled mail services to given values. Conflicts with parameter `addService` and `removeService`. See additional notes below. | `services=mail,smtp,pop3,imap`
     `addService` | Add new per-user enabled mail service(s). Multiple values must be separated by comma. Conflicts with parameter `services`. See additional notes below. | `addService=vpn,owncloud`
     `removeService` | Add new per-user enabled mail service(s). Multiple values must be separated by comma. Conflicts with parameter `services`. See additional notes below. | `removeService=forward,senderbcc`
-    `mailboxFormat` | Mailbox format. e.g. `maildir`, `mdbox`. Defaults to `maildir` if not present. For more details, please read Dovecot document: <https://wiki2.dovecot.org/MailboxFormat>. __WARNING__: Changing mailbox format does not migrate the mailbox on file system automatically, you have to migrate it manually. New email will be stored in new mailbox format immediately. | `mailboxFormat=mdbox`
-    `mailboxFolder` | Mailbox folder name (case sensitive) which will be appended to user's home path. Defaults to `Maildir`. It's useful if you need to migrate to different mailbox folder. __WARNING__: New email will be stored in new mailbox folder immediately. | `mailboxFolder=Maildir`
-    `maildir` | Absolute path of the mailbox. All characters will be converted to lower cases. | `maildir=/var/vmail/vmail1/example.com/username`
 
     !!! attention
     
@@ -352,16 +345,12 @@ Notes:
         * Available service names in iRedMail:
             * smtp
             * smtpsecured (SMTP over TLS or SSL)
-            * smtptls (SMTP over TLS)
             * pop3
             * pop3secured (POP3 over TLS or SSL)
-            * pop3tls (POP3 over TLS)
             * imap
             * imapsecured (IMAP over TLS or SSL)
-            * imaptls (IMAP over TLS)
             * managesieve
             * managesievesecured (Managesieve over TLS or SSL)
-            * managesievetls (Managesieve over TLS)
             * deliver (deliver received email to local mailbox)
             * sogo (SOGo groupware)
 
@@ -375,7 +364,7 @@ Notes:
 
     </div>
 
-!!! api "`POST`{: .post } `/api/user/<mail>/change_email/<new_mail>`{: .url } `Change user's email address (from '<mail>' to '<new_mail>')`{: .comment }"
+!!! api "`POST`{: .put } `/api/user/<mail>/change_email/<new_mail>`{: .url } `Change user's email address (from '<mail>' to '<new_mail>')`{: .comment }"
 !!! api "`PUT`{: .put } `/api/users/<domain>`{: .url } `Update profiles of all users under domain`{: .comment } `Parameters`{: .has_params }"
 
     <div class="params">
@@ -411,26 +400,7 @@ Notes:
       it's implemented with [`mlmmj`](http://mlmmj.org) mailing list manager.
     * It's available for both SQL and LDAP backends.
 
-!!! api "`GET`{: .get } `/api/mls/<domain>`{: .url } `Get profile of all mailing lists under given domain`{: .comment } `Parameters`{: .has_params}"
-
-    <div class="params">
-
-    Parameter | Sample Usage | Default Value | Comment
-    --- |--- |---|---
-    `email_only` | `email_only=yes` | `no` | Return a list of mailing list email addresses instead of detailed profile.
-
-    </div>
-
-!!! api "`GET`{: .get } `/api/ml/<mail>`{: .url } `Get profile of an existing mailing list account`{: .comment } `Parameters`{: .has_params}"
-
-    <div class="params">
-
-    Parameter | Sample Usage | Default Value | Comment
-    --- |--- |---|---
-    `with_subscribers` | `with_subscribers=yes` | `no` | Get subscribers of mailing list.
-
-    </div>
-
+!!! api "`GET`{: .get } `/api/ml/<mail>`{: .url } `Get profile of an existing mailing list account`{: .comment }"
 !!! api "`POST`{: .post } `/api/ml/<mail>`{: .url } `Create a new mailing list`{: .comment } `Parameters`{: .has_params }"
 
     <div class="params">
@@ -472,14 +442,6 @@ Notes:
     `name` | `name=Short description of list` | | Set a short description of the mailing list account.
     `footer_text` | `footer_text=footer in plain text` | | Append footer (in plain text format) to every email sent to the list.
     `footer_html` | `footer_text=<p>footer in html</p>` | | Append footer (in html format) to every email sent to the list.
-
-    Parameters used to add subscribers:
-
-    Parameter | Sample Usage | Default Value | Comment
-    --- |--- |---|---
-    `subscribers` | `subscribers=<mail1>,<mail2>,<mail3>,...` | | Subscribe users to mailing list. Multiple subscribers must be separated by comma.
-    `require_confirm` | `require_confirm=no` | `yes` | Send email to subscribers and let subscribers confirm the subscription.
-    `subscription` | `subscription=normal` | `normal` | Subscribe to different subscription. Valid values are: `normal`, `digest`, `nomail`.
 
     </div>
 
@@ -534,20 +496,6 @@ Notes:
     `name` | `name=Short description of list` | | Set a short description of the mailing list account.
     `footer_text` | `footer_text=footer in plain text` | | Append footer (in plain text format) to every email sent to the list.
     `footer_html` | `footer_text=<p>footer in html</p>` | | Append footer (in html format) to every email sent to the list.
-
-    Parameters used to add subscribers:
-
-    Parameter | Sample Usage | Default Value | Comment
-    --- |--- |---|---
-    `add_subscribers` | `add_subscribers=<mail1>,<mail2>,<mail3>,...` | | Subscribe users to mailing list. Multiple subscribers must be separated by comma.
-    `require_confirm` | `require_confirm=no` | `yes` | Send email to subscribers and let subscribers confirm the subscription.
-    `subscription` | `subscription=normal` | `normal` | Subscribe to different subscription. Valid values are: `normal`, `digest`, `nomail`.
-
-    Parameters used to remove subscribers:
-
-    Parameter | Sample Usage | Default Value | Comment
-    --- |--- |---|---
-    `remove_subscribers` | `remove_subscribers=<mail1>,<mail2>,<mail3>,...` | | Remove existing subscribers from mailing list. Multiple subscribers must be separated by comma.
 
     </div>
 

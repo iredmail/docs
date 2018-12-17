@@ -22,7 +22,8 @@ this tutorial with just one shell command:
 
 Version | Release Date | Comment | Extra
 ---|---|---|---
-[3.1](https://forum.iredmail.org/topic14079.html) | Apr 3, 2018 | | [RESTful API document](./iredadmin-pro.restful.api.html)
+[3.2](https://forum.iredmail.org/topic15065.html) | Dec 17, 2018 | | [RESTful API document](./iredadmin-pro.restful.api.html)
+[3.1](https://forum.iredmail.org/topic14079.html) | Apr 3, 2018 | | [RESTful API document](./iredadmin-pro.restful.api-20181217.html)
 [3.0](https://forum.iredmail.org/topic13212.html) | Aug 24, 2017 | Bug fix release. | [RESTful API document](./iredadmin-pro.restful.api-20180403.html)
 [2.9.0](https://forum.iredmail.org/topic12946.html) | Jul 1, 2017 | Bug fix release. | [RESTful API document](./iredadmin-pro.restful.api-20170824.html)
 [2.8.0](https://forum.iredmail.org/topic12499.html) | Mar 21, 2017 | Bug fix release. | [RESTful API document](./iredadmin-pro.restful.api-20170123.html)
