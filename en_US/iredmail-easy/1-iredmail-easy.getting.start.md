@@ -17,6 +17,9 @@ get the fast and professional technical support from iRedMail team.
 We encourage all users to deploy new iRedMail servers with this platform and
 keep the servers up to date.
 
+Please also read [Best Practice](./iredmail-easy.best.practice.html) to
+understand how to achieve fearless one-click with iRedMail Easy.
+
 If you prefer classic downloadable iRedMail installer, you can find the
 installation guides here: [Install iRedMail](./index.html#install).
 

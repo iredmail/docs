@@ -19,11 +19,16 @@
 <div class="toc">
 <ul>
 <li><a href="#best-practice">Best Practice</a><ul>
-<li><a href="#mariadb">MariaDB</a></li>
-<li><a href="#nginx">Nginx</a><ul>
-<li><a href="#directory-structure">Directory Structure</a></li>
+<li><a href="#how-fearless-upgrade-works">How fearless upgrade works</a><ul>
+<li><a href="#including-config-files">Including config files</a></li>
+<li><a href="#modify-config-files-in-place">Modify config files in-place</a></li>
+<li><a href="#remove-existing-file-and-create-a-new-one">Remove existing file and create a new one</a></li>
+<li><a href="#the-rest">The rest</a></li>
 </ul>
 </li>
+<li><a href="#softwares">Softwares</a><ul>
+<li><a href="#mariadb">MariaDB</a></li>
+<li><a href="#nginx">Nginx</a></li>
 <li><a href="#postfix">Postfix</a></li>
 <li><a href="#dovecot">Dovecot</a></li>
 <li><a href="#roundcube">Roundcube</a></li>
@@ -34,30 +39,106 @@
 <li><a href="#fail2ban">Fail2ban</a></li>
 </ul>
 </li>
+<li><a href="#references">References</a></li>
+</ul>
+</li>
 </ul>
 </div>
-<p>iRedMail Eazy (the deployment and support platform) maintains core config files,
-it's normal that you want to override some settings in default setup, please
-follow some simple rules to store your custom settings, and do not modify the
-core config files managed by iRedMail Eazy. This is the key to
-achieve fear-less upgrade.</p>
+<h2 id="how-fearless-upgrade-works">How fearless upgrade works</h2>
+<p>iRedMail Easy splits config files of softwares to 2 parts: Core and Custom,
+this is the magic of fearless one-click upgrade.</p>
+<p>iRedMail Easy maintains core config files to make sure everything works as
+expected, but we understand that one rule doesn't work for everyone and you may
+want to change/override some settings configured by iRedMail Easy.</p>
+<p>Please follow some simple rules to store your custom settings, and do not
+modify the core config files (manually) managed by iRedMail Easy.</p>
+<h3 id="including-config-files">Including config files</h3>
+<p>Many softwares support loading settings from extra config files with directive
+like <code>include</code> (Nginx, Dovecot), <code>include_try</code> (Dovecot), <code>require_once</code> (PHP
+applications). In this case, it will be configured to load extra config files
+under <code>/opt/iredmail/custom/&lt;software-name&gt;/</code>. We use Dovecot for example to
+explain the details.</p>
+<p>Dovecot's main config file is <code>/etc/dovecot/dovecot.conf</code>, we have directives
+at the bottom of <code>dovecot.conf</code> like this:</p>
+<pre><code>!include_try /etc/dovecot/conf-enabled/*.conf
+!include_try /opt/iredmail/custom/dovecot/conf-enabled/*.conf
+</code></pre>
+
+<p>It will try to load all files ends with <code>.conf</code> under
+<code>/etc/dovecot/conf-enabled/</code> first, then
+<code>/opt/iredmail/custom/dovecot/conf-enabled/</code>.</p>
+<p>Files under <code>/etc/dovecot/conf-enabled/</code> are maintained by iRedMail Easy, if
+you want to override some settings, please create a file which ends with
+<code>.conf</code> under <code>/opt/iredmail/custom/dovecot/conf-enabled/</code> with your custom
+settings. for example, Dovecot is configured to enable services like below by
+iRedMail Eazy:</p>
+<pre><code>dovecot_protocols = pop3 imap sieve lmtp
+</code></pre>
+
+<p>What can you do to disable it without modify files under <code>/etc/dovecot/</code>? Easy,
+just create a file, e.g. <code>custom.conf</code> under
+<code>/opt/iredmail/custom/dovecot/conf-enabled/</code> with content below (<code>pop3</code> is
+removed), then restart Dovecot service:</p>
+<pre><code>dovecot_protocols = imap sieve lmtp
+</code></pre>
+
+<h3 id="modify-config-files-in-place">Modify config files in-place</h3>
+<p>If software does not support loading settings from extra config files,
+you may need to apply your own settings by running commands to modify its
+config files under <code>/etc/</code>. For example, Postfix.</p>
+<p>Postfix doesn't support directive like <code>include</code> to load extra config files,
+you can change some settings by modifying its config files (e.g.
+<code>/etc/postfix/main.cf</code>) directly, but next time you upgrade your iRedMail
+server with iRedMail Easy, the config file will be rewritten by iRedMail Easy,
+then you lose all custom settings.</p>
+<p>Fortunately, iRedMail Easy supports executing a shell script each time it
+deploying or upgrading a software. For Postfix, it's
+<code>/opt/iredmail/custom/postfix/custom.sh</code>.</p>
+<p>Let's say you want to add IP address <code>192.168.1.1</code> to Postfix parameter
+<code>mynetworks</code>, instead of modifying <code>/etc/postfix/main.cf</code> directly, you can
+write shell commands in <code>/opt/iredmail/custom/postfix/custom.sh</code> like below:</p>
+<pre><code>postconf -e mynetworks='127.0.0.1 192.168.1.1'
+</code></pre>
+
+<p>Then run it manually:</p>
+<pre><code>cd /opt/iredmail/custom/postfix/
+bash custom.sh
+</code></pre>
+
+<p>When iRedMail Easy deploys or upgrades Postfix, it will run this script the
+same way.</p>
+<h3 id="remove-existing-file-and-create-a-new-one">Remove existing file and create a new one</h3>
+<p>Nginx supports loading extra config file with <code>include</code> directive, but it
+doesn't support overriding existing parameters.  for example, if parameter
+<code>client_max_body_size</code> is defined in one file, but you have <code>include</code> directive
+to load same parameter in another file, Nginx will report duplicate parameter
+and refuse to start. In this case, you have to remove existing config files
+(which contains the parameter you want to customize) generated by iRedMail Easy
+and create a new one. Let's use parameter <code>client_max_body_size</code> for example.</p>
+<p>iRedMail Easy generates files under <code>/etc/nginx/conf-enabled/</code> for different
+parameters, and parameter <code>client_max_body_size</code> is defined in
+<code>/etc/nginx/conf-enabled/client_max_body_size.conf</code> like this:</p>
+<pre><code>client_max_body_size 15m;
+</code></pre>
+
+<p>You need to add a new file under <code>/opt/iredmail/custom/nginx/conf-enabled/</code>
+first, then add shell command in <code>/opt/iredmail/custom/nginx/custom.sh</code> to
+remove <code>/etc/nginx/conf-enabled/client_max_body_size.conf</code> like below:</p>
+<pre><code>rm -f /etc/nginx/conf-enabled/client_max_body_size.conf
+</code></pre>
+
+<p>Now run this script:</p>
+<pre><code>cd /opt/iredmail/custom/nginx/
+bash custom.sh
+</code></pre>
+
+<p>When iRedMail Easy deploys or upgrades Nginx, it will run this script the
+same way.</p>
+<h3 id="the-rest">The rest</h3>
 <ul>
-<li>If software supports loading settings from multiple config files, you can
-  write your own config file under <code>/opt/iredmail/custom/&lt;software-name&gt;/</code>
-  without touching its core config files under <code>/etc/</code>. For example, Dovecot,
-  MariaDB, Roundcube, etc.</li>
-<li>If software does not support loading settings from multiple config files,
-  you may need to apply your own settings by running commands to modify
-  config files under <code>/etc/</code> directly. For example, Postfix (use <code>postconf</code>
-  command). Commands can be written in file
-  <code>/opt/iredmail/custom/postfix/custom.sh</code>, it's ran by iRedMail Eazy
-  each time it deploys or upgrades this software.</li>
-<li>If software doesn't support overriding existing settings, you may need to
-  remove existing config file first, then write your own config file with new
-  setting. for example, Nginx. In this case, you need to update
-  <code>/opt/iredmail/custom/nginx/custom.sh</code> to remove config file first, then
-  write your own config files under <code>/opt/iredmail/custom/nginx/</code>.</li>
+<li>SOGo doesn't support any of the ways mentioned above, please read <a href="#sogo">details below</a>.</li>
 </ul>
+<h2 id="softwares">Softwares</h2>
 <h3 id="mariadb">MariaDB</h3>
 <ul>
 <li><code>/opt/iredmail/custom/mysql/</code>:<ul>
@@ -74,16 +155,13 @@ max_connections     = 1024
 <h3 id="nginx">Nginx</h3>
 <ul>
 <li>
-<p><code>/opt/iredmail/custom/nginx/custom.sh</code>:</p>
-<ul>
-<li>a bash shell script for advanced customization. This file will be executed
-  every time iRedMail Eazy deploys / upgrades the Nginx component.</li>
-</ul>
-<p>For example, Nginx doesn't support override existing settings by
-  loading same parameter from another config file, in this case you should
-  run <code>rm</code> command in this file (<code>custom.sh</code>) to remove existing config
-  file generated by iRedMail Eazy and store custom settings in
-  another file.</p>
+<p><code>/opt/iredmail/custom/nginx/custom.sh</code>: a bash shell script for advanced
+  customization. This file will be executed every time iRedMail Easy deploys /
+  upgrades the Nginx.</p>
+<p>For example, Nginx doesn't support override existing settings by loading
+  same parameter from another config file, in this case you should run <code>rm</code>
+  command in this file (<code>custom.sh</code>) to remove existing config file
+  generated by iRedMail Easy and store custom settings in another file.</p>
 </li>
 <li>
 <p><code>/opt/iredmail/custom/nginx/conf-enabled/</code>: additional Nginx global settings used inside <code>http {}</code> block.</p>
@@ -100,7 +178,6 @@ max_connections     = 1024
 </li>
 <li><code>/opt/iredmail/custom/nginx/sites-enabled/</code>: additional virtual web hosts.</li>
 </ul>
-<h4 id="directory-structure">Directory Structure</h4>
 <p>iRedMail uses the directory structure recommended by Debian/Ubuntu:</p>
 <pre><code>/etc/nginx/                         # all config files
 
@@ -199,6 +276,10 @@ shell script to do even more complex customization.</p>
   <code>/opt/iredmail/custom/fail2ban/</code> too (you're free to create sub-folder to
   store the jail config files), then use <code>custom.sh</code> to create symbol link
   of jails you want to enable under <code>/etc/fail2ban/jail.d/</code>.</li>
+</ul>
+<h2 id="references">References</h2>
+<ul>
+<li><a href="https://wiki.dovecot.org/ConfigFile#Including_config_files">Dovecot: Including config files</a></li>
 </ul><div class="footer">
     <p style="text-align: center; color: grey;">All documents are available in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://bitbucket.org/zhb/iredmail-docs/get/tip.tar.bz2">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
 </div>
