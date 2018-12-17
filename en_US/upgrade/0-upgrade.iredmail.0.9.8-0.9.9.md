@@ -77,10 +77,10 @@ Add a `^` symbol before url path, this will exactly match the url begins
 with the path.
 
 ```
-+location ~ ^/mail/(bin|config|installer|logs|SQL|temp|vendor)($|/.*) { deny all; }
-+location ~ ^/mail/(CHANGELOG|composer.json|INSTALL|jsdeps.json|LICENSE|README|UPGRADING)($|.*) { deny all; }
-+location ~ ^/mail/plugins/.*/config.inc.php.* { deny all; }
-+location ~ ^/mail/plugins/enigma/home($|/.*) { deny all; }
+location ~ ^/mail/(bin|config|installer|logs|SQL|temp|vendor)($|/.*) { deny all; }
+location ~ ^/mail/(CHANGELOG|composer.json|INSTALL|jsdeps.json|LICENSE|README|UPGRADING)($|.*) { deny all; }
+location ~ ^/mail/plugins/.*/config.inc.php.* { deny all; }
+location ~ ^/mail/plugins/enigma/home($|/.*) { deny all; }
 ```
 
 Open file `/etc/nginx/templates/roundcube-subdomain.tmpl`, find `location`
