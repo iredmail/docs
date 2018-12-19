@@ -32,6 +32,12 @@ Please follow below tutorial to upgrade iRedAPD to the latest stable release:
 
 ### Upgrade iRedAdmin (open source edition) to the latest stable release (0.9.3)
 
+!!! attention
+
+    In this release, iRedAdmin (and iRedAdmin-Pro) is running as a standalone
+    service named "iredadmin", each time you modified its config file, please
+    restart the service ("iredadmin").
+
 Please follow this tutorial to upgrade iRedAdmin open source edition to the
 latest stable release:
 [Upgrade iRedAdmin to the latest stable release](./migrate.or.upgrade.iredadmin.html)
@@ -132,15 +138,6 @@ rm -f mlmmj-amime-receive
 wget https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/samples/mlmmj/mlmmj-amime-receive
 chown mlmmj:mlmmj mlmmj-amime-receive
 chmod 0550 mlmmj-amime-receive
-```
-
-### Fix incorrect file owner/group of mlmmjadmin config file
-
-Please run commands below to fix incorrect file owner/group and permission:
-
-```
-chown mlmmj:mlmmj /opt/mlmmjadmin/settings.py
-chmod 0400 /opt/mlmmjadmin/settings.py
 ```
 
 ### Fix address mapping issue for mlmmj mailing list
@@ -306,6 +303,8 @@ string `maildir` as default value.
 
 For more details about changing mailbox format, please check our tutorial:
 [Change mailbox format](./change.mailbox.format.html).
+
+Restarting Dovecot service is required.
 
 ### [OPTIONAL] Monitoring OpenLDAP with netdata
 

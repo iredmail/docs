@@ -8,6 +8,13 @@
     check [the details](https://www.iredmail.org/support.html) and
     [contact us](https://www.iredmail.org/contact.html).
 
+!!! attention
+
+    Since iRedAdmin-0.9.2 (open source edition), and iRedAdmin-Pro-SQL-3.0,
+    iRedAdmin-Pro-LDAP-3.2, iRedAdmin or iRedAdmin-Pro is running as a
+    standalone service named "iredadmin", each time you modified its config
+    file, please restart the service ("iredadmin").
+
 This tutorial describes how to update or migrate iRedAdmin (either open source
 edition or old iRedAdmin-Pro release) to the latest iRedAdmin release (again,
 either open source edition or iRedAdmin-Pro).

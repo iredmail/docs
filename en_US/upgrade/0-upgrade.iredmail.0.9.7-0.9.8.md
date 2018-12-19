@@ -149,26 +149,11 @@ installed with a malware Windows XP ISO image.
 
 Steps to create this new Fail2ban jail:
 
-* Create new file `/etc/fail2ban/filter.d/postfix-pregreet.iredmail.conf` with content
-  below:
+* Download filter rule:
 
 ```
-[Definition]
-
-# Block clients which cannot pass Postfix postscreen pregreet test.
-# FYI: http://www.postfix.org/POSTSCREEN_README.html#pregreet
-#
-# The SMTP protocol is a classic example of a protocol where the server speaks
-# before the client. postscreen(8) detects zombies that are in a hurry and that
-# speak before their turn.
-failregex = postscreen\[\d+\]: PREGREET .* from \[<HOST>\]:\d+:
-
-# while setting up new account, Thunderbird doesn't wait for server connection
-# greeting/banner, this causes Thunderbird cannot pass the Postfix pregreet
-# test and caught by `failregex` rules listed above (the rule contains
-# 'PREGREET' line).
-# FYI: https://bugzilla.mozilla.org/show_bug.cgi?id=538809#c41
-ignoreregex = postscreen\[\d+\]: PREGREET .* from \[<HOST>\]:\d+: (EHLO|HELO) we-guess.mozilla.org
+cd /etc/fail2ban/filter.d/
+wget https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/samples/fail2ban/filter.d/postfix-pregreet.iredmail.conf
 ```
 
 * Create new file `/etc/fail2ban/jail.d/postfix-pregreet.local` with content
