@@ -10,6 +10,7 @@
 
 ## ChangeLog
 
+* Dec 20, 2018, fix hard-coded mailbox folder name in `dovecot-mysql.conf`.
 * Dec 19, 2018, add section for upgrading mlmmjadmin.
 * Dec 17, 2018, initial release.
 
@@ -369,7 +370,7 @@ Add a new `CONCAT` line after above `CONCAT()` line:
 user_query = SELECT \
             ...
             CONCAT(mailbox.storagebasedirectory, '/', mailbox.storagenode, '/', mailbox.maildir) AS home, \
-            CONCAT(mailbox.mailboxformat, ':', mailbox.storagebasedirectory, '/', mailbox.storagenode, '/', mailbox.maildir, '/Maildir') AS mail, \
+            CONCAT(mailbox.mailboxformat, ':', mailbox.storagebasedirectory, '/', mailbox.storagenode, '/', mailbox.maildir, '/', mailbox.mailboxfolder) AS mail, \
             ...
 ```
 
