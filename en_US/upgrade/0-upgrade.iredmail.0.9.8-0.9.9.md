@@ -10,6 +10,7 @@
 
 ## ChangeLog
 
+* Dec 19, 2018, add section for upgrading mlmmjadmin.
 * Dec 17, 2018, initial release.
 
 ## General (All backends should apply these changes)
@@ -34,6 +35,11 @@ Please follow below tutorial to upgrade iRedAPD to the latest stable release:
 Please follow this tutorial to upgrade iRedAdmin open source edition to the
 latest stable release:
 [Upgrade iRedAdmin to the latest stable release](./migrate.or.upgrade.iredadmin.html)
+
+### Upgrade mlmmjadmin to the latest stable release (1.9)
+
+Please follow below tutorial to upgrade mlmmjadmin to the latest stable release:
+[Upgrade mlmmjadmin to the latest stable release](./upgrade.mlmmjadmin.html)
 
 ### Upgrade Roundcube webmail to the latest stable release (1.3.8)
 
