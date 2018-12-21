@@ -16,14 +16,15 @@
         <span>iRedMail</span>
     </a>
     &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><h1 id="change-per-user-mailbox-format-eg-maildir-mdbox">Change per-user mailbox format (e.g. maildir, mdbox)</h1>
-<p>iRedMail uses <code>maildir</code> mailbox format by default, it's easy to migrate and
-maintain, but if mailbox size is growing, the performance will be getting
-slower due to too much disk I/O. Dovecot's own mailbox format <code>mdbox</code> has very
-good performance for large mailbox due to reduced disk I/O.</p>
+<p>iRedMail uses <code>maildir</code> mailbox format by default, it's easy to backup, migrate
+and recover.  As long as mailbox grows larger and larger, the performance will
+be slower due to too much disk I/O - caused by <code>maildir</code> format. Dovecot's own
+mailbox format <code>mdbox</code> has very good performance for large mailbox due to
+reduced disk I/O.</p>
 <p>You may want to switch to other mailbox format for some reason. To help you
 switch easily, iRedMail-0.9.9 introduces 2 new SQL columns (for SQL backends)
 and LDAP attributes (for LDAP backends) to help you switch per-user mailbox
-format easily. All <a href="https://wiki2.dovecot.org/MailboxFormat">mailbox formats supported by
+format easily. All <a href="https://wiki.dovecot.org/MailboxFormat">mailbox formats supported by
 Dovecot</a> are supported in iRedMail.</p>
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>
@@ -34,6 +35,18 @@ Dovecot</a> are supported in iRedMail.</p>
   Check its <a href="./iredadmin-pro.restful.api.html">API document</a> (expand all
   parameters and search <code>mailboxformat</code> or <code>mailboxFormat</code>).</li>
 </ul>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>With <code>mdbox</code> format, if mailbox index files are damaged or lost, mail
+messages will be lost. Because one of the main reasons for dbox's high
+performance is that it uses Dovecot's index files as the only storage for
+message flags and keywords, so the indexes don't have to be "synchronized".
+Dovecot trusts that they're always up-to-date (unless it sees that
+something is clearly broken).</p>
+<p>Please read documents on Dovecot website to make sure you fully understand
+the pros and (most importantly) cons of the format you're going to use:
+<a href="https://wiki.dovecot.org/MailboxFormat">Mailbox Formats</a>.</p>
 </div>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>

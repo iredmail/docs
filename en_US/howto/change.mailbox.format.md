@@ -1,15 +1,16 @@
 # Change per-user mailbox format (e.g. maildir, mdbox)
 
-iRedMail uses `maildir` mailbox format by default, it's easy to migrate and
-maintain, but if mailbox size is growing, the performance will be getting
-slower due to too much disk I/O. Dovecot's own mailbox format `mdbox` has very
-good performance for large mailbox due to reduced disk I/O.
+iRedMail uses `maildir` mailbox format by default, it's easy to backup, migrate
+and recover.  As long as mailbox grows larger and larger, the performance will
+be slower due to too much disk I/O - caused by `maildir` format. Dovecot's own
+mailbox format `mdbox` has very good performance for large mailbox due to
+reduced disk I/O.
 
 You may want to switch to other mailbox format for some reason. To help you
 switch easily, iRedMail-0.9.9 introduces 2 new SQL columns (for SQL backends)
 and LDAP attributes (for LDAP backends) to help you switch per-user mailbox
 format easily. All [mailbox formats supported by
-Dovecot](https://wiki2.dovecot.org/MailboxFormat) are supported in iRedMail.
+Dovecot](https://wiki.dovecot.org/MailboxFormat) are supported in iRedMail.
 
 !!! attention
 
@@ -18,6 +19,19 @@ Dovecot](https://wiki2.dovecot.org/MailboxFormat) are supported in iRedMail.
     * iRedAdmin-Pro RESTful API interface supports changing mailbox format too.
       Check its [API document](./iredadmin-pro.restful.api.html) (expand all
       parameters and search `mailboxformat` or `mailboxFormat`).
+
+!!! warning
+
+    With `mdbox` format, if mailbox index files are damaged or lost, mail
+    messages will be lost. Because one of the main reasons for dbox's high
+    performance is that it uses Dovecot's index files as the only storage for
+    message flags and keywords, so the indexes don't have to be "synchronized".
+    Dovecot trusts that they're always up-to-date (unless it sees that
+    something is clearly broken).
+
+    Please read documents on Dovecot website to make sure you fully understand
+    the pros and (most importantly) cons of the format you're going to use:
+    [Mailbox Formats](https://wiki.dovecot.org/MailboxFormat).
 
 !!! warning
 
