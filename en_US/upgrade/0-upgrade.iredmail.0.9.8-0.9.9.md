@@ -10,6 +10,8 @@
 
 ## ChangeLog
 
+* Dec 21, 2018, Fixed: SOGo backup script doesn't set correct permission on backup files.
+* Dec 21, 2018, mention how to upgrade netdata.
 * Dec 20, 2018, fix hard-coded mailbox folder name in `dovecot-mysql.conf`.
 * Dec 19, 2018, add section for upgrading mlmmjadmin.
 * Dec 17, 2018, initial release.
@@ -70,6 +72,10 @@ Please follow Roundcube official tutorial to upgrade Roundcube webmail to the
 latest stable release immediately:
 
 * [How to upgrade Roundcube](https://github.com/roundcube/roundcubemail/wiki/Upgrade).
+
+### Upgrade netdata to the latest stable release (1.11.1)
+
+If you have netdata installed, you can upgrade it by following this tutorial: [Upgrade netdata](./upgrade.netdata.html).
 
 ### Fix improper Nginx config files for Roundcube
 
@@ -206,6 +212,26 @@ Port 10025 is used __BEFORE__ content filter, but 10028 is used __AFTER__
 content filter.
 
 * Restart both postfix and amavisd services.
+
+### Fixed: SOGo backup script doesn't set correct permission on backup files
+
+SOGo backup script `/var/vmail/backup/backup_sogo.sh` shipped in iRedMail-0.9.8
+and earlier releases doesn't set correct permission on backup files, please
+download the latest version and override the one on your system:
+
+!!! attention
+
+    Script `backup_sogo.sh` uses `/var/vmail/backup` to store backup files by
+    default, if you use a different directory, please edit this file and modify
+    parameter `BACKUP_ROOTDIR=` to use the correct one.
+
+```
+cd /var/vmail/backup/
+rm -f backup_sogo.sh
+wget https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/tools/backup_sogo.sh
+chown root backup_sogo.sh
+chmod 0400 backup_sogo.sh
+```
 
 ## OpenLDAP special
 
