@@ -5,12 +5,11 @@ maintain, but if mailbox size is growing, the performance will be getting
 slower due to too much disk I/O. Dovecot's own mailbox format `mdbox` has very
 good performance for large mailbox due to reduced disk I/O.
 
-You may want to switch to other mailbox format for some reason.
-To help you switch easily, iRedMail-0.9.9 introduces 2 new
-SQL columns (for SQL backends) and LDAP attributes (for LDAP backends) to help
-you switch per-user mailbox format easily. All
-[mailbox formats supported by Dovecot]https://wiki2.dovecot.org/MailboxFormat)
-is supported in iRedMail.
+You may want to switch to other mailbox format for some reason. To help you
+switch easily, iRedMail-0.9.9 introduces 2 new SQL columns (for SQL backends)
+and LDAP attributes (for LDAP backends) to help you switch per-user mailbox
+format easily. All [mailbox formats supported by
+Dovecot](https://wiki2.dovecot.org/MailboxFormat) are supported in iRedMail.
 
 !!! attention
 
@@ -18,7 +17,7 @@ is supported in iRedMail.
       upgrade it by following [iRedMail upgrade tutorials](./iredmail.releases.html).
     * iRedAdmin-Pro RESTful API interface supports changing mailbox format too.
       Check its [API document](./iredadmin-pro.restful.api.html) (expand all
-      parameters and search 'mailboxformat' or `mailboxFormat`).
+      parameters and search `mailboxformat` or `mailboxFormat`).
 
 !!! warning
 
