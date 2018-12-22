@@ -2,6 +2,11 @@
 
 [TOC]
 
+!!! warning
+
+    This tutorial is out of date and deprecated. Since iRedMail-0.9.8, Apache
+    was removed and Nginx is the only one web server.
+
 > This tutorial is used to install iRedAdmin from scratch, running under Apache
 > web server.
 >

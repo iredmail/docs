@@ -9,13 +9,6 @@ this tutorial with just one shell command:
 
 * [Migrate or upgrade iRedAdmin](./migrate.or.upgrade.iredadmin.html)
 
-## Install iRedAdmin from scratch
-
-* [Install iRedAdmin on Red Hat Enterprise Linux, CentOS, Scientific Linux](./install.iredadmin.on.rhel.html)
-* [Install iRedAdmin on Debian, Ubuntu](./install.iredadmin.on.debian.html)
-* [Install iRedAdmin on FreeBSD](./install.iredadmin.on.freebsd.html)
-* [Install iRedAdmin on OpenBSD](./install.iredadmin.on.openbsd.html)
-
 ## Release Notes
 
 ### iRedAdmin-Pro-LDAP (for OpenLDAP backend)
