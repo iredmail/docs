@@ -10,6 +10,7 @@
 
 ## ChangeLog
 
+* Dec 23, 2018, Fixed: Improper new dovecot ldap/sql queries which doesn't convert upper cases of maildir to lower cases.
 * Dec 21, 2018, Fixed: SOGo backup script doesn't set correct permission on backup files.
 * Dec 21, 2018, mention how to upgrade netdata.
 * Dec 20, 2018, fix hard-coded mailbox folder name in `dovecot-mysql.conf`.
@@ -322,7 +323,7 @@ user_attrs      = mail=master_user,mail=user,homeDirectory=home,=mail=maildir:~/
 Please replace it by below one:
 
 ```
-user_attrs      = mail=master_user,mail=user,homeDirectory=home,=mail=%{ldap:mailboxFormat:maildir}:~/%{ldap:mailboxFolder:Maildir}/,mailQuota=quota_rule=*:bytes=%$
+user_attrs      = mail=master_user,mail=user,=home=%L{ldap:homeDirectory},=mail=%{ldap:mailboxFormat:maildir}:~/%{ldap:mailboxFolder:Maildir}/,mailQuota=quota_rule=*:bytes=%$
 ```
 
 If attribute `mailboxFormat` doesn't present in user object, Dovecot will use
@@ -390,13 +391,13 @@ user_query = SELECT \
             ...
 ```
 
-Add a new `CONCAT` line after above `CONCAT()` line:
+Update above line and also add a new `CONCAT` line after after it:
 
 ```
 user_query = SELECT \
             ...
-            CONCAT(mailbox.storagebasedirectory, '/', mailbox.storagenode, '/', mailbox.maildir) AS home, \
-            CONCAT(mailbox.mailboxformat, ':', mailbox.storagebasedirectory, '/', mailbox.storagenode, '/', mailbox.maildir, '/', mailbox.mailboxfolder) AS mail, \
+            LOWER(CONCAT(mailbox.storagebasedirectory, '/', mailbox.storagenode, '/', mailbox.maildir)) AS home, \
+            CONCAT(mailbox.mailboxformat, ':~/', mailbox.mailboxfolder, '/') AS mail, \
             ...
 ```
 
@@ -458,12 +459,12 @@ user_query = SELECT \
     ...
 ```
 
-Please Add a line after above line:
+Update above line and also add a new `CONCAT` line after after it:
 
 ```
 user_query = SELECT \
-    mailbox.storagebasedirectory || '/' || mailbox.storagenode || '/' || mailbox.maildir AS home, \
-    mailbox.mailboxformat || ':' || mailbox.storagebasedirectory || '/' || mailbox.storagenode || '/' || mailbox.maildir || '/' || mailbox.mailboxfolder || '/' AS mail, \
+    LOWER(mailbox.storagebasedirectory || '/' || mailbox.storagenode || '/' || mailbox.maildir) AS home, \
+    LOWER(mailbox.mailboxformat || ':~/' || mailbox.mailboxfolder || '/') AS mail, \
     ...
 ```
 
@@ -484,13 +485,13 @@ user_query = SELECT \
             ...
 ```
 
-Add a new `CONCAT` line after above `CONCAT()` line:
+Update above line and also add a new `CONCAT` line after after it:
 
 ```
 user_query = SELECT \
             ...
-            CONCAT(mailbox.storagebasedirectory, '/', mailbox.storagenode, '/', mailbox.maildir) AS home, \
-            CONCAT(mailbox.mailboxformat, ':', mailbox.storagebasedirectory, '/', mailbox.storagenode, '/', mailbox.maildir, '/', mailbox.mailboxfolder, '/') AS mail, \
+            LOWER(CONCAT(mailbox.storagebasedirectory, '/', mailbox.storagenode, '/', mailbox.maildir)) AS home, \
+            CONCAT(mailbox.mailboxformat, ':~/', mailbox.mailboxfolder, '/') AS mail, \
             ...
 ```
 

@@ -65,6 +65,7 @@ check <a href="https://www.iredmail.org/support.html">the details</a> and
 </div>
 <h2 id="changelog">ChangeLog</h2>
 <ul>
+<li>Dec 23, 2018, Fixed: Improper new dovecot ldap/sql queries which doesn't convert upper cases of maildir to lower cases.</li>
 <li>Dec 21, 2018, Fixed: SOGo backup script doesn't set correct permission on backup files.</li>
 <li>Dec 21, 2018, mention how to upgrade netdata.</li>
 <li>Dec 20, 2018, fix hard-coded mailbox folder name in <code>dovecot-mysql.conf</code>.</li>
@@ -337,7 +338,7 @@ line like below:</p>
 </code></pre>
 
 <p>Please replace it by below one:</p>
-<pre><code>user_attrs      = mail=master_user,mail=user,homeDirectory=home,=mail=%{ldap:mailboxFormat:maildir}:~/%{ldap:mailboxFolder:Maildir}/,mailQuota=quota_rule=*:bytes=%$
+<pre><code>user_attrs      = mail=master_user,mail=user,=home=%L{ldap:homeDirectory},=mail=%{ldap:mailboxFormat:maildir}:~/%{ldap:mailboxFolder:Maildir}/,mailQuota=quota_rule=*:bytes=%$
 </code></pre>
 
 <p>If attribute <code>mailboxFormat</code> doesn't present in user object, Dovecot will use
@@ -396,11 +397,11 @@ line like below:</p>
             ...
 </code></pre>
 
-<p>Add a new <code>CONCAT</code> line after above <code>CONCAT()</code> line:</p>
+<p>Update above line and also add a new <code>CONCAT</code> line after after it:</p>
 <pre><code>user_query = SELECT \
             ...
-            CONCAT(mailbox.storagebasedirectory, '/', mailbox.storagenode, '/', mailbox.maildir) AS home, \
-            CONCAT(mailbox.mailboxformat, ':', mailbox.storagebasedirectory, '/', mailbox.storagenode, '/', mailbox.maildir, '/', mailbox.mailboxfolder) AS mail, \
+            LOWER(CONCAT(mailbox.storagebasedirectory, '/', mailbox.storagenode, '/', mailbox.maildir)) AS home, \
+            CONCAT(mailbox.mailboxformat, ':~/', mailbox.mailboxfolder, '/') AS mail, \
             ...
 </code></pre>
 
@@ -450,10 +451,10 @@ below:</p>
     ...
 </code></pre>
 
-<p>Please Add a line after above line:</p>
+<p>Update above line and also add a new <code>CONCAT</code> line after after it:</p>
 <pre><code>user_query = SELECT \
-    mailbox.storagebasedirectory || '/' || mailbox.storagenode || '/' || mailbox.maildir AS home, \
-    mailbox.mailboxformat || ':' || mailbox.storagebasedirectory || '/' || mailbox.storagenode || '/' || mailbox.maildir || '/' || mailbox.mailboxfolder || '/' AS mail, \
+    LOWER(mailbox.storagebasedirectory || '/' || mailbox.storagenode || '/' || mailbox.maildir) AS home, \
+    LOWER(mailbox.mailboxformat || ':~/' || mailbox.mailboxfolder || '/') AS mail, \
     ...
 </code></pre>
 
@@ -469,11 +470,11 @@ below:</p>
             ...
 </code></pre>
 
-<p>Add a new <code>CONCAT</code> line after above <code>CONCAT()</code> line:</p>
+<p>Update above line and also add a new <code>CONCAT</code> line after after it:</p>
 <pre><code>user_query = SELECT \
             ...
-            CONCAT(mailbox.storagebasedirectory, '/', mailbox.storagenode, '/', mailbox.maildir) AS home, \
-            CONCAT(mailbox.mailboxformat, ':', mailbox.storagebasedirectory, '/', mailbox.storagenode, '/', mailbox.maildir, '/', mailbox.mailboxfolder, '/') AS mail, \
+            LOWER(CONCAT(mailbox.storagebasedirectory, '/', mailbox.storagenode, '/', mailbox.maildir)) AS home, \
+            CONCAT(mailbox.mailboxformat, ':~/', mailbox.mailboxfolder, '/') AS mail, \
             ...
 </code></pre>
 
