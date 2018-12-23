@@ -2,6 +2,12 @@
 
 [TOC]
 
+## Version: 2018122301 (Dec 23, 2018)
+
+* Fixed:
+    - Improper dovecot ldap/sql queries which doesn't convert upper cases of
+      maildir to lower cases.
+
 ## Version: 2018121701 (Dec 17, 2018)
 
 !!! attention
