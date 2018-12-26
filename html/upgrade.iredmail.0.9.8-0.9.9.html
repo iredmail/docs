@@ -206,7 +206,7 @@ Please follow steps below to fix it.</p>
 <li>Append new lines to file <code>/etc/postfix/master.cf</code> (Linux/OpenBSD) or
   <code>/usr/local/etc/postfix/master.cf</code> (FreeBSD):</li>
 </ul>
-<pre><code>10028 inet n  -   n   -   -  smtpd
+<pre><code>107.0.0.1:10028 inet n  -   n   -   -  smtpd
     -o syslog_name=postfix/10028
     -o content_filter=
     -o mynetworks_style=host

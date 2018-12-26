@@ -31,14 +31,14 @@
 <td>25</td>
 <td>smtp</td>
 <td>Postfix</td>
-<td>Normal smtp service, used for server-to-server communication. <strong>WARNING</strong>: This port <strong>MUST</strong> be open, otherwise you cannot receive email sent from other servers.</td>
-<td>YES</td>
+<td>Used for communication betweem mail servers. <strong>WARNING</strong>: This port <strong>MUST</strong> be open, otherwise you cannot receive email sent by other mail servers.</td>
+<td class="red">YES (REQUIRED)</td>
 </tr>
 <tr>
 <td>587</td>
 <td>submission</td>
 <td>Postfix</td>
-<td>a.k.a. SMTP over TLS. Used by end users to send/submit email.</td>
+<td>SMTP over TLS. Used by end users to send/submit email.</td>
 <td>YES (open to your end users)</td>
 </tr>
 <tr>
@@ -123,7 +123,7 @@
 <td>ldaps</td>
 <td>OpenLDAP (or OpenBSD ldapd)</td>
 <td>LDAP service over SSL. Deprecated, port 389 with STARTTLS is recommended.</td>
-<td>NO (listen on <code>127.0.0.1</code> by default)</td>
+<td>NO (Not enabled by default)</td>
 </tr>
 <tr>
 <td>10024</td>
@@ -154,6 +154,13 @@
 <td>NO (listen on <code>127.0.0.1</code> by default)</td>
 </tr>
 <tr>
+<td>10028</td>
+<td></td>
+<td>Postfix</td>
+<td>Used by Amavisd-new to handle email message sent by mlmmj mailing list manager. Introduced in iRedMail-0.9.9.</td>
+<td>NO (listen on <code>127.0.0.1</code> by default)</td>
+</tr>
+<tr>
 <td>9998</td>
 <td></td>
 <td>Amavisd-new</td>
@@ -171,7 +178,14 @@
 <td>7790</td>
 <td>http</td>
 <td>mlmmjadmin</td>
-<td>RESTful API server used to manage mlmmj mailing lists. New in iRedMail-0.9.8.</td>
+<td>RESTful API server used to manage mlmmj mailing lists. Introduced in iRedMail-0.9.8.</td>
+<td>NO (listen on <code>127.0.0.1</code> by default)</td>
+</tr>
+<tr>
+<td>7791</td>
+<td>http</td>
+<td>iredadmin</td>
+<td>iRedAdmin (standalone uwsgi instance). Introduced in iRedMail-0.9.9.</td>
 <td>NO (listen on <code>127.0.0.1</code> by default)</td>
 </tr>
 <tr>
@@ -192,14 +206,14 @@
 <td>24242</td>
 <td></td>
 <td>Dovecot</td>
-<td>Dovecot service status. New in iRedMail-0.9.8.</td>
+<td>Dovecot service status. Introduced in iRedMail-0.9.8.</td>
 <td>NO (listen on <code>127.0.0.1</code> by default)</td>
 </tr>
 <tr>
 <td>19999</td>
 <td></td>
 <td>Netdata</td>
-<td>Netdata monitor. New in iRedMail-0.9.8.</td>
+<td>Netdata monitor. Introduced in iRedMail-0.9.8.</td>
 <td>NO (listen on <code>127.0.0.1</code> by default)</td>
 </tr>
 </tbody>

@@ -183,7 +183,7 @@ Here we use a new smtp port 10028.
   `/usr/local/etc/postfix/master.cf` (FreeBSD):
 
 ```
-10028 inet n  -   n   -   -  smtpd
+107.0.0.1:10028 inet n  -   n   -   -  smtpd
     -o syslog_name=postfix/10028
     -o content_filter=
     -o mynetworks_style=host
