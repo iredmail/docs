@@ -381,7 +381,7 @@ mysql vmail < /root/iredmail.mysql
 ### Dovecot: read mailbox format from SQL
 
 Please open file `/etc/dovecot/dovecot-mysql.conf` (Linux/OpenBSD) or
-`/usr/local/etc/dovecot/dovecot-mysql.conf` (FreeBSD), find the `user_attrs =`
+`/usr/local/etc/dovecot/dovecot-mysql.conf` (FreeBSD), find the `user_query =`
 line like below:
 
 ```
@@ -391,7 +391,7 @@ user_query = SELECT \
             ...
 ```
 
-Update above line and also add a new `CONCAT` line after after it:
+Update above line and also add a new `CONCAT` line after it:
 
 ```
 user_query = SELECT \
@@ -450,7 +450,7 @@ Please open file `/etc/dovecot/dovecot-pgsql.conf` (Linux/OpenBSD) or
 
 #### PostgreSQL 8.x
 
-If you're running __PostgreSQL 8.x__, you can find the `user_attrs =` line like
+If you're running __PostgreSQL 8.x__, you can find the `user_query =` line like
 below:
 
 ```
@@ -459,7 +459,7 @@ user_query = SELECT \
     ...
 ```
 
-Update above line and also add a new `CONCAT` line after after it:
+Update above line and also add a new `CONCAT` line after it:
 
 ```
 user_query = SELECT \
@@ -485,7 +485,7 @@ user_query = SELECT \
             ...
 ```
 
-Update above line and also add a new `CONCAT` line after after it:
+Update above line and also add a new `CONCAT` line after it:
 
 ```
 user_query = SELECT \

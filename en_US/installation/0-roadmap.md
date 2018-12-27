@@ -13,7 +13,7 @@ You can also contact us via email directly: [Contact Us](https://www.iredmail.or
 ## Planned changes in future iRedMail release
 
 * A (new) RESTful API server for general administration (core of API server has
-  been implemented, need to write plugins for each particular tasks):
+  been implemented, need to write plugins for each particular task):
     * [HIGH] Manage Nginx virtual web hosts.
     * Network service control: get service status, stop/start/restart service.
     * Manage fail2ban banned/unbanned IPs.
@@ -30,7 +30,7 @@ You can also contact us via email directly: [Contact Us](https://www.iredmail.or
 * Dovecot:
     * Enable plugin `imap_sieve` for spam learning while user moving message to
       Junk folder. Requires Dovecot-2.2.24+ (dovecot-pigeonhole-0.4.14+).
-    * Enable plugin `mail_crypt` to encrypts and decrypts mail. (requires Dovecot-2.2.27+).
+    * Enable plugin `mail_crypt` to encrypt and decrypt mail. (requires Dovecot-2.2.27+).
 
 * LDAP backends:
     * Migrate old mailing list (`objectClass=mailList`) to new mlmmj mailing

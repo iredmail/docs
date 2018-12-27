@@ -389,7 +389,7 @@ mysql vmail &lt; /root/iredmail.mysql
 
 <h3 id="dovecot-read-mailbox-format-from-sql">Dovecot: read mailbox format from SQL</h3>
 <p>Please open file <code>/etc/dovecot/dovecot-mysql.conf</code> (Linux/OpenBSD) or
-<code>/usr/local/etc/dovecot/dovecot-mysql.conf</code> (FreeBSD), find the <code>user_attrs =</code>
+<code>/usr/local/etc/dovecot/dovecot-mysql.conf</code> (FreeBSD), find the <code>user_query =</code>
 line like below:</p>
 <pre><code>user_query = SELECT \
             ...
@@ -397,7 +397,7 @@ line like below:</p>
             ...
 </code></pre>
 
-<p>Update above line and also add a new <code>CONCAT</code> line after after it:</p>
+<p>Update above line and also add a new <code>CONCAT</code> line after it:</p>
 <pre><code>user_query = SELECT \
             ...
             LOWER(CONCAT(mailbox.storagebasedirectory, '/', mailbox.storagenode, '/', mailbox.maildir)) AS home, \
@@ -444,14 +444,14 @@ sql&gt; \i /tmp/iredmail.pgsql
 <p>Please open file <code>/etc/dovecot/dovecot-pgsql.conf</code> (Linux/OpenBSD) or
 <code>/usr/local/etc/dovecot/dovecot-pgsql.conf</code> (FreeBSD), then</p>
 <h4 id="postgresql-8x">PostgreSQL 8.x</h4>
-<p>If you're running <strong>PostgreSQL 8.x</strong>, you can find the <code>user_attrs =</code> line like
+<p>If you're running <strong>PostgreSQL 8.x</strong>, you can find the <code>user_query =</code> line like
 below:</p>
 <pre><code>user_query = SELECT \
     mailbox.storagebasedirectory || '/' || mailbox.storagenode || '/' || mailbox.maildir AS home, \
     ...
 </code></pre>
 
-<p>Update above line and also add a new <code>CONCAT</code> line after after it:</p>
+<p>Update above line and also add a new <code>CONCAT</code> line after it:</p>
 <pre><code>user_query = SELECT \
     LOWER(mailbox.storagebasedirectory || '/' || mailbox.storagenode || '/' || mailbox.maildir) AS home, \
     LOWER(mailbox.mailboxformat || ':~/' || mailbox.mailboxfolder || '/') AS mail, \
@@ -470,7 +470,7 @@ below:</p>
             ...
 </code></pre>
 
-<p>Update above line and also add a new <code>CONCAT</code> line after after it:</p>
+<p>Update above line and also add a new <code>CONCAT</code> line after it:</p>
 <pre><code>user_query = SELECT \
             ...
             LOWER(CONCAT(mailbox.storagebasedirectory, '/', mailbox.storagenode, '/', mailbox.maildir)) AS home, \
