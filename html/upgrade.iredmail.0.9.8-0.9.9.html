@@ -463,7 +463,7 @@ below:</p>
 <a href="./change.mailbox.format.html">Change mailbox format</a>.</p>
 <h4 id="postgresql-9x-and-later-releases">PostgreSQL 9.x and later releases</h4>
 <p>If you're running <strong>PostgreSQL 9.x</strong> and later releases, you can find the
-<code>user_attrs =</code> line like below:</p>
+<code>user_query =</code> line like below:</p>
 <pre><code>user_query = SELECT \
             ...
             CONCAT(mailbox.storagebasedirectory, '/', mailbox.storagenode, '/', mailbox.maildir) AS home, \

@@ -476,7 +476,7 @@ For more details about changing mailbox format, please check our tutorial:
 #### PostgreSQL 9.x and later releases
 
 If you're running __PostgreSQL 9.x__ and later releases, you can find the
-`user_attrs =` line like below:
+`user_query =` line like below:
 
 ```
 user_query = SELECT \
