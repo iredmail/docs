@@ -2,6 +2,17 @@
 
 [TOC]
 
+## Version: 2019010201 (Jan 2, 2019)
+
+> Hello, 2019. :)
+
+* Updated packages:
+    - iRedAPD-2.4. Fixed a greylisting issue.
+* Fixed issues:
+    - Not correctly set owner and permission of custom Postfix config files
+      and hash db files.
+    - Not remove unused modular nginx config file for iredadmin.
+
 ## Version: 2018122301 (Dec 23, 2018)
 
 * Fixed:
