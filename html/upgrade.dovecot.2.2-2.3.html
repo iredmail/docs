@@ -89,12 +89,40 @@ perl -pi -e 's#stats_track_cmds#old_stats_track_cmds#g' dovecot.conf
 <li>On RHEL/CentOS, please add new setting in <code>dovecot.conf</code>:</li>
 </ul>
 <pre><code>ssl_dh = &lt;/etc/pki/tls/dh2048_param.pem
+
+service stats {
+    unix_listener stats-reader {
+        user = vmail
+        group = vmail
+        mode = 0660
+    }
+
+    unix_listener stats-writer {
+        user = vmail
+        group = vmail
+        mode = 0660
+    }
+}
 </code></pre>
 
 <ul>
 <li>On Debian/Ubuntu/OpenBSD/FreeBSD, please add new setting in <code>dovecot.conf</code>:</li>
 </ul>
 <pre><code>ssl_dh = &lt;/etc/ssl/dh2048_param.pem
+
+service stats {
+    unix_listener stats-reader {
+        user = vmail
+        group = vmail
+        mode = 0660
+    }
+
+    unix_listener stats-writer {
+        user = vmail
+        group = vmail
+        mode = 0660
+    }
+}
 </code></pre>
 
 <h2 id="sql-structure-changes-for-mysqlmariadbpostgresql-backends">SQL structure changes for MySQL/MariaDB/PostgreSQL backends</h2>
