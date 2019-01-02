@@ -34,7 +34,7 @@ so that you can know which version of iRedMail you're running. For example:
 Please follow below tutorial to upgrade iRedAPD to the latest stable release:
 [Upgrade iRedAPD to the latest stable release](./upgrade.iredapd.html)
 
-### Upgrade iRedAdmin (open source edition) to the latest stable release (0.9.3)
+### Upgrade iRedAdmin (open source edition) to the latest stable release (0.9.4)
 
 !!! attention
 
