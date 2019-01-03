@@ -468,7 +468,7 @@ user_query = SELECT \
     ...
 ```
 
-Restart Dovecot service is required.
+Restarting Dovecot service is required.
 
 For more details about changing mailbox format, please check our tutorial:
 [Change mailbox format](./change.mailbox.format.html).
@@ -495,7 +495,7 @@ user_query = SELECT \
             ...
 ```
 
-Restart Dovecot service is required.
+Restarting Dovecot service is required.
 
 For more details about changing mailbox format, please check our tutorial:
 [Change mailbox format](./change.mailbox.format.html).
