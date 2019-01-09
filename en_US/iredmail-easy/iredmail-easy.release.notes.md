@@ -2,6 +2,17 @@
 
 [TOC]
 
+## Version: Upcoming release
+
+* Able to deploy iRedAdmin-Pro with your license key.
+* Enable imapsieve plugin in Dovecot by default.
+
+    Message moved to Junk folder will be copied to a directory for spam
+    learning later, vice verse, message moved out of Junk will be copied
+    for ham learning later.
+
+    The spam/ham learning will be performed every 10 minutes with a cron job.
+
 ## Version: 2019010201 (Jan 2, 2019)
 
 > Hello, 2019. :)
