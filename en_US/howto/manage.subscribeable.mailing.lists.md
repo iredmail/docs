@@ -9,16 +9,27 @@ Since iRedMail-0.9.8, iRedMail integrates mlmmj as mailing list manager.
 ## Manage subscribeable mailing lists with iRedAdmin-Pro
 
 With [iRedAdmin-Pro](https://www.iredmail.org/admin_panel.html), you can easily
-manage mailing list accounts with its web UI. Here's a screenshot of mailing
-list profile page in iRedAdmin-Pro:
+manage mailing list accounts with its web UI. Screenshots of mailing
+list profile pages in iRedAdmin-Pro:
+
+Profile page:
 
 ![](./images/iredadmin/mailinglist_profile.png){: width="900px" }
 
+Allow users to subscribe from web page:
+
+![](./images/iredadmin/mailinglist_newsletter.png){: width="900px" }
+
+Instruction to generate a newsletter sign up form:
+
+![](./images/iredadmin/mailinglist_signup_code.png){: width="900px" }
+
 ## Manage subscribeable mailing lists with command line tool
 
-iRedMail integrates `mlmmjadmin` (a RESTful API server developed by iRedMail
-team) to help you manage mlmmj mailing lists, it also offers command line
-script `/opt/mlmmjadmin/tools/maillist_admin.py` for system administrators.
+iRedMail integrates [`mlmmjadmin`](https://github.com/iredmail/mlmmjadmin) (a
+RESTful API server developed by iRedMail team) to help you manage mlmmj mailing
+lists, it also offers command line script
+`/opt/mlmmjadmin/tools/maillist_admin.py` for system administrators.
 
 !!! attention
 
