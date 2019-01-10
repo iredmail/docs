@@ -26,8 +26,7 @@
 <li><a href="#postfix-integration">Postfix integration</a></li>
 <li><a href="#amavisd-integration">Amavisd Integration</a></li>
 <li><a href="#setup-mlmmjadmin-restful-api-server-used-to-manage-mlmmj-mailing-lists">Setup mlmmjadmin: RESTful API server used to manage mlmmj mailing lists</a></li>
-<li><a href="#manage-mailing-lists-with-iredadmin-pro">Manage mailing lists with iRedAdmin-Pro</a></li>
-<li><a href="#manage-mailing-lists-with-mlmmjadmin-command-line-tool">Manage mailing lists with mlmmjadmin command line tool</a></li>
+<li><a href="#manage-subscribeable-mailing-lists">Manage subscribeable mailing lists</a></li>
 <li><a href="#references">References</a></li>
 <li><a href="#see-also">See Also</a></li>
 </ul>
@@ -462,47 +461,8 @@ ss -ntlp | grep 7790
 <pre><code>netstat -anl -p tcp | grep 7790
 </code></pre>
 
-<h2 id="manage-mailing-lists-with-iredadmin-pro">Manage mailing lists with iRedAdmin-Pro</h2>
-<p>With <a href="https://www.iredmail.org/admin_panel.html">iRedAdmin-Pro</a>, you can easily
-manage mailing list accounts with its web UI. Here's a screenshot of mailing
-list profile page in iRedAdmin-Pro:</p>
-<p><img alt="" src="./images/iredadmin/mailinglist_profile.png" width="900px" /></p>
-<h2 id="manage-mailing-lists-with-mlmmjadmin-command-line-tool">Manage mailing lists with mlmmjadmin command line tool</h2>
-<p>mlmmjadmin ships script <code>tools/maillist_admin.py</code> to help you manage mailing
-lists. You can find this script under directory <code>/opt/mlmmjadmin/tools/</code>.</p>
-<div class="admonition attention">
-<p class="admonition-title">Attention</p>
-<p>All settings used to create or update mailing list profiles are listed on
-<a href="https://github.com/iredmail/mlmmjadmin/blob/master/docs/API.md">mlmmjadmin document</a>.</p>
-</div>
-<ul>
-<li>Create a new mailing list account with additional setting:</li>
-</ul>
-<p><code>python maillist_admin.py create list@domain.com only_subscriber_can_post=yes disable_archive=no</code></p>
-<ul>
-<li>Get settings of an existing mailing list account</li>
-</ul>
-<p><code>python maillist_admin.py info list@domain.com</code></p>
-<ul>
-<li>Update an existing mailing list account</li>
-</ul>
-<p><code>python maillist_admin.py update list@domain.com only_moderator_can_post=yes disable_subscription=yes</code></p>
-<ul>
-<li>Delete an existing mailing list account</li>
-</ul>
-<p><code>python maillist_admin.py delete list@domain.com archive=yes</code></p>
-<ul>
-<li>List all subscribers:</li>
-</ul>
-<p><code>python maillist_admin.py subscribers list@domain.com</code></p>
-<ul>
-<li>Show subscribed lists of a given subscriber:</li>
-</ul>
-<p><code>python maillist_admin.py subscribed subscriber@domain.com</code></p>
-<ul>
-<li>Check whether mailing list has given subscriber:</li>
-</ul>
-<p><code>python maillist_admin.py has_subscriber list@domain.com subscriber@gmail.com</code></p>
+<h2 id="manage-subscribeable-mailing-lists">Manage subscribeable mailing lists</h2>
+<p>Please read document <a href="./manage.subscribeable.mailing.lists.html">Manage subscribeable mailing lists</a>.</p>
 <h2 id="references">References</h2>
 <ul>
 <li>Mlmmj:<ul>

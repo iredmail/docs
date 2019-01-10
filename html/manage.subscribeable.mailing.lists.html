@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Manage subscribeable mailing lists</title>
+        <link rel="stylesheet" type="text/css" href="./css/markdown.css" />
+    </head>
+    <body>
+    
+    <div id="navigation">
+    <a href="https://www.iredmail.org" target="_blank">
+        <img alt="iRedMail web site"
+             src="./images/logo-iredmail.png"
+             style="vertical-align: middle; height: 30px;"
+             />&nbsp;
+        <span>iRedMail</span>
+    </a>
+    &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><h1 id="manage-subscribeable-mailing-lists">Manage subscribeable mailing lists</h1>
+<div class="toc">
+<ul>
+<li><a href="#manage-subscribeable-mailing-lists">Manage subscribeable mailing lists</a><ul>
+<li><a href="#summary">Summary</a></li>
+<li><a href="#manage-subscribeable-mailing-lists-with-iredadmin-pro">Manage subscribeable mailing lists with iRedAdmin-Pro</a></li>
+<li><a href="#manage-subscribeable-mailing-lists-with-command-line-tool">Manage subscribeable mailing lists with command line tool</a></li>
+<li><a href="#references">References</a></li>
+<li><a href="#see-also">See Also</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<h2 id="summary">Summary</h2>
+<p>Since iRedMail-0.9.8, iRedMail integrates mlmmj as mailing list manager.</p>
+<h2 id="manage-subscribeable-mailing-lists-with-iredadmin-pro">Manage subscribeable mailing lists with iRedAdmin-Pro</h2>
+<p>With <a href="https://www.iredmail.org/admin_panel.html">iRedAdmin-Pro</a>, you can easily
+manage mailing list accounts with its web UI. Here's a screenshot of mailing
+list profile page in iRedAdmin-Pro:</p>
+<p><img alt="" src="./images/iredadmin/mailinglist_profile.png" width="900px" /></p>
+<h2 id="manage-subscribeable-mailing-lists-with-command-line-tool">Manage subscribeable mailing lists with command line tool</h2>
+<p>iRedMail integrates <code>mlmmjadmin</code> (a RESTful API server developed by iRedMail
+team) to help you manage mlmmj mailing lists, it also offers command line
+script <code>/opt/mlmmjadmin/tools/maillist_admin.py</code> for system administrators.</p>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>All settings used to create or update mailing list profiles are listed on
+<a href="https://github.com/iredmail/mlmmjadmin/blob/master/docs/API.md">mlmmjadmin API document</a>.</p>
+</div>
+<ul>
+<li>Create a new mailing list account with additional setting:</li>
+</ul>
+<p><code>python maillist_admin.py create list@domain.com only_subscriber_can_post=yes disable_archive=no</code></p>
+<ul>
+<li>Get settings of an existing mailing list account</li>
+</ul>
+<p><code>python maillist_admin.py info list@domain.com</code></p>
+<ul>
+<li>Update an existing mailing list account</li>
+</ul>
+<p><code>python maillist_admin.py update list@domain.com only_moderator_can_post=yes disable_subscription=yes</code></p>
+<ul>
+<li>Delete an existing mailing list account</li>
+</ul>
+<p><code>python maillist_admin.py delete list@domain.com archive=yes</code></p>
+<ul>
+<li>List all subscribers:</li>
+</ul>
+<p><code>python maillist_admin.py subscribers list@domain.com</code></p>
+<ul>
+<li>Show subscribed lists of a given subscriber:</li>
+</ul>
+<p><code>python maillist_admin.py subscribed subscriber@domain.com</code></p>
+<ul>
+<li>Check whether mailing list has given subscriber:</li>
+</ul>
+<p><code>python maillist_admin.py has_subscriber list@domain.com subscriber@gmail.com</code></p>
+<h2 id="references">References</h2>
+<ul>
+<li>Mlmmj:<ul>
+<li><a href="http://mlmmj.org/">web site</a></li>
+<li><a href="http://mlmmj.org/docs/tunables/">Tunable parameters</a></li>
+<li><a href="http://mlmmj.org/docs/readme-postfix/">Postfix integration</a></li>
+</ul>
+</li>
+<li><a href="https://github.com/iredmail/mlmmjadmin">mlmmjadmin</a>: RESTful API server used to manage mlmmj mailing lists. Developed
+  and maintained by iRedMail team.</li>
+</ul>
+<h2 id="see-also">See Also</h2>
+<ul>
+<li><a href="./integration.mlmmj.ldap.html">Integrate mlmmj mailing list manager in iRedMail (OpenLDAP backend)</a></li>
+<li><a href="./integration.mlmmj.mysql.html">Integrate mlmmj mailing list manager in iRedMail (MySQL/MariaDB backends)</a></li>
+<li><a href="./integration.mlmmj.pgsql.html">Integrate mlmmj mailing list manager in iRedMail (PostgreSQL backend)</a></li>
+</ul><div class="footer">
+    <p style="text-align: center; color: grey;">All documents are available in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://bitbucket.org/zhb/iredmail-docs/get/tip.tar.bz2">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
+</div>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-3293801-21"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-3293801-21');
+</script>
+</body></html>
