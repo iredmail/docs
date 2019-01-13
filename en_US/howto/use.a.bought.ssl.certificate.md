@@ -85,6 +85,15 @@ restart services which use the cert files.
 
 ### Replace cert files
 
+!!! warning
+
+    If you deployed iRedMail with the iRedMail Easy platform, ssl cert files
+    are stored under `/opt/iredmail/ssl/`:
+
+    * `key.pem`: private key
+    * `cert.pem`: certificate
+    * `combined.pem`: full chain
+
 * On RHEL/CentOS:
 
 ```
