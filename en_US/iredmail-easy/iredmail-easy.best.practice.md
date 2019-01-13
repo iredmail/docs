@@ -127,6 +127,20 @@ same way.
 
 * SOGo doesn't support any of the ways mentioned above, if you need to modify any settings, please either use `/opt/iredmail/custom/sogo/custom.sh` to modify please read [details below](#sogo).
 
+## SSL cert
+
+iRedMail Easy generates self-signed ssl cert by default, cert files are stored
+under `/opt/iredmail/ssl/`:
+
+* `key.pem`: private key
+* `cert.pem`: certificate
+* `combined.pem`: full chain
+
+To get rid of self-signed cert, you can either:
+
+* [Request a free cert from Let's Encrypt](./letsencrypt.html), or
+* [Use a bought SSL certificate](./use.a.bought.ssl.certificate.html).
+
 ## Softwares
 
 ### MariaDB

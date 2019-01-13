@@ -26,6 +26,7 @@
 <li><a href="#the-rest">The rest</a></li>
 </ul>
 </li>
+<li><a href="#ssl-cert">SSL cert</a></li>
 <li><a href="#softwares">Softwares</a><ul>
 <li><a href="#mariadb">MariaDB</a></li>
 <li><a href="#nginx">Nginx</a></li>
@@ -137,6 +138,19 @@ same way.</p>
 <h3 id="the-rest">The rest</h3>
 <ul>
 <li>SOGo doesn't support any of the ways mentioned above, if you need to modify any settings, please either use <code>/opt/iredmail/custom/sogo/custom.sh</code> to modify please read <a href="#sogo">details below</a>.</li>
+</ul>
+<h2 id="ssl-cert">SSL cert</h2>
+<p>iRedMail Easy generates self-signed ssl cert by default, cert files are stored
+under <code>/opt/iredmail/ssl/</code>:</p>
+<ul>
+<li><code>key.pem</code>: private key</li>
+<li><code>cert.pem</code>: certificate</li>
+<li><code>combined.pem</code>: full chain</li>
+</ul>
+<p>To get rid of self-signed cert, you can either:</p>
+<ul>
+<li><a href="./letsencrypt.html">Request a free cert from Let's Encrypt</a>, or</li>
+<li><a href="./use.a.bought.ssl.certificate.html">Use a bought SSL certificate</a>.</li>
 </ul>
 <h2 id="softwares">Softwares</h2>
 <h3 id="mariadb">MariaDB</h3>
