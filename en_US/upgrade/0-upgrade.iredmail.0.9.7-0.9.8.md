@@ -644,7 +644,7 @@ Download SQL template file used to update SQL database:
 
 ```
 cd /root/
-wget https://bitbucket.org/zhb/iredmail/raw/default/extra/update/0.9.8/iredmail.mysql
+wget -O iredmail.mysql https://bitbucket.org/zhb/iredmail/raw/default/extra/update/0.9.8/iredmail.mysql
 ```
 
 Connect to MySQL server as MySQL root user, and execute SQL commands:

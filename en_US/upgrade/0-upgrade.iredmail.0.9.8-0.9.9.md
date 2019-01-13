@@ -374,7 +374,7 @@ Download SQL template file and import it:
 
 ```
 cd /root/
-wget https://bitbucket.org/zhb/iredmail/raw/default/extra/update/0.9.9/iredmail.mysql
+wget -O iredmail.mysql https://bitbucket.org/zhb/iredmail/raw/default/extra/update/0.9.9/iredmail.mysql
 mysql vmail < /root/iredmail.mysql
 ```
 
