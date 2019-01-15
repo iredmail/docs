@@ -5,6 +5,8 @@
 ## Version: Upcoming release
 
 * Able to deploy iRedAdmin-Pro with your license key.
+* Able to custom http/https network ports, max file size of (web) upload file.
+* Enable bayes auto-learn in SpamAssassin, and store bayes in SQL db.
 * Enable imapsieve plugin in Dovecot by default.
 
     Message moved to Junk folder will be copied to a directory for spam
