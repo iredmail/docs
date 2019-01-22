@@ -46,7 +46,7 @@ Please follow this tutorial to upgrade iRedAdmin open source edition to the
 latest stable release:
 [Upgrade iRedAdmin to the latest stable release](./migrate.or.upgrade.iredadmin.html)
 
-### Upgrade mlmmjadmin to the latest stable release (1.9)
+### Upgrade mlmmjadmin to the latest stable release (2.0)
 
 Please follow below tutorial to upgrade mlmmjadmin to the latest stable release:
 [Upgrade mlmmjadmin to the latest stable release](./upgrade.mlmmjadmin.html)
