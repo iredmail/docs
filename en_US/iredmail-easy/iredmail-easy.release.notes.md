@@ -4,9 +4,13 @@
 
 ## Version: Upcoming release
 
+* Set max open file limit by SOGo daemon to unlimited.
+* Able to set memcached cache size (in MB).
+* Able to disable spam/virus scanning.
 * Able to deploy iRedAdmin-Pro with your license key.
 * Able to custom http/https network ports, max file size of (web) upload file.
 * Enable bayes auto-learn in SpamAssassin, and store bayes in SQL db.
+* Increase scores of DNSBL relevant spamassassin rules to catch more spams.
 * Enable imapsieve plugin in Dovecot by default.
 
     Message moved to Junk folder will be copied to a directory for spam
