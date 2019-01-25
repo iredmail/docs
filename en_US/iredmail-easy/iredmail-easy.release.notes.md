@@ -19,6 +19,10 @@
 
     The spam/ham learning will be performed every 10 minutes with a cron job.
 
+* Updated packages:
+    - mlmmjadmin-2.0
+    - adminer-4.7.1
+
 ## Version: 2019010201 (Jan 2, 2019)
 
 > Hello, 2019. :)
