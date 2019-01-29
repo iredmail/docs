@@ -19,6 +19,11 @@
 
     The spam/ham learning will be performed every 10 minutes with a cron job.
 
+* Fixed issues:
+    - Can not login to XMPP service (Prosody) due to incorrect permission of
+      auth module files.
+    - ip6tables failed to start on server which doesn't have IPv6 address.
+
 * Updated packages:
     - mlmmjadmin-2.0
     - adminer-4.7.1
