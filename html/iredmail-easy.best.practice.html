@@ -228,9 +228,15 @@ max_connections     = 1024
 <ul>
 <li><code>/opt/iredmail/custom/postfix/main.cf</code>: If this file exists, <code>/etc/postfix/main.cf</code> will be a symbol link to this file.</li>
 <li><code>/opt/iredmail/custom/postfix/master.cf</code>: If this file exists, <code>/etc/postfix/master.cf</code> will be a symbol link to this file.</li>
-<li><code>/opt/iredmail/custom/postfix/custom.sh</code>: a bash shell script for advanced customization</li>
 <li><code>/opt/iredmail/custom/postfix/helo_access.pcre</code></li>
 <li><code>/opt/iredmail/custom/postfix/postscreen_access.cidr</code></li>
+<li>
+<p><code>/opt/iredmail/custom/postfix/custom.sh</code>: a bash shell script for advanced customization.</p>
+<p>For example, to change setting <code>enable_original_recipient</code> to <code>yes</code>
+(defaults to <code>no</code> set in <code>/etc/postfix/main.cf</code>), you can write one shell
+command in <code>/opt/iredmail/custom/postfix/custom.sh</code> like below:</p>
+<p><code>postconf -e enable_original_recipient=yes</code></p>
+</li>
 </ul>
 <h3 id="dovecot">Dovecot</h3>
 <p>Dovecot supports loading from mulitple config files, and settings will be

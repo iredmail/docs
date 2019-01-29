@@ -216,9 +216,17 @@ Postfix doesn't support loading settings from multiple files.
 
 - `/opt/iredmail/custom/postfix/main.cf`: If this file exists, `/etc/postfix/main.cf` will be a symbol link to this file.
 - `/opt/iredmail/custom/postfix/master.cf`: If this file exists, `/etc/postfix/master.cf` will be a symbol link to this file.
-- `/opt/iredmail/custom/postfix/custom.sh`: a bash shell script for advanced customization
 - `/opt/iredmail/custom/postfix/helo_access.pcre`
 - `/opt/iredmail/custom/postfix/postscreen_access.cidr`
+- `/opt/iredmail/custom/postfix/custom.sh`: a bash shell script for advanced customization.
+
+    For example, to change setting `enable_original_recipient` to `yes`
+    (defaults to `no` set in `/etc/postfix/main.cf`), you can write one shell
+    command in `/opt/iredmail/custom/postfix/custom.sh` like below:
+
+    ```
+    postconf -e enable_original_recipient=yes
+    ```
 
 ### Dovecot
 
