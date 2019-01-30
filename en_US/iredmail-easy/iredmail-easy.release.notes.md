@@ -19,6 +19,8 @@
 
     The spam/ham learning will be performed every 10 minutes with a cron job.
 
+    __Now encourage your users to report spams by moving spams to `Junk` folder. :)__
+
 * Fixed issues:
     - Can not login to XMPP service (Prosody) due to incorrect permission of
       auth module files.
