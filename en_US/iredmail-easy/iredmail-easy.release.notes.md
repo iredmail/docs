@@ -2,7 +2,7 @@
 
 [TOC]
 
-## Version: Upcoming release
+## Version: 2019013001 (Jan 30, 2019)
 
 * Set max open file limit by SOGo daemon to unlimited.
 * Able to set memcached cache size (in MB).
