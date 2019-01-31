@@ -168,6 +168,19 @@ It's necessary to set the permission to 0644 for other applications to access th
 chmod 0644 /etc/letsencrypt/{live,archive}
 ```
 
+## Renew the cert automatically
+
+You can setup a daily cron job to run command `certbot renew` to renew all
+existing ssl certs which will expire in less than 30 days. We need its
+`--post-hook` argument to restart network services to load renewed ssl certs.
+
+A sample cron job that runs at 3:01AM everyday, and restart
+postfix/nginx/dovecot after renewed:
+
+```
+1   3   *   *   *   certbot renew --post-hook 'service postfix restart; service nginx restart; service dovecot restart'
+```
+
 ## Use Let's Encrypt cert
 
 The easiest and quickest way to use Let's Encrypt cert is creating symbol links
