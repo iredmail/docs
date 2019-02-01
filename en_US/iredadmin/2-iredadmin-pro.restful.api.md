@@ -35,10 +35,13 @@ iRedAdmin config file.
 
 !!! note "iRedAdmin-Pro config file location"
 
-    * on RHEL/CentOS, it's `/var/www/iredadmin/settings.py`.
-    * on Debian/Ubuntu, it's `/opt/www/iredadmin/settings.py` (in recent iRedMail releases) or `/usr/share/apache2/iredadmin/settings.py` (in old iRedMail releases).
+    * on RHEL/CentOS, it's `/opt/www/iredadmin/settings.py` (in recent iRedMail
+      releases) or `/var/www/iredadmin/settings.py` (in old iRedMail releases).
+    * on Debian/Ubuntu, it's `/opt/www/iredadmin/settings.py` (in recent
+      iRedMail releases) or `/usr/share/apache2/iredadmin/settings.py` (in old iRedMail releases).
     * on FreeBSD, it's `/usr/local/www/iredadmin/settings.py`.
-    * on OpenBSD, it's `/var/www/iredadmin/settings.py`.
+    * on OpenBSD, it's `/opt/www/iredadmin/settings.py` (in recent iRedMail
+      releases) or `/var/www/iredadmin/settings.py` (in old iRedMail releases).
 
 To restrict API access to few IP addresses, please also add settings below in
 iRedAdmin-Pro config file:

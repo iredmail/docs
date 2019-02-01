@@ -83,44 +83,6 @@ Additional config files under `/etc/dovecot/`:
       related log will be logged in this file. Note: there's no such file on
       iRedMail-0.8.6 and old iRedMail releases.
 
-## Apache {: #apache }
-
-* On RHEL/CentOS: Apache config files are placed under `/etc/httpd/`.
-
-    * Main config file is `/etc/httpd/conf/httpd.conf`.
-    * Module config files are placed under `/etc/httpd/conf.d/` (old releases)
-      or `/etc/httpd/conf.modules.d/`.
-    * Root directory used to store web applications is `/var/www`, document
-      root is `/var/www/html/`.
-    * Log files are placed under `/var/www/httpd/`.
-
-* On Debian/Ubuntu: Apache config files are placed under `/etc/apache2`.
-
-    * Main config file is `/etc/apache2/apache2.conf`.
-    * Module config files are placed under `/etc/apache2/conf.d/` (old
-      releases) or `/etc/apache2/conf-available/`.
-    * Root directory used to store web applications is `/usr/share/apache2`,
-      document root is `/var/www/` (old releases) or `/var/www/html/`.
-    * Log files are placed under `/var/log/apache2/`.
-
-* On FreeBSD: Apache config files are placed under `/usr/local/etc/apache2`.
-
-    * Main config file is `/usr/local/etc/apache2/httpd.conf`.
-    * Module config files are placed under `/usr/local/etc/apache2/Includes/`.
-    * Root directory used to store web applications is `/usr/local/www/`,
-      document root is `/usr/local/www/apacheXX/data/`.
-    * Log files are placed under `/var/log/`, main log files are
-      `/var/log/httpd-access.log` and `/var/log/httpd-error.log`.
-
-* On OpenBSD: Apache (the one shipped in OpenBSD base system) config files
-  are placed under `/var/www/conf`.
-
-    * Main config file is `/var/www/conf/httpd.conf`.
-    * Module config files are placed under `/var/www/conf/modules/`.
-    * Root directory used to store web applications is `/var/www/`,
-      document root is `/var/www/htdocs/`.
-    * Log files are placed under `/var/www/logs/`.
-
 ## Nginx {: #nginx }
 
 * On `Linux` and OpenBSD:
@@ -180,18 +142,23 @@ Main config file:
 
 * Root Directory. Roundcube webmail is installed under below directory by default:
 
-    * RHEL/CentOS: `/var/www/roundcubemail`. It's a symbol link to
-      `/var/www/roundcubemail-x.y.z`.
+    * RHEL/CentOS: `/opt/www/roundcubemail`. It's a symbol link to `roundcubemail-x.y.z` under same directory.
+
+        Note: with old iRedMail releases, it's `/var/www/roundcubemail`.
+
     * Debian/Ubuntu: `/opt/www/roundcubemail`. It's a symbol link to
       `/opt/www/roundcubemail-x.y.z`.
+
         Note: with old iRedMail releases, it's `/usr/share/apache2/roundcubemail`,
         it's a symbol link to `/usr/share/apache2/roundcubemail-x.y.z/`.
-    * FreeBSD: `/usr/local/www/roundcube`.
-    * OpenBSD: `/var/www/roundcubemail`. It's a symbol link to
-      `/var/www/roundcubemail-x.y.z/`.
 
-* Config files:
-  {: #roundcube-config }
+    * FreeBSD: `/usr/local/www/roundcube`.
+    * OpenBSD: `/opt/www/roundcubemail`. It's a symbol link to `roundcubemail-x.y.z`
+      under same directory.
+
+        Note: with old iRedMail releases, it's `/var/www/roundcubemail`.
+
+* Config files: {: #roundcube-config }
 
     * Main config file is `config/config.inc.php` under Roundcube webmail
       directory.
@@ -305,12 +272,18 @@ Log file: Fail2ban logs to default syslog log file.
 
 Main config file:
 
-* on RHEL/CentOS, it's `/var/www/iredadmin/settings.py`.
-* on Debian/Ubuntu, it's `/opt/www/iredadmin/settings.py` (in recent iRedMail
-  releases) or `/usr/share/apache2/iredadmin/settings.py` (in old iRedMail
-  releases).
+* on RHEL/CentOS, it's `/opt/www/iredadmin/settings.py`.
+
+    Note: on old iRedMail releases, it's `/var/www/iredadmin/settings.py`.
+
+* on Debian/Ubuntu, it's `/opt/www/iredadmin/settings.py`.
+
+    Note: on old iRedMail releases, it's `/usr/share/apache2/iredadmin/settings.py`.
+
 * on FreeBSD, it's `/usr/local/www/iredadmin/settings.py`.
-* on OpenBSD, it's `/var/www/iredadmin/settings.py`.
+* on OpenBSD, it's `/opt/www/iredadmin/settings.py`.
+
+    Note: on old iRedMail releases, it's `/var/www/iredadmin/settings.py`.
 
 iRedAdmin is a web application, when debug mode is turned on, it will log error
 message to:
@@ -324,6 +297,48 @@ message to:
 
 Note: If you modified any iRedAdmin files (not just config file), please restart
 Apache or uwsgi service (if you're running Nginx) to reload modified files.
+
+## <strike>Apache</strike> {: #apache }
+
+!!! warning
+
+    Apache was dropped since iRedMail-0.9.8.
+
+* On RHEL/CentOS: Apache config files are placed under `/etc/httpd/`.
+
+    * Main config file is `/etc/httpd/conf/httpd.conf`.
+    * Module config files are placed under `/etc/httpd/conf.d/` (old releases)
+      or `/etc/httpd/conf.modules.d/`.
+    * Root directory used to store web applications is `/var/www`, document
+      root is `/var/www/html/`.
+    * Log files are placed under `/var/www/httpd/`.
+
+* On Debian/Ubuntu: Apache config files are placed under `/etc/apache2`.
+
+    * Main config file is `/etc/apache2/apache2.conf`.
+    * Module config files are placed under `/etc/apache2/conf.d/` (old
+      releases) or `/etc/apache2/conf-available/`.
+    * Root directory used to store web applications is `/usr/share/apache2`,
+      document root is `/var/www/` (old releases) or `/var/www/html/`.
+    * Log files are placed under `/var/log/apache2/`.
+
+* On FreeBSD: Apache config files are placed under `/usr/local/etc/apache2`.
+
+    * Main config file is `/usr/local/etc/apache2/httpd.conf`.
+    * Module config files are placed under `/usr/local/etc/apache2/Includes/`.
+    * Root directory used to store web applications is `/usr/local/www/`,
+      document root is `/usr/local/www/apacheXX/data/`.
+    * Log files are placed under `/var/log/`, main log files are
+      `/var/log/httpd-access.log` and `/var/log/httpd-error.log`.
+
+* On OpenBSD: Apache (the one shipped in OpenBSD base system) config files
+  are placed under `/var/www/conf`.
+
+    * Main config file is `/var/www/conf/httpd.conf`.
+    * Module config files are placed under `/var/www/conf/modules/`.
+    * Root directory used to store web applications is `/var/www/`,
+      document root is `/var/www/htdocs/`.
+    * Log files are placed under `/var/www/logs/`.
 
 ## <strike>Cluebringer</strike>
 

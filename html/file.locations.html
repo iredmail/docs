@@ -30,7 +30,6 @@
 <li><a href="#dovecot-log">Log files</a></li>
 </ul>
 </li>
-<li><a href="#apache">Apache</a></li>
 <li><a href="#nginx">Nginx</a></li>
 <li><a href="#php">PHP</a></li>
 <li><a href="#openldap">OpenLDAP</a></li>
@@ -47,6 +46,7 @@
 <li><a href="#mlmmjadmin">mlmmjadmin</a></li>
 <li><a href="#iredapd">iRedAPD</a></li>
 <li><a href="#iredadmin">iRedAdmin</a></li>
+<li><a href="#apache"><strike>Apache</strike></a></li>
 <li><a href="#cluebringer"><strike>Cluebringer</strike></a></li>
 </ul>
 </li>
@@ -149,53 +149,6 @@
 </ul>
 </li>
 </ul>
-<h2 id="apache">Apache</h2>
-<ul>
-<li>
-<p>On RHEL/CentOS: Apache config files are placed under <code>/etc/httpd/</code>.</p>
-<ul>
-<li>Main config file is <code>/etc/httpd/conf/httpd.conf</code>.</li>
-<li>Module config files are placed under <code>/etc/httpd/conf.d/</code> (old releases)
-  or <code>/etc/httpd/conf.modules.d/</code>.</li>
-<li>Root directory used to store web applications is <code>/var/www</code>, document
-  root is <code>/var/www/html/</code>.</li>
-<li>Log files are placed under <code>/var/www/httpd/</code>.</li>
-</ul>
-</li>
-<li>
-<p>On Debian/Ubuntu: Apache config files are placed under <code>/etc/apache2</code>.</p>
-<ul>
-<li>Main config file is <code>/etc/apache2/apache2.conf</code>.</li>
-<li>Module config files are placed under <code>/etc/apache2/conf.d/</code> (old
-  releases) or <code>/etc/apache2/conf-available/</code>.</li>
-<li>Root directory used to store web applications is <code>/usr/share/apache2</code>,
-  document root is <code>/var/www/</code> (old releases) or <code>/var/www/html/</code>.</li>
-<li>Log files are placed under <code>/var/log/apache2/</code>.</li>
-</ul>
-</li>
-<li>
-<p>On FreeBSD: Apache config files are placed under <code>/usr/local/etc/apache2</code>.</p>
-<ul>
-<li>Main config file is <code>/usr/local/etc/apache2/httpd.conf</code>.</li>
-<li>Module config files are placed under <code>/usr/local/etc/apache2/Includes/</code>.</li>
-<li>Root directory used to store web applications is <code>/usr/local/www/</code>,
-  document root is <code>/usr/local/www/apacheXX/data/</code>.</li>
-<li>Log files are placed under <code>/var/log/</code>, main log files are
-  <code>/var/log/httpd-access.log</code> and <code>/var/log/httpd-error.log</code>.</li>
-</ul>
-</li>
-<li>
-<p>On OpenBSD: Apache (the one shipped in OpenBSD base system) config files
-  are placed under <code>/var/www/conf</code>.</p>
-<ul>
-<li>Main config file is <code>/var/www/conf/httpd.conf</code>.</li>
-<li>Module config files are placed under <code>/var/www/conf/modules/</code>.</li>
-<li>Root directory used to store web applications is <code>/var/www/</code>,
-  document root is <code>/var/www/htdocs/</code>.</li>
-<li>Log files are placed under <code>/var/www/logs/</code>.</li>
-</ul>
-</li>
-</ul>
 <h2 id="nginx">Nginx</h2>
 <ul>
 <li>On <code>Linux</code> and OpenBSD:<ul>
@@ -261,19 +214,28 @@ empty, please check normal syslog log file <code>/var/log/messages</code> or
 <li>
 <p>Root Directory. Roundcube webmail is installed under below directory by default:</p>
 <ul>
-<li>RHEL/CentOS: <code>/var/www/roundcubemail</code>. It's a symbol link to
-  <code>/var/www/roundcubemail-x.y.z</code>.</li>
-<li>Debian/Ubuntu: <code>/opt/www/roundcubemail</code>. It's a symbol link to
-  <code>/opt/www/roundcubemail-x.y.z</code>.
-    Note: with old iRedMail releases, it's <code>/usr/share/apache2/roundcubemail</code>,
-    it's a symbol link to <code>/usr/share/apache2/roundcubemail-x.y.z/</code>.</li>
-<li>FreeBSD: <code>/usr/local/www/roundcube</code>.</li>
-<li>OpenBSD: <code>/var/www/roundcubemail</code>. It's a symbol link to
-  <code>/var/www/roundcubemail-x.y.z/</code>.</li>
+<li>
+<p>RHEL/CentOS: <code>/opt/www/roundcubemail</code>. It's a symbol link to <code>roundcubemail-x.y.z</code> under same directory.</p>
+<p>Note: with old iRedMail releases, it's <code>/var/www/roundcubemail</code>.</p>
+</li>
+<li>
+<p>Debian/Ubuntu: <code>/opt/www/roundcubemail</code>. It's a symbol link to
+  <code>/opt/www/roundcubemail-x.y.z</code>.</p>
+<p>Note: with old iRedMail releases, it's <code>/usr/share/apache2/roundcubemail</code>,
+it's a symbol link to <code>/usr/share/apache2/roundcubemail-x.y.z/</code>.</p>
+</li>
+<li>
+<p>FreeBSD: <code>/usr/local/www/roundcube</code>.</p>
+</li>
+<li>
+<p>OpenBSD: <code>/opt/www/roundcubemail</code>. It's a symbol link to <code>roundcubemail-x.y.z</code>
+  under same directory.</p>
+<p>Note: with old iRedMail releases, it's <code>/var/www/roundcubemail</code>.</p>
+</li>
 </ul>
 </li>
 <li>
-<p id="roundcube-config">Config files:</p>
+<p>Config files: {: #roundcube-config }</p>
 <ul>
 <li>
 <p>Main config file is <code>config/config.inc.php</code> under Roundcube webmail
@@ -389,12 +351,21 @@ your custom settings.</p>
 <h2 id="iredadmin">iRedAdmin</h2>
 <p>Main config file:</p>
 <ul>
-<li>on RHEL/CentOS, it's <code>/var/www/iredadmin/settings.py</code>.</li>
-<li>on Debian/Ubuntu, it's <code>/opt/www/iredadmin/settings.py</code> (in recent iRedMail
-  releases) or <code>/usr/share/apache2/iredadmin/settings.py</code> (in old iRedMail
-  releases).</li>
-<li>on FreeBSD, it's <code>/usr/local/www/iredadmin/settings.py</code>.</li>
-<li>on OpenBSD, it's <code>/var/www/iredadmin/settings.py</code>.</li>
+<li>
+<p>on RHEL/CentOS, it's <code>/opt/www/iredadmin/settings.py</code>.</p>
+<p>Note: on old iRedMail releases, it's <code>/var/www/iredadmin/settings.py</code>.</p>
+</li>
+<li>
+<p>on Debian/Ubuntu, it's <code>/opt/www/iredadmin/settings.py</code>.</p>
+<p>Note: on old iRedMail releases, it's <code>/usr/share/apache2/iredadmin/settings.py</code>.</p>
+</li>
+<li>
+<p>on FreeBSD, it's <code>/usr/local/www/iredadmin/settings.py</code>.</p>
+</li>
+<li>
+<p>on OpenBSD, it's <code>/opt/www/iredadmin/settings.py</code>.</p>
+<p>Note: on old iRedMail releases, it's <code>/var/www/iredadmin/settings.py</code>.</p>
+</li>
 </ul>
 <p>iRedAdmin is a web application, when debug mode is turned on, it will log error
 message to:</p>
@@ -410,6 +381,57 @@ message to:</p>
 </ul>
 <p>Note: If you modified any iRedAdmin files (not just config file), please restart
 Apache or uwsgi service (if you're running Nginx) to reload modified files.</p>
+<h2 id="apache"><strike>Apache</strike></h2>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Apache was dropped since iRedMail-0.9.8.</p>
+</div>
+<ul>
+<li>
+<p>On RHEL/CentOS: Apache config files are placed under <code>/etc/httpd/</code>.</p>
+<ul>
+<li>Main config file is <code>/etc/httpd/conf/httpd.conf</code>.</li>
+<li>Module config files are placed under <code>/etc/httpd/conf.d/</code> (old releases)
+  or <code>/etc/httpd/conf.modules.d/</code>.</li>
+<li>Root directory used to store web applications is <code>/var/www</code>, document
+  root is <code>/var/www/html/</code>.</li>
+<li>Log files are placed under <code>/var/www/httpd/</code>.</li>
+</ul>
+</li>
+<li>
+<p>On Debian/Ubuntu: Apache config files are placed under <code>/etc/apache2</code>.</p>
+<ul>
+<li>Main config file is <code>/etc/apache2/apache2.conf</code>.</li>
+<li>Module config files are placed under <code>/etc/apache2/conf.d/</code> (old
+  releases) or <code>/etc/apache2/conf-available/</code>.</li>
+<li>Root directory used to store web applications is <code>/usr/share/apache2</code>,
+  document root is <code>/var/www/</code> (old releases) or <code>/var/www/html/</code>.</li>
+<li>Log files are placed under <code>/var/log/apache2/</code>.</li>
+</ul>
+</li>
+<li>
+<p>On FreeBSD: Apache config files are placed under <code>/usr/local/etc/apache2</code>.</p>
+<ul>
+<li>Main config file is <code>/usr/local/etc/apache2/httpd.conf</code>.</li>
+<li>Module config files are placed under <code>/usr/local/etc/apache2/Includes/</code>.</li>
+<li>Root directory used to store web applications is <code>/usr/local/www/</code>,
+  document root is <code>/usr/local/www/apacheXX/data/</code>.</li>
+<li>Log files are placed under <code>/var/log/</code>, main log files are
+  <code>/var/log/httpd-access.log</code> and <code>/var/log/httpd-error.log</code>.</li>
+</ul>
+</li>
+<li>
+<p>On OpenBSD: Apache (the one shipped in OpenBSD base system) config files
+  are placed under <code>/var/www/conf</code>.</p>
+<ul>
+<li>Main config file is <code>/var/www/conf/httpd.conf</code>.</li>
+<li>Module config files are placed under <code>/var/www/conf/modules/</code>.</li>
+<li>Root directory used to store web applications is <code>/var/www/</code>,
+  document root is <code>/var/www/htdocs/</code>.</li>
+<li>Log files are placed under <code>/var/www/logs/</code>.</li>
+</ul>
+</li>
+</ul>
 <h2 id="cluebringer"><strike>Cluebringer</strike></h2>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
