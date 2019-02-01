@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Auto learn spam/ham with Dovecot `imap_sieve` plugin</title>
+        <link rel="stylesheet" type="text/css" href="./css/markdown.css" />
+    </head>
+    <body>
+    
+    <div id="navigation">
+    <a href="https://www.iredmail.org" target="_blank">
+        <img alt="iRedMail web site"
+             src="./images/logo-iredmail.png"
+             style="vertical-align: middle; height: 30px;"
+             />&nbsp;
+        <span>iRedMail</span>
+    </a>
+    &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><h1 id="auto-learn-spamham-with-dovecot-imap_sieve-plugin">Auto learn spam/ham with Dovecot <code>imap_sieve</code> plugin</h1>
+<div class="toc">
+<ul>
+<li><a href="#auto-learn-spamham-with-dovecot-imap_sieve-plugin">Auto learn spam/ham with Dovecot imap_sieve plugin</a><ul>
+<li><a href="#summary">Summary</a></li>
+<li><a href="#requirements">Requirements</a></li>
+<li><a href="#enable-imap_sieve-plugin">Enable imap_sieve plugin</a></li>
+<li><a href="#create-required-directories-and-files">Create required directories and files</a></li>
+<li><a href="#setup-cron-job-to-scan-and-learn-spamham-messages">Setup cron job to scan and learn spam/ham messages</a></li>
+<li><a href="#tests">Tests</a><ul>
+<li><a href="#report-spam-move-email-from-inbox-to-junk">Report spam: Move email from Inbox to Junk</a></li>
+<li><a href="#report-ham-move-email-from-junk-to-any-other-folder-except-trash">Report ham: Move email from Junk to any other folder (except Trash)</a></li>
+<li><a href="#scan-reported-mails">Scan reported mails</a></li>
+</ul>
+</li>
+<li><a href="#references">References</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<h2 id="summary">Summary</h2>
+<p>Dovecot offers plugin <code>imap_sieve</code> to run sieve script for spam/virus scanning,
+it's useful to let end users report spam/ham messages within webmail or MUA,
+then on server side we call SpamAssassin to learn the reported messages. The
+more spams/hams end users reported, the more precisely SpamAssassin can catch
+the spams.</p>
+<p>This tutorial shows you how to enable Dovecot plugin <code>imap_sieve</code> and create
+required shell/sieve scripts to learn spams automatically.</p>
+<p>After setup, you can encourage end users to report spam messages by
+moving/dragging spam to <code>Junk</code> folder. With more spams reported, your iRedMail
+server can precisely catch more spams.</p>
+<h2 id="requirements">Requirements</h2>
+<ul>
+<li>A working iRedMail server.</li>
+<li>Dovecot version 2.2.24 or later. <code>imap_sieve</code> plugin is available in version
+  2.2.24 and later releases.<ul>
+<li>CentOS 7 ships Dovecot-2.2.36</li>
+<li>Debian 9 ships Dovecot-2.2.27</li>
+<li>Ubuntu 16.04 ships Dovecot-2.2.22 (<strong>WARNING: Not qualified</strong>)</li>
+<li>Ubuntu 18.04 ships Dovecot-2.2.33</li>
+<li>OpenBSD 6.4 ships Dovecot-2.2.36</li>
+<li>FreeBSD ships Dovecot-3.x in ports tree</li>
+</ul>
+</li>
+</ul>
+<h2 id="enable-imap_sieve-plugin">Enable <code>imap_sieve</code> plugin</h2>
+<p>Please update Dovecot config file <code>/etc/dovecot/dovecot.conf</code> to:</p>
+<ul>
+<li>Enable new parameter <code>mail_attribute_dict</code> globally.</li>
+<li>Enable new plugin <code>imap_sieve</code> in <code>protocol imap {}</code> section.</li>
+<li>Add required settings for <code>imap_sieve</code> in <code>plugin {}</code> section.</li>
+</ul>
+<pre><code># Store METADATA information within user's HOME directory
+mail_attribute_dict = file:%h/dovecot-attributes
+
+protocol imap {
+    ...
+    mail_plugins = ... imap_sieve
+}
+
+plugin {
+    sieve_plugins = sieve_imapsieve sieve_extprograms
+    imapsieve_url = sieve://127.0.0.1:4190
+
+    # From elsewhere to Spam folder
+    imapsieve_mailbox1_name = Junk
+    imapsieve_mailbox1_causes = COPY
+    imapsieve_mailbox1_before = file:/var/vmail/sieve/report_spam.sieve
+
+    # From Spam folder to elsewhere
+    imapsieve_mailbox2_name = *
+    imapsieve_mailbox2_from = Junk
+    imapsieve_mailbox2_causes = COPY
+    imapsieve_mailbox2_before = file:/var/vmail/sieve/report_ham.sieve
+
+    sieve_pipe_bin_dir = /etc/dovecot/sieve/pipe
+
+    sieve_global_extensions = +vnd.dovecot.pipe +vnd.dovecot.environment
+
+}
+</code></pre>
+
+<h2 id="create-required-directories-and-files">Create required directories and files</h2>
+<p>We will create few directories and files used by <code>imap_sieve</code> plugin:</p>
+<ul>
+<li>Directories:<ul>
+<li><code>/etc/dovecot/sieve/pipe</code>: used to store script called by <code>imap_sieve</code> plugin.</li>
+<li><code>/var/vmail/imapsieve_copy</code>: used to store reported spam/ham emails.</li>
+</ul>
+</li>
+<li>Files:<ul>
+<li><code>/var/vmail/sieve/report_spam.sieve</code>: used to save a copy of reported spam.</li>
+<li><code>/var/vmail/sieve/report_ham.sieve</code>: used to save a copy of reported ham.</li>
+</ul>
+</li>
+<li>Shell script:<ul>
+<li><code>/etc/dovecot/sieve/pipe/imapsieve_copy</code></li>
+</ul>
+</li>
+</ul>
+<p>Create directories:</p>
+<pre><code>mkdir -p /etc/dovecot/sieve/pipe
+mkdir -p /var/vmail/imapsieve_copy
+chown vmail:vmail /var/vmail/imapsieve_copy
+chmod 0700 /var/vmail/imapsieve_copy
+</code></pre>
+
+<p>Create file <code>/var/vmail/sieve/report_spam.sieve</code> with content below:</p>
+<pre><code>require [&quot;vnd.dovecot.pipe&quot;, &quot;copy&quot;, &quot;imapsieve&quot;, &quot;environment&quot;, &quot;variables&quot;];
+
+if environment :matches &quot;imap.user&quot; &quot;*&quot; {
+    set &quot;username&quot; &quot;${1}&quot;;
+}
+
+pipe :copy &quot;imapsieve_copy&quot; [ &quot;${username}&quot;, &quot;spam&quot; ];
+</code></pre>
+
+<p>Create file <code>/var/vmail/sieve/report_ham.sieve</code> with content below:</p>
+<pre><code>require [&quot;vnd.dovecot.pipe&quot;, &quot;copy&quot;, &quot;imapsieve&quot;, &quot;environment&quot;, &quot;variables&quot;];
+
+if environment :matches &quot;imap.mailbox&quot; &quot;*&quot; {
+    set &quot;mailbox&quot; &quot;${1}&quot;;
+}
+
+if string &quot;${mailbox}&quot; &quot;Trash&quot; {
+    stop;
+}
+
+if environment :matches &quot;imap.user&quot; &quot;*&quot; {
+    set &quot;username&quot; &quot;${1}&quot;;
+}
+
+pipe :copy &quot;imapsieve_copy&quot; [ &quot;${username}&quot;, &quot;ham&quot; ];
+</code></pre>
+
+<p>Create file <code>/etc/dovecot/sieve/pipe/imapsieve_copy</code> with content below:</p>
+<pre><code>#!/usr/bin/env bash
+# Author: Zhang Huangbin &lt;zhb@iredmail.org&gt;
+# Purpose: Read full email message from stdin, and save to a local file.
+
+# Usage: bash imapsieve_copy &lt;email&gt; &lt;spam|ham&gt; &lt;output_base_dir&gt;
+
+export USER=&quot;$1&quot;
+export MSG_TYPE=&quot;$2&quot;
+
+export OUTPUT_BASE_DIR=&quot;/var/vmail/imapsieve_copy&quot;
+export OUTPUT_DIR=&quot;${OUTPUT_BASE_DIR}/${MSG_TYPE}&quot;
+export FILE=&quot;${OUTPUT_DIR}/${USER}-$(date +%Y%m%d%H%M%S)-${RANDOM}${RANDOM}.eml&quot;
+
+export OWNER=&quot;vmail&quot;
+export GROUP=&quot;vmail&quot;
+
+for dir in &quot;${OUTPUT_BASE_DIR}&quot; &quot;${OUTPUT_DIR}&quot;; do
+    if [[ ! -d ${dir} ]]; then
+        mkdir -p ${dir}
+        chown ${OWNER}:${GROUP} ${dir}
+        chmod 0700 ${dir}
+    fi
+done
+
+cat &gt; ${FILE} &lt; /dev/stdin
+
+# Logging
+#export LOG='logger -p local5.info -t imapsieve_copy'
+#[[ $? == 0 ]] &amp;&amp; ${LOG} &quot;Copied one ${MSG_TYPE} email reported by ${USER}: ${FILE}&quot;
+</code></pre>
+
+<p>Set correct file owner and permissions:</p>
+<pre><code>chown vmail:vmail /var/vmail/sieve/report_spam.sieve \
+    /var/vmail/sieve/report_ham.sieve \
+    /etc/dovecot/sieve/pipe/imapsieve_copy
+
+chmod 0700 /var/vmail/sieve/report_spam.sieve \
+    /var/vmail/sieve/report_ham.sieve \
+    /etc/dovecot/sieve/pipe/imapsieve_copy
+</code></pre>
+
+<p>Restart Dovecot service to enable this plugin.</p>
+<pre><code>service dovecot restart
+</code></pre>
+
+<h2 id="setup-cron-job-to-scan-and-learn-spamham-messages">Setup cron job to scan and learn spam/ham messages</h2>
+<p>Dovecot can now save a copy of reported spam/ham automatically, we still need
+a shell script to call SpamAssassin to actually learn spam/ham periodly.</p>
+<p>Create script <code>/etc/dovecot/sieve/scan_reported_mails.sh</code> with content below,
+it's used to call <code>sa-learn</code> command to learn reported spam/ham emails:</p>
+<pre><code>#!/usr/bin/env bash
+# Author: Zhang Huangbin &lt;zhb@iredmail.org&gt;
+# Purpose: Copy spam/ham to another directory and call sa-learn to learn.
+
+# Paths to find program.
+export PATH=&quot;/bin:/usr/bin:/usr/local/bin:$PATH&quot;
+
+export OWNER=&quot;vmail&quot;
+export GROUP=&quot;vmail&quot;
+
+# Kernel name, in upper cases.
+export KERNEL_NAME=&quot;$(uname -s | tr '[a-z]' '[A-Z]')&quot;
+
+# A temporary lock file. should be removed after successfully examed messages.
+export LOCK_FILE='/tmp/scan_reported_mails.lock'
+
+# Logging to syslog with 'logger' command.
+export LOG='logger -p local5.info -t scan_reported_mails'
+
+# `sa-learn` command, with optional arguments.
+export SA_LEARN='sa-learn -u amavis'
+
+# Spool directory.
+# Must be owned by vmail:vmail.
+export SPOOL_DIR='/var/vmail/imapsieve_copy'
+
+# Directories which store spam and ham emails.
+# These 2 should be created while setup Dovecot antispam plugin.
+export SPOOL_SPAM_DIR=&quot;${SPOOL_DIR}/spam&quot;
+export SPOOL_HAM_DIR=&quot;${SPOOL_DIR}/ham&quot;
+
+# Directory used to store emails we're going to process.
+# We will copy new spam/ham messages to these directories, scan them, then
+# remove them.
+export SPOOL_LEARN_SPAM_DIR=&quot;${SPOOL_DIR}/processing/spam&quot;
+export SPOOL_LEARN_HAM_DIR=&quot;${SPOOL_DIR}/processing/ham&quot;
+
+if [ -e ${LOCK_FILE} ]; then
+    find $(dirname ${LOCK_FILE}) -maxdepth 1 -ctime 1 &quot;$(basename ${LOCK_FILE})&quot; &gt;/dev/null 2&gt;&amp;1
+    if [ X&quot;$?&quot; == X'0' ]; then
+        rm -f ${LOCK_FILE} &gt;/dev/null 2&gt;&amp;1
+    else
+        ${LOG} &quot;Lock file exists (${LOCK_FILE}), abort.&quot;
+        exit
+    fi
+fi
+
+for dir in &quot;${SPOOL_DIR}&quot; &quot;${SPOOL_LEARN_SPAM_DIR}&quot; &quot;${SPOOL_LEARN_HAM_DIR}&quot;; do
+    if [[ ! -d ${dir} ]]; then
+        mkdir -p ${dir}
+    fi
+
+    chown ${OWNER}:${GROUP} ${dir}
+    chmod 0700 ${dir}
+done
+
+# If there're a lot files, direct `mv` command may fail with error like
+# `argument list too long`, so we need `find` in this case.
+if [[ X&quot;${KERNEL_NAME}&quot; == X'OPENBSD' ]]; then
+    [[ -d ${SPOOL_SPAM_DIR} ]] &amp;&amp; find ${SPOOL_SPAM_DIR} -name '*.eml' -exec mv {} ${SPOOL_LEARN_SPAM_DIR}/ \;
+    [[ -d ${SPOOL_HAM_DIR} ]]  &amp;&amp; find ${SPOOL_HAM_DIR}  -name '*.eml' -exec mv {} ${SPOOL_LEARN_HAM_DIR}/  \;
+else
+    [[ -d ${SPOOL_SPAM_DIR} ]] &amp;&amp; find ${SPOOL_SPAM_DIR} -name '*.eml' -exec mv -t ${SPOOL_LEARN_SPAM_DIR}/ {} +
+    [[ -d ${SPOOL_HAM_DIR} ]]  &amp;&amp; find ${SPOOL_HAM_DIR}  -name '*.eml' -exec mv -t ${SPOOL_LEARN_HAM_DIR}/  {} +
+fi
+
+# Try to delete empty directory, if failed, that means we have some messages to
+# scan.
+rmdir ${SPOOL_LEARN_SPAM_DIR} &amp;&gt;/dev/null
+if [[ X&quot;$?&quot; != X'0' ]]; then
+    output=&quot;$(${SA_LEARN} --spam ${SPOOL_LEARN_SPAM_DIR})&quot;
+    rm -rf ${SPOOL_LEARN_SPAM_DIR} &amp;&gt;/dev/null
+    ${LOG} '[SPAM]' ${output}
+fi
+
+rmdir ${SPOOL_LEARN_HAM_DIR} &amp;&gt;/dev/null
+if [[ X&quot;$?&quot; != X'0' ]]; then
+    output=&quot;$(${SA_LEARN} --ham ${SPOOL_LEARN_HAM_DIR})&quot;
+    rm -rf ${SPOOL_LEARN_HAM_DIR} &amp;&gt;/dev/null
+    ${LOG} '[CLEAN]' ${output}
+fi
+
+rm -f ${LOCK_FILE} &amp;&gt;/dev/null
+</code></pre>
+
+<p>Run command <code>crontab -e -u root</code> to setup cron job for root user, scan emails
+every 10 minutes:</p>
+<pre><code># iRedMail: Scan reported mails.
+*/10   *   *   *   *   /bin/bash /etc/dovecot/sieve/scan_reported_mails.sh
+</code></pre>
+
+<h2 id="tests">Tests</h2>
+<h3 id="report-spam-move-email-from-inbox-to-junk">Report spam: Move email from Inbox to Junk</h3>
+<ul>
+<li>Login to webmail or any IMAP client like Outlook/Thunderbird.</li>
+<li>Move an email from <code>Inbox</code> folder to <code>Junk</code> folder.</li>
+</ul>
+<p>In Dovecot log file <code>/var/log/dovecot/imap.log</code> (or <code>dovecot.log</code> if you didn't
+configure syslog daemon to separate log content), you should see log lines like
+below:</p>
+<pre><code>Jan 31 21:10:42 c7 dovecot: imap(&lt;email&gt;): sieve: pipe action: piped message to program `imapsieve_copy'
+Jan 31 21:10:42 c7 dovecot: imap(&lt;email&gt;): sieve: left message in mailbox 'Junk'
+Jan 31 21:10:42 c7 dovecot: imap(&lt;email&gt;): expunge: box=INBOX, uid=7, msgid=, size=7805, from=&lt;email&gt;, subject=&lt;subject&gt;
+</code></pre>
+
+<p>In the meantime, you should see an email in <code>/var/vmail/imapsieve_copy/spam/</code>,
+file name in <code>&lt;email&gt;-&lt;timestamp&gt;-&lt;random_number&gt;.eml</code> format.</p>
+<h3 id="report-ham-move-email-from-junk-to-any-other-folder-except-trash">Report ham: Move email from Junk to any other folder (except <code>Trash</code>)</h3>
+<p>If you found a clean email in <code>Junk</code> folder, just move it from <code>Junk</code> to any
+other folder except <code>Trash</code>.</p>
+<p>In Dovecot log file <code>/var/log/dovecot/imap.log</code> (or <code>dovecot.log</code>), you should
+see log lines like below:</p>
+<pre><code>Jan 31 21:15:51 c7 dovecot: imap(&lt;email&gt;): sieve: pipe action: piped message to program `imapsieve_copy'
+Jan 31 21:15:51 c7 dovecot: imap(&lt;email&gt;): sieve: left message in mailbox 'INBOX'
+Jan 31 21:15:51 c7 dovecot: imap(&lt;email&gt;): expunge: box=Junk, uid=7, msgid=, size=7805, from=&lt;email&gt;, subject=&lt;subject&gt;
+</code></pre>
+
+<p>In the meantime, you should see an email in <code>/var/vmail/imapsieve_copy/ham/</code>,
+file name in <code>&lt;email&gt;-&lt;timestamp&gt;-&lt;random_number&gt;.eml</code> format.</p>
+<h3 id="scan-reported-mails">Scan reported mails</h3>
+<p>It's ok to run the script manually to scan reported mails:</p>
+<pre><code>bash /etc/dovecot/sieve/scan_reported_mails.sh
+</code></pre>
+
+<p>If it scanned messages, it will log a message in <code>/var/log/syslog</code> or
+<code>/var/log/messages</code> like this:</p>
+<pre><code>Jan 31 04:51:34 mail scan_reported_mails: [CLEAN] Learned tokens from 1 message(s) (1 message(s) examined)
+Jan 31 05:03:16 mail scan_reported_mails: [SPAM] Learned tokens from 1 message(s) (1 message(s) examined)
+</code></pre>
+
+<h2 id="references">References</h2>
+<ul>
+<li>
+<p><a href="https://wiki.dovecot.org/HowTo/AntispamWithSieve">Dovecot wiki: Antispam with Sieve</a></p>
+<p>You may notice a difference between current tutorial and Dovecot wiki
+tutorial: our setup saves reported mails and scan it later with <code>sa-learn</code>
+by cron job, but setup in Dovecot wiki calls <code>sa-learn</code> directly. We make
+this change due to performance issue: when user moves a message to <code>Junk</code>
+folder, webmail will wait for <code>sa-learn</code> to finish the scan then return
+responsive, but if user moves a log messages at the same time, webmail will
+hang and user have to wait there. This is not good user experience.</p>
+</li>
+</ul><div class="footer">
+    <p style="text-align: center; color: grey;">All documents are available in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://bitbucket.org/zhb/iredmail-docs/get/tip.tar.bz2">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
+</div>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-3293801-21"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-3293801-21');
+</script>
+</body></html>
