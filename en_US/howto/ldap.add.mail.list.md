@@ -1,6 +1,12 @@
-# LDAP: Add a mail list account
+# LDAP: Add a (unsubscribeable) mailing list
 
 [TOC]
+
+!!! warning
+
+    The mailing list account mentioned in this tutorial is not subscribealbe.
+    For subscribeable mailing list, please read tutorial
+    [Manage subscribeable mailing lists](./manage.subscribeable.mailing.lists.html).
 
 ## Add mail list with iRedAdmin-Pro
 
