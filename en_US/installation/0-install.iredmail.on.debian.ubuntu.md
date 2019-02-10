@@ -210,6 +210,6 @@ hostname or IP address.
 
 * You are welcome to post issues, feedbacks, feature requests, suggestions in
   our [online support forum](https://forum.iredmail.org/), it's more
-  responsible than you expected.
+  responsive than you expected.
 * We offer paid professional support service too, check our web site for more
   details: [Get Professional Support from iRedMail Team](https://www.iredmail.org/support.html).
