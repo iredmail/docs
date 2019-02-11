@@ -12,13 +12,13 @@
 
 * Login to the iRedMail server first, and switch to root user with `su` or `sudo`.
 * Download the latest package with `wget` command, extract download package and
-  run a script to upgrade it. Note: We use version `2.0` for example here, `2.0.tar.gz`.
+  run a script to upgrade it. Note: We use version `2.1` for example here, `2.1.tar.gz`.
 
 ```
 cd /root/
-wget https://github.com/iredmail/mlmmjadmin/archive/2.0.tar.gz
-tar zxf 2.0.tar.gz
-cd mlmmjadmin-2.0/tools/
+wget https://github.com/iredmail/mlmmjadmin/archive/2.1.tar.gz
+tar zxf 2.1.tar.gz
+cd mlmmjadmin-2.1/tools/
 bash upgrade_mlmmjadmin.sh
 ```
 
