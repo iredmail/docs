@@ -115,13 +115,18 @@ set below value instead:</p>
 <h3 id="enable-yum-repositories-for-installing-new-packages">Enable yum repositories for installing new packages</h3>
 <ul>
 <li>
-<p>For CentOS or Scientific Linux, please enable CentOS/Scientific official
-  yum repositories, and <strong>DISABLE</strong> all third-party yum repositories to
-  avoid package conflict.</p>
+<p>For CentOS or Scientific Linux, please</p>
+<ul>
+<li>enable CentOS/Scientific official yum repositories and <code>epel</code> repo.</li>
+<li><strong>DISABLE</strong> all other third-party yum repositories to avoid package conflict.</li>
+</ul>
 </li>
 <li>
-<p>For Red Hat Enterprise Linux, please enable Red Hat Network to install
-  packages, or create a local yum repository with DVD/CD ISO images.</p>
+<p>For Red Hat Enterprise Linux, please</p>
+<ul>
+<li>enable Red Hat Network to install packages, or create a local yum repository with DVD/CD ISO images.</li>
+<li>Enable <code>epel</code> repo (you can enable it by installing package <code>epel-release</code>)</li>
+</ul>
 </li>
 </ul>
 <div class="admonition attention">

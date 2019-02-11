@@ -95,12 +95,13 @@ Disable it immediately without rebooting your server.
 
 ### Enable yum repositories for installing new packages
 
-* For CentOS or Scientific Linux, please enable CentOS/Scientific official
-  yum repositories, and __DISABLE__ all third-party yum repositories to
-  avoid package conflict.
+* For CentOS or Scientific Linux, please
+    - enable CentOS/Scientific official yum repositories and `epel` repo.
+    - __DISABLE__ all other third-party yum repositories to avoid package conflict.
 
-* For Red Hat Enterprise Linux, please enable Red Hat Network to install
-  packages, or create a local yum repository with DVD/CD ISO images.
+* For Red Hat Enterprise Linux, please
+    - enable Red Hat Network to install packages, or create a local yum repository with DVD/CD ISO images.
+    - Enable `epel` repo (you can enable it by installing package `epel-release`)
 
 !!! attention
 
