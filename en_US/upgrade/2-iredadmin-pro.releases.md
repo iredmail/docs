@@ -15,6 +15,7 @@ this tutorial with just one shell command:
 
 Version | Release Date | Comment | Extra
 ---|---|---|---
+[3.4](https://forum.iredmail.org/topic15327.html) | Feb 19, 2019 | | [RESTful API document](./iredadmin-pro.restful.api.html)
 [3.3](https://forum.iredmail.org/topic15133.html) | Jan 2, 2019 | | [RESTful API document](./iredadmin-pro.restful.api.html)
 [3.2](https://forum.iredmail.org/topic15065.html) | Dec 17, 2018 | | [RESTful API document](./iredadmin-pro.restful.api.html)
 [3.1](https://forum.iredmail.org/topic14079.html) | Apr 3, 2018 | | [RESTful API document](./iredadmin-pro.restful.api-20181217.html)
@@ -52,6 +53,7 @@ Version | Release Date | Comment | Extra
 
 Version | Release Date | Comment | RESTful API Document
 ---|---|---|---
+[3.2](https://forum.iredmail.org/topic15328.html) | Feb 19, 2019 | | [RESTful API document](./iredadmin-pro.restful.api.html)
 [3.1](https://forum.iredmail.org/topic15132.html) | Jan 2, 2019 | | [RESTful API document](./iredadmin-pro.restful.api.html)
 [3.0](https://forum.iredmail.org/topic15066.html) | Dec 17, 2018 | | [RESTful API document](./iredadmin-pro.restful.api.html)
 [2.9.0](https://forum.iredmail.org/topic14078.html) | Apr 3, 2018 | | [RESTful API document](./iredadmin-pro.restful.api-20181217.html)
