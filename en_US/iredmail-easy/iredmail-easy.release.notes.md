@@ -4,6 +4,9 @@
 
 ## Version: 2019021901 (Feb 19, 2019)
 
+* Improvements:
+    + Able to remove ssh public key on target server.
+
 * Fixed issues:
     - php-fpm: not reopen log file after rotation.
     - mlmmjadmin:
