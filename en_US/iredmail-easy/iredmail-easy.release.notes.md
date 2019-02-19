@@ -2,6 +2,20 @@
 
 [TOC]
 
+## Version: 2019021901 (Feb 19, 2019)
+
+* Fixed issues:
+    - php-fpm: not reopen log file after rotation.
+    - mlmmjadmin:
+        - Incorrect LDAP base dn in config file.
+        - Do not return error if mailing list directory doesn't exist.
+    - Incorrect iRedAPD plugin name for OpenLDAP backend.
+    - Few bugs with in Ansible deployment code.
+
+* Package updates:
+    + mlmmjadmin -> 2.1
+    + iRedAdmin (open source edition) -> 0.9.5
+
 ## Version: 2019013001 (Jan 30, 2019)
 
 * Set max open file limit by SOGo daemon to unlimited.
