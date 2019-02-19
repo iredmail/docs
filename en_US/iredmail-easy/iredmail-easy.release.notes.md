@@ -6,6 +6,8 @@
 
 * Improvements:
     + Able to remove ssh public key on target server.
+    + SSH keys which were generated 7 days ago will be removed automatically
+      from iRedMail Easy platform.
 
 * Fixed issues:
     - php-fpm: not reopen log file after rotation.
