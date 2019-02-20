@@ -2,6 +2,13 @@
 
 [TOC]
 
+## Upcoming release (March X, 2019)
+
+* Improvements:
+    + Backup OpenLDAP data with option `-o ldif-wrap=no`, to avoid break long
+      line to multiple lines. The dumped LDIF file is easier to work with
+      `grep` and other command line tools.
+
 ## Version: 2019021901 (Feb 19, 2019)
 
 * Improvements:
