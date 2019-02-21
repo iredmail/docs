@@ -32,6 +32,14 @@
 <h2 id="upcoming-release-march-x-2019">Upcoming release (March X, 2019)</h2>
 <ul>
 <li>Improvements:<ul>
+<li>New option <code>Trusted clients</code> in mail server profile page, under tab
+  <code>Settings</code>. You can list all trusted IP addresses or CIDR networks here,
+  they will be whitelisted by few components:<ul>
+<li>Postfix: parameter <code>mynetworks</code> in <code>/etc/postfix/main.cf</code></li>
+<li>iRedAPD: parameter <code>MYNETWORKS</code> in <code>/opt/iredapd/settings.py</code></li>
+<li>Fail2ban: parameter <code>ignoreip</code> in <code>/etc/fail2ban/ignoreip.local</code></li>
+</ul>
+</li>
 <li>Backup OpenLDAP data with option <code>-o ldif-wrap=no</code>, to avoid break long
   line to multiple lines. The dumped LDIF file is easier to work with
   <code>grep</code> and other command line tools.</li>
