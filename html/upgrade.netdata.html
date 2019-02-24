@@ -28,9 +28,17 @@ it:</p>
 <p>That's it.</p>
 <h2 id="upgrade-netdata-on-freebsd">Upgrade netdata on FreeBSD</h2>
 <p>Please upgrade netdata with FreeBSD ports tree.</p>
+<h2 id="optional-disable-sending-anonymous-statistics">[OPTIONAL] Disable sending anonymous statistics.</h2>
+<p>To opt-out from sending anonymous statistics, please create file <code>.opt-out-from-anonymous-statistics</code>:
+- On Linux, it's <code>/opt/netdata/etc/netdata/.opt-out-from-anonymous-statistics</code>.
+- On FreeBSD, it's <code>/usr/local/etc/netdata/.opt-out-from-anonymous-statistics</code>.</p>
 <h2 id="see-also">See Also</h2>
 <ul>
 <li><a href="./integration.netdata.freebsd.html">Integrate netdata monitor (on FreeBSD server)</a></li>
+<li>netdata:<ul>
+<li><a href="https://docs.netdata.cloud/docs/anonymous-statistics/#opt-out">Opt-out from sending anonymous statistics</a></li>
+</ul>
+</li>
 </ul><div class="footer">
     <p style="text-align: center; color: grey;">All documents are available in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://bitbucket.org/zhb/iredmail-docs/get/tip.tar.bz2">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
 </div>

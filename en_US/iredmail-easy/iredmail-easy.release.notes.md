@@ -2,8 +2,9 @@
 
 [TOC]
 
-## Upcoming release (March X, 2019)
+## Upcoming release (Mar X, 2019)
 
+* [ ] Update netdata to the latest 1.12.0.
 * Improvements:
     + New option `Trusted clients` in mail server profile page, under tab
       `Settings`. You can list all trusted IP addresses or CIDR networks here,

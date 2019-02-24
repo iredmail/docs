@@ -19,6 +19,14 @@ That's it.
 
 Please upgrade netdata with FreeBSD ports tree.
 
+## [OPTIONAL] Disable sending anonymous statistics.
+
+To opt-out from sending anonymous statistics, please create file `.opt-out-from-anonymous-statistics`:
+- On Linux, it's `/opt/netdata/etc/netdata/.opt-out-from-anonymous-statistics`.
+- On FreeBSD, it's `/usr/local/etc/netdata/.opt-out-from-anonymous-statistics`.
+
 ## See Also
 
 * [Integrate netdata monitor (on FreeBSD server)](./integration.netdata.freebsd.html)
+* netdata:
+    * [Opt-out from sending anonymous statistics](https://docs.netdata.cloud/docs/anonymous-statistics/#opt-out)
