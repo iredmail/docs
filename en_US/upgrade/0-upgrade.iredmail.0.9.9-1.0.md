@@ -2,6 +2,10 @@
 
 [TOC]
 
+!!! warning
+
+    This is still a __DRAFT__ document, do __NOT__ apply it.
+
 !!! note "Paid Remote Upgrade Support"
 
     We offer remote upgrade support if you don't want to get your hands dirty,
@@ -72,3 +76,21 @@ latest stable release immediately:
 ### Upgrade netdata to the latest stable release (1.12.1)
 
 If you have netdata installed, you can upgrade it by following this tutorial: [Upgrade netdata](./upgrade.netdata.html).
+
+### Fail2ban: slightly loose filter rule for postfix
+
+We received few reports from clients that Outlook for macOS may trigger some
+unexpected smtp errors, and caught by the Fail2ban filter rules shipped by
+iRedMail, so we decide to remove the filter rule used to match Postfix log
+`lost connection after EHLO`.
+
+Please follow commands below to get the updated filter rules.
+
+* On Linux:
+
+```
+cd /etc/fail2ban/filter.d/
+wget -O postfix.iredmail.conf https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/samples/fail2ban/filter.d/postfix.iredmail.conf
+```
+
+Restarting Fail2ban service is required.
