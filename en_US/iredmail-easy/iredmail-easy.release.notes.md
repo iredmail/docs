@@ -4,17 +4,32 @@
 
 ## Upcoming release (Mar X, 2019)
 
-* [ ] Update netdata to the latest 1.12.0.
-* Improvements:
+* netdata:
+    - Update to version 1.12.1.
+    - Disable sending anonymous statistics to netdata cloud.
+
+* Fail2ban:
+    - Slightly loose filter for postfix to reduce unexpected ban caused by
+      Outlook for macOS.
+
+* Backup:
+    + Backup OpenLDAP data with option `-o ldif-wrap=no`, to avoid break long
+      line to multiple lines. The dumped LDIF file is easier to work with
+      `grep` and other command line tools.
+
+* Improvements of iRedMail Easy platform:
+    + Always print command output of `nginx -t` for troubleshooting before
+      restart nginx servvice, it's very useful for troubleshooting.
     + New option `Trusted clients` in mail server profile page, under tab
       `Settings`. You can list all trusted IP addresses or CIDR networks here,
       they will be whitelisted by few components:
         - Postfix: parameter `mynetworks` in `/etc/postfix/main.cf`
         - iRedAPD: parameter `MYNETWORKS` in `/opt/iredapd/settings.py`
         - Fail2ban: parameter `ignoreip` in `/etc/fail2ban/ignoreip.local`
-    + Backup OpenLDAP data with option `-o ldif-wrap=no`, to avoid break long
-      line to multiple lines. The dumped LDIF file is easier to work with
-      `grep` and other command line tools.
+
+* Fixed issues of iRedMail Easy platform:
+    - Incorrect permission of directories used to store prosody custom modules
+      and config files.
 
 ## Version: 2019021901 (Feb 19, 2019)
 

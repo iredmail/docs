@@ -30,9 +30,34 @@
 </ul>
 </div>
 <h2 id="upcoming-release-mar-x-2019">Upcoming release (Mar X, 2019)</h2>
-<ul class="checklist">
-<li><input type="checkbox" disabled> Update netdata to the latest 1.12.0.</li>
-<li>Improvements:<ul>
+<ul>
+<li>
+<p>netdata:</p>
+<ul>
+<li>Update to version 1.12.1.</li>
+<li>Disable sending anonymous statistics to netdata cloud.</li>
+</ul>
+</li>
+<li>
+<p>Fail2ban:</p>
+<ul>
+<li>Slightly loose filter for postfix to reduce unexpected ban caused by
+  Outlook for macOS.</li>
+</ul>
+</li>
+<li>
+<p>Backup:</p>
+<ul>
+<li>Backup OpenLDAP data with option <code>-o ldif-wrap=no</code>, to avoid break long
+  line to multiple lines. The dumped LDIF file is easier to work with
+  <code>grep</code> and other command line tools.</li>
+</ul>
+</li>
+<li>
+<p>Improvements of iRedMail Easy platform:</p>
+<ul>
+<li>Always print command output of <code>nginx -t</code> for troubleshooting before
+  restart nginx servvice, it's very useful for troubleshooting.</li>
 <li>New option <code>Trusted clients</code> in mail server profile page, under tab
   <code>Settings</code>. You can list all trusted IP addresses or CIDR networks here,
   they will be whitelisted by few components:<ul>
@@ -41,9 +66,13 @@
 <li>Fail2ban: parameter <code>ignoreip</code> in <code>/etc/fail2ban/ignoreip.local</code></li>
 </ul>
 </li>
-<li>Backup OpenLDAP data with option <code>-o ldif-wrap=no</code>, to avoid break long
-  line to multiple lines. The dumped LDIF file is easier to work with
-  <code>grep</code> and other command line tools.</li>
+</ul>
+</li>
+<li>
+<p>Fixed issues of iRedMail Easy platform:</p>
+<ul>
+<li>Incorrect permission of directories used to store prosody custom modules
+  and config files.</li>
 </ul>
 </li>
 </ul>
