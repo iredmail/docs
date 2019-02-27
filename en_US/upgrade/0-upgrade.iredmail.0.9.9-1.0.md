@@ -91,6 +91,7 @@ Please follow commands below to get the updated filter rules.
 ```
 cd /etc/fail2ban/filter.d/
 wget -O postfix.iredmail.conf https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/samples/fail2ban/filter.d/postfix.iredmail.conf
+wget -O dovecot.iredmail.conf https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/samples/fail2ban/filter.d/dovecot.iredmail.conf
 ```
 
 Restarting Fail2ban service is required.
