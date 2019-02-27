@@ -18,6 +18,8 @@
       `grep` and other command line tools.
 
 * Improvements of iRedMail Easy platform:
+    + Always update major components (postfix/dovecot/sogo/fail2ban/...) to the
+      latest stable release.
     + Always print command output of `nginx -t` for troubleshooting before
       restart nginx servvice, it's very useful for troubleshooting.
     + New option `Trusted clients` in mail server profile page, under tab
