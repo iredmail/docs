@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Turn on debug logging in Fail2ban</title>
+        <link rel="stylesheet" type="text/css" href="./css/markdown.css" />
+    </head>
+    <body>
+    
+    <div id="navigation">
+    <a href="https://www.iredmail.org" target="_blank">
+        <img alt="iRedMail web site"
+             src="./images/logo-iredmail.png"
+             style="vertical-align: middle; height: 30px;"
+             />&nbsp;
+        <span>iRedMail</span>
+    </a>
+    &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><h1 id="turn-on-debug-logging-in-fail2ban">Turn on debug logging in Fail2ban</h1>
+<p>To turn on debug mode in Fail2ban, please set its log level to <code>debug</code> in
+config file <code>/etc/fail2ban/fail2ban.local</code>, then restart fail2ban service.
+If file <code>/etc/fail2ban/fail2ban.local</code> doesn't exist, use
+<code>/etc/fail2ban/fail2ban.conf</code> instead.</p>
+<pre><code>loglevel = DEBUG
+</code></pre>
+
+<h2 id="log-file">Log File</h2>
+<p>Fail2ban may log to different log files on different Linux/BSD distributions:</p>
+<ul>
+<li><code>/var/log/fail2ban.log</code></li>
+<li><code>/var/log/fail2ban/fail2ban.log</code></li>
+<li><code>/var/log/messages</code></li>
+<li><code>/var/log/syslog</code></li>
+</ul><div class="footer">
+    <p style="text-align: center; color: grey;">All documents are available in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://bitbucket.org/zhb/iredmail-docs/get/tip.tar.bz2">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
+</div>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-3293801-21"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-3293801-21');
+</script>
+</body></html>
