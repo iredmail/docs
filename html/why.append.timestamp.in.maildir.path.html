@@ -16,36 +16,37 @@
         <span>iRedMail</span>
     </a>
     &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><h1 id="why-append-timestamp-in-maildir-path">Why append timestamp in maildir path</h1>
-<p>iRedMail will append timestamp in maildir path by default, here's why.</p>
-<p>Depends on the tools/scripts you used to create mail accounts, it's tunable
-in scripts shipped within iRedMail and iRedAdmin (file <code>settings.py</code>, variable
-<code>MAILDIR_APPEND_TIMESTAMP = True</code> or <code>False</code>).</p>
-<blockquote>
-<p>Note: Deleting mail accounts with iRedAdmin will not remove the mailboxes on
-file system, so that you can keep user's mailbox for some time.</p>
-</blockquote>
+<p>iRedMail appends a timestamp to user's maildir path by default, people asked
+many times why we do this, and here's why. :)</p>
 <p>Think about this situation:</p>
 <ul>
 <li>
-<p>Employee Michael Jordan has email address mj@domain.ltd. Without timestamp
-in maildir path, the maildir path of his mailbox looks like
-<code>/var/vmail/vmail1/domain.ltd/mj/</code>.</p>
+<p>Employee <strong>Michael Jordan</strong> has email address <code>mj@domain.ltd</code>. Without timestamp
+  in maildir path, his maildir path should be <code>/var/vmail/vmail1/domain.ltd/mj/</code>.</p>
 </li>
 <li>
-<p>Michael left company, and your company deleted his mail account. With
-iRedAdmin, it just deletes mail accounts stored in LDAP/SQL server, not delete
-his mailbox on file system (<code>/var/vmail/vmail1/domain.ltd/mj</code>).</p>
+<p>Michael left company someday, your company removed his mail account, and
+  scheduled to remove his mailbox in certain years (either according to local
+  law to keep it, or you just want to save a backup copy).</p>
 </li>
 <li>
-<p>A new talent, Mike Jackson, joined your company, and he want to use
-<code>mj@domain.ltd</code> since <code>mj@</code> is not used by others. And you created it for him.
-Without timestamp in maildir path, the maildir path of Mike's mailbox is the
-same as Michael's <code>/var/vmail/vmail1/domain.ltd/mj/</code>. iRedAdmin doesn't remove
-the mailboxes on file system, so Mike will see all emails in Michael's mailbox
-if Michael didn't delete them. To avoid this, we append a timestamp in maildir
-path to make sure all users will be assigned an unique maildir paths.</p>
+<p>A new talent, <strong>Mike Jackson</strong>, joined your company, and he wants to use
+  <code>mj@domain.ltd</code> since it is not used by anyone else right now. You created it
+  for him. Without timestamp in maildir path, his maildir path will be
+  same as <strong>Michael Jordan</strong>'s which is <code>/var/vmail/vmail1/domain.ltd/mj/</code>.
+  In this case, <strong>Mike Jackson</strong> will see all old emails left in <strong>Michael Jordan</strong>'s
+  mailbox.</p>
 </li>
-</ul><div class="footer">
+</ul>
+<p>To avoid this issue, iRedMail appends a timestamp in maildir path to make sure
+all users have their own unique maildir paths.</p>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>If you create mail user with iRedAdmin or iRedAdmin-Pro, it's tuneable:</p>
+<ul>
+<li><a href="https://docs.iredmail.org/iredadmin-pro.customize.maildir.path.html">Customize maildir path</a></li>
+</ul>
+</div><div class="footer">
     <p style="text-align: center; color: grey;">All documents are available in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://bitbucket.org/zhb/iredmail-docs/get/tip.tar.bz2">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
 </div>
 <!-- Global site tag (gtag.js) - Google Analytics -->
