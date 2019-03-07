@@ -4,8 +4,8 @@
 
 !!! attention
 
-    * This document is applicable to `iRedAdmin-Pro-SQL-3.2` and
-      `iRedAdmin-Pro-LDAP-3.4`. If you're running an old release, please
+    * This document is applicable to `iRedAdmin-Pro-SQL-3.3` and
+      `iRedAdmin-Pro-LDAP-3.5`. If you're running an old release, please
       upgrade iRedAdmin-Pro to the latest release, or check
       [document for old releases](./iredadmin-pro.releases.html).
     * If you need an API which has not yet been implemented, don't hesitate to
@@ -339,6 +339,8 @@ Notes:
     `transport` | Transport program | `transport=dovecot`
     `isGlobalAdmin` | Promote user to be a global admin. Possible values: `yes`, `no` | `isGlobalAdmin=yes`
     `forwarding` | Per-user mail forwarding. Multiple addresses must be separated by comma. To save an email copy in mailbox, add original email address as one of forwarding addresses. | `forwarding=user1@domain.com,user2@domain.com,user3@domain.com`
+    `senderBcc` | Per-user BCC for outbound emails. Only one email address is allowed. Parameter with empty value will remove existing sender bcc address. | `senderBcc=user1@domain.com` or <br/>`senderBcc=` (remove existing bcc address)
+    `recipientBcc` | Per-user BCC for inbound emails. Only one email address is allowed. Parameter with empty value will remove existing recipient bcc address. | `recipientBcc=user1@domain.com` or <br/>`recipientBcc=` (remove existing bcc address)
     `aliases` | Per-user alias addresses. Multiple addresses must be separated by comma. If empty, all per-user alias addresses owned by this user will be removed. Conflicts with parameter `addAlias` and `removeAlias`. | `aliases=user1@domain.com,user2@domain.com,user3@domain.com`
     `addAlias` | Add new per-user alias addresses. Multiple addresses must be separated by comma. Conflicts with parameter `aliases`. | `addAlias=user1@domain.com,user2@domain.com,user3@domain.com`
     `removeAlias` | Remove existing per-user alias addresses. Multiple addresses must be separated by comma. Conflicts with parameter `aliases`. | `removeAlias=user1@domain.com,user2@domain.com,user3@domain.com`
