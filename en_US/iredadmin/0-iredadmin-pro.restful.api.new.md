@@ -382,7 +382,18 @@ Notes:
     </div>
 
 !!! api "`POST`{: .post } `/api/user/<mail>/change_email/<new_mail>`{: .url } `Change user's email address (from '<mail>' to '<new_mail>')`{: .comment }"
-!!! api "`PUT`{: .put } `/api/users/<domain>`{: .url } `Update profiles of all users under domain`{: .comment } `Parameters`{: .has_params }"
+!!! api "`GET`{: .get } `/api/users/<domain>`{: .url } `Get user profiles under given domain`{: .comment } `Parameters`{: .has_params }"
+
+    <div class="params">
+
+    Parameter | Default Value | Comment | Sample Usage
+    --- |--- |--- |---
+    `email_only` | `no` | Return a list of mail users' email addresses instead of detailed profiles. | `email_only=yes`
+    `disabled_only` | `no` | Return only disabled mail domains | `disabled_only=yes`
+
+    </div>
+
+!!! api "`PUT`{: .put } `/api/users/<domain>`{: .url } `Update profiles of all users under given domain`{: .comment } `Parameters`{: .has_params }"
 
     <div class="params">
 

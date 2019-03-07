@@ -1075,7 +1075,38 @@ to be a domain admin.</p>
 <p class="admonition-title"><code class="post">POST</code> <code class="url">/api/user/&lt;mail&gt;/change_email/&lt;new_mail&gt;</code> <code class="comment">Change user's email address (from '&lt;mail&gt;' to '&lt;new_mail&gt;')</code></p>
 </div>
 <div class="admonition api">
-<p class="admonition-title"><code class="put">PUT</code> <code class="url">/api/users/&lt;domain&gt;</code> <code class="comment">Update profiles of all users under domain</code> <code class="has_params">Parameters</code></p>
+<p class="admonition-title"><code class="get">GET</code> <code class="url">/api/users/&lt;domain&gt;</code> <code class="comment">Get user profiles under given domain</code> <code class="has_params">Parameters</code></p>
+<div class="params">
+
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Default Value</th>
+<th>Comment</th>
+<th>Sample Usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>email_only</code></td>
+<td><code>no</code></td>
+<td>Return a list of mail users' email addresses instead of detailed profiles.</td>
+<td><code>email_only=yes</code></td>
+</tr>
+<tr>
+<td><code>disabled_only</code></td>
+<td><code>no</code></td>
+<td>Return only disabled mail domains</td>
+<td><code>disabled_only=yes</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code class="put">PUT</code> <code class="url">/api/users/&lt;domain&gt;</code> <code class="comment">Update profiles of all users under given domain</code> <code class="has_params">Parameters</code></p>
 <div class="params">
 
 <table>
