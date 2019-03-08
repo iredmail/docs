@@ -389,7 +389,7 @@ Notes:
     Parameter | Default Value | Comment | Sample Usage
     --- |--- |--- |---
     `email_only` | `no` | Return a list of mail users' email addresses instead of detailed profiles. | `email_only=yes`
-    `disabled_only` | `no` | Return only disabled mail domains | `disabled_only=yes`
+    `disabled_only` | `no` | Return only disabled mail users. | `disabled_only=yes`
 
     </div>
 
@@ -643,6 +643,7 @@ Notes:
     Parameter | Summary | Sample Usage
     --- |--- |---
     `name` | Display name | `name=My List Name`
+    `accountStatus` | Enable or disable domain. Valid values: `active`, `disabled`. | `accountStatus=active`
     `accessPolicy` | Defines who can send email to this mail alias account | `accessPolicy=public`
     `members` | Members of mail alias. Multiple members must be separated by comma. Conflict with parameter `addMember` and `removeMember`. | `members=user1@domain.com,user2@domain.com`
     `addMember` | Add new members of mail alias. Multiple members must be separated by comma. Conflict with parameter `members`. | `addMember=user1@domain.com,user2@domain.com`
@@ -651,6 +652,17 @@ Notes:
     </div>
 
 !!! api "`POST`{: .put } `/api/alias/<mail>/change_email/<new_mail>`{: .url } `Change email address of alias account (from '<mail>' to '<new_mail>')`{: .comment }"
+
+!!! api "`GET`{: .get } `/api/aliases/<domain>`{: .url } `Get mail aliases' profiles under given domain`{: .comment } `Parameters`{: .has_params }"
+
+    <div class="params">
+
+    Parameter | Default Value | Comment | Sample Usage
+    --- |--- |--- |---
+    `email_only` | `no` | Return a list of mail aliases' email addresses instead of detailed profiles. | `email_only=yes`
+    `disabled_only` | `no` | Return only disabled mail aliases. | `disabled_only=yes`
+
+    </div>
 
 ### Spam Policy {: .toggle }
 
