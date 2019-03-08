@@ -73,19 +73,3 @@ either open source edition or iRedAdmin-Pro).
 
 That's all. If it doesn't work for you, please post a new topic in our
 [online support forum](https://forum.iredmail.org/).
-
-## Additional steps
-
-* To quarantine SPAM/Virus into SQL database and manage them with
-  iRedAdmin-Pro, please follow this tutorial to update Amavisd settings:
-  [Quarantining SPAM and Virus emails into SQL database](./quarantining.html)
-
-* To manage white/blacklist with iRedAdmin-Pro, please enable
-  per-recipient policy lookup in Amavisd, and enable plugin `amavisd_wblist`
-  in iRedAPD config file (`/opt/iredapd/settings.py`, parameter `plugins =`):
-  [Amavisd: Enable per-recipient policy lookup](./amavisd.per-recipient.policy.lookup.html)
-
-    Note: Cluebringer still provides white/blacklists, but iRedAdmin-Pro
-    doesn't manage them anymore after iRedMail-0.9.0 release. So please
-    migrate Cluebringer white/blacklists to Amavisd database by following
-    this [forum post](https://forum.iredmail.org/post35480.html#p35480).

@@ -22,7 +22,6 @@
 <li><a href="#requirements">Requirements</a></li>
 <li><a href="#download-the-latest-iredadmin">Download the latest iRedAdmin</a></li>
 <li><a href="#upgrade-steps">Upgrade Steps</a></li>
-<li><a href="#additional-steps">Additional steps</a></li>
 </ul>
 </li>
 </ul>
@@ -105,25 +104,7 @@ upgrade may fail.</p>
 </code></pre>
 
 <p>That's all. If it doesn't work for you, please post a new topic in our
-<a href="https://forum.iredmail.org/">online support forum</a>.</p>
-<h2 id="additional-steps">Additional steps</h2>
-<ul>
-<li>
-<p>To quarantine SPAM/Virus into SQL database and manage them with
-  iRedAdmin-Pro, please follow this tutorial to update Amavisd settings:
-  <a href="./quarantining.html">Quarantining SPAM and Virus emails into SQL database</a></p>
-</li>
-<li>
-<p>To manage white/blacklist with iRedAdmin-Pro, please enable
-  per-recipient policy lookup in Amavisd, and enable plugin <code>amavisd_wblist</code>
-  in iRedAPD config file (<code>/opt/iredapd/settings.py</code>, parameter <code>plugins =</code>):
-  <a href="./amavisd.per-recipient.policy.lookup.html">Amavisd: Enable per-recipient policy lookup</a></p>
-<p>Note: Cluebringer still provides white/blacklists, but iRedAdmin-Pro
-doesn't manage them anymore after iRedMail-0.9.0 release. So please
-migrate Cluebringer white/blacklists to Amavisd database by following
-this <a href="https://forum.iredmail.org/post35480.html#p35480">forum post</a>.</p>
-</li>
-</ul><div class="footer">
+<a href="https://forum.iredmail.org/">online support forum</a>.</p><div class="footer">
     <p style="text-align: center; color: grey;">All documents are available in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://bitbucket.org/zhb/iredmail-docs/get/tip.tar.bz2">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
 </div>
 <!-- Global site tag (gtag.js) - Google Analytics -->
