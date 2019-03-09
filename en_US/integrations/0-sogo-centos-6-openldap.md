@@ -254,6 +254,13 @@ ProxyPass /Microsoft-Server-ActiveSync \
 your FQDN server hostname. (Tip: you can get your FQDN hostname with command
 `hostname -f`.)
 
+* Append line below in `/etc/httpd/conf.d/SOGo.conf`, no matter upper or lower
+  case letters of `SOGo` in the url, Apache will always to https:
+
+```
+RedirectMatch ^/[Ss][Oo][Gg][Oo](.*) /SOGo$1
+```
+
 ### Nginx web server
 
 If you're running Nginx web server configured by iRedMail, please open file

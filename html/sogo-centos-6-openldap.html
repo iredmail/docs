@@ -271,10 +271,19 @@ open it and find below lines:</p>
 </code></pre>
 
 <ul>
-<li>Find string <code>yourhostname</code> in the same file, replace all <code>yourhostname</code> by
+<li>
+<p>Find string <code>yourhostname</code> in the same file, replace all <code>yourhostname</code> by
 your FQDN server hostname. (Tip: you can get your FQDN hostname with command
-<code>hostname -f</code>.)</li>
+<code>hostname -f</code>.)</p>
+</li>
+<li>
+<p>Append line below in <code>/etc/httpd/conf.d/SOGo.conf</code>, no matter upper or lower
+  case letters of <code>SOGo</code> in the url, Apache will always to https:</p>
+</li>
 </ul>
+<pre><code>RedirectMatch ^/[Ss][Oo][Gg][Oo](.*) /SOGo$1
+</code></pre>
+
 <h3 id="nginx-web-server">Nginx web server</h3>
 <p>If you're running Nginx web server configured by iRedMail, please open file
 <code>/etc/nginx/conf.d/default.conf</code>, add some lines in <code>server {}</code> configured for

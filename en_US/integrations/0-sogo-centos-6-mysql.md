@@ -256,11 +256,11 @@ Replace them by below settings:
     RequestHeader set "x-webobjects-server-url" "https://%{HTTP_HOST}e" env=HTTP_HOST
 ```
 
-* Append line below in `/etc/httpd/conf/httpd.conf` to make Apache always
-  redirect http access to https.
+* Append line below in `/etc/httpd/conf.d/SOGo.conf`, no matter upper or lower
+  case letters of `SOGo` in the url, Apache will always to https:
 
 ```
-RewriteRule /SOGo(.*) https://%{HTTP_HOST}%{REQUEST_URI}
+RedirectMatch ^/[Ss][Oo][Gg][Oo](.*) /SOGo$1
 ```
 
 * Restart Apache service.

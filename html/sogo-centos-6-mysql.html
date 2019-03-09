@@ -279,10 +279,10 @@ ProxyPass /SOGo http://127.0.0.1:20000/SOGo retry=0
 </code></pre>
 
 <ul>
-<li>Append line below in <code>/etc/httpd/conf/httpd.conf</code> to make Apache always
-  redirect http access to https.</li>
+<li>Append line below in <code>/etc/httpd/conf.d/SOGo.conf</code>, no matter upper or lower
+  case letters of <code>SOGo</code> in the url, Apache will always to https:</li>
 </ul>
-<pre><code>RewriteRule /SOGo(.*) https://%{HTTP_HOST}%{REQUEST_URI}
+<pre><code>RedirectMatch ^/[Ss][Oo][Gg][Oo](.*) /SOGo$1
 </code></pre>
 
 <ul>
