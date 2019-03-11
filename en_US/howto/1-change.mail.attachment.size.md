@@ -123,15 +123,18 @@ Restart Apache or php-fpm service to make it work.
 ## Change upload file size in Nginx
 
 Find setting `client_max_body_size` in Nginx config file
-`/etc/nginx/nginx.conf`, change it to a proper value to match your need.
+`/etc/nginx/conf-enabled/client_max_body_size.conf`, change the size to a
+proper value to match your need.
+
+!!! attention
+
+    Old iRedMail releases set this parameter in `/etc/nginx/nginx.conf`.
 
 ```
-http {
-    ...
-    client_max_body_size 100m;
-    ...
-}
+client_max_body_size 100m;
 ```
+
+Reloading or restarting Nginx service is required.
 
 ## Change file size limits in SOGo
 

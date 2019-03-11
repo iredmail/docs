@@ -145,14 +145,16 @@ php_value    post_max_size  100M
 <p>Restart Apache or php-fpm service to make it work.</p>
 <h2 id="change-upload-file-size-in-nginx">Change upload file size in Nginx</h2>
 <p>Find setting <code>client_max_body_size</code> in Nginx config file
-<code>/etc/nginx/nginx.conf</code>, change it to a proper value to match your need.</p>
-<pre><code>http {
-    ...
-    client_max_body_size 100m;
-    ...
-}
+<code>/etc/nginx/conf-enabled/client_max_body_size.conf</code>, change the size to a
+proper value to match your need.</p>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>Old iRedMail releases set this parameter in <code>/etc/nginx/nginx.conf</code>.</p>
+</div>
+<pre><code>client_max_body_size 100m;
 </code></pre>
 
+<p>Reloading or restarting Nginx service is required.</p>
 <h2 id="change-file-size-limits-in-sogo">Change file size limits in SOGo</h2>
 <p>SOGo config file is <code>/etc/sogo/sogo.conf</code> (Linux/OpenBSD) or
 <code>/usr/local/etc/sogo/sogo.conf</code> (FreeBSD), 2 settings are relevant to message size:</p>
