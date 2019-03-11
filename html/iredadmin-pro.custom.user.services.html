@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>iRedAdmin-Pro (LDAP backend): Add and manage custom services for mail user</title>
+        <link rel="stylesheet" type="text/css" href="./css/markdown.css" />
+    </head>
+    <body>
+    
+    <div id="navigation">
+    <a href="https://www.iredmail.org" target="_blank">
+        <img alt="iRedMail web site"
+             src="./images/logo-iredmail.png"
+             style="vertical-align: middle; height: 30px;"
+             />&nbsp;
+        <span>iRedMail</span>
+    </a>
+    &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><h1 id="iredadmin-pro-ldap-backend-add-and-manage-custom-services-for-mail-user">iRedAdmin-Pro (LDAP backend): Add and manage custom services for mail user</h1>
+<p>It's reasonable that you want to use OpenLDAP server running on iRedMail
+server as a central identity management database. If you have other
+softwares/services, and need to restrict some users to use these
+software/services, the easiest and most elegent soluion is adding extra service
+name in LDAP database, and update your softwares to use a proper LDAP filter to
+query users.</p>
+<p>We assume you have a GitLab server and Jabber (XMPP) server running on internal
+servers, and allow different users to use them.
+In this tutorial, we use service name <code>gitlab</code> for GitLab service, and <code>jabber</code>
+for Jabber.</p>
+<p>With iRedAdmin-Pro, please open its config file
+<code>/opt/www/iredadmin/settings.py</code> (old iRedMail releases may deploy iRedAdmin-Pro
+to different path, please check <a href="./file.locations.html#iredadmin">this tutorial</a>
+to figure it out, add a new parameter <code>ADDITIONAL_ENABLED_USER_SERVICES</code> like
+below:</p>
+<pre><code>ADDITIONAL_ENABLED_USER_SERVICES = ['gitlab', 'jabber']
+</code></pre>
+
+<p>Then restart <code>iredadmin</code> service.</p>
+<p><strong>Newly</strong> created mail user will have these 2 services enabled by default, but
+for existing users, you have to add them either manually or do it with some
+scripting/programming.</p>
+<p>You can find these 2 custom service names after logged in to iRedAdmin-Pro,
+in user profile page, under tab <code>Advanced</code>. Screenshot attached.</p>
+<p><img alt="" src="./images/iredadmin/custom_user_services.png" width="700px" /></p>
+<p>In OpenLDAP, mail user with these 2 services enabled will have 2 new LDAP
+attribute/value pairs:</p>
+<pre><code>enabledService=gitlab
+enabledService=jabber
+</code></pre><div class="footer">
+    <p style="text-align: center; color: grey;">All documents are available in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://bitbucket.org/zhb/iredmail-docs/get/tip.tar.bz2">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
+</div>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-3293801-21"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-3293801-21');
+</script>
+</body></html>
