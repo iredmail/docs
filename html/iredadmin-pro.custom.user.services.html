@@ -27,10 +27,21 @@ servers, and allow different users to use them.
 In this tutorial, we use service name <code>gitlab</code> for GitLab service, and <code>jabber</code>
 for Jabber.</p>
 <p>With iRedAdmin-Pro, please open its config file
-<code>/opt/www/iredadmin/settings.py</code> (old iRedMail releases may deploy iRedAdmin-Pro
-to different path, please check <a href="./file.locations.html#iredadmin">this tutorial</a>
-to figure it out, add a new parameter <code>ADDITIONAL_ENABLED_USER_SERVICES</code> like
+<code>/opt/www/iredadmin/settings.py</code>
+, add a new parameter <code>ADDITIONAL_ENABLED_USER_SERVICES</code> like
 below:</p>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<ul>
+<li>If you deployed iRedMail with the <a href="https://www.iredmail.org/easy.html">iRedMail Easy
+  platform</a>, you should add
+  this setting in config file <code>/opt/iredmail/custom/iredadmin/settings.py</code>
+  instead.</li>
+<li>Old iRedMail releases may deploy iRedAdmin-Pro to different directory,
+  please check <a href="./file.locations.html#iredadmin">this tutorial</a> to figure
+  it out.</li>
+</ul>
+</div>
 <pre><code>ADDITIONAL_ENABLED_USER_SERVICES = ['gitlab', 'jabber']
 </code></pre>
 

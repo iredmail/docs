@@ -13,10 +13,19 @@ In this tutorial, we use service name `gitlab` for GitLab service, and `jabber`
 for Jabber.
 
 With iRedAdmin-Pro, please open its config file
-`/opt/www/iredadmin/settings.py` (old iRedMail releases may deploy iRedAdmin-Pro
-to different path, please check [this tutorial](./file.locations.html#iredadmin)
-to figure it out, add a new parameter `ADDITIONAL_ENABLED_USER_SERVICES` like
+`/opt/www/iredadmin/settings.py`
+, add a new parameter `ADDITIONAL_ENABLED_USER_SERVICES` like
 below:
+
+!!! attention
+
+    * If you deployed iRedMail with the [iRedMail Easy
+      platform](https://www.iredmail.org/easy.html), you should add
+      this setting in config file `/opt/iredmail/custom/iredadmin/settings.py`
+      instead.
+    * Old iRedMail releases may deploy iRedAdmin-Pro to different directory,
+      please check [this tutorial](./file.locations.html#iredadmin) to figure
+      it out.
 
 ```
 ADDITIONAL_ENABLED_USER_SERVICES = ['gitlab', 'jabber']
