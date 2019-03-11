@@ -45,6 +45,14 @@ in user profile page, under tab <code>Advanced</code>. Screenshot attached.</p>
 attribute/value pairs:</p>
 <pre><code>enabledService=gitlab
 enabledService=jabber
+</code></pre>
+
+<p>For GitLab, the LDAP filter used to query user should look like this:</p>
+<pre><code>(&amp;(objectClass=mailUser)(accountStatus=active)(enabledService=gitlab))
+</code></pre>
+
+<p>For Jabber, the LDAP filter used to query user should look like this:</p>
+<pre><code>(&amp;(objectClass=mailUser)(accountStatus=active)(enabledService=jabber))
 </code></pre><div class="footer">
     <p style="text-align: center; color: grey;">All documents are available in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://bitbucket.org/zhb/iredmail-docs/get/tip.tar.bz2">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
 </div>

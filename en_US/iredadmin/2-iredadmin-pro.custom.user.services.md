@@ -40,3 +40,15 @@ attribute/value pairs:
 enabledService=gitlab
 enabledService=jabber
 ```
+
+For GitLab, the LDAP filter used to query user should look like this:
+
+```
+(&(objectClass=mailUser)(accountStatus=active)(enabledService=gitlab))
+```
+
+For Jabber, the LDAP filter used to query user should look like this:
+
+```
+(&(objectClass=mailUser)(accountStatus=active)(enabledService=jabber))
+```
