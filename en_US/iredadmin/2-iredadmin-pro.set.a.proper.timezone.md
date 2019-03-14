@@ -16,7 +16,7 @@
       add or update parameter `$config['timezone’]` in its config file.
 
     You can find locations of their config files in this document:
-    [Locations of configuration and log files of major components)(./file.locations.html).
+    [Locations of configuration and log files of major components](./file.locations.html).
 
 iRedAdmin-Pro uses time zone `GMT` by default, you can change it in several ways.
 
