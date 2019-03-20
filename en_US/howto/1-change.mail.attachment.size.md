@@ -75,14 +75,12 @@ You can set the throttle with iRedAdmin-Pro, or with SQL command tool, for more
 details, please check plugin source file, it's detailed with examples and
 explanation: [Throttle plugin](https://bitbucket.org/zhb/iredapd/src/default/plugins/throttle.py).
 
-## Change upload file size in Roundcube webmail
 
 If you have Roundcube webmail, please change two more settings:
 
-### Change PHP settings for uploading large attachment
+## Change PHP settings to upload large file
 
-You should change `memory_limit`, `upload_max_filesize` and `post_max_size` in
-PHP config file `/etc/php.ini`.
+Please also update PHP config file `php.ini` to allow uploading large file:
 
 * on RHEL/CentOS: it's `/etc/php.ini`
 * on Debian/Ubuntu, it's `/etc/php5/apache2/php.ini`.
@@ -97,6 +95,23 @@ PHP config file `/etc/php.ini`.
 memory_limit = 200M;
 upload_max_filesize = 100M;
 post_max_size = 100M;
+```
+
+## Roundcube webmail
+
+Roundcube uses its own setting `max_message_size` to limit message size, please
+add or update this parameter in its config file:
+
+* on RHEL/CentOS, it's `/opt/www/roundcubemail/config/config.inc.php`.
+  Old iRedMail releases use `/var/www/roundcubemail/config/config.inc.php`.
+* on Debian/Ubuntu, it's `/opt/www/roundcubemail/config/config.inc.php`.
+  Old iRedMail releases use `/usr/share/apache2/roundcubemail/config.inc.php`.
+* on FreeBSD, it's `/usr/local/www/roundcubemail/config/config.inc.php`
+* on OpenBSD, it's `/opt/www/roundcubemail/config/config.inc.php`.
+  Old iRedMail releases use `/var/www/roundcubemail/config.inc.php`.
+
+```
+$config['max_message_size'] = '100M';
 ```
 
 ### Change Roundcube webmail settings to allow large attachment
