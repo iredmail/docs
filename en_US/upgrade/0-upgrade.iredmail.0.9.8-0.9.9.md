@@ -257,7 +257,7 @@ Download the latest iRedMail LDAP schema file
 
 ```
 cd /tmp
-wget -O iredmail.schama https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/samples/iredmail/iredmail.schema
+wget -O iredmail.schema https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/samples/iredmail/iredmail.schema
 
 cd /etc/openldap/schema/
 cp iredmail.schema iredmail.schema.bak
