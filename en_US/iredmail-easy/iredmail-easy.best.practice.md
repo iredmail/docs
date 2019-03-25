@@ -38,7 +38,7 @@ Files under `/etc/dovecot/conf-enabled/` are maintained by iRedMail Easy, if
 you want to override some settings, please create a file which ends with
 `.conf` under `/opt/iredmail/custom/dovecot/conf-enabled/` with your custom
 settings. for example, Dovecot is configured to enable services like below by
-iRedMail Eazy:
+iRedMail Easy:
 
 ```
 dovecot_protocols = pop3 imap sieve lmtp
