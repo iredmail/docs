@@ -30,6 +30,15 @@ so that you can know which version of iRedMail you're running. For example:
 
 ### Upgrade iRedAPD (Postfix policy server) to the latest stable release (2.5)
 
+!!! warning
+
+    iRedAPD offers SRS (Sender Rewriting Scheme) in this release, it uses
+    server hostname as the email domain name for rewritten email address by
+    default, you must __make sure the server hostname is resolvable by DNS query__.
+
+    For technical details of SRS, you can read this paper:
+    [The Sender Rewriting Scheme (PDF)](https://www.libsrs2.org/srs/srs.pdf).
+
 Please follow below tutorial to upgrade iRedAPD to the latest stable release:
 [Upgrade iRedAPD to the latest stable release](./upgrade.iredapd.html)
 
@@ -95,3 +104,34 @@ wget -O dovecot.iredmail.conf https://bitbucket.org/zhb/iredmail/raw/default/iRe
 ```
 
 Restarting Fail2ban service is required.
+
+### [OPTIONAL] Enable SRS (Sender Rewriting Scheme) support in Postfix
+
+After you have iRedAPD upgraded to version 2.5, it will listen on 2 new network
+ports: 7778 and 7779. They're used by Postfix for SRS (Sender Rewriting Scheme).
+For technical details of SRS, please read this paper:
+[The Sender Rewriting Scheme (PDF)](https://www.libsrs2.org/srs/srs.pdf).
+
+To enable SRS support, please add parameters below in Postfix config file
+`/etc/postfix/main.cf` (on Linux/OpenBSD) or `/usr/local/etc/postfix/main.cf`
+(on FreeBSD):
+
+```
+sender_canonical_maps = tcp:127.0.0.1:7778
+sender_canonical_classes = envelope_sender
+recipient_canonical_maps = tcp:127.0.0.1:7779
+recipient_canonical_classes= envelope_recipient,header_recipient
+```
+
+Reloading or restarting Postfix service is required.
+
+!!! note "Known Issues"
+
+    * Sender addresses will always be rewritten even if the mail is not
+      forwarded at all. This is because the canonical maps are read by the
+      Postfix cleanup daemon, which processes mails at the very beginning
+      before any routing decision is made.
+
+    * Postfix will use rewritten address in the `Return-Path:` header, if you
+      have any sieve rules based on `Return-Path:`, it MAY not work anymore and
+      please update your sieve rules to match rewritten address.
