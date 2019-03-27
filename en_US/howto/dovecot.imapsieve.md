@@ -50,12 +50,12 @@ plugin {
     sieve_plugins = sieve_imapsieve sieve_extprograms
     imapsieve_url = sieve://127.0.0.1:4190
 
-    # From elsewhere to Spam folder
+    # From elsewhere to Junk folder
     imapsieve_mailbox1_name = Junk
-    imapsieve_mailbox1_causes = COPY
+    imapsieve_mailbox1_causes = COPY APPEND
     imapsieve_mailbox1_before = file:/var/vmail/sieve/report_spam.sieve
 
-    # From Spam folder to elsewhere
+    # From Junk folder to elsewhere
     imapsieve_mailbox2_name = *
     imapsieve_mailbox2_from = Junk
     imapsieve_mailbox2_causes = COPY
