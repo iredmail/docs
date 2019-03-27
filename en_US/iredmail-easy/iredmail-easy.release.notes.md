@@ -2,15 +2,45 @@
 
 [TOC]
 
-## Upcoming release (Mar X, 2019)
+## Upcoming release (Mar 27, 2019)
+
+* iRedAPD:
+    - Update to version 2.6, with SRS (Sender Rewriting Scheme) support.
+
+        Note: SRS is disabled by default, you can enable it in mail server
+        profile page with the iRedMail Easy web UI.
+
+    - Switch logging to syslog (and logrotate).
+
+* BIND (local cache-only DNS server):
+    - Set syslog facility to 'local5'.
 
 * netdata:
-    - Update to version 1.12.1.
+    - Update to version 1.13.0.
+    - Switch logging to syslog (and logrotate).
     - Disable sending anonymous statistics to netdata cloud.
+
+* SpamAssassin:
+    - Add one custom rule to catch porn spams.
+    - Fixed: not create required SQL tables for bayes.
+
+* AutoConfig/AutoDiscover
+    - Domain name `autoconfig.<domain>` and `autodiscover.<domain>` are not
+      required if the web domain is hosted on iRedMail server, Outlook will
+      look for `https://<web-domain>/autodiscover/autodiscover.xml`.
 
 * Fail2ban:
     - Slightly loose filter for postfix to reduce unexpected ban caused by
       Outlook for macOS.
+
+* SOGo:
+    - Enable per-domain global address book for OpenLDAP backend by default.
+      We sponsored SOGo team to implement this feature:
+      https://sogo.nu/bugs/view.php?id=3685
+      Note: it requires SOGo nightly build version '4.0.7.20190318' or later,
+      OpenBSD 6.4 doesn't support this feature due to old SOGo package.
+    - Enable builtin IMAP4 pooling by default. User should notice faster IMAP
+      operations.
 
 * Backup:
     + Backup OpenLDAP data with option `-o ldif-wrap=no`, to avoid break long
@@ -18,6 +48,12 @@
       `grep` and other command line tools.
 
 * Improvements of iRedMail Easy platform:
+    + Make sure OpenLDAP service is running before populating data.
+    + Make Nginx/Dovecot/Postfix not listen on address `::1` if system doesn't
+      have IPv6 support.
+    + Slightly reduce Amavisd max_servers to same as RAM (GB) for better
+      stability.
+    + Always check and make sure major components are the latest versions.
     + Always update major components (postfix/dovecot/sogo/fail2ban/...) to the
       latest stable release.
     + Always print command output of `nginx -t` for troubleshooting before
