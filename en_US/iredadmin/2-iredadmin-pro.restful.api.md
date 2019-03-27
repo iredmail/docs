@@ -4,8 +4,8 @@
 
 !!! attention
 
-    * This document is applicable to `iRedAdmin-Pro-SQL-3.2` and
-      `iRedAdmin-Pro-LDAP-3.4`. If you're running an old release, please
+    * This document is applicable to `iRedAdmin-Pro-SQL-3.3` and
+      `iRedAdmin-Pro-LDAP-3.5`. If you're running an old release, please
       upgrade iRedAdmin-Pro to the latest release, or check
       [document for old releases](./iredadmin-pro.releases.html).
     * If you need an API which has not yet been implemented, don't hesitate to
@@ -339,6 +339,8 @@ Notes:
     `transport` | Transport program | `transport=dovecot`
     `isGlobalAdmin` | Promote user to be a global admin. Possible values: `yes`, `no` | `isGlobalAdmin=yes`
     `forwarding` | Per-user mail forwarding. Multiple addresses must be separated by comma. To save an email copy in mailbox, add original email address as one of forwarding addresses. | `forwarding=user1@domain.com,user2@domain.com,user3@domain.com`
+    `senderBcc` | Per-user BCC for outbound emails. Only one email address is allowed. Parameter with empty value will remove existing sender bcc address. | `senderBcc=user1@domain.com` or <br/>`senderBcc=` (remove existing bcc address)
+    `recipientBcc` | Per-user BCC for inbound emails. Only one email address is allowed. Parameter with empty value will remove existing recipient bcc address. | `recipientBcc=user1@domain.com` or <br/>`recipientBcc=` (remove existing bcc address)
     `aliases` | Per-user alias addresses. Multiple addresses must be separated by comma. If empty, all per-user alias addresses owned by this user will be removed. Conflicts with parameter `addAlias` and `removeAlias`. | `aliases=user1@domain.com,user2@domain.com,user3@domain.com`
     `addAlias` | Add new per-user alias addresses. Multiple addresses must be separated by comma. Conflicts with parameter `aliases`. | `addAlias=user1@domain.com,user2@domain.com,user3@domain.com`
     `removeAlias` | Remove existing per-user alias addresses. Multiple addresses must be separated by comma. Conflicts with parameter `aliases`. | `removeAlias=user1@domain.com,user2@domain.com,user3@domain.com`
@@ -380,7 +382,18 @@ Notes:
     </div>
 
 !!! api "`POST`{: .post } `/api/user/<mail>/change_email/<new_mail>`{: .url } `Change user's email address (from '<mail>' to '<new_mail>')`{: .comment }"
-!!! api "`PUT`{: .put } `/api/users/<domain>`{: .url } `Update profiles of all users under domain`{: .comment } `Parameters`{: .has_params }"
+!!! api "`GET`{: .get } `/api/users/<domain>`{: .url } `Get user profiles under given domain`{: .comment } `Parameters`{: .has_params }"
+
+    <div class="params">
+
+    Parameter | Default Value | Comment | Sample Usage
+    --- |--- |--- |---
+    `email_only` | `no` | Return a list of mail users' email addresses instead of detailed profiles. | `email_only=yes`
+    `disabled_only` | `no` | Return only disabled mail users. | `disabled_only=yes`
+
+    </div>
+
+!!! api "`PUT`{: .put } `/api/users/<domain>`{: .url } `Update profiles of all users under given domain`{: .comment } `Parameters`{: .has_params }"
 
     <div class="params">
 
@@ -630,6 +643,7 @@ Notes:
     Parameter | Summary | Sample Usage
     --- |--- |---
     `name` | Display name | `name=My List Name`
+    `accountStatus` | Enable or disable domain. Valid values: `active`, `disabled`. | `accountStatus=active`
     `accessPolicy` | Defines who can send email to this mail alias account | `accessPolicy=public`
     `members` | Members of mail alias. Multiple members must be separated by comma. Conflict with parameter `addMember` and `removeMember`. | `members=user1@domain.com,user2@domain.com`
     `addMember` | Add new members of mail alias. Multiple members must be separated by comma. Conflict with parameter `members`. | `addMember=user1@domain.com,user2@domain.com`
@@ -638,6 +652,17 @@ Notes:
     </div>
 
 !!! api "`POST`{: .put } `/api/alias/<mail>/change_email/<new_mail>`{: .url } `Change email address of alias account (from '<mail>' to '<new_mail>')`{: .comment }"
+
+!!! api "`GET`{: .get } `/api/aliases/<domain>`{: .url } `Get mail aliases' profiles under given domain`{: .comment } `Parameters`{: .has_params }"
+
+    <div class="params">
+
+    Parameter | Default Value | Comment | Sample Usage
+    --- |--- |--- |---
+    `email_only` | `no` | Return a list of mail aliases' email addresses instead of detailed profiles. | `email_only=yes`
+    `disabled_only` | `no` | Return only disabled mail aliases. | `disabled_only=yes`
+
+    </div>
 
 ### Spam Policy {: .toggle }
 

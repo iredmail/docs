@@ -4,6 +4,11 @@
 
 ## Upcoming release (Mar 27, 2019)
 
+* Dovecot:
+    - Improve `imapsieve` setting to handle different IMAP command sent by
+      Microsoft Outlook (it sometimes uses `APPEND` instead of `COPY` for
+      moving message to another folder).
+
 * iRedAPD:
     - Update to version 2.6, with SRS (Sender Rewriting Scheme) support.
 

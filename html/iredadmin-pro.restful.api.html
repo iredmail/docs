@@ -46,8 +46,8 @@
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>
 <ul>
-<li>This document is applicable to <code>iRedAdmin-Pro-SQL-3.2</code> and
-  <code>iRedAdmin-Pro-LDAP-3.4</code>. If you're running an old release, please
+<li>This document is applicable to <code>iRedAdmin-Pro-SQL-3.3</code> and
+  <code>iRedAdmin-Pro-LDAP-3.5</code>. If you're running an old release, please
   upgrade iRedAdmin-Pro to the latest release, or check
   <a href="./iredadmin-pro.releases.html">document for old releases</a>.</li>
 <li>If you need an API which has not yet been implemented, don't hesitate to
@@ -977,6 +977,16 @@ to be a domain admin.</p>
 <td><code>forwarding=user1@domain.com,user2@domain.com,user3@domain.com</code></td>
 </tr>
 <tr>
+<td><code>senderBcc</code></td>
+<td>Per-user BCC for outbound emails. Only one email address is allowed. Parameter with empty value will remove existing sender bcc address.</td>
+<td><code>senderBcc=user1@domain.com</code> or <br/><code>senderBcc=</code> (remove existing bcc address)</td>
+</tr>
+<tr>
+<td><code>recipientBcc</code></td>
+<td>Per-user BCC for inbound emails. Only one email address is allowed. Parameter with empty value will remove existing recipient bcc address.</td>
+<td><code>recipientBcc=user1@domain.com</code> or <br/><code>recipientBcc=</code> (remove existing bcc address)</td>
+</tr>
+<tr>
 <td><code>aliases</code></td>
 <td>Per-user alias addresses. Multiple addresses must be separated by comma. If empty, all per-user alias addresses owned by this user will be removed. Conflicts with parameter <code>addAlias</code> and <code>removeAlias</code>.</td>
 <td><code>aliases=user1@domain.com,user2@domain.com,user3@domain.com</code></td>
@@ -1065,7 +1075,38 @@ to be a domain admin.</p>
 <p class="admonition-title"><code class="post">POST</code> <code class="url">/api/user/&lt;mail&gt;/change_email/&lt;new_mail&gt;</code> <code class="comment">Change user's email address (from '&lt;mail&gt;' to '&lt;new_mail&gt;')</code></p>
 </div>
 <div class="admonition api">
-<p class="admonition-title"><code class="put">PUT</code> <code class="url">/api/users/&lt;domain&gt;</code> <code class="comment">Update profiles of all users under domain</code> <code class="has_params">Parameters</code></p>
+<p class="admonition-title"><code class="get">GET</code> <code class="url">/api/users/&lt;domain&gt;</code> <code class="comment">Get user profiles under given domain</code> <code class="has_params">Parameters</code></p>
+<div class="params">
+
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Default Value</th>
+<th>Comment</th>
+<th>Sample Usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>email_only</code></td>
+<td><code>no</code></td>
+<td>Return a list of mail users' email addresses instead of detailed profiles.</td>
+<td><code>email_only=yes</code></td>
+</tr>
+<tr>
+<td><code>disabled_only</code></td>
+<td><code>no</code></td>
+<td>Return only disabled mail users.</td>
+<td><code>disabled_only=yes</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code class="put">PUT</code> <code class="url">/api/users/&lt;domain&gt;</code> <code class="comment">Update profiles of all users under given domain</code> <code class="has_params">Parameters</code></p>
 <div class="params">
 
 <table>
@@ -1923,6 +1964,11 @@ to be a domain admin.</p>
 <td><code>name=My List Name</code></td>
 </tr>
 <tr>
+<td><code>accountStatus</code></td>
+<td>Enable or disable domain. Valid values: <code>active</code>, <code>disabled</code>.</td>
+<td><code>accountStatus=active</code></td>
+</tr>
+<tr>
 <td><code>accessPolicy</code></td>
 <td>Defines who can send email to this mail alias account</td>
 <td><code>accessPolicy=public</code></td>
@@ -1949,6 +1995,37 @@ to be a domain admin.</p>
 </div>
 <div class="admonition api">
 <p class="admonition-title"><code class="put">POST</code> <code class="url">/api/alias/&lt;mail&gt;/change_email/&lt;new_mail&gt;</code> <code class="comment">Change email address of alias account (from '&lt;mail&gt;' to '&lt;new_mail&gt;')</code></p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code class="get">GET</code> <code class="url">/api/aliases/&lt;domain&gt;</code> <code class="comment">Get mail aliases' profiles under given domain</code> <code class="has_params">Parameters</code></p>
+<div class="params">
+
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Default Value</th>
+<th>Comment</th>
+<th>Sample Usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>email_only</code></td>
+<td><code>no</code></td>
+<td>Return a list of mail aliases' email addresses instead of detailed profiles.</td>
+<td><code>email_only=yes</code></td>
+</tr>
+<tr>
+<td><code>disabled_only</code></td>
+<td><code>no</code></td>
+<td>Return only disabled mail aliases.</td>
+<td><code>disabled_only=yes</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+
 </div>
 <h3 class="toggle" id="spam-policy">Spam Policy</h3>
 <div class="admonition api">
