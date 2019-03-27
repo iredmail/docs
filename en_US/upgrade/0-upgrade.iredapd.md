@@ -38,17 +38,6 @@ supported by iRedMail.
 
 That's all.
 
-!!! note "Known issues of SRS (Sender Rewriting Scheme) support"
-
-    * Sender addresses will always be rewritten even if the mail is not
-      forwarded at all. This is because the canonical maps are read by the
-      Postfix cleanup daemon, which processes mails at the very beginning
-      before any routing decision is made.
-
-    * Postfix will use rewritten address in the `Return-Path:` header, if you
-      have any sieve rules based on `Return-Path:`, it MAY not work anymore and
-      please update your sieve rules to match rewritten address.
-
 !!! note "Plugins"
 
     * It's recommended to enable plugin `reject_null_sender` in iRedAPD-1.4.4
@@ -58,4 +47,5 @@ That's all.
 
 ## See Also
 
+* [Enable SRS (Sender Rewriting Scheme) support](./srs.html)
 * [Migrate Cluebringer to iRedAPD](./cluebringer.to.iredapd.html)

@@ -55,22 +55,6 @@ and password, please get them before you run upgrade script.</p>
 
 <p>That's all.</p>
 <div class="admonition note">
-<p class="admonition-title">Known issues of SRS (Sender Rewriting Scheme) support</p>
-<ul>
-<li>
-<p>Sender addresses will always be rewritten even if the mail is not
-  forwarded at all. This is because the canonical maps are read by the
-  Postfix cleanup daemon, which processes mails at the very beginning
-  before any routing decision is made.</p>
-</li>
-<li>
-<p>Postfix will use rewritten address in the <code>Return-Path:</code> header, if you
-  have any sieve rules based on <code>Return-Path:</code>, it MAY not work anymore and
-  please update your sieve rules to match rewritten address.</p>
-</li>
-</ul>
-</div>
-<div class="admonition note">
 <p class="admonition-title">Plugins</p>
 <ul>
 <li>
@@ -84,6 +68,7 @@ and password, please get them before you run upgrade script.</p>
 </div>
 <h2 id="see-also">See Also</h2>
 <ul>
+<li><a href="./srs.html">Enable SRS (Sender Rewriting Scheme) support</a></li>
 <li><a href="./cluebringer.to.iredapd.html">Migrate Cluebringer to iRedAPD</a></li>
 </ul><div class="footer">
     <p style="text-align: center; color: grey;">All documents are available in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://bitbucket.org/zhb/iredmail-docs/get/tip.tar.bz2">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Enable SRS (Sender Rewriting Scheme) support</title>
+        <link rel="stylesheet" type="text/css" href="./css/markdown.css" />
+    </head>
+    <body>
+    
+    <div id="navigation">
+    <a href="https://www.iredmail.org" target="_blank">
+        <img alt="iRedMail web site"
+             src="./images/logo-iredmail.png"
+             style="vertical-align: middle; height: 30px;"
+             />&nbsp;
+        <span>iRedMail</span>
+    </a>
+    &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><h1 id="enable-srs-sender-rewriting-scheme-support">Enable SRS (Sender Rewriting Scheme) support</h1>
+<div class="toc">
+<ul>
+<li><a href="#enable-srs-sender-rewriting-scheme-support">Enable SRS (Sender Rewriting Scheme) support</a><ul>
+<li><a href="#what-srs-is">What SRS is</a></li>
+<li><a href="#upgrade-iredapd-to-26-or-later-release">Upgrade iRedAPD to 2.6 or later release</a></li>
+<li><a href="#test-srs">Test SRS</a></li>
+<li><a href="#enable-srs-integration-in-postfix">Enable SRS integration in Postfix</a></li>
+<li><a href="#known-issues-of-srs-support">Known issues of SRS support</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>If you deploy iRedMail server with the
+<a href="https://www.iredmail.org/easy.html">iRedMail Easy</a> platform, you can
+simply enable or disable it by toggling on/off a checkbox on the mail
+server profile page, then apply the change.</p>
+</div>
+<h2 id="what-srs-is">What SRS is</h2>
+<p>It's recommended to read links below to understand what SRS is:</p>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Sender_Rewriting_Scheme">WikiPedia: Sender Rewriting Scheme</a></li>
+<li><a href="http://www.libsrs2.org/srs/srs.pdf">The original SRS paper (PDF)</a></li>
+</ul>
+<h2 id="upgrade-iredapd-to-26-or-later-release">Upgrade iRedAPD to 2.6 or later release</h2>
+<p>We implemented SRS support since iRedAPD-2.6, please make sure you're running
+2.6 or later release. You can check its version by running command below:</p>
+<pre><code>ls -dl /opt/iredapd
+</code></pre>
+
+<p>To upgrade iRedAPD, please follow this tutorial:
+<a href="./upgrade.iredapd.html">Upgrade iRedAPD</a>.</p>
+<p>iRedAPD will listen on 3 network ports by default:</p>
+<ul>
+<li><code>7777</code>: for general smtp access policy, including greylisting, throttling,
+  white/blacklisting, etc.</li>
+<li><code>7778</code>: for SRS forward rewriting.</li>
+<li><code>7779</code>: for SRS reverse rewriting.</li>
+</ul>
+<h2 id="test-srs">Test SRS</h2>
+<p>You can use <code>telnet</code> or netcat (command <code>nc</code>) to test it. We use <code>nc</code> for
+example here.</p>
+<p>Connect to port <code>7778</code> first:</p>
+<pre><code>nc localhost 7778
+</code></pre>
+
+<p>Then type command:</p>
+<pre><code>get user@gmail.com
+</code></pre>
+
+<p>Since <code>gmail.com</code> is an external domain, you should get a rewritten address
+returned like this:</p>
+<pre><code>200 SRS0=XsrM=R5=gmail.com=a@&lt;HOSTNAME&gt;
+</code></pre>
+
+<p>The placholder <code>&lt;HOSTNAME&gt;</code> will be replaced by your server hostname.</p>
+<p>Then try with your mail domain name (replace <code>mydomain.com</code> below by your real
+mail domain name):</p>
+<pre><code>get user@mydomain.com
+</code></pre>
+
+<p>You should get this:</p>
+<pre><code>500 Domain is a local mail domain, bypassed.
+</code></pre>
+
+<p>If you get same/similar output, the SRS feature is working fine.</p>
+<h2 id="enable-srs-integration-in-postfix">Enable SRS integration in Postfix</h2>
+<p>Please add 4 new parameters in Postfix config file <code>/etc/postfix/main.cf</code> (on
+Linux/OpenBSD) or <code>/usr/local/etc/postfix/main.cf</code> (on FreeBSD):</p>
+<pre><code>sender_canonical_maps = tcp:127.0.0.1:7778
+sender_canonical_classes = envelope_sender
+recipient_canonical_maps = tcp:127.0.0.1:7779
+recipient_canonical_classes= envelope_recipient,header_recipient
+</code></pre>
+
+<p>Restarting or reloading Postfix service is required. After restarted/reloaded,
+please monitor its log file (<code>/var/log/maillog</code>) and pay close attention to the
+sender address.</p>
+<h2 id="known-issues-of-srs-support">Known issues of SRS support</h2>
+<ul>
+<li>
+<p>Sender addresses will always be rewritten even if the mail is not
+  forwarded at all, except locally hosted mail domains. This is because
+  Postfix sends minimal info to iRedAPD via the tcp table lookup, and it
+  performs address rewritten at the very beginning before any routing
+  decision is made.</p>
+</li>
+<li>
+<p>Postfix will rewrite the address in the <code>Return-Path:</code> header, if you
+  have any sieve rules based on <code>Return-Path:</code>, it MAY not work anymore.
+  In this case, you need to update your sieve rules to match the rewritten
+  address.</p>
+</li>
+<li>
+<p>Postfix logs rewritten addresses in its log file, so it may confuse you
+  while troubleshooting.</p>
+</li>
+<li>
+<p>Amavisd stores rewritten addresses in its SQL database, so the
+  <code>Top 10 Senders</code> and <code>Top 10 Recipients</code> in iRedAdmin-Pro Dashboard page
+  may not work well.</p>
+</li>
+</ul><div class="footer">
+    <p style="text-align: center; color: grey;">All documents are available in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://bitbucket.org/zhb/iredmail-docs/get/tip.tar.bz2">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
+</div>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-3293801-21"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-3293801-21');
+</script>
+</body></html>
