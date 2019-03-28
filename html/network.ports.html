@@ -32,7 +32,7 @@
 <td>smtp</td>
 <td>Postfix</td>
 <td>Used for communication betweem mail servers. <strong>WARNING</strong>: This port <strong>MUST</strong> be open, otherwise you cannot receive email sent by other mail servers.</td>
-<td class="red">YES (REQUIRED)</td>
+<td><strong class="red">YES (REQUIRED)</strong></td>
 </tr>
 <tr>
 <td>587</td>
@@ -42,39 +42,39 @@
 <td>YES (open to your end users)</td>
 </tr>
 <tr>
-<td>24</td>
-<td>lmtp</td>
-<td>Dovecot</td>
-<td>Used to deliver email to local mailboxes via LMTP protocol.</td>
-<td>No (listen on <code>127.0.0.1</code> by default)</td>
-</tr>
-<tr>
 <td>110</td>
 <td>pop3</td>
 <td>Dovecot</td>
-<td>Used by end users to retrieve emails via POP3 protocol, secure connection over STARTTLS is available by default.</td>
+<td>Used by end users to retrieve emails via POP3 protocol, secure connection over STARTTLS is enforced by default.</td>
 <td>YES (open to your end users)</td>
 </tr>
 <tr>
 <td>995</td>
 <td>pop3s</td>
 <td>Dovecot</td>
-<td>Used by end users to retrieve emails via POP3 protocol over SSL. Port 110 with STARTTLS is recommended.</td>
+<td>Used by end users to retrieve emails via POP3 protocol over SSL.</td>
 <td>YES (open to your end users)</td>
 </tr>
 <tr>
 <td>143</td>
 <td>imap</td>
 <td>Dovecot</td>
-<td>Used by end users to retrieve emails via IMAP protocol, secure connection over STARTTLS is available by default.</td>
+<td>Used by end users to retrieve emails via IMAP protocol, secure connection over STARTTLS is enforced by default.</td>
 <td>YES (open to your end users)</td>
 </tr>
 <tr>
 <td>993</td>
 <td>imaps</td>
 <td>Dovecot</td>
-<td>Used by end users to retrieve emails via IMAP protocol over SSL. Port 143 with STARTTLS is recommended.</td>
+<td>Used by end users to retrieve emails via IMAP protocol over SSL.</td>
 <td>YES (open to your end users)</td>
+</tr>
+<tr>
+<td>24</td>
+<td>lmtp</td>
+<td>Dovecot</td>
+<td>Used to deliver email to local mailboxes via LMTP protocol.</td>
+<td>No (listen on <code>127.0.0.1</code> by default)</td>
 </tr>
 <tr>
 <td>4190</td>
@@ -175,6 +175,20 @@
 <td>NO (listen on <code>127.0.0.1</code> by default)</td>
 </tr>
 <tr>
+<td>7778</td>
+<td></td>
+<td>iRedAPD</td>
+<td><a href="https://en.wikipedia.org/wiki/Sender_Rewriting_Scheme">SRS</a> sender address rewritting.</td>
+<td>NO (listen on <code>127.0.0.1</code> by default)</td>
+</tr>
+<tr>
+<td>7779</td>
+<td></td>
+<td>iRedAPD</td>
+<td><a href="https://en.wikipedia.org/wiki/Sender_Rewriting_Scheme">SRS</a> recipient address rewritting.</td>
+<td>NO (listen on <code>127.0.0.1</code> by default)</td>
+</tr>
+<tr>
 <td>7790</td>
 <td>http</td>
 <td>mlmmjadmin</td>
@@ -199,7 +213,7 @@
 <td>11211</td>
 <td></td>
 <td>Memcached</td>
-<td>A distributed, high performance memory object caching system.</td>
+<td>A distributed, high performance memory object caching system. Currently used by only SOGo Groupware.</td>
 <td>No (listen on <code>127.0.0.1</code> by default)</td>
 </tr>
 <tr>
