@@ -56,6 +56,18 @@ server profile page, then apply the change.</p>
 <li><code>7778</code>: for SRS forward rewriting.</li>
 <li><code>7779</code>: for SRS reverse rewriting.</li>
 </ul>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Server hostname is used as srs domain (the mail domain name in rewritten
+addresses) by default, it's configureable by updating parameter
+<code>srs_domain =</code> in iRedAPD config file <code>/opt/iredapd/settings.py</code>. You are
+free to use a separated (sub-)domain name as srs domain, for example,
+if you own domain name <code>example.com</code>, you can use <code>srs.example.com</code> as
+srs domain.</p>
+<p>The srs domain must be resolveable by DNS query and pointed to your
+iRedMail server. MX type DNS record is the best option, although it works
+with just A type DNS record (because MTA falls back to A if no MX record).</p>
+</div>
 <h2 id="test-srs">Test SRS</h2>
 <p>You can use <code>telnet</code> or netcat (command <code>nc</code>) to test it. We use <code>nc</code> for
 example here.</p>

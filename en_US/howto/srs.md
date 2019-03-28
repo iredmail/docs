@@ -35,6 +35,19 @@ iRedAPD will listen on 3 network ports by default:
 * `7778`: for SRS forward rewriting.
 * `7779`: for SRS reverse rewriting.
 
+!!! warning
+
+    Server hostname is used as srs domain (the mail domain name in rewritten
+    addresses) by default, it's configureable by updating parameter
+    `srs_domain =` in iRedAPD config file `/opt/iredapd/settings.py`. You are
+    free to use a separated (sub-)domain name as srs domain, for example,
+    if you own domain name `example.com`, you can use `srs.example.com` as
+    srs domain.
+
+    The srs domain must be resolveable by DNS query and pointed to your
+    iRedMail server. MX type DNS record is the best option, although it works
+    with just A type DNS record (because MTA falls back to A if no MX record).
+
 ## Test SRS
 
 You can use `telnet` or netcat (command `nc`) to test it. We use `nc` for
