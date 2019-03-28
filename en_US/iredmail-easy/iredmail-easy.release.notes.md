@@ -2,7 +2,7 @@
 
 [TOC]
 
-## Upcoming release (Mar 27, 2019)
+## Version: 2019032701 (Mar 27, 2019)
 
 * Dovecot:
     - Improve `imapsieve` setting to handle different IMAP command sent by
