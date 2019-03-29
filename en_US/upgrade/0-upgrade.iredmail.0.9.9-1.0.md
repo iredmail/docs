@@ -28,27 +28,18 @@ so that you can know which version of iRedMail you're running. For example:
 1.0
 ```
 
-### Upgrade iRedAPD (Postfix policy server) to the latest stable release (2.5)
+### Upgrade iRedAPD (Postfix policy server) to the latest stable release (2.7)
 
-!!! warning
+!!! attention
 
-    iRedAPD offers SRS (Sender Rewriting Scheme) in this release, it uses
-    server hostname as the email domain name for rewritten email address by
-    default, you must __make sure the server hostname is resolvable by DNS query__.
-
-    For technical details of SRS, you can read this paper:
-    [The Sender Rewriting Scheme (PDF)](https://www.libsrs2.org/srs/srs.pdf).
+    iRedAPD offers SRS (Sender Rewriting Scheme) support in this release, by
+    it's disabled by default, please read our tutorial to understand known
+    issues and how to enable it.
 
 Please follow below tutorial to upgrade iRedAPD to the latest stable release:
 [Upgrade iRedAPD to the latest stable release](./upgrade.iredapd.html)
 
-### Upgrade iRedAdmin (open source edition) to the latest stable release (0.9.5)
-
-!!! attention
-
-    In this release, iRedAdmin (and iRedAdmin-Pro) is running as a standalone
-    service named "iredadmin", each time you modified its config file, please
-    restart the service ("iredadmin").
+### Upgrade iRedAdmin (open source edition) to the latest stable release (0.9.6)
 
 Please follow this tutorial to upgrade iRedAdmin open source edition to the
 latest stable release:
