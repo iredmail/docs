@@ -10,12 +10,15 @@
       moving message to another folder).
 
 * iRedAPD:
-    - Update to version 2.6, with SRS (Sender Rewriting Scheme) support.
+    - Update to version 2.7, with SRS (Sender Rewriting Scheme) support.
 
         Note: SRS is disabled by default, you can enable it in mail server
         profile page with the iRedMail Easy web UI.
 
     - Switch logging to syslog (and logrotate).
+
+* iRedAdmin:
+    - Update to 0.9.6.
 
 * BIND (local cache-only DNS server):
     - Set syslog facility to 'local5'.
