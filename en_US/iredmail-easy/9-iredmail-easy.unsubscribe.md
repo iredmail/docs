@@ -1,4 +1,4 @@
-# Cancel your subscription
+# How to cancel your subscription
 
 To cancel your iRedMail Easy subscription:
 
