@@ -12,7 +12,7 @@
       backends. It's disabled by default, you can enable it in iRedMail Easy
       user portal, in mail server profile page, tab "Settings".
 
-      Note: Dovecot doesn't support this with PostgreSQL yet.
+          Note: Dovecot doesn't support this with PostgreSQL yet.
 
 * Improvements of iRedMail Easy platform:
     + Send `iRedMail.tips` file to postmaster after deployment.
