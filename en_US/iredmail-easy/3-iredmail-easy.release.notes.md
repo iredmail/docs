@@ -2,6 +2,21 @@
 
 [TOC]
 
+## Upcoming release: 201904XX (Apr XX, 2019)
+
+* Roundcube
+    - Upgrade to 1.3.9.
+
+* Dovecot:
+    - Able to track user last (POP3/IMAP) login for OpenLDAP and MariaDB
+      backends. It's disabled by default, you can enable it in iRedMail Easy
+      user portal, in mail server profile page, tab "Settings".
+
+      Note: Dovecot doesn't support this with PostgreSQL yet.
+
+* Improvements of iRedMail Easy platform:
+    + Send `iRedMail.tips` file to postmaster after deployment.
+
 ## Version: 2019032701 (Mar 27, 2019)
 
 * Dovecot:
