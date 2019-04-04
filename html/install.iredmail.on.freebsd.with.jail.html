@@ -57,12 +57,20 @@
   <a href="https://www.freebsd.org/doc/handbook/jails-ezjail.html">Managing Jails with ezjail</a>.</li>
 </ul>
 <h2 id="system-requirements">System Requirements</h2>
-<p><strong>IMPORTANT WARNING</strong>: iRedMail is designed to be deployed on a FRESH server system,
-which means your server does <strong>NOT</strong> have mail related components installed,
-e.g. MySQL, OpenLDAP, Postfix, Dovecot, Amavisd, etc. iRedMail will install
-and configure them for you automatically. Otherwise it may override your
-existing files/configurations althought it will backup files before modifying,
-and it may not be working as expected.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<ul>
+<li>iRedMail is designed to be deployed on a <strong>FRESH</strong> server system, which
+  means your server does <strong>NOT</strong> have mail related components installed,
+  e.g. MySQL, OpenLDAP, Postfix, Dovecot, Amavisd, etc. iRedMail will install
+  and configure them for you automatically. Otherwise it may override your
+  existing files/configurations althought it will backup files before
+  modifying, and it may not be working as expected.</li>
+<li>Amazon AWS EC2 blocks port 25 by default, if you plan to deploy mail
+  server with AWS, you need to <a href="https://aws.amazon.com/premiumsupport/knowledge-center/ec2-port-25-throttle/">remove the throttle on port
+  25</a>.</li>
+</ul>
+</div>
 <ul>
 <li>The latest stable release of iRedMail. You can download it here: <a href="https://www.iredmail.org/download.html">https://www.iredmail.org/download.html</a></li>
 <li>Port <code>sysutils/ezjail</code> for FreeBSD.</li>

@@ -19,12 +19,17 @@ Notes:
 
 ## System Requirements
 
-__IMPORTANT WARNING__: iRedMail is designed to be deployed on a FRESH server system,
-which means your server does __NOT__ have mail related components installed,
-e.g. MySQL, OpenLDAP, Postfix, Dovecot, Amavisd, etc. iRedMail will install
-and configure them for you automatically. Otherwise it may override your
-existing files/configurations althought it will backup files before modifying,
-and it may not be working as expected.
+!!! warning
+
+    * iRedMail is designed to be deployed on a __FRESH__ server system, which
+      means your server does __NOT__ have mail related components installed,
+      e.g. MySQL, OpenLDAP, Postfix, Dovecot, Amavisd, etc. iRedMail will install
+      and configure them for you automatically. Otherwise it may override your
+      existing files/configurations althought it will backup files before
+      modifying, and it may not be working as expected.
+    * Amazon AWS EC2 blocks port 25 by default, if you plan to deploy mail
+      server with AWS, you need to [remove the throttle on port
+      25](https://aws.amazon.com/premiumsupport/knowledge-center/ec2-port-25-throttle/).
 
 * The latest stable release of iRedMail. You can download it here: <https://www.iredmail.org/download.html>
 * Port `sysutils/ezjail` for FreeBSD.
