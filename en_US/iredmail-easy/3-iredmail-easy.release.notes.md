@@ -5,7 +5,7 @@
 ## Version: 2019040201 (Apr 02, 2019)
 
 * Roundcube
-    - Upgrade to 1.3.9.
+    - Upgrade to 1.3.9 ([Detailed ChangeLog](https://github.com/roundcube/roundcubemail/releases/tag/1.3.9).)
 
 * Dovecot:
     - Able to track user last (POP3/IMAP) login for OpenLDAP and MariaDB
@@ -13,6 +13,9 @@
       user portal, in mail server profile page, tab "Settings".
 
           Note: Dovecot doesn't support this with PostgreSQL yet.
+
+          Here's detailed tutorial to show you what changes are applied to Dovecot:
+          [Track user last login time](https://docs.iredmail.org/track.user.last.login.html).
 
 * Improvements of iRedMail Easy platform:
     + Send `iRedMail.tips` file to postmaster after deployment.
