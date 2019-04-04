@@ -81,7 +81,6 @@ automatically on remote MySQL server:
 ```
 -- Run on remote MySQL server as root user
 DROP DATABASE amavisd;
-DROP DATABASE cluebringer;
 DROP DATABASE iredadmin;
 DROP DATABASE iredapd;
 DROP DATABASE roundcubemail;
@@ -89,7 +88,6 @@ DROP DATABASE sogo;
 DROP DATABASE vmail;
 
 DROP USER 'amavisd'@'192.168.1.200';
-DROP USER 'cluebringer'@'192.168.1.200';
 DROP USER 'iredadmin'@'192.168.1.200';
 DROP USER 'iredapd'@'192.168.1.200';
 DROP USER 'roundcube'@'192.168.1.200';
