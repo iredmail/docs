@@ -448,10 +448,10 @@ below:</p>
     ...
 </code></pre>
 
-<p>Update above line and also add a new <code>CONCAT</code> line after it:</p>
+<p>Update above line and also add a new line after it:</p>
 <pre><code>user_query = SELECT \
     LOWER(mailbox.storagebasedirectory || '/' || mailbox.storagenode || '/' || mailbox.maildir) AS home, \
-    LOWER(mailbox.mailboxformat || ':~/' || mailbox.mailboxfolder || '/') AS mail, \
+    mailbox.mailboxformat || ':~/' || mailbox.mailboxfolder || '/' AS mail, \
     ...
 </code></pre>
 

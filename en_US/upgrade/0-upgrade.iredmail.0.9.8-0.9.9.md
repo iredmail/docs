@@ -456,12 +456,12 @@ user_query = SELECT \
     ...
 ```
 
-Update above line and also add a new `CONCAT` line after it:
+Update above line and also add a new line after it:
 
 ```
 user_query = SELECT \
     LOWER(mailbox.storagebasedirectory || '/' || mailbox.storagenode || '/' || mailbox.maildir) AS home, \
-    LOWER(mailbox.mailboxformat || ':~/' || mailbox.mailboxfolder || '/') AS mail, \
+    mailbox.mailboxformat || ':~/' || mailbox.mailboxfolder || '/' AS mail, \
     ...
 ```
 
