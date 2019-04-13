@@ -320,8 +320,7 @@ Note: Do NOT miss the dot character before `login` command. if it returns
 Edit roundcube config file `config/config.inc.php`, comment out the LDAP
 address book setting added by iRedMail, and add new setting for AD like below:
 
-* on RHEL/CentOS and OpenBSD: it's `/var/www/roundcubemail/config/config.inc.php`
-* on Debian/Ubuntu: it's `/usr/share/apache2/roundcubemail/config/config.inc.php`
+* on RHEL/CentOS/Debian/Ubuntu and OpenBSD: it's `/opt/www/roundcubemail/config/config.inc.php`
 * on FreeBSD: it's `/usr/local/www/roundcubemail/config/config.inc.php`
 
 ```php
