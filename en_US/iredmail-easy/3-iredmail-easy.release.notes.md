@@ -5,7 +5,9 @@
 ## Upcoming: 201904XX (Apr XX, 2019)
 
 * Postfix:
+    - Enable header/body checks for email injected by Amavisd.
     - Fixed: not load custom `header_checks` and `body_checks` pcre maps.
+    - Fixed: port 1025/10025/10028 are not listening on only 127.0.0.1.
 
 * SOGo:
     - [PostgreSQL backend] Fix incorrect owner of SQL VIEWs used for address
