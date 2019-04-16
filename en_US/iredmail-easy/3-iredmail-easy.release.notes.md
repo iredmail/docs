@@ -2,6 +2,32 @@
 
 [TOC]
 
+## Upcoming: 201904XX (Apr XX, 2019)
+
+* SOGo:
+    - [PostgreSQL backend] Fix incorrect owner of SQL VIEWs used for address
+      books.
+    - [SQL backends] Fix incorrect SQL VIEWs which causes error to display
+      contacts in address books.
+    - [SQL backends] Display all contacts directly in per-domain address book.
+
+* Roundcube
+    - Upgrade to 1.3.9.
+
+* Dovecot:
+    - Able to track user last (POP3/IMAP) login for OpenLDAP and MariaDB
+      backends. It's disabled by default, you can enable it in iRedMail Easy
+      user portal: go to mail server profile page, tab `Settings`.
+
+          Note: This feature is not available with PostgreSQL backend due to
+          Dovecot doesn't support this with PostgreSQL (yet).
+
+* Improvements of iRedMail Easy platform:
+    + Do not always update SOGo packages.
+      We're using SOGo nightly build, it's not always stable, upgrading may
+      cause issue.
+    + Send `iRedMail.tips` file to postmaster after deployment.
+
 ## Version: 2019040201 (Apr 02, 2019)
 
 * Roundcube
