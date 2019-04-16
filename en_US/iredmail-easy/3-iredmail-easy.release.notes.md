@@ -4,6 +4,9 @@
 
 ## Upcoming: 201904XX (Apr XX, 2019)
 
+* Postfix:
+    - Fixed: not load custom `header_checks` and `body_checks` pcre maps.
+
 * SOGo:
     - [PostgreSQL backend] Fix incorrect owner of SQL VIEWs used for address
       books.
