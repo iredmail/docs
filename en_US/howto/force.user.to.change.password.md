@@ -13,9 +13,9 @@ last change date will be set to `0000-00-00 00:00:00`.
 
 iRedAPD has plugin to force mail users to change password before sending email:
 
-* `sql_force_change_password_in_days`: for SQL backends (MySQL, MariaDB and
+* `sql_force_change_password`: for SQL backends (MySQL, MariaDB and
   PostgreSQL).
-* `ldap_force_change_password_in_days`: for LDAP backends (OpenLDAP and OpenBSD
+* `ldap_force_change_password`: for LDAP backends (OpenLDAP and OpenBSD
   built-in LDAP server `ldapd(8)`).
 
 When user trying to send an email, iRedAPD will invoke this plugin to 
@@ -30,10 +30,10 @@ To enable this plugin, please list the plugin name in iRedAPD config file
 
 ```python
 # For SQL backends
-plugins = [..., 'sql_force_change_password_in_days']
+plugins = [..., 'sql_force_change_password']
 
 # For LDAP backends:
-plugins = [..., 'ldap_force_change_password_in_days']
+plugins = [..., 'ldap_force_change_password']
 ```
 
 There're two optional settings you can set in `/opt/iredapd/settings.py`:
