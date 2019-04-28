@@ -2,7 +2,7 @@
 
 [TOC]
 
-## Upcoming: 201904XX (Apr XX, 2019)
+## Version: 2019042801 (Apr 28, 2019)
 
 * Postfix:
     - Enable header/body checks for email injected by Amavisd.
@@ -17,9 +17,6 @@
       contacts in address books.
     - [SQL backends] Display all contacts directly in per-domain address book.
 
-* Roundcube
-    - Upgrade to 1.3.9.
-
 * Dovecot:
     - Able to track user last (POP3/IMAP) login for OpenLDAP and MariaDB
       backends. It's disabled by default, you can enable it in iRedMail Easy
@@ -28,7 +25,19 @@
           Note: This feature is not available with PostgreSQL backend due to
           Dovecot doesn't support this with PostgreSQL (yet).
 
+* Roundcube:
+    - Upgrade to 1.3.9.
+
+* iRedAPD:
+    - Upgrade to 2.8.
+
 * Improvements of iRedMail Easy platform:
+    + Supports OpenBSD 6.5.
+
+        WARNING: OpenBSD 6.4 support will be removed when OpenBSD 6.6 is out.
+        That means you must upgrade OpenBSD 6.4 to 6.5 before 6.6 is out.
+
+    + Fixed: not enable php ldap extension for Roundcube for OpenLDAP backend.
     + Do not always update SOGo packages.
       We're using SOGo nightly build, it's not always stable, upgrading may
       cause issue.
