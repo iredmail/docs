@@ -17,16 +17,7 @@
       contacts in address books.
     - [SQL backends] Display all contacts directly in per-domain address book.
 
-* Dovecot:
-    - Able to track user last (POP3/IMAP) login for OpenLDAP and MariaDB
-      backends. It's disabled by default, you can enable it in iRedMail Easy
-      user portal: go to mail server profile page, tab `Settings`.
-
-          Note: This feature is not available with PostgreSQL backend due to
-          Dovecot doesn't support this with PostgreSQL (yet).
-
 * Package updates:
-    - Roundcube webmail 1.3.9.
     - iRedAPD 2.8
     - iRedAdmin 0.9.7 (open source edition)
     - netdata 1.14.0
