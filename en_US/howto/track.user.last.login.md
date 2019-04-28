@@ -11,7 +11,8 @@ easily save and update user's last-login timestamp in SQL database.
     * It works on:
         * CentOS 7 (Dovecot-2.2.36)
         * Debian 9 (Dovecot-2.2.27)
-        * Ubuntu 16.04 (Dovecot-2.2.33)
+        * Ubuntu 16.04 (Dovecot-2.2.22)
+        * Ubuntu 18.04 (Dovecot-2.2.33)
         * OpenBSD 6.4 (Dovecot-2.2.36)
         * FreeBSD (Dovecot-2.3.x in ports tree)
 
