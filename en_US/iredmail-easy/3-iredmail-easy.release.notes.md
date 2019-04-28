@@ -29,6 +29,7 @@
     - Roundcube webmail 1.3.9.
     - iRedAPD 2.8
     - iRedAdmin 0.9.7 (open source edition)
+    - netdata 1.14.0
 
 * Improvements of iRedMail Easy platform:
     + Supports OpenBSD 6.5.
