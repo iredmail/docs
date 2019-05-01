@@ -9,10 +9,12 @@
     * iRedMail and iRedAdmin-Pro completely drop support for Cluebringer, if
       you're still running Cluebringer, please migrate to iRedAPD by following
       [our tutorial](./cluebringer.to.iredapd.html).
-    * We offer remote upgrade service, 
-    * We offer remote upgrade support, check
-      [the details](https://www.iredmail.org/support.html) and
-      [contact us](https://www.iredmail.org/contact.html).
+
+!!! warning
+
+    For iRedMail SQL backends, the latest iRedAPD release requires at least
+    iRedMail-0.9.7 because it needs the newly introduced SQL table
+    `vmail.forwardings`.
 
 This tutorial describes how to upgrade iRedAPD from `1.4.0` or later releases
 to the latest stable release. It's applicable on all Linux/BSD distributions
