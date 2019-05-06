@@ -195,14 +195,33 @@ restart services which use the cert files.
 
 ### Create symbol links
 
+#### For servers deployed with __iRedMail Easy__ platform
+
+If you deployed iRedMail with the [__iRedMail Easy__](https://www.iredmail.org/easy.html)
+platform, ssl cert/key files are:
+
+* `/opt/iredmail/ssl/key.pem`: private key
+* `/opt/iredmail/ssl/cert.pem`: certificate
+* `/opt/iredmail/ssl/combined.pem`: full chain
+
+Run commands below on RHEL/CentOS/Debian/Ubuntu/OpenBSD:
+
 !!! attention
 
-    If you deployed iRedMail with the __iRedMail Easy__ platform, ssl cert
-    files are stored under `/opt/iredmail/ssl/`:
+    Please replace `<domain>` in sample commands below by the real domain name
+    on your file system.
 
-    * `key.pem`: private key
-    * `cert.pem`: certificate
-    * `combined.pem`: full chain
+```
+cd /opt/iredmail/ssl/
+mv cert.pem cert.pem.bak
+mv key.pem key.pem.bak
+mv combined.pem combined.pem.bak
+ln -s /etc/letsencrypt/live/<domain>/fullchain.pem combined.pem
+ln -s /etc/letsencrypt/live/<domain>/fullchain.pem cert.pem
+ln -s /etc/letsencrypt/live/<domain>/privkey.pem key.pem
+```
+
+#### For servers deployed with the classical downloadable iRedMail installer
 
 * On RHEL/CentOS:
 
