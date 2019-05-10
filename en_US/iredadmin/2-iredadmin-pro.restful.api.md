@@ -456,7 +456,6 @@ Notes:
     --- |--- |---|---
     `name` | `name=Sales Team` | | Display name of the mailing list.
     `accountStatus` | `accountStatus=active` | | Enable or disable account. Possible values: `active`, `disabled`.
-    `maxMailSize` | `maxMailSize=1048576` (1M) | | Max message size (in bytes).
     `accessPolicy` | `accessPolicy=membersonly` | | Defines who can send email to this mailing list. Possible values: `public`, `domain`, `subdomain`, `membersonly`, `moderatorsonly`.
     `is_newsletter` | `is_newsletter=yes` | `no` | Mark this mailing list as a newsletter, to enable subscription/unsubscription from web site.
     `newsletter_description` | `newsletter_description=short description text` | | The short description text displayed on newsletter subscription page.
@@ -518,7 +517,6 @@ Notes:
     --- |--- |---|---
     `name` | `name=Sales Team` | | Display name of the mailing list.
     `accountStatus` | `accountStatus=active` | | Enable or disable account. Possible values: `active`, `disabled`.
-    `maxMailSize` | `maxMailSize=1048576` (1M) | | Max message size (in bytes).
     `accessPolicy` | `accessPolicy=membersonly` | | Defines who can send email to this mailing list. Possible values: `public`, `domain`, `subdomain`, `membersonly`, `moderatorsonly`.
     `is_newsletter` | `is_newsletter=yes` | `no` | Mark this mailing list as a newsletter, to enable subscription/unsubscription from web site.
     `newsletter_description` | `newsletter_description=short description text` | | The short description text displayed on newsletter subscription page.
