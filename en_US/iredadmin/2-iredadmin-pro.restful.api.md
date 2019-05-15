@@ -30,8 +30,8 @@ iRedAdmin-Pro config file `settings.py`:
 ENABLE_RESTFUL_API = True
 ```
 
-Restarting Apache or uwsgi (if you're running Nginx) is required after changed
-iRedAdmin config file.
+Restarting `iredadmin` (if you're running Nginx) or Apache service is required
+after changed iRedAdmin config file.
 
 !!! note "iRedAdmin-Pro config file location"
 
