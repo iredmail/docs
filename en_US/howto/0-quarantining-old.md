@@ -2,32 +2,67 @@
 
 [TOC]
 
-Amavisd is configured to query policy from SQL database, global policy is
-created during iRedMail installation, quarantining related settings are
-disabled by default, you can easily enable quarantining with this tutorial.
 
-## Update Amavisd policy settings
-With OpenLDAP, MySQL and MariaDB backends, Amavisd queries MySQL/MariaDB
-database `amavisd` to get policy, so we use MySQL commands for example in this
-tutorial. Most commands work for PostgreSQL.
+Since iRedMail-`0.7.0`, quarantining related settings in Amavisd are configured
+by iRedMail but disabled by default, you can easily enable quarantining with
+this tutorial.
+
+With below steps, Virus/Spam/Banned emails will be quarantined into SQL database.
+You can then manage quarantined emails with iRedAdmin-Pro.
+
+## Quarantining spam, virus, banned and bad header messages
+
+Edit Amavisd config file, find below settings and update them. If it doesn't
+exist, please add them.
+
+* on Red Hat Enterprise Linux, CentOS, Scientific Linux, it's `/etc/amavisd/amavisd.conf`
+or `/etc/amavisd.conf`.
+* on Debian/Ubuntu, it's `/etc/amavis/conf.d/50-user`.
+* on FreeBSD, it's `/usr/local/etc/amavisd.conf`.
+* on OpenBSD, it's `/etc/amavisd.conf`.
 
 ```
-USE amavisd;
+# Part of file: /etc/amavisd/amavisd.conf
 
--- quarantine spam
-UPDATE policy set spam_lover='N', bypass_spam_checks='N' WHERE policy_name='@.';
+# Change values of below parameters to D_DISCARD.
+# Detected spams/virus/banned messages will not be delivered to user's mailbox.
+$final_virus_destiny = D_DISCARD;
+$final_spam_destiny = D_DISCARD;
+$final_banned_destiny = D_DISCARD;
+$final_bad_header_destiny = D_DISCARD;
 
--- quarantine virus
-UPDATE policy set virus_lover='N', bypass_virus_checks='N' WHERE policy_name='@.';
+# Quarantine SPAM into SQL server.
+$spam_quarantine_to = 'spam-quarantine';
+$spam_quarantine_method = 'sql:';
 
--- quarantine email which contains banned file types
-UPDATE policy set banned_files_lover='N', bypass_banned_checks='N' WHERE policy_name='@.';
+# Quarantine VIRUS into SQL server.
+$virus_quarantine_to = 'virus-quarantine';
+$virus_quarantine_method = 'sql:';
 
--- quarantine email which has bad headers.
-UPDATE policy set bad_header_lover='N', bypass_header_checks='N' WHERE policy_name='@.';
+# Quarantine BANNED message into SQL server.
+$banned_quarantine_to = 'banned-quarantine';
+$banned_files_quarantine_method = 'sql:';
+
+# Quarantine Bad Header message into SQL server.
+$bad_header_quarantine_method = 'sql:';
+$bad_header_quarantine_to = 'bad-header-quarantine';
 ```
 
-Restarting amavisd service is __NOT__ required.
+Also, make sure you have below lines configured in same config file:
+
+```perl
+# For MySQL/MariaDB/OpenLDAP backends
+@storage_sql_dsn = (
+    ['DBI:mysql:database=amavisd;host=127.0.0.1;port=3306', 'amavisd', 'password'],
+);
+
+# For PostgreSQL
+#@storage_sql_dsn = (
+#    ['DBI:Pg:database=amavisd;host=127.0.0.1;port=5432', 'amavisd', 'password'],
+#);
+```
+
+Restarting amavisd service is required.
 
 ## Configure iRedAdmin-Pro to manage quarantined mails
 
