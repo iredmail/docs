@@ -44,12 +44,18 @@ forward all received emails to another address <code>forward@example.com</code>,
 to achieve this, you can login to SQL server and update <code>vmail</code> database like
 below:</p>
 <pre><code>USE vmail;
-INSERT INTO forwardings (address, forwarding,
-                         domain, dest_domain,
-                         is_forwarding, active)
-                 VALUES ('user@domain.com', 'forward@example.com',
-                         'domain.com', 'example.com',
-                         1, 1);
+INSERT INTO forwardings (address,
+                         forwarding,
+                         domain,
+                         dest_domain,
+                         is_forwarding,
+                         active)
+                 VALUES ('user@domain.com',
+                         'forward@example.com',
+                         'domain.com',
+                         'example.com',
+                         1,
+                         1);
 </code></pre>
 
 <p>If you want to forward email to multiple addresses, please create more records
@@ -57,20 +63,32 @@ like above:</p>
 <pre><code>USE vmail;
 
 -- Forwarding to address 'forward-2@example.com'
-INSERT INTO forwardings (address, forwarding,
-                         domain, dest_domain,
-                         is_forwarding, active)
-                 VALUES ('user@domain.com', 'forward-2@example.com',
-                         'domain.com', 'example.com',
-                         1, 1);
+INSERT INTO forwardings (address,
+                         forwarding,
+                         domain,
+                         dest_domain,
+                         is_forwarding,
+                         active)
+                 VALUES ('user@domain.com',
+                         'forward-2@example.com',
+                         'domain.com',
+                         'example.com',
+                         1,
+                         1);
 
 -- Forwarding to address 'forward-3@example.com'
-INSERT INTO forwardings (address, forwarding,
-                         domain, dest_domain,
-                         is_forwarding, active)
-                 VALUES ('user@domain.com', 'forward-3@example.com',
-                         'domain.com', 'example.com',
-                         1, 1);
+INSERT INTO forwardings (address,
+                         forwarding,
+                         domain,
+                         dest_domain,
+                         is_forwarding,
+                         active)
+                 VALUES ('user@domain.com',
+                         'forward-3@example.com',
+                         'domain.com',
+                         'example.com',
+                         1,
+                         1);
 </code></pre>
 
 <p>To save a copy of forwarded email in mailbox, please add your own email address
@@ -82,12 +100,18 @@ exists. If it exists, you will get error like <code>ERROR 1062
 (23000): Duplicate entry 'user@domain.com-user@domain.com' for key
 'address'</code>, don't panic.</p>
 </div>
-<pre><code>INSERT INTO forwardings (address, forwarding,
-                         domain, dest_domain,
-                         is_forwarding, active)
-                 VALUES ('user@domain.com', 'user@domain.com',
-                         'domain.com', 'domain.com',
-                         1, 1);
+<pre><code>INSERT INTO forwardings (address,
+                         forwarding,
+                         domain,
+                         dest_domain,
+                         is_forwarding,
+                         active)
+                 VALUES ('user@domain.com',
+                         'user@domain.com',
+                         'domain.com',
+                         'domain.com',
+                         1,
+                         1);
 </code></pre>
 
 <h2 id="related-tutorial">Related tutorial</h2>
