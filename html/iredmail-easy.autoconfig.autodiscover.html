@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>How to setup DNS records for autoconfig and autodiscover</title>
+        <link rel="stylesheet" type="text/css" href="./css/markdown.css" />
+    </head>
+    <body>
+    
+    <div id="navigation">
+    <a href="https://www.iredmail.org" target="_blank">
+        <img alt="iRedMail web site"
+             src="./images/logo-iredmail.png"
+             style="vertical-align: middle; height: 30px;"
+             />&nbsp;
+        <span>iRedMail</span>
+    </a>
+    &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><h1 id="how-to-setup-dns-records-for-autoconfig-and-autodiscover">How to setup DNS records for autoconfig and autodiscover</h1>
+<div class="toc">
+<ul>
+<li><a href="#how-to-setup-dns-records-for-autoconfig-and-autodiscover">How to setup DNS records for autoconfig and autodiscover</a><ul>
+<li><a href="#how-autoconfig-works-in-thunderbird">How autoconfig works in Thunderbird</a></li>
+<li><a href="#how-auto-discover-works-in-microsoft-outlook">How auto-discover works in Microsoft Outlook</a></li>
+<li><a href="#setup-dns-record-for-autoconfig">Setup DNS record for autoconfig</a></li>
+<li><a href="#setup-dns-record-for-autodiscover">Setup DNS record for autodiscover</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<p><a href="https://www.iredmail.org/easy.html">iRedMail Easy</a> offers component
+<code>Autoconfig and Autodiscover</code> to help end users
+setup their MUA like Thunderbird and Outlook which supports autoconfig and
+autodiscover protocol.</p>
+<p>This tutorial explains how autoconfig and autodiscover works, and how to
+setup required DNS records to get them working. In this tutorial, we use:</p>
+<ul>
+<li><code>customer.com</code> is your customer's mail domain name.</li>
+<li>
+<p><code>mail.host.com</code> is the hostname of your mail server deployed with iRedMail
+  Easy platform, it's public IPv4 address is <code>a.b.c.d</code>. IP can be either IPv4
+  or IPv6, we use IPv4 for example in this tutorial.</p>
+<p>It's ok to use a separated DNS name like <code>autoconfig.host.com</code> for
+autoconfig and autodiscover service, don't forget to setup https for it
+with a valid ssl cert (it's required by autodiscover).</p>
+</li>
+</ul>
+<h2 id="how-autoconfig-works-in-thunderbird">How autoconfig works in Thunderbird</h2>
+<p>To setup email account <code>user@customer.com</code>, Thunderbird performs the
+lookups below in particular order to get pre-defined server settings:</p>
+<ol>
+<li>It checks <code>http://autoconfig.customer.com/mail/config-v1.1.xml?emailaddress=user@customer.com</code></li>
+<li>if failed, checks <code>http://customer.com/.well-known/autoconfig/mail/config-v1.1.xml?emailaddress=user@customer.com</code></li>
+<li>
+<p>If failed, try to find the config of mail domain at the Mozilla ISP database (ISPDB).</p>
+<p>For more details about ISPDB, or you're a big ISP and want to add your
+domain in ISPDB, please read <a href="https://developer.mozilla.org/en-US/docs/Mozilla/Thunderbird/Autoconfiguration#ISPDB">this tutorial</a>.</p>
+</li>
+<li>
+<p>Look up DNS MX record of <code>customer.com</code>. If the server specified in
+  DNS MX record is <code>mx1.mail.host.com</code>, look up <code>host.com</code> in the ISPDB.</p>
+</li>
+<li>If all mechanisms failed, Thunderbird tries to guess the server
+  address, by trying common server names like <code>imap.customer.com</code>,
+  <code>smtp.customer.com</code>, <code>mail.customer.com</code>, etc. and, when a mail server
+  answers, checking whether it supports SSL, STARTTLS and encrypted passwords
+  (CRAM-MD5).</li>
+</ol>
+<p>We don't control Mozilla ISPDB, and most times web site is hosted on another
+server, so the ideal solution is setting DNS record <code>autoconfig.customer.com</code>
+and pointed to your mail server. We will show you how to setup this DNS record
+later.</p>
+<p>The autoconfig component configured by iRedMail Easy supports URLs:</p>
+<ul>
+<li><code>https://mail.host.com/mail/config-v1.1.xml</code></li>
+<li><code>https://mail.host.com/.well-known/autoconfig/mail/config-v1.1.xml</code></li>
+<li><code>https://autoconfig.host.com/mail/config-v1.1.xml</code> (DNS A record of <code>autoconfig.host.com</code> must be pointed to IP of your mail server <code>a.b.c.d</code>.)</li>
+<li><code>https://autoconfig.host.com/.well-known/autoconfig/mail/config-v1.1.xml</code> (DNS A record of <code>autoconfig.host.com</code> must be pointed to IP of your mail server <code>a.b.c.d</code>.)</li>
+</ul>
+<h2 id="how-auto-discover-works-in-microsoft-outlook">How auto-discover works in Microsoft Outlook</h2>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Outlook requires a valid ssl cert, a self-signed ssl cert may fail.</p>
+</div>
+<p>Without Microsoft Exchange, the order of logic that Outlook 2007 and newer
+releases use when trying to figure out where to get server settings is as
+follows:</p>
+<ol>
+<li>HTTPS root domain query. Outlook uses the domain part of user email address
+   to do this query, so it's <code>https://customer.com/autodiscover/autodiscover.xml</code>.</li>
+<li>If above failed, try HTTPS autodiscover domain: 
+   <code>https://autodiscover.customer.com/autodiscover/autodiscover.xml</code>.</li>
+<li>If above failed, try same URL but HTTP instead:
+   <code>http://autodiscover.customer.com/autodiscover/autodiscover.xml</code></li>
+<li>If all failed, try DNS SRV record: <code>_autodiscover._tcp.customer.com</code>. If it
+   returns a web host name and port number, for example, <code>mail.host.com</code> and 
+   port number 443, then try
+   <code>https://mail.host.com:443/autodiscover/autodiscover.xml</code></li>
+</ol>
+<p>The ideal solution is setting DNS SRV record <code>_autodiscover._tcp.customer.com</code>
+and point to your server <code>mail.host.com</code>.</p>
+<p>The autodiscover component configured by iRedMail Easy supports URLs:</p>
+<ul>
+<li><code>https://mail.host.com/autodiscover/autodiscover.xml</code></li>
+<li><code>https://autodiscover.host.com/autodiscover/autodiscover.xml</code> (DNS A record of <code>autodiscover.host.com</code> must be pointed to IP of your mail server <code>a.b.c.d</code>.)</li>
+</ul>
+<h2 id="setup-dns-record-for-autoconfig">Setup DNS record for autoconfig</h2>
+<p>Please create either a DNS A or CNAME record <code>autoconfig.customer.com</code> for
+your customer's domain name:</p>
+<ul>
+<li>For DNS A record, please point to your mail server IP address <code>a.b.c.d</code>.</li>
+<li>For DNS CNAME record, please point to your mail server hostname <code>mail.host.com</code>.</li>
+</ul>
+<p>After created, you may need to wait for 2 or more hours until your DNS vendor
+flush the DNS cache. Then you can test the autoconfig with curl commands below:</p>
+<pre><code>curl -k http://autoconfig.customer.com/.well-known/autoconfig/mail/config-v1.1.xml?emailaddress=user@customer.com
+curl -k http://mail.host.com/mail/config-v1.1.xml?emailaddress=user@customer.com
+curl -k http://mail.host.com/.well-known/autoconfig/mail/config-v1.1.xml?emailaddress=user@customer.com
+</code></pre>
+
+<p>It should print a XML format content on console.</p>
+<h2 id="setup-dns-record-for-autodiscover">Setup DNS record for autodiscover</h2>
+<p>Please create a DNS SRV record for your customer's domain name <code>customer.com</code>:</p>
+<ul>
+<li><code>Service</code>: _autodiscover</li>
+<li><code>Protocol</code>: _tcp</li>
+<li><code>Port Number</code>: 443</li>
+<li><code>Host</code>: mail.host.com</li>
+</ul>
+<p>Outlook will query DNS SRV record <code>_autodiscover._tcp.customer.com</code> first, then
+fetch pre-defined server settings from URL
+<code>https://mail.host.com/autodiscover/autodiscover.xml</code>.</p>
+<p>After created, you may need to wait for 2 or more hours until your DNS vendor
+flush the DNS cache. Then try to query it with <code>dig</code> command like below:</p>
+<pre><code># dig +short -t srv _autodiscover._tcp.customer.com
+1 1 443 mail.host.com.
+</code></pre>
+
+<p>Create temporary text file <code>/tmp/outlook.xml</code> with content below:</p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt;
+&lt;Autodiscover xmlns=&quot;http://schemas.microsoft.com/exchange/autodiscover/outlook/requestschema/2006&quot;&gt;
+    &lt;Request&gt;
+        &lt;AcceptableResponseSchema&gt;http://schemas.microsoft.com/exchange/autodiscover/outlook/responseschema/2006a&lt;/AcceptableResponseSchema&gt;
+
+        &lt;!-- EMailAddress: indicates the user's email address. OPTIONAL --&gt;
+        &lt;EMailAddress&gt;user@customer.com&lt;/EMailAddress&gt;
+    &lt;/Request&gt;
+&lt;/Autodiscover&gt;
+</code></pre>
+
+<p>Create temporary text file <code>/tmp/eas.xml</code> with content below:</p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;Autodiscover xmlns=&quot;http://schemas.microsoft.com/exchange/autodiscover/mobilesync/requestschema/2006&quot;&gt;
+    &lt;Request&gt;
+        &lt;EMailAddress&gt;user@customer.com&lt;/EMailAddress&gt;
+        &lt;AcceptableResponseSchema&gt;http://schemas.microsoft.com/exchange/autodiscover/mobilesync/responseschema/2006&lt;/AcceptableResponseSchema&gt;
+    &lt;/Request&gt;
+&lt;/Autodiscover&gt;
+</code></pre>
+
+<p>Now run <code>curl</code> commands to verify it:</p>
+<pre><code>curl -k -X POST -d @/tmp/outlook.xml https://autodiscover.customer.com/autodiscover/autodiscover.xml
+curl -k -X POST -d @/tmp/eas.xml https://autodiscover.customer.com/autodiscover/autodiscover.xml
+
+curl -k -X POST -d @/tmp/outlook.xml https://mail.host.com/autodiscover/autodiscover.xml
+curl -k -X POST -d @/tmp/eas.xml https://mail.host.com/autodiscover/autodiscover.xml
+</code></pre>
+
+<p>It should print XML format content on console.</p><div class="footer">
+    <p style="text-align: center; color: grey;">All documents are available in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://bitbucket.org/zhb/iredmail-docs/get/tip.tar.bz2">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
+</div>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-3293801-21"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-3293801-21');
+</script>
+</body></html>
