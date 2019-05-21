@@ -182,6 +182,11 @@ a shell script to call SpamAssassin to actually learn spam/ham periodly.
 Create script `/etc/dovecot/sieve/scan_reported_mails.sh` with content below,
 it's used to call `sa-learn` command to learn reported spam/ham emails:
 
+!!! attention
+
+    If you're running FreeBSD or OpenBSD, please change the Amavisd daemon
+    user name in variable `AMAVISD_USER` below.
+
 ```
 #!/usr/bin/env bash
 # Author: Zhang Huangbin <zhb@iredmail.org>
@@ -193,6 +198,10 @@ export PATH="/bin:/usr/bin:/usr/local/bin:$PATH"
 export OWNER="vmail"
 export GROUP="vmail"
 
+# The Amavisd daemon user.
+# Note: on OpenBSD, it's "_vscan". On FreeBSD, it's "vscan".
+export AMAVISD_USER='amavis'
+
 # Kernel name, in upper cases.
 export KERNEL_NAME="$(uname -s | tr '[a-z]' '[A-Z]')"
 
@@ -203,7 +212,7 @@ export LOCK_FILE='/tmp/scan_reported_mails.lock'
 export LOG='logger -p local5.info -t scan_reported_mails'
 
 # `sa-learn` command, with optional arguments.
-export SA_LEARN='sa-learn -u amavis'
+export SA_LEARN="sa-learn -u ${AMAVISD_USER}"
 
 # Spool directory.
 # Must be owned by vmail:vmail.
