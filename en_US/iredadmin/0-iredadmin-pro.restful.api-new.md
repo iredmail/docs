@@ -38,21 +38,15 @@ after changed iRedAdmin config file.
     * on RHEL/CentOS, it's `/opt/www/iredadmin/settings.py` (in recent iRedMail
       releases) or `/var/www/iredadmin/settings.py` (in old iRedMail releases).
     * on Debian/Ubuntu, it's `/opt/www/iredadmin/settings.py` (in recent
-      iRedMail releases) or `/usr/share/apache2/iredadmin/settings.py` (in old iRedMail releases).
+      iRedMail releases) or `/usr/share/apache2/iredadmin/settings.py` (in old
+      iRedMail releases).
     * on FreeBSD, it's `/usr/local/www/iredadmin/settings.py`.
     * on OpenBSD, it's `/opt/www/iredadmin/settings.py` (in recent iRedMail
       releases) or `/var/www/iredadmin/settings.py` (in old iRedMail releases).
 
-To restrict API access to few IP addresses, please also add settings below in
-iRedAdmin-Pro config file:
-
-```
-# Enable restriction
-RESTRICT_API_ACCESS = True
-
-# List all IP addresses of allowed client for API access.
-RESTFUL_API_CLIENTS = ['172.16.244.1', ...]
-```
+To restrict API access to few IP addresses, please login to iRedAdmin-Pro as
+global admin, then click menu `System -> Settings`, find option `RESTful API is accessible only from specified IP addresses or networks`, input the allowed IP addresses or
+networks.
 
 ##  Sample code to interact with iRedAdmin-Pro RESTful API
 
