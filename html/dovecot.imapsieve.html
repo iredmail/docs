@@ -28,8 +28,10 @@
 <li><a href="#report-spam-move-email-from-inbox-to-junk">Report spam: Move email from Inbox to Junk</a></li>
 <li><a href="#report-ham-move-email-from-junk-to-any-other-folder-except-trash">Report ham: Move email from Junk to any other folder (except Trash)</a></li>
 <li><a href="#scan-reported-mails">Scan reported mails</a></li>
+<li><a href="#check-detailed-bayes-learning-log-on-command-line">Check detailed bayes learning log on command line</a></li>
 </ul>
 </li>
+<li><a href="#check-bayes-data">Check bayes data</a></li>
 <li><a href="#references">References</a></li>
 </ul>
 </li>
@@ -340,6 +342,40 @@ file name in <code>&lt;email&gt;-&lt;timestamp&gt;-&lt;random_number&gt;.eml</co
 Jan 31 05:03:16 mail scan_reported_mails: [SPAM] Learned tokens from 1 message(s) (1 message(s) examined)
 </code></pre>
 
+<h3 id="check-detailed-bayes-learning-log-on-command-line">Check detailed bayes learning log on command line</h3>
+<p>You can either <a href="./debug.amavisd.html">turn on debug mode in Amavisd and SpamAssassin</a>
+to check how bayes learning works in SpamAssassin, or run <code>sa-learn</code> manually
+to check it with a sample email.</p>
+<p>To check on command line, please upload/save a sample email to
+<code>/opt/sample.eml</code>, then run <code>sa-learn</code> as root user:</p>
+<pre><code># su -s /bin/bash amavis -c &quot;spamassassin -D bayes &lt; /opt/sample.eml&quot;
+May 21 05:27:08.244 [32241] dbg: bayes: learner_new self=Mail::SpamAssassin::Plugin::Bayes=HASH(0x2fe8cb8), bayes_store_module=Mail::SpamAssassin::BayesStore::MySQL
+May 21 05:27:08.264 [32241] dbg: bayes: using username: amavis
+May 21 05:27:08.264 [32241] dbg: bayes: learner_new: got store=Mail::SpamAssassin::BayesStore::MySQL=HASH(0x387a1c8)
+M
+...
+</code></pre>
+
+<h2 id="check-bayes-data">Check bayes data</h2>
+<p>Run <code>sa-learn</code> with <code>--dump</code> argument will show the bayes data like below:</p>
+<pre><code># sa-learn --dump magic
+
+0.000          0          3          0  non-token data: bayes db version
+0.000          0    3778575          0  non-token data: nspam
+0.000          0    6326326          0  non-token data: nham
+0.000          0     539978          0  non-token data: ntokens
+0.000          0 1558372204          0  non-token data: oldest atime
+0.000          0 1558415857          0  non-token data: newest atime
+0.000          0          0          0  non-token data: last journal sync atime
+0.000          0 1558415403          0  non-token data: last expiry atime
+0.000          0      43200          0  non-token data: last expire atime delta
+0.000          0      59325          0  non-token data: last expire reduction count
+</code></pre>
+
+<ul>
+<li><code>nspam</code> means number of learnt spams.</li>
+<li><code>nham</code> means number of learnt ham/clean emails.</li>
+</ul>
 <h2 id="references">References</h2>
 <ul>
 <li>

@@ -338,6 +338,46 @@ Jan 31 04:51:34 mail scan_reported_mails: [CLEAN] Learned tokens from 1 message(
 Jan 31 05:03:16 mail scan_reported_mails: [SPAM] Learned tokens from 1 message(s) (1 message(s) examined)
 ```
 
+### Check detailed bayes learning log on command line
+
+You can either [turn on debug mode in Amavisd and SpamAssassin](./debug.amavisd.html)
+to check how bayes learning works in SpamAssassin, or run `sa-learn` manually
+to check it with a sample email.
+
+To check on command line, please upload/save a sample email to
+`/opt/sample.eml`, then run `sa-learn` as root user:
+
+```
+# su -s /bin/bash amavis -c "spamassassin -D bayes < /opt/sample.eml"
+May 21 05:27:08.244 [32241] dbg: bayes: learner_new self=Mail::SpamAssassin::Plugin::Bayes=HASH(0x2fe8cb8), bayes_store_module=Mail::SpamAssassin::BayesStore::MySQL
+May 21 05:27:08.264 [32241] dbg: bayes: using username: amavis
+May 21 05:27:08.264 [32241] dbg: bayes: learner_new: got store=Mail::SpamAssassin::BayesStore::MySQL=HASH(0x387a1c8)
+M
+...
+```
+
+## Check bayes data
+
+Run `sa-learn` with `--dump` argument will show the bayes data like below:
+
+```
+# sa-learn --dump magic
+
+0.000          0          3          0  non-token data: bayes db version
+0.000          0    3778575          0  non-token data: nspam
+0.000          0    6326326          0  non-token data: nham
+0.000          0     539978          0  non-token data: ntokens
+0.000          0 1558372204          0  non-token data: oldest atime
+0.000          0 1558415857          0  non-token data: newest atime
+0.000          0          0          0  non-token data: last journal sync atime
+0.000          0 1558415403          0  non-token data: last expiry atime
+0.000          0      43200          0  non-token data: last expire atime delta
+0.000          0      59325          0  non-token data: last expire reduction count
+```
+
+* `nspam` means number of learnt spams.
+* `nham` means number of learnt ham/clean emails.
+
 ## References
 
 * [Dovecot wiki: Antispam with Sieve](https://wiki.dovecot.org/HowTo/AntispamWithSieve)
