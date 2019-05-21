@@ -1,4 +1,4 @@
-# How to setup DNS records for autoconfig and autodiscover
+# Setup DNS records for autoconfig and autodiscover
 
 [TOC]
 
