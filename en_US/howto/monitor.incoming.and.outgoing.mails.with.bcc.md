@@ -72,11 +72,11 @@ domainRecipientBccAddress=inbound@example.com
 for user object:
 
 ```
-# per-domain sender bcc
+# per-user sender bcc
 enabledService=senderbcc
 userSenderBccAddress=outbound@example.com
 
-# per-domain recipient bcc
+# per-user recipient bcc
 enabledService=recipientbcc
 userRecipientBccAddress=inbound@example.com
 ```
@@ -97,8 +97,8 @@ Then all inbound and outbound will be BCCed to `user@domain.com`.
 
 Per-domain bcc settings:
 
-![](./images/iredadmin/domain_profile_bcc.png)
+![](./images/iredadmin/domain_profile_bcc.png){: width=1000px }
 
 Per-user bcc settings:
 
-![](./images/iredadmin/user_profile_bcc.png)
+![](./images/iredadmin/user_profile_bcc.png){: width=1000px }
