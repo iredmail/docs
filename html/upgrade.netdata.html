@@ -29,9 +29,13 @@ it:</p>
 <h2 id="upgrade-netdata-on-freebsd">Upgrade netdata on FreeBSD</h2>
 <p>Please upgrade netdata with FreeBSD ports tree.</p>
 <h2 id="optional-disable-sending-anonymous-statistics">[OPTIONAL] Disable sending anonymous statistics.</h2>
-<p>To opt-out from sending anonymous statistics, please create file <code>.opt-out-from-anonymous-statistics</code>:
-- On Linux, it's <code>/opt/netdata/etc/netdata/.opt-out-from-anonymous-statistics</code>.
-- On FreeBSD, it's <code>/usr/local/etc/netdata/.opt-out-from-anonymous-statistics</code>.</p>
+<p>To opt-out from sending anonymous statistics, please create empty file
+<code>.opt-out-from-anonymous-statistics</code>:</p>
+<ul>
+<li>On Linux, it's <code>/opt/netdata/etc/netdata/.opt-out-from-anonymous-statistics</code>.</li>
+<li>On FreeBSD, it's <code>/usr/local/etc/netdata/.opt-out-from-anonymous-statistics</code>.</li>
+</ul>
+<p>netdata will detect this file, if exists, no anonymous statistics will be sent.</p>
 <h2 id="see-also">See Also</h2>
 <ul>
 <li><a href="./integration.netdata.freebsd.html">Integrate netdata monitor (on FreeBSD server)</a></li>
