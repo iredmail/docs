@@ -27,6 +27,16 @@
 </li>
 </ul>
 </div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This feature is not available for PostgreSQL backend due to Dovecot does
+not yet support updating existing SQL record on conflict primary key.</p>
+<p>Relevent posts in Dovecot mailing lists:</p>
+<ul>
+<li><a href="https://marc.info/?t=155411531600001&amp;r=1&amp;w=2">https://marc.info/?t=155411531600001&amp;r=1&amp;w=2</a></li>
+<li><a href="https://marc.info/?t=155826327900001&amp;r=1&amp;w=2">https://marc.info/?t=155826327900001&amp;r=1&amp;w=2</a></li>
+</ul>
+</div>
 <p>Dovecot ships a <code>last_login</code> plugin since Dovecot-2.2.14, it can be used to
 easily save and update user's last-login timestamp in SQL database.</p>
 <div class="admonition attention">

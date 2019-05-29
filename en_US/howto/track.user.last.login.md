@@ -2,6 +2,16 @@
 
 [TOC]
 
+!!! warning
+
+    This feature is not available for PostgreSQL backend due to Dovecot does
+    not yet support updating existing SQL record on conflict primary key.
+
+    Relevent posts in Dovecot mailing lists:
+
+    - <https://marc.info/?t=155411531600001&r=1&w=2>
+    - <https://marc.info/?t=155826327900001&r=1&w=2>
+
 Dovecot ships a `last_login` plugin since Dovecot-2.2.14, it can be used to
 easily save and update user's last-login timestamp in SQL database.
 
