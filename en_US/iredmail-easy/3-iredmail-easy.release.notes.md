@@ -2,6 +2,27 @@
 
 [TOC]
 
+## Upcoming: 201905XX (May XX, 2019)
+
+* Fail2ban:
+    - Remove jail 'sshd-ddos'. Fail2ban doesn't ship its filter conf anymore.
+
+* Dovecot:
+    - Set default client_limit and process_limit based on memory size.
+
+* autoconfig:
+    - Fixed: not handle URI `/.well-known/autoconfig/mail/config-v1.1.xml`.
+
+* Improvements of iRedMail Easy platform:
+    - Able to ban/unban given file types.
+    - Remove deprecated ClamAV parameters.
+    - Remove unused ClamAV log file (/var/log/clamav/clamav.log).
+    - Able to disable HELO hostname DNS check.
+    - Fixed: not always restart iRedAdmin service to reload the code of new version.
+
+* Package updates:
+    - netdata 1.15.0
+
 ## Version: 2019042801 (Apr 28, 2019)
 
 * Postfix:

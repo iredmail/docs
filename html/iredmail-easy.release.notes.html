@@ -19,6 +19,7 @@
 <div class="toc">
 <ul>
 <li><a href="#release-notes">Release Notes</a><ul>
+<li><a href="#upcoming-201905xx-may-xx-2019">Upcoming: 201905XX (May XX, 2019)</a></li>
 <li><a href="#version-2019042801-apr-28-2019">Version: 2019042801 (Apr 28, 2019)</a></li>
 <li><a href="#version-2019040201-apr-02-2019">Version: 2019040201 (Apr 02, 2019)</a></li>
 <li><a href="#version-2019032701-mar-27-2019">Version: 2019032701 (Mar 27, 2019)</a></li>
@@ -31,6 +32,43 @@
 </li>
 </ul>
 </div>
+<h2 id="upcoming-201905xx-may-xx-2019">Upcoming: 201905XX (May XX, 2019)</h2>
+<ul>
+<li>
+<p>Fail2ban:</p>
+<ul>
+<li>Remove jail 'sshd-ddos'. Fail2ban doesn't ship its filter conf anymore.</li>
+</ul>
+</li>
+<li>
+<p>Dovecot:</p>
+<ul>
+<li>Set default client_limit and process_limit based on memory size.</li>
+</ul>
+</li>
+<li>
+<p>autoconfig:</p>
+<ul>
+<li>Fixed: not handle URI <code>/.well-known/autoconfig/mail/config-v1.1.xml</code>.</li>
+</ul>
+</li>
+<li>
+<p>Improvements of iRedMail Easy platform:</p>
+<ul>
+<li>Able to ban/unban given file types.</li>
+<li>Remove deprecated ClamAV parameters.</li>
+<li>Remove unused ClamAV log file (/var/log/clamav/clamav.log).</li>
+<li>Able to disable HELO hostname DNS check.</li>
+<li>Fixed: not always restart iRedAdmin service to reload the code of new version.</li>
+</ul>
+</li>
+<li>
+<p>Package updates:</p>
+<ul>
+<li>netdata 1.15.0</li>
+</ul>
+</li>
+</ul>
 <h2 id="version-2019042801-apr-28-2019">Version: 2019042801 (Apr 28, 2019)</h2>
 <ul>
 <li>
