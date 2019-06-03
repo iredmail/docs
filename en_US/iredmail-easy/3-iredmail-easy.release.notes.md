@@ -2,7 +2,7 @@
 
 [TOC]
 
-## Upcoming: 201905XX (May XX, 2019)
+## Upcoming: 2019060X (Jun 0X, 2019)
 
 * Fail2ban:
     - Remove jail 'sshd-ddos'. Fail2ban doesn't ship its filter conf anymore.
