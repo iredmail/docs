@@ -21,6 +21,7 @@
     - Fixed: not always restart iRedAdmin service to reload the code of new version.
 
 * Package updates:
+    - iRedAPD 2.9
     - netdata 1.15.0
 
 ## Version: 2019042801 (Apr 28, 2019)
