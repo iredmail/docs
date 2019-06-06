@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Migrate from iRedMail to iRedMail Easy platform</title>
+        <link rel="stylesheet" type="text/css" href="./css/markdown.css" />
+    </head>
+    <body>
+    
+    <div id="navigation">
+    <a href="https://www.iredmail.org" target="_blank">
+        <img alt="iRedMail web site"
+             src="./images/logo-iredmail.png"
+             style="vertical-align: middle; height: 30px;"
+             />&nbsp;
+        <span>iRedMail</span>
+    </a>
+    &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><h1 id="migrate-from-iredmail-to-iredmail-easy-platform">Migrate from iRedMail to iRedMail Easy platform</h1>
+<div class="toc">
+<ul>
+<li><a href="#migrate-from-iredmail-to-iredmail-easy-platform">Migrate from iRedMail to iRedMail Easy platform</a><ul>
+<li><a href="#summary">Summary</a></li>
+<li><a href="#requirements">Requirements</a></li>
+<li><a href="#create-required-files-used-by-iredmail-easy">Create required files used by iRedMail Easy</a></li>
+<li><a href="#copy-files-to-new-locations">Copy files to new locations</a><ul>
+<li><a href="#ssl-cert">SSL cert</a></li>
+<li><a href="#postfix-config-files">Postfix config files</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>iRedMail Team can help migrate your iRedMail server, feel free to
+<a href="https://www.iredmail.org/contact.html">Contact Us</a>.</p>
+</div>
+<h2 id="summary">Summary</h2>
+<p>iRedMail Easy platform offers deployment, one-click upgrade support and
+technical support for your iRedMail servers, it's very easy to keep your
+server up to date with the ease to use web UI, and get issues solved by
+iRedMail Team quickly.</p>
+<p>For more details about iRedMail Easy platform, please
+<a href="https://www.iredmail.org/easy.html">check our website</a>.</p>
+<h2 id="requirements">Requirements</h2>
+<ul>
+<li>A working iRedMail server which was deployed with the downlodable installer
+  <code>iRedMail-0.9.9</code>, or has been successfully upgraded to the latest
+  iRedMail-0.9.9 release.</li>
+<li>Your iRedMail server must be running one of supported Linux/OpenBSD
+  distribution releases:<ul>
+<li>Ubuntu 18.04 LTS</li>
+<li>Debian 9</li>
+<li>CentOS 7</li>
+<li>OpenBSD 6.4, 6.5</li>
+</ul>
+</li>
+</ul>
+<p>Unfortunately, FreeBSD is not supported by iRedMail Easy platform.</p>
+<h2 id="create-required-files-used-by-iredmail-easy">Create required files used by iRedMail Easy</h2>
+<p>iRedMail Easy doesn't store any SQL/LDAP passwords, instead it reads from files
+under <code>/root/.iredmail/kv/</code> on your server to get them.</p>
+<p>Please create these files under <code>/root/.iredmail/kv/</code> with correct passwords
+manually, each file should contain only one line, passwords must be in plain
+text, not the hashed one.</p>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>You can find all info in the <code>iRedMail.tips</code> file under iRedMail
+installation directory, for example, <code>/root/iRedMail-0.9.9/iRedMail.tips</code>.
+If you don't have this file anymore, you can still find them in other
+config files.</p>
+</div>
+<ul>
+<li><code>mysql_root_password</code>: the MySQL root password. This is required for OpenLDAP
+  and MySQL/MariaDB backends. You can find it in file <code>/root/.my.cnf</code> or <code>/root/.my.cnf-root</code>.</li>
+<li><code>pgsql_root_password</code>: The PostgreSQL root password. This is required for
+  PostgreSQL backend. You can find it in the <code>.pgpass</code> file under PostgreSQL
+  data directory.<ul>
+<li>on CentOS, it's <code>/var/lib/pgsql/.pgpass</code>.</li>
+<li>on Debian/Ubuntu, it's <code>/var/lib/postgresql/.pgpass</code>.</li>
+<li>on OpenBSD, it's <code>/var/postgresql/.pgpass</code>.</li>
+</ul>
+</li>
+<li><code>ldap_root_password</code>: The password of OpenLDAP root dn (cn=Manager,dc=xx,dc=xx).
+  This is required for OpenLDAP backend.</li>
+<li><code>ldap_vmail_password</code>: The password of LDAP dn <code>cn=vmail,dc=xx,dc=xx</code>.</li>
+<li><code>ldap_vmailadmin_password</code>: The password of LDAP dn <code>cn=vmailadmin,dc=xx,dc=xx</code>.</li>
+<li><code>vmail_db_password</code>: The password of SQL user <code>vmail</code>.</li>
+<li><code>vmail_db_admin_password</code>: The password of SQL user <code>vmailadmin</code>.</li>
+<li><code>amavisd_db_password</code>: The password of SQL user <code>amavisd</code>.</li>
+<li><code>sa_bayes_db_password</code>: The password of SQL user <code>sa_bayes</code>.</li>
+<li><code>iredadmin_db_password</code>: The password of SQL user <code>iredadmin</code>.</li>
+<li><code>iredapd_db_password</code>: The password of SQL user <code>iredapd</code>.</li>
+<li><code>iredapd_srs_secret</code>: The secret string used by iRedAPD to sign SRS.</li>
+<li><code>sogo_db_password</code>: The password of SQL user <code>sogo</code>.</li>
+<li><code>sogo_sieve_master_password</code>: The Dovecot master user used by SOGo. You can find it in <code>/etc/sogo/sieve.cred</code>.</li>
+<li><code>roundcube_db_password</code>: The password of SQL user <code>roundcube</code>.</li>
+<li><code>roundcube_des_key</code>: The DES key used by Roundcube to encrypt the session. You can find it in <code>/opt/www/roundcubemail/config/config.inc.php</code>, parameter <code>$config['des_key'] =</code>.</li>
+<li><code>mlmmjadmin_api_token</code>: The token string used by iRedAdmin-Pro to communicate with mlmmjadmin. You can find it in <code>/opt/mlmmjadmin/settings.py</code>, parameter <code>api_auth_tokens =</code>.</li>
+<li><code>netdata_db_password</code>: The password of SQL user <code>netdata</code>. You can find it in <code>/root/.my.cnf-netdata</code> or <code>/opt/netdata/etc/netdata/my.cnf</code>.</li>
+<li><code>first_domain_admin_password</code>: The password of the first mail user created during iRedMail installation.</li>
+</ul>
+<h2 id="copy-files-to-new-locations">Copy files to new locations</h2>
+<h3 id="ssl-cert">SSL cert</h3>
+<p>iRedMail Easy stores SSL cert/key files under <code>/opt/iredmail/ssl/</code>, you need to
+either copy or (symbol) link existing ssl cert/key to this directory with
+correct files names,</p>
+<ul>
+<li><code>/opt/iredmail/ssl/key.pem</code>: private key</li>
+<li><code>/opt/iredmail/ssl/cert.pem</code>: certificate</li>
+<li><code>/opt/iredmail/ssl/combined.pem</code>: full chain</li>
+</ul>
+<h3 id="postfix-config-files">Postfix config files</h3>
+<p>iRedMail Easy will rewrite config files under <code>/etc/postfix/</code>, most importantly
+<code>main.cf</code> and <code>master.cf</code>. If you have any changes in these 2 files, please
+read the <code>[Best Practice](./iredmail-easy.best.practice.html)</code> document to
+understand how to customize them with shell script
+<code>/opt/iredmail/custom/postfix/custom.sh</code>.</p><div class="footer">
+    <p style="text-align: center; color: grey;">All documents are available in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://bitbucket.org/zhb/iredmail-docs/get/tip.tar.bz2">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
+</div>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-3293801-21"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-3293801-21');
+</script>
+</body></html>
