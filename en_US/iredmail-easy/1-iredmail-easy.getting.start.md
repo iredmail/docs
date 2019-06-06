@@ -43,7 +43,7 @@ Distribution | Release Versions
 CentOS | 7
 Debian | 9
 Ubuntu | 18.04
-OpenBSD | 6.4
+OpenBSD | 6.4, 6.5
 
 If you need to install iRedMail on FreeBSD, please use the [downloadable
 installer](https://www.iredmail.org/download.html) instead.
