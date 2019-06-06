@@ -18,7 +18,7 @@ We encourage all users to deploy new iRedMail servers with this platform and
 keep the servers up to date.
 
 * Please also read [Best Practice](./iredmail-easy.best.practice.html) to
-  understand how to achieve fearless one-click with iRedMail Easy.
+  understand how to achieve fearless one-click upgrade with iRedMail Easy.
 * Read [Release Notes](./iredmail-easy.release.notes.html) to track changes in
   each release.
 
