@@ -20,7 +20,7 @@ Name | Comment
 [Fail2ban](http://www.fail2ban.org) | Scans log files and bans IPs that show the malicious signs
 [Awstats](http://www.awstats.org) | Apache and Postfix log analyzer
 [iRedAPD](https://bitbucket.org/zhb/iredapd/) | A postfix policy server developed by iRedMail team
-<strike>[Cluebringer](http://www.policyd.org)</strike> | <strike>A postfix policy server. Deprecated since iRedMail-0.9.3.</strike>  
+<strike>[Cluebringer](http://www.policyd.org)</strike> | <strike>A postfix policy server. Deprecated since iRedMail-0.9.3.</strike>
 
 ## The Big Picture
 

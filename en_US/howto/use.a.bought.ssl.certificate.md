@@ -46,7 +46,7 @@ certificate:
   abbreviate the state or province name, for example: California.
 * `Locality Name (eg, city)`: City or town name, for example: Berkeley.
 * `Organization Name (eg, company)`: Your company name.
-* `Organizational Unit Name (eg, section)`: The name of the department or 
+* `Organizational Unit Name (eg, section)`: The name of the department or
   organization unit making the request.
 * `Common Name (e.g. server FQDN or YOUR name)`: server FQDN or your name.
 * `Email Address []`: your full email address.

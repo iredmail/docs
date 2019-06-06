@@ -51,7 +51,7 @@ If it works for you on different Windows Server version, please let us know.
 ![](./images/ad/create_ad_account_4.png)
 
 
-- Click `Next`. 
+- Click `Next`.
 
 ![](./images/ad/create_ad_account_5.png)
 
@@ -116,7 +116,7 @@ If it works for you on different Windows Server version, please let us know.
 
 ![](./images/ad/create_ad_account_4.png)
 
-- Click `Next`. 
+- Click `Next`.
 
 ![](./images/ad/create_ad_account_5.png)
 

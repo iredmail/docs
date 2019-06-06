@@ -207,7 +207,7 @@ or uwsgi (if you're running Nginx) service.
 > iRedAdmin-Pro-LDAP-2.4.0, or iRedAdmin-Pro-SQL-2.2.0, both released on Dec 14,
 > 2015), you can either __COMMENT OUT__ or __REMOVE__ all parameters which start
 > with `policyd_` in iRedAdmin-Pro config file, for example:
- 
+
 ```
 policyd_enabled =
 policyd_db_host =

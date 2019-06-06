@@ -12,7 +12,7 @@ with one click.
 
 Tested with:
 
-* iRedMail-0.8.0, iRedMail-0.8.7. 
+* iRedMail-0.8.0, iRedMail-0.8.7.
 * CentOS 6.2 (x86_64)
 * SpamAssassin-3.3.1
 * Amavisd-new-2.6.6

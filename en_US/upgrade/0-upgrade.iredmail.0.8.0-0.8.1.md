@@ -84,7 +84,7 @@ __NOTE__: This is applicable to both Dovecot-1.2 and Dovecot-2.
 ```
 # Part of file: dovecot-share-folder.conf
 
-# To share mailbox to anyone, please uncomment 'acl_anyone = allow' in          
+# To share mailbox to anyone, please uncomment 'acl_anyone = allow' in
 # dovecot.conf
 map {
     pattern = shared/shared-boxes/anyone/$from

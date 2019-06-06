@@ -25,7 +25,7 @@ It's ok to use IP address instead like below:
 Update Postfix config file `/etc/postfix/main.cf` to use this pcre file:
 
 ```
-smtpd_sender_restrictions = 
+smtpd_sender_restrictions =
     check_sender_access pcre:/etc/postfix/sender_access.pcre,
     [...OTHER RESTRICTIONS HERE...]
 ```

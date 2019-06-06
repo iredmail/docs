@@ -51,7 +51,7 @@ install them manually, below info just for your reference.
 
 * Add apache configure file: `/etc/apache2/conf.d/iredadmin.conf`.
 
-    Note: If you're running Ubuntu 14.04 or later releases, it's 
+    Note: If you're running Ubuntu 14.04 or later releases, it's
     `/etc/apache2/conf-available/iredadmin.conf`. After you added this file,
     enable it with command `a2enconf iredadmin`.
 

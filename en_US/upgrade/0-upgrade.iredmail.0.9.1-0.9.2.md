@@ -40,7 +40,7 @@ show you how to fix it on your iRedMail server based on that tutorial.
 
 #### Generating a Unique DH Group
 
-* On RHEL/CentOS: 
+* On RHEL/CentOS:
 
 ```
 # openssl dhparam -out /etc/pki/tls/dhparams.pem 2048
@@ -340,12 +340,12 @@ backend on CentOS for example:
 
 ```
 # bash /usr/share/doc/sogo-2.3.0/sql-update-2.2.17_to_2.3.0-mysql.sh
-Username (root): root                                
-Hostname (127.0.0.1): 
+Username (root): root
+Hostname (127.0.0.1):
 Database (root): sogo
 This script will ask for the sql password twice
 Converting c_partstates from VARCHAR(255) to mediumtext in calendar quick tables
-Enter password: 
+Enter password:
 Enter password:
 ```
 

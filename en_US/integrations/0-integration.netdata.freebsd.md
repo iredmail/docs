@@ -240,7 +240,7 @@ sql> FLUSH PRIVILEGES;
 * Create file `/usr/local/etc/netdata/python.d/mysql.conf` with content below.
 
     !!! attention
-    
+
         * This file already exists, feel free to remove all content in this file
           and copy content below as its new content.
         * Please replace `<password>` below by the real password.
@@ -271,7 +271,7 @@ sql> CREATE USER netdata WITH ENCRYPTED PASSWORD '<password>' NOSUPERUSER NOCREA
 * Create file `/usr/local/etc/netdata/python.d/postgres.conf` with content below.
 
     !!! attention
-    
+
         * This file already exists, feel free to remove all content in this file
           and copy content below as its new content.
         * Please replace `<password>` below by the real password.

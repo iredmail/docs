@@ -26,7 +26,7 @@ Which would return something like: `mail_version = 2.10.3`
 ```
 sender_dependent_default_transport_maps = pcre:/etc/postfix/sdd_transport.pcre
 ```
-    
+
 * Add file `/etc/postfix/sdd_transport.pcre` with below content. NOTE: we use
   domain `example.com` for example, it will use transport `sample-smtp` - see
   examples.
@@ -39,7 +39,7 @@ sender_dependent_default_transport_maps = pcre:/etc/postfix/sdd_transport.pcre
   Note: you must replace our sample IP address `172.16.244.159 ` with your IP
   address. If you want to use IPv6 address, please use `smtp_bind_address6`
   instead of `smtp_bind_address` below.
-   
+
 ```
 sample-smtp     unix -       -       n       -       -       smtp
     -o smtp_bind_address=172.16.244.159
@@ -54,6 +54,6 @@ After this restart the Postfix service to apply your changes:
 ```
 # /etc/init.d/postfix restart
 ```
- 
+
 Note: any unmatched domains will continue using the server's primary IP address
 just as before.

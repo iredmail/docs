@@ -92,7 +92,7 @@ over TLS. For example:
 //$rcmail_config['smtp_port'] = 25;
 
 // NEW settings
-$config['smtp_server'] = 'tls://127.0.0.1';                                
+$config['smtp_server'] = 'tls://127.0.0.1';
 $config['smtp_port'] = 587;
 ```
 

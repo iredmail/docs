@@ -75,7 +75,7 @@
 <li><strong>Scalability</strong>. DBMail is as scalable as the database system used for storage.</li>
 <li><strong>Manageability</strong>. DBMail can be managed by updating the relational database or directory service - without shell access.</li>
 <li><strong>Speed</strong>. Dbmail uses very efficient, database specific queries for retrieving mail information.</li>
-<li><strong>Security</strong>. Dbmail doesn't require filesystem access. It's as secure as the database and directory server used. </li>
+<li><strong>Security</strong>. Dbmail doesn't require filesystem access. It's as secure as the database and directory server used.</li>
 <li><strong>Flexibility</strong>. Changes in a Dbmail system (adding of users, changing passwords etc.) are effective immediately. Users can be stored in the database, or managed separately in an LDAP server such as OpenLDAP or Active Directory.</li>
 </ul>
 </blockquote>
@@ -278,11 +278,11 @@ port                  = 4190
 
 <p>Check status of DBMail daemons:</p>
 <pre><code># netstat -ntlp | grep dbmail
-tcp        0      0 0.0.0.0:110                 0.0.0.0:*                   LISTEN      1747/dbmail-pop3d   
-tcp        0      0 0.0.0.0:143                 0.0.0.0:*                   LISTEN      1710/dbmail-imapd   
-tcp        0      0 0.0.0.0:24                  0.0.0.0:*                   LISTEN      1734/dbmail-lmtpd   
-tcp        0      0 0.0.0.0:4190                0.0.0.0:*                   LISTEN      1760/dbmail-timsiev 
-tcp        0      0 0.0.0.0:993                 0.0.0.0:*                   LISTEN      1710/dbmail-imapd   
+tcp        0      0 0.0.0.0:110                 0.0.0.0:*                   LISTEN      1747/dbmail-pop3d
+tcp        0      0 0.0.0.0:143                 0.0.0.0:*                   LISTEN      1710/dbmail-imapd
+tcp        0      0 0.0.0.0:24                  0.0.0.0:*                   LISTEN      1734/dbmail-lmtpd
+tcp        0      0 0.0.0.0:4190                0.0.0.0:*                   LISTEN      1760/dbmail-timsiev
+tcp        0      0 0.0.0.0:993                 0.0.0.0:*                   LISTEN      1710/dbmail-imapd
 tcp        0      0 0.0.0.0:995                 0.0.0.0:*                   LISTEN      1747/dbmail-pop3d
 </code></pre>
 
@@ -451,10 +451,10 @@ query    = SELECT 1 FROM dbmail_aliases WHERE alias='%s' LIMIT 1
 <pre><code># postmap -q 'test@domain.ltd' mysql:/etc/postfix/dbmail_recipients.cf
 test@domain.ltd
 
-# postmap -q 'domain.ltd' mysql:/etc/postfix/dbmail_domains.cf 
+# postmap -q 'domain.ltd' mysql:/etc/postfix/dbmail_domains.cf
 1
 
-# postmap -q 'test@domain.ltd' mysql:/etc/postfix/dbmail_mailboxes.cf 
+# postmap -q 'test@domain.ltd' mysql:/etc/postfix/dbmail_mailboxes.cf
 1
 </code></pre>
 

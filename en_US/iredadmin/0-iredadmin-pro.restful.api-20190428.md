@@ -352,7 +352,7 @@ Notes:
     `maildir` | Absolute path of the mailbox. All characters will be converted to lower cases. | `maildir=/var/vmail/vmail1/example.com/username`
 
     !!! attention
-    
+
         Notes about `services`, `addService`, `removeService` parameters:
 
         * Available service names in iRedMail:

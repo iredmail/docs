@@ -80,7 +80,7 @@ Note: If you're running Ubuntu 11.10 or later releases, there's no Policyd
 (v1.8) installed at all, it's replaced by Cluebringer, a.k.a. Policyd v2. So
 it's safe to skip this step.
 
-Some people are fairly irate when it comes to mail and 
+Some people are fairly irate when it comes to mail and
 refuse wanting to have any type of delay. this feature
 enables each and every person the ability to not subject
 themselves to greylisting. this feature is also VERY

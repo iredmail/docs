@@ -141,7 +141,7 @@ A new SPF-record type was recently added to the DNS protocol to support this
 
 However not all DNS and e-mail servers support this new record type yet, so
 SPF can also be configured in DNS using the TXT-record type.
- 
+
 Examples:
 
 * SPF record refer to MX record. It means emails sent from all servers defined

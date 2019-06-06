@@ -57,7 +57,7 @@ domian name (in our example it's `iredmail.org`), and select `Delegate Control..
 
 ![](./images/ad/create_ad_account_4.png)
 
-- Click `Next`. 
+- Click `Next`.
 
 ![](./images/ad/create_ad_account_5.png)
 
@@ -118,11 +118,11 @@ This account is used to manage mail accounts.
 Account `vmailadmin` has been created, we need to grant it more privileges than `vmail` user.
 
 In the Active Directory Users and Computers window, right click your AD domian
-and select `Delegate Control...`. In this example, it's domain `iredmail.org`, 
+and select `Delegate Control...`. In this example, it's domain `iredmail.org`,
 
 ![](./images/ad/create_ad_account_4.png)
 
-- Click `Next`. 
+- Click `Next`.
 
 ![](./images/ad/create_ad_account_5.png)
 

@@ -15,7 +15,8 @@ this tutorial with just one shell command:
 
 Version | Release Date | Comment | Extra
 ---|---|---|---
-[3.6](https://forum.iredmail.org/topic15583.html) | Apr 28, 2019 | | [RESTful API document](./iredadmin-pro.restful.api.html)
+[3.7](https://forum.iredmail.org/topic15718.html) | Jun 06, 2019 | | [RESTful API document](./iredadmin-pro.restful.api.html)
+[3.6](https://forum.iredmail.org/topic15583.html) | Apr 28, 2019 | | [RESTful API document](./iredadmin-pro.restful.api-20190606.html)
 [3.5](https://forum.iredmail.org/topic15472.html) | Mar 27, 2019 | | [RESTful API document](./iredadmin-pro.restful.api-20190428.html)
 [3.4](https://forum.iredmail.org/topic15327.html) | Feb 19, 2019 | | [RESTful API document](./iredadmin-pro.restful.api-20190327.html)
 [3.3](https://forum.iredmail.org/topic15133.html) | Jan 2, 2019 | | [RESTful API document](./iredadmin-pro.restful.api-20190327.html)
@@ -55,7 +56,8 @@ Version | Release Date | Comment | Extra
 
 Version | Release Date | Comment | RESTful API Document
 ---|---|---|---
-[3.4](https://forum.iredmail.org/topic15582.html) | Apr 28, 2019 | | [RESTful API document](./iredadmin-pro.restful.api.html)
+[3.5](https://forum.iredmail.org/topic15719.html) | Jun 6, 2019 | | [RESTful API document](./iredadmin-pro.restful.api.html)
+[3.4](https://forum.iredmail.org/topic15582.html) | Apr 28, 2019 | | [RESTful API document](./iredadmin-pro.restful.api-20190606.html)
 [3.3](https://forum.iredmail.org/topic15471.html) | Mar 27, 2019 | | [RESTful API document](./iredadmin-pro.restful.api-20190428.html)
 [3.2](https://forum.iredmail.org/topic15328.html) | Feb 19, 2019 | | [RESTful API document](./iredadmin-pro.restful.api-20190327.html)
 [3.1](https://forum.iredmail.org/topic15132.html) | Jan 2, 2019 | | [RESTful API document](./iredadmin-pro.restful.api-20190327.html)
@@ -85,7 +87,7 @@ Version | Release Date | Comment | RESTful API Document
 [1.4.0](https://forum.iredmail.org/topic3370.html) | May 10, 2012 | Bug fix release.
 1.3.1 | Jan 10, 2012 | Bug fix release.
 1.3.0 | Aug 7, 2011 |
-1.2.1 | June 26, 2011 | Bug fix release. 
+1.2.1 | June 26, 2011 | Bug fix release.
 1.2.0 | June 10, 2011 | Security fix release.
 1.1.0 | May 3, 2011
 1.0 | Feb 1, 2011

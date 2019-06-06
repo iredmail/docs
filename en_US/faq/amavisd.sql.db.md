@@ -31,7 +31,7 @@ Amavisd has two settings to use its SQL tables:
 * Table `amavisd.mailaddr` stores email addresses __NOT__ hosted on your server.
 
     Note: value of column `mailaddr.email` could be something like below:
-  
+
     * `@.`: a catch-all address.
     * `@domain.com`: entire domain.
     * `@.domain.com`: entire domain and all its sub-domains.
@@ -41,7 +41,7 @@ Amavisd has two settings to use its SQL tables:
     * `192.168.*.2`: wildcard IP address. Note: This is used by iRedAPD, not Amavisd.
 
     The addresses are used in several tables:
-  
+
     * `amavisd.wblist`: used by Amavisd. If sender (of inbound message) is
       blacklisted, Amavisd will quarantine this email. But if you have iRedAPD
       plugin `amavisd_wblist` enabled, this smtp session will be rejected before

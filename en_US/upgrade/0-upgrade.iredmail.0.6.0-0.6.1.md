@@ -18,8 +18,7 @@ All users should apply hotfixes for iRedMail-0.6.0:
 * [Protect iRedMail configure files](https://forum.iredmail.org/topic1108-hotfix-protect-config-files-which-contains-passwords.html) 2010-07-25
 * [Secure your iRedAdmin](https://forum.iredmail.org/topic1102-secure-your-exist-iredadmin.html) 2010-07-23
 * [Hotfix for iRedAPD-1.3.2: Blacklisting all recipients](https://forum.iredmail.org/topic1096-hotfix-for-iredapd132-blacklisting-all-recipients.html) 2010-07-22
-* 
-[Hotfix on RHEL/CentOS 5: New version of perl-Archive-Tar breaks SpamAssassin](https://forum.iredmail.org/topic1085-hotfix-new-version-of-perlarchivetar-breaks-spamassassin.html) 2010-07-21
+* [Hotfix on RHEL/CentOS 5: New version of perl-Archive-Tar breaks SpamAssassin](https://forum.iredmail.org/topic1085-hotfix-new-version-of-perlarchivetar-breaks-spamassassin.html) 2010-07-21
 * [Hotfix for iRedAPD-1.3.1: Invalid per-user restriction of whitelist](https://forum.iredmail.org/topic1052-hotfix-for-iredapd131-invalid-peruser-restriction-of-whitelist.html) 2010-07-07
 * [Incorrect path of awstats.pl on Debian 5](https://forum.iredmail.org/topic982-hotfix-for-060-incorrect-path-of-awstatspl-on-debian-5.html) 2010-06-12
 * [Duplicate log entry for /var/log/mail.log](https://forum.iredmail.org/topic983-hotfix-for-060-duplicate-log-entry-for-varlogmaillog.html) 2010-06-12

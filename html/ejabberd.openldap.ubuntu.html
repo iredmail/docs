@@ -56,7 +56,7 @@ bind_pw         = InYTi8qGjamTb6Me2ESwbb6rxQUs5y
 <p>In Erlang, comments begin with the % sign.</p>
 <ul>
 <li>Setting admin and domain, now we setting <code>www@example.com</code> as admin.</li>
-<li>Auth not use internal. </li>
+<li>Auth not use internal.</li>
 <li>LDAP auth</li>
 </ul>
 <p>Open /etc/ejabberd/ejabberd.cfg and set correct values:</p>
@@ -64,10 +64,10 @@ bind_pw         = InYTi8qGjamTb6Me2ESwbb6rxQUs5y
 {acl, admin, {user, &quot;www&quot;, &quot;example.com&quot;}}.
 
 %% Hostname
-{hosts, [&quot;example.com&quot;]}. 
+{hosts, [&quot;example.com&quot;]}.
 
 %% Comment out this line (to not use internal auth method)
-%{auth_method, internal}. 
+%{auth_method, internal}.
 
 %
 % Add below lines at the bottom.
@@ -117,7 +117,7 @@ ejabberd is running
 </code></pre>
 
 <p>Restart the iptables service.</p>
-<pre><code>/etc/init.d/iptables restart 
+<pre><code>/etc/init.d/iptables restart
 </code></pre>
 
 <h3 id="web-access-ejabberd-admin-console">Web Access Ejabberd Admin Console</h3>
@@ -129,7 +129,7 @@ ejabberd is running
 <li>Open <code>/etc/ejabberd/ejabberd.cfg</code> and set correct values:</li>
 </ul>
 <pre><code>% Hostname
-{hosts, [&quot;example.com&quot;,&quot;test.com&quot;]}. 
+{hosts, [&quot;example.com&quot;,&quot;test.com&quot;]}.
 </code></pre>
 
 <h3 id="xmpp-clients">XMPP Clients</h3>

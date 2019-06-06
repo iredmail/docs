@@ -87,12 +87,12 @@ follows:</p>
 <ol>
 <li>HTTPS root domain query. Outlook uses the domain part of user email address
    to do this query, so it's <code>https://customer.com/autodiscover/autodiscover.xml</code>.</li>
-<li>If above failed, try HTTPS autodiscover domain: 
+<li>If above failed, try HTTPS autodiscover domain:
    <code>https://autodiscover.customer.com/autodiscover/autodiscover.xml</code>.</li>
 <li>If above failed, try same URL but HTTP instead:
    <code>http://autodiscover.customer.com/autodiscover/autodiscover.xml</code></li>
 <li>If all failed, try DNS SRV record: <code>_autodiscover._tcp.customer.com</code>. If it
-   returns a web host name and port number, for example, <code>mail.host.com</code> and 
+   returns a web host name and port number, for example, <code>mail.host.com</code> and
    port number 443, then try
    <code>https://mail.host.com:443/autodiscover/autodiscover.xml</code></li>
 </ol>

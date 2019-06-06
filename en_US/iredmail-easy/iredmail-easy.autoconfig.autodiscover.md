@@ -63,12 +63,12 @@ follows:
 
 1. HTTPS root domain query. Outlook uses the domain part of user email address
    to do this query, so it's `https://customer.com/autodiscover/autodiscover.xml`.
-1. If above failed, try HTTPS autodiscover domain: 
+1. If above failed, try HTTPS autodiscover domain:
    `https://autodiscover.customer.com/autodiscover/autodiscover.xml`.
 1. If above failed, try same URL but HTTP instead:
    `http://autodiscover.customer.com/autodiscover/autodiscover.xml`
 1. If all failed, try DNS SRV record: `_autodiscover._tcp.customer.com`. If it
-   returns a web host name and port number, for example, `mail.host.com` and 
+   returns a web host name and port number, for example, `mail.host.com` and
    port number 443, then try
    `https://mail.host.com:443/autodiscover/autodiscover.xml`
 

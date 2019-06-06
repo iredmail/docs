@@ -18,7 +18,7 @@ iRedAPD has plugin to force mail users to change password before sending email:
 * `ldap_force_change_password`: for LDAP backends (OpenLDAP and OpenBSD
   built-in LDAP server `ldapd(8)`).
 
-When user trying to send an email, iRedAPD will invoke this plugin to 
+When user trying to send an email, iRedAPD will invoke this plugin to
 check password last change date stored in SQL/LDAP and compare
 it with current date. if password last change date is longer than specified
 days, this plugin rejects smtp session with specified message.

@@ -131,7 +131,7 @@ Connection strings for:
 - `LDAPS:\\ad.iredmail.org:636`
 
 - Click `Start` on bottom-left corner of your Windows OS,
-- Click `Search` on top-right corner, enter `ldp.exe` in the input box. 
+- Click `Search` on top-right corner, enter `ldp.exe` in the input box.
 - Connection and fill in the following parameters and click OK to connect:
 
 ![](./images/setup.ad.ssl/test_ldap_1.png)

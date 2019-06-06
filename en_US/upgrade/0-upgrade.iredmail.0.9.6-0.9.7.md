@@ -186,7 +186,7 @@ Restarting Fail2ban service is required.
 
     This is applicable if you run Nginx as web server.
 
-Let's add a new jail to stop bad clients which tried to perform http basic auth 
+Let's add a new jail to stop bad clients which tried to perform http basic auth
 but failed.
 
 Create file `/etc/fail2ban/jail.d/nginx-http-auth.local` with content below:

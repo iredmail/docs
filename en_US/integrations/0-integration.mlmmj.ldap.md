@@ -127,7 +127,7 @@ mlmmj   unix  -       n       n       -       -       pipe
 mlmmj_destination_recipient_limit = 1
 ```
 
-* Open file `/etc/postfix/ldap/virtual_group_maps.cf`, replace the 
+* Open file `/etc/postfix/ldap/virtual_group_maps.cf`, replace the
   `query_filter` line by below one. It will query old mailing list and new
   mlmmj mailing list.
 
@@ -143,7 +143,7 @@ search_base     = domainName=%d,o=domains,dc=xx,dc=xx
 scope           = sub
 ```
 
-* Open file `/etc/postfix/ldap/transport_maps_user.cf`, replace the 
+* Open file `/etc/postfix/ldap/transport_maps_user.cf`, replace the
   `query_filter` line by below one. It will query both mail user and mlmmj
   mailing list.
 

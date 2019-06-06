@@ -46,7 +46,7 @@ __IMPORTANT NOTE__: Thunderbird won\'t show contacts in LDAP address book direct
 
 Here we take Thunderbird 5.0 for example. Steps:
 
-* Click `Address Book` in main Thunderbird window. 
+* Click `Address Book` in main Thunderbird window.
 * In Address Book window, click menu `File -> New -> LDAP Directory`.
 * In tab `General`:
     * `Name`: use whatever name you like. e.g. Global LDAP Address Book.

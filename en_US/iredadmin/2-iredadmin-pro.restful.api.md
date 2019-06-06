@@ -4,8 +4,8 @@
 
 !!! attention
 
-    * This document is applicable to `iRedAdmin-Pro-SQL-3.4` and
-      `iRedAdmin-Pro-LDAP-3.6`. If you're running an old release, please
+    * This document is applicable to `iRedAdmin-Pro-SQL-3.5` and
+      `iRedAdmin-Pro-LDAP-3.7`. If you're running an old release, please
       upgrade iRedAdmin-Pro to the latest release, or check
       [document for old releases](./iredadmin-pro.releases.html).
     * If you need an API which has not yet been implemented, don't hesitate to
@@ -38,21 +38,15 @@ after changed iRedAdmin config file.
     * on RHEL/CentOS, it's `/opt/www/iredadmin/settings.py` (in recent iRedMail
       releases) or `/var/www/iredadmin/settings.py` (in old iRedMail releases).
     * on Debian/Ubuntu, it's `/opt/www/iredadmin/settings.py` (in recent
-      iRedMail releases) or `/usr/share/apache2/iredadmin/settings.py` (in old iRedMail releases).
+      iRedMail releases) or `/usr/share/apache2/iredadmin/settings.py` (in old
+      iRedMail releases).
     * on FreeBSD, it's `/usr/local/www/iredadmin/settings.py`.
     * on OpenBSD, it's `/opt/www/iredadmin/settings.py` (in recent iRedMail
       releases) or `/var/www/iredadmin/settings.py` (in old iRedMail releases).
 
-To restrict API access to few IP addresses, please also add settings below in
-iRedAdmin-Pro config file:
-
-```
-# Enable restriction
-RESTRICT_API_ACCESS = True
-
-# List all IP addresses of allowed client for API access.
-RESTFUL_API_CLIENTS = ['172.16.244.1', ...]
-```
+To restrict API access to few IP addresses, please login to iRedAdmin-Pro as
+global admin, then click menu `System -> Settings`, find option `RESTful API is accessible only from specified IP addresses or networks`, input the allowed IP addresses or
+networks.
 
 ##  Sample code to interact with iRedAdmin-Pro RESTful API
 
@@ -310,7 +304,8 @@ Notes:
     Parameter | Summary | Sample Usage
     --- |--- |---
     `name` | Display name | `name=My New Name`
-    `password` | Password| `password=AsTr0ng@`
+    `password` | Plain password. __WARNING__: Conflict with parameter `password_hash`. | `password=AsTr0ng@`
+    `password_hash` | Set user password to the given hashed/encrypted password. __NOTE__: Since the password is encrypted, iRedAdmin-Pro can not verify it against password policies. __WARNING__: Conflict with parameter `password`. | `password_hash={SSHA}APvI8DhU8Ktstdlye6yVDaypcrfqsUcXk0c7aQ==`
     `language` | Preferred language of iRedAdmin web UI | `language=en_US`
     `quota` | Mailbox quota (in MB) | `quota=1024`
     `mailboxFormat` | Mailbox format. e.g. `maildir`, `mdbox`. Defaults to `maildir` if not present. For more details, please read Dovecot document: <https://wiki2.dovecot.org/MailboxFormat>. __WARNING__: Changing mailbox format does not migrate the mailbox on file system automatically, you have to migrate it manually. New email will be stored in new mailbox format immediately. | `mailboxFormat=mdbox`
@@ -331,7 +326,7 @@ Notes:
     `gn` | Given name | `gn=Jordon`
     `sn` | Surname | `sn=Jeffery`
     `password` | Set user password to the given one. | `password=u0tBF82cIV@vi8Gme`
-    `password_hash` | Set user password to the given hashed password. Conflict with parameter `password`. | `password={SSHA}qjmhvlsofWDu/AvVhOJX1cU/CvYKLYlwlM5bHw==`
+    `password_hash` | Set user password to the given hashed/encrypted password. __NOTE__: Since the password is encrypted, iRedAdmin-Pro can not verify it against password plicies. __WARNING__: Conflict with parameter `password`. | `password={SSHA}qjmhvlsofWDu/AvVhOJX1cU/CvYKLYlwlM5bHw==`
     `quota` | Mailbox quota (in MB) | `quota=1024`
     `accountStatus` | Enable or disable user. Possible values: `active`, `disabled`. | `accountStatus=active`
     `language` | Preferred language of iRedAdmin web UI | `language=en_US`
@@ -352,7 +347,7 @@ Notes:
     `maildir` | Absolute path of the mailbox. All characters will be converted to lower cases. | `maildir=/var/vmail/vmail1/example.com/username`
 
     !!! attention
-    
+
         Notes about `services`, `addService`, `removeService` parameters:
 
         * Available service names in iRedMail:

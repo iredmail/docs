@@ -18,7 +18,7 @@ mail domain, you must add your mail server info in its MX type DNS record.
 For example, main mail server of your mail domain `example.com` is
 `mx01.example.com`, to set your iRedMail server `mx02.example.com` as backup
 MX of `example.com`, you need to add `mx02.example.com` as your lower priority
-mail server in MX type DNS record. 
+mail server in MX type DNS record.
 
 ```
 example.com.    3600    IN  MX  5   mx01.example.com

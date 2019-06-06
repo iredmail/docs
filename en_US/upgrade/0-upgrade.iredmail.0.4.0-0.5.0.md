@@ -93,7 +93,7 @@ access to dn.regex="domainName=([^,]+),o=domains,dc=iredmail,dc=org$"
     by users                        none
 
 #
-# Enable vmail/vmailadmin. 
+# Enable vmail/vmailadmin.
 #
 access to dn.subtree="o=domains,dc=iredmail,dc=org"
     by anonymous                    auth
@@ -204,7 +204,7 @@ After added above line, please stop openldap and run `slapindex` in database dir
 # slapindex
 # chown ldap:ldap *
 # /etc/init.d/ldap start
-```    
+```
 
 ### Postfix
 
@@ -368,7 +368,7 @@ $policy_bank{'MYNETS'} = {   # mail originating from @mynetworks
 # ------------ Disclaimer Setting ---------------
 $altermime = '/usr/bin/altermime';
 $defang_maps_by_ccat{+CC_CATCHALL} = [ 'disclaimer' ];
- 
+
 # Disclaimer in plain text formart.
 @altermime_args_disclaimer = qw(--disclaimer=/etc/postfix/disclaimer/_OPTION_.txt);
 

@@ -28,7 +28,7 @@ either open source edition or iRedAdmin-Pro).
     * If you run the latest iRedAdmin-Pro with old iRedMail release, you may
       get error due to missing some required ldap attribute/value pairs
       (OpenLDAP backend), or missing some required SQL columns.
-     
+
     * If you run the latest iRedMail with old iRedAdmin-Pro, you may get error
       due to missing dropped SQL columns, or created accounts may miss some
       properties required by the latest iRedMail.

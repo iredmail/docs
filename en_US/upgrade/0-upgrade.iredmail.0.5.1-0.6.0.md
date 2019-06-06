@@ -242,7 +242,7 @@ Steps to patch your roundcube 0.3.1:
 # patch -p0 < /tmp/managesieve_rule_width_on_safari.patch
 ```
 
-#### Configure plugin for mail filter rules: managesieve 
+#### Configure plugin for mail filter rules: managesieve
 
 Roundcube 0.3.1 officially ships a plugin to allow users to customize mail
 filter rule: `managesieve`. To make it work, we should generate new config
@@ -268,7 +268,7 @@ file and config necessary parameters.
 ```
 # Part of file: roundcubemail/plugins/managesieve/config.inc.php
 
-$rcmail_config['managesieve_port'] = 2000; 
+$rcmail_config['managesieve_port'] = 2000;
 $rcmail_config['managesieve_host'] = "127.0.0.1";
 $rcmail_config['managesieve_usetls'] = false;
 $rcmail_config['managesieve_default'] = "/var/vmail/sieve/dovecot.sieve";
@@ -411,7 +411,7 @@ Restart OpenLDAP service to make it work:
 # /etc/init.d/slapd restart
 ```
 
-### Index missed attributes 
+### Index missed attributes
 
 We will search email address which stored in attribute `shadowAddress`, so make
 sure you have `shadowAddress` indexed in OpenLDAP configure file like this:

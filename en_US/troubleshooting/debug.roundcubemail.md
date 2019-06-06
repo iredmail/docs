@@ -1,7 +1,7 @@
 # Turn on debug mode in Roundcube webmail
 
 Please follow the tutorial to find Roundcube config file
-(`config/config.inc.php`) first: 
+(`config/config.inc.php`) first:
 [Locations of configuration and log files of major components](./file.locations.html#roundcube-webmail)
 
 Then add settings below in `config/config.inc.php`:

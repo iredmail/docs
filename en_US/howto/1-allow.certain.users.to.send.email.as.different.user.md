@@ -1,10 +1,9 @@
 # Allow certain users to send email as another user
 
-iRedMail configures Postfix to 
-reject the request when sender specifies an owner for the MAIL FROM address
-(`From:` header), but the client is not (SASL) logged in as that MAIL FROM
-address owner; or when the client is (SASL) logged in, but the client login
-name doesn't own the MAIL FROM address.
+iRedMail configures Postfix to reject the request when sender specifies an
+owner for the MAIL FROM address (`From:` header), but the client is not (SASL)
+logged in as that MAIL FROM address owner; or when the client is (SASL) logged
+in, but the client login name doesn't own the MAIL FROM address.
 
 Sometimes we do need to send email as another user, this tutorial describes
 how to allow certain users to do this with iRedAPD plugin

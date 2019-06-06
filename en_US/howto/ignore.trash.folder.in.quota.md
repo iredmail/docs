@@ -11,7 +11,7 @@ If no per-user quota rules found, Dovecot will use `quota_rule[X]` defined in
 ```
 # File: /etc/dovecot/dovecot.conf
 
-plugin {                                                                        
+plugin {
 
     quota = dict:user::proxy::quotadict
     quota_rule = *:storage=1G
@@ -31,7 +31,7 @@ in either `/etc/dovecot/dovecot.conf` or `/etc/dovecot/dovecot-{mysql,pgsql,ldap
 ```
 # File: /etc/dovecot/dovecot.conf
 
-plugin {                                                                        
+plugin {
 
     quota = dict:user::proxy::quotadict
     quota_rule = *:storage=1G

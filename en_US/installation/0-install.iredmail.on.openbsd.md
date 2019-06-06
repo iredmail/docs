@@ -109,7 +109,7 @@ pkg_add bash bzip2
 ```
 
 iRedMail is wrote in Bash shell scripting language, so bash shell interpreter
-is required. And `bzip2` is used to uncompress downloaded iRedMail package. 
+is required. And `bzip2` is used to uncompress downloaded iRedMail package.
 
 ### Download the latest release of iRedMail
 

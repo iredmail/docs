@@ -32,7 +32,7 @@ LDAPServer      localhost
 LDAPPort        389
 LDAPBaseDN      o=domains,dc=example,dc=com
 LDAPBindDN      cn=vmail,dc=example,dc=com
-LDAPBindPW      InYTi8qGjamTb6Me2ESwbb6rxQUs5y   # cn=vmail password 
+LDAPBindPW      InYTi8qGjamTb6Me2ESwbb6rxQUs5y   # cn=vmail password
 LDAPDefaultUID  2000                             # <- UID of `vmail` user.
 LDAPDefaultGID  2000                             # <- GID of `vmail` user.
 LDAPFilter      (&(objectClass=PureFTPdUser)(mail=\L)(FTPStatus=enabled))
@@ -85,7 +85,7 @@ Restart Pure-FTPd and OpenLDAP services:
 
 ```
 # /etc/init.d/ldap restart
-# /etc/init.d/pure-ftpd restart 
+# /etc/init.d/pure-ftpd restart
 
 # netstat -ntlp | grep pure-ftpd
 tcp 0   0 0.0.0.0:21    0.0.0.0:*   LISTEN  2062/pure-ftpd (SERVER)
@@ -102,7 +102,7 @@ has pureftpd service support.
   paraemters below with correct values:
 
 ```
-LDAP_SUFFIX="dc=example,dc=com"         # <- Change the LDAP suffix 
+LDAP_SUFFIX="dc=example,dc=com"         # <- Change the LDAP suffix
 BINDPW='passwd'                         # <- Password for the bind dn `cn=Manager,dc=example,dc=com`
 PUREFTPD_INTEGRATION='YES'              # <- Set to 'YES' to enable the pureftp inteegration
 FTP_STORAGE_BASE_DIRECTORY='/home/ftp'  # <- Change it to the ftp home directory
@@ -139,7 +139,7 @@ iRedMail doesn't open port 20 and 21 by default, you must open them first.
 * Restart the iptables service
 
 ```
-# service iptables restart 
+# service iptables restart
 ```
 
 ## Testing
@@ -154,7 +154,7 @@ We use `lftp` for testing below:
 $ lftp localhost
 localhost:~> debug 4
 localhost:~> login user1@example.com user1 # <-- input the username and password
-user1@example.com@localhost:~> ls 
+user1@example.com@localhost:~> ls
 ---- Connecting to localhost (127.0.0.1) port 21
 <--- 220---------- Welcome to Pure-FTPd [privsep] [TLS] ----------
 <--- 220-You are user number 1 of 50 allowed.
@@ -184,7 +184,7 @@ user1@example.com@localhost:~> ls
 <--- 200  MLST OPTS type;size;sizd;modify;UNIX.mode;UNIX.uid;UNIX.gid;unique;
 <--- 331 User user1@example.com OK. Password required
 <--- 230-Your bandwidth usage is restricted
-<--- 230-User user1@example.com has group access to:  vmail   
+<--- 230-User user1@example.com has group access to:  vmail
 <--- 230-You must respect a 1:5 (UL/DL) ratio
 <--- 230-OK. Current restricted directory is /
 <--- 230-0 files used (0%) - authorized: 50 files

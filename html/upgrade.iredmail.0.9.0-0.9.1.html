@@ -483,7 +483,7 @@ from specified IP/networks.</p>
 <p>Open Dovecot config file <code>/etc/dovecot/dovecot-ldap.conf</code> (Linux/OpenBSD) or
 <code>/usr/local/etc/dovecot/dovecot-ldap.conf</code> (FreeBSD), append
 <code>allowNets=allow_nets</code> in parameter <code>pass_attrs</code>. The final setting should be:</p>
-<pre><code>pass_attrs      = mail=user,userPassword=password,allowNets=allow_nets             
+<pre><code>pass_attrs      = mail=user,userPassword=password,allowNets=allow_nets
 </code></pre>
 
 <p>Restarting Dovecot service is required.</p>

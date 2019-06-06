@@ -135,7 +135,7 @@ Step-by-Step migration tutorial:
 * Re-import LDIF data:
 ```
 # ldapadd -x -D 'cn=Manager,dc=iredmail,dc=org' -W -f all.ldif
-```    
+```
 
 * Change ldap search filter in all ldap enabled service:
 

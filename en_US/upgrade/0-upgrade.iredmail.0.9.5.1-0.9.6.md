@@ -126,7 +126,7 @@ location ~ ^/.well-known/ {
 
 Save your change and reload Nginx service.
 
-### Fixed: Postfix allows email sent through port 587 without smtp authentication from trusted clients 
+### Fixed: Postfix allows email sent through port 587 without smtp authentication from trusted clients
 
 iRedMail-0.9.5 and iRedMail-0.9.5-1 allows trusted clients (listed in parameter
 `mynetworks=`) to send email through port 587 without smtp authentication, this

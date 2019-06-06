@@ -284,7 +284,7 @@ sql> FLUSH PRIVILEGES;
 * Create file `/etc/netdata/python.d/mysql.conf` with content below.
 
     !!! attention
-    
+
         * This file already exists, feel free to remove all content in this file
           and copy content below as its new content.
         * Please replace `<password>` below by the real password.
@@ -315,7 +315,7 @@ sql> CREATE USER netdata WITH ENCRYPTED PASSWORD '<password>' NOSUPERUSER NOCREA
 * Create file `/etc/netdata/python.d/postgres.conf` with content below.
 
     !!! attention
-    
+
         * This file already exists, feel free to remove all content in this file
           and copy content below as its new content.
         * Please replace `<password>` below by the real password.
@@ -339,7 +339,7 @@ vm.dirty_background_ratio=80
 vm.dirty_ratio=90
 ```
 
-Also increase max open files limit. 
+Also increase max open files limit.
 
 ```
 mkdir -p /etc/systemd/system/netdata.service.d

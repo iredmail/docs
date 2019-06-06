@@ -32,7 +32,7 @@ Ejabberd's configuration files are written in Erlang syntax, which might be diff
 In Erlang, comments begin with the % sign.
 
 * Setting admin and domain, now we setting `www@example.com` as admin.
-* Auth not use internal. 
+* Auth not use internal.
 * LDAP auth
 
 Open /etc/ejabberd/ejabberd.cfg and set correct values:
@@ -42,10 +42,10 @@ Open /etc/ejabberd/ejabberd.cfg and set correct values:
 {acl, admin, {user, "www", "example.com"}}.
 
 %% Hostname
-{hosts, ["example.com"]}. 
+{hosts, ["example.com"]}.
 
 %% Comment out this line (to not use internal auth method)
-%{auth_method, internal}. 
+%{auth_method, internal}.
 
 %
 % Add below lines at the bottom.
@@ -102,7 +102,7 @@ Open `/etc/default/iptables`, append rules below:
 Restart the iptables service.
 
 ```
-/etc/init.d/iptables restart 
+/etc/init.d/iptables restart
 ```
 
 ### Web Access Ejabberd Admin Console
@@ -119,7 +119,7 @@ If you want to add the second virtual domain, you need first create a new domain
 
 ```
 % Hostname
-{hosts, ["example.com","test.com"]}. 
+{hosts, ["example.com","test.com"]}.
 ```
 
 ### XMPP Clients

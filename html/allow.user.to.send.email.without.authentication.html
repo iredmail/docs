@@ -47,7 +47,7 @@ authentication. We use user email address <code>user@example.com</code> for exam
 </code></pre>
 
 <p>Update Postfix config file <code>/etc/postfix/main.cf</code> to use this pcre file:</p>
-<pre><code>smtpd_sender_restrictions = 
+<pre><code>smtpd_sender_restrictions =
     check_sender_access pcre:/etc/postfix/sender_access.pcre,
     [...OTHER RESTRICTIONS HERE...]
 </code></pre>

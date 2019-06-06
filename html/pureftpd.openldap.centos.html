@@ -55,7 +55,7 @@ bind_pw         = InYTi8qGjamTb6Me2ESwbb6rxQUs5y
 LDAPPort        389
 LDAPBaseDN      o=domains,dc=example,dc=com
 LDAPBindDN      cn=vmail,dc=example,dc=com
-LDAPBindPW      InYTi8qGjamTb6Me2ESwbb6rxQUs5y   # cn=vmail password 
+LDAPBindPW      InYTi8qGjamTb6Me2ESwbb6rxQUs5y   # cn=vmail password
 LDAPDefaultUID  2000                             # &lt;- UID of `vmail` user.
 LDAPDefaultGID  2000                             # &lt;- GID of `vmail` user.
 LDAPFilter      (&amp;(objectClass=PureFTPdUser)(mail=\L)(FTPStatus=enabled))
@@ -101,7 +101,7 @@ drwxr-xr-x 3 root root 4096 Jun  7 20:18 /home/ftp/
 <h2 id="restart-openldap-and-pure-ftpd-service">Restart OpenLDAP and Pure-FTPD Service</h2>
 <p>Restart Pure-FTPd and OpenLDAP services:</p>
 <pre><code># /etc/init.d/ldap restart
-# /etc/init.d/pure-ftpd restart 
+# /etc/init.d/pure-ftpd restart
 
 # netstat -ntlp | grep pure-ftpd
 tcp 0   0 0.0.0.0:21    0.0.0.0:*   LISTEN  2062/pure-ftpd (SERVER)
@@ -116,7 +116,7 @@ has pureftpd service support.</p>
   (e.g. <code>/root/iRedMail-0.9.4/tools/create_mail_user_OpenLDAP.sh</code>), update
   paraemters below with correct values:</li>
 </ul>
-<pre><code>LDAP_SUFFIX=&quot;dc=example,dc=com&quot;         # &lt;- Change the LDAP suffix 
+<pre><code>LDAP_SUFFIX=&quot;dc=example,dc=com&quot;         # &lt;- Change the LDAP suffix
 BINDPW='passwd'                         # &lt;- Password for the bind dn `cn=Manager,dc=example,dc=com`
 PUREFTPD_INTEGRATION='YES'              # &lt;- Set to 'YES' to enable the pureftp inteegration
 FTP_STORAGE_BASE_DIRECTORY='/home/ftp'  # &lt;- Change it to the ftp home directory
@@ -150,7 +150,7 @@ adding new entry &quot;mail=user1@example.com,ou=Users,domainName=example.com,o=
 <ul>
 <li>Restart the iptables service</li>
 </ul>
-<pre><code># service iptables restart 
+<pre><code># service iptables restart
 </code></pre>
 
 <h2 id="testing">Testing</h2>
@@ -161,7 +161,7 @@ testing.</p>
 <pre><code>$ lftp localhost
 localhost:~&gt; debug 4
 localhost:~&gt; login user1@example.com user1 # &lt;-- input the username and password
-user1@example.com@localhost:~&gt; ls 
+user1@example.com@localhost:~&gt; ls
 ---- Connecting to localhost (127.0.0.1) port 21
 &lt;--- 220---------- Welcome to Pure-FTPd [privsep] [TLS] ----------
 &lt;--- 220-You are user number 1 of 50 allowed.
@@ -191,7 +191,7 @@ user1@example.com@localhost:~&gt; ls
 &lt;--- 200  MLST OPTS type;size;sizd;modify;UNIX.mode;UNIX.uid;UNIX.gid;unique;
 &lt;--- 331 User user1@example.com OK. Password required
 &lt;--- 230-Your bandwidth usage is restricted
-&lt;--- 230-User user1@example.com has group access to:  vmail   
+&lt;--- 230-User user1@example.com has group access to:  vmail
 &lt;--- 230-You must respect a 1:5 (UL/DL) ratio
 &lt;--- 230-OK. Current restricted directory is /
 &lt;--- 230-0 files used (0%) - authorized: 50 files

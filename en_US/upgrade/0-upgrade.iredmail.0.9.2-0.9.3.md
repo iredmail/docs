@@ -807,15 +807,15 @@ sql> ALTER TABLE alias ADD INDEX (alias_to);
 
 > __Sample usage__: add additional email addresses `extra@domain.com` for
 > existing user `user@domain.com`:
-> 
+>
 ```
 sql> USE vmail;
 sql> INSERT INTO alias (address, goto, is_alias, alias_to, domain)
                 VALUES ('extra@domain.com', 'user@domain.com', 1, 'user@domain.com', 'domain.com');
 ```
-> 
+>
 > Notes:
-> 
+>
 > * Values of column `alias.goto` and `alias.alias_to` are the same.
 > * You can add as many additional email addresses as you want.
 > * In above sample, `extra@domain.com` can be an email address belong to your alias domain.
@@ -931,15 +931,15 @@ sql> CREATE INDEX idx_alias_alias_to ON alias (alias_to);
 
 > __Sample usage__: add additional email addresses `extra@domain.com` for
 > existing user `user@domain.com`:
-> 
+>
 ```
 sql> USE vmail;
 sql> INSERT INTO alias (address, goto, is_alias, alias_to, domain)
                 VALUES ('extra@domain.com', 'user@domain.com', 1, 'user@domain.com', 'domain.com');
 ```
-> 
+>
 > Notes:
-> 
+>
 > * Values of column `alias.goto` and `alias.alias_to` are the same.
 > * You can add as many additional email addresses as you want.
 > * In above sample, `extra@domain.com` can be an email address belong to your alias domain.

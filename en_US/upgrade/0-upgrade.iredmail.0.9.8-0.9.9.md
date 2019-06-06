@@ -150,7 +150,7 @@ chmod 0550 mlmmj-amime-receive
 
 With default settings of iRedMail-0.9.8, if you use a per-user alias address
 as member of a mailing list, Postfix does not expand it to the final
-recipient. For more details of this bug, please check this 
+recipient. For more details of this bug, please check this
 [forum post](https://forum.iredmail.org/topic14841-mlmmj-subscription-emails-missing.html).
 Please follow steps below to fix it.
 

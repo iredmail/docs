@@ -132,7 +132,7 @@ mysql&gt; ALTER TABLE mailbox DROP COLUMN messages;
 <ul>
 <li>
 <p>Replace <code>table = mailbox</code> with <code>table = used_quota</code> in below config file,
-  so that Dovecot will store mailbox quota in new SQL table. </p>
+  so that Dovecot will store mailbox quota in new SQL table.</p>
 <ul>
 <li>On RHEL/CentOS/Scientific Linux 5.x, please update <code>/etc/dovecot-used-quota.conf</code>, on 6.x, please update <code>/etc/dovecot/used-quota.conf</code>.</li>
 <li>On Debian/Ubuntu, please update <code>/etc/dovecot/dovecot-used-quota.conf</code>.</li>

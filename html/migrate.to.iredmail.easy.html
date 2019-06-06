@@ -22,8 +22,9 @@
 <li><a href="#summary">Summary</a></li>
 <li><a href="#requirements">Requirements</a></li>
 <li><a href="#create-required-files-used-by-iredmail-easy">Create required files used by iRedMail Easy</a></li>
-<li><a href="#copy-files-to-new-locations">Copy files to new locations</a><ul>
-<li><a href="#ssl-cert">SSL cert</a></li>
+<li><a href="#copy-files-to-new-locations">Copy files to new locations</a></li>
+<li><a href="#run-the-full-deployment-with-iredmail-easy-platform">Run the full deployment with iRedMail Easy platform</a></li>
+<li><a href="#post-installation-setup">Post-installation setup</a><ul>
 <li><a href="#postfix-config-files">Postfix config files</a></li>
 </ul>
 </li>
@@ -102,7 +103,6 @@ config files.</p>
 <li><code>first_domain_admin_password</code>: The password of the first mail user created during iRedMail installation.</li>
 </ul>
 <h2 id="copy-files-to-new-locations">Copy files to new locations</h2>
-<h3 id="ssl-cert">SSL cert</h3>
 <p>iRedMail Easy stores SSL cert/key files under <code>/opt/iredmail/ssl/</code>, you need to
 either copy or (symbol) link existing ssl cert/key to this directory with
 correct files names,</p>
@@ -111,12 +111,25 @@ correct files names,</p>
 <li><code>/opt/iredmail/ssl/cert.pem</code>: certificate</li>
 <li><code>/opt/iredmail/ssl/combined.pem</code>: full chain</li>
 </ul>
+<h2 id="run-the-full-deployment-with-iredmail-easy-platform">Run the full deployment with iRedMail Easy platform</h2>
+<p>Please follow our tutorial <a href="./iredmail-easy.getting.start.html">Getting start with iRedMail Easy</a>
+to sign up, and add your mail server info, then perform the full deployment.</p>
+<h2 id="post-installation-setup">Post-installation setup</h2>
+<p>iRedMail Easy will re-generate most config files, custom settings will be
+loaded from files under <code>/opt/iredmail/custom/</code>, so if you have any
+customizations, you may need to copy your custom settings to files under
+<code>/opt/iredmail/custom/</code>.</p>
 <h3 id="postfix-config-files">Postfix config files</h3>
 <p>iRedMail Easy will rewrite config files under <code>/etc/postfix/</code>, most importantly
 <code>main.cf</code> and <code>master.cf</code>. If you have any changes in these 2 files, please
 read the <code>[Best Practice](./iredmail-easy.best.practice.html)</code> document to
 understand how to customize them with shell script
-<code>/opt/iredmail/custom/postfix/custom.sh</code>.</p><div class="footer">
+<code>/opt/iredmail/custom/postfix/custom.sh</code>.</p>
+<p>For customizations you made in other files under <code>/etc/postfix/</code>, you must
+move the customizations to files under <code>/opt/iredmail/custom/postfix/</code> which
+have same file names.</p>
+<p>For example, if you added some rules in <code>/etc/postfix/helo_access.pcre</code>, you
+should copy these rules to file <code>/opt/iredmail/custom/postfix/helo_access.pcre</code>.</p><div class="footer">
     <p style="text-align: center; color: grey;">All documents are available in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://bitbucket.org/zhb/iredmail-docs/get/tip.tar.bz2">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
 </div>
 <!-- Global site tag (gtag.js) - Google Analytics -->

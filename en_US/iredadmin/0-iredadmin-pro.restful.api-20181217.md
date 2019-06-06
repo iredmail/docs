@@ -340,7 +340,7 @@ Notes:
     `removeService` | Add new per-user enabled mail service(s). Multiple values must be separated by comma. Conflicts with parameter `services`. See additional notes below. | `removeService=forward,senderbcc`
 
     !!! attention
-    
+
         Notes about `services`, `addService`, `removeService` parameters:
 
         * Available service names in iRedMail:

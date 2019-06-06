@@ -1,4 +1,4 @@
-# Pipe incoming email for certain user to external script 
+# Pipe incoming email for certain user to external script
 
 [TOC]
 
