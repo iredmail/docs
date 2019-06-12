@@ -61,8 +61,9 @@ this installation guide instead:
 <li>A <strong>FRESH</strong>, minimal, working FreeBSD system, no additional ports or binary
   packages were installed. Supported releases are listed on
   <a href="https://www.iredmail.org/download.html">Download</a> page.</li>
-<li><code>2 GB</code> of memory is recommended for a low traffic production server.
-  Spam/Virus scanning will take most system resource.</li>
+<li>At least <code>2 GB</code> memory is required for a low traffic production mail server, but
+  <code>4 GB</code> is strongly recommended to prevent ClamAV eating too much memory for big virus
+  signature database.</li>
 <li>Make sure 3 UID/GID are not used by other user/group: 2000, 2001, 2002.</li>
 </ul>
 <p>Note: All packages will be installed from ports tree.</p>

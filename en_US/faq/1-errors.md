@@ -259,7 +259,7 @@ After restarted amavisd service, please check its
 
 Notes:
 
-* At least 2GB memory is required for a low traffic mail server. If your
+* 4 GB memory is recommended for a low traffic production mail server. If your
   server doesn't have enough memory, Amavisd and ClamAV may be not able to
   start, or stop running automatically after running for a while. If it's just
   a testing server, you can follow
