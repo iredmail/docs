@@ -206,16 +206,13 @@ White/blacklisting is controlled by plugin `amavisd_wblist` (file
 
 For technical details about greylisting, please visit <http://greylisting.org/>
 
-#### How to disable greylisting completely
+#### How to disable greylisting service globally
 
-To disable greylisting completely, please remove plugin name `greylisting`
-in iRedAPD config file `/opt/iredapd/settings.py`, parameter `plugins =`:
+To disable greylisting global, please run command below:
 
 ```
-plugins = [..., 'greylisting', ...]
+python2 /opt/iredapd/tools/greylisting_admin.py --disable --from '@.'
 ```
-
-Restarting iRedAPD service is required.
 
 #### General settings
 

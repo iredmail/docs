@@ -35,7 +35,7 @@
 </ul>
 </li>
 <li><a href="#greylisting">Greylisting</a><ul>
-<li><a href="#how-to-disable-greylisting-completely">How to disable greylisting completely</a></li>
+<li><a href="#how-to-disable-greylisting-service-globally">How to disable greylisting service globally</a></li>
 <li><a href="#general-settings">General settings</a></li>
 <li><a href="#manage-greylisting-settings">Manage greylisting settings</a><ul>
 <li><a href="#available-arguments_1">Available arguments</a></li>
@@ -230,13 +230,11 @@ parameter <code>plugins =</code>:</p>
 <p>Greylisting is available in iRedAPD-1.7.0 and later releases.</p>
 </div>
 <p>For technical details about greylisting, please visit <a href="http://greylisting.org/">http://greylisting.org/</a></p>
-<h4 id="how-to-disable-greylisting-completely">How to disable greylisting completely</h4>
-<p>To disable greylisting completely, please remove plugin name <code>greylisting</code>
-in iRedAPD config file <code>/opt/iredapd/settings.py</code>, parameter <code>plugins =</code>:</p>
-<pre><code>plugins = [..., 'greylisting', ...]
+<h4 id="how-to-disable-greylisting-service-globally">How to disable greylisting service globally</h4>
+<p>To disable greylisting global, please run command below:</p>
+<pre><code>python2 /opt/iredapd/tools/greylisting_admin.py --disable --from '@.'
 </code></pre>
 
-<p>Restarting iRedAPD service is required.</p>
 <h4 id="general-settings">General settings</h4>
 <p>There're several settings for greylisting behaviour, default values are defined
 in <code>/opt/iredapd/libs/default_settings.py</code>. If you want to modify them, please
