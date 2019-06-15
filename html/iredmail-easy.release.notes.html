@@ -19,7 +19,8 @@
 <div class="toc">
 <ul>
 <li><a href="#release-notes">Release Notes</a><ul>
-<li><a href="#upcoming-2019060x-jun-0x-2019">Upcoming: 2019060X (Jun 0X, 2019)</a></li>
+<li><a href="#upcoming-201906xx-jun-xx-2019">Upcoming: 201906XX (Jun XX, 2019)</a></li>
+<li><a href="#version-20190606-jun-06-2019">Version: 20190606 (Jun 06, 2019)</a></li>
 <li><a href="#version-2019042801-apr-28-2019">Version: 2019042801 (Apr 28, 2019)</a></li>
 <li><a href="#version-2019040201-apr-02-2019">Version: 2019040201 (Apr 02, 2019)</a></li>
 <li><a href="#version-2019032701-mar-27-2019">Version: 2019032701 (Mar 27, 2019)</a></li>
@@ -32,7 +33,24 @@
 </li>
 </ul>
 </div>
-<h2 id="upcoming-2019060x-jun-0x-2019">Upcoming: 2019060X (Jun 0X, 2019)</h2>
+<h2 id="upcoming-201906xx-jun-xx-2019">Upcoming: 201906XX (Jun XX, 2019)</h2>
+<ul>
+<li>
+<p>OpenDMARC integration.</p>
+<p>Unfortunately, OpenBSD 6.5 and earlier releases don't have such integration due to
+no OpenDMARC binary package. The good news is the latest ports tree
+already has it and binary package is available for OpenBSD -snapshot.</p>
+</li>
+<li>
+<p>Fixed issues of iRedMail Easy platform:</p>
+<ul>
+<li>Make sure installed services are running while cleaning up the deployment.</li>
+<li>Removing unused ClamAV log file (/var/log/clamav/clamav.log) causes
+  error in cron job added by ClamAV package.</li>
+</ul>
+</li>
+</ul>
+<h2 id="version-20190606-jun-06-2019">Version: 20190606 (Jun 06, 2019)</h2>
 <ul>
 <li>
 <p>Fail2ban:</p>

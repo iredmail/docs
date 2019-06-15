@@ -2,7 +2,20 @@
 
 [TOC]
 
-## Upcoming: 2019060X (Jun 0X, 2019)
+## Upcoming: 201906XX (Jun XX, 2019)
+
+* OpenDMARC integration.
+
+    Unfortunately, OpenBSD 6.5 and earlier releases don't have such integration due to
+    no OpenDMARC binary package. The good news is the latest ports tree
+    already has it and binary package is available for OpenBSD -snapshot.
+
+* Fixed issues of iRedMail Easy platform:
+    - Make sure installed services are running while cleaning up the deployment.
+    - Removing unused ClamAV log file (/var/log/clamav/clamav.log) causes
+      error in cron job added by ClamAV package.
+
+## Version: 20190606 (Jun 06, 2019)
 
 * Fail2ban:
     - Remove jail 'sshd-ddos'. Fail2ban doesn't ship its filter conf anymore.
