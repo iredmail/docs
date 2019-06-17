@@ -284,6 +284,15 @@ overrode by the last one.
   store the jail config files), then use `custom.sh` to create symbol link
   of jails you want to enable under `/etc/fail2ban/jail.d/`.
 
+## Backup
+
+- iRedMail Easy generates daily cron jobs to backup mail accounts and SQL/LDAP
+  databases (stored under `/var/vmail/backup/` by default), but not mailboxes, you
+  need to backup mailboxes yourself.
+- Files under `/opt/iredmail/custom/` contain all your custom settings. If you need to
+  restore a iRedMail Easy server to another one, please copy `/opt/iredmail/custom/`
+  to new server first, then perform the iRedMail Easy deployment.
+
 ## References
 
 * [Dovecot: Including config files](https://wiki.dovecot.org/ConfigFile#Including_config_files)

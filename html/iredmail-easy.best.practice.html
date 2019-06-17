@@ -40,6 +40,7 @@
 <li><a href="#fail2ban">Fail2ban</a></li>
 </ul>
 </li>
+<li><a href="#backup">Backup</a></li>
 <li><a href="#references">References</a></li>
 </ul>
 </li>
@@ -296,6 +297,15 @@ shell script to do even more complex customization.</p>
   <code>/opt/iredmail/custom/fail2ban/</code> too (you're free to create sub-folder to
   store the jail config files), then use <code>custom.sh</code> to create symbol link
   of jails you want to enable under <code>/etc/fail2ban/jail.d/</code>.</li>
+</ul>
+<h2 id="backup">Backup</h2>
+<ul>
+<li>iRedMail Easy generates daily cron jobs to backup mail accounts and SQL/LDAP
+  databases (stored under <code>/var/vmail/backup/</code> by default), but not mailboxes, you
+  need to backup mailboxes yourself.</li>
+<li>Files under <code>/opt/iredmail/custom/</code> contain all your custom settings. If you need to
+  restore a iRedMail Easy server to another one, please copy <code>/opt/iredmail/custom/</code>
+  to new server first, then perform the iRedMail Easy deployment.</li>
 </ul>
 <h2 id="references">References</h2>
 <ul>
