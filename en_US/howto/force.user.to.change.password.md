@@ -36,18 +36,25 @@ plugins = [..., 'sql_force_change_password']
 plugins = [..., 'ldap_force_change_password']
 ```
 
-There're two optional settings you can set in `/opt/iredapd/settings.py`:
+There're three optional settings pre-defined in `/opt/iredapd/libs/default_settings.py`,
+if you want to change them, please copy the parameter names and set proper values
+in `/opt/iredapd/settings.py`:
 
 ```
-# User has to change password in certain days. Default is 90 days.
+# Force to change password in certain days.
 CHANGE_PASSWORD_DAYS = 90
 
-# MTA will reject user's smtp session with below message. You'd better describe
-# why user's email was rejected and guide user to change password.
-CHANGE_PASSWORD_MESSAGE = 'Please change your password in webmail before sending email: https://xxx/webmail/'
+# Reject reason.
+# It's recommended to add URL of the web applications which user can login
+# to change password in this message. e.g. Roundcube webmail, iRedAdmin-Pro.
+CHANGE_PASSWORD_MESSAGE = 'Password expired or never changed, please change your password in webmail before sending email'
+
+# Allow certain users or domains to never change password.
+# sample values: ['user@example.com', 'domain.com']
+CHANGE_PASSWORD_NEVER_EXPIRE_USERS = []
 ```
 
-Then restart iRedAPD service.
+Restarting `iredapd` service is required after changed `/opt/iredapd/settings.py`.
 
 ## Roundcube plugin: `force_password_change`
 
