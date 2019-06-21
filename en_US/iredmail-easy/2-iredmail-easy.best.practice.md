@@ -218,15 +218,30 @@ Postfix doesn't support loading settings from multiple files.
 - `/opt/iredmail/custom/postfix/master.cf`: If this file exists, `/etc/postfix/master.cf` will be a symbol link to this file.
 - `/opt/iredmail/custom/postfix/helo_access.pcre`
 - `/opt/iredmail/custom/postfix/postscreen_access.cidr`
-- `/opt/iredmail/custom/postfix/custom.sh`: a bash shell script for advanced customization.
+- `/opt/iredmail/custom/postfix/custom.sh`: a bash shell script for advanced customization. It will be ran while iRedMail Easy deployment or upgrade.
 
     For example, to change setting `enable_original_recipient` to `yes`
     (defaults to `no` set in `/etc/postfix/main.cf`), you can write one shell
     command in `/opt/iredmail/custom/postfix/custom.sh` like below:
 
-    ```
-    postconf -e enable_original_recipient=yes
-    ```
+```
+postconf -e enable_original_recipient=yes
+```
+
+To update settings in `master.cf`, you can run `postconf -M` and
+`postconf -P`. For example, create new transport `submission`:
+
+```
+postconf -M submission/inet="submission inet n - n - - smtpd"
+postconf -P "submission/inet/syslog_name=postfix/submission"
+postconf -P "submission/inet/smtpd_tls_security_level=encrypt"
+postconf -P "submission/inet/smtpd_sasl_auth_enable=yes"
+postconf -P "submission/inet/smtpd_client_restrictions=permit_sasl_authenticated,reject"
+postconf -P "submission/inet/content_filter=smtp-amavis:[127.0.0.1]:10026
+```
+
+For more details about `postconf` command, please check its manual page: 
+[postconf(1)](http://www.postfix.org/postconf.1.html).
 
 ### Dovecot
 

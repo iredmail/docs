@@ -24,11 +24,14 @@
 <li><a href="#backup-first">Backup first</a></li>
 <li><a href="#create-required-files-used-by-iredmail-easy">Create required files used by iRedMail Easy</a></li>
 <li><a href="#copy-files-to-new-locations">Copy files to new locations</a></li>
-<li><a href="#run-the-full-deployment-with-iredmail-easy-platform">Run the full deployment with iRedMail Easy platform</a></li>
-<li><a href="#post-installation-setup">Post-installation setup</a><ul>
-<li><a href="#postfix-config-files">Postfix config files</a></li>
+<li><a href="#split-custom-settings">Split custom settings</a><ul>
+<li><a href="#postfix">Postfix</a></li>
+<li><a href="#roundcube-webmail">Roundcube Webmail</a></li>
+<li><a href="#iredapd">iRedAPD</a></li>
+<li><a href="#iredadmin-pro">iRedAdmin(-Pro)</a></li>
 </ul>
 </li>
+<li><a href="#run-the-full-deployment-with-iredmail-easy-platform">Run the full deployment with iRedMail Easy platform</a></li>
 </ul>
 </li>
 </ul>
@@ -125,25 +128,60 @@ correct files names,</p>
 <li><code>/opt/iredmail/ssl/cert.pem</code>: certificate</li>
 <li><code>/opt/iredmail/ssl/combined.pem</code>: full chain</li>
 </ul>
+<h2 id="split-custom-settings">Split custom settings</h2>
+<p>iRedMail Easy maintains the core config files, and each time you perform
+full deployment or upgrade, these core config files will be re-generated, all
+your custom config files will be lost. So it's very important to not touch
+these core config files and just store your custom settings in pre-defined
+files under <code>/opt/iredmail/custom/&lt;software&gt;/</code>.</p>
+<h3 id="postfix">Postfix</h3>
+<ul>
+<li>
+<p>Files under <code>/etc/postfix/</code>:</p>
+<ul>
+<li><code>body_checks.pcre</code></li>
+<li><code>command_filter.pcre</code></li>
+<li><code>header_checks.pcre</code></li>
+<li><code>helo_access.pcre</code></li>
+<li><code>postscreen_access.cidr</code></li>
+<li><code>postscreen_dnsbl_reply.texthash</code></li>
+<li><code>rdns_access.pcre</code></li>
+<li><code>sender_access.pcre</code></li>
+<li><code>smtp_tls_policy</code></li>
+<li><code>transport</code></li>
+</ul>
+<p>Please copy your custom settings from above files to the files with same
+names under <code>/opt/iredmail/custom/postfix/</code>. For example:</p>
+<ul>
+<li>From <code>/etc/postfix/body_checks.pcre</code> to <code>/opt/iredmail/custom/postfix/body_checks.pcre</code>.</li>
+<li>From <code>/etc/postfix/command_filter.pcre</code> to <code>/opt/iredmail/custom/postfix/command_filter.pcre</code>.</li>
+</ul>
+<p>You need to create directory <code>/opt/iredmail/custom/postfix/</code> and the files
+if they don't exist, iRedMail Easy will set correct owner/group and
+permission for them while deployment.</p>
+<p>If you're lasy and don't want to check files one by one, it's ok to simply
+copy these files from <code>/etc/postfix/</code> to <code>/opt/iredmail/custom/postfix/</code>
+directly, and (optionally) remove non-custom settings later.</p>
+</li>
+<li>
+<p><code>/etc/postfix/main.cf</code> and <code>/etc/postfix/master.cf</code></p>
+<p>Postfix doesn't support <code>include</code> directive to load extra config files,
+so if you have custom settings in these 2 files, you have to create shell
+script file <code>/opt/iredmail/custom/postfix/custom.sh</code> to update them with
+<code>postconf</code> command during iRedMail Easy deployment or upgrade. For more
+details, please check our
+<a href="./iredmail-easy.best.practice.html#postfix">Best Practice</a> tutorial.</p>
+</li>
+</ul>
+<h3 id="roundcube-webmail">Roundcube Webmail</h3>
+<p>Copy custom settings from <code>/opt/www/roundcubemail/config/config.inc.php</code> to <code>/opt/iredmail/custom/roundcubemail/config/custom.inc.php</code>.</p>
+<h3 id="iredapd">iRedAPD</h3>
+<p>Copy custom settings from <code>/opt/iredapd/settings.py</code> to <code>/opt/iredmail/custom/iredapd/settings.py</code>.</p>
+<h3 id="iredadmin-pro">iRedAdmin(-Pro)</h3>
+<p>Copy custom settings from <code>/opt/www/iredadmin/settings.py</code> to <code>/opt/iredmail/custom/iredadmin/settings.py</code>.</p>
 <h2 id="run-the-full-deployment-with-iredmail-easy-platform">Run the full deployment with iRedMail Easy platform</h2>
 <p>Please follow our tutorial <a href="./iredmail-easy.getting.start.html">Getting start with iRedMail Easy</a>
-to sign up, and add your mail server info, then perform the full deployment.</p>
-<h2 id="post-installation-setup">Post-installation setup</h2>
-<p>iRedMail Easy will re-generate most config files, custom settings will be
-loaded from files under <code>/opt/iredmail/custom/</code>, so if you have any
-customizations, you may need to copy your custom settings to files under
-<code>/opt/iredmail/custom/</code>.</p>
-<h3 id="postfix-config-files">Postfix config files</h3>
-<p>iRedMail Easy will rewrite config files under <code>/etc/postfix/</code>, most importantly
-<code>main.cf</code> and <code>master.cf</code>. If you have any changes in these 2 files, please
-read the <code>[Best Practice](./iredmail-easy.best.practice.html)</code> document to
-understand how to customize them with shell script
-<code>/opt/iredmail/custom/postfix/custom.sh</code>.</p>
-<p>For customizations you made in other files under <code>/etc/postfix/</code>, you must
-move the customizations to files under <code>/opt/iredmail/custom/postfix/</code> which
-have same file names.</p>
-<p>For example, if you added some rules in <code>/etc/postfix/helo_access.pcre</code>, you
-should copy these rules to file <code>/opt/iredmail/custom/postfix/helo_access.pcre</code>.</p><div class="footer">
+to sign up, and add your mail server info, then perform the full deployment.</p><div class="footer">
     <p style="text-align: center; color: grey;">All documents are available in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://bitbucket.org/zhb/iredmail-docs/get/tip.tar.bz2">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
 </div>
 <!-- Global site tag (gtag.js) - Google Analytics -->

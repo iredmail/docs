@@ -232,13 +232,27 @@ max_connections     = 1024
 <li><code>/opt/iredmail/custom/postfix/helo_access.pcre</code></li>
 <li><code>/opt/iredmail/custom/postfix/postscreen_access.cidr</code></li>
 <li>
-<p><code>/opt/iredmail/custom/postfix/custom.sh</code>: a bash shell script for advanced customization.</p>
+<p><code>/opt/iredmail/custom/postfix/custom.sh</code>: a bash shell script for advanced customization. It will be ran while iRedMail Easy deployment or upgrade.</p>
 <p>For example, to change setting <code>enable_original_recipient</code> to <code>yes</code>
 (defaults to <code>no</code> set in <code>/etc/postfix/main.cf</code>), you can write one shell
 command in <code>/opt/iredmail/custom/postfix/custom.sh</code> like below:</p>
-<p><code>postconf -e enable_original_recipient=yes</code></p>
 </li>
 </ul>
+<pre><code>postconf -e enable_original_recipient=yes
+</code></pre>
+
+<p>To update settings in <code>master.cf</code>, you can run <code>postconf -M</code> and
+<code>postconf -P</code>. For example, create new transport <code>submission</code>:</p>
+<pre><code>postconf -M submission/inet=&quot;submission inet n - n - - smtpd&quot;
+postconf -P &quot;submission/inet/syslog_name=postfix/submission&quot;
+postconf -P &quot;submission/inet/smtpd_tls_security_level=encrypt&quot;
+postconf -P &quot;submission/inet/smtpd_sasl_auth_enable=yes&quot;
+postconf -P &quot;submission/inet/smtpd_client_restrictions=permit_sasl_authenticated,reject&quot;
+postconf -P &quot;submission/inet/content_filter=smtp-amavis:[127.0.0.1]:10026
+</code></pre>
+
+<p>For more details about <code>postconf</code> command, please check its manual page: 
+<a href="http://www.postfix.org/postconf.1.html">postconf(1)</a>.</p>
 <h3 id="dovecot">Dovecot</h3>
 <p>Dovecot supports loading from mulitple config files, and settings will be
 overrode by the last one.</p>

@@ -97,29 +97,64 @@ correct files names,
 * `/opt/iredmail/ssl/cert.pem`: certificate
 * `/opt/iredmail/ssl/combined.pem`: full chain
 
+## Split custom settings
+
+iRedMail Easy maintains the core config files, and each time you perform
+full deployment or upgrade, these core config files will be re-generated, all
+your custom config files will be lost. So it's very important to not touch
+these core config files and just store your custom settings in pre-defined
+files under `/opt/iredmail/custom/<software>/`.
+
+### Postfix
+
+* Files under `/etc/postfix/`:
+    * `body_checks.pcre`
+    * `command_filter.pcre`
+    * `header_checks.pcre`
+    * `helo_access.pcre`
+    * `postscreen_access.cidr`
+    * `postscreen_dnsbl_reply.texthash`
+    * `rdns_access.pcre`
+    * `sender_access.pcre`
+    * `smtp_tls_policy`
+    * `transport`
+
+    Please copy your custom settings from above files to the files with same
+    names under `/opt/iredmail/custom/postfix/`. For example:
+
+    - From `/etc/postfix/body_checks.pcre` to `/opt/iredmail/custom/postfix/body_checks.pcre`.
+    - From `/etc/postfix/command_filter.pcre` to `/opt/iredmail/custom/postfix/command_filter.pcre`.
+
+    You need to create directory `/opt/iredmail/custom/postfix/` and the files
+    if they don't exist, iRedMail Easy will set correct owner/group and
+    permission for them while deployment.
+
+    If you're lasy and don't want to check files one by one, it's ok to simply
+    copy these files from `/etc/postfix/` to `/opt/iredmail/custom/postfix/`
+    directly, and (optionally) remove non-custom settings later.
+
+* `/etc/postfix/main.cf` and `/etc/postfix/master.cf`
+
+    Postfix doesn't support `include` directive to load extra config files,
+    so if you have custom settings in these 2 files, you have to create shell
+    script file `/opt/iredmail/custom/postfix/custom.sh` to update them with
+    `postconf` command during iRedMail Easy deployment or upgrade. For more
+    details, please check our
+    [Best Practice](./iredmail-easy.best.practice.html#postfix) tutorial.
+
+### Roundcube Webmail
+
+Copy custom settings from `/opt/www/roundcubemail/config/config.inc.php` to `/opt/iredmail/custom/roundcubemail/config/custom.inc.php`.
+
+### iRedAPD
+
+Copy custom settings from `/opt/iredapd/settings.py` to `/opt/iredmail/custom/iredapd/settings.py`.
+
+### iRedAdmin(-Pro)
+
+Copy custom settings from `/opt/www/iredadmin/settings.py` to `/opt/iredmail/custom/iredadmin/settings.py`.
+
 ## Run the full deployment with iRedMail Easy platform
 
 Please follow our tutorial [Getting start with iRedMail Easy](./iredmail-easy.getting.start.html)
 to sign up, and add your mail server info, then perform the full deployment.
-
-## Post-installation setup
-
-iRedMail Easy will re-generate most config files, custom settings will be
-loaded from files under `/opt/iredmail/custom/`, so if you have any
-customizations, you may need to copy your custom settings to files under
-`/opt/iredmail/custom/`.
-
-### Postfix config files
-
-iRedMail Easy will rewrite config files under `/etc/postfix/`, most importantly
-`main.cf` and `master.cf`. If you have any changes in these 2 files, please
-read the `[Best Practice](./iredmail-easy.best.practice.html)` document to
-understand how to customize them with shell script
-`/opt/iredmail/custom/postfix/custom.sh`.
-
-For customizations you made in other files under `/etc/postfix/`, you must
-move the customizations to files under `/opt/iredmail/custom/postfix/` which
-have same file names.
-
-For example, if you added some rules in `/etc/postfix/helo_access.pcre`, you
-should copy these rules to file `/opt/iredmail/custom/postfix/helo_access.pcre`.
