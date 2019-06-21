@@ -31,6 +31,19 @@ For more details about iRedMail Easy platform, please
 
 Unfortunately, FreeBSD is not supported by iRedMail Easy platform.
 
+## Backup first
+
+Please backup all important data before preparing the migration, including but not limtied to:
+
+- All SQL/LDAP databases.
+
+    iRedMail Easy will use existing SQL/LDAP databases, no data corruption is expected.
+
+- All config files under `/etc` directory.
+
+    After moved to iRedMail Easy, you should place all your custom settings in files
+    under `/opt/iredmail/custom/<software>/`.
+
 ## Create required files used by iRedMail Easy
 
 iRedMail Easy doesn't store any SQL/LDAP passwords, instead it reads from files
