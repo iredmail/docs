@@ -403,7 +403,8 @@ button, .button { font-size: 16px; padding: 5px 5px 5px 5px; }
 .api code.has_params_throttle,
 .api code.has_params_greylisting,
 .api code.has_params_greylisting_whitelists,
-.api code.has_params_spampolicy
+.api code.has_params_spampolicy,
+.api code.has_params_wblist
 {
     display: inline-block;
     width: 60px;
@@ -419,7 +420,8 @@ button, .button { font-size: 16px; padding: 5px 5px 5px 5px; }
 .api code.has_params_throttle,
 .api code.has_params_greylisting,
 .api code.has_params_greylisting_whitelists,
-.api code.has_params_spampolicy
+.api code.has_params_spampolicy,
+.api code.has_params_wblist
 {
     background-color: #0064cd;
     font-size: 12px;

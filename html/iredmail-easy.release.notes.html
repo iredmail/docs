@@ -19,7 +19,7 @@
 <div class="toc">
 <ul>
 <li><a href="#release-notes">Release Notes</a><ul>
-<li><a href="#upcoming-201906xx-jun-xx-2019">Upcoming: 201906XX (Jun XX, 2019)</a></li>
+<li><a href="#upcoming-201907xx-jul-xx-2019">Upcoming: 201907XX (Jul XX, 2019)</a></li>
 <li><a href="#version-20190606-jun-06-2019">Version: 20190606 (Jun 06, 2019)</a></li>
 <li><a href="#version-2019042801-apr-28-2019">Version: 2019042801 (Apr 28, 2019)</a></li>
 <li><a href="#version-2019040201-apr-02-2019">Version: 2019040201 (Apr 02, 2019)</a></li>
@@ -33,13 +33,19 @@
 </li>
 </ul>
 </div>
-<h2 id="upcoming-201906xx-jun-xx-2019">Upcoming: 201906XX (Jun XX, 2019)</h2>
+<h2 id="upcoming-201907xx-jul-xx-2019">Upcoming: 201907XX (Jul XX, 2019)</h2>
 <ul>
 <li>
 <p>OpenDMARC integration.</p>
-<p>Unfortunately, OpenBSD 6.5 and earlier releases don't have such integration due to
-no OpenDMARC binary package. The good news is the latest ports tree
-already has it and binary package is available for OpenBSD -snapshot.</p>
+<ul>
+<li>The integration is enabled by default. To disable it, please go to
+  mail server profile page, toggle on option <code>Disable DMARC</code> under
+  <code>Settings</code> tab.</li>
+<li>Unfortunately, OpenBSD 6.5 and earlier releases don't have such
+  integration due to binary package missing. The good news is the latest
+  ports tree already has it and binary package is available for OpenBSD
+  -snapshot branch.</li>
+</ul>
 </li>
 <li>
 <p>Fixed issues of iRedMail Easy platform:</p>
@@ -47,6 +53,13 @@ already has it and binary package is available for OpenBSD -snapshot.</p>
 <li>Make sure installed services are running while cleaning up the deployment.</li>
 <li>Removing unused ClamAV log file (/var/log/clamav/clamav.log) causes
   error in cron job added by ClamAV package.</li>
+</ul>
+</li>
+<li>
+<p>Package updates:</p>
+<ul>
+<li>iRedAPD 3.0. It fixes a critical bug of throttle plugin.</li>
+<li>iRedAdmin-Pro. Note: it requires a valid iRedAdmin-Pro license.</li>
 </ul>
 </li>
 </ul>

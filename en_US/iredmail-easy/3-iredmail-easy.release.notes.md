@@ -2,18 +2,26 @@
 
 [TOC]
 
-## Upcoming: 201906XX (Jun XX, 2019)
+## Upcoming: 201907XX (Jul XX, 2019)
 
 * OpenDMARC integration.
 
-    Unfortunately, OpenBSD 6.5 and earlier releases don't have such integration due to
-    no OpenDMARC binary package. The good news is the latest ports tree
-    already has it and binary package is available for OpenBSD -snapshot.
+    - The integration is enabled by default. To disable it, please go to
+      mail server profile page, toggle on option `Disable DMARC` under
+      `Settings` tab.
+    - Unfortunately, OpenBSD 6.5 and earlier releases don't have such
+      integration due to binary package missing. The good news is the latest
+      ports tree already has it and binary package is available for OpenBSD
+      -snapshot branch.
 
 * Fixed issues of iRedMail Easy platform:
     - Make sure installed services are running while cleaning up the deployment.
     - Removing unused ClamAV log file (/var/log/clamav/clamav.log) causes
       error in cron job added by ClamAV package.
+
+* Package updates:
+    - iRedAPD 3.0. It fixes a critical bug of throttle plugin.
+    - iRedAdmin-Pro. Note: it requires a valid iRedAdmin-Pro license.
 
 ## Version: 20190606 (Jun 06, 2019)
 
