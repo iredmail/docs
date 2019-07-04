@@ -144,7 +144,7 @@ files under `/opt/iredmail/custom/<software>/`.
 
 ### Roundcube Webmail
 
-Copy custom settings from `/opt/www/roundcubemail/config/config.inc.php` to `/opt/iredmail/custom/roundcubemail/config/custom.inc.php`.
+Copy custom settings from `/opt/www/roundcubemail/config/config.inc.php` to `/opt/iredmail/custom/roundcube/config/custom.inc.php`.
 
 ### iRedAPD
 
