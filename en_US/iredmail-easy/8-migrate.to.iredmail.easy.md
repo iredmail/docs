@@ -85,7 +85,7 @@ text, not the hashed one.
 * `sogo_sieve_master_password`: The Dovecot master user used by SOGo. You can find it in `/etc/sogo/sieve.cred`.
 * `roundcube_des_key`: The DES key used by Roundcube to encrypt the session. You can find it in `/opt/www/roundcubemail/config/config.inc.php`, parameter `$config['des_key'] =`.
 * `mlmmjadmin_api_token`: The token string used by iRedAdmin-Pro to communicate with mlmmjadmin. You can find it in `/opt/mlmmjadmin/settings.py`, parameter `api_auth_tokens =`.
-* `first_domain_admin_password`: The password of the first mail user created during iRedMail installation.
+* `first_domain_admin_password`: The password of the mail user `postmaster@<your-domain.com>`. Note: here `your-domain.com` is the first mail domain name you (are going to) set in mail server profile page on iRedMail Easy platform, you can find it in mail server profile page, under tab `Settings`.
 
 ## Copy files to new locations
 

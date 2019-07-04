@@ -117,7 +117,7 @@ config files.</p>
 <li><code>sogo_sieve_master_password</code>: The Dovecot master user used by SOGo. You can find it in <code>/etc/sogo/sieve.cred</code>.</li>
 <li><code>roundcube_des_key</code>: The DES key used by Roundcube to encrypt the session. You can find it in <code>/opt/www/roundcubemail/config/config.inc.php</code>, parameter <code>$config['des_key'] =</code>.</li>
 <li><code>mlmmjadmin_api_token</code>: The token string used by iRedAdmin-Pro to communicate with mlmmjadmin. You can find it in <code>/opt/mlmmjadmin/settings.py</code>, parameter <code>api_auth_tokens =</code>.</li>
-<li><code>first_domain_admin_password</code>: The password of the first mail user created during iRedMail installation.</li>
+<li><code>first_domain_admin_password</code>: The password of the mail user <code>postmaster@&lt;your-domain.com&gt;</code>. Note: here <code>your-domain.com</code> is the first mail domain name you (are going to) set in mail server profile page on iRedMail Easy platform, you can find it in mail server profile page, under tab <code>Settings</code>.</li>
 </ul>
 <h2 id="copy-files-to-new-locations">Copy files to new locations</h2>
 <p>iRedMail Easy stores SSL cert/key files under <code>/opt/iredmail/ssl/</code>, you need to
