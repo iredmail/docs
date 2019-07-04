@@ -113,7 +113,7 @@ config files.</p>
 <li><code>sql_user_sogo</code>: The password of SQL user <code>sogo</code>.</li>
 <li><code>sql_user_netdata</code>: The password of SQL user <code>netdata</code>. You can find it in <code>/root/.my.cnf-netdata</code> or <code>/opt/netdata/etc/netdata/my.cnf</code>.</li>
 <li><code>sql_user_roundcube</code>: The password of SQL user <code>roundcube</code>.</li>
-<li><code>iredapd_srs_secret</code>: The secret string used by iRedAPD to sign SRS.</li>
+<li><code>iredapd_srs_secret</code>: The secret string used by iRedAPD to sign SRS. You can find it in <code>/opt/iredapd/settings.py</code>, parameter <code>srs_secrets =</code>. if you don't have this parameter in file due to old iRedAPD release, it's ok to ignore it and let iRedMail Easy to generate one.</li>
 <li><code>sogo_sieve_master_password</code>: The Dovecot master user used by SOGo. You can find it in <code>/etc/sogo/sieve.cred</code>.</li>
 <li><code>roundcube_des_key</code>: The DES key used by Roundcube to encrypt the session. You can find it in <code>/opt/www/roundcubemail/config/config.inc.php</code>, parameter <code>$config['des_key'] =</code>.</li>
 <li><code>mlmmjadmin_api_token</code>: The token string used by iRedAdmin-Pro to communicate with mlmmjadmin. You can find it in <code>/opt/mlmmjadmin/settings.py</code>, parameter <code>api_auth_tokens =</code>.</li>
