@@ -60,7 +60,7 @@ text, not the hashed one.
     If you don't have this file anymore, you can still find them in other
     config files.
 
-* `mysql_root_password`: the MySQL root password. This is required for OpenLDAP
+* `sql_user_root`: the MySQL root password. This is required for OpenLDAP
   and MySQL/MariaDB backends. You can find it in file `/root/.my.cnf` or `/root/.my.cnf-root`.
 * `pgsql_root_password`: The PostgreSQL root password. This is required for
   PostgreSQL backend. You can find it in the `.pgpass` file under PostgreSQL
@@ -72,19 +72,19 @@ text, not the hashed one.
   This is required for OpenLDAP backend.
 * `ldap_vmail_password`: The password of LDAP dn `cn=vmail,dc=xx,dc=xx`.
 * `ldap_vmailadmin_password`: The password of LDAP dn `cn=vmailadmin,dc=xx,dc=xx`.
-* `vmail_db_password`: The password of SQL user `vmail`.
-* `vmail_db_admin_password`: The password of SQL user `vmailadmin`.
-* `amavisd_db_password`: The password of SQL user `amavisd`.
-* `sa_bayes_db_password`: The password of SQL user `sa_bayes`.
-* `iredadmin_db_password`: The password of SQL user `iredadmin`.
-* `iredapd_db_password`: The password of SQL user `iredapd`.
+* `sql_user_vmail`: The password of SQL user `vmail`.
+* `sql_user_vmailadmin`: The password of SQL user `vmailadmin`.
+* `sql_user_amavisd`: The password of SQL user `amavisd`.
+* `sql_user_sa_bayes`: The password of SQL user `sa_bayes`.
+* `sql_user_iredadmin`: The password of SQL user `iredadmin`.
+* `sql_user_iredapd`: The password of SQL user `iredapd`.
+* `sql_user_sogo`: The password of SQL user `sogo`.
+* `sql_user_netdata`: The password of SQL user `netdata`. You can find it in `/root/.my.cnf-netdata` or `/opt/netdata/etc/netdata/my.cnf`.
+* `sql_user_roundcube`: The password of SQL user `roundcube`.
 * `iredapd_srs_secret`: The secret string used by iRedAPD to sign SRS.
-* `sogo_db_password`: The password of SQL user `sogo`.
 * `sogo_sieve_master_password`: The Dovecot master user used by SOGo. You can find it in `/etc/sogo/sieve.cred`.
-* `roundcube_db_password`: The password of SQL user `roundcube`.
 * `roundcube_des_key`: The DES key used by Roundcube to encrypt the session. You can find it in `/opt/www/roundcubemail/config/config.inc.php`, parameter `$config['des_key'] =`.
 * `mlmmjadmin_api_token`: The token string used by iRedAdmin-Pro to communicate with mlmmjadmin. You can find it in `/opt/mlmmjadmin/settings.py`, parameter `api_auth_tokens =`.
-* `netdata_db_password`: The password of SQL user `netdata`. You can find it in `/root/.my.cnf-netdata` or `/opt/netdata/etc/netdata/my.cnf`.
 * `first_domain_admin_password`: The password of the first mail user created during iRedMail installation.
 
 ## Copy files to new locations
