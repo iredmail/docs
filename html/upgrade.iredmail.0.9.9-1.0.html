@@ -27,6 +27,7 @@
 <li><a href="#upgrade-mlmmjadmin-to-the-latest-stable-release-21">Upgrade mlmmjadmin to the latest stable release (2.1)</a></li>
 <li><a href="#upgrade-roundcube-webmail-to-the-latest-stable-release">Upgrade Roundcube webmail to the latest stable release</a></li>
 <li><a href="#upgrade-netdata-to-the-latest-stable-release-1150">Upgrade netdata to the latest stable release (1.15.0)</a></li>
+<li><a href="#fixed-improper-order-of-postfix-smtpd_sender_restriction-rules">Fixed: improper order of Postfix smtpd_sender_restriction rules</a></li>
 <li><a href="#fail2ban-slightly-loose-filter-rule-for-postfix">Fail2ban: slightly loose filter rule for postfix</a></li>
 <li><a href="#optional-enable-srs-sender-rewriting-scheme-support-in-postfix">[OPTIONAL] Enable SRS (Sender Rewriting Scheme) support in Postfix</a></li>
 </ul>
@@ -96,6 +97,36 @@ latest stable release immediately:</p>
 </ul>
 <h3 id="upgrade-netdata-to-the-latest-stable-release-1150">Upgrade netdata to the latest stable release (1.15.0)</h3>
 <p>If you have netdata installed, you can upgrade it by following this tutorial: <a href="./upgrade.netdata.html">Upgrade netdata</a>.</p>
+<h3 id="fixed-improper-order-of-postfix-smtpd_sender_restriction-rules">Fixed: improper order of Postfix smtpd_sender_restriction rules</h3>
+<p>iRedMail-0.9.9 and earlier releases didn't configure Postfix to apply custom
+restriction rule before querying DNS records of sender domain,
+this way you cannot whitelist some sender mail domains which don't have
+DNS records (especially your internal mail domains used in LAN). Please follow
+steps below to fix it.</p>
+<ul>
+<li>Open file <code>/etc/postfix/main.cf</code> (Linux/OpenBSD) or
+<code>/usr/local/etc/postfix/main.cf</code> (FreeBSD), find parameter
+<code>smtpd_sender_restrictions</code> like below:</li>
+</ul>
+<pre><code>smtpd_sender_restrictions =
+    reject_unknown_sender_domain
+    ...
+    check_sender_access pcre:...
+</code></pre>
+
+<ul>
+<li>Move the <code>reject_unknown_sender_domain</code> line after <code>check_sender_access</code> line
+  like below:</li>
+</ul>
+<pre><code>smtpd_sender_restrictions =
+    ...
+    check_sender_access pcre:...
+    reject_unknown_sender_domain
+</code></pre>
+
+<ul>
+<li>Reloading or restarting Postfix service is required.</li>
+</ul>
 <h3 id="fail2ban-slightly-loose-filter-rule-for-postfix">Fail2ban: slightly loose filter rule for postfix</h3>
 <p>We received few reports from clients that Outlook for macOS may trigger some
 unexpected smtp errors, and caught by the Fail2ban filter rules shipped by

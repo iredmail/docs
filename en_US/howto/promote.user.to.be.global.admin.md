@@ -24,7 +24,7 @@ sql> INSERT INTO domain_admins (username, domain) VALUES ('john@example.com', 'A
 
 That's it, you can now login to iRedAdmin as `john@example.com` (with `john@example.com`'s password).
 
-To promote user `smith@test.com` to be admin of domain `test.com`:
+To promote user `smith@test.com` to be admin of domain `test.com` (Note: normal domain admin is only available in iRedAdmin-Pro):
 
 ```
 sql> USE vmail;

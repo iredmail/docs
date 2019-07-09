@@ -77,6 +77,37 @@ latest stable release immediately:
 
 If you have netdata installed, you can upgrade it by following this tutorial: [Upgrade netdata](./upgrade.netdata.html).
 
+### Fixed: improper order of Postfix smtpd_sender_restriction rules
+
+iRedMail-0.9.9 and earlier releases didn't configure Postfix to apply custom
+restriction rule before querying DNS records of sender domain,
+this way you cannot whitelist some sender mail domains which don't have
+DNS records (especially your internal mail domains used in LAN). Please follow
+steps below to fix it.
+
+* Open file `/etc/postfix/main.cf` (Linux/OpenBSD) or
+`/usr/local/etc/postfix/main.cf` (FreeBSD), find parameter
+`smtpd_sender_restrictions` like below:
+
+```
+smtpd_sender_restrictions =
+    reject_unknown_sender_domain
+    ...
+    check_sender_access pcre:...
+```
+
+* Move the `reject_unknown_sender_domain` line after `check_sender_access` line
+  like below:
+
+```
+smtpd_sender_restrictions =
+    ...
+    check_sender_access pcre:...
+    reject_unknown_sender_domain
+```
+
+* Reloading or restarting Postfix service is required.
+
 ### Fail2ban: slightly loose filter rule for postfix
 
 We received few reports from clients that Outlook for macOS may trigger some
