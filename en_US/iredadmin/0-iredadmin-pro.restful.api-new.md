@@ -415,7 +415,7 @@ Notes:
 
     </div>
 
-### [NEW] Subscribable Mailing List {: .toggle }
+### Subscribable Mailing List {: .toggle }
 
 !!! attention
 
@@ -770,10 +770,18 @@ Catch-all address | `@.`
 
     </div>
 
-!!! api "`PUT`{: .put } `/api/wblist/inbound/whitelist/global`{: .url } `Delete existing global whitelists for inbound.`{: .comment }"
-!!! api "`PUT`{: .put } `/api/wblist/inbound/blacklist/global`{: .url } `Delete existing global blacklists for inbound.`{: .comment }"
-!!! api "`PUT`{: .put } `/api/wblist/outbound/whitelist/global`{: .url } `Delete existing global whitelists for outbound.`{: .comment }"
-!!! api "`PUT`{: .put } `/api/wblist/outbound/blacklist/global`{: .url } `Delete existing global whitelists for outbound.`{: .comment }"
+!!! api "`PUT`{: .put } `/api/wblist/inbound/whitelist/global`{: .url } `Delete given global whitelists for inbound.`{: .comment } `Parameters`{: .has_params_wblist }"
+!!! api "`PUT`{: .put } `/api/wblist/inbound/blacklist/global`{: .url } `Delete given existing global blacklists for inbound.`{: .comment } `Parameters`{: .has_params_wblist }"
+!!! api "`PUT`{: .put } `/api/wblist/outbound/whitelist/global`{: .url } `Delete given existing global whitelists for outbound.`{: .comment } `Parameters`{: .has_params_wblist }"
+!!! api "`PUT`{: .put } `/api/wblist/outbound/blacklist/global`{: .url } `Delete given existing global whitelists for outbound.`{: .comment } `Parameters`{: .has_params_wblist }"
+!!! api "`PUT`{: .put } `/api/wblist/inbound/whitelist/<domain>`{: .url } `Delete given per-domain whitelists for inbound.`{: .comment } `Parameters`{: .has_params_wblist }"
+!!! api "`PUT`{: .put } `/api/wblist/inbound/blacklist/<domain>`{: .url } `Delete given per-domain blacklists for inbound.`{: .comment } `Parameters`{: .has_params_wblist }"
+!!! api "`PUT`{: .put } `/api/wblist/outbound/whitelist/<domain>`{: .url } `Delete given per-domain whitelists for outbound.`{: .comment } `Parameters`{: .has_params_wblist }"
+!!! api "`PUT`{: .put } `/api/wblist/outbound/blacklist/<domain>`{: .url } `Delete given per-domain whitelists for outbound.`{: .comment } `Parameters`{: .has_params_wblist }"
+!!! api "`PUT`{: .put } `/api/wblist/inbound/whitelist/<mail>`{: .url } `Delete given per-user whitelists for inbound.`{: .comment } `Parameters`{: .has_params_wblist }"
+!!! api "`PUT`{: .put } `/api/wblist/inbound/blacklist/<mail>`{: .url } `Delete given per-user blacklists for inbound.`{: .comment } `Parameters`{: .has_params_wblist }"
+!!! api "`PUT`{: .put } `/api/wblist/outbound/whitelist/<mail>`{: .url } `Delete given per-user whitelists for outbound.`{: .comment } `Parameters`{: .has_params_wblist }"
+!!! api "`PUT`{: .put } `/api/wblist/outbound/blacklist/<mail>`{: .url } `Delete given per-user whitelists for outbound.`{: .comment } `Parameters`{: .has_params_wblist }"
 
 !!! api "`DELETE`{: .delete } `/api/wblist/inbound/whitelist/global`{: .url } `Delete all existing global whitelists for inbound.`{: .comment }"
 !!! api "`DELETE`{: .delete } `/api/wblist/inbound/blacklist/global`{: .url } `Delete all existing global blacklists for inbound.`{: .comment }"

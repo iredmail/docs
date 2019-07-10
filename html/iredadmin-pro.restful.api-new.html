@@ -27,7 +27,7 @@
 <li><a href="#domain">Domain</a></li>
 <li><a href="#domain-admin">Domain Admin</a></li>
 <li><a href="#mail-user">Mail User</a></li>
-<li><a href="#new-subscribable-mailing-list">[NEW] Subscribable Mailing List</a></li>
+<li><a href="#subscribable-mailing-list">Subscribable Mailing List</a></li>
 <li><a href="#mailing-list-unsubscribable">Mailing List (Unsubscribable)</a></li>
 <li><a href="#mail-alias">Mail Alias</a></li>
 <li><a href="#spam-policy">Spam Policy</a></li>
@@ -1166,7 +1166,7 @@ to be a domain admin.</p>
 </div>
 
 </div>
-<h3 class="toggle" id="new-subscribable-mailing-list">[NEW] Subscribable Mailing List</h3>
+<h3 class="toggle" id="subscribable-mailing-list">Subscribable Mailing List</h3>
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>
 <ul>
@@ -2322,16 +2322,40 @@ to be a domain admin.</p>
 
 </div>
 <div class="admonition api">
-<p class="admonition-title"><code class="put">PUT</code> <code class="url">/api/wblist/inbound/whitelist/global</code> <code class="comment">Delete existing global whitelists for inbound.</code></p>
+<p class="admonition-title"><code class="put">PUT</code> <code class="url">/api/wblist/inbound/whitelist/global</code> <code class="comment">Delete given global whitelists for inbound.</code> <code class="has_params_wblist">Parameters</code></p>
 </div>
 <div class="admonition api">
-<p class="admonition-title"><code class="put">PUT</code> <code class="url">/api/wblist/inbound/blacklist/global</code> <code class="comment">Delete existing global blacklists for inbound.</code></p>
+<p class="admonition-title"><code class="put">PUT</code> <code class="url">/api/wblist/inbound/blacklist/global</code> <code class="comment">Delete given existing global blacklists for inbound.</code> <code class="has_params_wblist">Parameters</code></p>
 </div>
 <div class="admonition api">
-<p class="admonition-title"><code class="put">PUT</code> <code class="url">/api/wblist/outbound/whitelist/global</code> <code class="comment">Delete existing global whitelists for outbound.</code></p>
+<p class="admonition-title"><code class="put">PUT</code> <code class="url">/api/wblist/outbound/whitelist/global</code> <code class="comment">Delete given existing global whitelists for outbound.</code> <code class="has_params_wblist">Parameters</code></p>
 </div>
 <div class="admonition api">
-<p class="admonition-title"><code class="put">PUT</code> <code class="url">/api/wblist/outbound/blacklist/global</code> <code class="comment">Delete existing global whitelists for outbound.</code></p>
+<p class="admonition-title"><code class="put">PUT</code> <code class="url">/api/wblist/outbound/blacklist/global</code> <code class="comment">Delete given existing global whitelists for outbound.</code> <code class="has_params_wblist">Parameters</code></p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code class="put">PUT</code> <code class="url">/api/wblist/inbound/whitelist/&lt;domain&gt;</code> <code class="comment">Delete given per-domain whitelists for inbound.</code> <code class="has_params_wblist">Parameters</code></p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code class="put">PUT</code> <code class="url">/api/wblist/inbound/blacklist/&lt;domain&gt;</code> <code class="comment">Delete given per-domain blacklists for inbound.</code> <code class="has_params_wblist">Parameters</code></p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code class="put">PUT</code> <code class="url">/api/wblist/outbound/whitelist/&lt;domain&gt;</code> <code class="comment">Delete given per-domain whitelists for outbound.</code> <code class="has_params_wblist">Parameters</code></p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code class="put">PUT</code> <code class="url">/api/wblist/outbound/blacklist/&lt;domain&gt;</code> <code class="comment">Delete given per-domain whitelists for outbound.</code> <code class="has_params_wblist">Parameters</code></p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code class="put">PUT</code> <code class="url">/api/wblist/inbound/whitelist/&lt;mail&gt;</code> <code class="comment">Delete given per-user whitelists for inbound.</code> <code class="has_params_wblist">Parameters</code></p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code class="put">PUT</code> <code class="url">/api/wblist/inbound/blacklist/&lt;mail&gt;</code> <code class="comment">Delete given per-user blacklists for inbound.</code> <code class="has_params_wblist">Parameters</code></p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code class="put">PUT</code> <code class="url">/api/wblist/outbound/whitelist/&lt;mail&gt;</code> <code class="comment">Delete given per-user whitelists for outbound.</code> <code class="has_params_wblist">Parameters</code></p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code class="put">PUT</code> <code class="url">/api/wblist/outbound/blacklist/&lt;mail&gt;</code> <code class="comment">Delete given per-user whitelists for outbound.</code> <code class="has_params_wblist">Parameters</code></p>
 </div>
 <div class="admonition api">
 <p class="admonition-title"><code class="delete">DELETE</code> <code class="url">/api/wblist/inbound/whitelist/global</code> <code class="comment">Delete all existing global whitelists for inbound.</code></p>
