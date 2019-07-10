@@ -153,3 +153,11 @@ Copy custom settings from `/opt/www/iredadmin/settings.py` to `/opt/iredmail/cus
 
 Please follow our tutorial [Getting start with iRedMail Easy](./iredmail-easy.getting.start.html)
 to sign up, and add your mail server info, then perform the full deployment.
+
+## Post-deployment tasks
+
+### Remove duplicate cron jobs
+
+iRedMail Easy will add required cron jobs for `root` and `sogo` users, but it
+can not detect and remove old duplicate jobs, so you have to check cron jobs
+manually and remove duplicate old ones and keep the ones added by iRedMail Easy.
