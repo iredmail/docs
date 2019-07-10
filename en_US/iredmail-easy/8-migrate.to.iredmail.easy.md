@@ -60,32 +60,27 @@ text, not the hashed one.
     If you don't have this file anymore, you can still find them in other
     config files.
 
-* `sql_user_root`: the MySQL root password. This is required for OpenLDAP
-  and MySQL/MariaDB backends. You can find it in file `/root/.my.cnf` or `/root/.my.cnf-root`.
-* `pgsql_root_password`: The PostgreSQL root password. This is required for
-  PostgreSQL backend. You can find it in the `.pgpass` file under PostgreSQL
-  data directory.
-    - on CentOS, it's `/var/lib/pgsql/.pgpass`.
-    - on Debian/Ubuntu, it's `/var/lib/postgresql/.pgpass`.
-    - on OpenBSD, it's `/var/postgresql/.pgpass`.
-* `ldap_root_password`: The password of OpenLDAP root dn (cn=Manager,dc=xx,dc=xx).
-  This is required for OpenLDAP backend.
-* `ldap_vmail_password`: The password of LDAP dn `cn=vmail,dc=xx,dc=xx`.
-* `ldap_vmailadmin_password`: The password of LDAP dn `cn=vmailadmin,dc=xx,dc=xx`.
-* `sql_user_vmail`: The password of SQL user `vmail`.
-* `sql_user_vmailadmin`: The password of SQL user `vmailadmin`.
-* `sql_user_amavisd`: The password of SQL user `amavisd`.
-* `sql_user_sa_bayes`: The password of SQL user `sa_bayes`.
-* `sql_user_iredadmin`: The password of SQL user `iredadmin`.
-* `sql_user_iredapd`: The password of SQL user `iredapd`.
-* `sql_user_sogo`: The password of SQL user `sogo`.
-* `sql_user_netdata`: The password of SQL user `netdata`. You can find it in `/root/.my.cnf-netdata` or `/opt/netdata/etc/netdata/my.cnf`.
-* `sql_user_roundcube`: The password of SQL user `roundcube`.
-* `iredapd_srs_secret`: The secret string used by iRedAPD to sign SRS. You can find it in `/opt/iredapd/settings.py`, parameter `srs_secrets =`. if you don't have this parameter in file due to old iRedAPD release, it's ok to ignore it and let iRedMail Easy to generate one.
-* `sogo_sieve_master_password`: The Dovecot master user used by SOGo. You can find it in `/etc/sogo/sieve.cred`.
-* `roundcube_des_key`: The DES key used by Roundcube to encrypt the session. You can find it in `/opt/www/roundcubemail/config/config.inc.php`, parameter `$config['des_key'] =`.
-* `mlmmjadmin_api_token`: The token string used by iRedAdmin-Pro to communicate with mlmmjadmin. You can find it in `/opt/mlmmjadmin/settings.py`, parameter `api_auth_tokens =`.
-* `first_domain_admin_password`: The password of the mail user `postmaster@<your-domain.com>`. Note: here `your-domain.com` is the first mail domain name you (are going to) set in mail server profile page on iRedMail Easy platform, you can find it in mail server profile page, under tab `Settings`.
+Backend | File Name | Comment | Value could be found in file
+---|---|---|---
+LDAP, MySQL | `sql_user_root` | MySQL root password. | `/root/.my.cnf`
+PostgreSQL | `sql_user_postgres` (Linux)<br/>`sql_user__postgresql` (OpenBSD) | PostgreSQL root password. | `/var/lib/pgsql/.pgpass` (CentOS), or `/var/lib/postgresql/.pgpass` (Debian/Ubuntu), `/var/postgresql/.pgpass` (OpenBSD)
+LDAP | `ldap_root_password` | Password of LDAP root dn (cn=Manager,dc=xx,dc=xx) |
+LDAP | `ldap_vmail_password` | Password of LDAP dn `cn=vmail,dc=xx,dc=xx` | `/etc/postfix/ldap/*.cf`
+LDAP | `ldap_vmailadmin_password` | Password of LDAP dn `cn=vmailadmin,dc=xx,dc=xx` | `/opt/www/iredadmin/settings.py`
+ALL | `sql_user_vmail` | Password of SQL user `vmail` | `/etc/postfix/mysql/*.cf` or `/etc/postfix/pgsql/*.cf`
+ALL | `sql_user_vmailadmin` | Password of SQL user `vmailadmin` | `/opt/www/iredadmin/settings.py`
+ALL | `sql_user_amavisd` | Password of SQL user `amavisd` | `/etc/amavisd/amavisd.conf` (Linux/OpenBSD)<br>`/etc/amavis/conf.d/50-user` (Debian/Ubuntu)
+ALL | `sql_user_sa_bayes` | Password of SQL user `sa_bayes` | `/etc/mail/spamassassin/local.cf`
+ALL | `sql_user_iredadmin` | Password of SQL user `iredadmin` | `/opt/www/iredadmin/settings.py`
+ALL | `sql_user_iredapd` | Password of SQL user `iredapd` | `/opt/iredapd/settings.py`
+ALL | `sql_user_roundcube` | Password of SQL user `roundcube` | `/root/.my.cnf-roundcube` or `/opt/www/roundcubemail/config/config.inc.php`
+ALL | `sql_user_sogo` | Password of SQL user `sogo` | `/etc/sogo/sogo.conf`
+ALL | `sql_user_netdata` | Password of SQL user `netdata` | `/root/.my.cnf-netdata` or `/opt/netdata/etc/netdata/my.cnf`
+ALL | `iredapd_srs_secret` | The secret string used to sign SRS. | `/opt/iredapd/settings.py`, parameter `srs_secrets =`. 
+ALL | `sogo_sieve_master_password` | The Dovecot master user used by SOGo. | `/etc/sogo/sieve.cred`.
+ALL | `roundcube_des_key` | The DES key used by Roundcube to encrypt the session. | `/opt/www/roundcubemail/config/config.inc.php`, parameter `$config['des_key'] =`.
+ALL | `mlmmjadmin_api_token` | API token for authentication. | `/opt/mlmmjadmin/settings.py`, parameter `api_auth_tokens =`.
+ALL | `first_domain_admin_password` | Password of the mail user `postmaster@<your-domain.com>`. | `your-domain.com` is the first mail domain name you (are going to) set in mail server profile page on iRedMail Easy platform, you can find it in mail server profile page, under tab `Settings`.
 
 ## Copy files to new locations
 
