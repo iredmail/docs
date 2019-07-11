@@ -139,7 +139,9 @@ files under `/opt/iredmail/custom/<software>/`.
 
 ### Roundcube Webmail
 
-Copy custom settings from `/opt/www/roundcubemail/config/config.inc.php` to `/opt/iredmail/custom/roundcube/config/custom.inc.php`.
+* Copy custom settings from `/opt/www/roundcubemail/config/config.inc.php` to `/opt/iredmail/custom/roundcube/config/custom.inc.php`.
+* Copy third-party plugins from `/opt/www/roundcubemail/plugins/` to `/opt/iredmail/custom/roundcube/plugins/`. iRedMail Easy will create symbol link for them automatically.
+* Copy third-party or custom skins from `/opt/www/roundcubemail/skins/` to `/opt/iredmail/custom/roundcube/skins/`. iRedMail Easy will create symbol link for them automatically.
 
 ### iRedAPD
 
