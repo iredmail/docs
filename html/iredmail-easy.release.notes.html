@@ -19,7 +19,7 @@
 <div class="toc">
 <ul>
 <li><a href="#release-notes">Release Notes</a><ul>
-<li><a href="#upcoming-201907xx-jul-xx-2019">Upcoming: 201907XX (Jul XX, 2019)</a></li>
+<li><a href="#upcoming-20190715-jul-15-2019">Upcoming: 20190715 (Jul 15, 2019)</a></li>
 <li><a href="#version-20190606-jun-06-2019">Version: 20190606 (Jun 06, 2019)</a></li>
 <li><a href="#version-2019042801-apr-28-2019">Version: 2019042801 (Apr 28, 2019)</a></li>
 <li><a href="#version-2019040201-apr-02-2019">Version: 2019040201 (Apr 02, 2019)</a></li>
@@ -33,7 +33,7 @@
 </li>
 </ul>
 </div>
-<h2 id="upcoming-201907xx-jul-xx-2019">Upcoming: 201907XX (Jul XX, 2019)</h2>
+<h2 id="upcoming-20190715-jul-15-2019">Upcoming: 20190715 (Jul 15, 2019)</h2>
 <ul>
 <li>
 <p>OpenDMARC integration.</p>
@@ -48,9 +48,39 @@
 </ul>
 </li>
 <li>
+<p>Postfix:</p>
+<ul>
+<li>
+<p>Fixed: improper order of restriction rules in <code>smtpd_sender_restrictions</code>.</p>
+<p>File <code>/etc/postfix/sender_access.pcre</code> is not used anymore, all content
+in this file should be moved to
+<code>/opt/iredmail/custom/postfix/sender_access.pcre</code> instead.</p>
+</li>
+</ul>
+</li>
+<li>
+<p>Nginx:</p>
+<ul>
+<li>Compress more file types with gzip module (<code>/etc/nginx/conf-available/gzip.conf</code>).</li>
+</ul>
+</li>
+<li>
+<p>Few programs moved and/or renamed:</p>
+<ul>
+<li><code>/opt/iredmail/bin/fail2ban_unbanip</code> -&gt; <code>/opt/iredmail/bin/fail2ban/unbanip</code>.</li>
+<li><code>/opt/iredmail/bin/generate_password_hash.py</code> -&gt; <code>/opt/iredmail/bin/generate_password_hash</code>.</li>
+<li><code>/opt/iredmail/bin/dovecot/scan_reported_mails.sh</code> -&gt; <code>/opt/iredmail/bin/dovecot/scan_reported_mails</code></li>
+</ul>
+</li>
+<li>
 <p>Fixed issues of iRedMail Easy platform:</p>
 <ul>
+<li>If IPv6 is disabled, installation will be abort due to Nginx is
+  configured (by Debian/Ubuntu packaging) to listen on IPv6 address.</li>
+<li>If no PHP applications are going to be installed, no php-fpm related
+  configuration should be enabled (<code>/etc/nginx/templates/misc.tmpl</code>).</li>
 <li>Make sure installed services are running while cleaning up the deployment.</li>
+<li>Not run <code>freshclam</code> immediately to fetch/update ClamAV virus database.</li>
 <li>Removing unused ClamAV log file (/var/log/clamav/clamav.log) causes
   error in cron job added by ClamAV package.</li>
 </ul>

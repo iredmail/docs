@@ -2,7 +2,7 @@
 
 [TOC]
 
-## Upcoming: 201907XX (Jul XX, 2019)
+## Upcoming: 20190715 (Jul 15, 2019)
 
 * OpenDMARC integration.
 
@@ -14,8 +14,28 @@
       ports tree already has it and binary package is available for OpenBSD
       -snapshot branch.
 
+* Postfix:
+    - Fixed: improper order of restriction rules in `smtpd_sender_restrictions`.
+
+        File `/etc/postfix/sender_access.pcre` is not used anymore, all content
+        in this file should be moved to
+        `/opt/iredmail/custom/postfix/sender_access.pcre` instead.
+
+* Nginx:
+    - Compress more file types with gzip module (`/etc/nginx/conf-available/gzip.conf`).
+
+* Few programs moved and/or renamed:
+    - `/opt/iredmail/bin/fail2ban_unbanip` -> `/opt/iredmail/bin/fail2ban/unbanip`.
+    - `/opt/iredmail/bin/generate_password_hash.py` -> `/opt/iredmail/bin/generate_password_hash`.
+    - `/opt/iredmail/bin/dovecot/scan_reported_mails.sh` -> `/opt/iredmail/bin/dovecot/scan_reported_mails`
+
 * Fixed issues of iRedMail Easy platform:
+    - If IPv6 is disabled, installation will be abort due to Nginx is
+      configured (by Debian/Ubuntu packaging) to listen on IPv6 address.
+    - If no PHP applications are going to be installed, no php-fpm related
+      configuration should be enabled (`/etc/nginx/templates/misc.tmpl`).
     - Make sure installed services are running while cleaning up the deployment.
+    - Not run `freshclam` immediately to fetch/update ClamAV virus database.
     - Removing unused ClamAV log file (/var/log/clamav/clamav.log) causes
       error in cron job added by ClamAV package.
 
