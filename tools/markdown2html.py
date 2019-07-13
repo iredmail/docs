@@ -53,7 +53,7 @@ html = """<!DOCTYPE html>
         <link rel="stylesheet" type="text/css" href="./css/markdown.css" />
     </head>
     <body>
-    """ % cmd_opts
+""" % cmd_opts
 
 # Add navigation items.
 # Link to iRedMail.org

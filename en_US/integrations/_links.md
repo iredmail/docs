@@ -1,8 +1,5 @@
-* Install SOGo groupware on:
-
-    * CentOS 6: [MySQL](./sogo-centos-6-mysql.html), [OpenLDAP](./sogo-centos-6-openldap.html).
-
-* <a name="integration_mlmmj"></a>Integrate mlmmj mailing list manager (mlmmj is a core component since iRedMail-0.9.8):
+* [Integrate OpenDMARC](./integration.opendmarc.html){: name="integration_opendmarc" }
+* <a name="integration_mlmmj"></a>Integrate mlmmj mailing list manager (mlmmj is a required core component since iRedMail-0.9.8):
     * [For LDAP backends](./integration.mlmmj.ldap.html)
     * [For MySQL/MariaDB backend](./integration.mlmmj.mysql.html)
     * [For PostgreSQL backend](./integration.mlmmj.pgsql.html)
@@ -11,6 +8,10 @@
     * [For Linux](./integration.netdata.linux.html)
     * [For FreeBSD](./integration.netdata.freebsd.html)
     * netdata doesn't work on OpenBSD (yet).
+
+* Install SOGo groupware on:
+
+    * CentOS 6: [MySQL](./sogo-centos-6-mysql.html), [OpenLDAP](./sogo-centos-6-openldap.html).
 
 Documents contributed by iRedMail users:
 

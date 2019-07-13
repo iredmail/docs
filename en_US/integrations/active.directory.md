@@ -1,4 +1,4 @@
-# Integrate Microsoft Active Directory in iRedMail
+# Integrate Microsoft Active Directory for user authentication and address book
 
 [TOC]
 

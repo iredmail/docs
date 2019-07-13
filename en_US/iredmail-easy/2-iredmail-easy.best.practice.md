@@ -240,7 +240,7 @@ postconf -P "submission/inet/smtpd_client_restrictions=permit_sasl_authenticated
 postconf -P "submission/inet/content_filter=smtp-amavis:[127.0.0.1]:10026
 ```
 
-For more details about `postconf` command, please check its manual page: 
+For more details about `postconf` command, please check its manual page:
 [postconf(1)](http://www.postfix.org/postconf.1.html).
 
 ### Dovecot

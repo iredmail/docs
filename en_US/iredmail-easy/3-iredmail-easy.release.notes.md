@@ -14,6 +14,11 @@
       ports tree already has it and binary package is available for OpenBSD
       -snapshot branch.
 
+* Roundcube:
+    - New config files used to store custom settings for official plugins:
+        - `password` plugin: `/opt/iredmail/custom/roundcube/config_password.inc.php`
+        - `managesieve` plugin: `/opt/iredmail/custom/roundcube/config_managesieve.inc.php`
+
 * Postfix:
     - Fixed: improper order of restriction rules in `smtpd_sender_restrictions`.
 
