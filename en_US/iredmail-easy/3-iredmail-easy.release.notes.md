@@ -2,7 +2,7 @@
 
 [TOC]
 
-## Version: 20190715 (Jul 15, 2019) {: id=20190715 }
+## Version: 2019071501 (Jul 15, 2019) {: id=20190715 }
 
 * OpenDMARC integration.
 
@@ -48,7 +48,7 @@
     - iRedAPD 3.0. It fixes a critical bug of throttle plugin.
     - iRedAdmin-Pro. Note: it requires a valid iRedAdmin-Pro license.
 
-## Version: 20190606 (Jun 06, 2019) {: id=20190606 }
+## Version: 2019060601 (Jun 06, 2019) {: id=20190606 }
 
 * Fail2ban:
     - Remove jail 'sshd-ddos'. Fail2ban doesn't ship its filter conf anymore.
