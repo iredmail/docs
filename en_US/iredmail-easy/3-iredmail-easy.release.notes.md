@@ -2,7 +2,7 @@
 
 [TOC]
 
-## Upcoming: 20190715 (Jul 15, 2019)
+## Version: 20190715 (Jul 15, 2019) {: id=20190715 }
 
 * OpenDMARC integration.
 
@@ -48,7 +48,7 @@
     - iRedAPD 3.0. It fixes a critical bug of throttle plugin.
     - iRedAdmin-Pro. Note: it requires a valid iRedAdmin-Pro license.
 
-## Version: 20190606 (Jun 06, 2019)
+## Version: 20190606 (Jun 06, 2019) {: id=20190606 }
 
 * Fail2ban:
     - Remove jail 'sshd-ddos'. Fail2ban doesn't ship its filter conf anymore.
@@ -70,7 +70,7 @@
     - iRedAPD 2.9. It fixes 2 bugs.
     - netdata 1.15.0
 
-## Version: 2019042801 (Apr 28, 2019)
+## Version: 2019042801 (Apr 28, 2019) {: id=20190428 }
 
 * Postfix:
     - Enable header/body checks for email injected by Amavisd.
@@ -102,7 +102,7 @@
       cause issue.
     + Send `iRedMail.tips` file to postmaster after deployment.
 
-## Version: 2019040201 (Apr 02, 2019)
+## Version: 2019040201 (Apr 02, 2019) {: id=20190402 }
 
 * Roundcube
     - Upgrade to 1.3.9 ([Detailed ChangeLog](https://github.com/roundcube/roundcubemail/releases/tag/1.3.9).)
@@ -120,7 +120,7 @@
 * Improvements of iRedMail Easy platform:
     + Send `iRedMail.tips` file to postmaster after deployment.
 
-## Version: 2019032701 (Mar 27, 2019)
+## Version: 2019032701 (Mar 27, 2019) {: id=20190327 }
 
 * Dovecot:
     - Improve `imapsieve` setting to handle different IMAP command sent by
@@ -195,7 +195,7 @@
     - Incorrect permission of directories used to store prosody custom modules
       and config files.
 
-## Version: 2019021901 (Feb 19, 2019)
+## Version: 2019021901 (Feb 19, 2019) {: id=20190219 }
 
 * Improvements:
     + Able to remove ssh public key on target server.
@@ -214,7 +214,7 @@
     + mlmmjadmin -> 2.1
     + iRedAdmin (open source edition) -> 0.9.5
 
-## Version: 2019013001 (Jan 30, 2019)
+## Version: 2019013001 (Jan 30, 2019) {: id=20190130 }
 
 * Set max open file limit by SOGo daemon to unlimited.
 * Able to set memcached cache size (in MB).
@@ -242,7 +242,7 @@
     - mlmmjadmin-2.0
     - adminer-4.7.1
 
-## Version: 2019010201 (Jan 2, 2019)
+## Version: 2019010201 (Jan 2, 2019) {: id=20190102 }
 
 > Hello, 2019. :)
 
@@ -253,13 +253,13 @@
       and hash db files.
     - Not remove unused modular nginx config file for iredadmin.
 
-## Version: 2018122301 (Dec 23, 2018)
+## Version: 2018122301 (Dec 23, 2018) {: id=20181223 }
 
 * Fixed:
     - Improper dovecot ldap/sql queries which doesn't convert upper cases of
       maildir to lower cases.
 
-## Version: 2018121701 (Dec 17, 2018)
+## Version: 2018121701 (Dec 17, 2018) {: id=20181217 }
 
 !!! attention
 
