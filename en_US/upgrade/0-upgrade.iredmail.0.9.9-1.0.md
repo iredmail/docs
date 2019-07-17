@@ -157,3 +157,64 @@ Reloading or restarting Postfix service is required.
     * Postfix will use rewritten address in the `Return-Path:` header, if you
       have any sieve rules based on `Return-Path:`, it MAY not work anymore and
       please update your sieve rules to match rewritten address.
+
+### [OPTIONAL] Enable mailbox quota status check in Dovecot and Postfix.
+
+With default iRedMail settings, Postfix accepts email without checking whether
+user's mailbox is over quota, then pipes email to Dovecot LDA for local
+delivery. If mailbox is over quota, Dovecot can not save message to mailbox
+and generates a "sender non-delivery notification" to sender.
+
+With the change below, Postfix will query mailbox quota status from Dovecot
+directly, then reject email if it's over quota. It saves system resource used
+to process this email like spam/virus scanning, and avoids bounce message.
+
+#### Enable quota-status service in Dovecot
+
+Open Dovecot config file `/etc/dovecot/dovecot.conf` (Linux/OpenBSD) or
+`/usr/local/etc/dovecot/dovecot.conf` (FreeBSD), find the `plugin {}` block
+and add 3 new parameters:
+
+```
+plugin {
+    ...
+    # Used by quota-status service.
+    quota_status_success = DUNNO
+    quota_status_nouser = DUNNO
+    quota_status_overquota = "552 5.2.2 Mailbox is full"
+    ...
+}
+```
+
+In same `dovecot.conf`, append settings below __at the end of file__:
+
+* With settings below, Dovecot quota-status service will listen on `127.0.0.1:12340`.
+* You can change the port number `12340` to any other spare one if you want.
+
+```
+service quota-status {
+    executable = quota-status -p postfix
+    client_limit = 1
+    inet_listener {
+        address = 127.0.0.1
+        port = 12340
+    }
+}
+```
+
+Restarting Dovecot service is required.
+
+#### Enable quota status check in Postfix
+
+Open Postfix config file `/etc/postfix/main.cf` (Linux/OpenBSD) or
+`/usr/local/etc/postfix/main.cf` (FreeBSD), find parameter
+`smtpd_recipient_restrictions` and append a new `check_policy_service` setting
+__at the end__ like below:
+
+```
+smtpd_recipient_restrictions =
+    ...
+    check_policy_service inet:127.0.0.1:12340
+```
+
+Restarting Postfix service is required.

@@ -22,8 +22,11 @@ specification. Source code hosted on [GitHub](https://github.com/trusteddomainpr
 
 ## Requirements
 
-* OpenDMARC-1.3.1 is buggy, only the latest OpenDMARC-1.3.2 is required.
-* Supported OS Linux/BSD distributions:
+!!! warning
+
+    OpenDMARC version __1.3.1__ is buggy, hence the latest __1.3.2__ is required.
+
+Supported OS Linux/BSD distributions:
 
 Distribution | Releases | Comment
 ---|---|---
@@ -34,5 +37,29 @@ OpenBSD | | The latest 6.5 release doesn't offer opendmarc binary package.
 FreeBSD | 11.x, 12.x | Port `mail/opendmarc`.
 
 ## Install OpenDMARC
+
+* RHEL/CentOS (again, with `epel` repo enabled):
+
+```
+yum clean metadata && yum install opendmarc
+```
+
+* Debian/Ubuntu:
+
+```
+apt-get update && apt-get install opendmarc
+```
+
+* OpenBSD:
+
+```
+pkg_add opendmarc
+```
+
+* FreeBSD:
+
+```
+cd /usr/ports/mail/opendmarc && make install clean
+```
 
 ## Configure OpenDMARC

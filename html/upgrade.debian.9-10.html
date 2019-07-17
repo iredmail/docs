@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Fixes you need after upgrading Debian from 9 to 10</title>
+        <link rel="stylesheet" type="text/css" href="./css/markdown.css" />
+    </head>
+    <body>
+
+    <div id="navigation">
+    <a href="https://www.iredmail.org" target="_blank">
+        <img alt="iRedMail web site"
+             src="./images/logo-iredmail.png"
+             style="vertical-align: middle; height: 30px;"
+             />&nbsp;
+        <span>iRedMail</span>
+    </a>
+    &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><h1 id="fixes-you-need-after-upgrading-debian-from-9-to-10">Fixes you need after upgrading Debian from 9 to 10</h1>
+<div class="toc">
+<ul>
+<li><a href="#fixes-you-need-after-upgrading-debian-from-9-to-10">Fixes you need after upgrading Debian from 9 to 10</a><ul>
+<li><a href="#dovecot">Dovecot</a></li>
+<li><a href="#sogo-groupware">SOGo Groupware</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This is still a DRAFT document, it may miss some other important changes.</p>
+</div>
+<h2 id="dovecot">Dovecot</h2>
+<ul>
+<li>Remove parameter <code>ssl_protocols =</code>.</li>
+<li>Add new parameter <code>ssl_min_protocols</code> like this:</li>
+</ul>
+<pre><code>ssl_min_protocols = TLSv1.2
+</code></pre>
+
+<p>Note: if you need to support old mail client applications which don't support
+<code>TLSv1.2</code>, you may need to set it to <code>TLSv1.1</code>. Please use <code>TLSv1.2</code> if possible.</p>
+<ul>
+<li>If you have plugin <code>stats</code> enabled, you need to rename it:</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Old</th>
+<th>New</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>mail_plugins = ... stats</code></td>
+<td><code>mail_plugins = ... old_stats</code></td>
+</tr>
+<tr>
+<td><code>protocol imap { mail_plugins = ... imap_stats }</code></td>
+<td><code>protocol imap { mail_plugins = ... imap_old_stats}</code></td>
+</tr>
+<tr>
+<td><code>service stats {}</code></td>
+<td><code>service old-stats {}</code><br/>Warning: It's a dash (<code>-</code>), not underscore (<code>_</code>).</td>
+</tr>
+<tr>
+<td><code>fifo_listener stats-mail</code></td>
+<td><code>fifo_listener old-stats-mail</code><br/>Warning: It's a dash (<code>-</code>), not underscore (<code>_</code>).</td>
+</tr>
+<tr>
+<td><code>fifo_listener stats-user</code></td>
+<td><code>fifo_listener old-stats-user</code><br/>Warning: It's a dash (<code>-</code>), not underscore (<code>_</code>).</td>
+</tr>
+<tr>
+<td><code>unix_listener stats</code></td>
+<td><code>unix_listener old-stats</code><br/>Warning: It's a dash (<code>-</code>), not underscore (<code>_</code>).</td>
+</tr>
+<tr>
+<td><code>plugin { stats_refresh = ... }</code></td>
+<td><code>plugin { old_stats_refresh = ...}</code></td>
+</tr>
+<tr>
+<td><code>plugin { stats_track_cmds = ...}</code></td>
+<td><code>plugin { old_stats_track_cmds = ...}</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="sogo-groupware">SOGo Groupware</h2>
+<p>SOGo packages were removed during upgrading Debian, but SOGo team doesn't
+offer nightly build binary packages for Debian 10. We have to remove the
+old apt repo (<code>/etc/apt/sources.list.d/sogo-nightly.list</code>) and use the sogo
+packages offered in Debian 10 official apt repo.</p>
+<pre><code>rm -f /etc/apt/sources.list.d/sogo-nightly.repo
+apt update
+apt install sogo
+service sogo restart
+</code></pre><div class="footer">
+    <p style="text-align: center; color: grey;">All documents are available in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://bitbucket.org/zhb/iredmail-docs/get/tip.tar.bz2">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
+</div>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-3293801-21"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-3293801-21');
+</script>
+</body></html>

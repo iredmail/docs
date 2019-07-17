@@ -30,6 +30,11 @@
 <li><a href="#fixed-improper-order-of-postfix-smtpd_sender_restriction-rules">Fixed: improper order of Postfix smtpd_sender_restriction rules</a></li>
 <li><a href="#fail2ban-slightly-loose-filter-rule-for-postfix">Fail2ban: slightly loose filter rule for postfix</a></li>
 <li><a href="#optional-enable-srs-sender-rewriting-scheme-support-in-postfix">[OPTIONAL] Enable SRS (Sender Rewriting Scheme) support in Postfix</a></li>
+<li><a href="#optional-enable-mailbox-quota-status-check-in-dovecot-and-postfix">[OPTIONAL] Enable mailbox quota status check in Dovecot and Postfix.</a><ul>
+<li><a href="#enable-quota-status-service-in-dovecot">Enable quota-status service in Dovecot</a></li>
+<li><a href="#enable-quota-status-check-in-postfix">Enable quota status check in Postfix</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -172,7 +177,56 @@ recipient_canonical_classes= envelope_recipient,header_recipient
   please update your sieve rules to match rewritten address.</p>
 </li>
 </ul>
-</div><div class="footer">
+</div>
+<h3 id="optional-enable-mailbox-quota-status-check-in-dovecot-and-postfix">[OPTIONAL] Enable mailbox quota status check in Dovecot and Postfix.</h3>
+<p>With default iRedMail settings, Postfix accepts email without checking whether
+user's mailbox is over quota, then pipes email to Dovecot LDA for local
+delivery. If mailbox is over quota, Dovecot can not save message to mailbox
+and generates a "sender non-delivery notification" to sender.</p>
+<p>With the change below, Postfix will query mailbox quota status from Dovecot
+directly, then reject email if it's over quota. It saves system resource used
+to process this email like spam/virus scanning, and avoids bounce message.</p>
+<h4 id="enable-quota-status-service-in-dovecot">Enable quota-status service in Dovecot</h4>
+<p>Open Dovecot config file <code>/etc/dovecot/dovecot.conf</code> (Linux/OpenBSD) or
+<code>/usr/local/etc/dovecot/dovecot.conf</code> (FreeBSD), find the <code>plugin {}</code> block
+and add 3 new parameters:</p>
+<pre><code>plugin {
+    ...
+    # Used by quota-status service.
+    quota_status_success = DUNNO
+    quota_status_nouser = DUNNO
+    quota_status_overquota = &quot;552 5.2.2 Mailbox is full&quot;
+    ...
+}
+</code></pre>
+
+<p>In same <code>dovecot.conf</code>, append settings below <strong>at the end of file</strong>:</p>
+<ul>
+<li>With settings below, Dovecot quota-status service will listen on <code>127.0.0.1:12340</code>.</li>
+<li>You can change the port number <code>12340</code> to any other spare one if you want.</li>
+</ul>
+<pre><code>service quota-status {
+    executable = quota-status -p postfix
+    client_limit = 1
+    inet_listener {
+        address = 127.0.0.1
+        port = 12340
+    }
+}
+</code></pre>
+
+<p>Restarting Dovecot service is required.</p>
+<h4 id="enable-quota-status-check-in-postfix">Enable quota status check in Postfix</h4>
+<p>Open Postfix config file <code>/etc/postfix/main.cf</code> (Linux/OpenBSD) or
+<code>/usr/local/etc/postfix/main.cf</code> (FreeBSD), find parameter
+<code>smtpd_recipient_restrictions</code> and append a new <code>check_policy_service</code> setting
+<strong>at the end</strong> like below:</p>
+<pre><code>smtpd_recipient_restrictions =
+    ...
+    check_policy_service inet:127.0.0.1:12340
+</code></pre>
+
+<p>Restarting Postfix service is required.</p><div class="footer">
     <p style="text-align: center; color: grey;">All documents are available in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://bitbucket.org/zhb/iredmail-docs/get/tip.tar.bz2">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
 </div>
 <!-- Global site tag (gtag.js) - Google Analytics -->

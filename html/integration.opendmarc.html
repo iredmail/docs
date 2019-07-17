@@ -44,10 +44,11 @@ improve and monitor protection of the domain from fraudulent email.</p>
 <p>OpenDMARC is a free open source software implementation of the DMARC
 specification. Source code hosted on <a href="https://github.com/trusteddomainproject/OpenDMARC">GitHub</a>.</p>
 <h2 id="requirements">Requirements</h2>
-<ul>
-<li>OpenDMARC-1.3.1 is buggy, only the latest OpenDMARC-1.3.2 is required.</li>
-<li>Supported OS Linux/BSD distributions:</li>
-</ul>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>OpenDMARC version <strong>1.3.1</strong> is buggy, hence the latest <strong>1.3.2</strong> is required.</p>
+</div>
+<p>Supported OS Linux/BSD distributions:</p>
 <table>
 <thead>
 <tr>
@@ -85,6 +86,30 @@ specification. Source code hosted on <a href="https://github.com/trusteddomainpr
 </tbody>
 </table>
 <h2 id="install-opendmarc">Install OpenDMARC</h2>
+<ul>
+<li>RHEL/CentOS (again, with <code>epel</code> repo enabled):</li>
+</ul>
+<pre><code>yum clean metadata &amp;&amp; yum install opendmarc
+</code></pre>
+
+<ul>
+<li>Debian/Ubuntu:</li>
+</ul>
+<pre><code>apt-get update &amp;&amp; apt-get install opendmarc
+</code></pre>
+
+<ul>
+<li>OpenBSD:</li>
+</ul>
+<pre><code>pkg_add opendmarc
+</code></pre>
+
+<ul>
+<li>FreeBSD:</li>
+</ul>
+<pre><code>cd /usr/ports/mail/opendmarc &amp;&amp; make install clean
+</code></pre>
+
 <h2 id="configure-opendmarc">Configure OpenDMARC</h2><div class="footer">
     <p style="text-align: center; color: grey;">All documents are available in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://bitbucket.org/zhb/iredmail-docs/get/tip.tar.bz2">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
 </div>
