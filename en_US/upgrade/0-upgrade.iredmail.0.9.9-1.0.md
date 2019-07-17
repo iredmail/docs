@@ -136,7 +136,7 @@ and generates a "sender non-delivery notification" to sender.
 
 With the change below, Postfix will query mailbox quota status from Dovecot
 directly, then reject email if it's over quota. It saves system resource used
-to process this email like spam/virus scanning, and avoids bounce message.
+to process this email (e.g. spam/virus scanning), and avoids bounce message.
 
 #### Enable quota-status service in Dovecot
 

@@ -153,7 +153,7 @@ delivery. If mailbox is over quota, Dovecot can not save message to mailbox
 and generates a "sender non-delivery notification" to sender.</p>
 <p>With the change below, Postfix will query mailbox quota status from Dovecot
 directly, then reject email if it's over quota. It saves system resource used
-to process this email like spam/virus scanning, and avoids bounce message.</p>
+to process this email (e.g. spam/virus scanning), and avoids bounce message.</p>
 <h4 id="enable-quota-status-service-in-dovecot">Enable quota-status service in Dovecot</h4>
 <p>Open Dovecot config file <code>/etc/dovecot/dovecot.conf</code> (Linux/OpenBSD) or
 <code>/usr/local/etc/dovecot/dovecot.conf</code> (FreeBSD), find the <code>plugin {}</code> block
