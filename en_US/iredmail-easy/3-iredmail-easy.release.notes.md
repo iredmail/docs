@@ -1,4 +1,4 @@
-# Release Notes
+# Release Notes of iRedMail Easy platform
 
 [TOC]
 
