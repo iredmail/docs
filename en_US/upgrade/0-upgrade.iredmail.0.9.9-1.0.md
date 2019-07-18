@@ -127,6 +127,8 @@ wget -O dovecot.iredmail.conf https://bitbucket.org/zhb/iredmail/raw/default/iRe
 
 Restarting Fail2ban service is required.
 
+## For OpenLDAP backend
+
 ### [OPTIONAL] Enable mailbox quota status check in Dovecot and Postfix.
 
 With default iRedMail settings, Postfix accepts email without checking whether
@@ -137,6 +139,209 @@ and generates a "sender non-delivery notification" to sender.
 With the change below, Postfix will query mailbox quota status from Dovecot
 directly, then reject email if it's over quota. It saves system resource used
 to process this email (e.g. spam/virus scanning), and avoids bounce message.
+
+#### Add required LDAP attribute/value pair for all mail users
+
+According to the Dovecot settings configured by iRedMail, all mail users
+should have LDAP attribute/value pair `enabledService=quota-status` to use
+this service.
+
+* Download script used to update existing mail accounts:
+
+```
+cd /root/
+wget https://bitbucket.org/zhb/iredmail/raw/default/extra/update/updateLDAPValues_099_to_1.py
+```
+
+* Open downloaded file `updateLDAPValues_099_to_1.py`, set LDAP server
+  related settings in this file. For example:
+
+```
+# Part of file: updateLDAPValues_099_to_1.py
+
+uri = 'ldap://127.0.0.1:389'
+basedn = 'o=domains,dc=example,dc=com'
+bind_dn = 'cn=vmailadmin,dc=example,dc=com'
+bind_pw = 'passwd'
+```
+
+You can find required LDAP credential in iRedAdmin config file or
+`iRedMail.tips` file under your iRedMail installation directory. Using either
+`cn=Manager,dc=xx,dc=xx` or `cn=vmailadmin,dc=xx,dc=xx` as bind dn is ok, both
+of them have read-write privilege to update mail accounts.
+
+* Execute this script, it will add required data:
+
+```
+# python updateLDAPValues_099_to_1.py
+```
+
+#### Enable quota-status service in Dovecot
+
+Open Dovecot config file `/etc/dovecot/dovecot.conf` (Linux/OpenBSD) or
+`/usr/local/etc/dovecot/dovecot.conf` (FreeBSD), find the `plugin {}` block
+and add 3 new parameters:
+
+```
+plugin {
+    ...
+    # Used by quota-status service.
+    quota_status_success = DUNNO
+    quota_status_nouser = DUNNO
+    quota_status_overquota = "552 5.2.2 Mailbox is full"
+    ...
+}
+```
+
+In same `dovecot.conf`, append settings below __at the end of file__:
+
+* With settings below, Dovecot quota-status service will listen on `127.0.0.1:12340`.
+* You can change the port number `12340` to any other spare one if you want.
+
+```
+service quota-status {
+    executable = quota-status -p postfix
+    client_limit = 1
+    inet_listener {
+        address = 127.0.0.1
+        port = 12340
+    }
+}
+```
+
+Restarting Dovecot service is required.
+
+#### Enable quota status check in Postfix
+
+Open Postfix config file `/etc/postfix/main.cf` (Linux/OpenBSD) or
+`/usr/local/etc/postfix/main.cf` (FreeBSD), find parameter
+`smtpd_recipient_restrictions` and append a new `check_policy_service` setting
+__at the end__ like below:
+
+```
+smtpd_recipient_restrictions =
+    ...
+    check_policy_service inet:127.0.0.1:12340
+```
+
+Restarting Postfix service is required.
+
+## For MySQL/MariaDB backends
+
+### [OPTIONAL] Enable mailbox quota status check in Dovecot and Postfix.
+
+With default iRedMail settings, Postfix accepts email without checking whether
+user's mailbox is over quota, then pipes email to Dovecot LDA for local
+delivery. If mailbox is over quota, Dovecot can not save message to mailbox
+and generates a "sender non-delivery notification" to sender.
+
+With the change below, Postfix will query mailbox quota status from Dovecot
+directly, then reject email if it's over quota. It saves system resource used
+to process this email (e.g. spam/virus scanning), and avoids bounce message.
+
+#### Add new SQL column in `vmail.mailbox` table
+
+According to the Dovecot settings configured by iRedMail, a new SQL column
+`mailbox.enablequota-status` is required.
+
+Download plain SQL file used to create required column and index, then import
+it directly as MySQL root user (Please run commands below as `root` user):
+
+```
+wget -O /tmp/iredmail.mysql https://bitbucket.org/zhb/iredmail/raw/default/extra/update/1.0/iredmail.mysql
+mysql vmail < /tmp/iredmail.mysql
+rm -f /tmp/iredmail.mysql
+```
+
+#### Enable quota-status service in Dovecot
+
+Open Dovecot config file `/etc/dovecot/dovecot.conf` (Linux/OpenBSD) or
+`/usr/local/etc/dovecot/dovecot.conf` (FreeBSD), find the `plugin {}` block
+and add 3 new parameters:
+
+```
+plugin {
+    ...
+    # Used by quota-status service.
+    quota_status_success = DUNNO
+    quota_status_nouser = DUNNO
+    quota_status_overquota = "552 5.2.2 Mailbox is full"
+    ...
+}
+```
+
+In same `dovecot.conf`, append settings below __at the end of file__:
+
+* With settings below, Dovecot quota-status service will listen on `127.0.0.1:12340`.
+* You can change the port number `12340` to any other spare one if you want.
+
+```
+service quota-status {
+    executable = quota-status -p postfix
+    client_limit = 1
+    inet_listener {
+        address = 127.0.0.1
+        port = 12340
+    }
+}
+```
+
+Restarting Dovecot service is required.
+
+#### Enable quota status check in Postfix
+
+Open Postfix config file `/etc/postfix/main.cf` (Linux/OpenBSD) or
+`/usr/local/etc/postfix/main.cf` (FreeBSD), find parameter
+`smtpd_recipient_restrictions` and append a new `check_policy_service` setting
+__at the end__ like below:
+
+```
+smtpd_recipient_restrictions =
+    ...
+    check_policy_service inet:127.0.0.1:12340
+```
+
+Restarting Postfix service is required.
+
+## For PostgreSQL backend
+
+### [OPTIONAL] Enable mailbox quota status check in Dovecot and Postfix.
+
+With default iRedMail settings, Postfix accepts email without checking whether
+user's mailbox is over quota, then pipes email to Dovecot LDA for local
+delivery. If mailbox is over quota, Dovecot can not save message to mailbox
+and generates a "sender non-delivery notification" to sender.
+
+With the change below, Postfix will query mailbox quota status from Dovecot
+directly, then reject email if it's over quota. It saves system resource used
+to process this email (e.g. spam/virus scanning), and avoids bounce message.
+
+#### Add new SQL column in `vmail.mailbox` table
+
+According to the Dovecot settings configured by iRedMail, a new SQL column
+`mailbox.enablequota-status` is required.
+
+* Download plain SQL file used to create required column and index:
+
+```
+wget -O /tmp/iredmail.pgsql https://bitbucket.org/zhb/iredmail/raw/default/extra/update/1.0/iredmail.pgsql
+```
+
+* Connect to PostgreSQL server as `postgres` user and import the SQL file:
+    * on Linux, it's `postgres` user
+    * on FreeBSD, it's `pgsql` user
+    * on OpenBSD, it's `_postgresql` user
+
+```
+su - postgres
+psql -d vmail < /tmp/iredmail.pgsql
+```
+
+* Remove downloaded file as root user:
+
+```
+rm -f /tmp/iredmail.pgsql
+```
 
 #### Enable quota-status service in Dovecot
 

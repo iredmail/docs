@@ -29,9 +29,31 @@
 <li><a href="#upgrade-netdata-to-the-latest-stable-release-1150">Upgrade netdata to the latest stable release (1.15.0)</a></li>
 <li><a href="#fixed-improper-order-of-postfix-smtpd_sender_restriction-rules">Fixed: improper order of Postfix smtpd_sender_restriction rules</a></li>
 <li><a href="#fail2ban-slightly-loose-filter-rule-for-postfix">Fail2ban: slightly loose filter rule for postfix</a></li>
+</ul>
+</li>
+<li><a href="#for-openldap-backend">For OpenLDAP backend</a><ul>
 <li><a href="#optional-enable-mailbox-quota-status-check-in-dovecot-and-postfix">[OPTIONAL] Enable mailbox quota status check in Dovecot and Postfix.</a><ul>
+<li><a href="#add-required-ldap-attributevalue-pair-for-all-mail-users">Add required LDAP attribute/value pair for all mail users</a></li>
 <li><a href="#enable-quota-status-service-in-dovecot">Enable quota-status service in Dovecot</a></li>
 <li><a href="#enable-quota-status-check-in-postfix">Enable quota status check in Postfix</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#for-mysqlmariadb-backends">For MySQL/MariaDB backends</a><ul>
+<li><a href="#optional-enable-mailbox-quota-status-check-in-dovecot-and-postfix_1">[OPTIONAL] Enable mailbox quota status check in Dovecot and Postfix.</a><ul>
+<li><a href="#add-new-sql-column-in-vmailmailbox-table">Add new SQL column in vmail.mailbox table</a></li>
+<li><a href="#enable-quota-status-service-in-dovecot_1">Enable quota-status service in Dovecot</a></li>
+<li><a href="#enable-quota-status-check-in-postfix_1">Enable quota status check in Postfix</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#for-postgresql-backend">For PostgreSQL backend</a><ul>
+<li><a href="#optional-enable-mailbox-quota-status-check-in-dovecot-and-postfix_2">[OPTIONAL] Enable mailbox quota status check in Dovecot and Postfix.</a><ul>
+<li><a href="#add-new-sql-column-in-vmailmailbox-table_1">Add new SQL column in vmail.mailbox table</a></li>
+<li><a href="#enable-quota-status-service-in-dovecot_2">Enable quota-status service in Dovecot</a></li>
+<li><a href="#enable-quota-status-check-in-postfix_2">Enable quota status check in Postfix</a></li>
 </ul>
 </li>
 </ul>
@@ -146,6 +168,7 @@ wget -O dovecot.iredmail.conf https://bitbucket.org/zhb/iredmail/raw/default/iRe
 </code></pre>
 
 <p>Restarting Fail2ban service is required.</p>
+<h2 id="for-openldap-backend">For OpenLDAP backend</h2>
 <h3 id="optional-enable-mailbox-quota-status-check-in-dovecot-and-postfix">[OPTIONAL] Enable mailbox quota status check in Dovecot and Postfix.</h3>
 <p>With default iRedMail settings, Postfix accepts email without checking whether
 user's mailbox is over quota, then pipes email to Dovecot LDA for local
@@ -154,6 +177,39 @@ and generates a "sender non-delivery notification" to sender.</p>
 <p>With the change below, Postfix will query mailbox quota status from Dovecot
 directly, then reject email if it's over quota. It saves system resource used
 to process this email (e.g. spam/virus scanning), and avoids bounce message.</p>
+<h4 id="add-required-ldap-attributevalue-pair-for-all-mail-users">Add required LDAP attribute/value pair for all mail users</h4>
+<p>According to the Dovecot settings configured by iRedMail, all mail users
+should have LDAP attribute/value pair <code>enabledService=quota-status</code> to use
+this service.</p>
+<ul>
+<li>Download script used to update existing mail accounts:</li>
+</ul>
+<pre><code>cd /root/
+wget https://bitbucket.org/zhb/iredmail/raw/default/extra/update/updateLDAPValues_099_to_1.py
+</code></pre>
+
+<ul>
+<li>Open downloaded file <code>updateLDAPValues_099_to_1.py</code>, set LDAP server
+  related settings in this file. For example:</li>
+</ul>
+<pre><code># Part of file: updateLDAPValues_099_to_1.py
+
+uri = 'ldap://127.0.0.1:389'
+basedn = 'o=domains,dc=example,dc=com'
+bind_dn = 'cn=vmailadmin,dc=example,dc=com'
+bind_pw = 'passwd'
+</code></pre>
+
+<p>You can find required LDAP credential in iRedAdmin config file or
+<code>iRedMail.tips</code> file under your iRedMail installation directory. Using either
+<code>cn=Manager,dc=xx,dc=xx</code> or <code>cn=vmailadmin,dc=xx,dc=xx</code> as bind dn is ok, both
+of them have read-write privilege to update mail accounts.</p>
+<ul>
+<li>Execute this script, it will add required data:</li>
+</ul>
+<pre><code># python updateLDAPValues_099_to_1.py
+</code></pre>
+
 <h4 id="enable-quota-status-service-in-dovecot">Enable quota-status service in Dovecot</h4>
 <p>Open Dovecot config file <code>/etc/dovecot/dovecot.conf</code> (Linux/OpenBSD) or
 <code>/usr/local/etc/dovecot/dovecot.conf</code> (FreeBSD), find the <code>plugin {}</code> block
@@ -185,6 +241,143 @@ and add 3 new parameters:</p>
 
 <p>Restarting Dovecot service is required.</p>
 <h4 id="enable-quota-status-check-in-postfix">Enable quota status check in Postfix</h4>
+<p>Open Postfix config file <code>/etc/postfix/main.cf</code> (Linux/OpenBSD) or
+<code>/usr/local/etc/postfix/main.cf</code> (FreeBSD), find parameter
+<code>smtpd_recipient_restrictions</code> and append a new <code>check_policy_service</code> setting
+<strong>at the end</strong> like below:</p>
+<pre><code>smtpd_recipient_restrictions =
+    ...
+    check_policy_service inet:127.0.0.1:12340
+</code></pre>
+
+<p>Restarting Postfix service is required.</p>
+<h2 id="for-mysqlmariadb-backends">For MySQL/MariaDB backends</h2>
+<h3 id="optional-enable-mailbox-quota-status-check-in-dovecot-and-postfix_1">[OPTIONAL] Enable mailbox quota status check in Dovecot and Postfix.</h3>
+<p>With default iRedMail settings, Postfix accepts email without checking whether
+user's mailbox is over quota, then pipes email to Dovecot LDA for local
+delivery. If mailbox is over quota, Dovecot can not save message to mailbox
+and generates a "sender non-delivery notification" to sender.</p>
+<p>With the change below, Postfix will query mailbox quota status from Dovecot
+directly, then reject email if it's over quota. It saves system resource used
+to process this email (e.g. spam/virus scanning), and avoids bounce message.</p>
+<h4 id="add-new-sql-column-in-vmailmailbox-table">Add new SQL column in <code>vmail.mailbox</code> table</h4>
+<p>According to the Dovecot settings configured by iRedMail, a new SQL column
+<code>mailbox.enablequota-status</code> is required.</p>
+<p>Download plain SQL file used to create required column and index, then import
+it directly as MySQL root user (Please run commands below as <code>root</code> user):</p>
+<pre><code>wget -O /tmp/iredmail.mysql https://bitbucket.org/zhb/iredmail/raw/default/extra/update/1.0/iredmail.mysql
+mysql vmail &lt; /tmp/iredmail.mysql
+rm -f /tmp/iredmail.mysql
+</code></pre>
+
+<h4 id="enable-quota-status-service-in-dovecot_1">Enable quota-status service in Dovecot</h4>
+<p>Open Dovecot config file <code>/etc/dovecot/dovecot.conf</code> (Linux/OpenBSD) or
+<code>/usr/local/etc/dovecot/dovecot.conf</code> (FreeBSD), find the <code>plugin {}</code> block
+and add 3 new parameters:</p>
+<pre><code>plugin {
+    ...
+    # Used by quota-status service.
+    quota_status_success = DUNNO
+    quota_status_nouser = DUNNO
+    quota_status_overquota = &quot;552 5.2.2 Mailbox is full&quot;
+    ...
+}
+</code></pre>
+
+<p>In same <code>dovecot.conf</code>, append settings below <strong>at the end of file</strong>:</p>
+<ul>
+<li>With settings below, Dovecot quota-status service will listen on <code>127.0.0.1:12340</code>.</li>
+<li>You can change the port number <code>12340</code> to any other spare one if you want.</li>
+</ul>
+<pre><code>service quota-status {
+    executable = quota-status -p postfix
+    client_limit = 1
+    inet_listener {
+        address = 127.0.0.1
+        port = 12340
+    }
+}
+</code></pre>
+
+<p>Restarting Dovecot service is required.</p>
+<h4 id="enable-quota-status-check-in-postfix_1">Enable quota status check in Postfix</h4>
+<p>Open Postfix config file <code>/etc/postfix/main.cf</code> (Linux/OpenBSD) or
+<code>/usr/local/etc/postfix/main.cf</code> (FreeBSD), find parameter
+<code>smtpd_recipient_restrictions</code> and append a new <code>check_policy_service</code> setting
+<strong>at the end</strong> like below:</p>
+<pre><code>smtpd_recipient_restrictions =
+    ...
+    check_policy_service inet:127.0.0.1:12340
+</code></pre>
+
+<p>Restarting Postfix service is required.</p>
+<h2 id="for-postgresql-backend">For PostgreSQL backend</h2>
+<h3 id="optional-enable-mailbox-quota-status-check-in-dovecot-and-postfix_2">[OPTIONAL] Enable mailbox quota status check in Dovecot and Postfix.</h3>
+<p>With default iRedMail settings, Postfix accepts email without checking whether
+user's mailbox is over quota, then pipes email to Dovecot LDA for local
+delivery. If mailbox is over quota, Dovecot can not save message to mailbox
+and generates a "sender non-delivery notification" to sender.</p>
+<p>With the change below, Postfix will query mailbox quota status from Dovecot
+directly, then reject email if it's over quota. It saves system resource used
+to process this email (e.g. spam/virus scanning), and avoids bounce message.</p>
+<h4 id="add-new-sql-column-in-vmailmailbox-table_1">Add new SQL column in <code>vmail.mailbox</code> table</h4>
+<p>According to the Dovecot settings configured by iRedMail, a new SQL column
+<code>mailbox.enablequota-status</code> is required.</p>
+<ul>
+<li>Download plain SQL file used to create required column and index:</li>
+</ul>
+<pre><code>wget -O /tmp/iredmail.pgsql https://bitbucket.org/zhb/iredmail/raw/default/extra/update/1.0/iredmail.pgsql
+</code></pre>
+
+<ul>
+<li>Connect to PostgreSQL server as <code>postgres</code> user and import the SQL file:<ul>
+<li>on Linux, it's <code>postgres</code> user</li>
+<li>on FreeBSD, it's <code>pgsql</code> user</li>
+<li>on OpenBSD, it's <code>_postgresql</code> user</li>
+</ul>
+</li>
+</ul>
+<pre><code>su - postgres
+psql -d vmail &lt; /tmp/iredmail.pgsql
+</code></pre>
+
+<ul>
+<li>Remove downloaded file as root user:</li>
+</ul>
+<pre><code>rm -f /tmp/iredmail.pgsql
+</code></pre>
+
+<h4 id="enable-quota-status-service-in-dovecot_2">Enable quota-status service in Dovecot</h4>
+<p>Open Dovecot config file <code>/etc/dovecot/dovecot.conf</code> (Linux/OpenBSD) or
+<code>/usr/local/etc/dovecot/dovecot.conf</code> (FreeBSD), find the <code>plugin {}</code> block
+and add 3 new parameters:</p>
+<pre><code>plugin {
+    ...
+    # Used by quota-status service.
+    quota_status_success = DUNNO
+    quota_status_nouser = DUNNO
+    quota_status_overquota = &quot;552 5.2.2 Mailbox is full&quot;
+    ...
+}
+</code></pre>
+
+<p>In same <code>dovecot.conf</code>, append settings below <strong>at the end of file</strong>:</p>
+<ul>
+<li>With settings below, Dovecot quota-status service will listen on <code>127.0.0.1:12340</code>.</li>
+<li>You can change the port number <code>12340</code> to any other spare one if you want.</li>
+</ul>
+<pre><code>service quota-status {
+    executable = quota-status -p postfix
+    client_limit = 1
+    inet_listener {
+        address = 127.0.0.1
+        port = 12340
+    }
+}
+</code></pre>
+
+<p>Restarting Dovecot service is required.</p>
+<h4 id="enable-quota-status-check-in-postfix_2">Enable quota status check in Postfix</h4>
 <p>Open Postfix config file <code>/etc/postfix/main.cf</code> (Linux/OpenBSD) or
 <code>/usr/local/etc/postfix/main.cf</code> (FreeBSD), find parameter
 <code>smtpd_recipient_restrictions</code> and append a new <code>check_policy_service</code> setting

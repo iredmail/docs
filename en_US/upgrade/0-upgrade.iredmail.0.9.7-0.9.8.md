@@ -734,17 +734,17 @@ We've made some changes to `vmail` database:
 
     ```bash /var/vmail/backup/backup_pgsql.sh```
 
-Download SQL template file used to update SQL database:
+* Download SQL template file used to update SQL database:
 
 ```
 cd /tmp/
 wget https://bitbucket.org/zhb/iredmail/raw/default/extra/update/0.9.8/iredmail.pgsql
 ```
 
-Connect to PostgreSQL server as `postgres` user and import the SQL file:
-* on Linux, it's `postgres` user
-* on FreeBSD, it's `pgsql` user
-* on OpenBSD, it's `_postgresql` user
+* Connect to PostgreSQL server as `postgres` user and import the SQL file:
+    * on Linux, it's `postgres` user
+    * on FreeBSD, it's `pgsql` user
+    * on OpenBSD, it's `_postgresql` user
 
 ```
 su - postgres
