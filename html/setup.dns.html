@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title>Setup DNS records for your iRedMail server (A, PTR, MX, SPF, DKIM)</title>
+        <title>Setup DNS records for your iRedMail server (A, PTR, MX, SPF, DKIM, DMARC)</title>
         <link rel="stylesheet" type="text/css" href="./css/markdown.css" />
     </head>
     <body>
@@ -15,10 +15,10 @@
              />&nbsp;
         <span>iRedMail</span>
     </a>
-    &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><h1 id="setup-dns-records-for-your-iredmail-server-a-ptr-mx-spf-dkim">Setup DNS records for your iRedMail server (A, PTR, MX, SPF, DKIM)</h1>
+    &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><h1 id="setup-dns-records-for-your-iredmail-server-a-ptr-mx-spf-dkim-dmarc">Setup DNS records for your iRedMail server (A, PTR, MX, SPF, DKIM, DMARC)</h1>
 <div class="toc">
 <ul>
-<li><a href="#setup-dns-records-for-your-iredmail-server-a-ptr-mx-spf-dkim">Setup DNS records for your iRedMail server (A, PTR, MX, SPF, DKIM)</a><ul>
+<li><a href="#setup-dns-records-for-your-iredmail-server-a-ptr-mx-spf-dkim-dmarc">Setup DNS records for your iRedMail server (A, PTR, MX, SPF, DKIM, DMARC)</a><ul>
 <li><a href="#a-record-for-server-hostname">A record for server hostname</a><ul>
 <li><a href="#what-is-an-a-record">What is an A record</a></li>
 <li><a href="#how-to-setup-an-a-record">How to setup an A Record</a></li>
@@ -35,14 +35,19 @@
 <li><a href="#how-to-setup-the-mx-record">How to setup the MX record</a></li>
 </ul>
 </li>
-<li><a href="#spf-record-for-your-mail-domain-name">SPF record for your mail domain name</a><ul>
+<li><a href="#spf-record-for-the-mail-domain-name">SPF record for the mail domain name</a><ul>
 <li><a href="#what-is-a-spf-record">What is a SPF record</a></li>
 <li><a href="#how-to-setup-the-spf-record">How to setup the SPF record</a></li>
 </ul>
 </li>
-<li><a href="#dkim-record-for-your-mail-domain-name">DKIM record for your mail domain name</a><ul>
+<li><a href="#dkim-record-for-the-mail-domain-name">DKIM record for the mail domain name</a><ul>
 <li><a href="#what-is-a-dkim-record">What is a DKIM record</a></li>
 <li><a href="#how-to-setup-the-dkim-record">How to setup the DKIM record</a></li>
+</ul>
+</li>
+<li><a href="#dmarc-record-for-the-mail-domain-name">DMARC record for the mail domain name</a><ul>
+<li><a href="#what-is-dmarc-and-how-does-it-combat-phishing">What is DMARC, and how does it combat phishing?</a></li>
+<li><a href="#how-to-setup-the-dmarc-record">How to setup the DMARC record</a></li>
 </ul>
 </li>
 <li><a href="#register-your-mail-domain-in-google-postmaster-tools">Register your mail domain in Google Postmaster Tools</a></li>
@@ -52,14 +57,14 @@
 </li>
 </ul>
 </div>
-<p><strong>IMPORTANT NOTE</strong>: <code>A</code>, <code>MX</code> records are required, <code>Reverse PTR</code>, <code>SPF</code> and
-<code>DKIM</code> are optional but strongly recommended. All in all, set them all up please.</p>
-<h2 id="a-record-for-server-hostname">A record for server hostname</h2>
-<h3 id="what-is-an-a-record">What is an A record</h3>
+<p><strong>IMPORTANT NOTE</strong>: <code>A</code>, <code>MX</code> records are required, <code>Reverse PTR</code>, <code>SPF</code>,
+<code>DKIM</code> and <code>DMARC</code> are optional but <strong>STRONGLY</strong> recommended.</p>
+<h2 id="a-record-for-server-hostname"><code>A</code> record for server hostname</h2>
+<h3 id="what-is-an-a-record">What is an <code>A</code> record</h3>
 <p><code>A</code> records map a FQDN (fully qualified domain name) to an IP address. This is
 usually the most often used record type in any DNS system. This is the DNS
 record you should add if you want to point a domain name to a web server.</p>
-<h3 id="how-to-setup-an-a-record">How to setup an A Record</h3>
+<h3 id="how-to-setup-an-a-record">How to setup an <code>A</code> Record</h3>
 <ul>
 <li>
 <p><code>Name</code>: This will be the host for your domain which is actually a computer
@@ -147,7 +152,7 @@ mydomain.com.   10          mx      mail.mydomain.com
 
 <p>The end result of this record is, emails sent to <code>[user]@mydomain.com</code> will
 be delivered to server <code>mail.mydomain.com</code>.</p>
-<h2 id="spf-record-for-your-mail-domain-name">SPF record for your mail domain name</h2>
+<h2 id="spf-record-for-the-mail-domain-name">SPF record for the mail domain name</h2>
 <h3 id="what-is-a-spf-record">What is a SPF record</h3>
 <p>SPF is a spam and phishing scam fighting method which uses DNS SPF-records to
 define which hosts are permitted to send e-mails for a domain. For details on
@@ -180,7 +185,7 @@ SPF can also be configured in DNS using the TXT-record type.</p>
 <p><code>-all</code> means prohibit all others.</p>
 <p>There're more valid mechanisms available, please check
 <a href="http://www.openspf.org/SPF_Record_Syntax">OpenSPF web site</a> for more details.</p>
-<h2 id="dkim-record-for-your-mail-domain-name">DKIM record for your mail domain name</h2>
+<h2 id="dkim-record-for-the-mail-domain-name">DKIM record for the mail domain name</h2>
 <h3 id="what-is-a-dkim-record">What is a DKIM record</h3>
 <p>DKIM allows an organization to take responsibility for a message in a way that
 can be verified by a recipient. The organization can be a direct handler of
@@ -270,6 +275,91 @@ some hours to be available.</p>
 <p>If you want to re-generate DKIM key, or need to generate one for new mail
 domain, please check our another tutorial:
 <a href="./sign.dkim.signature.for.new.domain.html">Sign DKIM signature on outgoing emails for new mail domain</a>.</p>
+<h2 id="dmarc-record-for-the-mail-domain-name">DMARC record for the mail domain name</h2>
+<h3 id="what-is-dmarc-and-how-does-it-combat-phishing">What is DMARC, and how does it combat phishing?</h3>
+<p>Quote from <a href="https://dmarc.org/wiki/FAQ">FAQ page on dmarc.org website</a> (it's
+strongly recommended to read the full FAQ page):</p>
+<blockquote>
+<p>DMARC is a way to make it easier for email senders and receivers to determine
+whether or not a given message is legitimately from the sender, and what to
+do if it isn’t. This makes it easier to identify spam and phishing messages,
+and keep them out of peoples’ inboxes.</p>
+<p>DMARC is a proposed standard that allows email senders and receivers to
+cooperate in sharing information about the email they send to each other.
+This information helps senders improve the mail authentication infrastructure
+so that all their mail can be authenticated. It also gives the legitimate
+owner of an Internet domain a way to request that illegitimate messages –
+spoofed spam, phishing – be put directly in the spam folder or rejected
+outright.</p>
+</blockquote>
+<p>Some useful documents from <a href="https://dmarc.org">https://dmarc.org</a>:</p>
+<ul>
+<li><a href="https://dmarc.org/wiki/FAQ">DMARC FAQ</a><ul>
+<li><a href="https://dmarc.org/wiki/FAQ#Why_is_DMARC_important.3F">Why is DMARC Important?</a></li>
+</ul>
+</li>
+<li><a href="https://dmarc.org/overview/">How Does DMARC Work?</a></li>
+<li><a href="https://dmarc.org/resources/specification/">Specifications</a></li>
+</ul>
+<h3 id="how-to-setup-the-dmarc-record">How to setup the DMARC record</h3>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>DMARC heavily relies on SPF and DKIM records, please make sure you have
+correct and up to date SPF and DKIM records published.</p>
+</div>
+<p>DMARC record is a TXT type DNS record.</p>
+<p>A simplified record looks like this:</p>
+<pre><code>v=DMARC1; p=none; rua=mailto:dmarc@mydomain.com
+</code></pre>
+
+<p>A detailed sample record looks like this:</p>
+<pre><code>v=DMARC1; adkim=s; aspf=s; p=reject; sp=none; rua=mailto:dmarc@mydomain.com; ruf=mailto:dmarc@mydomain.com
+</code></pre>
+
+<ul>
+<li><code>v=DMARC1</code> identifies the DMARC protocol version, currently only <code>DMARC1</code> is
+  available, and <code>v=DMARC1</code> must appear first in a DMARC record.</li>
+<li><code>adkim</code> specifies alignment mode for DKIM. 2 options are available:<ul>
+<li><code>r</code>: relax mode (<code>adkim=r</code>)</li>
+<li><code>s</code>: strict mode (<code>adkim=s</code>)</li>
+</ul>
+</li>
+<li><code>aspf</code> specifies aligment mode for SPF. 2 options are available:<ul>
+<li><code>r</code>: relax mode (<code>aspf=r</code>)</li>
+<li><code>s</code>: strict mode (<code>aspf=s</code>)</li>
+</ul>
+</li>
+<li>
+<p><code>p</code> specifies the policy for organizational domain. It tells the recipient
+  server what to do if received email fails DMARC mechanism check. 3 options
+  are available:</p>
+<ul>
+<li><code>none</code> (<code>p=none</code>): The domain owner requests no specific action be taken regarding
+  delivery of messages.</li>
+<li><code>quarantine</code> (<code>p=quarantine</code>): The domain owner wishes to have email that fails the DMARC
+  mechanism check be treated by Mail Receivers as suspicious. Depending on
+  the capabilities of the Mail Receiver, this can mean "place into spam
+  folder", "flag as suspicious", or "quarantine toe email somewhere", maybe more.</li>
+<li><code>reject</code> (<code>p=reject</code>): The domain owner wishes for Mail Receivers to reject
+  email that fails the DMARC mechanism check during the SMTP transaction.</li>
+</ul>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>If you're sure all your emails are sent by the server(s) listed in SPF
+record, or have correct DKIM signature signed, <code>p=reject</code> is strongly
+recommended.</p>
+</div>
+</li>
+<li>
+<p><code>sp</code> specifies policy for all subdomains. This is optional. Available options
+  are same as <code>p</code>.</p>
+</li>
+<li><code>rua</code> specifies a transport mechanism to deliver aggregate feedback. Currently
+  only <code>mailto:</code> is supported. This is optional.</li>
+<li><code>ruf</code> specifies a transport mechanism which message-specific failure
+  information is to be reported. Currently only <code>mailto:</code> is supported. This is
+  optional.</li>
+</ul>
 <h2 id="register-your-mail-domain-in-google-postmaster-tools">Register your mail domain in Google Postmaster Tools</h2>
 <p>This step is <strong>optional</strong>, but <strong>higly recommended</strong>.</p>
 <p>Google Postmaster Tools web site: <a href="https://postmaster.google.com">https://postmaster.google.com</a>, and

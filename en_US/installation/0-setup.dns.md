@@ -1,19 +1,19 @@
-# Setup DNS records for your iRedMail server (A, PTR, MX, SPF, DKIM)
+# Setup DNS records for your iRedMail server (A, PTR, MX, SPF, DKIM, DMARC)
 
 [TOC]
 
-__IMPORTANT NOTE__: `A`, `MX` records are required, `Reverse PTR`, `SPF` and
-`DKIM` are optional but strongly recommended. All in all, set them all up please.
+__IMPORTANT NOTE__: `A`, `MX` records are required, `Reverse PTR`, `SPF`,
+`DKIM` and `DMARC` are optional but __STRONGLY__ recommended.
 
-## A record for server hostname
+## `A` record for server hostname
 
-### What is an A record
+### What is an `A` record
 
 `A` records map a FQDN (fully qualified domain name) to an IP address. This is
 usually the most often used record type in any DNS system. This is the DNS
 record you should add if you want to point a domain name to a web server.
 
-### How to setup an A Record
+### How to setup an `A` Record
 
 * `Name`: This will be the host for your domain which is actually a computer
   within your domain. Your domain name is automatically appended to your name.
@@ -119,7 +119,7 @@ mydomain.com.   10          mx      mail.mydomain.com
 The end result of this record is, emails sent to `[user]@mydomain.com` will
 be delivered to server `mail.mydomain.com`.
 
-## SPF record for your mail domain name
+## SPF record for the mail domain name
 
 ### What is a SPF record
 
@@ -164,7 +164,7 @@ mydomain.com.   3600    IN  TXT "v=spf1 ip4:192.168.1.100 -all"
 There're more valid mechanisms available, please check
 [OpenSPF web site](http://www.openspf.org/SPF_Record_Syntax) for more details.
 
-## DKIM record for your mail domain name
+## DKIM record for the mail domain name
 
 ### What is a DKIM record
 
@@ -264,6 +264,89 @@ some hours to be available.
 If you want to re-generate DKIM key, or need to generate one for new mail
 domain, please check our another tutorial:
 [Sign DKIM signature on outgoing emails for new mail domain](./sign.dkim.signature.for.new.domain.html).
+
+## DMARC record for the mail domain name
+
+### What is DMARC, and how does it combat phishing?
+
+Quote from [FAQ page on dmarc.org website](https://dmarc.org/wiki/FAQ) (it's
+strongly recommended to read the full FAQ page):
+
+> DMARC is a way to make it easier for email senders and receivers to determine
+> whether or not a given message is legitimately from the sender, and what to
+> do if it isn’t. This makes it easier to identify spam and phishing messages,
+> and keep them out of peoples’ inboxes.
+>
+> DMARC is a proposed standard that allows email senders and receivers to
+> cooperate in sharing information about the email they send to each other.
+> This information helps senders improve the mail authentication infrastructure
+> so that all their mail can be authenticated. It also gives the legitimate
+> owner of an Internet domain a way to request that illegitimate messages –
+> spoofed spam, phishing – be put directly in the spam folder or rejected
+> outright.
+
+Some useful documents from <https://dmarc.org>:
+
+* [DMARC FAQ](https://dmarc.org/wiki/FAQ)
+    * [Why is DMARC Important?](https://dmarc.org/wiki/FAQ#Why_is_DMARC_important.3F)
+* [How Does DMARC Work?](https://dmarc.org/overview/)
+* [Specifications](https://dmarc.org/resources/specification/)
+
+### How to setup the DMARC record
+
+!!! attention
+
+    DMARC heavily relies on SPF and DKIM records, please make sure you have
+    correct and up to date SPF and DKIM records published.
+
+DMARC record is a TXT type DNS record.
+
+A simplified record looks like this:
+
+```
+v=DMARC1; p=none; rua=mailto:dmarc@mydomain.com
+```
+
+A detailed sample record looks like this:
+
+```
+v=DMARC1; adkim=s; aspf=s; p=reject; sp=none; rua=mailto:dmarc@mydomain.com; ruf=mailto:dmarc@mydomain.com
+```
+
+* `v=DMARC1` identifies the DMARC protocol version, currently only `DMARC1` is
+  available, and `v=DMARC1` must appear first in a DMARC record.
+* `adkim` specifies alignment mode for DKIM. 2 options are available:
+    * `r`: relax mode (`adkim=r`)
+    * `s`: strict mode (`adkim=s`)
+* `aspf` specifies aligment mode for SPF. 2 options are available:
+    * `r`: relax mode (`aspf=r`)
+    * `s`: strict mode (`aspf=s`)
+* `p` specifies the policy for organizational domain. It tells the recipient
+  server what to do if received email fails DMARC mechanism check. 3 options
+  are available:
+
+    * `none` (`p=none`): The domain owner requests no specific action be taken regarding
+      delivery of messages.
+    * `quarantine` (`p=quarantine`): The domain owner wishes to have email that fails the DMARC
+      mechanism check be treated by Mail Receivers as suspicious. Depending on
+      the capabilities of the Mail Receiver, this can mean "place into spam
+      folder", "flag as suspicious", or "quarantine toe email somewhere", maybe more.
+    * `reject` (`p=reject`): The domain owner wishes for Mail Receivers to reject
+      email that fails the DMARC mechanism check during the SMTP transaction.
+
+    !!! attention
+
+        If you're sure all your emails are sent by the server(s) listed in SPF
+        record, or have correct DKIM signature signed, `p=reject` is strongly
+        recommended.
+
+* `sp` specifies policy for all subdomains. This is optional. Available options
+  are same as `p`.
+* `rua` specifies a transport mechanism to deliver aggregate feedback. Currently
+  only `mailto:` is supported. This is optional.
+* `ruf` specifies a transport mechanism which message-specific failure
+  information is to be reported. Currently only `mailto:` is supported. This is
+  optional.
 
 ## Register your mail domain in Google Postmaster Tools
 
