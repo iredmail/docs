@@ -5,7 +5,7 @@
 __IMPORTANT NOTE__: `A`, `MX` records are required, `Reverse PTR`, `SPF`,
 `DKIM` and `DMARC` are optional but __STRONGLY__ recommended.
 
-## `A` record for server hostname
+## `A` record for server hostname {: id="a" }
 
 ### What is an `A` record
 
@@ -53,7 +53,7 @@ mail.mydomain.com.  1800    A       192.168.1.5
 The end result of this record is that `www.mydomain.com` points to
 `192.168.1.2`, and `mail.mydomain.com` points to `192.168.1.5`.
 
-## Reverse PTR record for server IP address
+## Reverse PTR record for server IP address {: id="ptr" }
 
 ### What is a reverse PTR record
 
@@ -83,7 +83,7 @@ PTR record `192.168.1.5` (your internet public IP address) in their reverse DNS
 zone. Reverse DNS zones are handled by your ISP even though you may have your
 own forward lookup DNS zone that you manage.
 
-## MX record for mail domain name
+## MX record for mail domain name {: id="mx" }
 
 ### What is a MX record
 
@@ -119,7 +119,7 @@ mydomain.com.   10          mx      mail.mydomain.com
 The end result of this record is, emails sent to `[user]@mydomain.com` will
 be delivered to server `mail.mydomain.com`.
 
-## SPF record for the mail domain name
+## SPF record for the mail domain name {: id="spf" }
 
 ### What is a SPF record
 
@@ -164,7 +164,7 @@ mydomain.com.   3600    IN  TXT "v=spf1 ip4:192.168.1.100 -all"
 There're more valid mechanisms available, please check
 [OpenSPF web site](http://www.openspf.org/SPF_Record_Syntax) for more details.
 
-## DKIM record for the mail domain name
+## DKIM record for the mail domain name {: id="dkim" }
 
 ### What is a DKIM record
 
@@ -265,7 +265,7 @@ If you want to re-generate DKIM key, or need to generate one for new mail
 domain, please check our another tutorial:
 [Sign DKIM signature on outgoing emails for new mail domain](./sign.dkim.signature.for.new.domain.html).
 
-## DMARC record for the mail domain name
+## DMARC record for the mail domain name {: id="dmarc" }
 
 ### What is DMARC, and how does it combat phishing?
 

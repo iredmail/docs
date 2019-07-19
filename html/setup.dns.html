@@ -19,33 +19,33 @@
 <div class="toc">
 <ul>
 <li><a href="#setup-dns-records-for-your-iredmail-server-a-ptr-mx-spf-dkim-dmarc">Setup DNS records for your iRedMail server (A, PTR, MX, SPF, DKIM, DMARC)</a><ul>
-<li><a href="#a-record-for-server-hostname">A record for server hostname</a><ul>
+<li><a href="#a">A record for server hostname</a><ul>
 <li><a href="#what-is-an-a-record">What is an A record</a></li>
 <li><a href="#how-to-setup-an-a-record">How to setup an A Record</a></li>
 </ul>
 </li>
-<li><a href="#reverse-ptr-record-for-server-ip-address">Reverse PTR record for server IP address</a><ul>
+<li><a href="#ptr">Reverse PTR record for server IP address</a><ul>
 <li><a href="#what-is-a-reverse-ptr-record">What is a reverse PTR record</a></li>
 <li><a href="#why-do-you-need-a-reverse-ptr-record">Why do you need a reverse PTR record</a></li>
 <li><a href="#how-to-setup-a-reverse-ptr-record">How to setup a Reverse PTR record</a></li>
 </ul>
 </li>
-<li><a href="#mx-record-for-mail-domain-name">MX record for mail domain name</a><ul>
+<li><a href="#mx">MX record for mail domain name</a><ul>
 <li><a href="#what-is-a-mx-record">What is a MX record</a></li>
 <li><a href="#how-to-setup-the-mx-record">How to setup the MX record</a></li>
 </ul>
 </li>
-<li><a href="#spf-record-for-the-mail-domain-name">SPF record for the mail domain name</a><ul>
+<li><a href="#spf">SPF record for the mail domain name</a><ul>
 <li><a href="#what-is-a-spf-record">What is a SPF record</a></li>
 <li><a href="#how-to-setup-the-spf-record">How to setup the SPF record</a></li>
 </ul>
 </li>
-<li><a href="#dkim-record-for-the-mail-domain-name">DKIM record for the mail domain name</a><ul>
+<li><a href="#dkim">DKIM record for the mail domain name</a><ul>
 <li><a href="#what-is-a-dkim-record">What is a DKIM record</a></li>
 <li><a href="#how-to-setup-the-dkim-record">How to setup the DKIM record</a></li>
 </ul>
 </li>
-<li><a href="#dmarc-record-for-the-mail-domain-name">DMARC record for the mail domain name</a><ul>
+<li><a href="#dmarc">DMARC record for the mail domain name</a><ul>
 <li><a href="#what-is-dmarc-and-how-does-it-combat-phishing">What is DMARC, and how does it combat phishing?</a></li>
 <li><a href="#how-to-setup-the-dmarc-record">How to setup the DMARC record</a></li>
 </ul>
@@ -59,7 +59,7 @@
 </div>
 <p><strong>IMPORTANT NOTE</strong>: <code>A</code>, <code>MX</code> records are required, <code>Reverse PTR</code>, <code>SPF</code>,
 <code>DKIM</code> and <code>DMARC</code> are optional but <strong>STRONGLY</strong> recommended.</p>
-<h2 id="a-record-for-server-hostname"><code>A</code> record for server hostname</h2>
+<h2 id="a"><code>A</code> record for server hostname</h2>
 <h3 id="what-is-an-a-record">What is an <code>A</code> record</h3>
 <p><code>A</code> records map a FQDN (fully qualified domain name) to an IP address. This is
 usually the most often used record type in any DNS system. This is the DNS
@@ -102,7 +102,7 @@ mail.mydomain.com.  1800    A       192.168.1.5
 
 <p>The end result of this record is that <code>www.mydomain.com</code> points to
 <code>192.168.1.2</code>, and <code>mail.mydomain.com</code> points to <code>192.168.1.5</code>.</p>
-<h2 id="reverse-ptr-record-for-server-ip-address">Reverse PTR record for server IP address</h2>
+<h2 id="ptr">Reverse PTR record for server IP address</h2>
 <h3 id="what-is-a-reverse-ptr-record">What is a reverse PTR record</h3>
 <p>PTR record or more appropriately a reverse PTR record is a process of resolving
 an IP address to its associated hostname. This is the exact opposite of the
@@ -125,7 +125,7 @@ server hostname is <code>mail.mydomain.com</code> then ask your ISP to setup a r
 PTR record <code>192.168.1.5</code> (your internet public IP address) in their reverse DNS
 zone. Reverse DNS zones are handled by your ISP even though you may have your
 own forward lookup DNS zone that you manage.</p>
-<h2 id="mx-record-for-mail-domain-name">MX record for mail domain name</h2>
+<h2 id="mx">MX record for mail domain name</h2>
 <h3 id="what-is-a-mx-record">What is a MX record</h3>
 <p>Mail Exchanger Record or more commonly known as MX record is an entry in the
 DNS server of your domain that tells other mail servers where your mail server
@@ -152,7 +152,7 @@ mydomain.com.   10          mx      mail.mydomain.com
 
 <p>The end result of this record is, emails sent to <code>[user]@mydomain.com</code> will
 be delivered to server <code>mail.mydomain.com</code>.</p>
-<h2 id="spf-record-for-the-mail-domain-name">SPF record for the mail domain name</h2>
+<h2 id="spf">SPF record for the mail domain name</h2>
 <h3 id="what-is-a-spf-record">What is a SPF record</h3>
 <p>SPF is a spam and phishing scam fighting method which uses DNS SPF-records to
 define which hosts are permitted to send e-mails for a domain. For details on
@@ -185,7 +185,7 @@ SPF can also be configured in DNS using the TXT-record type.</p>
 <p><code>-all</code> means prohibit all others.</p>
 <p>There're more valid mechanisms available, please check
 <a href="http://www.openspf.org/SPF_Record_Syntax">OpenSPF web site</a> for more details.</p>
-<h2 id="dkim-record-for-the-mail-domain-name">DKIM record for the mail domain name</h2>
+<h2 id="dkim">DKIM record for the mail domain name</h2>
 <h3 id="what-is-a-dkim-record">What is a DKIM record</h3>
 <p>DKIM allows an organization to take responsibility for a message in a way that
 can be verified by a recipient. The organization can be a direct handler of
@@ -275,7 +275,7 @@ some hours to be available.</p>
 <p>If you want to re-generate DKIM key, or need to generate one for new mail
 domain, please check our another tutorial:
 <a href="./sign.dkim.signature.for.new.domain.html">Sign DKIM signature on outgoing emails for new mail domain</a>.</p>
-<h2 id="dmarc-record-for-the-mail-domain-name">DMARC record for the mail domain name</h2>
+<h2 id="dmarc">DMARC record for the mail domain name</h2>
 <h3 id="what-is-dmarc-and-how-does-it-combat-phishing">What is DMARC, and how does it combat phishing?</h3>
 <p>Quote from <a href="https://dmarc.org/wiki/FAQ">FAQ page on dmarc.org website</a> (it's
 strongly recommended to read the full FAQ page):</p>
