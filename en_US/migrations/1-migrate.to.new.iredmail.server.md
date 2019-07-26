@@ -128,6 +128,79 @@ the data must be owned by user/group `mlmmj:mlmmj` with permission `0700`.
 
 Reference: <https://github.com/roundcube/roundcubemail/wiki/Upgrade>
 
+## Migrate SOGo Groupware data
+
+### Solution 1: Export and import SQL database
+
+If you run same version of SOGo on old and new server, it's ok to migrate
+data by simply exporting the `sogo` SQL database and import to new server.
+
+For SQL backends, you need to re-create SQL table `sogo.users` after restored
+database:
+
+* For MySQL, MariaDB backends:
+
+```
+USE sogo;
+DROP VIEW users;
+CREATE VIEW users (c_uid, c_name, c_password, c_cn, mail, domain)
+    AS SELECT username, username, password, name, username, domain
+         FROM vmail.mailbox WHERE enablesogo=1 AND active=1;
+```
+
+* For PostgreSQL backend. Please switch to PostgreSQL daemon user `_postgres`
+  first, then run `psql -d sogo` to connect to `sogo` database:
+
+!!! warning
+
+    Please replace `<vmail_user_password>` by the real password for SQL user `vmail`.
+
+```
+\c sogo;
+CREATE EXTENSION IF NOT EXISTS dblink;
+
+DROP VIEW users;
+CREATE VIEW users AS
+    SELECT * FROM dblink('host=127.0.0.1
+                          port=5432
+                          dbname=vmail
+                          user=vmail
+                          password=<vmail_user_password>',
+                          'SELECT username AS c_uid,
+                                  username AS c_name,
+                                  password AS c_password,
+                                  name     AS c_cn,
+                                  username AS mail,
+                                  domain   AS domain
+                             FROM mailbox
+                            WHERE enablesogo=1 AND active=1')
+         AS users (c_uid         VARCHAR(255),
+                   c_name        VARCHAR(255),
+                   c_password    VARCHAR(255),
+                   c_cn          VARCHAR(255),
+                   mail          VARCHAR(255),
+                   domain        VARCHAR(255));
+
+ALTER TABLE users OWNER TO sogo;
+```
+
+### Solution 2: Backup and restore data
+
+!!! attention
+
+    It's strongly recommended to practice with a testing machine and verify
+    the calendars, events and contacts after migrated.
+
+iRedMail has daily cron job to backup SOGo data with script
+`/var/vmail/backup/backup_sogo.sh`, you should run it manually
+right before migration so that all recent data are exported.
+
+Backup copies are stored under `/var/vmail/backup/sogo/<year>/<month>/` by
+default.
+
+Copy the latest backup file to new server, then follow this tutorial to
+restore it: [How can I backup/restore my user data?](https://sogo.nu/support/faq/how-can-i-backuprestore-my-user-data.html)
+
 ## Migrate Amavisd, iRedAPD, iRedAdmin databases
 
 Export those database on old server, then import them on new server.
