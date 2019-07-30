@@ -46,8 +46,9 @@ Please backup all important data before preparing the migration, including but n
 
 ## Create required files used by iRedMail Easy
 
-iRedMail Easy doesn't store any SQL/LDAP passwords, instead it reads from files
-under `/root/.iredmail/kv/` on your server to get them.
+iRedMail Easy doesn't store any SQL/LDAP passwords on its deployment servers,
+instead it reads from files under `/root/.iredmail/kv/` on your server to get
+the passwords.
 
 Please create these files under `/root/.iredmail/kv/` with correct passwords
 manually, each file should contain only one line, passwords must be in plain

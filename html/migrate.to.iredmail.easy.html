@@ -81,8 +81,9 @@ under <code>/opt/iredmail/custom/&lt;software&gt;/</code>.</p>
 </li>
 </ul>
 <h2 id="create-required-files-used-by-iredmail-easy">Create required files used by iRedMail Easy</h2>
-<p>iRedMail Easy doesn't store any SQL/LDAP passwords, instead it reads from files
-under <code>/root/.iredmail/kv/</code> on your server to get them.</p>
+<p>iRedMail Easy doesn't store any SQL/LDAP passwords on its deployment servers,
+instead it reads from files under <code>/root/.iredmail/kv/</code> on your server to get
+the passwords.</p>
 <p>Please create these files under <code>/root/.iredmail/kv/</code> with correct passwords
 manually, each file should contain only one line, passwords must be in plain
 text, not the hashed one.</p>

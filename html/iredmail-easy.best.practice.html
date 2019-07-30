@@ -27,7 +27,8 @@
 </ul>
 </li>
 <li><a href="#ssl-cert">SSL cert</a></li>
-<li><a href="#softwares">Softwares</a><ul>
+<li><a href="#passwords">Passwords</a></li>
+<li><a href="#custom-settings-used-by-softwares">Custom settings used by softwares</a><ul>
 <li><a href="#mariadb">MariaDB</a></li>
 <li><a href="#nginx">Nginx</a></li>
 <li><a href="#postfix">Postfix</a></li>
@@ -153,16 +154,154 @@ under <code>/opt/iredmail/ssl/</code>:</p>
 <li><a href="./letsencrypt.html">Request a free cert from Let's Encrypt</a>, or</li>
 <li><a href="./use.a.bought.ssl.certificate.html">Use a bought SSL certificate</a>.</li>
 </ul>
-<h2 id="softwares">Softwares</h2>
+<h2 id="passwords">Passwords</h2>
+<ul>
+<li>iRedMail Easy doesn't store any SQL/LDAP passwords on its deployment servers,
+  instead it generates and reads from files under <code>/root/.iredmail/kv/</code> on
+  <strong>YOUR</strong> server to get the passwords.</li>
+<li>Files under <code>/root/.iredmail/kv/</code> contain only one line.</li>
+<li>If you changed any of them, please update files under <code>/root/.iredmail/kv/</code>
+  also, so that iRedMail Easy can get correct password when you perform upgrade.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Backend</th>
+<th>File Name</th>
+<th>Comment</th>
+<th>Value could be found in file</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>LDAP, MySQL</td>
+<td><code>sql_user_root</code></td>
+<td>MySQL root password.</td>
+<td><code>/root/.my.cnf</code></td>
+</tr>
+<tr>
+<td>PostgreSQL</td>
+<td><code>sql_user_postgres</code> (Linux)<br/><code>sql_user__postgresql</code> (OpenBSD)</td>
+<td>PostgreSQL root password.</td>
+<td><code>/var/lib/pgsql/.pgpass</code> (CentOS), or <code>/var/lib/postgresql/.pgpass</code> (Debian/Ubuntu), <code>/var/postgresql/.pgpass</code> (OpenBSD)</td>
+</tr>
+<tr>
+<td>LDAP</td>
+<td><code>ldap_root_password</code></td>
+<td>Password of LDAP root dn (cn=Manager,dc=xx,dc=xx)</td>
+<td></td>
+</tr>
+<tr>
+<td>LDAP</td>
+<td><code>ldap_vmail_password</code></td>
+<td>Password of LDAP dn <code>cn=vmail,dc=xx,dc=xx</code></td>
+<td><code>/etc/postfix/ldap/*.cf</code></td>
+</tr>
+<tr>
+<td>LDAP</td>
+<td><code>ldap_vmailadmin_password</code></td>
+<td>Password of LDAP dn <code>cn=vmailadmin,dc=xx,dc=xx</code></td>
+<td><code>/opt/www/iredadmin/settings.py</code></td>
+</tr>
+<tr>
+<td>ALL</td>
+<td><code>sql_user_vmail</code></td>
+<td>Password of SQL user <code>vmail</code></td>
+<td><code>/etc/postfix/mysql/*.cf</code> or <code>/etc/postfix/pgsql/*.cf</code></td>
+</tr>
+<tr>
+<td>ALL</td>
+<td><code>sql_user_vmailadmin</code></td>
+<td>Password of SQL user <code>vmailadmin</code></td>
+<td><code>/opt/www/iredadmin/settings.py</code></td>
+</tr>
+<tr>
+<td>ALL</td>
+<td><code>sql_user_amavisd</code></td>
+<td>Password of SQL user <code>amavisd</code></td>
+<td><code>/etc/amavisd/amavisd.conf</code> (Linux/OpenBSD)<br><code>/etc/amavis/conf.d/50-user</code> (Debian/Ubuntu)</td>
+</tr>
+<tr>
+<td>ALL</td>
+<td><code>sql_user_sa_bayes</code></td>
+<td>Password of SQL user <code>sa_bayes</code></td>
+<td><code>/etc/mail/spamassassin/local.cf</code></td>
+</tr>
+<tr>
+<td>ALL</td>
+<td><code>sql_user_iredadmin</code></td>
+<td>Password of SQL user <code>iredadmin</code></td>
+<td><code>/opt/www/iredadmin/settings.py</code></td>
+</tr>
+<tr>
+<td>ALL</td>
+<td><code>sql_user_iredapd</code></td>
+<td>Password of SQL user <code>iredapd</code></td>
+<td><code>/opt/iredapd/settings.py</code></td>
+</tr>
+<tr>
+<td>ALL</td>
+<td><code>sql_user_roundcube</code></td>
+<td>Password of SQL user <code>roundcube</code></td>
+<td><code>/root/.my.cnf-roundcube</code> or <code>/opt/www/roundcubemail/config/config.inc.php</code></td>
+</tr>
+<tr>
+<td>ALL</td>
+<td><code>sql_user_sogo</code></td>
+<td>Password of SQL user <code>sogo</code></td>
+<td><code>/etc/sogo/sogo.conf</code></td>
+</tr>
+<tr>
+<td>ALL</td>
+<td><code>sql_user_netdata</code></td>
+<td>Password of SQL user <code>netdata</code></td>
+<td><code>/root/.my.cnf-netdata</code> or <code>/opt/netdata/etc/netdata/my.cnf</code></td>
+</tr>
+<tr>
+<td>ALL</td>
+<td><code>iredapd_srs_secret</code></td>
+<td>The secret string used to sign SRS.</td>
+<td><code>/opt/iredapd/settings.py</code>, parameter <code>srs_secrets =</code>.</td>
+</tr>
+<tr>
+<td>ALL</td>
+<td><code>sogo_sieve_master_password</code></td>
+<td>The Dovecot master user used by SOGo.</td>
+<td><code>/etc/sogo/sieve.cred</code>.</td>
+</tr>
+<tr>
+<td>ALL</td>
+<td><code>roundcube_des_key</code></td>
+<td>The DES key used by Roundcube to encrypt the session.</td>
+<td><code>/opt/www/roundcubemail/config/config.inc.php</code>, parameter <code>$config['des_key'] =</code>.</td>
+</tr>
+<tr>
+<td>ALL</td>
+<td><code>mlmmjadmin_api_token</code></td>
+<td>API token for authentication.</td>
+<td><code>/opt/mlmmjadmin/settings.py</code>, parameter <code>api_auth_tokens =</code>.</td>
+</tr>
+<tr>
+<td>ALL</td>
+<td><code>first_domain_admin_password</code></td>
+<td>Password of the mail user <code>postmaster@&lt;your-domain.com&gt;</code>.</td>
+<td><code>your-domain.com</code> is the first mail domain name you (are going to) set in mail server profile page on iRedMail Easy platform, you can find it in mail server profile page, under tab <code>Settings</code>.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="custom-settings-used-by-softwares">Custom settings used by softwares</h2>
 <h3 id="mariadb">MariaDB</h3>
 <ul>
 <li><code>/opt/iredmail/custom/mysql/</code>:<ul>
 <li>All files end with <code>.cnf</code> will be loaded by Mariadb.</li>
-<li>It will override existing settings defined in files under <code>/etc/mysql/</code>.</li>
+<li>
+<p>It will override existing settings defined in files under <code>/etc/mysql/</code> (Linux)
+  or <code>/usr/local/etc/mysql/</code> (FreeBSD).</p>
+<p>Sample config file, <code>/opt/iredmail/custom/mysql/custom.conf</code>:</p>
+</li>
 </ul>
 </li>
 </ul>
-<p>Sample config file, <code>/opt/iredmail/custom/mysql/custom.conf</code>:</p>
 <pre><code>[mysqld]
 max_connections     = 1024
 </code></pre>

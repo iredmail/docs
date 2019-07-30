@@ -141,15 +141,47 @@ To get rid of self-signed cert, you can either:
 * [Request a free cert from Let's Encrypt](./letsencrypt.html), or
 * [Use a bought SSL certificate](./use.a.bought.ssl.certificate.html).
 
-## Softwares
+## Passwords
+
+* iRedMail Easy doesn't store any SQL/LDAP passwords on its deployment servers,
+  instead it generates and reads from files under `/root/.iredmail/kv/` on
+  __YOUR__ server to get the passwords.
+* Files under `/root/.iredmail/kv/` contain only one line.
+* If you changed any of them, please update files under `/root/.iredmail/kv/`
+  also, so that iRedMail Easy can get correct password when you perform upgrade.
+
+Backend | File Name | Comment | Value could be found in file
+---|---|---|---
+LDAP, MySQL | `sql_user_root` | MySQL root password. | `/root/.my.cnf`
+PostgreSQL | `sql_user_postgres` (Linux)<br/>`sql_user__postgresql` (OpenBSD) | PostgreSQL root password. | `/var/lib/pgsql/.pgpass` (CentOS), or `/var/lib/postgresql/.pgpass` (Debian/Ubuntu), `/var/postgresql/.pgpass` (OpenBSD)
+LDAP | `ldap_root_password` | Password of LDAP root dn (cn=Manager,dc=xx,dc=xx) |
+LDAP | `ldap_vmail_password` | Password of LDAP dn `cn=vmail,dc=xx,dc=xx` | `/etc/postfix/ldap/*.cf`
+LDAP | `ldap_vmailadmin_password` | Password of LDAP dn `cn=vmailadmin,dc=xx,dc=xx` | `/opt/www/iredadmin/settings.py`
+ALL | `sql_user_vmail` | Password of SQL user `vmail` | `/etc/postfix/mysql/*.cf` or `/etc/postfix/pgsql/*.cf`
+ALL | `sql_user_vmailadmin` | Password of SQL user `vmailadmin` | `/opt/www/iredadmin/settings.py`
+ALL | `sql_user_amavisd` | Password of SQL user `amavisd` | `/etc/amavisd/amavisd.conf` (Linux/OpenBSD)<br>`/etc/amavis/conf.d/50-user` (Debian/Ubuntu)
+ALL | `sql_user_sa_bayes` | Password of SQL user `sa_bayes` | `/etc/mail/spamassassin/local.cf`
+ALL | `sql_user_iredadmin` | Password of SQL user `iredadmin` | `/opt/www/iredadmin/settings.py`
+ALL | `sql_user_iredapd` | Password of SQL user `iredapd` | `/opt/iredapd/settings.py`
+ALL | `sql_user_roundcube` | Password of SQL user `roundcube` | `/root/.my.cnf-roundcube` or `/opt/www/roundcubemail/config/config.inc.php`
+ALL | `sql_user_sogo` | Password of SQL user `sogo` | `/etc/sogo/sogo.conf`
+ALL | `sql_user_netdata` | Password of SQL user `netdata` | `/root/.my.cnf-netdata` or `/opt/netdata/etc/netdata/my.cnf`
+ALL | `iredapd_srs_secret` | The secret string used to sign SRS. | `/opt/iredapd/settings.py`, parameter `srs_secrets =`.
+ALL | `sogo_sieve_master_password` | The Dovecot master user used by SOGo. | `/etc/sogo/sieve.cred`.
+ALL | `roundcube_des_key` | The DES key used by Roundcube to encrypt the session. | `/opt/www/roundcubemail/config/config.inc.php`, parameter `$config['des_key'] =`.
+ALL | `mlmmjadmin_api_token` | API token for authentication. | `/opt/mlmmjadmin/settings.py`, parameter `api_auth_tokens =`.
+ALL | `first_domain_admin_password` | Password of the mail user `postmaster@<your-domain.com>`. | `your-domain.com` is the first mail domain name you (are going to) set in mail server profile page on iRedMail Easy platform, you can find it in mail server profile page, under tab `Settings`.
+
+## Custom settings used by softwares
 
 ### MariaDB
 
 - `/opt/iredmail/custom/mysql/`:
     - All files end with `.cnf` will be loaded by Mariadb.
-    - It will override existing settings defined in files under `/etc/mysql/`.
+    - It will override existing settings defined in files under `/etc/mysql/` (Linux)
+      or `/usr/local/etc/mysql/` (FreeBSD).
 
-Sample config file, `/opt/iredmail/custom/mysql/custom.conf`:
+        Sample config file, `/opt/iredmail/custom/mysql/custom.conf`:
 
 ```
 [mysqld]
