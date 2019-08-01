@@ -19,6 +19,7 @@
 <div class="toc">
 <ul>
 <li><a href="#release-notes-of-iredmail-easy-platform">Release Notes of iRedMail Easy platform</a><ul>
+<li><a href="#20190801">Version: 2019080101 (Aug 01, 2019)</a></li>
 <li><a href="#20190715">Version: 2019071501 (Jul 15, 2019)</a></li>
 <li><a href="#20190606">Version: 2019060601 (Jun 06, 2019)</a></li>
 <li><a href="#20190428">Version: 2019042801 (Apr 28, 2019)</a></li>
@@ -33,6 +34,67 @@
 </li>
 </ul>
 </div>
+<h2 id="20190801">Version: 2019080101 (Aug 01, 2019)</h2>
+<ul>
+<li>It now supports Debian 10.</li>
+<li>
+<p>Dovecot:</p>
+<ul>
+<li>Enable quota-status service used to query mailbox quota.</li>
+<li>Fixed: Not install package <code>dovecot-mysql</code> for OpenLDAP backend on CentOS.</li>
+</ul>
+</li>
+<li>
+<p>Postfix:</p>
+<ul>
+<li>Lookup user's mailbox quota status from Dovecot quota-status service,
+  reject email if mailbox is over quota. This will help save system
+  resources used for spam/virus scanning, avoids "sender non-delivery
+  notification" bounce message.</li>
+<li>Fixed: not copy <code>/etc/resolv.conf</code> to <code>/var/spool/postfix/etc/</code>.</li>
+</ul>
+</li>
+<li>
+<p>Nginx:</p>
+<ul>
+<li>Fixed: improper order while loading modular config files.</li>
+<li>
+<p><strong>ATTENTION</strong>: directive <code>ssl on;</code> has been removed (in
+  <code>/etc/nginx/templates/ssl.tmpl</code>) due to it's deprecated by Nginx itself.
+  If you have custom web host, please use <code>listen &lt;port&gt; ssl;</code> in the
+  <code>server {}</code> block (in <code>/etc/nginx/sites-enabled/*.conf</code>) instead.</p>
+<p>For example:</p>
+<ul>
+<li>Old config file <code>/etc/nginx/sites-enabled/00-default-ssl.conf</code>:</li>
+</ul>
+<p><code>server {
+    listen 443;
+    ...
+}</code></p>
+<ul>
+<li>New directive:</li>
+</ul>
+<p><code>server {
+    listen 443 ssl;
+    ...
+}</code></p>
+</li>
+</ul>
+</li>
+<li>
+<p>Firewall:</p>
+<ul>
+<li>Port 465 (SMTP over SSL) is not open in firewall when the service is
+  enabled.</li>
+</ul>
+</li>
+<li>
+<p>Package updates:</p>
+<ul>
+<li>adminer -&gt; 4.7.2</li>
+</ul>
+</li>
+</ul>
 <h2 id="20190715">Version: 2019071501 (Jul 15, 2019)</h2>
 <ul>
 <li>

@@ -2,6 +2,54 @@
 
 [TOC]
 
+## Version: 2019080101 (Aug 01, 2019) {: id=20190801 }
+
+* It now supports Debian 10.
+* Dovecot:
+    - Enable quota-status service used to query mailbox quota.
+    - Fixed: Not install package `dovecot-mysql` for OpenLDAP backend on CentOS.
+
+* Postfix:
+    - Lookup user's mailbox quota status from Dovecot quota-status service,
+      reject email if mailbox is over quota. This will help save system
+      resources used for spam/virus scanning, avoids "sender non-delivery
+      notification" bounce message.
+    - Fixed: not copy `/etc/resolv.conf` to `/var/spool/postfix/etc/`.
+
+* Nginx:
+    - Fixed: improper order while loading modular config files.
+    - __ATTENTION__: directive `ssl on;` has been removed (in
+      `/etc/nginx/templates/ssl.tmpl`) due to it's deprecated by Nginx itself.
+      If you have custom web host, please use `listen <port> ssl;` in the
+      `server {}` block (in `/etc/nginx/sites-enabled/*.conf`) instead.
+
+        For example:
+
+        * Old config file `/etc/nginx/sites-enabled/00-default-ssl.conf`:
+
+        ```
+        server {
+            listen 443;
+            ...
+        }
+        ```
+
+        * New directive:
+
+        ```
+        server {
+            listen 443 ssl;
+            ...
+        }
+        ```
+
+* Firewall:
+    - Port 465 (SMTP over SSL) is not open in firewall when the service is
+      enabled.
+
+* Package updates:
+    - adminer -> 4.7.2
+
 ## Version: 2019071501 (Jul 15, 2019) {: id=20190715 }
 
 * OpenDMARC integration.
