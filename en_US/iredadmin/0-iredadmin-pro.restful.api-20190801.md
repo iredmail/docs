@@ -4,8 +4,8 @@
 
 !!! attention
 
-    * This document is applicable to `iRedAdmin-Pro-SQL-3.8` and
-      `iRedAdmin-Pro-LDAP-3.9`. If you're running an old release, please
+    * This document is applicable to `iRedAdmin-Pro-SQL-3.6` (and `3.7`) and
+      `iRedAdmin-Pro-LDAP-3.8`. If you're running an old release, please
       upgrade iRedAdmin-Pro to the latest release, or check
       [document for old releases](./iredadmin-pro.releases.html).
     * If you need an API which has not yet been implemented, don't hesitate to
