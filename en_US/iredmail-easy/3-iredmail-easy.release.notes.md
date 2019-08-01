@@ -27,21 +27,21 @@
 
         * Old config file `/etc/nginx/sites-enabled/00-default-ssl.conf`:
 
-        ```
-        server {
-            listen 443;
-            ...
-        }
-        ```
+            ```
+            server {
+                listen 443;
+                ...
+            }
+            ```
 
         * New directive:
 
-        ```
-        server {
-            listen 443 ssl;
-            ...
-        }
-        ```
+            ```
+            server {
+                listen 443 ssl;
+                ...
+            }
+            ```
 
 * Firewall:
     - Port 465 (SMTP over SSL) is not open in firewall when the service is
