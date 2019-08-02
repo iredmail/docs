@@ -2,6 +2,16 @@
 
 [TOC]
 
+## Version: 2019080201 (Aug 02, 2019) {: id=20190802 }
+
+* Dovecot:
+    - Fixed: not add required SQL column `mailbox.enablequota-status`. This
+      will cause mail rejection.
+
+* Firewall:
+    - Run `/opt/iredmail/custom/firewall/custom.sh` after each deployment.
+
+
 ## Version: 2019080101 (Aug 01, 2019) {: id=20190801 }
 
 * It now supports Debian 10.

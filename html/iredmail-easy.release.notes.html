@@ -19,6 +19,7 @@
 <div class="toc">
 <ul>
 <li><a href="#release-notes-of-iredmail-easy-platform">Release Notes of iRedMail Easy platform</a><ul>
+<li><a href="#20190802">Version: 2019080201 (Aug 02, 2019)</a></li>
 <li><a href="#20190801">Version: 2019080101 (Aug 01, 2019)</a></li>
 <li><a href="#20190715">Version: 2019071501 (Jul 15, 2019)</a></li>
 <li><a href="#20190606">Version: 2019060601 (Jun 06, 2019)</a></li>
@@ -34,6 +35,22 @@
 </li>
 </ul>
 </div>
+<h2 id="20190802">Version: 2019080201 (Aug 02, 2019)</h2>
+<ul>
+<li>
+<p>Dovecot:</p>
+<ul>
+<li>Fixed: not add required SQL column <code>mailbox.enablequota-status</code>. This
+  will cause mail rejection.</li>
+</ul>
+</li>
+<li>
+<p>Firewall:</p>
+<ul>
+<li>Run <code>/opt/iredmail/custom/firewall/custom.sh</code> after each deployment.</li>
+</ul>
+</li>
+</ul>
 <h2 id="20190801">Version: 2019080101 (Aug 01, 2019)</h2>
 <ul>
 <li>It now supports Debian 10.</li>
