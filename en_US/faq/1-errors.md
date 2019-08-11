@@ -74,22 +74,26 @@ this issue.
 >
 > `Recipient address rejected: Policy rejection not logged in`
 
-Sender domain is hosted locally on your iRedMail server, but sender doesn't
-perform SMTP AUTH to send email.
+This error message means sender domain is hosted locally on your iRedMail
+server, but sender doesn't perform SMTP AUTH to send email.
 
+* If this email is sent from your server, that means your mail client
+  application (Outlook, Thunderbird, etc) is not configured to perform SMTP
+  authentication. Please enable it.
 * If this is not sent by a server or device under your control, most likely this
-  email is spam with forged sender address.
-
+  email is spam with forged sender address, it's safe to ignore it.
 * If this is sent by a server or device under your control and you want to
-  allow it, please add the IP address of this server/device in iRedAPD config
-  file `/opt/iredapd/settnigs.py`, parameter `MYNETWORKS =` like below:
+  bypass this email, you can whitelist the IP address of this server/device in
+  iRedAPD config file `/opt/iredapd/settnigs.py` like below:
 
-    `MYNETWORKS = ['192.168.0.10', '192.168.0.20', '192.168.0.30']`
+```
+MYNETWORKS = ['192.168.0.10', '192.168.0.20', '192.168.0.30']
+```
 
 Notes:
 
 * This parameter doesn't exist by default, feel free to add it.
-* Parameter name is case SeNsItIvE.
+* Parameter name `MYNETWORKS` is case SeNsItIvE.
 
 ### Recipient address rejected: Sender is not same as SMTP authenticate username
 

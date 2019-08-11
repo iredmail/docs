@@ -109,24 +109,25 @@ restart iRedAPD service. That's all.</p>
 <p><code>SMTP AUTH is required, or it is a spam with forged sender domain</code></p>
 <p><code>Recipient address rejected: Policy rejection not logged in</code></p>
 </blockquote>
-<p>Sender domain is hosted locally on your iRedMail server, but sender doesn't
-perform SMTP AUTH to send email.</p>
+<p>This error message means sender domain is hosted locally on your iRedMail
+server, but sender doesn't perform SMTP AUTH to send email.</p>
 <ul>
-<li>
-<p>If this is not sent by a server or device under your control, most likely this
-  email is spam with forged sender address.</p>
-</li>
-<li>
-<p>If this is sent by a server or device under your control and you want to
-  allow it, please add the IP address of this server/device in iRedAPD config
-  file <code>/opt/iredapd/settnigs.py</code>, parameter <code>MYNETWORKS =</code> like below:</p>
-<p><code>MYNETWORKS = ['192.168.0.10', '192.168.0.20', '192.168.0.30']</code></p>
-</li>
+<li>If this email is sent from your server, that means your mail client
+  application (Outlook, Thunderbird, etc) is not configured to perform SMTP
+  authentication. Please enable it.</li>
+<li>If this is not sent by a server or device under your control, most likely this
+  email is spam with forged sender address, it's safe to ignore it.</li>
+<li>If this is sent by a server or device under your control and you want to
+  bypass this email, you can whitelist the IP address of this server/device in
+  iRedAPD config file <code>/opt/iredapd/settnigs.py</code> like below:</li>
 </ul>
+<pre><code>MYNETWORKS = ['192.168.0.10', '192.168.0.20', '192.168.0.30']
+</code></pre>
+
 <p>Notes:</p>
 <ul>
 <li>This parameter doesn't exist by default, feel free to add it.</li>
-<li>Parameter name is case SeNsItIvE.</li>
+<li>Parameter name <code>MYNETWORKS</code> is case SeNsItIvE.</li>
 </ul>
 <h3 id="recipient-address-rejected-sender-is-not-same-as-smtp-authenticate-username">Recipient address rejected: Sender is not same as SMTP authenticate username</h3>
 <h4 id="case-1">case #1</h4>
