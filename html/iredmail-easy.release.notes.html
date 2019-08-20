@@ -35,7 +35,7 @@
 </li>
 </ul>
 </div>
-<h2 id="20190802">Version: 2019080201 (Aug 02, 2019)</h2>
+<h2 class="release" id="20190802">Version: 2019080201 (Aug 02, 2019)</h2>
 <ul>
 <li>
 <p>Dovecot:</p>
@@ -51,7 +51,7 @@
 </ul>
 </li>
 </ul>
-<h2 id="20190801">Version: 2019080101 (Aug 01, 2019)</h2>
+<h2 class="old_release" id="20190801">Version: 2019080101 (Aug 01, 2019)</h2>
 <ul>
 <li>It now supports Debian 10.</li>
 <li>
@@ -114,7 +114,7 @@
 </ul>
 </li>
 </ul>
-<h2 id="20190715">Version: 2019071501 (Jul 15, 2019)</h2>
+<h2 class="old_release" id="20190715">Version: 2019071501 (Jul 15, 2019)</h2>
 <ul>
 <li>
 <p>OpenDMARC integration.</p>
@@ -184,7 +184,7 @@ in this file should be moved to
 </ul>
 </li>
 </ul>
-<h2 id="20190606">Version: 2019060601 (Jun 06, 2019)</h2>
+<h2 class="old_release" id="20190606">Version: 2019060601 (Jun 06, 2019)</h2>
 <ul>
 <li>
 <p>Fail2ban:</p>
@@ -222,7 +222,7 @@ in this file should be moved to
 </ul>
 </li>
 </ul>
-<h2 id="20190428">Version: 2019042801 (Apr 28, 2019)</h2>
+<h2 class="old_release" id="20190428">Version: 2019042801 (Apr 28, 2019)</h2>
 <ul>
 <li>
 <p>Postfix:</p>
@@ -269,7 +269,7 @@ That means you must upgrade OpenBSD 6.4 to 6.5 before 6.6 is out.</p>
 </ul>
 </li>
 </ul>
-<h2 id="20190402">Version: 2019040201 (Apr 02, 2019)</h2>
+<h2 class="old_release" id="20190402">Version: 2019040201 (Apr 02, 2019)</h2>
 <ul>
 <li>
 <p>Roundcube</p>
@@ -297,7 +297,7 @@ That means you must upgrade OpenBSD 6.4 to 6.5 before 6.6 is out.</p>
 </ul>
 </li>
 </ul>
-<h2 id="20190327">Version: 2019032701 (Mar 27, 2019)</h2>
+<h2 class="old_release" id="20190327">Version: 2019032701 (Mar 27, 2019)</h2>
 <ul>
 <li>
 <p>Dovecot:</p>
@@ -413,7 +413,7 @@ profile page with the iRedMail Easy web UI.</p>
 </ul>
 </li>
 </ul>
-<h2 id="20190219">Version: 2019021901 (Feb 19, 2019)</h2>
+<h2 class="old_release" id="20190219">Version: 2019021901 (Feb 19, 2019)</h2>
 <ul>
 <li>
 <p>Improvements:</p>
@@ -444,7 +444,7 @@ profile page with the iRedMail Easy web UI.</p>
 </ul>
 </li>
 </ul>
-<h2 id="20190130">Version: 2019013001 (Jan 30, 2019)</h2>
+<h2 class="old_release" id="20190130">Version: 2019013001 (Jan 30, 2019)</h2>
 <ul>
 <li>Set max open file limit by SOGo daemon to unlimited.</li>
 <li>Able to set memcached cache size (in MB).</li>
@@ -477,7 +477,7 @@ for ham learning later.</p>
 </ul>
 </li>
 </ul>
-<h2 id="20190102">Version: 2019010201 (Jan 2, 2019)</h2>
+<h2 class="old_release" id="20190102">Version: 2019010201 (Jan 2, 2019)</h2>
 <blockquote>
 <p>Hello, 2019. :)</p>
 </blockquote>
@@ -493,7 +493,7 @@ for ham learning later.</p>
 </ul>
 </li>
 </ul>
-<h2 id="20181223">Version: 2018122301 (Dec 23, 2018)</h2>
+<h2 class="old_release" id="20181223">Version: 2018122301 (Dec 23, 2018)</h2>
 <ul>
 <li>Fixed:<ul>
 <li>Improper dovecot ldap/sql queries which doesn't convert upper cases of
@@ -501,7 +501,7 @@ for ham learning later.</p>
 </ul>
 </li>
 </ul>
-<h2 id="20181217">Version: 2018121701 (Dec 17, 2018)</h2>
+<h2 class="old_release" id="20181217">Version: 2018121701 (Dec 17, 2018)</h2>
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>
 <ul>
@@ -558,7 +558,20 @@ for ham learning later.</p>
 <li>adminer -&gt; 4.7.0</li>
 </ul>
 </li>
-</ul><div class="footer">
+</ul>
+<!--
+<script src="./js/jquery-1.12.4.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+    $('.old_release').nextUntil('.old_release').hide();
+
+    /* Expand/Collapse parameters under same title/category */
+    $('.old_release').on('click', function() {
+        $(this).nextUntil('.old_release').toggle();
+    });
+});
+</script>
+--><div class="footer">
     <p style="text-align: center; color: grey;">All documents are available in <a href="https://bitbucket.org/zhb/iredmail-docs/src">BitBucket repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://bitbucket.org/zhb/iredmail-docs/get/tip.tar.bz2">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
 </div>
 <!-- Global site tag (gtag.js) - Google Analytics -->

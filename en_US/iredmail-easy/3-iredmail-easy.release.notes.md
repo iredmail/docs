@@ -2,7 +2,7 @@
 
 [TOC]
 
-## Version: 2019080201 (Aug 02, 2019) {: id=20190802 }
+## Version: 2019080201 (Aug 02, 2019) {: id=20190802 class="release" }
 
 * Dovecot:
     - Fixed: not add required SQL column `mailbox.enablequota-status`. This
@@ -12,7 +12,7 @@
     - Run `/opt/iredmail/custom/firewall/custom.sh` after each deployment.
 
 
-## Version: 2019080101 (Aug 01, 2019) {: id=20190801 }
+## Version: 2019080101 (Aug 01, 2019) {: id=20190801 class="old_release" }
 
 * It now supports Debian 10.
 * Dovecot:
@@ -60,7 +60,7 @@
 * Package updates:
     - adminer -> 4.7.2
 
-## Version: 2019071501 (Jul 15, 2019) {: id=20190715 }
+## Version: 2019071501 (Jul 15, 2019) {: id=20190715 class="old_release" }
 
 * OpenDMARC integration.
 
@@ -106,7 +106,7 @@
     - iRedAPD 3.0. It fixes a critical bug of throttle plugin.
     - iRedAdmin-Pro. Note: it requires a valid iRedAdmin-Pro license.
 
-## Version: 2019060601 (Jun 06, 2019) {: id=20190606 }
+## Version: 2019060601 (Jun 06, 2019) {: id=20190606 class="old_release" }
 
 * Fail2ban:
     - Remove jail 'sshd-ddos'. Fail2ban doesn't ship its filter conf anymore.
@@ -128,7 +128,7 @@
     - iRedAPD 2.9. It fixes 2 bugs.
     - netdata 1.15.0
 
-## Version: 2019042801 (Apr 28, 2019) {: id=20190428 }
+## Version: 2019042801 (Apr 28, 2019) {: id=20190428 class="old_release" }
 
 * Postfix:
     - Enable header/body checks for email injected by Amavisd.
@@ -160,7 +160,7 @@
       cause issue.
     + Send `iRedMail.tips` file to postmaster after deployment.
 
-## Version: 2019040201 (Apr 02, 2019) {: id=20190402 }
+## Version: 2019040201 (Apr 02, 2019) {: id=20190402 class="old_release" }
 
 * Roundcube
     - Upgrade to 1.3.9 ([Detailed ChangeLog](https://github.com/roundcube/roundcubemail/releases/tag/1.3.9).)
@@ -178,7 +178,7 @@
 * Improvements of iRedMail Easy platform:
     + Send `iRedMail.tips` file to postmaster after deployment.
 
-## Version: 2019032701 (Mar 27, 2019) {: id=20190327 }
+## Version: 2019032701 (Mar 27, 2019) {: id=20190327 class="old_release" }
 
 * Dovecot:
     - Improve `imapsieve` setting to handle different IMAP command sent by
@@ -253,7 +253,7 @@
     - Incorrect permission of directories used to store prosody custom modules
       and config files.
 
-## Version: 2019021901 (Feb 19, 2019) {: id=20190219 }
+## Version: 2019021901 (Feb 19, 2019) {: id=20190219 class="old_release" }
 
 * Improvements:
     + Able to remove ssh public key on target server.
@@ -272,7 +272,7 @@
     + mlmmjadmin -> 2.1
     + iRedAdmin (open source edition) -> 0.9.5
 
-## Version: 2019013001 (Jan 30, 2019) {: id=20190130 }
+## Version: 2019013001 (Jan 30, 2019) {: id=20190130 class="old_release" }
 
 * Set max open file limit by SOGo daemon to unlimited.
 * Able to set memcached cache size (in MB).
@@ -300,7 +300,7 @@
     - mlmmjadmin-2.0
     - adminer-4.7.1
 
-## Version: 2019010201 (Jan 2, 2019) {: id=20190102 }
+## Version: 2019010201 (Jan 2, 2019) {: id=20190102 class="old_release" }
 
 > Hello, 2019. :)
 
@@ -311,13 +311,13 @@
       and hash db files.
     - Not remove unused modular nginx config file for iredadmin.
 
-## Version: 2018122301 (Dec 23, 2018) {: id=20181223 }
+## Version: 2018122301 (Dec 23, 2018) {: id=20181223 class="old_release" }
 
 * Fixed:
     - Improper dovecot ldap/sql queries which doesn't convert upper cases of
       maildir to lower cases.
 
-## Version: 2018121701 (Dec 17, 2018) {: id=20181217 }
+## Version: 2018121701 (Dec 17, 2018) {: id=20181217 class="old_release" }
 
 !!! attention
 

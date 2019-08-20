@@ -24,7 +24,7 @@ specification. Source code hosted on [GitHub](https://github.com/trusteddomainpr
 
 !!! warning
 
-    OpenDMARC version __1.3.1__ is buggy, hence the latest __1.3.2__ is required.
+    OpenDMARC version __1.3.2__ (or later) is required (version __1.3.1__ is buggy).
 
 Supported OS Linux/BSD distributions:
 
@@ -63,3 +63,5 @@ cd /usr/ports/mail/opendmarc && make install clean
 ```
 
 ## Configure OpenDMARC
+
+## Setup cron jobs
