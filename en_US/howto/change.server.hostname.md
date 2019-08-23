@@ -33,6 +33,11 @@ files to replace old hostname by the new one:
 * Debian/Ubuntu: `/etc/amavis/conf.d/50-user`
 * FreeBSD: `/usr/local/etc/amavisd.conf`
 
+## OpenDMARC:
+
+* Linux/OpenBSD: `/etc/opendmarc.conf` (parameter `AuthservID` and `TrustedAuthservIDs`)
+* FreeBSD: `/usr/local/etc/opendmarc.conf` (parameter `AuthservID` and `TrustedAuthservIDs`)
+
 ## SOGO
 
 * `/etc/httpd/conf.d/SOGo.conf`
