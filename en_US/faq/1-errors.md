@@ -84,7 +84,7 @@ server, but sender doesn't perform SMTP AUTH to send email.
   email is spam with forged sender address, it's safe to ignore it.
 * If this is sent by a server or device under your control and you want to
   bypass this email, you can whitelist the IP address of this server/device in
-  iRedAPD config file `/opt/iredapd/settnigs.py` like below:
+  iRedAPD config file `/opt/iredapd/settings.py` like below:
 
 ```
 MYNETWORKS = ['192.168.0.10', '192.168.0.20', '192.168.0.30']
