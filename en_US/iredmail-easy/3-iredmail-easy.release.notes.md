@@ -2,7 +2,71 @@
 
 [TOC]
 
-## Version: 2019080201 (Aug 02, 2019) {: id=20190802 class="release" }
+## Version: 2019090601 (Sep 06, 2019) {: id=20190906 class="release" }
+
+* Postfix:
+    - Sign DKIM signature for locally generated emails, like auto-reply (a.k.a
+      vacation) message.
+
+* Nginx:
+    - Redirect URI `/adminer/` to `/adminer`.
+
+* Dovecot:
+    - Add setting `sieve_redirect_envelope_from=recipient`. It's used to
+      rewrite sender address in redirected message (with sieve directive
+      `redirect`) to the final recipient address of the message.
+
+          For example, `someone@gmail.com` sends an email to `user@domain.com`
+          which is hosted on your server, and this user has sieve rule to
+          redirect received message to `forward@3rd-domain.com`, with default
+          Dovecot setting (`sieve_redirect_envelope_from=sender`), user
+          `forward@3rd-domain.com` will receive this email with sender address
+          `someone@gmail.com` in mail header, but with
+          `sieve_redirect_envelope_from=recipient`, the sender address will
+          be `user@domain.com`.
+
+    - Log `delivery_time` of LDA/LMTP.
+
+* php-fpm:
+    - Set value of `post_max_size` 1MB larger than `upload_max_filesize`, so
+      that Roundcube can successfully upload mail attachment.
+
+* OpenDMARC:
+    - Add shell script and cron job to update `public_suffix_list.dat` every
+      2 days.
+
+* SpamAssassin:
+    - Set 3 custom scores in SpamAssassin to catch more spams.
+
+        ```
+        # sender does not match SPF record (fail)
+        score SPF_FAIL 5
+        # To == From and external SPF failed
+        score TO_EQ_FM_SPF_FAIL 5
+        # To domain == From domain and external SPF failed
+        score TO_EQ_FM_DOM_SPF_FAIL 5
+        ```
+
+* ClamAV:
+    - Increase systemd timeout value to avoid startup failure on low memory
+      server.
+
+* Fixed issues:
+    - Improper postrotate command for logrotate program on Linux.
+
+* Package updates:
+    - roundcube -> 1.3.10
+    - adminer -> 4.7.3
+    - iRedAPD -> 3.1
+    - netdata -> 1.17.0
+    - iRedAdmin -> 0.9.8
+
+* Changes to iRedMail Easy platform:
+    - Firewall rule always opens port 22 for ssh.
+    - Add `curl` as required packages.
+    - Use package branch (`%7.3`) instead of version number for php on OpenBSD.
+
+## Version: 2019080201 (Aug 02, 2019) {: id=20190802 class="old_release" }
 
 * Dovecot:
     - Fixed: not add required SQL column `mailbox.enablequota-status`. This
