@@ -12,8 +12,8 @@ export TMP_DIR="${OUTPUT_DIR}/tmp"
 
 export CONVERTER="${ROOTDIR}/tools/markdown2html.py"
 export CMD_CONVERT="python ${CONVERTER}"
-export CMD_CHECK_CHANGE="hg st"
-export CHANGED_FILES="$(${CMD_CHECK_CHANGE} | grep '\.md$')"
+export CMD_CHECK_CHANGE="git status"
+export CHANGED_FILES="$(git status | grep -E '(modified:|new file:)' | grep '\.md$' | awk -F':' '{print $2}')"
 export TODAY="$(date +%Y-%m-%d)"
 
 [ -d ${OUTPUT_DIR} ] || mkdir -p ${OUTPUT_DIR}
@@ -82,7 +82,7 @@ for lang in ${all_languages}; do
     cd ${src_dir}
 
     # Show different languages
-    echo -e '!!! note "Some tutorials have been translated to different languages. [Help translate more](https://bitbucket.org/zhb/iredmail-docs/src)"' > ${INDEX_MD}
+    echo -e '!!! note "Some tutorials have been translated to different languages. [Help translate more](https://github.com/iredmail/docs)"' > ${INDEX_MD}
 
     _md_lang=''
     for l in ${all_languages}; do
@@ -214,7 +214,7 @@ for lang in ${all_languages}; do
                     perl -pi -e 's#${_title_line}##' ${tmp_md_orig}
 
                     echo -e "${title_line}\n\n" > ${tmp_md}
-                    echo -e '!!! note "This tutorial is available in other languages. [Help translate more](https://bitbucket.org/zhb/iredmail-docs/src)"\n\n' >> ${tmp_md}
+                    echo -e '!!! note "This tutorial is available in other languages. [Help translate more](https://github.com/iredmail/docs)"\n\n' >> ${tmp_md}
 
                     _md_l='\t'
                     for l in ${translations}; do
