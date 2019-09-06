@@ -407,62 +407,49 @@ overrode by the last one.</p>
 </ul>
 <h3 id="roundcube">Roundcube</h3>
 <h4 id="custom-global-settings">Custom global settings</h4>
-<pre><code>All your custom settings should be placed in
-__`/opt/iredmail/custom/roundcube/custom.inc.php`__, and do __NOT__
-touch main config file `/opt/www/roundcubemail/config/config.inc.php`.
-</code></pre>
+<p>All your custom settings should be placed in
+<strong><code>/opt/iredmail/custom/roundcube/custom.inc.php</code></strong>, and do <strong>NOT</strong>
+touch main config file <code>/opt/www/roundcubemail/config/config.inc.php</code>.</p>
 <h4 id="third-party-or-custom-plugins">Third-party or custom plugins</h4>
-<pre><code>All third-party or custom plugins should be placed under __`/opt/iredmail/custom/roundcube/plugins/`__.
-
-Plugins will be linked to `/opt/www/roundcubemail/plugins/` automatically
+<p>All third-party or custom plugins should be placed under <strong><code>/opt/iredmail/custom/roundcube/plugins/</code></strong>.</p>
+<p>Plugins will be linked to <code>/opt/www/roundcubemail/plugins/</code> automatically
 during iRedMail Easy deployment, but you need to create the symbol
-link manually if you don't want to run another deployment.
-</code></pre>
+link manually if you don't want to run another deployment.</p>
 <h4 id="custom-settings-for-official-plugins">Custom settings for official plugins</h4>
-<pre><code>iRedMail Easy enables 2 official plugins by default:
-
-- `password`: used by end users to change their own passwords.
-- `managesieve`: used by end users to custom mail filter rules.
-
-If you have custom settings for plugins enabled by iRedMail Easy, please
+<p>iRedMail Easy enables 2 official plugins by default:</p>
+<ul>
+<li><code>password</code>: used by end users to change their own passwords.</li>
+<li><code>managesieve</code>: used by end users to custom mail filter rules.</li>
+</ul>
+<p>If you have custom settings for plugins enabled by iRedMail Easy, please
 put the custom settings in file
-`/opt/iredmail/custom/roundcube/config_&lt;plugin_name&gt;.inc.php`.
-
-For example:
-
-- For `password` plugin: `/opt/iredmail/custom/roundcube/config_password.inc.php`
-- For `managesieve` plugin: `/opt/iredmail/custom/roundcube/config_managesieve.inc.php`
-
-If you have custom settings for plugin which is not enabled by iRedMail
+<code>/opt/iredmail/custom/roundcube/config_&lt;plugin_name&gt;.inc.php</code>.</p>
+<p>For example:</p>
+<ul>
+<li>For <code>password</code> plugin: <code>/opt/iredmail/custom/roundcube/config_password.inc.php</code></li>
+<li>For <code>managesieve</code> plugin: <code>/opt/iredmail/custom/roundcube/config_managesieve.inc.php</code></li>
+</ul>
+<p>If you have custom settings for plugin which is not enabled by iRedMail
 Easy, please append a line to
-`/opt/www/roundcubemail/plugins/&lt;plugin-name&gt;/config.inc.php` like below:
-
-```
-require_once "/opt/iredmail/custom/roundcube/config_&lt;plugin&gt;.inc.php";
-```
-
-Then put all custom settings for this plugin to `/opt/iredmail/custom/roundcube/config_&lt;plugin&gt;.inc.php`.
-
-For example, if you have custom settings for official plugin `enigma`, you
-should append this line to `/opt/www/roundcubemail/plugins/enigma/config.inc.php`:
-
-```
-require_once "/opt/iredmail/custom/roundcube/config_enigma.inc.php";
-```
-
-Then put all custom settings for plugin `enigma` to
-`/opt/iredmail/custom/roundcube/config_enigma.inc.php`.
-
-This way if iRedMail Easy enables the plugin, it will successfully load
-your own custom settings and not mess it up.
+<code>/opt/www/roundcubemail/plugins/&lt;plugin-name&gt;/config.inc.php</code> like below:</p>
+<pre><code>require_once &quot;/opt/iredmail/custom/roundcube/config_&lt;plugin&gt;.inc.php&quot;;
 </code></pre>
+
+<p>Then put all custom settings for this plugin to <code>/opt/iredmail/custom/roundcube/config_&lt;plugin&gt;.inc.php</code>.</p>
+<p>For example, if you have custom settings for official plugin <code>enigma</code>, you
+should append this line to <code>/opt/www/roundcubemail/plugins/enigma/config.inc.php</code>:</p>
+<pre><code>require_once &quot;/opt/iredmail/custom/roundcube/config_enigma.inc.php&quot;;
+</code></pre>
+
+<p>Then put all custom settings for plugin <code>enigma</code> to
+<code>/opt/iredmail/custom/roundcube/config_enigma.inc.php</code>.</p>
+<p>This way if iRedMail Easy enables the plugin, it will successfully load
+your own custom settings and not mess it up.</p>
 <h4 id="custom-skins">Custom skins</h4>
-<pre><code>All third-party or custom skins should be placed under __`/opt/iredmail/custom/roundcube/skins/`__.
-
-Skins will be linked to `/opt/www/roundcubemail/skins/` automatically
+<p>All third-party or custom skins should be placed under <strong><code>/opt/iredmail/custom/roundcube/skins/</code></strong>.</p>
+<p>Skins will be linked to <code>/opt/www/roundcubemail/skins/</code> automatically
 during iRedMail Easy deployment, but you need to create the symbol link
-manually if you don't want to run another deployment.
-</code></pre>
+manually if you don't want to run another deployment.</p>
 <h3 id="sogo">SOGo</h3>
 <p>SOGo doesn’t support directive like <code>include</code> to load extra settings
 from multiple files, so you have to either maintain your own SOGo config
