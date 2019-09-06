@@ -20,11 +20,6 @@
 <ul>
 <li><a href="#release-notes-of-iredmail-easy-platform">Release Notes of iRedMail Easy platform</a><ul>
 <li><a href="#20190906">Version: 2019090601 (Sep 06, 2019)</a></li>
-</ul>
-</li>
-<li><a href="#sender-does-not-match-spf-record-fail">sender does not match SPF record (fail)</a></li>
-<li><a href="#to-from-and-external-spf-failed">To == From and external SPF failed</a></li>
-<li><a href="#to-domain-from-domain-and-external-spf-failed">To domain == From domain and external SPF failed</a><ul>
 <li><a href="#20190802">Version: 2019080201 (Aug 02, 2019)</a></li>
 <li><a href="#20190801">Version: 2019080101 (Aug 01, 2019)</a></li>
 <li><a href="#20190715">Version: 2019071501 (Jul 15, 2019)</a></li>
@@ -94,16 +89,11 @@
 <li>
 <p>SpamAssassin:</p>
 <ul>
-<li>
-<p>Set 3 custom scores in SpamAssassin to catch more spams.</p>
-<p>```</p>
-<h1 id="sender-does-not-match-spf-record-fail">sender does not match SPF record (fail)</h1>
-<p>score SPF_FAIL 5</p>
-<h1 id="to-from-and-external-spf-failed">To == From and external SPF failed</h1>
-<p>score TO_EQ_FM_SPF_FAIL 5</p>
-<h1 id="to-domain-from-domain-and-external-spf-failed">To domain == From domain and external SPF failed</h1>
-<p>score TO_EQ_FM_DOM_SPF_FAIL 5
-```</p>
+<li>Set 3 custom scores in SpamAssassin to catch more spams.<ul>
+<li><code>score SPF_FAIL 5</code>: sender does not match SPF record (fail)</li>
+<li><code>score TO_EQ_FM_SPF_FAIL 5</code>: To == From and external SPF failed</li>
+<li><code>score TO_EQ_FM_DOM_SPF_FAIL 5</code>: To domain == From domain and external SPF failed</li>
+</ul>
 </li>
 </ul>
 </li>

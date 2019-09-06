@@ -37,15 +37,9 @@
 
 * SpamAssassin:
     - Set 3 custom scores in SpamAssassin to catch more spams.
-
-        ```
-        # sender does not match SPF record (fail)
-        score SPF_FAIL 5
-        # To == From and external SPF failed
-        score TO_EQ_FM_SPF_FAIL 5
-        # To domain == From domain and external SPF failed
-        score TO_EQ_FM_DOM_SPF_FAIL 5
-        ```
+        - `score SPF_FAIL 5`: sender does not match SPF record (fail)
+        - `score TO_EQ_FM_SPF_FAIL 5`: To == From and external SPF failed
+        - `score TO_EQ_FM_DOM_SPF_FAIL 5`: To domain == From domain and external SPF failed
 
 * ClamAV:
     - Increase systemd timeout value to avoid startup failure on low memory
