@@ -6,8 +6,16 @@
 
     This is still a DRAFT document, it may miss some other important changes.
 
+## Postfix
+
+* If you're running MySQL/MariaDB or PostgreSQL backend, you need to remove
+  parameter `port =` in `/etc/postfix/mysql/*.cf` and `/etc/postfix/pgsql/*.cf`.
+
 ## Dovecot
 
+Changes required to be made in Dovecot main config file `/etc/dovecot/dovecot.conf`:
+
+* Remove all `postmaster_address =`.
 * Remove parameter `ssl_protocols =`.
 * Add new parameter `ssl_min_protocols` like this:
 
@@ -17,6 +25,14 @@ ssl_min_protocols = TLSv1.2
 
 Note: if you need to support old mail client applications which don't support
 `TLSv1.2`, you may need to set it to `TLSv1.1`. Please use `TLSv1.2` if possible.
+
+* Add new parameter `ssl_dh` and load existing file:
+    * on CentOS, it's `/etc/pki/tls/dhparams.pem`
+    * on Debian/Ubuntu, FreeBSD, OpenBSD, it's `/etc/ssl/dhparams.pem`
+
+```
+ssl_dh = </etc/ssl/dhparams.pem
+```
 
 * If you have plugin `stats` enabled, you need to rename it:
 
@@ -30,6 +46,8 @@ Old | New
 `unix_listener stats` | `unix_listener old-stats`<br/>Warning: It's a dash (`-`), not underscore (`_`).
 `plugin { stats_refresh = ... }` | `plugin { old_stats_refresh = ...}`
 `plugin { stats_track_cmds = ...}` | `plugin { old_stats_track_cmds = ...}`
+
+Restart Dovecot service is required.
 
 ## SOGo Groupware
 

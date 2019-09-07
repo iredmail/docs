@@ -19,6 +19,7 @@
 <div class="toc">
 <ul>
 <li><a href="#fixes-you-need-after-upgrading-debian-from-9-to-10">Fixes you need after upgrading Debian from 9 to 10</a><ul>
+<li><a href="#postfix">Postfix</a></li>
 <li><a href="#dovecot">Dovecot</a></li>
 <li><a href="#sogo-groupware">SOGo Groupware</a></li>
 </ul>
@@ -29,8 +30,15 @@
 <p class="admonition-title">Warning</p>
 <p>This is still a DRAFT document, it may miss some other important changes.</p>
 </div>
-<h2 id="dovecot">Dovecot</h2>
+<h2 id="postfix">Postfix</h2>
 <ul>
+<li>If you're running MySQL/MariaDB or PostgreSQL backend, you need to remove
+  parameter <code>port =</code> in <code>/etc/postfix/mysql/*.cf</code> and <code>/etc/postfix/pgsql/*.cf</code>.</li>
+</ul>
+<h2 id="dovecot">Dovecot</h2>
+<p>Changes required to be made in Dovecot main config file <code>/etc/dovecot/dovecot.conf</code>:</p>
+<ul>
+<li>Remove all <code>postmaster_address =</code>.</li>
 <li>Remove parameter <code>ssl_protocols =</code>.</li>
 <li>Add new parameter <code>ssl_min_protocols</code> like this:</li>
 </ul>
@@ -39,6 +47,16 @@
 
 <p>Note: if you need to support old mail client applications which don't support
 <code>TLSv1.2</code>, you may need to set it to <code>TLSv1.1</code>. Please use <code>TLSv1.2</code> if possible.</p>
+<ul>
+<li>Add new parameter <code>ssl_dh</code> and load existing file:<ul>
+<li>on CentOS, it's <code>/etc/pki/tls/dhparams.pem</code></li>
+<li>on Debian/Ubuntu, FreeBSD, OpenBSD, it's <code>/etc/ssl/dhparams.pem</code></li>
+</ul>
+</li>
+</ul>
+<pre><code>ssl_dh = &lt;/etc/ssl/dhparams.pem
+</code></pre>
+
 <ul>
 <li>If you have plugin <code>stats</code> enabled, you need to rename it:</li>
 </ul>
@@ -84,6 +102,7 @@
 </tr>
 </tbody>
 </table>
+<p>Restart Dovecot service is required.</p>
 <h2 id="sogo-groupware">SOGo Groupware</h2>
 <p>SOGo packages were removed during upgrading Debian, but SOGo team doesn't
 offer nightly build binary packages for Debian 10. We have to remove the
