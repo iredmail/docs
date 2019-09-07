@@ -23,9 +23,6 @@ Changes required to be made in Dovecot main config file `/etc/dovecot/dovecot.co
 ssl_min_protocols = TLSv1.2
 ```
 
-Note: if you need to support old mail client applications which don't support
-`TLSv1.2`, you may need to set it to `TLSv1.1`. Please use `TLSv1.2` if possible.
-
 * Add new parameter `ssl_dh` and load existing file:
     * on CentOS, it's `/etc/pki/tls/dhparams.pem`
     * on Debian/Ubuntu, FreeBSD, OpenBSD, it's `/etc/ssl/dhparams.pem`
