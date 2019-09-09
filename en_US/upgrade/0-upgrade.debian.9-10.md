@@ -46,6 +46,10 @@ Old | New
 
 Restart Dovecot service is required.
 
+## PHP
+
+Debian 9 offers PHP-5, but Debian 10 has PHP-7.3, you need to upgrade it to 7.3 manually.
+
 ## SOGo Groupware
 
 SOGo packages were removed during upgrading Debian, but SOGo team doesn't

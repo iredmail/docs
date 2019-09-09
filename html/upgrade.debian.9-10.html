@@ -21,6 +21,7 @@
 <li><a href="#fixes-you-need-after-upgrading-debian-from-9-to-10">Fixes you need after upgrading Debian from 9 to 10</a><ul>
 <li><a href="#postfix">Postfix</a></li>
 <li><a href="#dovecot">Dovecot</a></li>
+<li><a href="#php">PHP</a></li>
 <li><a href="#sogo-groupware">SOGo Groupware</a></li>
 </ul>
 </li>
@@ -101,6 +102,8 @@
 </tbody>
 </table>
 <p>Restart Dovecot service is required.</p>
+<h2 id="php">PHP</h2>
+<p>Debian 9 offers PHP-5, but Debian 10 has PHP-7.3, you need to upgrade it to 7.3 manually.</p>
 <h2 id="sogo-groupware">SOGo Groupware</h2>
 <p>SOGo packages were removed during upgrading Debian, but SOGo team doesn't
 offer nightly build binary packages for Debian 10. We have to remove the
