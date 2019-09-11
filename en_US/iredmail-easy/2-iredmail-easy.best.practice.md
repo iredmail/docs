@@ -253,13 +253,15 @@ multiple files.
 For other settings, Postfix is configured to load the one under
 `/opt/iredmail/custom/postfix/` first (this should be maintained by you), then
 another one from `/etc/postfix/` (maintained by iRedMail Easy and you should
-NOT update them).
+NOT update them). If rule defined in first one matches, Postfix will skip the
+second file.
 
 For example, Postfix loads 2 files for HELO access check:
 
 - `/opt/iredmail/custom/postfix/helo_access.pcre`: You can add custom HELO
    access rules in this file, or add rule to override the one defined in
-   `/etc/postfix/helo_access.pcre`.
+   `/etc/postfix/helo_access.pcre`. If access rule in this file matches,
+   Postfix will ignore the second (and all the rest) files.
 - `/etc/postfix/helo_access.pcre`: This file is maintained by iRedMail Easy,
   you should NOT modify it.
 
