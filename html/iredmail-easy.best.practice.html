@@ -370,14 +370,32 @@ max_connections     = 1024
 </code></pre>
 
 <h3 id="postfix">Postfix</h3>
-<p>Postfix doesn't support loading settings from multiple files.</p>
+<p>Postfix doesn't support loading main settings (<code>main.cf</code> and <code>master.cf</code>) from
+multiple files.</p>
 <ul>
 <li><code>/opt/iredmail/custom/postfix/main.cf</code>: If this file exists, <code>/etc/postfix/main.cf</code> will be a symbol link to this file.</li>
 <li><code>/opt/iredmail/custom/postfix/master.cf</code>: If this file exists, <code>/etc/postfix/master.cf</code> will be a symbol link to this file.</li>
-<li><code>/opt/iredmail/custom/postfix/helo_access.pcre</code></li>
+</ul>
+<p>For other settings, Postfix is configured to load the one under
+<code>/opt/iredmail/custom/postfix/</code> first (this should be maintained by you), then
+another one from <code>/etc/postfix/</code> (maintained by iRedMail Easy and you should
+NOT update them).</p>
+<p>For example, Postfix loads 2 files for HELO access check:</p>
+<ul>
+<li><code>/opt/iredmail/custom/postfix/helo_access.pcre</code>: You can add custom HELO
+   access rules in this file, or add rule to override the one defined in
+   <code>/etc/postfix/helo_access.pcre</code>.</li>
+<li><code>/etc/postfix/helo_access.pcre</code>: This file is maintained by iRedMail Easy,
+  you should NOT modify it.</li>
+</ul>
+<p>You can find some other files for customization under
+<code>/opt/iredmail/custom/postfix/</code>. For example:</p>
+<ul>
 <li><code>/opt/iredmail/custom/postfix/postscreen_access.cidr</code></li>
 <li>
-<p><code>/opt/iredmail/custom/postfix/custom.sh</code>: a bash shell script for advanced customization. It will be ran while iRedMail Easy deployment or upgrade.</p>
+<p><code>/opt/iredmail/custom/postfix/custom.sh</code>: a bash shell script for advanced
+  customization. It will be ran each time your ran iRedMail Easy deployment or
+  upgrade.</p>
 <p>For example, to change setting <code>enable_original_recipient</code> to <code>yes</code>
 (defaults to <code>no</code> set in <code>/etc/postfix/main.cf</code>), you can write one shell
 command in <code>/opt/iredmail/custom/postfix/custom.sh</code> like below:</p>

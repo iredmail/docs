@@ -244,13 +244,32 @@ iRedMail uses the directory structure recommended by Debian/Ubuntu:
 
 ### Postfix
 
-Postfix doesn't support loading settings from multiple files.
+Postfix doesn't support loading main settings (`main.cf` and `master.cf`) from
+multiple files.
 
 - `/opt/iredmail/custom/postfix/main.cf`: If this file exists, `/etc/postfix/main.cf` will be a symbol link to this file.
 - `/opt/iredmail/custom/postfix/master.cf`: If this file exists, `/etc/postfix/master.cf` will be a symbol link to this file.
-- `/opt/iredmail/custom/postfix/helo_access.pcre`
+
+For other settings, Postfix is configured to load the one under
+`/opt/iredmail/custom/postfix/` first (this should be maintained by you), then
+another one from `/etc/postfix/` (maintained by iRedMail Easy and you should
+NOT update them).
+
+For example, Postfix loads 2 files for HELO access check:
+
+- `/opt/iredmail/custom/postfix/helo_access.pcre`: You can add custom HELO
+   access rules in this file, or add rule to override the one defined in
+   `/etc/postfix/helo_access.pcre`.
+- `/etc/postfix/helo_access.pcre`: This file is maintained by iRedMail Easy,
+  you should NOT modify it.
+
+You can find some other files for customization under
+`/opt/iredmail/custom/postfix/`. For example:
+
 - `/opt/iredmail/custom/postfix/postscreen_access.cidr`
-- `/opt/iredmail/custom/postfix/custom.sh`: a bash shell script for advanced customization. It will be ran while iRedMail Easy deployment or upgrade.
+- `/opt/iredmail/custom/postfix/custom.sh`: a bash shell script for advanced
+  customization. It will be ran each time your ran iRedMail Easy deployment or
+  upgrade.
 
     For example, to change setting `enable_original_recipient` to `yes`
     (defaults to `no` set in `/etc/postfix/main.cf`), you can write one shell
