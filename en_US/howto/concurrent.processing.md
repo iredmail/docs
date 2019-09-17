@@ -2,8 +2,9 @@
 
 !!! attention
 
-    Processing more emails concurrently require more RAM, please make sure you
-    have enough RAM to handle them.
+    Processing more emails concurrently requires more RAM, please make sure you
+    have enough RAM to handle them, otherwise ClamAV may exit randomly due to
+    no enough memory (for ClamAV).
 
 Amavisd-new is content filter, it invokes SpamAssassin and ClamAV for
 spam/virus scanning, it also offers additional features like DKIM signing and
