@@ -87,7 +87,7 @@ blockquote cite:before {
     content: '\2014 \00A0';
 }
 
-blockquote p {  
+blockquote p {
     color: #666;
     /*max-width: 460px;*/
 }
@@ -309,7 +309,7 @@ pre>code {
 
 #navigation a:hover {
     color: #0099ff;
-} 
+}
 
 th { font-style: bold; text-align: left; }
 

@@ -52,25 +52,25 @@ con allegati di grosse dimensioni.</p>
 <ul>
 <li><code>104857600</code> corrisponde a 100 (MB) x 1024 (KB) x 1024 (Bit).</li>
 <li>La mail sarà codificata dal vostro client (OutLook, Thunderbird, etc) prima di essere inviata,
-   quindi la dimensione totale del messaggio più l'allegato sarà superiore a 100MB. 
+   quindi la dimensione totale del messaggio più l'allegato sarà superiore a 100MB.
    Puoi risolvere il problema portando il limite massimo a 110Mb o 120Mb.</li>
 <li>Se configurate <code>mailbox_size_limit</code> con un valore inferiore a quello di <code>message_size_limit</code>
-   Postfix riporterà il seguente errore nel suo log: <code>fatal: main.cf configuration  error:  
+   Postfix riporterà il seguente errore nel suo log: <code>fatal: main.cf configuration  error:
    mailbox_size_limit is smaller than message_size_limit</code>.</li>
 </ul>
-<p>Se usate client di posta come OutLook o Thunderbird per inviare le mail, adesso è possibile 
+<p>Se usate client di posta come OutLook o Thunderbird per inviare le mail, adesso è possibile
 inviare grossi allegati con le configurazioni appena spiegate.</p>
 <h2 id="modifica-dimensione-di-upload-nel-client-web-roundcube">Modifica dimensione di upload nel client web Roundcube</h2>
 <p>Se usare Roundcube webmail, dovrete cambiare altri due parametri:</p>
 <h3 id="modificate-le-configurazioni-di-php-in-modo-di-caricare-grossi-allegati">Modificate le configurazioni di PHP in modo di caricare grossi allegati</h3>
-<p>Dovrete cambiare nel file di configurazione di PHP in <code>/etc/php.ini</code> le seguenti 
-configurazioni: <code>memory_limit</code>, <code>upload_max_filesize</code> e <code>post_max_size</code>  </p>
+<p>Dovrete cambiare nel file di configurazione di PHP in <code>/etc/php.ini</code> le seguenti
+configurazioni: <code>memory_limit</code>, <code>upload_max_filesize</code> e <code>post_max_size</code></p>
 <ul>
 <li>in RHEL/CentOS: in <code>/etc/php.ini</code></li>
 <li>in Debian/Ububtu: in <code>/etc/php5/apache2/php.ini</code></li>
 <li>in FreeBSD: in <code>/usr/local/etc/php.ini</code> per quanto riguarda Apache, per Nginx
-   invece in <code>/etc/php5/fpm/php.ini</code> 
-*in OpenBSD: in <code>/etc/php-5.4.ini</code>. Se usate una release diversa di PHP il numero di versione 
+   invece in <code>/etc/php5/fpm/php.ini</code>
+*in OpenBSD: in <code>/etc/php-5.4.ini</code>. Se usate una release diversa di PHP il numero di versione
   <code>5.4</code> sarà diverso rispetto all'esempio.</li>
 </ul>
 <pre><code>memory_limit = 200M;
@@ -87,7 +87,7 @@ post_max_size = 100M;
 <li>in FreeBSD: in<code>/usr/local/www/roundcubemail/.htaccess</code>
 *in OpenBSD: in  <code>/var/www/roundcubemail/.htaccess</code></li>
 </ul>
-<p>Nota: il file <code>.htaccess</code> può non esistere in alcune distribuzioni Linux/BSD, nel qual caso 
+<p>Nota: il file <code>.htaccess</code> può non esistere in alcune distribuzioni Linux/BSD, nel qual caso
 ignorare le seguenti modifiche</p>
 <pre><code>php_value    memory_limit   200M
 php_value    upload_max_filesize    100M

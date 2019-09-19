@@ -4,7 +4,7 @@
 
 ## Scopo
 
-Se avete alcuni apparati di rete come stampanti e firewall, che necessitano di inviare notifiche o mail di report con una connessione insicura smtp, provate i passi successivi per ottenere che funzioni senza modificare le configurazioni di sicurezza di 
+Se avete alcuni apparati di rete come stampanti e firewall, che necessitano di inviare notifiche o mail di report con una connessione insicura smtp, provate i passi successivi per ottenere che funzioni senza modificare le configurazioni di sicurezza di
 
 ## Aprire porta smtp aggiuntiva in Postfix
 

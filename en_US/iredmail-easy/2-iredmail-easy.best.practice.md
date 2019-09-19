@@ -1,4 +1,4 @@
-# Best Practice
+# iRedMail Easy: Best Practice
 
 [TOC]
 

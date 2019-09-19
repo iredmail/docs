@@ -21,20 +21,20 @@
 </div>
 <h1 id="permettere-ad-alcuni-utenti-di-mandare-mail-come-fossero-un-altro-utente">Permettere ad alcuni utenti di mandare mail come fossero un altro utente</h1>
 <p>iRedMail configura Postfix affinché rifiuti una richiesta quando il mittente
-specifica un indirizzo proprietario per il campo MAIL FROM (<code>From:</code> header), 
+specifica un indirizzo proprietario per il campo MAIL FROM (<code>From:</code> header),
 ma il client non ha effettuato l'accesso in modalità SASL come il proprierario
-dell'indirizzo MAIL FORM; o quando il client è loggato in modalità SASL, ma 
-non è il proprietario dell'indirizzo in MAIL FROM </p>
+dell'indirizzo MAIL FORM; o quando il client è loggato in modalità SASL, ma
+non è il proprietario dell'indirizzo in MAIL FROM</p>
 <p>A volte possiamo avere la necessità di mandare una mail a nome di un altro
 utente, questo manuale descrive come permettere, ad alcuni utenti, di farelo
 con il plugin iRedAPD <code>reject_sender_login_mismatch</code>.</p>
 <ul>
 <li>
-<p>Elimina la regola restrittiva <code>reject_sender_login_mismatch</code> dal file di 
+<p>Elimina la regola restrittiva <code>reject_sender_login_mismatch</code> dal file di
   di configurazione <code>smtpd_sender_restrictions</code> che si trova in
   (<code>/etc/postfix/main.cf</code>).
   Il plugin iREDAPD farà le stesse restrizioni per conto vostro.</p>
-<p>Dopo aver rimosso <code>reject_sender_login_mismatch</code>, la configurazione di 
+<p>Dopo aver rimosso <code>reject_sender_login_mismatch</code>, la configurazione di
  postfix sara come riportato sotto:</p>
 </li>
 </ul>
@@ -42,14 +42,14 @@ con il plugin iRedAPD <code>reject_sender_login_mismatch</code>.</p>
 </code></pre>
 
 <ul>
-<li>Nel file di configurazione iRedADP <code>/opt/iredapd/settings.py</code> abilita il 
+<li>Nel file di configurazione iRedADP <code>/opt/iredapd/settings.py</code> abilita il
   plugin:</li>
 </ul>
 <pre><code class="python">plugins = ['reject_sender_login_mismatch', ...]
 </code></pre>
 
 <ul>
-<li>Elenca i mittenti che sono autorizzati ad inviare email con indirizzi 
+<li>Elenca i mittenti che sono autorizzati ad inviare email con indirizzi
   diversi dai propri, nel file di configurazione iRedAPD
   <code>ALLOWED_LOGIN_MISMATCH_SENDERS</code>. Per esempio:</li>
 </ul>

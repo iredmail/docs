@@ -1,1 +1,1 @@
-__iRedMail Easy__ - Web Deployment Platform {: #easy }
+__iRedMail Easy__ - Web-based Deployment, Upgrade and Tech Support Platform {: #easy }

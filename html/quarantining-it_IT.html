@@ -37,7 +37,7 @@
 <p>Sin dalla versione 0.7.0 di IredMail, la messa in quarantena e le relative configurazioni in Amavisd sono configurate da iRedMail, ma disabilitate per default, potere facilmente abilitate il sistema di messa in quarantena tramite questo tutoria.</p>
 <p>Con le modifiche che trovare sotto, mail Virus/Spam/Banned saranno messe in quarantena in un database SQL. Potrete a questo punto gestire le mail in quarantena con iRedAdmin-Pro.</p>
 <h2 id="messa-in-quarantena-di-spam-virus-banned-e-messaggi-con-intestazioni-scorrette">Messa in quarantena di spam, virus,  banned e messaggi con intestazioni scorrette.</h2>
-<p>Modificare il file di configurazione di Amavisd, trovate le configurazioni sotto riportate ed aggiornatele. Se non esistono, aggiungetele. </p>
+<p>Modificare il file di configurazione di Amavisd, trovate le configurazioni sotto riportate ed aggiornatele. Se non esistono, aggiungetele.</p>
 <ul>
 <li>in Red Hat Enterprise Linux, CentOS, Scientific Linux, il file è <code>/etc/amavisd/amavisd.conf</code> oppure <code>/etc/amavisd.conf</code>.
 *in Debian/Ubuntu è <code>/etc/amavis/conf.d/50-user</code>.</li>
@@ -117,7 +117,7 @@ amavisd_enable_policy_lookup = True
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 </div>
-<p>È necessario affinché questa funzione sia operativa che abilitiate il self-service dal dominio della 
+<p>È necessario affinché questa funzione sia operativa che abilitiate il self-service dal dominio della
    posta -- Lo potete abilitare nella pagina del profilo del dominio.</p>
 <p>iRedAdmin-Pro mette a disposizione uno script che potete eseguire per notificare gli agli utenti le mail messe in quarantena: <code>tools/notify_quarantined_recipients.py</code>.</p>
 <p>La mail di notifica viene legga dal file template <code>tools/notify_quarantined_recipients.html</code>, siete liberi di modificarlo affinché soddisfi le vostre necessità. (non dimenticatevi di salvare il file prima di aggiornare iRedAdmin-Pro.)</p>

@@ -29,7 +29,7 @@
 </code></pre>
 
 <p>Modificate il file di configurazione di Postfix <code>/etc/postmap/main.cf</code> affinché uso questo file di testo:</p>
-<pre><code>smtpd_sender_restrictions = 
+<pre><code>smtpd_sender_restrictions =
     check_sender_access hash:/etc/postfix/accepted_unauth_senders,
     [...OTHER RESTRICTIONS HERE...]
 </code></pre>

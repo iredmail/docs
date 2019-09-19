@@ -1,4 +1,4 @@
-# Create AD account for iRedMail
+# iRedMail Easy: Create AD account for iRedMail
 [TOC]
 
 ## Summary

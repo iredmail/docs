@@ -1,4 +1,4 @@
-# Migrate from iRedMail to iRedMail Easy platform
+# iRedMail Easy: Migrate from iRedMail to iRedMail Easy platform
 
 [TOC]
 

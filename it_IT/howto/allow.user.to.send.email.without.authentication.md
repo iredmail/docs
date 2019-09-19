@@ -15,7 +15,7 @@ Create un file db hash con il comando `postmap` :
 Modificate il file di configurazione di Postfix `/etc/postmap/main.cf` affinché uso questo file di testo:
 
 ```
-smtpd_sender_restrictions = 
+smtpd_sender_restrictions =
     check_sender_access hash:/etc/postfix/accepted_unauth_senders,
     [...OTHER RESTRICTIONS HERE...]
 ```

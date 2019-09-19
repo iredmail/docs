@@ -1,4 +1,4 @@
-# What is SSH jump server
+# iRedMail Easy: What is SSH jump server
 
 It's common that you have a protected Linux/BSD server that isn’t publicly
 accessible. Typically, you may have what is commonly referred to as a

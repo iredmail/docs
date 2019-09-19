@@ -1,4 +1,4 @@
-# Preparations for using Microsoft Active Directory as iRedMail backend
+# iRedMail Easy: Preparations for using Microsoft Active Directory as iRedMail backend
 
 [TOC]
 

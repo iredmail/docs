@@ -12,15 +12,13 @@ iRedMail configura Amavisd per firmare le mail in uscita con il primo dominio di
 aggiunto durante l'installazione di iRedMail. Se aggiungete un nuovo dominio di posta, dovrete modificare
 il file di configurazione di Amavisd affinché apponga la firma DKIM.
 
-Mettiamo che il primo dominio di posta aggiunto durante l'installazione di iRedMail sia `mydomain.com`,  
-ed il nuovo dominio aggiunto sia `new_domain.com`, eseguite i seguenti passi per abilitare la firma DKIM per 
-mail in uscita per il nuovo dominio.
+Mettiamo che il primo dominio di posta aggiunto durante l'installazione di iRedMail sia `mydomain.com`,
+ed il nuovo dominio aggiunto sia `new_domain.com`, eseguite i seguenti passi per abilitare la firma DKIM per mail in uscita per il nuovo dominio.
 
 ## Usare la chiave esistente DKIM per il nuovo dominio
 
 Se avete già una chiave DKIM ed il relativo record DNS DKIM, va bene se usate la chiave DKIM  esistente per
-firmare le mail in uscita per il nuovo dominio. Così facendo non dovrete chiedere al cliente che detiene il nuovo 
-dominio di creare un nuovo record DNS DKIM.
+firmare le mail in uscita per il nuovo dominio. Così facendo non dovrete chiedere al cliente che detiene il nuovo dominio di creare un nuovo record DNS DKIM.
 
 * Cercate le configurazioni qui sotto nel file di configurazione di Amavisd, `amavisd.conf`:
 
@@ -34,7 +32,7 @@ dkim_key('mydomain.com', "dkim", "/var/lib/dkim/mydomain.com.pem");
 });
 ```
 
-Aggiungete una riga  nel blocco `@dkim_signature_options_bysender_maps`, dopo la linea `"mydomain.com"` come 
+Aggiungete una riga  nel blocco `@dkim_signature_options_bysender_maps`, dopo la linea `"mydomain.com"` come
 riportato qui sotto:
 
 ```
@@ -50,7 +48,7 @@ riportato qui sotto:
 
 ## Generate una nuova chiave DKIM per il nuovo dominio.
 
-Se il vostro cliente preferisce usare una propria chiave DKIM, potete generare una nuova chiave DKIM e chiedere al 
+Se il vostro cliente preferisce usare una propria chiave DKIM, potete generare una nuova chiave DKIM e chiedere al
 vostro cliente di aggiungere un record DNS DIKIM sul proprio dominio. Fate riferimento al nostro tutorial
 [Aggiungere un record DNS DKIM](setup.dns.html#dkim-record-for-your-mail-domain-name).
 
@@ -99,7 +97,7 @@ Aggiungete una riga dopo la linea contenente `"mydomain.com"` come la linea che 
     ...
 });
 ```
- 
+
 * Riavviate il servizio Amavids.
 
 Di nuovo, non dimenticate di aggiungere un nuovo record DNS DKIM nel nuovo dominio. Il valore del record DKIM
@@ -115,7 +113,7 @@ Dopo aver aggiunto il record DNS DKIM, verificatelo con il seguente comando;
 # amavisd-new testkeys
 ```
 
-Nota: I provider DNS generalmente tengono in cache per due ore i record DNS, per cui se il comando ritorna " invalid" 
+Nota: I provider DNS generalmente tengono in cache per due ore i record DNS, per cui se il comando ritorna " invalid"
 invece di "pass", dovrete seguire nuovamente il test dopo un po' di tempo.
 
 ## Uso di uanchiave DKIM per tutti i domini di posta

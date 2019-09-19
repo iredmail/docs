@@ -1,4 +1,4 @@
-# Getting start with iRedMail Easy - the deployment and support platform
+# iRedMail Easy: Getting start
 
 [TOC]
 

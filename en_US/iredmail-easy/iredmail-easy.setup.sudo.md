@@ -1,4 +1,4 @@
-# Setup sudo for deployment with iRedMail Easy
+# iRedMail Easy: Setup sudo for deployment
 
 [TOC]
 

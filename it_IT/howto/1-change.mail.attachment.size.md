@@ -27,13 +27,13 @@ __NOTE__:
 
 * `104857600` corrisponde a 100 (MB) x 1024 (KB) x 1024 (Bit).
 * La mail sarà codificata dal vostro client (OutLook, Thunderbird, etc) prima di essere inviata,
-   quindi la dimensione totale del messaggio più l'allegato sarà superiore a 100MB. 
+   quindi la dimensione totale del messaggio più l'allegato sarà superiore a 100MB.
    Puoi risolvere il problema portando il limite massimo a 110Mb o 120Mb.
 * Se configurate `mailbox_size_limit` con un valore inferiore a quello di `message_size_limit`
-   Postfix riporterà il seguente errore nel suo log: `fatal: main.cf configuration  error:  
+   Postfix riporterà il seguente errore nel suo log: `fatal: main.cf configuration  error:
    mailbox_size_limit is smaller than message_size_limit`.
 
-Se usate client di posta come OutLook o Thunderbird per inviare le mail, adesso è possibile 
+Se usate client di posta come OutLook o Thunderbird per inviare le mail, adesso è possibile
 inviare grossi allegati con le configurazioni appena spiegate.
 
 ## Modifica dimensione di upload nel client web Roundcube
@@ -42,14 +42,14 @@ Se usare Roundcube webmail, dovrete cambiare altri due parametri:
 
 ### Modificate le configurazioni di PHP in modo di caricare grossi allegati
 
-Dovrete cambiare nel file di configurazione di PHP in `/etc/php.ini` le seguenti 
-configurazioni: `memory_limit`, `upload_max_filesize` e `post_max_size`  
+Dovrete cambiare nel file di configurazione di PHP in `/etc/php.ini` le seguenti
+configurazioni: `memory_limit`, `upload_max_filesize` e `post_max_size`
 
 * in RHEL/CentOS: in `/etc/php.ini`
 * in Debian/Ububtu: in `/etc/php5/apache2/php.ini`
 * in FreeBSD: in `/usr/local/etc/php.ini` per quanto riguarda Apache, per Nginx
-   invece in `/etc/php5/fpm/php.ini` 
-*in OpenBSD: in `/etc/php-5.4.ini`. Se usate una release diversa di PHP il numero di versione 
+   invece in `/etc/php5/fpm/php.ini`
+*in OpenBSD: in `/etc/php-5.4.ini`. Se usate una release diversa di PHP il numero di versione
   `5.4` sarà diverso rispetto all'esempio.
 
 ```
@@ -68,7 +68,7 @@ Modificate le stesse configurazioni in `.htaccess` nella directory root di round
 * in FreeBSD: in`/usr/local/www/roundcubemail/.htaccess`
 *in OpenBSD: in  `/var/www/roundcubemail/.htaccess`
 
-Nota: il file `.htaccess` può non esistere in alcune distribuzioni Linux/BSD, nel qual caso 
+Nota: il file `.htaccess` può non esistere in alcune distribuzioni Linux/BSD, nel qual caso
 ignorare le seguenti modifiche
 
 ```

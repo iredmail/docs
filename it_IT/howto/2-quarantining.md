@@ -8,7 +8,7 @@ Con le modifiche che trovare sotto, mail Virus/Spam/Banned saranno messe in quar
 
 ## Messa in quarantena di spam, virus,  banned e messaggi con intestazioni scorrette.
 
-Modificare il file di configurazione di Amavisd, trovate le configurazioni sotto riportate ed aggiornatele. Se non esistono, aggiungetele. 
+Modificare il file di configurazione di Amavisd, trovate le configurazioni sotto riportate ed aggiornatele. Se non esistono, aggiungetele.
 
 * in Red Hat Enterprise Linux, CentOS, Scientific Linux, il file è `/etc/amavisd/amavisd.conf` oppure `/etc/amavisd.conf`.
 *in Debian/Ubuntu è `/etc/amavis/conf.d/50-user`.
@@ -95,7 +95,7 @@ Copie delle videate sono allegate in fondo.
 ### Notifiche agli utenti riguardo le mail in quarantena.
 
 !!! note
-   È necessario affinché questa funzione sia operativa che abilitiate il self-service dal dominio della 
+   È necessario affinché questa funzione sia operativa che abilitiate il self-service dal dominio della
    posta -- Lo potete abilitare nella pagina del profilo del dominio.
 
 iRedAdmin-Pro mette a disposizione uno script che potete eseguire per notificare gli agli utenti le mail messe in quarantena: `tools/notify_quarantined_recipients.py`.

@@ -3,14 +3,14 @@
 # DRAFT only at the time of writing this schema!
 # See: http://tools.ietf.org/html/draft-cal-resource-schema-03
 #
-### 
+###
 #
 # This specification defines a schema for representing resources to
 # ease the discovery and scheduling of resources between any calendar
-# client and server. 
+# client and server.
 # LDAP and vCard mappings of the schema are described in this
 # document. The Object model chosen is the lowest common denominator
-# to adapt for LDAP. 
+# to adapt for LDAP.
 #
 # This schema depends on:
 #       - calentry.schema
@@ -19,10 +19,10 @@
 # to be registered by the Internet Assigned Numbers Authority (IANA) as
 # requested in the following template.  Once the assignment is done,
 # this document needs to be updated with the right OID numbers for all
-# the newly defined objectclasses and attributes. 
+# the newly defined objectclasses and attributes.
 #
 # Temporary we replace "x" in OIDs with unused "5"
-# Example: 1.3.6.1.1.x.1.1   with   1.3.6.1.1.5.1.1  
+# Example: 1.3.6.1.1.x.1.1   with   1.3.6.1.1.5.1.1
 
 
 # Attribute Type Definitions
@@ -148,13 +148,13 @@ attributetype ( 1.3.6.1.1.5.0.20 NAME 'CostURL'
 
 
 objectclass ( 1.3.6.1.1.5.1.1 NAME 'CalendarResource'
-	    DESC 'Calendar Resource Object Class'   
-            SUP calEntry  
-            AUXILIARY   
-            MUST (cn)   
-            MAY ( kind $ nickname $ description $ ou $ categories $ 
+	    DESC 'Calendar Resource Object Class'
+            SUP calEntry
+            AUXILIARY
+            MUST (cn)
+            MAY ( kind $ nickname $ description $ ou $ categories $
                  member $ uniquemember $ accessibilityurl $ capacity $
-                 owner $ resourcemanager $ timezoneid $ 
+                 owner $ resourcemanager $ timezoneid $
                  multiplebookings $ maxinstances $
                  bookingwindowstart $ bookingwindowend $ vcarduid ) )
 

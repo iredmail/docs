@@ -31,7 +31,7 @@
 </ul>
 </div>
 <h2 id="scopo">Scopo</h2>
-<p>Se avete alcuni apparati di rete come stampanti e firewall, che necessitano di inviare notifiche o mail di report con una connessione insicura smtp, provate i passi successivi per ottenere che funzioni senza modificare le configurazioni di sicurezza di </p>
+<p>Se avete alcuni apparati di rete come stampanti e firewall, che necessitano di inviare notifiche o mail di report con una connessione insicura smtp, provate i passi successivi per ottenere che funzioni senza modificare le configurazioni di sicurezza di</p>
 <h2 id="aprire-porta-smtp-aggiuntiva-in-postfix">Aprire porta smtp aggiuntiva in Postfix</h2>
 <p>Dalla versione 0.9.3 di iRedMail con le configurazioni di default, la porta 25 è utilizzata dal servizio postscreen, tutti i client di posta sono obbligati a passare attraverso la pota 587 con STARTTL per ottenere connessioni sicure.</p>
 <p>Per supportare apparati di rete che non supportano STARTTLS e SSL, posiamo chiedere a Postfix ti ascoltare su una porta aggiuntiva per il servizio smtp, aggiungendo la linea seguente in <code>/etc/postfix/master.cf</code>(su Linux/OpenBSD) oppure <code>/usr/local/etc/postfix/master.cf</code> (su FreeBSD):</p>

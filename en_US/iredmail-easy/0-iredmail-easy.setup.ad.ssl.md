@@ -1,4 +1,4 @@
-# Setup SSL support for Windows Active Directory
+# iRedMail Easy: Setup SSL support for Windows Active Directory
 
 [TOC]
 

@@ -11,7 +11,7 @@
 ```
 # File: /etc/dovecot/dovecot.conf
 
-plugin {                                                                        
+plugin {
 
     quota = dict:user::proxy::quotadict
     quota_rule = *:storage=1G
@@ -31,7 +31,7 @@ plugin {
 ```
 # File: /etc/dovecot/dovecot.conf
 
-plugin {                                                                        
+plugin {
 
     quota = dict:user::proxy::quotadict
     quota_rule = *:storage=1G

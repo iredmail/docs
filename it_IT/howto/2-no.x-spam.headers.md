@@ -1,6 +1,6 @@
-# Amavisd + SpamAssassin non funzionano ? Mancano l'inserimento delle intestazioni (X-Spam-*) 
+# Amavisd + SpamAssassin non funzionano ? Mancano l'inserimento delle intestazioni (X-Spam-*)
 
-> Il file di configurazione di Amavisd cambia a seconda della distribuzione Linux/BSD; puoi 
+> Il file di configurazione di Amavisd cambia a seconda della distribuzione Linux/BSD; puoi
 > trovare, e correggere, nella maniera corretta la configurazione per il tuo server seguendo questo
 > tutorial:
 > [Posizione dei file di configurazione e di log dei maggiori componenti](./file.locations.html#amavisd)

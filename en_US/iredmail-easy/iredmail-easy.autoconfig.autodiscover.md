@@ -1,4 +1,4 @@
-# Setup DNS records for autoconfig and autodiscover
+# iRedMail Easy: Setup DNS records for autoconfig and autodiscover
 
 [TOC]
 
