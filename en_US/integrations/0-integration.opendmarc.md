@@ -4,7 +4,16 @@
 
 !!! warning
 
-    This is still a DRAFT document, do not apply it on production server.
+    * Please tweak this tutorial as a refernce and do __NOT__ deploy it on
+      production server.
+
+       The latest OpenDMARC version __1.3.2__ (till Sep 20, 2019) is
+        [buggy](https://github.com/trusteddomainproject/OpenDMARC/issues/50),
+        it sometimes incorrectly rejects email even sender server IP address
+        is explicitly listed in SPF record.
+        it's not recommended to run OpenDMARC.
+
+    * This is still a DRAFT document, do not apply it on production server.
 
 ## What are DMARC and OpenDMARC?
 
@@ -21,10 +30,6 @@ OpenDMARC is a free open source software implementation of the DMARC
 specification. Source code hosted on [GitHub](https://github.com/trusteddomainproject/OpenDMARC).
 
 ## Requirements
-
-!!! warning
-
-    OpenDMARC version __1.3.2__ (or later) is required (version __1.3.1__ is buggy).
 
 Supported OS Linux/BSD distributions:
 
