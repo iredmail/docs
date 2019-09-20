@@ -97,7 +97,7 @@ Notes:
 
     Parameter | Summary | Sample Usage
     --- |--- |---
-    `name`* | Short description of this domain name. e.g. company name | `name=Google Inc`
+    `name` | Short description of this domain name. e.g. company name | `name=Google Inc`
     `quota` | Per-domain mailbox quota, in MB. | `quota=2048`
     `language` | Default preferred language for newly created mail user | `language=en_US`
     `transport` | Transport program | `transport=dovecot`
