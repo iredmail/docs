@@ -1,4 +1,3 @@
-* [Integrate OpenDMARC](./integration.opendmarc.html){: name="integration_opendmarc" }
 * <a name="integration_mlmmj"></a>Integrate mlmmj mailing list manager (mlmmj is a required core component since iRedMail-0.9.8):
     * [For LDAP backends](./integration.mlmmj.ldap.html)
     * [For MySQL/MariaDB backend](./integration.mlmmj.mysql.html)
