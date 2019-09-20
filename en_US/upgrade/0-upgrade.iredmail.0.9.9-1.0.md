@@ -69,13 +69,14 @@ Please follow below tutorial to upgrade mlmmjadmin to the latest stable release:
     improvement updates.
 
 Please follow Roundcube official tutorial to upgrade Roundcube webmail to the
-latest stable release immediately:
+latest stable release (1.3.10):
 
 * [How to upgrade Roundcube](https://github.com/roundcube/roundcubemail/wiki/Upgrade).
 
-### Upgrade netdata to the latest stable release (1.15.0)
+### Upgrade netdata to the latest stable release (1.17.1)
 
-If you have netdata installed, you can upgrade it by following this tutorial: [Upgrade netdata](./upgrade.netdata.html).
+If you have netdata installed, you can upgrade it by following this tutorial:
+[Upgrade netdata](./upgrade.netdata.html).
 
 ### Fixed: improper order of Postfix smtpd_sender_restriction rules
 
@@ -107,6 +108,22 @@ smtpd_sender_restrictions =
 ```
 
 * Reloading or restarting Postfix service is required.
+
+### Fixed: Incorrect SSL CA file path in Postfix on FreeBSD and OpenBSD
+
+!!! attention
+
+    This applies to only FreeBSD and OpenBSD, NOT Linux.
+
+FreeBSD and OpenBSD has all CAs in file `/etc/ssl/cert.pem`, but it's
+configured by iRedMail to load multiple CA files under `/etc/ssl/certs`
+directory like Linux. Commands below fix this issue.
+
+```
+postconf -e smtpd_tls_CAfile=/etc/ssl/cert.pem
+postconf -e smtpd_tls_CApath=''
+postfix reload
+```
 
 ### Fail2ban: slightly loose filter rule for postfix
 
