@@ -16,8 +16,8 @@
 ### How upgrading works
 
 * Usually, upgrading iRedMail is just updating some config files to achieve new
-  features or fix bugs, you do __NOT__ need to download the latest iRedMail and
-  run the script.
+  features or fix bugs, you do __NOT__ need to download and run the latest
+  iRedMail installer (`bash iRedMail.sh`).
 
 * __Do NOT skip releases__. Upgrades are only supported from one release to the
   release immediately following it.

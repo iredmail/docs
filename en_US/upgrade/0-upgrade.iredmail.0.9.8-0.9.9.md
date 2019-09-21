@@ -29,7 +29,7 @@ so that you can know which version of iRedMail you're running. For example:
 0.9.9
 ```
 
-### Upgrade iRedAPD (Postfix policy server) to the latest stable release (2.4)
+### Upgrade iRedAPD (Postfix policy server) to the latest stable release (3.1)
 
 Please follow below tutorial to upgrade iRedAPD to the latest stable release:
 [Upgrade iRedAPD to the latest stable release](./upgrade.iredapd.html)
