@@ -4,9 +4,9 @@ iRedMail-0.8.6 and later releases have Dovecot Master User enabled for all
 backends (OpenLDAP, MySQL/MariaDB, PostgreSQL) by default, what you need to do
 is adding new master user.
 
-iRedMail configures Dovecot to query master user accounts from config file
-`/etc/dovecot/dovecot-master-users-password` (or `dovecot-master-users`) by
-default, you can modify this file to add or remove master user.
+Dovecot is configured to query master user accounts from file
+`/etc/dovecot/dovecot-master-users, you can update this file to add or remove
+master user.
 
 The format is simple:
 ```
@@ -24,7 +24,7 @@ Retype new password: my_master_password
 
 You can now pick up any username you like, for example, `my_master_user@not-exist.com`.
 Now add new master user in file
-`/etc/dovecot/dovecot-master-users-passwords` like below:
+`/etc/dovecot/dovecot-master-users` like below:
 
 ```
 my_master_user@not-exist.com:{SSHA512}B0VHomJaMk6aLXOPglgNgJtCU...
@@ -36,7 +36,7 @@ protocol) as user `user@domain.ltd*my_master_user@not-exist.com` with password
 
 WARNING:
 
-* Make sure file `dovecot-master-users-password` is owned by Dovecot
+* Make sure file `/etc/dovecot/dovecot-master-users` is owned by Dovecot
   daemon user and group, with file permission `0500`, so that others cannot view
   the file content.
 
