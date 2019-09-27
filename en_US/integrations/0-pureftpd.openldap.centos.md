@@ -46,7 +46,7 @@ LDAPVersion     3
   store per-user FTP home directory. Default schema uses `homeDirectory`.
 
 ```
-# wget https://bitbucket.org/zhb/iredmail/raw/default/extra/samples/pureftpd.schema
+# wget https://bitbucket.org/zhb/iredmail/raw/0.9.9/extra/samples/pureftpd.schema
 # mv pureftpd.schema /etc/openldap/schema/
 ```
 
