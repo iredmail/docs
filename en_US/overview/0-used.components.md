@@ -19,7 +19,7 @@ Name | Comment
 [SOGo Groupware](http://sogo.nu) | A groupware which provides calendar (CalDAV), contact (CardDAV), tasks and ActiveSync services
 [Fail2ban](http://www.fail2ban.org) | Scans log files and bans IPs that show the malicious signs
 [Awstats](http://www.awstats.org) | Apache and Postfix log analyzer
-[iRedAPD](https://bitbucket.org/zhb/iredapd/) | A postfix policy server developed by iRedMail team
+[iRedAPD](https://bitbucket.org/zhb/iredapd/) | A simple postfix policy server developed by iRedMail team, with SRS (Sender Rewrite Scheme) support.
 <strike>[Cluebringer](http://www.policyd.org)</strike> | <strike>A postfix policy server. Deprecated since iRedMail-0.9.3.</strike>
 
 ## The Big Picture
