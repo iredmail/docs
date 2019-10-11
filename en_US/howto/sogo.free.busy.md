@@ -1,4 +1,4 @@
-# SOGo: free/busy availability
+# SOGo: per-user free/busy availability
 
 If you want to let others to check your free/busy availability while inviting
 you to attend some calendar event, you need to grant one permission of your
