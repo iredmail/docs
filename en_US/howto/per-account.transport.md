@@ -2,9 +2,6 @@
 
 [TOC]
 
-Transport mentioned in this tutorial is used to deliver received email to
-local mailbox.
-
 ## Manage relay manually
 
 With OpenLDAP backend, per-domain transport is set in domain account with
