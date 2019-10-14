@@ -34,7 +34,7 @@ curl -X POST -i -b cookie.txt -d "cn=ABC Inc.&quota=20480" https://<server>/ired
 #
 # cn=Zhang Huangbin (display name: "Zhang Huangbin")
 # mailQuota=1024 (mailbox quota: 1 GB)
-curl -X POST -i -b cookie.txt -d "cn=Zhang Huangbin&mailQuota=1024" https://<server>/iredadmin/api/user/<mail>
+curl -X POST -i -b cookie.txt -d "password=A@StrongPassword2&cn=Zhang Huangbin&mailQuota=1024" https://<server>/iredadmin/api/user/<mail>
 
 #
 # Delete mail user (DELETE)

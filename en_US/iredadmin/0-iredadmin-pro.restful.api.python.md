@@ -42,7 +42,7 @@ requests.post(url + '/domain/test.com',
 requests.post(url + '/user/zhb@test.com',
               cookies=cookies,
               data={'cn': 'My Name',
-                    'password': '1@Password',
+                    'password': 'A@StrongPassword2',
                     'preferredLanguage': 'zh_CN',
                     'mailQuota': 2048})
 
