@@ -52,14 +52,5 @@ Debian 9 offers PHP-5, but Debian 10 has PHP-7.3, you need to upgrade it to 7.3 
 
 ## SOGo Groupware
 
-SOGo packages were removed during upgrading Debian, but SOGo team doesn't
-offer nightly build binary packages for Debian 10. We have to remove the
-old apt repo (`/etc/apt/sources.list.d/sogo-nightly.list`) and use the sogo
-packages offered in Debian 10 official apt repo.
-
-```
-rm -f /etc/apt/sources.list.d/sogo-nightly.repo
-apt update
-apt install sogo
-service sogo restart
-```
+Please replace `stretch` by `buster` in file
+`/etc/apt/sources.list.d/sogo-nightly.repo`, then upgrade sogo packages.

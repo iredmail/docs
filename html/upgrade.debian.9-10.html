@@ -105,15 +105,8 @@
 <h2 id="php">PHP</h2>
 <p>Debian 9 offers PHP-5, but Debian 10 has PHP-7.3, you need to upgrade it to 7.3 manually.</p>
 <h2 id="sogo-groupware">SOGo Groupware</h2>
-<p>SOGo packages were removed during upgrading Debian, but SOGo team doesn't
-offer nightly build binary packages for Debian 10. We have to remove the
-old apt repo (<code>/etc/apt/sources.list.d/sogo-nightly.list</code>) and use the sogo
-packages offered in Debian 10 official apt repo.</p>
-<pre><code>rm -f /etc/apt/sources.list.d/sogo-nightly.repo
-apt update
-apt install sogo
-service sogo restart
-</code></pre><div class="footer">
+<p>Please replace <code>stretch</code> by <code>buster</code> in file
+<code>/etc/apt/sources.list.d/sogo-nightly.repo</code>, then upgrade sogo packages.</p><div class="footer">
     <p style="text-align: center; color: grey;">All documents are available in <a href="https://github.com/iredmail/docs/">BitBucket repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://github.com/iredmail/docs/archive/master.zip">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
 </div>
 <!-- Global site tag (gtag.js) - Google Analytics -->
