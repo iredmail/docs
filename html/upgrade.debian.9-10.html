@@ -41,19 +41,21 @@
 <ul>
 <li>Remove all <code>postmaster_address =</code>.</li>
 <li>Remove parameter <code>ssl_protocols =</code>.</li>
-<li>Add new parameter <code>ssl_min_protocols</code> like this:</li>
+<li>Add new parameter <code>ssl_min_protocol</code> like this:</li>
 </ul>
-<pre><code>ssl_min_protocols = TLSv1.2
+<pre><code>ssl_min_protocol = TLSv1.2
 </code></pre>
 
+<p>Note: If your end users run old mail client applications, it may not support
+TLSv1.2, you may want to use weaker one like <code>TLSv1.1</code>, <code>TLSv1</code> instead.</p>
 <ul>
 <li>Add new parameter <code>ssl_dh</code> and load existing file:<ul>
-<li>on CentOS, it's <code>/etc/pki/tls/dhparams.pem</code></li>
-<li>on Debian/Ubuntu, FreeBSD, OpenBSD, it's <code>/etc/ssl/dhparams.pem</code></li>
+<li>on CentOS, it's <code>/etc/pki/tls/dh2048_param.pem</code></li>
+<li>on Debian/Ubuntu, FreeBSD, OpenBSD, it's <code>/etc/ssl/dh2048_param.pem</code></li>
 </ul>
 </li>
 </ul>
-<pre><code>ssl_dh = &lt;/etc/ssl/dhparams.pem
+<pre><code>ssl_dh = &lt;/etc/ssl/dh2048_param.pem
 </code></pre>
 
 <ul>
@@ -101,6 +103,19 @@
 </tr>
 </tbody>
 </table>
+<p>Inside <code>service old-status {}</code> block, please add new content:</p>
+<pre><code>    unix_listener old-stats-reader {
+        user = vmail
+        group = vmail
+        mode = 0660
+    }
+    unix_listener old-stats-writer {
+        user = vmail
+        group = vmail
+        mode = 0660
+    }
+</code></pre>
+
 <p>Restart Dovecot service is required.</p>
 <h2 id="php">PHP</h2>
 <p>Debian 9 offers PHP-5, but Debian 10 has PHP-7.3, you need to upgrade it to 7.3 manually.</p>

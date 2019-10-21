@@ -17,18 +17,21 @@ Changes required to be made in Dovecot main config file `/etc/dovecot/dovecot.co
 
 * Remove all `postmaster_address =`.
 * Remove parameter `ssl_protocols =`.
-* Add new parameter `ssl_min_protocols` like this:
+* Add new parameter `ssl_min_protocol` like this:
 
 ```
-ssl_min_protocols = TLSv1.2
+ssl_min_protocol = TLSv1.2
 ```
+
+Note: If your end users run old mail client applications, it may not support
+TLSv1.2, you may want to use weaker one like `TLSv1.1`, `TLSv1` instead.
 
 * Add new parameter `ssl_dh` and load existing file:
-    * on CentOS, it's `/etc/pki/tls/dhparams.pem`
-    * on Debian/Ubuntu, FreeBSD, OpenBSD, it's `/etc/ssl/dhparams.pem`
+    * on CentOS, it's `/etc/pki/tls/dh2048_param.pem`
+    * on Debian/Ubuntu, FreeBSD, OpenBSD, it's `/etc/ssl/dh2048_param.pem`
 
 ```
-ssl_dh = </etc/ssl/dhparams.pem
+ssl_dh = </etc/ssl/dh2048_param.pem
 ```
 
 * If you have plugin `stats` enabled, you need to rename it:
@@ -43,6 +46,21 @@ Old | New
 `unix_listener stats` | `unix_listener old-stats`<br/>Warning: It's a dash (`-`), not underscore (`_`).
 `plugin { stats_refresh = ... }` | `plugin { old_stats_refresh = ...}`
 `plugin { stats_track_cmds = ...}` | `plugin { old_stats_track_cmds = ...}`
+
+Inside `service old-status {}` block, please add new content:
+
+```
+    unix_listener old-stats-reader {
+        user = vmail
+        group = vmail
+        mode = 0660
+    }
+    unix_listener old-stats-writer {
+        user = vmail
+        group = vmail
+        mode = 0660
+    }
+```
 
 Restart Dovecot service is required.
 
