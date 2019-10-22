@@ -38,11 +38,15 @@
 </li>
 </ul>
 </div>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p><strong>iRedMail Easy</strong> does <strong>NOT</strong> (yet) support upgrading existing server
-which was deployed with any downloadable iRedMail installer (e.g.
-iRedMail-0.9.9, iRedMail-0.9.8 and earlier releases).</p>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<ul>
+<li>All accounts and passwords generated during deployment are stored in
+  file <code>/root/iRedMail/iRedMail.tips</code> on your server.</li>
+<li>To migrate your existing iRedMail release to <strong>iRedMail Easy</strong> platform,
+  please check this tutorial:
+  <a href="./migrate.to.iredmail.easy.html">Migrate from iRedMail to iRedMail Easy platform</a>.</li>
+</ul>
 </div>
 <h2 id="summary">Summary</h2>
 <p><strong>iRedMail Easy</strong> is a web-based deployment and support platform.  With this
@@ -84,7 +88,7 @@ installation guides here: <a href="./index.html#install">Install iRedMail</a>.</
 </tr>
 <tr>
 <td>Debian</td>
-<td>9</td>
+<td>9, 10</td>
 </tr>
 <tr>
 <td>Ubuntu</td>
@@ -193,12 +197,18 @@ different. Please fill all required form fields on this page.</p>
 <p>Fields with red asterisk are required, others are optional.</p>
 <p><img alt="" src="./images/iredmail-easy/installation/settings.png" width="700px" /></p>
 <h2 id="deploy">Deploy</h2>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>All accounts and passwords generated during deployment are stored in
+file <code>/root/iRedMail/iRedMail.tips</code> on your server.</p>
+</div>
 <p>Click tab <code>Deployment</code> on the mail server profile page.</p>
 <p>Please run the commands displayed on this page on your mail server, it will
 download a shell script to simplify ssh public key setup. If ssh login user is
 not <code>root</code>, it will help setup <code>sudo</code> (on Linux) or <code>doas</code> (on OpenBSD) also.</p>
 <p><img alt="" src="./images/iredmail-easy/installation/deployment.png" width="900px" /></p>
-<p>After you ran the commands, it's ready to deployment. Click the button <code>Perform Full Deployment</code> to start the deployment.</p>
+<p>After you ran the commands, it's ready to deployment. Click the button
+<code>Perform Full Deployment</code> to start the deployment.</p>
 <p>Depends on the components you selected, and network connection speed between
 your server and our deployment server, it may take few minutes or even longer
 to finish. Please be patient.</p>

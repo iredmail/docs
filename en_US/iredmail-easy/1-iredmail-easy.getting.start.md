@@ -2,11 +2,13 @@
 
 [TOC]
 
-!!! warning
+!!! attention
 
-    __iRedMail Easy__ does __NOT__ (yet) support upgrading existing server
-    which was deployed with any downloadable iRedMail installer (e.g.
-    iRedMail-0.9.9, iRedMail-0.9.8 and earlier releases).
+    - All accounts and passwords generated during deployment are stored in
+      file `/root/iRedMail/iRedMail.tips` on your server.
+    - To migrate your existing iRedMail release to __iRedMail Easy__ platform,
+      please check this tutorial:
+      [Migrate from iRedMail to iRedMail Easy platform](./migrate.to.iredmail.easy.html).
 
 ## Summary
 
@@ -41,7 +43,7 @@ Linux/BSD distribution releases supported by __iRedMail Easy__:
 Distribution | Release Versions
 --- |---
 CentOS | 7
-Debian | 9
+Debian | 9, 10
 Ubuntu | 18.04
 OpenBSD | 6.4, 6.5
 
@@ -160,6 +162,11 @@ Fields with red asterisk are required, others are optional.
 
 ## Deploy
 
+!!! attention
+
+    All accounts and passwords generated during deployment are stored in
+    file `/root/iRedMail/iRedMail.tips` on your server.
+
 Click tab `Deployment` on the mail server profile page.
 
 Please run the commands displayed on this page on your mail server, it will
@@ -168,7 +175,8 @@ not `root`, it will help setup `sudo` (on Linux) or `doas` (on OpenBSD) also.
 
 ![](./images/iredmail-easy/installation/deployment.png){: width="900px" }
 
-After you ran the commands, it's ready to deployment. Click the button `Perform Full Deployment` to start the deployment.
+After you ran the commands, it's ready to deployment. Click the button
+`Perform Full Deployment` to start the deployment.
 
 Depends on the components you selected, and network connection speed between
 your server and our deployment server, it may take few minutes or even longer
