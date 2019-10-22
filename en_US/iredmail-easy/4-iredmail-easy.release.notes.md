@@ -2,7 +2,85 @@
 
 [TOC]
 
-## Version: 2019090601 (Sep 06, 2019) {: id=20190906 class="release" }
+## Version: 2019102201 (Oct 22, 2019) {: id=20191022 class="release" }
+
+* OpenLDAP:
+    - Remove 2 unused LDAP schema files: `calentry.schema`, `calresource.schema`.
+
+* Postfix:
+    - Fixed incorrect CA file on OpenBSD.
+    - Add `LIMIT 1` in SQL queries for better performance.
+
+* Dovecot:
+    - Log ssl protocol and cipher information for login session.
+      e.g. "TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits)"
+
+* Firewall:
+    - Fixed: not filter IPv4/IPv6 addresses while generating iptables rules.
+    - Fixed: not enable ipv6-icmp in firewall.
+
+* Nginx:
+    - Make sure Apache/Lighttpd service is not enabled, otherwise Nginx may
+      not be able to start due to 80/443 ports are used by them.
+
+* AntiSpam:
+    - OpenDMARC is disabled due to internal bug which caused incorrect
+      email rejection. Bug reported to upstream:
+      https://github.com/trusteddomainproject/OpenDMARC/issues/50
+
+        It's recommended to disable DMARC check to avoid incorrect rejections.
+        We don't expect it will be fixed in upstream soon, so DMARC check will
+        be disabled for new deployments and further upgrades.
+
+        To disable DMARC check, please follow steps below:
+
+        - Login to iRedMail Easy web portal: https://easy.iredmail.org/
+        - Go to mail server profile page
+        - Click tab `Settings`
+        - Find section `Anti Spam/Virus`, make sure option `Disable DMARC` is
+          checked.
+        - Save your change. Then click the button `Apply changed settings` to
+          apply the changes.
+
+        NOTE: OpenDMARC and DMARC check will be removed in next release due to
+        this unacceptable bug.
+
+* autodiscover:
+    - Fixed the `Undefined offset` php error.
+    - Log the schema data sent by remote MUA, also the settings sent to MUA.
+    - Log file is now `/var/log/autoconfig/autoconfig.log`.
+
+* netdata:
+    - If component `Nginx` was not chosen, netdata is inaccessible although
+      Nginx is actually deployed as dependent component.
+    - Move http auth file to `/opt/iredmail/custom/netdata/`.
+
+        Since netdata-1.17.0, netdata sets permission of directory
+        `/opt/netdata/etc/netdata/` to 0700, this causes Nginx can not read
+        the http auth file.
+
+* Backup scripts:
+    - It now removes old empty backup directories.
+
+* Changes to iRedMail Easy platform:
+    - Not add `priority` parameter in iRedMail yum repo. (CentOS 7 only)
+    - Able to whitelist IP or CIDR newtorks in fail2ban.
+    - Do not forward systemd journald log to syslog.
+    - Run shell script `/opt/iredmail/custom/openldap/custom.sh` while
+      deploying or upgrading OpenLDAP. You can write shell commands in this
+      file to update other config files for advanced customization. for
+      example, updating `/etc/sysconfig/slapd` (CentOS) or
+      `/etc/ldap/slapd` (Debian/Ubuntu) to make OpenLDAP listening on all
+      available network interfaces and IP addresses.
+    - Add Fail2ban related info in `/root/iRedMail/iRedMail.tips`.
+    - Make sure no SysV script and rule files for 'iptables' service on
+      Debian 10.
+
+* Package updates:
+    - netdata -> 1.18.1
+    - iredapd -> 3.2
+
+## Version: 2019090601 (Sep 06, 2019) {: id=20190906 class="old_release" }
 
 * Postfix:
     - Sign DKIM signature for locally generated emails, like auto-reply (a.k.a

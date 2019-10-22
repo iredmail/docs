@@ -19,6 +19,7 @@
 <div class="toc">
 <ul>
 <li><a href="#iredmail-easy-release-notes">iRedMail Easy: Release Notes</a><ul>
+<li><a href="#20191022">Version: 2019102201 (Oct 22, 2019)</a></li>
 <li><a href="#20190906">Version: 2019090601 (Sep 06, 2019)</a></li>
 <li><a href="#20190802">Version: 2019080201 (Aug 02, 2019)</a></li>
 <li><a href="#20190801">Version: 2019080101 (Aug 01, 2019)</a></li>
@@ -36,7 +37,120 @@
 </li>
 </ul>
 </div>
-<h2 class="release" id="20190906">Version: 2019090601 (Sep 06, 2019)</h2>
+<h2 class="release" id="20191022">Version: 2019102201 (Oct 22, 2019)</h2>
+<ul>
+<li>
+<p>OpenLDAP:</p>
+<ul>
+<li>Remove 2 unused LDAP schema files: <code>calentry.schema</code>, <code>calresource.schema</code>.</li>
+</ul>
+</li>
+<li>
+<p>Postfix:</p>
+<ul>
+<li>Fixed incorrect CA file on OpenBSD.</li>
+<li>Add <code>LIMIT 1</code> in SQL queries for better performance.</li>
+</ul>
+</li>
+<li>
+<p>Dovecot:</p>
+<ul>
+<li>Log ssl protocol and cipher information for login session.
+  e.g. "TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits)"</li>
+</ul>
+</li>
+<li>
+<p>Firewall:</p>
+<ul>
+<li>Fixed: not filter IPv4/IPv6 addresses while generating iptables rules.</li>
+<li>Fixed: not enable ipv6-icmp in firewall.</li>
+</ul>
+</li>
+<li>
+<p>Nginx:</p>
+<ul>
+<li>Make sure Apache/Lighttpd service is not enabled, otherwise Nginx may
+  not be able to start due to 80/443 ports are used by them.</li>
+</ul>
+</li>
+<li>
+<p>AntiSpam:</p>
+<ul>
+<li>
+<p>OpenDMARC is disabled due to internal bug which caused incorrect
+  email rejection. Bug reported to upstream:
+  https://github.com/trusteddomainproject/OpenDMARC/issues/50</p>
+<p>It's recommended to disable DMARC check to avoid incorrect rejections.
+We don't expect it will be fixed in upstream soon, so DMARC check will
+be disabled for new deployments and further upgrades.</p>
+<p>To disable DMARC check, please follow steps below:</p>
+<ul>
+<li>Login to iRedMail Easy web portal: https://easy.iredmail.org/</li>
+<li>Go to mail server profile page</li>
+<li>Click tab <code>Settings</code></li>
+<li>Find section <code>Anti Spam/Virus</code>, make sure option <code>Disable DMARC</code> is
+  checked.</li>
+<li>Save your change. Then click the button <code>Apply changed settings</code> to
+  apply the changes.</li>
+</ul>
+<p>NOTE: OpenDMARC and DMARC check will be removed in next release due to
+this unacceptable bug.</p>
+</li>
+</ul>
+</li>
+<li>
+<p>autodiscover:</p>
+<ul>
+<li>Fixed the <code>Undefined offset</code> php error.</li>
+<li>Log the schema data sent by remote MUA, also the settings sent to MUA.</li>
+<li>Log file is now <code>/var/log/autoconfig/autoconfig.log</code>.</li>
+</ul>
+</li>
+<li>
+<p>netdata:</p>
+<ul>
+<li>If component <code>Nginx</code> was not chosen, netdata is inaccessible although
+  Nginx is actually deployed as dependent component.</li>
+<li>
+<p>Move http auth file to <code>/opt/iredmail/custom/netdata/</code>.</p>
+<p>Since netdata-1.17.0, netdata sets permission of directory
+<code>/opt/netdata/etc/netdata/</code> to 0700, this causes Nginx can not read
+the http auth file.</p>
+</li>
+</ul>
+</li>
+<li>
+<p>Backup scripts:</p>
+<ul>
+<li>It now removes old empty backup directories.</li>
+</ul>
+</li>
+<li>
+<p>Changes to iRedMail Easy platform:</p>
+<ul>
+<li>Not add <code>priority</code> parameter in iRedMail yum repo. (CentOS 7 only)</li>
+<li>Able to whitelist IP or CIDR newtorks in fail2ban.</li>
+<li>Do not forward systemd journald log to syslog.</li>
+<li>Run shell script <code>/opt/iredmail/custom/openldap/custom.sh</code> while
+  deploying or upgrading OpenLDAP. You can write shell commands in this
+  file to update other config files for advanced customization. for
+  example, updating <code>/etc/sysconfig/slapd</code> (CentOS) or
+  <code>/etc/ldap/slapd</code> (Debian/Ubuntu) to make OpenLDAP listening on all
+  available network interfaces and IP addresses.</li>
+<li>Add Fail2ban related info in <code>/root/iRedMail/iRedMail.tips</code>.</li>
+<li>Make sure no SysV script and rule files for 'iptables' service on
+  Debian 10.</li>
+</ul>
+</li>
+<li>
+<p>Package updates:</p>
+<ul>
+<li>netdata -&gt; 1.18.1</li>
+<li>iredapd -&gt; 3.2</li>
+</ul>
+</li>
+</ul>
+<h2 class="old_release" id="20190906">Version: 2019090601 (Sep 06, 2019)</h2>
 <ul>
 <li>
 <p>Postfix:</p>
