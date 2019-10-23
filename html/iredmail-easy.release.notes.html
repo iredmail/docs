@@ -76,26 +76,9 @@
 <li>
 <p>AntiSpam:</p>
 <ul>
-<li>
-<p>OpenDMARC is disabled due to internal bug which caused incorrect
+<li>OpenDMARC has been removed due to internal bug which caused incorrect
   email rejection. Bug reported to upstream:
-  https://github.com/trusteddomainproject/OpenDMARC/issues/50</p>
-<p>It's recommended to disable DMARC check to avoid incorrect rejections.
-We don't expect it will be fixed in upstream soon, so DMARC check will
-be disabled for new deployments and further upgrades.</p>
-<p>To disable DMARC check, please follow steps below:</p>
-<ul>
-<li>Login to iRedMail Easy web portal: https://easy.iredmail.org/</li>
-<li>Go to mail server profile page</li>
-<li>Click tab <code>Settings</code></li>
-<li>Find section <code>Anti Spam/Virus</code>, make sure option <code>Disable DMARC</code> is
-  checked.</li>
-<li>Save your change. Then click the button <code>Apply changed settings</code> to
-  apply the changes.</li>
-</ul>
-<p>NOTE: OpenDMARC and DMARC check will be removed in next release due to
-this unacceptable bug.</p>
-</li>
+  https://github.com/trusteddomainproject/OpenDMARC/issues/50</li>
 </ul>
 </li>
 <li>

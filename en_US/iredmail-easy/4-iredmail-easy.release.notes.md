@@ -24,26 +24,9 @@
       not be able to start due to 80/443 ports are used by them.
 
 * AntiSpam:
-    - OpenDMARC is disabled due to internal bug which caused incorrect
+    - OpenDMARC has been removed due to internal bug which caused incorrect
       email rejection. Bug reported to upstream:
       https://github.com/trusteddomainproject/OpenDMARC/issues/50
-
-        It's recommended to disable DMARC check to avoid incorrect rejections.
-        We don't expect it will be fixed in upstream soon, so DMARC check will
-        be disabled for new deployments and further upgrades.
-
-        To disable DMARC check, please follow steps below:
-
-        - Login to iRedMail Easy web portal: https://easy.iredmail.org/
-        - Go to mail server profile page
-        - Click tab `Settings`
-        - Find section `Anti Spam/Virus`, make sure option `Disable DMARC` is
-          checked.
-        - Save your change. Then click the button `Apply changed settings` to
-          apply the changes.
-
-        NOTE: OpenDMARC and DMARC check will be removed in next release due to
-        this unacceptable bug.
 
 * autodiscover:
     - Fixed the `Undefined offset` php error.
