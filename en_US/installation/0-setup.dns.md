@@ -383,7 +383,8 @@ Outlook Postmaster site provides some useful information for mail server
 administrators, if the email you sent to Outlook.com is marked as spam, please
 take a look:
 
-[Outlook.com Postmaster](https://sendersupport.olc.protection.outlook.com/pm/)
+- [Outlook.com Postmaster](https://sendersupport.olc.protection.outlook.com/pm/)
+- [Smart Network Data Service](https://sendersupport.olc.protection.outlook.com/snds/)
 
 ## References
 
