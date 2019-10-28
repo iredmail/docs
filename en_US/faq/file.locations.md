@@ -158,7 +158,7 @@ Main config file:
 
         Note: with old iRedMail releases, it's `/var/www/roundcubemail`.
 
-* Config files: {: #roundcube-config }
+* Config files:
 
     * Main config file is `config/config.inc.php` under Roundcube webmail
       directory.
