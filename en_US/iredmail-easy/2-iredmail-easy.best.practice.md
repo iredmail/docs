@@ -188,6 +188,45 @@ ALL | `first_domain_admin_password` | Password of the mail user `postmaster@<you
 max_connections     = 1024
 ```
 
+### OpenLDAP
+
+- `/opt/iredmail/custom/openldap/schema/`
+
+    Extra LDAP schema files must be stored in this directory, owned by OpenLDAP
+    daemon user and group with permission 0640.
+
+- `/opt/iredmail/custom/openldap/conf.d/global.conf`
+
+    Extra global settings should be stored in this file. For example, you can
+    load extra LDAP schema file by adding line below:
+
+    ```
+    include /opt/iredmail/custom/openldap/schema/custom.schema
+    ```
+
+- `/opt/iredmail/custom/openldap/conf.d/databases.conf`
+
+    OpenLDAP is configured to run one database for mail domains and accounts
+    by iRedMail Easy, if you want to run extra databases, you can add database
+    related settings in this file. for example:
+
+```
+database    mdb
+suffix      dc=my-ldap-suffix,dc=com
+directory   /var/lib/ldap/my-ldap-suffix.com
+
+rootdn      cn=Manager,dc=my-ldap-suffix,dc=com
+rootpw      {SSHA}...
+
+sizelimit   unlimited
+maxsize     2147483648
+checkpoint  128 3
+mode        0700
+
+index attr_1,attr_2,attr_3  eq,pres
+index attr_4,attr_5,attr_6  eq,pres
+```
+
 ### Nginx
 
 - `/opt/iredmail/custom/nginx/custom.sh`: a bash shell script for advanced

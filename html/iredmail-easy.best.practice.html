@@ -30,6 +30,7 @@
 <li><a href="#passwords">Passwords</a></li>
 <li><a href="#custom-settings-used-by-softwares">Custom settings used by softwares</a><ul>
 <li><a href="#mariadb">MariaDB</a></li>
+<li><a href="#openldap">OpenLDAP</a></li>
 <li><a href="#nginx">Nginx</a></li>
 <li><a href="#postfix">Postfix</a></li>
 <li><a href="#dovecot">Dovecot</a></li>
@@ -310,6 +311,42 @@ under <code>/opt/iredmail/ssl/</code>:</p>
 </ul>
 <pre><code>[mysqld]
 max_connections     = 1024
+</code></pre>
+
+<h3 id="openldap">OpenLDAP</h3>
+<ul>
+<li>
+<p><code>/opt/iredmail/custom/openldap/schema/</code></p>
+<p>Extra LDAP schema files must be stored in this directory, owned by OpenLDAP
+daemon user and group with permission 0640.</p>
+</li>
+<li>
+<p><code>/opt/iredmail/custom/openldap/conf.d/global.conf</code></p>
+<p>Extra global settings should be stored in this file. For example, you can
+load extra LDAP schema file by adding line below:</p>
+<p><code>include /opt/iredmail/custom/openldap/schema/custom.schema</code></p>
+</li>
+<li>
+<p><code>/opt/iredmail/custom/openldap/conf.d/databases.conf</code></p>
+<p>OpenLDAP is configured to run one database for mail domains and accounts
+by iRedMail Easy, if you want to run extra databases, you can add database
+related settings in this file. for example:</p>
+</li>
+</ul>
+<pre><code>database    mdb
+suffix      dc=my-ldap-suffix,dc=com
+directory   /var/lib/ldap/my-ldap-suffix.com
+
+rootdn      cn=Manager,dc=my-ldap-suffix,dc=com
+rootpw      {SSHA}...
+
+sizelimit   unlimited
+maxsize     2147483648
+checkpoint  128 3
+mode        0700
+
+index attr_1,attr_2,attr_3  eq,pres
+index attr_4,attr_5,attr_6  eq,pres
 </code></pre>
 
 <h3 id="nginx">Nginx</h3>
