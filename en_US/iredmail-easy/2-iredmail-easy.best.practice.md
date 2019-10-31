@@ -342,6 +342,10 @@ overrode by the last one.
 
 - `/opt/iredmail/custom/dovecot/conf-enabled/`: store custom Dovecot settings.
 - `/opt/iredmail/custom/dovecot/custom.sh`: a bash shell script used for advanced customization
+- `/opt/iredmail/custom/dovecot/dovecot.sieve`: custom global sieve rule file.
+
+    If this file exists, iRedMail Easy will link it to
+    `/var/vmail/sieve/dovecot.sieve` as global sieve rule file.
 
 ### Roundcube
 
