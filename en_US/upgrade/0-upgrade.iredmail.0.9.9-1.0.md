@@ -87,8 +87,8 @@ DNS records (especially your internal mail domains used in LAN). Please follow
 steps below to fix it.
 
 * Open file `/etc/postfix/main.cf` (Linux/OpenBSD) or
-`/usr/local/etc/postfix/main.cf` (FreeBSD), find parameter
-`smtpd_sender_restrictions` like below:
+  `/usr/local/etc/postfix/main.cf` (FreeBSD), find parameter
+  `smtpd_sender_restrictions` like below:
 
 ```
 smtpd_sender_restrictions =
@@ -108,6 +108,28 @@ smtpd_sender_restrictions =
 ```
 
 * Reloading or restarting Postfix service is required.
+
+### Fixed: fix improper HELO rule which blocks new Facebook servers
+
+Facebook has some new servers which uses `<ip>.mail-mail.facebook.com` as
+HELO identities, this is blocked by the default HELO rules configured by
+iRedMail-0.9.9 and earlier releases. Please fix it with EITHER step described
+below, but solution 1 is the recommended.
+
+1. Prepend line below in `/etc/postfix/helo_access.pcre` (Linux/OpenBSD) and
+  `/usr/local/etc/postfix/helo_access.pcre` (FreeBSD):
+
+```
+/^\d{1,3}-\d{1,3}-\d{1,3}-\d{1,3}\.mail-mail\.facebook\.com$/ DUNNO
+```
+
+2. Or, find line below in `helo_access.pcre` and remove it.
+
+```
+/(\d{1,3}[\.-]\d{1,3}[\.-]\d{1,3}[\.-]\d{1,3})/ REJECT ACCESS DENIED. Your email was rejected because the sending mail server appears to be on a dynamic IP address that should not be doing direct mail delivery
+```
+
+Reloading or restarting Postfix service is required.
 
 ### Fixed: Incorrect SSL CA file path in Postfix on FreeBSD and OpenBSD
 
