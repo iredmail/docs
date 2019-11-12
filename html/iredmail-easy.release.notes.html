@@ -19,6 +19,7 @@
 <div class="toc">
 <ul>
 <li><a href="#iredmail-easy-release-notes">iRedMail Easy: Release Notes</a><ul>
+<li><a href="#20191112">Version: 2019111201 (Nov 12, 2019)</a></li>
 <li><a href="#20191022">Version: 2019102201 (Oct 22, 2019)</a></li>
 <li><a href="#20190906">Version: 2019090601 (Sep 06, 2019)</a></li>
 <li><a href="#20190802">Version: 2019080201 (Aug 02, 2019)</a></li>
@@ -37,7 +38,59 @@
 </li>
 </ul>
 </div>
-<h2 class="release" id="20191022">Version: 2019102201 (Oct 22, 2019)</h2>
+<h2 class="release" id="20191112">Version: 2019111201 (Nov 12, 2019)</h2>
+<ul>
+<li>
+<p>iRedMail Easy now supports OpenBSD 6.6.</p>
+<p>Warning: OpenBSD 6.4 and 6.5 support will be dropped when 6.7 is out.</p>
+</li>
+<li>
+<p>Dovecot:</p>
+<ul>
+<li>Create and use custom (empty) global sieve rule file by default.</li>
+<li>Log more events: save, copy, mailbox_create.</li>
+</ul>
+</li>
+<li>
+<p>Netdata:</p>
+<ul>
+<li>Fixed: incorrect hostname in alarm notification email.</li>
+</ul>
+</li>
+<li>
+<p>OpenLDAP:</p>
+<ul>
+<li>Create directory <code>/opt/iredmail/custom/openldap/schema/</code> to store extra
+  LDAP schema files.</li>
+</ul>
+<p>Apparmor config file has been updated on Ubuntu to allow <code>slapd</code> program
+  to read config files from this directory.</p>
+<ul>
+<li>Use <code>mdb</code> database since OpenBSD 6.6. OpenBSD 6.5 uses <code>hdb</code>.</li>
+</ul>
+</li>
+<li>
+<p>Postfix:</p>
+<ul>
+<li>Bypass facebook.com HELO hostnames which contain IP addresses.</li>
+</ul>
+</li>
+<li>
+<p>Roundcube:</p>
+<ul>
+<li>Upgrade to version 1.4.0, released on Nov 10, 2019.</li>
+</ul>
+</li>
+<li>
+<p>Changes to iRedMail Easy platform:</p>
+<ul>
+<li>Fix aborted installation if Ansible fact <code>ansible_all_ipv6_addresses</code> is
+  undefined.</li>
+<li>Upgrade pip to the latest version before installing web.py on Debian 10.</li>
+</ul>
+</li>
+</ul>
+<h2 class="old_release" id="20191022">Version: 2019102201 (Oct 22, 2019)</h2>
 <ul>
 <li>
 <p>OpenLDAP:</p>

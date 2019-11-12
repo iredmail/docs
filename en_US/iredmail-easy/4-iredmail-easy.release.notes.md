@@ -2,7 +2,40 @@
 
 [TOC]
 
-## Version: 2019102201 (Oct 22, 2019) {: id=20191022 class="release" }
+## Version: 2019111201 (Nov 12, 2019) {: id=20191112 class="release" }
+
+* iRedMail Easy now supports OpenBSD 6.6.
+
+    Warning: OpenBSD 6.4 and 6.5 support will be dropped when 6.7 is out.
+
+* Dovecot:
+    - Create and use custom (empty) global sieve rule file by default.
+    - Log more events: save, copy, mailbox_create.
+
+* Netdata:
+    - Fixed: incorrect hostname in alarm notification email.
+
+* OpenLDAP:
+    - Create directory `/opt/iredmail/custom/openldap/schema/` to store extra
+      LDAP schema files.
+
+      Apparmor config file has been updated on Ubuntu to allow `slapd` program
+      to read config files from this directory.
+
+    - Use `mdb` database since OpenBSD 6.6. OpenBSD 6.5 uses `hdb`.
+
+* Postfix:
+    - Bypass facebook.com HELO hostnames which contain IP addresses.
+
+* Roundcube:
+    - Upgrade to version 1.4.0, released on Nov 10, 2019.
+
+* Changes to iRedMail Easy platform:
+    - Fix aborted installation if Ansible fact `ansible_all_ipv6_addresses` is
+      undefined.
+    - Upgrade pip to the latest version before installing web.py on Debian 10.
+
+## Version: 2019102201 (Oct 22, 2019) {: id=20191022 class="old_release" }
 
 * OpenLDAP:
     - Remove 2 unused LDAP schema files: `calentry.schema`, `calresource.schema`.
