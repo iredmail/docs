@@ -3,7 +3,7 @@
 [TOC]
 
 __IMPORTANT NOTE__: `A`, `MX` records are required, `Reverse PTR`, `SPF`,
-`DKIM` and `DMARC` are optional but __STRONGLY__ recommended.
+`DKIM` and `DMARC` are optional but __HIGHLY__ recommended.
 
 ## `A` record for server hostname {: id="a" }
 
@@ -350,7 +350,7 @@ v=DMARC1; adkim=s; aspf=s; p=reject; sp=none; rua=mailto:dmarc@mydomain.com; ruf
 
 ## Register your mail domain in Google Postmaster Tools
 
-This step is __optional__, but __higly recommended__.
+This step is __optional__, but __highly recommended__.
 
 Google Postmaster Tools web site: <https://postmaster.google.com>, and
 [Postmaster Tools FAQs](https://support.google.com/mail/answer/6258950).
