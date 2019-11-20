@@ -280,7 +280,10 @@ Main config file:
 
     Note: on old iRedMail releases, it's `/usr/share/apache2/iredadmin/settings.py`.
 
-* on FreeBSD, it's `/usr/local/www/iredadmin/settings.py`.
+* on FreeBSD, it's `/opt/www/iredadmin/settings.py`.
+
+    Note: on old iRedMail releases, it's `/usr/local/www/iredadmin/settings.py`.
+
 * on OpenBSD, it's `/opt/www/iredadmin/settings.py`.
 
     Note: on old iRedMail releases, it's `/var/www/iredadmin/settings.py`.

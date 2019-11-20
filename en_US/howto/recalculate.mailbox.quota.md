@@ -7,12 +7,12 @@ Sample usage:
 
 * Recalculate one mailbox:
 ```
-# doveadm quota recalc -u user@domain.ltd
+doveadm quota recalc -u user@domain.ltd
 ```
 
 * Recalculate ALL mail accounts:
 ```
-# doveadm quota recalc -A
+doveadm quota recalc -A
 ```
 
 Reference: [Doveadm-Quota](http://wiki2.dovecot.org/Tools/Doveadm/Quota)

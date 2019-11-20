@@ -60,10 +60,15 @@ preferred.
 
 iRedAdmin-Pro ships script `tools/reset_user_password.py` to help you reset
 one user's password. For example, on CentOS 7 (iRedAdmin is installed under
-`/var/www/iredadmin`):
+`/opt/www/iredadmin`):
+
+!!! attention
+
+    You can find the iRedAdmin-Pro installation directory from this tutorial:
+    [Locations of configuration and log files of major components](./file.locations.html#iredadmin).
 
 ```
-cd /var/www/iredadmin/tools/
+cd /opt/www/iredadmin/tools/
 python reset_user_password.py user@domain.ltd '123456'
 ```
 
