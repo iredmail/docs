@@ -2,6 +2,11 @@
 
 [TOC]
 
+!!! attention
+
+    This feature is enabled by default if your iRedMail server was deployed
+    with our [iRedMail Easy platform](https://www.iredmail.org/easy.html).
+
 ## Summary
 
 Dovecot offers plugin `imap_sieve` to run sieve script for spam/virus scanning,
