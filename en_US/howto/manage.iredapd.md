@@ -1,4 +1,4 @@
-# Manage iRedAPD (white/blacklists, greylisting, and more)
+# Manage iRedAPD (white/blacklists, greylisting, throttling and more)
 
 [TOC]
 
