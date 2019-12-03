@@ -2,7 +2,27 @@
 
 [TOC]
 
-## Version: 2019111201 (Nov 12, 2019) {: id=20191112 class="release" }
+## Upcoming release: 2019120901 (Dec 09, 2019) {: id=20191112 class="old_release" }
+
+* Adminer:
+    - Upgrade to latest version 4.7.5.
+
+* iRedAdmin:
+    - Fixed: incorrect syslog id in uwsgi config file.
+    - Simplify log format.
+
+- mlmmjadmin:
+    - Simplify log format.
+
+- netdata:
+    - Upgrade to version 1.19.0.
+    - Use go.d modules to collect Nginx/MySQL/php-fpm logs for better performance.
+    - Monitor BIND DNS service.
+
+- Roundcube webmail:
+    - Upgrade to version 1.4.1. It now offers a shiny new web UI. :)
+
+## Version: 2019111201 (Nov 12, 2019) {: id=20191112 class="old_release" }
 
 * iRedMail Easy now supports OpenBSD 6.6.
 

@@ -73,7 +73,7 @@ latest stable release (1.3.10):
 
 * [How to upgrade Roundcube](https://github.com/roundcube/roundcubemail/wiki/Upgrade).
 
-### Upgrade netdata to the latest stable release (1.17.1)
+### Upgrade netdata to the latest stable release (1.19.0)
 
 If you have netdata installed, you can upgrade it by following this tutorial:
 [Upgrade netdata](./upgrade.netdata.html).
