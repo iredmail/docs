@@ -97,6 +97,11 @@ upload_max_filesize = 100M;
 post_max_size = 100M;
 ```
 
+Note:
+
+* If you're running Nginx as web server, restarting php-fpm service is required.
+* If you're running Apache as web server, restarting Apache service is required.
+
 ## Roundcube webmail
 
 Roundcube uses its own setting `max_message_size` to limit message size, please
