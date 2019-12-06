@@ -4,8 +4,8 @@
 
 !!! attention
 
-    * This document is applicable to `iRedAdmin-Pro-SQL-3.8` and
-      `iRedAdmin-Pro-LDAP-3.9`. If you're running an old release, please
+    * This document is applicable to `iRedAdmin-Pro-SQL-4.1` and
+      `iRedAdmin-Pro-LDAP-4.2`. If you're running an old release, please
       upgrade iRedAdmin-Pro to the latest release, or check
       [document for old releases](./iredadmin-pro.releases.html).
     * If you need an API which has not yet been implemented, don't hesitate to
@@ -347,6 +347,8 @@ Notes:
     `mailboxFormat` | Mailbox format. e.g. `maildir`, `mdbox`. Defaults to `maildir` if not present. For more details, please read Dovecot document: <https://wiki2.dovecot.org/MailboxFormat>. __WARNING__: Changing mailbox format does not migrate the mailbox on file system automatically, you have to migrate it manually. New email will be stored in new mailbox format immediately. | `mailboxFormat=mdbox`
     `mailboxFolder` | Mailbox folder name (case sensitive) which will be appended to user's home path. Defaults to `Maildir`. It's useful if you need to migrate to different mailbox folder. __WARNING__: New email will be stored in new mailbox folder immediately. | `mailboxFolder=Maildir`
     `maildir` | Absolute path of the mailbox. All characters will be converted to lower cases. | `maildir=/var/vmail/vmail1/example.com/username`
+    `telephoneNumber` | Telephone number __(LDAP backend only)__ | `telephoneNumber=12345678,88888888`
+    `mobile` | Mobile phone number __(LDAP backend only)__ | `mobile=12345678,88888888`
 
     !!! attention
 
