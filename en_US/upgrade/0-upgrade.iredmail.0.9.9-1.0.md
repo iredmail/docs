@@ -2,10 +2,6 @@
 
 [TOC]
 
-!!! warning
-
-    This is still a __DRAFT__ document, do __NOT__ apply it.
-
 !!! note "Paid Remote Upgrade Support"
 
     We offer remote upgrade support if you don't want to get your hands dirty,
@@ -14,7 +10,7 @@
 
 ## ChangeLog
 
-TODO
+* Dec 9, 2019, initial release.
 
 ## General (All backends should apply these changes)
 
@@ -28,7 +24,7 @@ so that you can know which version of iRedMail you're running. For example:
 1.0
 ```
 
-### Upgrade iRedAPD (Postfix policy server) to the latest stable release
+### Upgrade iRedAPD (Postfix policy server) to the latest stable release: 3.3
 
 !!! attention
 
@@ -39,7 +35,7 @@ so that you can know which version of iRedMail you're running. For example:
 Please follow below tutorial to upgrade iRedAPD to the latest stable release:
 [Upgrade iRedAPD to the latest stable release](./upgrade.iredapd.html)
 
-### Upgrade iRedAdmin (open source edition) to the latest stable release (0.9.6)
+### Upgrade iRedAdmin (open source edition) to the latest stable release: 0.9.9
 
 Please follow this tutorial to upgrade iRedAdmin open source edition to the
 latest stable release:
@@ -50,26 +46,17 @@ latest stable release:
 Please follow below tutorial to upgrade mlmmjadmin to the latest stable release:
 [Upgrade mlmmjadmin to the latest stable release](./upgrade.mlmmjadmin.html)
 
-### Upgrade Roundcube webmail to the latest stable release
+### Upgrade Roundcube webmail to the latest stable release: 1.4.1
 
-!!! warning "Roundcube 1.3"
+!!! warning "Roundcube 1.4"
 
-    * Roundcube 1.3 requires at least __PHP 5.4__. If your server is still running
-      PHP 5.3 and cannot upgrade to 5.4, please upgrade Roundcube to the latest
-      1.2 branch (1.2.5) instead.
-    * Roundcube 1.3 no longer supports IE < 10 and old versions of Firefox,
-      Chrome and Safari.
-    * Roundcube 1.3 uses jQuery 3.2 and will not work with current jQuery
-      mobile plugin. If you use any third-party plugin, please check its
-      website to make sure it's compatible with Roundcube 1.3 before upgrading.
+    Since Roundcube 1.3, at least __PHP 5.4__ is required. If your server is
+    running PHP 5.3 and cannot upgrade to 5.4, please upgrade Roundcube
+    the latest 1.2 branch instead.
 
-    With the release of Roundcube 1.3.0, the previous stable release branches
-    1.2.x and 1.1.x will switch in to LTS low maintenance mode which means
-    they will only receive important security updates but no longer any regular
-    improvement updates.
-
+The latest Roundcube webmail 1.4.1 offers a shiny new web UI.
 Please follow Roundcube official tutorial to upgrade Roundcube webmail to the
-latest stable release (1.3.10):
+latest stable release (1.4.1):
 
 * [How to upgrade Roundcube](https://github.com/roundcube/roundcubemail/wiki/Upgrade).
 
@@ -160,8 +147,8 @@ Please follow commands below to get the updated filter rules.
 
 ```
 cd /etc/fail2ban/filter.d/
-wget -O postfix.iredmail.conf https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/samples/fail2ban/filter.d/postfix.iredmail.conf
-wget -O dovecot.iredmail.conf https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/samples/fail2ban/filter.d/dovecot.iredmail.conf
+wget -O postfix.iredmail.conf https://github.com/iredmail/iRedMail/raw/master/samples/fail2ban/filter.d/postfix.iredmail.conf
+wget -O dovecot.iredmail.conf https://github.com/iredmail/iRedMail/raw/master/samples/fail2ban/filter.d/dovecot.iredmail.conf
 ```
 
 Restarting Fail2ban service is required.
@@ -189,7 +176,7 @@ this service.
 
 ```
 cd /root/
-wget https://bitbucket.org/zhb/iredmail/raw/default/extra/update/updateLDAPValues_099_to_1.py
+wget https://github.com/iredmail/iRedMail/raw/master/update/ldap/updateLDAPValues_099_to_1.py
 ```
 
 * Open downloaded file `updateLDAPValues_099_to_1.py`, set LDAP server
@@ -212,7 +199,7 @@ of them have read-write privilege to update mail accounts.
 * Execute this script, it will add required data:
 
 ```
-# python updateLDAPValues_099_to_1.py
+# python2 updateLDAPValues_099_to_1.py
 ```
 
 #### Enable quota-status service in Dovecot
@@ -287,7 +274,7 @@ Download plain SQL file used to create required column and index, then import
 it directly as MySQL root user (Please run commands below as `root` user):
 
 ```
-wget -O /tmp/iredmail.mysql https://bitbucket.org/zhb/iredmail/raw/default/extra/update/1.0/iredmail.mysql
+wget -O /tmp/iredmail.mysql https://github.com/iredmail/iRedMail/raw/master/update/1.0/iredmail.mysql
 mysql vmail < /tmp/iredmail.mysql
 rm -f /tmp/iredmail.mysql
 ```
@@ -363,7 +350,7 @@ According to the Dovecot settings configured by iRedMail, a new SQL column
 * Download plain SQL file used to create required column and index:
 
 ```
-wget -O /tmp/iredmail.pgsql https://bitbucket.org/zhb/iredmail/raw/default/extra/update/1.0/iredmail.pgsql
+wget -O /tmp/iredmail.pgsql https://github.com/iredmail/iRedMail/raw/master/update/1.0/iredmail.pgsql
 ```
 
 * Connect to PostgreSQL server as `postgres` user and import the SQL file:

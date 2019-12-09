@@ -103,14 +103,12 @@ near you on OpenBSD web site:
 
 ### Install required packages
 
-Before running iRedMail installer, we need to install few required packages:
-
-```
-pkg_add bash bzip2
-```
-
 iRedMail is wrote in Bash shell scripting language, so bash shell interpreter
-is required. And `bzip2` is used to uncompress downloaded iRedMail package.
+is required, install it first:
+
+```
+pkg_add bash
+```
 
 ### Download the latest release of iRedMail
 
@@ -119,13 +117,13 @@ is required. And `bzip2` is used to uncompress downloaded iRedMail package.
 
 * Upload iRedMail to your mail server via ftp or scp or whatever method you
   can use, login to the server to install iRedMail. We assume you uploaded
-  it to `/root/iRedMail-x.y.z.tar.bz2` (replace x.y.z by the real version number).
+  it to `/root/iRedMail-x.y.z.tar.gz` (replace x.y.z by the real version number).
 
 * Uncompress iRedMail tarball:
 
 ```
 # cd /root/
-# tar xjf iRedMail-x.y.z.tar.bz2
+# tar zxf iRedMail-x.y.z.tar.gz
 ```
 
 ## Start iRedMail installer

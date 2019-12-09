@@ -22,10 +22,10 @@
 <li><a href="#changelog">ChangeLog</a></li>
 <li><a href="#general-all-backends-should-apply-these-changes">General (All backends should apply these changes)</a><ul>
 <li><a href="#update-etciredmail-release-with-new-iredmail-version-number">Update /etc/iredmail-release with new iRedMail version number</a></li>
-<li><a href="#upgrade-iredapd-postfix-policy-server-to-the-latest-stable-release">Upgrade iRedAPD (Postfix policy server) to the latest stable release</a></li>
-<li><a href="#upgrade-iredadmin-open-source-edition-to-the-latest-stable-release-096">Upgrade iRedAdmin (open source edition) to the latest stable release (0.9.6)</a></li>
+<li><a href="#upgrade-iredapd-postfix-policy-server-to-the-latest-stable-release-33">Upgrade iRedAPD (Postfix policy server) to the latest stable release: 3.3</a></li>
+<li><a href="#upgrade-iredadmin-open-source-edition-to-the-latest-stable-release-099">Upgrade iRedAdmin (open source edition) to the latest stable release: 0.9.9</a></li>
 <li><a href="#upgrade-mlmmjadmin-to-the-latest-stable-release-21">Upgrade mlmmjadmin to the latest stable release (2.1)</a></li>
-<li><a href="#upgrade-roundcube-webmail-to-the-latest-stable-release">Upgrade Roundcube webmail to the latest stable release</a></li>
+<li><a href="#upgrade-roundcube-webmail-to-the-latest-stable-release-141">Upgrade Roundcube webmail to the latest stable release: 1.4.1</a></li>
 <li><a href="#upgrade-netdata-to-the-latest-stable-release-1190">Upgrade netdata to the latest stable release (1.19.0)</a></li>
 <li><a href="#fixed-improper-order-of-postfix-smtpd_sender_restriction-rules">Fixed: improper order of Postfix smtpd_sender_restriction rules</a></li>
 <li><a href="#fixed-fix-improper-helo-rule-which-blocks-new-facebook-servers">Fixed: fix improper HELO rule which blocks new Facebook servers</a></li>
@@ -64,10 +64,6 @@
 </li>
 </ul>
 </div>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>This is still a <strong>DRAFT</strong> document, do <strong>NOT</strong> apply it.</p>
-</div>
 <div class="admonition note">
 <p class="admonition-title">Paid Remote Upgrade Support</p>
 <p>We offer remote upgrade support if you don't want to get your hands dirty,
@@ -75,7 +71,9 @@ check <a href="https://www.iredmail.org/support.html">the details</a> and
 <a href="https://www.iredmail.org/contact.html">contact us</a>.</p>
 </div>
 <h2 id="changelog">ChangeLog</h2>
-<p>TODO</p>
+<ul>
+<li>Dec 9, 2019, initial release.</li>
+</ul>
 <h2 id="general-all-backends-should-apply-these-changes">General (All backends should apply these changes)</h2>
 <h3 id="update-etciredmail-release-with-new-iredmail-version-number">Update <code>/etc/iredmail-release</code> with new iRedMail version number</h3>
 <p>iRedMail stores the release version in <code>/etc/iredmail-release</code> after
@@ -84,7 +82,7 @@ so that you can know which version of iRedMail you're running. For example:</p>
 <pre><code>1.0
 </code></pre>
 
-<h3 id="upgrade-iredapd-postfix-policy-server-to-the-latest-stable-release">Upgrade iRedAPD (Postfix policy server) to the latest stable release</h3>
+<h3 id="upgrade-iredapd-postfix-policy-server-to-the-latest-stable-release-33">Upgrade iRedAPD (Postfix policy server) to the latest stable release: 3.3</h3>
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>
 <p>iRedAPD offers SRS (Sender Rewriting Scheme) support in this release, but
@@ -93,33 +91,23 @@ issues and how to enable it: <a href="./srs.html">Enable SRS (Sender Rewriting S
 </div>
 <p>Please follow below tutorial to upgrade iRedAPD to the latest stable release:
 <a href="./upgrade.iredapd.html">Upgrade iRedAPD to the latest stable release</a></p>
-<h3 id="upgrade-iredadmin-open-source-edition-to-the-latest-stable-release-096">Upgrade iRedAdmin (open source edition) to the latest stable release (0.9.6)</h3>
+<h3 id="upgrade-iredadmin-open-source-edition-to-the-latest-stable-release-099">Upgrade iRedAdmin (open source edition) to the latest stable release: 0.9.9</h3>
 <p>Please follow this tutorial to upgrade iRedAdmin open source edition to the
 latest stable release:
 <a href="./migrate.or.upgrade.iredadmin.html">Upgrade iRedAdmin to the latest stable release</a></p>
 <h3 id="upgrade-mlmmjadmin-to-the-latest-stable-release-21">Upgrade mlmmjadmin to the latest stable release (2.1)</h3>
 <p>Please follow below tutorial to upgrade mlmmjadmin to the latest stable release:
 <a href="./upgrade.mlmmjadmin.html">Upgrade mlmmjadmin to the latest stable release</a></p>
-<h3 id="upgrade-roundcube-webmail-to-the-latest-stable-release">Upgrade Roundcube webmail to the latest stable release</h3>
+<h3 id="upgrade-roundcube-webmail-to-the-latest-stable-release-141">Upgrade Roundcube webmail to the latest stable release: 1.4.1</h3>
 <div class="admonition warning">
-<p class="admonition-title">Roundcube 1.3</p>
-<ul>
-<li>Roundcube 1.3 requires at least <strong>PHP 5.4</strong>. If your server is still running
-  PHP 5.3 and cannot upgrade to 5.4, please upgrade Roundcube to the latest
-  1.2 branch (1.2.5) instead.</li>
-<li>Roundcube 1.3 no longer supports IE &lt; 10 and old versions of Firefox,
-  Chrome and Safari.</li>
-<li>Roundcube 1.3 uses jQuery 3.2 and will not work with current jQuery
-  mobile plugin. If you use any third-party plugin, please check its
-  website to make sure it's compatible with Roundcube 1.3 before upgrading.</li>
-</ul>
-<p>With the release of Roundcube 1.3.0, the previous stable release branches
-1.2.x and 1.1.x will switch in to LTS low maintenance mode which means
-they will only receive important security updates but no longer any regular
-improvement updates.</p>
+<p class="admonition-title">Roundcube 1.4</p>
+<p>Since Roundcube 1.3, at least <strong>PHP 5.4</strong> is required. If your server is
+running PHP 5.3 and cannot upgrade to 5.4, please upgrade Roundcube
+the latest 1.2 branch instead.</p>
 </div>
-<p>Please follow Roundcube official tutorial to upgrade Roundcube webmail to the
-latest stable release (1.3.10):</p>
+<p>The latest Roundcube webmail 1.4.1 offers a shiny new web UI.
+Please follow Roundcube official tutorial to upgrade Roundcube webmail to the
+latest stable release (1.4.1):</p>
 <ul>
 <li><a href="https://github.com/roundcube/roundcubemail/wiki/Upgrade">How to upgrade Roundcube</a>.</li>
 </ul>
@@ -198,8 +186,8 @@ iRedMail, so we decide to remove the filter rule used to match Postfix log
 <li>On Linux:</li>
 </ul>
 <pre><code>cd /etc/fail2ban/filter.d/
-wget -O postfix.iredmail.conf https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/samples/fail2ban/filter.d/postfix.iredmail.conf
-wget -O dovecot.iredmail.conf https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/samples/fail2ban/filter.d/dovecot.iredmail.conf
+wget -O postfix.iredmail.conf https://github.com/iredmail/iRedMail/raw/master/samples/fail2ban/filter.d/postfix.iredmail.conf
+wget -O dovecot.iredmail.conf https://github.com/iredmail/iRedMail/raw/master/samples/fail2ban/filter.d/dovecot.iredmail.conf
 </code></pre>
 
 <p>Restarting Fail2ban service is required.</p>
@@ -220,7 +208,7 @@ this service.</p>
 <li>Download script used to update existing mail accounts:</li>
 </ul>
 <pre><code>cd /root/
-wget https://bitbucket.org/zhb/iredmail/raw/default/extra/update/updateLDAPValues_099_to_1.py
+wget https://github.com/iredmail/iRedMail/raw/master/update/ldap/updateLDAPValues_099_to_1.py
 </code></pre>
 
 <ul>
@@ -242,7 +230,7 @@ of them have read-write privilege to update mail accounts.</p>
 <ul>
 <li>Execute this script, it will add required data:</li>
 </ul>
-<pre><code># python updateLDAPValues_099_to_1.py
+<pre><code># python2 updateLDAPValues_099_to_1.py
 </code></pre>
 
 <h4 id="enable-quota-status-service-in-dovecot">Enable quota-status service in Dovecot</h4>
@@ -300,7 +288,7 @@ to process this email (e.g. spam/virus scanning), and avoids bounce message.</p>
 <code>mailbox.enablequota-status</code> is required.</p>
 <p>Download plain SQL file used to create required column and index, then import
 it directly as MySQL root user (Please run commands below as <code>root</code> user):</p>
-<pre><code>wget -O /tmp/iredmail.mysql https://bitbucket.org/zhb/iredmail/raw/default/extra/update/1.0/iredmail.mysql
+<pre><code>wget -O /tmp/iredmail.mysql https://github.com/iredmail/iRedMail/raw/master/update/1.0/iredmail.mysql
 mysql vmail &lt; /tmp/iredmail.mysql
 rm -f /tmp/iredmail.mysql
 </code></pre>
@@ -361,7 +349,7 @@ to process this email (e.g. spam/virus scanning), and avoids bounce message.</p>
 <ul>
 <li>Download plain SQL file used to create required column and index:</li>
 </ul>
-<pre><code>wget -O /tmp/iredmail.pgsql https://bitbucket.org/zhb/iredmail/raw/default/extra/update/1.0/iredmail.pgsql
+<pre><code>wget -O /tmp/iredmail.pgsql https://github.com/iredmail/iRedMail/raw/master/update/1.0/iredmail.pgsql
 </code></pre>
 
 <ul>
