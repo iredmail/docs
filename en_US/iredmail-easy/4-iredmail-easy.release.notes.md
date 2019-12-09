@@ -2,10 +2,10 @@
 
 [TOC]
 
-## Upcoming release: 2019120901 (Dec 09, 2019) {: id=20191112 class="old_release" }
+## Upcoming release: 2019120901 (Dec 09, 2019) {: id=20191112 class="release" }
 
-* Adminer:
-    - Upgrade to latest version 4.7.5.
+* Firewall:
+    - On Debian 10, allow ping in nftables firewall.
 
 * iRedAdmin:
     - Fixed: incorrect syslog id in uwsgi config file.
@@ -15,12 +15,22 @@
     - Simplify log format.
 
 - netdata:
-    - Upgrade to version 1.19.0.
-    - Use go.d modules to collect Nginx/MySQL/php-fpm logs for better performance.
+    - Replace few Python collectors by Go modules for better performance.
     - Monitor BIND DNS service.
+    - Disable email notification since netdata is too sensitive and the
+      notification message is "useless".
 
-- Roundcube webmail:
-    - Upgrade to version 1.4.1. It now offers a shiny new web UI. :)
+- Package updates:
+    - Roundcube webmail 1.4.1. It offers a shiny new web UI.
+    - netdata-1.19.0
+    - iRedAPD-3.3
+    - iRedAdmin-0.9.9
+    - adminer-4.7.5
+
+- Improvements of iRedMail Easy platform:
+    - On OpenBSD system, if latest security errata hasn't been applied,
+      iRedMail deployment will abort with detailed warning message to remind
+      sysadmin to apply the patches with `syspatch` command.
 
 ## Version: 2019111201 (Nov 12, 2019) {: id=20191112 class="old_release" }
 

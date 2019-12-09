@@ -39,12 +39,12 @@
 </li>
 </ul>
 </div>
-<h2 class="old_release" id="20191112">Upcoming release: 2019120901 (Dec 09, 2019)</h2>
+<h2 class="release" id="20191112">Upcoming release: 2019120901 (Dec 09, 2019)</h2>
 <ul>
 <li>
-<p>Adminer:</p>
+<p>Firewall:</p>
 <ul>
-<li>Upgrade to latest version 4.7.5.</li>
+<li>On Debian 10, allow ping in nftables firewall.</li>
 </ul>
 </li>
 <li>
@@ -63,15 +63,28 @@
 <li>
 <p>netdata:</p>
 <ul>
-<li>Upgrade to version 1.19.0.</li>
-<li>Use go.d modules to collect Nginx/MySQL/php-fpm logs for better performance.</li>
+<li>Replace few Python collectors by Go modules for better performance.</li>
 <li>Monitor BIND DNS service.</li>
+<li>Disable email notification since netdata is too sensitive and the
+  notification message is "useless".</li>
 </ul>
 </li>
 <li>
-<p>Roundcube webmail:</p>
+<p>Package updates:</p>
 <ul>
-<li>Upgrade to version 1.4.1. It now offers a shiny new web UI. :)</li>
+<li>Roundcube webmail 1.4.1. It offers a shiny new web UI.</li>
+<li>netdata-1.19.0</li>
+<li>iRedAPD-3.3</li>
+<li>iRedAdmin-0.9.9</li>
+<li>adminer-4.7.5</li>
+</ul>
+</li>
+<li>
+<p>Improvements of iRedMail Easy platform:</p>
+<ul>
+<li>On OpenBSD system, if latest security errata hasn't been applied,
+  iRedMail deployment will abort with detailed warning message to remind
+  sysadmin to apply the patches with <code>syspatch</code> command.</li>
 </ul>
 </li>
 </ul>
