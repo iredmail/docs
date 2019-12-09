@@ -4,8 +4,8 @@
 
 !!! attention
 
-    * This document is applicable to `iRedAdmin-Pro-SQL-4.1` and
-      `iRedAdmin-Pro-LDAP-4.2`. If you're running an old release, please
+    * This document is applicable to `iRedAdmin-Pro-SQL-3.8` and
+      `iRedAdmin-Pro-LDAP-3.9`. If you're running an old release, please
       upgrade iRedAdmin-Pro to the latest release, or check
       [document for old releases](./iredadmin-pro.releases.html).
     * If you need an API which has not yet been implemented, don't hesitate to
@@ -334,8 +334,6 @@ Notes:
     `transport` | Transport program | `transport=dovecot`
     `isGlobalAdmin` | Promote user to be a global admin. Possible values: `yes`, `no` | `isGlobalAdmin=yes`
     `forwarding` | Per-user mail forwarding. Multiple addresses must be separated by comma. To save an email copy in mailbox, add original email address as one of forwarding addresses. | `forwarding=user1@domain.com,user2@domain.com,user3@domain.com`
-    `addForwarding` | Add per-user mail forwarding addresses. Multiple addresses must be separated by comma. __WARNING__: Conflict with parameter `forwarding`. | `addForwarding=user1@domain.com,user2@domain.com,user3@domain.com`
-    `removeForwarding` | Remove existing per-user mail forwarding addresses. Multiple addresses must be separated by comma. __WARNING__: Conflict with parameter `forwarding`. | `removeForwarding=user1@domain.com,user2@domain.com,user3@domain.com`
     `senderBcc` | Per-user BCC for outbound emails. Only one email address is allowed. Parameter with empty value will remove existing sender bcc address. | `senderBcc=user1@domain.com` or <br/>`senderBcc=` (remove existing bcc address)
     `recipientBcc` | Per-user BCC for inbound emails. Only one email address is allowed. Parameter with empty value will remove existing recipient bcc address. | `recipientBcc=user1@domain.com` or <br/>`recipientBcc=` (remove existing bcc address)
     `aliases` | Per-user alias addresses. Multiple addresses must be separated by comma. If empty, all per-user alias addresses owned by this user will be removed. Conflicts with parameter `addAlias` and `removeAlias`. | `aliases=user1@domain.com,user2@domain.com,user3@domain.com`
@@ -347,8 +345,6 @@ Notes:
     `mailboxFormat` | Mailbox format. e.g. `maildir`, `mdbox`. Defaults to `maildir` if not present. For more details, please read Dovecot document: <https://wiki2.dovecot.org/MailboxFormat>. __WARNING__: Changing mailbox format does not migrate the mailbox on file system automatically, you have to migrate it manually. New email will be stored in new mailbox format immediately. | `mailboxFormat=mdbox`
     `mailboxFolder` | Mailbox folder name (case sensitive) which will be appended to user's home path. Defaults to `Maildir`. It's useful if you need to migrate to different mailbox folder. __WARNING__: New email will be stored in new mailbox folder immediately. | `mailboxFolder=Maildir`
     `maildir` | Absolute path of the mailbox. All characters will be converted to lower cases. | `maildir=/var/vmail/vmail1/example.com/username`
-    `telephoneNumber` | Telephone number __(LDAP backend only)__ | `telephoneNumber=12345678,88888888`
-    `mobile` | Mobile phone number __(LDAP backend only)__ | `mobile=12345678,88888888`
 
     !!! attention
 

@@ -15,7 +15,8 @@ this tutorial with just one shell command:
 
 Version | Release Date | Comment | Extra
 ---|---|---|---
-[4.1](https://forum.iredmail.org/topic16137.html) | Oct 22, 2019 | Bug fix release. | [RESTful API document](./iredadmin-pro.restful.api.html)
+[4.2](https://forum.iredmail.org/topic16276.html) | Dec 9, 2019 | Bug fix release. | [RESTful API document](./iredadmin-pro.restful.api.html)
+[4.1](https://forum.iredmail.org/topic16137.html) | Oct 22, 2019 | Bug fix release. | [RESTful API document](./iredadmin-pro.restful.api-20191209.html)
 [4.0](https://forum.iredmail.org/topic16001.html) | Sep 5, 2019 | Bug fix release. | [RESTful API document](./iredadmin-pro.restful.api-20191022.html)
 [3.9](https://forum.iredmail.org/topic15910.html) | Aug 1, 2019 | Bug fix release. | [RESTful API document](./iredadmin-pro.restful.api-20190906.html)
 [3.8](https://forum.iredmail.org/topic15861.html) | Jul 15, 2019 | | [RESTful API document](./iredadmin-pro.restful.api-20190801.html)
@@ -60,7 +61,8 @@ Version | Release Date | Comment | Extra
 
 Version | Release Date | Comment | RESTful API Document
 ---|---|---|---
-[4.0](https://forum.iredmail.org/topic16138.html) | Oct 22, 2019 | Bug fix release. | [RESTful API document](./iredadmin-pro.restful.api.html)
+[4.1](https://forum.iredmail.org/topic16277.html) | Dec 9, 2019 | Bug fix release. | [RESTful API document](./iredadmin-pro.restful.api.html)
+[4.0](https://forum.iredmail.org/topic16138.html) | Oct 22, 2019 | Bug fix release. | [RESTful API document](./iredadmin-pro.restful.api-20191209.html)
 [3.9](https://forum.iredmail.org/topic16002.html) | Sep 6, 2019 | Bug fix release. | [RESTful API document](./iredadmin-pro.restful.api-20191022.html)
 [3.8](https://forum.iredmail.org/topic15911.html) | Aug 1, 2019 | Bug fix release. | [RESTful API document](./iredadmin-pro.restful.api-20190906.html)
 [3.6](https://forum.iredmail.org/topic15860.html) | Jul 15, 2019 | | [RESTful API document](./iredadmin-pro.restful.api-20190801.html)

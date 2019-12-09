@@ -47,8 +47,8 @@
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>
 <ul>
-<li>This document is applicable to <code>iRedAdmin-Pro-SQL-4.1</code> and
-  <code>iRedAdmin-Pro-LDAP-4.2</code>. If you're running an old release, please
+<li>This document is applicable to <code>iRedAdmin-Pro-SQL-3.8</code> and
+  <code>iRedAdmin-Pro-LDAP-3.9</code>. If you're running an old release, please
   upgrade iRedAdmin-Pro to the latest release, or check
   <a href="./iredadmin-pro.releases.html">document for old releases</a>.</li>
 <li>If you need an API which has not yet been implemented, don't hesitate to
@@ -978,16 +978,6 @@ to be a domain admin.</p>
 <td><code>forwarding=user1@domain.com,user2@domain.com,user3@domain.com</code></td>
 </tr>
 <tr>
-<td><code>addForwarding</code></td>
-<td>Add per-user mail forwarding addresses. Multiple addresses must be separated by comma. <strong>WARNING</strong>: Conflict with parameter <code>forwarding</code>.</td>
-<td><code>addForwarding=user1@domain.com,user2@domain.com,user3@domain.com</code></td>
-</tr>
-<tr>
-<td><code>removeForwarding</code></td>
-<td>Remove existing per-user mail forwarding addresses. Multiple addresses must be separated by comma. <strong>WARNING</strong>: Conflict with parameter <code>forwarding</code>.</td>
-<td><code>removeForwarding=user1@domain.com,user2@domain.com,user3@domain.com</code></td>
-</tr>
-<tr>
 <td><code>senderBcc</code></td>
 <td>Per-user BCC for outbound emails. Only one email address is allowed. Parameter with empty value will remove existing sender bcc address.</td>
 <td><code>senderBcc=user1@domain.com</code> or <br/><code>senderBcc=</code> (remove existing bcc address)</td>
@@ -1041,16 +1031,6 @@ to be a domain admin.</p>
 <td><code>maildir</code></td>
 <td>Absolute path of the mailbox. All characters will be converted to lower cases.</td>
 <td><code>maildir=/var/vmail/vmail1/example.com/username</code></td>
-</tr>
-<tr>
-<td><code>telephoneNumber</code></td>
-<td>Telephone number <strong>(LDAP backend only)</strong></td>
-<td><code>telephoneNumber=12345678,88888888</code></td>
-</tr>
-<tr>
-<td><code>mobile</code></td>
-<td>Mobile phone number <strong>(LDAP backend only)</strong></td>
-<td><code>mobile=12345678,88888888</code></td>
 </tr>
 </tbody>
 </table>
