@@ -217,8 +217,8 @@ client while Roundcube is running behind a proxy server.</p>
 </ul>
 <pre><code>cd /etc/fail2ban/filter.d/
 rm -f dovecot.iredmail.conf roundcube.iredmail.conf
-wget https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/samples/fail2ban/filter.d/dovecot.iredmail.conf
-wget https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/samples/fail2ban/filter.d/roundcube.iredmail.conf
+wget https://github.com/iredmail/iRedMail/raw/1.0/samples/fail2ban/filter.d/dovecot.iredmail.conf
+wget https://github.com/iredmail/iRedMail/raw/1.0/samples/fail2ban/filter.d/roundcube.iredmail.conf
 </code></pre>
 
 <p>Restarting Fail2ban service is required.</p>
@@ -266,7 +266,7 @@ mentioned above, you can restore a single user's data or all users data with
   below:</li>
 </ul>
 <pre><code>cd /var/vmail/backup/
-wget https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/tools/backup_sogo.sh
+wget https://github.com/iredmail/iRedMail/raw/1.0/tools/backup_sogo.sh
 chmod 0400 backup_sogo.sh
 </code></pre>
 
@@ -339,9 +339,7 @@ blog post:</p>
 <h2 id="mysqlmariadb-backend-special">MySQL/MariaDB backend special</h2>
 <h3 id="sql-structure-change-in-vmailalias-sql-table">SQL structure change in <code>vmail.alias</code> SQL table</h3>
 <p>We've made some changes to <code>vmail.alias</code> SQL table for easier account
-management, you can find details about this change here:
-<a href="https://bitbucket.org/zhb/iredmail/issues/101/sql-structure-changes-in-vmailalias-table">SQL structure changes in <code>vmail.alias</code> table</a>.</p>
-<p>This change introduces 2 new SQL tables (<code>forwardings</code>, <code>alias_moderators</code>),
+management. This change introduces 2 new SQL tables (<code>forwardings</code>, <code>alias_moderators</code>),
 and (optionally) dropped few columns in <code>vmail.alias</code> table.</p>
 <p>iRedAPD and iRedAdmin (and iRedAdmin-Pro) have been upgraded to use this new
 SQL structure.</p>
@@ -395,7 +393,7 @@ CREATE TABLE IF NOT EXISTS forwardings (
 <h4 id="migrate-mail-accounts">Migrate mail accounts</h4>
 <p>Please download script used to migrate mail accounts, and run it directly:</p>
 <pre><code>cd /root/
-wget https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/tools/migrate_sql_alias_table.py
+wget https://github.com/iredmail/iRedMail/raw/1.0/tools/migrate_sql_alias_table.py
 python migrate_sql_alias_table.py
 </code></pre>
 
@@ -481,9 +479,7 @@ blog post:</p>
 <h2 id="postgresql-backend-specific">PostgreSQL backend specific</h2>
 <h3 id="sql-structure-change-in-vmailalias-sql-table_1">SQL structure change in <code>vmail.alias</code> SQL table</h3>
 <p>We've made some changes to <code>vmail.alias</code> SQL table for easier account
-management, you can find details about this change here:
-<a href="https://bitbucket.org/zhb/iredmail/issues/101/sql-structure-changes-in-vmailalias-table">SQL structure changes in <code>vmail.alias</code> table</a>.</p>
-<p>This change introduces 2 new SQL tables (<code>forwardings</code>, <code>alias_moderators</code>),
+management, this change introduces 2 new SQL tables (<code>forwardings</code>, <code>alias_moderators</code>),
 and (optionally) dropped few columns in <code>vmail.alias</code> table.</p>
 <p>iRedAPD and iRedAdmin (and iRedAdmin-Pro) have been upgraded to use this new
 SQL structure.</p>
@@ -544,7 +540,7 @@ GRANT SELECT ON TABLE alias_moderators to vmail;
 <h4 id="migrate-mail-accounts_1">Migrate mail accounts</h4>
 <p>Please download script used to migrate mail accounts, and run it directly:</p>
 <pre><code>cd /root/
-wget https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/tools/migrate_sql_alias_table.py
+wget https://github.com/iredmail/iRedMail/raw/1.0/tools/migrate_sql_alias_table.py
 python migrate_sql_alias_table.py
 </code></pre>
 

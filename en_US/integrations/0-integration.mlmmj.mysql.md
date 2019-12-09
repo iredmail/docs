@@ -184,7 +184,7 @@ On Linux:
 
 ```
 cd /usr/bin/
-wget https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/samples/mlmmj/mlmmj-amime-receive
+wget https://github.com/iredmail/iRedMail/raw/1.0/samples/mlmmj/mlmmj-amime-receive
 chown mlmmj:mlmmj mlmmj-amime-receive
 chmod 0550 mlmmj-amime-receive
 ```
@@ -193,7 +193,7 @@ On FreeBSD or OpenBSD:
 
 ```
 cd /usr/local/bin/
-wget https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/samples/mlmmj/mlmmj-amime-receive
+wget https://github.com/iredmail/iRedMail/raw/1.0/samples/mlmmj/mlmmj-amime-receive
 chown mlmmj:mlmmj mlmmj-amime-receive
 chmod 0550 mlmmj-amime-receive
 ```

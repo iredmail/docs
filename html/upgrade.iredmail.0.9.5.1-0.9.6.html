@@ -455,7 +455,7 @@ lip=10.11.12.13, TLS: Disconnected, session=<xxfH9mhDwgDUCPbe></p>
 </ul>
 <pre><code>cd /etc/fail2ban/filter.d/
 rm -f dovecot.iredmail.conf
-wget https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/samples/fail2ban/filter.d/dovecot.iredmail.conf
+wget https://github.com/iredmail/iRedMail/raw/1.0/samples/fail2ban/filter.d/dovecot.iredmail.conf
 service fail2ban reload
 </code></pre>
 
@@ -555,7 +555,7 @@ any whitespace between attribute names and comma):</p>
 <li>On RHEL/CentOS:</li>
 </ul>
 <pre><code>cd /tmp
-wget https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/samples/iredmail/iredmail.schema
+wget https://github.com/iredmail/iRedMail/raw/1.0/samples/iredmail/iredmail.schema
 
 cd /etc/openldap/schema/
 cp iredmail.schema iredmail.schema.bak
@@ -568,7 +568,7 @@ service slapd restart
 <li>On Debian/Ubuntu:</li>
 </ul>
 <pre><code>cd /tmp
-wget https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/samples/iredmail/iredmail.schema
+wget https://github.com/iredmail/iRedMail/raw/1.0/samples/iredmail/iredmail.schema
 
 cd /etc/ldap/schema/
 cp iredmail.schema iredmail.schema.bak
@@ -581,7 +581,7 @@ service slapd restart
 <li>On FreeBSD:</li>
 </ul>
 <pre><code>cd /tmp
-wget https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/samples/iredmail/iredmail.schema
+wget https://github.com/iredmail/iRedMail/raw/1.0/samples/iredmail/iredmail.schema
 
 cd /usr/local/etc/openldap/schema/
 cp iredmail.schema iredmail.schema.bak
@@ -600,7 +600,7 @@ service slapd restart
 </li>
 </ul>
 <pre><code>cd /tmp
-ftp https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/samples/iredmail/iredmail.schema
+ftp https://github.com/iredmail/iRedMail/raw/1.0/samples/iredmail/iredmail.schema
 
 cd /etc/openldap/schema/
 cp iredmail.schema iredmail.schema.bak
@@ -652,7 +652,7 @@ perl -pi -e 's#\(accountStatus=active\)#(accountStatus=active)(!(domainStatus=di
 <li>Download script to update existing mail accounts:</li>
 </ul>
 <pre><code>cd /root/
-wget https://bitbucket.org/zhb/iredmail/raw/default/extra/update/updateLDAPValues_095_1_to_096.py
+wget https://github.com/iredmail/iRedMail/raw/1.0/update/ldap/updateLDAPValues_095_1_to_096.py
 </code></pre>
 
 <ul>

@@ -147,8 +147,8 @@ Please follow commands below to get the updated filter rules.
 
 ```
 cd /etc/fail2ban/filter.d/
-wget -O postfix.iredmail.conf https://github.com/iredmail/iRedMail/raw/master/samples/fail2ban/filter.d/postfix.iredmail.conf
-wget -O dovecot.iredmail.conf https://github.com/iredmail/iRedMail/raw/master/samples/fail2ban/filter.d/dovecot.iredmail.conf
+wget -O postfix.iredmail.conf https://github.com/iredmail/iRedMail/raw/1.0/samples/fail2ban/filter.d/postfix.iredmail.conf
+wget -O dovecot.iredmail.conf https://github.com/iredmail/iRedMail/raw/1.0/samples/fail2ban/filter.d/dovecot.iredmail.conf
 ```
 
 Restarting Fail2ban service is required.
@@ -176,7 +176,7 @@ this service.
 
 ```
 cd /root/
-wget https://github.com/iredmail/iRedMail/raw/master/update/ldap/updateLDAPValues_099_to_1.py
+wget https://github.com/iredmail/iRedMail/raw/1.0/update/ldap/updateLDAPValues_099_to_1.py
 ```
 
 * Open downloaded file `updateLDAPValues_099_to_1.py`, set LDAP server
@@ -274,7 +274,7 @@ Download plain SQL file used to create required column and index, then import
 it directly as MySQL root user (Please run commands below as `root` user):
 
 ```
-wget -O /tmp/iredmail.mysql https://github.com/iredmail/iRedMail/raw/master/update/1.0/iredmail.mysql
+wget -O /tmp/iredmail.mysql https://github.com/iredmail/iRedMail/raw/1.0/update/1.0/iredmail.mysql
 mysql vmail < /tmp/iredmail.mysql
 rm -f /tmp/iredmail.mysql
 ```
@@ -350,7 +350,7 @@ According to the Dovecot settings configured by iRedMail, a new SQL column
 * Download plain SQL file used to create required column and index:
 
 ```
-wget -O /tmp/iredmail.pgsql https://github.com/iredmail/iRedMail/raw/master/update/1.0/iredmail.pgsql
+wget -O /tmp/iredmail.pgsql https://github.com/iredmail/iRedMail/raw/1.0/update/1.0/iredmail.pgsql
 ```
 
 * Connect to PostgreSQL server as `postgres` user and import the SQL file:

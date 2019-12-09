@@ -194,7 +194,7 @@ Below steps are used to add it for all mail users.
 * Download python script used to adding missing values.
 ```
 # cd /root/
-# wget https://bitbucket.org/zhb/iredmail/raw/cb7d2492563d/extra/update/updateLDAPValues_080_to_081.py
+# wget https://github.com/iredmail/iRedMail/raw/1.0/update/ldap/updateLDAPValues_080_to_081.py
 ```
 
 * Open `updateLDAPValues_080_to_081.py`, config LDAP server related settings in

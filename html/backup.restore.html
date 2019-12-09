@@ -53,7 +53,7 @@ mailboxes with tool like <code>rsync</code> or other backup tools.</p>
 <h3 id="backup-mail-accounts">Backup mail accounts</h3>
 <p>Mail accounts are stored in SQL/LDAP database. iRedMail provides shell scripts
 to backup SQL/LDAP databases, you can find them in downloaded iRedMail release,
-or find them in <a href="https://bitbucket.org/zhb/iredmail/src/default/iRedMail/tools/">iRedMail source code repository</a>:</p>
+or find them in <a href="https://github.com/iredmail/iRedMail/tree/master/tools">iRedMail source code repository</a>:</p>
 <ul>
 <li><code>iRedMail-[VERSION]/tools/backup_openldap.sh</code>: used to backup OpenLDAP data.</li>
 <li><code>iRedMail-[VERSION]/tools/backup_ldapd.sh</code>: used to backup OpenBSD ldapd(8).</li>
@@ -364,7 +364,7 @@ by following step below: <a href="#after-ldap-restore">After LDAP Restore</a>.</
 <h4 id="after-ldap-restore">After LDAP restore</h4>
 <p>If you're restoring from an old iRedMail release, you need to add missing LDAP
 attribute/values, which are introduced in new iRedMail releases, by running
-Python scripts below: <a href="https://bitbucket.org/zhb/iredmail/src/default/extra/update/">https://bitbucket.org/zhb/iredmail/src/default/extra/update/</a></p>
+Python scripts below: <a href="https://github.com/iredmail/iRedMail/tree/master/update/ldap">https://github.com/iredmail/iRedMail/tree/master/update/ldap</a></p>
 <p>For example:</p>
 <ul>
 <li>

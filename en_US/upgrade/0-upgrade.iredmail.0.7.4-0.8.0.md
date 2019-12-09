@@ -216,7 +216,7 @@ attribute 'enabledService' for mail user.
 
 ```
 # cd /root/
-# wget https://bitbucket.org/zhb/iredmail/raw/f0e7e84c4b8a/extra/update/updateLDAPValues_074_to_080.py
+# wget https://github.com/iredmail/iRedMail/raw/1.0/update/ldap/updateLDAPValues_074_to_080.py
 ```
 
 * Open `updateLDAPValues_074_to_080.py`, config LDAP server related settings in

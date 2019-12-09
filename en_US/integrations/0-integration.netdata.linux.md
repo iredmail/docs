@@ -68,7 +68,7 @@ config file, so there's not much we need to do after the package installation.
 
 Main config file of netdata is `/etc/netdata/netdata.conf`, it contains many
 parameters with detailed comments. Here's the
-[config file](https://bitbucket.org/zhb/iredmail/src/default/iRedMail/samples/netdata/netdata.conf)
+[config file](https://github.com/iredmail/iRedMail/blob/1.0/samples/netdata/netdata.conf)
 used by iRedMail:
 
 * It binds to address `127.0.0.1` and port `19999` by default. Since it doesn't

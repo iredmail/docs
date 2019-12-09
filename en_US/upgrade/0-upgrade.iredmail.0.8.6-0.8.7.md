@@ -289,7 +289,7 @@ We will add one new LDAP attribute/value pair for existing mail users:
 
 ```
 # cd /root/
-# wget https://bitbucket.org/zhb/iredmail/raw/default/extra/update/updateLDAPValues_086_to_087.py
+# wget https://github.com/iredmail/iRedMail/raw/1.0/update/ldap/updateLDAPValues_086_to_087.py
 ```
 
 * Open downloaded file `updateLDAPValues_086_to_087.py`, set LDAP server

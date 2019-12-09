@@ -121,7 +121,7 @@ system:
 ```
 cd /var/vmail/backup/
 rm -f backup_sogo.sh
-wget https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/tools/backup_sogo.sh
+wget https://github.com/iredmail/iRedMail/raw/1.0/tools/backup_sogo.sh
 chown root backup_sogo.sh
 chmod 0400 backup_sogo.sh
 ```
@@ -153,7 +153,7 @@ Steps to create this new Fail2ban jail:
 
 ```
 cd /etc/fail2ban/filter.d/
-wget https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/samples/fail2ban/filter.d/postfix-pregreet.iredmail.conf
+wget https://github.com/iredmail/iRedMail/raw/1.0/samples/fail2ban/filter.d/postfix-pregreet.iredmail.conf
 ```
 
 * Create new file `/etc/fail2ban/jail.d/postfix-pregreet.local` with content
@@ -439,7 +439,7 @@ Download the latest iRedMail LDAP schema file
 
 ```
 cd /tmp
-wget https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/samples/iredmail/iredmail.schema
+wget https://github.com/iredmail/iRedMail/raw/1.0/samples/iredmail/iredmail.schema
 
 cd /etc/openldap/schema/
 cp iredmail.schema iredmail.schema.bak
@@ -450,7 +450,7 @@ cp -f /tmp/iredmail.schema /etc/openldap/schema/
 * On Debian/Ubuntu:
 ```
 cd /tmp
-wget https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/samples/iredmail/iredmail.schema
+wget https://github.com/iredmail/iRedMail/raw/1.0/samples/iredmail/iredmail.schema
 
 cd /etc/ldap/schema/
 cp iredmail.schema iredmail.schema.bak
@@ -462,7 +462,7 @@ cp -f /tmp/iredmail.schema /etc/ldap/schema/
 
 ```
 cd /tmp
-wget https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/samples/iredmail/iredmail.schema
+wget https://github.com/iredmail/iRedMail/raw/1.0/samples/iredmail/iredmail.schema
 
 cd /usr/local/etc/openldap/schema/
 cp iredmail.schema iredmail.schema.bak
@@ -477,7 +477,7 @@ cp -f /tmp/iredmail.schema /usr/local/etc/openldap/schema/
 
 ```
 cd /tmp
-ftp https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/samples/iredmail/iredmail.schema
+ftp https://github.com/iredmail/iRedMail/raw/1.0/samples/iredmail/iredmail.schema
 
 cd /etc/openldap/schema/
 cp iredmail.schema iredmail.schema.bak
@@ -499,7 +499,7 @@ Please follow steps below to add them.
 
 ```
 cd /root/
-wget https://bitbucket.org/zhb/iredmail/raw/default/extra/update/update-ldap-dovecot-2.3.py
+wget https://github.com/iredmail/iRedMail/raw/1.0/update/ldap/update-ldap-dovecot-2.3.py
 ```
 
 * Open downloaded file `update-ldap-dovecot-2.3.py`, set LDAP server
@@ -550,7 +550,7 @@ steps below to apply the SQL structure change.
 
 ```
 cd /tmp/
-wget https://bitbucket.org/zhb/iredmail/raw/default/extra/update/0.9.8/amavisd.mysql
+wget https://github.com/iredmail/iRedMail/raw/1.0/update/0.9.8/amavisd.mysql
 mysql amavisd < amavisd.mysql
 ```
 
@@ -644,7 +644,7 @@ Download SQL template file used to update SQL database:
 
 ```
 cd /root/
-wget -O iredmail.mysql https://bitbucket.org/zhb/iredmail/raw/default/extra/update/0.9.8/iredmail.mysql
+wget -O iredmail.mysql https://github.com/iredmail/iRedMail/raw/1.0/update/0.9.8/iredmail.mysql
 ```
 
 Connect to MySQL server as MySQL root user, and execute SQL commands:
@@ -666,7 +666,7 @@ address without address extension in a new column `maddr.email_raw`. Steps:
 
 ```
 cd /tmp/
-wget https://bitbucket.org/zhb/iredmail/raw/default/extra/update/0.9.8/amavisd.mysql
+wget https://github.com/iredmail/iRedMail/raw/1.0/update/0.9.8/amavisd.mysql
 mysql amavisd < amavisd.mysql
 ```
 
@@ -738,7 +738,7 @@ We've made some changes to `vmail` database:
 
 ```
 cd /tmp/
-wget https://bitbucket.org/zhb/iredmail/raw/default/extra/update/0.9.8/iredmail.pgsql
+wget https://github.com/iredmail/iRedMail/raw/1.0/update/0.9.8/iredmail.pgsql
 ```
 
 * Connect to PostgreSQL server as `postgres` user and import the SQL file:
@@ -764,7 +764,7 @@ address without address extension in a new column `maddr.email_raw`. Steps:
 
 ```
 cd /tmp/
-wget https://bitbucket.org/zhb/iredmail/raw/default/extra/update/0.9.8/amavisd.pgsql
+wget https://github.com/iredmail/iRedMail/raw/1.0/update/0.9.8/amavisd.pgsql
 ```
 
 * Run shell commands as root user below to connect to PostgreSQL server:

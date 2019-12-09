@@ -140,7 +140,7 @@ Here we go:
 
 ```
 # cd /tmp
-# wget https://bitbucket.org/zhb/iredmail/raw/a4d8b730d147/iRedMail/samples/iredmail/iredmail.schema
+# wget https://github.com/iredmail/iRedMail/raw/1.0/samples/iredmail/iredmail.schema
 
 # cd /etc/openldap/schema/
 # cp iredmail.schema iredmail.schema.bak
@@ -152,7 +152,7 @@ Here we go:
 * On Debian/Ubuntu:
 ```
 # cd /tmp
-# wget https://bitbucket.org/zhb/iredmail/raw/a4d8b730d147/iRedMail/samples/iredmail/iredmail.schema
+# wget https://github.com/iredmail/iRedMail/raw/1.0/samples/iredmail/iredmail.schema
 
 # cd /etc/ldap/schema/
 # cp iredmail.schema iredmail.schema.bak
@@ -164,7 +164,7 @@ Here we go:
 * On FreeBSD:
 ```
 # cd /tmp
-# wget https://bitbucket.org/zhb/iredmail/raw/a4d8b730d147/iRedMail/samples/iredmail/iredmail.schema
+# wget https://github.com/iredmail/iRedMail/raw/1.0/samples/iredmail/iredmail.schema
 
 # cd /usr/local/etc/openldap/schema/
 # cp iredmail.schema iredmail.schema.bak

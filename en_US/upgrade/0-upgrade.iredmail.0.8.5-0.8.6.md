@@ -96,8 +96,8 @@ to finish this in one step.
 Please download below two SQL files shipped in iRedMail-0.8.6, and save it as
 file /root/extra.sql, and /root/column_character_set.mysql:
 
-* https://bitbucket.org/zhb/iredmail/raw/4d7b14fc40bb2467fb4efcc4ce08ac9fc037224c/iRedMail/samples/cluebringer/extra.sql
-* https://bitbucket.org/zhb/iredmail/raw/4d7b14fc40bb2467fb4efcc4ce08ac9fc037224c/iRedMail/samples/cluebringer/column_character_set.mysql
+* https://github.com/iredmail/iRedMail/raw/0.8.6/iRedMail/samples/cluebringer/extra.sql
+* https://github.com/iredmail/iRedMail/raw/0.8.6/iRedMail/samples/cluebringer/column_character_set.mysql
 
 For MySQL, please login to MySQL server as `root` user and import this sql file:
 

@@ -72,9 +72,8 @@ the limit of either Postfix setting or iRedAPD throttle setting, the email will
 be rejected.
 
 You can set the throttle with iRedAdmin-Pro, or with SQL command tool, for more
-details, please check plugin source file, it's detailed with examples and
-explanation: [Throttle plugin](https://bitbucket.org/zhb/iredapd/src/default/plugins/throttle.py).
-
+details, please check plugin source file, it's documented with examples and
+explanation: [Throttle plugin](https://github.com/iredmail/iRedAPD/blob/master/plugins/throttle.py).
 
 If you have Roundcube webmail, please change two more settings:
 

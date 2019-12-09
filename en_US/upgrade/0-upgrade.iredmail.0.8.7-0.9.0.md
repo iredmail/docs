@@ -305,7 +305,7 @@ We will add new LDAP attribute/value pair for existing mail users:
 
 ```
 # cd /root/
-# wget https://bitbucket.org/zhb/iredmail/raw/default/extra/update/updateLDAPValues_087_to_090.py
+# wget https://github.com/iredmail/iRedMail/raw/1.0/update/ldap/updateLDAPValues_087_to_090.py
 ```
 
 * Open downloaded file `updateLDAPValues_087_to_090.py`, set LDAP server related

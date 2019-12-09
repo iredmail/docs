@@ -2,9 +2,9 @@
 
 !!! attention
 
-    * iRedAPD source code is hosted on [BitBucket](https://bitbucket.org/zhb/iredapd/).
-    * Download the [latest iRedAPD stable release](https://bitbucket.org/zhb/iredapd/downloads).
-    * For plugin development, please read document [README_PLUGINS.md](https://bitbucket.org/zhb/iredapd/src/default/README_PLUGINS.md).
+    * iRedAPD source code: <https://github.com/iredmail/iRedAPD>
+    * Download the [latest iRedAPD stable release](https://github.com/iredmail/iRedAPD/releases).
+    * For plugin development, please read document [README_PLUGINS.md](https://github.com/iredmail/iRedAPD/blob/master/README_PLUGINS.md).
 
 ## Upgrade iRedAPD
 
@@ -17,5 +17,5 @@ tutorial: [Migrate from Cluebringer to iRedAPD](./cluebringer.to.iredapd.html).
 
 ## See also
 
-* Please check [ChangeLog](https://bitbucket.org/zhb/iredapd/src/default/ChangeLog)
+* Please check [ChangeLog](https://github.com/iredmail/iRedAPD/blob/master/ChangeLog)
   file in iRedAPD source code to check full, detailed changes in each release.

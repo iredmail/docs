@@ -132,7 +132,7 @@ On Linux:
 
 ```
 cd /usr/bin/
-wget -O mlmmj-amime-receive https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/samples/mlmmj/mlmmj-amime-receive
+wget -O mlmmj-amime-receive https://github.com/iredmail/iRedMail/raw/1.0/samples/mlmmj/mlmmj-amime-receive
 chown mlmmj:mlmmj mlmmj-amime-receive
 chmod 0550 mlmmj-amime-receive
 ```
@@ -141,7 +141,7 @@ On FreeBSD or OpenBSD:
 
 ```
 cd /usr/local/bin/
-wget -O mlmmj-amime-receive https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/samples/mlmmj/mlmmj-amime-receive
+wget -O mlmmj-amime-receive https://github.com/iredmail/iRedMail/raw/1.0/samples/mlmmj/mlmmj-amime-receive
 chown mlmmj:mlmmj mlmmj-amime-receive
 chmod 0550 mlmmj-amime-receive
 ```
@@ -226,7 +226,7 @@ download the latest version and override the one on your system:
 
 ```
 cd /var/vmail/backup/
-wget -O backup_sogo.sh https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/tools/backup_sogo.sh
+wget -O backup_sogo.sh https://github.com/iredmail/iRedMail/raw/1.0/tools/backup_sogo.sh
 chown root backup_sogo.sh
 chmod 0400 backup_sogo.sh
 ```
@@ -257,7 +257,7 @@ Download the latest iRedMail LDAP schema file
 
 ```
 cd /tmp
-wget -O iredmail.schema https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/samples/iredmail/iredmail.schema
+wget -O iredmail.schema https://github.com/iredmail/iRedMail/raw/1.0/samples/iredmail/iredmail.schema
 
 cd /etc/openldap/schema/
 cp iredmail.schema iredmail.schema.bak
@@ -269,7 +269,7 @@ service slapd restart
 * On Debian/Ubuntu:
 ```
 cd /tmp
-wget -O iredmail.schema https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/samples/iredmail/iredmail.schema
+wget -O iredmail.schema https://github.com/iredmail/iRedMail/raw/1.0/samples/iredmail/iredmail.schema
 
 cd /etc/ldap/schema/
 cp iredmail.schema iredmail.schema.bak
@@ -282,7 +282,7 @@ service slapd restart
 
 ```
 cd /tmp
-wget -O iredmail.schema https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/samples/iredmail/iredmail.schema
+wget -O iredmail.schema https://github.com/iredmail/iRedMail/raw/1.0/samples/iredmail/iredmail.schema
 
 cd /usr/local/etc/openldap/schema/
 cp iredmail.schema iredmail.schema.bak
@@ -298,7 +298,7 @@ service slapd restart
 
 ```
 cd /tmp
-ftp https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/samples/iredmail/iredmail.schema
+ftp https://github.com/iredmail/iRedMail/raw/1.0/samples/iredmail/iredmail.schema
 
 cd /etc/openldap/schema/
 cp iredmail.schema iredmail.schema.bak
@@ -371,7 +371,7 @@ Download SQL template file and import it:
 
 ```
 cd /root/
-wget -O iredmail.mysql https://bitbucket.org/zhb/iredmail/raw/default/extra/update/0.9.9/iredmail.mysql
+wget -O iredmail.mysql https://github.com/iredmail/iRedMail/raw/1.0/update/0.9.9/iredmail.mysql
 mysql vmail < /root/iredmail.mysql
 ```
 
@@ -429,7 +429,7 @@ Download SQL template file used to update SQL database:
 
 ```
 cd /tmp/
-wget -O iredmail.pgsql https://bitbucket.org/zhb/iredmail/raw/default/extra/update/0.9.9/iredmail.pgsql
+wget -O iredmail.pgsql https://github.com/iredmail/iRedMail/raw/1.0/update/0.9.9/iredmail.pgsql
 ```
 
 * Run shell commands as root user below to connect to PostgreSQL server:

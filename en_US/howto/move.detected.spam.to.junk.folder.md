@@ -8,7 +8,7 @@ if you chose `/var/vmail` to store mailboxes during iRedMail installation.
 If you have a custom mailbox storage directory, the sample sieve rule file
 should be `sieve/dovecot.sieve.sample` under that directory. If you cannot
 find it, you can still download one from iRedMail project:
-[here](https://bitbucket.org/zhb/iredmail/src/default/iRedMail/samples/dovecot/dovecot.sieve)
+[here](https://github.com/iredmail/iRedMail/blob/1.0/samples/dovecot/dovecot.sieve).
 
 This file must be owned by user `vmail` and group `vmail`, permission `0500`.
 

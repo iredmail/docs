@@ -169,7 +169,7 @@ parameter <code>BACKUP_ROOTDIR=</code> to use the correct one.</p>
 </div>
 <pre><code>cd /var/vmail/backup/
 rm -f backup_sogo.sh
-wget https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/tools/backup_sogo.sh
+wget https://github.com/iredmail/iRedMail/raw/1.0/tools/backup_sogo.sh
 chown root backup_sogo.sh
 chmod 0400 backup_sogo.sh
 </code></pre>
@@ -197,7 +197,7 @@ installed with a malware Windows XP ISO image.</p>
 <li>Download filter rule:</li>
 </ul>
 <pre><code>cd /etc/fail2ban/filter.d/
-wget https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/samples/fail2ban/filter.d/postfix-pregreet.iredmail.conf
+wget https://github.com/iredmail/iRedMail/raw/1.0/samples/fail2ban/filter.d/postfix-pregreet.iredmail.conf
 </code></pre>
 
 <ul>
@@ -446,7 +446,7 @@ index mailingListID
 <li>On RHEL/CentOS:</li>
 </ul>
 <pre><code>cd /tmp
-wget https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/samples/iredmail/iredmail.schema
+wget https://github.com/iredmail/iRedMail/raw/1.0/samples/iredmail/iredmail.schema
 
 cd /etc/openldap/schema/
 cp iredmail.schema iredmail.schema.bak
@@ -458,7 +458,7 @@ cp -f /tmp/iredmail.schema /etc/openldap/schema/
 <li>On Debian/Ubuntu:</li>
 </ul>
 <pre><code>cd /tmp
-wget https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/samples/iredmail/iredmail.schema
+wget https://github.com/iredmail/iRedMail/raw/1.0/samples/iredmail/iredmail.schema
 
 cd /etc/ldap/schema/
 cp iredmail.schema iredmail.schema.bak
@@ -470,7 +470,7 @@ cp -f /tmp/iredmail.schema /etc/ldap/schema/
 <li>On FreeBSD:</li>
 </ul>
 <pre><code>cd /tmp
-wget https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/samples/iredmail/iredmail.schema
+wget https://github.com/iredmail/iRedMail/raw/1.0/samples/iredmail/iredmail.schema
 
 cd /usr/local/etc/openldap/schema/
 cp iredmail.schema iredmail.schema.bak
@@ -488,7 +488,7 @@ cp -f /tmp/iredmail.schema /usr/local/etc/openldap/schema/
 </li>
 </ul>
 <pre><code>cd /tmp
-ftp https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/samples/iredmail/iredmail.schema
+ftp https://github.com/iredmail/iRedMail/raw/1.0/samples/iredmail/iredmail.schema
 
 cd /etc/openldap/schema/
 cp iredmail.schema iredmail.schema.bak
@@ -508,7 +508,7 @@ iRedMail, it requires 2 new ldap attribute/value pairs for all mail users:</p>
 <li>Download script used to update existing mail users:</li>
 </ul>
 <pre><code>cd /root/
-wget https://bitbucket.org/zhb/iredmail/raw/default/extra/update/update-ldap-dovecot-2.3.py
+wget https://github.com/iredmail/iRedMail/raw/1.0/update/ldap/update-ldap-dovecot-2.3.py
 </code></pre>
 
 <ul>
@@ -555,7 +555,7 @@ steps below to apply the SQL structure change.</p>
 <li>Download and import SQL template file used to update SQL database:</li>
 </ul>
 <pre><code>cd /tmp/
-wget https://bitbucket.org/zhb/iredmail/raw/default/extra/update/0.9.8/amavisd.mysql
+wget https://github.com/iredmail/iRedMail/raw/1.0/update/0.9.8/amavisd.mysql
 mysql amavisd &lt; amavisd.mysql
 </code></pre>
 
@@ -642,7 +642,7 @@ sasl auth. Please follow steps below to fix it.</p>
 </div>
 <p>Download SQL template file used to update SQL database:</p>
 <pre><code>cd /root/
-wget -O iredmail.mysql https://bitbucket.org/zhb/iredmail/raw/default/extra/update/0.9.8/iredmail.mysql
+wget -O iredmail.mysql https://github.com/iredmail/iRedMail/raw/1.0/update/0.9.8/iredmail.mysql
 </code></pre>
 
 <p>Connect to MySQL server as MySQL root user, and execute SQL commands:</p>
@@ -660,7 +660,7 @@ address without address extension in a new column <code>maddr.email_raw</code>. 
 <li>Download and import SQL template file used to update SQL database:</li>
 </ul>
 <pre><code>cd /tmp/
-wget https://bitbucket.org/zhb/iredmail/raw/default/extra/update/0.9.8/amavisd.mysql
+wget https://github.com/iredmail/iRedMail/raw/1.0/update/0.9.8/amavisd.mysql
 mysql amavisd &lt; amavisd.mysql
 </code></pre>
 
@@ -727,7 +727,7 @@ sasl auth. Please follow steps below to fix it.</p>
 <li>Download SQL template file used to update SQL database:</li>
 </ul>
 <pre><code>cd /tmp/
-wget https://bitbucket.org/zhb/iredmail/raw/default/extra/update/0.9.8/iredmail.pgsql
+wget https://github.com/iredmail/iRedMail/raw/1.0/update/0.9.8/iredmail.pgsql
 </code></pre>
 
 <ul>
@@ -753,7 +753,7 @@ address without address extension in a new column <code>maddr.email_raw</code>. 
 <li>Download SQL template file used to update SQL database:</li>
 </ul>
 <pre><code>cd /tmp/
-wget https://bitbucket.org/zhb/iredmail/raw/default/extra/update/0.9.8/amavisd.pgsql
+wget https://github.com/iredmail/iRedMail/raw/1.0/update/0.9.8/amavisd.pgsql
 </code></pre>
 
 <ul>

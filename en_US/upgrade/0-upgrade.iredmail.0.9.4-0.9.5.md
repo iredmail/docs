@@ -246,7 +246,7 @@ steps below.
 
 ```
 cd /var/vmail/backup/
-wget https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/tools/backup_ldapd.sh
+wget https://github.com/iredmail/iRedMail/raw/0.9.9/iRedMail/tools/backup_ldapd.sh
 chown root:wheel backup_ldapd.sh
 chmod 0500 backup_ldapd.sh
 ```
@@ -424,7 +424,7 @@ iRedMail server:
 
 ```
 cd /tmp
-wget https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/samples/iredmail/iredmail.schema
+wget https://github.com/iredmail/iRedMail/raw/1.0/samples/iredmail/iredmail.schema
 
 cd /etc/openldap/schema/
 cp iredmail.schema iredmail.schema.bak
@@ -436,7 +436,7 @@ service slapd restart
 * On Debian/Ubuntu:
 ```
 cd /tmp
-wget https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/samples/iredmail/iredmail.schema
+wget https://github.com/iredmail/iRedMail/raw/1.0/samples/iredmail/iredmail.schema
 
 cd /etc/ldap/schema/
 cp iredmail.schema iredmail.schema.bak
@@ -449,7 +449,7 @@ service slapd restart
 
 ```
 cd /tmp
-wget https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/samples/iredmail/iredmail.schema
+wget https://github.com/iredmail/iRedMail/raw/1.0/samples/iredmail/iredmail.schema
 
 cd /usr/local/etc/openldap/schema/
 cp iredmail.schema iredmail.schema.bak
@@ -462,7 +462,7 @@ service slapd restart
 
 ```
 cd /tmp
-ftp https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/samples/iredmail/iredmail.schema
+ftp https://github.com/iredmail/iRedMail/raw/1.0/samples/iredmail/iredmail.schema
 
 cd /etc/openldap/schema/
 cp iredmail.schema iredmail.schema.bak
@@ -531,7 +531,7 @@ use this condition while querying user accounts.
 
 ```
 cd /root/
-wget https://bitbucket.org/zhb/iredmail/raw/default/extra/update/updateLDAPValues_094_to_095.py
+wget https://github.com/iredmail/iRedMail/raw/1.0/update/ldap/updateLDAPValues_094_to_095.py
 ```
 
 * Open downloaded file `updateLDAPValues_094_to_095.py`, set LDAP server

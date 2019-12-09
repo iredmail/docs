@@ -423,7 +423,7 @@ Steps:
 ```
 cd /etc/fail2ban/filter.d/
 rm -f dovecot.iredmail.conf
-wget https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/samples/fail2ban/filter.d/dovecot.iredmail.conf
+wget https://github.com/iredmail/iRedMail/raw/1.0/samples/fail2ban/filter.d/dovecot.iredmail.conf
 service fail2ban reload
 ```
 
@@ -517,7 +517,7 @@ access to attrs="domainStatus,employeeNumber,mail,..."
 
 ```
 cd /tmp
-wget https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/samples/iredmail/iredmail.schema
+wget https://github.com/iredmail/iRedMail/raw/1.0/samples/iredmail/iredmail.schema
 
 cd /etc/openldap/schema/
 cp iredmail.schema iredmail.schema.bak
@@ -529,7 +529,7 @@ service slapd restart
 * On Debian/Ubuntu:
 ```
 cd /tmp
-wget https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/samples/iredmail/iredmail.schema
+wget https://github.com/iredmail/iRedMail/raw/1.0/samples/iredmail/iredmail.schema
 
 cd /etc/ldap/schema/
 cp iredmail.schema iredmail.schema.bak
@@ -542,7 +542,7 @@ service slapd restart
 
 ```
 cd /tmp
-wget https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/samples/iredmail/iredmail.schema
+wget https://github.com/iredmail/iRedMail/raw/1.0/samples/iredmail/iredmail.schema
 
 cd /usr/local/etc/openldap/schema/
 cp iredmail.schema iredmail.schema.bak
@@ -558,7 +558,7 @@ service slapd restart
 
 ```
 cd /tmp
-ftp https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/samples/iredmail/iredmail.schema
+ftp https://github.com/iredmail/iRedMail/raw/1.0/samples/iredmail/iredmail.schema
 
 cd /etc/openldap/schema/
 cp iredmail.schema iredmail.schema.bak
@@ -610,7 +610,7 @@ perl -pi -e 's#\(accountStatus=active\)#(accountStatus=active)(!(domainStatus=di
 
 ```
 cd /root/
-wget https://bitbucket.org/zhb/iredmail/raw/default/extra/update/updateLDAPValues_095_1_to_096.py
+wget https://github.com/iredmail/iRedMail/raw/1.0/update/ldap/updateLDAPValues_095_1_to_096.py
 ```
 
 * Open downloaded file `updateLDAPValues_095_1_to_096.py`, set LDAP server

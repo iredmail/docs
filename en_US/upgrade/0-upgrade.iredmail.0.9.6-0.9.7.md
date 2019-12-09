@@ -174,8 +174,8 @@ client while Roundcube is running behind a proxy server.
 ```
 cd /etc/fail2ban/filter.d/
 rm -f dovecot.iredmail.conf	roundcube.iredmail.conf
-wget https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/samples/fail2ban/filter.d/dovecot.iredmail.conf
-wget https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/samples/fail2ban/filter.d/roundcube.iredmail.conf
+wget https://github.com/iredmail/iRedMail/raw/1.0/samples/fail2ban/filter.d/dovecot.iredmail.conf
+wget https://github.com/iredmail/iRedMail/raw/1.0/samples/fail2ban/filter.d/roundcube.iredmail.conf
 ```
 
 Restarting Fail2ban service is required.
@@ -232,7 +232,7 @@ Please follow steps below to setup this daily cron job.
 
 ```
 cd /var/vmail/backup/
-wget https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/tools/backup_sogo.sh
+wget https://github.com/iredmail/iRedMail/raw/1.0/tools/backup_sogo.sh
 chmod 0400 backup_sogo.sh
 ```
 
@@ -313,10 +313,7 @@ export CMD_MYSQLDUMP="mysqldump ... --skip-comments"
 ### SQL structure change in `vmail.alias` SQL table
 
 We've made some changes to `vmail.alias` SQL table for easier account
-management, you can find details about this change here:
-[SQL structure changes in `vmail.alias` table](https://bitbucket.org/zhb/iredmail/issues/101/sql-structure-changes-in-vmailalias-table).
-
-This change introduces 2 new SQL tables (`forwardings`, `alias_moderators`),
+management. This change introduces 2 new SQL tables (`forwardings`, `alias_moderators`),
 and (optionally) dropped few columns in `vmail.alias` table.
 
 iRedAPD and iRedAdmin (and iRedAdmin-Pro) have been upgraded to use this new
@@ -378,7 +375,7 @@ Please download script used to migrate mail accounts, and run it directly:
 
 ```
 cd /root/
-wget https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/tools/migrate_sql_alias_table.py
+wget https://github.com/iredmail/iRedMail/raw/1.0/tools/migrate_sql_alias_table.py
 python migrate_sql_alias_table.py
 ```
 
@@ -470,10 +467,7 @@ export CMD_MYSQLDUMP="mysqldump ... --skip-comments"
 ### SQL structure change in `vmail.alias` SQL table
 
 We've made some changes to `vmail.alias` SQL table for easier account
-management, you can find details about this change here:
-[SQL structure changes in `vmail.alias` table](https://bitbucket.org/zhb/iredmail/issues/101/sql-structure-changes-in-vmailalias-table).
-
-This change introduces 2 new SQL tables (`forwardings`, `alias_moderators`),
+management, this change introduces 2 new SQL tables (`forwardings`, `alias_moderators`),
 and (optionally) dropped few columns in `vmail.alias` table.
 
 iRedAPD and iRedAdmin (and iRedAdmin-Pro) have been upgraded to use this new
@@ -544,7 +538,7 @@ Please download script used to migrate mail accounts, and run it directly:
 
 ```
 cd /root/
-wget https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/tools/migrate_sql_alias_table.py
+wget https://github.com/iredmail/iRedMail/raw/1.0/tools/migrate_sql_alias_table.py
 python migrate_sql_alias_table.py
 ```
 

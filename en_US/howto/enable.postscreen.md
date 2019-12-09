@@ -11,7 +11,7 @@ service.
 iRedMail ships a script to enable postscreen. You can enable it with steps below:
 
 1. Download script `enable_postscreen.sh` from [iRedMail source code
-   repository](https://bitbucket.org/zhb/iredmail/src/default/iRedMail/tools/?at=default)
+   repository](https://github.com/iredmail/iRedMail/blob/1.0/tools/enable_postscreen.sh).
 1. Upload this script to your iRedMail server, then execute it to enable
    postscreen service:
 

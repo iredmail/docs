@@ -439,7 +439,7 @@ Here we go:
 
 ```
 # cd /tmp
-# wget https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/samples/iredmail/iredmail.schema
+# wget https://github.com/iredmail/iRedMail/raw/1.0/samples/iredmail/iredmail.schema
 
 # cd /etc/openldap/schema/
 # cp iredmail.schema iredmail.schema.bak
@@ -451,7 +451,7 @@ Here we go:
 * On Debian/Ubuntu:
 ```
 # cd /tmp
-# wget https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/samples/iredmail/iredmail.schema
+# wget https://github.com/iredmail/iRedMail/raw/1.0/samples/iredmail/iredmail.schema
 
 # cd /etc/ldap/schema/
 # cp iredmail.schema iredmail.schema.bak
@@ -464,7 +464,7 @@ Here we go:
 
 ```
 # cd /tmp
-# wget https://bitbucket.org/zhb/iredmail/raw/default/iRedMail/samples/iredmail/iredmail.schema
+# wget https://github.com/iredmail/iRedMail/raw/1.0/samples/iredmail/iredmail.schema
 
 # cd /usr/local/etc/openldap/schema/
 # cp iredmail.schema iredmail.schema.bak
@@ -537,7 +537,7 @@ greylisting on them is helpless.
 
 ```
 # cd /tmp
-# wget https://bitbucket.org/zhb/iredmail/raw/40b98d7dde0178d54498e170c8b5165c0316dc96/iRedMail/samples/cluebringer/greylisting-whitelist.sql
+# wget https://github.com/iredmail/iRedMail/raw/fd52316fc12651768c69671ddcfbafc211cd4689/iRedMail/samples/cluebringer/greylisting-whitelist.sql
 ```
 
 * Login to MySQL database and import this file:
@@ -656,7 +656,7 @@ greylisting on them is helpless.
 
 ```
 # cd /tmp
-# wget https://bitbucket.org/zhb/iredmail/raw/40b98d7dde0178d54498e170c8b5165c0316dc96/iRedMail/samples/cluebringer/greylisting-whitelist.sql
+# wget https://github.com/iredmail/iRedMail/raw/fd52316fc12651768c69671ddcfbafc211cd4689/iRedMail/samples/cluebringer/greylisting-whitelist.sql
 ```
 
 * Login to MySQL database and import this file:
@@ -775,7 +775,7 @@ greylisting on them is helpless.
 
 ```
 # cd /tmp
-# wget https://bitbucket.org/zhb/iredmail/raw/40b98d7dde0178d54498e170c8b5165c0316dc96/iRedMail/samples/cluebringer/greylisting-whitelist.sql
+# wget https://github.com/iredmail/iRedMail/raw/fd52316fc12651768c69671ddcfbafc211cd4689/iRedMail/samples/cluebringer/greylisting-whitelist.sql
 ```
 
 * Switch to PostgreSQL daemon user, then execute SQL commands to import it:
