@@ -2,7 +2,7 @@
 
 [TOC]
 
-## Upcoming release: 2019120901 (Dec 09, 2019) {: id=20191112 class="release" }
+## Version: 2019120901 (Dec 09, 2019) {: id=20191112 class="release" }
 
 * Firewall:
     - On Debian 10, allow ping in nftables firewall.
