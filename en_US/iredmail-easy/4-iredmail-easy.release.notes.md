@@ -2,7 +2,13 @@
 
 [TOC]
 
-## Version: 2019120901 (Dec 09, 2019) {: id=20191112 class="release" }
+## Version: 2019121001 (Dec 10, 2019) {: id=20191210 }
+
+* Fixed issues:
+    - Incorrect setting in netdata main config file (netdata.conf).
+    - Not remove opendmarc package, config files, SQL db and cron jobs.
+
+## Version: 2019120901 (Dec 09, 2019) {: id=20191209 }
 
 * Firewall:
     - On Debian 10, allow ping in nftables firewall.
