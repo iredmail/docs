@@ -72,6 +72,7 @@ check <a href="https://www.iredmail.org/support.html">the details</a> and
 </div>
 <h2 id="changelog">ChangeLog</h2>
 <ul>
+<li>Dec 11 2019, mention not to enable quota-status service in Dovecot-2.1.x.</li>
 <li>Dec 9, 2019, initial release.</li>
 </ul>
 <h2 id="general-all-backends-should-apply-these-changes">General (All backends should apply these changes)</h2>
@@ -234,6 +235,11 @@ of them have read-write privilege to update mail accounts.</p>
 </code></pre>
 
 <h4 id="enable-quota-status-service-in-dovecot">Enable quota-status service in Dovecot</h4>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This feature requires Dovecot-2.2.x, do not apply it on Dovecot-2.1.x or
+earlier versions.</p>
+</div>
 <p>Open Dovecot config file <code>/etc/dovecot/dovecot.conf</code> (Linux/OpenBSD) or
 <code>/usr/local/etc/dovecot/dovecot.conf</code> (FreeBSD), find the <code>plugin {}</code> block
 and add 3 new parameters:</p>
@@ -264,6 +270,11 @@ and add 3 new parameters:</p>
 
 <p>Restarting Dovecot service is required.</p>
 <h4 id="enable-quota-status-check-in-postfix">Enable quota status check in Postfix</h4>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This feature requires Dovecot-2.2.x, do not apply it on Dovecot-2.1.x or
+earlier versions.</p>
+</div>
 <p>Open Postfix config file <code>/etc/postfix/main.cf</code> (Linux/OpenBSD) or
 <code>/usr/local/etc/postfix/main.cf</code> (FreeBSD), find parameter
 <code>smtpd_recipient_restrictions</code> and append a new <code>check_policy_service</code> setting
@@ -294,6 +305,11 @@ rm -f /tmp/iredmail.mysql
 </code></pre>
 
 <h4 id="enable-quota-status-service-in-dovecot_1">Enable quota-status service in Dovecot</h4>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This feature requires Dovecot-2.2.x, do not apply it on Dovecot-2.1.x or
+earlier versions.</p>
+</div>
 <p>Open Dovecot config file <code>/etc/dovecot/dovecot.conf</code> (Linux/OpenBSD) or
 <code>/usr/local/etc/dovecot/dovecot.conf</code> (FreeBSD), find the <code>plugin {}</code> block
 and add 3 new parameters:</p>
@@ -324,6 +340,11 @@ and add 3 new parameters:</p>
 
 <p>Restarting Dovecot service is required.</p>
 <h4 id="enable-quota-status-check-in-postfix_1">Enable quota status check in Postfix</h4>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This feature requires Dovecot-2.2.x, do not apply it on Dovecot-2.1.x or
+earlier versions.</p>
+</div>
 <p>Open Postfix config file <code>/etc/postfix/main.cf</code> (Linux/OpenBSD) or
 <code>/usr/local/etc/postfix/main.cf</code> (FreeBSD), find parameter
 <code>smtpd_recipient_restrictions</code> and append a new <code>check_policy_service</code> setting
@@ -371,6 +392,11 @@ psql -d vmail &lt; /tmp/iredmail.pgsql
 </code></pre>
 
 <h4 id="enable-quota-status-service-in-dovecot_2">Enable quota-status service in Dovecot</h4>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This feature requires Dovecot-2.2.x, do not apply it on Dovecot-2.1.x or
+earlier versions.</p>
+</div>
 <p>Open Dovecot config file <code>/etc/dovecot/dovecot.conf</code> (Linux/OpenBSD) or
 <code>/usr/local/etc/dovecot/dovecot.conf</code> (FreeBSD), find the <code>plugin {}</code> block
 and add 3 new parameters:</p>
@@ -401,6 +427,11 @@ and add 3 new parameters:</p>
 
 <p>Restarting Dovecot service is required.</p>
 <h4 id="enable-quota-status-check-in-postfix_2">Enable quota status check in Postfix</h4>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This feature requires Dovecot-2.2.x, do not apply it on Dovecot-2.1.x or
+earlier versions.</p>
+</div>
 <p>Open Postfix config file <code>/etc/postfix/main.cf</code> (Linux/OpenBSD) or
 <code>/usr/local/etc/postfix/main.cf</code> (FreeBSD), find parameter
 <code>smtpd_recipient_restrictions</code> and append a new <code>check_policy_service</code> setting

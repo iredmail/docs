@@ -10,6 +10,7 @@
 
 ## ChangeLog
 
+* Dec 11 2019, mention not to enable quota-status service in Dovecot-2.1.x.
 * Dec 9, 2019, initial release.
 
 ## General (All backends should apply these changes)
@@ -204,6 +205,11 @@ of them have read-write privilege to update mail accounts.
 
 #### Enable quota-status service in Dovecot
 
+!!! warning
+
+    This feature requires Dovecot-2.2.x, do not apply it on Dovecot-2.1.x or
+    earlier versions.
+
 Open Dovecot config file `/etc/dovecot/dovecot.conf` (Linux/OpenBSD) or
 `/usr/local/etc/dovecot/dovecot.conf` (FreeBSD), find the `plugin {}` block
 and add 3 new parameters:
@@ -238,6 +244,11 @@ service quota-status {
 Restarting Dovecot service is required.
 
 #### Enable quota status check in Postfix
+
+!!! warning
+
+    This feature requires Dovecot-2.2.x, do not apply it on Dovecot-2.1.x or
+    earlier versions.
 
 Open Postfix config file `/etc/postfix/main.cf` (Linux/OpenBSD) or
 `/usr/local/etc/postfix/main.cf` (FreeBSD), find parameter
@@ -281,6 +292,11 @@ rm -f /tmp/iredmail.mysql
 
 #### Enable quota-status service in Dovecot
 
+!!! warning
+
+    This feature requires Dovecot-2.2.x, do not apply it on Dovecot-2.1.x or
+    earlier versions.
+
 Open Dovecot config file `/etc/dovecot/dovecot.conf` (Linux/OpenBSD) or
 `/usr/local/etc/dovecot/dovecot.conf` (FreeBSD), find the `plugin {}` block
 and add 3 new parameters:
@@ -315,6 +331,11 @@ service quota-status {
 Restarting Dovecot service is required.
 
 #### Enable quota status check in Postfix
+
+!!! warning
+
+    This feature requires Dovecot-2.2.x, do not apply it on Dovecot-2.1.x or
+    earlier versions.
 
 Open Postfix config file `/etc/postfix/main.cf` (Linux/OpenBSD) or
 `/usr/local/etc/postfix/main.cf` (FreeBSD), find parameter
@@ -371,6 +392,11 @@ rm -f /tmp/iredmail.pgsql
 
 #### Enable quota-status service in Dovecot
 
+!!! warning
+
+    This feature requires Dovecot-2.2.x, do not apply it on Dovecot-2.1.x or
+    earlier versions.
+
 Open Dovecot config file `/etc/dovecot/dovecot.conf` (Linux/OpenBSD) or
 `/usr/local/etc/dovecot/dovecot.conf` (FreeBSD), find the `plugin {}` block
 and add 3 new parameters:
@@ -405,6 +431,11 @@ service quota-status {
 Restarting Dovecot service is required.
 
 #### Enable quota status check in Postfix
+
+!!! warning
+
+    This feature requires Dovecot-2.2.x, do not apply it on Dovecot-2.1.x or
+    earlier versions.
 
 Open Postfix config file `/etc/postfix/main.cf` (Linux/OpenBSD) or
 `/usr/local/etc/postfix/main.cf` (FreeBSD), find parameter
