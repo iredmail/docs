@@ -207,8 +207,8 @@ of them have read-write privilege to update mail accounts.
 
 !!! warning
 
-    This feature requires Dovecot-2.2.x, do not apply it on Dovecot-2.1.x or
-    earlier versions.
+    This feature requires Dovecot-2.2 or later releases, do not apply it on
+    Dovecot-2.1.x or earlier versions.
 
 Open Dovecot config file `/etc/dovecot/dovecot.conf` (Linux/OpenBSD) or
 `/usr/local/etc/dovecot/dovecot.conf` (FreeBSD), find the `plugin {}` block
@@ -247,8 +247,8 @@ Restarting Dovecot service is required.
 
 !!! warning
 
-    This feature requires Dovecot-2.2.x, do not apply it on Dovecot-2.1.x or
-    earlier versions.
+    This feature requires Dovecot-2.2 or later releases, do not apply it on
+    Dovecot-2.1.x or earlier versions.
 
 Open Postfix config file `/etc/postfix/main.cf` (Linux/OpenBSD) or
 `/usr/local/etc/postfix/main.cf` (FreeBSD), find parameter
@@ -294,8 +294,8 @@ rm -f /tmp/iredmail.mysql
 
 !!! warning
 
-    This feature requires Dovecot-2.2.x, do not apply it on Dovecot-2.1.x or
-    earlier versions.
+    This feature requires Dovecot-2.2 or later releases, do not apply it on
+    Dovecot-2.1.x or earlier versions.
 
 Open Dovecot config file `/etc/dovecot/dovecot.conf` (Linux/OpenBSD) or
 `/usr/local/etc/dovecot/dovecot.conf` (FreeBSD), find the `plugin {}` block
@@ -334,8 +334,8 @@ Restarting Dovecot service is required.
 
 !!! warning
 
-    This feature requires Dovecot-2.2.x, do not apply it on Dovecot-2.1.x or
-    earlier versions.
+    This feature requires Dovecot-2.2 or later releases, do not apply it on
+    Dovecot-2.1.x or earlier versions.
 
 Open Postfix config file `/etc/postfix/main.cf` (Linux/OpenBSD) or
 `/usr/local/etc/postfix/main.cf` (FreeBSD), find parameter
@@ -394,8 +394,8 @@ rm -f /tmp/iredmail.pgsql
 
 !!! warning
 
-    This feature requires Dovecot-2.2.x, do not apply it on Dovecot-2.1.x or
-    earlier versions.
+    This feature requires Dovecot-2.2 or later releases, do not apply it on
+    Dovecot-2.1.x or earlier versions.
 
 Open Dovecot config file `/etc/dovecot/dovecot.conf` (Linux/OpenBSD) or
 `/usr/local/etc/dovecot/dovecot.conf` (FreeBSD), find the `plugin {}` block
@@ -434,8 +434,8 @@ Restarting Dovecot service is required.
 
 !!! warning
 
-    This feature requires Dovecot-2.2.x, do not apply it on Dovecot-2.1.x or
-    earlier versions.
+    This feature requires Dovecot-2.2 or later releases, do not apply it on
+    Dovecot-2.1.x or earlier versions.
 
 Open Postfix config file `/etc/postfix/main.cf` (Linux/OpenBSD) or
 `/usr/local/etc/postfix/main.cf` (FreeBSD), find parameter
