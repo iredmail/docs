@@ -2,6 +2,11 @@
 
 [TOC]
 
+## Version: 2019121301 (Dec 13, 2019) {: id=20191210 }
+
+- Package updates:
+    - iRedAdmin-Pro (SQL edition)
+
 ## Version: 2019121001 (Dec 10, 2019) {: id=20191210 }
 
 * Fixed issues:
