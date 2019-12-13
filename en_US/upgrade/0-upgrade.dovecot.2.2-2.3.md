@@ -104,6 +104,11 @@ service stats {
 
 ## SQL structure changes for MySQL/MariaDB/PostgreSQL backends
 
+!!! warning
+
+    If you upgraded iRedMail to `1.0` release, you should already have these
+    SQL changes, please double check and not apply them blindly.
+
 Dovecot-2.3 changes the flag for TLS secure connections internally, it's used
 by iRedMail to detect the connection type. We need to create a new SQL column
 for this change.

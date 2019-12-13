@@ -126,6 +126,11 @@ service stats {
 </code></pre>
 
 <h2 id="sql-structure-changes-for-mysqlmariadbpostgresql-backends">SQL structure changes for MySQL/MariaDB/PostgreSQL backends</h2>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>If you upgraded iRedMail to <code>1.0</code> release, you should already have these
+SQL changes, please double check and not apply them blindly.</p>
+</div>
 <p>Dovecot-2.3 changes the flag for TLS secure connections internally, it's used
 by iRedMail to detect the connection type. We need to create a new SQL column
 for this change.</p>
