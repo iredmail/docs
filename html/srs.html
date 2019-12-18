@@ -21,6 +21,7 @@
 <li><a href="#enable-srs-sender-rewriting-scheme-support">Enable SRS (Sender Rewriting Scheme) support</a><ul>
 <li><a href="#what-srs-is">What SRS is</a></li>
 <li><a href="#upgrade-iredapd-to-26-or-later-release">Upgrade iRedAPD to 2.6 or later release</a></li>
+<li><a href="#enable-srs">Enable SRS</a></li>
 <li><a href="#test-srs">Test SRS</a></li>
 <li><a href="#enable-srs-integration-in-postfix">Enable SRS integration in Postfix</a></li>
 <li><a href="#known-issues-of-srs-support">Known issues of SRS support</a></li>
@@ -49,6 +50,27 @@ server profile page, then apply the change.</p>
 
 <p>To upgrade iRedAPD, please follow this tutorial:
 <a href="./upgrade.iredapd.html">Upgrade iRedAPD</a>.</p>
+<h2 id="enable-srs">Enable SRS</h2>
+<p>SRS is not enabled by default since iRedAPD-3.3, you need to generate a secret string and restart iredapd service to enable it.</p>
+<ul>
+<li>Generate a secret string:</li>
+</ul>
+<pre><code>$ echo $RANDOM$RANDOM$RANDOM$RANDOM$RANDOM$RANDOM | md5sum
+9d3e3fbb52ea136033fc2c40a5340f86 -
+</code></pre>
+
+<ul>
+<li>Update parameter <code>srs_secrets</code> in <code>/opt/iredapd/settings.py</code>:</li>
+</ul>
+<pre><code>srs_secrets = [&quot;9d3e3fbb52ea136033fc2c40a5340f86&quot;]
+</code></pre>
+
+<ul>
+<li>Restart iRedAPD service:</li>
+</ul>
+<pre><code>service iredapd restart
+</code></pre>
+
 <p>iRedAPD will listen to 3 network ports (all on <code>127.0.0.1</code>) by default:</p>
 <ul>
 <li><code>7777</code>: for general smtp access policy, including greylisting, throttling,

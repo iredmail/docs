@@ -28,6 +28,29 @@ ls -dl /opt/iredapd
 To upgrade iRedAPD, please follow this tutorial:
 [Upgrade iRedAPD](./upgrade.iredapd.html).
 
+## Enable SRS
+
+SRS is not enabled by default since iRedAPD-3.3, you need to generate a secret string and restart iredapd service to enable it.
+
+* Generate a secret string:
+
+```
+$ echo $RANDOM$RANDOM$RANDOM$RANDOM$RANDOM$RANDOM | md5sum
+9d3e3fbb52ea136033fc2c40a5340f86 -
+```
+
+* Update parameter `srs_secrets` in `/opt/iredapd/settings.py`:
+
+```
+srs_secrets = ["9d3e3fbb52ea136033fc2c40a5340f86"]
+```
+
+* Restart iRedAPD service:
+
+```
+service iredapd restart
+```
+
 iRedAPD will listen to 3 network ports (all on `127.0.0.1`) by default:
 
 * `7777`: for general smtp access policy, including greylisting, throttling,
