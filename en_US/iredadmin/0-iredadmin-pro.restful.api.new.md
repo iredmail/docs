@@ -4,8 +4,8 @@
 
 !!! attention
 
-    * This document is applicable to `iRedAdmin-Pro-SQL-4.1` and
-      `iRedAdmin-Pro-LDAP-4.2`. If you're running an old release, please
+    * This document is applicable to `iRedAdmin-Pro-SQL-4.2` and
+      `iRedAdmin-Pro-LDAP-4.3`. If you're running an old release, please
       upgrade iRedAdmin-Pro to the latest release, or check
       [document for old releases](./iredadmin-pro.releases.html).
     * If you need an API which has not yet been implemented, don't hesitate to
@@ -172,6 +172,7 @@ Notes:
     wblist | Per-domain whitelists and blacklists
     spampolicy | Per-domain spam policy
     backupmx | Backup MX
+    password_policies | Password policies. including min/max password lengths.
     advanced | Some extra settings
 
     Available user profiles:
@@ -327,7 +328,7 @@ Notes:
     `sn` | Surname | `sn=Jeffery`
     `password` | Set user password to the given one. | `password=u0tBF82cIV@vi8Gme`
     `password_hash` | Set user password to the given hashed/encrypted password. __NOTE__: Since the password is encrypted, iRedAdmin-Pro can not verify it against password plicies. __WARNING__: Conflict with parameter `password`. | `password={SSHA}qjmhvlsofWDu/AvVhOJX1cU/CvYKLYlwlM5bHw==`
-    `quota` | Mailbox quota (in MB) | `quota=1024`
+    `quota` | Mailbox quota (in MB). `0` means unlimited. | `quota=1024`
     `accountStatus` | Enable or disable user. Possible values: `active`, `disabled`. | `accountStatus=active`
     `language` | Preferred language of iRedAdmin web UI | `language=en_US`
     `employeeid` | User ID (or Employee Number) | `employeeid=My Employee ID`

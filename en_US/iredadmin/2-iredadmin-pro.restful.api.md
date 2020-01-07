@@ -327,7 +327,7 @@ Notes:
     `sn` | Surname | `sn=Jeffery`
     `password` | Set user password to the given one. | `password=u0tBF82cIV@vi8Gme`
     `password_hash` | Set user password to the given hashed/encrypted password. __NOTE__: Since the password is encrypted, iRedAdmin-Pro can not verify it against password plicies. __WARNING__: Conflict with parameter `password`. | `password={SSHA}qjmhvlsofWDu/AvVhOJX1cU/CvYKLYlwlM5bHw==`
-    `quota` | Mailbox quota (in MB) | `quota=1024`
+    `quota` | Mailbox quota (in MB). `0` means unlimited. | `quota=1024`
     `accountStatus` | Enable or disable user. Possible values: `active`, `disabled`. | `accountStatus=active`
     `language` | Preferred language of iRedAdmin web UI | `language=en_US`
     `employeeid` | User ID (or Employee Number) | `employeeid=My Employee ID`
