@@ -407,50 +407,81 @@ index attr_4,attr_5,attr_6  eq,pres
 </code></pre>
 
 <h3 id="postfix">Postfix</h3>
-<p>Postfix doesn't support loading main settings (<code>main.cf</code> and <code>master.cf</code>) from
-multiple files.</p>
+<p>Postfix doesn't support loading main settings (<code>/etc/postfix/main.cf</code> and
+<code>/etc/postfix/master.cf</code>) from multiple files, so iRedMail Easy uses alternative
+solution to split core and custom settings.</p>
 <ul>
-<li><code>/opt/iredmail/custom/postfix/main.cf</code>: If this file exists, <code>/etc/postfix/main.cf</code> will be a symbol link to this file.</li>
-<li><code>/opt/iredmail/custom/postfix/master.cf</code>: If this file exists, <code>/etc/postfix/master.cf</code> will be a symbol link to this file.</li>
+<li>The recommended way is using script <code>/opt/iredmail/custom/postfix/custom.sh</code>,
+  modifying settings in <code>main.cf</code> and <code>master.cf</code> with command <code>postconf -e</code>.
+  Details will be explained later in this section.</li>
+<li>If you have many custom settings, you can maintain your own copy of <code>main.cf</code>
+  and <code>master.cf</code> under <code>/opt/iredmail/custom/postfix/</code> directory.<ul>
+<li>If file <code>/opt/iredmail/custom/postfix/main.cf</code> exists, iRedMail Easy will
+  create <code>/etc/postfix/main.cf</code> as symbol link to this file.</li>
+<li>If file <code>/opt/iredmail/custom/postfix/master.cf</code> exists, iRedMail Easy
+  will create <code>/etc/postfix/master.cf</code> as symbol link to this file.</li>
 </ul>
-<p>For other settings, Postfix is configured to load the one under
-<code>/opt/iredmail/custom/postfix/</code> first (this should be maintained by you), then
-another one from <code>/etc/postfix/</code> (maintained by iRedMail Easy and you should
-NOT update them). If rule defined in first one matches, Postfix will skip the
-second file.</p>
-<p>For example, Postfix loads 2 files for HELO access check:</p>
+</li>
+</ul>
+<p>For other settings, Postfix is configured to load files under
+<code>/opt/iredmail/custom/postfix/</code> first (they store custom settings and
+maintained by you), then another one from <code>/etc/postfix/</code> (maintained by
+iRedMail Easy and you should <strong>NOT</strong> modify them). If rule defined in first one
+matches, Postfix will skip the second file.</p>
+<p>For example, Postfix is configured to load 2 files for HELO access check:</p>
+<pre><code>smtpd_helo_restrictions =
+    ...
+    check_helo_access pcre:/opt/iredmail/custom/postfix/helo_access.pcre
+    check_helo_access pcre:/etc/postfix/helo_access.pcre
+    ...
+</code></pre>
+
 <ul>
-<li><code>/opt/iredmail/custom/postfix/helo_access.pcre</code>: You can add custom HELO
-   access rules in this file, or add rule to override the one defined in
-   <code>/etc/postfix/helo_access.pcre</code>. If access rule in this file matches,
-   Postfix will ignore the second (and all the rest) files.</li>
+<li>The first one, <code>/opt/iredmail/custom/postfix/helo_access.pcre</code>, is used to
+  store your cusotm HELO access rules. If rule in this file matched,
+  Postfix will ignore other rules defined later in same file, also the second
+  file <code>/etc/postfix/helo_access.pcre</code>. So you can write rule in first file
+  for new HELO access, or write same rule with different action to override the
+  one defined in <code>/etc/postfix/helo_access.pcre</code>.</li>
 <li><code>/etc/postfix/helo_access.pcre</code>: This file is maintained by iRedMail Easy,
-  you should NOT modify it.</li>
+  please do NOT modify it.</li>
 </ul>
 <p>You can find some other files for customization under
 <code>/opt/iredmail/custom/postfix/</code>. For example:</p>
 <ul>
-<li><code>/opt/iredmail/custom/postfix/postscreen_access.cidr</code></li>
-<li>
-<p><code>/opt/iredmail/custom/postfix/custom.sh</code>: a bash shell script for advanced
-  customization. It will be ran each time your ran iRedMail Easy deployment or
-  upgrade.</p>
-<p>For example, to change setting <code>enable_original_recipient</code> to <code>yes</code>
-(defaults to <code>no</code> set in <code>/etc/postfix/main.cf</code>), you can write one shell
-command in <code>/opt/iredmail/custom/postfix/custom.sh</code> like below:</p>
-</li>
+<li><code>body_checks.pcre</code></li>
+<li><code>header_checks.pcre</code></li>
+<li><code>command_filter.pcre</code></li>
+<li><code>postscreen_access.cidr</code></li>
+<li>...</li>
 </ul>
+<p>There's also a (Bash) shell scripting for flexible customization:
+<code>/opt/iredmail/custom/postfix/custom.sh</code>. It will be ran each time you perform
+deployment or upgrade through iRedMail Easy platform.</p>
+<p>For example, to set value of parameter <code>enable_original_recipient</code> to <code>yes</code>
+(defaults to <code>no</code> set in <code>/etc/postfix/main.cf</code>), you can write  command in
+<code>/opt/iredmail/custom/postfix/custom.sh</code> like below:</p>
 <pre><code>postconf -e enable_original_recipient=yes
 </code></pre>
 
-<p>To update settings in <code>master.cf</code>, you can run <code>postconf -M</code> and
-<code>postconf -P</code>. For example, create new transport <code>submission</code>:</p>
-<pre><code>postconf -M submission/inet=&quot;submission inet n - n - - smtpd&quot;
-postconf -P &quot;submission/inet/syslog_name=postfix/submission&quot;
-postconf -P &quot;submission/inet/smtpd_tls_security_level=encrypt&quot;
-postconf -P &quot;submission/inet/smtpd_sasl_auth_enable=yes&quot;
-postconf -P &quot;submission/inet/smtpd_client_restrictions=permit_sasl_authenticated,reject&quot;
-postconf -P &quot;submission/inet/content_filter=smtp-amavis:[127.0.0.1]:10026
+<p>To add new or update existing transport settings in <code>/etc/postfix/master.cf</code>,
+you can run <code>postconf -M</code> and <code>postconf -P</code>. For example, create new transport
+<code>465</code> for <a href="./enable.smtps.html">SMTPS (SMTP over SSL)</a>:</p>
+<pre><code>postconf -M 465/inet=&quot;465 inet n - n - - smtpd&quot;
+postconf -P &quot;465/inet/syslog_name=postfix/smtps&quot;
+postconf -P &quot;465/inet/smtpd_tls_wrappermode=yes&quot;
+postconf -P &quot;465/inet/smtpd_sasl_auth_enable=yes&quot;
+postconf -P &quot;465/inet/smtpd_client_restrictions=permit_sasl_authenticated,reject&quot;
+postconf -P &quot;465/inet/content_filter=smtp-amavis:[127.0.0.1]:10026&quot;
+</code></pre>
+
+<p>It will generate new lines in <code>/etc/postfix/master.cf</code> like below:</p>
+<pre><code>465 inet n - n - - smtpd
+  -o syslog_name=postfix/smtps
+  -o smtpd_tls_wrappermode=yes
+  -o smtpd_sasl_auth_enable=yes
+  -o smtpd_client_restrictions=permit_sasl_authenticated,reject
+  -o content_filter=smtp-amavis:[127.0.0.1]:10026
 </code></pre>
 
 <p>For more details about <code>postconf</code> command, please check its manual page:
