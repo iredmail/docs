@@ -60,9 +60,9 @@ iRedMail Team quickly.</p>
 <li>Your iRedMail server must be running one of supported Linux/OpenBSD
   distribution releases:<ul>
 <li>Ubuntu 18.04 LTS</li>
-<li>Debian 9</li>
+<li>Debian 9, 10</li>
 <li>CentOS 7</li>
-<li>OpenBSD 6.4, 6.5</li>
+<li>OpenBSD 6.6</li>
 </ul>
 </li>
 </ul>
@@ -240,6 +240,7 @@ files under <code>/opt/iredmail/custom/&lt;software&gt;/</code>.</p>
 <li>
 <p>Files under <code>/etc/postfix/</code>:</p>
 <ul>
+<li><code>aliases</code></li>
 <li><code>body_checks.pcre</code></li>
 <li><code>command_filter.pcre</code></li>
 <li><code>header_checks.pcre</code></li>
@@ -254,6 +255,7 @@ files under <code>/opt/iredmail/custom/&lt;software&gt;/</code>.</p>
 <p>Please copy your custom settings from above files to the files with same
 names under <code>/opt/iredmail/custom/postfix/</code>. For example:</p>
 <ul>
+<li>From <code>/etc/postfix/aliases</code> to <code>/opt/iredmail/custom/postfix/aliases</code>.</li>
 <li>From <code>/etc/postfix/body_checks.pcre</code> to <code>/opt/iredmail/custom/postfix/body_checks.pcre</code>.</li>
 <li>From <code>/etc/postfix/command_filter.pcre</code> to <code>/opt/iredmail/custom/postfix/command_filter.pcre</code>.</li>
 </ul>

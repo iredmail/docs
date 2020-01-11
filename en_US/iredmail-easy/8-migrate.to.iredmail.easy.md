@@ -25,9 +25,9 @@ For more details about iRedMail Easy platform, please
 - Your iRedMail server must be running one of supported Linux/OpenBSD
   distribution releases:
     - Ubuntu 18.04 LTS
-    - Debian 9
+    - Debian 9, 10
     - CentOS 7
-    - OpenBSD 6.4, 6.5
+    - OpenBSD 6.6
 
 Unfortunately, FreeBSD is not supported by iRedMail Easy platform.
 
@@ -104,6 +104,7 @@ files under `/opt/iredmail/custom/<software>/`.
 ### Postfix
 
 * Files under `/etc/postfix/`:
+    * `aliases`
     * `body_checks.pcre`
     * `command_filter.pcre`
     * `header_checks.pcre`
@@ -118,6 +119,7 @@ files under `/opt/iredmail/custom/<software>/`.
     Please copy your custom settings from above files to the files with same
     names under `/opt/iredmail/custom/postfix/`. For example:
 
+    - From `/etc/postfix/aliases` to `/opt/iredmail/custom/postfix/aliases`.
     - From `/etc/postfix/body_checks.pcre` to `/opt/iredmail/custom/postfix/body_checks.pcre`.
     - From `/etc/postfix/command_filter.pcre` to `/opt/iredmail/custom/postfix/command_filter.pcre`.
 

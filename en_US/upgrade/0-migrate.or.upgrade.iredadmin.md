@@ -1,4 +1,4 @@
-# Migrate or upgrade iRedAdmin
+# Migrate or upgrade iRedAdmin / iRedAdmin-Pro
 
 [TOC]
 
