@@ -156,35 +156,32 @@ be delivered to server <code>mail.mydomain.com</code>.</p>
 <h3 id="what-is-a-spf-record">What is a SPF record</h3>
 <p>SPF is a spam and phishing scam fighting method which uses DNS SPF-records to
 define which hosts are permitted to send e-mails for a domain. For details on
-SPF, please see <a href="http://www.openspf.org/">http://www.openspf.org/</a></p>
+SPF, please check <a href="https://en.wikipedia.org/wiki/Sender_Policy_Framework">wikipedia</a>.</p>
 <p>This works by defining a DNS SPF-record for the e-mail domain name specifying
 which hosts (e-mail servers) are permitted to send e-mail from the domain name.</p>
 <p>Other e-mail servers can lookup this record when receiving an e-mail from this
 domain name to verify that sending e-mail server is connecting from a permitted
 IP address.</p>
 <h3 id="how-to-setup-the-spf-record">How to setup the SPF record</h3>
-<p>A new SPF-record type was recently added to the DNS protocol to support this
-(<a href="http://www.rfc-editor.org/rfc/rfc4408.txt">RFC4408</a>).</p>
-<p>However not all DNS and e-mail servers support this new record type yet, so
-SPF can also be configured in DNS using the TXT-record type.</p>
-<p>Examples:</p>
-<ul>
-<li>SPF record refer to MX record. It means emails sent from all servers defined
-  in MX record of <code>mydomain.com</code> are permitted by sender organization.</li>
-</ul>
-<pre><code>mydomain.com.   3600    IN  TXT &quot;v=spf1 mx mx:mydomain.com -all&quot;
+<p>SPF is a TXT type DNS record, you can list IP address(es) or MX domains in it.
+For example:</p>
+<pre><code>mydomain.com.   3600    IN  TXT &quot;v=spf1 mx -all&quot;
 </code></pre>
 
-<ul>
-<li>or SPF record refer to IP address directly. it means emails sent from
-  specified IP address are permitted by sender organization.</li>
-</ul>
-<pre><code>mydomain.com.   3600    IN  TXT &quot;v=spf1 ip4:192.168.1.100 -all&quot;
+<p>This SPF record means emails sent from all servers defined in MX record of
+<code>mydomain.com</code> are permitted to send as <code>someone@mydomain.com</code>.</p>
+<p><code>-all</code> means prohibit emails sent from all other servers. If it's too strict
+for you, you can use <code>~all</code> instead which means soft fail (uncertain).</p>
+<p>You can specify IP address(es) directly too:</p>
+<pre><code>mydomain.com.   3600    IN  TXT &quot;v=spf1 ip4:111.111.111.111 ip4:111.111.111.222 -all&quot;
 </code></pre>
 
-<p><code>-all</code> means prohibit all others.</p>
+<p>Of course you can have them both or more in same record:</p>
+<pre><code>mydomain.com.   3600    IN  TXT &quot;v=spf1 mx ip4:111.111.111.222 -all&quot;
+</code></pre>
+
 <p>There're more valid mechanisms available, please check
-<a href="http://www.openspf.org/SPF_Record_Syntax">OpenSPF web site</a> for more details.</p>
+<a href="https://en.wikipedia.org/wiki/Sender_Policy_Framework">wikipedia</a> for more details.</p>
 <h2 id="dkim">DKIM record for the mail domain name</h2>
 <h3 id="what-is-a-dkim-record">What is a DKIM record</h3>
 <p>DKIM allows an organization to take responsibility for a message in a way that
@@ -393,8 +390,7 @@ take a look:</p>
 </ul>
 <h2 id="references">References</h2>
 <ul>
-<li><a href="http://en.wikipedia.org/wiki/MX_record">http://en.wikipedia.org/wiki/MX_record</a></li>
-<li><a href="http://www.openspf.org/">http://www.openspf.org/</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Sender_Policy_Framework">wikipedia: Sender Policy Framework</a></li>
 <li><a href="http://www.dkim.org/">http://www.dkim.org/</a></li>
 </ul><div class="footer">
     <p style="text-align: center; color: grey;">All documents are available in <a href="https://github.com/iredmail/docs/">GitHub repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://github.com/iredmail/docs/archive/master.zip">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>

@@ -125,7 +125,7 @@ be delivered to server `mail.mydomain.com`.
 
 SPF is a spam and phishing scam fighting method which uses DNS SPF-records to
 define which hosts are permitted to send e-mails for a domain. For details on
-SPF, please see [http://www.openspf.org/](http://www.openspf.org/)
+SPF, please check [wikipedia](https://en.wikipedia.org/wiki/Sender_Policy_Framework).
 
 This works by defining a DNS SPF-record for the e-mail domain name specifying
 which hosts (e-mail servers) are permitted to send e-mail from the domain name.
@@ -136,33 +136,33 @@ IP address.
 
 ### How to setup the SPF record
 
-A new SPF-record type was recently added to the DNS protocol to support this
-([RFC4408](http://www.rfc-editor.org/rfc/rfc4408.txt)).
-
-However not all DNS and e-mail servers support this new record type yet, so
-SPF can also be configured in DNS using the TXT-record type.
-
-Examples:
-
-* SPF record refer to MX record. It means emails sent from all servers defined
-  in MX record of `mydomain.com` are permitted by sender organization.
+SPF is a TXT type DNS record, you can list IP address(es) or MX domains in it.
+For example:
 
 ```
-mydomain.com.   3600    IN  TXT "v=spf1 mx mx:mydomain.com -all"
+mydomain.com.   3600    IN  TXT "v=spf1 mx -all"
 ```
 
+This SPF record means emails sent from all servers defined in MX record of
+`mydomain.com` are permitted to send as `someone@mydomain.com`.
 
-* or SPF record refer to IP address directly. it means emails sent from
-  specified IP address are permitted by sender organization.
+`-all` means prohibit emails sent from all other servers. If it's too strict
+for you, you can use `~all` instead which means soft fail (uncertain).
+
+You can specify IP address(es) directly too:
 
 ```
-mydomain.com.   3600    IN  TXT "v=spf1 ip4:192.168.1.100 -all"
+mydomain.com.   3600    IN  TXT "v=spf1 ip4:111.111.111.111 ip4:111.111.111.222 -all"
 ```
 
-`-all` means prohibit all others.
+Of course you can have them both or more in same record:
+
+```
+mydomain.com.   3600    IN  TXT "v=spf1 mx ip4:111.111.111.222 -all"
+```
 
 There're more valid mechanisms available, please check
-[OpenSPF web site](http://www.openspf.org/SPF_Record_Syntax) for more details.
+[wikipedia](https://en.wikipedia.org/wiki/Sender_Policy_Framework) for more details.
 
 ## DKIM record for the mail domain name {: id="dkim" }
 
@@ -388,6 +388,5 @@ take a look:
 
 ## References
 
-* [http://en.wikipedia.org/wiki/MX_record](http://en.wikipedia.org/wiki/MX_record)
-* [http://www.openspf.org/](http://www.openspf.org/)
+* [wikipedia: Sender Policy Framework](https://en.wikipedia.org/wiki/Sender_Policy_Framework)
 * [http://www.dkim.org/](http://www.dkim.org/)
