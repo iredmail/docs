@@ -63,6 +63,20 @@ latest stable release (1.4.1):
 If you have netdata installed, you can upgrade it by following this tutorial:
 [Upgrade netdata](./upgrade.netdata.html).
 
+### Fixed: modular rsyslog config file is improper
+
+!!! attention
+
+    This is applicable to only CentOS 7.
+
+On CentOS 7, the modular rsyslog config file
+`/etc/rsyslog.d/1-iredmail-iredapd.conf` doesn't correctly filter iRedAPD log,
+please replace the `if` line by below one and restart rsyslog service:
+
+```
+if $syslogfacility-text == 'local5' and ($syslogtag startswith 'iredapd' or $msg startswith 'iredapd ') then -/var/log/iredapd/iredapd.log
+```
+
 ### Fixed: SOGo backup script doesn't relies on Python anymore
 
 SOGo backup script `/var/vmail/backup/backup_sogo.sh` shipped in iRedMail-1.0
@@ -78,6 +92,16 @@ chmod 0500 backup_sogo.sh
 ```
 
 ## For OpenLDAP backend
+
+### Fixed: Backup MX doesn't work.
+
+In iRedMail-1.0, the placeholder used by LDAP query for Backup MX domain is
+incorrect, please run commands below to fix it.
+
+```
+perl -pi -e 's#%d#%s#g' /etc/postfix/ldap/relay_domains.cf
+postfix reload
+```
 
 ### Fixed: OpenLDAP backup script doesn't relies on Python anymore
 
@@ -95,6 +119,16 @@ chmod 0500 backup_openldap.sh
 
 ## For MySQL/MariaDB backends
 
+### Fixed: Backup MX doesn't work.
+
+In iRedMail-1.0, the placeholder used by SQL query for Backup MX domain is
+incorrect, please run commands below to fix it.
+
+```
+perl -pi -e 's#%d#%s#g' /etc/postfix/mysql/relay_domains.cf
+postfix reload
+```
+
 ### Fixed: MySQL backup script doesn't relies on Python anymore
 
 Backup script `/var/vmail/backup/backup_mysql.sh` shipped in iRedMail-1.0
@@ -110,6 +144,16 @@ chmod 0500 backup_mysql.sh
 ```
 
 ## For PostgreSQL backend
+
+### Fixed: Backup MX doesn't work.
+
+In iRedMail-1.0, the placeholder used by SQL query for Backup MX domain is
+incorrect, please run commands below to fix it.
+
+```
+perl -pi -e 's#%d#%s#g' /etc/postfix/pgsql/relay_domains.cf
+postfix reload
+```
 
 ### Fixed: PostgreSQL backup script doesn't relies on Python anymore
 

@@ -27,18 +27,22 @@
 <li><a href="#upgrade-mlmmjadmin-to-the-latest-stable-release">Upgrade mlmmjadmin to the latest stable release</a></li>
 <li><a href="#upgrade-roundcube-webmail-to-the-latest-stable-release">Upgrade Roundcube webmail to the latest stable release</a></li>
 <li><a href="#upgrade-netdata-to-the-latest-stable-release">Upgrade netdata to the latest stable release</a></li>
+<li><a href="#fixed-modular-rsyslog-config-file-is-improper">Fixed: modular rsyslog config file is improper</a></li>
 <li><a href="#fixed-sogo-backup-script-doesnt-relies-on-python-anymore">Fixed: SOGo backup script doesn't relies on Python anymore</a></li>
 </ul>
 </li>
 <li><a href="#for-openldap-backend">For OpenLDAP backend</a><ul>
+<li><a href="#fixed-backup-mx-doesnt-work">Fixed: Backup MX doesn't work.</a></li>
 <li><a href="#fixed-openldap-backup-script-doesnt-relies-on-python-anymore">Fixed: OpenLDAP backup script doesn't relies on Python anymore</a></li>
 </ul>
 </li>
 <li><a href="#for-mysqlmariadb-backends">For MySQL/MariaDB backends</a><ul>
+<li><a href="#fixed-backup-mx-doesnt-work_1">Fixed: Backup MX doesn't work.</a></li>
 <li><a href="#fixed-mysql-backup-script-doesnt-relies-on-python-anymore">Fixed: MySQL backup script doesn't relies on Python anymore</a></li>
 </ul>
 </li>
 <li><a href="#for-postgresql-backend">For PostgreSQL backend</a><ul>
+<li><a href="#fixed-backup-mx-doesnt-work_2">Fixed: Backup MX doesn't work.</a></li>
 <li><a href="#fixed-postgresql-backup-script-doesnt-relies-on-python-anymore">Fixed: PostgreSQL backup script doesn't relies on Python anymore</a></li>
 </ul>
 </li>
@@ -92,6 +96,17 @@ latest stable release (1.4.1):</p>
 <h3 id="upgrade-netdata-to-the-latest-stable-release">Upgrade netdata to the latest stable release</h3>
 <p>If you have netdata installed, you can upgrade it by following this tutorial:
 <a href="./upgrade.netdata.html">Upgrade netdata</a>.</p>
+<h3 id="fixed-modular-rsyslog-config-file-is-improper">Fixed: modular rsyslog config file is improper</h3>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>This is applicable to only CentOS 7.</p>
+</div>
+<p>On CentOS 7, the modular rsyslog config file
+<code>/etc/rsyslog.d/1-iredmail-iredapd.conf</code> doesn't correctly filter iRedAPD log,
+please replace the <code>if</code> line by below one and restart rsyslog service:</p>
+<pre><code>if $syslogfacility-text == 'local5' and ($syslogtag startswith 'iredapd' or $msg startswith 'iredapd ') then -/var/log/iredapd/iredapd.log
+</code></pre>
+
 <h3 id="fixed-sogo-backup-script-doesnt-relies-on-python-anymore">Fixed: SOGo backup script doesn't relies on Python anymore</h3>
 <p>SOGo backup script <code>/var/vmail/backup/backup_sogo.sh</code> shipped in iRedMail-1.0
 and earlier releases relies on Python to calculate the date of old backup for
@@ -104,6 +119,13 @@ chmod 0500 backup_sogo.sh
 </code></pre>
 
 <h2 id="for-openldap-backend">For OpenLDAP backend</h2>
+<h3 id="fixed-backup-mx-doesnt-work">Fixed: Backup MX doesn't work.</h3>
+<p>In iRedMail-1.0, the placeholder used by LDAP query for Backup MX domain is
+incorrect, please run commands below to fix it.</p>
+<pre><code>perl -pi -e 's#%d#%s#g' /etc/postfix/ldap/relay_domains.cf
+postfix reload
+</code></pre>
+
 <h3 id="fixed-openldap-backup-script-doesnt-relies-on-python-anymore">Fixed: OpenLDAP backup script doesn't relies on Python anymore</h3>
 <p>OpenLDAP backup script <code>/var/vmail/backup/backup_openldap.sh</code> shipped in iRedMail-1.0
 and earlier releases relies on Python to calculate the date of old backup for
@@ -116,6 +138,13 @@ chmod 0500 backup_openldap.sh
 </code></pre>
 
 <h2 id="for-mysqlmariadb-backends">For MySQL/MariaDB backends</h2>
+<h3 id="fixed-backup-mx-doesnt-work_1">Fixed: Backup MX doesn't work.</h3>
+<p>In iRedMail-1.0, the placeholder used by SQL query for Backup MX domain is
+incorrect, please run commands below to fix it.</p>
+<pre><code>perl -pi -e 's#%d#%s#g' /etc/postfix/mysql/relay_domains.cf
+postfix reload
+</code></pre>
+
 <h3 id="fixed-mysql-backup-script-doesnt-relies-on-python-anymore">Fixed: MySQL backup script doesn't relies on Python anymore</h3>
 <p>Backup script <code>/var/vmail/backup/backup_mysql.sh</code> shipped in iRedMail-1.0
 and earlier releases relies on Python to calculate the date of old backup for
@@ -128,6 +157,13 @@ chmod 0500 backup_mysql.sh
 </code></pre>
 
 <h2 id="for-postgresql-backend">For PostgreSQL backend</h2>
+<h3 id="fixed-backup-mx-doesnt-work_2">Fixed: Backup MX doesn't work.</h3>
+<p>In iRedMail-1.0, the placeholder used by SQL query for Backup MX domain is
+incorrect, please run commands below to fix it.</p>
+<pre><code>perl -pi -e 's#%d#%s#g' /etc/postfix/pgsql/relay_domains.cf
+postfix reload
+</code></pre>
+
 <h3 id="fixed-postgresql-backup-script-doesnt-relies-on-python-anymore">Fixed: PostgreSQL backup script doesn't relies on Python anymore</h3>
 <p>Backup script <code>/var/vmail/backup/backup_pgsql.sh</code> shipped in iRedMail-1.0
 and earlier releases relies on Python to calculate the date of old backup for
