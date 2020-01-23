@@ -2,6 +2,51 @@
 
 [TOC]
 
+## Upcoming Version: 2020012301 (Jan 23, 2019) {: id=2020012301 }
+
+* Postfix:
+    - Fixed: Backup MX doesn't work.
+    - Add 3 files for custom settings:
+        - `/opt/iredmail/custom/postfix/aliases`: alias file.
+        - `/opt/iredmail/custom/postfix/sender_bcc`: hash file.
+        - `/opt/iredmail/custom/postfix/recipient_bcc`: hash file.
+
+* Antispam:
+    - Explicitly specify (DKIM) signed header fields.
+    - Use default Amavisd verbose log template.
+    - Add few more custom scores in SpamAssassin to catch spams when `From:`
+      equals to `To:` address.
+    - Fixed:
+        - Don't block attachment with macro in ClamAV.
+          Parameter `OLE2BlockMacros` was set to `true`, it's now `false`.
+        - Not update apparmor config file to grant privilege for virus scanning
+          on Debian 10.
+
+* Nginx:
+    - Fixed: make sure log directory is not writable by group or other,
+      otherwise logrotate will refuse to rotate log files.
+
+* Firewalll:
+    - Correctly disable ping flood with nftables on Debian 10.
+
+* Netdata:
+    - Disable checks for energid. It uses port 9998, but it's used by
+      Amavisd-new on iRedMail server, this causes error message in
+      Amavisd log file each time netdata starts.
+
+* Backup scripts:
+    - Backup scripts don't rely on Python to calculate dates anymore.
+
+* Improvements of iRedMail Easy platform:
+    - Increase php-fpm setting `request_slowlog_timeout` to 60 seconds.
+    - Updated Postfix package in iRedMail yum repo for PostgreSQL backend on
+      CentOS 7.
+    - On OpenBSD system, update the latest errata patch names.
+
+* Package updates:
+    - Roundcube-1.4.2
+    - iRedAdmin-1.0
+
 ## Version: 2019121301 (Dec 13, 2019) {: id=20191210 }
 
 - Package updates:
