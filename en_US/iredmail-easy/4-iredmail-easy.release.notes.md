@@ -2,7 +2,7 @@
 
 [TOC]
 
-## Upcoming Version: 2020012301 (Jan 23, 2019) {: id=2020012301 }
+## Upcoming Version: 202001XX01 (Jan XX, 2020) {: id=2020012301 }
 
 * Postfix:
     - Fixed: Backup MX doesn't work.
@@ -10,6 +10,9 @@
         - `/opt/iredmail/custom/postfix/aliases`: alias file.
         - `/opt/iredmail/custom/postfix/sender_bcc`: hash file.
         - `/opt/iredmail/custom/postfix/recipient_bcc`: hash file.
+
+* Roundcube:
+    - Enable plugin `markasjunk` by default.
 
 * Antispam:
     - Explicitly specify (DKIM) signed header fields.
