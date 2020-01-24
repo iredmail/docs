@@ -49,6 +49,7 @@
 * Package updates:
     - Roundcube-1.4.2
     - iRedAdmin-1.0
+    - iRedAPD-3.4
 
 ## Version: 2019121301 (Dec 13, 2019) {: id=20191210 }
 
