@@ -63,6 +63,13 @@ curl -X DELETE -i -b cookie.txt https://&lt;server&gt;/iredadmin/api/user/&lt;ma
 #
 curl -X PUT -i -b cookie.txt -d &quot;cn=John Smith&amp;mailQuota=2048&quot; https://&lt;server&gt;/iredadmin/api/user/&lt;mail&gt;
 
+# If name contains non-ascii characters, please use `--data-urlencode` instead
+# of `-d`, curl will encode it before submitting, so that you can correctly
+# preserve non-ascii characters.
+#
+# In this example, it contains a Norwegian char `ø`.
+curl -X PUT -i -b cookie.txt --data-urlencode &quot;cn=Jørn&quot; https://&lt;server&gt;/iredadmin/api/user/&lt;mail&gt;
+
 #
 # Create mail alias (POST)
 #
