@@ -491,7 +491,7 @@ iRedMail Easy platform.
 - `/opt/iredmail/custom/fail2ban/jail.local`: used to override settings in
   `[DEFAULT]` section of main fail2ban config file. For example, `maxretry`, `findtime`, `bantime`,
   `ignoreip`.
-- `/opt/iredmail/custom/dovecot/custom.sh`: used for advanced customization.
+- `/opt/iredmail/custom/fail2ban/custom.sh`: used for advanced customization.
   for example, if you have some new jails, you can write jail config files under
   `/opt/iredmail/custom/fail2ban/` too (you're free to create sub-folder to
   store the jail config files), then use `custom.sh` to create symbol link
