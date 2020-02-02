@@ -19,7 +19,7 @@
 <div class="toc">
 <ul>
 <li><a href="#iredmail-easy-release-notes">iRedMail Easy: Release Notes</a><ul>
-<li><a href="#2020012301">Upcoming Version: 202001XX01 (Jan XX, 2020)</a></li>
+<li><a href="#202002XX">Upcoming Version: 202002XX01 (Feb XX, 2020)</a></li>
 <li><a href="#20191210">Version: 2019121301 (Dec 13, 2019)</a></li>
 <li><a href="#20191210">Version: 2019121001 (Dec 10, 2019)</a></li>
 <li><a href="#20191209">Version: 2019120901 (Dec 09, 2019)</a></li>
@@ -42,12 +42,14 @@
 </li>
 </ul>
 </div>
-<h2 id="2020012301">Upcoming Version: 202001XX01 (Jan XX, 2020)</h2>
+<h2 id="202002XX">Upcoming Version: 202002XX01 (Feb XX, 2020)</h2>
 <ul>
 <li>
 <p>Postfix:</p>
 <ul>
 <li>Fixed: Backup MX doesn't work.</li>
+<li>Fixed: [LDAP backend] improper filter which causes missing external
+  members while querying (not-subscribeable) mailing list with alias domain.</li>
 <li>Add 3 files for custom settings:<ul>
 <li><code>/opt/iredmail/custom/postfix/aliases</code>: alias file.</li>
 <li><code>/opt/iredmail/custom/postfix/sender_bcc</code>: hash file.</li>
@@ -59,7 +61,9 @@
 <li>
 <p>Roundcube:</p>
 <ul>
-<li>Enable plugin <code>markasjunk</code> by default.</li>
+<li>Enable plugin <code>markasjunk</code> by default. When message is moved to Junk
+  folder, it will be learnt as spam message. When message is moved from
+  Junk to any other folder, it will be learnt as clean message.</li>
 </ul>
 </li>
 <li>
@@ -108,6 +112,10 @@
 <li>
 <p>Improvements of iRedMail Easy platform:</p>
 <ul>
+<li>Fixed: Updating MariaDB/PostgreSQL/OpenLDAP/SOGo separatedly didn't
+  update their backup scripts.</li>
+<li>New options for cross-domain user query and global address book in
+  SOGo Groupware.</li>
 <li>Increase php-fpm setting <code>request_slowlog_timeout</code> to 60 seconds.</li>
 <li>Updated Postfix package in iRedMail yum repo for PostgreSQL backend on
   CentOS 7.</li>

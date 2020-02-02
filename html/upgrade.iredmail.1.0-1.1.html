@@ -33,7 +33,8 @@
 </li>
 <li><a href="#for-openldap-backend">For OpenLDAP backend</a><ul>
 <li><a href="#fixed-backup-mx-doesnt-work">Fixed: Backup MX doesn't work.</a></li>
-<li><a href="#fixed-openldap-backup-script-doesnt-relies-on-python-anymore">Fixed: OpenLDAP backup script doesn't relies on Python anymore</a></li>
+<li><a href="#fixed-improper-ldap-query-filter">Fixed: improper LDAP query filter</a></li>
+<li><a href="#improvement-openldap-backup-script-doesnt-relies-on-python-anymore">Improvement: OpenLDAP backup script doesn't relies on Python anymore</a></li>
 </ul>
 </li>
 <li><a href="#for-mysqlmariadb-backends">For MySQL/MariaDB backends</a><ul>
@@ -126,7 +127,24 @@ incorrect, please run commands below to fix it.</p>
 postfix reload
 </code></pre>
 
-<h3 id="fixed-openldap-backup-script-doesnt-relies-on-python-anymore">Fixed: OpenLDAP backup script doesn't relies on Python anymore</h3>
+<h3 id="fixed-improper-ldap-query-filter">Fixed: improper LDAP query filter</h3>
+<p>The LDAP query used in file <code>/etc/postfix/ldap/virtual_group_maps.cf</code>
+(Linux/OpenBSD) or <code>/usr/local/etc/postfix/ldap/virtual_group_maps.cf</code>
+(FreeBSD) is not accurate, it will cause missing external members while
+querying (not-subscribeable) mailing list with alias domain.
+Please follow steps below to fix it.</p>
+<ul>
+<li>Open file <code>/etc/postfix/ldap/virtual_group_maps.cf</code>
+  (Linux/OpenBSD) or <code>/usr/local/etc/postfix/ldap/virtual_group_maps.cf</code>, replace
+  the <code>query_filter =</code> line by below one:</li>
+</ul>
+<pre><code>query_filter    = (&amp;(accountStatus=active)(!(domainStatus=disabled))(enabledService=mail)(enabledService=deliver)(|(&amp;(|(memberOfGroup=%s)(shadowAddress=%s))(|(objectClass=mailUser)(objectClass=mailExternalUser)))(&amp;(memberOfGroup=%s)(|(objectClass=mailAlias)(&amp;(objectClass=mailList)(!(enabledService=mlmmj)))))(&amp;(objectClass=mailList)(enabledService=mlmmj)(|(mail=%s)(shadowAddress=%s)))))
+</code></pre>
+
+<ul>
+<li>Save your change and restart or reload Postfix service.</li>
+</ul>
+<h3 id="improvement-openldap-backup-script-doesnt-relies-on-python-anymore">Improvement: OpenLDAP backup script doesn't relies on Python anymore</h3>
 <p>OpenLDAP backup script <code>/var/vmail/backup/backup_openldap.sh</code> shipped in iRedMail-1.0
 and earlier releases relies on Python to calculate the date of old backup for
 removal, but not anymore in iRedMail-1.1. Please download the latest version

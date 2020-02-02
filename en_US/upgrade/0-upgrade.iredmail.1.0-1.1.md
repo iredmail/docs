@@ -103,7 +103,25 @@ perl -pi -e 's#%d#%s#g' /etc/postfix/ldap/relay_domains.cf
 postfix reload
 ```
 
-### Fixed: OpenLDAP backup script doesn't relies on Python anymore
+### Fixed: improper LDAP query filter
+
+The LDAP query used in file `/etc/postfix/ldap/virtual_group_maps.cf`
+(Linux/OpenBSD) or `/usr/local/etc/postfix/ldap/virtual_group_maps.cf`
+(FreeBSD) is not accurate, it will cause missing external members while
+querying (not-subscribeable) mailing list with alias domain.
+Please follow steps below to fix it.
+
+* Open file `/etc/postfix/ldap/virtual_group_maps.cf`
+  (Linux/OpenBSD) or `/usr/local/etc/postfix/ldap/virtual_group_maps.cf`, replace
+  the `query_filter =` line by below one:
+
+```
+query_filter    = (&(accountStatus=active)(!(domainStatus=disabled))(enabledService=mail)(enabledService=deliver)(|(&(|(memberOfGroup=%s)(shadowAddress=%s))(|(objectClass=mailUser)(objectClass=mailExternalUser)))(&(memberOfGroup=%s)(|(objectClass=mailAlias)(&(objectClass=mailList)(!(enabledService=mlmmj)))))(&(objectClass=mailList)(enabledService=mlmmj)(|(mail=%s)(shadowAddress=%s)))))
+```
+
+* Save your change and restart or reload Postfix service.
+
+### Improvement: OpenLDAP backup script doesn't relies on Python anymore
 
 OpenLDAP backup script `/var/vmail/backup/backup_openldap.sh` shipped in iRedMail-1.0
 and earlier releases relies on Python to calculate the date of old backup for

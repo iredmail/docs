@@ -2,17 +2,21 @@
 
 [TOC]
 
-## Upcoming Version: 202001XX01 (Jan XX, 2020) {: id=2020012301 }
+## Upcoming Version: 202002XX01 (Feb XX, 2020) {: id=202002XX }
 
 * Postfix:
     - Fixed: Backup MX doesn't work.
+    - Fixed: [LDAP backend] improper filter which causes missing external
+      members while querying (not-subscribeable) mailing list with alias domain.
     - Add 3 files for custom settings:
         - `/opt/iredmail/custom/postfix/aliases`: alias file.
         - `/opt/iredmail/custom/postfix/sender_bcc`: hash file.
         - `/opt/iredmail/custom/postfix/recipient_bcc`: hash file.
 
 * Roundcube:
-    - Enable plugin `markasjunk` by default.
+    - Enable plugin `markasjunk` by default. When message is moved to Junk
+      folder, it will be learnt as spam message. When message is moved from
+      Junk to any other folder, it will be learnt as clean message.
 
 * Antispam:
     - Explicitly specify (DKIM) signed header fields.
@@ -41,6 +45,10 @@
     - Backup scripts don't rely on Python to calculate dates anymore.
 
 * Improvements of iRedMail Easy platform:
+    - Fixed: Updating MariaDB/PostgreSQL/OpenLDAP/SOGo separatedly didn't
+      update their backup scripts.
+    - New options for cross-domain user query and global address book in
+      SOGo Groupware.
     - Increase php-fpm setting `request_slowlog_timeout` to 60 seconds.
     - Updated Postfix package in iRedMail yum repo for PostgreSQL backend on
       CentOS 7.
