@@ -18,8 +18,19 @@
     &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><h1 id="webmail-customization">Webmail customization</h1>
 <h2 id="roundcube-webmail">Roundcube webmail</h2>
 <ul>
+<li>The text <code>Roundcube Webmail</code> under login screen can be replaced by updating
+  parameter <code>product_name</code> in Roundcube config file.</li>
+<li>Logo image can be customized with parameter <code>skin_logo</code> in Roundcube config
+  file</li>
+</ul>
+<pre><code>$config['product_name'] = 'My Company Name';
+$config['skin_logo'] = '...';   // Please read the comment lines in
+                                // /opt/www/roundcubemail/config/defaults.inc.php
+                                // for more details
+</code></pre>
+
+<ul>
 <li><a href="https://github.com/roundcube/roundcubemail/wiki/Skins">Styling the Roundcube Frontend</a></li>
-<li>Logo image is defined in each skin under Roundcube directory: <code>skins/&lt;skin&gt;/images/roundcube_logo.png</code>.</li>
 </ul>
 <h2 id="sogo-groupware">SOGo Groupware</h2>
 <h3 id="html-templates">HTML templates</h3>

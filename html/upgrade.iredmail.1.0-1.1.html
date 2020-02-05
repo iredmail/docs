@@ -138,7 +138,7 @@ Please follow steps below to fix it.</p>
   (Linux/OpenBSD) or <code>/usr/local/etc/postfix/ldap/virtual_group_maps.cf</code>, replace
   the <code>query_filter =</code> line by below one:</li>
 </ul>
-<pre><code>query_filter    = (&amp;(accountStatus=active)(!(domainStatus=disabled))(enabledService=mail)(enabledService=deliver)(|(&amp;(|(memberOfGroup=%s)(shadowAddress=%s))(|(objectClass=mailUser)(objectClass=mailExternalUser)))(&amp;(memberOfGroup=%s)(|(objectClass=mailAlias)(&amp;(objectClass=mailList)(!(enabledService=mlmmj)))))(&amp;(objectClass=mailList)(enabledService=mlmmj)(|(mail=%s)(shadowAddress=%s)))))
+<pre><code>query_filter    = (&amp;(accountStatus=active)(!(domainStatus=disabled))(enabledService=mail)(enabledService=deliver)(|(&amp;(|(memberOfGroup=%s)(shadowAddress=%s))(|(objectClass=mailUser)(objectClass=mailExternalUser)))(&amp;(memberOfGroup=%s)(!(shadowAddress=%s))(|(objectClass=mailAlias)(&amp;(objectClass=mailList)(!(enabledService=mlmmj)))))(&amp;(objectClass=mailList)(enabledService=mlmmj)(|(mail=%s)(shadowAddress=%s)))))
 </code></pre>
 
 <ul>

@@ -2,8 +2,19 @@
 
 ## Roundcube webmail
 
+* The text `Roundcube Webmail` under login screen can be replaced by updating
+  parameter `product_name` in Roundcube config file.
+* Logo image can be customized with parameter `skin_logo` in Roundcube config
+  file
+
+```
+$config['product_name'] = 'My Company Name';
+$config['skin_logo'] = '...';   // Please read the comment lines in
+                                // /opt/www/roundcubemail/config/defaults.inc.php
+                                // for more details
+```
+
 * [Styling the Roundcube Frontend](https://github.com/roundcube/roundcubemail/wiki/Skins)
-* Logo image is defined in each skin under Roundcube directory: `skins/<skin>/images/roundcube_logo.png`.
 
 ## SOGo Groupware
 

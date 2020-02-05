@@ -116,7 +116,7 @@ Please follow steps below to fix it.
   the `query_filter =` line by below one:
 
 ```
-query_filter    = (&(accountStatus=active)(!(domainStatus=disabled))(enabledService=mail)(enabledService=deliver)(|(&(|(memberOfGroup=%s)(shadowAddress=%s))(|(objectClass=mailUser)(objectClass=mailExternalUser)))(&(memberOfGroup=%s)(|(objectClass=mailAlias)(&(objectClass=mailList)(!(enabledService=mlmmj)))))(&(objectClass=mailList)(enabledService=mlmmj)(|(mail=%s)(shadowAddress=%s)))))
+query_filter    = (&(accountStatus=active)(!(domainStatus=disabled))(enabledService=mail)(enabledService=deliver)(|(&(|(memberOfGroup=%s)(shadowAddress=%s))(|(objectClass=mailUser)(objectClass=mailExternalUser)))(&(memberOfGroup=%s)(!(shadowAddress=%s))(|(objectClass=mailAlias)(&(objectClass=mailList)(!(enabledService=mlmmj)))))(&(objectClass=mailList)(enabledService=mlmmj)(|(mail=%s)(shadowAddress=%s)))))
 ```
 
 * Save your change and restart or reload Postfix service.
