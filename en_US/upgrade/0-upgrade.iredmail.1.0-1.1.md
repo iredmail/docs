@@ -163,6 +163,27 @@ chmod 0500 backup_mysql.sh
 
 ## For PostgreSQL backend
 
+### Fixed: incorrect index on SQL table `vmail.sender_relayhost`
+
+Column `sender_relayhost.account` should be unique index. Please follow steps below to fix it.
+
+* Connect to PostgreSQL server as `postgres` user and connect to `vmail` database:
+    * on Linux, it's `postgres` user
+    * on FreeBSD, it's `pgsql` user
+    * on OpenBSD, it's `_postgresql` user
+
+```
+su - postgres
+psql -d vmail
+```
+
+* Run SQL commands below:
+
+```
+DROP INDEX idx_sender_relayhost_account;
+CREATE UNIQUE INDEX idx_sender_relayhost_account ON sender_relayhost (account);
+```
+
 ### Fixed: Backup MX doesn't work.
 
 In iRedMail-1.0, the placeholder used by SQL query for Backup MX domain is

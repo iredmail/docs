@@ -43,6 +43,7 @@
 </ul>
 </li>
 <li><a href="#for-postgresql-backend">For PostgreSQL backend</a><ul>
+<li><a href="#fixed-incorrect-index-on-sql-table-vmailsender_relayhost">Fixed: incorrect index on SQL table vmail.sender_relayhost</a></li>
 <li><a href="#fixed-backup-mx-doesnt-work_2">Fixed: Backup MX doesn't work.</a></li>
 <li><a href="#fixed-postgresql-backup-script-doesnt-relies-on-python-anymore">Fixed: PostgreSQL backup script doesn't relies on Python anymore</a></li>
 </ul>
@@ -175,6 +176,27 @@ chmod 0500 backup_mysql.sh
 </code></pre>
 
 <h2 id="for-postgresql-backend">For PostgreSQL backend</h2>
+<h3 id="fixed-incorrect-index-on-sql-table-vmailsender_relayhost">Fixed: incorrect index on SQL table <code>vmail.sender_relayhost</code></h3>
+<p>Column <code>sender_relayhost.account</code> should be unique index. Please follow steps below to fix it.</p>
+<ul>
+<li>Connect to PostgreSQL server as <code>postgres</code> user and connect to <code>vmail</code> database:<ul>
+<li>on Linux, it's <code>postgres</code> user</li>
+<li>on FreeBSD, it's <code>pgsql</code> user</li>
+<li>on OpenBSD, it's <code>_postgresql</code> user</li>
+</ul>
+</li>
+</ul>
+<pre><code>su - postgres
+psql -d vmail
+</code></pre>
+
+<ul>
+<li>Run SQL commands below:</li>
+</ul>
+<pre><code>DROP INDEX idx_sender_relayhost_account;
+CREATE UNIQUE INDEX idx_sender_relayhost_account ON sender_relayhost (account);
+</code></pre>
+
 <h3 id="fixed-backup-mx-doesnt-work_2">Fixed: Backup MX doesn't work.</h3>
 <p>In iRedMail-1.0, the placeholder used by SQL query for Backup MX domain is
 incorrect, please run commands below to fix it.</p>
