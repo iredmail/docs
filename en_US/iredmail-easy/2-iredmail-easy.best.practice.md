@@ -418,8 +418,8 @@ For example:
 
 #### Custom settings for official plugins but not enabled by iRedMail
 
-If you have custom settings for plugin which is not enabled by iRedMail
-Easy:
+If you need to enable some Roundcube official plugin which is not enabled by
+iRedMail Easy:
 
 * Add shell commands like below in `/opt/iredmail/custom/roundcube/custom.sh`
 (Note: replace `<plugin>` by the real plugin name):
@@ -434,6 +434,9 @@ echo 'require_once "/opt/iredmail/custom/roundcube/config_<plugin>.inc.php";' >>
   store all your custom settings in this file. __WARNING__: this file must be a
   valid php file.
 
+This way if iRedMail Easy enables this plugin in the future, it will
+successfully load your own custom settings and not mess it up.
+
 For example, if you have custom settings for official plugin `enigma`, you
 should add shell commands like below in `/opt/iredmail/custom/roundcube/custom.sh`
 
@@ -445,9 +448,6 @@ echo 'require_once "/opt/iredmail/custom/roundcube/config_enigma.inc.php";' >> c
 
 Then put all custom settings for plugin `enigma` to
 `/opt/iredmail/custom/roundcube/config_enigma.inc.php`.
-
-This way if iRedMail Easy enables this plugin in the future, it will
-successfully load your own custom settings and not mess it up.
 
 #### Custom skins
 

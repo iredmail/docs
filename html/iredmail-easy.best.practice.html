@@ -526,8 +526,8 @@ put the custom settings in file
 <li>For <code>markasjunk</code> plugin: <code>/opt/iredmail/custom/roundcube/config_markasjunk.inc.php</code></li>
 </ul>
 <h4 id="custom-settings-for-official-plugins-but-not-enabled-by-iredmail">Custom settings for official plugins but not enabled by iRedMail</h4>
-<p>If you have custom settings for plugin which is not enabled by iRedMail
-Easy:</p>
+<p>If you need to enable some Roundcube official plugin which is not enabled by
+iRedMail Easy:</p>
 <ul>
 <li>Add shell commands like below in <code>/opt/iredmail/custom/roundcube/custom.sh</code>
 (Note: replace <code>&lt;plugin&gt;</code> by the real plugin name):</li>
@@ -542,6 +542,8 @@ echo 'require_once &quot;/opt/iredmail/custom/roundcube/config_&lt;plugin&gt;.in
   store all your custom settings in this file. <strong>WARNING</strong>: this file must be a
   valid php file.</li>
 </ul>
+<p>This way if iRedMail Easy enables this plugin in the future, it will
+successfully load your own custom settings and not mess it up.</p>
 <p>For example, if you have custom settings for official plugin <code>enigma</code>, you
 should add shell commands like below in <code>/opt/iredmail/custom/roundcube/custom.sh</code></p>
 <pre><code>cd /opt/www/roundcubemail/plugins/engma/
@@ -551,8 +553,6 @@ echo 'require_once &quot;/opt/iredmail/custom/roundcube/config_enigma.inc.php&qu
 
 <p>Then put all custom settings for plugin <code>enigma</code> to
 <code>/opt/iredmail/custom/roundcube/config_enigma.inc.php</code>.</p>
-<p>This way if iRedMail Easy enables this plugin in the future, it will
-successfully load your own custom settings and not mess it up.</p>
 <h4 id="custom-skins">Custom skins</h4>
 <p>All third-party or custom skins should be placed under <strong><code>/opt/iredmail/custom/roundcube/skins/</code></strong>.</p>
 <p>Skins will be linked to <code>/opt/www/roundcubemail/skins/</code> automatically
