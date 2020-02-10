@@ -2,7 +2,7 @@
 
 [TOC]
 
-## Upcoming Version: 202002XX01 (Feb XX, 2020) {: id=202002XX }
+## Version: 2020021001 (Feb 10, 2020) {: id=20200210 }
 
 * PostgreSQL backend:
     - Fixed: improper index type on SQL table `sender_relayhost`.

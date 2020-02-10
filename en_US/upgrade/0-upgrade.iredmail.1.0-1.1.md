@@ -2,10 +2,6 @@
 
 [TOC]
 
-!!! warning
-
-    THIS IS A __DRAFT__ DOCUMENT, DO __NOT__ APPLY IT.
-
 !!! note "Paid Remote Upgrade Support"
 
     We offer remote upgrade support if you don't want to get your hands dirty,
@@ -14,7 +10,7 @@
 
 ## ChangeLog
 
-TODO
+* Feb 10, 2020: initial release.
 
 ## General (All backends should apply these changes)
 
@@ -52,9 +48,9 @@ Please follow below tutorial to upgrade mlmmjadmin to the latest stable release:
     running PHP 5.3 and cannot upgrade to 5.4, please upgrade Roundcube
     the latest 1.2 branch instead.
 
-The latest Roundcube webmail 1.4.1 offers a shiny new web UI.
+The latest Roundcube webmail 1.4.2 offers a shiny new web UI.
 Please follow Roundcube official tutorial to upgrade Roundcube webmail to the
-latest stable release (1.4.1):
+latest stable release (1.4.2):
 
 * [How to upgrade Roundcube](https://github.com/roundcube/roundcubemail/wiki/Upgrade).
 
@@ -107,8 +103,8 @@ postfix reload
 
 The LDAP query used in file `/etc/postfix/ldap/virtual_group_maps.cf`
 (Linux/OpenBSD) or `/usr/local/etc/postfix/ldap/virtual_group_maps.cf`
-(FreeBSD) is not accurate, it will cause missing external members while
-querying (not-subscribeable) mailing list with alias domain.
+(FreeBSD) is not accurate, it will cause missing external members of
+(not-subscribeable) mailing list with alias domain.
 Please follow steps below to fix it.
 
 * Open file `/etc/postfix/ldap/virtual_group_maps.cf`
