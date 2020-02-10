@@ -324,7 +324,7 @@ networks.</p>
 </tr>
 <tr>
 <td><code>is_backupmx</code></td>
-<td>Mark domain as Backup MX. Must be used with parameter <code>primarymx</code>. Conflicts with parameter <code>transport</code>.</td>
+<td>Mark domain as Backup MX. If parameter <code>primarymx</code> is not given, MTA (Postfix) will query DNS record to get primary mx server. Conflicts with parameter <code>transport</code>.</td>
 <td><code>is_backupmx=yes</code> (or <code>no</code>)</td>
 </tr>
 <tr>

@@ -4,6 +4,9 @@
 
 ## Upcoming Version: 202002XX01 (Feb XX, 2020) {: id=202002XX }
 
+* PostgreSQL backend:
+    - Fixed: improper index type on SQL table `sender_relayhost`.
+
 * Postfix:
     - Fixed: Backup MX doesn't work.
     - Fixed: [LDAP backend] improper filter which causes missing external

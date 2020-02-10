@@ -4,7 +4,7 @@
 
 !!! attention
 
-    * This document is applicable to `iRedAdmin-Pro-SQL-4.1` (and 4.1.1) and
+    * This document is applicable to `iRedAdmin-Pro-SQL-4.1` (and 4.1.1, 4.1.2) and
       `iRedAdmin-Pro-LDAP-4.2`. If you're running an old release, please
       upgrade iRedAdmin-Pro to the latest release, or check
       [document for old releases](./iredadmin-pro.releases.html).
