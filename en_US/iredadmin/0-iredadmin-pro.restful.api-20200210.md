@@ -4,8 +4,8 @@
 
 !!! attention
 
-    * This document is applicable to `iRedAdmin-Pro-SQL-4.2` and
-      `iRedAdmin-Pro-LDAP-4.3`. If you're running an old release, please
+    * This document is applicable to `iRedAdmin-Pro-SQL-4.1` (and 4.1.1, 4.1.2) and
+      `iRedAdmin-Pro-LDAP-4.2`. If you're running an old release, please
       upgrade iRedAdmin-Pro to the latest release, or check
       [document for old releases](./iredadmin-pro.releases.html).
     * If you need an API which has not yet been implemented, don't hesitate to
@@ -132,7 +132,7 @@ Notes:
     `numberOfAliases` | Max number of mail alias accounts | `numberOfAliases=30`
     `senderBcc` | Per-domain sender bcc address | `senderBcc=user@domain.com`
     `recipientBcc` | Per-domain recipient bcc address | `recipientBcc=user@domain.com`
-    `is_backupmx` | Mark domain as Backup MX. If parameter `primarymx` is not given, MTA (Postfix) will query DNS record to get primary mx server. Conflicts with parameter `transport`. | `is_backupmx=yes` (or `no`)
+    `is_backupmx` | Mark domain as Backup MX. Must be used with parameter `primarymx`. Conflicts with parameter `transport`. | `is_backupmx=yes` (or `no`)
     `primarymx` | Hostname or IP address of primary MX, smtp port number is optional. Must be used with parameter `is_backupmx`. Conflicts with parameter `transport`. | `primarymx=202.96.134.133`, `primarymx=[mail.iredmail.org]:25`
     `catchall` | Per-domain catch-all account (a list of email addresses used to receive emails sent to non-existing addresses under same domain). Multiple addresses must be separated by comma. Set an empty value to disable catch-all support. | `catchall=user@domain.com,user2@domain.com` or `catchall=` (disable catch-all)
     `outboundRelay` | Per-domain outbound relay. Set an empty value to disable outbound relay. | `outboundRelay=smtp:[192.168.1.2]:25` or `outboundRelay=` (disable outbound relay)
@@ -172,7 +172,6 @@ Notes:
     wblist | Per-domain whitelists and blacklists
     spampolicy | Per-domain spam policy
     backupmx | Backup MX
-    password_policies | Password policies. including min/max password lengths.
     advanced | Some extra settings
 
     Available user profiles:

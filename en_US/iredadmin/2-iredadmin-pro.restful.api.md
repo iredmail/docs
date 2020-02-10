@@ -4,8 +4,8 @@
 
 !!! attention
 
-    * This document is applicable to `iRedAdmin-Pro-SQL-4.1` (and 4.1.1, 4.1.2) and
-      `iRedAdmin-Pro-LDAP-4.2`. If you're running an old release, please
+    * This document is applicable to `iRedAdmin-Pro-SQL-4.2` and
+      `iRedAdmin-Pro-LDAP-4.3`. If you're running an old release, please
       upgrade iRedAdmin-Pro to the latest release, or check
       [document for old releases](./iredadmin-pro.releases.html).
     * If you need an API which has not yet been implemented, don't hesitate to
@@ -132,7 +132,7 @@ Notes:
     `numberOfAliases` | Max number of mail alias accounts | `numberOfAliases=30`
     `senderBcc` | Per-domain sender bcc address | `senderBcc=user@domain.com`
     `recipientBcc` | Per-domain recipient bcc address | `recipientBcc=user@domain.com`
-    `is_backupmx` | Mark domain as Backup MX. Must be used with parameter `primarymx`. Conflicts with parameter `transport`. | `is_backupmx=yes` (or `no`)
+    `is_backupmx` | Mark domain as Backup MX. If parameter `primarymx` is not given, MTA (Postfix) will query DNS record to get primary mx server. Conflicts with parameter `transport`. | `is_backupmx=yes` (or `no`)
     `primarymx` | Hostname or IP address of primary MX, smtp port number is optional. Must be used with parameter `is_backupmx`. Conflicts with parameter `transport`. | `primarymx=202.96.134.133`, `primarymx=[mail.iredmail.org]:25`
     `catchall` | Per-domain catch-all account (a list of email addresses used to receive emails sent to non-existing addresses under same domain). Multiple addresses must be separated by comma. Set an empty value to disable catch-all support. | `catchall=user@domain.com,user2@domain.com` or `catchall=` (disable catch-all)
     `outboundRelay` | Per-domain outbound relay. Set an empty value to disable outbound relay. | `outboundRelay=smtp:[192.168.1.2]:25` or `outboundRelay=` (disable outbound relay)
@@ -172,6 +172,7 @@ Notes:
     wblist | Per-domain whitelists and blacklists
     spampolicy | Per-domain spam policy
     backupmx | Backup MX
+    password_policies | Password policies. including min/max password lengths.
     advanced | Some extra settings
 
     Available user profiles:
@@ -333,7 +334,7 @@ Notes:
     `employeeid` | User ID (or Employee Number) | `employeeid=My Employee ID`
     `transport` | Transport program | `transport=dovecot`
     `isGlobalAdmin` | Promote user to be a global admin. Possible values: `yes`, `no` | `isGlobalAdmin=yes`
-    `forwarding` | Per-user mail forwarding. Multiple addresses must be separated by comma. To save an email copy in mailbox, add original email address as one of forwarding addresses. | `forwarding=user1@domain.com,user2@domain.com,user3@domain.com`
+    `forwarding` | Reset per-user mail forwarding to given (valid) addresses. Multiple addresses must be separated by comma. To save an email copy in mailbox, add original email address as one of forwarding addresses. | `forwarding=user1@domain.com,user2@domain.com,user3@domain.com`
     `addForwarding` | Add per-user mail forwarding addresses. Multiple addresses must be separated by comma. __WARNING__: Conflict with parameter `forwarding`. | `addForwarding=user1@domain.com,user2@domain.com,user3@domain.com`
     `removeForwarding` | Remove existing per-user mail forwarding addresses. Multiple addresses must be separated by comma. __WARNING__: Conflict with parameter `forwarding`. | `removeForwarding=user1@domain.com,user2@domain.com,user3@domain.com`
     `senderBcc` | Per-user BCC for outbound emails. Only one email address is allowed. Parameter with empty value will remove existing sender bcc address. | `senderBcc=user1@domain.com` or <br/>`senderBcc=` (remove existing bcc address)
