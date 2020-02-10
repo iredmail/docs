@@ -38,6 +38,7 @@
 <li><a href="#custom-global-settings">Custom global settings</a></li>
 <li><a href="#third-party-or-custom-plugins">Third-party or custom plugins</a></li>
 <li><a href="#custom-settings-for-official-plugins">Custom settings for official plugins</a></li>
+<li><a href="#custom-settings-for-official-plugins-but-not-enabled-by-iredmail">Custom settings for official plugins but not enabled by iRedMail</a></li>
 <li><a href="#custom-skins">Custom skins</a></li>
 </ul>
 </li>
@@ -509,10 +510,11 @@ touch main config file <code>/opt/www/roundcubemail/config/config.inc.php</code>
 during iRedMail Easy deployment, but you need to create the symbol
 link manually if you don't want to run another deployment.</p>
 <h4 id="custom-settings-for-official-plugins">Custom settings for official plugins</h4>
-<p>iRedMail Easy enables 2 official plugins by default:</p>
+<p>iRedMail Easy enables 3 official plugins by default:</p>
 <ul>
 <li><code>password</code>: used by end users to change their own passwords.</li>
 <li><code>managesieve</code>: used by end users to custom mail filter rules.</li>
+<li><code>markasjunk</code>: used by end users to report spam or ham.</li>
 </ul>
 <p>If you have custom settings for plugins enabled by iRedMail Easy, please
 put the custom settings in file
@@ -521,23 +523,36 @@ put the custom settings in file
 <ul>
 <li>For <code>password</code> plugin: <code>/opt/iredmail/custom/roundcube/config_password.inc.php</code></li>
 <li>For <code>managesieve</code> plugin: <code>/opt/iredmail/custom/roundcube/config_managesieve.inc.php</code></li>
+<li>For <code>markasjunk</code> plugin: <code>/opt/iredmail/custom/roundcube/config_markasjunk.inc.php</code></li>
 </ul>
+<h4 id="custom-settings-for-official-plugins-but-not-enabled-by-iredmail">Custom settings for official plugins but not enabled by iRedMail</h4>
 <p>If you have custom settings for plugin which is not enabled by iRedMail
-Easy, please append a line to
-<code>/opt/www/roundcubemail/plugins/&lt;plugin-name&gt;/config.inc.php</code> like below:</p>
-<pre><code>require_once &quot;/opt/iredmail/custom/roundcube/config_&lt;plugin&gt;.inc.php&quot;;
+Easy:</p>
+<ul>
+<li>Add shell commands like below in <code>/opt/iredmail/custom/roundcube/custom.sh</code>
+(Note: replace <code>&lt;plugin&gt;</code> by the real plugin name):</li>
+</ul>
+<pre><code>cd /opt/www/roundcubemail/plugins/&lt;plugin&gt;/
+cp config.inc.php.dist config.inc.php
+echo 'require_once &quot;/opt/iredmail/custom/roundcube/config_&lt;plugin&gt;.inc.php&quot;;' &gt;&gt; config.inc.php
 </code></pre>
 
-<p>Then put all custom settings for this plugin to <code>/opt/iredmail/custom/roundcube/config_&lt;plugin&gt;.inc.php</code>.</p>
+<ul>
+<li>Create file <code>/opt/iredmail/custom/roundcube/config_&lt;plugin&gt;.inc.php</code> and
+  store all your custom settings in this file. <strong>WARNING</strong>: this file must be a
+  valid php file.</li>
+</ul>
 <p>For example, if you have custom settings for official plugin <code>enigma</code>, you
-should append this line to <code>/opt/www/roundcubemail/plugins/enigma/config.inc.php</code>:</p>
-<pre><code>require_once &quot;/opt/iredmail/custom/roundcube/config_enigma.inc.php&quot;;
+should add shell commands like below in <code>/opt/iredmail/custom/roundcube/custom.sh</code></p>
+<pre><code>cd /opt/www/roundcubemail/plugins/engma/
+cp config.inc.php.dist config.inc.php
+echo 'require_once &quot;/opt/iredmail/custom/roundcube/config_enigma.inc.php&quot;;' &gt;&gt; config.inc.php
 </code></pre>
 
 <p>Then put all custom settings for plugin <code>enigma</code> to
 <code>/opt/iredmail/custom/roundcube/config_enigma.inc.php</code>.</p>
-<p>This way if iRedMail Easy enables the plugin, it will successfully load
-your own custom settings and not mess it up.</p>
+<p>This way if iRedMail Easy enables this plugin in the future, it will
+successfully load your own custom settings and not mess it up.</p>
 <h4 id="custom-skins">Custom skins</h4>
 <p>All third-party or custom skins should be placed under <strong><code>/opt/iredmail/custom/roundcube/skins/</code></strong>.</p>
 <p>Skins will be linked to <code>/opt/www/roundcubemail/skins/</code> automatically
