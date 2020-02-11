@@ -441,7 +441,7 @@ For example, if you have custom settings for official plugin `enigma`, you
 should add shell commands like below in `/opt/iredmail/custom/roundcube/custom.sh`
 
 ```
-cd /opt/www/roundcubemail/plugins/engma/
+cd /opt/www/roundcubemail/plugins/engima/
 cp config.inc.php.dist config.inc.php
 echo 'require_once "/opt/iredmail/custom/roundcube/config_enigma.inc.php";' >> config.inc.php
 ```
