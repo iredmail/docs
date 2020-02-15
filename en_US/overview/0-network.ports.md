@@ -29,6 +29,7 @@ Port | Service | Software | Comment | Allow Public Access?
 7791 | http | iredadmin | iRedAdmin (standalone uwsgi instance). Introduced in iRedMail-0.9.9. | NO (listen on `127.0.0.1` by default)
 20000 | | SOGo | SOGo groupware  | NO (listen on `127.0.0.1` by default)
 11211 | | Memcached | A distributed, high performance memory object caching system. Currently used by only SOGo Groupware. | No (listen on `127.0.0.1` by default)
+12340 | | Dovecot | Dovecot quota status. Introduced in iRedMail-1.0. | NO (listen on `127.0.0.1` by default)
 24242 | | Dovecot | Dovecot service status. Introduced in iRedMail-0.9.8. | NO (listen on `127.0.0.1` by default)
 19999 | | Netdata | Netdata monitor. Introduced in iRedMail-0.9.8. | NO (listen on `127.0.0.1` by default)
 
