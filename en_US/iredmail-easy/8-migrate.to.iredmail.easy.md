@@ -20,8 +20,8 @@ For more details about iRedMail Easy platform, please
 ## Requirements
 
 - A working iRedMail server which was deployed with the downlodable installer
-  `iRedMail-0.9.9`, or has been successfully upgraded to the latest
-  iRedMail-0.9.9 release.
+  `iRedMail-1.1`, or has been successfully upgraded to the latest
+  iRedMail-1.1 release.
 - Your iRedMail server must be running one of supported Linux/OpenBSD
   distribution releases:
     - Ubuntu 18.04 LTS
