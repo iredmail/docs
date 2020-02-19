@@ -45,7 +45,7 @@ Run commands below as root user, these commands will:
 * Remove parameter `postmaster_address`
 * Rename plugin names and parameters:
     * `stats` -> `old_stats`
-    * `imap_status` -> `imap_old_stats`
+    * `imap_stats` -> `imap_old_stats`
     * `stats_refresh` -> `old_stats_refresh`
     * `service stats {}` -> `service old-stats {}`
     * `fifo_listener stats-mail {}` -> `fifo_listener old-stats-mail {}`
