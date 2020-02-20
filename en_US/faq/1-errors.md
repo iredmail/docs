@@ -222,7 +222,8 @@ This error message means mail domain name `mydomain.com` is:
 
 To solve this, please either use a different `myhostname` or don't use this
 domain name as mail domain (remove it with iRedAdmin). To use a different value
-for Postfix parameter `myhostname`, you must also change server hostname.
+for Postfix parameter `myhostname`, you must also
+[change server hostname](./change.server.hostname.html).
 
 ## Dovecot (IMAP / POP3)
 
