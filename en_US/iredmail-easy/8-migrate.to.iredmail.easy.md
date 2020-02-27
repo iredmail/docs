@@ -68,8 +68,8 @@ PostgreSQL | `sql_user_postgres` (Linux)<br/>`sql_user__postgresql` (OpenBSD) | 
 LDAP | `ldap_root_password` | Password of LDAP root dn (cn=Manager,dc=xx,dc=xx) |
 LDAP | `ldap_vmail_password` | Password of LDAP dn `cn=vmail,dc=xx,dc=xx` | `/etc/postfix/ldap/*.cf`
 LDAP | `ldap_vmailadmin_password` | Password of LDAP dn `cn=vmailadmin,dc=xx,dc=xx` | `/opt/www/iredadmin/settings.py`
-ALL | `sql_user_vmail` | Password of SQL user `vmail` | `/etc/postfix/mysql/*.cf` or `/etc/postfix/pgsql/*.cf`
-ALL | `sql_user_vmailadmin` | Password of SQL user `vmailadmin` | `/opt/www/iredadmin/settings.py`
+MySQL, PostgreSQL | `sql_user_vmail` | Password of SQL user `vmail` | `/etc/postfix/mysql/*.cf` or `/etc/postfix/pgsql/*.cf`
+MySQL, PostgreSQL | `sql_user_vmailadmin` | Password of SQL user `vmailadmin` | `/opt/www/iredadmin/settings.py`
 ALL | `sql_user_amavisd` | Password of SQL user `amavisd` | `/etc/amavisd/amavisd.conf` (Linux/OpenBSD)<br>`/etc/amavis/conf.d/50-user` (Debian/Ubuntu)
 ALL | `sql_user_sa_bayes` | Password of SQL user `sa_bayes` | `/etc/mail/spamassassin/local.cf`
 ALL | `sql_user_iredadmin` | Password of SQL user `iredadmin` | `/opt/www/iredadmin/settings.py`
