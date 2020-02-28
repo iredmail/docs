@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Upgrade iRedMail from 1.1 to 1.2</title>
+        <link rel="stylesheet" type="text/css" href="./css/markdown.css" />
+    </head>
+    <body>
+
+    <div id="navigation">
+    <a href="https://www.iredmail.org" target="_blank">
+        <img alt="iRedMail web site"
+             src="./images/logo-iredmail.png"
+             style="vertical-align: middle; height: 30px;"
+             />&nbsp;
+        <span>iRedMail</span>
+    </a>
+    &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><h1 id="upgrade-iredmail-from-11-to-12">Upgrade iRedMail from 1.1 to 1.2</h1>
+<div class="toc">
+<ul>
+<li><a href="#upgrade-iredmail-from-11-to-12">Upgrade iRedMail from 1.1 to 1.2</a><ul>
+<li><a href="#changelog">ChangeLog</a></li>
+<li><a href="#general-all-backends-should-apply-these-changes">General (All backends should apply these changes)</a><ul>
+<li><a href="#update-etciredmail-release-with-new-iredmail-version-number">Update /etc/iredmail-release with new iRedMail version number</a></li>
+</ul>
+</li>
+<li><a href="#for-openldap-backend">For OpenLDAP backend</a><ul>
+<li><a href="#improved-last-login-track">Improved last login track</a></li>
+</ul>
+</li>
+<li><a href="#for-mysqlmariadb-backends">For MySQL/MariaDB backends</a><ul>
+<li><a href="#improved-last-login-track_1">Improved last login track</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This is still a DRAFT document, do <strong>NOT</strong> apply it.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Paid Remote Upgrade Support</p>
+<p>We offer remote upgrade support if you don't want to get your hands dirty,
+check <a href="https://www.iredmail.org/support.html">the details</a> and
+<a href="https://www.iredmail.org/contact.html">contact us</a>.</p>
+</div>
+<h2 id="changelog">ChangeLog</h2>
+<ul>
+<li>XXX XX, 2020: initial release.</li>
+</ul>
+<h2 id="general-all-backends-should-apply-these-changes">General (All backends should apply these changes)</h2>
+<h3 id="update-etciredmail-release-with-new-iredmail-version-number">Update <code>/etc/iredmail-release</code> with new iRedMail version number</h3>
+<p>iRedMail stores the release version in <code>/etc/iredmail-release</code> after
+installation, it's recommended to update this file after you upgraded iRedMail,
+so that you can know which version of iRedMail you're running. For example:</p>
+<pre><code>1.2
+</code></pre>
+
+<h2 id="for-openldap-backend">For OpenLDAP backend</h2>
+<h3 id="improved-last-login-track">Improved last login track</h3>
+<p>In iRedMail-1.0, Dovecot is configured to store user last login time in SQL
+database <code>iredadmin</code>, but it only tracks either POP3 or IMAP login. In
+iRedMail-1.2, it tracks both, also track when new email was delivered via
+LMTP or LDA. Please follow steps below to implement this improvement.</p>
+<ul>
+<li>Open file <code>/etc/dovecot/dovecot.conf</code> (Linux/OpenBSD) or
+  <code>/usr/local/etc/dovecot/dovecot.conf</code> (FreeBSD), find the <code>last_login_key</code>
+  parameter and replace it by below one:</li>
+</ul>
+<pre><code>    last_login_key = last-login/%s/%u/%d
+</code></pre>
+
+<ul>
+<li>Open file <code>/etc/dovecot/dovecot-last-login.conf</code> (Linux/OpenBSD) or
+  <code>/usr/local/etc/dovecot/dovecot-last-login.conf</code> (FreeBSD), <strong>remove</strong> existing
+  <code>map {}</code> block and <strong>add</strong> 4 new <code>map {}</code> blocks used to track
+  POP3/IMAP/LMTP/LDA services.</li>
+</ul>
+<pre><code>map {
+    pattern = shared/last-login/imap/$user/$domain
+    table = last_login
+    value_field = imap
+    value_type = uint
+
+    fields {
+        username = $user
+        domain = $domain
+    }
+}
+
+map {
+    pattern = shared/last-login/pop3/$user/$domain
+    table = last_login
+    value_field = pop3
+    value_type = uint
+
+    fields {
+        username = $user
+        domain = $domain
+    }
+}
+
+map {
+    pattern = shared/last-login/lmtp/$user/$domain
+    table = last_login
+    value_field = lmtp
+    value_type = uint
+
+    fields {
+        username = $user
+        domain = $domain
+    }
+}
+
+map {
+    pattern = shared/last-login/lda/$user/$domain
+    table = last_login
+    value_field = lda
+    value_type = uint
+
+    fields {
+        username = $user
+        domain = $domain
+    }
+}
+</code></pre>
+
+<ul>
+<li>Download prepared SQL file used to alter SQL tables:</li>
+</ul>
+<pre><code>wget -O /root/last_login.mysql https://github.com/iredmail/iRedMail/raw/1.2/update/1.2/last_login.mysql
+mysql iredadmin &lt; /root/last_login.mysql
+rm -f /root/last_login.mysql
+</code></pre>
+
+<ul>
+<li>Restarting Dovecot service is required.</li>
+</ul>
+<h2 id="for-mysqlmariadb-backends">For MySQL/MariaDB backends</h2>
+<h3 id="improved-last-login-track_1">Improved last login track</h3>
+<p>In iRedMail-1.0, Dovecot is configured to store user last login time in SQL
+database <code>iredadmin</code>, but it only tracks either POP3 or IMAP login. In
+iRedMail-1.2, it tracks both, also track when new email was delivered via
+LMTP or LDA. Please follow steps below to implement this improvement.</p>
+<ul>
+<li>Open file <code>/etc/dovecot/dovecot.conf</code> (Linux/OpenBSD) or
+  <code>/usr/local/etc/dovecot/dovecot.conf</code> (FreeBSD), find the <code>last_login_key</code>
+  parameter and replace it by below one:</li>
+</ul>
+<pre><code>    last_login_key = last-login/%s/%u/%d
+</code></pre>
+
+<ul>
+<li>Open file <code>/etc/dovecot/dovecot-last-login.conf</code> (Linux/OpenBSD) or
+  <code>/usr/local/etc/dovecot/dovecot-last-login.conf</code> (FreeBSD), <strong>remove</strong> existing
+  <code>map {}</code> block and <strong>add</strong> 4 new <code>map {}</code> blocks used to track
+  POP3/IMAP/LMTP/LDA services.</li>
+</ul>
+<pre><code>map {
+    pattern = shared/last-login/imap/$user/$domain
+    table = last_login
+    value_field = imap
+    value_type = uint
+
+    fields {
+        username = $user
+        domain = $domain
+    }
+}
+
+map {
+    pattern = shared/last-login/pop3/$user/$domain
+    table = last_login
+    value_field = pop3
+    value_type = uint
+
+    fields {
+        username = $user
+        domain = $domain
+    }
+}
+
+map {
+    pattern = shared/last-login/lmtp/$user/$domain
+    table = last_login
+    value_field = lmtp
+    value_type = uint
+
+    fields {
+        username = $user
+        domain = $domain
+    }
+}
+
+map {
+    pattern = shared/last-login/lda/$user/$domain
+    table = last_login
+    value_field = lda
+    value_type = uint
+
+    fields {
+        username = $user
+        domain = $domain
+    }
+}
+</code></pre>
+
+<ul>
+<li>Download prepared SQL file used to alter SQL tables:</li>
+</ul>
+<pre><code>wget -O /root/last_login.mysql https://github.com/iredmail/iRedMail/raw/1.2/update/1.2/last_login.mysql
+mysql iredadmin &lt; /root/last_login.mysql
+rm -f /root/last_login.mysql
+</code></pre>
+
+<ul>
+<li>Restarting Dovecot service is required.</li>
+</ul><div class="footer">
+    <p style="text-align: center; color: grey;">All documents are available in <a href="https://github.com/iredmail/docs/">GitHub repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://github.com/iredmail/docs/archive/master.zip">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
+</div>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-3293801-21"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-3293801-21');
+</script>
+</body></html>
