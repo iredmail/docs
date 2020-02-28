@@ -76,9 +76,9 @@ map {
 }
 
 map {
-    pattern = shared/last-login/lmtp/$user/$domain
+    pattern = shared/last-login/lda/$user/$domain
     table = last_login
-    value_field = lmtp
+    value_field = lda
     value_type = uint
 
     fields {
@@ -87,8 +87,9 @@ map {
     }
 }
 
+# Treat lmtp as lda
 map {
-    pattern = shared/last-login/lda/$user/$domain
+    pattern = shared/last-login/lmtp/$user/$domain
     table = last_login
     value_field = lda
     value_type = uint
@@ -158,9 +159,9 @@ map {
 }
 
 map {
-    pattern = shared/last-login/lmtp/$user/$domain
+    pattern = shared/last-login/lda/$user/$domain
     table = last_login
-    value_field = lmtp
+    value_field = lda
     value_type = uint
 
     fields {
@@ -169,8 +170,9 @@ map {
     }
 }
 
+# Treat lmtp as lda
 map {
-    pattern = shared/last-login/lda/$user/$domain
+    pattern = shared/last-login/lmtp/$user/$domain
     table = last_login
     value_field = lda
     value_type = uint
@@ -186,7 +188,7 @@ map {
 
 ```
 wget -O /root/last_login.mysql https://github.com/iredmail/iRedMail/raw/1.2/update/1.2/last_login.mysql
-mysql iredadmin < /root/last_login.mysql
+mysql vmail < /root/last_login.mysql
 rm -f /root/last_login.mysql
 ```
 
