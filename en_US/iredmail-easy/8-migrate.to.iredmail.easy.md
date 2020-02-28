@@ -44,6 +44,19 @@ Please backup all important data before preparing the migration, including but n
     After moved to iRedMail Easy, you should place all your custom settings in files
     under `/opt/iredmail/custom/<software>/`.
 
+## MySQL backend: Remove MySQL (not MariaDB) packages
+
+!!! attention
+
+    This is not necessary if you're running MariaDB backend.
+
+iRedMail Easy installs MariaDB instead of MySQL, if you're running MySQL
+backend, you need to:
+
+- Backup all databases
+- Remove mysql packages
+- Restore backup SQL files after iRedMail Easy installation
+
 ## Create required files used by iRedMail Easy
 
 iRedMail Easy doesn't store any SQL/LDAP passwords on its deployment servers,
