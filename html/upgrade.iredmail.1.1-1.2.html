@@ -73,6 +73,21 @@ LMTP or LDA. Please follow steps below to implement this improvement.</p>
 </code></pre>
 
 <ul>
+<li>Append service name <code>last_login</code> to the <code>mail_plugins =</code> line inside both
+  <code>protocol lda {}</code> and <code>protocol lmtp {}</code> blocks like below:</li>
+</ul>
+<pre><code>protocol lda {
+    mail_plugins = ... last_login
+    ...
+}
+
+protocol lmtp {
+    mail_plugins = ... last_login
+    ...
+}
+</code></pre>
+
+<ul>
 <li>Open file <code>/etc/dovecot/dovecot-last-login.conf</code> (Linux/OpenBSD) or
   <code>/usr/local/etc/dovecot/dovecot-last-login.conf</code> (FreeBSD), <strong>remove</strong> existing
   <code>map {}</code> block and <strong>add</strong> 4 new <code>map {}</code> blocks used to track

@@ -45,6 +45,21 @@ LMTP or LDA. Please follow steps below to implement this improvement.
     last_login_key = last-login/%s/%u/%d
 ```
 
+* Append service name `last_login` to the `mail_plugins =` line inside both
+  `protocol lda {}` and `protocol lmtp {}` blocks like below:
+
+```
+protocol lda {
+    mail_plugins = ... last_login
+    ...
+}
+
+protocol lmtp {
+    mail_plugins = ... last_login
+    ...
+}
+```
+
 * Open file `/etc/dovecot/dovecot-last-login.conf` (Linux/OpenBSD) or
   `/usr/local/etc/dovecot/dovecot-last-login.conf` (FreeBSD), __remove__ existing
   `map {}` block and __add__ 4 new `map {}` blocks used to track
