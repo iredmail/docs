@@ -70,30 +70,55 @@ this issue.
 
 > With old iRedAPD releases, the error messages may be one of below:
 >
-> `SMTP AUTH is required, or it is a spam with forged sender domain`
->
-> `Recipient address rejected: Policy rejection not logged in`
+> * `SMTP AUTH is required, or it is a spam with forged sender domain`
+> * `Recipient address rejected: Policy rejection not logged in`
 
 This error message means sender domain is hosted locally on your iRedMail
 server, but sender doesn't perform SMTP AUTH to send email.
 
-* If this email is sent from your server, that means your mail client
-  application (Outlook, Thunderbird, etc) is not configured to perform SMTP
-  authentication. Please enable it.
-* If this is not sent by a server or device under your control, most likely this
-  email is spam with forged sender address, it's safe to ignore it.
-* If this is sent by a server or device under your control and you want to
-  bypass this email, you can whitelist the IP address of this server/device in
-  iRedAPD config file `/opt/iredapd/settings.py` like below:
+1. If the email is not sent by a server or device under your control, most
+   likely this email is spam with forged sender address, it's safe to ignore it
+   in this case.
+1. If the email is sent from your server, that means your MUA (Mail User Agent,
+   e.g. Outlook, Thunderbird, etc) is not configured to perform SMTP
+   authentication to send email. Enabling smtp auth will fix this automatically.
+1. If the email is sent from a server or device __NOT__ under your control,
+   you want to bypass the email sent from this sender address but not the whole
+   server, please list this sender address in iRedAPD config file
+   `/opt/iredapd/settings.py`, parameter `ALLOWED_FORGED_SENDERS` like below:
 
-```
-MYNETWORKS = ['192.168.0.10', '192.168.0.20', '192.168.0.30']
-```
+    ```
+    ALLOWED_FORGED_SENDERS = ['user@domain.com']
+    ```
 
-Notes:
+    !!! warning
 
-* This parameter doesn't exist by default, feel free to add it.
-* Parameter name `MYNETWORKS` is case SeNsItIvE.
+        With this setting, iRedAPD accepts all emails with this forged address
+        from __ANY__ mail server.
+
+    Notes:
+
+    * This parameter doesn't exist in `/opt/iredapd/settings.py` by default,
+      feel free to add it manually. You can find detailed comments in file
+      `/opt/iredapd/libs/default_settings.py`, read the comments to understand
+      it better.
+    * This parameter name must be in upper cases.
+
+1. If the email is sent by a server or device under your control and you want to
+   trust this server/device and bypass all emails, you can whitelist the IP
+   address of this server/device in iRedAPD config file `/opt/iredapd/settings.py` like below:
+
+    ```
+    MYNETWORKS = ['192.168.0.10', '192.168.0.20', '192.168.0.30']
+    ```
+
+    Notes:
+
+    * This parameter doesn't exist in `/opt/iredapd/settings.py` by default,
+      feel free to add it manually. You can find detailed comments in file
+      `/opt/iredapd/libs/default_settings.py`, read the comments to understand
+      it better.
+    * This parameter name must be in upper cases.
 
 ### Recipient address rejected: Sender is not same as SMTP authenticate username
 
