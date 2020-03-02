@@ -36,23 +36,17 @@ mx.example.com
 
 在 RHEL/CentOS 系统上，主机名需要在两个文件里设置：
 
-* 对于 RHEL/CentOS 6，主机名定义在 `/etc/sysconfig/network`:
+1. 对于 RHEL/CentOS 7 和 8，主机名定义在 `/etc/hostname`.
 
-```
-HOSTNAME=mx.example.com
-```
+    ```
+    mx.example.com
+    ```
 
-对于 RHEL/CentOS 7，主机名定义在 `/etc/hostname`.
+1. 在 `/etc/hosts` 里定义主机名和 IP 地址的对应关系。注意：一定要将 FQDN 主机名列在第一个。
 
-```
-mx.example.com
-```
-
-* 在 `/etc/hosts` 里定义主机名和 IP 地址的对应关系。注意：一定要将 FQDN 主机名列在第一个。
-
-```
-127.0.0.1   mx.example.com mx localhost localhost.localdomain
-```
+    ```
+    127.0.0.1   mx.example.com mx localhost localhost.localdomain
+    ```
 
 确认系统已使用设置好的 FQDN 作为主机名。如果没有生效，请重启系统。
 
@@ -107,6 +101,14 @@ SELINUX=permissive
 ```
 cd /root/iRedMail-x.y.z/
 bash iRedMail.sh
+```
+
+如果是在 CentOS 8 系统上安装，iRedMail 安装程序会使用 `pip2` 命令安装几个
+Python-2 的模块，国内用户请指定镜像站点完成安装，否则很大可能会因网络问题
+导致安装失败：
+
+```
+PIP_MIRROR_SITE='http://pypi.douban.com/simple/' PIP_TRUSTED_HOST=pypi.douban.com bash iRedMail.sh
 ```
 
 ## 安装过程的截图

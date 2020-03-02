@@ -81,22 +81,16 @@ mx.example.com
 </code></pre>
 
 <p>On RHEL/CentOS/Scientific Linux, hostname is set in two files:</p>
-<ul>
-<li>For RHEL/CentOS/Scientific Linux 6, hostname is defined in <code>/etc/sysconfig/network</code>:</li>
-</ul>
-<pre><code>HOSTNAME=mx.example.com
-</code></pre>
-
-<p>For RHEL/CentOS/Scientific Linux 7, hostname is defined in <code>/etc/hostname</code>.</p>
-<pre><code>mx.example.com
-</code></pre>
-
-<ul>
-<li><code>/etc/hosts</code>: hostname &lt;=&gt; IP address mapping. Warning: List the FQDN hostname as first item.</li>
-</ul>
-<pre><code>127.0.0.1   mx.example.com mx localhost localhost.localdomain
-</code></pre>
-
+<ol>
+<li>
+<p><code>/etc/hostname</code>:</p>
+<p><code>mx.example.com</code></p>
+</li>
+<li>
+<p><code>/etc/hosts</code>: hostname &lt;=&gt; IP address mapping. Warning: List the FQDN hostname as first item.</p>
+<p><code>127.0.0.1   mx.example.com mx localhost localhost.localdomain</code></p>
+</li>
+</ol>
 <p>Verify the FQDN hostname. If it wasn't changed, please reboot server to make it work.</p>
 <pre><code>$ hostname -f
 mx.example.com
@@ -121,16 +115,18 @@ set below value instead:</p>
 <h3 id="enable-yum-repositories-for-installing-new-packages">Enable yum repositories for installing new packages</h3>
 <ul>
 <li>
-<p>For CentOS or Scientific Linux, please</p>
+<p>On CentOS:</p>
 <ul>
-<li>enable CentOS/Scientific official yum repositories and <code>epel</code> repo.</li>
+<li>Enable official yum repositories. On CentOS 8, please make sure repo
+  <code>AppStream</code> and <code>PowerTools</code> are enabled.</li>
+<li>Enable repo <code>epel</code>.</li>
 <li><strong>DISABLE</strong> all other third-party yum repositories to avoid package conflict.</li>
 </ul>
 </li>
 <li>
-<p>For Red Hat Enterprise Linux, please</p>
+<p>On Red Hat Enterprise Linux:</p>
 <ul>
-<li>enable Red Hat Network to install packages, or create a local yum repository with DVD/CD ISO images.</li>
+<li>Enable Red Hat Network to install packages, or create a local yum repository with DVD/CD ISO images.</li>
 <li>Enable <code>epel</code> repo (you can enable it by installing package <code>epel-release</code>)</li>
 </ul>
 </li>

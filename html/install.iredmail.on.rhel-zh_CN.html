@@ -67,22 +67,16 @@ mx.example.com
 </code></pre>
 
 <p>在 RHEL/CentOS 系统上，主机名需要在两个文件里设置：</p>
-<ul>
-<li>对于 RHEL/CentOS 6，主机名定义在 <code>/etc/sysconfig/network</code>:</li>
-</ul>
-<pre><code>HOSTNAME=mx.example.com
-</code></pre>
-
-<p>对于 RHEL/CentOS 7，主机名定义在 <code>/etc/hostname</code>.</p>
-<pre><code>mx.example.com
-</code></pre>
-
-<ul>
-<li>在 <code>/etc/hosts</code> 里定义主机名和 IP 地址的对应关系。注意：一定要将 FQDN 主机名列在第一个。</li>
-</ul>
-<pre><code>127.0.0.1   mx.example.com mx localhost localhost.localdomain
-</code></pre>
-
+<ol>
+<li>
+<p>对于 RHEL/CentOS 7 和 8，主机名定义在 <code>/etc/hostname</code>.</p>
+<p><code>mx.example.com</code></p>
+</li>
+<li>
+<p>在 <code>/etc/hosts</code> 里定义主机名和 IP 地址的对应关系。注意：一定要将 FQDN 主机名列在第一个。</p>
+<p><code>127.0.0.1   mx.example.com mx localhost localhost.localdomain</code></p>
+</li>
+</ol>
 <p>确认系统已使用设置好的 FQDN 作为主机名。如果没有生效，请重启系统。</p>
 <pre><code>$ hostname -f
 mx.example.com
@@ -126,6 +120,12 @@ mx.example.com
 <p>现在可以运行 iRedMail 安装程序了，它会问你几个简单的问题，仅此而已。</p>
 <pre><code>cd /root/iRedMail-x.y.z/
 bash iRedMail.sh
+</code></pre>
+
+<p>如果是在 CentOS 8 系统上安装，iRedMail 安装程序会使用 <code>pip2</code> 命令安装几个
+Python-2 的模块，国内用户请指定镜像站点完成安装，否则很大可能会因网络问题
+导致安装失败：</p>
+<pre><code>PIP_MIRROR_SITE='http://pypi.douban.com/simple/' PIP_TRUSTED_HOST=pypi.douban.com bash iRedMail.sh
 </code></pre>
 
 <h2 id="_3">安装过程的截图</h2>

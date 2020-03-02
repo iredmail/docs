@@ -49,23 +49,17 @@ mx.example.com
 
 On RHEL/CentOS/Scientific Linux, hostname is set in two files:
 
-* For RHEL/CentOS/Scientific Linux 6, hostname is defined in `/etc/sysconfig/network`:
+1. `/etc/hostname`:
 
-```
-HOSTNAME=mx.example.com
-```
+    ```
+    mx.example.com
+    ```
 
-For RHEL/CentOS/Scientific Linux 7, hostname is defined in `/etc/hostname`.
+1. `/etc/hosts`: hostname <=> IP address mapping. Warning: List the FQDN hostname as first item.
 
-```
-mx.example.com
-```
-
-* `/etc/hosts`: hostname <=> IP address mapping. Warning: List the FQDN hostname as first item.
-
-```
-127.0.0.1   mx.example.com mx localhost localhost.localdomain
-```
+    ```
+    127.0.0.1   mx.example.com mx localhost localhost.localdomain
+    ```
 
 Verify the FQDN hostname. If it wasn't changed, please reboot server to make it work.
 
@@ -99,12 +93,14 @@ Disable it immediately without rebooting your server.
 
 ### Enable yum repositories for installing new packages
 
-* For CentOS or Scientific Linux, please
-    - enable CentOS/Scientific official yum repositories and `epel` repo.
+* On CentOS:
+    - Enable official yum repositories. On CentOS 8, please make sure repo
+      `AppStream` and `PowerTools` are enabled.
+    - Enable repo `epel`.
     - __DISABLE__ all other third-party yum repositories to avoid package conflict.
 
-* For Red Hat Enterprise Linux, please
-    - enable Red Hat Network to install packages, or create a local yum repository with DVD/CD ISO images.
+* On Red Hat Enterprise Linux:
+    - Enable Red Hat Network to install packages, or create a local yum repository with DVD/CD ISO images.
     - Enable `epel` repo (you can enable it by installing package `epel-release`)
 
 !!! attention
