@@ -46,8 +46,8 @@ Go to domain profile page, click tab `Backup MX`:
 
 !!! note "Primary server address"
 
-    You should set the IP address of primary MX as relay server to avoid mail
-    loop.
+    It's recommended to set the IP address of primary MX as relay server to
+    avoid mail loop.
 
 SQL commands (we use MySQL for example):
 
