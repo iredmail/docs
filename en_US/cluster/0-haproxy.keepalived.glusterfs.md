@@ -4,7 +4,7 @@
 
 !!! warning
 
-    This tutorial was contributed by Setyo Prayitno <<jrsetyo _at_ gmail.com>>
+    This tutorial was contributed by Setyo Prayitno `<jrsetyo _at_ gmail.com>`
     (forum user name `t10`) [on March 13, 2016](https://forum.iredmail.org/topic10773.html).
     Thanks Setyo. :) iRedMail Team doesn't offer tech support for this setup.
 
