@@ -28,6 +28,32 @@ so that you can know which version of iRedMail you're running. For example:
 1.2
 ```
 
+### Fixed: mail delivery abort if program 'altermime' is not available
+
+The script `mlmmj-amime-receive` has a bug which may abort mail delivery if
+program `altermime` is not available on the system, this update fixes it.
+
+Run commands below to update file `/usr/bin/mlmmj-amime-receive` (Linux) or
+`/usr/local/bin/mlmmj-amime-receive` (FreeBSD/OpenBSD):
+
+On Linux:
+
+```
+cd /usr/bin/
+wget -O mlmmj-amime-receive https://github.com/iredmail/iRedMail/raw/1.2/samples/mlmmj/mlmmj-amime-receive
+chown mlmmj:mlmmj mlmmj-amime-receive
+chmod 0550 mlmmj-amime-receive
+```
+
+On FreeBSD or OpenBSD:
+
+```
+cd /usr/local/bin/
+wget -O mlmmj-amime-receive https://github.com/iredmail/iRedMail/raw/1.2/samples/mlmmj/mlmmj-amime-receive
+chown mlmmj:mlmmj mlmmj-amime-receive
+chmod 0550 mlmmj-amime-receive
+```
+
 ## For OpenLDAP backend
 
 ### Improved last login track

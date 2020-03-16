@@ -22,6 +22,7 @@
 <li><a href="#changelog">ChangeLog</a></li>
 <li><a href="#general-all-backends-should-apply-these-changes">General (All backends should apply these changes)</a><ul>
 <li><a href="#update-etciredmail-release-with-new-iredmail-version-number">Update /etc/iredmail-release with new iRedMail version number</a></li>
+<li><a href="#fixed-mail-delivery-abort-if-program-altermime-is-not-available">Fixed: mail delivery abort if program 'altermime' is not available</a></li>
 </ul>
 </li>
 <li><a href="#for-openldap-backend">For OpenLDAP backend</a><ul>
@@ -56,6 +57,25 @@ check <a href="https://www.iredmail.org/support.html">the details</a> and
 installation, it's recommended to update this file after you upgraded iRedMail,
 so that you can know which version of iRedMail you're running. For example:</p>
 <pre><code>1.2
+</code></pre>
+
+<h3 id="fixed-mail-delivery-abort-if-program-altermime-is-not-available">Fixed: mail delivery abort if program 'altermime' is not available</h3>
+<p>The script <code>mlmmj-amime-receive</code> has a bug which may abort mail delivery if
+program <code>altermime</code> is not available on the system, this update fixes it.</p>
+<p>Run commands below to update file <code>/usr/bin/mlmmj-amime-receive</code> (Linux) or
+<code>/usr/local/bin/mlmmj-amime-receive</code> (FreeBSD/OpenBSD):</p>
+<p>On Linux:</p>
+<pre><code>cd /usr/bin/
+wget -O mlmmj-amime-receive https://github.com/iredmail/iRedMail/raw/1.2/samples/mlmmj/mlmmj-amime-receive
+chown mlmmj:mlmmj mlmmj-amime-receive
+chmod 0550 mlmmj-amime-receive
+</code></pre>
+
+<p>On FreeBSD or OpenBSD:</p>
+<pre><code>cd /usr/local/bin/
+wget -O mlmmj-amime-receive https://github.com/iredmail/iRedMail/raw/1.2/samples/mlmmj/mlmmj-amime-receive
+chown mlmmj:mlmmj mlmmj-amime-receive
+chmod 0550 mlmmj-amime-receive
 </code></pre>
 
 <h2 id="for-openldap-backend">For OpenLDAP backend</h2>
