@@ -197,6 +197,15 @@ tag. Note that the same identity can have multiple identifiers.
 
 * Run command in terminal to show your DKIM keys:
 
+    !!! attention
+
+        * On some Linux/BSD distribution, you should use command `amavisd-new`
+          instead of `amavisd`.
+        * If it complains `/etc/amavisd.conf not found`, please
+          run the command with path to its config file. For example:
+
+            `amavisd -c /etc/amavisd/amavisd.conf showkeys`
+
 ```bash
 # amavisd showkeys
 dkim._domainkey.mydomain.com.   3600 TXT (
@@ -205,14 +214,6 @@ dkim._domainkey.mydomain.com.   3600 TXT (
   "txFUt0ec5+1dWmcDv0WH0qZLFK711sibNN5LutvnaiuH+w3Kr8Ylbw8gq2j0UBok"
   "FcMycUvOBd7nsYn/TUrOua3Nns+qKSJBy88IWSh2zHaGbjRYujyWSTjlPELJ0H+5"
   "EV711qseo/omquskkwIDAQAB")
-```
-
-__Note__: On some Linux/BSD distribution, you should use command `amavisd-new`
-instead of `amavisd`. if it complains `/etc/amavisd.conf not found`, you should
-tell amavisd the correct path of its config file. For example:
-
-```shell
-# amavisd -c /etc/amavisd/amavisd.conf showkeys
 ```
 
 * Copy output of command above into one line like below, remove all quotes, but

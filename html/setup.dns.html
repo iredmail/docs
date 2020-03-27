@@ -209,7 +209,20 @@ IDentifier (SDID) and is contained in the DKIM-Signature header fields <code>d=<
 tag. Note that the same identity can have multiple identifiers.</p>
 <h3 id="how-to-setup-the-dkim-record">How to setup the DKIM record</h3>
 <ul>
-<li>Run command in terminal to show your DKIM keys:</li>
+<li>
+<p>Run command in terminal to show your DKIM keys:</p>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<ul>
+<li>On some Linux/BSD distribution, you should use command <code>amavisd-new</code>
+  instead of <code>amavisd</code>.</li>
+<li>If it complains <code>/etc/amavisd.conf not found</code>, please
+  run the command with path to its config file. For example:</li>
+</ul>
+<pre><code>`amavisd -c /etc/amavisd/amavisd.conf showkeys`
+</code></pre>
+</div>
+</li>
 </ul>
 <pre><code class="bash"># amavisd showkeys
 dkim._domainkey.mydomain.com.   3600 TXT (
@@ -218,12 +231,6 @@ dkim._domainkey.mydomain.com.   3600 TXT (
   &quot;txFUt0ec5+1dWmcDv0WH0qZLFK711sibNN5LutvnaiuH+w3Kr8Ylbw8gq2j0UBok&quot;
   &quot;FcMycUvOBd7nsYn/TUrOua3Nns+qKSJBy88IWSh2zHaGbjRYujyWSTjlPELJ0H+5&quot;
   &quot;EV711qseo/omquskkwIDAQAB&quot;)
-</code></pre>
-
-<p><strong>Note</strong>: On some Linux/BSD distribution, you should use command <code>amavisd-new</code>
-instead of <code>amavisd</code>. if it complains <code>/etc/amavisd.conf not found</code>, you should
-tell amavisd the correct path of its config file. For example:</p>
-<pre><code class="shell"># amavisd -c /etc/amavisd/amavisd.conf showkeys
 </code></pre>
 
 <ul>
