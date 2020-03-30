@@ -44,7 +44,7 @@ Please update Dovecot config file `/etc/dovecot/dovecot.conf` to:
 
 ```
 # Store METADATA information within user's HOME directory
-mail_attribute_dict = file:%h/dovecot-attributes
+mail_attribute_dict = file:%Lh/dovecot-attributes
 
 protocol imap {
     ...

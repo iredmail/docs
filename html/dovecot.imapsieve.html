@@ -75,7 +75,7 @@ server can precisely catch more spams.</p>
 <li>Add required settings for <code>imap_sieve</code> in <code>plugin {}</code> section.</li>
 </ul>
 <pre><code># Store METADATA information within user's HOME directory
-mail_attribute_dict = file:%h/dovecot-attributes
+mail_attribute_dict = file:%Lh/dovecot-attributes
 
 protocol imap {
     ...
