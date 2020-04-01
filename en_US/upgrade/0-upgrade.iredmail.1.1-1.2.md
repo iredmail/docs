@@ -152,6 +152,17 @@ rm -f /root/last_login.mysql
 
 * Restarting Dovecot service is required.
 
+### Fixed: can not store mail subject with emoji characters in `amavisd` database
+
+In `amavisd` database, column `msgs.subject` is defined as `VARCHAR(255)`, it
+doesn't support emoji characters. Please login to MySQL/MariaDB server as `root`
+user or `amavisd` user, then run SQL commands below to fix it:
+
+```
+USE amavisd;
+ALTER TABLE msgs MODIFY COLUMN subject VARBINARY(255) NOT NULL DEFAULT '';
+```
+
 ## For MySQL/MariaDB backends
 
 ### Improved last login track
@@ -234,3 +245,14 @@ rm -f /root/last_login.mysql
 ```
 
 * Restarting Dovecot service is required.
+
+### Fixed: can not store mail subject with emoji characters in `amavisd` database
+
+In `amavisd` database, column `msgs.subject` is defined as `VARCHAR(255)`, it
+doesn't support emoji characters. Please login to MySQL/MariaDB server as `root`
+user or `amavisd` user, then run SQL commands below to fix it:
+
+```
+USE amavisd;
+ALTER TABLE msgs MODIFY COLUMN subject VARBINARY(255) NOT NULL DEFAULT '';
+```
