@@ -33,7 +33,7 @@ supported by iRedMail.
 
 ```
 # cd /root
-# tar zjf iRedAPD-3.5.tar.gz
+# tar zxf iRedAPD-3.5.tar.gz
 # cd iRedAPD-3.5/tools/
 # bash upgrade_iredapd.sh
 ```
