@@ -22,7 +22,7 @@ With iRedAdmin-Pro, you can login as global admin, go to
 ## How it works
 
 When some (bad) client triggers the ban, Fail2ban will perform actions defined
-in `action =` parameter in jail config file. For example, in jail `dovecot`
+in `action =` parameter in jail config file. For example, in jail `dovecot-iredmail`
 (`/etc/fail2ban/jail.d/dovecot.local`):
 
 ```

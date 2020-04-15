@@ -50,7 +50,7 @@ minute, a cron job will call <code>fail2ban-client</code> to actually unban it.<
 <p><img alt="" src="./images/iredadmin/activity_banned_ip_addresses.png" width="900px" /></p>
 <h2 id="how-it-works">How it works</h2>
 <p>When some (bad) client triggers the ban, Fail2ban will perform actions defined
-in <code>action =</code> parameter in jail config file. For example, in jail <code>dovecot</code>
+in <code>action =</code> parameter in jail config file. For example, in jail <code>dovecot-iredmail</code>
 (<code>/etc/fail2ban/jail.d/dovecot.local</code>):</p>
 <pre><code>[dovecot-iredmail]
 enabled     = ...
