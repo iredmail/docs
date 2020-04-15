@@ -173,9 +173,10 @@ chmod 0550 /usr/local/bin/fail2ban_banned_db
 <p>File <code>/etc/fail2ban/action.d/banned_db.conf</code> indicates we now have a new action
 named <code>banned_db</code> (it's file name without extension). Feel free to open this
 file and check what it does.</p>
-<p>Script <code>/usr/local/bin/fail2ban_banned_db</code> will read <code>/root/.my.cnf-fail2ban</code>
-(OpenLDAP/MySQL/MariaDB backends) or <code>~postgresql/.pgpass</code> (PostgreSQL backend)
-to read SQL credential.</p>
+<p>Script <code>/usr/local/bin/fail2ban_banned_db</code> will read SQL username and password
+from <code>/root/.my.cnf-fail2ban</code> (OpenLDAP/MySQL/MariaDB backends) or
+<code>~postgresql/.pgpass</code> (PostgreSQL backend), then connect to SQL server and
+add or remove banned IP addresses.</p>
 <h2 id="enable-the-new-action-banned_db">Enable the new action <code>banned_db</code></h2>
 <p>Now go to <code>/etc/fail2ban/jail.d/</code> and update config files for the jails you
 want to store banned IP in SQL db. Let's take <code>dovecot.local</code> for example.</p>

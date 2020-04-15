@@ -155,9 +155,10 @@ File `/etc/fail2ban/action.d/banned_db.conf` indicates we now have a new action
 named `banned_db` (it's file name without extension). Feel free to open this
 file and check what it does.
 
-Script `/usr/local/bin/fail2ban_banned_db` will read `/root/.my.cnf-fail2ban`
-(OpenLDAP/MySQL/MariaDB backends) or `~postgresql/.pgpass` (PostgreSQL backend)
-to read SQL credential.
+Script `/usr/local/bin/fail2ban_banned_db` will read SQL username and password
+from `/root/.my.cnf-fail2ban` (OpenLDAP/MySQL/MariaDB backends) or
+`~postgresql/.pgpass` (PostgreSQL backend), then connect to SQL server and
+add or remove banned IP addresses.
 
 ## Enable the new action `banned_db`
 
