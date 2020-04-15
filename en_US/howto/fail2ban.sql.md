@@ -55,7 +55,7 @@ actionban = ...
 
 # Notes.:  command executed when unbanning an IP. Take care that the
 #          command is executed with Fail2Ban user rights.
-actionunban = <iptables> -D f2b-<name> -s <ip> -j <blocktype>
+actionunban = ...
 ```
 
 In this tutorial, we will add a custom action config file and update jail
