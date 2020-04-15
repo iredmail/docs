@@ -71,20 +71,21 @@ user <code>iredapd</code>.</p>
 <li>Disable iredapd service.</li>
 </ol>
 <h2 id="how-to-enable-or-disable-iredapd-plugins">How to enable or disable iRedAPD plugins</h2>
-<p>iRedAPD plugin is Python file under <code>/opt/iredapd/plugins/</code> directory. To
+<p>iRedAPD plugins are Python files under <code>/opt/iredapd/plugins/</code> directory. To
 enable a plugin, please find line <code>plugins =</code> in iRedAPD config file
 <code>/opt/iredapd/settings.py</code>, for example:</p>
-<pre><code>plugins = ['reject_null_sender', 'amavisd_wblist', 'greylisting', 'throttle']
+<pre><code>plugins = ['greylisting', 'throttle']
 </code></pre>
 
 <p>If you want to enable plugin <code>reject_sender_login_mismatch</code> (file
 <code>/opt/iredapd/plugins/reject_sender_login_mismatch.py</code>), please add the plugin
-name in <code>plugins =</code> like below, and restart iRedAPD service:</p>
-<pre><code>plugins = ['reject_null_sender', 'amavisd_wblist', 'greylisting', 'throttle', 'reject_sender_login_mismatch']
+name without extension <code>.py</code> in <code>plugins =</code> like below, then restart iRedAPD
+service:</p>
+<pre><code>plugins = ['greylisting', 'throttle', 'reject_sender_login_mismatch']
 </code></pre>
 
 <p>The priorities of plugins shipped in iRedAPD are hard-coded, so the order of
-plugin name in <code>plugins =</code> doesn't matter.</p>
+plugin names doesn't matter.</p>
 <p>To disable a plugin, just remove the plugin name and restart iRedAPD service.</p>
 <h2 id="how-to-add-custom-settings">How to add custom settings</h2>
 <p>iRedAPD has some default settings in file

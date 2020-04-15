@@ -27,24 +27,25 @@ To disable iRedAPD service:
 
 ## How to enable or disable iRedAPD plugins
 
-iRedAPD plugin is Python file under `/opt/iredapd/plugins/` directory. To
+iRedAPD plugins are Python files under `/opt/iredapd/plugins/` directory. To
 enable a plugin, please find line `plugins =` in iRedAPD config file
 `/opt/iredapd/settings.py`, for example:
 
 ```
-plugins = ['reject_null_sender', 'amavisd_wblist', 'greylisting', 'throttle']
+plugins = ['greylisting', 'throttle']
 ```
 
 If you want to enable plugin `reject_sender_login_mismatch` (file
 `/opt/iredapd/plugins/reject_sender_login_mismatch.py`), please add the plugin
-name in `plugins =` like below, and restart iRedAPD service:
+name without extension `.py` in `plugins =` like below, then restart iRedAPD
+service:
 
 ```
-plugins = ['reject_null_sender', 'amavisd_wblist', 'greylisting', 'throttle', 'reject_sender_login_mismatch']
+plugins = ['greylisting', 'throttle', 'reject_sender_login_mismatch']
 ```
 
 The priorities of plugins shipped in iRedAPD are hard-coded, so the order of
-plugin name in `plugins =` doesn't matter.
+plugin names doesn't matter.
 
 To disable a plugin, just remove the plugin name and restart iRedAPD service.
 

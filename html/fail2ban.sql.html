@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Fail2ban: Store banned IP addresses in SQL database</title>
+        <link rel="stylesheet" type="text/css" href="./css/markdown.css" />
+    </head>
+    <body>
+
+    <div id="navigation">
+    <a href="https://www.iredmail.org" target="_blank">
+        <img alt="iRedMail web site"
+             src="./images/logo-iredmail.png"
+             style="vertical-align: middle; height: 30px;"
+             />&nbsp;
+        <span>iRedMail</span>
+    </a>
+    &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><h1 id="fail2ban-store-banned-ip-addresses-in-sql-database">Fail2ban: Store banned IP addresses in SQL database</h1>
+<div class="toc">
+<ul>
+<li><a href="#fail2ban-store-banned-ip-addresses-in-sql-database">Fail2ban: Store banned IP addresses in SQL database</a><ul>
+<li><a href="#summary">Summary</a></li>
+<li><a href="#how-it-works">How it works</a></li>
+<li><a href="#create-required-sql-database">Create required SQL database</a><ul>
+<li><a href="#for-openldap-backend-and-mysqlmariadb-backends">For OpenLDAP backend and MySQL/MariaDB backends</a></li>
+<li><a href="#for-postgresql-backend">For PostgreSQL backend</a></li>
+</ul>
+</li>
+<li><a href="#add-required-fail2ban-config-file-and-script">Add required Fail2ban config file and script</a></li>
+<li><a href="#enable-the-new-action-banned_db">Enable the new action banned_db</a></li>
+<li><a href="#add-required-cron-job-to-query-sql-database-and-unban-ip-addresses">Add required cron job to query SQL database and unban IP addresses</a></li>
+<li><a href="#optional-add-geoip-database-to-look-up-location-of-banned-ip-address">Optional: Add GeoIP database to look up location of banned IP address</a></li>
+<li><a href="#tests">Tests</a></li>
+<li><a href="#troubleshooting">Troubleshooting</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<h2 id="summary">Summary</h2>
+<p>Since iRedMail-1.2, Fail2ban is configured to store banned IP addresses in
+SQL database. If you run iRedAdmin-Pro or your own web admin panel, it will be
+very easy to check and manage banned IP addresses. But if you don't run
+iRedAdmin-Pro or don't have custom web admin panel, this integration is totally
+optional.</p>
+<p>With this SQL integration, to unban an IP address from web admin panel, you can
+simply update value of column <code>banned.remove</code> to <code>1</code>, then wait for up to one
+minute, a cron job will call <code>fail2ban-client</code> to actually unban it.</p>
+<p>With iRedAdmin-Pro, you can login as global admin, go to
+<code>Activities -&gt; Banned IP Addresses</code>, then click the <code>Unban</code> button to unban it.</p>
+<p><img alt="" src="./images/iredadmin/activity_banned_ip_addresses.png" width="900px" /></p>
+<h2 id="how-it-works">How it works</h2>
+<p>When some client triggers the ban, Fail2ban will perform actions defined in
+<code>action =</code> parameter in jail config file. For example, in jail <code>sshd</code>
+(<code>/etc/fail2ban/jail.d/sshd.local</code>):</p>
+<pre><code>[sshd]
+enabled     = ...
+filter      = ...
+logpath     = ...
+action      = iptables-multiport[name=sshd, port=&quot;22&quot;, protocol=tcp]
+</code></pre>
+
+<p>Action name <code>iptables-multipart</code> maps to commands defined in
+<code>/etc/fail2ban/action.d/iptables-multiport.conf</code> for different fail2ban actions.
+For example:</p>
+<pre><code>[Definition]
+
+# Notes.:  command executed once at the start of Fail2Ban.
+actionstart = ...
+
+# Notes.:  command executed once at the end of Fail2Ban
+actionstop = ...
+
+# Notes.:  command executed once before each actionban command
+actioncheck = ...
+
+# Notes.:  command executed when banning an IP. Take care that the
+#          command is executed with Fail2Ban user rights.
+actionban = ...
+
+# Notes.:  command executed when unbanning an IP. Take care that the
+#          command is executed with Fail2Ban user rights.
+actionunban = &lt;iptables&gt; -D f2b-&lt;name&gt; -s &lt;ip&gt; -j &lt;blocktype&gt;
+</code></pre>
+
+<p>In this tutorial, we will add a custom action config file and update jail
+config files to use this action.</p>
+<h2 id="create-required-sql-database">Create required SQL database</h2>
+<h3 id="for-openldap-backend-and-mysqlmariadb-backends">For OpenLDAP backend and MySQL/MariaDB backends</h3>
+<p>We will create a new database named <code>fail2ban</code> to store banned IP addresses,
+also a SQL user <code>fail2ban</code>.</p>
+<ul>
+<li>Run commands below as <code>root</code> user:</li>
+</ul>
+<pre><code>cd /tmp
+wget https://github.com/iredmail/iRedMail/raw/1.2/samples/fail2ban/sql/fail2ban.mysql
+</code></pre>
+
+<ul>
+<li>
+<p>Run <strong>SQL commands</strong> below as <strong>MySQL <code>root</code> user</strong>:</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Please replace <code>&lt;my-secret-password&gt;</code> by your own strong password.</p>
+</div>
+</li>
+</ul>
+<pre><code>CREATE DATABASE fail2ban DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+GRANT ALL ON fail2ban.* TO 'fail2ban'@'localhost' IDENTIFIED BY '&lt;my-secret-password&gt;';
+
+USE fail2ban;
+SOURCE /tmp/fail2ban.mysql;
+</code></pre>
+
+<ul>
+<li>Create required file: <code>/root/.my.cnf-fail2ban</code>. Script will read MySQL
+  credential from this file instead of storing plain password in script.</li>
+</ul>
+<pre><code>[client]
+host=&quot;127.0.0.1&quot;
+port=&quot;3306&quot;
+user=&quot;fail2ban&quot;
+password=&quot;&lt;my-secret-password&gt;&quot;
+</code></pre>
+
+<h3 id="for-postgresql-backend">For PostgreSQL backend</h3>
+<p>We will create a new database named <code>fail2ban</code> to store banned IP addresses,
+also a SQL user <code>fail2ban</code>.</p>
+<ul>
+<li>Run commands below as <code>root</code> user, then switch to PostgreSQL daemon user
+  <code>postgres</code> and connect to SQL server:</li>
+</ul>
+<pre><code>cd /tmp
+wget https://github.com/iredmail/iRedMail/raw/1.2/samples/fail2ban/sql/fail2ban.pgsql
+su - postgres
+psql -d template1
+</code></pre>
+
+<ul>
+<li>
+<p>Run <strong>SQL commands</strong> below:</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Please replace <code>&lt;my-secret-password&gt;</code> by your own strong password.</p>
+</div>
+</li>
+</ul>
+<pre><code>CREATE DATABASE fail2ban WITH TEMPLATE template0 ENCODING 'UTF8';
+CREATE USER fail2ban WITH ENCRYPTED PASSWORD '&lt;my-secret-password&gt;' NOSUPERUSER NOCREATEDB NOCREATEROLE;
+ALTER DATABASE fail2ban OWNER TO fail2ban;
+
+-- PostgreSQL will prompt to input password for user &quot;fail2ban&quot; with command below.
+\c fail2ban fail2ban;
+\i /tmp/fail2ban.pgsql;
+</code></pre>
+
+<ul>
+<li>Now append line below to file <code>~/.pgpass</code> under PostgreSQL daemon user's
+  HOME directory. Script will read SQL credential from this file.</li>
+</ul>
+<pre><code>*:*:*:fail2ban:&lt;my-secret-password&gt;
+</code></pre>
+
+<h2 id="add-required-fail2ban-config-file-and-script">Add required Fail2ban config file and script</h2>
+<p>On Linux, run commands below as <code>root</code> user:</p>
+<pre><code>wget https://github.com/iredmail/iRedMail/raw/1.2/samples/fail2ban/action.d/banned_db.conf
+mv banned_db.conf /etc/fail2ban/action.d/
+
+wget https://github.com/iredmail/iRedMail/raw/1.2/samples/fail2ban/bin/fail2ban_banned_db
+mv fail2ban_banned_db /usr/local/bin/
+chmod 0550 /usr/local/bin/fail2ban_banned_db
+</code></pre>
+
+<p>File <code>/etc/fail2ban/action.d/banned_db.conf</code> indicates we now have a new action
+named <code>banned_db</code> (it's file name without extension). Feel free to open this
+file and check what it does.</p>
+<p>Script <code>/usr/local/bin/fail2ban_banned_db</code> will read <code>/root/.my.cnf-fail2ban</code>
+(OpenLDAP/MySQL/MariaDB backends) or <code>~postgresql/.pgpass</code> (PostgreSQL backend)
+to read SQL credential.</p>
+<h2 id="enable-the-new-action-banned_db">Enable the new action <code>banned_db</code></h2>
+<p>Now go to <code>/etc/fail2ban/jail.d/</code> and update config files for the jails you
+want to store banned IP in SQL db. Let's take <code>sshd.local</code> for example.</p>
+<ul>
+<li>The <code>action =</code> line in original file looks like this:</li>
+</ul>
+<pre><code>[sshd]
+...
+action      = iptables-multiport[name=sshd, port=&quot;22&quot;, protocol=tcp]
+</code></pre>
+
+<ul>
+<li>Add our new action under existing action:</li>
+</ul>
+<pre><code>[sshd]
+...
+action      = iptables-multiport[name=sshd, port=&quot;22&quot;, protocol=tcp]
+              banned_db[name=sshd, port=&quot;22&quot;, protocol=tcp]
+</code></pre>
+
+<p>That's it. It's recommend to enable this new action <code>banned_db</code> for all jails.</p>
+<p>Now restart <code>fail2ban</code> service to load modified config files.</p>
+<h2 id="add-required-cron-job-to-query-sql-database-and-unban-ip-addresses">Add required cron job to query SQL database and unban IP addresses</h2>
+<p>Now add a cron job for <code>root</code> user:</p>
+<pre><code>* * * * * /bin/bash /usr/local/bin/fail2ban_banned_db unban_db
+</code></pre>
+
+<p>It runs every minute and query SQL database to get IP addresses which are
+pending for removal.</p>
+<h2 id="optional-add-geoip-database-to-look-up-location-of-banned-ip-address">Optional: Add GeoIP database to look up location of banned IP address</h2>
+<p>Script <code>/usr/local/bin/fail2ban_banned_db</code> detects whether commands
+<code>geoiplookup</code> and <code>geoiplookup6</code> exist, if exist, it runs the command to query
+country of banned IP address and store it in SQL database.</p>
+<ul>
+<li>On RHEL/CentOS 7:</li>
+</ul>
+<pre><code>yum -y install GeoIP GeoIP-data
+</code></pre>
+
+<ul>
+<li>On RHEL/CentOS 8:</li>
+</ul>
+<pre><code>yum -y install GeoIP GeoIP-GeoLite-data
+</code></pre>
+
+<ul>
+<li>On Debian/Ubuntu:</li>
+</ul>
+<pre><code>apt -y install geoip-bin geoip-database
+</code></pre>
+
+<ul>
+<li>On OpenBSD 6.6:</li>
+</ul>
+<pre><code>pkg_add GeoIP geolite-country
+</code></pre>
+
+<h2 id="tests">Tests</h2>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>We use MySQL for example here.</p>
+</div>
+<p>Run <code>fail2ban-client</code> command as <code>root</code> user to ban 2 IP addresses like below:</p>
+<pre><code>fail2ban-client set sshd banip 1.1.1.1
+fail2ban-client set sshd banip 1.1.1.2
+</code></pre>
+
+<p>You can see the banned IP address with command <code>fail2ban-client status &lt;jail&gt;</code>:</p>
+<pre><code>fail2ban-client status sshd
+</code></pre>
+
+<p>Command output:</p>
+<pre><code>Status for the jail: sshd
+|- Filter
+|  |- Currently failed: 0
+|  |- Total failed: 0
+|  `- File list:    ...
+`- Actions
+   |- Currently banned: 2
+   |- Total banned: 2
+   `- Banned IP list:   1.1.1.2 1.1.1.1
+</code></pre>
+
+<p>Now run command below to query SQL table <code>fail2ban.banned</code> as <code>root</code> user:</p>
+<pre><code>mysql fail2ban -e &quot;SELECT * FROM banned&quot;
+</code></pre>
+
+<p>You should see the command output like below:</p>
+<pre><code>+----+---------+-------+----------+------+------------------+---------------+---------------------+--------+
+| id | ip      | ports | protocol | jail | hostname         | country       | timestamp           | remove |
++----+---------+-------+----------+------+------------------+---------------+---------------------+--------+
+|  3 | 1.1.1.1 | 22    | tcp      | sshd | ob66.localdomain | AU, Australia | 2020-04-15 13:34:57 |      0 |
+|  4 | 1.1.1.2 | 22    | tcp      | sshd | ob66.localdomain | AU, Australia | 2020-04-15 13:34:58 |      0 |
++----+---------+-------+----------+------+------------------+---------------+---------------------+--------+
+</code></pre>
+
+<p>Now run <code>fail2ban-client</code> command to unban IP and query SQL table
+<code>fail2ban.banned</code> again, you should see unbanned IP is gone:</p>
+<pre><code>fail2ban-client set sshd unbanip 1.1.1.1
+</code></pre>
+
+<p>Now run command as <code>root</code> user to update SQL column <code>banned.remove=1</code> to
+simulate the unban triggered by iRedAdmin-Pro:</p>
+<pre><code>mysql fail2ban -e &quot;UPDATE banned SET remove=1 WHERE ip='1.1.1.2'&quot;
+</code></pre>
+
+<p>Run script <code>/usr/local/bin/fail2ban_banned_db</code> with argument <code>unban_db</code> as <code>root</code> user:</p>
+<pre><code>/usr/local/bin/fail2ban_banned_db unbandb
+</code></pre>
+
+<p>Again, query SQL table <code>fail2ban.banned</code> as <code>root</code> user, you should see the IP
+stored in SQL db with <code>remove=1</code> is gone, and unbanned in fail2ban too:</p>
+<pre><code>mysql fail2ban -e &quot;SELECT * FROM banned&quot;
+fail2ban-client status sshd
+</code></pre>
+
+<h2 id="troubleshooting">Troubleshooting</h2>
+<p>If there's something, you should see related log in syslog log file or Fail2ban
+log file:</p>
+<ul>
+<li>syslog: <code>/var/log/syslog</code> or <code>/var/log/messages</code></li>
+<li>Fail2ban: <code>/var/log/fail2ban.log</code> or <code>/var/log/fail2ban/fail2ban.log</code></li>
+</ul>
+<p>If you can not solve the error, feel free to create a new
+<a href="https://forum.iredmail.org">forum topic</a> and paste related log in your post.</p><div class="footer">
+    <p style="text-align: center; color: grey;">All documents are available in <a href="https://github.com/iredmail/docs/">GitHub repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://github.com/iredmail/docs/archive/master.zip">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
+</div>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-3293801-21"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-3293801-21');
+</script>
+</body></html>
