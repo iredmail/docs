@@ -22,15 +22,15 @@ With iRedAdmin-Pro, you can login as global admin, go to
 ## How it works
 
 When some client triggers the ban, Fail2ban will perform actions defined in
-`action =` parameter in jail config file. For example, in jail `sshd`
-(`/etc/fail2ban/jail.d/sshd.local`):
+`action =` parameter in jail config file. For example, in jail `dovecot`
+(`/etc/fail2ban/jail.d/dovecot.local`):
 
 ```
-[sshd]
+[dovecot-iredmail]
 enabled     = ...
 filter      = ...
 logpath     = ...
-action      = iptables-multiport[name=sshd, port="22", protocol=tcp]
+action      = iptables-multiport[name=dovecot, port="80,443,25,587,465,110,995,143,993,4190", protocol=tcp]
 ```
 
 Action name `iptables-multipart` maps to commands defined in
@@ -162,23 +162,30 @@ to read SQL credential.
 ## Enable the new action `banned_db`
 
 Now go to `/etc/fail2ban/jail.d/` and update config files for the jails you
-want to store banned IP in SQL db. Let's take `sshd.local` for example.
+want to store banned IP in SQL db. Let's take `dovecot.local` for example.
 
 * The `action =` line in original file looks like this:
 
 ```
-[sshd]
+[dovecot-iredmail]
 ...
-action      = iptables-multiport[name=sshd, port="22", protocol=tcp]
+action      = iptables-multiport[name=dovecot, port="80,443,25,587,465,110,995,143,993,4190", protocol=tcp]
 ```
 
 * Add our new action under existing action:
 
+    !!! warning
+
+        The name set in `banned_db[name=, ...]` line must be same as
+        the jail name which is defined in the first line `[dovecot-iredmail]`.
+        In above sample, it's `dovecot-iredmail`.
+        Do __NOT__ copy the name used in `iptables-multiport[]` line.
+
 ```
-[sshd]
+[dovecot-iredmail]
 ...
-action      = iptables-multiport[name=sshd, port="22", protocol=tcp]
-              banned_db[name=sshd, port="22", protocol=tcp]
+action      = iptables-multiport[name=dovecot, port="80,443,25,587,465,110,995,143,993,4190", protocol=tcp]
+              banned_db[name=dovecot-iredmail, port="80,443,25,587,465,110,995,143,993,4190", protocol=tcp]
 ```
 
 That's it. It's recommend to enable this new action `banned_db` for all jails.
@@ -235,20 +242,20 @@ pkg_add GeoIP geolite-country
 Run `fail2ban-client` command as `root` user to ban 2 IP addresses like below:
 
 ```
-fail2ban-client set sshd banip 1.1.1.1
-fail2ban-client set sshd banip 1.1.1.2
+fail2ban-client set dovecot-iredmail banip 1.1.1.1
+fail2ban-client set dovecot-iredmail banip 1.1.1.2
 ```
 
 You can see the banned IP address with command `fail2ban-client status <jail>`:
 
 ```
-fail2ban-client status sshd
+fail2ban-client status dovecot-iredmail
 ```
 
 Command output:
 
 ```
-Status for the jail: sshd
+Status for the jail: dovecot-iredmail
 |- Filter
 |  |- Currently failed:	0
 |  |- Total failed:	0
@@ -268,19 +275,19 @@ mysql fail2ban -e "SELECT * FROM banned"
 You should see the command output like below:
 
 ```
-+----+---------+-------+----------+------+------------------+---------------+---------------------+--------+
-| id | ip      | ports | protocol | jail | hostname         | country       | timestamp           | remove |
-+----+---------+-------+----------+------+------------------+---------------+---------------------+--------+
-|  3 | 1.1.1.1 | 22    | tcp      | sshd | ob66.localdomain | AU, Australia | 2020-04-15 13:34:57 |      0 |
-|  4 | 1.1.1.2 | 22    | tcp      | sshd | ob66.localdomain | AU, Australia | 2020-04-15 13:34:58 |      0 |
-+----+---------+-------+----------+------+------------------+---------------+---------------------+--------+
++----+---------+-------+----------+------------------+------------------+---------------+---------------------+--------+
+| id | ip      | ports | protocol | jail             | hostname         | country       | timestamp           | remove |
++----+---------+-------+----------+------------------+------------------+---------------+---------------------+--------+
+|  3 | 1.1.1.1 | 22    | tcp      | dovecot-iredmail | ob66.localdomain | AU, Australia | 2020-04-15 13:34:57 |      0 |
+|  4 | 1.1.1.2 | 22    | tcp      | dovecot-iredmail | ob66.localdomain | AU, Australia | 2020-04-15 13:34:58 |      0 |
++----+---------+-------+----------+------------------+------------------+---------------+---------------------+--------+
 ```
 
 Now run `fail2ban-client` command to unban IP and query SQL table
 `fail2ban.banned` again, you should see unbanned IP is gone:
 
 ```
-fail2ban-client set sshd unbanip 1.1.1.1
+fail2ban-client set dovecot-iredmail unbanip 1.1.1.1
 ```
 
 Now run command as `root` user to update SQL column `banned.remove=1` to
@@ -301,7 +308,7 @@ stored in SQL db with `remove=1` is gone, and unbanned in fail2ban too:
 
 ```
 mysql fail2ban -e "SELECT * FROM banned"
-fail2ban-client status sshd
+fail2ban-client status dovecot-iredmail
 ```
 
 ## Troubleshooting
