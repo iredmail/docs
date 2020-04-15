@@ -29,7 +29,7 @@
 <li><a href="#add-required-fail2ban-config-file-and-script">Add required Fail2ban config file and script</a></li>
 <li><a href="#enable-the-new-action-banned_db">Enable the new action banned_db</a></li>
 <li><a href="#add-required-cron-job-to-query-sql-database-and-unban-ip-addresses">Add required cron job to query SQL database and unban IP addresses</a></li>
-<li><a href="#optional-add-geoip-database-to-look-up-location-of-banned-ip-address">Optional: Add GeoIP database to look up location of banned IP address</a></li>
+<li><a href="#optional-look-up-and-store-country-name-of-banned-ip-address">Optional: look up and store country name of banned IP address</a></li>
 <li><a href="#tests">Tests</a></li>
 <li><a href="#troubleshooting">Troubleshooting</a></li>
 </ul>
@@ -178,7 +178,7 @@ from <code>/root/.my.cnf-fail2ban</code> (OpenLDAP/MySQL/MariaDB backends) or
 <code>~postgresql/.pgpass</code> (PostgreSQL backend), then connect to SQL server and
 add or remove banned IP addresses.</p>
 <h2 id="enable-the-new-action-banned_db">Enable the new action <code>banned_db</code></h2>
-<p>Now go to <code>/etc/fail2ban/jail.d/</code> and update config files for the jails you
+<p>Now go to directory <code>/etc/fail2ban/jail.d/</code> and update config files for the jails you
 want to store banned IP in SQL db. Let's take <code>dovecot.local</code> for example.</p>
 <ul>
 <li>The <code>action =</code> line in original file looks like this:</li>
@@ -193,10 +193,13 @@ action      = iptables-multiport[name=dovecot, port=&quot;80,443,25,587,465,110,
 <p>Add our new action under existing action:</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>The name set in <code>banned_db[name=, ...]</code> line must be same as
-the jail name which is defined in the first line <code>[dovecot-iredmail]</code>.
-In above sample, it's <code>dovecot-iredmail</code>.
-Do <strong>NOT</strong> copy the name used in <code>iptables-multiport[]</code> line.</p>
+<ul>
+<li>The name set in <code>banned_db[name=, ...]</code> line must be same as
+  the jail name which is defined in the first line <code>[dovecot-iredmail]</code>.
+  In above sample, jail name is <code>dovecot-iredmail</code>.
+  Do <strong>NOT</strong> copy the name used in <code>iptables-multiport[...]</code> line.</li>
+<li>There's only one <code>action =</code> parameter for a jail.</li>
+</ul>
 </div>
 </li>
 </ul>
@@ -213,12 +216,13 @@ action      = iptables-multiport[name=dovecot, port=&quot;80,443,25,587,465,110,
 <pre><code>* * * * * /bin/bash /usr/local/bin/fail2ban_banned_db unban_db
 </code></pre>
 
-<p>It runs every minute and query SQL database to get IP addresses which are
-pending for removal.</p>
-<h2 id="optional-add-geoip-database-to-look-up-location-of-banned-ip-address">Optional: Add GeoIP database to look up location of banned IP address</h2>
+<p>It runs every minute and queries SQL database to get banned IP addresses which
+are pending for removal.</p>
+<h2 id="optional-look-up-and-store-country-name-of-banned-ip-address">Optional: look up and store country name of banned IP address</h2>
 <p>Script <code>/usr/local/bin/fail2ban_banned_db</code> detects whether commands
 <code>geoiplookup</code> and <code>geoiplookup6</code> exist, if exist, it runs the command to query
 country of banned IP address and store it in SQL database.</p>
+<p>Both commands are offered by GeoIP related packages, please install them.</p>
 <ul>
 <li>On RHEL/CentOS 7:</li>
 </ul>

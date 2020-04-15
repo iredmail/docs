@@ -162,7 +162,7 @@ add or remove banned IP addresses.
 
 ## Enable the new action `banned_db`
 
-Now go to `/etc/fail2ban/jail.d/` and update config files for the jails you
+Now go to directory `/etc/fail2ban/jail.d/` and update config files for the jails you
 want to store banned IP in SQL db. Let's take `dovecot.local` for example.
 
 * The `action =` line in original file looks like this:
@@ -177,10 +177,11 @@ action      = iptables-multiport[name=dovecot, port="80,443,25,587,465,110,995,1
 
     !!! warning
 
-        The name set in `banned_db[name=, ...]` line must be same as
-        the jail name which is defined in the first line `[dovecot-iredmail]`.
-        In above sample, it's `dovecot-iredmail`.
-        Do __NOT__ copy the name used in `iptables-multiport[]` line.
+        * The name set in `banned_db[name=, ...]` line must be same as
+          the jail name which is defined in the first line `[dovecot-iredmail]`.
+          In above sample, jail name is `dovecot-iredmail`.
+          Do __NOT__ copy the name used in `iptables-multiport[...]` line.
+        * There's only one `action =` parameter for a jail.
 
 ```
 [dovecot-iredmail]
@@ -201,14 +202,16 @@ Now add a cron job for `root` user:
 * * * * * /bin/bash /usr/local/bin/fail2ban_banned_db unban_db
 ```
 
-It runs every minute and query SQL database to get IP addresses which are
-pending for removal.
+It runs every minute and queries SQL database to get banned IP addresses which
+are pending for removal.
 
-## Optional: Add GeoIP database to look up location of banned IP address
+## Optional: look up and store country name of banned IP address
 
 Script `/usr/local/bin/fail2ban_banned_db` detects whether commands
 `geoiplookup` and `geoiplookup6` exist, if exist, it runs the command to query
 country of banned IP address and store it in SQL database.
+
+Both commands are offered by GeoIP related packages, please install them.
 
 * On RHEL/CentOS 7:
 
