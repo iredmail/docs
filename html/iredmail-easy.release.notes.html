@@ -19,6 +19,7 @@
 <div class="toc">
 <ul>
 <li><a href="#iredmail-easy-release-notes">iRedMail Easy: Release Notes</a><ul>
+<li><a href="#20200416">Version: 2020041601 (Apr 16, 2020)</a></li>
 <li><a href="#20200210">Version: 2020021001 (Feb 10, 2020)</a></li>
 <li><a href="#20191210">Version: 2019121301 (Dec 13, 2019)</a></li>
 <li><a href="#20191210">Version: 2019121001 (Dec 10, 2019)</a></li>
@@ -42,6 +43,109 @@
 </li>
 </ul>
 </div>
+<h2 id="20200416">Version: 2020041601 (Apr 16, 2020)</h2>
+<ul>
+<li>
+<p>CentOS 8 is now supported, all 3 backends (MariaDB, PostgreSQL, OpenLDAP)
+  are available.</p>
+<p>Note: RedHat dropped OpenLDAP server in RHEL 8, iRedMail Easy installs the
+OpenLDAP server packages (<code>symas-openldap-*</code>) from yum repository offered
+by Symas (the company behind OpenLDAP), package <code>symas-openldap</code> conflicts
+with the <code>openldap</code> package available in official RHEL/CentOS 8 yum repo.</p>
+</li>
+<li>
+<p>Drop support for OpenBSD 6.4, 6.5.</p>
+</li>
+<li>
+<p>New script <code>/opt/iredmail/bin/create_user</code>: create single user with quota
+  support. Note: available for SQL backends.</p>
+</li>
+<li>
+<p>Dovecot:</p>
+<ul>
+<li>TLSv1 and TLSv1.1 are disabled.</li>
+<li>It now tracks last login of both POP3 and IMAP logins. In early releases,
+  either POP3 or IMAP was tracked.</li>
+</ul>
+</li>
+<li>
+<p>Nginx:</p>
+<ul>
+<li>New directory <code>/opt/iredmail/custom/nginx/webapps/</code> used to store custom
+  settings for web applications,  it should be useful if sysadmin wants to
+  add ACL control for the web application.</li>
+</ul>
+<p>Currently only 3 applications are supported: iRedAdmin, Roundcube, Adminer.</p>
+<p>For example, Nginx loads <code>/etc/nginx/templates/iredadmin.tmpl</code> for
+  iRedAdmin, also loads extra settings from
+  <code>/opt/iredmail/custom/nginx/webapps/iredadmin.conf</code>. If you want to
+  limit the access to network <code>192.168.0.0/24</code>, you can create file
+  <code>/opt/iredmail/custom/nginx/webapps/iredadmin.conf</code> with content below
+  and reload Nginx service:</p>
+<pre><code>```
+allow 192.168.0.0/24;
+deny all;
+```
+</code></pre>
+<ul>
+<li>Cache fonts used by web applications for 30 days.</li>
+<li>Fixed: can not request Let's Encrypt cert with default config file
+  for web domain <code>autoconfig.*</code> and <code>autodiscover.*</code>.</li>
+</ul>
+</li>
+<li>
+<p>Roundcube:</p>
+<ul>
+<li>Use <code>pspell</code> as default spell check engine.</li>
+</ul>
+</li>
+<li>
+<p>Amavisd:</p>
+<ul>
+<li>Fixed: SQL column <code>msgs.subject</code> doesn't support storing emoji characters.</li>
+</ul>
+</li>
+<li>
+<p>ClamAV:</p>
+<ul>
+<li>Fixed: incorrect permission of database directory on RHEL/CentOS.</li>
+<li>Fixed: not install package <code>libclamavunrar9</code> on Ubuntu for rar files.</li>
+</ul>
+</li>
+<li>
+<p>mlmmj (Mailing list manager):</p>
+<ul>
+<li>Fixed: do not abort if <code>altermime</code> program is not available.</li>
+</ul>
+</li>
+<li>
+<p>Fail2ban:</p>
+<ul>
+<li>It now works on OpenBSD.</li>
+<li>Improve rsyslog config file to catch all fail2ban log.</li>
+<li>Improve ban action to query and store country of IP address in SQL db.</li>
+<li>Enable jail to catch iRedAdmin-Pro login failures.</li>
+<li>Add cron job to unban IP addresses which are pending for removal.</li>
+</ul>
+</li>
+<li>
+<p>Package updates:</p>
+<ul>
+<li>Roundcube webmail 1.4.3</li>
+<li>iRedAPD-3.6</li>
+<li>netdata-1.21.1</li>
+</ul>
+</li>
+<li>
+<p>Improvements of iRedMail Easy platform:</p>
+<ul>
+<li>Fixed: file <code>/etc/rsyslog.d/1-iredmail-iredapd.conf</code> was incorrectly
+  rewritten by Prosody component.</li>
+<li>Fixed: there's incorrect rsyslog setting in file
+  <code>/etc/rsyslog.d/0-iredmail-misc.conf</code>, this file is now removed.</li>
+</ul>
+</li>
+</ul>
 <h2 id="20200210">Version: 2020021001 (Feb 10, 2020)</h2>
 <ul>
 <li>

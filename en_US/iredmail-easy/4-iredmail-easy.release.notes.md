@@ -2,6 +2,79 @@
 
 [TOC]
 
+## Version: 2020041601 (Apr 16, 2020) {: id=20200416 }
+
+* CentOS 8 is now supported, all 3 backends (MariaDB, PostgreSQL, OpenLDAP)
+  are available.
+
+    Note: RedHat dropped OpenLDAP server in RHEL 8, iRedMail Easy installs the
+    OpenLDAP server packages (`symas-openldap-*`) from yum repository offered
+    by Symas (the company behind OpenLDAP), package `symas-openldap` conflicts
+    with the `openldap` package available in official RHEL/CentOS 8 yum repo.
+
+* Drop support for OpenBSD 6.4, 6.5.
+* New script `/opt/iredmail/bin/create_user`: create single user with quota
+  support. Note: available for SQL backends.
+
+* Dovecot:
+    - TLSv1 and TLSv1.1 are disabled.
+    - It now tracks last login of both POP3 and IMAP logins. In early releases,
+      either POP3 or IMAP was tracked.
+
+* Nginx:
+    - New directory `/opt/iredmail/custom/nginx/webapps/` used to store custom
+      settings for web applications,  it should be useful if sysadmin wants to
+      add ACL control for the web application.
+
+      Currently only 3 applications are supported: iRedAdmin, Roundcube, Adminer.
+
+      For example, Nginx loads `/etc/nginx/templates/iredadmin.tmpl` for
+      iRedAdmin, also loads extra settings from
+      `/opt/iredmail/custom/nginx/webapps/iredadmin.conf`. If you want to
+      limit the access to network `192.168.0.0/24`, you can create file
+      `/opt/iredmail/custom/nginx/webapps/iredadmin.conf` with content below
+      and reload Nginx service:
+
+        ```
+        allow 192.168.0.0/24;
+        deny all;
+        ```
+
+    - Cache fonts used by web applications for 30 days.
+    - Fixed: can not request Let's Encrypt cert with default config file
+      for web domain `autoconfig.*` and `autodiscover.*`.
+
+* Roundcube:
+    - Use `pspell` as default spell check engine.
+
+* Amavisd:
+    - Fixed: SQL column `msgs.subject` doesn't support storing emoji characters.
+
+* ClamAV:
+    - Fixed: incorrect permission of database directory on RHEL/CentOS.
+    - Fixed: not install package `libclamavunrar9` on Ubuntu for rar files.
+
+* mlmmj (Mailing list manager):
+    - Fixed: do not abort if `altermime` program is not available.
+
+* Fail2ban:
+    - It now works on OpenBSD.
+    - Improve rsyslog config file to catch all fail2ban log.
+    - Improve ban action to query and store country of IP address in SQL db.
+    - Enable jail to catch iRedAdmin-Pro login failures.
+    - Add cron job to unban IP addresses which are pending for removal.
+
+* Package updates:
+    - Roundcube webmail 1.4.3
+    - iRedAPD-3.6
+    - netdata-1.21.1
+
+* Improvements of iRedMail Easy platform:
+    - Fixed: file `/etc/rsyslog.d/1-iredmail-iredapd.conf` was incorrectly
+      rewritten by Prosody component.
+    - Fixed: there's incorrect rsyslog setting in file
+      `/etc/rsyslog.d/0-iredmail-misc.conf`, this file is now removed.
+
 ## Version: 2020021001 (Feb 10, 2020) {: id=20200210 }
 
 * PostgreSQL backend:
