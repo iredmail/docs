@@ -14,7 +14,7 @@
 
 ## ChangeLog
 
-* XXX XX, 2020: initial release.
+* Apr 17, 2020: initial release.
 
 ## General (All backends should apply these changes)
 
@@ -27,6 +27,26 @@ so that you can know which version of iRedMail you're running. For example:
 ```
 1.2
 ```
+
+### Upgrade iRedAPD (Postfix policy server) to the latest stable release
+
+Please follow below tutorial to upgrade iRedAPD to the latest stable release:
+[Upgrade iRedAPD to the latest stable release](./upgrade.iredapd.html)
+
+### Upgrade Roundcube webmail to the latest stable release (1.4.3)
+
+!!! warning "Roundcube 1.4"
+
+    Since Roundcube 1.3, at least __PHP 5.4__ is required. If your server is
+    running PHP 5.3 and cannot upgrade to 5.4, please upgrade Roundcube
+    the latest 1.2 branch instead.
+
+* [How to upgrade Roundcube](https://github.com/roundcube/roundcubemail/wiki/Upgrade).
+
+### Upgrade netdata to the latest stable release (1.21.1)
+
+If you have netdata installed, you can upgrade it by following this tutorial:
+[Upgrade netdata](./upgrade.netdata.html).
 
 ### Fixed: mail delivery abort if program 'altermime' is not available
 
@@ -60,8 +80,8 @@ chmod 0550 mlmmj-amime-receive
 
 In iRedMail-1.0, Dovecot is configured to store user last login time in SQL
 database `iredadmin`, but it only tracks either POP3 or IMAP login. In
-iRedMail-1.2, it tracks both, also track when new email was delivered via
-LMTP or LDA. Please follow steps below to implement this improvement.
+iRedMail-1.2, it tracks both. Please follow steps below to implement this
+improvement.
 
 * Open file `/etc/dovecot/dovecot.conf` (Linux/OpenBSD) or
   `/usr/local/etc/dovecot/dovecot.conf` (FreeBSD), find the `last_login_key`
@@ -71,24 +91,9 @@ LMTP or LDA. Please follow steps below to implement this improvement.
     last_login_key = last-login/%s/%u/%d
 ```
 
-* Append service name `last_login` to the `mail_plugins =` line inside both
-  `protocol lda {}` and `protocol lmtp {}` blocks like below:
-
-```
-protocol lda {
-    mail_plugins = ... last_login
-    ...
-}
-
-protocol lmtp {
-    mail_plugins = ... last_login
-    ...
-}
-```
-
 * Open file `/etc/dovecot/dovecot-last-login.conf` (Linux/OpenBSD) or
   `/usr/local/etc/dovecot/dovecot-last-login.conf` (FreeBSD), __remove__ existing
-  `map {}` block and __add__ 4 new `map {}` blocks used to track
+  `map {}` block and __add__ 2 new `map {}` blocks used to track
   POP3/IMAP/LMTP/LDA services.
 
 ```
@@ -108,31 +113,6 @@ map {
     pattern = shared/last-login/pop3/$user/$domain
     table = last_login
     value_field = pop3
-    value_type = uint
-
-    fields {
-        username = $user
-        domain = $domain
-    }
-}
-
-map {
-    pattern = shared/last-login/lda/$user/$domain
-    table = last_login
-    value_field = lda
-    value_type = uint
-
-    fields {
-        username = $user
-        domain = $domain
-    }
-}
-
-# Treat lmtp as lda
-map {
-    pattern = shared/last-login/lmtp/$user/$domain
-    table = last_login
-    value_field = lda
     value_type = uint
 
     fields {
@@ -169,8 +149,8 @@ ALTER TABLE msgs MODIFY COLUMN subject VARBINARY(255) NOT NULL DEFAULT '';
 
 In iRedMail-1.0, Dovecot is configured to store user last login time in SQL
 database `iredadmin`, but it only tracks either POP3 or IMAP login. In
-iRedMail-1.2, it tracks both, also track when new email was delivered via
-LMTP or LDA. Please follow steps below to implement this improvement.
+iRedMail-1.2, it tracks both. Please follow steps below to implement this
+improvement.
 
 * Open file `/etc/dovecot/dovecot.conf` (Linux/OpenBSD) or
   `/usr/local/etc/dovecot/dovecot.conf` (FreeBSD), find the `last_login_key`
@@ -182,7 +162,7 @@ LMTP or LDA. Please follow steps below to implement this improvement.
 
 * Open file `/etc/dovecot/dovecot-last-login.conf` (Linux/OpenBSD) or
   `/usr/local/etc/dovecot/dovecot-last-login.conf` (FreeBSD), __remove__ existing
-  `map {}` block and __add__ 4 new `map {}` blocks used to track
+  `map {}` block and __add__ 2 new `map {}` blocks used to track
   POP3/IMAP/LMTP/LDA services.
 
 ```
@@ -202,31 +182,6 @@ map {
     pattern = shared/last-login/pop3/$user/$domain
     table = last_login
     value_field = pop3
-    value_type = uint
-
-    fields {
-        username = $user
-        domain = $domain
-    }
-}
-
-map {
-    pattern = shared/last-login/lda/$user/$domain
-    table = last_login
-    value_field = lda
-    value_type = uint
-
-    fields {
-        username = $user
-        domain = $domain
-    }
-}
-
-# Treat lmtp as lda
-map {
-    pattern = shared/last-login/lmtp/$user/$domain
-    table = last_login
-    value_field = lda
     value_type = uint
 
     fields {
