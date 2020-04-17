@@ -237,6 +237,25 @@ apt -y install geoip-bin geoip-database
 pkg_add GeoIP geolite-country
 ```
 
+## For iRedAdmin-Pro users: Enable the SQL integration
+
+Please add Fail2ban SQL credential in iRedAdmin-Pro config file
+`/opt/www/iredadmin/settings.py`, then restart `iredadmin` service. If you're
+still running Apache web server, you should restart Apache service instead.
+
+!!! attention
+
+    If you're running PostgreSQL backend, the port number is `5432`.
+
+```
+fail2ban_enabled = True
+fail2ban_db_host = '127.0.0.1'
+fail2ban_db_port = '3306'
+fail2ban_db_name = 'fail2ban'
+fail2ban_db_user = 'fail2ban'
+fail2ban_db_password = '<my-secret-password>'
+```
+
 ## Tests
 
 !!! attention

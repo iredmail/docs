@@ -30,6 +30,7 @@
 <li><a href="#enable-the-new-action-banned_db">Enable the new action banned_db</a></li>
 <li><a href="#add-required-cron-job-to-query-sql-database-and-unban-ip-addresses">Add required cron job to query SQL database and unban IP addresses</a></li>
 <li><a href="#optional-look-up-and-store-country-name-of-banned-ip-address">Optional: look up and store country name of banned IP address</a></li>
+<li><a href="#for-iredadmin-pro-users-enable-the-sql-integration">For iRedAdmin-Pro users: Enable the SQL integration</a></li>
 <li><a href="#tests">Tests</a></li>
 <li><a href="#troubleshooting">Troubleshooting</a></li>
 </ul>
@@ -245,6 +246,22 @@ country of banned IP address and store it in SQL database.</p>
 <li>On OpenBSD 6.6:</li>
 </ul>
 <pre><code>pkg_add GeoIP geolite-country
+</code></pre>
+
+<h2 id="for-iredadmin-pro-users-enable-the-sql-integration">For iRedAdmin-Pro users: Enable the SQL integration</h2>
+<p>Please add Fail2ban SQL credential in iRedAdmin-Pro config file
+<code>/opt/www/iredadmin/settings.py</code>, then restart <code>iredadmin</code> service. If you're
+still running Apache web server, you should restart Apache service instead.</p>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>If you're running PostgreSQL backend, the port number is <code>5432</code>.</p>
+</div>
+<pre><code>fail2ban_enabled = True
+fail2ban_db_host = '127.0.0.1'
+fail2ban_db_port = '3306'
+fail2ban_db_name = 'fail2ban'
+fail2ban_db_user = 'fail2ban'
+fail2ban_db_password = '&lt;my-secret-password&gt;'
 </code></pre>
 
 <h2 id="tests">Tests</h2>
