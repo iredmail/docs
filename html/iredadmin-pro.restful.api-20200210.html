@@ -47,8 +47,8 @@
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>
 <ul>
-<li>This document is applicable to <code>iRedAdmin-Pro-SQL-4.2</code>, <code>4.3</code> and
-  <code>iRedAdmin-Pro-LDAP-4.3</code>, <code>4.4</code>. If you're running an old release, please
+<li>This document is applicable to <code>iRedAdmin-Pro-SQL-4.1</code> (and 4.1.1, 4.1.2) and
+  <code>iRedAdmin-Pro-LDAP-4.2</code>. If you're running an old release, please
   upgrade iRedAdmin-Pro to the latest release, or check
   <a href="./iredadmin-pro.releases.html">document for old releases</a>.</li>
 <li>If you need an API which has not yet been implemented, don't hesitate to
@@ -324,7 +324,7 @@ networks.</p>
 </tr>
 <tr>
 <td><code>is_backupmx</code></td>
-<td>Mark domain as Backup MX. If parameter <code>primarymx</code> is not given, MTA (Postfix) will query DNS record to get primary mx server. Conflicts with parameter <code>transport</code>.</td>
+<td>Mark domain as Backup MX. Must be used with parameter <code>primarymx</code>. Conflicts with parameter <code>transport</code>.</td>
 <td><code>is_backupmx=yes</code> (or <code>no</code>)</td>
 </tr>
 <tr>
@@ -479,10 +479,6 @@ networks.</p>
 <tr>
 <td>backupmx</td>
 <td>Backup MX</td>
-</tr>
-<tr>
-<td>password_policies</td>
-<td>Password policies. including min/max password lengths.</td>
 </tr>
 <tr>
 <td>advanced</td>
@@ -978,7 +974,7 @@ to be a domain admin.</p>
 </tr>
 <tr>
 <td><code>forwarding</code></td>
-<td>Reset per-user mail forwarding to given (valid) addresses. Multiple addresses must be separated by comma. To save an email copy in mailbox, add original email address as one of forwarding addresses.</td>
+<td>Per-user mail forwarding. Multiple addresses must be separated by comma. To save an email copy in mailbox, add original email address as one of forwarding addresses.</td>
 <td><code>forwarding=user1@domain.com,user2@domain.com,user3@domain.com</code></td>
 </tr>
 <tr>

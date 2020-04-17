@@ -31,20 +31,22 @@
 <li><a href="#for-openldap-backend">For OpenLDAP backend</a><ul>
 <li><a href="#improved-last-login-track">Improved last login track</a></li>
 <li><a href="#fixed-can-not-store-mail-subject-with-emoji-characters-in-amavisd-database">Fixed: can not store mail subject with emoji characters in amavisd database</a></li>
+<li><a href="#optional-fail2ban-store-banned-ip-addresses-in-sql-database">[OPTIONAL] Fail2ban: Store banned IP addresses in SQL database</a></li>
 </ul>
 </li>
 <li><a href="#for-mysqlmariadb-backends">For MySQL/MariaDB backends</a><ul>
 <li><a href="#improved-last-login-track_1">Improved last login track</a></li>
 <li><a href="#fixed-can-not-store-mail-subject-with-emoji-characters-in-amavisd-database_1">Fixed: can not store mail subject with emoji characters in amavisd database</a></li>
+<li><a href="#optional-fail2ban-store-banned-ip-addresses-in-sql-database_1">[OPTIONAL] Fail2ban: Store banned IP addresses in SQL database</a></li>
+</ul>
+</li>
+<li><a href="#for-postgresql-backend">For PostgreSQL backend</a><ul>
+<li><a href="#optional-fail2ban-store-banned-ip-addresses-in-sql-database_2">[OPTIONAL] Fail2ban: Store banned IP addresses in SQL database</a></li>
 </ul>
 </li>
 </ul>
 </li>
 </ul>
-</div>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>This is still a DRAFT document, do <strong>NOT</strong> apply it.</p>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Paid Remote Upgrade Support</p>
@@ -163,6 +165,12 @@ user or <code>amavisd</code> user, then run SQL commands below to fix it:</p>
 ALTER TABLE msgs MODIFY COLUMN subject VARBINARY(255) NOT NULL DEFAULT '';
 </code></pre>
 
+<h3 id="optional-fail2ban-store-banned-ip-addresses-in-sql-database">[OPTIONAL] Fail2ban: Store banned IP addresses in SQL database</h3>
+<p>If you're running iRedAdmin-Pro, it's very useful to store banned IP addresses
+in SQL database, then you can view and manage them with iRedAdmin-Pro directly.</p>
+<ul>
+<li><a href="./fail2ban.sql.html">Fail2ban: Store banned IP addresses in SQL database</a></li>
+</ul>
 <h2 id="for-mysqlmariadb-backends">For MySQL/MariaDB backends</h2>
 <h3 id="improved-last-login-track_1">Improved last login track</h3>
 <p>In iRedMail-1.0, Dovecot is configured to store user last login time in SQL
@@ -225,7 +233,21 @@ doesn't support emoji characters. Please login to MySQL/MariaDB server as <code>
 user or <code>amavisd</code> user, then run SQL commands below to fix it:</p>
 <pre><code>USE amavisd;
 ALTER TABLE msgs MODIFY COLUMN subject VARBINARY(255) NOT NULL DEFAULT '';
-</code></pre><div class="footer">
+</code></pre>
+
+<h3 id="optional-fail2ban-store-banned-ip-addresses-in-sql-database_1">[OPTIONAL] Fail2ban: Store banned IP addresses in SQL database</h3>
+<p>If you're running iRedAdmin-Pro, it's very useful to store banned IP addresses
+in SQL database, then you can view and manage them with iRedAdmin-Pro directly.</p>
+<ul>
+<li><a href="./fail2ban.sql.html">Fail2ban: Store banned IP addresses in SQL database</a></li>
+</ul>
+<h2 id="for-postgresql-backend">For PostgreSQL backend</h2>
+<h3 id="optional-fail2ban-store-banned-ip-addresses-in-sql-database_2">[OPTIONAL] Fail2ban: Store banned IP addresses in SQL database</h3>
+<p>If you're running iRedAdmin-Pro, it's very useful to store banned IP addresses
+in SQL database, then you can view and manage them with iRedAdmin-Pro directly.</p>
+<ul>
+<li><a href="./fail2ban.sql.html">Fail2ban: Store banned IP addresses in SQL database</a></li>
+</ul><div class="footer">
     <p style="text-align: center; color: grey;">All documents are available in <a href="https://github.com/iredmail/docs/">GitHub repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://github.com/iredmail/docs/archive/master.zip">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
 </div>
 <!-- Global site tag (gtag.js) - Google Analytics -->

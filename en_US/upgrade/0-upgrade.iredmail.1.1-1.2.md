@@ -2,10 +2,6 @@
 
 [TOC]
 
-!!! warning
-
-    This is still a DRAFT document, do __NOT__ apply it.
-
 !!! note "Paid Remote Upgrade Support"
 
     We offer remote upgrade support if you don't want to get your hands dirty,
@@ -143,6 +139,13 @@ USE amavisd;
 ALTER TABLE msgs MODIFY COLUMN subject VARBINARY(255) NOT NULL DEFAULT '';
 ```
 
+### [OPTIONAL] Fail2ban: Store banned IP addresses in SQL database
+
+If you're running iRedAdmin-Pro, it's very useful to store banned IP addresses
+in SQL database, then you can view and manage them with iRedAdmin-Pro directly.
+
+* [Fail2ban: Store banned IP addresses in SQL database](./fail2ban.sql.html)
+
 ## For MySQL/MariaDB backends
 
 ### Improved last login track
@@ -211,3 +214,19 @@ user or `amavisd` user, then run SQL commands below to fix it:
 USE amavisd;
 ALTER TABLE msgs MODIFY COLUMN subject VARBINARY(255) NOT NULL DEFAULT '';
 ```
+
+### [OPTIONAL] Fail2ban: Store banned IP addresses in SQL database
+
+If you're running iRedAdmin-Pro, it's very useful to store banned IP addresses
+in SQL database, then you can view and manage them with iRedAdmin-Pro directly.
+
+* [Fail2ban: Store banned IP addresses in SQL database](./fail2ban.sql.html)
+
+## For PostgreSQL backend
+
+### [OPTIONAL] Fail2ban: Store banned IP addresses in SQL database
+
+If you're running iRedAdmin-Pro, it's very useful to store banned IP addresses
+in SQL database, then you can view and manage them with iRedAdmin-Pro directly.
+
+* [Fail2ban: Store banned IP addresses in SQL database](./fail2ban.sql.html)

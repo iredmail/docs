@@ -238,7 +238,7 @@ for lang in ${all_languages}; do
                                ${OUTPUT_DIR} \
                                output_filename="${article_html_file}" \
                                title="${_article_title}" \
-                               add_index_link='yes'
+                               add_index_link='yes' &
 
                 if [ X"$?" == X'0' ]; then
                     echo -e ' [DONE]'
