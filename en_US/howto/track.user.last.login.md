@@ -2,29 +2,27 @@
 
 [TOC]
 
-!!! warning
+!!! attention
 
-    This feature is not available for PostgreSQL backend due to Dovecot does
-    not yet support updating existing SQL record on conflict primary key.
-
-    Relevent posts in Dovecot mailing lists:
-
-    - <https://marc.info/?t=155411531600001&r=1&w=2>
-    - <https://marc.info/?t=155826327900001&r=1&w=2>
+    * This feature is not available for PostgreSQL backend because Dovecot does
+      not yet support updating existing SQL record on conflict primary key.
+      References: [1](https://marc.info/?t=155411531600001&r=1&w=2), [2](https://marc.info/?t=155826327900001&r=1&w=2)
+    * This tutorial has been updated to support tracking last login time of
+      both IMAP and POP3, which is implemented in iRedMail-1.2.
 
 Dovecot ships a `last_login` plugin since Dovecot-2.2.14, it can be used to
 easily save and update user's last-login timestamp in SQL database.
 
-!!! attention
+Currently this plugin works with MySQL/MariaDB, but __not PostgreSQL__.
 
-    * Currently this plugin works with MySQL/MariaDB, but __not PostgreSQL__.
-    * It works on:
-        * CentOS 7 (Dovecot-2.2.36)
-        * Debian 9 (Dovecot-2.2.27)
-        * Ubuntu 16.04 (Dovecot-2.2.22)
-        * Ubuntu 18.04 (Dovecot-2.2.33)
-        * OpenBSD 6.4 (Dovecot-2.2.36)
-        * FreeBSD (Dovecot-2.3.x in ports tree)
+It works on:
+
+* CentOS 7 (Dovecot-2.2.36), 8 (Dovecot-2.2.36)
+* Debian 9 (Dovecot-2.2.27)
+* Ubuntu 16.04 (Dovecot-2.2.22)
+* Ubuntu 18.04 (Dovecot-2.2.33)
+* OpenBSD 6.4 (Dovecot-2.2.36), 6.5, 6.6
+* FreeBSD (Dovecot-2.3.x in ports tree)
 
 ## Create required SQL table to store last login info
 
@@ -41,10 +39,14 @@ SQL statement:
 CREATE TABLE IF NOT EXISTS `last_login` (
     `username` VARCHAR(255) NOT NULL DEFAULT '',
     `domain` VARCHAR(255) NOT NULL DEFAULT '',
-    `last_login` INT(11) DEFAULT NULL,
+    `imap` INT(11) DEFAULT NULL,
+    `pop3` INT(11) DEFAULT NULL,
+    `lda` INT(11) DEFAULT NULL,
     PRIMARY KEY (`username`),
-    INDEX (domain),
-    INDEX (`last_login`)
+    INDEX (`domain`),
+    INDEX (`imap`),
+    INDEX (`pop3`),
+    INDEX (`lda`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 ```
 
@@ -58,12 +60,14 @@ as a placeholder for your existing settings.
 
 ```
 protocol imap {
-    mail_plugins = ... last_login       # Append plugin name here
+    # Append plugin name `last_login` here
+    mail_plugins = ... last_login
     ...
 }
 
 protocol pop3 {
-    mail_plugins = ... last_login       # Append plugin name here
+    # Append plugin name `last_login` here
+    mail_plugins = ... last_login
     ...
 }
 
@@ -80,20 +84,29 @@ plugin {
 
     # Add 2 lines
     last_login_dict = proxy::lastlogin
-    last_login_key = last-login/%u/%d
+    last_login_key = last-login/%s/%u/%d
 }
 ```
 
 Create file `/etc/dovecot/dovecot-last-login.conf` (Linux/OpenBSD) or
 `/usr/local/etc/dovecot/dovecot-last-login.conf` (FreeBSD) with content below:
 
+!!! attention
+
+    * For MySQL/MariaDB backends, please replace `my_secret_password` by the real
+      password of SQL user `vmailadmin`.
+    * For OpenLDAP backend:
+        * replace `dbname=vmail` by `dbname=iredadmin`
+        * replace `user=vmailadmin` by `user=iredadmin`
+        * replace `my_secret_password` by the real password of SQL user `iredadmin`
+
 ```
 connect = host=127.0.0.1 port=3306 dbname=vmail user=vmailadmin password=my_secret_password
 
 map {
-    pattern = shared/last-login/$user/$domain
+    pattern = shared/last-login/imap/$user/$domain
     table = last_login
-    value_field = last_login
+    value_field = imap
     value_type = uint
 
     fields {
@@ -101,14 +114,48 @@ map {
         domain = $domain
     }
 }
-```
 
-* For MySQL/MariaDB backends, please replace `my_secret_password` by the real
-  password of SQL user `vmailadmin`.
-* For OpenLDAP backend:
-    * replace `dbname=vmail` by `dbname=iredadmin`
-    * replace `user=vmailadmin` by `user=iredadmin`
-    * replace `my_secret_password` by the real password of SQL user `iredadmin`
+map {
+    pattern = shared/last-login/pop3/$user/$domain
+    table = last_login
+    value_field = pop3
+    value_type = uint
+
+    fields {
+        username = $user
+        domain = $domain
+    }
+}
+
+# If you want to track the time of last email delivered to mailbox via LDA,
+# please enable `last_login` plugin in the `protocol lda {}` block in dovecot.conf.
+#map {
+#    pattern = shared/last-login/lda/$user/$domain
+#    table = last_login
+#    value_field = lda
+#    value_type = uint
+#
+#    fields {
+#        username = $user
+#        domain = $domain
+#    }
+#}
+
+# If you want to track the time of last email delivered to mailbox via LMTP,
+# please enable `last_login` plugin in the `protocol lmtp {}` block in dovecot.conf.
+# We treat lmtp as lda, store the time in sql column `lda`.
+#map {
+#    pattern = shared/last-login/lmtp/$user/$domain
+#    table = last_login
+#    value_field = lda
+#    value_type = uint
+#
+#    fields {
+#        username = $user
+#        domain = $domain
+#    }
+#}
+```
 
 Since this file contain SQL username and password, we must protect it with
 proper owner/group and permission (we use Linux/BSD for example below):
@@ -134,11 +181,11 @@ example:
 ```
 sql> USE vmail;
 sql> SELECT * FROM last_login;
-+-----------------+--------+------------+
-| username        | domain | last_login |
-+-----------------+--------+------------+
-| postmaster@a.io | a.io   | 1554172329 |
-+-----------------+--------+------------+
++-----------------+--------+------------+------+------+
+| username        | domain | imap       | pop3 | lda  |
++-----------------+--------+------------+------+------+
+| postmaster@a.io | a.io   | 1554172329 | NULL | NULL |
++-----------------+--------+------------+------+------+
 1 row in set (0.01 sec)
 ```
 

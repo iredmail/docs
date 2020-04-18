@@ -27,33 +27,28 @@
 </li>
 </ul>
 </div>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>This feature is not available for PostgreSQL backend due to Dovecot does
-not yet support updating existing SQL record on conflict primary key.</p>
-<p>Relevent posts in Dovecot mailing lists:</p>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
 <ul>
-<li><a href="https://marc.info/?t=155411531600001&amp;r=1&amp;w=2">https://marc.info/?t=155411531600001&amp;r=1&amp;w=2</a></li>
-<li><a href="https://marc.info/?t=155826327900001&amp;r=1&amp;w=2">https://marc.info/?t=155826327900001&amp;r=1&amp;w=2</a></li>
+<li>This feature is not available for PostgreSQL backend because Dovecot does
+  not yet support updating existing SQL record on conflict primary key.
+  References: <a href="https://marc.info/?t=155411531600001&amp;r=1&amp;w=2">1</a>, <a href="https://marc.info/?t=155826327900001&amp;r=1&amp;w=2">2</a></li>
+<li>This tutorial has been updated to support tracking last login time of
+  both IMAP and POP3, which is implemented in iRedMail-1.2.</li>
 </ul>
 </div>
 <p>Dovecot ships a <code>last_login</code> plugin since Dovecot-2.2.14, it can be used to
 easily save and update user's last-login timestamp in SQL database.</p>
-<div class="admonition attention">
-<p class="admonition-title">Attention</p>
+<p>Currently this plugin works with MySQL/MariaDB, but <strong>not PostgreSQL</strong>.</p>
+<p>It works on:</p>
 <ul>
-<li>Currently this plugin works with MySQL/MariaDB, but <strong>not PostgreSQL</strong>.</li>
-<li>It works on:<ul>
-<li>CentOS 7 (Dovecot-2.2.36)</li>
+<li>CentOS 7 (Dovecot-2.2.36), 8 (Dovecot-2.2.36)</li>
 <li>Debian 9 (Dovecot-2.2.27)</li>
 <li>Ubuntu 16.04 (Dovecot-2.2.22)</li>
 <li>Ubuntu 18.04 (Dovecot-2.2.33)</li>
-<li>OpenBSD 6.4 (Dovecot-2.2.36)</li>
+<li>OpenBSD 6.4 (Dovecot-2.2.36), 6.5, 6.6</li>
 <li>FreeBSD (Dovecot-2.3.x in ports tree)</li>
 </ul>
-</li>
-</ul>
-</div>
 <h2 id="create-required-sql-table-to-store-last-login-info">Create required SQL table to store last login info</h2>
 <p>We need to create a sql table to store the user last login info.</p>
 <ul>
@@ -66,10 +61,14 @@ easily save and update user's last-login timestamp in SQL database.</p>
 <pre><code>CREATE TABLE IF NOT EXISTS `last_login` (
     `username` VARCHAR(255) NOT NULL DEFAULT '',
     `domain` VARCHAR(255) NOT NULL DEFAULT '',
-    `last_login` INT(11) DEFAULT NULL,
+    `imap` INT(11) DEFAULT NULL,
+    `pop3` INT(11) DEFAULT NULL,
+    `lda` INT(11) DEFAULT NULL,
     PRIMARY KEY (`username`),
-    INDEX (domain),
-    INDEX (`last_login`)
+    INDEX (`domain`),
+    INDEX (`imap`),
+    INDEX (`pop3`),
+    INDEX (`lda`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 </code></pre>
 
@@ -80,12 +79,14 @@ for POP3 and IMAP services by appending plugin name to its <code>mail_plugins</c
 parameter like below, and add extra required settings. Note: we use <code>...</code> below
 as a placeholder for your existing settings.</p>
 <pre><code>protocol imap {
-    mail_plugins = ... last_login       # Append plugin name here
+    # Append plugin name `last_login` here
+    mail_plugins = ... last_login
     ...
 }
 
 protocol pop3 {
-    mail_plugins = ... last_login       # Append plugin name here
+    # Append plugin name `last_login` here
+    mail_plugins = ... last_login
     ...
 }
 
@@ -102,27 +103,14 @@ plugin {
 
     # Add 2 lines
     last_login_dict = proxy::lastlogin
-    last_login_key = last-login/%u/%d
+    last_login_key = last-login/%s/%u/%d
 }
 </code></pre>
 
 <p>Create file <code>/etc/dovecot/dovecot-last-login.conf</code> (Linux/OpenBSD) or
 <code>/usr/local/etc/dovecot/dovecot-last-login.conf</code> (FreeBSD) with content below:</p>
-<pre><code>connect = host=127.0.0.1 port=3306 dbname=vmail user=vmailadmin password=my_secret_password
-
-map {
-    pattern = shared/last-login/$user/$domain
-    table = last_login
-    value_field = last_login
-    value_type = uint
-
-    fields {
-        username = $user
-        domain = $domain
-    }
-}
-</code></pre>
-
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
 <ul>
 <li>For MySQL/MariaDB backends, please replace <code>my_secret_password</code> by the real
   password of SQL user <code>vmailadmin</code>.</li>
@@ -133,6 +121,63 @@ map {
 </ul>
 </li>
 </ul>
+</div>
+<pre><code>connect = host=127.0.0.1 port=3306 dbname=vmail user=vmailadmin password=my_secret_password
+
+map {
+    pattern = shared/last-login/imap/$user/$domain
+    table = last_login
+    value_field = imap
+    value_type = uint
+
+    fields {
+        username = $user
+        domain = $domain
+    }
+}
+
+map {
+    pattern = shared/last-login/pop3/$user/$domain
+    table = last_login
+    value_field = pop3
+    value_type = uint
+
+    fields {
+        username = $user
+        domain = $domain
+    }
+}
+
+# If you want to track the time of last email delivered to mailbox via LDA,
+# please enable `last_login` plugin in the `protocol lda {}` block in dovecot.conf.
+#map {
+#    pattern = shared/last-login/lda/$user/$domain
+#    table = last_login
+#    value_field = lda
+#    value_type = uint
+#
+#    fields {
+#        username = $user
+#        domain = $domain
+#    }
+#}
+
+# If you want to track the time of last email delivered to mailbox via LMTP,
+# please enable `last_login` plugin in the `protocol lmtp {}` block in dovecot.conf.
+# We treat lmtp as lda, store the time in sql column `lda`.
+#map {
+#    pattern = shared/last-login/lmtp/$user/$domain
+#    table = last_login
+#    value_field = lda
+#    value_type = uint
+#
+#    fields {
+#        username = $user
+#        domain = $domain
+#    }
+#}
+</code></pre>
+
 <p>Since this file contain SQL username and password, we must protect it with
 proper owner/group and permission (we use Linux/BSD for example below):</p>
 <pre><code>chown dovecot:dovecot /etc/dovecot/dovecot-last-login.conf
@@ -150,11 +195,11 @@ should see the time has been updated in SQL table <code>vmail.last_login</code>
 example:</p>
 <pre><code>sql&gt; USE vmail;
 sql&gt; SELECT * FROM last_login;
-+-----------------+--------+------------+
-| username        | domain | last_login |
-+-----------------+--------+------------+
-| postmaster@a.io | a.io   | 1554172329 |
-+-----------------+--------+------------+
++-----------------+--------+------------+------+------+
+| username        | domain | imap       | pop3 | lda  |
++-----------------+--------+------------+------+------+
+| postmaster@a.io | a.io   | 1554172329 | NULL | NULL |
++-----------------+--------+------------+------+------+
 1 row in set (0.01 sec)
 </code></pre>
 
