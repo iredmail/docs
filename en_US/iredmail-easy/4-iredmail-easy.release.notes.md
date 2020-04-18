@@ -17,7 +17,7 @@
   support. Note: available for SQL backends.
 
 * Dovecot:
-    - TLSv1 and TLSv1.1 are disabled.
+    - TLSv1 is now disabled by default.
     - It now tracks last login of both POP3 and IMAP logins. In early releases,
       either POP3 or IMAP was tracked.
 
