@@ -266,6 +266,9 @@ Restarting Postfix service is required.
 
 ### [OPTIONAL] Track the time of user last login via IMAP/POP3
 
+It's useful if you want to know the time of user last login via IMAP/POP3, and
+here's the tutorial to implement this.
+
 * [Track user last login time](./track.user.last.login.html)
 
 ## For MySQL/MariaDB backends
@@ -356,6 +359,9 @@ smtpd_recipient_restrictions =
 Restarting Postfix service is required.
 
 ### [OPTIONAL] Track the time of user last login via IMAP/POP3
+
+It's useful if you want to know the time of user last login via IMAP/POP3, and
+here's the tutorial to implement this.
 
 * [Track user last login time](./track.user.last.login.html)
 
