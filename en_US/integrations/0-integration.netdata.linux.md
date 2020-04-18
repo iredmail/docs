@@ -234,10 +234,10 @@ We need to enable statistics module in Dovecot.
   `stats` in global parameter `mail_plugins`, and `imap_stats` for imap protocol:
 
 ```
-mail_plugins = ... stats
+mail_plugins = ... old_stats
 
 protocol imap {
-    mail_plugins = ... imap_stats
+    mail_plugins = ... imap_old_stats
     ...
 }
 ```
@@ -247,13 +247,13 @@ protocol imap {
 ```
 plugin {
     # how often to session statistics (must be set)
-    stats_refresh = 30 secs
+    old_stats_refresh = 30 secs
     # track per-IMAP command statistics (optional)
-    stats_track_cmds = yes
+    old_stats_track_cmds = yes
 }
 
-service stats {
-    fifo_listener stats-mail {
+service old-stats {
+    fifo_listener old-stats-mail {
         user = vmail
         mode = 0644
     }
