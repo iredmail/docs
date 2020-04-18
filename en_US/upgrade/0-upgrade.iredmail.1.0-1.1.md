@@ -119,16 +119,18 @@ query_filter    = (&(accountStatus=active)(!(domainStatus=disabled))(enabledServ
 
 ### Improvement: OpenLDAP backup script doesn't relies on Python anymore
 
-OpenLDAP backup script `/var/vmail/backup/backup_openldap.sh` shipped in iRedMail-1.0
-and earlier releases relies on Python to calculate the date of old backup for
-removal, but not anymore in iRedMail-1.1. Please download the latest version
-and override the one on your system:
+OpenLDAP backup scripts `/var/vmail/backup/backup_openldap.sh` and
+`backup_mysql.sh` shipped in iRedMail-1.0 and earlier releases relies on Python
+to calculate the date of old backup for removal, but not anymore in
+iRedMail-1.1. Please download the latest version and override the one on your
+system:
 
 ```
 cd /var/vmail/backup/
 wget -O backup_openldap.sh https://github.com/iredmail/iRedMail/raw/1.1/tools/backup_openldap.sh
-chown root backup_openldap.sh
-chmod 0500 backup_openldap.sh
+wget -O backup_openldap.sh https://github.com/iredmail/iRedMail/raw/1.1/tools/backup_mysql.sh
+chown root backup_openldap.sh backup_mysql.sh
+chmod 0500 backup_openldap.sh backup_mysql.sh
 ```
 
 ## For MySQL/MariaDB backends

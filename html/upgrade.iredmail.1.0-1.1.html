@@ -144,14 +144,16 @@ Please follow steps below to fix it.</p>
 <li>Save your change and restart or reload Postfix service.</li>
 </ul>
 <h3 id="improvement-openldap-backup-script-doesnt-relies-on-python-anymore">Improvement: OpenLDAP backup script doesn't relies on Python anymore</h3>
-<p>OpenLDAP backup script <code>/var/vmail/backup/backup_openldap.sh</code> shipped in iRedMail-1.0
-and earlier releases relies on Python to calculate the date of old backup for
-removal, but not anymore in iRedMail-1.1. Please download the latest version
-and override the one on your system:</p>
+<p>OpenLDAP backup scripts <code>/var/vmail/backup/backup_openldap.sh</code> and
+<code>backup_mysql.sh</code> shipped in iRedMail-1.0 and earlier releases relies on Python
+to calculate the date of old backup for removal, but not anymore in
+iRedMail-1.1. Please download the latest version and override the one on your
+system:</p>
 <pre><code>cd /var/vmail/backup/
 wget -O backup_openldap.sh https://github.com/iredmail/iRedMail/raw/1.1/tools/backup_openldap.sh
-chown root backup_openldap.sh
-chmod 0500 backup_openldap.sh
+wget -O backup_openldap.sh https://github.com/iredmail/iRedMail/raw/1.1/tools/backup_mysql.sh
+chown root backup_openldap.sh backup_mysql.sh
+chmod 0500 backup_openldap.sh backup_mysql.sh
 </code></pre>
 
 <h2 id="for-mysqlmariadb-backends">For MySQL/MariaDB backends</h2>

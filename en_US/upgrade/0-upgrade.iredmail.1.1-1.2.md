@@ -157,6 +157,12 @@ in SQL database, then you can view and manage them with iRedAdmin-Pro directly.
 
 ### Improved last login track
 
+!!! attention
+
+    User last login track is optional if you didn't implement it while
+    upgrading iRedMail to 1.0. Here's the full tutorial to implement last login
+    track: [Track user last login time](./track.user.last.login.html).
+
 In iRedMail-1.0, Dovecot is configured to store user last login time in SQL
 database `iredadmin`, but it only tracks either POP3 or IMAP login. In
 iRedMail-1.2, it tracks both. Please follow steps below to implement this

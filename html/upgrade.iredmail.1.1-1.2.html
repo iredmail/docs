@@ -180,6 +180,12 @@ in SQL database, then you can view and manage them with iRedAdmin-Pro directly.<
 </ul>
 <h2 id="for-mysqlmariadb-backends">For MySQL/MariaDB backends</h2>
 <h3 id="improved-last-login-track_1">Improved last login track</h3>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>User last login track is optional if you didn't implement it while
+upgrading iRedMail to 1.0. Here's the full tutorial to implement last login
+track: <a href="./track.user.last.login.html">Track user last login time</a>.</p>
+</div>
 <p>In iRedMail-1.0, Dovecot is configured to store user last login time in SQL
 database <code>iredadmin</code>, but it only tracks either POP3 or IMAP login. In
 iRedMail-1.2, it tracks both. Please follow steps below to implement this
