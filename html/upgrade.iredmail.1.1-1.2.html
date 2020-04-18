@@ -56,6 +56,7 @@ check <a href="https://www.iredmail.org/support.html">the details</a> and
 </div>
 <h2 id="changelog">ChangeLog</h2>
 <ul>
+<li>Apr 18, 2020: Add link of tutorial: <a href="./track.user.last.login.html">Track user last login time</a>.</li>
 <li>Apr 17, 2020: initial release.</li>
 </ul>
 <h2 id="general-all-backends-should-apply-these-changes">General (All backends should apply these changes)</h2>
@@ -103,10 +104,16 @@ chmod 0550 mlmmj-amime-receive
 
 <h2 id="for-openldap-backend">For OpenLDAP backend</h2>
 <h3 id="improved-last-login-track">Improved last login track</h3>
-<p>In iRedMail-1.0, Dovecot is configured to store user last login time in SQL
-database <code>iredadmin</code>, but it only tracks either POP3 or IMAP login. In
-iRedMail-1.2, it tracks both. Please follow steps below to implement this
-improvement.</p>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>User last login track is optional if you didn't implement it while
+upgrading iRedMail to 1.0. Here's the full tutorial to implement last login
+track: <a href="./track.user.last.login.html">Track user last login time</a>.</p>
+</div>
+<p>In iRedMail-1.0, Dovecot is configured to store the time of user last login via
+IMAP/POP3 in SQL database <code>iredadmin</code>, but it only tracks either POP3 or IMAP
+login. In iRedMail-1.2, it tracks both. Please follow steps below to implement
+this improvement.</p>
 <ul>
 <li>Open file <code>/etc/dovecot/dovecot.conf</code> (Linux/OpenBSD) or
   <code>/usr/local/etc/dovecot/dovecot.conf</code> (FreeBSD), find the <code>last_login_key</code>

@@ -10,6 +10,7 @@
 
 ## ChangeLog
 
+* Apr 18, 2020, mention how to configure Dovecot to track user last login time.
 * Dec 11 2019, mention not to enable quota-status service in Dovecot-2.1.x.
 * Dec 9, 2019, initial release.
 
@@ -263,6 +264,10 @@ smtpd_recipient_restrictions =
 
 Restarting Postfix service is required.
 
+### [OPTIONAL] Track the time of user last login via IMAP/POP3
+
+* [Track user last login time](./track.user.last.login.html)
+
 ## For MySQL/MariaDB backends
 
 ### [OPTIONAL] Enable mailbox quota status check in Dovecot and Postfix.
@@ -349,6 +354,10 @@ smtpd_recipient_restrictions =
 ```
 
 Restarting Postfix service is required.
+
+### [OPTIONAL] Track the time of user last login via IMAP/POP3
+
+* [Track user last login time](./track.user.last.login.html)
 
 ## For PostgreSQL backend
 

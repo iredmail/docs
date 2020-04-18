@@ -8,7 +8,8 @@
       not yet support updating existing SQL record on conflict primary key.
       References: [1](https://marc.info/?t=155411531600001&r=1&w=2), [2](https://marc.info/?t=155826327900001&r=1&w=2)
     * This tutorial has been updated to support tracking last login time of
-      both IMAP and POP3, which is implemented in iRedMail-1.2.
+      both IMAP and POP3, which is implemented in iRedMail-1.2, you can find
+      the difference in upgrade tutorial for iRedMail-1.2 here: [For LDAP backend](./upgrade.iredmail.1.1-1.2.html#improved-last-login-track), [For SQL backends](./upgrade.iredmail.1.1-1.2.html#improved-last-login-track_1).
 
 Dovecot ships a `last_login` plugin since Dovecot-2.2.14, it can be used to
 easily save and update user's last-login timestamp in SQL database.

@@ -40,6 +40,7 @@
 <li><a href="#enable-quota-status-check-in-postfix">Enable quota status check in Postfix</a></li>
 </ul>
 </li>
+<li><a href="#optional-track-the-time-of-user-last-login-via-imappop3">[OPTIONAL] Track the time of user last login via IMAP/POP3</a></li>
 </ul>
 </li>
 <li><a href="#for-mysqlmariadb-backends">For MySQL/MariaDB backends</a><ul>
@@ -49,6 +50,7 @@
 <li><a href="#enable-quota-status-check-in-postfix_1">Enable quota status check in Postfix</a></li>
 </ul>
 </li>
+<li><a href="#optional-track-the-time-of-user-last-login-via-imappop3_1">[OPTIONAL] Track the time of user last login via IMAP/POP3</a></li>
 </ul>
 </li>
 <li><a href="#for-postgresql-backend">For PostgreSQL backend</a><ul>
@@ -72,6 +74,7 @@ check <a href="https://www.iredmail.org/support.html">the details</a> and
 </div>
 <h2 id="changelog">ChangeLog</h2>
 <ul>
+<li>Apr 18, 2020, mention how to configure Dovecot to track user last login time.</li>
 <li>Dec 11 2019, mention not to enable quota-status service in Dovecot-2.1.x.</li>
 <li>Dec 9, 2019, initial release.</li>
 </ul>
@@ -285,6 +288,10 @@ Dovecot-2.1.x or earlier versions.</p>
 </code></pre>
 
 <p>Restarting Postfix service is required.</p>
+<h3 id="optional-track-the-time-of-user-last-login-via-imappop3">[OPTIONAL] Track the time of user last login via IMAP/POP3</h3>
+<ul>
+<li><a href="./track.user.last.login.html">Track user last login time</a></li>
+</ul>
 <h2 id="for-mysqlmariadb-backends">For MySQL/MariaDB backends</h2>
 <h3 id="optional-enable-mailbox-quota-status-check-in-dovecot-and-postfix_1">[OPTIONAL] Enable mailbox quota status check in Dovecot and Postfix.</h3>
 <p>With default iRedMail settings, Postfix accepts email without checking whether
@@ -355,6 +362,10 @@ Dovecot-2.1.x or earlier versions.</p>
 </code></pre>
 
 <p>Restarting Postfix service is required.</p>
+<h3 id="optional-track-the-time-of-user-last-login-via-imappop3_1">[OPTIONAL] Track the time of user last login via IMAP/POP3</h3>
+<ul>
+<li><a href="./track.user.last.login.html">Track user last login time</a></li>
+</ul>
 <h2 id="for-postgresql-backend">For PostgreSQL backend</h2>
 <h3 id="optional-enable-mailbox-quota-status-check-in-dovecot-and-postfix_2">[OPTIONAL] Enable mailbox quota status check in Dovecot and Postfix.</h3>
 <p>With default iRedMail settings, Postfix accepts email without checking whether
