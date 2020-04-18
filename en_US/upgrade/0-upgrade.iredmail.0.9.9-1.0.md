@@ -266,8 +266,9 @@ Restarting Postfix service is required.
 
 ### [OPTIONAL] Track the time of user last login via IMAP/POP3
 
-It's useful if you want to know the time of user last login via IMAP/POP3, and
-here's the tutorial to implement this.
+Sometimes you may want/need to know the time of user last login via IMAP/POP3,
+and here's the tutorial to implement this feature. If you run iRedAdmin-Pro
+admin panel, it's visiable on the web UI directly.
 
 * [Track user last login time](./track.user.last.login.html)
 
@@ -360,8 +361,9 @@ Restarting Postfix service is required.
 
 ### [OPTIONAL] Track the time of user last login via IMAP/POP3
 
-It's useful if you want to know the time of user last login via IMAP/POP3, and
-here's the tutorial to implement this.
+Sometimes you may want/need to know the time of user last login via IMAP/POP3,
+and here's the tutorial to implement this feature. If you run iRedAdmin-Pro
+admin panel, it's visiable on the web UI directly.
 
 * [Track user last login time](./track.user.last.login.html)
 
