@@ -20,13 +20,13 @@ For more details about iRedMail Easy platform, please
 ## Requirements
 
 - A working iRedMail server which was deployed with the downlodable installer
-  `iRedMail-1.1`, or has been successfully upgraded to the latest
-  iRedMail-1.1 release.
+  `iRedMail-1.2`, or has been successfully upgraded to the latest
+  iRedMail-1.2 release.
 - Your iRedMail server must be running one of supported Linux/OpenBSD
   distribution releases:
     - Ubuntu 18.04 LTS
     - Debian 9, 10
-    - CentOS 7
+    - CentOS 7, 8
     - OpenBSD 6.6
 
 Unfortunately, FreeBSD is not supported by iRedMail Easy platform.
@@ -48,7 +48,11 @@ Please backup all important data before preparing the migration, including but n
 
 !!! attention
 
-    This is not necessary if you're running MariaDB backend.
+    * This is not necessary if you're running MariaDB backend.
+    * If you're replacing MySQL by MariaDB on Ubuntu 18.04, please disable
+      `apparmor` service before removing MySQL packages. Check
+      [this tutorial](https://mariadb.com/kb/en/the-community-mariadb-troubles-only-running-after-reboot-times-out-when-try/) for known issue and solutions. Also related bug report in
+      [Ubuntu LaunchPad](https://bugs.launchpad.net/ubuntu/+source/mariadb-10.1/+bug/1806263).
 
 iRedMail Easy installs MariaDB instead of MySQL, if you're running MySQL
 backend, you need to:
@@ -84,14 +88,14 @@ LDAP | `ldap_vmailadmin_password` | Password of LDAP dn `cn=vmailadmin,dc=xx,dc=
 MySQL, PostgreSQL | `sql_user_vmail` | Password of SQL user `vmail` | `/etc/postfix/mysql/*.cf` or `/etc/postfix/pgsql/*.cf`
 MySQL, PostgreSQL | `sql_user_vmailadmin` | Password of SQL user `vmailadmin` | `/opt/www/iredadmin/settings.py`
 ALL | `sql_user_amavisd` | Password of SQL user `amavisd` | `/etc/amavisd/amavisd.conf` (Linux/OpenBSD)<br>`/etc/amavis/conf.d/50-user` (Debian/Ubuntu)
-ALL | `sql_user_sa_bayes` | Password of SQL user `sa_bayes` | `/etc/mail/spamassassin/local.cf`
+ALL | `sql_user_sa_bayes` | Password of SQL user `sa_bayes`. If you didn't integrate SpamAssassin with SQL database, it's ok to not create this file. | `/etc/mail/spamassassin/local.cf`
 ALL | `sql_user_iredadmin` | Password of SQL user `iredadmin` | `/opt/www/iredadmin/settings.py`
 ALL | `sql_user_iredapd` | Password of SQL user `iredapd` | `/opt/iredapd/settings.py`
 ALL | `sql_user_roundcube` | Password of SQL user `roundcube` | `/root/.my.cnf-roundcube` or `/opt/www/roundcubemail/config/config.inc.php`
-ALL | `sql_user_sogo` | Password of SQL user `sogo` | `/etc/sogo/sogo.conf`
-ALL | `sql_user_netdata` | Password of SQL user `netdata` | `/root/.my.cnf-netdata` or `/opt/netdata/etc/netdata/my.cnf`
-ALL | `iredapd_srs_secret` | The secret string used to sign SRS. | `/opt/iredapd/settings.py`, parameter `srs_secrets =`.
-ALL | `sogo_sieve_master_password` | The Dovecot master user used by SOGo. | `/etc/sogo/sieve.cred`.
+ALL | `sql_user_sogo` | Password of SQL user `sogo`. If you didn't install SOGo, it's ok to not create this file. | `/etc/sogo/sogo.conf`
+ALL | `sql_user_netdata` | Password of SQL user `netdata`. If you didn't install netdata, it's ok to not create this file. | `/root/.my.cnf-netdata` or `/opt/netdata/etc/netdata/my.cnf`
+ALL | `iredapd_srs_secret` | The secret string used to sign SRS. It's ok if not present. | `/opt/iredapd/settings.py`, parameter `srs_secrets =`.
+ALL | `sogo_sieve_master_password` | The Dovecot master user used by SOGo. It's ok if not present. | `/etc/sogo/sieve.cred`.
 ALL | `roundcube_des_key` | The DES key used by Roundcube to encrypt the session. | `/opt/www/roundcubemail/config/config.inc.php`, parameter `$config['des_key'] =`.
 ALL | `mlmmjadmin_api_token` | API token for authentication. | `/opt/mlmmjadmin/settings.py`, parameter `api_auth_tokens =`.
 ALL | `first_domain_admin_password` | Password of the mail user `postmaster@<your-domain.com>`. | `your-domain.com` is the first mail domain name you (are going to) set in mail server profile page on iRedMail Easy platform, you can find it in mail server profile page, under tab `Settings`.

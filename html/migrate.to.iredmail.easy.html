@@ -56,13 +56,13 @@ iRedMail Team quickly.</p>
 <h2 id="requirements">Requirements</h2>
 <ul>
 <li>A working iRedMail server which was deployed with the downlodable installer
-  <code>iRedMail-1.1</code>, or has been successfully upgraded to the latest
-  iRedMail-1.1 release.</li>
+  <code>iRedMail-1.2</code>, or has been successfully upgraded to the latest
+  iRedMail-1.2 release.</li>
 <li>Your iRedMail server must be running one of supported Linux/OpenBSD
   distribution releases:<ul>
 <li>Ubuntu 18.04 LTS</li>
 <li>Debian 9, 10</li>
-<li>CentOS 7</li>
+<li>CentOS 7, 8</li>
 <li>OpenBSD 6.6</li>
 </ul>
 </li>
@@ -84,7 +84,13 @@ under <code>/opt/iredmail/custom/&lt;software&gt;/</code>.</p>
 <h2 id="mysql-backend-remove-mysql-not-mariadb-packages">MySQL backend: Remove MySQL (not MariaDB) packages</h2>
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>
-<p>This is not necessary if you're running MariaDB backend.</p>
+<ul>
+<li>This is not necessary if you're running MariaDB backend.</li>
+<li>If you're replacing MySQL by MariaDB on Ubuntu 18.04, please disable
+  <code>apparmor</code> service before removing MySQL packages. Check
+  <a href="https://mariadb.com/kb/en/the-community-mariadb-troubles-only-running-after-reboot-times-out-when-try/">this tutorial</a> for known issue and solutions. Also related bug report in
+  <a href="https://bugs.launchpad.net/ubuntu/+source/mariadb-10.1/+bug/1806263">Ubuntu LaunchPad</a>.</li>
+</ul>
 </div>
 <p>iRedMail Easy installs MariaDB instead of MySQL, if you're running MySQL
 backend, you need to:</p>
@@ -168,7 +174,7 @@ config files.</p>
 <tr>
 <td>ALL</td>
 <td><code>sql_user_sa_bayes</code></td>
-<td>Password of SQL user <code>sa_bayes</code></td>
+<td>Password of SQL user <code>sa_bayes</code>. If you didn't integrate SpamAssassin with SQL database, it's ok to not create this file.</td>
 <td><code>/etc/mail/spamassassin/local.cf</code></td>
 </tr>
 <tr>
@@ -192,25 +198,25 @@ config files.</p>
 <tr>
 <td>ALL</td>
 <td><code>sql_user_sogo</code></td>
-<td>Password of SQL user <code>sogo</code></td>
+<td>Password of SQL user <code>sogo</code>. If you didn't install SOGo, it's ok to not create this file.</td>
 <td><code>/etc/sogo/sogo.conf</code></td>
 </tr>
 <tr>
 <td>ALL</td>
 <td><code>sql_user_netdata</code></td>
-<td>Password of SQL user <code>netdata</code></td>
+<td>Password of SQL user <code>netdata</code>. If you didn't install netdata, it's ok to not create this file.</td>
 <td><code>/root/.my.cnf-netdata</code> or <code>/opt/netdata/etc/netdata/my.cnf</code></td>
 </tr>
 <tr>
 <td>ALL</td>
 <td><code>iredapd_srs_secret</code></td>
-<td>The secret string used to sign SRS.</td>
+<td>The secret string used to sign SRS. It's ok if not present.</td>
 <td><code>/opt/iredapd/settings.py</code>, parameter <code>srs_secrets =</code>.</td>
 </tr>
 <tr>
 <td>ALL</td>
 <td><code>sogo_sieve_master_password</code></td>
-<td>The Dovecot master user used by SOGo.</td>
+<td>The Dovecot master user used by SOGo. It's ok if not present.</td>
 <td><code>/etc/sogo/sieve.cred</code>.</td>
 </tr>
 <tr>
