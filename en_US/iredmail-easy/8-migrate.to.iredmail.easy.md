@@ -167,6 +167,10 @@ files under `/opt/iredmail/custom/<software>/`.
 
 Copy custom settings from `/opt/iredapd/settings.py` to `/opt/iredmail/custom/iredapd/settings.py`.
 
+### SpamAssassin
+
+Split custom settings from `/etc/mail/spamassassin/local.cf` to a new file under `/etc/mail/spamassassin/`, SpamAssassin will load it automatically.
+
 ### iRedAdmin(-Pro)
 
 Copy custom settings from `/opt/www/iredadmin/settings.py` to `/opt/iredmail/custom/iredadmin/settings.py`.
