@@ -157,6 +157,10 @@ files under `/opt/iredmail/custom/<software>/`.
     details, please check our
     [Best Practice](./iredmail-easy.best.practice.html#postfix) tutorial.
 
+### SpamAssassin
+
+Split custom settings from `/etc/mail/spamassassin/local.cf` to a new file with `.cf` extension under `/etc/mail/spamassassin/`, SpamAssassin will load it automatically. For example, `/etc/mail/spamassassin/custom.cf`.
+
 ### Roundcube Webmail
 
 * Copy custom settings from `/opt/www/roundcubemail/config/config.inc.php` to `/opt/iredmail/custom/roundcube/config/custom.inc.php`.
@@ -166,10 +170,6 @@ files under `/opt/iredmail/custom/<software>/`.
 ### iRedAPD
 
 Copy custom settings from `/opt/iredapd/settings.py` to `/opt/iredmail/custom/iredapd/settings.py`.
-
-### SpamAssassin
-
-Split custom settings from `/etc/mail/spamassassin/local.cf` to a new file with `.cf` extension under `/etc/mail/spamassassin/`, SpamAssassin will load it automatically. For example, `/etc/mail/spamassassin/custom.cf`.
 
 ### iRedAdmin(-Pro)
 

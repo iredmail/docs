@@ -27,9 +27,9 @@
 <li><a href="#copy-files-to-new-locations">Copy files to new locations</a></li>
 <li><a href="#split-custom-settings">Split custom settings</a><ul>
 <li><a href="#postfix">Postfix</a></li>
+<li><a href="#spamassassin">SpamAssassin</a></li>
 <li><a href="#roundcube-webmail">Roundcube Webmail</a></li>
 <li><a href="#iredapd">iRedAPD</a></li>
-<li><a href="#spamassassin">SpamAssassin</a></li>
 <li><a href="#iredadmin-pro">iRedAdmin(-Pro)</a></li>
 </ul>
 </li>
@@ -296,6 +296,8 @@ details, please check our
 <a href="./iredmail-easy.best.practice.html#postfix">Best Practice</a> tutorial.</p>
 </li>
 </ul>
+<h3 id="spamassassin">SpamAssassin</h3>
+<p>Split custom settings from <code>/etc/mail/spamassassin/local.cf</code> to a new file with <code>.cf</code> extension under <code>/etc/mail/spamassassin/</code>, SpamAssassin will load it automatically. For example, <code>/etc/mail/spamassassin/custom.cf</code>.</p>
 <h3 id="roundcube-webmail">Roundcube Webmail</h3>
 <ul>
 <li>Copy custom settings from <code>/opt/www/roundcubemail/config/config.inc.php</code> to <code>/opt/iredmail/custom/roundcube/config/custom.inc.php</code>.</li>
@@ -304,8 +306,6 @@ details, please check our
 </ul>
 <h3 id="iredapd">iRedAPD</h3>
 <p>Copy custom settings from <code>/opt/iredapd/settings.py</code> to <code>/opt/iredmail/custom/iredapd/settings.py</code>.</p>
-<h3 id="spamassassin">SpamAssassin</h3>
-<p>Split custom settings from <code>/etc/mail/spamassassin/local.cf</code> to a new file with <code>.cf</code> extension under <code>/etc/mail/spamassassin/</code>, SpamAssassin will load it automatically. For example, <code>/etc/mail/spamassassin/custom.cf</code>.</p>
 <h3 id="iredadmin-pro">iRedAdmin(-Pro)</h3>
 <p>Copy custom settings from <code>/opt/www/iredadmin/settings.py</code> to <code>/opt/iredmail/custom/iredadmin/settings.py</code>.</p>
 <h2 id="run-the-full-deployment-with-iredmail-easy-platform">Run the full deployment with iRedMail Easy platform</h2>
