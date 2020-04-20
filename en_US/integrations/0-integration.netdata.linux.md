@@ -228,6 +228,11 @@ pm.status_path = /status
 
 ### Monitor Dovecot
 
+!!! warning
+
+    This guide only supports Dovecot version 2.2 or before. Dovecot 2.3 and after
+    does not support netdata stats yet.
+
 We need to enable statistics module in Dovecot.
 
 * Please open Dovecot config file `/etc/dovecot/dovecot.conf`, append plugin
