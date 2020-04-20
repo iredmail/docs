@@ -214,7 +214,8 @@ action      = iptables-multiport[name=dovecot, port=&quot;80,443,25,587,465,110,
 <p>Now restart <code>fail2ban</code> service to load modified config files.</p>
 <h2 id="add-required-cron-job-to-query-sql-database-and-unban-ip-addresses">Add required cron job to query SQL database and unban IP addresses</h2>
 <p>Now add a cron job for <code>root</code> user:</p>
-<pre><code>* * * * * /bin/bash /usr/local/bin/fail2ban_banned_db unban_db
+<pre><code># Fail2ban: Unban IP addresses pending for removal (stored in SQL db).
+* * * * * /bin/bash /usr/local/bin/fail2ban_banned_db unban_db
 </code></pre>
 
 <p>It runs every minute and queries SQL database to get banned IP addresses which

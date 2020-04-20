@@ -199,6 +199,7 @@ Now restart `fail2ban` service to load modified config files.
 Now add a cron job for `root` user:
 
 ```
+# Fail2ban: Unban IP addresses pending for removal (stored in SQL db).
 * * * * * /bin/bash /usr/local/bin/fail2ban_banned_db unban_db
 ```
 
