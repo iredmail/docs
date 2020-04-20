@@ -244,6 +244,10 @@ location = /status {
 <li>Restart both php-fpm and Nginx service.</li>
 </ul>
 <h3 id="monitor-dovecot">Monitor Dovecot</h3>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Netdata supports monitoring Dovecot-2.2 or before, not 2.3.</p>
+</div>
 <p>We need to enable statistics module in Dovecot.</p>
 <ul>
 <li>Please open Dovecot config file <code>/etc/dovecot/dovecot.conf</code>, append plugin
