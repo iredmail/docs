@@ -50,6 +50,7 @@
 <li><a href="#how-to-setup-the-dmarc-record">How to setup the DMARC record</a></li>
 </ul>
 </li>
+<li><a href="#srv-record-for-jabberxmpp-service">SRV record for Jabber/XMPP service</a></li>
 <li><a href="#register-your-mail-domain-in-google-postmaster-tools">Register your mail domain in Google Postmaster Tools</a></li>
 <li><a href="#check-outlookcom-postmaster-site">Check Outlook.com Postmaster site</a></li>
 <li><a href="#references">References</a></li>
@@ -364,6 +365,22 @@ recommended.</p>
   information is to be reported. Currently only <code>mailto:</code> is supported. This is
   optional.</li>
 </ul>
+<h2 id="srv-record-for-jabberxmpp-service">SRV record for Jabber/XMPP service</h2>
+<p>If you install Prosody (with iRedMail Easy platform) as Jabber/XMPP server,
+2 SRV records are required.</p>
+<p>If your mail domain name is <code>mydomain.com</code> and server hostname is
+<code>mail.mydomain.com</code>, you should add 2 SRV type DNS records:</p>
+<ul>
+<li><code>_xmpp-client._tcp.mydomain.com</code></li>
+<li><code>_xmpp-server._tcp.mydomain.com</code></li>
+</ul>
+<p>Sample records:</p>
+<pre><code>_xmpp-client._tcp.mydomain.com 18000 IN SRV 0 5 5222 mail.mydomain.com
+_xmpp-server._tcp.example.com. 18000 IN SRV 0 5 5269 mail.mydomain.com
+</code></pre>
+
+<p>The target domain <code>mail.mydomain.com</code> <strong>MUST</strong> be an existing A record, it
+cannot be an IP address or a CNAME record.</p>
 <h2 id="register-your-mail-domain-in-google-postmaster-tools">Register your mail domain in Google Postmaster Tools</h2>
 <p>This step is <strong>optional</strong>, but <strong>highly recommended</strong>.</p>
 <p>Google Postmaster Tools web site: <a href="https://postmaster.google.com">https://postmaster.google.com</a>, and

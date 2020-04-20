@@ -349,6 +349,27 @@ v=DMARC1; adkim=s; aspf=s; p=reject; sp=none; rua=mailto:dmarc@mydomain.com; ruf
   information is to be reported. Currently only `mailto:` is supported. This is
   optional.
 
+## SRV record for Jabber/XMPP service
+
+If you install Prosody (with iRedMail Easy platform) as Jabber/XMPP server,
+2 SRV records are required.
+
+If your mail domain name is `mydomain.com` and server hostname is
+`mail.mydomain.com`, you should add 2 SRV type DNS records:
+
+- `_xmpp-client._tcp.mydomain.com`
+- `_xmpp-server._tcp.mydomain.com`
+
+Sample records:
+
+```
+_xmpp-client._tcp.mydomain.com 18000 IN SRV 0 5 5222 mail.mydomain.com
+_xmpp-server._tcp.example.com. 18000 IN SRV 0 5 5269 mail.mydomain.com
+```
+
+The target domain `mail.mydomain.com` __MUST__ be an existing A record, it
+cannot be an IP address or a CNAME record.
+
 ## Register your mail domain in Google Postmaster Tools
 
 This step is __optional__, but __highly recommended__.
