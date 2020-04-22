@@ -16,7 +16,11 @@ in `/etc/postfix/master.cf` `maxproc` column for the `smtp-amavis` service.
 Sample settings:
 
 ```
-# File: /etc/amavisd/amavisd.conf
+# Amavisd config file:
+#   - on RHEL/CentOS: /etc/amavisd/amavisd.conf
+#   - on Debian/Ubuntu: /etc/amavis/conf.d/50-user
+#   - on FreeBSD: /usr/local/etc/amavisd.conf
+#   - on OpenBSD: /etc/amavisd.conf
 
 $max_servers = 4;
 ```

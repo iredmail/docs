@@ -29,7 +29,11 @@ verification.</p>
 the number of concurrent Amavisd processes and it must match the number set
 in <code>/etc/postfix/master.cf</code> <code>maxproc</code> column for the <code>smtp-amavis</code> service.
 Sample settings:</p>
-<pre><code># File: /etc/amavisd/amavisd.conf
+<pre><code># Amavisd config file:
+#   - on RHEL/CentOS: /etc/amavisd/amavisd.conf
+#   - on Debian/Ubuntu: /etc/amavis/conf.d/50-user
+#   - on FreeBSD: /usr/local/etc/amavisd.conf
+#   - on OpenBSD: /etc/amavisd.conf
 
 $max_servers = 4;
 </code></pre>
