@@ -41,16 +41,16 @@ settings. for example, Dovecot is configured to enable services like below by
 iRedMail Easy:
 
 ```
-dovecot_protocols = pop3 imap sieve lmtp
+protocols = pop3 imap sieve lmtp
 ```
 
-What can you do to disable it without modify files under `/etc/dovecot/`? Easy,
-just create a file, e.g. `custom.conf` under
-`/opt/iredmail/custom/dovecot/conf-enabled/` with content below (`pop3` is
-removed), then restart Dovecot service:
+What can you do to disable `pop3` service without modify files under
+`/etc/dovecot/`? Easy, just create a file, e.g. `custom.conf` under
+`/opt/iredmail/custom/dovecot/conf-enabled/` with content below (note: service
+name `pop3` is removed in this setting), then restart Dovecot service:
 
 ```
-dovecot_protocols = imap sieve lmtp
+protocols = imap sieve lmtp
 ```
 
 ### Modify config files in-place

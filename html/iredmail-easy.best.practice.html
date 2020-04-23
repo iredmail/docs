@@ -84,14 +84,14 @@ you want to override some settings, please create a file which ends with
 <code>.conf</code> under <code>/opt/iredmail/custom/dovecot/conf-enabled/</code> with your custom
 settings. for example, Dovecot is configured to enable services like below by
 iRedMail Easy:</p>
-<pre><code>dovecot_protocols = pop3 imap sieve lmtp
+<pre><code>protocols = pop3 imap sieve lmtp
 </code></pre>
 
-<p>What can you do to disable it without modify files under <code>/etc/dovecot/</code>? Easy,
-just create a file, e.g. <code>custom.conf</code> under
-<code>/opt/iredmail/custom/dovecot/conf-enabled/</code> with content below (<code>pop3</code> is
-removed), then restart Dovecot service:</p>
-<pre><code>dovecot_protocols = imap sieve lmtp
+<p>What can you do to disable <code>pop3</code> service without modify files under
+<code>/etc/dovecot/</code>? Easy, just create a file, e.g. <code>custom.conf</code> under
+<code>/opt/iredmail/custom/dovecot/conf-enabled/</code> with content below (note: service
+name <code>pop3</code> is removed in this setting), then restart Dovecot service:</p>
+<pre><code>protocols = imap sieve lmtp
 </code></pre>
 
 <h3 id="modify-config-files-in-place">Modify config files in-place</h3>
