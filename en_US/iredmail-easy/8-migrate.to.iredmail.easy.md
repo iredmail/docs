@@ -159,7 +159,8 @@ files under `/opt/iredmail/custom/<software>/`.
 
 ### SpamAssassin
 
-Split custom settings from `/etc/mail/spamassassin/local.cf` to a new file with `.cf` extension under `/etc/mail/spamassassin/`, SpamAssassin will load it automatically. For example, `/etc/mail/spamassassin/custom.cf`.
+Split custom settings from `/etc/mail/spamassassin/local.cf` to
+`/opt/iredmail/custom/spamassassin/custom.cf`.
 
 ### Roundcube Webmail
 

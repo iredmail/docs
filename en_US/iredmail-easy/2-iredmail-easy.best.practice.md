@@ -510,7 +510,11 @@ iRedMail Easy platform.
 
 ### Amavisd
 
-- `/opt/iredmail/custom/amavisd/amavisd.conf`
+Store custom settings in `/opt/iredmail/custom/amavisd/amavisd.conf`.
+
+### SpamAssassin
+
+Store custom rules in `/opt/iredmail/custom/spamassassin/custom.cf`.
 
 ### Fail2ban
 
