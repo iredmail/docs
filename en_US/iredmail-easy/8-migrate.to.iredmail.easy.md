@@ -162,6 +162,15 @@ files under `/opt/iredmail/custom/<software>/`.
 Split custom settings from `/etc/mail/spamassassin/local.cf` to
 `/opt/iredmail/custom/spamassassin/custom.cf`.
 
+If you have whitelisted IP addresses/networks listed in Postfix config file
+`/etc/postfix/main.cf`, parameter `mynetworks =`, you may want to whitelist
+them to avoid spam/virus scanning in `/opt/iredmail/custom/spamassassin/custom.cf`
+too. For example:
+
+```
+trusted_networks 192.168.0.1 172.16.0.0/8
+```
+
 ### Roundcube Webmail
 
 * Copy custom settings from `/opt/www/roundcubemail/config/config.inc.php` to `/opt/iredmail/custom/roundcube/config/custom.inc.php`.
@@ -171,6 +180,15 @@ Split custom settings from `/etc/mail/spamassassin/local.cf` to
 ### iRedAPD
 
 Copy custom settings from `/opt/iredapd/settings.py` to `/opt/iredmail/custom/iredapd/settings.py`.
+
+If you have whitelisted IP addresses/networks listed in Postfix config file
+`/etc/postfix/main.cf`, parameter `mynetworks =`, you may want to whitelist
+them to avoid greylisting or other access control in `/opt/iredmail/custom/iredapd/settings.py`
+too. For example:
+
+```
+MYNEWTORKS = ['192.168.0.1', '172.16.0.0/8']
+```
 
 ### iRedAdmin(-Pro)
 

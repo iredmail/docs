@@ -299,6 +299,13 @@ details, please check our
 <h3 id="spamassassin">SpamAssassin</h3>
 <p>Split custom settings from <code>/etc/mail/spamassassin/local.cf</code> to
 <code>/opt/iredmail/custom/spamassassin/custom.cf</code>.</p>
+<p>If you have whitelisted IP addresses/networks listed in Postfix config file
+<code>/etc/postfix/main.cf</code>, parameter <code>mynetworks =</code>, you may want to whitelist
+them to avoid spam/virus scanning in <code>/opt/iredmail/custom/spamassassin/custom.cf</code>
+too. For example:</p>
+<pre><code>trusted_networks 192.168.0.1 172.16.0.0/8
+</code></pre>
+
 <h3 id="roundcube-webmail">Roundcube Webmail</h3>
 <ul>
 <li>Copy custom settings from <code>/opt/www/roundcubemail/config/config.inc.php</code> to <code>/opt/iredmail/custom/roundcube/config/custom.inc.php</code>.</li>
@@ -307,6 +314,13 @@ details, please check our
 </ul>
 <h3 id="iredapd">iRedAPD</h3>
 <p>Copy custom settings from <code>/opt/iredapd/settings.py</code> to <code>/opt/iredmail/custom/iredapd/settings.py</code>.</p>
+<p>If you have whitelisted IP addresses/networks listed in Postfix config file
+<code>/etc/postfix/main.cf</code>, parameter <code>mynetworks =</code>, you may want to whitelist
+them to avoid greylisting or other access control in <code>/opt/iredmail/custom/iredapd/settings.py</code>
+too. For example:</p>
+<pre><code>MYNEWTORKS = ['192.168.0.1', '172.16.0.0/8']
+</code></pre>
+
 <h3 id="iredadmin-pro">iRedAdmin(-Pro)</h3>
 <p>Copy custom settings from <code>/opt/www/iredadmin/settings.py</code> to <code>/opt/iredmail/custom/iredadmin/settings.py</code>.</p>
 <h2 id="run-the-full-deployment-with-iredmail-easy-platform">Run the full deployment with iRedMail Easy platform</h2>
