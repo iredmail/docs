@@ -1,9 +1,11 @@
 # Webmail customization
 
+[TOC]
+
 ## Roundcube webmail
 
 * The text `Roundcube Webmail` under login screen can be replaced by updating
-  parameter `product_name` in Roundcube config file.
+  parameter `product_name` in [Roundcube config file](./file.locations.html#roundcube).
 * Logo image can be customized with parameter `skin_logo` in Roundcube config
   file
 
