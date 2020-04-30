@@ -19,6 +19,7 @@
 <div class="toc">
 <ul>
 <li><a href="#iredmail-easy-release-notes">iRedMail Easy: Release Notes</a><ul>
+<li><a href="#20200430">Version: 2020043001 (Apr 30, 2020)</a></li>
 <li><a href="#20200416">Version: 2020041601 (Apr 16, 2020)</a></li>
 <li><a href="#20200210">Version: 2020021001 (Feb 10, 2020)</a></li>
 <li><a href="#20191210">Version: 2019121301 (Dec 13, 2019)</a></li>
@@ -43,6 +44,67 @@
 </li>
 </ul>
 </div>
+<h2 id="20200430">Version: 2020043001 (Apr 30, 2020)</h2>
+<ul>
+<li>
+<p>Antispam:</p>
+<ul>
+<li>Fixed: incorrect regular expression rules which caused unbanning based
+  on file types doesn't work.</li>
+<li>Fixed: incorrect file owner and permission for SpamAssassin config files:
+  <code>/etc/mail/spamassassin/local.cf</code> and <code>razor.conf</code>, must be owned by
+  user/group which is running Amavisd service, with permission 0640.</li>
+<li>Add <code>/opt/iredmail/custom/spamassassin/custom.cf</code> for custom SpamAssassin
+  rules.</li>
+</ul>
+</li>
+<li>
+<p>Dovecot:</p>
+<ul>
+<li>Fixed: improper permission on file
+  <code>/etc/dovecot/dovecot-{mysql,pgsql,ldap}.conf</code>.</li>
+<li>Add <code>/opt/iredmail/custom/dovecot/master-users</code> for custom master users.
+  Please do not modify <code>/etc/dovecot/dovecot-master-users</code>.</li>
+</ul>
+</li>
+<li>
+<p>Firewall:</p>
+<ul>
+<li>[Debian 10] Fixed: Not open ports for XMPP service (5222, 5269) if
+  Prosody is deployed.</li>
+</ul>
+</li>
+<li>
+<p>Nginx:</p>
+<ul>
+<li>Fixed: improper http code <code>301</code> (permanent redirect) causes incorrect
+  redirection after switching homepage application from SOGo to other
+  web application. It's now replaced by <code>302</code> (temporarily redirect).</li>
+</ul>
+</li>
+<li>
+<p>Roundcube:</p>
+<ul>
+<li>Fixed: not load custom config file for plugin <code>markasjunk</code>.</li>
+</ul>
+</li>
+<li>
+<p>Improvements of iRedMail Easy platform:</p>
+<ul>
+<li>Switch self-signed SSL cert key length to 4096, also DKIM key length to</li>
+<li>Note: Only new initial installation is affected, also if you
+  already have those files, it won't re-generate them.</li>
+<li>Able to customize http and https ports.</li>
+<li>Add Prosody related info in <code>/root/iRedMail/iRedMail.tips</code>.</li>
+</ul>
+</li>
+<li>
+<p>Package updates:</p>
+<ul>
+<li>Roundcube webmail 1.4.4 (includes few security fixes)</li>
+</ul>
+</li>
+</ul>
 <h2 id="20200416">Version: 2020041601 (Apr 16, 2020)</h2>
 <ul>
 <li>

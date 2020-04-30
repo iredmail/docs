@@ -2,6 +2,45 @@
 
 [TOC]
 
+## Version: 2020043001 (Apr 30, 2020) {: id=20200430 }
+
+* Antispam:
+    - Fixed: incorrect regular expression rules which caused unbanning based
+      on file types doesn't work.
+    - Fixed: incorrect file owner and permission for SpamAssassin config files:
+      `/etc/mail/spamassassin/local.cf` and `razor.conf`, must be owned by
+      user/group which is running Amavisd service, with permission 0640.
+    - Add `/opt/iredmail/custom/spamassassin/custom.cf` for custom SpamAssassin
+      rules.
+
+* Dovecot:
+    - Fixed: improper permission on file
+      `/etc/dovecot/dovecot-{mysql,pgsql,ldap}.conf`.
+    - Add `/opt/iredmail/custom/dovecot/master-users` for custom master users.
+      Please do not modify `/etc/dovecot/dovecot-master-users`.
+
+* Firewall:
+    - [Debian 10] Fixed: Not open ports for XMPP service (5222, 5269) if
+      Prosody is deployed.
+
+* Nginx:
+    - Fixed: improper http code `301` (permanent redirect) causes incorrect
+      redirection after switching homepage application from SOGo to other
+      web application. It's now replaced by `302` (temporarily redirect).
+
+* Roundcube:
+    - Fixed: not load custom config file for plugin `markasjunk`.
+
+* Improvements of iRedMail Easy platform:
+    - Switch self-signed SSL cert key length to 4096, also DKIM key length to
+      2048. Note: Only new initial installation is affected, also if you
+      already have those files, it won't re-generate them.
+    - Able to customize http and https ports.
+    - Add Prosody related info in `/root/iRedMail/iRedMail.tips`.
+
+* Package updates:
+    - Roundcube webmail 1.4.4 (includes few security fixes)
+
 ## Version: 2020041601 (Apr 16, 2020) {: id=20200416 }
 
 * CentOS 8 is now supported, all 3 backends (MariaDB, PostgreSQL, OpenLDAP)
