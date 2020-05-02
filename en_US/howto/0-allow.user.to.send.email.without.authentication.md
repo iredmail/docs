@@ -4,8 +4,8 @@
 
 !!! attention
 
-    This tutorial applies to iRedMail-0.9.9 and earlier releases. If you're
-    running a later release, please follow
+    This tutorial is applicable to iRedMail-0.9.9 and earlier releases. If
+    you're running a later release, please follow
     [this tutorial](./allow.send.without.smtp.auth.html) instead.
 
 ## Postfix

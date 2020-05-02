@@ -4,8 +4,8 @@
 
 !!! attention
 
-    This tutorial applies to iRedMail-1.0 and later releases. If you're running
-    an iRedMail-0.9.9 or earlier release, please follow
+    This tutorial is applicable to iRedMail-1.0 and later releases. If you're
+    running an iRedMail-0.9.9 or earlier release, please follow
     [this tutorial](./allow.user.to.send.email.without.authentication.html) instead.
 
 ## Postfix
