@@ -157,6 +157,18 @@ files under `/opt/iredmail/custom/<software>/`.
     details, please check our
     [Best Practice](./iredmail-easy.best.practice.html#postfix) tutorial.
 
+### Amavisd
+
+- Copy DKIM keys from `/var/lib/dkim/` to `/opt/iredmail/custom/amavisd/dkim/`.
+- Move all your `dkim_key(...)` parameters from Amavisd config file
+  (`/etc/amavisd/amavisd.conf` (RHEL/CentOS), or `/etc/amavis/conf.d/50-user`
+  (Debian/Ubuntu), `/etc/amavisd.conf` (OpenBSD), `/usr/local/etc/amavisd.conf`
+  (FreeBSD)) to `/opt/iredmail/custom/amavisd/amavisd.conf`.
+
+    !!! attention
+
+        Please make sure no duplicat keys, otherwise Amavisd can not start.
+
 ### SpamAssassin
 
 Split custom settings from `/etc/mail/spamassassin/local.cf` to

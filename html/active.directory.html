@@ -31,6 +31,7 @@
 </li>
 <li><a href="#enable-active-directory-integration-in-dovecot">Enable Active Directory integration in Dovecot</a></li>
 <li><a href="#enable-active-directory-integration-in-roundcube-webmail-for-global-ldap-address-book">Enable Active Directory integration in Roundcube webmail for Global LDAP Address Book</a></li>
+<li><a href="#enable-active-directory-integration-in-sogo-groupware">Enable Active Directory integration in SOGo Groupware</a></li>
 <li><a href="#additions-documents">Additions documents</a></li>
 </ul>
 </li>
@@ -70,9 +71,13 @@
 <p>To integrate Microsoft Active Directory with iRedMail, you should have:</p>
 <ul>
 <li>A working Linux/BSD server with iRedMail (OpenLDAP backend) installed.</li>
-<li>A working Microsoft Windows (2000/2003) server, with Active Directory
+<li>
+<p>A working Microsoft Windows (2000/2003) server, with Active Directory
   installed and working properly, listen on port 389 (ldap://) or 636
-  (ldaps://), and allow LDAP connections from iRedMail server.</li>
+  (ldaps://), and allow LDAP connections from iRedMail server.</p>
+<p>If you need to enable LDAP over SSL, please read
+<a href="https://support.microsoft.com/en-us/help/321051/how-to-enable-ldap-over-ssl-with-a-third-party-certification-authority">this tutorial</a>.</p>
+</li>
 </ul>
 <h2 id="install-iredmail">Install iRedMail</h2>
 <p>Please follow <a href="./index.html">iRedMail installaion guides</a>
@@ -110,15 +115,27 @@ achieve this AD integration by simply modifying some configure files.</p>
 <p>With iRedMail (OpenLDAP backend), we have a low-privileged account
 <code>cn=vmail,dc=xxx,dc=xxx</code> with read-only privilege. And we suggest you create a
 same account <code>vmail</code> in AD, with strong and complex password.</p>
-<p><strong>NOTE</strong>: <a href="https://forum.iredmail.org/post8630.html#p8630">Dovecot will treat characters as comment after a inline <code>#</code>, so
-please just don't use <code>#</code> in password</a></p>
-<p>Please make sure this newly created user is able to connect to AD server with
+<p><strong>NOTES</strong>:</p>
+<ul>
+<li>Dovecot treats characters as comment after a inline <code>#</code>, please don't use
+  <code>#</code> in password.</li>
+<li>Seems Windows Server 2019 doesn't like user id without domain part by
+  default, please create the <code>vmail</code> user with your domain name instead. for
+  example, <code>vmail@domain.com</code> (replace <code>domain.com</code> by your real domain name).</li>
+</ul>
+<p>Make sure this newly created user is able to connect to AD server with
 below command on iRedMail server:</p>
 <pre><code class="shell"># ldapsearch -x -h ad.example.com -D 'vmail' -W -b 'cn=users,dc=example,dc=com'
 Enter password: password_of_vmail
 </code></pre>
 
 <p>If it prints all users stored in AD server, then it's working as expected.</p>
+<p>If you're using LDAPS, replace <code>-h ad.example.com</code> by
+<code>-H ldaps://ad.example.com:636</code> instead:</p>
+<pre><code class="shell"># ldapsearch -x -H ldaps://ad.example.com:636 -D 'vmail' -W -b 'cn=users,dc=example,dc=com'
+Enter password: password_of_vmail
+</code></pre>
+
 <h3 id="enable-ldap-query-with-ad-in-postfix">Enable LDAP query with AD in Postfix</h3>
 <p>Disable unused iRedMail special settings:</p>
 <pre><code class="shell">postconf -e virtual_alias_maps=''
@@ -163,7 +180,7 @@ postconf -e virtual_mailbox_domains='example.com'
 <pre><code>example.com dovecot
 </code></pre>
 
-<p><strong>Note</strong>: <code>dovecot</code> used here is a Postfix transport defined in
+<p><strong>Note</strong>: the name <code>dovecot</code> used here is a Postfix transport defined in
 <code>/etc/postfix/master.cf</code>, used to deliver received emails to local user mailboxes.</p>
 <p>Run <code>postmap</code> so that postfix can read it:</p>
 <pre><code># postmap hash:/etc/postfix/transport
@@ -204,9 +221,8 @@ result_format   = %d/%u/Maildir/
 debuglevel      = 0
 </code></pre>
 
-<p><strong>Note</strong>: Here, we hard-code user's mailbox path in
-<code>[domain]/[username]/Maildir/</code> format (<code>result_format</code> parameter). for example:
-<code>example.com/postmaster/Maildir/</code>.</p>
+<p><strong>Note</strong>: We hard-code user's mailbox path in <code>result_format =</code> parameter, it
+will be something like <code>example.com/username/Maildir/</code>.</p>
 <ul>
 <li>Create file: <code>/etc/postfix/ad_virtual_group_maps.cf</code>:</li>
 </ul>
@@ -226,7 +242,7 @@ result_attribute= userPrincipalName
 debuglevel      = 0
 </code></pre>
 
-<p><strong>Note</strong>:</p>
+<p><strong>Notes</strong>:</p>
 <ul>
 <li>If your user have email address in both <code>mail</code> and <code>userPrincipalName</code>, you
   will get duplicate result. Comment out <code>leaf_result_attribute</code> line will fix it.</li>
@@ -287,6 +303,11 @@ dnpass          = passwd_of_vmail
 base            = cn=users,dc=example,dc=com
 scope           = subtree
 deref           = never
+
+# Below two are required by command 'doveadm mailbox ...'
+iterate_attrs   = userPrincipalName=user
+iterate_filter  = (&amp;(userPrincipalName=*)(objectClass=person)(!(userAccountControl:1.2.840.113556.1.4.803:=2)))
+
 user_filter     = (&amp;(userPrincipalName=%u)(objectClass=person)(!(userAccountControl:1.2.840.113556.1.4.803:=2)))
 pass_filter     = (&amp;(userPrincipalName=%u)(objectClass=person)(!(userAccountControl:1.2.840.113556.1.4.803:=2)))
 pass_attrs      = userPassword=password
@@ -295,16 +316,24 @@ user_attrs      = =home=/var/vmail/vmail1/%Ld/%Ln/,=mail=maildir:~/Maildir/
 </code></pre>
 
 <p>Restart dovecot service to make it work.</p>
-<p><strong>Note</strong>: we don't have per-user quota limit here, you can set a hard-coded
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>We don't have per-user quota limit here, you can set a hard-coded
 quota for all users in <code>/etc/dovecot/dovecot.conf</code>. For example:</p>
-<pre><code>plugin {
-    [... omit other settings here ...]
-
-    # Format: integer number + M/G/T (M -&gt; MB, G -&gt; GB, T -&gt; TB).
-    quota_rule = *:storage=1G
-}
+<p>```
+plugin {
+    [... omit other settings here ...]</p>
+<pre><code># Format: integer number + M/G/T (M -&gt; MB, G -&gt; GB, T -&gt; TB).
+quota_rule = *:storage=1G
 </code></pre>
-
+<p>}
+```</p>
+<p>Or, you can modify the <code>user_attrs =</code> line to get per-user quota from a
+LDAP attribute in AD. For example, query per-user quota limit from
+attribute <code>postOfficeBox</code> which contain an integer number and treated as
+number of gigabytes:</p>
+<p><code>user_attrs      = =home=/var/vmail/vmail1/%Ld/%Ln/,=mail=maildir:~/Maildir/,postOfficeBox=quota_rule=*:storage=%{ldap:postOfficeBox}G</code></p>
+</div>
 <p>Now use command <code>telnet</code> to verify AD query after restarted Dovecot service:</p>
 <pre><code># telnet localhost 143                     # &lt;- Type this
 * OK [...] Dovecot ready.
@@ -354,20 +383,30 @@ $config['ldap_public'][&quot;global_ldap_abook&quot;] = array(
 
     // mapping of contact fields to directory attributes
     'fieldmap' =&gt; array(
-        'name'        =&gt; 'cn',
-        'surname'     =&gt; 'sn',
-        'firstname'   =&gt; 'givenName',
-        'title'       =&gt; 'title',
-        'email'       =&gt; 'mail:*',
-        'phone:work'  =&gt; 'telephoneNumber',
-        'phone:mobile' =&gt; 'mobile',
+        'name'          =&gt; 'cn',
+        'displayname'   =&gt; 'displayName',
+        'surname'       =&gt; 'sn',
+        'firstname'     =&gt; 'givenName',
+        'jobtitle'      =&gt; 'title',
+        'department'    =&gt; 'department',
+        'company'       =&gt; 'company',
+        'email'         =&gt; 'mail:*',
+        'phone:work'    =&gt; 'telephoneNumber',
+        'phone:home'    =&gt; 'homePhone',
+        'phone:mobile'  =&gt; 'mobile',
         'phone:workfax' =&gt; 'facsimileTelephoneNumber',
-        'street'      =&gt; 'street',
-        'zipcode'     =&gt; 'postalCode',
-        'locality'    =&gt; 'l',
-        'department'  =&gt; 'departmentNumber',
-        'notes'       =&gt; 'description',
-        'photo'       =&gt; 'jpegPhoto',
+        'phone:pager'   =&gt; 'pager',
+        'phone:other'   =&gt; 'ipPhone',
+        'street:work'   =&gt; 'streetAddress',
+        'zipcode:work'  =&gt; 'postalCode',
+        'locality:work' =&gt; 'l',
+        'region:work'   =&gt; 'st',
+        'country:work'  =&gt; 'c',
+        'notes'         =&gt; 'description',
+        'photo'         =&gt; 'jpegPhoto',   // Might be 'thumbnailPhoto' for
+                                          // compatibility with some other
+                                          // Microsoft software
+        'website'       =&gt; 'wWWHomePage',
     ),
     'sort'          =&gt; 'cn',
     'scope'         =&gt; 'sub',
@@ -386,6 +425,92 @@ $config['ldap_public'][&quot;global_ldap_abook&quot;] = array(
                                 // Mostly used in multi-domain Active
                                 // Directory setups
 );
+</code></pre>
+
+<h2 id="enable-active-directory-integration-in-sogo-groupware">Enable Active Directory integration in SOGo Groupware</h2>
+<p>Edit SOGo config file <code>/etc/sogo/sogo.conf</code>, comment out the LDAP address book
+setting added by iRedMail, and add new setting for AD like below:</p>
+<pre><code>    SOGoUserSources = (
+        {
+            // Used for user authentication
+            type = ldap;
+            id = users;
+            canAuthenticate = YES;
+            isAddressBook = NO;
+            displayName = &quot;LDAP Authentication&quot;;
+
+            hostname = &quot;ldap://ad.example.com:389&quot;;   // &lt;- Set to ldaps://ad.example.com:636 for LDAPS.
+            baseDN = &quot;cn=users,dc=example,dc=com&quot;;
+            bindDN = &quot;vmail&quot;;
+            bindPassword = &quot;password_of_vmail&quot;;
+            filter = &quot;objectClass=person AND userPrincipalName='*' AND (NOT userAccountControl:1.2.840.113556.1.4.803:=2)&quot;;
+            scope = SUB;
+
+            // always keep binding to the LDAP server using the DN of the
+            // currently authenticated user. bindDN and bindPassword are still
+            // required to find DN of the user.
+            // Note: with default LDAP acl configured by iRedMail, user doesn't
+            //       have privilege to query o=domains,dc=delmsgs,dc=freeddns,dc=org.
+            //       so this doesn't work.
+            bindAsCurrentUser = YES;
+
+            // The algorithm used for password encryption when changing
+            // passwords without Password Policies enabled.
+            // Possible values are: plain, crypt, md5-crypt, ssha, ssha512.
+            userPasswordAlgorithm = ssha512;
+
+            CNFieldName = cn;
+            IDFieldName = userPrincipalName;
+            // value of UIDFieldName must be unique on entire server
+            UIDFieldName = userPrincipalName;
+            IMAPLoginFieldName = userPrincipalName;
+            MailFieldNames = (userPrincipalName);
+            bindFields = (userPrincipalName);
+        },
+        {
+            // Used for global address book
+            type = ldap;
+            id = global_addressbook;
+            canAuthenticate = NO;
+            isAddressBook = YES;
+            displayName = &quot;Global Address Book&quot;;
+            bindAsCurrentUser = YES;
+
+            // Listing of this LDAP source is only possible when performing a
+            // search (respecting the SOGoSearchMinimumWordLength parameter)
+            // or when explicitely typing a single dot.
+            // Defaults to YES when unset.
+            //
+            // WARNING: if you have many accounts in this address book, it may
+            //          reach server-side query size limit, or cause
+            //          performance issue.
+            listRequiresDot = NO;
+
+           // Set to ldaps://ad.example.com:636 for LDAPS.
+            hostname = &quot;ldap://ad.example.com:389&quot;;
+            baseDN = &quot;cn=users,dc=example,dc=com&quot;;
+            bindDN = &quot;vmail&quot;;
+            bindPassword = &quot;password_of_vmail&quot;;
+            filter = &quot;(objectClass=person OR (objectClass=group AND mail='*')) AND (NOT userAccountControl:1.2.840.113556.1.4.803:=2)&quot;;
+            scope = SUB;
+
+            IDFieldName = userPrincipalName;
+            bindFields = (userPrincipalName);
+            // value of UID field must be unique on whole server.
+            UIDFieldName = userPrincipalName;
+            IMAPLoginFieldName = userPrincipalName;
+
+            CNFieldName = cn;
+            SearchFieldNames = (mail, cn, sAMAccountName, displayName, sn, givenName);
+
+            mapping = {
+              ou = (&quot;department&quot;, &quot;ou&quot;);
+              street = (&quot;streetAddress&quot;, &quot;street&quot;);
+              mozillaworkurl = (&quot;wWWHomePage&quot;, &quot;mozillaworkurl&quot;);
+              description = (&quot;info&quot;, &quot;description&quot;);
+            };
+        }
+    );
 </code></pre>
 
 <h2 id="additions-documents">Additions documents</h2>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Upgrade Ubuntu from 18.04 to 20.04</title>
+        <link rel="stylesheet" type="text/css" href="./css/markdown.css" />
+    </head>
+    <body>
+
+    <div id="navigation">
+    <a href="https://www.iredmail.org" target="_blank">
+        <img alt="iRedMail web site"
+             src="./images/logo-iredmail.png"
+             style="vertical-align: middle; height: 30px;"
+             />&nbsp;
+        <span>iRedMail</span>
+    </a>
+    &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><h1 id="upgrade-ubuntu-from-1804-to-2004">Upgrade Ubuntu from 18.04 to 20.04</h1>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>THIS IS A DRAFT DOCUMENT, DO NOT APPLY IT.</p>
+</div>
+<h2 id="packages">Packages</h2>
+<p>Install required Python-2 packages:</p>
+<pre><code>apt install python2-dev
+pip2 install uwsgi web.py==0.51 pycurl netifaces
+ln -sf /usr/local/bin/uwsgi /etc/alternatives/uwsgi
+echo &quot;SQL_DB_DRIVER = 'pymysql'&quot; &gt;&gt; /opt/iredapd/settings.py
+</code></pre>
+
+<p>If you're running OpenLDAP backend:</p>
+<pre><code>pip2 install python-ldap==3.2.0
+</code></pre>
+
+<h2 id="configurations">Configurations</h2>
+<ul>
+<li><code>/etc/php/7.4/fpm/pool.d/www.conf</code></li>
+</ul>
+<pre><code>[inet]
+user = www-data
+group = www-data
+
+listen = 127.0.0.1:9999
+listen.owner = www-data
+listen.group = www-data
+listen.mode = 0660
+
+; IP addresses must be separated by comma, and no space between comma and ip.
+listen.allowed_clients = 127.0.0.1
+
+pm = dynamic
+pm.max_children = 200
+pm.start_servers = 10
+pm.min_spare_servers = 5
+pm.max_spare_servers = 10
+pm.max_requests = 500
+
+pm.status_path = /php-fpm-status
+ping.path = /php-fpm-ping
+
+request_terminate_timeout = 60s
+
+access.log = /var/log/php-fpm/access.log
+slowlog = /var/log/php-fpm/slow.log
+request_slowlog_timeout = 10s
+</code></pre><div class="footer">
+    <p style="text-align: center; color: grey;">All documents are available in <a href="https://github.com/iredmail/docs/">GitHub repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://github.com/iredmail/docs/archive/master.zip">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
+</div>
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-3293801-21"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-3293801-21');
+</script>
+</body></html>

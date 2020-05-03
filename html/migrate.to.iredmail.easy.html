@@ -27,6 +27,7 @@
 <li><a href="#copy-files-to-new-locations">Copy files to new locations</a></li>
 <li><a href="#split-custom-settings">Split custom settings</a><ul>
 <li><a href="#postfix">Postfix</a></li>
+<li><a href="#amavisd">Amavisd</a></li>
 <li><a href="#spamassassin">SpamAssassin</a></li>
 <li><a href="#roundcube-webmail">Roundcube Webmail</a></li>
 <li><a href="#iredapd">iRedAPD</a></li>
@@ -294,6 +295,20 @@ script file <code>/opt/iredmail/custom/postfix/custom.sh</code> to update them w
 <code>postconf</code> command during iRedMail Easy deployment or upgrade. For more
 details, please check our
 <a href="./iredmail-easy.best.practice.html#postfix">Best Practice</a> tutorial.</p>
+</li>
+</ul>
+<h3 id="amavisd">Amavisd</h3>
+<ul>
+<li>Copy DKIM keys from <code>/var/lib/dkim/</code> to <code>/opt/iredmail/custom/amavisd/dkim/</code>.</li>
+<li>
+<p>Move all your <code>dkim_key(...)</code> parameters from Amavisd config file
+  (<code>/etc/amavisd/amavisd.conf</code> (RHEL/CentOS), or <code>/etc/amavis/conf.d/50-user</code>
+  (Debian/Ubuntu), <code>/etc/amavisd.conf</code> (OpenBSD), <code>/usr/local/etc/amavisd.conf</code>
+  (FreeBSD)) to <code>/opt/iredmail/custom/amavisd/amavisd.conf</code>.</p>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>Please make sure no duplicat keys, otherwise Amavisd can not start.</p>
+</div>
 </li>
 </ul>
 <h3 id="spamassassin">SpamAssassin</h3>
