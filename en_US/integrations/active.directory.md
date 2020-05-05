@@ -9,7 +9,7 @@ __NOTES__:
   accounts with Active Directory management tools.
 
 * This tutorial has been verified on Windows Server 2000, 2003, 2008, 2012,
-  2016, if you tested it on other versions and works well, please let us
+  2016, 2019, if you tested it on other versions and works well, please let us
   know. [Contact us](https://www.iredmail.org/contact.html)
 
 ## Summary
@@ -100,6 +100,22 @@ If you're using LDAPS, replace `-h ad.example.com` by
 ```shell
 # ldapsearch -x -H ldaps://ad.example.com:636 -D 'vmail' -W -b 'cn=users,dc=example,dc=com'
 Enter password: password_of_vmail
+```
+
+If LDAPS doesn't work, you may need to update parameter `TLS_CACERT` in
+`/etc/openldap/ldap.conf` (RHEL/CentOS) or `/etc/ldap/ldap.conf` to use correct CA
+certificate. For example:
+
+- on CentOS: use `/etc/pki/tls/certs/ca-bundle.trust.crt`:
+
+```
+TLS_CACERT /etc/pki/tls/certs/ca-bundle.trust.crt
+```
+
+- on Debian/Ubuntu, use `/etc/ssl/certs/ca-certificates.crt`:
+
+```
+TLS_CACERT /etc/ssl/certs/ca-certificates.crt
 ```
 
 ### Enable LDAP query with AD in Postfix
