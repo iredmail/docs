@@ -301,6 +301,13 @@ To disable iRedAPD, please read tutorial: [Manage iRedAPD](./manage.iredapd.html
 To query AD instead of local LDAP server, we have to modify Dovecot config file
 `/etc/dovecot/dovecot-ldap.conf` like below:
 
+!!! attention
+
+    If you use LDAPS and `hosts =` doesn't work, please replace it by `uris =`
+    instead. Check
+    [Dovecot tutorial](https://doc.dovecot.org/configuration_manual/authentication/ldap/)
+    for more details.
+
 ```
 hosts           = ad.example.com:389
 ldap_version    = 3
@@ -338,7 +345,7 @@ Restart dovecot service to make it work.
     }
     ```
 
-    Or, you can modify the `user_attrs =` line to get per-user quota from a
+    You can also modify the `user_attrs =` line to get per-user quota from a
     LDAP attribute in AD. For example, query per-user quota limit from
     attribute `postOfficeBox` which contain an integer number and treated as
     number of gigabytes:
@@ -346,6 +353,8 @@ Restart dovecot service to make it work.
     ```
     user_attrs      = =home=/var/vmail/vmail1/%Ld/%Ln/,=mail=maildir:~/Maildir/,postOfficeBox=quota_rule=*:storage=%{ldap:postOfficeBox}G
     ```
+
+    Note: This per-user quota will override the one hard-coded in dovecot.conf.
 
 Now use command `telnet` to verify AD query after restarted Dovecot service:
 

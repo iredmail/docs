@@ -310,6 +310,13 @@ to save some system resource.</p>
 <h2 id="enable-active-directory-integration-in-dovecot">Enable Active Directory integration in Dovecot</h2>
 <p>To query AD instead of local LDAP server, we have to modify Dovecot config file
 <code>/etc/dovecot/dovecot-ldap.conf</code> like below:</p>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>If you use LDAPS and <code>hosts =</code> doesn't work, please replace it by <code>uris =</code>
+instead. Check
+<a href="https://doc.dovecot.org/configuration_manual/authentication/ldap/">Dovecot tutorial</a>
+for more details.</p>
+</div>
 <pre><code>hosts           = ad.example.com:389
 ldap_version    = 3
 auth_bind       = yes
@@ -343,11 +350,12 @@ quota_rule = *:storage=1G
 </code></pre>
 <p>}
 ```</p>
-<p>Or, you can modify the <code>user_attrs =</code> line to get per-user quota from a
+<p>You can also modify the <code>user_attrs =</code> line to get per-user quota from a
 LDAP attribute in AD. For example, query per-user quota limit from
 attribute <code>postOfficeBox</code> which contain an integer number and treated as
 number of gigabytes:</p>
 <p><code>user_attrs      = =home=/var/vmail/vmail1/%Ld/%Ln/,=mail=maildir:~/Maildir/,postOfficeBox=quota_rule=*:storage=%{ldap:postOfficeBox}G</code></p>
+<p>Note: This per-user quota will override the one hard-coded in dovecot.conf.</p>
 </div>
 <p>Now use command <code>telnet</code> to verify AD query after restarted Dovecot service:</p>
 <pre><code># telnet localhost 143                     # &lt;- Type this
