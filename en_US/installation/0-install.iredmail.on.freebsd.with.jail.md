@@ -25,7 +25,7 @@ Notes:
       means your server does __NOT__ have mail related components installed,
       e.g. MySQL, OpenLDAP, Postfix, Dovecot, Amavisd, etc. iRedMail will install
       and configure them for you automatically. Otherwise it may override your
-      existing files/configurations althought it will backup files before
+      existing files/configurations although it will backup files before
       modifying, and it may not be working as expected.
     * Amazon AWS EC2 blocks port 25 by default, if you plan to deploy mail
       server with AWS, you need to [remove the throttle on port
