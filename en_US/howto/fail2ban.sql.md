@@ -324,7 +324,7 @@ mysql fail2ban -e "UPDATE banned SET remove=1 WHERE ip='1.1.1.2'"
 Run script `/usr/local/bin/fail2ban_banned_db` with argument `unban_db` as `root` user:
 
 ```
-/usr/local/bin/fail2ban_banned_db unbandb
+/usr/local/bin/fail2ban_banned_db unban_db
 ```
 
 Again, query SQL table `fail2ban.banned` as `root` user, you should see the IP
