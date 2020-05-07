@@ -61,7 +61,7 @@ Notes:
   all required changes.
 * Here are all [upgrade tutorials for iRedMail](https://docs.iredmail.org/iredmail.releases.html).
 
-## MySQL/PostgreSQL: Migrate mail accounts
+## MySQL/MariaDB/PostgreSQL: Migrate mail accounts
 
 All mail accounts are stored in database `vmail`.
 
@@ -74,6 +74,29 @@ All mail accounts are stored in database `vmail`.
   has same SQL structure. After you have same SQL structure on both servers,
   you can simply export `vmail` database on old server, then import it on new
   server. Check [upgrade tutorials for iRedMail](./iredmail.releases.html).
+
+### MySQL/MariaDB inside FreeBSD Jail
+
+If you run iRedMail server in a jailed FreeBSD system, restored SQL database
+on new jailed system may have privilege error like this:
+
+```
+ERROR 1449 (HY000): The user specified as a definer ('root'@'10.195.20.1') does not exist
+```
+
+iRedMail installer created SQL tables (or VIEWs, TRIGGERs) as `root@10.195.20.1`
+(`10.195.20.1` was private IP address of your old Jail system), but this
+address was gone on new jailed system. You must replace old IP address by the
+new one, fix it with SQL commands below as SQL root user:
+
+!!! attention
+
+    Replace `<NEW-IP>` by the real private IP address of your jailed system.
+
+```
+USE mysql;
+UPDATE mysql.proc SET definer = 'root@<NEW-IP>' WHERE definer='root@10.195.20.1';
+```
 
 ## Migrate mailboxes (Maildir format)
 
