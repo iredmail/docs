@@ -213,7 +213,7 @@ action      = iptables-multiport[name=dovecot, port=&quot;80,443,25,587,465,110,
 <p>That's it. It's recommend to enable this new action <code>banned_db</code> for all jails.</p>
 <p>Now restart <code>fail2ban</code> service to load modified config files.</p>
 <h2 id="add-required-cron-job-to-query-sql-database-and-unban-ip-addresses">Add required cron job to query SQL database and unban IP addresses</h2>
-<p>Now add a cron job for <code>root</code> user:</p>
+<p>Now add a cron job for <code>root</code> user with command <code>crontab -e -u root</code>:</p>
 <pre><code># Fail2ban: Unban IP addresses pending for removal (stored in SQL db).
 * * * * * /bin/bash /usr/local/bin/fail2ban_banned_db unban_db
 </code></pre>

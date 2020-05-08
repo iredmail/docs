@@ -196,7 +196,7 @@ Now restart `fail2ban` service to load modified config files.
 
 ## Add required cron job to query SQL database and unban IP addresses
 
-Now add a cron job for `root` user:
+Now add a cron job for `root` user with command `crontab -e -u root`:
 
 ```
 # Fail2ban: Unban IP addresses pending for removal (stored in SQL db).
