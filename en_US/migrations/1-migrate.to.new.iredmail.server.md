@@ -87,16 +87,15 @@ ERROR 1449 (HY000): The user specified as a definer ('root'@'10.195.20.1') does 
 iRedMail installer created SQL tables (or VIEWs, TRIGGERs) as `root@10.195.20.1`
 (`10.195.20.1` was private IP address of your old Jail system), but this
 address was gone on new jailed system. You must replace old IP address by the
-new one, fix it with SQL commands below as SQL root user:
-
-!!! attention
-
-    Replace `<NEW-IP>` by the real private IP address of your jailed system.
+new one before restoring the SQL tables, otherwise, triggers might have to be
+re-created manualy later. For example,
 
 ```
-USE mysql;
-UPDATE mysql.proc SET definer = 'root@<NEW-IP>' WHERE definer='root@10.195.20.1';
+perl -pi -e 's#`root`@`10.195.20.1`#`root`@`10.20.21.3`#g' vmail-2020-04-26-01:25:21.sql
+perl -pi -e 's#`root`@`10.195.20.1`#`root`@`10.20.21.3`#g' amavisd-2020-04-26-01:25:21.sql
 ```
+
+Then import this modified SQL file instead.
 
 ## Migrate mailboxes (Maildir format)
 
