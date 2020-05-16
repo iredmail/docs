@@ -363,10 +363,10 @@ M
 
 ## Check bayes data
 
-Run `sa-learn` with `--dump` argument will show the bayes data like below:
+Run `sa-learn` as Amavisd daemon user with `--dump` argument will show the bayes data like below:
 
 ```
-# sa-learn --dump magic
+# sa-learn -u amavis --dump magic
 
 0.000          0          3          0  non-token data: bayes db version
 0.000          0    3778575          0  non-token data: nspam
