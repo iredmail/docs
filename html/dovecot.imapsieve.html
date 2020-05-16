@@ -363,7 +363,7 @@ M
 
 <h2 id="check-bayes-data">Check bayes data</h2>
 <p>Run <code>sa-learn</code> as Amavisd daemon user with <code>--dump</code> argument will show the bayes data like below:</p>
-<pre><code># sa-learn -u amavis --dump magic
+<pre><code># su -s /bin/bash amavis -c &quot;sa-learn --dump magic&quot;
 
 0.000          0          3          0  non-token data: bayes db version
 0.000          0    3778575          0  non-token data: nspam
