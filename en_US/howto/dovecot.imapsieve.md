@@ -354,9 +354,9 @@ To check on command line, please upload/save a sample email to
 
 ```
 # su -s /bin/bash amavis -c "spamassassin -D bayes < /opt/sample.eml"
-May 21 05:27:08.244 [32241] dbg: bayes: learner_new self=Mail::SpamAssassin::Plugin::Bayes=HASH(0x2fe8cb8), bayes_store_module=Mail::SpamAssassin::BayesStore::MySQL
+May 21 05:27:08.244 [32241] dbg: bayes: learner_new self=Mail::SpamAssassin::Plugin::Bayes=HASH(0x2fe8cb8), bayes_store_module=Mail::SpamAssassin::BayesStore::DBM
 May 21 05:27:08.264 [32241] dbg: bayes: using username: amavis
-May 21 05:27:08.264 [32241] dbg: bayes: learner_new: got store=Mail::SpamAssassin::BayesStore::MySQL=HASH(0x387a1c8)
+May 21 05:27:08.264 [32241] dbg: bayes: learner_new: got store=Mail::SpamAssassin::BayesStore::DBM=HASH(0x387a1c8)
 M
 ...
 ```
@@ -382,6 +382,10 @@ Run `sa-learn` as Amavisd daemon user with `--dump` argument will show the bayes
 
 * `nspam` means number of learnt spams.
 * `nham` means number of learnt ham/clean emails.
+
+## See also
+
+* [Store SpamAssassin bayes in SQL](./store.spamassassin.bayes.in.sql.html)
 
 ## References
 

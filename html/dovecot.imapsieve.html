@@ -32,6 +32,7 @@
 </ul>
 </li>
 <li><a href="#check-bayes-data">Check bayes data</a></li>
+<li><a href="#see-also">See also</a></li>
 <li><a href="#references">References</a></li>
 </ul>
 </li>
@@ -354,9 +355,9 @@ to check it with a sample email.</p>
 <p>To check on command line, please upload/save a sample email to
 <code>/opt/sample.eml</code>, then run <code>sa-learn</code> as root user:</p>
 <pre><code># su -s /bin/bash amavis -c &quot;spamassassin -D bayes &lt; /opt/sample.eml&quot;
-May 21 05:27:08.244 [32241] dbg: bayes: learner_new self=Mail::SpamAssassin::Plugin::Bayes=HASH(0x2fe8cb8), bayes_store_module=Mail::SpamAssassin::BayesStore::MySQL
+May 21 05:27:08.244 [32241] dbg: bayes: learner_new self=Mail::SpamAssassin::Plugin::Bayes=HASH(0x2fe8cb8), bayes_store_module=Mail::SpamAssassin::BayesStore::DBM
 May 21 05:27:08.264 [32241] dbg: bayes: using username: amavis
-May 21 05:27:08.264 [32241] dbg: bayes: learner_new: got store=Mail::SpamAssassin::BayesStore::MySQL=HASH(0x387a1c8)
+May 21 05:27:08.264 [32241] dbg: bayes: learner_new: got store=Mail::SpamAssassin::BayesStore::DBM=HASH(0x387a1c8)
 M
 ...
 </code></pre>
@@ -380,6 +381,10 @@ M
 <ul>
 <li><code>nspam</code> means number of learnt spams.</li>
 <li><code>nham</code> means number of learnt ham/clean emails.</li>
+</ul>
+<h2 id="see-also">See also</h2>
+<ul>
+<li><a href="./store.spamassassin.bayes.in.sql.html">Store SpamAssassin bayes in SQL</a></li>
 </ul>
 <h2 id="references">References</h2>
 <ul>
