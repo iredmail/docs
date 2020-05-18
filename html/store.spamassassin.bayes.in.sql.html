@@ -22,7 +22,7 @@
 <li><a href="#summary">Summary</a></li>
 <li><a href="#create-required-sql-database-used-to-store-bayes-data">Create required SQL database used to store bayes data</a></li>
 <li><a href="#enable-bayes-modules-in-spamassassin">Enable Bayes modules in SpamAssassin</a></li>
-<li><a href="#enable-roundcube-plugin-markasjunk2">Enable Roundcube plugin: markasjunk2</a></li>
+<li><a href="#auto-learn-spamham-with-dovecot-imap_sieve-plugin">Auto learn spam/ham with Dovecot imap_sieve plugin</a></li>
 <li><a href="#references">References</a></li>
 </ul>
 </li>
@@ -133,91 +133,10 @@ sample spam email shipped in the RPM package provided by CentOS 6:</p>
 Learned tokens from 1 message(s) (1 message(s) examined)
 </code></pre>
 
-<h2 id="enable-roundcube-plugin-markasjunk2">Enable Roundcube plugin: markasjunk2</h2>
+<h2 id="auto-learn-spamham-with-dovecot-imap_sieve-plugin">Auto learn spam/ham with Dovecot imap_sieve plugin</h2>
 <ul>
-<li>
-<p>We need a third-party Roundcube plugin to allow webmail users to report spam:
-<code>Mark as Junk 2</code>. You can download it here:
-<a href="https://github.com/JohnDoh/Roundcube-Plugin-Mark-as-Junk-2/releases">https://github.com/JohnDoh/Roundcube-Plugin-Mark-as-Junk-2/releases</a></p>
-</li>
-<li>
-<p>After download, please uncompress it and copy it to roundcube plugins
-directory: <code>/var/www/roundcubemail/plugins/</code>. Then we get a new directory:
-<code>/var/www/roundcubemail/plugins/markasjunk2/</code>.</p>
-</li>
-<li>
-<p>Enter directory <code>/var/www/roundcubemail/plugins/markasjunk2/</code>, generate
-config file by copying its sample config file:</p>
-</li>
+<li><a href="./dovecot.imapsieve.html">Auto learn spam/ham with Dovecot imap_sieve plugin</a></li>
 </ul>
-<pre><code># cd /var/www/roundcubemail/plugins/markasjunk2/
-# cp config.inc.php.dist config.inc.php
-</code></pre>
-
-<ul>
-<li>Edit <code>roundcubemail/plugins/markasjunk2/config.inc.php</code>, update below settings:</li>
-</ul>
-<pre><code>$rcmail_config['markasjunk2_learning_driver'] = 'cmd_learn';
-$rcmail_config['markasjunk2_read_spam'] = true;
-$rcmail_config['markasjunk2_unread_ham'] = false;
-$rcmail_config['markasjunk2_move_spam'] = true;
-$rcmail_config['markasjunk2_move_ham'] = true;
-$rcmail_config['markasjunk2_mb_toolbar'] = true;
-
-$rcmail_config['markasjunk2_spam_cmd'] = 'sa-learn --spam --username=vmail %f';
-$rcmail_config['markasjunk2_ham_cmd'] = 'sa-learn --ham --username=vmail %f';
-</code></pre>
-
-<ul>
-<li>Enable this plugin in Roundcube config file
-<code>/var/www/roundcubemail/config/main.inc.php</code> by appending <code>markasjunk2</code>
-in plugin list:</li>
-</ul>
-<pre><code>$rcmail_config['plugins'] = array(..., &quot;markasjunk2&quot;);
-</code></pre>
-
-<ul>
-<li>Learning driver <code>cmd_learn</code> requires PHP function <code>exec</code>, so we have to
-remove it from PHP config file <code>/etc/php.ini</code>, parameter <code>disabled_functions</code>:</li>
-</ul>
-<pre><code># OLD SETTING
-# disable_functions =show_source,system,shell_exec,passthru,exec,phpinfo,proc_open ;
-
-# NEW SETTING. exec is removed.
-disable_functions =show_source,system,shell_exec,passthru,phpinfo,proc_open ;
-</code></pre>
-
-<ul>
-<li>Restarting Apache web server.</li>
-</ul>
-<p>You will see a new toolbar button after logging into Roundcube webmail:</p>
-<p><img alt="" src="./images/markasjunk2_toolbar_button.png" /></p>
-<p>Check SQL database <code>sa_bayes</code> before we testing this plugin:</p>
-<pre><code># mysql -uroot -p
-mysql&gt; USE sa_bayes;
-mysql&gt; SELECT COUNT(*) FROM bayes_token;
-+----------+
-| count(*) |
-+----------+
-|       65 |
-+----------+
-</code></pre>
-
-<p>Back to Roundcube webmail, select a spam email (or a testing email), click
-<code>Mark as Junk</code> button, then this email will be scanned by command <code>sa-learn</code>.
-Check database <code>sa_bayes</code> again to make sure it's working:</p>
-<pre><code># mysql -uroot -p
-mysql&gt; USE sa_bayes;
-mysql&gt; SELECT COUNT(*) FROM bayes_token;
-+----------+
-| count(*) |
-+----------+
-|      143 |
-+----------+
-</code></pre>
-
-<p>Note: You may get different result number as shown above.</p>
-<p>So far so good. That's all we need to do.</p>
 <h2 id="references">References</h2>
 <ul>
 <li><a href="http://wiki.apache.org/spamassassin/BayesInSpamAssassin">Bayes Introduction</a>. Please do read section <code>Things to remember</code>.</li>
