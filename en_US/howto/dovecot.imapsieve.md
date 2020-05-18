@@ -294,6 +294,11 @@ every 10 minutes:
 
 ### Report spam: Move email from Inbox to Junk
 
+!!! attention
+
+    If you're running Roundcube webmail, you can enable its plugin `markasjunk`
+    to help move spam to Junk folder with one click.
+
 - Login to webmail or any IMAP client like Outlook/Thunderbird.
 - Move an email from `Inbox` folder to `Junk` folder.
 
