@@ -2,8 +2,6 @@
 
 [TOC]
 
-__THIS ARTICLE IS STILL A DRAFT, DO NOT APPLY IT IN PRODUCTION SERVER.__
-
 ## Summary
 
 This article will guide you to configure related components to store
