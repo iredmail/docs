@@ -128,6 +128,17 @@ Learned tokens from 1 message(s) (1 message(s) examined)
 
 * [Auto learn spam/ham with Dovecot imap_sieve plugin](./dovecot.imapsieve.html)
 
+## Backup your `sa_bayes` database
+
+Don't forget to update `/var/vmail/backup/backup_mysql.sh` (or
+`backup_pgsql.sh` if you're running PostgreSQL backend) to backup this newly
+created `sa_bayes` database. For example:
+
+```
+# Part of file `/var/vmail/backup/backup_mysql.sh`
+DATABASES='... sa_bayes'
+```
+
 ## References
 
 * [Bayes Introduction](http://wiki.apache.org/spamassassin/BayesInSpamAssassin). Please do read section `Things to remember`.

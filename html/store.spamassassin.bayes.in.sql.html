@@ -23,6 +23,7 @@
 <li><a href="#create-required-sql-database-used-to-store-bayes-data">Create required SQL database used to store bayes data</a></li>
 <li><a href="#enable-bayes-modules-in-spamassassin">Enable Bayes modules in SpamAssassin</a></li>
 <li><a href="#auto-learn-spamham-with-dovecot-imap_sieve-plugin">Auto learn spam/ham with Dovecot imap_sieve plugin</a></li>
+<li><a href="#backup-your-sa_bayes-database">Backup your sa_bayes database</a></li>
 <li><a href="#references">References</a></li>
 </ul>
 </li>
@@ -137,6 +138,14 @@ Learned tokens from 1 message(s) (1 message(s) examined)
 <ul>
 <li><a href="./dovecot.imapsieve.html">Auto learn spam/ham with Dovecot imap_sieve plugin</a></li>
 </ul>
+<h2 id="backup-your-sa_bayes-database">Backup your <code>sa_bayes</code> database</h2>
+<p>Don't forget to update <code>/var/vmail/backup/backup_mysql.sh</code> (or
+<code>backup_pgsql.sh</code> if you're running PostgreSQL backend) to backup this newly
+created <code>sa_bayes</code> database. For example:</p>
+<pre><code># Part of file `/var/vmail/backup/backup_mysql.sh`
+DATABASES='... sa_bayes'
+</code></pre>
+
 <h2 id="references">References</h2>
 <ul>
 <li><a href="http://wiki.apache.org/spamassassin/BayesInSpamAssassin">Bayes Introduction</a>. Please do read section <code>Things to remember</code>.</li>
