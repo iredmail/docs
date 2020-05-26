@@ -25,6 +25,14 @@
 <li><a href="#fixed-inconsistent-fail2ban-jail-names">Fixed: inconsistent Fail2ban jail names</a></li>
 </ul>
 </li>
+<li><a href="#openldap-backend-special">OpenLDAP backend special</a><ul>
+<li><a href="#add-missing-index-for-sql-column-msgstime_iso-in-amavisd-database">Add missing index for SQL column msgs.time_iso in amavisd database</a></li>
+</ul>
+</li>
+<li><a href="#mysqlmariadb-backend-special">MySQL/MariaDB backend special</a><ul>
+<li><a href="#add-missing-index-for-sql-column-msgstime_iso-in-amavisd-database_1">Add missing index for SQL column msgs.time_iso in amavisd database</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -69,6 +77,20 @@ perl -pi -e 's#name=postfix,#name=postfix-pregreet,#g' postfix-pregreet.local
 perl -pi -e 's#postfix-iredmail#postfix#g' postfix.local
 perl -pi -e 's#roundcube-iredmail#roundcube#g' roundcube.local
 perl -pi -e 's#sogo-iredmail#sogo#g' sogo.local
+</code></pre>
+
+<h2 id="openldap-backend-special">OpenLDAP backend special</h2>
+<h3 id="add-missing-index-for-sql-column-msgstime_iso-in-amavisd-database">Add missing index for SQL column <code>msgs.time_iso</code> in <code>amavisd</code> database</h3>
+<p>Please run SQL commands below as MySQL root user:</p>
+<pre><code>USE amavisd;
+CREATE INDEX msgs_idx_time_iso ON msgs (time_iso);
+</code></pre>
+
+<h2 id="mysqlmariadb-backend-special">MySQL/MariaDB backend special</h2>
+<h3 id="add-missing-index-for-sql-column-msgstime_iso-in-amavisd-database_1">Add missing index for SQL column <code>msgs.time_iso</code> in <code>amavisd</code> database</h3>
+<p>Please run SQL commands below as MySQL root user:</p>
+<pre><code>USE amavisd;
+CREATE INDEX msgs_idx_time_iso ON msgs (time_iso);
 </code></pre><div class="footer">
     <p style="text-align: center; color: grey;">All documents are available in <a href="https://github.com/iredmail/docs/">GitHub repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://github.com/iredmail/docs/archive/master.zip">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
 </div>

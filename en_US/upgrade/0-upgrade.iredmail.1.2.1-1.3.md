@@ -50,3 +50,25 @@ perl -pi -e 's#postfix-iredmail#postfix#g' postfix.local
 perl -pi -e 's#roundcube-iredmail#roundcube#g' roundcube.local
 perl -pi -e 's#sogo-iredmail#sogo#g' sogo.local
 ```
+
+## OpenLDAP backend special
+
+### Add missing index for SQL column `msgs.time_iso` in `amavisd` database
+
+Please run SQL commands below as MySQL root user:
+
+```
+USE amavisd;
+CREATE INDEX msgs_idx_time_iso ON msgs (time_iso);
+```
+
+## MySQL/MariaDB backend special
+
+### Add missing index for SQL column `msgs.time_iso` in `amavisd` database
+
+Please run SQL commands below as MySQL root user:
+
+```
+USE amavisd;
+CREATE INDEX msgs_idx_time_iso ON msgs (time_iso);
+```
