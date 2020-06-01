@@ -62,6 +62,49 @@ USE amavisd;
 CREATE INDEX msgs_idx_time_iso ON msgs (time_iso);
 ```
 
+### Improvement: Store more info in Fail2ban SQL db
+
+!!! attention
+
+    Since iRedMail-1.2, Fail2ban is configured to [store banned IP addresses in 
+    SQL database](./fail2ban.sql.html), if you're running an old iRedMail
+    release, please upgrade your iRedMail server by following the upgrade
+    tutorials: [iRedMail release notes and upgrade tutorials](./iredmail.releases.html).
+
+With changes below, we now store matched log lines which triggerred the ban in
+Fail2ban SQL database, also number of times the failure occurred in log files.
+
+Please run SQL commands below as MySQL root user:
+
+```
+USE fail2ban;
+ALTER TABLE banned ADD COLUMN failures INT(2) NOT NULL DEFAULT 0;
+ALTER TABLE banned ADD COLUMN loglines TEXT;
+```
+
+Now open file `/etc/fail2ban/action.d/banned_db.conf`, find the `actionban =`
+line like below:
+
+```
+actionban   = /usr/local/bin/fail2ban_banned_db ban <ip> <port> <protocol> <name>
+```
+
+Replace it by:
+
+```
+actionban   = /usr/local/bin/fail2ban_banned_db ban <ip> <port> <protocol> <name> <ipjailfailures> <ipjailmatches>
+```
+
+Download improved shell script and replace the existing one:
+
+```
+wget https://github.com/iredmail/iRedMail/raw/1.3/samples/fail2ban/bin/fail2ban_banned_db
+mv fail2ban_banned_db /usr/local/bin/
+chmod 0550 /usr/local/bin/fail2ban_banned_db
+```
+
+Now restart Fail2ban service.
+
 ## MySQL/MariaDB backend special
 
 ### Add missing index for SQL column `msgs.time_iso` in `amavisd` database
@@ -72,3 +115,103 @@ Please run SQL commands below as MySQL root user:
 USE amavisd;
 CREATE INDEX msgs_idx_time_iso ON msgs (time_iso);
 ```
+
+### Improvement: Store more info in Fail2ban SQL db
+
+!!! attention
+
+    Since iRedMail-1.2, Fail2ban is configured to [store banned IP addresses in 
+    SQL database](./fail2ban.sql.html), if you're running an old iRedMail
+    release, please upgrade your iRedMail server by following the upgrade
+    tutorials: [iRedMail release notes and upgrade tutorials](./iredmail.releases.html).
+
+With changes below, we now store matched log lines which triggerred the ban in
+Fail2ban SQL database, also number of times the failure occurred in log files.
+
+Please run SQL commands below as MySQL root user:
+
+```
+USE fail2ban;
+ALTER TABLE banned ADD COLUMN failures INT(2) NOT NULL DEFAULT 0;
+ALTER TABLE banned ADD COLUMN loglines TEXT;
+```
+
+Now open file `/etc/fail2ban/action.d/banned_db.conf`, find the `actionban =`
+line like below:
+
+```
+actionban   = /usr/local/bin/fail2ban_banned_db ban <ip> <port> <protocol> <name>
+```
+
+Replace it by:
+
+```
+actionban   = /usr/local/bin/fail2ban_banned_db ban <ip> <port> <protocol> <name> <ipjailfailures> <ipjailmatches>
+```
+
+Download improved shell script and replace the existing one:
+
+```
+wget https://github.com/iredmail/iRedMail/raw/1.3/samples/fail2ban/bin/fail2ban_banned_db
+mv fail2ban_banned_db /usr/local/bin/
+chmod 0550 /usr/local/bin/fail2ban_banned_db
+```
+
+Now restart Fail2ban service.
+
+## PostgreSQL backend special
+
+### Improvement: Store more info in Fail2ban SQL db
+
+!!! attention
+
+    Since iRedMail-1.2, Fail2ban is configured to [store banned IP addresses in 
+    SQL database](./fail2ban.sql.html), if you're running an old iRedMail
+    release, please upgrade your iRedMail server by following the upgrade
+    tutorials: [iRedMail release notes and upgrade tutorials](./iredmail.releases.html).
+
+With changes below, we now store matched log lines which triggerred the ban in
+Fail2ban SQL database, also number of times the failure occurred in log files.
+
+Please follow steps below to apply required changes.
+
+* Connect to PostgreSQL server as `postgres` user and connect to `vmail` database:
+    * on Linux, it's `postgres` user
+    * on FreeBSD, it's `pgsql` user
+    * on OpenBSD, it's `_postgresql` user
+
+```
+su - postgres
+psql -d fail2ban
+```
+
+* Run SQL commands below:
+
+```
+\c fail2ban;
+ALTER TABLE banned ADD COLUMN failures SMALLINT NOT NULL DEFAULT 0;
+ALTER TABLE banned ADD COLUMN loglines TEXT;
+```
+
+* Open file `/etc/fail2ban/action.d/banned_db.conf`, find the `actionban =`
+  line like below:
+
+```
+actionban   = /usr/local/bin/fail2ban_banned_db ban <ip> <port> <protocol> <name>
+```
+
+Replace it by:
+
+```
+actionban   = /usr/local/bin/fail2ban_banned_db ban <ip> <port> <protocol> <name> <ipjailfailures> <ipjailmatches>
+```
+
+* Download improved shell script and replace the existing one:
+
+```
+wget https://github.com/iredmail/iRedMail/raw/1.3/samples/fail2ban/bin/fail2ban_banned_db
+mv fail2ban_banned_db /usr/local/bin/
+chmod 0550 /usr/local/bin/fail2ban_banned_db
+```
+
+* Now restart Fail2ban service.
