@@ -221,6 +221,19 @@ ln -s /etc/letsencrypt/live/<domain>/fullchain.pem cert.pem
 ln -s /etc/letsencrypt/live/<domain>/privkey.pem key.pem
 ```
 
+If cert was renewed, `/etc/letsencrypt/live/<domain>/privkey.pem` will be
+re-created (it's a symbol link too), and it causes `/opt/iredmail/ssl/key.pem`
+linked to file under `/etc/letsencrypt/archive/`, so we need to update the
+`--post-hook` in cron job also:
+
+!!! attention
+
+    Replace `<domain>` by the real domain name.
+
+```
+1 3 * * * certbot renew --post-hook 'ln -sf /opt/letsencrypt/live/<domain>/privkey.pem /opt/iredmail/ssl/key.pem; service postfix restart; service nginx restart; service dovecot restart'
+```
+
 #### For servers deployed with the classical downloadable iRedMail installer
 
 * On RHEL/CentOS:
