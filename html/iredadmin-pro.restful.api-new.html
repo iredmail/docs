@@ -2323,9 +2323,6 @@ to be a domain admin.</p>
 </div>
 <div class="admonition api">
 <p class="admonition-title"><code class="post">POST</code> <code class="url">/api/wblist/outbound/blacklist/&lt;mail&gt;</code> <code class="comment">Add new per-user whitelists for outbound.</code> <code class="has_params_wblist_put">Parameters</code></p>
-</div>
-<div class="admonition api">
-<p class="admonition-title"><code class="post">POST</code> <code class="url">/api/wblist/senderscore/whitelist/&lt;ip&gt;</code> <code class="comment">Whitelist given IP address for the senderscore checking. Applied by iRedAPD plugin 'senderscore'</code> <code class="has_params_wblist_put">Parameters</code></p>
 <div class="params params_wblist_put">
 
 <p>Parameters available for global, per-domain and per-user whitelist/blacklist settings.</p>
@@ -2440,6 +2437,9 @@ to be a domain admin.</p>
 </div>
 <div class="admonition api">
 <p class="admonition-title"><code class="delete">DELETE</code> <code class="url">/api/wblist/outbound/blacklist/&lt;mail&gt;</code> <code class="comment">Delete all per-user existing global whitelists for outbound.</code></p>
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code class="put">PUT</code> <code class="url">/api/wblist/senderscore/whitelist/&lt;ip&gt;</code> <code class="comment">Whitelist given IP address for the senderscore checking. Applied by iRedAPD plugin 'senderscore'</code></p>
 </div>
 <h3 class="toggle" id="greylisting">Greylisting</h3>
 <div class="admonition api">
@@ -2610,6 +2610,9 @@ to be a domain admin.</p>
 
 </div>
 
+</div>
+<div class="admonition api">
+<p class="admonition-title"><code class="put">PUT</code> <code class="url">/api/greylisting/global/whitelist/&lt;ip&gt;</code> <code class="comment">Whitelist given IP address globally</code></p>
 </div>
 <h3 class="toggle" id="export-accounts">Export Accounts</h3>
 <h4 class="toggle" id="ldif-ldap-backend-only">LDIF (LDAP backend only)</h4>

@@ -764,7 +764,6 @@ Catch-all address | `@.`
 !!! api "`POST`{: .post } `/api/wblist/inbound/blacklist/<mail>`{: .url } `Add new per-user blacklists for inbound.`{: .comment } `Parameters`{: .has_params_wblist_put }"
 !!! api "`POST`{: .post } `/api/wblist/outbound/whitelist/<mail>`{: .url } `Add new per-user whitelists for outbound.`{: .comment } `Parameters`{: .has_params_wblist_put }"
 !!! api "`POST`{: .post } `/api/wblist/outbound/blacklist/<mail>`{: .url } `Add new per-user whitelists for outbound.`{: .comment } `Parameters`{: .has_params_wblist_put }"
-!!! api "`POST`{: .post } `/api/wblist/senderscore/whitelist/<ip>`{: .url } `Whitelist given IP address for the senderscore checking. Applied by iRedAPD plugin 'senderscore'`{: .comment } `Parameters`{: .has_params_wblist_put }"
 
     <div class="params params_wblist_put">
 
@@ -811,6 +810,7 @@ Catch-all address | `@.`
 !!! api "`DELETE`{: .delete } `/api/wblist/inbound/blacklist/<mail>`{: .url } `Delete all per-user existing global blacklists for inbound.`{: .comment }"
 !!! api "`DELETE`{: .delete } `/api/wblist/outbound/whitelist/<mail>`{: .url } `Delete all per-user existing global whitelists for outbound.`{: .comment }"
 !!! api "`DELETE`{: .delete } `/api/wblist/outbound/blacklist/<mail>`{: .url } `Delete all per-user existing global whitelists for outbound.`{: .comment }"
+!!! api "`PUT`{: .put } `/api/wblist/senderscore/whitelist/<ip>`{: .url } `Whitelist given IP address for the senderscore checking. Applied by iRedAPD plugin 'senderscore'`{: .comment }"
 
 
 ### Greylisting {: .toggle }
@@ -882,6 +882,8 @@ Catch-all address | `@.`
     -->
 
     </div>
+
+!!! api "`PUT`{: .put } `/api/greylisting/global/whitelist/<ip>`{: .url } `Whitelist given IP address globally`{: .comment }"
 
 ### Export Accounts {: .toggle }
 
