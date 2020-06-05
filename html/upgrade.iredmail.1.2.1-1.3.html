@@ -100,8 +100,12 @@ SQL database</a>, if you're running an old iRedMail
 release, please upgrade your iRedMail server by following the upgrade
 tutorials: <a href="./iredmail.releases.html">iRedMail release notes and upgrade tutorials</a>.</p>
 </div>
-<p>With changes below, we now store matched log lines which triggerred the ban in
-Fail2ban SQL database, also number of times the failure occurred in log files.</p>
+<p>With changes below, we now store more info in Fail2ban SQL database:</p>
+<ul>
+<li>Matched log lines which triggerred the ban</li>
+<li>Number of times the failure occurred until ban</li>
+<li>Reverse DNS name of banned IP address</li>
+</ul>
 <p>Please run SQL commands below as MySQL root user:</p>
 <pre><code>USE fail2ban;
 ALTER TABLE banned ADD COLUMN failures INT(2) NOT NULL DEFAULT 0;
@@ -141,8 +145,12 @@ SQL database</a>, if you're running an old iRedMail
 release, please upgrade your iRedMail server by following the upgrade
 tutorials: <a href="./iredmail.releases.html">iRedMail release notes and upgrade tutorials</a>.</p>
 </div>
-<p>With changes below, we now store matched log lines which triggerred the ban in
-Fail2ban SQL database, also number of times the failure occurred in log files.</p>
+<p>With changes below, we now store more info in Fail2ban SQL database:</p>
+<ul>
+<li>Matched log lines which triggerred the ban</li>
+<li>Number of times the failure occurred until ban</li>
+<li>Reverse DNS name of banned IP address</li>
+</ul>
 <p>Please run SQL commands below as MySQL root user:</p>
 <pre><code>USE fail2ban;
 ALTER TABLE banned ADD COLUMN failures INT(2) NOT NULL DEFAULT 0;
@@ -176,8 +184,12 @@ SQL database</a>, if you're running an old iRedMail
 release, please upgrade your iRedMail server by following the upgrade
 tutorials: <a href="./iredmail.releases.html">iRedMail release notes and upgrade tutorials</a>.</p>
 </div>
-<p>With changes below, we now store matched log lines which triggerred the ban in
-Fail2ban SQL database, also number of times the failure occurred in log files.</p>
+<p>With changes below, we now store more info in Fail2ban SQL database:</p>
+<ul>
+<li>Matched log lines which triggerred the ban</li>
+<li>Number of times the failure occurred until ban</li>
+<li>Reverse DNS name of banned IP address</li>
+</ul>
 <p>Please follow steps below to apply required changes.</p>
 <ul>
 <li>Connect to PostgreSQL server as <code>postgres</code> user and connect to <code>vmail</code> database:<ul>

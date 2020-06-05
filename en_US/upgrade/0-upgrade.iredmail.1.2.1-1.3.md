@@ -71,8 +71,11 @@ CREATE INDEX msgs_idx_time_iso ON msgs (time_iso);
     release, please upgrade your iRedMail server by following the upgrade
     tutorials: [iRedMail release notes and upgrade tutorials](./iredmail.releases.html).
 
-With changes below, we now store matched log lines which triggerred the ban in
-Fail2ban SQL database, also number of times the failure occurred in log files.
+With changes below, we now store more info in Fail2ban SQL database:
+
+- Matched log lines which triggerred the ban
+- Number of times the failure occurred until ban
+- Reverse DNS name of banned IP address
 
 Please run SQL commands below as MySQL root user:
 
@@ -127,8 +130,11 @@ CREATE INDEX msgs_idx_time_iso ON msgs (time_iso);
     release, please upgrade your iRedMail server by following the upgrade
     tutorials: [iRedMail release notes and upgrade tutorials](./iredmail.releases.html).
 
-With changes below, we now store matched log lines which triggerred the ban in
-Fail2ban SQL database, also number of times the failure occurred in log files.
+With changes below, we now store more info in Fail2ban SQL database:
+
+- Matched log lines which triggerred the ban
+- Number of times the failure occurred until ban
+- Reverse DNS name of banned IP address
 
 Please run SQL commands below as MySQL root user:
 
@@ -174,8 +180,11 @@ Now restart Fail2ban service.
     release, please upgrade your iRedMail server by following the upgrade
     tutorials: [iRedMail release notes and upgrade tutorials](./iredmail.releases.html).
 
-With changes below, we now store matched log lines which triggerred the ban in
-Fail2ban SQL database, also number of times the failure occurred in log files.
+With changes below, we now store more info in Fail2ban SQL database:
+
+- Matched log lines which triggerred the ban
+- Number of times the failure occurred until ban
+- Reverse DNS name of banned IP address
 
 Please follow steps below to apply required changes.
 
