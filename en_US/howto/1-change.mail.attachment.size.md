@@ -103,8 +103,8 @@ Note:
 
 ## Roundcube webmail
 
-Roundcube uses its own setting `max_message_size` to limit message size, please
-add or update this parameter in its config file:
+Roundcube 1.3.0 and later releases use its own setting `max_message_size` to
+limit message size, please add or update this parameter in its config file:
 
 * on RHEL/CentOS, it's `/opt/www/roundcubemail/config/config.inc.php`.
   Old iRedMail releases use `/var/www/roundcubemail/config/config.inc.php`.

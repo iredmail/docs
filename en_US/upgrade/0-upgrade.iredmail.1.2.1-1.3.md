@@ -80,6 +80,8 @@ Please run SQL commands below as MySQL root user:
 USE fail2ban;
 ALTER TABLE banned ADD COLUMN failures INT(2) NOT NULL DEFAULT 0;
 ALTER TABLE banned ADD COLUMN loglines TEXT;
+ALTER TABLE banned ADD COLUMN `rdns` VARCHAR(255) NOT NULL DEFAULT '';
+CREATE INDEX rdns ON banned (`rdns`);
 ```
 
 Now open file `/etc/fail2ban/action.d/banned_db.conf`, find the `actionban =`
@@ -134,6 +136,8 @@ Please run SQL commands below as MySQL root user:
 USE fail2ban;
 ALTER TABLE banned ADD COLUMN failures INT(2) NOT NULL DEFAULT 0;
 ALTER TABLE banned ADD COLUMN loglines TEXT;
+ALTER TABLE banned ADD COLUMN `rdns` VARCHAR(255) NOT NULL DEFAULT '';
+CREATE INDEX rdns ON banned (`rdns`);
 ```
 
 Now open file `/etc/fail2ban/action.d/banned_db.conf`, find the `actionban =`
@@ -191,6 +195,8 @@ psql -d fail2ban
 \c fail2ban;
 ALTER TABLE banned ADD COLUMN failures SMALLINT NOT NULL DEFAULT 0;
 ALTER TABLE banned ADD COLUMN loglines TEXT;
+ALTER TABLE banned ADD COLUMN rdns VARCHAR(255) NOT NULL DEFAULT '';
+CREATE INDEX idx_banned_rdns ON banned (rdns);
 ```
 
 * Open file `/etc/fail2ban/action.d/banned_db.conf`, find the `actionban =`
