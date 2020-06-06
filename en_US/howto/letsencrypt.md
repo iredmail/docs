@@ -231,7 +231,7 @@ linked to file under `/etc/letsencrypt/archive/`, so we need to update the
     Replace `<domain>` by the real domain name.
 
 ```
-1 3 * * * certbot renew --post-hook 'ln -sf /opt/letsencrypt/live/<domain>/privkey.pem /opt/iredmail/ssl/key.pem; service postfix restart; service nginx restart; service dovecot restart'
+1 3 * * * certbot renew --post-hook 'ln -sf /etc/letsencrypt/live/<domain>/privkey.pem /opt/iredmail/ssl/key.pem; service postfix restart; service nginx restart; service dovecot restart'
 ```
 
 #### For servers deployed with the classical downloadable iRedMail installer

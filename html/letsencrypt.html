@@ -254,7 +254,7 @@ linked to file under <code>/etc/letsencrypt/archive/</code>, so we need to updat
 <p class="admonition-title">Attention</p>
 <p>Replace <code>&lt;domain&gt;</code> by the real domain name.</p>
 </div>
-<pre><code>1 3 * * * certbot renew --post-hook 'ln -sf /opt/letsencrypt/live/&lt;domain&gt;/privkey.pem /opt/iredmail/ssl/key.pem; service postfix restart; service nginx restart; service dovecot restart'
+<pre><code>1 3 * * * certbot renew --post-hook 'ln -sf /etc/letsencrypt/live/&lt;domain&gt;/privkey.pem /opt/iredmail/ssl/key.pem; service postfix restart; service nginx restart; service dovecot restart'
 </code></pre>
 
 <h4 id="for-servers-deployed-with-the-classical-downloadable-iredmail-installer">For servers deployed with the classical downloadable iRedMail installer</h4>
