@@ -28,6 +28,19 @@ so that you can know which version of iRedMail you're running. For example:
 1.3
 ```
 
+### Upgrade Roundcube webmail to the latest stable release (1.4.6)
+
+!!! warning "Roundcube 1.4"
+
+    Since Roundcube 1.3, at least __PHP 5.4__ is required. If your server is
+    running PHP 5.3 and cannot upgrade to 5.4, please upgrade Roundcube
+    the latest 1.2 branch instead.
+
+Roundcube 1.4.6 fixes few security issues, all users are encouraged to upgrade
+_as soon as possible_.
+
+* [How to upgrade Roundcube](https://github.com/roundcube/roundcubemail/wiki/Upgrade).
+
 ### Fixed: inconsistent Fail2ban jail names
 
 !!! attention
