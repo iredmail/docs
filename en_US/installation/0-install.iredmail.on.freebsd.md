@@ -16,9 +16,17 @@
       and configure them for you automatically. Otherwise it may override your
       existing files/configurations although it will backup files before
       modifying, and it may not be working as expected.
-    * Amazon AWS EC2 blocks port 25 by default, if you plan to deploy mail
-      server with AWS, you need to [remove the throttle on port
-      25](https://aws.amazon.com/premiumsupport/knowledge-center/ec2-port-25-throttle/).
+    * Many ISPs block port 25 by default, it's used for communication between
+      mail servers, it must be open, otherwise your server may be not able to
+      receive or / and send emails. Please contact your ISP to make sure it's
+      not blocked, or ask them to unblock.
+
+          - Amazon AWS EC2. Request to [remove the throttle on port 25](https://aws.amazon.com/premiumsupport/knowledge-center/ec2-port-25-throttle/).
+          - Google Cloud Platform.
+          - Microsoft Azure.
+          - Linode. Explained in the [blog post](https://www.linode.com/blog/linode/a-new-policy-to-help-fight-spam/),
+            you can open a support ticket to request the Linode team to open it.
+          - DigitalOcean.
 
 To install iRedMail on FreeBSD, you need:
 
