@@ -35,6 +35,17 @@ installation guides here: [Install iRedMail](./index.html#install).
       can not have other network services running on the server __BEFORE__
       iRedMail installation.
     * iRedMail will install and configure all required softwares automatically.
+    * Many ISPs block port 25 by default, it's used for communication between
+      mail servers, it must be open, otherwise your server may be not able to
+      receive or / and send emails. Please contact your ISP to make sure it's
+      not blocked, or ask them to unblock.
+
+          - Amazon AWS EC2. Request to [remove the throttle on port 25](https://aws.amazon.com/premiumsupport/knowledge-center/ec2-port-25-throttle/).
+          - Google Cloud Platform.
+          - Microsoft Azure.
+          - Linode. Explained in the [blog post](https://www.linode.com/blog/linode/a-new-policy-to-help-fight-spam/),
+            you can open a support ticket to request the Linode team to open it.
+          - DigitalOcean.
 
 ### Supported Linux and BSD distribution releases
 
@@ -44,8 +55,8 @@ Distribution | Release Versions
 --- |---
 CentOS | 7, 8
 Debian | 9, 10
-Ubuntu | 18.04
-OpenBSD | 6.6
+Ubuntu | 18.04, 20.04
+OpenBSD | 6.6, 6.7
 
 If you need to install iRedMail on FreeBSD, please use the [downloadable
 installer](https://www.iredmail.org/download.html) instead.

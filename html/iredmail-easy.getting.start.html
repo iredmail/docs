@@ -70,6 +70,20 @@ installation guides here: <a href="./index.html#install">Install iRedMail</a>.</
   can not have other network services running on the server <strong>BEFORE</strong>
   iRedMail installation.</li>
 <li>iRedMail will install and configure all required softwares automatically.</li>
+<li>
+<p>Many ISPs block port 25 by default, it's used for communication between
+  mail servers, it must be open, otherwise your server may be not able to
+  receive or / and send emails. Please contact your ISP to make sure it's
+  not blocked, or ask them to unblock.</p>
+<ul>
+<li>Amazon AWS EC2. Request to <a href="https://aws.amazon.com/premiumsupport/knowledge-center/ec2-port-25-throttle/">remove the throttle on port 25</a>.</li>
+<li>Google Cloud Platform.</li>
+<li>Microsoft Azure.</li>
+<li>Linode. Explained in the <a href="https://www.linode.com/blog/linode/a-new-policy-to-help-fight-spam/">blog post</a>,
+    you can open a support ticket to request the Linode team to open it.</li>
+<li>DigitalOcean.</li>
+</ul>
+</li>
 </ul>
 </div>
 <h3 id="supported-linux-and-bsd-distribution-releases">Supported Linux and BSD distribution releases</h3>
@@ -92,11 +106,11 @@ installation guides here: <a href="./index.html#install">Install iRedMail</a>.</
 </tr>
 <tr>
 <td>Ubuntu</td>
-<td>18.04</td>
+<td>18.04, 20.04</td>
 </tr>
 <tr>
 <td>OpenBSD</td>
-<td>6.6</td>
+<td>6.6, 6.7</td>
 </tr>
 </tbody>
 </table>
