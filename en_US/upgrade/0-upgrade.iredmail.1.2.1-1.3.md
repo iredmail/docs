@@ -45,6 +45,32 @@ References:
 
 - [Security updates 1.4.5 and 1.3.12 released](https://roundcube.net/news/2020/06/02/security-updates-1.4.5-and-1.3.12)
 - [Updates 1.4.6 and 1.3.13 released](https://roundcube.net/news/2020/06/07/updates-1.4.6-and-1.3.13-released)
+
+### Fixed: can not manage mail filters with Roundcube on CentOS 7
+
+!!! attention
+
+    This is only application to CentOS 7.
+
+On CentOS 7, the Roundcube official plugin `managesieve` doesn't work with
+TLSv1.1 and TLSv1.2, so we have to re-enable TLSv1 in Dovecot, otherwise you
+can not manage mail filters with Roundcube.
+
+Open file `/etc/dovecot/dovecot.conf`, find the `ssl_protocols` parameter like
+below:
+
+```
+ssl_protocols = !SSLv2 !SSLv3 !TLSv1 !TLSv1.1
+```
+
+Remove `!TLSv1` and restart Dovecot service:
+
+```
+ssl_protocols = !SSLv2 !SSLv3 !TLSv1.1
+```
+
+Note: TLSv1 and TLSv1.2 are supported with this change.
+
 ### Fixed: inconsistent Fail2ban jail names
 
 !!! attention
