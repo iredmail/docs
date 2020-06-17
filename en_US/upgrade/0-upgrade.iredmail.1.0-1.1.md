@@ -128,7 +128,7 @@ system:
 ```
 cd /var/vmail/backup/
 wget -O backup_openldap.sh https://github.com/iredmail/iRedMail/raw/1.1/tools/backup_openldap.sh
-wget -O backup_openldap.sh https://github.com/iredmail/iRedMail/raw/1.1/tools/backup_mysql.sh
+wget -O backup_mysql.sh https://github.com/iredmail/iRedMail/raw/1.1/tools/backup_mysql.sh
 chown root backup_openldap.sh backup_mysql.sh
 chmod 0500 backup_openldap.sh backup_mysql.sh
 ```
