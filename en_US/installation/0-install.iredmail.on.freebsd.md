@@ -26,7 +26,7 @@
           - Microsoft Azure.
           - Linode. Explained in the [blog post](https://www.linode.com/blog/linode/a-new-policy-to-help-fight-spam/),
             you can open a support ticket to request the Linode team to open it.
-          - DigitalOcean.
+          - DigitalOcean. According to [a post in their community](https://www.digitalocean.com/community/questions/port-25-465-is-blocked-how-can-i-enable-it), __SEEMS__ impossible to unblock port 25, that means you can __NOT__ run mail server on DigitalOcean VPS.
 
 To install iRedMail on FreeBSD, you need:
 
