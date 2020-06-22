@@ -20,42 +20,54 @@
 <p class="admonition-title">Attention</p>
 <ul>
 <li>Release Notes are available here: <a href="./iredapd.releases.html">iRedAPD Release Notes</a>.</li>
+<li>If you're trying to upgrade iRedAPD-1.3.x or earlier releases to the latest
+  iRedAPD, please check this tutorial instead:
+  <a href="./upgrade.old.iredapd.html">Upgrade iRedAPD from v1.3.x or earlier versions to latest release</a>.</li>
+<li>iRedMail and iRedAdmin-Pro completely drop support for Cluebringer, if
+  you're still running Cluebringer, please migrate to iRedAPD by following
+  <a href="./cluebringer.to.iredapd.html">our tutorial</a>.</li>
 </ul>
 </div>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<ul>
-<li>
-<p>iRedAPD-4.0 and later releases <strong>require Python 3.5+</strong>, only listed
-  distribution releases are qualified to upgrade:</p>
-<ul>
-<li>CentOS 7 and later</li>
-<li>Debian 9 and later</li>
-<li>Ubuntu 16.04 and later</li>
-<li>FreeBSD with latest ports tree</li>
-<li>OpenBSD 6.6 and later</li>
-</ul>
-</li>
-</ul>
-<p>If you're running an old Linux/BSD release which doesn't have Python
-  3.5+, please stay with iRedAPD-3.6, it's the last release supports Python
-  2. if you need to upgrade to iRedAPD-3.6, please follow this upgrade
-  tutorial instead: <a href="./upgrade.iredapd.py2.html">Upgrade iRedAPD from v1.3.x or earlier versions to v3.6</a>.</p>
+<p>For iRedMail SQL backends, the latest iRedAPD release requires at least
+iRedMail-0.9.7 because it needs the newly introduced SQL table
+<code>vmail.forwardings</code>.</p>
 </div>
 <p>This tutorial describes how to upgrade iRedAPD from <code>1.4.0</code> or later releases
-to the latest stable release on listed distribution releases listed above.</p>
-<p>Run commands below on your iRedMail server:</p>
+to the latest stable release. It's applicable on all Linux/BSD distributions
+supported by iRedMail.</p>
+<ol>
+<li>Download the latest stable release here: <a href="https://dl.iredmail.org/yum/misc/">https://dl.iredmail.org/yum/misc/</a>.
+   For example, <code>iRedAPD-3.6.tar.gz</code>.</li>
+<li>Upload it to your iRedMail server. Assume it's <code>/root/iRedAPD-3.6.tar.gz</code>.</li>
+<li>Extract downloaded package and execute upgrade script:</li>
+</ol>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>If you're running iRedMail with OpenLDAP or MySQL/MariaDB backends,
+upgrading from iRedAPD-1.6.0 or earlier releases requires MySQL root username
+and password, please get them before you run upgrade script.</p>
+</div>
 <pre><code>cd /root
-wget -O iRedAPD-4.0.tar.gz https://github.com/iredmail/iRedAPD/archive/4.0.tar.gz
-tar zxf iRedAPD-4.0.tar.gz
-cd iRedAPD-4.0/tools/
+tar zxf iRedAPD-3.6.tar.gz
+cd iRedAPD-3.6/tools/
 bash upgrade_iredapd.sh
 </code></pre>
 
 <p>That's all.</p>
+<div class="admonition note">
+<p class="admonition-title">Plugins</p>
+<ul>
+<li>It's recommended to enable plugin <code>reject_null_sender</code> in iRedAPD-1.4.4
+  or later releases to prevent authenticated user sending spam as null sender.</li>
+<li>Plugin <code>amavisd_wblist</code> is required for whitelisting and blacklisting.</li>
+</ul>
+</div>
 <h2 id="see-also">See Also</h2>
 <ul>
 <li><a href="./srs.html">Enable SRS (Sender Rewriting Scheme) support</a></li>
+<li><a href="./cluebringer.to.iredapd.html">Migrate Cluebringer to iRedAPD</a></li>
 </ul><div class="footer">
     <p style="text-align: center; color: grey;">All documents are available in <a href="https://github.com/iredmail/docs/">GitHub repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://github.com/iredmail/docs/archive/master.zip">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
 </div>

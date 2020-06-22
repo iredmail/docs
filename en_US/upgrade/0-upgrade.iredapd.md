@@ -3,51 +3,38 @@
 !!! attention
 
     * Release Notes are available here: [iRedAPD Release Notes](./iredapd.releases.html).
-    * If you're trying to upgrade iRedAPD-1.3.x or earlier releases to the latest
-      iRedAPD, please check this tutorial instead:
-      [Upgrade iRedAPD from v1.3.x or earlier versions to latest release](./upgrade.old.iredapd.html).
-    * iRedMail and iRedAdmin-Pro completely drop support for Cluebringer, if
-      you're still running Cluebringer, please migrate to iRedAPD by following
-      [our tutorial](./cluebringer.to.iredapd.html).
 
 !!! warning
 
-    For iRedMail SQL backends, the latest iRedAPD release requires at least
-    iRedMail-0.9.7 because it needs the newly introduced SQL table
-    `vmail.forwardings`.
+    * iRedAPD-4.0 and later releases __require Python 3.5+__, only listed
+      distribution releases are qualified to upgrade:
+
+        - CentOS 7 and later
+        - Debian 9 and later
+        - Ubuntu 16.04 and later
+        - FreeBSD with latest ports tree
+        - OpenBSD 6.6 and later
+
+      If you're running an old Linux/BSD release which doesn't have Python
+      3.5+, please stay with iRedAPD-3.6, it's the last release supports Python
+      2. if you need to upgrade to iRedAPD-3.6, please follow this upgrade
+      tutorial instead: [Upgrade iRedAPD from v1.3.x or earlier versions to v3.6](./upgrade.iredapd.py2.html).
 
 This tutorial describes how to upgrade iRedAPD from `1.4.0` or later releases
-to the latest stable release. It's applicable on all Linux/BSD distributions
-supported by iRedMail.
+to the latest stable release on listed distribution releases listed above.
 
-1. Download the latest stable release here: <https://dl.iredmail.org/yum/misc/>.
-   For example, `iRedAPD-3.6.tar.gz`.
-1. Upload it to your iRedMail server. Assume it's `/root/iRedAPD-3.6.tar.gz`.
-1. Extract downloaded package and execute upgrade script:
-
-!!! attention
-
-    If you're running iRedMail with OpenLDAP or MySQL/MariaDB backends,
-    upgrading from iRedAPD-1.6.0 or earlier releases requires MySQL root username
-    and password, please get them before you run upgrade script.
+Run commands below on your iRedMail server:
 
 ```
-# cd /root
-# tar zxf iRedAPD-3.6.tar.gz
-# cd iRedAPD-3.6/tools/
-# bash upgrade_iredapd.sh
+cd /root
+wget -O iRedAPD-4.0.tar.gz https://github.com/iredmail/iRedAPD/archive/4.0.tar.gz
+tar zxf iRedAPD-4.0.tar.gz
+cd iRedAPD-4.0/tools/
+bash upgrade_iredapd.sh
 ```
 
 That's all.
 
-!!! note "Plugins"
-
-    * It's recommended to enable plugin `reject_null_sender` in iRedAPD-1.4.4
-      or later releases to prevent authenticated user sending spam as null sender.
-
-    * Plugin `amavisd_wblist` is required for whitelisting and blacklisting.
-
 ## See Also
 
 * [Enable SRS (Sender Rewriting Scheme) support](./srs.html)
-* [Migrate Cluebringer to iRedAPD](./cluebringer.to.iredapd.html)
