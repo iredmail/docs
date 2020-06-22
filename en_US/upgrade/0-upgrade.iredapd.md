@@ -18,7 +18,7 @@
       If you're running an old Linux/BSD release which doesn't have Python
       3.5+, please stay with iRedAPD-3.6, it's the last release supports Python
       2. if you need to upgrade to iRedAPD-3.6, please follow this upgrade
-      tutorial instead: [Upgrade iRedAPD from v1.3.x or earlier versions to v3.6](./upgrade.iredapd.py2.html).
+      tutorial instead: [Upgrade iRedAPD from v1.4.0 or later releases to v3.6](./upgrade.iredapd.py2.html).
 
 This tutorial describes how to upgrade iRedAPD from `1.4.0` or later releases
 to the latest stable release on listed distribution releases listed above.
