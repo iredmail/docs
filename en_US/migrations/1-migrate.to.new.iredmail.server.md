@@ -42,7 +42,7 @@ please update your mail client applications to use TLS connection.
       in its config file `/etc/postfix/main.cf`.
 
     * if you want to enable SMTPS (SMTP over SSL, port `465`) to support
-      legency mail clients, please follow this tutorial:
+      legacy mail clients, please follow this tutorial:
       [How to enable SMTPS service](./enable.smtps.html).
 
 ## LDAP: migrate mail accounts
