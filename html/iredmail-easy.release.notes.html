@@ -49,16 +49,14 @@
 <ul>
 <li>
 <p>Possible issue after upgraded on CentOS 8:</p>
-<ul>
-<li>The new CentOS 8 release, <code>8.2.2004</code>, ships Dovecot-2.3.8 recently, it
-  has some backward-incompatibility issues. iRedMail Easy will upgrade it
-  from old version <code>2.2.36</code> and re-generates its config files.</li>
-<li>
-<p>Dovecot 2.3 is not fully compatible with old 2.2.x release, it MAY fail
-  to (re)start if you have unsupported parameters defined  in config file
-  under <code>/opt/iredmail/custom/dovecot/conf-enabled/</code>, mostly used one is
-  parameter <code>ssl_protocols</code>, and you must replace it by
-  <code>ssl_min_protocol</code>.</p>
+<p>Old CentOS 8 releases shipped Dovecot-2.2.x, but the new <code>8.2.2004</code> release
+suprisely ships Dovecot-2.3.8 which has some backward-incompatible settings.
+iRedMail Easy will upgrade it from old version <code>2.2.36</code> and re-generates
+its config files, it MAY fail to (re)start if you have unsupported
+customized parameters set in config file under
+<code>/opt/iredmail/custom/dovecot/conf-enabled/</code>.</p>
+<p>Mostly customized parameter is <code>ssl_protocols</code>, it should be replace by
+<code>ssl_min_protocol</code>.</p>
 <p>For example, if you still need to support TLSv1, please set
 <code>ssl_min_protocol = TLSv1</code> instead. Default value is TLSv1.2.</p>
 <ul>
@@ -66,8 +64,6 @@
   tutorial</a>.</li>
 <li>If you have issue after upgraded, feel free to create a support
   ticket on the iRedMail Easy platform.</li>
-</ul>
-</li>
 </ul>
 </li>
 <li>

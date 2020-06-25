@@ -6,22 +6,23 @@
 
 * Possible issue after upgraded on CentOS 8:
 
-    - The new CentOS 8 release, `8.2.2004`, ships Dovecot-2.3.8 recently, it
-      has some backward-incompatibility issues. iRedMail Easy will upgrade it
-      from old version `2.2.36` and re-generates its config files.
-    - Dovecot 2.3 is not fully compatible with old 2.2.x release, it MAY fail
-      to (re)start if you have unsupported parameters defined  in config file
-      under `/opt/iredmail/custom/dovecot/conf-enabled/`, mostly used one is
-      parameter `ssl_protocols`, and you must replace it by
-      `ssl_min_protocol`.
+    Old CentOS 8 releases shipped Dovecot-2.2.x, but the new `8.2.2004` release
+    suprisely ships Dovecot-2.3.8 which has some backward-incompatible settings.
+    iRedMail Easy will upgrade it from old version `2.2.36` and re-generates
+    its config files, it MAY fail to (re)start if you have unsupported
+    customized parameters set in config file under
+    `/opt/iredmail/custom/dovecot/conf-enabled/`.
 
-        For example, if you still need to support TLSv1, please set
-        `ssl_min_protocol = TLSv1` instead. Default value is TLSv1.2.
+    Mostly customized parameter is `ssl_protocols`, it should be replace by
+    `ssl_min_protocol`.
 
-        - For more details, please check [official Dovecot upgrade
-          tutorial](https://doc.dovecot.org/installation_guide/upgrading/from-2.2-to-2.3/).
-        - If you have issue after upgraded, feel free to create a support
-          ticket on the iRedMail Easy platform.
+    For example, if you still need to support TLSv1, please set
+    `ssl_min_protocol = TLSv1` instead. Default value is TLSv1.2.
+
+    - For more details, please check [official Dovecot upgrade
+      tutorial](https://doc.dovecot.org/installation_guide/upgrading/from-2.2-to-2.3/).
+    - If you have issue after upgraded, feel free to create a support
+      ticket on the iRedMail Easy platform.
 
 * Supports now distribution releases:
     * Ubuntu 20.04. All 3 backends (MariaDB, PostgreSQL, OpenLDAP) are available.
