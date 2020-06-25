@@ -19,6 +19,7 @@
 <div class="toc">
 <ul>
 <li><a href="#iredmail-easy-release-notes">iRedMail Easy: Release Notes</a><ul>
+<li><a href="#20200626">Version: 2020062601 (Jun 26, 2020)</a></li>
 <li><a href="#20200430">Version: 2020043001 (Apr 30, 2020)</a></li>
 <li><a href="#20200416">Version: 2020041601 (Apr 16, 2020)</a></li>
 <li><a href="#20200210">Version: 2020021001 (Feb 10, 2020)</a></li>
@@ -44,6 +45,92 @@
 </li>
 </ul>
 </div>
+<h2 id="20200626">Version: 2020062601 (Jun 26, 2020)</h2>
+<ul>
+<li>
+<p>Possible issue after upgraded on CentOS 8:</p>
+<ul>
+<li>The new CentOS 8 release, <code>8.2.2004</code>, ships Dovecot-2.3.8 recently, it
+  has some backward-incompatibility issues. iRedMail Easy will upgrade it
+  from old version <code>2.2.36</code> and re-generates its config files.</li>
+<li>
+<p>Dovecot 2.3 is not fully compatible with old 2.2.x release, it MAY fail
+  to (re)start if you have unsupported parameters defined  in config file
+  under <code>/opt/iredmail/custom/dovecot/conf-enabled/</code>, mostly used one is
+  parameter <code>ssl_protocols</code>, and you must replace it by
+  <code>ssl_min_protocol</code>.</p>
+<p>For example, if you still need to support TLSv1, please set
+<code>ssl_min_protocol = TLSv1</code> instead. Default value is TLSv1.2.</p>
+<ul>
+<li>For more details, please check <a href="https://doc.dovecot.org/installation_guide/upgrading/from-2.2-to-2.3/">official Dovecot upgrade
+  tutorial</a>.</li>
+<li>If you have issue after upgraded, feel free to create a support
+  ticket on the iRedMail Easy platform.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>Supports now distribution releases:</p>
+<ul>
+<li>Ubuntu 20.04. All 3 backends (MariaDB, PostgreSQL, OpenLDAP) are available.</li>
+<li>OpenBSD 6.7. All 3 backends (MariaDB, PostgreSQL, OpenLDAP) are available.
+  <strong>NOTE</strong>: support for OpenBSD 6.6 will be dropped after 6.8 is out.</li>
+</ul>
+</li>
+<li>
+<p>Postfix:</p>
+<ul>
+<li>Fixed: not wrap IPv6 addresses inside <code>[]</code> in <code>mynetworks</code>.</li>
+<li>Fixed: not bypass HELO identities used by pinterest.com mail server.</li>
+<li>Fixed: not add alias for <code>postmaster</code> (system) user which is used as
+  2bounce recipient.</li>
+</ul>
+</li>
+<li>
+<p>Fail2ban:</p>
+<ul>
+<li>It now stores more info in SQL db, you can view them with iRedAdmin-Pro:<ul>
+<li>Number of times the failure occurred in log files</li>
+<li>The log lines which triggerred the ban</li>
+<li>Reverse DNS of banned IP address</li>
+</ul>
+</li>
+<li>Fixed: specify <code>backend = pooling</code> and <code>journalmatch =</code> (empty value)
+  to avoid performance issue and startup warnings in fail2ban log file.</li>
+<li>Fixed: inconsistent jail name for jail <code>nginx-http-auth</code>.</li>
+</ul>
+</li>
+<li>
+<p>Antispam:</p>
+<ul>
+<li>[Debian/Ubuntu] Fixed: not add user <code>debian-spamd</code> to <code>amavis</code> group.</li>
+<li>[OpenLDAP/MariaDB] Add missing INDEX for SQL column <code>msgs.time_iso</code>.</li>
+</ul>
+</li>
+<li>
+<p>Adminer:</p>
+<ul>
+<li>Improve Nginx configuration to loading custom CSS file <code>adminer.css</code>
+  in same directory (<code>/opt/www/adminer/</code>).</li>
+</ul>
+</li>
+<li>
+<p>Improvements of iRedMail Easy platform:</p>
+<ul>
+<li>Make sure all 3 required official apt repositories are enabled on Ubuntu.</li>
+<li>Make sure iRedMail yum repository has higher priority on CentOS.</li>
+</ul>
+</li>
+<li>
+<p>Package updates:</p>
+<ul>
+<li>roundcube webmail-1.4.6. It includes few security fixes.</li>
+<li>adminer-4.7.7</li>
+<li>netdata-1.23.0</li>
+</ul>
+</li>
+</ul>
 <h2 id="20200430">Version: 2020043001 (Apr 30, 2020)</h2>
 <ul>
 <li>

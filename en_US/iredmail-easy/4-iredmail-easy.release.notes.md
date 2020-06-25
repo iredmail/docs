@@ -2,6 +2,64 @@
 
 [TOC]
 
+## Version: 2020062601 (Jun 26, 2020) {: id=20200626 }
+
+* Possible issue after upgraded on CentOS 8:
+
+    - The new CentOS 8 release, `8.2.2004`, ships Dovecot-2.3.8 recently, it
+      has some backward-incompatibility issues. iRedMail Easy will upgrade it
+      from old version `2.2.36` and re-generates its config files.
+    - Dovecot 2.3 is not fully compatible with old 2.2.x release, it MAY fail
+      to (re)start if you have unsupported parameters defined  in config file
+      under `/opt/iredmail/custom/dovecot/conf-enabled/`, mostly used one is
+      parameter `ssl_protocols`, and you must replace it by
+      `ssl_min_protocol`.
+
+        For example, if you still need to support TLSv1, please set
+        `ssl_min_protocol = TLSv1` instead. Default value is TLSv1.2.
+
+        - For more details, please check [official Dovecot upgrade
+          tutorial](https://doc.dovecot.org/installation_guide/upgrading/from-2.2-to-2.3/).
+        - If you have issue after upgraded, feel free to create a support
+          ticket on the iRedMail Easy platform.
+
+* Supports now distribution releases:
+    * Ubuntu 20.04. All 3 backends (MariaDB, PostgreSQL, OpenLDAP) are available.
+    * OpenBSD 6.7. All 3 backends (MariaDB, PostgreSQL, OpenLDAP) are available.
+      __NOTE__: support for OpenBSD 6.6 will be dropped after 6.8 is out.
+
+* Postfix:
+    - Fixed: not wrap IPv6 addresses inside `[]` in `mynetworks`.
+    - Fixed: not bypass HELO identities used by pinterest.com mail server.
+    - Fixed: not add alias for `postmaster` (system) user which is used as
+      2bounce recipient.
+
+* Fail2ban:
+    - It now stores more info in SQL db, you can view them with iRedAdmin-Pro:
+        - Number of times the failure occurred in log files
+        - The log lines which triggerred the ban
+        - Reverse DNS of banned IP address
+    - Fixed: specify `backend = pooling` and `journalmatch =` (empty value)
+      to avoid performance issue and startup warnings in fail2ban log file.
+    - Fixed: inconsistent jail name for jail `nginx-http-auth`.
+
+* Antispam:
+    - [Debian/Ubuntu] Fixed: not add user `debian-spamd` to `amavis` group.
+    - [OpenLDAP/MariaDB] Add missing INDEX for SQL column `msgs.time_iso`.
+
+* Adminer:
+    - Improve Nginx configuration to loading custom CSS file `adminer.css`
+      in same directory (`/opt/www/adminer/`).
+
+* Improvements of iRedMail Easy platform:
+    - Make sure all 3 required official apt repositories are enabled on Ubuntu.
+    - Make sure iRedMail yum repository has higher priority on CentOS.
+
+* Package updates:
+    - roundcube webmail-1.4.6. It includes few security fixes.
+    - adminer-4.7.7
+    - netdata-1.23.0
+
 ## Version: 2020043001 (Apr 30, 2020) {: id=20200430 }
 
 * Antispam:
