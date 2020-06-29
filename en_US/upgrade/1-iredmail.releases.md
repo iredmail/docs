@@ -36,6 +36,7 @@
 
 Version | Release Date | Upgrade tutorial | Comment
 ---|---|---|---
+[1.3](https://forum.iredmail.org/topic17020.html) | Jun 29, 2020 | [Upgrade from iRedMail-1.2.1](./upgrade.iredmail.1.2.1-1.3.html) | New Roundcube release (1.4.6) with few security fixes.
 [1.2.1](https://forum.iredmail.org/topic16756.html) | Apr 30, 2020 | [Upgrade from iRedMail-1.2](./upgrade.iredmail.1.2-1.2.1.html) | New Roundcube release (1.4.4) with few security fixes.
 [1.2](https://forum.iredmail.org/topic16714.html) | Apr 16, 2020 | [Upgrade from iRedMail-1.1](./upgrade.iredmail.1.1-1.2.html) | Bug fix release.
 [1.1](https://forum.iredmail.org/topic16507.html) | Feb 11, 2020 | [Upgrade from iRedMail-1.0](./upgrade.iredmail.1.0-1.1.html) | Bug fix release.

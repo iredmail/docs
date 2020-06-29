@@ -2,10 +2,6 @@
 
 [TOC]
 
-!!! warning
-
-    THIS IS STILL A DRAFT DOCUMENT, DO NOT APPLY IT.
-
 !!! note "Paid Remote Upgrade Support"
 
     We offer remote upgrade support if you don't want to get your hands dirty,
@@ -14,7 +10,7 @@
 
 ## ChangeLog
 
-* May XX, 2020: initial release.
+* Jun 29, 2020: initial release.
 
 ## General (All backends should apply these changes)
 
