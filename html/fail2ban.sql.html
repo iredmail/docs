@@ -93,7 +93,7 @@ also a SQL user <code>fail2ban</code>.</p>
 <li>Run commands below as <code>root</code> user:</li>
 </ul>
 <pre><code>cd /tmp
-wget https://github.com/iredmail/iRedMail/raw/master/samples/fail2ban/sql/fail2ban.mysql
+wget https://github.com/iredmail/iRedMail/raw/1.3/samples/fail2ban/sql/fail2ban.mysql
 </code></pre>
 
 <ul>
@@ -131,7 +131,7 @@ also a SQL user <code>fail2ban</code>.</p>
   <code>postgres</code> and connect to SQL server:</li>
 </ul>
 <pre><code>cd /tmp
-wget https://github.com/iredmail/iRedMail/raw/master/samples/fail2ban/sql/fail2ban.pgsql
+wget https://github.com/iredmail/iRedMail/raw/1.3/samples/fail2ban/sql/fail2ban.pgsql
 su - postgres
 psql -d template1
 </code></pre>
@@ -163,10 +163,10 @@ ALTER DATABASE fail2ban OWNER TO fail2ban;
 
 <h2 id="add-required-fail2ban-config-file-and-script">Add required Fail2ban config file and script</h2>
 <p>On Linux, run commands below as <code>root</code> user:</p>
-<pre><code>wget https://github.com/iredmail/iRedMail/raw/master/samples/fail2ban/action.d/banned_db.conf
+<pre><code>wget https://github.com/iredmail/iRedMail/raw/1.3/samples/fail2ban/action.d/banned_db.conf
 mv banned_db.conf /etc/fail2ban/action.d/
 
-wget https://github.com/iredmail/iRedMail/raw/master/samples/fail2ban/bin/fail2ban_banned_db
+wget https://github.com/iredmail/iRedMail/raw/1.3/samples/fail2ban/bin/fail2ban_banned_db
 mv fail2ban_banned_db /usr/local/bin/
 chmod 0550 /usr/local/bin/fail2ban_banned_db
 </code></pre>
