@@ -72,7 +72,7 @@ also a SQL user `fail2ban`.
 
 ```
 cd /tmp
-wget https://github.com/iredmail/iRedMail/raw/1.2/samples/fail2ban/sql/fail2ban.mysql
+wget https://github.com/iredmail/iRedMail/raw/1.3/samples/fail2ban/sql/fail2ban.mysql
 ```
 
 * Run __SQL commands__ below as __MySQL `root` user__:
@@ -110,7 +110,7 @@ also a SQL user `fail2ban`.
 
 ```
 cd /tmp
-wget https://github.com/iredmail/iRedMail/raw/1.2/samples/fail2ban/sql/fail2ban.pgsql
+wget https://github.com/iredmail/iRedMail/raw/1.3/samples/fail2ban/sql/fail2ban.pgsql
 su - postgres
 psql -d template1
 ```
@@ -143,10 +143,10 @@ ALTER DATABASE fail2ban OWNER TO fail2ban;
 On Linux, run commands below as `root` user:
 
 ```
-wget https://github.com/iredmail/iRedMail/raw/1.2/samples/fail2ban/action.d/banned_db.conf
+wget https://github.com/iredmail/iRedMail/raw/1.3/samples/fail2ban/action.d/banned_db.conf
 mv banned_db.conf /etc/fail2ban/action.d/
 
-wget https://github.com/iredmail/iRedMail/raw/1.2/samples/fail2ban/bin/fail2ban_banned_db
+wget https://github.com/iredmail/iRedMail/raw/1.3/samples/fail2ban/bin/fail2ban_banned_db
 mv fail2ban_banned_db /usr/local/bin/
 chmod 0550 /usr/local/bin/fail2ban_banned_db
 ```
