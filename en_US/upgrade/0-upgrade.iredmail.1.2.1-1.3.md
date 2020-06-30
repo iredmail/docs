@@ -24,6 +24,16 @@ so that you can know which version of iRedMail you're running. For example:
 1.3
 ```
 
+### Upgrade iRedAPD (Postfix policy server) to the latest stable release
+
+Please follow below tutorial to upgrade iRedAPD to the latest stable release:
+[Upgrade iRedAPD to the latest stable release](./upgrade.iredapd.html)
+
+### Upgrade mlmmjadmin to the latest stable release
+
+Please follow below tutorial to upgrade mlmmjadmin to the latest stable release:
+[Upgrade mlmmjadmin to the latest stable release](./upgrade.mlmmjadmin.html)
+
 ### Upgrade Roundcube webmail to the latest stable release (1.4.6)
 
 !!! warning "Roundcube 1.4"

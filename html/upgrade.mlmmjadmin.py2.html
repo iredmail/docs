@@ -16,26 +16,6 @@
         <span>iRedMail</span>
     </a>
     &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><h1 id="mlmmjadmin-upgrade-tutorial-restful-api-server-used-to-manage-mlmmj-mailing-list">mlmmjadmin upgrade tutorial (RESTful API server used to manage mlmmj mailing list)</h1>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<ul>
-<li>
-<p>mlmmjadmin-3.0 and later releases <strong>require Python 3.5+</strong>, only listed
-  distribution releases are qualified to upgrade:</p>
-<ul>
-<li>CentOS 7 and later</li>
-<li>Debian 9 and later</li>
-<li>Ubuntu 16.04 and later</li>
-<li>FreeBSD with latest ports tree</li>
-<li>OpenBSD 6.6 and later</li>
-</ul>
-</li>
-</ul>
-<p>If you're running an old Linux/BSD release which doesn't have Python
-  3.5+, please stay with mlmmjadmin-2.1, it's the last release supports
-  Python 2. if you need to upgrade to mlmmjadmin-2.1, please follow this
-  upgrade tutorial instead: <a href="./upgrade.mlmmjadmin.py2.html">Upgrade mlmmjadmin to v2.1</a>.</p>
-</div>
 <h2 id="summary">Summary</h2>
 <ul>
 <li>mlmmjadmin is a RESTful API server used to manage <a href="http://mlmmj.org">mlmmj</a> mailing list.</li>
@@ -47,12 +27,12 @@
 <ul>
 <li>Login to the iRedMail server first, and switch to root user with <code>su</code> or <code>sudo</code>.</li>
 <li>Download the latest package with <code>wget</code> command, extract download package and
-  run a script to upgrade it. Note: We use version <code>3.0</code> for example here, <code>3.0.tar.gz</code>.</li>
+  run a script to upgrade it. Note: We use version <code>2.1</code> for example here, <code>2.1.tar.gz</code>.</li>
 </ul>
 <pre><code>cd /root/
-wget https://github.com/iredmail/mlmmjadmin/archive/3.0.tar.gz
-tar zxf 3.0.tar.gz
-cd mlmmjadmin-3.0/tools/
+wget https://github.com/iredmail/mlmmjadmin/archive/2.1.tar.gz
+tar zxf 2.1.tar.gz
+cd mlmmjadmin-2.1/tools/
 bash upgrade_mlmmjadmin.sh
 </code></pre>
 
