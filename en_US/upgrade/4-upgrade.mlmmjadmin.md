@@ -7,7 +7,7 @@
 
         - CentOS 7 and later
         - Debian 9 and later
-        - Ubuntu 16.04 and later
+        - Ubuntu 18.04 and later
         - FreeBSD with latest ports tree
         - OpenBSD 6.6 and later
 
