@@ -10,7 +10,7 @@ Amavisd-new is content filter, it invokes SpamAssassin and ClamAV for
 spam/virus scanning, it also offers additional features like DKIM signing and
 verification.
 
-In [Amavisd config file](./file.location.html#amavisd), `$max_servers` sets
+In [Amavisd config file](./file.locations.html#amavisd), `$max_servers` sets
 the number of concurrent Amavisd processes and it must match the number set
 in `/etc/postfix/master.cf` `maxproc` column for the `smtp-amavis` service.
 Sample settings:
