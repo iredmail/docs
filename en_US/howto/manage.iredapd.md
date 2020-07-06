@@ -7,6 +7,11 @@
     All iRedAPD features listed in current page can be managed with our
     web-based admin panel - [iRedAdmin-Pro](https://www.iredmail.org/admin_panel.html).
 
+!!! attention
+
+    iRedAPD-4.0 and later releases requires Python 3, if you're running
+    iRedAPD-3.6 or earlier release, please run commands with Python 2 instead.
+
 ## Introduce iRedAPD
 
 iRedAPD is a simple Postfix policy server, written in Python, with plugin
@@ -178,25 +183,25 @@ White/blacklisting is controlled by plugin `amavisd_wblist` (file
 * Show and add server-wide whitelists or blacklists:
 
 ```
-# python wblist_admin.py --list --whitelist
-# python wblist_admin.py --list --blacklist
+python3 wblist_admin.py --list --whitelist
+python3 wblist_admin.py --list --blacklist
 
 # Whitelist IP address, email address, entire domain, subdomain (including main domain)
-# python wblist_admin.py --add --whitelist 192.168.1.10 user@domain.com @iredmail.org @.example.com
+python3 wblist_admin.py --add --whitelist 192.168.1.10 user@domain.com @iredmail.org @.example.com
 
 # Blacklist IP address, email address, entire domain, subdomain (including main domain)
-# python wblist_admin.py --add --blacklist 202.96.134.133 bad-user@domain.com @bad-domain.com @.sub-domain.com
+python3 wblist_admin.py --add --blacklist 202.96.134.133 bad-user@domain.com @bad-domain.com @.sub-domain.com
 ```
 
 * For per-user or per-domain whitelists and blacklists, please use option
   `--account`. for example:
 
 ```
-# python wblist_admin.py --account @mydomain.com --add --whitelist 192.168.1.10 user@example.com
-# python wblist_admin.py --account user@mydomain.com --add --blacklist 172.16.1.10 baduser@example.com
+python3 wblist_admin.py --account @mydomain.com --add --whitelist 192.168.1.10 user@example.com
+python3 wblist_admin.py --account user@mydomain.com --add --blacklist 172.16.1.10 baduser@example.com
 
-# python wblist_admin.py --account @mydomain.com --list --whitelist
-# python wblist_admin.py --account user@mydomain.com --list --blacklist
+python3 wblist_admin.py --account @mydomain.com --list --whitelist
+python3 wblist_admin.py --account user@mydomain.com --list --blacklist
 ```
 
 ### Greylisting
@@ -212,7 +217,7 @@ For technical details about greylisting, please visit <http://greylisting.org/>
 To disable greylisting global, please run command below:
 
 ```
-python2 /opt/iredapd/tools/greylisting_admin.py --disable --from '@.'
+python3 /opt/iredapd/tools/greylisting_admin.py --disable --from '@.'
 ```
 
 #### General settings
@@ -294,67 +299,67 @@ Greylisting is controlled by plugin `greylisting` (file
 * List all existing greylisting settings:
 
 ```
-python greylisting_admin.py --list
+python3 greylisting_admin.py --list
 ```
 
 * List all whitelisted sender domain names (in SQL table `greylisting_whitelist_domains`):
 
 ```
-python greylisting_admin.py --list-whitelist-domains
+python3 greylisting_admin.py --list-whitelist-domains
 ```
 
 * List all whitelisted sender addresses (in SQL table `greylisting_whitelists`):
 
 ```
-python greylisting_admin.py --list-whitelists
+python3 greylisting_admin.py --list-whitelists
 ```
 
 * Whitelist IP networks/addresses specified in sender domain:
 
 ```
-python greylisting_admin.py --whitelist-domain --from '@example.com'
+python3 greylisting_admin.py --whitelist-domain --from '@example.com'
 ```
 
 This is same as:
 
 ```
-python spf_to_whitelist_domains.py --submit example.com
+python3 spf_to_whitelist_domains.py --submit example.com
 ```
 
 * Remove a whitelisted sender domain:
 
 ```
-python greylisting_admin.py --remove-whitelist-domain --from '@example.com'
+python3 greylisting_admin.py --remove-whitelist-domain --from '@example.com'
 ```
 
 * Enable greylisting for emails which are sent from anyone to local mail domain `example.com`:
 
 ```
-python greylisting_admin.py --enable --to '@example.com'
+python3 greylisting_admin.py --enable --to '@example.com'
 ```
 
 * Disable greylisting for emails which are sent from anyone to local mail user `user@example.com`:
 
 ```
-python greylisting_admin.py --disable --to 'user@example.com'
+python3 greylisting_admin.py --disable --to 'user@example.com'
 ```
 
 * Disable greylisting for emails which are sent from `gmail.com` to local mail user `user@example.com`:
 
 ```
-python greylisting_admin.py --disable --from '@gmail.com' --to 'user@example.com'
+python3 greylisting_admin.py --disable --from '@gmail.com' --to 'user@example.com'
 ```
 
 * Disable greylisting for sender IP:
 
 ```
-python greylisting_admin.py --disable --from '45.56.127.226'
+python3 greylisting_admin.py --disable --from '45.56.127.226'
 ```
 
 * Delete greylisting setting for emails which are sent from anyone to local domain `test.com`:
 
 ```
-python greylisting_admin.py --delete --to '@test.com'
+python3 greylisting_admin.py --delete --to '@test.com'
 ```
 
 ##### RECOMMENDED: Additional greylisting whitelist support
@@ -382,8 +387,8 @@ To whitelist IP addresses/networks of some mail domain, for example,
 `outlook.com`, `microsoft.com`, please run command like below:
 
 ```
-# cd /opt/iredapd/tools/
-# python spf_to_greylist_whitelists.py outlook.com microsoft.com
+cd /opt/iredapd/tools/
+python3 spf_to_greylist_whitelists.py outlook.com microsoft.com
 ```
 
 !!! note
@@ -404,7 +409,7 @@ without any argument, it will fetch all mail domains stored in sql table
 `greylisting_whitelist_domains` instead of fetching from command line arguments.
 
 ```
-# python spf_to_greylist_whitelists.py
+python3 spf_to_greylist_whitelists.py
 ```
 
 You should setup a cron job to run this script, so that it can keep the IP
@@ -412,5 +417,5 @@ addresses/networks up to date. iRedMail sets up the cron job to run every 10 or
 30  minutes, like below:
 
 ```
-*/30   *   *   *   *   /usr/bin/python /opt/iredapd/tools/spf_to_greylist_whitelists.py &>/dev/null
+*/30   *   *   *   *   /usr/bin/python3 /opt/iredapd/tools/spf_to_greylist_whitelists.py &>/dev/null
 ```
