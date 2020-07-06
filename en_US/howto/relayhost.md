@@ -55,7 +55,7 @@ service postfix restart
     smtp_sender_dependent_authentication = yes
     ```
 
-    Then add smtp username and password in file `/etc/password/sasl_password`
+    Then add smtp username and password in file `/etc/postfix/sasl_password`
     like below:
 
     ```

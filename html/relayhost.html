@@ -77,7 +77,7 @@ service postfix restart
 add one more Postfix parameter in <code>/etc/postfix/main.cf</code> (Linux/OpenBSD)
 or <code>/usr/local/etc/postfix/main.cf</code> (FreeBSD):</p>
 <p><code>smtp_sender_dependent_authentication = yes</code></p>
-<p>Then add smtp username and password in file <code>/etc/password/sasl_password</code>
+<p>Then add smtp username and password in file <code>/etc/postfix/sasl_password</code>
 like below:</p>
 <p><code>user@domain.com         smtp_user:smtp_password</code></p>
 <p>Don't forget to run <code>postmap hash:/etc/postfix/sasl_password</code> after
