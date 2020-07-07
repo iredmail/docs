@@ -19,6 +19,7 @@
 <div class="toc">
 <ul>
 <li><a href="#iredmail-easy-release-notes">iRedMail Easy: Release Notes</a><ul>
+<li><a href="#20200707">Version: 2020070701 (Jul  7, 2020)</a></li>
 <li><a href="#20200626">Version: 2020062601 (Jun 26, 2020)</a></li>
 <li><a href="#20200430">Version: 2020043001 (Apr 30, 2020)</a></li>
 <li><a href="#20200416">Version: 2020041601 (Apr 16, 2020)</a></li>
@@ -45,6 +46,60 @@
 </li>
 </ul>
 </div>
+<h2 id="20200707">Version: 2020070701 (Jul  7, 2020)</h2>
+<ul>
+<li>
+<p>BIND (cache-only) DNS server:</p>
+<ul>
+<li>Fixed: Set DNS server to only <code>127.0.0.1</code> in ifcfg-XXX scripts on CentOS.
+  Thanks Igor Cej for the feedback and help.</li>
+</ul>
+</li>
+<li>
+<p>Postfix:</p>
+<ul>
+<li>Bypass Facebook mail server HELO hostname pattern:
+  <code>&lt;ip&gt;.mail-campmail.facebook.com</code>.</li>
+</ul>
+</li>
+<li>
+<p>Roundcube:</p>
+<ul>
+<li>Add <code>/opt/iredmail/custom/roundcube/custom.sh</code> for advance customization.
+  It will be ran each time you (re-)deploy Roundcube or upgrade.</li>
+<li>Connect to local (<code>127.0.0.1</code>) IMAP server without TLS on Ubuntu 20.04
+  and CentOS 8. This is also considered as secure by Dovecot.</li>
+</ul>
+</li>
+<li>
+<p>SOGo:</p>
+<ul>
+<li>
+<p>Connect to local (<code>127.0.0.1</code>) IMAP server without TLS on Ubuntu 20.04
+  and CentOS 8. This is also considered as secure by Dovecot.</p>
+<p>We received reports that Roundcube and SOGo have problem when TLS
+is explicitly enabled for IMAP service, unfortunately we didn't figure
+out what causes the issue yet. As a temporary fix, we choose to
+disable TLS for local connection.</p>
+</li>
+</ul>
+</li>
+<li>
+<p>Fail2ban:</p>
+<ul>
+<li>Suppress fail2ban-client output in cron job to avoid annoying mail
+  notification.</li>
+<li>Fixed: incorrect match rule. Thanks for Igor Cej for the feedback.</li>
+</ul>
+</li>
+<li>
+<p>Package updates:</p>
+<ul>
+<li>Roundcube webmail 1.4.7, with a security fix.</li>
+<li>netdata-1.23.1</li>
+</ul>
+</li>
+</ul>
 <h2 id="20200626">Version: 2020062601 (Jun 26, 2020)</h2>
 <ul>
 <li>

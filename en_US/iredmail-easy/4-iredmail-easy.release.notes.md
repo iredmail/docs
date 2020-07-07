@@ -2,6 +2,40 @@
 
 [TOC]
 
+## Version: 2020070701 (Jul  7, 2020) {: id=20200707 }
+
+* BIND (cache-only) DNS server:
+    - Fixed: Set DNS server to only `127.0.0.1` in ifcfg-XXX scripts on CentOS.
+      Thanks Igor Cej for the feedback and help.
+
+* Postfix:
+    - Bypass Facebook mail server HELO hostname pattern:
+      `<ip>.mail-campmail.facebook.com`.
+
+* Roundcube:
+    - Add `/opt/iredmail/custom/roundcube/custom.sh` for advance customization.
+      It will be ran each time you (re-)deploy Roundcube or upgrade.
+    - Connect to local (`127.0.0.1`) IMAP server without TLS on Ubuntu 20.04
+      and CentOS 8. This is also considered as secure by Dovecot.
+
+* SOGo:
+    - Connect to local (`127.0.0.1`) IMAP server without TLS on Ubuntu 20.04
+      and CentOS 8. This is also considered as secure by Dovecot.
+
+        We received reports that Roundcube and SOGo have problem when TLS
+        is explicitly enabled for IMAP service, unfortunately we didn't figure
+        out what causes the issue yet. As a temporary fix, we choose to
+        disable TLS for local connection.
+
+* Fail2ban:
+    - Suppress fail2ban-client output in cron job to avoid annoying mail
+      notification.
+    - Fixed: incorrect match rule. Thanks for Igor Cej for the feedback.
+
+* Package updates:
+    - Roundcube webmail 1.4.7, with a security fix.
+    - netdata-1.23.1
+
 ## Version: 2020062601 (Jun 26, 2020) {: id=20200626 }
 
 * Possible issue after upgraded on CentOS 8:
