@@ -51,6 +51,11 @@ References:
 - 07 June 2020, [Updates 1.4.6 and 1.3.13 released](https://roundcube.net/news/2020/06/07/updates-1.4.6-and-1.3.13-released)
 - 02 June 2020, [Security updates 1.4.5 and 1.3.12 released](https://roundcube.net/news/2020/06/02/security-updates-1.4.5-and-1.3.12)
 
+### Upgrade netdata to the latest stable release (1.23.1)
+
+If you have netdata installed, you can upgrade it by following this tutorial:
+[Upgrade netdata](./upgrade.netdata.html).
+
 ### Fixed: update Fail2ban filter rules to match new error log produced by latest Roundcube
 
 Please run commands below as root user to get latest filter file for Roundcube:
