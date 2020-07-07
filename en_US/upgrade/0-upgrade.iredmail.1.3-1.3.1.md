@@ -65,4 +65,4 @@ cd /etc/fail2ban/filter.d/
 wget -O roundcube.iredmail.conf https://raw.githubusercontent.com/iredmail/iRedMail/1.3.1/samples/fail2ban/filter.d/roundcube.iredmail.conf
 ```
 
-Restart `fail2ban` service is required.
+Restarting `fail2ban` service is required.
