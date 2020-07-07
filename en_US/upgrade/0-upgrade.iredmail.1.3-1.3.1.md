@@ -10,7 +10,7 @@
 
 ## ChangeLog
 
-* Jul XX, 2020: initial release.
+* Jul  7, 2020: initial release.
 
 ## General (All backends should apply these changes)
 
@@ -21,13 +21,13 @@ installation, it's recommended to update this file after you upgraded iRedMail,
 so that you can know which version of iRedMail you're running. For example:
 
 ```
-1.3
+1.3.1
 ```
 
 ### Upgrade iRedAPD (Postfix policy server) to the latest stable release
 
-The recent iRedAPD-4.1 has a critical bug which causes temporarily rejection,
-this new release fixes it.
+The recent iRedAPD-4.0 and 4.1 contain a critical bug which causes temporarily
+rejection, this new release fixes it.
 
 Please follow below tutorial to upgrade iRedAPD to the latest stable release:
 [Upgrade iRedAPD to the latest stable release](./upgrade.iredapd.html)
