@@ -53,7 +53,7 @@ Notes:
 * Password scheme is defined in variable `PASSWORD_SCHEME`, default is `SSHA512`.
   `BCRYPT` is recommended on FreeBSD and OpenBSD.
 * Per-user mailbox quota is defined in variable `DEFAULT_QUOTA`, default is
-  `1024` (1 GB).
+  `1024` (MB). Use `0` for unlimited quota.
 * Maildir path is hashed like  `domain.ltd/u/s/e/username-20150929`. If you
   prefer `domain.ltd/username/`, please set `MAILDIR_STYLE='normal'`.
 * Mailbox storage path is defined in variable `STORAGE_BASE_DIRECTORY`, default

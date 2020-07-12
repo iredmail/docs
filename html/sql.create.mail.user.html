@@ -65,7 +65,7 @@ sql&gt; \i output.sql;
 <li>Password scheme is defined in variable <code>PASSWORD_SCHEME</code>, default is <code>SSHA512</code>.
   <code>BCRYPT</code> is recommended on FreeBSD and OpenBSD.</li>
 <li>Per-user mailbox quota is defined in variable <code>DEFAULT_QUOTA</code>, default is
-  <code>1024</code> (1 GB).</li>
+  <code>1024</code> (MB). Use <code>0</code> for unlimited quota.</li>
 <li>Maildir path is hashed like  <code>domain.ltd/u/s/e/username-20150929</code>. If you
   prefer <code>domain.ltd/username/</code>, please set <code>MAILDIR_STYLE='normal'</code>.</li>
 <li>Mailbox storage path is defined in variable <code>STORAGE_BASE_DIRECTORY</code>, default
