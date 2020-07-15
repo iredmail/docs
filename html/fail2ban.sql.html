@@ -51,9 +51,9 @@ minute, a cron job will call <code>fail2ban-client</code> to actually unban it.<
 <p><img alt="" src="./images/iredadmin/activity_banned_ip_addresses.png" width="900px" /></p>
 <h2 id="how-it-works">How it works</h2>
 <p>When some (bad) client triggers the ban, Fail2ban will perform actions defined
-in <code>action =</code> parameter in jail config file. For example, in jail <code>dovecot-iredmail</code>
+in <code>action =</code> parameter in jail config file. For example, in jail <code>dovecot</code>
 (<code>/etc/fail2ban/jail.d/dovecot.local</code>):</p>
-<pre><code>[dovecot-iredmail]
+<pre><code>[dovecot]
 enabled     = ...
 filter      = ...
 logpath     = ...
@@ -184,7 +184,7 @@ want to store banned IP in SQL db. Let's take <code>dovecot.local</code> for exa
 <ul>
 <li>The <code>action =</code> line in original file looks like this:</li>
 </ul>
-<pre><code>[dovecot-iredmail]
+<pre><code>[dovecot]
 ...
 action      = iptables-multiport[name=dovecot, port=&quot;80,443,25,587,465,110,995,143,993,4190&quot;, protocol=tcp]
 </code></pre>
@@ -196,18 +196,18 @@ action      = iptables-multiport[name=dovecot, port=&quot;80,443,25,587,465,110,
 <p class="admonition-title">Warning</p>
 <ul>
 <li>The name set in <code>banned_db[name=, ...]</code> line must be same as
-  the jail name which is defined in the first line <code>[dovecot-iredmail]</code>.
-  In above sample, jail name is <code>dovecot-iredmail</code>.
+  the jail name which is defined in the first line <code>[dovecot]</code>.
+  In above sample, jail name is <code>dovecot</code>.
   Do <strong>NOT</strong> copy the name used in <code>iptables-multiport[...]</code> line.</li>
 <li>There's only one <code>action =</code> parameter for a jail.</li>
 </ul>
 </div>
 </li>
 </ul>
-<pre><code>[dovecot-iredmail]
+<pre><code>[dovecot]
 ...
 action      = iptables-multiport[name=dovecot, port=&quot;80,443,25,587,465,110,995,143,993,4190&quot;, protocol=tcp]
-              banned_db[name=dovecot-iredmail, port=&quot;80,443,25,587,465,110,995,143,993,4190&quot;, protocol=tcp]
+              banned_db[name=dovecot, port=&quot;80,443,25,587,465,110,995,143,993,4190&quot;, protocol=tcp]
 </code></pre>
 
 <p>That's it. It's recommend to enable this new action <code>banned_db</code> for all jails.</p>
@@ -271,16 +271,16 @@ fail2ban_db_password = '&lt;my-secret-password&gt;'
 <p>We use MySQL for example here.</p>
 </div>
 <p>Run <code>fail2ban-client</code> command as <code>root</code> user to ban 2 IP addresses like below:</p>
-<pre><code>fail2ban-client set dovecot-iredmail banip 1.1.1.1
-fail2ban-client set dovecot-iredmail banip 1.1.1.2
+<pre><code>fail2ban-client set dovecot banip 1.1.1.1
+fail2ban-client set dovecot banip 1.1.1.2
 </code></pre>
 
 <p>You can see the banned IP address with command <code>fail2ban-client status &lt;jail&gt;</code>:</p>
-<pre><code>fail2ban-client status dovecot-iredmail
+<pre><code>fail2ban-client status dovecot
 </code></pre>
 
 <p>Command output:</p>
-<pre><code>Status for the jail: dovecot-iredmail
+<pre><code>Status for the jail: dovecot
 |- Filter
 |  |- Currently failed: 0
 |  |- Total failed: 0
@@ -296,17 +296,17 @@ fail2ban-client set dovecot-iredmail banip 1.1.1.2
 </code></pre>
 
 <p>You should see the command output like below:</p>
-<pre><code>+----+---------+-------+----------+------------------+------------------+---------------+---------------------+--------+
-| id | ip      | ports | protocol | jail             | hostname         | country       | timestamp           | remove |
-+----+---------+-------+----------+------------------+------------------+---------------+---------------------+--------+
-|  3 | 1.1.1.1 | 22    | tcp      | dovecot-iredmail | ob66.localdomain | AU, Australia | 2020-04-15 13:34:57 |      0 |
-|  4 | 1.1.1.2 | 22    | tcp      | dovecot-iredmail | ob66.localdomain | AU, Australia | 2020-04-15 13:34:58 |      0 |
-+----+---------+-------+----------+------------------+------------------+---------------+---------------------+--------+
+<pre><code>+----+---------+-------+----------+---------+------------------+---------------+---------------------+--------+
+| id | ip      | ports | protocol | jail    | hostname         | country       | timestamp           | remove |
++----+---------+-------+----------+---------+------------------+---------------+---------------------+--------+
+|  3 | 1.1.1.1 | 22    | tcp      | dovecot | ob66.localdomain | AU, Australia | 2020-04-15 13:34:57 |      0 |
+|  4 | 1.1.1.2 | 22    | tcp      | dovecot | ob66.localdomain | AU, Australia | 2020-04-15 13:34:58 |      0 |
++----+---------+-------+----------+---------+------------------+---------------+---------------------+--------+
 </code></pre>
 
 <p>Now run <code>fail2ban-client</code> command to unban IP and query SQL table
 <code>fail2ban.banned</code> again, you should see unbanned IP is gone:</p>
-<pre><code>fail2ban-client set dovecot-iredmail unbanip 1.1.1.1
+<pre><code>fail2ban-client set dovecot unbanip 1.1.1.1
 </code></pre>
 
 <p>Now run command as <code>root</code> user to update SQL column <code>banned.remove=1</code> to
@@ -321,7 +321,7 @@ simulate the unban triggered by iRedAdmin-Pro:</p>
 <p>Again, query SQL table <code>fail2ban.banned</code> as <code>root</code> user, you should see the IP
 stored in SQL db with <code>remove=1</code> is gone, and unbanned in fail2ban too:</p>
 <pre><code>mysql fail2ban -e &quot;SELECT * FROM banned&quot;
-fail2ban-client status dovecot-iredmail
+fail2ban-client status dovecot
 </code></pre>
 
 <h2 id="troubleshooting">Troubleshooting</h2>
