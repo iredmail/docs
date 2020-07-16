@@ -29,10 +29,16 @@ create many mail users.</p>
 <p>Sample usage:</p>
 <ul>
 <li>Create the mail domain name <code>example.com</code> with iRedAdmin first.</li>
-<li>Create a new mail user with the shell script:</li>
+<li>
+<p>Create a new mail user with the shell script:</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Please always quote the password with single quote.</p>
+</div>
+</li>
 </ul>
-<pre><code class="shell"># cd iRedMail-0.9.6/tools/
-# bash create_mail_user_SQL.sh user1@example.com plain_password
+<pre><code class="shell">cd iRedMail-0.9.6/tools/
+bash create_mail_user_SQL.sh user1@example.com 'plain_password'
 </code></pre>
 
 <p>It will print SQL commands used to create this new user, you can save it to a
@@ -41,7 +47,7 @@ file, then login to SQL server as root user and import this file. for example:</
 <li>MySQL or MariaDB:</li>
 </ul>
 <pre><code class="shell"># cd iRedMail-0.9.6/tools/
-# bash create_mail_user_SQL.sh user1@example.com plain_password &gt; user.sql
+# bash create_mail_user_SQL.sh user1@example.com 'plain_password' &gt; user.sql
 
 # mysql -uroot -p
 sql&gt; USE vmail;
@@ -52,7 +58,7 @@ sql&gt; SOURCE user.sql;
 <li>PostgreSQL:</li>
 </ul>
 <pre><code># cd iRedMail-0.9.6/tools/
-# bash create_mail_user_SQL.sh user1@example.com plain_password &gt; /tmp/user.sql
+# bash create_mail_user_SQL.sh user1@example.com 'plain_password' &gt; /tmp/user.sql
 
 # su - postgres
 $ psql -d vmail

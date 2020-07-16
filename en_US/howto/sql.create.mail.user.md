@@ -16,9 +16,13 @@ Sample usage:
 * Create the mail domain name `example.com` with iRedAdmin first.
 * Create a new mail user with the shell script:
 
+    !!! warning
+
+        Please always quote the password with single quote.
+
 ```shell
-# cd iRedMail-0.9.6/tools/
-# bash create_mail_user_SQL.sh user1@example.com plain_password
+cd iRedMail-0.9.6/tools/
+bash create_mail_user_SQL.sh user1@example.com 'plain_password'
 ```
 
 It will print SQL commands used to create this new user, you can save it to a
@@ -28,7 +32,7 @@ file, then login to SQL server as root user and import this file. for example:
 
 ```shell
 # cd iRedMail-0.9.6/tools/
-# bash create_mail_user_SQL.sh user1@example.com plain_password > user.sql
+# bash create_mail_user_SQL.sh user1@example.com 'plain_password' > user.sql
 
 # mysql -uroot -p
 sql> USE vmail;
@@ -39,7 +43,7 @@ sql> SOURCE user.sql;
 
 ```
 # cd iRedMail-0.9.6/tools/
-# bash create_mail_user_SQL.sh user1@example.com plain_password > /tmp/user.sql
+# bash create_mail_user_SQL.sh user1@example.com 'plain_password' > /tmp/user.sql
 
 # su - postgres
 $ psql -d vmail
