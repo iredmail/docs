@@ -165,9 +165,9 @@ line like below:</p>
 </code></pre>
 
 <p>Download improved shell script and replace the existing one:</p>
-<pre><code>wget https://github.com/iredmail/iRedMail/raw/1.3/samples/fail2ban/bin/fail2ban_banned_db
-mv fail2ban_banned_db /usr/local/bin/
-chmod 0550 /usr/local/bin/fail2ban_banned_db
+<pre><code>cd /usr/local/bin
+wget -O fail2ban_banned_db https://github.com/iredmail/iRedMail/raw/1.3/samples/fail2ban/bin/fail2ban_banned_db
+chmod 0550 fail2ban_banned_db
 </code></pre>
 
 <p>Now restart Fail2ban service.</p>

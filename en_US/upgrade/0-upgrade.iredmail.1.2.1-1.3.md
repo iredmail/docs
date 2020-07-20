@@ -152,9 +152,9 @@ actionban   = /usr/local/bin/fail2ban_banned_db ban <ip> <port> <protocol> <name
 Download improved shell script and replace the existing one:
 
 ```
-wget https://github.com/iredmail/iRedMail/raw/1.3/samples/fail2ban/bin/fail2ban_banned_db
-mv fail2ban_banned_db /usr/local/bin/
-chmod 0550 /usr/local/bin/fail2ban_banned_db
+cd /usr/local/bin
+wget -O fail2ban_banned_db https://github.com/iredmail/iRedMail/raw/1.3/samples/fail2ban/bin/fail2ban_banned_db
+chmod 0550 fail2ban_banned_db
 ```
 
 Now restart Fail2ban service.
