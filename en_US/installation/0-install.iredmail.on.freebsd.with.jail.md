@@ -188,6 +188,18 @@ is full email address.
 
 * Choose optional components
 
+    !!! attention
+
+        __Which webmail should you choose?__ Roundcube or SOGo?
+
+        - Roundcube is a fast and lightweight webmail, and webmail only.
+          If all you need is a webmail to access mailbox and manage mail
+          filters, then Roundcube is the best option.
+        - SOGo offers webmail, calendar (CalDAV), contacts (CardDAV) and
+          ActiveSync. If you need calendar and contacts support, also syncing
+          them to mobile or PC mail client applications, then SOGo is the one
+          to go. Note: If you have many ActiveSync clients, it requires a lot RAM.
+
 ![](./images/installation/optional_components.png){: width="700px" }
 
 
