@@ -2,6 +2,11 @@
 
 [TOC]
 
+!!! warning
+
+    The bayesian classifier can only score new messages after it already learn
+    200 known spams and 200 known hams.
+
 ## Summary
 
 This article will guide you to configure related components to store
@@ -23,12 +28,12 @@ Notes:
 * This article should work with all backends: OpenLDAP, MySQL, MariaDB, PostgreSQL. We take MySQL backend for example.
 * This article should work with Amavisd-new-2.6.0 and later versions.
 
-__IMPORTANT NOTE__:
+__IMPORTANT NOTES__:
 
-* The bayesian classifier can only score new messages if it already has 200
-known spams and 200 known hams.
+* The bayesian classifier can only score new messages after it already learn
+  known spams and 200 known hams.
 * If Spamassassin fails to identify a spam, teach it so it can do better next
-time. e.g. Mark it as spam in roundcube webmail.
+  time. e.g. Mark it as spam in roundcube webmail.
 * Read `References` section at the end of this article before asking questions.
 
 ## Create required SQL database used to store bayes data
