@@ -227,6 +227,7 @@ export GROUP=&quot;vmail&quot;
 # The Amavisd daemon user.
 # Note: on OpenBSD, it's &quot;_vscan&quot;. On FreeBSD, it's &quot;vscan&quot;.
 export AMAVISD_USER='amavis'
+export AMAVISD_USER_HOMEDIR=&quot;$(eval echo ~${AMAVISD_USER})&quot;
 
 # Kernel name, in upper cases.
 export KERNEL_NAME=&quot;$(uname -s | tr '[a-z]' '[A-Z]')&quot;
@@ -238,7 +239,7 @@ export LOCK_FILE='/tmp/scan_reported_mails.lock'
 export LOG='logger -p local5.info -t scan_reported_mails'
 
 # `sa-learn` command, with optional arguments.
-export SA_LEARN=&quot;sa-learn -u ${AMAVISD_USER}&quot;
+export SA_LEARN=&quot;sa-learn -u ${AMAVISD_USER} --dbpath ${AMAVISD_USER_HOMEDIR}/.spamassassin&quot;
 
 # Spool directory.
 # Must be owned by vmail:vmail.
