@@ -152,7 +152,6 @@ White/blacklisting is controlled by plugin `amavisd_wblist` (file
             - a single user: username@domain.com
             - a single domain: @domain.com
             - entire domain and all its sub-domains: @.domain.com
-            - top-level domain: @.com
             - anyone: @. (the ending dot is required)
 
         if no '--account' argument, defaults to '@.' (anyone).
@@ -178,6 +177,14 @@ White/blacklisting is controlled by plugin `amavisd_wblist` (file
 
     WARNING: Do not use --list, --add-whitelist, --add-blacklist at the same time.
 ```
+
+##### Valid formats of whitelisted and blacklisted addresses
+
+- a single user: `user@domain.com`
+- a single domain: `@domain.com`, `@sub.domain.com`
+- entire domain and all its sub-domains: `@.domain.com` (there's a dot after `@`)
+- anyone: `@.` (the ending dot is required)
+- top-level domain: `@.com`
 
 ##### Sample usages
 

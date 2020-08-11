@@ -29,6 +29,7 @@
 <li><a href="#how-to-disable-whiteblacklists-completely">How to disable white/blacklists completely</a></li>
 <li><a href="#manage-whiteblacklists">Manage white/blacklists</a><ul>
 <li><a href="#available-arguments">Available arguments</a></li>
+<li><a href="#valid-formats-of-whitelisted-and-blacklisted-addresses">Valid formats of whitelisted and blacklisted addresses</a></li>
 <li><a href="#sample-usages">Sample usages</a></li>
 </ul>
 </li>
@@ -179,7 +180,6 @@ parameter <code>plugins =</code>:</p>
             - a single user: username@domain.com
             - a single domain: @domain.com
             - entire domain and all its sub-domains: @.domain.com
-            - top-level domain: @.com
             - anyone: @. (the ending dot is required)
 
         if no '--account' argument, defaults to '@.' (anyone).
@@ -206,6 +206,14 @@ parameter <code>plugins =</code>:</p>
     WARNING: Do not use --list, --add-whitelist, --add-blacklist at the same time.
 </code></pre>
 
+<h5 id="valid-formats-of-whitelisted-and-blacklisted-addresses">Valid formats of whitelisted and blacklisted addresses</h5>
+<ul>
+<li>a single user: <code>user@domain.com</code></li>
+<li>a single domain: <code>@domain.com</code>, <code>@sub.domain.com</code></li>
+<li>entire domain and all its sub-domains: <code>@.domain.com</code> (there's a dot after <code>@</code>)</li>
+<li>anyone: <code>@.</code> (the ending dot is required)</li>
+<li>top-level domain: <code>@.com</code></li>
+</ul>
 <h5 id="sample-usages">Sample usages</h5>
 <ul>
 <li>Show and add server-wide whitelists or blacklists:</li>
