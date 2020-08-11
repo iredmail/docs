@@ -19,15 +19,14 @@ For more details about iRedMail Easy platform, please
 
 ## Requirements
 
-- A working iRedMail server which was deployed with the downlodable installer
-  `iRedMail-1.2`, or has been successfully upgraded to the latest
-  iRedMail-1.2 release.
+- A working iRedMail server which was deployed with or upgraded to the latest
+  iRedMail release.
 - Your iRedMail server must be running one of supported Linux/OpenBSD
   distribution releases:
-    - Ubuntu 18.04 LTS
+    - Ubuntu 18.04 LTS, 20.04 LTS
     - Debian 9, 10
     - CentOS 7, 8
-    - OpenBSD 6.6
+    - OpenBSD 6.7
 
 Unfortunately, FreeBSD is not supported by iRedMail Easy platform.
 
