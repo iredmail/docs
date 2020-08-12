@@ -22,6 +22,7 @@
 <li><a href="#summary">Summary</a></li>
 <li><a href="#create-required-sql-database-used-to-store-bayes-data">Create required SQL database used to store bayes data</a></li>
 <li><a href="#enable-bayes-modules-in-spamassassin">Enable Bayes modules in SpamAssassin</a></li>
+<li><a href="#check-number-of-learned-spamshams">Check number of learned spams/hams</a></li>
 <li><a href="#auto-learn-spamham-with-dovecot-imap_sieve-plugin">Auto learn spam/ham with Dovecot imap_sieve plugin</a></li>
 <li><a href="#backup-your-sa_bayes-database">Backup your sa_bayes database</a></li>
 <li><a href="#references">References</a></li>
@@ -40,7 +41,7 @@ SpamAssassin Bayes data in SQL server, and allow webmail users to report spam
 with one click.</p>
 <p>Tested with:</p>
 <ul>
-<li>iRedMail-0.8.0, iRedMail-0.8.7.</li>
+<li>iRedMail-0.8.0 and later releases</li>
 <li>CentOS 6.2 (x86_64)</li>
 <li>SpamAssassin-3.3.1</li>
 <li>Amavisd-new-2.6.6</li>
@@ -137,6 +138,18 @@ sample spam email shipped in the RPM package provided by CentOS 6:</p>
 
 # sa-learn --spam --username=amavis /usr/share/doc/spamassassin-3.3.1/sample-spam.txt
 Learned tokens from 1 message(s) (1 message(s) examined)
+</code></pre>
+
+<h2 id="check-number-of-learned-spamshams">Check number of learned spams/hams</h2>
+<p>Run SQL commands below to check how many spams/hams have been learnt (note:
+the numbers will be different on your server):</p>
+<pre><code>mysql&gt; USE sa_bayes;
+mysql&gt; SELECT username,spam_count,ham_count FROM bayes_vars;
++----------+------------+-----------+
+| username | spam_count | ham_count |
++----------+------------+-----------+
+| amavis   |          3 |        38 |
++----------+------------+-----------+
 </code></pre>
 
 <h2 id="auto-learn-spamham-with-dovecot-imap_sieve-plugin">Auto learn spam/ham with Dovecot imap_sieve plugin</h2>

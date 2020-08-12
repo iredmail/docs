@@ -15,7 +15,7 @@ with one click.
 
 Tested with:
 
-* iRedMail-0.8.0, iRedMail-0.8.7.
+* iRedMail-0.8.0 and later releases
 * CentOS 6.2 (x86_64)
 * SpamAssassin-3.3.1
 * Amavisd-new-2.6.6
@@ -127,6 +127,21 @@ sample spam email shipped in the RPM package provided by CentOS 6:
 
 # sa-learn --spam --username=amavis /usr/share/doc/spamassassin-3.3.1/sample-spam.txt
 Learned tokens from 1 message(s) (1 message(s) examined)
+```
+
+## Check number of learned spams/hams
+
+Run SQL commands below to check how many spams/hams have been learnt (note:
+the numbers will be different on your server):
+
+```
+mysql> USE sa_bayes;
+mysql> SELECT username,spam_count,ham_count FROM bayes_vars;
++----------+------------+-----------+
+| username | spam_count | ham_count |
++----------+------------+-----------+
+| amavis   |          3 |        38 |
++----------+------------+-----------+
 ```
 
 ## Auto learn spam/ham with Dovecot imap_sieve plugin
