@@ -192,4 +192,4 @@ sql> SELECT * FROM last_login;
 
 ## References
 
-* [Dovecot plugin: last_login](https://wiki.dovecot.org/Plugins/LastLogin)
+* [Dovecot plugin: last_login](https://doc.dovecot.org/configuration_manual/lastlogin_plugin/)

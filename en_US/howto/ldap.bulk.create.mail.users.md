@@ -1,5 +1,7 @@
 # LDAP: Bulk create mail users
 
+[TOC]
+
 iRedMail ships 2 scripts to help you create many mail users quickly.
 
 * `tools/create_mail_user_OpenLDAP.sh` (shell script) will connect to LDAP
