@@ -359,7 +359,7 @@ To check on command line, please upload/save a sample email to
 `/opt/sample.eml`, then run `sa-learn` as root user:
 
 ```
-# su -s /bin/bash amavis -c "spamassassin -D bayes < /opt/sample.eml"
+# su -s /bin/bash - amavis -c "spamassassin -D bayes < /opt/sample.eml"
 May 21 05:27:08.244 [32241] dbg: bayes: learner_new self=Mail::SpamAssassin::Plugin::Bayes=HASH(0x2fe8cb8), bayes_store_module=Mail::SpamAssassin::BayesStore::DBM
 May 21 05:27:08.264 [32241] dbg: bayes: using username: amavis
 May 21 05:27:08.264 [32241] dbg: bayes: learner_new: got store=Mail::SpamAssassin::BayesStore::DBM=HASH(0x387a1c8)
