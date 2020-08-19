@@ -7,6 +7,11 @@
     This feature is enabled by default if your iRedMail server was deployed
     with our [iRedMail Easy platform](https://www.iredmail.org/easy.html).
 
+!!! warning
+
+    The bayesian classifier can only score new messages after it already learn
+    200 known spams and 200 known hams.
+
 ## Summary
 
 Dovecot offers plugin `imap_sieve` to run sieve script for spam/virus scanning,
