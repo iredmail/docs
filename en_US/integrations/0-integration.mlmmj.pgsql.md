@@ -144,13 +144,14 @@ mlmmj_destination_recipient_limit = 1
 ```
 
 * Open Postfix config file `/etc/postfix/main.cf`, update existing parameter
-  `transport_maps`, add new sql lookup like below. We will create required sql
-  lookup file later.
+  `transport_maps`, add new sql lookup `/etc/postfix/pgsql/transport_maps_maillist.cf`
+  AFTER `/etc/postfix/pgsql/transport_maps_user.cf` like below. We will create
+  required sql lookup file later.
 
 ```
 transport_maps =
     proxy:pgsql:/etc/postfix/pgsql/transport_maps_user.cf
-    proxy:pgsql:/etc/postfix/pgsql/transport_maps_maillist.cf   # <- Add this line
+    proxy:pgsql:/etc/postfix/pgsql/transport_maps_maillist.cf
     ...
 ```
 

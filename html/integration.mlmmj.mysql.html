@@ -164,12 +164,13 @@ mlmmj   unix  -       n       n       -       -       pipe
 
 <ul>
 <li>Open Postfix config file <code>/etc/postfix/main.cf</code>, update existing parameter
-  <code>transport_maps</code>, add new sql lookup like below. We will create required sql
-  lookup file later.</li>
+  <code>transport_maps</code>, add new sql lookup <code>/etc/postfix/mysql/transport_maps_maillist.cf</code>
+  AFTER <code>/etc/postfix/mysql/transport_maps_user.cf</code> like below. We will create
+  required sql lookup file later.</li>
 </ul>
 <pre><code>transport_maps =
     proxy:mysql:/etc/postfix/mysql/transport_maps_user.cf
-    proxy:mysql:/etc/postfix/mysql/transport_maps_maillist.cf   # &lt;- Add this line
+    proxy:mysql:/etc/postfix/mysql/transport_maps_maillist.cf
     ...
 </code></pre>
 
