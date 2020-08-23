@@ -82,7 +82,7 @@ wget https://github.com/iredmail/iRedMail/raw/1.3/samples/fail2ban/sql/fail2ban.
         Please replace `<my-secret-password>` by your own strong password.
 
 ```
-CREATE DATABASE fail2ban DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+CREATE DATABASE fail2ban DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 GRANT ALL ON fail2ban.* TO 'fail2ban'@'localhost' IDENTIFIED BY '<my-secret-password>';
 
 USE fail2ban;
@@ -239,6 +239,12 @@ pkg_add GeoIP geolite-country
 ```
 
 ## For iRedAdmin-Pro users: Enable the SQL integration
+
+!!! attention
+
+    iRedAdmin-Pro upgrade script will detect Fail2ban + SQL integration, so
+    if you're upgrading iRedAdmin-Pro, you don't need to add missing
+    configuration parameters manually.
 
 Please add Fail2ban SQL credential in iRedAdmin-Pro config file
 `/opt/www/iredadmin/settings.py`, then restart `iredadmin` service. If you're
