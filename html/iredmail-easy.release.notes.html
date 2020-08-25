@@ -51,6 +51,13 @@
 <ul>
 <li>
 <p>SOGo:</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>SOGo may not successfully kill all its child processes and causes sogo
+service failed to start. If it occurs, please stop SOGo service manually
+(<code>service sogo stop</code>), kill orphan processes (<code>pkill -9 sogod</code>), then start
+it manually (<code>service sogo restart</code>).</p>
+</div>
 <ul>
 <li>Upgrade SOGo to the latest v5 branch (nightly bulid) on Linux.</li>
 <li>With SOGo v5, it now send email via submission service (port 587) without

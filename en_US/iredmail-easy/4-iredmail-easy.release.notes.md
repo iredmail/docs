@@ -5,6 +5,14 @@
 ## Version: 2020082501 (Aug 25, 2020) {: id=20200825 }
 
 * SOGo:
+
+    !!! warning
+
+        SOGo may not successfully kill all its child processes and causes sogo
+        service failed to start. If it occurs, please stop SOGo service manually
+        (`service sogo stop`), kill orphan processes (`pkill -9 sogod`), then start
+        it manually (`service sogo restart`).
+
     - Upgrade SOGo to the latest v5 branch (nightly bulid) on Linux.
     - With SOGo v5, it now send email via submission service (port 587) without
       ssl cert verification.
