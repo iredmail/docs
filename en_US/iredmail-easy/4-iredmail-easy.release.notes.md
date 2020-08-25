@@ -5,7 +5,9 @@
 ## Version: 2020082501 (Aug 25, 2020) {: id=20200825 }
 
 * SOGo:
-    - Upgrade SOGo to the latest v5 branch, nightly bulid.
+    - Upgrade SOGo to the latest v5 branch (nightly bulid) on Linux.
+    - With SOGo v5, it now send email via submission service (port 587) without
+      ssl cert verification.
 
 * Nginx:
     - Enable http2 for https sites by default.
