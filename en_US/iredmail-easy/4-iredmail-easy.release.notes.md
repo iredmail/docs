@@ -2,6 +2,38 @@
 
 [TOC]
 
+## Version: 2020082501 (Aug 25, 2020) {: id=20200825 }
+
+* SOGo:
+    - Upgrade SOGo to the latest v5 branch, nightly bulid.
+
+* Nginx:
+    - Enable http2 for https sites by default.
+
+* Amavisd:
+    - Fix improper SQL column type for column `msgs.from_address` (changed
+      from `VARCHAR` to `VARBINARY`) for MariaDB and OpenLDAP backends.
+
+* Dovecot:
+    - Logrotate config file for Dovecot uses incorrect pid file name on CentOS.
+      Thanks Igor Cej for the report and help.
+    - Fixed: do not enable spam/ham auto learning if Amavisd + SpamAssassin
+      are not installed.
+
+* Postfix:
+    - Block default reverse hostnames (format `(ns|ip)XXXX.ip-XX-XX-XX.eu`,
+      "XX" is digit numbers) offered by OVH.com.
+      Note: If you run mail server on OVH platform with a fixed hostname and
+      valid PTR DNS record, it's not impacted.
+    - Fixed: incorrect SMTP action code for whitelisted HELO hostnames.
+
+* Chronyd (`ntp` alternative on CentOS 8):
+    - Add `-x` option for chronyd if system is running in a LXC container.
+
+* Package updates:
+    - netdata-1.24.0
+    - Roundcube webmail 1.4.8
+
 ## Version: 2020070701 (Jul  7, 2020) {: id=20200707 }
 
 * BIND (cache-only) DNS server:

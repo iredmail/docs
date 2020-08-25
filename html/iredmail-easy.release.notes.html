@@ -19,6 +19,7 @@
 <div class="toc">
 <ul>
 <li><a href="#iredmail-easy-release-notes">iRedMail Easy: Release Notes</a><ul>
+<li><a href="#20200825">Version: 2020082501 (Aug 25, 2020)</a></li>
 <li><a href="#20200707">Version: 2020070701 (Jul  7, 2020)</a></li>
 <li><a href="#20200626">Version: 2020062601 (Jun 26, 2020)</a></li>
 <li><a href="#20200430">Version: 2020043001 (Apr 30, 2020)</a></li>
@@ -46,6 +47,60 @@
 </li>
 </ul>
 </div>
+<h2 id="20200825">Version: 2020082501 (Aug 25, 2020)</h2>
+<ul>
+<li>
+<p>SOGo:</p>
+<ul>
+<li>Upgrade SOGo to the latest v5 branch, nightly bulid.</li>
+</ul>
+</li>
+<li>
+<p>Nginx:</p>
+<ul>
+<li>Enable http2 for https sites by default.</li>
+</ul>
+</li>
+<li>
+<p>Amavisd:</p>
+<ul>
+<li>Fix improper SQL column type for column <code>msgs.from_address</code> (changed
+  from <code>VARCHAR</code> to <code>VARBINARY</code>) for MariaDB and OpenLDAP backends.</li>
+</ul>
+</li>
+<li>
+<p>Dovecot:</p>
+<ul>
+<li>Logrotate config file for Dovecot uses incorrect pid file name on CentOS.
+  Thanks Igor Cej for the report and help.</li>
+<li>Fixed: do not enable spam/ham auto learning if Amavisd + SpamAssassin
+  are not installed.</li>
+</ul>
+</li>
+<li>
+<p>Postfix:</p>
+<ul>
+<li>Block default reverse hostnames (format <code>(ns|ip)XXXX.ip-XX-XX-XX.eu</code>,
+  "XX" is digit numbers) offered by OVH.com.
+  Note: If you run mail server on OVH platform with a fixed hostname and
+  valid PTR DNS record, it's not impacted.</li>
+<li>Fixed: incorrect SMTP action code for whitelisted HELO hostnames.</li>
+</ul>
+</li>
+<li>
+<p>Chronyd (<code>ntp</code> alternative on CentOS 8):</p>
+<ul>
+<li>Add <code>-x</code> option for chronyd if system is running in a LXC container.</li>
+</ul>
+</li>
+<li>
+<p>Package updates:</p>
+<ul>
+<li>netdata-1.24.0</li>
+<li>Roundcube webmail 1.4.8</li>
+</ul>
+</li>
+</ul>
 <h2 id="20200707">Version: 2020070701 (Jul  7, 2020)</h2>
 <ul>
 <li>
