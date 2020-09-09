@@ -27,6 +27,7 @@
 <li><a href="#upgrade-netdata-to-the-latest-stable-release-1232">Upgrade netdata to the latest stable release (1.23.2)</a></li>
 <li><a href="#fixed-update-fail2ban-filter-rules-to-match-new-error-log-produced-by-latest-roundcube">Fixed: update Fail2ban filter rules to match new error log produced by latest Roundcube</a></li>
 <li><a href="#fixed-can-not-store-mail-sender-address-with-utf8-characters-in-amavisd-database">Fixed: can not store mail sender address with utf8 characters in amavisd database</a></li>
+<li><a href="#optional-amavisd-log-matched-virus-database-name">[OPTIONAL] Amavisd: Log matched virus database name</a></li>
 </ul>
 </li>
 </ul>
@@ -94,7 +95,38 @@ doesn't support emoji characters. Please login to MySQL/MariaDB server as <code>
 user or <code>amavisd</code> user, then run SQL commands below to fix it:</p>
 <pre><code>USE amavisd;
 ALTER TABLE msgs MODIFY COLUMN from_address VARBINARY(255) NOT NULL DEFAULT '';
-</code></pre><div class="footer">
+</code></pre>
+
+<h3 id="optional-amavisd-log-matched-virus-database-name">[OPTIONAL] Amavisd: Log matched virus database name</h3>
+<p>Please update parameter <code>@av_scanner</code> in Amavisd config file as described
+below, so that Amavisd logs matched virus database name.
+    - On RHEL/CentOS, it's <code>/etc/amavisd/amavisd.conf</code>
+    - On Debian/Ubuntu, it's <code>/etc/amavis/conf.d/50-user</code>
+    - On FreeBSD, it's <code>/usr/local/etc/amavisd.conf</code>
+    - On OpenBSD, it's <code>/etc/amavisd.conf</code></p>
+<ul>
+<li>Find parameter <code>@av_scanner</code> like below:</li>
+</ul>
+<pre><code>@av_scanners = (
+    ...
+    qr/\bOK$/, qr/\bFOUND$/,
+    qr/^.*?: (?!Infected Archive)(.*) FOUND$/ ],
+);
+</code></pre>
+
+<ul>
+<li>Please append character <code>m</code> after <code>OK$/</code> and <code>FOUND$/</code> like below:</li>
+</ul>
+<pre><code>@av_scanners = (
+    ...
+    qr/\bOK$/m, qr/\bFOUND$/m,
+    qr/^.*?: (?!Infected Archive)(.*) FOUND$/m ],
+);
+</code></pre>
+
+<ul>
+<li>Restarting Amavisd service is required.</li>
+</ul><div class="footer">
     <p style="text-align: center; color: grey;">All documents are available in <a href="https://github.com/iredmail/docs/">GitHub repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://github.com/iredmail/docs/archive/master.zip">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
 </div>
 <!-- Global site tag (gtag.js) - Google Analytics -->

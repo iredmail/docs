@@ -81,3 +81,34 @@ user or `amavisd` user, then run SQL commands below to fix it:
 USE amavisd;
 ALTER TABLE msgs MODIFY COLUMN from_address VARBINARY(255) NOT NULL DEFAULT '';
 ```
+
+### [OPTIONAL] Amavisd: Log matched virus database name
+
+Please update parameter `@av_scanner` in Amavisd config file as described
+below, so that Amavisd logs matched virus database name.
+    - On RHEL/CentOS, it's `/etc/amavisd/amavisd.conf`
+    - On Debian/Ubuntu, it's `/etc/amavis/conf.d/50-user`
+    - On FreeBSD, it's `/usr/local/etc/amavisd.conf`
+    - On OpenBSD, it's `/etc/amavisd.conf`
+
+- Find parameter `@av_scanner` like below:
+
+```
+@av_scanners = (
+    ...
+    qr/\bOK$/, qr/\bFOUND$/,
+    qr/^.*?: (?!Infected Archive)(.*) FOUND$/ ],
+);
+```
+
+- Please append character `m` after `OK$/` and `FOUND$/` like below:
+
+```
+@av_scanners = (
+    ...
+    qr/\bOK$/m, qr/\bFOUND$/m,
+    qr/^.*?: (?!Infected Archive)(.*) FOUND$/m ],
+);
+```
+
+- Restarting Amavisd service is required.
