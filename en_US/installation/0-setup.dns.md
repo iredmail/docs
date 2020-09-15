@@ -201,10 +201,10 @@ tag. Note that the same identity can have multiple identifiers.
 
         * On some Linux/BSD distribution, you should use command `amavisd-new`
           instead of `amavisd`.
-        * If it complains `/etc/amavisd.conf not found`, please
+        * On CentOS, if it complains `/etc/amavisd.conf not found`, please
           run the command with path to its config file. For example:
 
-            `amavisd -c /etc/amavisd/amavisd.conf showkeys`
+          ```amavisd -c /etc/amavisd/amavisd.conf showkeys```
 
 ```bash
 # amavisd showkeys
