@@ -49,7 +49,8 @@ use this existing DKIM key to sign emails sent by other hosted mail domains.
 This way, you don't need to ask your customer who owns this new domain to add
 DKIM DNS record.</p>
 <ul>
-<li>Find below setting in Amavisd config file <code>amavisd.conf</code>:</li>
+<li>Find below setting in Amavisd config file <code>amavisd.conf</code> (find its <a href="./file.locations.html">location
+  on different Linux/BSD distributions</a>):</li>
 </ul>
 <pre><code>dkim_key('mydomain.com', &quot;dkim&quot;, &quot;/var/lib/dkim/mydomain.com.pem&quot;);
 
