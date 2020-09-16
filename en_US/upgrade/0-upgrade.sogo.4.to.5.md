@@ -96,7 +96,7 @@ https://packages.inverse.ca/SOGo/nightly/5/ubuntu ...
 
 ```
 apt-get update
-apt-get install --only-upgrade sogo sogo-activesync
+apt-get install --only-upgrade 'sogo*' '*sope*'
 ```
 
 * Update config file `/etc/sogo/sogo.conf`, enable TLS without verifying ssl cert.
