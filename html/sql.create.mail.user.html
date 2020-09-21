@@ -24,8 +24,8 @@ tutorial <a href="./sql.bulk.create.mail.users.html">SQL: Bulk create new mail u
 instead.</p>
 </div>
 <p>iRedMail ships the shell script <code>tools/create_mail_user_SQL.sh</code> to help you
-create new mail user quickly. With some shell scripting trick, it's easy to
-create many mail users.</p>
+create new mail user quickly.</p>
+<h2 id="create-a-new-mail-user">Create a new mail user</h2>
 <p>Sample usage:</p>
 <ul>
 <li>Create the mail domain name <code>example.com</code> with iRedAdmin first.</li>
@@ -77,6 +77,19 @@ sql&gt; \i output.sql;
 <li>Mailbox storage path is defined in variable <code>STORAGE_BASE_DIRECTORY</code>, default
   is <code>/var/vmail/vmail1</code>.</li>
 </ul>
+<h2 id="create-multiple-mail-users">Create multiple mail users</h2>
+<p>With some shell scripting trick, it's easy to create many mail users. Just run
+the script multiple times, but append the output SQL commands to same file.</p>
+<pre><code># Create first user. With '&gt;' to create or truncate file `/tmp/users.sql`.
+bash create_mail_user_SQL.sh user1@domain.com 'password' &gt; /tmp/users.sql
+
+# Append users. With '&gt;&gt;' to append to `/tmp/users.sql`.
+bash create_mail_user_SQL.sh user2@domain.com 'password' &gt;&gt; /tmp/users.sql
+bash create_mail_user_SQL.sh user3@domain.com 'password' &gt;&gt; /tmp/users.sql
+bash create_mail_user_SQL.sh user4@domain.com 'password' &gt;&gt; /tmp/users.sql
+</code></pre>
+
+<p>Then import <code>/tmp/users.sql</code> once to create them all at the same time.</p>
 <h2 id="see-also">See Also</h2>
 <ul>
 <li><a href="./ldap.bulk.create.mail.users.html">LDAP: Bulk create mail users</a></li>

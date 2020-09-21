@@ -8,8 +8,9 @@
     instead.
 
 iRedMail ships the shell script `tools/create_mail_user_SQL.sh` to help you
-create new mail user quickly. With some shell scripting trick, it's easy to
-create many mail users.
+create new mail user quickly.
+
+## Create a new mail user
 
 Sample usage:
 
@@ -62,6 +63,23 @@ Notes:
   prefer `domain.ltd/username/`, please set `MAILDIR_STYLE='normal'`.
 * Mailbox storage path is defined in variable `STORAGE_BASE_DIRECTORY`, default
   is `/var/vmail/vmail1`.
+
+## Create multiple mail users
+
+With some shell scripting trick, it's easy to create many mail users. Just run
+the script multiple times, but append the output SQL commands to same file.
+
+```
+# Create first user. With '>' to create or truncate file `/tmp/users.sql`.
+bash create_mail_user_SQL.sh user1@domain.com 'password' > /tmp/users.sql
+
+# Append users. With '>>' to append to `/tmp/users.sql`.
+bash create_mail_user_SQL.sh user2@domain.com 'password' >> /tmp/users.sql
+bash create_mail_user_SQL.sh user3@domain.com 'password' >> /tmp/users.sql
+bash create_mail_user_SQL.sh user4@domain.com 'password' >> /tmp/users.sql
+```
+
+Then import `/tmp/users.sql` once to create them all at the same time.
 
 ## See Also
 
