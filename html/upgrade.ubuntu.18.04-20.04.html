@@ -16,6 +16,19 @@
         <span>iRedMail</span>
     </a>
     &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><h1 id="upgrade-ubuntu-from-1804-to-2004">Upgrade Ubuntu from 18.04 to 20.04</h1>
+<div class="toc">
+<ul>
+<li><a href="#upgrade-ubuntu-from-1804-to-2004">Upgrade Ubuntu from 18.04 to 20.04</a><ul>
+<li><a href="#packages">Packages</a><ul>
+<li><a href="#upgrade-iredapd-to-the-latest-release">Upgrade iRedAPD to the latest release</a></li>
+<li><a href="#upgrade-mlmmjadmin-to-the-latest-release">Upgrade mlmmjadmin to the latest release</a></li>
+</ul>
+</li>
+<li><a href="#configurations">Configurations</a></li>
+</ul>
+</li>
+</ul>
+</div>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>THIS IS A DRAFT DOCUMENT, DO NOT APPLY IT.</p>
@@ -29,9 +42,19 @@ echo &quot;SQL_DB_DRIVER = 'pymysql'&quot; &gt;&gt; /opt/iredapd/settings.py
 </code></pre>
 
 <p>If you're running OpenLDAP backend:</p>
-<pre><code>pip2 install python-ldap==3.2.0
+<pre><code>pip2 install python-ldap
 </code></pre>
 
+<h3 id="upgrade-iredapd-to-the-latest-release">Upgrade iRedAPD to the latest release</h3>
+<p>Please follow this tutorial to upgrade iRedAPD:</p>
+<ul>
+<li><a href="./upgrade.iredapd.html">Upgrade iRedAPD</a></li>
+</ul>
+<h3 id="upgrade-mlmmjadmin-to-the-latest-release">Upgrade mlmmjadmin to the latest release</h3>
+<p>Please follow this tutorial to upgrade mlmmjadmin:</p>
+<ul>
+<li><a href="./upgrade.mlmmjadmin.html">Upgrade mlmmjadmin</a></li>
+</ul>
 <h2 id="configurations">Configurations</h2>
 <ul>
 <li><code>/etc/php/7.4/fpm/pool.d/www.conf</code></li>

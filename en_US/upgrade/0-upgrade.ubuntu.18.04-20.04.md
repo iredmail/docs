@@ -1,5 +1,7 @@
 # Upgrade Ubuntu from 18.04 to 20.04
 
+[TOC]
+
 !!! warning
 
     THIS IS A DRAFT DOCUMENT, DO NOT APPLY IT.
@@ -18,8 +20,20 @@ echo "SQL_DB_DRIVER = 'pymysql'" >> /opt/iredapd/settings.py
 If you're running OpenLDAP backend:
 
 ```
-pip2 install python-ldap==3.2.0
+pip2 install python-ldap
 ```
+
+### Upgrade iRedAPD to the latest release
+
+Please follow this tutorial to upgrade iRedAPD:
+
+- [Upgrade iRedAPD](./upgrade.iredapd.html)
+
+### Upgrade mlmmjadmin to the latest release
+
+Please follow this tutorial to upgrade mlmmjadmin:
+
+- [Upgrade mlmmjadmin](./upgrade.mlmmjadmin.html)
 
 ## Configurations
 
