@@ -52,8 +52,6 @@ yum update 'sogo*' '*sope*'
     SOGoMailingMechanism = smtp;
     SOGoSMTPAuthenticationType = PLAIN;
 
-    SOGoIMAPServer = "imap://127.0.0.1:143/?tls=YES&tlsVerifyMode=allowInsecureLocalhost";
-
     SOGoSieveServer = "sieve://127.0.0.1:4190/?tls=YES&tlsVerifyMode=allowInsecureLocalhost";
 ```
 
@@ -105,8 +103,6 @@ apt-get install --only-upgrade 'sogo*' '*sope*'
     SOGoSMTPServer = "smtp://127.0.0.1:587/?tls=YES&tlsVerifyMode=allowInsecureLocalhost";
     SOGoMailingMechanism = smtp;
     SOGoSMTPAuthenticationType = PLAIN;
-
-    SOGoIMAPServer = "imap://127.0.0.1:143/?tls=YES&tlsVerifyMode=allowInsecureLocalhost";
 
     SOGoSieveServer = "sieve://127.0.0.1:4190/?tls=YES&tlsVerifyMode=allowInsecureLocalhost";
 ```
