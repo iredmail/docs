@@ -21,7 +21,7 @@
 <li><a href="#integrate-mlmmj-mailing-list-manager-in-iredmail-postgresql-backend">Integrate mlmmj mailing list manager in iRedMail (PostgreSQL backend)</a><ul>
 <li><a href="#summary">Summary</a></li>
 <li><a href="#backup-sql-database-first">Backup SQL database first</a></li>
-<li><a href="#install-mlmmj-package">Install mlmmj package</a></li>
+<li><a href="#install-mlmmj-and-other-required-package">Install mlmmj and other required package</a></li>
 <li><a href="#create-required-system-account">Create required system account</a></li>
 <li><a href="#update-sql-tables-in-vmail-database">Update SQL tables in vmail database</a></li>
 <li><a href="#postfix-integration">Postfix integration</a></li>
@@ -66,22 +66,30 @@ lists from command line.</p>
 a good idea to backup it now before you adding any new mailing lists.</p>
 <p>Please run command <code>bash /var/vmail/backup/backup_pgsql.sh</code> to backup SQL
 databases.</p>
-<h2 id="install-mlmmj-package">Install mlmmj package</h2>
+<h2 id="install-mlmmj-and-other-required-package">Install mlmmj and other required package</h2>
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>
-<p>Package <code>uwsgi</code> is required by the RESTful API server <code>mlmmjadmin</code>.</p>
+<ul>
+<li><code>uwsgi</code> and other Python modules are required by the RESTful API server <code>mlmmjadmin</code>.</li>
+<li><code>mlmmjadmin-3.x</code> and later releases work with only Python 3.</li>
+</ul>
 </div>
 <ul>
 <li>On RHEL/CentOS, <code>mlmmj</code> is available in <code>EPEL</code> repo, and it's enabled in
   iRedMail by default. So we can install it directly:</li>
 </ul>
-<pre><code>yum install mlmmj uwsgi uwsgi-plugin-python2 uwsgi-logger-syslog python-requests
+<pre><code># RHEL/CentOS 7
+yum install mlmmj uwsgi uwsgi-plugin-python36 uwsgi-logger-syslog python3-requests python3-psycopg2
+
+# RHEL/CentOS 8
+yum install mlmmj python3-pip3 python3-requests python3-PyMySQL
+pip3 install uwsgi
 </code></pre>
 
 <ul>
 <li>On Debian/Ubuntu:</li>
 </ul>
-<pre><code>apt-get install mlmmj uwsgi uwsgi-plugin-python python-requests
+<pre><code>apt-get install mlmmj uwsgi uwsgi-plugin-python3 python3-requests
 </code></pre>
 
 <ul>
@@ -99,7 +107,7 @@ make install clean
 <li>On OpenBSD (iRedMail always installs <code>uwsgi</code> during installation, so no need
   to install it here):</li>
 </ul>
-<pre><code>pkg_add mlmmj altermime
+<pre><code>pkg_add mlmmj altermime py3-requests
 </code></pre>
 
 <h2 id="create-required-system-account">Create required system account</h2>
@@ -265,15 +273,19 @@ fully integrated.</p>
   extract downloaded package to <code>/opt/</code> directory, and create a symbol link:</p>
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>
-<p>We use version <code>2.1</code> for example below.</p>
+<p>We use version <code>3.0.4</code> for example below.</p>
+<ul>
+<li><code>mlmmjadmin-3.x</code> and later releases requires Python 3.</li>
+<li><code>mlmmjadmin-2.x</code> and older releases requires Python 2.</li>
+</ul>
 </div>
 </li>
 </ul>
 <pre><code>cd /root/
-wget https://github.com/iredmail/mlmmjadmin/archive/2.1.tar.gz
-tar zxf 2.1.tar.gz -C /opt
-rm -f 2.1.tar.gz
-ln -s /opt/mlmmjadmin-2.1 /opt/mlmmjadmin
+wget https://github.com/iredmail/mlmmjadmin/archive/3.0.4.tar.gz
+tar zxf 3.0.4.tar.gz -C /opt
+rm -f 3.0.4.tar.gz
+ln -s /opt/mlmmjadmin-3.0.4 /opt/mlmmjadmin
 </code></pre>
 
 <ul>
@@ -289,7 +301,12 @@ chmod 0400 settings.py
 <li>Generate a random, long string as API auth token, it will be used by your
   API client. For example:</li>
 </ul>
-<pre><code>$ echo $RANDOM | md5sum
+<pre><code># On Linux/FreBSD
+$ eval &lt;/dev/urandom tr -dc A-Za-z0-9 | (head -c $1 &amp;&gt;/dev/null || head -c 32)
+43a89b7aa34354089e629ed9f9be0b3b
+
+# On OpenBSD
+$ eval &lt;/dev/random tr -cd [:alnum:] | fold -w 32 | head -1
 43a89b7aa34354089e629ed9f9be0b3b
 </code></pre>
 

@@ -41,23 +41,29 @@ a good idea to backup it now before you adding any new mailing lists.
 Please run command `bash /var/vmail/backup/backup_mysql.sh` to backup SQL
 databases.
 
-## Install mlmmj package
+## Install mlmmj and other required package
 
 !!! attention
 
-    Package `uwsgi` is required by the RESTful API server `mlmmjadmin`.
+    - `uwsgi` and other Python modules are required by the RESTful API server `mlmmjadmin`.
+    - `mlmmjadmin-3.x` and later releases work with only Python 3.
 
 * On RHEL/CentOS, `mlmmj` is available in `EPEL` repo, and it's enabled in
   iRedMail by default. So we can install it directly:
 
 ```
-yum install mlmmj uwsgi uwsgi-plugin-python2 uwsgi-logger-syslog python-requests
+# RHEL/CentOS 7
+yum install mlmmj uwsgi uwsgi-plugin-python36 uwsgi-logger-syslog python3-requests python3-PyMySQL
+
+# RHEL/CentOS 8
+yum install mlmmj python3-pip3 python3-requests python3-PyMySQL
+pip3 install uwsgi
 ```
 
 * On Debian/Ubuntu:
 
 ```
-apt-get install mlmmj uwsgi uwsgi-plugin-python python-requests
+apt-get install mlmmj uwsgi uwsgi-plugin-python3 python3-requests
 ```
 
 * On FreeBSD:
@@ -74,7 +80,7 @@ make install clean
 * On OpenBSD:
 
 ```
-pkg_add mlmmj altermime
+pkg_add mlmmj altermime py3-requests
 ```
 
 ## Create required system account
@@ -249,14 +255,17 @@ We will setup `mlmmjadmin` program to make managing mailing lists easier.
 
     !!! attention
 
-        We use version `2.1` for example below.
+        We use version `3.0.4` for example below.
+
+        - `mlmmjadmin-3.x` and later releases requires Python 3.
+        - `mlmmjadmin-2.x` and older releases requires Python 2.
 
 ```
 cd /root/
-wget https://github.com/iredmail/mlmmjadmin/archive/2.1.tar.gz
-tar zxf 2.1.tar.gz -C /opt
-rm -f 2.1.tar.gz
-ln -s /opt/mlmmjadmin-2.1 /opt/mlmmjadmin
+wget https://github.com/iredmail/mlmmjadmin/archive/3.0.4.tar.gz
+tar zxf 3.0.4.tar.gz -C /opt
+rm -f 3.0.4.tar.gz
+ln -s /opt/mlmmjadmin-3.0.4 /opt/mlmmjadmin
 ```
 
 * Generate config file by copying sample file, `settings.py.sample`:
@@ -272,7 +281,12 @@ chmod 0400 settings.py
   API client. For example:
 
 ```
-$ echo $RANDOM | md5sum
+# On Linux/FreBSD
+$ eval </dev/urandom tr -dc A-Za-z0-9 | (head -c $1 &>/dev/null || head -c 32)
+43a89b7aa34354089e629ed9f9be0b3b
+
+# On OpenBSD
+$ eval </dev/random tr -cd [:alnum:] | fold -w 32 | head -1
 43a89b7aa34354089e629ed9f9be0b3b
 ```
 
