@@ -90,11 +90,11 @@ wget -O roundcube.iredmail.conf https://raw.githubusercontent.com/iredmail/iRedM
 
 <p>Restarting <code>fail2ban</code> service is required.</p>
 <h3 id="fixed-can-not-store-mail-sender-address-with-utf8-characters-in-amavisd-database">Fixed: can not store mail sender address with utf8 characters in <code>amavisd</code> database</h3>
-<p>In <code>amavisd</code> database, column <code>msgs.from_address</code> is defined as <code>VARCHAR(255)</code>, it
+<p>In <code>amavisd</code> database, column <code>msgs.from_addr</code> is defined as <code>VARCHAR(255)</code>, it
 doesn't support emoji characters. Please login to MySQL/MariaDB server as <code>root</code>
 user or <code>amavisd</code> user, then run SQL commands below to fix it:</p>
 <pre><code>USE amavisd;
-ALTER TABLE msgs MODIFY COLUMN from_address VARBINARY(255) NOT NULL DEFAULT '';
+ALTER TABLE msgs MODIFY COLUMN from_addr VARBINARY(255) NOT NULL DEFAULT '';
 </code></pre>
 
 <h3 id="optional-amavisd-log-matched-virus-database-name">[OPTIONAL] Amavisd: Log matched virus database name</h3>

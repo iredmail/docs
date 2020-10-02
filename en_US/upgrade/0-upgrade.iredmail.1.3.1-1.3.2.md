@@ -73,13 +73,13 @@ Restarting `fail2ban` service is required.
 
 ### Fixed: can not store mail sender address with utf8 characters in `amavisd` database
 
-In `amavisd` database, column `msgs.from_address` is defined as `VARCHAR(255)`, it
+In `amavisd` database, column `msgs.from_addr` is defined as `VARCHAR(255)`, it
 doesn't support emoji characters. Please login to MySQL/MariaDB server as `root`
 user or `amavisd` user, then run SQL commands below to fix it:
 
 ```
 USE amavisd;
-ALTER TABLE msgs MODIFY COLUMN from_address VARBINARY(255) NOT NULL DEFAULT '';
+ALTER TABLE msgs MODIFY COLUMN from_addr VARBINARY(255) NOT NULL DEFAULT '';
 ```
 
 ### [OPTIONAL] Amavisd: Log matched virus database name
