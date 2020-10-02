@@ -9,7 +9,7 @@
 
     This tutorial is for managing "Resources", if you just want to check the
     attendee's (free/busy) availability while creating calendar event and inviting user,
-    please check this tutorial instead: 
+    please check this tutorial instead: [Per-user free/busy availability](./sogo.free.busy.html).
 
 SOGo supports the management of resources like meeting rooms. A resource has,
 just like a person, a calendar, an email address and may be invited to events.
