@@ -36,7 +36,7 @@ rejection, this new release fixes it.
 Please follow below tutorial to upgrade iRedAPD to the latest stable release:
 [Upgrade iRedAPD to the latest stable release](./upgrade.iredapd.html)
 
-### Upgrade Roundcube webmail to the latest stable release (1.4.7)
+### Upgrade Roundcube webmail to the latest stable release (1.4.9)
 
 !!! warning "Roundcube 1.4"
 
@@ -44,8 +44,7 @@ Please follow below tutorial to upgrade iRedAPD to the latest stable release:
     running PHP 5.3 and cannot upgrade to 5.4, please upgrade Roundcube
     the latest 1.2 branch instead.
 
-Roundcube 1.4.6 fixes few security issues, 1.4.7 fixes a new one. All users are encouraged to upgrade
-_as soon as possible_.
+All users are encouraged to upgrade the latest Roundcube release.
 
 * [How to upgrade Roundcube](https://github.com/roundcube/roundcubemail/wiki/Upgrade).
 
