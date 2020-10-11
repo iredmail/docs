@@ -28,10 +28,7 @@ so that you can know which version of iRedMail you're running. For example:
 1.3.2
 ```
 
-### Upgrade iRedAPD (Postfix policy server) to the latest stable release
-
-The recent iRedAPD-4.0 and 4.1 contain a critical bug which causes temporarily
-rejection, this new release fixes it.
+### Upgrade iRedAPD (Postfix policy server) to the latest stable release (4.5)
 
 Please follow below tutorial to upgrade iRedAPD to the latest stable release:
 [Upgrade iRedAPD to the latest stable release](./upgrade.iredapd.html)
