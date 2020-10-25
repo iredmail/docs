@@ -5,7 +5,7 @@ backends (OpenLDAP, MySQL/MariaDB, PostgreSQL) by default, what you need to do
 is adding new master user.
 
 Dovecot is configured to query master user accounts from file
-`/etc/dovecot/dovecot-master-users, you can update this file to add or remove
+`/etc/dovecot/dovecot-master-users`, you can update this file to add or remove
 master user.
 
 The format is simple:
