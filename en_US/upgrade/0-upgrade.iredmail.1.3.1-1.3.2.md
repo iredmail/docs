@@ -2,10 +2,6 @@
 
 [TOC]
 
-!!! warning
-
-    THIS IS A DRAFT DOCUMENT, DO NOT APPLY IT.
-
 !!! note "Paid Remote Upgrade Support"
 
     We offer remote upgrade support if you don't want to get your hands dirty,
@@ -14,7 +10,7 @@
 
 ## ChangeLog
 
-* XXX XX, 2020: initial release.
+* Oct 28, 2020: initial release.
 
 ## General (All backends should apply these changes)
 
@@ -28,10 +24,32 @@ so that you can know which version of iRedMail you're running. For example:
 1.3.2
 ```
 
-### Upgrade iRedAPD (Postfix policy server) to the latest stable release (4.5)
+### Upgrade iRedAPD (Postfix policy server) to the latest stable release (4.6)
+
+!!! attention
+
+    iRedAPD has been migrated to Python 3 and doesn't support Python 2 anymore.
 
 Please follow below tutorial to upgrade iRedAPD to the latest stable release:
 [Upgrade iRedAPD to the latest stable release](./upgrade.iredapd.html)
+
+### Upgrade mlmmjadmin to the latest stable release (3.0.4)
+
+!!! attention
+
+    mlmmjadmin has been migrated to Python 3 and doesn't support Python 2 anymore.
+
+Please follow below tutorial to upgrade mlmmjadmin to the latest stable release:
+[Upgrade mlmmjadmin to the latest stable release](./upgrade.mlmmjadmin.html)
+
+### Upgrade iRedAdmin (open source edition) to the latest stable release (1.1)
+
+!!! attention
+
+    iRedAdmin has been migrated to Python 3 and doesn't support Python 2 anymore.
+
+Please follow below tutorial to upgrade iRedAdmin to the latest stable release:
+[Upgrade iRedAdmin to the latest stable release](./migrate.or.upgrade.iredadmin.html).
 
 ### Upgrade Roundcube webmail to the latest stable release (1.4.9)
 
@@ -51,7 +69,7 @@ References:
 - 07 June 2020, [Updates 1.4.6 and 1.3.13 released](https://roundcube.net/news/2020/06/07/updates-1.4.6-and-1.3.13-released)
 - 02 June 2020, [Security updates 1.4.5 and 1.3.12 released](https://roundcube.net/news/2020/06/02/security-updates-1.4.5-and-1.3.12)
 
-### Upgrade netdata to the latest stable release (1.23.2)
+### Upgrade netdata to the latest stable release (1.26.0)
 
 If you have netdata installed, you can upgrade it by following this tutorial:
 [Upgrade netdata](./upgrade.netdata.html).
@@ -66,17 +84,6 @@ wget -O roundcube.iredmail.conf https://raw.githubusercontent.com/iredmail/iRedM
 ```
 
 Restarting `fail2ban` service is required.
-
-### Fixed: can not store mail sender address with utf8 characters in `amavisd` database
-
-In `amavisd` database, column `msgs.from_addr` is defined as `VARCHAR(255)`, it
-doesn't support emoji characters. Please login to MySQL/MariaDB server as `root`
-user or `amavisd` user, then run SQL commands below to fix it:
-
-```
-USE amavisd;
-ALTER TABLE msgs MODIFY COLUMN from_addr VARBINARY(255) NOT NULL DEFAULT '';
-```
 
 ### [OPTIONAL] Amavisd: Log matched virus database name
 
@@ -97,7 +104,7 @@ below, so that Amavisd logs matched virus database name.
 );
 ```
 
-- Please append character `m` after `OK$/` and `FOUND$/` like below:
+- Please append letter `m` after `OK$/` and `FOUND$/` like below:
 
 ```
 @av_scanners = (
@@ -108,3 +115,30 @@ below, so that Amavisd logs matched virus database name.
 ```
 
 - Restarting Amavisd service is required.
+
+## OpenLDAP backend
+
+### Fixed: can not store mail sender address with utf8 characters in `amavisd` database
+
+In `amavisd` database, column `msgs.from_addr` is defined as `VARCHAR(255)`, it
+doesn't support emoji characters. Please login to MySQL/MariaDB server as `root`
+user or `amavisd` user, then run SQL commands below to fix it:
+
+```
+USE amavisd;
+ALTER TABLE msgs MODIFY COLUMN from_addr VARBINARY(255) NOT NULL DEFAULT '';
+```
+
+## MySQL/MariaDB backends
+
+### Fixed: can not store mail sender address with utf8 characters in `amavisd` database
+
+In `amavisd` database, column `msgs.from_addr` is defined as `VARCHAR(255)`, it
+doesn't support emoji characters. Please login to MySQL/MariaDB server as `root`
+user or `amavisd` user, then run SQL commands below to fix it:
+
+```
+USE amavisd;
+ALTER TABLE msgs MODIFY COLUMN from_addr VARBINARY(255) NOT NULL DEFAULT '';
+```
+

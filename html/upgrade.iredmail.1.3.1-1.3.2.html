@@ -22,21 +22,26 @@
 <li><a href="#changelog">ChangeLog</a></li>
 <li><a href="#general-all-backends-should-apply-these-changes">General (All backends should apply these changes)</a><ul>
 <li><a href="#update-etciredmail-release-with-new-iredmail-version-number">Update /etc/iredmail-release with new iRedMail version number</a></li>
-<li><a href="#upgrade-iredapd-postfix-policy-server-to-the-latest-stable-release-45">Upgrade iRedAPD (Postfix policy server) to the latest stable release (4.5)</a></li>
+<li><a href="#upgrade-iredapd-postfix-policy-server-to-the-latest-stable-release-46">Upgrade iRedAPD (Postfix policy server) to the latest stable release (4.6)</a></li>
+<li><a href="#upgrade-mlmmjadmin-to-the-latest-stable-release-304">Upgrade mlmmjadmin to the latest stable release (3.0.4)</a></li>
+<li><a href="#upgrade-iredadmin-open-source-edition-to-the-latest-stable-release-11">Upgrade iRedAdmin (open source edition) to the latest stable release (1.1)</a></li>
 <li><a href="#upgrade-roundcube-webmail-to-the-latest-stable-release-149">Upgrade Roundcube webmail to the latest stable release (1.4.9)</a></li>
-<li><a href="#upgrade-netdata-to-the-latest-stable-release-1232">Upgrade netdata to the latest stable release (1.23.2)</a></li>
+<li><a href="#upgrade-netdata-to-the-latest-stable-release-1260">Upgrade netdata to the latest stable release (1.26.0)</a></li>
 <li><a href="#fixed-update-fail2ban-filter-rules-to-match-new-error-log-produced-by-latest-roundcube">Fixed: update Fail2ban filter rules to match new error log produced by latest Roundcube</a></li>
-<li><a href="#fixed-can-not-store-mail-sender-address-with-utf8-characters-in-amavisd-database">Fixed: can not store mail sender address with utf8 characters in amavisd database</a></li>
 <li><a href="#optional-amavisd-log-matched-virus-database-name">[OPTIONAL] Amavisd: Log matched virus database name</a></li>
 </ul>
 </li>
+<li><a href="#openldap-backend">OpenLDAP backend</a><ul>
+<li><a href="#fixed-can-not-store-mail-sender-address-with-utf8-characters-in-amavisd-database">Fixed: can not store mail sender address with utf8 characters in amavisd database</a></li>
+</ul>
+</li>
+<li><a href="#mysqlmariadb-backends">MySQL/MariaDB backends</a><ul>
+<li><a href="#fixed-can-not-store-mail-sender-address-with-utf8-characters-in-amavisd-database_1">Fixed: can not store mail sender address with utf8 characters in amavisd database</a></li>
 </ul>
 </li>
 </ul>
-</div>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>THIS IS A DRAFT DOCUMENT, DO NOT APPLY IT.</p>
+</li>
+</ul>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Paid Remote Upgrade Support</p>
@@ -46,7 +51,7 @@ check <a href="https://www.iredmail.org/support.html">the details</a> and
 </div>
 <h2 id="changelog">ChangeLog</h2>
 <ul>
-<li>XXX XX, 2020: initial release.</li>
+<li>Oct 28, 2020: initial release.</li>
 </ul>
 <h2 id="general-all-backends-should-apply-these-changes">General (All backends should apply these changes)</h2>
 <h3 id="update-etciredmail-release-with-new-iredmail-version-number">Update <code>/etc/iredmail-release</code> with new iRedMail version number</h3>
@@ -56,9 +61,27 @@ so that you can know which version of iRedMail you're running. For example:</p>
 <pre><code>1.3.2
 </code></pre>
 
-<h3 id="upgrade-iredapd-postfix-policy-server-to-the-latest-stable-release-45">Upgrade iRedAPD (Postfix policy server) to the latest stable release (4.5)</h3>
+<h3 id="upgrade-iredapd-postfix-policy-server-to-the-latest-stable-release-46">Upgrade iRedAPD (Postfix policy server) to the latest stable release (4.6)</h3>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>iRedAPD has been migrated to Python 3 and doesn't support Python 2 anymore.</p>
+</div>
 <p>Please follow below tutorial to upgrade iRedAPD to the latest stable release:
 <a href="./upgrade.iredapd.html">Upgrade iRedAPD to the latest stable release</a></p>
+<h3 id="upgrade-mlmmjadmin-to-the-latest-stable-release-304">Upgrade mlmmjadmin to the latest stable release (3.0.4)</h3>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>mlmmjadmin has been migrated to Python 3 and doesn't support Python 2 anymore.</p>
+</div>
+<p>Please follow below tutorial to upgrade mlmmjadmin to the latest stable release:
+<a href="./upgrade.mlmmjadmin.html">Upgrade mlmmjadmin to the latest stable release</a></p>
+<h3 id="upgrade-iredadmin-open-source-edition-to-the-latest-stable-release-11">Upgrade iRedAdmin (open source edition) to the latest stable release (1.1)</h3>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>iRedAdmin has been migrated to Python 3 and doesn't support Python 2 anymore.</p>
+</div>
+<p>Please follow below tutorial to upgrade iRedAdmin to the latest stable release:
+<a href="./migrate.or.upgrade.iredadmin.html">Upgrade iRedAdmin to the latest stable release</a>.</p>
 <h3 id="upgrade-roundcube-webmail-to-the-latest-stable-release-149">Upgrade Roundcube webmail to the latest stable release (1.4.9)</h3>
 <div class="admonition warning">
 <p class="admonition-title">Roundcube 1.4</p>
@@ -76,7 +99,7 @@ the latest 1.2 branch instead.</p>
 <li>07 June 2020, <a href="https://roundcube.net/news/2020/06/07/updates-1.4.6-and-1.3.13-released">Updates 1.4.6 and 1.3.13 released</a></li>
 <li>02 June 2020, <a href="https://roundcube.net/news/2020/06/02/security-updates-1.4.5-and-1.3.12">Security updates 1.4.5 and 1.3.12 released</a></li>
 </ul>
-<h3 id="upgrade-netdata-to-the-latest-stable-release-1232">Upgrade netdata to the latest stable release (1.23.2)</h3>
+<h3 id="upgrade-netdata-to-the-latest-stable-release-1260">Upgrade netdata to the latest stable release (1.26.0)</h3>
 <p>If you have netdata installed, you can upgrade it by following this tutorial:
 <a href="./upgrade.netdata.html">Upgrade netdata</a>.</p>
 <h3 id="fixed-update-fail2ban-filter-rules-to-match-new-error-log-produced-by-latest-roundcube">Fixed: update Fail2ban filter rules to match new error log produced by latest Roundcube</h3>
@@ -86,14 +109,6 @@ wget -O roundcube.iredmail.conf https://raw.githubusercontent.com/iredmail/iRedM
 </code></pre>
 
 <p>Restarting <code>fail2ban</code> service is required.</p>
-<h3 id="fixed-can-not-store-mail-sender-address-with-utf8-characters-in-amavisd-database">Fixed: can not store mail sender address with utf8 characters in <code>amavisd</code> database</h3>
-<p>In <code>amavisd</code> database, column <code>msgs.from_addr</code> is defined as <code>VARCHAR(255)</code>, it
-doesn't support emoji characters. Please login to MySQL/MariaDB server as <code>root</code>
-user or <code>amavisd</code> user, then run SQL commands below to fix it:</p>
-<pre><code>USE amavisd;
-ALTER TABLE msgs MODIFY COLUMN from_addr VARBINARY(255) NOT NULL DEFAULT '';
-</code></pre>
-
 <h3 id="optional-amavisd-log-matched-virus-database-name">[OPTIONAL] Amavisd: Log matched virus database name</h3>
 <p>Please update parameter <code>@av_scanner</code> in Amavisd config file as described
 below, so that Amavisd logs matched virus database name.
@@ -112,7 +127,7 @@ below, so that Amavisd logs matched virus database name.
 </code></pre>
 
 <ul>
-<li>Please append character <code>m</code> after <code>OK$/</code> and <code>FOUND$/</code> like below:</li>
+<li>Please append letter <code>m</code> after <code>OK$/</code> and <code>FOUND$/</code> like below:</li>
 </ul>
 <pre><code>@av_scanners = (
     ...
@@ -123,7 +138,24 @@ below, so that Amavisd logs matched virus database name.
 
 <ul>
 <li>Restarting Amavisd service is required.</li>
-</ul><div class="footer">
+</ul>
+<h2 id="openldap-backend">OpenLDAP backend</h2>
+<h3 id="fixed-can-not-store-mail-sender-address-with-utf8-characters-in-amavisd-database">Fixed: can not store mail sender address with utf8 characters in <code>amavisd</code> database</h3>
+<p>In <code>amavisd</code> database, column <code>msgs.from_addr</code> is defined as <code>VARCHAR(255)</code>, it
+doesn't support emoji characters. Please login to MySQL/MariaDB server as <code>root</code>
+user or <code>amavisd</code> user, then run SQL commands below to fix it:</p>
+<pre><code>USE amavisd;
+ALTER TABLE msgs MODIFY COLUMN from_addr VARBINARY(255) NOT NULL DEFAULT '';
+</code></pre>
+
+<h2 id="mysqlmariadb-backends">MySQL/MariaDB backends</h2>
+<h3 id="fixed-can-not-store-mail-sender-address-with-utf8-characters-in-amavisd-database_1">Fixed: can not store mail sender address with utf8 characters in <code>amavisd</code> database</h3>
+<p>In <code>amavisd</code> database, column <code>msgs.from_addr</code> is defined as <code>VARCHAR(255)</code>, it
+doesn't support emoji characters. Please login to MySQL/MariaDB server as <code>root</code>
+user or <code>amavisd</code> user, then run SQL commands below to fix it:</p>
+<pre><code>USE amavisd;
+ALTER TABLE msgs MODIFY COLUMN from_addr VARBINARY(255) NOT NULL DEFAULT '';
+</code></pre><div class="footer">
     <p style="text-align: center; color: grey;">All documents are available in <a href="https://github.com/iredmail/docs/">GitHub repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://github.com/iredmail/docs/archive/master.zip">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
 </div>
 <!-- Global site tag (gtag.js) - Google Analytics -->
