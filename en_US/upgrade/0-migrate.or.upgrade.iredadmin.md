@@ -38,7 +38,7 @@ either open source edition or iRedAdmin-Pro).
 
 ## Download the latest iRedAdmin
 
-* iRedAdmin open source edition is available for download [here](https://dl.iredmail.org/yum/misc/).
+* iRedAdmin open source edition is available for download [here](https://github.com/iredmail/iRedAdmin/tags).
 * iRedAdmin-Pro customers can get download link of new release by following
   steps below:
     * Login to iRedAdmin-Pro as global admin.
@@ -61,13 +61,26 @@ either open source edition or iRedAdmin-Pro).
 
 !!! warning
 
-    Do not rename the extracted directory (`iRedAdmin-x.y.z`), otherwise
-    upgrade may fail.
+    - Do not rename the extracted directory (`iRedAdmin-x.y.z`), otherwise
+      upgrade may fail.
+    - iRedAdmin open source edition is packed as `.tar.gz` (compressed with
+      gzip) file, but iRedAdmin-Pro is `.tar.bz2` (compressed with bzip2).
+
+For iRedAdmin open source edition:
 
 ```
 # cd /root/
-# tar xjf iRedAdmin-x.y.z.tar.bz2
+# tar zxf iRedAdmin-x.y.z.tar.gz
 # cd iRedAdmin-x.y.z/tools/
+# bash upgrade_iredadmin.sh
+```
+
+For iRedAdmin-Pro:
+
+```
+# cd /root/
+# tar xjf iRedAdmin-Pro-x.y.z.tar.bz2
+# cd iRedAdmin-Pro-x.y.z/tools/
 # bash upgrade_iredadmin.sh
 ```
 
