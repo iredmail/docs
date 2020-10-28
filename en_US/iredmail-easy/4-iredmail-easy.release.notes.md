@@ -2,6 +2,39 @@
 
 [TOC]
 
+## Version: 2020102801 (Oct 28, 2020) {: id=20201028 }
+
+* Supports now distribution release:
+    * OpenBSD 6.8. All 3 backends (MariaDB, PostgreSQL, OpenLDAP) are available.
+      __NOTE__:
+        - Support for OpenBSD 6.6 will be dropped in 6 months.
+        - Support for OpenBSD 6.7 will be dropped after 6.9 is out.
+        - Fail2ban (0.11.1) is not available due to not fully compatible with
+          the Python 3.8.6 offered by OpenBSD 6.8.
+
+* Add `/opt/iredmail/custom/custom.sh`. It will be ran at the end of EACH
+  deployment.
+
+* Postfix:
+    - Revert the block of default reverse hostnames offered by OVH.com.
+
+* Amavisd:
+    - Log matched virus database name.
+    - Update regex to match SecuriteInfo virus signature names.
+
+* Fixed issues:
+    - Failed to upgrade ClamAV database on CentOS 7.
+    - Incorrect rsyslog pid file path on CentOS 7.
+    - Not upgrade `sope*` packages while upgrading SOGo packages.
+    - Can not create PostgreSQL database if locale doesn't match LC_CTYPE.
+
+* Package updates:
+    - iRedAPD-4.6. __Python 3.5+ is required.__
+    - mlmmjadmin-3.0.4. __Python 3.5+ is required.__
+    - iRedAdmin-1.1. __Python 3.5+ is required.__
+    - netdata-1.26.0
+    - Roundcube webmail 1.4.9
+
 ## Version: 2020082501 (Aug 25, 2020) {: id=20200825 }
 
 * SOGo:

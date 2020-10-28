@@ -220,6 +220,7 @@ your account.
 
 ## See Also
 
+* [Release notes of iRedMail Easy](./iredmail-easy.release.notes.html)
 * [Best Practice](./iredmail-easy.best.practice.html)
 * [Setup DNS records for your iRedMail server](./setup.dns.html)
 * [Request a free cert from Let's Encrypt](./letsencrypt.html)

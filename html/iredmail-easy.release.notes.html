@@ -19,6 +19,7 @@
 <div class="toc">
 <ul>
 <li><a href="#iredmail-easy-release-notes">iRedMail Easy: Release Notes</a><ul>
+<li><a href="#20201028">Version: 2020102801 (Oct 28, 2020)</a></li>
 <li><a href="#20200825">Version: 2020082501 (Aug 25, 2020)</a></li>
 <li><a href="#20200707">Version: 2020070701 (Jul  7, 2020)</a></li>
 <li><a href="#20200626">Version: 2020062601 (Jun 26, 2020)</a></li>
@@ -47,6 +48,58 @@
 </li>
 </ul>
 </div>
+<h2 id="20201028">Version: 2020102801 (Oct 28, 2020)</h2>
+<ul>
+<li>
+<p>Supports now distribution release:</p>
+<ul>
+<li>OpenBSD 6.8. All 3 backends (MariaDB, PostgreSQL, OpenLDAP) are available.
+  <strong>NOTE</strong>:<ul>
+<li>Support for OpenBSD 6.6 will be dropped in 6 months.</li>
+<li>Support for OpenBSD 6.7 will be dropped after 6.9 is out.</li>
+<li>Fail2ban (0.11.1) is not available due to not fully compatible with
+  the Python 3.8.6 offered by OpenBSD 6.8.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>Add <code>/opt/iredmail/custom/custom.sh</code>. It will be ran at the end of EACH
+  deployment.</p>
+</li>
+<li>
+<p>Postfix:</p>
+<ul>
+<li>Revert the block of default reverse hostnames offered by OVH.com.</li>
+</ul>
+</li>
+<li>
+<p>Amavisd:</p>
+<ul>
+<li>Log matched virus database name.</li>
+<li>Update regex to match SecuriteInfo virus signature names.</li>
+</ul>
+</li>
+<li>
+<p>Fixed issues:</p>
+<ul>
+<li>Failed to upgrade ClamAV database on CentOS 7.</li>
+<li>Incorrect rsyslog pid file path on CentOS 7.</li>
+<li>Not upgrade <code>sope*</code> packages while upgrading SOGo packages.</li>
+<li>Can not create PostgreSQL database if locale doesn't match LC_CTYPE.</li>
+</ul>
+</li>
+<li>
+<p>Package updates:</p>
+<ul>
+<li>iRedAPD-4.6. <strong>Python 3.5+ is required.</strong></li>
+<li>mlmmjadmin-3.0.4. <strong>Python 3.5+ is required.</strong></li>
+<li>iRedAdmin-1.1. <strong>Python 3.5+ is required.</strong></li>
+<li>netdata-1.26.0</li>
+<li>Roundcube webmail 1.4.9</li>
+</ul>
+</li>
+</ul>
 <h2 id="20200825">Version: 2020082501 (Aug 25, 2020)</h2>
 <ul>
 <li>
