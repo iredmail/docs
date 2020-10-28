@@ -26,21 +26,11 @@ so that you can know which version of iRedMail you're running. For example:
 
 ### SOGo: yum and apt repositories for SOGo v4 has been removed permanently by upstream
 
-SOGo team removed nightly builds for SOGo v4 + v3 permanently (FYI: <https://sogo.nu/bugs/view.php?id=5157>), __ALL__ servers must update yum/apt repository files and switch to SOGo v5. Upgrading is simple, no SQL structure changes from v4 to v5.
+SOGo team removed nightly builds for SOGo v4 + v3 permanently (FYI: <https://sogo.nu/bugs/view.php?id=5157>), __ALL__ servers must update yum/apt repository files and switch to SOGo v5.
 
-- On CentOS, please update file `/etc/yum.repos.d/sogo.repo`, replace version number `4` by `5`, then run:
+Please follow our tutorial to upgrade:
 
-```
-yum clean metadata
-yum update
-```
-
-- On Debian/Ubuntu, please update file `/etc/apt/sources.list.d/sogo.list` (or `sogo-nightly.list`), replace version number `4` by `5`, then run:
-
-```
-apt-get update
-apt-get upgrade
-```
+- [Upgrade SOGo from v4 to v5](./upgrade.sogo.4.to.5.html)
 
 ### Upgrade iRedAPD (Postfix policy server) to the latest stable release (4.6)
 
