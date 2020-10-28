@@ -22,6 +22,7 @@
 <li><a href="#changelog">ChangeLog</a></li>
 <li><a href="#general-all-backends-should-apply-these-changes">General (All backends should apply these changes)</a><ul>
 <li><a href="#update-etciredmail-release-with-new-iredmail-version-number">Update /etc/iredmail-release with new iRedMail version number</a></li>
+<li><a href="#sogo-yum-and-apt-repositories-for-sogo-v4-has-been-removed-permanently-by-upstream">SOGo: yum and apt repositories for SOGo v4 has been removed permanently by upstream</a></li>
 <li><a href="#upgrade-iredapd-postfix-policy-server-to-the-latest-stable-release-46">Upgrade iRedAPD (Postfix policy server) to the latest stable release (4.6)</a></li>
 <li><a href="#upgrade-mlmmjadmin-to-the-latest-stable-release-304">Upgrade mlmmjadmin to the latest stable release (3.0.4)</a></li>
 <li><a href="#upgrade-iredadmin-open-source-edition-to-the-latest-stable-release-11">Upgrade iRedAdmin (open source edition) to the latest stable release (1.1)</a></li>
@@ -59,6 +60,22 @@ check <a href="https://www.iredmail.org/support.html">the details</a> and
 installation, it's recommended to update this file after you upgraded iRedMail,
 so that you can know which version of iRedMail you're running. For example:</p>
 <pre><code>1.3.2
+</code></pre>
+
+<h3 id="sogo-yum-and-apt-repositories-for-sogo-v4-has-been-removed-permanently-by-upstream">SOGo: yum and apt repositories for SOGo v4 has been removed permanently by upstream</h3>
+<p>SOGo team removed nightly builds for SOGo v4 + v3 permanently (FYI: <a href="https://sogo.nu/bugs/view.php?id=5157">https://sogo.nu/bugs/view.php?id=5157</a>), <strong>ALL</strong> servers must update yum/apt repository files and switch to SOGo v5. Upgrading is simple, no SQL structure changes from v4 to v5.</p>
+<ul>
+<li>On CentOS, please update file <code>/etc/yum.repos.d/sogo.repo</code>, replace version number <code>4</code> by <code>5</code>, then run:</li>
+</ul>
+<pre><code>yum clean metadata
+yum update
+</code></pre>
+
+<ul>
+<li>On Debian/Ubuntu, please update file <code>/etc/apt/sources.list.d/sogo.list</code> (or <code>sogo-nightly.list</code>), replace version number <code>4</code> by <code>5</code>, then run:</li>
+</ul>
+<pre><code>apt-get update
+apt-get upgrade
 </code></pre>
 
 <h3 id="upgrade-iredapd-postfix-policy-server-to-the-latest-stable-release-46">Upgrade iRedAPD (Postfix policy server) to the latest stable release (4.6)</h3>
