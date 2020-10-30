@@ -15,6 +15,7 @@ this tutorial with just one shell command:
 
 Version | Release Date | Comment | Extra
 ---|---|---|---
+[4.7](https://forum.iredmail.org/topic17499.html) |Oct 30, 2020 | Python 3.5+ is required. | [RESTful API document](./iredadmin-pro.restful.api.html)
 [4.6](https://forum.iredmail.org/topic17476.html) |Oct 28, 2020 | Python 3.5+ is required. | [RESTful API document](./iredadmin-pro.restful.api.html)
 [4.5](https://forum.iredmail.org/topic17018.html) |Jun 29, 2020 | Bug fix release. | [RESTful API document](./iredadmin-pro.restful.api.html)
 [4.4](https://forum.iredmail.org/topic16715.html) |Apr 17, 2020 | Bug fix release. | [RESTful API document](./iredadmin-pro.restful.api.html)
@@ -65,6 +66,7 @@ Version | Release Date | Comment | Extra
 
 Version | Release Date | Comment | RESTful API Document
 ---|---|---|---
+[4.6](https://forum.iredmail.org/topic17498.html) | Oct 30, 2020 | Python 3.5+ is required. | [RESTful API document](./iredadmin-pro.restful.api.html)
 [4.5](https://forum.iredmail.org/topic17475.html) | Oct 28, 2020 | Python 3.5+ is required. | [RESTful API document](./iredadmin-pro.restful.api.html)
 [4.4](https://forum.iredmail.org/topic17019.html) | Jun 29, 2020 | Bug fix release. | [RESTful API document](./iredadmin-pro.restful.api.html)
 [4.3](https://forum.iredmail.org/topic16716.html) | Apr 17, 2020 | Bug fix release. | [RESTful API document](./iredadmin-pro.restful.api.html)
