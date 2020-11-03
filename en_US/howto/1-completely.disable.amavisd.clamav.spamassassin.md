@@ -23,12 +23,25 @@ If you want to disable virus and spam scanning, but keep DKIM signing and discla
     - On FreeBSD, it's `/usr/local/etc/amavisd.conf`
     - On OpenBSD, it's `/etc/amavisd.conf`
 
-```perl
-# @bypass_virus_checks_maps = (1);  # controls running of anti-virus code
-# @bypass_spam_checks_maps  = (1);  # controls running of anti-spam code
-```
+  ```perl
+  # @bypass_virus_checks_maps = (1);  # controls running of anti-virus code
+  # @bypass_spam_checks_maps  = (1);  # controls running of anti-spam code
+  ```
 
-Uncomment above lines (removing "# " at the beginning of each line), and restart Amavisd service.
+  Uncomment above lines (removing "# " at the beginning of each line), and restart Amavisd service.
+
+* If `clamd` still starts even after `@bypass_virus_checks_maps` is enabled, check if `amavisd` wants `clamd` to run.
+  - Edit `/lib/systemd/system/amavisd.service` with your favorite editor.
+  - Remove or comment this line in `[Unit]` section in `amavisd.service` file:
+    ```bash
+    # Wants=clamd@amavisd.service
+    ```
+  - Disable `clamd@amavisd` and restart `amavisd`.
+    ```bash
+    $ sudo systemctl disable clamd@amavisd.service
+    $ sudo systemctl stop clamd@amavisd.service
+    $ sudo systemctl restart amavisd.service
+    ```
 
 ### Completely disable all features
 
