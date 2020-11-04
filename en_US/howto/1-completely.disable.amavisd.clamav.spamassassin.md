@@ -33,13 +33,11 @@ Uncomment above lines (removing "# " at the beginning of each line), and restart
 You may want to stop and disable ClamAV service too since it's not
 called by Amavisd or other programs anymore:
 
-    On CentOS, the systemd script for Amavisd service
-    (`/lib/systemd/system/amavisd.service`) has line
-    `Wants=clamd@amavisd.service`, this makes systemd to start `clamd@amavisd`
-    service each time before starting `amavisd` service, so you have to comment
-    out this line to disable clamav service.
-
 ```
+# CentOS
+systemctl disable --now clamd@amavisd
+systemctl restart amavisd
+
 # Debian/Ubuntu
 systemctl disable --now clamav-daemon
 systemctl restart amavis
@@ -51,6 +49,22 @@ systemctl restart amavisd
 # OpenBSD
 rcctl disable clamd
 rcctl restart amavisd
+```
+
+You may want to remove the packages also:
+
+```
+# CentOS
+yum remove clamav clamav-lib
+
+# Debian/Ubuntu
+apt remove clamav-base
+
+# FreeBSD
+pkg remove clamav
+
+# OpenBSD
+pkg_delete clamav
 ```
 
 ### Completely disable all features
