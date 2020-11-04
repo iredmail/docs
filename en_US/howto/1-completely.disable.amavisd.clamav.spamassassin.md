@@ -30,40 +30,28 @@ If you want to disable virus and spam scanning, but keep DKIM signing and discla
 
 Uncomment above lines (removing "# " at the beginning of each line), and restart Amavisd service.
 
-You may want to stop and disable ClamAV service too since it's not
-called by Amavisd or other programs anymore:
+You may want to stop and disable ClamAV service, then remove clamav packages
+since it's not called by Amavisd or other programs anymore:
 
 ```
 # CentOS
 systemctl disable --now clamd@amavisd
 systemctl restart amavisd
+yum remove clamav clamav-lib
 
 # Debian/Ubuntu
 systemctl disable --now clamav-daemon
 systemctl restart amavis
+apt remove clamav-base
 
 # FreeBSD
 sysrc -f /etc/rc.conf.local clamd=no
 systemctl restart amavisd
+pkg remove clamav
 
 # OpenBSD
 rcctl disable clamd
 rcctl restart amavisd
-```
-
-You may want to remove the packages also:
-
-```
-# CentOS
-yum remove clamav clamav-lib
-
-# Debian/Ubuntu
-apt remove clamav-base
-
-# FreeBSD
-pkg remove clamav
-
-# OpenBSD
 pkg_delete clamav
 ```
 
