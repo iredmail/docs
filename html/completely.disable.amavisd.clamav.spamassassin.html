@@ -61,6 +61,18 @@
 <p>Uncomment above lines (removing "# " at the beginning of each line), and restart Amavisd service.</p>
 <p>You may want to stop and disable ClamAV service, then remove clamav packages
 since it's not called by Amavisd or other programs anymore:</p>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>On Linux system with systemd support, you can keep the packages but <code>mask</code>
+the clamav service to prevent it started by other applications with command
+below:</p>
+<pre><code># CentOS
+systemctl mask clamd@amavisd
+
+# Debian/Ubuntu
+systemctl mask clamav-daemon clamav-freshclam
+</code></pre>
+</div>
 <pre><code># CentOS
 systemctl disable --now clamd@amavisd
 systemctl restart amavisd
