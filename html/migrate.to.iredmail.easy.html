@@ -210,6 +210,12 @@ config files.</p>
 </tr>
 <tr>
 <td>ALL</td>
+<td><code>sql_user_fail2ban</code></td>
+<td>Password of SQL user <code>fail2ban</code>. If you didn't integrate Fail2ban with SQL server, it's ok to not create this file.</td>
+<td><code>/root/.my.cnf-fail2ban</code> (OpenLDAP or MariaDB backends), or <code>/var/lib/pgsql/.pgpass</code> (CentOS), or <code>/var/lib/postgresql/.pgpass</code> (Debian/Ubuntu), <code>/var/postgresql/.pgpass</code> (OpenBSD)</td>
+</tr>
+<tr>
+<td>ALL</td>
 <td><code>iredapd_srs_secret</code></td>
 <td>The secret string used to sign SRS. It's ok if not present.</td>
 <td><code>/opt/iredapd/settings.py</code>, parameter <code>srs_secrets =</code>.</td>
