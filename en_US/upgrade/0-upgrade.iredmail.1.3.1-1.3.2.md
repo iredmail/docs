@@ -88,7 +88,7 @@ Please run commands below as root user to get latest filter file for Roundcube:
 
 ```
 cd /etc/fail2ban/filter.d/
-wget -O roundcube.iredmail.conf https://raw.githubusercontent.com/iredmail/iRedMail/1.3.1/samples/fail2ban/filter.d/roundcube.iredmail.conf
+wget -O roundcube.iredmail.conf https://raw.githubusercontent.com/iredmail/iRedMail/1.3.2/samples/fail2ban/filter.d/roundcube.iredmail.conf
 ```
 
 Restarting `fail2ban` service is required.
