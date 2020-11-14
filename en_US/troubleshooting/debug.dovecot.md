@@ -19,7 +19,9 @@ settings and restart dovecot service.
 auth_verbose = yes
 auth_debug = yes
 auth_debug_passwords = yes
-auth_verbose_passwords = yes
+
+# Set to 'yes' or 'plain', to output plaintext password (NOT RECOMMENDED).
+auth_verbose_passwords = plain
 ```
 
 If Dovecot service cannot start, please run it manually, it will print the
