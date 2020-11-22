@@ -47,37 +47,59 @@ lists, it also offers command line script
 <code>/opt/mlmmjadmin/tools/maillist_admin.py</code> for system administrators.</p>
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>
-<p>All settings used to create or update mailing list profiles are listed on
-<a href="https://github.com/iredmail/mlmmjadmin/blob/master/docs/API.md">mlmmjadmin API document</a>.</p>
+<ul>
+<li>All settings used to create or update mailing list profiles are listed on
+  <a href="https://github.com/iredmail/mlmmjadmin/blob/master/docs/API.md">mlmmjadmin API document</a>.</li>
+<li>Since mlmmjadmin-3.0, it requires Python 3.</li>
+</ul>
 </div>
+<p>Available commands:</p>
+<ul>
+<li><code>create</code>: Create a new mailing list account with additional setting:</li>
+<li><code>info</code>: Show settings of an existing mailing list account</li>
+<li><code>update</code>: Update an existing mailing list account</li>
+<li><code>delete</code>: Delete an existing mailing list account</li>
+<li><code>subscribers</code>: Show all subscribers</li>
+<li><code>has_subscriber</code>: Check whether mailing list has given subscriber.</li>
+<li><code>subscribed</code>: Show all subscribed lists of a given subscriber.</li>
+<li><code>add_subscribers</code>: Add new subscribers to mailing list.</li>
+<li><code>remove_subscribers</code>: Remove existing subscribers from mailing list.</li>
+</ul>
+<p>Examples:</p>
 <ul>
 <li>Create a new mailing list account with additional setting:</li>
 </ul>
-<p><code>python maillist_admin.py create list@domain.com only_subscriber_can_post=yes disable_archive=no</code></p>
+<p><code>python3 maillist_admin.py create list@domain.com only_subscriber_can_post=yes disable_archive=no</code></p>
 <ul>
 <li>Get settings of an existing mailing list account</li>
 </ul>
-<p><code>python maillist_admin.py info list@domain.com</code></p>
+<p><code>python3 maillist_admin.py info list@domain.com</code></p>
 <ul>
 <li>Update an existing mailing list account</li>
 </ul>
-<p><code>python maillist_admin.py update list@domain.com only_moderator_can_post=yes disable_subscription=yes</code></p>
+<p><code>python3 maillist_admin.py update list@domain.com only_moderator_can_post=yes disable_subscription=yes</code></p>
 <ul>
 <li>Delete an existing mailing list account</li>
 </ul>
-<p><code>python maillist_admin.py delete list@domain.com archive=yes</code></p>
+<p><code>python3 maillist_admin.py delete list@domain.com archive=yes</code></p>
+<ul>
+<li>Add new subscribers <code>user1@gmail.com</code> and <code>user2@hotmail.com</code>:</li>
+</ul>
+<pre><code>python3 maillist_admin.py add_subscribers list@domain.com user1@gmail.com user2@hotmail.com
+</code></pre>
+
 <ul>
 <li>List all subscribers:</li>
 </ul>
-<p><code>python maillist_admin.py subscribers list@domain.com</code></p>
+<p><code>python3 maillist_admin.py subscribers list@domain.com</code></p>
 <ul>
 <li>Show subscribed lists of a given subscriber:</li>
 </ul>
-<p><code>python maillist_admin.py subscribed subscriber@domain.com</code></p>
+<p><code>python3 maillist_admin.py subscribed subscriber@domain.com</code></p>
 <ul>
 <li>Check whether mailing list has given subscriber:</li>
 </ul>
-<p><code>python maillist_admin.py has_subscriber list@domain.com subscriber@gmail.com</code></p>
+<p><code>python3 maillist_admin.py has_subscriber list@domain.com subscriber@gmail.com</code></p>
 <h2 id="references">References</h2>
 <ul>
 <li>Mlmmj:<ul>

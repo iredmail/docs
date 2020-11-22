@@ -33,36 +33,57 @@ lists, it also offers command line script
 
 !!! attention
 
-    All settings used to create or update mailing list profiles are listed on
-    [mlmmjadmin API document](https://github.com/iredmail/mlmmjadmin/blob/master/docs/API.md).
+    - All settings used to create or update mailing list profiles are listed on
+      [mlmmjadmin API document](https://github.com/iredmail/mlmmjadmin/blob/master/docs/API.md).
+    - Since mlmmjadmin-3.0, it requires Python 3.
+
+Available commands:
+
+- `create`: Create a new mailing list account with additional setting:
+- `info`: Show settings of an existing mailing list account
+- `update`: Update an existing mailing list account
+- `delete`: Delete an existing mailing list account
+- `subscribers`: Show all subscribers
+- `has_subscriber`: Check whether mailing list has given subscriber.
+- `subscribed`: Show all subscribed lists of a given subscriber.
+- `add_subscribers`: Add new subscribers to mailing list.
+- `remove_subscribers`: Remove existing subscribers from mailing list.
+
+Examples:
 
 * Create a new mailing list account with additional setting:
 
-```python maillist_admin.py create list@domain.com only_subscriber_can_post=yes disable_archive=no```
+```python3 maillist_admin.py create list@domain.com only_subscriber_can_post=yes disable_archive=no```
 
 * Get settings of an existing mailing list account
 
-```python maillist_admin.py info list@domain.com```
+```python3 maillist_admin.py info list@domain.com```
 
 * Update an existing mailing list account
 
-```python maillist_admin.py update list@domain.com only_moderator_can_post=yes disable_subscription=yes```
+```python3 maillist_admin.py update list@domain.com only_moderator_can_post=yes disable_subscription=yes```
 
 * Delete an existing mailing list account
 
-```python maillist_admin.py delete list@domain.com archive=yes```
+```python3 maillist_admin.py delete list@domain.com archive=yes```
+
+* Add new subscribers `user1@gmail.com` and `user2@hotmail.com`:
+
+```
+python3 maillist_admin.py add_subscribers list@domain.com user1@gmail.com user2@hotmail.com
+```
 
 * List all subscribers:
 
-```python maillist_admin.py subscribers list@domain.com```
+```python3 maillist_admin.py subscribers list@domain.com```
 
 * Show subscribed lists of a given subscriber:
 
-```python maillist_admin.py subscribed subscriber@domain.com```
+```python3 maillist_admin.py subscribed subscriber@domain.com```
 
 * Check whether mailing list has given subscriber:
 
-```python maillist_admin.py has_subscriber list@domain.com subscriber@gmail.com```
+```python3 maillist_admin.py has_subscriber list@domain.com subscriber@gmail.com```
 
 ## References
 
