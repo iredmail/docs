@@ -38,7 +38,9 @@ either open source edition or iRedAdmin-Pro).
 
 ## Download the latest iRedAdmin
 
-* iRedAdmin open source edition is available for download [here](https://github.com/iredmail/iRedAdmin/tags).
+* iRedAdmin open source edition is available for [download here](https://github.com/iredmail/iRedAdmin/tags).
+  Downloaded file might be in `<version>.tar.gz` format, e.g. `1.2.tar.gz`,
+  please rename it to `iRedAdmin-1.2.tar.gz` instead.
 * iRedAdmin-Pro customers can get download link of new release by following
   steps below:
     * Login to iRedAdmin-Pro as global admin.
