@@ -19,11 +19,9 @@
 <div class="toc">
 <ul>
 <li><a href="#upgrade-ubuntu-from-1804-to-2004">Upgrade Ubuntu from 18.04 to 20.04</a><ul>
-<li><a href="#packages">Packages</a><ul>
-<li><a href="#upgrade-iredapd-to-the-latest-release">Upgrade iRedAPD to the latest release</a></li>
-<li><a href="#upgrade-mlmmjadmin-to-the-latest-release">Upgrade mlmmjadmin to the latest release</a></li>
-</ul>
-</li>
+<li><a href="#upgrade-iredmail-to-the-latest-stable-release-first">Upgrade iRedMail to the latest stable release first</a></li>
+<li><a href="#upgrade-os">Upgrade OS</a></li>
+<li><a href="#re-upgrade-iredapd-iredadmin-pro-mlmmjadmin-to-the-latest-release">Re-upgrade iRedAPD, iRedAdmin(-Pro), mlmmjadmin to the latest release</a></li>
 <li><a href="#configurations">Configurations</a></li>
 </ul>
 </li>
@@ -33,26 +31,19 @@
 <p class="admonition-title">Warning</p>
 <p>THIS IS A DRAFT DOCUMENT, DO NOT APPLY IT.</p>
 </div>
-<h2 id="packages">Packages</h2>
-<p>Install required Python-2 packages:</p>
-<pre><code>apt install python2-dev
-pip2 install uwsgi web.py==0.51 pycurl netifaces
-ln -sf /usr/local/bin/uwsgi /etc/alternatives/uwsgi
-echo &quot;SQL_DB_DRIVER = 'pymysql'&quot; &gt;&gt; /opt/iredapd/settings.py
-</code></pre>
-
-<p>If you're running OpenLDAP backend:</p>
-<pre><code>pip2 install python-ldap
-</code></pre>
-
-<h3 id="upgrade-iredapd-to-the-latest-release">Upgrade iRedAPD to the latest release</h3>
-<p>Please follow this tutorial to upgrade iRedAPD:</p>
+<h3 id="upgrade-iredmail-to-the-latest-stable-release-first">Upgrade iRedMail to the latest stable release first</h3>
+<p>Before upgrading server OS, it's better upgrade iRedMail to the latest stable
+release first. You can find <a href="./iredmail.releases.html">all upgrade tutorials here</a>.</p>
+<h3 id="upgrade-os">Upgrade OS</h3>
+<p>After you have latest iRedMail release running, it's ok to upgrade server OS
+with command <code>do-release-upgrade</code> now.</p>
+<h3 id="re-upgrade-iredapd-iredadmin-pro-mlmmjadmin-to-the-latest-release">Re-upgrade iRedAPD, iRedAdmin(-Pro), mlmmjadmin to the latest release</h3>
+<p>After upgraded server OS, please re-upgrade iRedAPD, iRedAdmin(-Pro) and
+mlmmjadmin even you're already running the latest versions before upgrading
+OS, their upgrade scripts will help fix some issues caused by OS upgrade.</p>
 <ul>
 <li><a href="./upgrade.iredapd.html">Upgrade iRedAPD</a></li>
-</ul>
-<h3 id="upgrade-mlmmjadmin-to-the-latest-release">Upgrade mlmmjadmin to the latest release</h3>
-<p>Please follow this tutorial to upgrade mlmmjadmin:</p>
-<ul>
+<li><a href="./migrate.or.upgrade.iredadmin.html">Upgrade iRedAdmin(-Pro)</a></li>
 <li><a href="./upgrade.mlmmjadmin.html">Upgrade mlmmjadmin</a></li>
 </ul>
 <h2 id="configurations">Configurations</h2>

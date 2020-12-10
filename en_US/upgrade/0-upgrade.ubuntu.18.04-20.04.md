@@ -6,33 +6,24 @@
 
     THIS IS A DRAFT DOCUMENT, DO NOT APPLY IT.
 
-## Packages
+### Upgrade iRedMail to the latest stable release first
 
-Install required Python-2 packages:
+Before upgrading server OS, it's better upgrade iRedMail to the latest stable
+release first. You can find [all upgrade tutorials here](./iredmail.releases.html).
 
-```
-apt install python2-dev
-pip2 install uwsgi web.py==0.51 pycurl netifaces
-ln -sf /usr/local/bin/uwsgi /etc/alternatives/uwsgi
-echo "SQL_DB_DRIVER = 'pymysql'" >> /opt/iredapd/settings.py
-```
+### Upgrade OS
 
-If you're running OpenLDAP backend:
+After you have latest iRedMail release running, it's ok to upgrade server OS
+with command `do-release-upgrade` now.
 
-```
-pip2 install python-ldap
-```
+### Re-upgrade iRedAPD, iRedAdmin(-Pro), mlmmjadmin to the latest release
 
-### Upgrade iRedAPD to the latest release
-
-Please follow this tutorial to upgrade iRedAPD:
+After upgraded server OS, please re-upgrade iRedAPD, iRedAdmin(-Pro) and
+mlmmjadmin even you're already running the latest versions before upgrading
+OS, their upgrade scripts will help fix some issues caused by OS upgrade.
 
 - [Upgrade iRedAPD](./upgrade.iredapd.html)
-
-### Upgrade mlmmjadmin to the latest release
-
-Please follow this tutorial to upgrade mlmmjadmin:
-
+- [Upgrade iRedAdmin(-Pro)](./migrate.or.upgrade.iredadmin.html)
 - [Upgrade mlmmjadmin](./upgrade.mlmmjadmin.html)
 
 ## Configurations
