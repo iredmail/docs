@@ -19,6 +19,7 @@
 <div class="toc">
 <ul>
 <li><a href="#iredmail-easy-release-notes">iRedMail Easy: Release Notes</a><ul>
+<li><a href="#20201211">Version: 2020121101 (Dec 11, 2020)</a></li>
 <li><a href="#20201028">Version: 2020102801 (Oct 28, 2020)</a></li>
 <li><a href="#20200825">Version: 2020082501 (Aug 25, 2020)</a></li>
 <li><a href="#20200707">Version: 2020070701 (Jul  7, 2020)</a></li>
@@ -48,6 +49,47 @@
 </li>
 </ul>
 </div>
+<h2 id="20201211">Version: 2020121101 (Dec 11, 2020)</h2>
+<ul>
+<li>
+<p>Postfix:</p>
+<ul>
+<li>If logwatch is installed, enable long queue id support in logwatch.</li>
+</ul>
+</li>
+<li>
+<p>SpamAssassin:</p>
+<ul>
+<li>Remove rules which caused too many incorrect quarantining:
+  <code>URIBL_SBL</code>, <code>URIBL_SBL_A</code>.</li>
+</ul>
+</li>
+<li>
+<p>Fail2ban:</p>
+<ul>
+<li>It now works on OpenBSD 6.8.</li>
+<li>Fixed: Can not store banned IP address when country name contains quotes.</li>
+<li>Fixed: possible SQL injection in shell script used by <code>banned_db</code> action.</li>
+</ul>
+</li>
+<li>
+<p>Fixed issues:</p>
+<ul>
+<li>Not install uwsgi for Python 3 on CentOS 8.</li>
+<li>Not backup Postfix config files <code>main.cf</code> and <code>master.cf</code> if they're
+  regular files.</li>
+<li>Not always install the latest Python module <code>web.py</code>.</li>
+</ul>
+</li>
+<li>
+<p>Package updates:</p>
+<ul>
+<li>adminer-4.7.8</li>
+<li>iRedAPD-4.7</li>
+<li>mlmmjadmin-3.0.7</li>
+</ul>
+</li>
+</ul>
 <h2 id="20201028">Version: 2020102801 (Oct 28, 2020)</h2>
 <ul>
 <li>

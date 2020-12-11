@@ -2,6 +2,31 @@
 
 [TOC]
 
+## Version: 2020121101 (Dec 11, 2020) {: id=20201211 }
+
+* Postfix:
+    - If logwatch is installed, enable long queue id support in logwatch.
+
+* SpamAssassin:
+    - Remove rules which caused too many incorrect quarantining:
+      `URIBL_SBL`, `URIBL_SBL_A`.
+
+* Fail2ban:
+    - It now works on OpenBSD 6.8.
+    - Fixed: Can not store banned IP address when country name contains quotes.
+    - Fixed: possible SQL injection in shell script used by `banned_db` action.
+
+* Fixed issues:
+    - Not install uwsgi for Python 3 on CentOS 8.
+    - Not backup Postfix config files `main.cf` and `master.cf` if they're
+      regular files.
+    - Not always install the latest Python module `web.py`.
+
+* Package updates:
+    - adminer-4.7.8
+    - iRedAPD-4.7
+    - mlmmjadmin-3.0.7
+
 ## Version: 2020102801 (Oct 28, 2020) {: id=20201028 }
 
 * Supports now distribution release:
