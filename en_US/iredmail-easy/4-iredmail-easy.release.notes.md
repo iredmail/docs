@@ -25,6 +25,7 @@
 * Package updates:
     - adminer-4.7.8
     - iRedAPD-4.7
+    - iRedAdmin-Pro-LDAP-4.8, iRedAdmin-Pro-SQL-4.7
     - mlmmjadmin-3.0.7
 
 ## Version: 2020102801 (Oct 28, 2020) {: id=20201028 }
