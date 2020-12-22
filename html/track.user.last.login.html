@@ -149,34 +149,34 @@ map {
     }
 }
 
-# If you want to track the time of last email delivered to mailbox via LDA,
-# please enable `last_login` plugin in the `protocol lda {}` block in dovecot.conf.
-#map {
-#    pattern = shared/last-login/lda/$user/$domain
-#    table = last_login
-#    value_field = lda
-#    value_type = uint
-#
-#    fields {
-#        username = $user
-#        domain = $domain
-#    }
-#}
+# Track the time of last email delivered to mailbox via LDA.
+# Please enable `last_login` plugin in the `protocol lda {}` block in dovecot.conf.
+map {
+    pattern = shared/last-login/lda/$user/$domain
+    table = last_login
+    value_field = lda
+    value_type = uint
 
-# If you want to track the time of last email delivered to mailbox via LMTP,
-# please enable `last_login` plugin in the `protocol lmtp {}` block in dovecot.conf.
+    fields {
+        username = $user
+        domain = $domain
+    }
+}
+
+# Track the time of last email delivered to mailbox via LMTP,
+# Please enable `last_login` plugin in the `protocol lmtp {}` block in dovecot.conf.
 # We treat lmtp as lda, store the time in sql column `lda`.
-#map {
-#    pattern = shared/last-login/lmtp/$user/$domain
-#    table = last_login
-#    value_field = lda
-#    value_type = uint
-#
-#    fields {
-#        username = $user
-#        domain = $domain
-#    }
-#}
+map {
+    pattern = shared/last-login/lmtp/$user/$domain
+    table = last_login
+    value_field = lda
+    value_type = uint
+
+    fields {
+        username = $user
+        domain = $domain
+    }
+}
 </code></pre>
 
 <p>Since this file contain SQL username and password, we must protect it with

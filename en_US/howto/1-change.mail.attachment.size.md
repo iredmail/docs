@@ -118,27 +118,6 @@ limit message size, please add or update this parameter in its config file:
 $config['max_message_size'] = '100M';
 ```
 
-### Change Roundcube webmail settings to allow large attachment
-
-Change same settings in file `.htaccess` under roundcube root directory:
-
-* on RHEL/CentOS, it's `/var/www/roundcubemail/.htaccess`
-* on Debian/Ubuntu, it's `/usr/share/apache2/roundcubemail/.htaccess` or
-  `/opt/www/roundcubemail/.htaccess`.
-* on FreeBSD, it's `/usr/local/www/roundcubemail/.htaccess`
-* on OpenBSD, it's `/var/www/roundcubemail/.htaccess`
-
-Note: this `.htaccess` file may not exist on some Linux/BSD distributions,
-if it doesn't exist, you can skip this step.
-
-```
-php_value    memory_limit   200M
-php_value    upload_max_filesize    100M
-php_value    post_max_size  100M
-```
-
-Restart Apache or php-fpm service to make it work.
-
 ## Change upload file size in Nginx
 
 Find setting `client_max_body_size` in Nginx config file

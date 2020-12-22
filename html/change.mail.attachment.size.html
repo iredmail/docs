@@ -26,10 +26,7 @@
 <li><a href="#change-message-size-limit-in-postfix">Change message size limit in postfix</a></li>
 <li><a href="#change-message-size-limit-in-iredapd">Change message size limit in iRedAPD</a></li>
 <li><a href="#change-php-settings-to-upload-large-file">Change PHP settings to upload large file</a></li>
-<li><a href="#roundcube-webmail">Roundcube webmail</a><ul>
-<li><a href="#change-roundcube-webmail-settings-to-allow-large-attachment">Change Roundcube webmail settings to allow large attachment</a></li>
-</ul>
-</li>
+<li><a href="#roundcube-webmail">Roundcube webmail</a></li>
 <li><a href="#change-upload-file-size-in-nginx">Change upload file size in Nginx</a></li>
 <li><a href="#change-file-size-limits-in-sogo">Change file size limits in SOGo</a></li>
 <li><a href="#change-attachment-size-limit-in-microsoft-outlook">Change attachment size limit in Microsoft Outlook</a></li>
@@ -144,23 +141,6 @@ limit message size, please add or update this parameter in its config file:</p>
 <pre><code>$config['max_message_size'] = '100M';
 </code></pre>
 
-<h3 id="change-roundcube-webmail-settings-to-allow-large-attachment">Change Roundcube webmail settings to allow large attachment</h3>
-<p>Change same settings in file <code>.htaccess</code> under roundcube root directory:</p>
-<ul>
-<li>on RHEL/CentOS, it's <code>/var/www/roundcubemail/.htaccess</code></li>
-<li>on Debian/Ubuntu, it's <code>/usr/share/apache2/roundcubemail/.htaccess</code> or
-  <code>/opt/www/roundcubemail/.htaccess</code>.</li>
-<li>on FreeBSD, it's <code>/usr/local/www/roundcubemail/.htaccess</code></li>
-<li>on OpenBSD, it's <code>/var/www/roundcubemail/.htaccess</code></li>
-</ul>
-<p>Note: this <code>.htaccess</code> file may not exist on some Linux/BSD distributions,
-if it doesn't exist, you can skip this step.</p>
-<pre><code>php_value    memory_limit   200M
-php_value    upload_max_filesize    100M
-php_value    post_max_size  100M
-</code></pre>
-
-<p>Restart Apache or php-fpm service to make it work.</p>
 <h2 id="change-upload-file-size-in-nginx">Change upload file size in Nginx</h2>
 <p>Find setting <code>client_max_body_size</code> in Nginx config file
 <code>/etc/nginx/conf-enabled/client_max_body_size.conf</code>, change the size to a
