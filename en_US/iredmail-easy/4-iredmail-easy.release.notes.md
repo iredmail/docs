@@ -2,6 +2,14 @@
 
 [TOC]
 
+## Version: 2020122801 (Dec 28, 2020) {: id=20201228 }
+
+* Package updates:
+    - Roundcube webmail -> 1.4.10. It's a security and bug fix release, all
+      users are encouraged to upgrade as soon as possible.
+    - netdata-1.28.0
+    - web.py-0.62
+
 ## Version: 2020121101 (Dec 11, 2020) {: id=20201211 }
 
 * Postfix:
