@@ -311,7 +311,7 @@ v=DMARC1; p=none; rua=mailto:dmarc@mydomain.com
 A detailed sample record looks like this:
 
 ```
-v=DMARC1; adkim=s; aspf=s; p=reject; sp=none; rua=mailto:dmarc@mydomain.com; ruf=mailto:dmarc@mydomain.com
+v=DMARC1; p=reject; sp=none; adkim=s; aspf=s; rua=mailto:dmarc@mydomain.com; ruf=mailto:dmarc@mydomain.com
 ```
 
 * `v=DMARC1` identifies the DMARC protocol version, currently only `DMARC1` is
@@ -337,9 +337,13 @@ v=DMARC1; adkim=s; aspf=s; p=reject; sp=none; rua=mailto:dmarc@mydomain.com; ruf
 
     !!! attention
 
-        If you're sure all your emails are sent by the server(s) listed in SPF
-        record, or have correct DKIM signature signed, `p=reject` is strongly
-        recommended.
+        - If you're sure all your emails are sent by the server(s) listed in SPF
+          record, or have correct DKIM signature signed, `p=reject` is strongly
+          recommended.
+        - According to [RFC 7489](https://tools.ietf.org/html/rfc7489#section-6.3),
+          __the "v" and "p" tags MUST be present and MUST appear in that order.__
+          so please always place "p" tag immediately follow the "v" tag. e.g.
+          `v=DMARC1; p=reject; aspf=s; ...` is ok, but not `v=DMARC1; aspf=s; p=reject; ...`.
 
 * `sp` specifies policy for all subdomains. This is optional. Available options
   are same as `p`.

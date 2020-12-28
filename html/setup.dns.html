@@ -317,7 +317,7 @@ correct and up to date SPF and DKIM records published.</p>
 </code></pre>
 
 <p>A detailed sample record looks like this:</p>
-<pre><code>v=DMARC1; adkim=s; aspf=s; p=reject; sp=none; rua=mailto:dmarc@mydomain.com; ruf=mailto:dmarc@mydomain.com
+<pre><code>v=DMARC1; p=reject; sp=none; adkim=s; aspf=s; rua=mailto:dmarc@mydomain.com; ruf=mailto:dmarc@mydomain.com
 </code></pre>
 
 <ul>
@@ -349,9 +349,15 @@ correct and up to date SPF and DKIM records published.</p>
 </ul>
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>
-<p>If you're sure all your emails are sent by the server(s) listed in SPF
-record, or have correct DKIM signature signed, <code>p=reject</code> is strongly
-recommended.</p>
+<ul>
+<li>If you're sure all your emails are sent by the server(s) listed in SPF
+  record, or have correct DKIM signature signed, <code>p=reject</code> is strongly
+  recommended.</li>
+<li>According to <a href="https://tools.ietf.org/html/rfc7489#section-6.3">RFC 7489</a>,
+  <strong>the "v" and "p" tags MUST be present and MUST appear in that order.</strong>
+  so please always place "p" tag immediately follow the "v" tag. e.g.
+  <code>v=DMARC1; p=reject; aspf=s; ...</code> is ok, but not <code>v=DMARC1; aspf=s; p=reject; ...</code>.</li>
+</ul>
 </div>
 </li>
 <li>
