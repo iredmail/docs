@@ -131,7 +131,7 @@ With shell command below, we grant some permissions to user
 `postmaster@test.com` (again, this user is hosted on same server):
 
 ```
-doveadm acl set -A "Public/TestFolder" "user=postmaster@test.com" lookup read write write-seen write-deleted insert delete expunge create
+doveadm acl set "Public/TestFolder" "user=postmaster@test.com" lookup read write write-seen write-deleted insert delete expunge create
 ```
 
 Check the ACl with `doveadm` again:
@@ -145,8 +145,8 @@ postmaster@a.cn user=postmaster@test.com        create delete expunge insert loo
 If you now login to webmail (or other IMAP client) as user `postmaster@test.com`,
 you can see a new folder `TestFolder`.
 
-With shell command below, we grant all users hosted on same server `lookup`,
-and `read` permissions:
+With shell command below, we grant all users (with the `-A` argument) hosted on
+same server `lookup`, and `read` permissions:
 
 ```
 doveadm acl set -A "Public/TestFolder" "anyone" lookup read
