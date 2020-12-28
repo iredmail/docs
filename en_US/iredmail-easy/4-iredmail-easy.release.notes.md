@@ -6,7 +6,9 @@
 
 * Package updates:
     - Roundcube webmail -> 1.4.10. It's a security and bug fix release, all
-      users are encouraged to upgrade as soon as possible.
+      users are encouraged to upgrade as soon as possible. Check [official
+      release page](https://github.com/roundcube/roundcubemail/releases/tag/1.4.10)
+      for more details.
     - netdata-1.28.0
     - web.py-0.62
 
