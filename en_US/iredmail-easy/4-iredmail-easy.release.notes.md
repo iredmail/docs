@@ -2,6 +2,17 @@
 
 [TOC]
 
+## Version: 2021020401 (Feb 4, 2020) {: id=20210204 }
+
+* iRedAPD:
+    - Fixed: not enable plugin `sql_ml_access_policy` by default.
+
+* Postfix:
+    - Update rdns match rule to block `static.X.X.X.X.clients.your-server.de`.
+
+* Package update:
+    - netdata-1.29.0
+
 ## Version: 2020122801 (Dec 28, 2020) {: id=20201228 }
 
 * Package updates:
