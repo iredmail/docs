@@ -4,10 +4,11 @@
 
 !!! attention
 
-    If you deploy iRedMail server with the
-    [iRedMail Easy](https://www.iredmail.org/easy.html) platform, you can
-    simply enable or disable it by toggling on/off a checkbox on the mail
-    server profile page, then apply the change.
+    - Please read [Known Issues](#known-issues) before applying SRS support.
+    - If you deploy iRedMail server with the
+      [iRedMail Easy](https://www.iredmail.org/easy.html) platform, you can
+      simply enable or disable it by toggling on/off a checkbox on the mail
+      server profile page, then apply the change.
 
 ## What SRS is
 
@@ -128,7 +129,7 @@ Restarting or reloading Postfix service is required. After restarted/reloaded,
 please monitor its log file (`/var/log/maillog`) and pay close attention to the
 sender address.
 
-## Known issues of SRS support
+## Known Issues
 
 * Sender addresses will always be rewritten even if the mail is not
   forwarded at all, except locally hosted mail domains. This is because

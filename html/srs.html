@@ -24,17 +24,20 @@
 <li><a href="#enable-srs">Enable SRS</a></li>
 <li><a href="#test-srs">Test SRS</a></li>
 <li><a href="#enable-srs-integration-in-postfix">Enable SRS integration in Postfix</a></li>
-<li><a href="#known-issues-of-srs-support">Known issues of SRS support</a></li>
+<li><a href="#known-issues">Known Issues</a></li>
 </ul>
 </li>
 </ul>
 </div>
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>
-<p>If you deploy iRedMail server with the
-<a href="https://www.iredmail.org/easy.html">iRedMail Easy</a> platform, you can
-simply enable or disable it by toggling on/off a checkbox on the mail
-server profile page, then apply the change.</p>
+<ul>
+<li>Please read <a href="#known-issues">Known Issues</a> before applying SRS support.</li>
+<li>If you deploy iRedMail server with the
+  <a href="https://www.iredmail.org/easy.html">iRedMail Easy</a> platform, you can
+  simply enable or disable it by toggling on/off a checkbox on the mail
+  server profile page, then apply the change.</li>
+</ul>
 </div>
 <h2 id="what-srs-is">What SRS is</h2>
 <p>It's recommended to read links below to understand what SRS is:</p>
@@ -129,7 +132,7 @@ recipient_canonical_classes= envelope_recipient,header_recipient
 <p>Restarting or reloading Postfix service is required. After restarted/reloaded,
 please monitor its log file (<code>/var/log/maillog</code>) and pay close attention to the
 sender address.</p>
-<h2 id="known-issues-of-srs-support">Known issues of SRS support</h2>
+<h2 id="known-issues">Known Issues</h2>
 <ul>
 <li>Sender addresses will always be rewritten even if the mail is not
   forwarded at all, except locally hosted mail domains. This is because
