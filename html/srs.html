@@ -131,28 +131,24 @@ please monitor its log file (<code>/var/log/maillog</code>) and pay close attent
 sender address.</p>
 <h2 id="known-issues-of-srs-support">Known issues of SRS support</h2>
 <ul>
-<li>
-<p>Sender addresses will always be rewritten even if the mail is not
+<li>Sender addresses will always be rewritten even if the mail is not
   forwarded at all, except locally hosted mail domains. This is because
   Postfix sends minimal info to iRedAPD via the tcp table lookup, and it
   performs address rewritten at the very beginning before any routing
-  decision is made.</p>
-</li>
-<li>
-<p>Postfix will rewrite the address in the <code>Return-Path:</code> header, if you
+  decision is made.</li>
+<li>If sender address was rewritten, SpamAssassin will check SPF against the
+  domain name specified in iRedAPD parameter <code>srs_domain</code> (which is server
+  hostname by default), if you don't have SPF DNS record for <code>srs_domain</code>,
+  SpamAssassin may tag a score of the matched <code>SPF_FAIL</code> rule.</li>
+<li>Postfix will rewrite the address in the <code>Return-Path:</code> header, if you
   have any sieve rules based on <code>Return-Path:</code>, it MAY not work anymore.
   In this case, you need to update your sieve rules to match the rewritten
-  address.</p>
-</li>
-<li>
-<p>Postfix logs rewritten addresses in its log file, so it may confuse you
-  while troubleshooting.</p>
-</li>
-<li>
-<p>Amavisd stores rewritten addresses in its SQL database, so the
+  address.</li>
+<li>Postfix logs rewritten addresses in its log file, so it may confuse you
+  while troubleshooting.</li>
+<li>Amavisd stores rewritten addresses in its SQL database, so the
   <code>Top 10 Senders</code> and <code>Top 10 Recipients</code> in iRedAdmin-Pro Dashboard page
-  may not work well.</p>
-</li>
+  may not work well.</li>
 </ul><div class="footer">
     <p style="text-align: center; color: grey;">All documents are available in <a href="https://github.com/iredmail/docs/">GitHub repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://github.com/iredmail/docs/archive/master.zip">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
 </div>

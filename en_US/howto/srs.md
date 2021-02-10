@@ -135,15 +135,16 @@ sender address.
   Postfix sends minimal info to iRedAPD via the tcp table lookup, and it
   performs address rewritten at the very beginning before any routing
   decision is made.
-
+* If sender address was rewritten, SpamAssassin will check SPF against the
+  domain name specified in iRedAPD parameter `srs_domain` (which is server
+  hostname by default), if you don't have SPF DNS record for `srs_domain`,
+  SpamAssassin may tag a score of the matched `SPF_FAIL` rule.
 * Postfix will rewrite the address in the `Return-Path:` header, if you
   have any sieve rules based on `Return-Path:`, it MAY not work anymore.
   In this case, you need to update your sieve rules to match the rewritten
   address.
-
 * Postfix logs rewritten addresses in its log file, so it may confuse you
   while troubleshooting.
-
 * Amavisd stores rewritten addresses in its SQL database, so the
   `Top 10 Senders` and `Top 10 Recipients` in iRedAdmin-Pro Dashboard page
   may not work well.
