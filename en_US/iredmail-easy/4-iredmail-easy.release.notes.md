@@ -2,6 +2,15 @@
 
 [TOC]
 
+## UPCOMING release
+
+* Improvements:
+    - CentOS 8 Stream is now supported.
+
+* Package updates:
+    - adminer-4.8.0
+    - netdata-1.29.1
+
 ## Version: 2021020401 (Feb 4, 2020) {: id=20210204 }
 
 * iRedAPD:
