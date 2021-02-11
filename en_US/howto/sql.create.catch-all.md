@@ -23,8 +23,11 @@ This sql command creates catch-all address for domain `domain.com`, all mails
 sent to non-existing accounts under `domain.com` will be delivered to
 `dest@example.com`.
 
-__NOTE__: With iRedAdmin-Pro, you can manage catch-all account in domain
-profile directly. Screenshot attached.
+__NOTES__:
+
+- Address `dest@example.com` must exist.
+- With iRedAdmin-Pro, you can manage catch-all account in domain
+  profile directly. Screenshot attached.
 
 ![](./images/iredadmin/domain_profile_catchall.png)
 
