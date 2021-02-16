@@ -14,7 +14,7 @@
 
 ## ChangeLog
 
-* XX XX, 2020: initial release.
+* XX XX, 2021: initial release.
 
 ## General (All backends should apply these changes)
 
@@ -27,6 +27,15 @@ so that you can know which version of iRedMail you're running. For example:
 ```
 1.4.0
 ```
+
+### Upgrade iRedAPD (Postfix policy server) to the latest stable release (4.9)
+
+!!! attention
+
+    iRedAPD has been migrated to Python 3 and doesn't support Python 2 anymore.
+
+Please follow below tutorial to upgrade iRedAPD to the latest stable release:
+[Upgrade iRedAPD to the latest stable release](./upgrade.iredapd.html)
 
 ### Upgrade iRedAdmin (open source edition) to the latest stable release (1.2)
 
