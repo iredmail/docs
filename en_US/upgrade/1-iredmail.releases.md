@@ -34,7 +34,7 @@
     check [the details](https://www.iredmail.org/support.html) and
     [contact us](https://www.iredmail.org/contact.html).
 
-Version | Release Date | Upgrade tutorial | Comment
+Release Notes | Date | Upgrade tutorial | Comment
 ---|---|---|---
 [1.3.2](https://forum.iredmail.org/topic17474.html) | Oct 28, 2020 | [Upgrade from iRedMail-1.3.1](./upgrade.iredmail.1.3.1-1.3.2.html) | Bug fix release.
 [1.3.1](https://forum.iredmail.org/topic17065.html) | Jul 7, 2020 | [Upgrade from iRedMail-1.3](./upgrade.iredmail.1.3-1.3.1.html) | New Roundcube release (1.4.7) with one security fix.

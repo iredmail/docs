@@ -13,7 +13,7 @@ this tutorial with just one shell command:
 
 ### iRedAdmin-Pro-LDAP (for OpenLDAP backend)
 
-Version | Release Date | Comment | Extra
+Release Notes | Date | Comment | Extra
 ---|---|---|---
 [4.8](https://forum.iredmail.org/topic17642.html) |Dec 11, 2020 | Bug fix release, Python 3.5+ is required. | [RESTful API document](./iredadmin-pro.restful.api.html)
 [4.7](https://forum.iredmail.org/topic17499.html) |Oct 30, 2020 | Python 3.5+ is required. | [RESTful API document](./iredadmin-pro.restful.api.html)
@@ -65,7 +65,7 @@ Version | Release Date | Comment | Extra
 
 ### iRedAdmin-Pro-SQL (For MySQL, MariaDB, PostgreSQL backends)
 
-Version | Release Date | Comment | RESTful API Document
+Release Notes | Date | Comment | RESTful API Document
 ---|---|---|---
 [4.7](https://forum.iredmail.org/topic17641.html) | Dec 11, 2020 | Bug fix release, Python 3.5+ is required. | [RESTful API document](./iredadmin-pro.restful.api.html)
 [4.6](https://forum.iredmail.org/topic17498.html) | Oct 30, 2020 | Python 3.5+ is required. | [RESTful API document](./iredadmin-pro.restful.api.html)
