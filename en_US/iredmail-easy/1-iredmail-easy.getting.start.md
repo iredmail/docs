@@ -63,7 +63,7 @@ installer](https://www.iredmail.org/download.html) instead.
 
 ### Hardware Requirements
 
-* iRedMail requires at least `2 GB` memory for a low traffic production server.
+* iRedMail requires at least `4 GB` memory for a low traffic production server.
 * If you plan to run SOGo Groupware (which offers webmail, calendar (CalDAV),
   contacts (CardDAV) and ActiveSync), you need a lot more memory. Consider 16
   GB memory to support 500 ActiveSync clients.
