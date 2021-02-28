@@ -91,7 +91,7 @@ recommended to set a fully qualified domain name (FQDN) hostname.</p>
 mx.example.com
 </code></pre>
 
-<p>On RHEL/CentOS/Scientific Linux, hostname is set in two files:</p>
+<p>On RHEL/CentOS Linux, hostname is set in two files:</p>
 <ol>
 <li>
 <p><code>/etc/hostname</code>:</p>
@@ -128,8 +128,8 @@ set below value instead:</p>
 <li>
 <p>On CentOS:</p>
 <ul>
-<li>Enable official yum repositories. On CentOS 8, please make sure repo
-  <code>AppStream</code> and <code>PowerTools</code> are enabled.</li>
+<li>Enable official yum repositories. On CentOS 8 and CentOS 8 Stream, please
+  make sure repo <code>appstream</code> and <code>powertools</code> are enabled.</li>
 <li>Enable repo <code>epel</code>.</li>
 <li><strong>DISABLE</strong> all other third-party yum repositories to avoid package conflict.</li>
 </ul>
@@ -137,11 +137,18 @@ set below value instead:</p>
 <li>
 <p>On Red Hat Enterprise Linux:</p>
 <ul>
-<li>Enable Red Hat Network to install packages, or create a local yum repository with DVD/CD ISO images.</li>
+<li>Enable Red Hat Network to install packages, or create a local yum
+  repository with DVD/CD ISO images.</li>
 <li>Enable <code>epel</code> repo (you can enable it by installing package <code>epel-release</code>)</li>
+<li>On Red Hat Enterprise Linux, please enable repository <code>codeready-builder-for-rhel-8-x86_64-rpms</code>
+  and <code>epel</code> with commands below:</li>
 </ul>
 </li>
 </ul>
+<pre><code>dnf -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
+subscription-manager repos --enable codeready-builder-for-rhel-8-x86_64-rpms
+</code></pre>
+
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>
 <p>Since official RHEL/CentOS and EPEL repositories don't have all

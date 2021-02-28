@@ -55,7 +55,7 @@ $ hostname -f
 mx.example.com
 ```
 
-On RHEL/CentOS/Scientific Linux, hostname is set in two files:
+On RHEL/CentOS Linux, hostname is set in two files:
 
 1. `/etc/hostname`:
 
@@ -102,14 +102,22 @@ Disable it immediately without rebooting your server.
 ### Enable yum repositories for installing new packages
 
 * On CentOS:
-    - Enable official yum repositories. On CentOS 8, please make sure repo
-      `AppStream` and `PowerTools` are enabled.
+    - Enable official yum repositories. On CentOS 8 and CentOS 8 Stream, please
+      make sure repo `appstream` and `powertools` are enabled.
     - Enable repo `epel`.
     - __DISABLE__ all other third-party yum repositories to avoid package conflict.
 
 * On Red Hat Enterprise Linux:
-    - Enable Red Hat Network to install packages, or create a local yum repository with DVD/CD ISO images.
+    - Enable Red Hat Network to install packages, or create a local yum
+      repository with DVD/CD ISO images.
     - Enable `epel` repo (you can enable it by installing package `epel-release`)
+    - On Red Hat Enterprise Linux, please enable repository `codeready-builder-for-rhel-8-x86_64-rpms`
+      and `epel` with commands below:
+
+```
+dnf -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
+subscription-manager repos --enable codeready-builder-for-rhel-8-x86_64-rpms
+```
 
 !!! attention
 
