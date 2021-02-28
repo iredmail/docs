@@ -22,9 +22,24 @@
 <li><a href="#changelog">ChangeLog</a></li>
 <li><a href="#general-all-backends-should-apply-these-changes">General (All backends should apply these changes)</a><ul>
 <li><a href="#update-etciredmail-release-with-new-iredmail-version-number">Update /etc/iredmail-release with new iRedMail version number</a></li>
-<li><a href="#upgrade-iredapd-postfix-policy-server-to-the-latest-stable-release-49">Upgrade iRedAPD (Postfix policy server) to the latest stable release (4.9)</a></li>
+<li><a href="#upgrade-iredapd-postfix-policy-server-to-the-latest-stable-release-50">Upgrade iRedAPD (Postfix policy server) to the latest stable release (5.0)</a></li>
 <li><a href="#upgrade-iredadmin-open-source-edition-to-the-latest-stable-release-12">Upgrade iRedAdmin (open source edition) to the latest stable release (1.2)</a></li>
-<li><a href="#fixed-fail2ban-can-not-store-ip-address-when-its-country-name-contains-quotes">Fixed: Fail2ban can not store IP address when its country name contains quotes</a></li>
+<li><a href="#upgrade-mlmmjadmin-to-the-latest-stable-release-31">Upgrade mlmmjadmin to the latest stable release (3.1)</a></li>
+<li><a href="#upgrade-roundcube-webmail-to-the-latest-stable-release-1411">Upgrade Roundcube webmail to the latest stable release (1.4.11)</a></li>
+<li><a href="#upgrade-netdata-to-the-latest-stable-release-1293">Upgrade netdata to the latest stable release (1.29.3)</a></li>
+<li><a href="#fail2ban-fixed-few-issues-in-script-usrlocalbinfail2ban_banned_db">Fail2ban: Fixed few issues in script /usr/local/bin/fail2ban_banned_db</a></li>
+</ul>
+</li>
+<li><a href="#for-openldap-backend">For OpenLDAP backend</a><ul>
+<li><a href="#update-iredmail-ldap-schema-file">Update iRedMail LDAP schema file</a></li>
+</ul>
+</li>
+<li><a href="#for-mysql-and-mariadb-backends">For MySQL and MariaDB backends</a><ul>
+<li><a href="#add-new-sql-table-vmailmaillist_owners-and-drop-4-unused-columns">Add new SQL table vmail.maillist_owners and drop 4 unused columns</a></li>
+</ul>
+</li>
+<li><a href="#for-postgresql-backend">For PostgreSQL backend</a><ul>
+<li><a href="#add-new-sql-table-vmailmaillist_owners-and-drop-4-unused-columns_1">Add new SQL table vmail.maillist_owners and drop 4 unused columns</a></li>
 </ul>
 </li>
 </ul>
@@ -53,7 +68,7 @@ so that you can know which version of iRedMail you're running. For example:</p>
 <pre><code>1.4.0
 </code></pre>
 
-<h3 id="upgrade-iredapd-postfix-policy-server-to-the-latest-stable-release-49">Upgrade iRedAPD (Postfix policy server) to the latest stable release (4.9)</h3>
+<h3 id="upgrade-iredapd-postfix-policy-server-to-the-latest-stable-release-50">Upgrade iRedAPD (Postfix policy server) to the latest stable release (5.0)</h3>
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>
 <p>iRedAPD has been migrated to Python 3 and doesn't support Python 2 anymore.</p>
@@ -67,12 +82,152 @@ so that you can know which version of iRedMail you're running. For example:</p>
 </div>
 <p>Please follow below tutorial to upgrade iRedAdmin to the latest stable release:
 <a href="./migrate.or.upgrade.iredadmin.html">Upgrade iRedAdmin to the latest stable release</a>.</p>
-<h3 id="fixed-fail2ban-can-not-store-ip-address-when-its-country-name-contains-quotes">Fixed: Fail2ban can not store IP address when its country name contains quotes</h3>
-<p>Please run commands below as root user to get latest filter file for Roundcube:</p>
-<pre><code>wget -O /usr/local/bin/fail2ban_banned_db https://github.com/iredmail/iRedMail/raw/1.4.0/samples/fail2ban/bin/fail2ban_banned_db
+<h3 id="upgrade-mlmmjadmin-to-the-latest-stable-release-31">Upgrade mlmmjadmin to the latest stable release (3.1)</h3>
+<p>Please follow below tutorial to upgrade mlmmjadmin to the latest stable release:
+<a href="./upgrade.mlmmjadmin.html">Upgrade mlmmjadmin to the latest stable release</a></p>
+<h3 id="upgrade-roundcube-webmail-to-the-latest-stable-release-1411">Upgrade Roundcube webmail to the latest stable release (1.4.11)</h3>
+<div class="admonition warning">
+<p class="admonition-title">Roundcube 1.4</p>
+<p>Since Roundcube 1.3, at least <strong>PHP 5.4</strong> is required. If your server is
+running PHP 5.3 and cannot upgrade to 5.4, please upgrade Roundcube
+the latest 1.2 branch instead.</p>
+</div>
+<p>Please follow Roundcube official tutorial to upgrade Roundcube webmail to the
+latest stable release:</p>
+<ul>
+<li><a href="https://github.com/roundcube/roundcubemail/wiki/Upgrade">How to upgrade Roundcube</a>.</li>
+</ul>
+<h3 id="upgrade-netdata-to-the-latest-stable-release-1293">Upgrade netdata to the latest stable release (1.29.3)</h3>
+<p>If you have netdata installed, you can upgrade it by following this tutorial:
+<a href="./upgrade.netdata.html">Upgrade netdata</a>.</p>
+<h3 id="fail2ban-fixed-few-issues-in-script-usrlocalbinfail2ban_banned_db">Fail2ban: Fixed few issues in script <code>/usr/local/bin/fail2ban_banned_db</code></h3>
+<p>Script <code>/usr/local/bin/fail2ban_banned_db</code> shipped in iRedMail-1.3.2 and
+earlier releases have few issues:</p>
+<ul>
+<li>It can not store IP address when its country name contains quotes</li>
+<li>It can not correctly store all matched log lines in SQL database.</li>
+</ul>
+<p>Please run command below as root user to get latest script with both issues fixed:</p>
+<pre><code>wget -O /usr/local/bin/fail2ban_banned_db \
+    https://github.com/iredmail/iRedMail/raw/1.4.0/samples/fail2ban/bin/fail2ban_banned_db
 </code></pre>
 
-<p>No need to restart <code>fail2ban</code> service.</p><div class="footer">
+<p>Restarting <code>fail2ban</code> service is required.</p>
+<h2 id="for-openldap-backend">For OpenLDAP backend</h2>
+<h3 id="update-iredmail-ldap-schema-file">Update iRedMail LDAP schema file</h3>
+<p>iRedMail-1.4.0 introduces 2 new LDAP attributes for subscribeable mailing list:</p>
+<ul>
+<li><code>listModerator</code>: used to store moderators' email address of mailing list.</li>
+<li><code>listOwner</code>: used to store owners' email address of mailing list.</li>
+</ul>
+<p>With these new attributes, if self-service is enabled in iRedAdmin-Pro,
+mailing list owner is able to login to iRedAdmin-Pro and manage profile and
+members of owned mailing lists.</p>
+<p>Download the latest iRedMail LDAP schema file</p>
+<ul>
+<li>On RHEL/CentOS:</li>
+</ul>
+<pre><code>wget -O /tmp/iredmail.schema https://github.com/iredmail/iRedMail/raw/1.4.0/samples/iredmail/iredmail.schema
+mv /etc/openldap/schema/iredmail.schema{,.bak}
+cp -f /tmp/iredmail.schema /etc/openldap/schema/
+service slapd restart
+</code></pre>
+
+<ul>
+<li>On Debian/Ubuntu:</li>
+</ul>
+<pre><code>wget -O /tmp/iredmail.schema https://github.com/iredmail/iRedMail/raw/1.4.0/samples/iredmail/iredmail.schema
+mv /etc/ldap/schema/iredmail.schema{,.bak}
+cp -f /tmp/iredmail.schema /etc/ldap/schema/
+service slapd restart
+</code></pre>
+
+<ul>
+<li>On FreeBSD:</li>
+</ul>
+<pre><code>wget -O /tmp/iredmail.schema https://github.com/iredmail/iRedMail/raw/1.4.0/samples/iredmail/iredmail.schema
+mv /usr/local/etc/openldap/schema/iredmail.schema{,.bak}
+cp -f /tmp/iredmail.schema /usr/local/etc/openldap/schema/
+service slapd restart
+</code></pre>
+
+<ul>
+<li>
+<p>On OpenBSD:</p>
+<blockquote>
+<p>Note: if you're running ldapd as LDAP server, the schema directory is
+<code>/etc/ldap</code>, and service name is <code>ldapd</code>.</p>
+</blockquote>
+</li>
+</ul>
+<pre><code>cd /tmp
+ftp https://github.com/iredmail/iRedMail/raw/1.0/samples/iredmail/iredmail.schema
+mv /etc/openldap/schema/iredmail.schema{,.bak}
+cp -f /tmp/iredmail.schema /etc/openldap/schema/
+rcctl restart slapd
+</code></pre>
+
+<h2 id="for-mysql-and-mariadb-backends">For MySQL and MariaDB backends</h2>
+<h4 id="add-new-sql-table-vmailmaillist_owners-and-drop-4-unused-columns">Add new SQL table <code>vmail.maillist_owners</code> and drop 4 unused columns</h4>
+<ul>
+<li>New SQL table <code>vmail.maillist_owners</code> is used to store owners' email addresses
+  of subscribeable mailing lists. With this new table, if self-service is enabled
+  in iRedAdmin-Pro, mailing list owner is able to login to iRedAdmin-Pro and
+  manage profile and members of owned mailing lists.</li>
+<li>4 columns in sql table <code>vmail.mailbox</code> are not used anymore, it's safe to
+  drop them now:<ul>
+<li><code>allowedsenders</code></li>
+<li><code>rejectedsenders</code></li>
+<li><code>allowedrecipients</code></li>
+<li><code>rejectedrecipients</code></li>
+</ul>
+</li>
+</ul>
+<p>Download plain SQL file used to apply changes, then import it directly as
+MySQL root user (Please run commands below as <code>root</code> user):</p>
+<pre><code>wget -O /tmp/iredmail.mysql https://github.com/iredmail/iRedMail/raw/1.4.0/update/1.4.0/iredmail.mysql
+mysql vmail &lt; /tmp/iredmail.mysql
+rm -f /tmp/iredmail.mysql
+</code></pre>
+
+<h2 id="for-postgresql-backend">For PostgreSQL backend</h2>
+<h4 id="add-new-sql-table-vmailmaillist_owners-and-drop-4-unused-columns_1">Add new SQL table <code>vmail.maillist_owners</code> and drop 4 unused columns</h4>
+<ul>
+<li>New SQL table <code>vmail.maillist_owners</code> is used to store owners' email addresses
+  of subscribeable mailing lists. With this new table, if self-service is enabled
+  in iRedAdmin-Pro, mailing list owner is able to login to iRedAdmin-Pro and
+  manage profile and members of owned mailing lists.</li>
+<li>4 columns in sql table <code>vmail.mailbox</code> are not used anymore, it's safe to
+  drop them now:<ul>
+<li><code>allowedsenders</code></li>
+<li><code>rejectedsenders</code></li>
+<li><code>allowedrecipients</code></li>
+<li><code>rejectedrecipients</code></li>
+</ul>
+</li>
+</ul>
+<p>Download plain SQL file used to apply changes:</p>
+<pre><code>wget -O /tmp/iredmail.pgsql https://github.com/iredmail/iRedMail/raw/1.4.0/update/1.4.0/iredmail.pgsql
+chmod +r /tmp/iredmail.pgsql
+</code></pre>
+
+<ul>
+<li>Connect to PostgreSQL server as <code>postgres</code> user and import the SQL file:<ul>
+<li>on Linux, it's <code>postgres</code> user</li>
+<li>on FreeBSD, it's <code>pgsql</code> user</li>
+<li>on OpenBSD, it's <code>_postgresql</code> user</li>
+</ul>
+</li>
+</ul>
+<pre><code>su - postgres
+psql -d vmail &lt; /tmp/iredmail.pgsql
+</code></pre>
+
+<ul>
+<li>Remove downloaded file:</li>
+</ul>
+<pre><code>rm -f /tmp/iredmail.pgsql
+</code></pre><div class="footer">
     <p style="text-align: center; color: grey;">All documents are available in <a href="https://github.com/iredmail/docs/">GitHub repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://github.com/iredmail/docs/archive/master.zip">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
 </div>
 <!-- Global site tag (gtag.js) - Google Analytics -->
