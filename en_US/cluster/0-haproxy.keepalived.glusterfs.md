@@ -354,7 +354,7 @@ mkdir /glusterfs2
 Update /etc/fstab:
 
 ```
-/dev/sdb1 /glusterfs1      ext4    defaults        1 2
+/dev/sdb1 /glusterfs2      ext4    defaults        1 2
 ```
 
 remount all

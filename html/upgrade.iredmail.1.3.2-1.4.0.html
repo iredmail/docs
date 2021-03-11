@@ -105,7 +105,9 @@ latest stable release:</p>
 earlier releases have few issues:</p>
 <ul>
 <li>It can not store IP address when its country name contains quotes</li>
-<li>It can not correctly store all matched log lines in SQL database.</li>
+<li>In some cases it can not correctly store matched log lines in SQL database.
+  We now store (base64) encoded log lines instead, it also helps avoid possible
+  SQL injection.</li>
 </ul>
 <p>Please run command below as root user to get latest script with both issues fixed:</p>
 <pre><code>wget -O /usr/local/bin/fail2ban_banned_db \

@@ -75,7 +75,9 @@ Script `/usr/local/bin/fail2ban_banned_db` shipped in iRedMail-1.3.2 and
 earlier releases have few issues:
 
 - It can not store IP address when its country name contains quotes
-- It can not correctly store all matched log lines in SQL database.
+- In some cases it can not correctly store matched log lines in SQL database.
+  We now store (base64) encoded log lines instead, it also helps avoid possible
+  SQL injection.
 
 Please run command below as root user to get latest script with both issues fixed:
 
