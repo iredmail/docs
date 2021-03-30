@@ -60,6 +60,18 @@ parameter like below, and add extra required settings. Note: we use `...` below
 as a placeholder for your existing settings.
 
 ```
+protocol lda {
+    # Append plugin name `last_login` here
+    mail_plugins = ... last_login
+    ...
+}
+
+protocol lmtp {
+    # Append plugin name `last_login` here
+    mail_plugins = ... last_login
+    ...
+}
+
 protocol imap {
     # Append plugin name `last_login` here
     mail_plugins = ... last_login

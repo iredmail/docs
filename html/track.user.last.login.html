@@ -79,7 +79,19 @@ easily save and update user's last-login timestamp in SQL database.</p>
 for POP3 and IMAP services by appending plugin name to its <code>mail_plugins</code>
 parameter like below, and add extra required settings. Note: we use <code>...</code> below
 as a placeholder for your existing settings.</p>
-<pre><code>protocol imap {
+<pre><code>protocol lda {
+    # Append plugin name `last_login` here
+    mail_plugins = ... last_login
+    ...
+}
+
+protocol lmtp {
+    # Append plugin name `last_login` here
+    mail_plugins = ... last_login
+    ...
+}
+
+protocol imap {
     # Append plugin name `last_login` here
     mail_plugins = ... last_login
     ...
