@@ -50,7 +50,8 @@ different on your server.</p>
 <p>Mail messages are stored in Maildir format by default, that means one mail
 message is one plain text file (but mail body is encoded), you can backup
 mailboxes with tool like <code>rsync</code> or other backup tools.</p>
-<p>Folder <code>/var/vmail/vmail1</code> must be owned by user <code>vmail</code>, group <code>vmail</code>, permission <code>0700</code>.</p>
+<p>After restored mailboxes, <code>/var/vmail/vmail1</code> must be owned by user <code>vmail</code>,
+group <code>vmail</code>, permission <code>0700</code> on iRedMail server.</p>
 <h3 id="backup-mail-accounts">Backup mail accounts</h3>
 <p>Mail accounts are stored in SQL/LDAP database. iRedMail provides shell scripts
 to backup SQL/LDAP databases, you can find them in downloaded iRedMail release,

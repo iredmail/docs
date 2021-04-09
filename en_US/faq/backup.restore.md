@@ -14,7 +14,8 @@ Mail messages are stored in Maildir format by default, that means one mail
 message is one plain text file (but mail body is encoded), you can backup
 mailboxes with tool like `rsync` or other backup tools.
 
-Folder `/var/vmail/vmail1` must be owned by user `vmail`, group `vmail`, permission `0700`.
+After restored mailboxes, `/var/vmail/vmail1` must be owned by user `vmail`,
+group `vmail`, permission `0700` on iRedMail server.
 
 ### Backup mail accounts
 
