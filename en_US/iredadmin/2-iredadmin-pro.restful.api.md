@@ -229,7 +229,7 @@ Notes:
 
     <div class="params params_user">
     Encrypted account password is not exposed in API request by default, if you
-    want to it for some reason, please add a new line in iRedAdmin-Pro config
+    want to expose it for some reason, please add a new line in iRedAdmin-Pro config
     file `/opt/www/iredadmin/settings.py` like below, then restart `iredadmin`
     service:
 
@@ -314,7 +314,7 @@ Notes:
 
     <div class="params params_user">
     Encrypted account password is not exposed in API request by default, if you
-    want to it for some reason, please add a new line in iRedAdmin-Pro config
+    want to expose it for some reason, please add a new line in iRedAdmin-Pro config
     file `/opt/www/iredadmin/settings.py` like below, then restart `iredadmin`
     service:
 
