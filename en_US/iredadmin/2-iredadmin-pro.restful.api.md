@@ -225,7 +225,20 @@ Notes:
     * This is standalone domain admin account, not mail user with admin privileges.
     * Only global admin can access these APIs.
 
-!!! api "`GET`{: .get } `/api/admin/<mail>`{: .url } `Get profile of an existing domain admin`{: .comment }"
+!!! api "`GET`{: .get } `/api/admin/<mail>`{: .url } `Get profile of an existing domain admin`{: .comment } `Parameters`{: .has_params }"
+
+    <div class="params params_user">
+    Encrypted account password is not exposed in API request by default, if you
+    want to it for some reason, please add a new line in iRedAdmin-Pro config
+    file `/opt/www/iredadmin/settings.py` like below, then restart `iredadmin`
+    service:
+
+    ```
+    API_HIDDEN_ADMIN_PROFILES = []
+    ```
+
+    </div>
+
 !!! api "`POST`{: .post } `/api/admin/<mail>`{: .url } `Create a new domain admin`{: .comment } `Parameters`{: .has_params }"
 
     <div class="params params_admin">
@@ -297,7 +310,20 @@ Notes:
 
 ### Mail User {: .toggle }
 
-!!! api "`GET`{: .get } `/api/user/<mail>`{: .url } `Get profile of an existing mail user`{: .comment }"
+!!! api "`GET`{: .get } `/api/user/<mail>`{: .url } `Get profile of an existing mail user`{: .comment } `Parameters`{: .has_params }"
+
+    <div class="params params_user">
+    Encrypted account password is not exposed in API request by default, if you
+    want to it for some reason, please add a new line in iRedAdmin-Pro config
+    file `/opt/www/iredadmin/settings.py` like below, then restart `iredadmin`
+    service:
+
+    ```
+    API_HIDDEN_USER_PROFILES = []
+    ```
+
+    </div>
+
 !!! api "`POST`{: .post } `/api/user/<mail>`{: .url } `Create a new mail user`{: .comment } `Parameters`{: .has_params }"
 
     <div class="params params_user">
