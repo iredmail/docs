@@ -2,16 +2,47 @@
 
 [TOC]
 
-## UPCOMING release
+## Version: 2021041301 (Apr 13, 2021) {: id=2021041301 }
 
-* Improvements:
-    - CentOS 8 Stream is now supported.
+- CentOS 8 Stream is now supported.
+* MariaDB and PostgreSQL backends:
+    - New SQL table: `maillist_owners`. Used to store owner of (subscribable)
+      mailing lists.
+
+* OpenLDAP:
+    - New LDAP attributes for objectClass `mailList`:
+        - `listOwner`: used to store owner(s) of (subscribable) mailing list.
+        - `listModerator`: used to store moderator(s) of (subscribable) mailing list.
+
+* Dovecot:
+    - Log the time of last received message.
+
+* Postfix:
+    - Remove blacklist of reverse DNS name for `ddXX.kasserver.com`.
+    - Whitelist HELO hostname used by Microsoft Outlook/Hotmail servers.
+
+* Fail2ban:
+    - Stores (base64) encoded log lines in SQL database, it also helps avoid
+      possible SQL injection.
+
+* ClamAV:
+    - CentOS: ClamAV database is now updated by daemon service
+      `clamav-freshclam`, not cron job anymore.
+
+* Fixed issues:
+    - Not apply all custom settings defined in
+      `/opt/iredmail/custom/<PROGRAM>/custom.sh` after system reboot.
+      Note: it's now done by a cron job with special time `@reboot` for root user.
+    - `/opt/iredmail/bin/create_user`: not set correct password and quota size.
 
 * Package updates:
     - adminer-4.8.0
-    - netdata-1.29.1
+    - iRedAPD-5.0
+    - netdata-1.30.1
+    - mlmmjadmin-3.1
+    - iRedAdmin-1.3
 
-## Version: 2021020401 (Feb 4, 2020) {: id=20210204 }
+## Version: 2021020401 (Feb 4, 2020) {: id=2021020401 }
 
 * iRedAPD:
     - Fixed: not enable plugin `sql_ml_access_policy` by default.

@@ -2,10 +2,6 @@
 
 [TOC]
 
-!!! warning
-
-    THIS IS A DRAFT DOCUMENT, DO NOT APPLY IT.
-
 !!! note "Paid Remote Upgrade Support"
 
     We offer remote upgrade support if you don't want to get your hands dirty,
@@ -14,7 +10,7 @@
 
 ## ChangeLog
 
-* XX XX, 2021: initial release.
+* Apr 13, 2021: initial release.
 
 ## General (All backends should apply these changes)
 
@@ -37,7 +33,7 @@ so that you can know which version of iRedMail you're running. For example:
 Please follow below tutorial to upgrade iRedAPD to the latest stable release:
 [Upgrade iRedAPD to the latest stable release](./upgrade.iredapd.html)
 
-### Upgrade iRedAdmin (open source edition) to the latest stable release (1.2)
+### Upgrade iRedAdmin (open source edition) to the latest stable release (1.3)
 
 !!! attention
 
@@ -64,7 +60,7 @@ latest stable release:
 
 * [How to upgrade Roundcube](https://github.com/roundcube/roundcubemail/wiki/Upgrade).
 
-### Upgrade netdata to the latest stable release (1.29.3)
+### Upgrade netdata to the latest stable release (1.30.1)
 
 If you have netdata installed, you can upgrade it by following this tutorial:
 [Upgrade netdata](./upgrade.netdata.html).
