@@ -36,11 +36,13 @@ To integrate Microsoft Active Directory with iRedMail, you should have:
 
 * A working Linux/BSD server with iRedMail (OpenLDAP backend) installed.
 * A working Microsoft Windows (2000/2003) server, with Active Directory
-  installed and working properly, listen on port 389 (ldap://) or 636
+  installed and working properly, listen on port `389` (ldap://) or `636`
   (ldaps://), and allow LDAP connections from iRedMail server.
 
-    If you need to enable LDAP over SSL, please read
-    [this tutorial](https://support.microsoft.com/en-us/help/321051/how-to-enable-ldap-over-ssl-with-a-third-party-certification-authority).
+    - If you need to enable LDAP over SSL, please read
+      [this tutorial](https://support.microsoft.com/en-us/help/321051/how-to-enable-ldap-over-ssl-with-a-third-party-certification-authority).
+
+    - If connecting to `389` doesn't work, try port `3268` instead.
 
 ## Install iRedMail
 

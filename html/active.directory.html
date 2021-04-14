@@ -73,10 +73,17 @@
 <li>A working Linux/BSD server with iRedMail (OpenLDAP backend) installed.</li>
 <li>
 <p>A working Microsoft Windows (2000/2003) server, with Active Directory
-  installed and working properly, listen on port 389 (ldap://) or 636
+  installed and working properly, listen on port <code>389</code> (ldap://) or <code>636</code>
   (ldaps://), and allow LDAP connections from iRedMail server.</p>
+<ul>
+<li>
 <p>If you need to enable LDAP over SSL, please read
-<a href="https://support.microsoft.com/en-us/help/321051/how-to-enable-ldap-over-ssl-with-a-third-party-certification-authority">this tutorial</a>.</p>
+  <a href="https://support.microsoft.com/en-us/help/321051/how-to-enable-ldap-over-ssl-with-a-third-party-certification-authority">this tutorial</a>.</p>
+</li>
+<li>
+<p>If connecting to <code>389</code> doesn't work, try port <code>3268</code> instead.</p>
+</li>
+</ul>
 </li>
 </ul>
 <h2 id="install-iredmail">Install iRedMail</h2>
