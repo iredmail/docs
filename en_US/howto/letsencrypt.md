@@ -171,7 +171,7 @@ used to run network services like Postfix/Dovecot/OpenLDAP/MariaDB/PostgreSQL.
 It's necessary to set the permission to 0644 for other applications to access them.
 
 ```
-chmod 0644 /etc/letsencrypt/{live,archive}
+chmod 0755 /etc/letsencrypt/{live,archive}
 ```
 
 ## Renew the cert automatically

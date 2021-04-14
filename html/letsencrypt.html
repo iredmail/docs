@@ -206,7 +206,7 @@ root user and group, with permission 0700 (set by <code>certbot</code> program) 
 default, it means other users can not access them -- including the daemon users
 used to run network services like Postfix/Dovecot/OpenLDAP/MariaDB/PostgreSQL.
 It's necessary to set the permission to 0644 for other applications to access them.</p>
-<pre><code>chmod 0644 /etc/letsencrypt/{live,archive}
+<pre><code>chmod 0755 /etc/letsencrypt/{live,archive}
 </code></pre>
 
 <h2 id="renew-the-cert-automatically">Renew the cert automatically</h2>
