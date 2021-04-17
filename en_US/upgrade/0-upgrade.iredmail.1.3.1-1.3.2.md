@@ -97,12 +97,13 @@ Restarting `fail2ban` service is required.
 
 Please update parameter `@av_scanner` in Amavisd config file as described
 below, so that Amavisd logs matched virus database name.
-    - On RHEL/CentOS, it's `/etc/amavisd/amavisd.conf`
-    - On Debian/Ubuntu, it's `/etc/amavis/conf.d/50-user`
-    - On FreeBSD, it's `/usr/local/etc/amavisd.conf`
-    - On OpenBSD, it's `/etc/amavisd.conf`
 
-- Find parameter `@av_scanner` like below:
+- On RHEL/CentOS, it's `/etc/amavisd/amavisd.conf`
+- On Debian/Ubuntu, it's `/etc/amavis/conf.d/50-user`
+- On FreeBSD, it's `/usr/local/etc/amavisd.conf`
+- On OpenBSD, it's `/etc/amavisd.conf`
+
+Find parameter `@av_scanner` like below:
 
 ```
 @av_scanners = (
@@ -112,7 +113,7 @@ below, so that Amavisd logs matched virus database name.
 );
 ```
 
-- Please append letter `m` after `OK$/` and `FOUND$/` like below:
+Append letter `m` after `OK$/` and `FOUND$/` like below:
 
 ```
 @av_scanners = (
@@ -122,7 +123,7 @@ below, so that Amavisd logs matched virus database name.
 );
 ```
 
-- Restarting Amavisd service is required.
+Restarting Amavisd service is required.
 
 ## OpenLDAP backend
 

@@ -84,7 +84,6 @@ wget -O /usr/local/bin/fail2ban_banned_db \
 
 Restarting `fail2ban` service is required.
 
-
 ## For OpenLDAP backend
 
 ### Update iRedMail LDAP schema file

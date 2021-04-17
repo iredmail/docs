@@ -118,14 +118,14 @@ wget -O roundcube.iredmail.conf https://raw.githubusercontent.com/iredmail/iRedM
 <p>Restarting <code>fail2ban</code> service is required.</p>
 <h3 id="optional-amavisd-log-matched-virus-database-name">[OPTIONAL] Amavisd: Log matched virus database name</h3>
 <p>Please update parameter <code>@av_scanner</code> in Amavisd config file as described
-below, so that Amavisd logs matched virus database name.
-    - On RHEL/CentOS, it's <code>/etc/amavisd/amavisd.conf</code>
-    - On Debian/Ubuntu, it's <code>/etc/amavis/conf.d/50-user</code>
-    - On FreeBSD, it's <code>/usr/local/etc/amavisd.conf</code>
-    - On OpenBSD, it's <code>/etc/amavisd.conf</code></p>
+below, so that Amavisd logs matched virus database name.</p>
 <ul>
-<li>Find parameter <code>@av_scanner</code> like below:</li>
+<li>On RHEL/CentOS, it's <code>/etc/amavisd/amavisd.conf</code></li>
+<li>On Debian/Ubuntu, it's <code>/etc/amavis/conf.d/50-user</code></li>
+<li>On FreeBSD, it's <code>/usr/local/etc/amavisd.conf</code></li>
+<li>On OpenBSD, it's <code>/etc/amavisd.conf</code></li>
 </ul>
+<p>Find parameter <code>@av_scanner</code> like below:</p>
 <pre><code>@av_scanners = (
     ...
     qr/\bOK$/, qr/\bFOUND$/,
@@ -133,9 +133,7 @@ below, so that Amavisd logs matched virus database name.
 );
 </code></pre>
 
-<ul>
-<li>Please append letter <code>m</code> after <code>OK$/</code> and <code>FOUND$/</code> like below:</li>
-</ul>
+<p>Append letter <code>m</code> after <code>OK$/</code> and <code>FOUND$/</code> like below:</p>
 <pre><code>@av_scanners = (
     ...
     qr/\bOK$/m, qr/\bFOUND$/m,
@@ -143,9 +141,7 @@ below, so that Amavisd logs matched virus database name.
 );
 </code></pre>
 
-<ul>
-<li>Restarting Amavisd service is required.</li>
-</ul>
+<p>Restarting Amavisd service is required.</p>
 <h2 id="openldap-backend">OpenLDAP backend</h2>
 <h3 id="fixed-can-not-store-mail-sender-address-with-utf8-characters-in-amavisd-database">Fixed: can not store mail sender address with utf8 characters in <code>amavisd</code> database</h3>
 <p>In <code>amavisd</code> database, column <code>msgs.from_addr</code> is defined as <code>VARCHAR(255)</code>, it
