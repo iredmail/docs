@@ -261,7 +261,7 @@ done
 
 # If there're a lot files, direct `mv` command may fail with error like
 # `argument list too long`, so we need `find` in this case.
-if [[ X"${KERNEL_NAME}" == X'OPENBSD' ]]; then
+if [[ X"${KERNEL_NAME}" == X'OPENBSD' ]] || [[ X"${KERNEL_NAME}" == X'FREEBSD' ]]; then
     [[ -d ${SPOOL_SPAM_DIR} ]] && find ${SPOOL_SPAM_DIR} -name '*.eml' -exec mv {} ${SPOOL_LEARN_SPAM_DIR}/ \;
     [[ -d ${SPOOL_HAM_DIR} ]]  && find ${SPOOL_HAM_DIR}  -name '*.eml' -exec mv {} ${SPOOL_LEARN_HAM_DIR}/  \;
 else
