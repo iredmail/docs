@@ -10,6 +10,7 @@
 
 ## ChangeLog
 
+* May 7, 2021: Postfix: Whitelist few big companies' HELO hostnames
 * Apr 13, 2021: initial release.
 
 ## General (All backends should apply these changes)
@@ -83,6 +84,19 @@ wget -O /usr/local/bin/fail2ban_banned_db \
 ```
 
 Restarting `fail2ban` service is required.
+
+### Postfix: Whitelist few big companies' HELO hostnames
+
+Please prepend these lines in `/etc/postfix/helo_access.pcre` (Linux/OpenBSD)
+or `/usr/local/etc/postfix/helo_access.pcre` (FreeBSD) to whitelist few big
+companies' HELO hostnames, they may not have DNS records which causes Postfix
+rejects them:
+
+```
+/^\d{1,3}-\d{1,3}-\d{1,3}-\d{1,3}\.mail-(mail|campmail)\.facebook\.com$/ OK
+/^outbound-\d{1,3}-\d{1,3}-\d{1,3}-\d{1,3}\.pinterestmail\.com$/ OK
+/\.outbound\.protection\.outlook\.com$/ OK
+```
 
 ## For OpenLDAP backend
 
