@@ -8,7 +8,7 @@
       [contact us](https://www.iredmail.org/contact.html).
     * Our sample code below requires third-party Python module `requests`. For
       more details, please read its official documentation:
-      [Requests: HTTP for Humans](http://docs.python-requests.org/en/master/)
+      [Requests: HTTP for Humans](https://docs.python-requests.org/en/master/)
 
 Sample Python code to interact iRedAdmin-Pro RESTful API.
 
@@ -16,7 +16,7 @@ Sample Python code to interact iRedAdmin-Pro RESTful API.
 import sys
 import requests
 
-url = 'http://<server>/iredadmin/api'
+url = 'https://<server>/iredadmin/api'
 
 # Admin email address and password.
 admin = 'postmaster@mydomain.com'
