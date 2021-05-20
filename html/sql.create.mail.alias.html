@@ -124,16 +124,16 @@ For example:</p>
 </tbody>
 </table>
 <h3 id="how-to-assign-a-moderator">How to assign a moderator</h3>
-<p>Moderators are email addresses stored in SQL table <code>alias_moderators</code>. With
+<p>Moderators are email addresses stored in SQL table <code>moderators</code>. With
 iRedAPD-1.4.5 and later releases, it's ok to use <code>*@domain.com</code> as (one of)
 moderator for all users under mail domain 'domain.com'.</p>
 <p>To assign user <code>someone@gmail.com</code> and <code>someone@outlook.com</code> as moderator of
 mail alias <code>alias@mydomain.com</code>:</p>
-<pre><code>sql&gt; INSERT INTO alias_moderators (address, moderator, domain, dest_domain)
-                          VALUES ('alias@mydomain.com', 'someone@gmail.com', 'mydomain.com', 'gmail.com');
+<pre><code>sql&gt; INSERT INTO moderators (address, moderator, domain, dest_domain)
+                    VALUES ('alias@mydomain.com', 'someone@gmail.com', 'mydomain.com', 'gmail.com');
 
-sql&gt; INSERT INTO alias_moderators (address, moderator, domain, dest_domain)
-                          VALUES ('alias@mydomain.com', 'someone@outlook.com', 'mydomain.com', 'outlook.com');
+sql&gt; INSERT INTO moderators (address, moderator, domain, dest_domain)
+                    VALUES ('alias@mydomain.com', 'someone@outlook.com', 'mydomain.com', 'outlook.com');
 </code></pre>
 
 <h2 id="see-also">See also</h2>

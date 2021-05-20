@@ -80,7 +80,7 @@ Access Policy Name | Comment
 
 ### How to assign a moderator
 
-Moderators are email addresses stored in SQL table `alias_moderators`. With
+Moderators are email addresses stored in SQL table `moderators`. With
 iRedAPD-1.4.5 and later releases, it's ok to use `*@domain.com` as (one of)
 moderator for all users under mail domain 'domain.com'.
 
@@ -88,11 +88,11 @@ To assign user `someone@gmail.com` and `someone@outlook.com` as moderator of
 mail alias `alias@mydomain.com`:
 
 ```
-sql> INSERT INTO alias_moderators (address, moderator, domain, dest_domain)
-                          VALUES ('alias@mydomain.com', 'someone@gmail.com', 'mydomain.com', 'gmail.com');
+sql> INSERT INTO moderators (address, moderator, domain, dest_domain)
+                    VALUES ('alias@mydomain.com', 'someone@gmail.com', 'mydomain.com', 'gmail.com');
 
-sql> INSERT INTO alias_moderators (address, moderator, domain, dest_domain)
-                          VALUES ('alias@mydomain.com', 'someone@outlook.com', 'mydomain.com', 'outlook.com');
+sql> INSERT INTO moderators (address, moderator, domain, dest_domain)
+                    VALUES ('alias@mydomain.com', 'someone@outlook.com', 'mydomain.com', 'outlook.com');
 ```
 
 ## See also
