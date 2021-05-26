@@ -510,7 +510,8 @@ iRedMail Easy platform.
 
 ### Amavisd
 
-Store custom settings in `/opt/iredmail/custom/amavisd/amavisd.conf`.
+- Store custom settings in `/opt/iredmail/custom/amavisd/amavisd.conf`.
+- Store all DKIM keys under `/opt/iredmail/custom/amavisd/dkim/`.
 
 ### SpamAssassin
 
