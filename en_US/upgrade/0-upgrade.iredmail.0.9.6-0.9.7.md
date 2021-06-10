@@ -373,6 +373,12 @@ CREATE TABLE IF NOT EXISTS forwardings (
 
 Please download script used to migrate mail accounts, and run it directly:
 
+!!! attention
+
+    If you're running Python 3, please download this file instead:
+    `https://github.com/iredmail/iRedMail/raw/master/tools/migrate_sql_alias_table.py`,
+    and run it with command `python3 migrate_sql_alias_table.py`.
+
 ```
 cd /root/
 wget https://github.com/iredmail/iRedMail/raw/1.0/tools/migrate_sql_alias_table.py
