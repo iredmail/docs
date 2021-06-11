@@ -16,6 +16,13 @@ release first. You can find [all upgrade tutorials here](./iredmail.releases.htm
 After you have latest iRedMail release running, it's ok to upgrade server OS
 with command `do-release-upgrade` now.
 
+### Upgrade Dovecot config files
+
+Dovecot 2.3 breaks some configurations used in Dovecot 2.2, please follow our
+tutorial to upgrade its config files:
+
+- [Upgrade Dovecot from 2.2.x to 2.3.x](https://docs.iredmail.org/upgrade.dovecot.2.2-2.3.html)
+
 ### Re-upgrade iRedAPD, iRedAdmin(-Pro), mlmmjadmin to the latest release
 
 After upgraded server OS, please re-upgrade iRedAPD, iRedAdmin(-Pro) and
