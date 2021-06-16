@@ -36,9 +36,8 @@ To install iRedMail on OpenBSD, you need:
 
 * A __FRESH__, working OpenBSD system. Supported releases are listed on
   [Download](https://www.iredmail.org/download.html) page.
-* At least `2 GB` memory is required for a low traffic production mail server, but
-  `4 GB` is strongly recommended to prevent ClamAV eating too much memory for big virus
-  signature database.
+* At least `4 GB` memory is required for a low traffic production mail server
+  with spam/virus scanning enabled..
 * Required OpenBSD installation file sets are (replace `[XX]` by the real
   OpenBSD release number):
 
