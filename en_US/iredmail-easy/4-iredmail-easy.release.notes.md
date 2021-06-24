@@ -7,10 +7,12 @@
 + Rocky Linux 8 is now supported.
 + OpenBSD 6.9 is now supported, 6.5, 6.6, 6.7, 6.8 are all dropped.
 * Dovecot:
-    - Optional setting to enable FTS (full-text search) integration. You can
-      go to mail server profile page, tab "Settings", find setting
-       "Enable FTS (Full-Text Search)" under section "POP3/IMAP services".
+    - Optional setting to enable FTS (full-text search) integration.
       Notes:
+        - This setting is __NOT enabled by default__. You can go to mail
+          server profile page, tab "Settings", find setting
+          "Enable FTS (Full-Text Search)" under section "POP3/IMAP services"
+          and enable it.
         - Currently this option is available on CentOS 8, Debian 10, OpenBSD.
         - FTS backend is xapian, no daemon service is running.
 * mlmmjadmin:
