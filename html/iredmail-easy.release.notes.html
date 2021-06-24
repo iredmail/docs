@@ -19,6 +19,7 @@
 <div class="toc">
 <ul>
 <li><a href="#iredmail-easy-release-notes">iRedMail Easy: Release Notes</a><ul>
+<li><a href="#2021062401">Version: 2021062401 (Jun 24, 2021)</a></li>
 <li><a href="#2021041301">Version: 2021041301 (Apr 13, 2021)</a></li>
 <li><a href="#2021020401">Version: 2021020401 (Feb 4, 2020)</a></li>
 <li><a href="#20201228">Version: 2020122801 (Dec 28, 2020)</a></li>
@@ -52,6 +53,62 @@
 </li>
 </ul>
 </div>
+<h2 id="2021062401">Version: 2021062401 (Jun 24, 2021)</h2>
+<ul>
+<li>Rocky Linux 8 is now supported.</li>
+<li>
+<p>OpenBSD 6.9 is now supported, 6.5, 6.6, 6.7, 6.8 are all dropped.</p>
+</li>
+<li>
+<p>Dovecot:</p>
+<ul>
+<li>Optional setting to enable FTS (full-text search) integration.</li>
+</ul>
+<p>Notes:
+    - FTS backend is xapian.
+    - Currently this option is available on CentOS 8, Debian 10, OpenBSD.</p>
+</li>
+<li>
+<p>mlmmjadmin:</p>
+<ul>
+<li>Fixed: tools/maillist_admin.py: don't call <code>add_subscribers()</code> and
+  <code>remove_subscribers()</code> for backends.</li>
+</ul>
+</li>
+<li>
+<p>Nginx:</p>
+<ul>
+<li>Do not enable <code>multi_accept on;</code>. Thanks jinleileiking@GitHub.</li>
+</ul>
+</li>
+<li>
+<p>Fail2ban:</p>
+<ul>
+<li>Use builtin filter file for Dovecot jail.</li>
+</ul>
+</li>
+<li>
+<p>Fixed issues:</p>
+<ul>
+<li>Anonying logwatch warning about freshclam log file.</li>
+<li>logwatch can not detect and check clamav log files.</li>
+<li>Allow more sendgrid HELO hostnames.
+  Thanks to Jim Nelin for the feedback.</li>
+<li>Allow HELO hostnames used by Amazon EC2 and QQ.com (Tencent).</li>
+<li>Do not enable iRedAPD pulgin <code>amavisd_wblist</code> if antispam component is
+  not enabled.</li>
+</ul>
+</li>
+<li>
+<p>Package updates:</p>
+<ul>
+<li>adminer 4.8.1</li>
+<li>iRedAPD 5.0.2</li>
+<li>mlmmjadmin 3.1.2</li>
+<li>netdata 1.31.0</li>
+</ul>
+</li>
+</ul>
 <h2 id="2021041301">Version: 2021041301 (Apr 13, 2021)</h2>
 <ul>
 <li>CentOS 8 Stream is now supported.</li>

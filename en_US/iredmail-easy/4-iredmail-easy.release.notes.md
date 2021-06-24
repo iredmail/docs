@@ -2,6 +2,43 @@
 
 [TOC]
 
+## Version: 2021062401 (Jun 24, 2021) {: id=2021062401 }
+
++ Rocky Linux 8 is now supported.
++ OpenBSD 6.9 is now supported, 6.5, 6.6, 6.7, 6.8 are all dropped.
+
+* Dovecot:
+    - Optional setting to enable FTS (full-text search) integration.
+
+      Notes:
+        - FTS backend is xapian.
+        - Currently this option is available on CentOS 8, Debian 10, OpenBSD.
+
+* mlmmjadmin:
+    - Fixed: tools/maillist_admin.py: don't call `add_subscribers()` and
+      `remove_subscribers()` for backends.
+
+* Nginx:
+    - Do not enable `multi_accept on;`. Thanks jinleileiking@GitHub.
+
+* Fail2ban:
+    - Use builtin filter file for Dovecot jail.
+
+* Fixed issues:
+    - Anonying logwatch warning about freshclam log file.
+    - logwatch can not detect and check clamav log files.
+    - Allow more sendgrid HELO hostnames.
+      Thanks to Jim Nelin for the feedback.
+    - Allow HELO hostnames used by Amazon EC2 and QQ.com (Tencent).
+    - Do not enable iRedAPD pulgin `amavisd_wblist` if antispam component is
+      not enabled.
+
+* Package updates:
+    - adminer 4.8.1
+    - iRedAPD 5.0.2
+    - mlmmjadmin 3.1.2
+    - netdata 1.31.0
+
 ## Version: 2021041301 (Apr 13, 2021) {: id=2021041301 }
 
 - CentOS 8 Stream is now supported.
