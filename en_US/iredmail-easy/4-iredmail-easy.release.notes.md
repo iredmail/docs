@@ -6,24 +6,20 @@
 
 + Rocky Linux 8 is now supported.
 + OpenBSD 6.9 is now supported, 6.5, 6.6, 6.7, 6.8 are all dropped.
-
 * Dovecot:
-    - Optional setting to enable FTS (full-text search) integration.
-
+    - Optional setting to enable FTS (full-text search) integration. You can
+      go to mail server profile page, tab "Settings", find setting
+       "Enable FTS (Full-Text Search)" under section "POP3/IMAP services".
       Notes:
-        - FTS backend is xapian.
         - Currently this option is available on CentOS 8, Debian 10, OpenBSD.
-
+        - FTS backend is xapian, no daemon service is running.
 * mlmmjadmin:
     - Fixed: tools/maillist_admin.py: don't call `add_subscribers()` and
       `remove_subscribers()` for backends.
-
 * Nginx:
     - Do not enable `multi_accept on;`. Thanks jinleileiking@GitHub.
-
 * Fail2ban:
     - Use builtin filter file for Dovecot jail.
-
 * Fixed issues:
     - Anonying logwatch warning about freshclam log file.
     - logwatch can not detect and check clamav log files.

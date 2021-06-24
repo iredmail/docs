@@ -56,34 +56,28 @@
 <h2 id="2021062401">Version: 2021062401 (Jun 24, 2021)</h2>
 <ul>
 <li>Rocky Linux 8 is now supported.</li>
-<li>
-<p>OpenBSD 6.9 is now supported, 6.5, 6.6, 6.7, 6.8 are all dropped.</p>
-</li>
-<li>
-<p>Dovecot:</p>
-<ul>
-<li>Optional setting to enable FTS (full-text search) integration.</li>
+<li>OpenBSD 6.9 is now supported, 6.5, 6.6, 6.7, 6.8 are all dropped.</li>
+<li>Dovecot:<ul>
+<li>Optional setting to enable FTS (full-text search) integration. You can
+  go to mail server profile page, tab "Settings", find setting
+   "Enable FTS (Full-Text Search)" under section "POP3/IMAP services".
+  Notes:<ul>
+<li>Currently this option is available on CentOS 8, Debian 10, OpenBSD.</li>
+<li>FTS backend is xapian, no daemon service is running.</li>
 </ul>
-<p>Notes:
-    - FTS backend is xapian.
-    - Currently this option is available on CentOS 8, Debian 10, OpenBSD.</p>
 </li>
-<li>
-<p>mlmmjadmin:</p>
-<ul>
+</ul>
+</li>
+<li>mlmmjadmin:<ul>
 <li>Fixed: tools/maillist_admin.py: don't call <code>add_subscribers()</code> and
   <code>remove_subscribers()</code> for backends.</li>
 </ul>
 </li>
-<li>
-<p>Nginx:</p>
-<ul>
+<li>Nginx:<ul>
 <li>Do not enable <code>multi_accept on;</code>. Thanks jinleileiking@GitHub.</li>
 </ul>
 </li>
-<li>
-<p>Fail2ban:</p>
-<ul>
+<li>Fail2ban:<ul>
 <li>Use builtin filter file for Dovecot jail.</li>
 </ul>
 </li>
