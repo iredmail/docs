@@ -113,11 +113,38 @@ Sample MX record:
 ```
 NAME            PRIORITY    TYPE    DATA
 
-mydomain.com.   10          mx      mail.mydomain.com
+mydomain.com.   10          mx      mail.mydomain.com.
 ```
 
 The end result of this record is, emails sent to `[user]@mydomain.com` will
 be delivered to server `mail.mydomain.com`.
+
+## autodiscover for your domain
+
+### What is an autoconfig/autodiscover record
+
+autoconfig/autodiscover.company.com records allow mail clients to fetch automatically the mail
+client configuration of a mailbox. If the mailbox to configure is user@company.com then
+it will automatically check autodiscover.company.com for the correct configuration.
+
+More information is available here: https://docs.iredmail.org/iredmail-easy.autoconfig.autodiscover.html
+
+### How to setup the autoconfig/autodiscover record
+
+If your ISP or domain name registrar is providing the DNS service, you can
+request them to set one up for you. If you manage your own DNS servers then
+you need to create the autoconfig/autodiscover records in your DNS zone yourself.
+
+Sample autoconfig/autodiscover record:
+
+```
+NAME            PRIORITY    TYPE    DATA
+
+autodiscover.mydomain.com.   10          mx      mail.mydomain.com.
+autoconfig.mydomain.com.   10          mx      mail.mydomain.com.
+```
+
+
 
 ## SPF record for the mail domain name {: id="spf" }
 
