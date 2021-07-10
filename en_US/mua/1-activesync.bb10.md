@@ -10,8 +10,6 @@
     * Apple Mail.app, and Outlook for Mac support EWS. But not EAS.
     * Outlook 2010 for Windows supports MAPI.
 
-    iRedMail doesn't integrate [OpenChange](http://www.openchange.org) and
-    [Samba4](http://www.samba.org) for native MAPI support.
 
 ## Requirements
 
