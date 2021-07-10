@@ -2,20 +2,9 @@
 
 [TOC]
 
-SOGo Connector extention provides integration of Mozilla Thunderbird with the SOGo groupware solution. It does this by adding support for remote DAV address books and by adding features to be used along with the Lightning calendar extension.
+SOGo Connector extention provides integration of Mozilla Thunderbird with the SOGo groupware solution. It does this by adding support for remote DAV address books and by adding features to the calendar.
 
-## Calendar (CalDAV) with Thunderbird add-on 'Lightning'
-
-### Install Thunderbird Lightning
-
-Lightning is a calendar add-on for Thunderbird.
-
-Launch Thunderbird, click menu: `Tools` -> `Add-ons`, Search "Lightning" and
-install it.
-
-![](./images/thunderbird/sogo_lightning_addon_install.png)
-
-Restart Thunderbird after installation.
+## Calendar (CalDAV) with Thunderbird
 
 ### Configure Remote Calendar
 
