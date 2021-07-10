@@ -18,6 +18,7 @@ Note:
 
 * Login username must be full email address. You may want to click `Edit` to ensure it is correct.
 * If you want to use POP3 instead of IMAP, click "Edit" and change it to POP3 in this screen with port `110`, `STARTTLS`.
+* The automatic detection only works properly if the autoconfig/autodiscover DNS records have been created properly. More information about them can be found here https://docs.iredmail.org/iredmail-easy.autoconfig.autodiscover.html or here https://docs.iredmail.org/setup.dns.html
 
 ![](./images/thunderbird/new.mail.account.setup.png)
 
