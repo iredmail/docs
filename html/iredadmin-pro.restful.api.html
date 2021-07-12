@@ -621,7 +621,7 @@ to be a domain admin.</p>
 <p class="admonition-title"><code class="get">GET</code> <code class="url">/api/admin/&lt;mail&gt;</code> <code class="comment">Get profile of an existing domain admin</code> <code class="has_params">Parameters</code></p>
 <p><div class="params params_user">
 Encrypted account password is not exposed in API request by default, if you
-want to it for some reason, please add a new line in iRedAdmin-Pro config
+want to expose it for some reason, please add a new line in iRedAdmin-Pro config
 file <code>/opt/www/iredadmin/settings.py</code> like below, then restart <code>iredadmin</code>
 service:</p>
 <p><code>API_HIDDEN_ADMIN_PROFILES = []</code></p>
@@ -853,7 +853,7 @@ service:</p>
 <p class="admonition-title"><code class="get">GET</code> <code class="url">/api/user/&lt;mail&gt;</code> <code class="comment">Get profile of an existing mail user</code> <code class="has_params">Parameters</code></p>
 <p><div class="params params_user">
 Encrypted account password is not exposed in API request by default, if you
-want to it for some reason, please add a new line in iRedAdmin-Pro config
+want to expose it for some reason, please add a new line in iRedAdmin-Pro config
 file <code>/opt/www/iredadmin/settings.py</code> like below, then restart <code>iredadmin</code>
 service:</p>
 <p><code>API_HIDDEN_USER_PROFILES = []</code></p>

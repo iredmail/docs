@@ -127,7 +127,8 @@ autoconfig/autodiscover.company.com records allow mail clients to fetch automati
 client configuration of a mailbox. If the mailbox to configure is user@company.com then
 it will automatically check autodiscover.company.com for the correct configuration.
 
-More information is available here: https://docs.iredmail.org/iredmail-easy.autoconfig.autodiscover.html
+More information is available here:
+[Setup DNS records for autoconfig and autodiscover](https://docs.iredmail.org/iredmail-easy.autoconfig.autodiscover.html).
 
 ### How to setup the autoconfig/autodiscover record
 
@@ -143,8 +144,6 @@ NAME            PRIORITY    TYPE    DATA
 autodiscover.mydomain.com.   10          mx      mail.mydomain.com.
 autoconfig.mydomain.com.   10          mx      mail.mydomain.com.
 ```
-
-
 
 ## SPF record for the mail domain name {: id="spf" }
 

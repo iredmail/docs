@@ -35,6 +35,11 @@
 <li><a href="#how-to-setup-the-mx-record">How to setup the MX record</a></li>
 </ul>
 </li>
+<li><a href="#autodiscover-for-your-domain">autodiscover for your domain</a><ul>
+<li><a href="#what-is-an-autoconfigautodiscover-record">What is an autoconfig/autodiscover record</a></li>
+<li><a href="#how-to-setup-the-autoconfigautodiscover-record">How to setup the autoconfig/autodiscover record</a></li>
+</ul>
+</li>
 <li><a href="#spf">SPF record for the mail domain name</a><ul>
 <li><a href="#what-is-a-spf-record">What is a SPF record</a></li>
 <li><a href="#how-to-setup-the-spf-record">How to setup the SPF record</a></li>
@@ -148,11 +153,29 @@ you need to create the MX records in your DNS zone yourself.</p>
 <p>Sample MX record:</p>
 <pre><code>NAME            PRIORITY    TYPE    DATA
 
-mydomain.com.   10          mx      mail.mydomain.com
+mydomain.com.   10          mx      mail.mydomain.com.
 </code></pre>
 
 <p>The end result of this record is, emails sent to <code>[user]@mydomain.com</code> will
 be delivered to server <code>mail.mydomain.com</code>.</p>
+<h2 id="autodiscover-for-your-domain">autodiscover for your domain</h2>
+<h3 id="what-is-an-autoconfigautodiscover-record">What is an autoconfig/autodiscover record</h3>
+<p>autoconfig/autodiscover.company.com records allow mail clients to fetch automatically the mail
+client configuration of a mailbox. If the mailbox to configure is user@company.com then
+it will automatically check autodiscover.company.com for the correct configuration.</p>
+<p>More information is available here:
+<a href="https://docs.iredmail.org/iredmail-easy.autoconfig.autodiscover.html">Setup DNS records for autoconfig and autodiscover</a>.</p>
+<h3 id="how-to-setup-the-autoconfigautodiscover-record">How to setup the autoconfig/autodiscover record</h3>
+<p>If your ISP or domain name registrar is providing the DNS service, you can
+request them to set one up for you. If you manage your own DNS servers then
+you need to create the autoconfig/autodiscover records in your DNS zone yourself.</p>
+<p>Sample autoconfig/autodiscover record:</p>
+<pre><code>NAME            PRIORITY    TYPE    DATA
+
+autodiscover.mydomain.com.   10          mx      mail.mydomain.com.
+autoconfig.mydomain.com.   10          mx      mail.mydomain.com.
+</code></pre>
+
 <h2 id="spf">SPF record for the mail domain name</h2>
 <h3 id="what-is-a-spf-record">What is a SPF record</h3>
 <p>SPF is a spam and phishing scam fighting method which uses DNS SPF-records to
