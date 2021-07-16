@@ -9,7 +9,8 @@
 ## Postfix
 
 * If you're running MySQL/MariaDB or PostgreSQL backend, you need to remove
-  parameter `port =` in `/etc/postfix/mysql/*.cf` and `/etc/postfix/pgsql/*.cf`.
+  parameter `port =` in `/etc/postfix/mysql/*.cf` (MySQL/MariaDB backend) or
+  `/etc/postfix/pgsql/*.cf` (PostgreSQL backend).
 
 ## Dovecot
 
@@ -66,7 +67,7 @@ Restart Dovecot service is required.
 
 ## PHP
 
-Debian 9 offers PHP-5, but Debian 10 has PHP-7.3, you need to upgrade it to 7.3 manually.
+Debian 9 offers PHP-5, but Debian 10 offers PHP-7.3, you have to upgrade php manually.
 
 ## SOGo Groupware
 

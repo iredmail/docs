@@ -34,7 +34,8 @@
 <h2 id="postfix">Postfix</h2>
 <ul>
 <li>If you're running MySQL/MariaDB or PostgreSQL backend, you need to remove
-  parameter <code>port =</code> in <code>/etc/postfix/mysql/*.cf</code> and <code>/etc/postfix/pgsql/*.cf</code>.</li>
+  parameter <code>port =</code> in <code>/etc/postfix/mysql/*.cf</code> (MySQL/MariaDB backend) or
+  <code>/etc/postfix/pgsql/*.cf</code> (PostgreSQL backend).</li>
 </ul>
 <h2 id="dovecot">Dovecot</h2>
 <p>Changes required to be made in Dovecot main config file <code>/etc/dovecot/dovecot.conf</code>:</p>
@@ -118,7 +119,7 @@ TLSv1.2, you may want to use weaker one like <code>TLSv1.1</code>, <code>TLSv1</
 
 <p>Restart Dovecot service is required.</p>
 <h2 id="php">PHP</h2>
-<p>Debian 9 offers PHP-5, but Debian 10 has PHP-7.3, you need to upgrade it to 7.3 manually.</p>
+<p>Debian 9 offers PHP-5, but Debian 10 offers PHP-7.3, you have to upgrade php manually.</p>
 <h2 id="sogo-groupware">SOGo Groupware</h2>
 <p>Please replace <code>stretch</code> by <code>buster</code> in file
 <code>/etc/apt/sources.list.d/sogo-nightly.repo</code>, then upgrade sogo packages.</p><div class="footer">
