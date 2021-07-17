@@ -21,4 +21,3 @@ Documents contributed by iRedMail users:
 * [High-Availability Maildir Storage With GlusterFS + CentOS 5.x](https://forum.iredmail.org/topic2147-highavailability-maildir-storage-with-glusterfs-centos-5x.html), contributed by Basem Hegazy. 2011-06-26
 * [Integrate OpenVPN in iRedMail with OpenLDAP](https://www.howtoforge.com/using-iredmail-and-openvpn-for-virtual-email-hosting-and-vpn-services-centos-5.4), Howtoforge tutorial.
 * [Integrate Ejabberd in iRedMail with OpenLDAP](./ejabberd.openldap.ubuntu.html)
-* [Virtual Mail And FTP Hosting With iRedMail And Pure-FTPd](./pureftpd.openldap.centos.html)
