@@ -147,7 +147,7 @@ We need to add new ldap attribute/value pairs for existing mail users.
 
 ```
 cd /root/
-wget https://github.com/iredmail/iRedMail/raw/1.0/update/ldap/update-ldap-dovecot-2.3.py
+https://raw.githubusercontent.com/iredmail/iRedMail/master/update/ldap/update-ldap-dovecot-2.3.py
 ```
 
 * Open downloaded file `update-ldap-dovecot-2.3.py`, set LDAP server
@@ -167,9 +167,9 @@ You can find required LDAP credential in iRedAdmin config file or
 `cn=Manager,dc=xx,dc=xx` or `cn=vmailadmin,dc=xx,dc=xx` as bind dn is ok, both
 of them have read-write privilege to update mail accounts.
 
-* Execute this script, it will add required data:
+* Execute this script with Python-3, it will add required data:
 
 ```
-# python update-ldap-dovecot-2.3.py
+python3 update-ldap-dovecot-2.3.py
 ```
 

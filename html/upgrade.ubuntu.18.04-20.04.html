@@ -84,6 +84,14 @@ request_terminate_timeout = 60s
 access.log = /var/log/php-fpm/access.log
 slowlog = /var/log/php-fpm/slow.log
 request_slowlog_timeout = 10s
+</code></pre>
+
+<ul>
+<li><code>/etc/nginx/conf-available/php-fpm.conf</code>:</li>
+</ul>
+<pre><code>upstream php_workers {
+    server 127.0.0.1:9999;
+}
 </code></pre><div class="footer">
     <p style="text-align: center; color: grey;">All documents are available in <a href="https://github.com/iredmail/docs/">GitHub repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://github.com/iredmail/docs/archive/master.zip">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
 </div></body></html>

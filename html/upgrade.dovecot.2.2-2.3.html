@@ -166,7 +166,7 @@ CREATE INDEX idx_mailbox_enablesievetls ON mailbox (enablesievetls);
 <li>Download script used to update existing mail users:</li>
 </ul>
 <pre><code>cd /root/
-wget https://github.com/iredmail/iRedMail/raw/1.0/update/ldap/update-ldap-dovecot-2.3.py
+https://raw.githubusercontent.com/iredmail/iRedMail/master/update/ldap/update-ldap-dovecot-2.3.py
 </code></pre>
 
 <ul>
@@ -186,9 +186,9 @@ bind_pw = 'password'
 <code>cn=Manager,dc=xx,dc=xx</code> or <code>cn=vmailadmin,dc=xx,dc=xx</code> as bind dn is ok, both
 of them have read-write privilege to update mail accounts.</p>
 <ul>
-<li>Execute this script, it will add required data:</li>
+<li>Execute this script with Python-3, it will add required data:</li>
 </ul>
-<pre><code># python update-ldap-dovecot-2.3.py
+<pre><code>python3 update-ldap-dovecot-2.3.py
 </code></pre><div class="footer">
     <p style="text-align: center; color: grey;">All documents are available in <a href="https://github.com/iredmail/docs/">GitHub repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://github.com/iredmail/docs/archive/master.zip">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
 </div></body></html>

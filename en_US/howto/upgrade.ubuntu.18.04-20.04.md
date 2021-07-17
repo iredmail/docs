@@ -66,3 +66,11 @@ access.log = /var/log/php-fpm/access.log
 slowlog = /var/log/php-fpm/slow.log
 request_slowlog_timeout = 10s
 ```
+
+* `/etc/nginx/conf-available/php-fpm.conf`:
+
+```
+upstream php_workers {
+    server 127.0.0.1:9999;
+}
+```
