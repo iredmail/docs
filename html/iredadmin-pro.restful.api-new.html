@@ -47,8 +47,8 @@
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>
 <ul>
-<li>This document is applicable to <code>iRedAdmin-Pro-SQL-4.4</code> and
-  <code>iRedAdmin-Pro-LDAP-4.5</code>. If you're running an old release, please
+<li>This document is applicable to <code>iRedAdmin-Pro-SQL-4.9</code> and
+  <code>iRedAdmin-Pro-LDAP-5.0</code>. If you're running an old release, please
   upgrade iRedAdmin-Pro to the latest release, or check
   <a href="./iredadmin-pro.releases.html">document for old releases</a>.</li>
 <li>If you need an API which has not yet been implemented, don't hesitate to
@@ -618,7 +618,15 @@ to be a domain admin.</p>
 </ul>
 </div>
 <div class="admonition api">
-<p class="admonition-title"><code class="get">GET</code> <code class="url">/api/admin/&lt;mail&gt;</code> <code class="comment">Get profile of an existing domain admin</code></p>
+<p class="admonition-title"><code class="get">GET</code> <code class="url">/api/admin/&lt;mail&gt;</code> <code class="comment">Get profile of an existing domain admin</code> <code class="has_params">Parameters</code></p>
+<p><div class="params params_user">
+Encrypted account password is not exposed in API request by default, if you
+want to expose it for some reason, please add a new line in iRedAdmin-Pro config
+file <code>/opt/www/iredadmin/settings.py</code> like below, then restart <code>iredadmin</code>
+service:</p>
+<p><code>API_HIDDEN_ADMIN_PROFILES = []</code></p>
+</div>
+
 </div>
 <div class="admonition api">
 <p class="admonition-title"><code class="post">POST</code> <code class="url">/api/admin/&lt;mail&gt;</code> <code class="comment">Create a new domain admin</code> <code class="has_params">Parameters</code></p>
@@ -842,7 +850,15 @@ to be a domain admin.</p>
 </div>
 <h3 class="toggle" id="mail-user">Mail User</h3>
 <div class="admonition api">
-<p class="admonition-title"><code class="get">GET</code> <code class="url">/api/user/&lt;mail&gt;</code> <code class="comment">Get profile of an existing mail user</code></p>
+<p class="admonition-title"><code class="get">GET</code> <code class="url">/api/user/&lt;mail&gt;</code> <code class="comment">Get profile of an existing mail user</code> <code class="has_params">Parameters</code></p>
+<p><div class="params params_user">
+Encrypted account password is not exposed in API request by default, if you
+want to expose it for some reason, please add a new line in iRedAdmin-Pro config
+file <code>/opt/www/iredadmin/settings.py</code> like below, then restart <code>iredadmin</code>
+service:</p>
+<p><code>API_HIDDEN_USER_PROFILES = []</code></p>
+</div>
+
 </div>
 <div class="admonition api">
 <p class="admonition-title"><code class="post">POST</code> <code class="url">/api/user/&lt;mail&gt;</code> <code class="comment">Create a new mail user</code> <code class="has_params">Parameters</code></p>
@@ -2137,6 +2153,11 @@ to be a domain admin.</p>
 <td>Set a preferred spam score, if scanned email has higher score than this one, it will be marked as spam.</td>
 <td><code>spam_score=4</code> (defaults to use system setting defined in Amavisd config file.)</td>
 </tr>
+<tr>
+<td><code>banned_rulenames</code></td>
+<td>Assign ban rules</td>
+<td><code>banned_rulenames=ALLOW_MS_WORD,ALLOW_MS_EXCEL</code></td>
+</tr>
 </tbody>
 </table>
 </div>
@@ -2438,9 +2459,6 @@ to be a domain admin.</p>
 <div class="admonition api">
 <p class="admonition-title"><code class="delete">DELETE</code> <code class="url">/api/wblist/outbound/blacklist/&lt;mail&gt;</code> <code class="comment">Delete all per-user existing global whitelists for outbound.</code></p>
 </div>
-<div class="admonition api">
-<p class="admonition-title"><code class="put">PUT</code> <code class="url">/api/wblist/senderscore/whitelist/&lt;ip&gt;</code> <code class="comment">Whitelist given IP address for the senderscore checking. Applied by iRedAPD plugin 'senderscore'</code></p>
-</div>
 <h3 class="toggle" id="greylisting">Greylisting</h3>
 <div class="admonition api">
 <p class="admonition-title"><code class="get">GET</code> <code class="url">/api/greylisting/all</code> <code class="comment">Get all existing greylisting settings</code></p>
@@ -2610,9 +2628,6 @@ to be a domain admin.</p>
 
 </div>
 
-</div>
-<div class="admonition api">
-<p class="admonition-title"><code class="put">PUT</code> <code class="url">/api/greylisting/global/whitelist/&lt;ip&gt;</code> <code class="comment">Whitelist given IP address globally</code></p>
 </div>
 <h3 class="toggle" id="export-accounts">Export Accounts</h3>
 <h4 class="toggle" id="ldif-ldap-backend-only">LDIF (LDAP backend only)</h4>

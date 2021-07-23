@@ -4,8 +4,8 @@
 
 !!! attention
 
-    * This document is applicable to `iRedAdmin-Pro-SQL-4.4` and
-      `iRedAdmin-Pro-LDAP-4.5`. If you're running an old release, please
+    * This document is applicable to `iRedAdmin-Pro-SQL-4.9` and
+      `iRedAdmin-Pro-LDAP-5.0`. If you're running an old release, please
       upgrade iRedAdmin-Pro to the latest release, or check
       [document for old releases](./iredadmin-pro.releases.html).
     * If you need an API which has not yet been implemented, don't hesitate to
@@ -225,7 +225,20 @@ Notes:
     * This is standalone domain admin account, not mail user with admin privileges.
     * Only global admin can access these APIs.
 
-!!! api "`GET`{: .get } `/api/admin/<mail>`{: .url } `Get profile of an existing domain admin`{: .comment }"
+!!! api "`GET`{: .get } `/api/admin/<mail>`{: .url } `Get profile of an existing domain admin`{: .comment } `Parameters`{: .has_params }"
+
+    <div class="params params_user">
+    Encrypted account password is not exposed in API request by default, if you
+    want to expose it for some reason, please add a new line in iRedAdmin-Pro config
+    file `/opt/www/iredadmin/settings.py` like below, then restart `iredadmin`
+    service:
+
+    ```
+    API_HIDDEN_ADMIN_PROFILES = []
+    ```
+
+    </div>
+
 !!! api "`POST`{: .post } `/api/admin/<mail>`{: .url } `Create a new domain admin`{: .comment } `Parameters`{: .has_params }"
 
     <div class="params params_admin">
@@ -297,7 +310,20 @@ Notes:
 
 ### Mail User {: .toggle }
 
-!!! api "`GET`{: .get } `/api/user/<mail>`{: .url } `Get profile of an existing mail user`{: .comment }"
+!!! api "`GET`{: .get } `/api/user/<mail>`{: .url } `Get profile of an existing mail user`{: .comment } `Parameters`{: .has_params }"
+
+    <div class="params params_user">
+    Encrypted account password is not exposed in API request by default, if you
+    want to expose it for some reason, please add a new line in iRedAdmin-Pro config
+    file `/opt/www/iredadmin/settings.py` like below, then restart `iredadmin`
+    service:
+
+    ```
+    API_HIDDEN_USER_PROFILES = []
+    ```
+
+    </div>
+
 !!! api "`POST`{: .post } `/api/user/<mail>`{: .url } `Create a new mail user`{: .comment } `Parameters`{: .has_params }"
 
     <div class="params params_user">
@@ -693,6 +719,7 @@ Notes:
     `prefix_spam_in_subject` | Prefix string `[SPAM] ` in mail subject if it's spam | `prefix_spam_in_subject=yes` (default is `no`)
     `always_insert_x_spam_headers` | Always insert `X-Spam-*` headers in email. It contains spam score and matched SpamAssassin rules. __Don't enable this unless you want to debug spam checking.__ | `always_insert_x_spam_headers=yes` (default is `no`)
     `spam_score` | Set a preferred spam score, if scanned email has higher score than this one, it will be marked as spam. | `spam_score=4` (defaults to use system setting defined in Amavisd config file.)
+    `banned_rulenames` | Assign ban rules | `banned_rulenames=ALLOW_MS_WORD,ALLOW_MS_EXCEL`
 
     </div>
 
@@ -810,7 +837,6 @@ Catch-all address | `@.`
 !!! api "`DELETE`{: .delete } `/api/wblist/inbound/blacklist/<mail>`{: .url } `Delete all per-user existing global blacklists for inbound.`{: .comment }"
 !!! api "`DELETE`{: .delete } `/api/wblist/outbound/whitelist/<mail>`{: .url } `Delete all per-user existing global whitelists for outbound.`{: .comment }"
 !!! api "`DELETE`{: .delete } `/api/wblist/outbound/blacklist/<mail>`{: .url } `Delete all per-user existing global whitelists for outbound.`{: .comment }"
-!!! api "`PUT`{: .put } `/api/wblist/senderscore/whitelist/<ip>`{: .url } `Whitelist given IP address for the senderscore checking. Applied by iRedAPD plugin 'senderscore'`{: .comment }"
 
 
 ### Greylisting {: .toggle }
@@ -882,8 +908,6 @@ Catch-all address | `@.`
     -->
 
     </div>
-
-!!! api "`PUT`{: .put } `/api/greylisting/global/whitelist/<ip>`{: .url } `Whitelist given IP address globally`{: .comment }"
 
 ### Export Accounts {: .toggle }
 
