@@ -88,11 +88,10 @@ server admin can update per-user spam policy to allow receiving such documents.<
 </ul>
 <p>Here we defines 5 ban rules:</p>
 <ul>
-<li><code>ALLOW_MS_OFFICE</code>: Allow all documents whose file name ends with any of
-  <code>.doc</code>, <code>.docx</code>, <code>.xls</code>, <code>.xlsx</code>, <code>.ppt</code>, <code>.pptx</code>.</li>
-<li><code>ALLOW_MS_WORD</code>: Allow just Microsoft Word documents (<code>.doc</code>, <code>.docx</code>).</li>
-<li><code>ALLOW_MS_EXCEL</code>: Allow just Microsoft Excel documents (<code>.xls</code>, <code>.xlsx</code>).</li>
-<li><code>ALLOW_MS_PPT</code>: Allow just Microsoft PowerPoint documents (<code>.ppt</code>, <code>.pptx</code>).</li>
+<li><code>ALLOW_MS_OFFICE</code>: Allow all Microsoft Office documents.</li>
+<li><code>ALLOW_MS_WORD</code>: Allow Microsoft Word documents (<code>.doc</code>, <code>.docx</code>).</li>
+<li><code>ALLOW_MS_EXCEL</code>: Allow Microsoft Excel documents (<code>.xls</code>, <code>.xlsx</code>).</li>
+<li><code>ALLOW_MS_PPT</code>: Allow Microsoft PowerPoint documents (<code>.ppt</code>, <code>.pptx</code>).</li>
 <li><code>DEFAULT</code>: use the default ban rule defined in <code>$banned_filename_re</code>.</li>
 </ul>
 <p>You're free to define more ban rules to fit your own needs.</p>
