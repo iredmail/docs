@@ -21,6 +21,11 @@ iRedMail-1.4.1 ships 4 builtin Amavisd ban rules, they're defined in
 );
 ```
 
+- `ALLOW_MS_OFFICE`: Allow all Microsoft Office documents.
+- `ALLOW_MS_WORD`: Allow Microsoft Word documents (`.doc`, `.docx`).
+- `ALLOW_MS_EXCEL`: Allow Microsoft Excel documents (`.xls`, `.xlsx`).
+- `ALLOW_MS_PPT`: Allow Microsoft PowerPoint documents (`.ppt`, `.pptx`).
+
 ## Add new ban rules
 
 You're free to add new ban rules inside `%banned_rules = ();` parameter.
