@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>iRedAdmin-Pro: Custom (Amavisd) ban rules</title>
+        <link rel="stylesheet" type="text/css" href="./css/markdown.css" />
+    </head>
+    <body>
+
+    <div id="navigation">
+    <a href="https://www.iredmail.org" target="_blank">
+        <img alt="iRedMail web site"
+             src="./images/logo-iredmail.png"
+             style="vertical-align: middle; height: 30px;"
+             />&nbsp;
+        <span>iRedMail</span>
+    </a>
+    &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><h1 id="iredadmin-pro-custom-amavisd-ban-rules">iRedAdmin-Pro: Custom (Amavisd) ban rules</h1>
+<div class="toc">
+<ul>
+<li><a href="#iredadmin-pro-custom-amavisd-ban-rules">iRedAdmin-Pro: Custom (Amavisd) ban rules</a><ul>
+<li><a href="#builtin-ban-rules">Builtin ban rules</a></li>
+<li><a href="#add-new-ban-rules">Add new ban rules</a></li>
+<li><a href="#how-to-use-the-ban-rules">How to use the ban rules</a><ul>
+<li><a href="#assign-ban-rules-with-iredadmin-pro">Assign ban rules with iRedAdmin-Pro</a></li>
+<li><a href="#assign-ban-rules-with-sql-command-line">Assign ban rules with SQL command line</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<h2 id="builtin-ban-rules">Builtin ban rules</h2>
+<p>iRedMail-1.4.1 ships 4 builtin Amavisd ban rules, they're defined in
+<a href="./file.locations.html#amavisd">Amavisd config file</a> like below:</p>
+<pre><code>%banned_rules = (
+    # Allow all Microsoft Office documents.
+    'ALLOW_MS_OFFICE'   =&gt; new_RE([qr'.\.(doc|docx|xls|xlsx|ppt|pptx)$'i =&gt; 0]),
+
+    # Allow Microsoft Word, Excel, PowerPoint documents separately.
+    'ALLOW_MS_WORD'     =&gt; new_RE([qr'.\.(doc|docx)$'i =&gt; 0]),
+    'ALLOW_MS_EXCEL'    =&gt; new_RE([qr'.\.(xls|xlsx)$'i =&gt; 0]),
+    'ALLOW_MS_PPT'      =&gt; new_RE([qr'.\.(ppt|pptx)$'i =&gt; 0]),
+
+    # Default rule.
+    'DEFAULT' =&gt; $banned_filename_re,
+);
+</code></pre>
+
+<h2 id="add-new-ban-rules">Add new ban rules</h2>
+<p>You're free to add new ban rules inside <code>%banned_rules = ();</code> parameter.
+For example, let's add new rule <code>BLOCK_COMPRESS</code> to block few compress file
+formats, and <code>ALLOW_PDF</code> to allow / bypass <code>.pdf</code> files:</p>
+<pre><code>%banned_rules = (
+    # ... omit other existing rules here ...
+
+    'BLOCK_COMPRESS'    =&gt; new_RE([qr'.\.(zip|7z|gz|bz2|tar|rar)$'i]),
+    'ALLOW_PDF'         =&gt; new_RE([qr'.\.pdf$'i =&gt; 0]),
+)
+</code></pre>
+
+<p>Restarting Amavisd service is required after updated its config file.</p>
+<p>If you're running iRedAdmin-Pro, please list your custom rules in its config
+file <code>/opt/www/iredadmin/settings.py</code> like below, so that you can use them
+in per-user, per-domain and global <code>Spam Policy</code> page.</p>
+<pre><code># Add this parameter if it doesn't exist.
+# The syntax is (Python dictionary):
+# {
+#   &quot;rule-name-1&quot;: &quot;comment-2&quot;,
+#   &quot;rule-name-2&quot;: &quot;comment-2&quot;,
+# }
+AMAVISD_BAN_RULES = {
+    &quot;BLOCK_COMPRESS&quot;: &quot;Block compressed files (zip, 7z, gz, bz2, tar, rar)&quot;,
+    &quot;ALLOW_PDF&quot;: &quot;Allow PDF files (.pdf)
+}
+</code></pre>
+
+<p>Restarting "iredadmin" service is required after updated its config file.</p>
+<h2 id="how-to-use-the-ban-rules">How to use the ban rules</h2>
+<h3 id="assign-ban-rules-with-iredadmin-pro">Assign ban rules with iRedAdmin-Pro</h3>
+<p>With iRedAdmin-Pro, you can easily manage per-user, per-domain and global spam
+policies, including ban rules.</p>
+<ul>
+<li>For per-user ban rules, please go to user profile page, tab "<strong>Spam Policy</strong>".</li>
+<li>For per-domain ban rules, please go to domain profile page, tab "<strong>Spam Policy</strong>".</li>
+<li>For global ban rules, please click "<strong>System</strong>" on main navigation bar, then
+  choose "<strong>Global Spam Policy</strong>".</li>
+</ul>
+<p>Note: per-user spam policy has the highest priority, and global one has the
+lowest priority.</p>
+<h3 id="assign-ban-rules-with-sql-command-line">Assign ban rules with SQL command line</h3>
+<p>If you already define per-user, per-domain, or global spam policy with
+iRedAdmin-Pro or manually, you can now assign these ban rules to them.</p>
+<p>For example, if you have spam policy for user <code>user@domain.com</code>, to allow
+this user to accept Microsoft Word and Excel documents, you can run SQL
+commands below to achieve it (Note: we use MySQL for example):</p>
+<pre><code>USE amavisd;
+UPDATE policy SET banned_rulenames=&quot;ALLOW_MS_WORD,ALLOW_MS_EXCEL&quot; WHERE policy_name=&quot;user@domain.com&quot;;
+</code></pre>
+
+<p>Multiple rule names must be separated by comma.</p><div class="footer">
+    <p style="text-align: center; color: grey;">All documents are available in <a href="https://github.com/iredmail/docs/">GitHub repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://github.com/iredmail/docs/archive/master.zip">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
+</div></body></html>
