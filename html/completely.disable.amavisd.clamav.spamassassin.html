@@ -24,7 +24,10 @@
 <ul>
 <li><a href="#completely-disable-amavisd-clamav-spamassassin">Completely disable Amavisd + ClamAV + SpamAssassin</a><ul>
 <li><a href="#stop-virusspam-scanning-keep-dkim-signingverification-and-disclaimer">Stop virus/spam scanning, keep DKIM signing/verification and Disclaimer</a></li>
-<li><a href="#completely-disable-all-features">Completely disable all features</a></li>
+<li><a href="#completely-disable-all-features">Completely disable all features</a><ul>
+<li><a href="#update-mailing-list-settings">Update mailing list settings</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -117,6 +120,28 @@ receive_override_options = no_address_mappings  # &lt;- it's ok if you don't hav
 <ul>
 <li>ClamAV and SpamAssassin will be invoked by Amavisd, so if you disable Amavisd, those two are disabled too.</li>
 <li>SpamAssassin doesn't have daemon service running in iRedMail solution, so there's no need to stop SpamAssassin service.</li>
+</ul>
+<h4 id="update-mailing-list-settings">Update mailing list settings</h4>
+<p>mlmmj is configured to connect to port <code>10027</code> which is served by Amavisd for
+spam/virus scanning, you should update config files to tell mlmmj not to
+connect to this port anymore.</p>
+<ul>
+<li>
+<p>Comment out below line in <code>/opt/mlmmjadmin/settings.py</code> and restart
+  <code>mlmmjadmin</code> service.</p>
+<p>Note: it affects newly created mailing lists.</p>
+</li>
+</ul>
+<pre><code>MLMMJ_DEFAULT_PROFILE_SETTINGS.update({'smtp_port': 10027})
+</code></pre>
+
+<ul>
+<li>
+<p>Remove all <code>control/smtpport</code> file under <code>/var/vmail/mlmmj/&lt;domain&gt;/&lt;list-name&gt;/</code>.
+  For example, for mailing list <code>mygroup@domain.com</code>, the file is
+  <code>/var/vmail/mlmmj/domain.com/mygroup/control/smtpport</code>.</p>
+<p>Note: it affects all existing mailing lists.</p>
+</li>
 </ul><div class="footer">
     <p style="text-align: center; color: grey;">All documents are available in <a href="https://github.com/iredmail/docs/">GitHub repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://github.com/iredmail/docs/archive/master.zip">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
 </div></body></html>

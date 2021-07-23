@@ -91,3 +91,24 @@ Notes:
 
 * ClamAV and SpamAssassin will be invoked by Amavisd, so if you disable Amavisd, those two are disabled too.
 * SpamAssassin doesn't have daemon service running in iRedMail solution, so there's no need to stop SpamAssassin service.
+
+#### Update mailing list settings
+
+mlmmj is configured to connect to port `10027` which is served by Amavisd for
+spam/virus scanning, you should update config files to tell mlmmj not to
+connect to this port anymore.
+
+- Comment out below line in `/opt/mlmmjadmin/settings.py` and restart
+  `mlmmjadmin` service.
+
+    Note: it affects newly created mailing lists.
+
+```
+MLMMJ_DEFAULT_PROFILE_SETTINGS.update({'smtp_port': 10027})
+```
+
+- Remove all `control/smtpport` file under `/var/vmail/mlmmj/<domain>/<list-name>/`.
+  For example, for mailing list `mygroup@domain.com`, the file is
+  `/var/vmail/mlmmj/domain.com/mygroup/control/smtpport`.
+
+    Note: it affects all existing mailing lists.
