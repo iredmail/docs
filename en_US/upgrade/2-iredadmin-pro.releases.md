@@ -2,9 +2,9 @@
 
 [TOC]
 
-## Upgrade iRedAdmin
+## Upgrade iRedAdmin-Pro
 
-With the latest iRedAdmin, you can simply upgrade old releases by following
+With the latest iRedAdmin-Pro, you can simply upgrade old releases by following
 this tutorial with just one shell command:
 
 * [Migrate or upgrade iRedAdmin](./migrate.or.upgrade.iredadmin.html)
