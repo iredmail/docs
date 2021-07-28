@@ -1,6 +1,5 @@
-Please visit [https://docs.iredmail.org/](https://docs.iredmail.org/)
-to read converted documents in HTML format, get support in our forum:
-[https://forum.iredmail.org/](https://forum.iredmail.org/).
+- Please visit [https://docs.iredmail.org/](https://docs.iredmail.org/) to read documents.
+- Get support in our forum: [https://forum.iredmail.org/](https://forum.iredmail.org/).
 
 # License
 
