@@ -345,7 +345,7 @@ v=DMARC1; p=reject; sp=none; adkim=s; aspf=s; rua=mailto:dmarc@mydomain.com; ruf
 * `adkim` specifies alignment mode for DKIM. 2 options are available:
     * `r`: relax mode (`adkim=r`)
     * `s`: strict mode (`adkim=s`)
-* `aspf` specifies aligment mode for SPF. 2 options are available:
+* `aspf` specifies alignment mode for SPF. 2 options are available:
     * `r`: relax mode (`aspf=r`)
     * `s`: strict mode (`aspf=s`)
 * `p` specifies the policy for organizational domain. It tells the recipient
