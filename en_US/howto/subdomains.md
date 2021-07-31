@@ -42,7 +42,7 @@ server {
 	}
 }
 ```
-Wee can see following:
+We can see following:
 ```
 server {
     listen 443 ssl http2;
@@ -70,12 +70,12 @@ To do this, we need:
     ...
     include /etc/nginx/templates/example_service.tmpl;
 ```
-As example, wee deleted
+As example, we deleted
 ```
     include /etc/nginx/templates/example_service.tmpl;
 ```
 2. Create new site config at /etc/nginx/sites-available/
-As example, wee create example_service.example.com.conf
+As example, we create example_service.example.com.conf
 3. Write config to file
 We need server{} context with
 ```
