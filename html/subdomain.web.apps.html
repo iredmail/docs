@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Run web applications under subdomain with Nginx</title>
+        <link rel="stylesheet" type="text/css" href="./css/markdown.css" />
+    </head>
+    <body>
+
+    <div id="navigation">
+    <a href="https://www.iredmail.org" target="_blank">
+        <img alt="iRedMail web site"
+             src="./images/logo-iredmail.png"
+             style="vertical-align: middle; height: 30px;"
+             />&nbsp;
+        <span>iRedMail</span>
+    </a>
+    &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><h1 id="run-web-applications-under-subdomain-with-nginx">Run web applications under subdomain with Nginx</h1>
+<div class="toc">
+<ul>
+<li><a href="#run-web-applications-under-subdomain-with-nginx">Run web applications under subdomain with Nginx</a><ul>
+<li><a href="#introduction">Introduction</a></li>
+<li><a href="#run-web-applications-under-subdomain">Run web applications under subdomain</a></li>
+<li><a href="#important-notes">Important notes</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<h2 id="introduction">Introduction</h2>
+<p>By default, Roundcube, SOGo, Netdata and iRedAdmin are located at <code>/mail</code>,
+<code>/SOGo</code>, <code>/netdata</code> and <code>/iredadmin</code>. If you have SOGo but no Roundcube,
+<code>/mail</code> will be redirected to <code>/SOGo</code> too.</p>
+<p>For example, if your server hostname is <code>mail.example.com</code>, and you correctly
+added an A type DNS record pointed to this iRedMail server, you should be able
+to visit them with URLs below:</p>
+<ul>
+<li>Roundcube webmail: <code>https://mail.example.com/mail</code></li>
+<li>SOGo Groupware: <code>https://mail.example.com/SOGo</code></li>
+<li>Netdata monitor: <code>https://mail.example.com/netdata</code></li>
+<li>iRedAdmin or iRedAdmin-Pro: <code>https://mail.example.com/iredadmin</code></li>
+</ul>
+<p>The URIs are defined in the catch-all Nginx web host config file
+<code>/etc/nginx/sites-available/00-default-ssl.conf</code>, here's its full content:</p>
+<pre><code>#
+# Note: This file must be loaded before other virtual host config files,
+#
+# HTTPS
+server {
+    listen 443 ssl http2;
+    listen [::]:443 ssl http2;
+    server_name _;      # &lt;- Name `_` will catch all web domain names,
+                        # &lt;- this is why this file must be loaded before other
+                        # &lt;- web host config files.
+
+    root /var/www/html;
+    index index.php index.html;
+
+    include /etc/nginx/templates/misc.tmpl;         # &lt;- Misc
+    include /etc/nginx/templates/ssl.tmpl;          # &lt;- SSL related configurations.
+    include /etc/nginx/templates/iredadmin.tmpl;    # &lt;- iRedAdmin
+    include /etc/nginx/templates/roundcube.tmpl;    # &lt;- Roundcube webmail
+    include /etc/nginx/templates/sogo.tmpl;         # &lt;- SOGo Groupware
+    include /etc/nginx/templates/netdata.tmpl;      # &lt;- Netdata monitor
+    include /etc/nginx/templates/php-catchall.tmpl; # &lt;- php support
+    include /etc/nginx/templates/stub_status.tmpl;  # &lt;- Nginx status monitoring
+}
+</code></pre>
+
+<p>As you can see, it loads multiple configuration snippets, and they define the
+URIs you can access to visit the web applications.</p>
+<p>iRedMail also generates configuration snippet files to run them under subdomain:</p>
+<ul>
+<li>/etc/nginx/templates/iredadmin-subdomain.tmpl</li>
+<li>/etc/nginx/templates/netdata-subdomain.tmpl</li>
+<li>/etc/nginx/templates/roundcube-subdomain.tmpl</li>
+<li>/etc/nginx/templates/sogo-subdomain.tmpl</li>
+</ul>
+<h2 id="run-web-applications-under-subdomain">Run web applications under subdomain</h2>
+<p>To run Roundcube, SOGo and/or iRedAdmin under subdomain, you can simply create
+a new web host config file, and load the <code>*-subdomain.tmpl</code> file.</p>
+<p>Let's say you want to run Roundcube under subdomain <code>webmail.example.com</code>.</p>
+<ul>
+<li>Update DNS record to point domain name <code>webmail.example.com</code> to your iRedMail
+  server.</li>
+<li>Create new web host config file <code>/etc/nginx/sites-available/webmail.example.com.conf</code> with content below:</li>
+</ul>
+<pre><code>server {
+    listen 443 ssl http2;
+    listen [::]:443 ssl http2;
+    server_name webmail.example.com;
+
+    include /etc/nginx/templates/misc.tmpl;
+    include /etc/nginx/templates/ssl.tmpl;
+    include /etc/nginx/templates/roundcube.tmpl;
+}
+</code></pre>
+
+<ul>
+<li>Create symbol link to <code>/etc/nginx/sites-enabled/</code> with shell command below:</li>
+</ul>
+<pre><code>ln -sf /etc/nginx/sites-available/webmail.example.com.conf /etc/nginx/sites-enabled/webmail.example.com.conf
+</code></pre>
+
+<ul>
+<li>[OPTIONAL] If you want to remove acess from <code>https://mail.example.com/mail/</code>
+  (<code>mail.exmaple.com</code> is your server hostname), you can simply comment out
+  below line in <code>/etc/nginx/sites-available/00-default-ssl.conf</code>:</li>
+</ul>
+<pre><code>include /etc/nginx/templates/roundcube.tmpl;
+</code></pre>
+
+<ul>
+<li>Restart or reload Nginx service:</li>
+</ul>
+<pre><code>service nginx restart
+</code></pre>
+
+<h2 id="important-notes">Important notes</h2>
+<ul>
+<li>
+<p>File <code>/etc/nginx/templates/ssl.tmpl</code> loads self-signed ssl cert by default,
+  we strongly recommend to request free SSL cert by following our tutorial:
+  <a href="https://docs.iredmail.org/letsencrypt.html">Request a free cert from Let's Encrypt</a>.</p>
+<p>Note: You can request one cert with multiple domain names.</p>
+</li>
+<li>
+<p>You can also create your own Nginx configuration snipppet file with
+  different SSL cert/key files too.</p>
+</li>
+</ul><div class="footer">
+    <p style="text-align: center; color: grey;">All documents are available in <a href="https://github.com/iredmail/docs/">GitHub repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://github.com/iredmail/docs/archive/master.zip">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
+</div></body></html>
