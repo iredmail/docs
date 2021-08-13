@@ -255,17 +255,17 @@ We will setup `mlmmjadmin` program to make managing mailing lists easier.
 
     !!! attention
 
-        We use version `3.0.4` for example below.
+        We use version `3.1.2` for example below.
 
         - `mlmmjadmin-3.x` and later releases requires Python 3.
         - `mlmmjadmin-2.x` and older releases requires Python 2.
 
 ```
 cd /root/
-wget https://github.com/iredmail/mlmmjadmin/archive/3.0.4.tar.gz
-tar zxf 3.0.4.tar.gz -C /opt
-rm -f 3.0.4.tar.gz
-ln -s /opt/mlmmjadmin-3.0.4 /opt/mlmmjadmin
+wget https://github.com/iredmail/mlmmjadmin/archive/3.1.2.tar.gz
+tar zxf 3.1.2.tar.gz -C /opt
+rm -f 3.1.2.tar.gz
+ln -s /opt/mlmmjadmin-3.1.2 /opt/mlmmjadmin
 ```
 
 * Generate config file by copying sample file, `settings.py.sample`:

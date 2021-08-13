@@ -212,12 +212,12 @@ Debian/Ubuntu, it's <code>/var/log/mail.log</code>.</p>
 </div>
 </li>
 </ul>
-<pre><code>[postfix-pregreet-iredmail]
+<pre><code>[postfix-pregreet]
 enabled     = true
 filter      = postfix-pregreet.iredmail
 logpath     = /var/log/maillog
 maxretry    = 1
-action      = iptables-multiport[name=postfix, port=&quot;25&quot;, protocol=tcp]
+action      = iptables-multiport[name=postfix-pregreet, port=&quot;25&quot;, protocol=tcp]
 </code></pre>
 
 <ul>

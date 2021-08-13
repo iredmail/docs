@@ -166,12 +166,12 @@ wget https://github.com/iredmail/iRedMail/raw/1.0/samples/fail2ban/filter.d/post
         Debian/Ubuntu, it's `/var/log/mail.log`.
 
 ```
-[postfix-pregreet-iredmail]
+[postfix-pregreet]
 enabled     = true
 filter      = postfix-pregreet.iredmail
 logpath     = /var/log/maillog
 maxretry    = 1
-action      = iptables-multiport[name=postfix, port="25", protocol=tcp]
+action      = iptables-multiport[name=postfix-pregreet, port="25", protocol=tcp]
 ```
 
 * Restarting Fail2ban service is required.
