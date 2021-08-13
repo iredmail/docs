@@ -108,7 +108,8 @@ Find parameter `@av_scanner` like below:
 ```
 @av_scanners = (
     ...
-    qr/\bOK$/, qr/\bFOUND$/,
+    qr/\bOK$/,
+    qr/\bFOUND$/,
     qr/^.*?: (?!Infected Archive)(.*) FOUND$/ ],
 );
 ```
@@ -118,7 +119,8 @@ Append letter `m` after `OK$/` and `FOUND$/` like below:
 ```
 @av_scanners = (
     ...
-    qr/\bOK$/m, qr/\bFOUND$/m,
+    qr/\bOK$/m,
+    qr/\bFOUND$/m,
     qr/^.*?: (?!Infected Archive)(.*) FOUND$/m ],
 );
 ```

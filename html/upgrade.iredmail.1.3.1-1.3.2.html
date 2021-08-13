@@ -128,7 +128,8 @@ below, so that Amavisd logs matched virus database name.</p>
 <p>Find parameter <code>@av_scanner</code> like below:</p>
 <pre><code>@av_scanners = (
     ...
-    qr/\bOK$/, qr/\bFOUND$/,
+    qr/\bOK$/,
+    qr/\bFOUND$/,
     qr/^.*?: (?!Infected Archive)(.*) FOUND$/ ],
 );
 </code></pre>
@@ -136,7 +137,8 @@ below, so that Amavisd logs matched virus database name.</p>
 <p>Append letter <code>m</code> after <code>OK$/</code> and <code>FOUND$/</code> like below:</p>
 <pre><code>@av_scanners = (
     ...
-    qr/\bOK$/m, qr/\bFOUND$/m,
+    qr/\bOK$/m,
+    qr/\bFOUND$/m,
     qr/^.*?: (?!Infected Archive)(.*) FOUND$/m ],
 );
 </code></pre>
