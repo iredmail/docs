@@ -183,8 +183,10 @@ White/blacklisting is controlled by plugin `amavisd_wblist` (file
 - a single user: `user@domain.com`
 - a single domain: `@domain.com`, `@sub.domain.com`
 - entire domain and all its sub-domains: `@.domain.com` (there's a dot after `@`)
-- anyone: `@.` (the ending dot is required)
+- anyone: `@.` (the ending dot is required). it catches all addresses.
 - top-level domain: `@.com`
+- single ip address: `192.168.1.2`
+- CIDR network: `192.168.1.0/24`
 
 ##### Sample usages
 

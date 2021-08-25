@@ -211,8 +211,10 @@ parameter <code>plugins =</code>:</p>
 <li>a single user: <code>user@domain.com</code></li>
 <li>a single domain: <code>@domain.com</code>, <code>@sub.domain.com</code></li>
 <li>entire domain and all its sub-domains: <code>@.domain.com</code> (there's a dot after <code>@</code>)</li>
-<li>anyone: <code>@.</code> (the ending dot is required)</li>
+<li>anyone: <code>@.</code> (the ending dot is required). it catches all addresses.</li>
 <li>top-level domain: <code>@.com</code></li>
+<li>single ip address: <code>192.168.1.2</code></li>
+<li>CIDR network: <code>192.168.1.0/24</code></li>
 </ul>
 <h5 id="sample-usages">Sample usages</h5>
 <ul>
