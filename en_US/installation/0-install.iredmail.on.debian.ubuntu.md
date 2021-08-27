@@ -92,7 +92,7 @@ mx.example.com
 * Install package `gzip` so that you can uncompress downloaded iRedMail package.
 
 ```
-# sudo apt-get install gzip
+sudo apt-get install gzip
 ```
 
 ### Download the latest release of iRedMail
@@ -107,8 +107,8 @@ mx.example.com
 * Uncompress iRedMail tarball:
 
 ```
-# cd /root/
-# tar zxf iRedMail-x.y.z.tar.gz
+cd /root/
+tar zxf iRedMail-x.y.z.tar.gz
 ```
 
 ## Start iRedMail installer
@@ -117,8 +117,8 @@ It's now ready to start iRedMail installer, it will ask you several simple
 questions, that's all required to setup a full-featured mail server.
 
 ```
-# cd /root/iRedMail-x.y.z/
-# bash iRedMail.sh
+cd /root/iRedMail-x.y.z/
+bash iRedMail.sh
 ```
 
 ## Screenshots of installation:
