@@ -58,7 +58,7 @@ apt remove clamav-base
 
 # FreeBSD
 sysrc -f /etc/rc.conf.local clamd=no
-systemctl restart amavisd
+service restart amavisd
 pkg remove clamav
 
 # OpenBSD
