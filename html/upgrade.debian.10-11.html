@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Fixes you need after upgrading Debian from 10 to 11</title>
+        <link rel="stylesheet" type="text/css" href="./css/markdown.css" />
+    </head>
+    <body>
+
+    <div id="navigation">
+    <a href="https://www.iredmail.org" target="_blank">
+        <img alt="iRedMail web site"
+             src="./images/logo-iredmail.png"
+             style="vertical-align: middle; height: 30px;"
+             />&nbsp;
+        <span>iRedMail</span>
+    </a>
+    &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><h1 id="fixes-you-need-after-upgrading-debian-from-10-to-11">Fixes you need after upgrading Debian from 10 to 11</h1>
+<div class="toc">
+<ul>
+<li><a href="#fixes-you-need-after-upgrading-debian-from-10-to-11">Fixes you need after upgrading Debian from 10 to 11</a><ul>
+<li><a href="#iredapd-and-iredadmin-pro">iRedAPD and iRedAdmin(-Pro)</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This is still a DRAFT document, it may miss some other important changes.</p>
+</div>
+<h2 id="iredapd-and-iredadmin-pro">iRedAPD and iRedAdmin(-Pro)</h2>
+<p>Debian 11 offers newer Python release, few Python modules must be re-installed:</p>
+<pre><code>pip3 install -U web.py
+</code></pre>
+
+<p>Services must be restarted:</p>
+<pre><code>service iredapd restart
+service iredadmin restart
+</code></pre><div class="footer">
+    <p style="text-align: center; color: grey;">All documents are available in <a href="https://github.com/iredmail/docs/">GitHub repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://github.com/iredmail/docs/archive/master.zip">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
+</div></body></html>
