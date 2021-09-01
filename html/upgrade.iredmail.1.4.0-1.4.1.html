@@ -28,6 +28,18 @@
 </li>
 </ul>
 </li>
+<li><a href="#for-openldap-backend">For OpenLDAP backend</a><ul>
+<li><a href="#add-new-attributevalue-pairs-for-per-user-sogo-webmail-calendar-activesync-service-control">Add new attribute/value pairs for per-user SOGo webmail / calendar / activesync service control</a></li>
+</ul>
+</li>
+<li><a href="#for-mysql-and-mariadb-backends">For MySQL and MariaDB backends</a><ul>
+<li><a href="#add-new-sql-columns-in-vmailmailbox-table">Add new SQL columns in vmail.mailbox table</a></li>
+</ul>
+</li>
+<li><a href="#for-postgresql-backend">For PostgreSQL backend</a><ul>
+<li><a href="#add-new-sql-columns-in-vmailmailbox-table_1">Add new SQL columns in vmail.mailbox table</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -106,6 +118,95 @@ commands below to achieve it (Note: we use MySQL for example):</p>
 <pre><code>USE amavisd;
 UPDATE policy SET banned_rulenames="ALLOW_MS_WORD,ALLOW_MS_EXCEL" WHERE policy_name="user@domain.com";
 </code></pre>
-</div><div class="footer">
+</div>
+<h2 id="for-openldap-backend">For OpenLDAP backend</h2>
+<h3 id="add-new-attributevalue-pairs-for-per-user-sogo-webmail-calendar-activesync-service-control">Add new attribute/value pairs for per-user SOGo webmail / calendar / activesync service control</h3>
+<p>iRedMail-1.4.1 improves SOGo config file and it's able to enable or disable
+per-user SOGo webmail, calendar, activesync services with 3 new LDAP
+attribute/value pairs:</p>
+<ul>
+<li><code>enabledService=sogowebmail</code></li>
+<li><code>enabledService=sogocalendar</code></li>
+<li><code>enabledService=sogoactivesync</code></li>
+</ul>
+<p>The old <code>enabledService=sogo</code> is still used to enable or disable whole SOGo
+access.</p>
+<ul>
+<li>Download script used to update existing mail accounts:</li>
+</ul>
+<pre><code>cd /root/
+wget https://github.com/iredmail/iRedMail/raw/1.4.1/update/1.4.1/update-ldap.py
+</code></pre>
+
+<ul>
+<li>
+<p>Open downloaded file <code>update-ldap.py</code>, set LDAP server related settings in
+  this file:</p>
+<p>You can find required LDAP credential in iRedAdmin config file
+(<code>/opt/www/iredadmin/settings.py</code>), using either
+<code>cn=Manager,dc=xx,dc=xx</code> or <code>cn=vmailadmin,dc=xx,dc=xx</code> as bind dn is ok.</p>
+</li>
+</ul>
+<pre><code># Part of file: updateLDAPValues_099_to_1.py
+
+uri = 'ldap://127.0.0.1:389'
+basedn = 'o=domains,dc=example,dc=com'
+bind_dn = 'cn=vmailadmin,dc=example,dc=com'
+bind_pw = 'passwd'
+</code></pre>
+
+<ul>
+<li>Execute this script with Python-3 to update LDAP data:</li>
+</ul>
+<pre><code># python3 update-ldap.py
+</code></pre>
+
+<h2 id="for-mysql-and-mariadb-backends">For MySQL and MariaDB backends</h2>
+<h3 id="add-new-sql-columns-in-vmailmailbox-table">Add new SQL columns in <code>vmail.mailbox</code> table</h3>
+<p>iRedMail-1.4.1 introduces 3 new columns used to enable or disable per-user
+SOGo webmail, calendar and activesync services:</p>
+<ul>
+<li><code>enablesogowebmail</code></li>
+<li><code>enablesogocalendar</code></li>
+<li><code>enablesogoactivesync</code></li>
+</ul>
+<p>Download plain SQL file used to update SQL table, then import it as
+MySQL root user (Please run commands below as <code>root</code> user):</p>
+<pre><code>wget -O /tmp/iredmail.mysql https://github.com/iredmail/iRedMail/raw/1.4.1/update/1.4.1/iredmail.mysql
+mysql vmail &lt; /tmp/iredmail.mysql
+rm -f /tmp/iredmail.mysql
+</code></pre>
+
+<h2 id="for-postgresql-backend">For PostgreSQL backend</h2>
+<h3 id="add-new-sql-columns-in-vmailmailbox-table_1">Add new SQL columns in <code>vmail.mailbox</code> table</h3>
+<p>iRedMail-1.4.1 introduces 3 new columns used to enable or disable per-user
+SOGo webmail, calendar and activesync services:</p>
+<ul>
+<li><code>enablesogowebmail</code></li>
+<li><code>enablesogocalendar</code></li>
+<li><code>enablesogoactivesync</code></li>
+</ul>
+<p>Download plain SQL file used to update SQL table:</p>
+<pre><code>wget -O /tmp/iredmail.pgsql https://github.com/iredmail/iRedMail/raw/1.4.1/update/1.4.1/iredmail.pgsql
+chmod +r /tmp/iredmail.pgsql
+</code></pre>
+
+<ul>
+<li>Connect to PostgreSQL server as <code>postgres</code> user and import the SQL file:<ul>
+<li>on Linux, it's <code>postgres</code> user</li>
+<li>on FreeBSD, it's <code>pgsql</code> user</li>
+<li>on OpenBSD, it's <code>_postgresql</code> user</li>
+</ul>
+</li>
+</ul>
+<pre><code>su - postgres
+psql -d vmail &lt; /tmp/iredmail.pgsql
+</code></pre>
+
+<ul>
+<li>Remove downloaded file:</li>
+</ul>
+<pre><code>rm -f /tmp/iredmail.pgsql
+</code></pre><div class="footer">
     <p style="text-align: center; color: grey;">All documents are available in <a href="https://github.com/iredmail/docs/">GitHub repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://github.com/iredmail/docs/archive/master.zip">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
 </div></body></html>

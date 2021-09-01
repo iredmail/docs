@@ -83,3 +83,101 @@ You're free to define more ban rules to fit your own needs.
 
         USE amavisd;
         UPDATE policy SET banned_rulenames="ALLOW_MS_WORD,ALLOW_MS_EXCEL" WHERE policy_name="user@domain.com";
+
+## For OpenLDAP backend
+
+### Add new attribute/value pairs for per-user SOGo webmail / calendar / activesync service control
+
+iRedMail-1.4.1 improves SOGo config file and it's able to enable or disable
+per-user SOGo webmail, calendar, activesync services with 3 new LDAP
+attribute/value pairs:
+
+- `enabledService=sogowebmail`
+- `enabledService=sogocalendar`
+- `enabledService=sogoactivesync`
+
+The old `enabledService=sogo` is still used to enable or disable whole SOGo
+access.
+
+* Download script used to update existing mail accounts:
+
+```
+cd /root/
+wget https://github.com/iredmail/iRedMail/raw/1.4.1/update/1.4.1/update-ldap.py
+```
+
+* Open downloaded file `update-ldap.py`, set LDAP server related settings in
+  this file:
+
+    You can find required LDAP credential in iRedAdmin config file
+    (`/opt/www/iredadmin/settings.py`), using either
+    `cn=Manager,dc=xx,dc=xx` or `cn=vmailadmin,dc=xx,dc=xx` as bind dn is ok.
+
+```
+# Part of file: updateLDAPValues_099_to_1.py
+
+uri = 'ldap://127.0.0.1:389'
+basedn = 'o=domains,dc=example,dc=com'
+bind_dn = 'cn=vmailadmin,dc=example,dc=com'
+bind_pw = 'passwd'
+```
+
+* Execute this script with Python-3 to update LDAP data:
+
+```
+# python3 update-ldap.py
+```
+
+## For MySQL and MariaDB backends
+
+### Add new SQL columns in `vmail.mailbox` table
+
+iRedMail-1.4.1 introduces 3 new columns used to enable or disable per-user
+SOGo webmail, calendar and activesync services:
+
+- `enablesogowebmail`
+- `enablesogocalendar`
+- `enablesogoactivesync`
+
+Download plain SQL file used to update SQL table, then import it as
+MySQL root user (Please run commands below as `root` user):
+
+```
+wget -O /tmp/iredmail.mysql https://github.com/iredmail/iRedMail/raw/1.4.1/update/1.4.1/iredmail.mysql
+mysql vmail < /tmp/iredmail.mysql
+rm -f /tmp/iredmail.mysql
+```
+
+## For PostgreSQL backend
+
+### Add new SQL columns in `vmail.mailbox` table
+
+iRedMail-1.4.1 introduces 3 new columns used to enable or disable per-user
+SOGo webmail, calendar and activesync services:
+
+- `enablesogowebmail`
+- `enablesogocalendar`
+- `enablesogoactivesync`
+
+Download plain SQL file used to update SQL table:
+
+```
+wget -O /tmp/iredmail.pgsql https://github.com/iredmail/iRedMail/raw/1.4.1/update/1.4.1/iredmail.pgsql
+chmod +r /tmp/iredmail.pgsql
+```
+
+* Connect to PostgreSQL server as `postgres` user and import the SQL file:
+    * on Linux, it's `postgres` user
+    * on FreeBSD, it's `pgsql` user
+    * on OpenBSD, it's `_postgresql` user
+
+```
+su - postgres
+psql -d vmail < /tmp/iredmail.pgsql
+```
+
+* Remove downloaded file:
+
+```
+rm -f /tmp/iredmail.pgsql
+```
