@@ -168,7 +168,7 @@ Directory `/etc/letsencrypt/live/` and `/etc/letsencrypt/archive` are owned by
 root user and group, with permission 0700 (set by `certbot` program) by
 default, it means other users can not access them -- including the daemon users
 used to run network services like Postfix/Dovecot/OpenLDAP/MariaDB/PostgreSQL.
-It's necessary to set the permission to 0644 for other applications to access them.
+It's necessary to set the permission to 0755 for other applications to access them.
 
 ```
 chmod 0755 /etc/letsencrypt/{live,archive}

@@ -205,7 +205,7 @@ instead of <code>mail.mydomain.com</code> in this sample path).</p>
 root user and group, with permission 0700 (set by <code>certbot</code> program) by
 default, it means other users can not access them -- including the daemon users
 used to run network services like Postfix/Dovecot/OpenLDAP/MariaDB/PostgreSQL.
-It's necessary to set the permission to 0644 for other applications to access them.</p>
+It's necessary to set the permission to 0755 for other applications to access them.</p>
 <pre><code>chmod 0755 /etc/letsencrypt/{live,archive}
 </code></pre>
 
