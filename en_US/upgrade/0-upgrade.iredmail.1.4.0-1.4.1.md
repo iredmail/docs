@@ -130,7 +130,7 @@ bind_pw = 'passwd'
 
 ## For MySQL and MariaDB backends
 
-### Add new SQL columns in `vmail.mailbox` table
+### Add new SQL columns in `vmail.mailbox` table for per-user SOGo webmail / calendar / activesync service control
 
 iRedMail-1.4.1 introduces 3 new columns used to enable or disable per-user
 SOGo webmail, calendar and activesync services:
@@ -148,9 +148,20 @@ mysql vmail < /tmp/iredmail.mysql
 rm -f /tmp/iredmail.mysql
 ```
 
+## SOGo: Re-create SQL VIEW
+
+Download plain SQL file used to update SQL table, then import it as
+MySQL root user (Please run commands below as `root` user):
+
+```
+wget -O /tmp/sogo.mysql https://github.com/iredmail/iRedMail/raw/1.4.1/update/1.4.1/sogo.mysql
+mysql sogo < /tmp/sogo.mysql
+rm -f /tmp/sogo.mysql
+```
+
 ## For PostgreSQL backend
 
-### Add new SQL columns in `vmail.mailbox` table
+### Add new SQL columns in `vmail.mailbox` table for per-user SOGo webmail / calendar / activesync service control
 
 iRedMail-1.4.1 introduces 3 new columns used to enable or disable per-user
 SOGo webmail, calendar and activesync services:
@@ -181,3 +192,34 @@ psql -d vmail < /tmp/iredmail.pgsql
 ```
 rm -f /tmp/iredmail.pgsql
 ```
+
+## SOGo: Re-create SQL VIEW
+
+Download plain SQL file used to update SQL table:
+
+```
+wget -O /tmp/sogo.pgsql https://github.com/iredmail/iRedMail/raw/1.4.1/update/1.4.1/sogo.pgsql
+chmod +r /tmp/sogo.pgsql
+```
+
+Please open file `/tmp/sogo.pgsql`, replace string `VMAIL_DB_BIND_PASSWD` by
+the real password of SQL user `vmail`. You can find the password in any file
+under `/etc/postfix/pgsql/`.
+
+After updated `/tmp/sogo.pgsql`, please connect to PostgreSQL server as
+`postgres` user and import the SQL file:
+* on Linux, it's `postgres` user
+* on FreeBSD, it's `pgsql` user
+* on OpenBSD, it's `_postgresql` user
+
+```
+su - postgres
+psql -d sogo < /tmp/sogo.pgsql
+```
+
+* Remove downloaded file:
+
+```
+rm -f /tmp/sogo.pgsql
+```
+

@@ -33,13 +33,15 @@
 </ul>
 </li>
 <li><a href="#for-mysql-and-mariadb-backends">For MySQL and MariaDB backends</a><ul>
-<li><a href="#add-new-sql-columns-in-vmailmailbox-table">Add new SQL columns in vmail.mailbox table</a></li>
+<li><a href="#add-new-sql-columns-in-vmailmailbox-table-for-per-user-sogo-webmail-calendar-activesync-service-control">Add new SQL columns in vmail.mailbox table for per-user SOGo webmail / calendar / activesync service control</a></li>
 </ul>
 </li>
+<li><a href="#sogo-re-create-sql-view">SOGo: Re-create SQL VIEW</a></li>
 <li><a href="#for-postgresql-backend">For PostgreSQL backend</a><ul>
-<li><a href="#add-new-sql-columns-in-vmailmailbox-table_1">Add new SQL columns in vmail.mailbox table</a></li>
+<li><a href="#add-new-sql-columns-in-vmailmailbox-table-for-per-user-sogo-webmail-calendar-activesync-service-control_1">Add new SQL columns in vmail.mailbox table for per-user SOGo webmail / calendar / activesync service control</a></li>
 </ul>
 </li>
+<li><a href="#sogo-re-create-sql-view_1">SOGo: Re-create SQL VIEW</a></li>
 </ul>
 </li>
 </ul>
@@ -162,7 +164,7 @@ bind_pw = 'passwd'
 </code></pre>
 
 <h2 id="for-mysql-and-mariadb-backends">For MySQL and MariaDB backends</h2>
-<h3 id="add-new-sql-columns-in-vmailmailbox-table">Add new SQL columns in <code>vmail.mailbox</code> table</h3>
+<h3 id="add-new-sql-columns-in-vmailmailbox-table-for-per-user-sogo-webmail-calendar-activesync-service-control">Add new SQL columns in <code>vmail.mailbox</code> table for per-user SOGo webmail / calendar / activesync service control</h3>
 <p>iRedMail-1.4.1 introduces 3 new columns used to enable or disable per-user
 SOGo webmail, calendar and activesync services:</p>
 <ul>
@@ -177,8 +179,16 @@ mysql vmail &lt; /tmp/iredmail.mysql
 rm -f /tmp/iredmail.mysql
 </code></pre>
 
+<h2 id="sogo-re-create-sql-view">SOGo: Re-create SQL VIEW</h2>
+<p>Download plain SQL file used to update SQL table, then import it as
+MySQL root user (Please run commands below as <code>root</code> user):</p>
+<pre><code>wget -O /tmp/sogo.mysql https://github.com/iredmail/iRedMail/raw/1.4.1/update/1.4.1/sogo.mysql
+mysql sogo &lt; /tmp/sogo.mysql
+rm -f /tmp/sogo.mysql
+</code></pre>
+
 <h2 id="for-postgresql-backend">For PostgreSQL backend</h2>
-<h3 id="add-new-sql-columns-in-vmailmailbox-table_1">Add new SQL columns in <code>vmail.mailbox</code> table</h3>
+<h3 id="add-new-sql-columns-in-vmailmailbox-table-for-per-user-sogo-webmail-calendar-activesync-service-control_1">Add new SQL columns in <code>vmail.mailbox</code> table for per-user SOGo webmail / calendar / activesync service control</h3>
 <p>iRedMail-1.4.1 introduces 3 new columns used to enable or disable per-user
 SOGo webmail, calendar and activesync services:</p>
 <ul>
@@ -207,6 +217,30 @@ psql -d vmail &lt; /tmp/iredmail.pgsql
 <li>Remove downloaded file:</li>
 </ul>
 <pre><code>rm -f /tmp/iredmail.pgsql
+</code></pre>
+
+<h2 id="sogo-re-create-sql-view_1">SOGo: Re-create SQL VIEW</h2>
+<p>Download plain SQL file used to update SQL table:</p>
+<pre><code>wget -O /tmp/sogo.pgsql https://github.com/iredmail/iRedMail/raw/1.4.1/update/1.4.1/sogo.pgsql
+chmod +r /tmp/sogo.pgsql
+</code></pre>
+
+<p>Please open file <code>/tmp/sogo.pgsql</code>, replace string <code>VMAIL_DB_BIND_PASSWD</code> by
+the real password of SQL user <code>vmail</code>. You can find the password in any file
+under <code>/etc/postfix/pgsql/</code>.</p>
+<p>After updated <code>/tmp/sogo.pgsql</code>, please connect to PostgreSQL server as
+<code>postgres</code> user and import the SQL file:
+<em> on Linux, it's <code>postgres</code> user
+</em> on FreeBSD, it's <code>pgsql</code> user
+* on OpenBSD, it's <code>_postgresql</code> user</p>
+<pre><code>su - postgres
+psql -d sogo &lt; /tmp/sogo.pgsql
+</code></pre>
+
+<ul>
+<li>Remove downloaded file:</li>
+</ul>
+<pre><code>rm -f /tmp/sogo.pgsql
 </code></pre><div class="footer">
     <p style="text-align: center; color: grey;">All documents are available in <a href="https://github.com/iredmail/docs/">GitHub repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://github.com/iredmail/docs/archive/master.zip">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
 </div></body></html>
