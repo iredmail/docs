@@ -30,18 +30,19 @@
 </li>
 <li><a href="#for-openldap-backend">For OpenLDAP backend</a><ul>
 <li><a href="#add-new-attributevalue-pairs-for-per-user-sogo-webmail-calendar-activesync-service-control">Add new attribute/value pairs for per-user SOGo webmail / calendar / activesync service control</a></li>
+<li><a href="#sogo-update-config-file">SOGo: Update config file</a></li>
 </ul>
 </li>
 <li><a href="#for-mysql-and-mariadb-backends">For MySQL and MariaDB backends</a><ul>
 <li><a href="#add-new-sql-columns-in-vmailmailbox-table-for-per-user-sogo-webmail-calendar-activesync-service-control">Add new SQL columns in vmail.mailbox table for per-user SOGo webmail / calendar / activesync service control</a></li>
+<li><a href="#sogo-re-create-sql-view-and-update-config-file">SOGo: Re-create SQL VIEW and update config file</a></li>
 </ul>
 </li>
-<li><a href="#sogo-re-create-sql-view">SOGo: Re-create SQL VIEW</a></li>
 <li><a href="#for-postgresql-backend">For PostgreSQL backend</a><ul>
 <li><a href="#add-new-sql-columns-in-vmailmailbox-table-for-per-user-sogo-webmail-calendar-activesync-service-control_1">Add new SQL columns in vmail.mailbox table for per-user SOGo webmail / calendar / activesync service control</a></li>
+<li><a href="#sogo-re-create-sql-view-and-update-config-file_1">SOGo: Re-create SQL VIEW and update config file</a></li>
 </ul>
 </li>
-<li><a href="#sogo-re-create-sql-view_1">SOGo: Re-create SQL VIEW</a></li>
 </ul>
 </li>
 </ul>
@@ -163,6 +164,41 @@ bind_pw = 'passwd'
 <pre><code># python3 update-ldap.py
 </code></pre>
 
+<h3 id="sogo-update-config-file">SOGo: Update config file</h3>
+<p>Open SOGo main config file <code>/etc/sogo/sogo.conf</code> (Linux/OpenBSD) or
+<code>/usr/local/etc/sogo/sogo.conf</code> (FreeBSD), find the <code>SOGoUserSources</code> block
+like below:</p>
+<pre><code>    // Authentication using LDAP
+    SOGoUserSources = (
+        {
+            // Used for user authentication
+            type = ldap;
+            id = users;
+            canAuthenticate = YES;
+
+            // ... we omit other config lines here ...
+        }
+    )
+</code></pre>
+
+<p>Add new parameter <code>ModulesConstraints</code> right after <code>canAuthenticate = YES;</code>
+line like below:</p>
+<pre><code>    SOGoUserSources = (
+        {
+            // ... we omit other config lines here ...
+            canAuthenticate = YES;
+
+            ModulesConstraints = {
+                Mail = { enabledService = sogowebmail; };
+                Calendar = { enabledService = sogocalendar; };
+                ActiveSync = { enabledService = sogoactivesync; };
+            };
+
+            // ... we omit other config lines here ...
+        }
+    )
+</code></pre>
+
 <h2 id="for-mysql-and-mariadb-backends">For MySQL and MariaDB backends</h2>
 <h3 id="add-new-sql-columns-in-vmailmailbox-table-for-per-user-sogo-webmail-calendar-activesync-service-control">Add new SQL columns in <code>vmail.mailbox</code> table for per-user SOGo webmail / calendar / activesync service control</h3>
 <p>iRedMail-1.4.1 introduces 3 new columns used to enable or disable per-user
@@ -179,7 +215,7 @@ mysql vmail &lt; /tmp/iredmail.mysql
 rm -f /tmp/iredmail.mysql
 </code></pre>
 
-<h2 id="sogo-re-create-sql-view">SOGo: Re-create SQL VIEW</h2>
+<h3 id="sogo-re-create-sql-view-and-update-config-file">SOGo: Re-create SQL VIEW and update config file</h3>
 <p>Download plain SQL file used to update SQL table, then import it as
 MySQL root user (Please run commands below as <code>root</code> user):</p>
 <pre><code>wget -O /tmp/sogo.mysql https://github.com/iredmail/iRedMail/raw/1.4.1/update/1.4.1/sogo.mysql
@@ -187,6 +223,41 @@ mysql sogo &lt; /tmp/sogo.mysql
 rm -f /tmp/sogo.mysql
 </code></pre>
 
+<p>Now open SOGo main config file <code>/etc/sogo/sogo.conf</code> (Linux/OpenBSD) or
+<code>/usr/local/etc/sogo/sogo.conf</code> (FreeBSD), find the <code>SOGoUserSources</code> block
+like below:</p>
+<pre><code>    // Authentication using SQL
+    SOGoUserSources = (
+        {
+            type = sql;
+            id = users;
+            viewURL = ...
+            canAuthenticate = YES;
+
+            // ... we omit other config lines here ...
+        }
+    )
+</code></pre>
+
+<p>Add new parameter <code>ModulesConstraints</code> right after <code>canAuthenticate = YES;</code>
+line like below:</p>
+<pre><code>    SOGoUserSources = (
+        {
+            // ... we omit other config lines here ...
+            canAuthenticate = YES;
+
+            ModulesConstraints = {
+                Mail = { c_webmail = y; };
+                Calendar = { c_calendar = y; };
+                ActiveSync = { c_activesync = y; };
+            };
+
+            // ... we omit other config lines here ...
+        }
+    )
+</code></pre>
+
+<p>Restarting SOGo service is requried.</p>
 <h2 id="for-postgresql-backend">For PostgreSQL backend</h2>
 <h3 id="add-new-sql-columns-in-vmailmailbox-table-for-per-user-sogo-webmail-calendar-activesync-service-control_1">Add new SQL columns in <code>vmail.mailbox</code> table for per-user SOGo webmail / calendar / activesync service control</h3>
 <p>iRedMail-1.4.1 introduces 3 new columns used to enable or disable per-user
@@ -219,7 +290,7 @@ psql -d vmail &lt; /tmp/iredmail.pgsql
 <pre><code>rm -f /tmp/iredmail.pgsql
 </code></pre>
 
-<h2 id="sogo-re-create-sql-view_1">SOGo: Re-create SQL VIEW</h2>
+<h3 id="sogo-re-create-sql-view-and-update-config-file_1">SOGo: Re-create SQL VIEW and update config file</h3>
 <p>Download plain SQL file used to update SQL table:</p>
 <pre><code>wget -O /tmp/sogo.pgsql https://github.com/iredmail/iRedMail/raw/1.4.1/update/1.4.1/sogo.pgsql
 chmod +r /tmp/sogo.pgsql
@@ -241,6 +312,42 @@ psql -d sogo &lt; /tmp/sogo.pgsql
 <li>Remove downloaded file:</li>
 </ul>
 <pre><code>rm -f /tmp/sogo.pgsql
-</code></pre><div class="footer">
+</code></pre>
+
+<p>Now open SOGo main config file <code>/etc/sogo/sogo.conf</code> (Linux/OpenBSD) or
+<code>/usr/local/etc/sogo/sogo.conf</code> (FreeBSD), find the <code>SOGoUserSources</code> block
+like below:</p>
+<pre><code>    // Authentication using SQL
+    SOGoUserSources = (
+        {
+            type = sql;
+            id = users;
+            viewURL = ...
+            canAuthenticate = YES;
+
+            // ... we omit other config lines here ...
+        }
+    )
+</code></pre>
+
+<p>Add new parameter <code>ModulesConstraints</code> right after <code>canAuthenticate = YES;</code>
+line like below:</p>
+<pre><code>    SOGoUserSources = (
+        {
+            // ... we omit other config lines here ...
+            canAuthenticate = YES;
+
+            ModulesConstraints = {
+                Mail = { c_webmail = y; };
+                Calendar = { c_calendar = y; };
+                ActiveSync = { c_activesync = y; };
+            };
+
+            // ... we omit other config lines here ...
+        }
+    )
+</code></pre>
+
+<p>Restarting SOGo service is requried.</p><div class="footer">
     <p style="text-align: center; color: grey;">All documents are available in <a href="https://github.com/iredmail/docs/">GitHub repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://github.com/iredmail/docs/archive/master.zip">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
 </div></body></html>
