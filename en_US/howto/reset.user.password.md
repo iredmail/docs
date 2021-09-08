@@ -2,6 +2,51 @@
 
 [TOC]
 
+## Reset password with scripts shipped in iRedAdmin(-Pro)
+
+### Reset password for one user
+
+iRedAdmin(-Pro) ships script `tools/reset_user_password.py` to help you reset
+one user's password. For example, on CentOS 7 (iRedAdmin is installed under
+`/opt/www/iredadmin`):
+
+```
+cd /opt/www/iredadmin/tools/
+python3 reset_user_password.py user@domain.ltd '123456'
+```
+
+Sample output:
+
+```
+[user@domain.ltd] Password has been reset.
+```
+
+### Reset passwords for multiple users with a CSV file
+
+If you need to update many users' passwords, another way is resetting passwords
+with script shipped in iRedAdmin-Pro: `tools/update_password_in_csv.py`. It
+reads the user email addresses and NEW passwords from a CSV file.
+
+The content is CSV file is:
+
+```
+<email> <new_password>
+```
+
+One mail user (and new password) per line. For example, file `new_passwords.csv`:
+
+```
+user1@domain.com pF4mTq4jaRzDLlWl
+user2@domain.com SPhkTUlZs1TBxvmJ
+user3@domain.com 8deNR8IBLycRujDN
+```
+
+Then run script with this file:
+
+```
+python3 update_password_in_csv.py new_passwords.csv
+```
+
 ## Reset password with SQL/LDAP command line
 
 ### Generate password hash for new password
@@ -49,60 +94,6 @@ With OpenLDAP backend, you can reset it with `ldapvi`, phpLDAPadmin or other
 LDAP client tools. `SSHA512` is recommended, but if you have some application
 which needs to perform authentication with ldap dn directly, then `SSHA` is
 preferred.
-
-## Reset password with scripts shipped in iRedAdmin-Pro
-
-!!! attention
-
-    iRedAdmin-Pro scripts support both SQL and LDAP backends.
-
-### Reset password for one user
-
-iRedAdmin-Pro ships script `tools/reset_user_password.py` to help you reset
-one user's password. For example, on CentOS 7 (iRedAdmin is installed under
-`/opt/www/iredadmin`):
-
-!!! attention
-
-    You can find the iRedAdmin-Pro installation directory from this tutorial:
-    [Locations of configuration and log files of major components](./file.locations.html#iredadmin).
-
-```
-cd /opt/www/iredadmin/tools/
-python reset_user_password.py user@domain.ltd '123456'
-```
-
-Sample output:
-
-```
-[user@domain.ltd] Password has been reset.
-```
-
-### Reset passwords for multiple users with a CSV file
-
-If you need to update many users' passwords, another way is resetting passwords
-with script shipped in iRedAdmin-Pro: `tools/update_password_in_csv.py`. It
-reads the user email addresses and NEW passwords from a CSV file.
-
-The content is CSV file is:
-
-```
-<email> <new_password>
-```
-
-One mail user (and new password) per line. For example, file `new_passwords.csv`:
-
-```
-user1@domain.com pF4mTq4jaRzDLlWl
-user2@domain.com SPhkTUlZs1TBxvmJ
-user3@domain.com 8deNR8IBLycRujDN
-```
-
-Then run script with this file:
-
-```
-python update_password_in_csv.py new_passwords.csv
-```
 
 ## See also
 
