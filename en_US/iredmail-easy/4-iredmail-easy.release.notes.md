@@ -22,6 +22,8 @@
     - Log slow process if doesn't finish in 20 seconds.
 
 * Fixed issues:
+    - Security vulnerability: It generates same random passwords for different
+      hosts in some cases.
     - Minor issue while setting up MariaDB on CentOS 8.
 
 * Package updates:
