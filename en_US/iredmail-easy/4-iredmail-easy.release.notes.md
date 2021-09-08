@@ -2,6 +2,32 @@
 
 [TOC]
 
+## Version: 2021090801 (Sep 8, 2021) {: id=2021090801 }
+
++ Debian Linux 11 (Bullseye) is now supported.
+- Debian 9 will be dropped in 3 months.
+* SOGo:
+    + Able to enable or disable per-user SOGo webmail, calendar and activesync
+      services.
+
+* Amavisd:
+    + Add some useful ban rules. You can assign them in per-user,
+      per-domain or global spam policy page with iRedAdmin-Pro.
+        + ALLOW_MS_OFFICE: Allow all Microsoft Office documents.
+        + ALLOW_MS_WORD: Allow Microsoft Word documents (.doc, .docx).
+        + ALLOW_MS_EXCEL: Allow Microsoft Excel documents (.xls, .xlsx).
+        + ALLOW_MS_PPT: Allow Microsoft PowerPoint documents (.ppt, .pptx).
+
+* php-fpm:
+    - Log slow process if doesn't finish in 20 seconds.
+
+* Fixed issues:
+    - Minor issue while setting up MariaDB on CentOS 8.
+
+* Package updates:
+    - iRedAdmin-1.5
+    - iRedAPD-5.0.3
+
 ## Version: 2021062401 (Jun 24, 2021) {: id=2021062401 }
 
 + Rocky Linux 8 is now supported.

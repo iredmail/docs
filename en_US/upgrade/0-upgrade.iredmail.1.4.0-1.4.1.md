@@ -2,10 +2,6 @@
 
 [TOC]
 
-!!! warning
-
-    THIS IS A DRAFT DOCUMENT, DO NOT APPLY IT.
-
 !!! note "Paid Remote Upgrade Support"
 
     We offer remote upgrade support if you don't want to get your hands dirty,
@@ -14,7 +10,7 @@
 
 ## ChangeLog
 
-* Jul 23, 2021: initial draft document.
+* Sep 08, 2021: initial release.
 
 ## General (All backends should apply these changes)
 
@@ -27,6 +23,29 @@ so that you can know which version of iRedMail you're running. For example:
 ```
 1.4.1
 ```
+
+### Upgrade iRedAPD (Postfix policy server) to the latest stable release (5.0.3)
+
+!!! attention
+
+    iRedAPD has been migrated to Python 3 and doesn't support Python 2 anymore.
+
+Please follow below tutorial to upgrade iRedAPD to the latest stable release:
+[Upgrade iRedAPD to the latest stable release](./upgrade.iredapd.html)
+
+### Upgrade iRedAdmin (open source edition) to the latest stable release (1.5)
+
+!!! attention
+
+    iRedAdmin has been migrated to Python 3 and doesn't support Python 2 anymore.
+
+Please follow below tutorial to upgrade iRedAdmin to the latest stable release:
+[Upgrade iRedAdmin to the latest stable release](./migrate.or.upgrade.iredadmin.html).
+
+### Upgrade mlmmjadmin to the latest stable release (3.1.2)
+
+Please follow below tutorial to upgrade mlmmjadmin to the latest stable release:
+[Upgrade mlmmjadmin to the latest stable release](./upgrade.mlmmjadmin.html)
 
 ### Amavisd: Add some useful ban rules
 
