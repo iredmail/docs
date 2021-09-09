@@ -25,3 +25,14 @@ Services must be restarted:
 service iredapd restart
 service iredadmin restart
 ```
+
+## php-fpm
+
+Debian 11 ships php 7.4, but Debian 10 ships php 7.3. Although php7.4-fpm
+service is started by default after OS upgrade, but you still need to copy
+old php-fpm config file and restart php7.4-fpm service:
+
+```
+cp /etc/php/7.3/fpm/pool.d/www.conf /etc/php/7.4/fpm/pool.d/www.conf
+service php7.4-fpm restart
+```

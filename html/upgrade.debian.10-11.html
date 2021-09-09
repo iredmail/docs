@@ -21,6 +21,7 @@
 <li><a href="#fixes-you-need-after-upgrading-debian-from-10-to-11">Fixes you need after upgrading Debian from 10 to 11</a><ul>
 <li><a href="#sogo-groupware">SOGo Groupware</a></li>
 <li><a href="#iredapd-and-iredadmin-pro">iRedAPD and iRedAdmin(-Pro)</a></li>
+<li><a href="#php-fpm">php-fpm</a></li>
 </ul>
 </li>
 </ul>
@@ -40,6 +41,14 @@ SOGo at all.</p>
 <p>Services must be restarted:</p>
 <pre><code>service iredapd restart
 service iredadmin restart
+</code></pre>
+
+<h2 id="php-fpm">php-fpm</h2>
+<p>Debian 11 ships php 7.4, but Debian 10 ships php 7.3. Although php7.4-fpm
+service is started by default after OS upgrade, but you still need to copy
+old php-fpm config file and restart php7.4-fpm service:</p>
+<pre><code>cp /etc/php/7.3/fpm/pool.d/www.conf /etc/php/7.4/fpm/pool.d/www.conf
+service php7.4-fpm restart
 </code></pre><div class="footer">
     <p style="text-align: center; color: grey;">All documents are available in <a href="https://github.com/iredmail/docs/">GitHub repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://github.com/iredmail/docs/archive/master.zip">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
 </div></body></html>
