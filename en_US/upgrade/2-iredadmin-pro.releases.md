@@ -15,7 +15,7 @@ this tutorial with just one shell command:
 
 Release Notes | Date | Comment | Extra
 ---|---|---|---
-[4.10](https://forum.iredmail.org/topic18394.html) |Sep 8, 2021 | Bug fix release, Python 3.5+ is required. | [RESTful API document](./iredadmin-pro.restful.api.html)
+[5.0](https://forum.iredmail.org/topic18394.html) |Sep 8, 2021 | Bug fix release, Python 3.5+ is required. | [RESTful API document](./iredadmin-pro.restful.api.html)
 [4.9](https://forum.iredmail.org/topic18034.html) |Apr 13, 2021 | Bug fix release, Python 3.5+ is required. | [RESTful API document](./iredadmin-pro.restful.api.html)
 [4.8](https://forum.iredmail.org/topic17642.html) |Dec 11, 2020 | Bug fix release, Python 3.5+ is required. | [RESTful API document](./iredadmin-pro.restful.api.html)
 [4.7](https://forum.iredmail.org/topic17499.html) |Oct 30, 2020 | Python 3.5+ is required. | [RESTful API document](./iredadmin-pro.restful.api.html)
