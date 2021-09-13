@@ -78,7 +78,7 @@ rcctl restart slapd
 
 ## For MySQL and MariaDB backends
 
-### Fix incorrect SQL column types in `vmail.mailbox` tables
+### Fix incorrect SQL column types and remove unused columns in `vmail.mailbox` tables
 
 iRedMail-1.4.1 introduced 3 new columns used to enable or disable per-user
 SOGo webmail, calendar and activesync services, but they were set to improper
@@ -88,6 +88,12 @@ column `CHAR(1)` because SOGo doesn't support it, we will change them to
 - `enablesogowebmail`
 - `enablesogocalendar`
 - `enablesogoactivesync`
+
+3 columns are not used at all:
+
+- `lastlogindate`
+- `lastloginipv4`
+- `lastloginprotocol`
 
 Please download plain SQL file used to update SQL table, then import it as
 MySQL root user (Please run commands below as `root` user):
@@ -111,7 +117,7 @@ rm -f /tmp/sogo.mysql
 
 ## For PostgreSQL backend
 
-### Fix incorrect SQL column types in `vmail.mailbox` tables
+### Fix incorrect SQL column types and remove unused columns in `vmail.mailbox` tables
 
 iRedMail-1.4.1 introduced 3 new columns used to enable or disable per-user
 SOGo webmail, calendar and activesync services, but they were set to improper
@@ -121,6 +127,12 @@ column `CHAR(1)` because SOGo doesn't support it, we will change them to
 - `enablesogowebmail`
 - `enablesogocalendar`
 - `enablesogoactivesync`
+
+3 columns are not used at all:
+
+- `lastlogindate`
+- `lastloginipv4`
+- `lastloginprotocol`
 
 Download plain SQL file used to update SQL table:
 

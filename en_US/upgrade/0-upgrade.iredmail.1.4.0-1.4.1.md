@@ -10,6 +10,7 @@
 
 ## ChangeLog
 
+* Sep 13, 2021: Upgrade netdata to 1.31.0.
 * Sep 13, 2021: Fix incorrect PostgreSQL column type for new columns introduced
   in table `vmail.mailbox`.
 * Sep 08, 2021: initial release.
@@ -48,6 +49,11 @@ Please follow below tutorial to upgrade iRedAdmin to the latest stable release:
 
 Please follow below tutorial to upgrade mlmmjadmin to the latest stable release:
 [Upgrade mlmmjadmin to the latest stable release](./upgrade.mlmmjadmin.html)
+
+### Upgrade netdata to the latest stable release (1.31.0)
+
+If you have netdata installed, you can upgrade it by following this tutorial:
+[Upgrade netdata](./upgrade.netdata.html).
 
 ### Amavisd: Add some useful ban rules
 

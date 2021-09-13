@@ -29,12 +29,12 @@
 </ul>
 </li>
 <li><a href="#for-mysql-and-mariadb-backends">For MySQL and MariaDB backends</a><ul>
-<li><a href="#fix-incorrect-sql-column-types-in-vmailmailbox-tables">Fix incorrect SQL column types in vmail.mailbox tables</a></li>
+<li><a href="#fix-incorrect-sql-column-types-and-remove-unused-columns-in-vmailmailbox-tables">Fix incorrect SQL column types and remove unused columns in vmail.mailbox tables</a></li>
 <li><a href="#sogo-re-create-sql-view-and-update-config-file">SOGo: Re-create SQL VIEW and update config file</a></li>
 </ul>
 </li>
 <li><a href="#for-postgresql-backend">For PostgreSQL backend</a><ul>
-<li><a href="#fix-incorrect-sql-column-types-in-vmailmailbox-tables_1">Fix incorrect SQL column types in vmail.mailbox tables</a></li>
+<li><a href="#fix-incorrect-sql-column-types-and-remove-unused-columns-in-vmailmailbox-tables_1">Fix incorrect SQL column types and remove unused columns in vmail.mailbox tables</a></li>
 <li><a href="#sogo-re-create-sql-view-and-update-config-file_1">SOGo: Re-create SQL VIEW and update config file</a></li>
 </ul>
 </li>
@@ -114,7 +114,7 @@ rcctl restart slapd
 </code></pre>
 
 <h2 id="for-mysql-and-mariadb-backends">For MySQL and MariaDB backends</h2>
-<h3 id="fix-incorrect-sql-column-types-in-vmailmailbox-tables">Fix incorrect SQL column types in <code>vmail.mailbox</code> tables</h3>
+<h3 id="fix-incorrect-sql-column-types-and-remove-unused-columns-in-vmailmailbox-tables">Fix incorrect SQL column types and remove unused columns in <code>vmail.mailbox</code> tables</h3>
 <p>iRedMail-1.4.1 introduced 3 new columns used to enable or disable per-user
 SOGo webmail, calendar and activesync services, but they were set to improper
 column <code>CHAR(1)</code> because SOGo doesn't support it, we will change them to
@@ -123,6 +123,12 @@ column <code>CHAR(1)</code> because SOGo doesn't support it, we will change them
 <li><code>enablesogowebmail</code></li>
 <li><code>enablesogocalendar</code></li>
 <li><code>enablesogoactivesync</code></li>
+</ul>
+<p>3 columns are not used at all:</p>
+<ul>
+<li><code>lastlogindate</code></li>
+<li><code>lastloginipv4</code></li>
+<li><code>lastloginprotocol</code></li>
 </ul>
 <p>Please download plain SQL file used to update SQL table, then import it as
 MySQL root user (Please run commands below as <code>root</code> user):</p>
@@ -140,7 +146,7 @@ rm -f /tmp/sogo.mysql
 </code></pre>
 
 <h2 id="for-postgresql-backend">For PostgreSQL backend</h2>
-<h3 id="fix-incorrect-sql-column-types-in-vmailmailbox-tables_1">Fix incorrect SQL column types in <code>vmail.mailbox</code> tables</h3>
+<h3 id="fix-incorrect-sql-column-types-and-remove-unused-columns-in-vmailmailbox-tables_1">Fix incorrect SQL column types and remove unused columns in <code>vmail.mailbox</code> tables</h3>
 <p>iRedMail-1.4.1 introduced 3 new columns used to enable or disable per-user
 SOGo webmail, calendar and activesync services, but they were set to improper
 column <code>CHAR(1)</code> because SOGo doesn't support it, we will change them to
@@ -149,6 +155,12 @@ column <code>CHAR(1)</code> because SOGo doesn't support it, we will change them
 <li><code>enablesogowebmail</code></li>
 <li><code>enablesogocalendar</code></li>
 <li><code>enablesogoactivesync</code></li>
+</ul>
+<p>3 columns are not used at all:</p>
+<ul>
+<li><code>lastlogindate</code></li>
+<li><code>lastloginipv4</code></li>
+<li><code>lastloginprotocol</code></li>
 </ul>
 <p>Download plain SQL file used to update SQL table:</p>
 <pre><code>wget -O /tmp/iredmail.pgsql https://github.com/iredmail/iRedMail/raw/1.4.2/update/1.4.2/iredmail.pgsql

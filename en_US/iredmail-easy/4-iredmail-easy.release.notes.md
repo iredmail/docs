@@ -2,6 +2,19 @@
 
 [TOC]
 
+## Version: 2021091301 (Sep 13, 2021) {: id=2021091301 }
+
+- Remove unused LDAP attributes: lastLoginDate, lastLoginIP, lastLoginProtocol.
+- Remove unused sql columns in `vmail.mailbox`:
+    - lastlogindate
+    - lastloginipv4
+    - lastloginprotocol
+
+- Fix improper SQL column types in `vmail` and `sogo` databases:
+    - mailbox.enablesogowebmail
+    - mailbox.enablesogocalendar
+    - mailbox.enablesogoactivesync
+
 ## Version: 2021090801 (Sep 8, 2021) {: id=2021090801 }
 
 + Debian Linux 11 (Bullseye) is now supported.
