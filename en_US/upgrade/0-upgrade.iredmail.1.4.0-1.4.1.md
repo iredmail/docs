@@ -10,6 +10,8 @@
 
 ## ChangeLog
 
+* Sep 13, 2021: Fix incorrect PostgreSQL column type for new columns introduced
+  in table `vmail.mailbox`.
 * Sep 08, 2021: initial release.
 
 ## General (All backends should apply these changes)
