@@ -146,7 +146,7 @@ service slapd restart
 
 ```
 cd /tmp
-ftp https://github.com/iredmail/iRedMail/raw/1.0/samples/iredmail/iredmail.schema
+ftp https://github.com/iredmail/iRedMail/raw/1.4.0/samples/iredmail/iredmail.schema
 mv /etc/openldap/schema/iredmail.schema{,.bak}
 cp -f /tmp/iredmail.schema /etc/openldap/schema/
 rcctl restart slapd

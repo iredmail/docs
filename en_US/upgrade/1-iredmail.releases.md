@@ -36,6 +36,7 @@
 
 Release Notes | Date | Upgrade tutorial | Comment
 ---|---|---|---
+[1.4.2](https://forum.iredmail.org/) | Sep 13, 2021 | [Upgrade from iRedMail-1.4.1](./upgrade.iredmail.1.4.1-1.4.2.html) | Contains SQL/LDAP structure change.
 [1.4.1](https://forum.iredmail.org/topic18392.html) | Sep 8, 2021 | [Upgrade from iRedMail-1.4.0](./upgrade.iredmail.1.4.0-1.4.1.html) | Contains SQL/LDAP structure change.
 [1.4.0](https://forum.iredmail.org/topic18033.html) | Apr 13, 2021 | [Upgrade from iRedMail-1.3.2](./upgrade.iredmail.1.3.2-1.4.0.html) | Contains SQL/LDAP structure change.
 [1.3.2](https://forum.iredmail.org/topic17474.html) | Oct 28, 2020 | [Upgrade from iRedMail-1.3.1](./upgrade.iredmail.1.3.1-1.3.2.html) | Bug fix release.
