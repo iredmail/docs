@@ -41,6 +41,7 @@ so that you can know which version of iRedMail you're running. For example:
   available on:
     - CentOS 7 and later
     - Debian 10 and later
+    - Ubuntu 18.04 and later
     - FreeBSD
     - OpenBSD
 - Greatly improve the performance of http keep-alive connections over SSL by
@@ -51,6 +52,7 @@ so that you can know which version of iRedMail you're running. For example:
   available on:
     - CentOS 7 and later
     - Debian 9 and later
+    - Ubuntu 18.04 and later
     - FreeBSD
     - OpenBSD
 - Remove weak ssl cipher: `AES256+EDH`.
