@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Upgrade iRedMail from 1.4.2 to 1.4.3</title>
+        <link rel="stylesheet" type="text/css" href="./css/markdown.css" />
+    </head>
+    <body>
+
+    <div id="navigation">
+    <a href="https://www.iredmail.org" target="_blank">
+        <img alt="iRedMail web site"
+             src="./images/logo-iredmail.png"
+             style="vertical-align: middle; height: 30px;"
+             />&nbsp;
+        <span>iRedMail</span>
+    </a>
+    &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><h1 id="upgrade-iredmail-from-142-to-143">Upgrade iRedMail from 1.4.2 to 1.4.3</h1>
+<div class="toc">
+<ul>
+<li><a href="#upgrade-iredmail-from-142-to-143">Upgrade iRedMail from 1.4.2 to 1.4.3</a><ul>
+<li><a href="#changelog">ChangeLog</a></li>
+<li><a href="#general-all-backends-should-apply-these-changes">General (All backends should apply these changes)</a><ul>
+<li><a href="#update-etciredmail-release-with-new-iredmail-version-number">Update /etc/iredmail-release with new iRedMail version number</a></li>
+<li><a href="#nginx-several-improvements">Nginx: several improvements</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This IS A DRAFT DOCUMENT, DO NOT APPLY IT.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Paid Remote Upgrade Support</p>
+<p>We offer remote upgrade support if you don't want to get your hands dirty,
+check <a href="https://www.iredmail.org/support.html">the details</a> and
+<a href="https://www.iredmail.org/contact.html">contact us</a>.</p>
+</div>
+<h2 id="changelog">ChangeLog</h2>
+<h2 id="general-all-backends-should-apply-these-changes">General (All backends should apply these changes)</h2>
+<h3 id="update-etciredmail-release-with-new-iredmail-version-number">Update <code>/etc/iredmail-release</code> with new iRedMail version number</h3>
+<p>iRedMail stores the release version in <code>/etc/iredmail-release</code> after
+installation, it's recommended to update this file after you upgraded iRedMail,
+so that you can know which version of iRedMail you're running. For example:</p>
+<pre><code>1.4.3
+</code></pre>
+
+<h3 id="nginx-several-improvements">Nginx: several improvements</h3>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>All credit goes to GitHub user
+<a href="https://github.com/ludovicandrieux">@ludovicandrieux</a>, thanks for the
+contributions. See also:
+<a href="https://github.com/iredmail/iRedMail/issues/136">#136</a>, 
+<a href="https://github.com/iredmail/iRedMail/issues/137">#137</a>,
+<a href="https://github.com/iredmail/iRedMail/issues/138">#138</a>.</p>
+</div>
+<ul>
+<li>Enable TLSv1.3. WARNING: It requires Nginx 1.13 or later releases, which is
+  available on:<ul>
+<li>CentOS 7 and later</li>
+<li>Debian 10 and later</li>
+<li>FreeBSD</li>
+<li>OpenBSD</li>
+</ul>
+</li>
+<li>Greatly improve the performance of http keep-alive connections over SSL by
+  enabling <code>ssl_session_cache</code> parameter.</li>
+<li>Add new ssl cipher: <code>EECDH+CHACHA20</code>. It requires openssl 1.1.0, which is
+  available on:<ul>
+<li>CentOS 7 and later</li>
+<li>Debian 9 and later</li>
+<li>FreeBSD</li>
+<li>OpenBSD</li>
+</ul>
+</li>
+<li>Remove weak ssl cipher: <code>AES256+EDH</code>.</li>
+</ul>
+<p>To apply these changes, please open file <code>/etc/nginx/templates/ssl.tmpl</code> with
+your favourite text editor, then:</p>
+<ul>
+<li>Append <code>TLSv1.3</code> in parameter <code>ssl_protocols</code>. For example:</li>
+</ul>
+<pre><code>ssl_protocols TLSv1.2 TLSv1.3;
+</code></pre>
+
+<ul>
+<li>Prepend <code>EECDH+CHACHA20</code> in parameter <code>ssl_ciphers</code>, also remove <code>AES256+EDH</code>.
+  For example:</li>
+</ul>
+<pre><code>ssl_ciphers EECDH+CHACHA20:EECDH+AESGCM:EDH+AESGCM:AES256+EECDH;
+</code></pre>
+
+<ul>
+<li>Add new parameter <code>ssl_session_cache</code> and optional comment lines:</li>
+</ul>
+<pre><code># Greatly improve the performance of keep-alive connections over SSL.
+# With this enabled, client is not necessary to do a full SSL-handshake for
+# every request, thus saving time and cpu-resources.
+ssl_session_cache shared:SSL:10m;
+</code></pre>
+
+<p>Restarting Nginx service is required.</p><div class="footer">
+    <p style="text-align: center; color: grey;">All documents are available in <a href="https://github.com/iredmail/docs/">GitHub repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://github.com/iredmail/docs/archive/master.zip">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
+</div></body></html>
