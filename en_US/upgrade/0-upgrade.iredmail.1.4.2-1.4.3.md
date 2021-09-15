@@ -44,7 +44,9 @@ so that you can know which version of iRedMail you're running. For example:
     - FreeBSD
     - OpenBSD
 - Greatly improve the performance of http keep-alive connections over SSL by
-  enabling `ssl_session_cache` parameter.
+  enabling `ssl_session_cache` parameter. See also:
+    - [Speeding up TLS: enabling session reuse](https://vincent.bernat.ch/en/blog/2011-ssl-session-reuse-rfc5077)
+    - [ssl_session_cache in Nginx and the ab benchmark](https://www.peterbe.com/plog/ssl_session_cache-ab)
 - Add new ssl cipher: `EECDH+CHACHA20`. It requires openssl 1.1.0, which is
   available on:
     - CentOS 7 and later

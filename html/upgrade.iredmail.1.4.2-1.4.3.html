@@ -69,7 +69,11 @@ contributions. See also:
 </ul>
 </li>
 <li>Greatly improve the performance of http keep-alive connections over SSL by
-  enabling <code>ssl_session_cache</code> parameter.</li>
+  enabling <code>ssl_session_cache</code> parameter. See also:<ul>
+<li><a href="https://vincent.bernat.ch/en/blog/2011-ssl-session-reuse-rfc5077">Speeding up TLS: enabling session reuse</a></li>
+<li><a href="https://www.peterbe.com/plog/ssl_session_cache-ab">ssl_session_cache in Nginx and the ab benchmark</a></li>
+</ul>
+</li>
 <li>Add new ssl cipher: <code>EECDH+CHACHA20</code>. It requires openssl 1.1.0, which is
   available on:<ul>
 <li>CentOS 7 and later</li>
