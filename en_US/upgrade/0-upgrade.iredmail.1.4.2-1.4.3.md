@@ -79,3 +79,15 @@ ssl_session_cache shared:SSL:10m;
 ```
 
 Restarting Nginx service is required.
+
+### Dovecot: enable new ssl cipher `EECDH+CHACHA20` and remove the weak one `AES256+EDH`
+
+Please open file `/etc/dovecot/dovecot.conf` (Linux/OpenBSD) or
+`/usr/local/etc/dovecot/dovecot.conf` (FreeBSD), update parameter
+`ssl_cipher_list` to:
+
+```
+ssl_cipher_list = EECDH+CHACHA20:EECDH+AESGCM:EDH+AESGCM:AES256+EECDH
+```
+
+Restarting Dovecot service is required.
