@@ -11,6 +11,19 @@
 SOGo team doesn't offer binary packages for Debian 11 yet, so you can not use
 SOGo at all.
 
+## Dovecot
+
+Please remove these lines from `/etc/dovecot/dovecot.conf`:
+
+```
+metric imap_command_finished {
+    event_name = imap_command_finished
+}
+```
+
+Newer Dovecot release has different syntax for metric. Since netdata doesn't
+support Dovecot-2.3 yet, we prefer removing it for now.
+
 ## iRedAPD and iRedAdmin(-Pro)
 
 Debian 11 offers newer Python release, few Python modules must be re-installed:
