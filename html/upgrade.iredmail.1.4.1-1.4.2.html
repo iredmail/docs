@@ -30,12 +30,11 @@
 </li>
 <li><a href="#for-mysql-and-mariadb-backends">For MySQL and MariaDB backends</a><ul>
 <li><a href="#fix-incorrect-sql-column-types-and-remove-unused-columns-in-vmailmailbox-tables">Fix incorrect SQL column types and remove unused columns in vmail.mailbox tables</a></li>
-<li><a href="#sogo-re-create-sql-view-and-update-config-file">SOGo: Re-create SQL VIEW and update config file</a></li>
 </ul>
 </li>
 <li><a href="#for-postgresql-backend">For PostgreSQL backend</a><ul>
 <li><a href="#fix-incorrect-sql-column-types-and-remove-unused-columns-in-vmailmailbox-tables_1">Fix incorrect SQL column types and remove unused columns in vmail.mailbox tables</a></li>
-<li><a href="#sogo-re-create-sql-view-and-update-config-file_1">SOGo: Re-create SQL VIEW and update config file</a></li>
+<li><a href="#sogo-re-create-sql-view-and-update-config-file">SOGo: Re-create SQL VIEW and update config file</a></li>
 </ul>
 </li>
 </ul>
@@ -137,14 +136,6 @@ mysql vmail &lt; /tmp/iredmail.mysql
 rm -f /tmp/iredmail.mysql
 </code></pre>
 
-<h3 id="sogo-re-create-sql-view-and-update-config-file">SOGo: Re-create SQL VIEW and update config file</h3>
-<p>Download plain SQL file used to update SQL table, then import it as
-MySQL root user (Please run commands below as <code>root</code> user):</p>
-<pre><code>wget -O /tmp/sogo.mysql https://github.com/iredmail/iRedMail/raw/1.4.2/update/1.4.2/sogo.mysql
-mysql sogo &lt; /tmp/sogo.mysql
-rm -f /tmp/sogo.mysql
-</code></pre>
-
 <h2 id="for-postgresql-backend">For PostgreSQL backend</h2>
 <h3 id="fix-incorrect-sql-column-types-and-remove-unused-columns-in-vmailmailbox-tables_1">Fix incorrect SQL column types and remove unused columns in <code>vmail.mailbox</code> tables</h3>
 <p>iRedMail-1.4.1 introduced 3 new columns used to enable or disable per-user
@@ -185,7 +176,7 @@ psql -d vmail &lt; /tmp/iredmail.pgsql
 <pre><code>rm -f /tmp/iredmail.pgsql
 </code></pre>
 
-<h3 id="sogo-re-create-sql-view-and-update-config-file_1">SOGo: Re-create SQL VIEW and update config file</h3>
+<h3 id="sogo-re-create-sql-view-and-update-config-file">SOGo: Re-create SQL VIEW and update config file</h3>
 <p>Download plain SQL file used to update SQL table:</p>
 <pre><code>wget -O /tmp/sogo.pgsql https://github.com/iredmail/iRedMail/raw/1.4.2/update/1.4.2/sogo.pgsql
 chmod +r /tmp/sogo.pgsql

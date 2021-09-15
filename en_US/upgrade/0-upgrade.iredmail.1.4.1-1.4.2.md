@@ -104,17 +104,6 @@ mysql vmail < /tmp/iredmail.mysql
 rm -f /tmp/iredmail.mysql
 ```
 
-### SOGo: Re-create SQL VIEW and update config file
-
-Download plain SQL file used to update SQL table, then import it as
-MySQL root user (Please run commands below as `root` user):
-
-```
-wget -O /tmp/sogo.mysql https://github.com/iredmail/iRedMail/raw/1.4.2/update/1.4.2/sogo.mysql
-mysql sogo < /tmp/sogo.mysql
-rm -f /tmp/sogo.mysql
-```
-
 ## For PostgreSQL backend
 
 ### Fix incorrect SQL column types and remove unused columns in `vmail.mailbox` tables
