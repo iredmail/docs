@@ -23,6 +23,7 @@
 <li><a href="#general-all-backends-should-apply-these-changes">General (All backends should apply these changes)</a><ul>
 <li><a href="#update-etciredmail-release-with-new-iredmail-version-number">Update /etc/iredmail-release with new iRedMail version number</a></li>
 <li><a href="#nginx-several-improvements">Nginx: several improvements</a></li>
+<li><a href="#dovecot-enable-new-ssl-cipher-eecdhchacha20-and-remove-the-weak-one-aes256edh">Dovecot: enable new ssl cipher EECDH+CHACHA20 and remove the weak one AES256+EDH</a></li>
 </ul>
 </li>
 </ul>
@@ -103,6 +104,14 @@ your favourite text editor, then:</p>
 ssl_session_cache shared:SSL:10m;
 </code></pre>
 
-<p>Restarting Nginx service is required.</p><div class="footer">
+<p>Restarting Nginx service is required.</p>
+<h3 id="dovecot-enable-new-ssl-cipher-eecdhchacha20-and-remove-the-weak-one-aes256edh">Dovecot: enable new ssl cipher <code>EECDH+CHACHA20</code> and remove the weak one <code>AES256+EDH</code></h3>
+<p>Please open file <code>/etc/dovecot/dovecot.conf</code> (Linux/OpenBSD) or
+<code>/usr/local/etc/dovecot/dovecot.conf</code> (FreeBSD), update parameter
+<code>ssl_cipher_list</code> to:</p>
+<pre><code>ssl_cipher_list = EECDH+CHACHA20:EECDH+AESGCM:EDH+AESGCM:AES256+EECDH
+</code></pre>
+
+<p>Restarting Dovecot service is required.</p><div class="footer">
     <p style="text-align: center; color: grey;">All documents are available in <a href="https://github.com/iredmail/docs/">GitHub repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://github.com/iredmail/docs/archive/master.zip">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
 </div></body></html>
