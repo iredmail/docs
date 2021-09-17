@@ -371,6 +371,7 @@ chkconfig --level 345 on mlmmjadmin
 #
 # For RHEL/CentOS
 #
+perl -pi -e 's#python,#python36,#' /opt/mlmmjadmin/rc_scripts/systemd/rhel.service
 cp /opt/mlmmjadmin/rc_scripts/systemd/rhel.service /lib/systemd/system/mlmmjadmin.service
 chmod 0644 /lib/systemd/system/mlmmjadmin.service
 systemctl daemon-reload
