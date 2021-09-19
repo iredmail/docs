@@ -72,7 +72,7 @@ also a SQL user `fail2ban`.
 
 ```
 cd /tmp
-wget https://github.com/iredmail/iRedMail/raw/1.3/samples/fail2ban/sql/fail2ban.mysql
+wget https://github.com/iredmail/iRedMail/raw/1.3.2/samples/fail2ban/sql/fail2ban.mysql
 ```
 
 * Run __SQL commands__ below as __MySQL `root` user__:
