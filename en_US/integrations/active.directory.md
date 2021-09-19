@@ -338,23 +338,19 @@ Restart dovecot service to make it work.
     We don't have per-user quota limit here, you can set a hard-coded
     quota for all users in `/etc/dovecot/dovecot.conf`. For example:
 
-    ```
-    plugin {
-        [... omit other settings here ...]
+        plugin {
+            [... omit other settings here ...]
 
-        # Format: integer number + M/G/T (M -> MB, G -> GB, T -> TB).
-        quota_rule = *:storage=1G
-    }
-    ```
+            # Format: integer number + M/G/T (M -> MB, G -> GB, T -> TB).
+            quota_rule = *:storage=1G
+        }
 
     You can also modify the `user_attrs =` line to get per-user quota from a
     LDAP attribute in AD. For example, query per-user quota limit from
     attribute `postOfficeBox` which contain an integer number and treated as
     number of gigabytes:
 
-    ```
-    user_attrs      = =home=/var/vmail/vmail1/%Ld/%Ln/,=mail=maildir:~/Maildir/,postOfficeBox=quota_rule=*:storage=%{ldap:postOfficeBox}G
-    ```
+        user_attrs      = =home=/var/vmail/vmail1/%Ld/%Ln/,=mail=maildir:~/Maildir/,postOfficeBox=quota_rule=*:storage=%{ldap:postOfficeBox}G
 
     Note: This per-user quota will override the one hard-coded in dovecot.conf.
 

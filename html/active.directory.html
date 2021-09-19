@@ -349,19 +349,19 @@ user_attrs      = =home=/var/vmail/vmail1/%Ld/%Ln/,=mail=maildir:~/Maildir/
 <p class="admonition-title">Attention</p>
 <p>We don't have per-user quota limit here, you can set a hard-coded
 quota for all users in <code>/etc/dovecot/dovecot.conf</code>. For example:</p>
-<p>```
-plugin {
-    [... omit other settings here ...]</p>
-<pre><code># Format: integer number + M/G/T (M -&gt; MB, G -&gt; GB, T -&gt; TB).
-quota_rule = *:storage=1G
+<pre><code>plugin {
+    [... omit other settings here ...]
+
+    # Format: integer number + M/G/T (M -&gt; MB, G -&gt; GB, T -&gt; TB).
+    quota_rule = *:storage=1G
+}
 </code></pre>
-<p>}
-```</p>
 <p>You can also modify the <code>user_attrs =</code> line to get per-user quota from a
 LDAP attribute in AD. For example, query per-user quota limit from
 attribute <code>postOfficeBox</code> which contain an integer number and treated as
 number of gigabytes:</p>
-<p><code>user_attrs      = =home=/var/vmail/vmail1/%Ld/%Ln/,=mail=maildir:~/Maildir/,postOfficeBox=quota_rule=*:storage=%{ldap:postOfficeBox}G</code></p>
+<pre><code>user_attrs      = =home=/var/vmail/vmail1/%Ld/%Ln/,=mail=maildir:~/Maildir/,postOfficeBox=quota_rule=*:storage=%{ldap:postOfficeBox}G
+</code></pre>
 <p>Note: This per-user quota will override the one hard-coded in dovecot.conf.</p>
 </div>
 <p>Now use command <code>telnet</code> to verify AD query after restarted Dovecot service:</p>
