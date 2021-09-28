@@ -26,6 +26,11 @@ so that you can know which version of iRedMail you're running. For example:
 1.4.3
 ```
 
+### Upgrade mlmmjadmin to the latest stable release (3.1.3)
+
+Please follow below tutorial to upgrade mlmmjadmin to the latest stable release:
+[Upgrade mlmmjadmin to the latest stable release](./upgrade.mlmmjadmin.html)
+
 ### Nginx: several improvements
 
 !!! attention
