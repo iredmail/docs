@@ -256,17 +256,17 @@ We will setup `mlmmjadmin` program to make managing mailing lists easier.
 
     !!! attention
 
-        We use version `3.1.2` for example below.
+        We use version `3.1.3` for example below.
 
         - `mlmmjadmin-3.x` and later releases requires Python 3.
         - `mlmmjadmin-2.x` and older releases requires Python 2.
 
 ```
 cd /root/
-wget https://github.com/iredmail/mlmmjadmin/archive/3.1.2.tar.gz
-tar zxf 3.1.2.tar.gz -C /opt
-rm -f 3.1.2.tar.gz
-ln -s /opt/mlmmjadmin-3.1.2 /opt/mlmmjadmin
+wget https://github.com/iredmail/mlmmjadmin/archive/3.1.3.tar.gz
+tar zxf 3.1.3.tar.gz -C /opt
+rm -f 3.1.3.tar.gz
+ln -s /opt/mlmmjadmin-3.1.3 /opt/mlmmjadmin
 ```
 
 * Generate config file by copying sample file, `settings.py.sample`:
@@ -371,7 +371,7 @@ chkconfig --level 345 on mlmmjadmin
 #
 # For RHEL/CentOS
 #
-perl -pi -e 's#python,#python36,#' /opt/mlmmjadmin/rc_scripts/systemd/rhel.service
+perl -pi -e 's#python,#python36,#' /opt/mlmmjadmin/rc_scripts/uwsgi/rhel.ini
 cp /opt/mlmmjadmin/rc_scripts/systemd/rhel.service /lib/systemd/system/mlmmjadmin.service
 chmod 0644 /lib/systemd/system/mlmmjadmin.service
 systemctl daemon-reload
