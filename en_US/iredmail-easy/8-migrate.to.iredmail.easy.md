@@ -24,8 +24,10 @@ For more details about iRedMail Easy platform, please
 - Your iRedMail server must be running one of supported Linux/OpenBSD
   distribution releases:
     - Ubuntu 18.04 LTS, 20.04 LTS
-    - Debian 9, 10
-    - CentOS 7, 8
+    - Debian 10, 11
+    - CentOS 7, 8 (NOT RECOMMENDED FOR NEW SERVER)
+    - CentOS Stream
+    - Rocky Linux 8
     - OpenBSD 6.7
 
 Unfortunately, FreeBSD is not supported by iRedMail Easy platform.
