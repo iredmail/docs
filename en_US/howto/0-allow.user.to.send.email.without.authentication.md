@@ -49,7 +49,7 @@ If sender domain is hosted on your server, but no smtp auth, it will be
 considered as a forged email. In this case, iRedAPD will reject this email
 (with rejection message: `Policy rejection not logged in`), so we need to
 bypass the sender email address. If email is sent from an internal network
-device like printer, fax, we can also its IP address directly.
+device like printer, fax, we can also add its IP address directly.
 
 * To bypass sender email address `user@example.com`, please add setting in
   `/opt/iredapd/settings.py` like below:
