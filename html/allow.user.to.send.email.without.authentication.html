@@ -15,7 +15,11 @@
              />&nbsp;
         <span>iRedMail</span>
     </a>
-    &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><h1 id="allow-user-to-send-email-without-smtp-authentication">Allow user to send email without smtp authentication</h1>
+    &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><div class="admonition note">
+<p class="admonition-title">This tutorial is available in other languages. <a href="https://github.com/iredmail/docs">Help translate more</a></p>
+<p><a href="./allow.user.to.send.email.without.authentication-zh_CN.html">简体中文</a> /</p>
+</div>
+<h1 id="allow-user-to-send-email-without-smtp-authentication">Allow user to send email without smtp authentication</h1>
 <div class="toc">
 <ul>
 <li><a href="#allow-user-to-send-email-without-smtp-authentication">Allow user to send email without smtp authentication</a><ul>
@@ -64,7 +68,7 @@ If sender domain is hosted on your server, but no smtp auth, it will be
 considered as a forged email. In this case, iRedAPD will reject this email
 (with rejection message: <code>Policy rejection not logged in</code>), so we need to
 bypass the sender email address. If email is sent from an internal network
-device like printer, fax, we can also its IP address directly.</p>
+device like printer, fax, we can also add its IP address directly.</p>
 <ul>
 <li>To bypass sender email address <code>user@example.com</code>, please add setting in
   <code>/opt/iredapd/settings.py</code> like below:</li>
