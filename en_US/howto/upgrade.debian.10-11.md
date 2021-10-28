@@ -6,11 +6,6 @@
 
     This is still a DRAFT document, it may miss some other important changes.
 
-## SOGo Groupware
-
-SOGo team doesn't offer binary packages for Debian 11 yet, so you can not use
-SOGo at all.
-
 ## Dovecot
 
 Please remove these lines from `/etc/dovecot/dovecot.conf`:
