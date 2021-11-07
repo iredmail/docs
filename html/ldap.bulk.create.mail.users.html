@@ -70,17 +70,36 @@
 <p>It will create users <code>user1@example.com</code>, <code>user2@example.com</code>, <code>user3@example.com</code>.</p>
 <p>Note: you don't need to create the mail domain name <code>example.com</code> with iRedAdmin first.</p>
 <h2 id="create-mail-users-with-create_mail_user_openldappy">Create mail users with create_mail_user_OpenLDAP.py</h2>
-<p><code>tools/create_mail_user_OpenLDAP.py</code> will read mail accounts from a plain
-text file and generate a LDIF file, you can import this LDIF file to create
-mail users.</p>
-<p>The plain text file format is:</p>
-<pre><code>domain name, username, password, [common name], [quota_in_bytes], [groups]
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>You must modify this file and update some variables related to your LDAP
+server (note: you can find them in <code>iRedMail.tips</code> file) before importing
+user:</p>
+<ul>
+<li><code>LDAP_URI</code>. The URI of your ldap server, defaults to <code>ldap://127.0.0.1:389</code>.</li>
+<li><code>BASEDN</code>. The base dn which contains all mail accounts. Defaults to
+  <code>o=domains,dc=example,dc=com</code>, you should replace <code>dc=example,dc=com</code>
+  by your ldap suffix.</li>
+<li><code>BINDDN</code>. The bind dn used to update LDAP data. Defaults to
+  <code>cn=Manager,dc=example,dc=com</code>. Note: this dn must have read and
+  write privilege, so both <code>cn=Manager</code> and <code>cn=vmailadmin</code> are ok, but
+  not <code>cn=vmail</code> (it has only read privilege).</li>
+<li><code>BINDPW</code>. Password of the bind dn.</li>
+</ul>
+<p>While importing the generated LDIF file, you should use same BINDDN which
+has write privilege.</p>
+</div>
+<p><code>tools/create_mail_user_OpenLDAP.py</code> reads mail accounts from a plain
+text file and generate a LDIF file, you can import this LDIF file later to
+create the mail users.</p>
+<p>Format of the plain text file is:</p>
+<pre><code>domain name, username, password, [display name], [quota_in_bytes], [groups]
 </code></pre>
 
 <p>Note: domain name, username and password are <strong>required</strong>, others are optional.</p>
 <ul>
-<li><strong>username</strong>: do not append <code>@domain.com</code> part in username.</li>
-<li><strong>common name</strong>:<ul>
+<li><strong>username</strong>: do not append domain part (<code>@domain.com</code>) in username.</li>
+<li><strong>display name</strong>:<ul>
 <li>It will be the same as username if it's empty.</li>
 <li>Non-ascii character is allowed in this field, they will be
   encoded automaticly. Such as Chinese, Korea, Japanese, etc.</li>
@@ -89,13 +108,13 @@ mail users.</p>
 <li><strong>quota</strong>: It will be 0 (unlimited quota) if it's empty.</li>
 <li><strong>groups</strong>:<ul>
 <li>user will become member of specified groups.</li>
-<li>it must be valid group names without <code>@domain.com</code> part. for example,
-  use <code>support</code> for group <code>support@domain.com</code>. The <code>@domain.com</code> part
-  will be appended automaticly.</li>
+<li>it must be valid/existing group names without domain part (<code>@domain.com</code>).
+  For example, group name <code>support</code> will become <code>support@domain.com</code> (the
+  domain part will be appended automaticly).</li>
 <li>Multiple groups must be seperated by colon <code>:</code>.</li>
 </ul>
 </li>
-<li>Leading and trailing Space will be ignored.</li>
+<li>Leading and trailing whitespaces will be ignored.</li>
 </ul>
 <p>3 examples:</p>
 <pre><code>mydomain.com, user1, plain_password, John Smith, 104857600, group1:group2
@@ -104,32 +123,44 @@ mydomain.com, user3, plain_password, , 104857600, group1:group2
 </code></pre>
 
 <ul>
-<li>Now create mail domain <code>mydomain.com</code> with iRedAdmin first.</li>
+<li>Create mail domain <code>mydomain.com</code> with iRedAdmin first.</li>
 <li>Run this script with plain text file <code>my_users.csv</code>:</li>
 </ul>
-<pre><code># cd iRedMail-0.9.6/tools/
-# python create_mail_user_OpenLDAP.py my_users.csv
+<pre><code>cd iRedMail-1.4.2/tools/
+python3 create_mail_user_OpenLDAP.py my_users.csv
 </code></pre>
 
-<p>It will generate a plain LDIF file <code>my_users.csv.ldif</code> under current directory,
-you can import it (after reviewed the LDIF data) with command <code>ldapadd</code> like
-below:</p>
-<pre><code># ldapadd -x -D cn=Manager,dc=example,dc=com -W -f the_output_file.ldif
+<p>It generates file <code>my_users.csv.ldif</code> under same directory, 
+import it with command <code>ldapadd</code> to add like below to add the accounts:
+    * Please replace <code>cn=Manager,dc=example,dc=com</code> by the real LDAP base dn.
+    * Please replace <code>my_users.csv.ldif</code> by the file generated in above commands.</p>
+<pre><code>ldapadd -x -D cn=Manager,dc=example,dc=com -W -f my_users.csv.ldif
 </code></pre>
 
 <p>Notes:</p>
 <ul>
-<li>Please replace <code>cn=Manager,dc=example,dc=com</code> by the real LDAP root dn.</li>
-<li>Please replace <code>the_output_file.ldif</code> by the real output file.</li>
-</ul>
-<p>Additional Notes:</p>
-<ul>
-<li>Password scheme is defined in variable <code>DEFAULT_PASSWORD_SCHEME</code>, default is
-  <code>SSHA</code>.</li>
-<li>Maildir path is hashed like  <code>domain.ltd/u/s/e/username-20150929</code>. If you
-  prefer <code>domain.ltd/username/</code>, please set <code>HASHED_MAILDIR = False</code>.</li>
-<li>Mailbox storage path is defined in variable <code>STORAGE_BASE_DIRECTORY</code>, default
-  is <code>/var/vmail/vmail1</code>.</li>
+<li>
+<p>Password scheme is defined in variable <code>DEFAULT_PASSWORD_SCHEME</code>, defaults to
+  <code>SSHA512</code>.</p>
+<p><code>DEFAULT_PASSWORD_SCHEME = "SSHA512"</code></p>
+</li>
+<li>
+<p>Path to mailbox storage is defined in variable <code>STORAGE_BASE_DIRECTORY</code>, default
+  is <code>/var/vmail/vmail1</code>.</p>
+<p><code>STORAGE_BASE_DIRECTORY = "/var/vmail/vmail1"</code></p>
+</li>
+<li>
+<p>Maildir path is hashed like  <code>domain.ltd/u/s/e/username-20150929</code>. If you
+  prefer <code>domain.ltd/username/</code> style, please update parameter in the script:</p>
+<p><code>HASHED_MAILDIR = False</code></p>
+<p>The mailbox path will become
+  <code>/var/vmail/vmail1/domain.ltd/u/s/e/username-20150929/</code>, and Dovecot is
+  configured to append <code>Maildir/</code> in the path, so the final path will be
+  <code>/var/vmail/vmail1/domain.ltd/u/s/e/username-20150929/Maildir/</code>.</p>
+<p>Dovecot is configured to store per-user managesieve script (a.k.a
+  mail filter rules) under <code>sieve/</code> directory, which will be
+  <code>/var/vmail/vmail1/domain.ltd/u/s/e/username-20150929/sieve/</code>.</p>
+</li>
 </ul>
 <h2 id="see-also">See Also</h2>
 <ul>
