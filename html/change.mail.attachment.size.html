@@ -106,7 +106,8 @@ explanation: <a href="https://github.com/iredmail/iRedAPD/blob/master/plugins/th
 <p>Please also update PHP config file <code>php.ini</code> to allow uploading large file:</p>
 <ul>
 <li>on RHEL/CentOS: it's <code>/etc/php.ini</code></li>
-<li>on Debian/Ubuntu, it's <code>/etc/php5/apache2/php.ini</code>.<ul>
+<li>on Debian/Ubuntu, it's <code>/etc/php/&lt;7.x&gt;/fpm/php.ini</code> (Please replace <code>&lt;7.x&gt;</code>
+  by the real version number on your server).<ul>
 <li>on Ubuntu 16.04 and later releases, it's <code>/etc/php/7.0/apache2/php.ini</code>
   for Apache, or <code>/etc/php/7.0/fpm/php.ini</code> for Nginx + php-fpm.</li>
 </ul>

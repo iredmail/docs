@@ -82,7 +82,8 @@ If you have Roundcube webmail, please change two more settings:
 Please also update PHP config file `php.ini` to allow uploading large file:
 
 * on RHEL/CentOS: it's `/etc/php.ini`
-* on Debian/Ubuntu, it's `/etc/php5/apache2/php.ini`.
+* on Debian/Ubuntu, it's `/etc/php/<7.x>/fpm/php.ini` (Please replace `<7.x>`
+  by the real version number on your server).
     * on Ubuntu 16.04 and later releases, it's `/etc/php/7.0/apache2/php.ini`
       for Apache, or `/etc/php/7.0/fpm/php.ini` for Nginx + php-fpm.
 * on FreeBSD, it's `/usr/local/etc/php.ini` for Apache, or
