@@ -30,3 +30,15 @@ error message on console:
 ```shell
 dovecot -c /etc/dovecot/dovecot.conf
 ```
+
+## Debug LDAP queries
+
+If you're running iRedMail with OpenLDAP backend, you can increase debug level
+for LDAP in `/etc/dovecot/dovecot-ldap.conf` with parameter `debug_level`,
+add or update it to `1`, then restart dovecot service:
+
+```
+debug_level = 1
+```
+
+You can also set it to `-1` which means everything.

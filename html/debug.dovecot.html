@@ -43,6 +43,15 @@ auth_verbose_passwords = plain
 <p>If Dovecot service cannot start, please run it manually, it will print the
 error message on console:</p>
 <pre><code class="shell">dovecot -c /etc/dovecot/dovecot.conf
-</code></pre><div class="footer">
+</code></pre>
+
+<h2 id="debug-ldap-queries">Debug LDAP queries</h2>
+<p>If you're running iRedMail with OpenLDAP backend, you can increase debug level
+for LDAP in <code>/etc/dovecot/dovecot-ldap.conf</code> with parameter <code>debug_level</code>,
+add or update it to <code>1</code>, then restart dovecot service:</p>
+<pre><code>debug_level = 1
+</code></pre>
+
+<p>You can also set it to <code>-1</code> which means everything.</p><div class="footer">
     <p style="text-align: center; color: grey;">All documents are available in <a href="https://github.com/iredmail/docs/">GitHub repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://github.com/iredmail/docs/archive/master.zip">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
 </div></body></html>
