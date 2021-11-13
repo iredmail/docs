@@ -56,7 +56,7 @@ in per-user, per-domain and global `Spam Policy` page.
 # }
 AMAVISD_BAN_RULES = {
     "BLOCK_COMPRESS": "Block compressed files (zip, 7z, gz, bz2, tar, rar)",
-    "ALLOW_PDF": "Allow PDF files (.pdf)
+    "ALLOW_PDF": "Allow PDF files (.pdf)",
 }
 ```
 
