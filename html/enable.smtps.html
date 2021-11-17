@@ -28,7 +28,11 @@
 <li><a href="#how-to-enable-smtps">How to enable SMTPS</a></li>
 <li><a href="#open-port-465-in-firewall">Open port 465 in firewall</a><ul>
 <li><a href="#on-rhelcentos">On RHEL/CentOS</a></li>
-<li><a href="#on-debianubuntu">on Debian/Ubuntu</a></li>
+<li><a href="#on-debianubuntu">On Debian/Ubuntu</a><ul>
+<li><a href="#nftables">nftables</a></li>
+<li><a href="#iptables">iptables</a></li>
+</ul>
+</li>
 <li><a href="#on-openbsd">on OpenBSD</a></li>
 </ul>
 </li>
@@ -95,14 +99,27 @@ below:</p>
 <pre><code># firewall-cmd --complete-reload
 </code></pre>
 
-<h4 id="on-debianubuntu">on Debian/Ubuntu</h4>
-<p>On Debian/Ubuntu, if you use iptables rule file provided by iRedMail, please update <code>/etc/default/iptables</code>, add one rule (third line in below code) for port 465, then restart iptables service.</p>
+<h4 id="on-debianubuntu">On Debian/Ubuntu</h4>
+<h5 id="nftables">nftables</h5>
+<p>Latest iRedMail releases use <code>nftables</code> on Debian/Ubuntu, you can find its
+config file <code>/etc/nftables.conf</code>, add port 465 under the line for submission
+(port 587, 3rd line in example below) like below:</p>
+<pre><code>        # smtp/submission
+        tcp dport 25 accept
+        tcp dport 587 accept
+        tcp dport 465 accept
+</code></pre>
+
+<p>Restart <code>nftables</code> service is required.</p>
+<h5 id="iptables">iptables</h5>
+<p>Old iRedMail releases use iptables on Debian/Ubuntu, you can find iptables rule file <code>/etc/default/iptables</code>, please add one rule (third line in below code) for port 465, then restart iptables service.</p>
 <pre><code># Part of file: /etc/default/iptables
 -A INPUT -p tcp --dport 25 -j ACCEPT
 -A INPUT -p tcp --dport 587 -j ACCEPT
 -A INPUT -p tcp --dport 465 -j ACCEPT
 </code></pre>
 
+<p>Restart <code>iptables</code> service is required.</p>
 <h4 id="on-openbsd">on OpenBSD</h4>
 <p>On OpenBSD, please append service <code>smtps</code> in <code>/etc/pf.conf</code>, parameter <code>mail_services=</code>:</p>
 <pre><code># Part of file: /etc/pf.conf

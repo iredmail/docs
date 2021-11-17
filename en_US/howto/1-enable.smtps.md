@@ -75,9 +75,26 @@ Restart firewalld service:
 # firewall-cmd --complete-reload
 ```
 
-#### on Debian/Ubuntu
+#### On Debian/Ubuntu
 
-On Debian/Ubuntu, if you use iptables rule file provided by iRedMail, please update `/etc/default/iptables`, add one rule (third line in below code) for port 465, then restart iptables service.
+##### nftables
+
+Latest iRedMail releases use `nftables` on Debian/Ubuntu, you can find its
+config file `/etc/nftables.conf`, add port 465 under the line for submission
+(port 587, 3rd line in example below) like below:
+
+```
+        # smtp/submission
+        tcp dport 25 accept
+        tcp dport 587 accept
+        tcp dport 465 accept
+```
+
+Restart `nftables` service is required.
+
+##### iptables
+
+Old iRedMail releases use iptables on Debian/Ubuntu, you can find iptables rule file `/etc/default/iptables`, please add one rule (third line in below code) for port 465, then restart iptables service.
 
 ```
 # Part of file: /etc/default/iptables
@@ -85,6 +102,8 @@ On Debian/Ubuntu, if you use iptables rule file provided by iRedMail, please upd
 -A INPUT -p tcp --dport 587 -j ACCEPT
 -A INPUT -p tcp --dport 465 -j ACCEPT
 ```
+
+Restart `iptables` service is required.
 
 #### on OpenBSD
 
