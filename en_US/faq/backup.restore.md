@@ -103,6 +103,31 @@ You can simply restore plain SQL files backed up by above backup scripts.
     `mysql` database, otherwise almost all services won't work due to incorrect
     SQL credentials.
 
+Let's take SQL database `iredapd` for example. Assume the backup file is
+`/var/vmail/backup/mysql/2021/11/19/iredapd-2021-11-19-23-02-01.sql.bz2`.
+
+- The backup file was compressed with `bzip2` (with `.bz2` extension in file
+  name), please decompress it with command `bunzip2` first:
+
+    ```
+    bunzip2 /var/vmail/backup/mysql/2021/11/19/iredapd-2021-11-19-23-02-01.sql.bz2
+    ```
+
+    You should get decompressed file `/var/vmail/backup/mysql/2021/11/19/iredapd-2021-11-19-23-02-01.sql`
+
+- Login to MySQL / MariaDB server as the SQL root user.
+- Restore the decompressed SQL file:
+
+```
+USE iredapd;
+SOURCE /var/vmail/backup/mysql/2021/11/19/iredapd-2021-11-19-23-02-01.sql;
+```
+
+That's it.
+
+You should restore other databases with same steps but different
+backup files. Again, __do not restore the database named `mysql`__.
+
 #### After restored databases
 
 If you're restoring from an old iRedMail release, you need to update SQL

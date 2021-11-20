@@ -136,6 +136,27 @@ the same SQL accounts with different passwords, so please do not restore
 <code>mysql</code> database, otherwise almost all services won't work due to incorrect
 SQL credentials.</p>
 </div>
+<p>Let's take SQL database <code>iredapd</code> for example. Assume the backup file is
+<code>/var/vmail/backup/mysql/2021/11/19/iredapd-2021-11-19-23-02-01.sql.bz2</code>.</p>
+<ul>
+<li>
+<p>The backup file was compressed with <code>bzip2</code> (with <code>.bz2</code> extension in file
+  name), please decompress it with command <code>bunzip2</code> first:</p>
+<p><code>bunzip2 /var/vmail/backup/mysql/2021/11/19/iredapd-2021-11-19-23-02-01.sql.bz2</code></p>
+<p>You should get decompressed file <code>/var/vmail/backup/mysql/2021/11/19/iredapd-2021-11-19-23-02-01.sql</code></p>
+</li>
+<li>
+<p>Login to MySQL / MariaDB server as the SQL root user.</p>
+</li>
+<li>Restore the decompressed SQL file:</li>
+</ul>
+<pre><code>USE iredapd;
+SOURCE /var/vmail/backup/mysql/2021/11/19/iredapd-2021-11-19-23-02-01.sql;
+</code></pre>
+
+<p>That's it.</p>
+<p>You should restore other databases with same steps but different
+backup files. Again, <strong>do not restore the database named <code>mysql</code></strong>.</p>
 <h4 id="after-restored-databases">After restored databases</h4>
 <p>If you're restoring from an old iRedMail release, you need to update SQL
 structure first.</p>
