@@ -111,26 +111,7 @@ Restart the clamav-daemon service afterwards
 
 Debian 9 offers PHP-5, but Debian 10 offers PHP-7.3, you have to upgrade php manually. 
 
-One issue that has been seen has been with php-fpm with Nginx in the error.og:
 
-```
-[crit] 629#629: *8 connect() to unix:/var/run/php-fpm.socket failed (2: No such file or directory) while connecting to upstream
-```
-The existing /etc/nginx/conf-enabled/php-fpm.conf needs to be refactored to support the name of the /var/run/php/php*.sock file so make sure they match.  Restart the service (In the example: service php7.3-fpm restart) first to make sure the sock files are generated correctly before editiong the php-fpm.conf.
-
-For example:
-
-Old
-```
-upstream php_workers {
-    server unix:/var/run/php-fpm.socket;}
-```
-
-New (based on actual file)
-```
-upstream php_workers {
-    server unix:/var/run/php/php7.3-fpm.sock;}
-```
 
 
 ## SOGo Groupware
