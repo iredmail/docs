@@ -86,7 +86,6 @@ service stats {
 }
 ```
 
-
 Restart Dovecot service is required.
 
 ## ClamAV
@@ -110,9 +109,6 @@ Restart the clamav-daemon service afterwards
 ## PHP
 
 Debian 9 offers PHP-5, but Debian 10 offers PHP-7.3, you have to upgrade php manually. 
-
-
-
 
 ## SOGo Groupware
 

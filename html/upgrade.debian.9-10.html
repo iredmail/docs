@@ -21,6 +21,7 @@
 <li><a href="#fixes-you-need-after-upgrading-debian-from-9-to-10">Fixes you need after upgrading Debian from 9 to 10</a><ul>
 <li><a href="#postfix">Postfix</a></li>
 <li><a href="#dovecot">Dovecot</a></li>
+<li><a href="#clamav">ClamAV</a></li>
 <li><a href="#php">PHP</a></li>
 <li><a href="#sogo-groupware">SOGo Groupware</a></li>
 </ul>
@@ -117,9 +118,44 @@ TLSv1.2, you may want to use weaker one like <code>TLSv1.1</code>, <code>TLSv1</
     }
 </code></pre>
 
+<p>If you get this kind of error in your mail.log:</p>
+<pre><code>Error: net_connect_unix(/var/run/dovecot/stats-writer) failed: Permission deni))
+</code></pre>
+
+<p>You may be able to fix it by adding the new service stats configuration to /etc/dovecot/dovecot.conf.  See <a href="https://forum.iredmail.org/topic15113-error-netconnectunixvarrundovecotstatswriter-failed.html">this</a> thread.  </p>
+<pre><code>service stats {
+    unix_listener stats-reader {
+        user = vmail
+        group = vmail
+        mode = 0660
+    }
+
+    unix_listener stats-writer {
+        user = vmail
+        group = vmail
+        mode = 0660
+    }
+}
+</code></pre>
+
 <p>Restart Dovecot service is required.</p>
+<h2 id="clamav">ClamAV</h2>
+<p>You may see errors like this in your mail.log:</p>
+<pre><code>!)ClamAV-clamd av-scanner FAILED: run_av error: Too many retries to talk to /var/run/clamav/clamd.ctl (All attempts (1) failed connecting to /var/run/clamav/clamd.ctl) at (eval 114) 
+</code></pre>
+
+<p>The issue is that /etc/clamav/clamd.conf has deprecated entries preventing the daemon from starting. Comment/remove them:</p>
+<pre><code>#DetectBrokenExecutables false
+#ScanOnAccess false
+#StatsEnabled false
+#StatsPEDisabled true
+#StatsHostID auto
+#StatsTimeout 10
+</code></pre>
+
+<p>Restart the clamav-daemon service afterwards</p>
 <h2 id="php">PHP</h2>
-<p>Debian 9 offers PHP-5, but Debian 10 offers PHP-7.3, you have to upgrade php manually.</p>
+<p>Debian 9 offers PHP-5, but Debian 10 offers PHP-7.3, you have to upgrade php manually. </p>
 <h2 id="sogo-groupware">SOGo Groupware</h2>
 <p>Please replace <code>stretch</code> by <code>buster</code> in file
 <code>/etc/apt/sources.list.d/sogo-nightly.repo</code>, then upgrade sogo packages.</p><div class="footer">
