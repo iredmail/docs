@@ -63,11 +63,56 @@ Inside `service old-status {}` block, please add new content:
     }
 ```
 
+If you get this kind of error in your mail.log:
+
+```
+Error: net_connect_unix(/var/run/dovecot/stats-writer) failed: Permission deni))
+```
+You may be able to fix it by adding the new service stats configuration to /etc/dovecot/dovecot.conf.  See [this](https://forum.iredmail.org/topic15113-error-netconnectunixvarrundovecotstatswriter-failed.html) thread.  
+
+```
+service stats {
+    unix_listener stats-reader {
+        user = vmail
+        group = vmail
+        mode = 0660
+    }
+
+    unix_listener stats-writer {
+        user = vmail
+        group = vmail
+        mode = 0660
+    }
+}
+```
+
+
 Restart Dovecot service is required.
+
+## ClamAV
+You may see errors like this in your mail.log:
+
+```
+!)ClamAV-clamd av-scanner FAILED: run_av error: Too many retries to talk to /var/run/clamav/clamd.ctl (All attempts (1) failed connecting to /var/run/clamav/clamd.ctl) at (eval 114) 
+```
+The issue is that /etc/clamav/clamd.conf has deprecated entries preventing the daemon from starting. Comment/remove them:
+
+```
+#DetectBrokenExecutables false
+#ScanOnAccess false
+#StatsEnabled false
+#StatsPEDisabled true
+#StatsHostID auto
+#StatsTimeout 10
+```
+Restart the clamav-daemon service afterwards
 
 ## PHP
 
-Debian 9 offers PHP-5, but Debian 10 offers PHP-7.3, you have to upgrade php manually.
+Debian 9 offers PHP-5, but Debian 10 offers PHP-7.3, you have to upgrade php manually. 
+
+
+
 
 ## SOGo Groupware
 
