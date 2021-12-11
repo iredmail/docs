@@ -37,22 +37,25 @@
 }
 </code></pre>
 
-<p>Newer Dovecot release has different syntax for metric. Since netdata doesn't
-support Dovecot-2.3 yet, we prefer removing it for now.</p>
+<p>The newer Dovecot release uses a different syntax for this metric. Since
+netdata doesn't yet support Dovecot 2.3, we've removed it for now.</p>
 <h2 id="iredapd-and-iredadmin-pro">iRedAPD and iRedAdmin(-Pro)</h2>
-<p>Debian 11 offers newer Python release, few Python modules must be re-installed:</p>
+<p>Because Debian 11 offers a newer Python release, a few Python modules must be
+re-installed:</p>
 <pre><code>pip3 install -U web.py
 </code></pre>
 
-<p>Services must be restarted:</p>
+<p>These services must be restarted:</p>
 <pre><code>service iredapd restart
 service iredadmin restart
 </code></pre>
 
 <h2 id="php-fpm">php-fpm</h2>
-<p>Debian 11 ships php 7.4, but Debian 10 ships php 7.3. Although php7.4-fpm
-service is started by default after OS upgrade, but you still need to copy
-old php-fpm config file and restart php7.4-fpm service:</p>
+<p>Debian 11 ships with php 7.4, while Debian 10 ships with php 7.3.
+Although Debian 11 starts the <code>php7.4-fpm</code> service by default after an OS
+upgrade, you still need to copy the old php-fpm config file and restart
+the php7.4-fpm service, so that php7.4-fpm listens on same network address
+(<code>127.0.0.1:9999</code>) and Nginx can communicate with php7.4-fpm:</p>
 <pre><code>cp /etc/php/7.3/fpm/pool.d/www.conf /etc/php/7.4/fpm/pool.d/www.conf
 service php7.4-fpm restart
 </code></pre><div class="footer">

@@ -16,18 +16,19 @@ metric imap_command_finished {
 }
 ```
 
-Newer Dovecot release has different syntax for metric. Since netdata doesn't
-support Dovecot-2.3 yet, we prefer removing it for now.
+The newer Dovecot release uses a different syntax for this metric. Since
+netdata doesn't yet support Dovecot 2.3, we've removed it for now.
 
 ## iRedAPD and iRedAdmin(-Pro)
 
-Debian 11 offers newer Python release, few Python modules must be re-installed:
+Because Debian 11 offers a newer Python release, a few Python modules must be
+re-installed:
 
 ```
 pip3 install -U web.py
 ```
 
-Services must be restarted:
+These services must be restarted:
 
 ```
 service iredapd restart
@@ -36,9 +37,11 @@ service iredadmin restart
 
 ## php-fpm
 
-Debian 11 ships php 7.4, but Debian 10 ships php 7.3. Although php7.4-fpm
-service is started by default after OS upgrade, but you still need to copy
-old php-fpm config file and restart php7.4-fpm service:
+Debian 11 ships with php 7.4, while Debian 10 ships with php 7.3.
+Although Debian 11 starts the `php7.4-fpm` service by default after an OS
+upgrade, you still need to copy the old php-fpm config file and restart
+the php7.4-fpm service, so that php7.4-fpm listens on same network address
+(`127.0.0.1:9999`) and Nginx can communicate with php7.4-fpm:
 
 ```
 cp /etc/php/7.3/fpm/pool.d/www.conf /etc/php/7.4/fpm/pool.d/www.conf
