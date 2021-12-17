@@ -33,7 +33,7 @@ OS, their upgrade scripts will help fix some issues caused by OS upgrade.
 - [Upgrade iRedAdmin(-Pro)](./migrate.or.upgrade.iredadmin.html)
 - [Upgrade mlmmjadmin](./upgrade.mlmmjadmin.html)
 
-## Configurations
+## Update php-fpm related configurations
 
 * Create directory used to store log files:
 
@@ -86,4 +86,22 @@ upstream php_workers {
 ```
 service php7.4-fpm restart
 service nginx restart
+```
+
+## Update clamav config file
+
+Remove deprecated options in `/etc/clamav/clamd.conf`:
+
+```
+DetectBrokenExecutables
+ScanOnAccess
+StatsEnabled
+StatsPEDisabled
+StatsHostID
+StatsTimeout
+```
+
+Then restart service `clamav-daemon`:
+```
+service clamav-daemon restart
 ```

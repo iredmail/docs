@@ -23,7 +23,8 @@
 <li><a href="#upgrade-os">Upgrade OS</a></li>
 <li><a href="#upgrade-dovecot-config-files">Upgrade Dovecot config files</a></li>
 <li><a href="#re-upgrade-iredapd-iredadmin-pro-mlmmjadmin-to-the-latest-release">Re-upgrade iRedAPD, iRedAdmin(-Pro), mlmmjadmin to the latest release</a></li>
-<li><a href="#configurations">Configurations</a></li>
+<li><a href="#update-php-fpm-related-configurations">Update php-fpm related configurations</a></li>
+<li><a href="#update-clamav-config-file">Update clamav config file</a></li>
 </ul>
 </li>
 </ul>
@@ -53,7 +54,7 @@ OS, their upgrade scripts will help fix some issues caused by OS upgrade.</p>
 <li><a href="./migrate.or.upgrade.iredadmin.html">Upgrade iRedAdmin(-Pro)</a></li>
 <li><a href="./upgrade.mlmmjadmin.html">Upgrade mlmmjadmin</a></li>
 </ul>
-<h2 id="configurations">Configurations</h2>
+<h2 id="update-php-fpm-related-configurations">Update php-fpm related configurations</h2>
 <ul>
 <li>Create directory used to store log files:</li>
 </ul>
@@ -105,6 +106,20 @@ request_slowlog_timeout = 10s
 </ul>
 <pre><code>service php7.4-fpm restart
 service nginx restart
+</code></pre>
+
+<h2 id="update-clamav-config-file">Update clamav config file</h2>
+<p>Remove deprecated options in <code>/etc/clamav/clamd.conf</code>:</p>
+<pre><code>DetectBrokenExecutables
+ScanOnAccess
+StatsEnabled
+StatsPEDisabled
+StatsHostID
+StatsTimeout
+</code></pre>
+
+<p>Then restart service <code>clamav-daemon</code>:</p>
+<pre><code>service clamav-daemon restart
 </code></pre><div class="footer">
     <p style="text-align: center; color: grey;">All documents are available in <a href="https://github.com/iredmail/docs/">GitHub repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://github.com/iredmail/docs/archive/master.zip">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
 </div></body></html>
