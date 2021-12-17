@@ -35,7 +35,13 @@ OS, their upgrade scripts will help fix some issues caused by OS upgrade.
 
 ## Configurations
 
-* `/etc/php/7.4/fpm/pool.d/www.conf`
+* Create directory used to store log files:
+
+```
+mkdir /var/log/php-fpm
+```
+
+* Override config file `/etc/php/7.4/fpm/pool.d/www.conf` with content below:
 
 ```
 [inet]
@@ -67,10 +73,17 @@ slowlog = /var/log/php-fpm/slow.log
 request_slowlog_timeout = 10s
 ```
 
-* `/etc/nginx/conf-available/php-fpm.conf`:
+* Override file `/etc/nginx/conf-available/php-fpm.conf` with content below:
 
 ```
 upstream php_workers {
     server 127.0.0.1:9999;
 }
+```
+
+* Restart php7.4-fpm and nginx services:
+
+```
+service php7.4-fpm restart
+service nginx restart
 ```

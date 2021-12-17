@@ -147,7 +147,7 @@ We need to add new ldap attribute/value pairs for existing mail users.
 
 ```
 cd /root/
-https://raw.githubusercontent.com/iredmail/iRedMail/master/update/ldap/update-ldap-dovecot-2.3.py
+wget https://raw.githubusercontent.com/iredmail/iRedMail/master/update/ldap/update-ldap-dovecot-2.3.py
 ```
 
 * Open downloaded file `update-ldap-dovecot-2.3.py`, set LDAP server

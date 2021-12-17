@@ -55,7 +55,13 @@ OS, their upgrade scripts will help fix some issues caused by OS upgrade.</p>
 </ul>
 <h2 id="configurations">Configurations</h2>
 <ul>
-<li><code>/etc/php/7.4/fpm/pool.d/www.conf</code></li>
+<li>Create directory used to store log files:</li>
+</ul>
+<pre><code>mkdir /var/log/php-fpm
+</code></pre>
+
+<ul>
+<li>Override config file <code>/etc/php/7.4/fpm/pool.d/www.conf</code> with content below:</li>
 </ul>
 <pre><code>[inet]
 user = www-data
@@ -87,11 +93,18 @@ request_slowlog_timeout = 10s
 </code></pre>
 
 <ul>
-<li><code>/etc/nginx/conf-available/php-fpm.conf</code>:</li>
+<li>Override file <code>/etc/nginx/conf-available/php-fpm.conf</code> with content below:</li>
 </ul>
 <pre><code>upstream php_workers {
     server 127.0.0.1:9999;
 }
+</code></pre>
+
+<ul>
+<li>Restart php7.4-fpm and nginx services:</li>
+</ul>
+<pre><code>service php7.4-fpm restart
+service nginx restart
 </code></pre><div class="footer">
     <p style="text-align: center; color: grey;">All documents are available in <a href="https://github.com/iredmail/docs/">GitHub repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://github.com/iredmail/docs/archive/master.zip">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
 </div></body></html>
