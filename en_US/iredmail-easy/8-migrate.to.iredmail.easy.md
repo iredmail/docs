@@ -28,7 +28,7 @@ For more details about iRedMail Easy platform, please
     - CentOS 7, 8 (NOT RECOMMENDED FOR NEW SERVER)
     - CentOS Stream
     - Rocky Linux 8
-    - OpenBSD 6.7
+    - OpenBSD 7.0
 
 Unfortunately, FreeBSD is not supported by iRedMail Easy platform.
 
@@ -144,7 +144,7 @@ files under `/opt/iredmail/custom/<software>/`.
 
     You need to create directory `/opt/iredmail/custom/postfix/` and the files
     if they don't exist, iRedMail Easy will set correct owner/group and
-    permission for them while deployment.
+    permission for them during deployment.
 
     If you're lasy and don't want to check files one by one, it's ok to simply
     copy these files from `/etc/postfix/` to `/opt/iredmail/custom/postfix/`
@@ -162,14 +162,17 @@ files under `/opt/iredmail/custom/<software>/`.
 ### Amavisd
 
 - Copy DKIM keys from `/var/lib/dkim/` to `/opt/iredmail/custom/amavisd/dkim/`.
-- Move all your `dkim_key(...)` parameters from Amavisd config file
-  (`/etc/amavisd/amavisd.conf` (RHEL/CentOS), or `/etc/amavis/conf.d/50-user`
-  (Debian/Ubuntu), `/etc/amavisd.conf` (OpenBSD), `/usr/local/etc/amavisd.conf`
-  (FreeBSD)) to `/opt/iredmail/custom/amavisd/amavisd.conf`.
+- Move all `dkim_key(...)` parameters from Amavisd config file to
+  `/opt/iredmail/custom/amavisd/amavisd.conf`:
+    - RHEL/CentOS: `/etc/amavisd/amavisd.conf`
+    - Debian/Ubuntu: `/etc/amavis/conf.d/50-user`
+    - OpenBSD: `/etc/amavisd.conf`
+    - FreeBSD: `/usr/local/etc/amavisd.conf`
 
     !!! attention
 
-        Please make sure no duplicat keys, otherwise Amavisd can not start.
+        Please make sure no duplicate `dkim_key(...)` parameters, otherwise
+        Amavisd will fail to start.
 
 ### SpamAssassin
 
@@ -193,12 +196,14 @@ trusted_networks 192.168.0.1 172.16.0.0/8
 
 ### iRedAPD
 
-Copy custom settings from `/opt/iredapd/settings.py` to `/opt/iredmail/custom/iredapd/settings.py`.
+Copy custom settings from `/opt/iredapd/settings.py` to
+`/opt/iredmail/custom/iredapd/settings.py` (this file will be linked back to
+`/opt/iredapd/custom_settings.py`).
 
 If you have whitelisted IP addresses/networks listed in Postfix config file
 `/etc/postfix/main.cf`, parameter `mynetworks =`, you may want to whitelist
-them to avoid greylisting or other access control in `/opt/iredmail/custom/iredapd/settings.py`
-too. For example:
+them to avoid greylisting or other access control in
+`/opt/iredmail/custom/iredapd/settings.py` too. For example:
 
 ```
 MYNEWTORKS = ['192.168.0.1', '172.16.0.0/8']

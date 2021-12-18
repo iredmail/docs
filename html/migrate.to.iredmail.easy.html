@@ -66,7 +66,7 @@ iRedMail Team quickly.</p>
 <li>CentOS 7, 8 (NOT RECOMMENDED FOR NEW SERVER)</li>
 <li>CentOS Stream</li>
 <li>Rocky Linux 8</li>
-<li>OpenBSD 6.7</li>
+<li>OpenBSD 7.0</li>
 </ul>
 </li>
 </ul>
@@ -289,7 +289,7 @@ names under <code>/opt/iredmail/custom/postfix/</code>. For example:</p>
 </ul>
 <p>You need to create directory <code>/opt/iredmail/custom/postfix/</code> and the files
 if they don't exist, iRedMail Easy will set correct owner/group and
-permission for them while deployment.</p>
+permission for them during deployment.</p>
 <p>If you're lasy and don't want to check files one by one, it's ok to simply
 copy these files from <code>/etc/postfix/</code> to <code>/opt/iredmail/custom/postfix/</code>
 directly, and (optionally) remove non-custom settings later.</p>
@@ -308,13 +308,18 @@ details, please check our
 <ul>
 <li>Copy DKIM keys from <code>/var/lib/dkim/</code> to <code>/opt/iredmail/custom/amavisd/dkim/</code>.</li>
 <li>
-<p>Move all your <code>dkim_key(...)</code> parameters from Amavisd config file
-  (<code>/etc/amavisd/amavisd.conf</code> (RHEL/CentOS), or <code>/etc/amavis/conf.d/50-user</code>
-  (Debian/Ubuntu), <code>/etc/amavisd.conf</code> (OpenBSD), <code>/usr/local/etc/amavisd.conf</code>
-  (FreeBSD)) to <code>/opt/iredmail/custom/amavisd/amavisd.conf</code>.</p>
+<p>Move all <code>dkim_key(...)</code> parameters from Amavisd config file to
+  <code>/opt/iredmail/custom/amavisd/amavisd.conf</code>:</p>
+<ul>
+<li>RHEL/CentOS: <code>/etc/amavisd/amavisd.conf</code></li>
+<li>Debian/Ubuntu: <code>/etc/amavis/conf.d/50-user</code></li>
+<li>OpenBSD: <code>/etc/amavisd.conf</code></li>
+<li>FreeBSD: <code>/usr/local/etc/amavisd.conf</code></li>
+</ul>
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>
-<p>Please make sure no duplicat keys, otherwise Amavisd can not start.</p>
+<p>Please make sure no duplicate <code>dkim_key(...)</code> parameters, otherwise
+Amavisd will fail to start.</p>
 </div>
 </li>
 </ul>
@@ -335,11 +340,13 @@ too. For example:</p>
 <li>Copy third-party or custom skins from <code>/opt/www/roundcubemail/skins/</code> to <code>/opt/iredmail/custom/roundcube/skins/</code>. iRedMail Easy will create symbol link for them automatically.</li>
 </ul>
 <h3 id="iredapd">iRedAPD</h3>
-<p>Copy custom settings from <code>/opt/iredapd/settings.py</code> to <code>/opt/iredmail/custom/iredapd/settings.py</code>.</p>
+<p>Copy custom settings from <code>/opt/iredapd/settings.py</code> to
+<code>/opt/iredmail/custom/iredapd/settings.py</code> (this file will be linked back to
+<code>/opt/iredapd/custom_settings.py</code>).</p>
 <p>If you have whitelisted IP addresses/networks listed in Postfix config file
 <code>/etc/postfix/main.cf</code>, parameter <code>mynetworks =</code>, you may want to whitelist
-them to avoid greylisting or other access control in <code>/opt/iredmail/custom/iredapd/settings.py</code>
-too. For example:</p>
+them to avoid greylisting or other access control in
+<code>/opt/iredmail/custom/iredapd/settings.py</code> too. For example:</p>
 <pre><code>MYNEWTORKS = ['192.168.0.1', '172.16.0.0/8']
 </code></pre>
 
