@@ -2,6 +2,41 @@
 
 [TOC]
 
+## Version: 2021122801 (Dec 28, 2021) {: id=2021122801 }
+
+* Supports new distribution release:
+    + OpenBSD 7.0
+
+* Dovecot:
+    - Enable new ssl cipher `EECDH+CHACHA20` and remove weak `AES256+EDH`.
+
+* Fail2ban:
+    - Add one more rule to catch auth error in Postfix log file.
+
+* Nginx:
+    - Greatly improve the performance of keep-alive connections over SSL by
+      enabling `ssl_session_cache` parameter. See iredmail/iRedMail#136.
+    - Enable TLSv1.3 by default (except Debian 9). See iredmail/iRedMail#137.
+    - Enable new ssl cipher: EECDH+CHACHA20. See iredmail/iRedMail#138.
+    - Remove weak ssl cipher: AES256+EDH. See iredmail/iRedMail#138.
+
+* SOGo:
+    - Able to disable ActiveSync completely (by disabling URI
+      `/Microsoft-Server-ActiveSync` in Nginx).
+    - [SQL Backends] Allow cross-domain global address book.
+    - Now available on Debian 11 (bullseye). Thanks to SOGo team.
+
+* Fixed issues:
+    - If php application was enabled but removed later, Nginx can not start
+      due to not remove php related config files.
+
+* Package updates:
+    + Roundcube webmail 1.5.1
+    + mlmmjadmin 3.1.3
+    + netdata 1.32.1
+    + iRedAPD 5.0.4
+    + [OpenBSD] fail2ban 0.11.2
+
 ## Version: 2021091301 (Sep 13, 2021) {: id=2021091301 }
 
 - Remove unused LDAP attributes: lastLoginDate, lastLoginIP, lastLoginProtocol.
