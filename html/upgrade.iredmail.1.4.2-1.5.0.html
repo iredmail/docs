@@ -35,10 +35,6 @@
 </li>
 </ul>
 </div>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>This IS A DRAFT DOCUMENT, DO NOT APPLY IT.</p>
-</div>
 <div class="admonition note">
 <p class="admonition-title">Paid Remote Upgrade Support</p>
 <p>We offer remote upgrade support if you don't want to get your hands dirty,
@@ -46,6 +42,9 @@ check <a href="https://www.iredmail.org/support.html">the details</a> and
 <a href="https://www.iredmail.org/contact.html">contact us</a>.</p>
 </div>
 <h2 id="changelog">ChangeLog</h2>
+<ul>
+<li>Dec 27, 2021: initial release.</li>
+</ul>
 <h2 id="general-all-backends-should-apply-these-changes">General (All backends should apply these changes)</h2>
 <h3 id="update-etciredmail-release-with-new-iredmail-version-number">Update <code>/etc/iredmail-release</code> with new iRedMail version number</h3>
 <p>iRedMail stores the release version in <code>/etc/iredmail-release</code> after
@@ -72,7 +71,7 @@ config file to avoid error
     - On CentOS 7: it's <code>/etc/my.cnf</code>
     - On Debian 10: it's <code>/etc/mysql/my.cnf</code></p>
 <p><code>[mysqld]
-innodb_large_prefix=true
+innodb_large_prefix=ON
 innodb_file_format=Barracuda</code></p>
 </div>
 <p>Please follow Roundcube official tutorial to upgrade Roundcube webmail to the

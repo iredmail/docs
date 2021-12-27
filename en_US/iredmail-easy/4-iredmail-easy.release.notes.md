@@ -2,7 +2,7 @@
 
 [TOC]
 
-## Version: 2021122801 (Dec 28, 2021) {: id=2021122801 }
+## Version: 2021122701 (Dec 27, 2021) {: id=2021122701 }
 
 * Supports new distribution release:
     + OpenBSD 7.0

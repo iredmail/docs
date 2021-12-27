@@ -2,10 +2,6 @@
 
 [TOC]
 
-!!! warning
-
-    This IS A DRAFT DOCUMENT, DO NOT APPLY IT.
-
 !!! note "Paid Remote Upgrade Support"
 
     We offer remote upgrade support if you don't want to get your hands dirty,
@@ -13,6 +9,8 @@
     [contact us](https://www.iredmail.org/contact.html).
 
 ## ChangeLog
+
+- Dec 27, 2021: initial release.
 
 ## General (All backends should apply these changes)
 
@@ -53,7 +51,7 @@ Please follow below tutorial to upgrade mlmmjadmin to the latest stable release:
 
     ```
     [mysqld]
-    innodb_large_prefix=true
+    innodb_large_prefix=ON
     innodb_file_format=Barracuda
     ```
 

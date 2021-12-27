@@ -2,6 +2,10 @@
 
 [TOC]
 
+!!! attention
+
+    Since iRedMail-1.5.0, smtps is enabled by default.
+
 ### Why iRedMail doesn't enable SMTPS (SMTP over SSL) by default
 
 SMTPS is deprecated, so iRedMail disable it by default.
