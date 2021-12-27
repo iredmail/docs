@@ -1,4 +1,4 @@
-# Upgrade iRedMail from 1.4.2 to 1.4.3
+# Upgrade iRedMail from 1.4.2 to 1.5.0
 
 [TOC]
 
@@ -23,13 +23,49 @@ installation, it's recommended to update this file after you upgraded iRedMail,
 so that you can know which version of iRedMail you're running. For example:
 
 ```
-1.4.3
+1.5.0
 ```
+
+### Upgrade iRedAPD (Postfix policy server) to the latest stable release (5.0.4)
+
+Please follow below tutorial to upgrade iRedAPD to the latest stable release:
+[Upgrade iRedAPD to the latest stable release](./upgrade.iredapd.html)
+
+### Upgrade iRedAdmin (open source edition) to the latest stable release (1.6)
+
+Please follow below tutorial to upgrade iRedAdmin to the latest stable release:
+[Upgrade iRedAdmin to the latest stable release](./migrate.or.upgrade.iredadmin.html).
 
 ### Upgrade mlmmjadmin to the latest stable release (3.1.3)
 
 Please follow below tutorial to upgrade mlmmjadmin to the latest stable release:
 [Upgrade mlmmjadmin to the latest stable release](./upgrade.mlmmjadmin.html)
+
+### Upgrade Roundcube webmail to the latest stable release (1.5.1)
+
+!!! warning "MySQL and MariaDB server tunning"
+
+    On CentOS 7 and Debian 10, you must add 2 parameters in MySQL or MariaDB
+    config file to avoid error
+    `Specified key was too long; max key length is 767 bytes`:
+        - On CentOS 7: it's `/etc/my.cnf`
+        - On Debian 10: it's `/etc/mysql/my.cnf`
+
+    ```
+    [mysqld]
+    innodb_large_prefix=true
+    innodb_file_format=Barracuda
+    ```
+
+Please follow Roundcube official tutorial to upgrade Roundcube webmail to the
+latest stable release:
+
+* [How to upgrade Roundcube](https://github.com/roundcube/roundcubemail/wiki/Upgrade).
+
+### Upgrade netdata to the latest stable release (1.32.1)
+
+If you have netdata installed, you can upgrade it by following this tutorial:
+[Upgrade netdata](./upgrade.netdata.html).
 
 ### Nginx: several improvements
 
@@ -89,11 +125,12 @@ ssl_session_cache shared:SSL:10m;
 
 Restarting Nginx service is required.
 
-### Dovecot: enable new ssl cipher `EECDH+CHACHA20` and remove the weak one `AES256+EDH`
+### Dovecot: enable a new ssl cipher and remove a weak one
 
 Please open file `/etc/dovecot/dovecot.conf` (Linux/OpenBSD) or
 `/usr/local/etc/dovecot/dovecot.conf` (FreeBSD), update parameter
-`ssl_cipher_list` to:
+`ssl_cipher_list` to below value, it adds new cipher `EECDH+CHACHA20` and
+removes the weak one `AES256+EDH`:
 
 ```
 ssl_cipher_list = EECDH+CHACHA20:EECDH+AESGCM:EDH+AESGCM:AES256+EECDH

@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title>Upgrade iRedMail from 1.4.2 to 1.4.3</title>
+        <title>Upgrade iRedMail from 1.4.2 to 1.5.0</title>
         <link rel="stylesheet" type="text/css" href="./css/markdown.css" />
     </head>
     <body>
@@ -15,16 +15,20 @@
              />&nbsp;
         <span>iRedMail</span>
     </a>
-    &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><h1 id="upgrade-iredmail-from-142-to-143">Upgrade iRedMail from 1.4.2 to 1.4.3</h1>
+    &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><h1 id="upgrade-iredmail-from-142-to-150">Upgrade iRedMail from 1.4.2 to 1.5.0</h1>
 <div class="toc">
 <ul>
-<li><a href="#upgrade-iredmail-from-142-to-143">Upgrade iRedMail from 1.4.2 to 1.4.3</a><ul>
+<li><a href="#upgrade-iredmail-from-142-to-150">Upgrade iRedMail from 1.4.2 to 1.5.0</a><ul>
 <li><a href="#changelog">ChangeLog</a></li>
 <li><a href="#general-all-backends-should-apply-these-changes">General (All backends should apply these changes)</a><ul>
 <li><a href="#update-etciredmail-release-with-new-iredmail-version-number">Update /etc/iredmail-release with new iRedMail version number</a></li>
+<li><a href="#upgrade-iredapd-postfix-policy-server-to-the-latest-stable-release-504">Upgrade iRedAPD (Postfix policy server) to the latest stable release (5.0.4)</a></li>
+<li><a href="#upgrade-iredadmin-open-source-edition-to-the-latest-stable-release-16">Upgrade iRedAdmin (open source edition) to the latest stable release (1.6)</a></li>
 <li><a href="#upgrade-mlmmjadmin-to-the-latest-stable-release-313">Upgrade mlmmjadmin to the latest stable release (3.1.3)</a></li>
+<li><a href="#upgrade-roundcube-webmail-to-the-latest-stable-release-151">Upgrade Roundcube webmail to the latest stable release (1.5.1)</a></li>
+<li><a href="#upgrade-netdata-to-the-latest-stable-release-1321">Upgrade netdata to the latest stable release (1.32.1)</a></li>
 <li><a href="#nginx-several-improvements">Nginx: several improvements</a></li>
-<li><a href="#dovecot-enable-new-ssl-cipher-eecdhchacha20-and-remove-the-weak-one-aes256edh">Dovecot: enable new ssl cipher EECDH+CHACHA20 and remove the weak one AES256+EDH</a></li>
+<li><a href="#dovecot-enable-a-new-ssl-cipher-and-remove-a-weak-one">Dovecot: enable a new ssl cipher and remove a weak one</a></li>
 </ul>
 </li>
 </ul>
@@ -47,12 +51,38 @@ check <a href="https://www.iredmail.org/support.html">the details</a> and
 <p>iRedMail stores the release version in <code>/etc/iredmail-release</code> after
 installation, it's recommended to update this file after you upgraded iRedMail,
 so that you can know which version of iRedMail you're running. For example:</p>
-<pre><code>1.4.3
+<pre><code>1.5.0
 </code></pre>
 
+<h3 id="upgrade-iredapd-postfix-policy-server-to-the-latest-stable-release-504">Upgrade iRedAPD (Postfix policy server) to the latest stable release (5.0.4)</h3>
+<p>Please follow below tutorial to upgrade iRedAPD to the latest stable release:
+<a href="./upgrade.iredapd.html">Upgrade iRedAPD to the latest stable release</a></p>
+<h3 id="upgrade-iredadmin-open-source-edition-to-the-latest-stable-release-16">Upgrade iRedAdmin (open source edition) to the latest stable release (1.6)</h3>
+<p>Please follow below tutorial to upgrade iRedAdmin to the latest stable release:
+<a href="./migrate.or.upgrade.iredadmin.html">Upgrade iRedAdmin to the latest stable release</a>.</p>
 <h3 id="upgrade-mlmmjadmin-to-the-latest-stable-release-313">Upgrade mlmmjadmin to the latest stable release (3.1.3)</h3>
 <p>Please follow below tutorial to upgrade mlmmjadmin to the latest stable release:
 <a href="./upgrade.mlmmjadmin.html">Upgrade mlmmjadmin to the latest stable release</a></p>
+<h3 id="upgrade-roundcube-webmail-to-the-latest-stable-release-151">Upgrade Roundcube webmail to the latest stable release (1.5.1)</h3>
+<div class="admonition warning">
+<p class="admonition-title">MySQL and MariaDB server tunning</p>
+<p>On CentOS 7 and Debian 10, you must add 2 parameters in MySQL or MariaDB
+config file to avoid error
+<code>Specified key was too long; max key length is 767 bytes</code>:
+    - On CentOS 7: it's <code>/etc/my.cnf</code>
+    - On Debian 10: it's <code>/etc/mysql/my.cnf</code></p>
+<p><code>[mysqld]
+innodb_large_prefix=true
+innodb_file_format=Barracuda</code></p>
+</div>
+<p>Please follow Roundcube official tutorial to upgrade Roundcube webmail to the
+latest stable release:</p>
+<ul>
+<li><a href="https://github.com/roundcube/roundcubemail/wiki/Upgrade">How to upgrade Roundcube</a>.</li>
+</ul>
+<h3 id="upgrade-netdata-to-the-latest-stable-release-1321">Upgrade netdata to the latest stable release (1.32.1)</h3>
+<p>If you have netdata installed, you can upgrade it by following this tutorial:
+<a href="./upgrade.netdata.html">Upgrade netdata</a>.</p>
 <h3 id="nginx-several-improvements">Nginx: several improvements</h3>
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>
@@ -115,10 +145,11 @@ ssl_session_cache shared:SSL:10m;
 </code></pre>
 
 <p>Restarting Nginx service is required.</p>
-<h3 id="dovecot-enable-new-ssl-cipher-eecdhchacha20-and-remove-the-weak-one-aes256edh">Dovecot: enable new ssl cipher <code>EECDH+CHACHA20</code> and remove the weak one <code>AES256+EDH</code></h3>
+<h3 id="dovecot-enable-a-new-ssl-cipher-and-remove-a-weak-one">Dovecot: enable a new ssl cipher and remove a weak one</h3>
 <p>Please open file <code>/etc/dovecot/dovecot.conf</code> (Linux/OpenBSD) or
 <code>/usr/local/etc/dovecot/dovecot.conf</code> (FreeBSD), update parameter
-<code>ssl_cipher_list</code> to:</p>
+<code>ssl_cipher_list</code> to below value, it adds new cipher <code>EECDH+CHACHA20</code> and
+removes the weak one <code>AES256+EDH</code>:</p>
 <pre><code>ssl_cipher_list = EECDH+CHACHA20:EECDH+AESGCM:EDH+AESGCM:AES256+EECDH
 </code></pre>
 
