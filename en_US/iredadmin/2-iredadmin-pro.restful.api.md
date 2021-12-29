@@ -539,6 +539,22 @@ Notes:
 
     <div class="params">
 
+    Parameters used to add subscribers:
+
+    Parameter | Sample Usage | Default Value | Comment
+    --- |--- |---|---
+    `add_subscribers` | `add_subscribers=<mail1>,<mail2>,<mail3>,...` | | Subscribe users to mailing list. Multiple subscribers must be separated by comma.
+    `require_confirm` | `require_confirm=no` | `yes` | Send email to subscribers and let subscribers confirm the subscription.
+    `subscription` | `subscription=normal` | `normal` | Subscribe to different subscription. Valid values are: `normal`, `digest`, `nomail`.
+
+    Parameters used to remove subscribers:
+
+    Parameter | Sample Usage | Default Value | Comment
+    --- |--- |---|---
+    `remove_subscribers` | `remove_subscribers=<mail1>,<mail2>,<mail3>,...` | | Remove existing subscribers from mailing list. Multiple subscribers must be separated by comma.
+
+    Other parameters:
+
     Parameter | Sample Usage | Default Value | Comment
     --- |--- |---|---
     `name` | `name=Sales Team` | | Display name of the mailing list.
@@ -575,20 +591,6 @@ Notes:
     `name` | `name=Short description of list` | | Set a short description of the mailing list account.
     `footer_text` | `footer_text=footer in plain text` | | Append footer (in plain text format) to every email sent to the list.
     `footer_html` | `footer_text=<p>footer in html</p>` | | Append footer (in html format) to every email sent to the list.
-
-    Parameters used to add subscribers:
-
-    Parameter | Sample Usage | Default Value | Comment
-    --- |--- |---|---
-    `add_subscribers` | `add_subscribers=<mail1>,<mail2>,<mail3>,...` | | Subscribe users to mailing list. Multiple subscribers must be separated by comma.
-    `require_confirm` | `require_confirm=no` | `yes` | Send email to subscribers and let subscribers confirm the subscription.
-    `subscription` | `subscription=normal` | `normal` | Subscribe to different subscription. Valid values are: `normal`, `digest`, `nomail`.
-
-    Parameters used to remove subscribers:
-
-    Parameter | Sample Usage | Default Value | Comment
-    --- |--- |---|---
-    `remove_subscribers` | `remove_subscribers=<mail1>,<mail2>,<mail3>,...` | | Remove existing subscribers from mailing list. Multiple subscribers must be separated by comma.
 
     </div>
 
