@@ -47,3 +47,24 @@ the php7.4-fpm service, so that php7.4-fpm listens on same network address
 cp /etc/php/7.3/fpm/pool.d/www.conf /etc/php/7.4/fpm/pool.d/www.conf
 service php7.4-fpm restart
 ```
+
+## SOGo Groupware
+
+Please update `/etc/apt/sources.list.d/sogo.nightly.list` to use the correct
+URL for Debian 11 (bullseye):
+
+```
+deb https://packages.inverse.ca/SOGo/nightly/5/debian/ bullseye bullseye
+```
+
+To update SOGo packages, please run commands below as root user:
+
+```
+apt update
+apt --only-upgrade install "sogo*" "*sope*"
+```
+
+Note: SOGo package may override its config file `/etc/sogo/sogo.conf` after
+upgraded, in this case you should be able to find backup file under `/etc/sogo/`,
+double check its content and copy to `/etc/sogo/sogo.conf`, then restart SOGo
+service.
