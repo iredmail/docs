@@ -2,6 +2,12 @@
 
 [TOC]
 
+## Version: 2021123101 (Dec 31, 2021) {: id=2021123101 }
+
+* Package updates:
+    + Roundcube webmail 1.5.2. It addresses one XSS security vulnerability,
+      also fixes few minor issues.
+
 ## Version: 2021122701 (Dec 27, 2021) {: id=2021122701 }
 
 * Supports new distribution release:
