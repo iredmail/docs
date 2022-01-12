@@ -65,22 +65,22 @@ mx.example.com
 
 * iRedMail 依赖 Debian/Ubuntu 官方的 apt 软件源，请在 `/etc/apt/sources.list`
   文件里启用它们。
-* 安装 `bzip2` 程序用于解压缩文件：
+* 安装 `tar` 和 `gzip` 程序用于解压缩文件：
 
 ```
-# sudo apt-get install bzip2
+# sudo apt-get install tar gzip
 ```
 
 ### 下载最新版本的 iRedMail
 
 * 访问[下载页面](https://www.iredmail.org/download.html)下载最新的版本。
-* 上传 iRedMail 到服务器上。假设上传后的路径是 `/root/iRedMail-x.y.z.tar.bz2`
+* 上传 iRedMail 到服务器上。假设上传后的路径是 `/root/iRedMail-x.y.z.tar.gz`
   （这里以 `x.y.z` 代替实际的版本号）。
 * 解压缩 iRedMail 安装包：
 
 ```
 # cd /root/
-# tar xjf iRedMail-x.y.z.tar.bz2
+# tar zxf iRedMail-x.y.z.tar.gz
 ```
 
 ## 运行 iRedMail 安装程序
