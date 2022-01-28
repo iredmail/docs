@@ -1,4 +1,4 @@
-# Process more emails concurrently
+# Process more (or less) emails concurrently
 
 !!! attention
 
