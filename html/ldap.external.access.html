@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>How to allow external access to OpenLDAP service</title>
+        <link rel="stylesheet" type="text/css" href="./css/markdown.css" />
+    </head>
+    <body>
+
+    <div id="navigation">
+    <a href="https://www.iredmail.org" target="_blank">
+        <img alt="iRedMail web site"
+             src="./images/logo-iredmail.png"
+             style="vertical-align: middle; height: 30px;"
+             />&nbsp;
+        <span>iRedMail</span>
+    </a>
+    &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><h1 id="how-to-allow-external-access-to-openldap-service">How to allow external access to OpenLDAP service</h1>
+<div class="toc">
+<ul>
+<li><a href="#how-to-allow-external-access-to-openldap-service">How to allow external access to OpenLDAP service</a><ul>
+<li><a href="#configure-openldap-to-listen-on-all-network-interfaces">Configure OpenLDAP to listen on all network interfaces</a><ul>
+<li><a href="#on-centos-rocky-linux">On CentOS, Rocky Linux</a></li>
+<li><a href="#on-debian-ubuntu-linux">On Debian, Ubuntu Linux</a></li>
+</ul>
+</li>
+<li><a href="#configure-firewall-rules-to-allow-access-from-external-network">Configure firewall rules to allow access from external network</a><ul>
+<li><a href="#on-centos-rocky-linux_1">On CentOS, Rocky Linux</a></li>
+<li><a href="#on-debian-ubuntu-linux_1">On Debian, Ubuntu Linux</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<h2 id="configure-openldap-to-listen-on-all-network-interfaces">Configure OpenLDAP to listen on all network interfaces</h2>
+<h3 id="on-centos-rocky-linux">On CentOS, Rocky Linux</h3>
+<p>Open file <code>/etc/systemd/system/slapd.service.d/override.conf</code>, you can find
+line like below:</p>
+<pre><code>ExecStart=/usr/sbin/slapd -u ldap -h &quot;ldapi:/// ldap://127.0.0.1:389/&quot; -f /etc/openldap/slapd.conf
+</code></pre>
+
+<p>Remove <code>127.0.0.1:389</code>:</p>
+<pre><code>ExecStart=/usr/sbin/slapd -u ldap -h &quot;ldapi:/// ldap:///&quot; -f /etc/openldap/slapd.conf
+</code></pre>
+
+<p>Save the changes and restart openldap service:</p>
+<pre><code>systemctl daemon-reload
+service slapd restart
+</code></pre>
+
+<h3 id="on-debian-ubuntu-linux">On Debian, Ubuntu Linux</h3>
+<p>Open file <code>/etc/default/slapd</code>, find parameter <code>SLAPD_SERVICES</code> and update it
+to below value:</p>
+<pre><code>SLAPD_SERVICES=&quot;ldap:/// ldapi:///&quot;
+</code></pre>
+
+<p>Save the changes and restart openldap service:</p>
+<pre><code>service slapd restart
+</code></pre>
+
+<h2 id="configure-firewall-rules-to-allow-access-from-external-network">Configure firewall rules to allow access from external network</h2>
+<h3 id="on-centos-rocky-linux_1">On CentOS, Rocky Linux</h3>
+<p>Please open file <code>/etc/firewalld/zones/iredmail.xml</code>, add 2 lines before the
+last <code>&lt;/zone&gt;</code> line:</p>
+<pre><code>    &lt;port port=&quot;389&quot; protocol=&quot;tcp&quot;/&gt;
+    &lt;port port=&quot;636&quot; protocol=&quot;tcp&quot;/&gt;
+</code></pre>
+
+<p>Restart the firewall:</p>
+<pre><code>servivce firewalld restart
+</code></pre>
+
+<h3 id="on-debian-ubuntu-linux_1">On Debian, Ubuntu Linux</h3>
+<p>Debian 11 and Ubuntu 20.04 uses nftables as the default firewall software,
+please add 2 lines in its config file <code>/etc/nftables.conf</code>, inside the
+<code>chain input {}</code> block (before <code>counter drop</code> line) like below:</p>
+<pre><code>table inet filter {
+    chain input {
+        ...
+
+        # Add below 3 lines.
+        # ldap, ldaps
+        tcp dport 389 accept
+        tcp dport 636 accept
+
+        counter drop
+    }
+
+    ...
+}
+</code></pre>
+
+<p>Restart the firewall:</p>
+<pre><code>service nftables restart
+</code></pre><div class="footer">
+    <p style="text-align: center; color: grey;">All documents are available in <a href="https://github.com/iredmail/docs/">GitHub repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://github.com/iredmail/docs/archive/master.zip">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
+</div></body></html>
