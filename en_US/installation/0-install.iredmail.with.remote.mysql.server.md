@@ -52,6 +52,11 @@ bind-address = 0.0.0.0
   and all privileges on remote MySQL server (of course you must choose another
   strong password):
 
+    !!! warning
+
+        This SQL user will be used for daily backup, please do not delete it
+        after iRedMail installation.
+
 ```
 -- Run on remote MySQL server as root user
 GRANT ALL PRIVILEGES ON *.* TO 'admin_iredmail'@'192.168.1.200' IDENTIFIED BY 'admin_password' WITH GRANT OPTION;
@@ -70,8 +75,6 @@ __Notes__:
   understand what it's used for, and less confuse with default `root` user.
 * You must replace `192.168.1.200` by the real IP address of your iRedMail
   server in above command.
-* It's recommended to delete this user AFTER iRedMail installation, it won't
-  be used anymore. We will give you SQL command to delete it later.
 
 If you tried to install iRedMail with this remote MySQL server before, please
 backup existing databases __on remote MySQL server first__, then drop them and
@@ -135,12 +138,3 @@ One more optional parameter is `INITIALIZE_SQL_DATA`. If you don't want
 iRedMail installer to initialize any sql records, please set
 `INITIALIZE_SQL_DATA=NO`. This way iRedMail installer will just configure
 related config files to use remote MySQL server.
-
-## After iRedMail installation
-
-As mentioned above, it's now ok to delete the new MySQL user `admin_iredmail`
-on remote MySQL server. It will not be used anymore.
-
-```
-mysql> DROP USER 'admin_iredmail'@'192.168.1.200';
-```
