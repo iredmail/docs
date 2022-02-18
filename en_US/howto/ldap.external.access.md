@@ -82,7 +82,10 @@ table inet filter {
 }
 ```
 
-Restart the firewall:
+Restart the firewall service:
+
+    Note: some server may use other firewall service, for example, `ufw`,
+    `iptables`, don't forget to check and restart it.
 
 ```
 service nftables restart

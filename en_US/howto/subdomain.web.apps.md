@@ -75,7 +75,7 @@ server {
 
     include /etc/nginx/templates/misc.tmpl;
     include /etc/nginx/templates/ssl.tmpl;
-    include /etc/nginx/templates/roundcube.tmpl;
+    include /etc/nginx/templates/roundcube-subdomain.tmpl;
 }
 ```
 
@@ -87,7 +87,7 @@ ln -sf /etc/nginx/sites-available/webmail.example.com.conf /etc/nginx/sites-enab
 
 - [OPTIONAL] If you want to remove acess from `https://mail.example.com/mail/`
   (`mail.exmaple.com` is your server hostname), you can simply comment out
-  below line in `/etc/nginx/sites-available/00-default-ssl.conf`:
+  (or add) below line in `/etc/nginx/sites-available/00-default-ssl.conf`:
 
 ```
 include /etc/nginx/templates/roundcube.tmpl;
@@ -97,6 +97,29 @@ include /etc/nginx/templates/roundcube.tmpl;
 
 ```
 service nginx restart
+```
+
+### Extra steps for SOGo
+
+SOGo is only accessible by `/SOGo` URI, so when you visit `https://your-site.com/`
+it won't redirect to `https://your-site.com/SOGo`. In this case you must
+add a `location` directive for `/` URI and redirect requests to `/SOGo`.
+
+```
+server {
+    listen 443 ssl http2;
+    listen [::]:443 ssl http2;
+    server_name webmail.example.com;
+
+    # Redirect homepage to /SOGo.
+    location = / {
+        return 302 https://$host/SOGo;
+    }
+
+    include /etc/nginx/templates/misc.tmpl;
+    include /etc/nginx/templates/ssl.tmpl;
+    include /etc/nginx/templates/subdomain-sogo.tmpl;
+}
 ```
 
 ## Important notes

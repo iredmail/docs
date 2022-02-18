@@ -91,7 +91,10 @@ please add 2 lines in its config file <code>/etc/nftables.conf</code>, inside th
 }
 </code></pre>
 
-<p>Restart the firewall:</p>
+<p>Restart the firewall service:</p>
+<pre><code>Note: some server may use other firewall service, for example, `ufw`,
+`iptables`, don't forget to check and restart it.
+</code></pre>
 <pre><code>service nftables restart
 </code></pre><div class="footer">
     <p style="text-align: center; color: grey;">All documents are available in <a href="https://github.com/iredmail/docs/">GitHub repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://github.com/iredmail/docs/archive/master.zip">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
