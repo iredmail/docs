@@ -22,7 +22,12 @@ smtp_sasl_security_options = noanonymous
 !!! note
 
     * You should relace `relay_server` above by the real server address. for
-      example, `relayhost = [37.61.54.158]:25`, `relayhost = [smtp.gmail.com]:25`.
+      example:
+
+        ```relayhost = [37.61.54.158]:25```
+
+        ```relayhost = [smtp.gmail.com]:25```
+
     * For more possible values/formats, please check Postfix document:
       [Postfix transport table format (transport)](http://www.postfix.org/transport.5.html).
 

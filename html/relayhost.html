@@ -51,10 +51,16 @@ smtp_sasl_security_options = noanonymous
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <ul>
-<li>You should relace <code>relay_server</code> above by the real server address. for
-  example, <code>relayhost = [37.61.54.158]:25</code>, <code>relayhost = [smtp.gmail.com]:25</code>.</li>
-<li>For more possible values/formats, please check Postfix document:
-  <a href="http://www.postfix.org/transport.5.html">Postfix transport table format (transport)</a>.</li>
+<li>
+<p>You should relace <code>relay_server</code> above by the real server address. for
+  example:</p>
+<p><code>relayhost = [37.61.54.158]:25</code></p>
+<p><code>relayhost = [smtp.gmail.com]:25</code></p>
+</li>
+<li>
+<p>For more possible values/formats, please check Postfix document:
+  <a href="http://www.postfix.org/transport.5.html">Postfix transport table format (transport)</a>.</p>
+</li>
 </ul>
 </div>
 <p>Then write the username and password in <code>/etc/postfix/sasl_password</code>:</p>
