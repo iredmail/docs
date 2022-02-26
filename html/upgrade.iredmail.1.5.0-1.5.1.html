@@ -50,14 +50,15 @@ so that you can know which version of iRedMail you're running. For example:</p>
 <h3 id="upgrade-roundcube-webmail-to-the-latest-stable-release-152">Upgrade Roundcube webmail to the latest stable release (1.5.2)</h3>
 <div class="admonition warning">
 <p class="admonition-title">MySQL and MariaDB server tunning</p>
-<p>On CentOS 7, Debian 10 and Ubuntu 18.04, you must add 2 parameters in
-MySQL or MariaDB config file to avoid error
-<code>Specified key was too long; max key length is 767 bytes</code>:
-    - On CentOS 7: it's <code>/etc/my.cnf</code>
-    - On Debian 10: it's <code>/etc/mysql/my.cnf</code></p>
-<p><code>[mysqld]
-innodb_large_prefix=ON
-innodb_file_format=Barracuda</code></p>
+<p>On CentOS 7, Debian 10 and Ubuntu 18.04, you must add 2 parameters under
+<code>[mysqld]</code> section in MySQL or MariaDB config file to avoid error
+<code>Specified key was too long; max key length is 767 bytes</code>:</p>
+<ul>
+<li>On CentOS 7: it's <code>/etc/my.cnf</code></li>
+<li>On Debian 10: it's <code>/etc/mysql/my.cnf</code></li>
+</ul>
+<p><code>innodb_large_prefix=ON</code>
+<code>innodb_file_format=Barracuda</code></p>
 </div>
 <p>Roundcube 1.5.2 addresses one XSS security fix, also fixes some monir issues.</p>
 <p>Please follow Roundcube official tutorial to upgrade Roundcube webmail to the
