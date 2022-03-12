@@ -35,9 +35,13 @@ The cookie used by SOGo is now `much bigger than before (just bellow 4096
 bytes, to accommodate longer passwords)`, so we have to increase Nginx proxy
 buffer size too, otherwise user can not login to SOGo webmail.
 
-Please open `/etc/nginx/templates/sogo.tmpl` (on Linux/OpenBSD) or
-`/usr/local/etc/nginx/templates/sogo.tmpl` (on FreeBSD), find below 3 `location`
-directives:
+Find below 3 `location` directives in 2 Nginx config files:
+    - On Linux and OpenBSD:
+        - `/etc/nginx/templates/sogo.tmpl`
+        - `/etc/nginx/templates/sogo-subdomain.tmpl`
+    - On FreeBSD:
+        - `/usr/local/etc/nginx/templates/sogo.tmpl`
+        - `/usr/local/etc/nginx/templates/sogo-subdomain.tmpl`
 
 ```
 location ^~ /SOGo {

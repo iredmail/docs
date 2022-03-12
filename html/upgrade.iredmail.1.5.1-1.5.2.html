@@ -56,9 +56,13 @@ so that you can know which version of iRedMail you're running. For example:</p>
 <p>The cookie used by SOGo is now <code>much bigger than before (just bellow 4096
 bytes, to accommodate longer passwords)</code>, so we have to increase Nginx proxy
 buffer size too, otherwise user can not login to SOGo webmail.</p>
-<p>Please open <code>/etc/nginx/templates/sogo.tmpl</code> (on Linux/OpenBSD) or
-<code>/usr/local/etc/nginx/templates/sogo.tmpl</code> (on FreeBSD), find below 3 <code>location</code>
-directives:</p>
+<p>Find below 3 <code>location</code> directives in 2 Nginx config files:
+    - On Linux and OpenBSD:
+        - <code>/etc/nginx/templates/sogo.tmpl</code>
+        - <code>/etc/nginx/templates/sogo-subdomain.tmpl</code>
+    - On FreeBSD:
+        - <code>/usr/local/etc/nginx/templates/sogo.tmpl</code>
+        - <code>/usr/local/etc/nginx/templates/sogo-subdomain.tmpl</code></p>
 <pre><code>location ^~ /SOGo {
     # ...omit existing parameters here ...
 }
