@@ -16,7 +16,9 @@
 ## Requirements
 
 * iRedMail-0.9.0 or later releases is required.
-* You must choose to install SOGo groupware during iRedMail installation.
+* You must choose to install SOGo groupware during iRedMail installation. If
+  you install SOGo after iRedMail installation, don't forget to install
+  `sogo-activesync` package for ActiveSync support.
 * Outlook 2013 for Windows. Earlier releases of Outlook for Windows doesn't work.
 
 ## Step-by-step configuration
