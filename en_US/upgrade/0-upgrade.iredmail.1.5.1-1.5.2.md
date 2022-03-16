@@ -10,7 +10,7 @@
 
 ## ChangeLog
 
-- XXX XX, 2022: initial release.
+- March 16, 2022: initial release.
 
 ## General (All backends should apply these changes)
 
