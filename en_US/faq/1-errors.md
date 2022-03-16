@@ -120,6 +120,21 @@ server, but sender doesn't perform SMTP AUTH to send email.
       it better.
     * This parameter name must be in upper cases.
 
+### Recipient address rejected: Policy rejection due to null sender
+
+Sample error message in Postfix log file:
+
+> Tue 15 16:00:17 mail postfix/submission/smtpd[412508]: NOQUEUE: reject: RCPT from unknown[119.12.37.112]: 554 5.7.1 <user@domain.com>: __Recipient address rejected: Policy rejection due to null sender__{: .red }; from=<> to=<user@domain.com> proto=ESMTP helo=<...>
+
+If end user sends email with smtp authentication, but specify null sender
+in SMTP session (`from=<>` in Postfix log), iRedAPD plugin `reject_null_sender`
+will reject the email with above error message.
+
+This behaviour looks like spamming, and null sender won't trigger throttling.
+
+The solution is making sure end user's MUA is configured to send email with
+SMTP authentication, and specify a sender address.
+
 ### Recipient address rejected: Sender is not same as SMTP authenticate username
 
 #### case #1

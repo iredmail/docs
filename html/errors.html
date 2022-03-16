@@ -24,6 +24,7 @@
 <li><a href="#sender-address-rejected-not-logged-in">Sender address rejected: not logged in</a></li>
 <li><a href="#sender-address-rejected-not-owned-by-user-userdomainltd">Sender address rejected: not owned by user user@domain.ltd</a></li>
 <li><a href="#recipient-address-rejected-smtp-auth-is-required-for-users-under-this-sender-domain">Recipient address rejected: SMTP AUTH is required for users under this sender domain</a></li>
+<li><a href="#recipient-address-rejected-policy-rejection-due-to-null-sender">Recipient address rejected: Policy rejection due to null sender</a></li>
 <li><a href="#recipient-address-rejected-sender-is-not-same-as-smtp-authenticate-username">Recipient address rejected: Sender is not same as SMTP authenticate username</a><ul>
 <li><a href="#case-1">case #1</a></li>
 <li><a href="#case-2">case #2</a></li>
@@ -155,6 +156,17 @@ from <strong>ANY</strong> mail server.</p>
 </ul>
 </li>
 </ol>
+<h3 id="recipient-address-rejected-policy-rejection-due-to-null-sender">Recipient address rejected: Policy rejection due to null sender</h3>
+<p>Sample error message in Postfix log file:</p>
+<blockquote>
+<p>Tue 15 16:00:17 mail postfix/submission/smtpd[412508]: NOQUEUE: reject: RCPT from unknown[119.12.37.112]: 554 5.7.1 <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#117;&#115;&#101;&#114;&#64;&#100;&#111;&#109;&#97;&#105;&#110;&#46;&#99;&#111;&#109;">&#117;&#115;&#101;&#114;&#64;&#100;&#111;&#109;&#97;&#105;&#110;&#46;&#99;&#111;&#109;</a>: <strong class="red">Recipient address rejected: Policy rejection due to null sender</strong>; from=&lt;&gt; to=<a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#117;&#115;&#101;&#114;&#64;&#100;&#111;&#109;&#97;&#105;&#110;&#46;&#99;&#111;&#109;">&#117;&#115;&#101;&#114;&#64;&#100;&#111;&#109;&#97;&#105;&#110;&#46;&#99;&#111;&#109;</a> proto=ESMTP helo=&lt;...&gt;</p>
+</blockquote>
+<p>If end user sends email with smtp authentication, but specify null sender
+in SMTP session (<code>from=&lt;&gt;</code> in Postfix log), iRedAPD plugin <code>reject_null_sender</code>
+will reject the email with above error message.</p>
+<p>This behaviour looks like spamming, and null sender won't trigger throttling.</p>
+<p>The solution is making sure end user's MUA is configured to send email with
+SMTP authentication, and specify a sender address.</p>
 <h3 id="recipient-address-rejected-sender-is-not-same-as-smtp-authenticate-username">Recipient address rejected: Sender is not same as SMTP authenticate username</h3>
 <h4 id="case-1">case #1</h4>
 <p>If the smtp authenticate username is different than the address in mail header
