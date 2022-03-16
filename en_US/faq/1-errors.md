@@ -124,7 +124,7 @@ server, but sender doesn't perform SMTP AUTH to send email.
 
 Sample error message in Postfix log file:
 
-> Tue 15 16:00:17 mail postfix/submission/smtpd[412508]: NOQUEUE: reject: RCPT from unknown[119.12.37.112]: 554 5.7.1 <user@domain.com>: __Recipient address rejected: Policy rejection due to null sender__{: .red }; from=<> to=<user@domain.com> proto=ESMTP helo=<...>
+> Tue 15 16:00:17 mail postfix/submission/smtpd[412508]: NOQUEUE: reject: RCPT from unknown[119.12.37.112]: 554 5.7.1 <user@domain.com>: __Recipient address rejected: Policy rejection due to null sender__; __from=<>__{: .red } to=<user@domain.com> proto=ESMTP helo=<...>
 
 If end user sends email with smtp authentication, but specify null sender
 in SMTP session (`from=<>` in Postfix log), iRedAPD plugin `reject_null_sender`
