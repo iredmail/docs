@@ -19,6 +19,7 @@
 <div class="toc">
 <ul>
 <li><a href="#iredmail-easy-release-notes">iRedMail Easy: Release Notes</a><ul>
+<li><a href="#2022031601">Version: 2022031601 (March 16, 2022)</a></li>
 <li><a href="#2021123101">Version: 2021123101 (Dec 31, 2021)</a></li>
 <li><a href="#2021122701">Version: 2021122701 (Dec 27, 2021)</a></li>
 <li><a href="#2021091301">Version: 2021091301 (Sep 13, 2021)</a></li>
@@ -57,6 +58,28 @@
 </li>
 </ul>
 </div>
+<h2 id="2022031601">Version: 2022031601 (March 16, 2022)</h2>
+<ul>
+<li>
+<p>Fixed issues:</p>
+<ul>
+<li>Can not login to SOGo webmail due to small (Nginx) proxy buffer size.
+  Thanks to Sysadminfromhell for the report in https://forum.iredmail.org/.</li>
+<li>Set correct owner and permission for all existing DKIM keys instead of
+  the newly generated one. This is helpful for migrated iRedMail server.</li>
+<li>[Debian, Ubuntu] Change clamav socket path to <code>/var/run/clamav/clamd.ctl</code>.
+  Amavisd on some system may fail to connect to <code>/tmp/clamd.socket</code>.</li>
+<li>Make sure clamscan is NOT called when clamav socket is gone.
+  clamscan uses too much CPU/Memory resource and may cause system hangs.</li>
+</ul>
+</li>
+<li>
+<p>Updated packages:</p>
+<ul>
+<li>netdata 1.33.1</li>
+</ul>
+</li>
+</ul>
 <h2 id="2021123101">Version: 2021123101 (Dec 31, 2021)</h2>
 <ul>
 <li>Package updates:<ul>

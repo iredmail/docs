@@ -2,6 +2,21 @@
 
 [TOC]
 
+## Version: 2022031601 (March 16, 2022) {: id=2022031601 }
+
+* Fixed issues:
+    - Can not login to SOGo webmail due to small (Nginx) proxy buffer size.
+      Thanks to Sysadminfromhell for the report in https://forum.iredmail.org/.
+    - Set correct owner and permission for all existing DKIM keys instead of
+      the newly generated one. This is helpful for migrated iRedMail server.
+    - [Debian, Ubuntu] Change clamav socket path to `/var/run/clamav/clamd.ctl`.
+      Amavisd on some system may fail to connect to `/tmp/clamd.socket`.
+    - Make sure clamscan is NOT called when clamav socket is gone.
+      clamscan uses too much CPU/Memory resource and may cause system hangs.
+
+* Updated packages:
+    - netdata 1.33.1
+
 ## Version: 2021123101 (Dec 31, 2021) {: id=2021123101 }
 
 * Package updates:
