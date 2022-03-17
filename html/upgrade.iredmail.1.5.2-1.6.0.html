@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Upgrade iRedMail from 1.5.2 to 1.6.0</title>
+        <link rel="stylesheet" type="text/css" href="./css/markdown.css" />
+    </head>
+    <body>
+
+    <div id="navigation">
+    <a href="https://www.iredmail.org" target="_blank">
+        <img alt="iRedMail web site"
+             src="./images/logo-iredmail.png"
+             style="vertical-align: middle; height: 30px;"
+             />&nbsp;
+        <span>iRedMail</span>
+    </a>
+    &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><h1 id="upgrade-iredmail-from-152-to-160">Upgrade iRedMail from 1.5.2 to 1.6.0</h1>
+<div class="toc">
+<ul>
+<li><a href="#upgrade-iredmail-from-152-to-160">Upgrade iRedMail from 1.5.2 to 1.6.0</a><ul>
+<li><a href="#changelog">ChangeLog</a></li>
+<li><a href="#general-all-backends-should-apply-these-changes">General (All backends should apply these changes)</a><ul>
+<li><a href="#update-etciredmail-release-with-new-iredmail-version-number">Update /etc/iredmail-release with new iRedMail version number</a></li>
+</ul>
+</li>
+<li><a href="#for-postgresql-backend">For PostgreSQL backend</a><ul>
+<li><a href="#move-sql-view-sogousers-to-vmail-database">Move SQL view sogo.users to vmail database</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>THIS IS A DRAFT DOCUMENT, DO NOT APPLY IT.</p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Paid Remote Upgrade Support</p>
+<p>We offer remote upgrade support if you don't want to get your hands dirty,
+check <a href="https://www.iredmail.org/support.html">the details</a> and
+<a href="https://www.iredmail.org/contact.html">contact us</a>.</p>
+</div>
+<h2 id="changelog">ChangeLog</h2>
+<ul>
+<li>XXX XX, 2022: initial release.</li>
+</ul>
+<h2 id="general-all-backends-should-apply-these-changes">General (All backends should apply these changes)</h2>
+<h3 id="update-etciredmail-release-with-new-iredmail-version-number">Update <code>/etc/iredmail-release</code> with new iRedMail version number</h3>
+<p>iRedMail stores the release version in <code>/etc/iredmail-release</code> after
+installation, it's recommended to update this file after you upgraded iRedMail,
+so that you can know which version of iRedMail you're running. For example:</p>
+<pre><code>1.6.0
+</code></pre>
+
+<h2 id="for-postgresql-backend">For PostgreSQL backend</h2>
+<h3 id="move-sql-view-sogousers-to-vmail-database">Move SQL view <code>sogo.users</code> to <code>vmail</code> database</h3>
+<p>In iRedMail-1.5.2 and early releases, we create SQL view <code>users</code> in <code>sogo</code>
+database, it invokes PostgreSQL extension <code>dblink</code> to query <code>vmail</code> database,
+this causes end users can not change passwords in SOGo webmail.</p>
+<p>With steps below, we create SQL view <code>sogo_users</code> in <code>vmail</code> database, so that
+end users can change their own passwords.</p>
+<p>Download plain SQL file used to update SQL table:</p>
+<pre><code>wget -O /tmp/sogo_view.pgsql https://github.com/iredmail/iRedMail/raw/1.6.0/update/1.6.0/sogo_view.pgsql
+chmod +r /tmp/sogo_view.pgsql
+</code></pre>
+
+<ul>
+<li>Connect to PostgreSQL server as <code>postgres</code> user and import the SQL file:<ul>
+<li>on Linux, it's <code>postgres</code> user</li>
+<li>on FreeBSD, it's <code>pgsql</code> user</li>
+<li>on OpenBSD, it's <code>_postgresql</code> user</li>
+</ul>
+</li>
+</ul>
+<pre><code>su - postgres
+psql -d vmail &lt; /tmp/sogo_view.pgsql
+</code></pre>
+
+<ul>
+<li>Remove downloaded file:</li>
+</ul>
+<pre><code>rm -f /tmp/sogo_view.pgsql
+</code></pre>
+
+<p>Now we need to update SOGo config file to use this new SQL view.</p>
+<ul>
+<li>Open file <code>/etc/sogo/sogo.conf</code>, find block <code>SOGoUserSources = ()</code> like below:</li>
+</ul>
+<pre><code>    SOGoUserSources = (
+        {
+            type = sql;
+            id = users;
+            viewURL = &quot;postgresql://sogo:...@127.0.0.1:5432/sogo/users&quot;;
+            canAuthenticate = YES;
+            ...
+        },
+    );
+</code></pre>
+
+<ul>
+<li>Update the <code>viewURL =</code> line:<ul>
+<li>Replace the SQL database name <code>sogo</code> by <code>vmail</code></li>
+<li>Replace the SQL table name <code>users</code> by <code>sogo_users</code></li>
+</ul>
+</li>
+</ul>
+<pre><code>            viewURL = &quot;postgresql://sogo:...@127.0.0.1:5432/vmail/sogo_users&quot;;
+</code></pre>
+
+<ul>
+<li>Restart memcached and SOGo service (Note: on CentOS, the service name is
+  <code>sogod</code>, not <code>sogo</code>):</li>
+</ul>
+<pre><code>service memcached restart
+service sogo restart
+</code></pre>
+
+<ul>
+<li>Connect to PostgreSQL server as <code>postgres</code> user and drop old SQL view, it's not used anymore.<ul>
+<li>on Linux, it's <code>postgres</code> user</li>
+<li>on FreeBSD, it's <code>pgsql</code> user</li>
+<li>on OpenBSD, it's <code>_postgresql</code> user</li>
+</ul>
+</li>
+</ul>
+<pre><code>su - postgres
+psql -d sogo -c &quot;DROP VIEW users&quot;
+</code></pre><div class="footer">
+    <p style="text-align: center; color: grey;">All documents are available in <a href="https://github.com/iredmail/docs/">GitHub repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://github.com/iredmail/docs/archive/master.zip">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
+</div></body></html>
