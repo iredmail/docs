@@ -99,7 +99,6 @@ installation, it's recommended to update this file after you upgraded iRedMail,
 so that you can know which version of iRedMail you're running. For example:</p>
 <pre><code>0.9.8
 </code></pre>
-
 <h3 id="upgrade-iredapd-postfix-policy-server-to-the-latest-stable-release-22">Upgrade iRedAPD (Postfix policy server) to the latest stable release (2.2)</h3>
 <p>Please follow below tutorial to upgrade iRedAPD to the latest stable release:
 <a href="./upgrade.iredapd.html">Upgrade iRedAPD to the latest stable release</a></p>
@@ -173,7 +172,6 @@ wget https://github.com/iredmail/iRedMail/raw/1.0/tools/backup_sogo.sh
 chown root backup_sogo.sh
 chmod 0400 backup_sogo.sh
 </code></pre>
-
 <h3 id="fail2ban-new-jail-postfix-pregreet">Fail2ban: new jail <code>postfix-pregreet</code></h3>
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>
@@ -199,7 +197,6 @@ installed with a malware Windows XP ISO image.</p>
 <pre><code>cd /etc/fail2ban/filter.d/
 wget https://github.com/iredmail/iRedMail/raw/1.0/samples/fail2ban/filter.d/postfix-pregreet.iredmail.conf
 </code></pre>
-
 <ul>
 <li>
 <p>Create new file <code>/etc/fail2ban/jail.d/postfix-pregreet.local</code> with content
@@ -219,7 +216,6 @@ logpath     = /var/log/maillog
 maxretry    = 1
 action      = iptables-multiport[name=postfix-pregreet, port=&quot;25&quot;, protocol=tcp]
 </code></pre>
-
 <ul>
 <li>Restarting Fail2ban service is required.</li>
 </ul>
@@ -235,14 +231,12 @@ hard-codes static file types like below:</p>
     alias /var/www/iredadmin/static/$1.$2;
 }
 </code></pre>
-
 <p>Note: The path in <code>alias</code> directive is different on different Linux/BSD distributions.</p>
 <p>Please replace it by:</p>
 <pre><code>location ~ ^/iredadmin/static/(.*) {
     alias /var/www/iredadmin/static/$1;
 }
 </code></pre>
-
 <p>Reloading or restarting Nginx service is required.</p>
 <h3 id="improve-nginx-config-file-to-handle-mailing-list-subscriptionunsubscription">Improve Nginx config file to handle mailing list subscription/unsubscription</h3>
 <p>iRedMail integrates mlmmj as mailing list manager (integration tutorial
@@ -258,7 +252,6 @@ location ~ ^/newsletter/ {
     rewrite /newsletter/(.*) /iredadmin/newsletter/$1 last;
 }
 </code></pre>
-
 <p>Reloading or restarting Nginx service is required.</p>
 <h3 id="security-fixed-nginx-snippet-file-doesnt-block-access-to-roundcube-sensitive-files">[SECURITY] Fixed: Nginx snippet file doesn't block access to Roundcube sensitive files</h3>
 <div class="admonition attention">
@@ -283,7 +276,6 @@ location ~ ^/mail/plugins/.*/config.inc.php.* { deny all; }
 # Block access to plugin data
 location ~ ^/mail/plugins/enigma/home($|/.*) { deny all; }
 </code></pre>
-
 <p>Please open file <code>/etc/nginx/templates/roundcube-subdomain.tmpl</code>
 (Linux/OpenBSD) or <code>/usr/local/etc/nginx/templates/roundcube-subdomain.tmpl</code>
 (FreeBSD), add lines below <strong>ABOVE</strong> any existing lines:</p>
@@ -299,7 +291,6 @@ location ~ ^/plugins/.*/config.inc.php.* { deny all; }
 # Block access to plugin data
 location ~ ^/plugins/enigma/home($|/.*) { deny all; }
 </code></pre>
-
 <p>Open file <code>/etc/nginx/sites-available/00-default.conf</code> AND <code>00-default-ssl.conf</code>,
 make sure template file <code>misc.tmpl</code> is loaded before other template files.
 For example, your existing config file may look like this:</p>
@@ -310,7 +301,6 @@ For example, your existing config file may look like this:</p>
     include /etc/nginx/templates/misc.tmpl;
 }
 </code></pre>
-
 <p>Please move the <code>misc.tmpl</code> line <strong>ABOVE</strong> any other <code>include</code> directive.
 Final setting should look like this:</p>
 <pre><code>server {
@@ -320,7 +310,6 @@ Final setting should look like this:</p>
     include /etc/nginx/templates/...;
 }
 </code></pre>
-
 <p>Note: Nginx in iRedMail-0.9.7 loads modular config files from
 <code>/etc/nginx/sites-conf.d/default/</code> and <code>/etc/nginx/sites-conf.d/default-ssl/</code>
 instead of storing all configurations for default web hosts in one file, in
@@ -340,7 +329,6 @@ DNSBL service for postscreen service like below:</p>
     zen.spamhaus.org=127.0.0.[2..11]*3
     b.barracudacentral.org=127.0.0.[2..11]*2
 </code></pre>
-
 <p>but site <code>b.barracudacentral.org</code> returns only domain <code>127.0.0.2</code> (instead of
 a range from <code>127.0.0.2</code> to <code>127.0.0.11</code>), so we should change the
 <code>b.barracudacentral.org=127.0.0.[2..11]*2</code> line to:</p>
@@ -348,7 +336,6 @@ a range from <code>127.0.0.2</code> to <code>127.0.0.11</code>), so we should ch
     zen.spamhaus.org=127.0.0.[2..11]*3
     b.barracudacentral.org=127.0.0.2*2
 </code></pre>
-
 <p>Reloading or restarting Postfix is required.</p>
 <h3 id="openbsd-upgrade-uwsgi-to-the-latest-2017">OpenBSD: Upgrade uwsgi to the latest 2.0.17</h3>
 <p>uwsgi is the interface between Nginx and iRedAdmin, so if you're running
@@ -360,21 +347,18 @@ tar zxf uwsgi-2.0.17.tar.gz
 cd uwsgi-2.0.17
 python setup.py install
 </code></pre>
-
 <p>uwsgi should be succesfully installed, then restart uwsgi service:</p>
 <pre><code>rcctl restart uwsgi
 </code></pre>
-
 <h3 id="optional-log-mail-subject-sender-size-in-mail-deliver-log">[OPTIONAL] Log mail subject, sender, size in mail deliver log</h3>
 <p>If you may need to get more info of (locally) delivered mail messages,
 Dovecot setting <code>deliver_log_format</code> can log extra mail subject, sender, and
 message size in mail deliver log. Please append this setting in Dovecot config
 file <code>dovecot.conf</code>, then restart or reload Dovecot service.
-<em> On Linux/OpenBSD, it's <code>/etc/dovecot/dovecot.conf</code>
-</em> On FreeBSD, it's <code>/usr/local/etc/dovecot/dovecot.conf</code></p>
+* On Linux/OpenBSD, it's <code>/etc/dovecot/dovecot.conf</code>
+* On FreeBSD, it's <code>/usr/local/etc/dovecot/dovecot.conf</code></p>
 <pre><code>deliver_log_format = from=%{from}, envelope_sender=%{from_envelope}, subject=%{subject}, msgid=%m, size=%{size}, %$
 </code></pre>
-
 <h3 id="optional-integrate-netdata-fancy-system-monitor">[OPTIONAL] integrate netdata - fancy system monitor</h3>
 <p>iRedMail-0.9.8 integrates netdata as an optional component, it's a fancy system
 monitor to help you understand how your iRedMail server runs.</p>
@@ -413,18 +397,15 @@ monitor to help you understand how your iRedMail server runs.</p>
     by dn.exact=&quot;cn=vmailadmin,dc=xxx,dc=xxx&quot;  write
     by users                        none
 </code></pre>
-
 <p>Replace the last line <code>by users none</code> by:</p>
 <pre><code>   by users read
 </code></pre>
-
 <ul>
 <li>Append lines below to the end of OpenLDAP config file <code>slapd.conf</code>:</li>
 </ul>
 <pre><code>index member,uniqueMember eq,pres
 index mailingListID eq
 </code></pre>
-
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>
 <p>For OpenBSD <code>ldapd(8)</code> server, please add lines below inside the
@@ -453,7 +434,6 @@ cp iredmail.schema iredmail.schema.bak
 
 cp -f /tmp/iredmail.schema /etc/openldap/schema/
 </code></pre>
-
 <ul>
 <li>On Debian/Ubuntu:</li>
 </ul>
@@ -465,7 +445,6 @@ cp iredmail.schema iredmail.schema.bak
 
 cp -f /tmp/iredmail.schema /etc/ldap/schema/
 </code></pre>
-
 <ul>
 <li>On FreeBSD:</li>
 </ul>
@@ -477,7 +456,6 @@ cp iredmail.schema iredmail.schema.bak
 
 cp -f /tmp/iredmail.schema /usr/local/etc/openldap/schema/
 </code></pre>
-
 <ul>
 <li>
 <p>On OpenBSD:</p>
@@ -495,7 +473,6 @@ cp iredmail.schema iredmail.schema.bak
 
 cp -f /tmp/iredmail.schema /etc/openldap/schema/
 </code></pre>
-
 <h3 id="add-new-ldap-attributevalue-pairs-required-by-dovecot-23">Add new ldap attribute/value pairs required by Dovecot-2.3.</h3>
 <p>Dovecot-2.3 has an internal change which impacts mail accounts created by
 iRedMail, it requires 2 new ldap attribute/value pairs for all mail users:</p>
@@ -510,7 +487,6 @@ iRedMail, it requires 2 new ldap attribute/value pairs for all mail users:</p>
 <pre><code>cd /root/
 wget https://github.com/iredmail/iRedMail/raw/1.0/update/ldap/update-ldap-dovecot-2.3.py
 </code></pre>
-
 <ul>
 <li>Open downloaded file <code>update-ldap-dovecot-2.3.py</code>, set LDAP server
   related settings in this file. For example:</li>
@@ -522,7 +498,6 @@ basedn = 'o=domains,dc=example,dc=com'
 bind_dn = 'cn=vmailadmin,dc=example,dc=com'
 bind_pw = 'password'
 </code></pre>
-
 <p>You can find required LDAP credential in iRedAdmin config file or
 <code>iRedMail.tips</code> file under your iRedMail installation directory. Using either
 <code>cn=Manager,dc=xx,dc=xx</code> or <code>cn=vmailadmin,dc=xx,dc=xx</code> as bind dn is ok, both
@@ -532,7 +507,6 @@ of them have read-write privilege to update mail accounts.</p>
 </ul>
 <pre><code># python update-ldap-dovecot-2.3.py
 </code></pre>
-
 <h3 id="mlmmj-mailing-list-manager-integration">mlmmj (mailing list manager) integration</h3>
 <p>iRedMail-0.9.8 integrates mlmmj as mailing list manager, please follow our
 document below to integrate it:</p>
@@ -558,7 +532,6 @@ steps below to apply the SQL structure change.</p>
 wget https://github.com/iredmail/iRedMail/raw/1.0/update/0.9.8/amavisd.mysql
 mysql amavisd &lt; amavisd.mysql
 </code></pre>
-
 <h3 id="update-sogo-config-file-for-per-domain-global-address-book">Update SOGo config file for per-domain global address book</h3>
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>
@@ -581,13 +554,11 @@ others on same server. Please follow steps below to fix it.</p>
             isAddressBook = YES;
             displayName = &quot;Global Address Book&quot;;
 </code></pre>
-
 <ul>
 <li>Add one line after the <code>displayName =</code> line:</li>
 </ul>
 <pre><code>            bindAsCurrentUser = YES;
 </code></pre>
-
 <ul>
 <li>Restarting SOGo service is required to apply this change.</li>
 </ul>
@@ -605,7 +576,6 @@ sasl auth. Please follow steps below to fix it.</p>
 </ul>
 <pre><code>password_query = SELECT password, allow_nets FROM mailbox WHERE username='%u' AND enable%Ls%Lc=1 AND active=1
 </code></pre>
-
 <ul>
 <li>Replace it by lines below:</li>
 </ul>
@@ -618,7 +588,6 @@ sasl auth. Please follow steps below to fix it.</p>
              AND domain.backupmx=0 \
              AND domain.active=1
 </code></pre>
-
 <ul>
 <li>Save your change and restart Dovecot service.</li>
 </ul>
@@ -644,11 +613,9 @@ sasl auth. Please follow steps below to fix it.</p>
 <pre><code>cd /root/
 wget -O iredmail.mysql https://github.com/iredmail/iRedMail/raw/1.0/update/0.9.8/iredmail.mysql
 </code></pre>
-
 <p>Connect to MySQL server as MySQL root user, and execute SQL commands:</p>
 <pre><code>mysql vmail &lt; /root/iredmail.mysql
 </code></pre>
-
 <h3 id="amavisd-add-new-sql-column-maddremail_raw-to-store-mail-address-without-address-extension_1">Amavisd: Add new SQL column <code>maddr.email_raw</code> to store mail address without address extension</h3>
 <p>Many sender/recipient addresses contain address extension like
 <code>user+extension@domain.com</code>, this is annoying if we try to get top 10
@@ -663,7 +630,6 @@ address without address extension in a new column <code>maddr.email_raw</code>. 
 wget https://github.com/iredmail/iRedMail/raw/1.0/update/0.9.8/amavisd.mysql
 mysql amavisd &lt; amavisd.mysql
 </code></pre>
-
 <h3 id="mlmmj-mailing-list-manager-integration_1">mlmmj (mailing list manager) integration</h3>
 <p>iRedMail-0.9.8 integrates mlmmj as mailing list manager, please follow our
 document below to integrate it:</p>
@@ -688,7 +654,6 @@ sasl auth. Please follow steps below to fix it.</p>
 </ul>
 <pre><code>password_query = SELECT password, allow_nets FROM mailbox WHERE username='%u' AND enable%Ls%Lc=1 AND active=1
 </code></pre>
-
 <ul>
 <li>Replace it by lines below:</li>
 </ul>
@@ -701,7 +666,6 @@ sasl auth. Please follow steps below to fix it.</p>
              AND domain.backupmx=0 \
              AND domain.active=1
 </code></pre>
-
 <ul>
 <li>Save your change and restart Dovecot service.</li>
 </ul>
@@ -729,7 +693,6 @@ sasl auth. Please follow steps below to fix it.</p>
 <pre><code>cd /tmp/
 wget https://github.com/iredmail/iRedMail/raw/1.0/update/0.9.8/iredmail.pgsql
 </code></pre>
-
 <ul>
 <li>Connect to PostgreSQL server as <code>postgres</code> user and import the SQL file:<ul>
 <li>on Linux, it's <code>postgres</code> user</li>
@@ -741,7 +704,6 @@ wget https://github.com/iredmail/iRedMail/raw/1.0/update/0.9.8/iredmail.pgsql
 <pre><code>su - postgres
 psql -d vmail &lt; /tmp/iredmail.pgsql
 </code></pre>
-
 <h3 id="amavisd-add-new-sql-column-maddremail_raw-to-store-mail-address-without-address-extension_2">Amavisd: Add new SQL column <code>maddr.email_raw</code> to store mail address without address extension</h3>
 <p>Many sender/recipient addresses contain address extension like
 <code>user+extension@domain.com</code>, this is annoying if we try to get top 10
@@ -755,7 +717,6 @@ address without address extension in a new column <code>maddr.email_raw</code>. 
 <pre><code>cd /tmp/
 wget https://github.com/iredmail/iRedMail/raw/1.0/update/0.9.8/amavisd.pgsql
 </code></pre>
-
 <ul>
 <li>Run shell commands as root user below to connect to PostgreSQL server:</li>
 </ul>
@@ -763,7 +724,6 @@ wget https://github.com/iredmail/iRedMail/raw/1.0/update/0.9.8/amavisd.pgsql
 $ psql -U amavisd -d amavisd
 sql&gt; \i /tmp/amavisd.pgsql
 </code></pre>
-
 <h3 id="mlmmj-mailing-list-manager-integration_2">mlmmj (mailing list manager) integration</h3>
 <p>iRedMail-0.9.8 integrates mlmmj as mailing list manager, please follow our
 document below to integrate it:</p>

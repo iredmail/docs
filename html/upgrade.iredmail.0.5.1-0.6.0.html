@@ -84,20 +84,19 @@ mysql&gt; SOURCE /usr/share/dbconfig-common/data/postfix-policyd/upgrade/mysql/1
 mysql&gt; GRANT SELECT,INSERT,UPDATE,DELETE ON postfixpolicyd.* TO postfix-policyd@localhost;
 mysql&gt; quit;
 </code></pre>
-
 <p>It will create a new table <code>postfixpolicyd.blacklist_dnsname</code>. Used to block
 emails sent from <code>blacklist_dnsname</code> in Policyd,</p>
 <h3 id="upgrade-roundcube-webmail-to-031">Upgrade Roundcube webmail to 0.3.1</h3>
 <p>Roundcube-0.3.1 brings new features and better performance, all users are encouraged to upgrade it.</p>
 <p>To upgrade roundcube to 0.3.1, we should:
-<em> Backup current roundcube installation.
-</em> Download roundcube source tarball: roundcubemail-0.3.1.tar.gz, and uncompress it.
-<em> Copy it to apache server root directory.
-</em> Upgrade SQL database.
-<em> Replace symbol link by new version.
-</em> Create new config files and synchronize settings from old configuration files.
-<em> Enable necessary plugins.
-</em> Restart apache web server
+* Backup current roundcube installation.
+* Download roundcube source tarball: roundcubemail-0.3.1.tar.gz, and uncompress it.
+* Copy it to apache server root directory.
+* Upgrade SQL database.
+* Replace symbol link by new version.
+* Create new config files and synchronize settings from old configuration files.
+* Enable necessary plugins.
+* Restart apache web server
 * [Next Step] Configure plugin (<code>managesieve</code>) to allow user to customize mail filter rule.</p>
 <p>Steps to upgrade it:</p>
 <ul>
@@ -111,7 +110,6 @@ emails sent from <code>blacklist_dnsname</code> in Policyd,</p>
 </ul>
 <pre><code>$ mysqldump -uroot -p --default-character-set=utf8 roundcubemail &gt; /opt/roundcubemail-old.sql
 </code></pre>
-
 <p>File <code>/opt/roundcubemail-old.sql</code> is the backup copy of current roundcubemail database.</p>
 <ul>
 <li>Download Roundcube 0.3.1: http://sourceforge.net/projects/roundcubemail/files/ .
@@ -120,7 +118,6 @@ emails sent from <code>blacklist_dnsname</code> in Policyd,</p>
 <pre><code># cd /root/
 # tar zxf roundcubemail-0.3.1.tar.gz
 </code></pre>
-
 <ul>
 <li>Copy it to apache server root directory:</li>
 </ul>
@@ -134,7 +131,6 @@ emails sent from <code>blacklist_dnsname</code> in Policyd,</p>
 #
 # cp -rf /root/roundcubemail-0.3.1 /usr/share/apache2/
 </code></pre>
-
 <ul>
 <li>Remove old symbol link, and create a new one:</li>
 </ul>
@@ -152,7 +148,6 @@ emails sent from <code>blacklist_dnsname</code> in Policyd,</p>
 # rm -i roundcubemail
 # ln -s roundcubemail-0.3.1 roundcubemail
 </code></pre>
-
 <ul>
 <li>Upgrade SQL database.</li>
 </ul>
@@ -172,7 +167,6 @@ mysql&gt; USE roundcubemail;
 mysql&gt; SOURCE /usr/share/apache2/roundcubemail/SQL/mysql.update.sql;
 mysql&gt; quit;
 </code></pre>
-
 <ul>
 <li>Create new config files and synchronize settings from old configuration files.</li>
 </ul>
@@ -190,13 +184,11 @@ mysql&gt; quit;
 # cp db.inc.php.dist db.inc.php        # Database config file.
 # cp main.inc.php.dist main.inc.php        # Main config file.
 </code></pre>
-
 <p>Sync database config file <code>db.inc.php</code> with below config parameters:</p>
 <pre><code># Part of file:  roundcubemail/config/db.inc.php
 
 $rcmail_config['db_dsnw'] =
 </code></pre>
-
 <p>Sync config parameters in main config file <code>main.inc.php</code>. Roundcube 0.3.1 has
 some new config parameters in main config file <code>main.inc.php</code>, but you can use
 most of them with default values. What we need to do is syncing config
@@ -230,7 +222,6 @@ $rcmail_config['delete_always'] = TRUE;
 #
 $rcmail_config['ldap_public']
 </code></pre>
-
 <ul>
 <li>Enable necessary plugins.</li>
 </ul>
@@ -240,7 +231,6 @@ $rcmail_config['ldap_public']
 
 $rcmail_config['plugins'] = array(&quot;password&quot;, &quot;managesieve&quot;,);
 </code></pre>
-
 <p>Plugin name is same as folder name under <code>roundcubemail/plugins/</code> directory,
 and we have to config plugins separately.</p>
 <ul>
@@ -256,7 +246,6 @@ and we have to config plugins separately.</p>
 #
 # /etc/init.d/apache2 restart
 </code></pre>
-
 <ul>
 <li>
 <p>Apply two patches. About these two patches:</p>
@@ -277,7 +266,6 @@ and we have to config plugins separately.</p>
 # patch -p0 &lt; /tmp/roundcube-CVE-2010-0464.patch
 # patch -p0 &lt; /tmp/managesieve_rule_width_on_safari.patch
 </code></pre>
-
 <ul>
 <li>On Debian/Ubuntu:</li>
 </ul>
@@ -288,7 +276,6 @@ and we have to config plugins separately.</p>
 # patch -p0 &lt; /tmp/roundcube-CVE-2010-0464.patch
 # patch -p0 &lt; /tmp/managesieve_rule_width_on_safari.patch
 </code></pre>
-
 <h4 id="configure-plugin-for-mail-filter-rules-managesieve">Configure plugin for mail filter rules: managesieve</h4>
 <p>Roundcube 0.3.1 officially ships a plugin to allow users to customize mail
 filter rule: <code>managesieve</code>. To make it work, we should generate new config
@@ -308,7 +295,6 @@ file and config necessary parameters.</p>
 # cd /usr/share/apache2/roundcubemail/plugins/managesieve/
 # cp config.inc.php.dist config.inc.php
 </code></pre>
-
 <ul>
 <li>Configure plugin in <code>config.inc.php</code>:</li>
 </ul>
@@ -319,7 +305,6 @@ $rcmail_config['managesieve_host'] = &quot;127.0.0.1&quot;;
 $rcmail_config['managesieve_usetls'] = false;
 $rcmail_config['managesieve_default'] = &quot;/var/vmail/sieve/dovecot.sieve&quot;;
 </code></pre>
-
 <ul>
 <li>Make sure this plugin is enabled/listed in roundcube main config file: <code>roundcubemail/config/main.inc.php</code>.</li>
 </ul>
@@ -327,7 +312,6 @@ $rcmail_config['managesieve_default'] = &quot;/var/vmail/sieve/dovecot.sieve&quo
 
 $rcmail_config['plugins'] = array(&quot;password&quot;, &quot;managesieve&quot;,);
 </code></pre>
-
 <h3 id="upgrade-phpmyadmin-to-21110">Upgrade phpMyAdmin to 2.11.10</h3>
 <p>phpMyAdmin doesn't require additional config, you can simply download new version
 and copy old config file into new version.</p>
@@ -338,7 +322,6 @@ and copy old config file into new version.</p>
 # wget https://dl.iredmail.org/yum/misc/phpMyAdmin-2.11.10-all-languages.tar.bz2
 # tar xjf phpMyAdmin-2.11.10-all-languages.tar.bz2
 </code></pre>
-
 <ul>
 <li>Copy it to apache server root directory, remove old symbol link and create a
   new one, copy old config file into new version:</li>
@@ -361,7 +344,6 @@ and copy old config file into new version.</p>
 # ln -s phpMyAdmin-2.11.10-all-languages phpmyadmin
 # cp phpMyAdmin-OLD-VERSION/config.inc.php phpmyadmin/
 </code></pre>
-
 <ul>
 <li>It's recommended to restart apache web server:</li>
 </ul>
@@ -375,16 +357,15 @@ and copy old config file into new version.</p>
 #
 # /etc/init.d/apache2 restart
 </code></pre>
-
 <h2 id="openldap-backend-only">OpenLDAP backend only</h2>
 <h3 id="use-newest-schema-file">Use newest schema file</h3>
 <p>NOTE: New LDAP schema provides several new attributes, but it's backwards
 compatibility, it's <strong>SAFE</strong> to replace the old one without additional operations.</p>
 <p>To use the newest iRedMail ldap schem file, we have to:
-<em> Download the newest iRedMail ldap schema file
-</em> Copy old ldap schema file as a backup copy
-<em> Replace the old one
-</em> Restart OpenLDAP service.</p>
+* Download the newest iRedMail ldap schema file
+* Copy old ldap schema file as a backup copy
+* Replace the old one
+* Restart OpenLDAP service.</p>
 <p>Here we go:</p>
 <ul>
 <li>On RHEL/CentOS:</li>
@@ -398,7 +379,6 @@ compatibility, it's <strong>SAFE</strong> to replace the old one without additio
 # mv -i /tmp/iredmail.schema /etc/openldap/schema/
 # /etc/init.d/ldap restart
 </code></pre>
-
 <ul>
 <li>On Debian/Ubuntu:</li>
 </ul>
@@ -411,7 +391,6 @@ compatibility, it's <strong>SAFE</strong> to replace the old one without additio
 # mv -i /tmp/iredmail.schema /etc/ldap/schema/
 # /etc/init.d/slapd restart
 </code></pre>
-
 <h3 id="include-amavisd-ldap-schema-file-in-openldap">Include Amavisd LDAP schema file in OpenLDAP</h3>
 <p>We're starting to provide better Amavisd integration in iRedMail, e.g.
 per-user blacklist/whitelist, anti-spam and anti-virus settings.</p>
@@ -429,11 +408,9 @@ installing Amavisd-new, so we don't need to copy/move it.</p>
 include     /etc/openldap/schema/amavisd-new.schema
 include     /etc/openldap/schema/iredmail.schema
 </code></pre>
-
 <p>Restart OpenLDAP service to make it work:</p>
 <pre><code># /etc/init.d/ldap restart
 </code></pre>
-
 <ul>
 <li>On Debian/Ubuntu, edit <code>/etc/ldap/slapd.conf</code> and append Amavisd schema file before <code>iredmail.schema</code>:</li>
 </ul>
@@ -443,11 +420,9 @@ include     /etc/openldap/schema/iredmail.schema
 include     /etc/ldap/schema/amavis.schema
 include     /etc/ldap/schema/iredmail.schema
 </code></pre>
-
 <p>Restart OpenLDAP service to make it work:</p>
 <pre><code># /etc/init.d/slapd restart
 </code></pre>
-
 <h3 id="index-missed-attributes">Index missed attributes</h3>
 <p>We will search email address which stored in attribute <code>shadowAddress</code>, so make
 sure you have <code>shadowAddress</code> indexed in OpenLDAP configure file like this:</p>
@@ -455,7 +430,6 @@ sure you have <code>shadowAddress</code> indexed in OpenLDAP configure file like
 
 index shadowAddress eq,pres,sub
 </code></pre>
-
 <p>If <code>shadowAddress</code> already exists in <code>slapd.conf</code>, you don't need to do
 additional operations. If you add them now, you have to initially index this
 attribute manually now.</p>
@@ -472,7 +446,6 @@ attribute manually now.</p>
 #
 # /etc/init.d/slapd stop
 </code></pre>
-
 <ul>
 <li>Execute 'slapindex' to index all attributes:</li>
 </ul>
@@ -486,7 +459,6 @@ attribute manually now.</p>
 #
 # slapindex -f /etc/ldap/slapd.conf
 </code></pre>
-
 <ul>
 <li>Start OpenLDAP service now.</li>
 </ul>
@@ -500,7 +472,6 @@ attribute manually now.</p>
 #
 # /etc/init.d/slapd start
 </code></pre>
-
 <h3 id="add-missing-ldap-attributevalue">Add missing LDAP attribute/value</h3>
 <p>iRedMail-0.6.0 requires some more values of attribute <code>enabledService</code> and <code>objectClass</code>:</p>
 <ul>
@@ -521,7 +492,6 @@ control.</p>
 <pre><code># cd /root/
 # wget http://iredmail.googlecode.com/hg/extra/update/updateLDAPValues_051_to_060.py
 </code></pre>
-
 <ul>
 <li>Open <code>updateLDAPValues_051_to_060.py</code>, config below parameters in file head:</li>
 </ul>
@@ -532,7 +502,6 @@ basedn = 'o=domains,dc=iredmail,dc=org'
 bind_dn = 'cn=vmailadmin,dc=iredmail,dc=org'
 bind_pw = 'passwd'
 </code></pre>
-
 <p>You can find required LDAP credential in iRedAdmin config file or <code>iRedMail.tips</code>
 file under your iRedMail installation directory. Using either
 <code>cn=Manager,dc=xx,dc=xx</code> or <code>cn=vmailadmin,dc=xx,dc=xx</code> as bind dn is ok.</p>
@@ -541,7 +510,6 @@ file under your iRedMail installation directory. Using either
 </ul>
 <pre><code># python updateLDAPValues_051_to_060.py
 </code></pre>
-
 <h3 id="add-shadowaddress-support-for-mail-alias">Add <code>shadowAddress</code> support for mail alias</h3>
 <ul>
 <li>Update postfix mysql lookup file: <code>/etc/postfix/ldap_virtual_alias_maps.cf</code>:</li>
@@ -556,7 +524,6 @@ query_filter = (&amp;(mail=%s)(accountStatus=active)(enabledService=mail)(enable
 # - Removed: objectClass=mailList. It's impossible to add shadow address support for mail list.
 query_filter = (&amp;(|(mail=%s)(shadowAddress=%s))(accountStatus=active)(enabledService=mail)(enabledService=deliver)(|(objectClass=mailAlias)(&amp;(objectClass=mailUser)(enabledService=forward))))
 </code></pre>
-
 <p>Note: We add <code>shadowAddress</code> support for mail alias here, and remove
 <code>shadowAddress</code> support for mail list. Because mail list doesn't support this
 feature.</p>
@@ -573,7 +540,6 @@ virtual_alias_maps =
     proxy:ldap:/etc/postfix/ldap_sender_login_maps.cf,      # &lt;-- Add this line.
     proxy:ldap:/etc/postfix/ldap_catch_all_maps.cf          # &lt;-- Add this line.
 </code></pre>
-
 <ul>
 <li>File <code>/etc/postfix/ldap_sender_login_maps.cf</code> already exists by default, so
   what you need to do is adding new file: <code>/etc/postfix/ldap_catch_all_maps.cf</code>.</li>
@@ -597,17 +563,16 @@ query_filter    = (&amp;(objectClass=mailUser)(accountStatus=active)(mail=@%d))
 result_attribute= mailForwardingAddress
 debuglevel      = 0
 </code></pre>
-
 <ul>
 <li>Restart postfix service to make it work.
 <code># /etc/init.d/postfix restart</code></li>
 </ul>
 <h3 id="roundcube-webmail-plugin-change-password-stored-in-openldap">Roundcube Webmail plugin: change password stored in OpenLDAP</h3>
 <p>Password plugin which officially shipped in Roundcubemail-0.3.1 requires php-pear and Net_LDAP2, so we have to:
-<em> Generate a new config file and config necessary parameters.
-</em> Force upgrade php-pear to support password plugin on RHEL/CentOS 5 (Not required on Debian/Ubuntu)
-<em> Install php-mhash to provide hash algorithms such as MD5, SHA1, GOST, and many others. (Not required on Debian/Ubuntu)
-</em> Install php pear package: Net_LDAP2.
+* Generate a new config file and config necessary parameters.
+* Force upgrade php-pear to support password plugin on RHEL/CentOS 5 (Not required on Debian/Ubuntu)
+* Install php-mhash to provide hash algorithms such as MD5, SHA1, GOST, and many others. (Not required on Debian/Ubuntu)
+* Install php pear package: Net_LDAP2.
 * Restart Apache web service.</p>
 <p>Steps:</p>
 <ul>
@@ -625,7 +590,6 @@ debuglevel      = 0
 # cd /usr/share/apache2/roundcubemail/plugins/password/
 # cp config.inc.php.dist config.inc.php
 </code></pre>
-
 <ul>
 <li>Config it:</li>
 </ul>
@@ -654,7 +618,6 @@ $rcmail_config['password_ldap_encodage'] = &quot;ssha&quot;;
 $rcmail_config['password_ldap_pwattr'] = &quot;userPassword&quot;;
 $rcmail_config['password_ldap_force_replace'] = false;
 </code></pre>
-
 <ul>
 <li>Upgrade php-pear and install pear package: Net_LDAP2.</li>
 </ul>
@@ -672,7 +635,6 @@ $rcmail_config['password_ldap_force_replace'] = false;
 # pear install Net_LDAP2
 # /etc/init.d/apache2 restart       # Restart Apache web service.
 </code></pre>
-
 <h3 id="upgrade-phpldapadmin-to-1205">Upgrade phpLDAPadmin to 1.2.0.5</h3>
 <p>phpLDAPadmin doesn't require additional config, you can simply download new
 version and copy sample config file to make it work.</p>
@@ -683,7 +645,6 @@ version and copy sample config file to make it work.</p>
 # wget https://dl.iredmail.org/yum/misc/phpldapadmin-1.2.0.5.tgz
 # tar zxf phpldapadmin-1.2.0.5.tgz
 </code></pre>
-
 <ul>
 <li>Copy it to apache server root directory, remove old symbol link and create
   a new one, copy old config file into new version:</li>
@@ -708,7 +669,6 @@ version and copy sample config file to make it work.</p>
 # cd phpldapadmin/config/
 # cp config.php.example config.php
 </code></pre>
-
 <ul>
 <li>Edit config file to hide template warning messages: <code>phpldapadmin/config/config.php</code>.</li>
 </ul>
@@ -719,7 +679,6 @@ version and copy sample config file to make it work.</p>
 #
 $config-&gt;custom-&gt;appearance['hide_template_warning'] = true;
 </code></pre>
-
 <ul>
 <li>It's recommended to restart apache web server:</li>
 </ul>
@@ -733,7 +692,6 @@ $config-&gt;custom-&gt;appearance['hide_template_warning'] = true;
 #
 # /etc/init.d/apache2 restart
 </code></pre>
-
 <h2 id="mysql-backend-only">MySQL backend only</h2>
 <h3 id="add-missing-sql-columns-in-vmailmailbox">Add missing SQL columns in <code>vmail.mailbox</code></h3>
 <p>iRedMail-0.6.0 adds a new SQL column in <code>vmail.mailbox</code> table: <code>enableinternal</code>.
@@ -743,7 +701,6 @@ mysql&gt; USE vmail;
 mysql&gt; ALTER TABLE mailbox ADD COLUMN enableinternal TINYINT(1) NOT NULL DEFAULT '1';
 mysql&gt; quit;
 </code></pre>
-
 <h3 id="domain-alias-support">Domain alias support</h3>
 <p>Note: You can use PostfixAdmin-2.3 to manage domain alias. iRedAdmin-Pro for
 MySQL backend will support this feature later.</p>
@@ -761,7 +718,6 @@ MySQL backend will support this feature later.</p>
     KEY `target_domain` (`target_domain`)
 ) ENGINE=MyISAM;
 </code></pre>
-
 <ul>
 <li>Import missing MySQL table in <code>vmail</code> database with above temporary file:</li>
 </ul>
@@ -769,7 +725,6 @@ MySQL backend will support this feature later.</p>
 mysql&gt; USE vmail;
 mysql&gt; SOURCE /tmp/upgrade_iredmail.sql;
 </code></pre>
-
 <ul>
 <li>Update postfix config in <code>/etc/postfix/main.cf</code>.</li>
 </ul>
@@ -783,7 +738,6 @@ virtual_alias_maps =
     proxy:mysql:/etc/postfix/mysql_virtual_alias_maps.cf,
     proxy:mysql:/etc/postfix/mysql_domain_alias_maps.cf
 </code></pre>
-
 <ul>
 <li>Add new file: <code>/etc/postfix/mysql_domain_alias_maps.cf</code>.</li>
 </ul>
@@ -799,7 +753,6 @@ port        = 3306
 dbname      = vmail
 query       = SELECT goto FROM alias,alias_domain WHERE alias_domain.alias_domain = '%d' and alias.address = CONCAT('%u', '@', alias_domain.target_domain) AND alias.active = 1 AND alias_domain.active='1'
 </code></pre>
-
 <h3 id="roundcube-webmail-plugin-change-password">Roundcube Webmail plugin: change password</h3>
 <ul>
 <li>Generate a new config file:</li>
@@ -816,7 +769,6 @@ query       = SELECT goto FROM alias,alias_domain WHERE alias_domain.alias_domai
 # cd /usr/share/apache2/roundcubemail/plugins/password/
 # cp config.inc.php.dist config.inc.php
 </code></pre>
-
 <ul>
 <li>Config it:</li>
 </ul>
@@ -832,7 +784,6 @@ $rcmail_config['password_query'] = 'UPDATE vmail.mailbox SET password=%c,modifie
 $rcmail_config['password_hash_algorithm'] = 'md5crypt';
 $rcmail_config['password_hash_base64'] = false;
 </code></pre>
-
 <h3 id="upgrade-postfixadmin-to-23">Upgrade PostfixAdmin to 2.3</h3>
 <p>To upgrade PostfixAdmin to 2.3, we should:</p>
 <ul>
@@ -850,7 +801,6 @@ $rcmail_config['password_hash_base64'] = false;
 # wget https://dl.iredmail.org/yum/misc/postfixadmin_2.3.tar.gz
 # tar zxf postfixadmin_2.3.tar.gz
 </code></pre>
-
 <ul>
 <li>Copy new version to apache server root directory, create new symbol link and copy old config file:</li>
 </ul>
@@ -872,7 +822,6 @@ $rcmail_config['password_hash_base64'] = false;
 # rm -i postfixadmin
 # ln -s postfixadmin-2.3 postfixadmin
 </code></pre>
-
 <ul>
 <li>Add one more parameter in <code>postfixadmin/config.local.php</code> to enable domain alias management:</li>
 </ul>
@@ -880,7 +829,6 @@ $rcmail_config['password_hash_base64'] = false;
 
 $CONF['alias_domain'] = 'YES';
 </code></pre>
-
 <ul>
 <li>Add new column in MySQL database.</li>
 </ul>
@@ -889,7 +837,6 @@ mysql&gt; USE vmail;
 mysql&gt; ALTER TABLE mailbox ADD local_part VARCHAR(255) NOT NULL DEFAULT '';
 mysql&gt; UPDATE mailbox SET local_part = substring_index(username, '@', 1);
 </code></pre>
-
 <ul>
 <li>Restart apache web server.</li>
 </ul>

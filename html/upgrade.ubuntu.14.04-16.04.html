@@ -45,7 +45,6 @@ config files. For example:</p>
 <pre><code>postconf -e daemon_directory='/usr/lib/postfix/sbin'
 postconf -e shlib_directory='/usr/lib/postfix'
 </code></pre>
-
 <ul>
 <li>Incorrect <code>daemon_directory</code> causes Postfix cannot start.</li>
 <li>Incorrect <code>shlib_directory</code> causes Postfix cannot find pcre/mysql/pgsql/ldap modules.</li>
@@ -54,7 +53,6 @@ postconf -e shlib_directory='/usr/lib/postfix'
 <p>iRedAPD requires package <code>python-pymysql</code>:</p>
 <pre><code>apt -y install python-pymysql
 </code></pre>
-
 <h2 id="roundcube-webmail">Roundcube webmail</h2>
 <p>Make sure you have settings below in Roundcube config file <code>config/config.inc.php</code>:</p>
 <pre><code>// Required if you're running PHP 5.6 or later
@@ -73,7 +71,6 @@ $config['smtp_conn_options'] = array(
     ),
 );
 </code></pre>
-
 <h2 id="php-optional">PHP [OPTIONAL]</h2>
 <blockquote>
 <p>NOTE: This step is toally optional if you're fine with old PHP release.</p>
@@ -81,12 +78,10 @@ $config['smtp_conn_options'] = array(
 <p>php was not upgraded to 7.0 automatically, have to install them manually:</p>
 <pre><code>apt-get install php-json php-gd php-mcrypt php-curl mcrypt php-intl php-xml php-mbstring php-mysql libapache2-mod-php
 </code></pre>
-
 <h3 id="nginx-and-php-fpm">Nginx and php-fpm</h3>
 <p>If you're running Nginx, you must install package <code>php-fpm</code> too:</p>
 <pre><code>apt install php-fpm
 </code></pre>
-
 <p>php-fpm daemon socket file is changed:</p>
 <ul>
 <li>old one: <code>/var/run/php-fpm.socket</code></li>
@@ -104,7 +99,6 @@ port = all
 ...
 port = anyport
 </code></pre>
-
 <p>Please comment out either one of them, then Fail2ban should be happy to start.</p><div class="footer">
     <p style="text-align: center; color: grey;">All documents are available in <a href="https://github.com/iredmail/docs/">GitHub repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://github.com/iredmail/docs/archive/master.zip">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
 </div></body></html>

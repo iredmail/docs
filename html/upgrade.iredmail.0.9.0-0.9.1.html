@@ -84,7 +84,6 @@ so that you can know which version of iRedMail you're running. For example:</p>
 
 0.9.1
 </code></pre>
-
 <h3 id="upgrade-roundcube-webmail-to-the-latest-stable-release">Upgrade Roundcube webmail to the latest stable release</h3>
 <p>Additional notes before upgrading Roundcube webmail 1.1.0 (or later releases):</p>
 <ul>
@@ -96,7 +95,6 @@ so that you can know which version of iRedMail you're running. For example:</p>
 # php5enmod intl
 # service apache2 restart    # &lt;- OR: `service php5_fpm restart` if you're running Nginx
 </code></pre>
-
 <ul>
 <li>for OpenBSD users, please install package <code>php-intl</code>, then
   restart <code>php_fpm</code> service:</li>
@@ -104,7 +102,6 @@ so that you can know which version of iRedMail you're running. For example:</p>
 <pre><code># pkg_add -r php-intl
 # /etc/rc.d/php_fpm restart
 </code></pre>
-
 <p>Please download the <code>Complete</code> edition (e.g. <code>roundcubemail-1.1.1-complete.tar.gz</code>)
 instead of <code>Dependent</code> edition (e.g. <code>roundcubemail-1.1.1.tar.gz</code>).</p>
 <p>After you have additional packages installed, please follow Roundcube official
@@ -132,7 +129,6 @@ $config['smtp_conn_options'] = array(
     ),
 );
 </code></pre>
-
 <h3 id="upgrade-iredapd-postfix-policy-server-to-the-latest-150">Upgrade iRedAPD (Postfix policy server) to the latest 1.5.0</h3>
 <p>Please follow below tutorial to upgrade iRedAPD to the latest stable release:
 <a href="./upgrade.iredapd.html">Upgrade iRedAPD to the latest stable release</a></p>
@@ -150,7 +146,6 @@ iredadmin_db_name = 'iredadmin'
 iredadmin_db_user = 'iredadmin'
 iredadmin_db_password = 'password'
 </code></pre>
-
 <p>You can find SQL username/password of iRedAdmin database in iRedAdmin config
 file.</p>
 <h3 id="fixed-return-receipt-response-rejected-by-iredapd-plugin-reject_null_sender">Fixed: return receipt response rejected by iRedAPD plugin <code>reject_null_sender</code></h3>
@@ -167,7 +162,6 @@ in Roundcube config file <code>config/config.inc.php</code>:</p>
 </ul>
 <pre><code>$config['mdn_use_from'] = true;
 </code></pre>
-
 <p>Note: if other mail client applications don't set smtp authentication user as
 envelope sender of return receipt, same issue will occurs. You must disable
 iRedAPD plugin <code>reject_null_sender</code> in <code>/opt/iredapd/settings.py</code> to make all
@@ -210,7 +204,6 @@ $banned_namepath_re = new_RE(
     [qr'N=.*\.(9|386|LeChiffre|aaa|abc|aepl|ani|aru|atm|aut|b64|bat|bhx|bkd|blf|bll|bmw|boo|bps|bqf|breaking_bad|buk|bup|bxz|cc|ccc|ce0|ceo|cfxxe|chm|cih|cla|class|cmd|com|cpl|crinf|crjoker|crypt|cryptolocker|cryptowall|ctbl|cxq|cyw|dbd|delf|dev|dlb|dli|dll|dllx|dom|drv|dx|dxz|dyv|dyz|ecc|exe|exe-ms|exe1|exe_renamed|exx|ezt|ezz|fag|fjl|fnr|fuj|good|gzquar|hlp|hlw|hqx|hsq|hts|iva|iws|jar|js|kcd|keybtc@inbox_com|let|lik|lkh|lnk|locky|lok|lol!|lpaq5|magic|mfu|micro|mim|mjg|mjz|mp3|nls|oar|ocx|osa|ozd|pcx|pgm|php2|php3|pid|pif|plc|pr|pzdc|qit|qrn|r5a|rhk|rna|rsc_tmp|s7p|scr|shs|ska|smm|smtmp|sop|spam|ssy|swf|sys|tko|tps|tsa|tti|ttt|txs|upa|uu|uue|uzy|vb|vba|vbe|vbs|vbx|vexe|vxd|vzr|wlpginstall|wmf|ws|wsc|wsf|wsh|wss|xdu|xir|xlm|xlv|xnt|xnxx|xtbl|xxe|xxx|xyz|zix|zvz|zzz)$'xmi =&gt; 'DISCARD'],
 );
 </code></pre>
-
 <p>Restarting Amavisd service is required.</p>
 <h3 id="fixed-amavisd-cannot-detect-exe-file-in-rar-compressed-attachment">Fixed: Amavisd cannot detect <code>.exe</code> file in rar compressed attachment.</h3>
 <p>Note: This fix is applicable to RHEL/CentOS, Debian and Ubuntu.</p>
@@ -225,7 +218,6 @@ $banned_namepath_re = new_RE(
 # yum install unrar
 # service amavisd restart
 </code></pre>
-
 <hr />
 <p>Steps to fix this issue on Debian:</p>
 <ul>
@@ -234,7 +226,6 @@ $banned_namepath_re = new_RE(
 <pre><code># apt-get install unrar-free
 # service amavis restart
 </code></pre>
-
 <hr />
 <p>Steps to fix this issue on Ubuntu:</p>
 <ul>
@@ -249,27 +240,23 @@ deb http://[ubuntu_mirror_site]/ubuntu/ trusty-updates main restricted universe 
 deb http://[ubuntu_mirror_site]/ubuntu/ vivid main restricted universe multiverse
 deb http://[ubuntu_mirror_site]/ubuntu/ vivid-updates main restricted universe multiverse
 </code></pre>
-
 <ul>
 <li>Delete package <code>unrar-free</code>, install package <code>unrar</code>.</li>
 </ul>
 <pre><code># apt-get remove --purge unrar-free
 # apt-get install unrar
 </code></pre>
-
 <ul>
 <li>Add below setting in Amavisd config file <code>/etc/amavis/conf.d/50-user</code> to ask
   Amavisd to use <code>unrar-nonfree</code> as unarchiver:</li>
 </ul>
 <pre><code>$unrar = ['unrar-nonfree'];
 </code></pre>
-
 <ul>
 <li>Restart Amavisd service:</li>
 </ul>
 <pre><code># service amavis restart
 </code></pre>
-
 <h3 id="fixed-cannot-run-php-script-under-web-document-root-with-nginx">Fixed: Cannot run PHP script under web document root with Nginx.</h3>
 <p>With previous release of iRedMail, Nginx won't run PHP scripts under
 sub-directories of web document root, this step will fix it.</p>
@@ -286,7 +273,6 @@ location ~ \.php$ {
     fastcgi_param SCRIPT_FILENAME /var/www/html$fastcgi_script_name;    # &lt;- Add this line
 }
 </code></pre>
-
 <ul>
 <li>Save your changes and restart Nginx service.</li>
 </ul>
@@ -318,7 +304,6 @@ incorrect log file name and owner/group.</p>
     ...
 }
 </code></pre>
-
 <p>Please change the log file name and owner/group to below settings:</p>
 <pre><code>/var/log/cbpolicyd.log {
     ...
@@ -326,7 +311,6 @@ incorrect log file name and owner/group.</p>
     ...
 }
 </code></pre>
-
 <p>Note: on FreeBSD, the owner/group name is <code>policyd</code>, not <code>cluebringer</code>.</p>
 <h3 id="fixed-incorrect-path-of-command-sogo-tool-on-openbsd">Fixed: Incorrect path of command <code>sogo-tool</code> on OpenBSD</h3>
 <p>Note: this step is applicable to only OpenBSD.</p>
@@ -334,12 +318,10 @@ incorrect log file name and owner/group.</p>
 <code>/usr/local/sbin/sogo-tool</code>:</p>
 <pre><code># crontab -l -u _sogo
 </code></pre>
-
 <p>If it's not <code>/usr/local/sbin/sogo-tool</code>, please edit its cron job with below
 command and fix it:</p>
 <pre><code># crontab -e -u _sogo
 </code></pre>
-
 <h3 id="optional-make-dovecot-subscribe-newly-created-folder-automatically">[<strong>OPTIONAL</strong>] Make Dovecot subscribe newly created folder automatically</h3>
 <p>With default iRedMail setting, Dovecot will create folder automatically (for
 example, send email to <code>user+extension@domain.com</code> will create folder
@@ -354,7 +336,6 @@ will make it subscribe to new folder automatically.</p>
     ...
 }
 </code></pre>
-
 <ul>
 <li>Add one more setting in this block:</li>
 </ul>
@@ -363,7 +344,6 @@ will make it subscribe to new folder automatically.</p>
     lda_mailbox_autosubscribe = yes
 }
 </code></pre>
-
 <ul>
 <li>Restarting Dovecot service.</li>
 </ul>
@@ -380,7 +360,6 @@ port        = http, https
 action      = iptables-multiport[name=SOGo, port=&quot;http,https&quot;, protocol=tcp]
 logpath     = /var/log/sogo/sogo.log
 </code></pre>
-
 <p>Restarting Fail2ban service is required.</p>
 <h3 id="optional-add-two-more-fail2ban-filter-regular-expressios-to-help-catch-spam">[OPTIONAL] Add two more Fail2ban filter regular expressios to help catch spam</h3>
 <p>We have two new Fail2ban filters to help catch spam:</p>
@@ -396,7 +375,6 @@ below line under <code>[Definition]</code> section:</li>
 </ol>
 <pre><code>            reject: RCPT from (.*)\[&lt;HOST&gt;\]: 504 5.5.2 (.*) Helo command rejected: need fully-qualified hostname
 </code></pre>
-
 <p>After modification, the whole content is:</p>
 <pre><code>[Definition]
 failregex = \[&lt;HOST&gt;\]: SASL (PLAIN|LOGIN) authentication failed
@@ -407,7 +385,6 @@ failregex = \[&lt;HOST&gt;\]: SASL (PLAIN|LOGIN) authentication failed
             reject: RCPT from (.*)\[&lt;HOST&gt;\]: 504 5.5.2 (.*) Helo command rejected: need fully-qualified hostname
 ignoreregex =
 </code></pre>
-
 <ol>
 <li>Open file <code>/etc/fail2ban/filter.d/dovecot.iredmail.conf</code> or
 <code>/usr/local/etc/fail2ban/filter.d/dovecot.iredmail.conf</code> (on FreeBSD), replace
@@ -422,7 +399,6 @@ failregex = Authentication failure.* rip=&lt;HOST&gt;
 
 ignoreregex =
 </code></pre>
-
 <p>Restarting Fail2ban service is required.</p>
 <h2 id="openldap-backend-special">OpenLDAP backend special</h2>
 <h3 id="use-the-latest-ldap-schema-file-provided-by-iredmail">Use the latest LDAP schema file provided by iRedMail</h3>
@@ -450,7 +426,6 @@ comma.</p>
 # cp -f /tmp/iredmail.schema /etc/openldap/schema/
 # /etc/init.d/slapd restart
 </code></pre>
-
 <ul>
 <li>On Debian/Ubuntu:</li>
 </ul>
@@ -463,7 +438,6 @@ comma.</p>
 # cp -f /tmp/iredmail.schema /etc/ldap/schema/
 # /etc/init.d/slapd restart
 </code></pre>
-
 <ul>
 <li>On FreeBSD:</li>
 </ul>
@@ -476,7 +450,6 @@ comma.</p>
 # cp -f /tmp/iredmail.schema /usr/local/etc/openldap/schema/
 # service slapd restart
 </code></pre>
-
 <h3 id="restrict-mail-user-to-login-from-specified-ip-addresses-or-networks">Restrict mail user to login from specified IP addresses or networks</h3>
 <p>With the latest LDAP schema file, it's able to restrict mail users to login
 from specified IP/networks.</p>
@@ -485,7 +458,6 @@ from specified IP/networks.</p>
 <code>allowNets=allow_nets</code> in parameter <code>pass_attrs</code>. The final setting should be:</p>
 <pre><code>pass_attrs      = mail=user,userPassword=password,allowNets=allow_nets
 </code></pre>
-
 <p>Restarting Dovecot service is required.</p>
 <blockquote>
 <p>Sample usage: allow user <code>user@domain.com</code> to login from IP <code>172.16.244.1</code>
@@ -498,7 +470,6 @@ mail: user@domain.com
 allowNets: 192.168.1.10,192.168.1.0/24
 ...
 </code></pre>
-
 <blockquote>
 <p>To remove this restriction, just remove attribute <code>allowNets</code> for this user.</p>
 </blockquote>
@@ -508,7 +479,6 @@ allowNets: 192.168.1.10,192.168.1.0/24
 database name in variable <code>DATABASES=</code>. For example:</p>
 <pre><code>DATABASES='... sogo'
 </code></pre>
-
 <p>Save your change and that's all.</p>
 <h3 id="fixed-drop-retired-column-in-amavisd-database-policyspam_modifies_subj">Fixed: drop retired column in Amavisd database: <code>policy.spam_modifies_subj</code></h3>
 <p>Note: This is applicable to Amavisd-new-2.7.0 and later releases.</p>
@@ -518,7 +488,6 @@ release, we'd better remove this column.</p>
 <pre><code>mysql&gt; USE amavisd;
 mysql&gt; ALTER TABLE policy DROP COLUMN spam_modifies_subj;
 </code></pre>
-
 <h3 id="optional-bypass-greylisting-for-some-big-isps">[<strong>OPTIONAL</strong>] Bypass greylisting for some big ISPs</h3>
 <p>ISPs' mail servers send out spams, but also normal business mails. Applying
 greylisting on them is helpless.</p>
@@ -528,7 +497,6 @@ greylisting on them is helpless.</p>
 <pre><code># cd /tmp
 # wget https://github.com/iredmail/iRedMail/raw/fd52316fc12651768c69671ddcfbafc211cd4689/iRedMail/samples/cluebringer/greylisting-whitelist.sql
 </code></pre>
-
 <ul>
 <li>Login to MySQL database and import this file:</li>
 </ul>
@@ -536,7 +504,6 @@ greylisting on them is helpless.</p>
 mysql&gt; USE cluebringer;
 mysql&gt; SOURCE /tmp/greylisting-whitelist.sql;
 </code></pre>
-
 <p>That's all.</p>
 <h2 id="mysqlmariadb-backend-special">MySQL/MariaDB backend special</h2>
 <h3 id="add-new-sql-column-in-vmail-database">Add new SQL column in <code>vmail</code> database</h3>
@@ -548,7 +515,6 @@ multiple IP/nets must be separated by comma.</p>
 mysql&gt; USE vmail;
 mysql&gt; ALTER TABLE mailbox ADD COLUMN `allow_nets` TEXT DEFAULT NULL;
 </code></pre>
-
 <h3 id="restrict-mail-user-to-login-from-specified-ip-addresses-or-networks-and-apply-service-restriction-while-acting-as-sasl-server">Restrict mail user to login from specified IP addresses or networks, and apply service restriction while acting as SASL server</h3>
 <ul>
 <li>
@@ -569,7 +535,6 @@ mysql&gt; ALTER TABLE mailbox ADD COLUMN `allow_nets` TEXT DEFAULT NULL;
 <p>The final setting should be:</p>
 <pre><code>password_query = SELECT password, allow_nets FROM mailbox WHERE username='%u' AND enable%Ls%Lc=1 AND active='1'
 </code></pre>
-
 <p>Restarting Dovecot service is required.</p>
 <blockquote>
 <p>Sample usage: allow user <code>user@domain.com</code> to login from IP <code>172.16.244.1</code>
@@ -579,7 +544,6 @@ and network <code>192.168.1.0/24</code>:
 <pre><code>sql&gt; USE vmail;
 sql&gt; UPDATE mailbox SET allow_nets='172.16.244.1,192.168.1.0/24' WHERE username='user@domain.com`;
 </code></pre>
-
 <blockquote>
 <p>To remove this restriction, just set <code>mailbox.allow_nets</code> to <code>NULL</code>, not empty string.</p>
 </blockquote>
@@ -593,14 +557,12 @@ catch-all address instead of <code>user@domain.com</code>. Below steps fix this 
 </ul>
 <pre><code>query = ... WHERE alias.address='%d' AND alias.address=domain.domain ...
 </code></pre>
-
 <ul>
 <li>Append one more statement after <code>alias.address='%d'</code>, the final setting
   should be:</li>
 </ul>
 <pre><code>query = ... WHERE alias.address='%d' AND '%u' NOT LIKE '%%+%%' AND alias.address=domain.domain ...
 </code></pre>
-
 <ul>
 <li>Save your change and restart Postfix service.</li>
 </ul>
@@ -610,7 +572,6 @@ catch-all address instead of <code>user@domain.com</code>. Below steps fix this 
 database name in variable <code>DATABASES=</code>. For example:</p>
 <pre><code>DATABASES='... sogo'
 </code></pre>
-
 <p>Save your change and that's all.</p>
 <h3 id="fixed-drop-retired-column-in-amavisd-database-policyspam_modifies_subj_1">Fixed: drop retired column in Amavisd database: <code>policy.spam_modifies_subj</code></h3>
 <p>Note: This is applicable to Amavisd-new-2.7.0 and later releases.</p>
@@ -620,7 +581,6 @@ release, we'd better remove this column.</p>
 <pre><code>mysql&gt; USE amavisd;
 mysql&gt; ALTER TABLE policy DROP COLUMN spam_modifies_subj;
 </code></pre>
-
 <h3 id="optional-bypass-greylisting-for-some-big-isps_1">[<strong>OPTIONAL</strong>] Bypass greylisting for some big ISPs</h3>
 <p>ISPs' mail servers send out spams, but also normal business mails. Applying
 greylisting on them is helpless.</p>
@@ -630,7 +590,6 @@ greylisting on them is helpless.</p>
 <pre><code># cd /tmp
 # wget https://github.com/iredmail/iRedMail/raw/fd52316fc12651768c69671ddcfbafc211cd4689/iRedMail/samples/cluebringer/greylisting-whitelist.sql
 </code></pre>
-
 <ul>
 <li>Login to MySQL database and import this file:</li>
 </ul>
@@ -638,7 +597,6 @@ greylisting on them is helpless.</p>
 mysql&gt; USE cluebringer;
 mysql&gt; SOURCE /tmp/greylisting-whitelist.sql;
 </code></pre>
-
 <p>That's all.</p>
 <h2 id="postgresql-backend-special">PostgreSQL backend special</h2>
 <h3 id="add-new-sql-column-in-vmail-database_1">Add new SQL column in <code>vmail</code> database</h3>
@@ -650,7 +608,6 @@ multiple IP/nets must be separated by comma.</p>
 $ psql -d vmail
 sql&gt; ALTER TABLE mailbox ADD COLUMN allow_nets TEXT DEFAULT NULL;
 </code></pre>
-
 <h3 id="restrict-mail-user-to-login-from-specified-ip-addresses-or-networks-and-apply-service-restriction-while-acting-as-sasl-server_1">Restrict mail user to login from specified IP addresses or networks, and apply service restriction while acting as SASL server</h3>
 <ul>
 <li>
@@ -671,7 +628,6 @@ sql&gt; ALTER TABLE mailbox ADD COLUMN allow_nets TEXT DEFAULT NULL;
 <p>The final setting should be:</p>
 <pre><code>password_query = SELECT password, allow_nets FROM mailbox WHERE username='%u' AND enable%Ls%Lc=1 AND active='1'
 </code></pre>
-
 <p>Restarting Dovecot service is required.</p>
 <blockquote>
 <p>Sample usage: allow user <code>user@domain.com</code> to login from IP <code>172.16.244.1</code>
@@ -681,7 +637,6 @@ and network <code>192.168.1.0/24</code>:
 <pre><code>sql&gt; \c vmail;
 sql&gt; UPDATE mailbox SET allow_nets='172.16.244.1,192.168.1.0/24' WHERE username='user@domain.com`;
 </code></pre>
-
 <blockquote>
 <p>To remove this restriction, just set <code>mailbox.allow_nets</code> to <code>NULL</code>, not empty string.</p>
 </blockquote>
@@ -695,14 +650,12 @@ catch-all address instead of <code>user@domain.com</code>. Below steps fix this 
 </ul>
 <pre><code>query = ... WHERE alias.address='%d' AND alias.address=domain.domain ...
 </code></pre>
-
 <ul>
 <li>Append one more statement after <code>alias.address='%d'</code>, the final setting
   should be:</li>
 </ul>
 <pre><code>query = ... WHERE alias.address='%d' AND '%u' NOT LIKE '%%+%%' AND alias.address=domain.domain ...
 </code></pre>
-
 <ul>
 <li>Save your change and restart Postfix service.</li>
 </ul>
@@ -712,7 +665,6 @@ catch-all address instead of <code>user@domain.com</code>. Below steps fix this 
 database name in variable <code>DATABASES=</code>. For example:</p>
 <pre><code>DATABASES='... sogo'
 </code></pre>
-
 <p>Save your change and that's all.</p>
 <h3 id="fixed-drop-retired-column-in-amavisd-database-policyspam_modifies_subj_2">Fixed: drop retired column in Amavisd database: <code>policy.spam_modifies_subj</code></h3>
 <p>Note: This is applicable to Amavisd-new-2.7.0 and later releases.</p>
@@ -722,7 +674,6 @@ release, we'd better remove this column.</p>
 <pre><code>sql&gt; \c amavisd;
 sql&gt; ALTER TABLE policy DROP COLUMN spam_modifies_subj;
 </code></pre>
-
 <h3 id="optional-bypass-greylisting-for-some-big-isps_2">[<strong>OPTIONAL</strong>] Bypass greylisting for some big ISPs</h3>
 <p>ISPs' mail servers send out spams, but also normal business mails. Applying
 greylisting on them is helpless.</p>
@@ -732,7 +683,6 @@ greylisting on them is helpless.</p>
 <pre><code># cd /tmp
 # wget https://github.com/iredmail/iRedMail/raw/fd52316fc12651768c69671ddcfbafc211cd4689/iRedMail/samples/cluebringer/greylisting-whitelist.sql
 </code></pre>
-
 <ul>
 <li>
 <p>Switch to PostgreSQL daemon user, then execute SQL commands to import it:</p>
@@ -747,7 +697,6 @@ greylisting on them is helpless.</p>
 $ psql -d cluebringer
 sql&gt; \i /tmp/greylisting-whitelist.sql;
 </code></pre>
-
 <p>That's all.</p><div class="footer">
     <p style="text-align: center; color: grey;">All documents are available in <a href="https://github.com/iredmail/docs/">GitHub repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://github.com/iredmail/docs/archive/master.zip">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
 </div></body></html>

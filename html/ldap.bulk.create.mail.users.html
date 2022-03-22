@@ -63,10 +63,9 @@
 <p>Create mail users:</p>
 </li>
 </ul>
-<pre><code class="shell"># cd iRedMail-0.9.6/tools/
+<pre><code class="language-shell"># cd iRedMail-0.9.6/tools/
 # bash create_mail_user_OpenLDAP.sh example.com user1 user2 user3
 </code></pre>
-
 <p>It will create users <code>user1@example.com</code>, <code>user2@example.com</code>, <code>user3@example.com</code>.</p>
 <p>Note: you don't need to create the mail domain name <code>example.com</code> with iRedAdmin first.</p>
 <h2 id="create-mail-users-with-create_mail_user_openldappy">Create mail users with create_mail_user_OpenLDAP.py</h2>
@@ -95,7 +94,6 @@ create the mail users.</p>
 <p>Format of the plain text file is:</p>
 <pre><code>domain name, username, password, [display name], [quota_in_bytes], [groups]
 </code></pre>
-
 <p>Note: domain name, username and password are <strong>required</strong>, others are optional.</p>
 <ul>
 <li><strong>username</strong>: do not append domain part (<code>@domain.com</code>) in username.</li>
@@ -121,7 +119,6 @@ create the mail users.</p>
 mydomain.com, user2, plain_password, Michael Jordan, ,
 mydomain.com, user3, plain_password, , 104857600, group1:group2
 </code></pre>
-
 <ul>
 <li>Create mail domain <code>mydomain.com</code> with iRedAdmin first.</li>
 <li>Run this script with plain text file <code>my_users.csv</code>:</li>
@@ -129,14 +126,12 @@ mydomain.com, user3, plain_password, , 104857600, group1:group2
 <pre><code>cd iRedMail-1.4.2/tools/
 python3 create_mail_user_OpenLDAP.py my_users.csv
 </code></pre>
-
 <p>It generates file <code>my_users.csv.ldif</code> under same directory, 
 import it with command <code>ldapadd</code> to add like below to add the accounts:
     * Please replace <code>cn=Manager,dc=example,dc=com</code> by the real LDAP base dn.
     * Please replace <code>my_users.csv.ldif</code> by the file generated in above commands.</p>
 <pre><code>ldapadd -x -D cn=Manager,dc=example,dc=com -W -f my_users.csv.ldif
 </code></pre>
-
 <p>Notes:</p>
 <ul>
 <li>

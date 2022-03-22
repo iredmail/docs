@@ -44,11 +44,9 @@ check <a href="https://www.iredmail.org/support.html">the details</a> and
 <p>Execute command <code>crontab</code>:</p>
 <pre><code># crontab -e -u root
 </code></pre>
-
 <p>Change <code>dovecot</code> to <code>/usr/sbin/dovecot</code> (absolute path):</p>
 <pre><code>1   5   *   *   *   /usr/sbin/dovecot --exec-mail ext /usr/libexec/dovecot/expire-tool
 </code></pre>
-
 <ul>
 <li>Fix incorrect crontab job for vmail user. Thanks xcrossbow@gmail.</li>
 </ul>
@@ -56,14 +54,12 @@ check <a href="https://www.iredmail.org/support.html">the details</a> and
 
 1   5   *   *   *   find /var/virusmails -ctime +30 | xargs rm -rf {}
 </code></pre>
-
 <ul>
 <li>Replace incorrect parameter name <code>debug_level</code> by <code>debuglevel</code> in all
   LDAP query tables in Postfix.</li>
 </ul>
 <pre><code># perl -pi -e 's#(.*)debug_level(.*)#${1}debuglevel${2}#' /etc/postfix/ldap_*
 </code></pre>
-
 <h2 id="components-update-and-migration">Components Update and Migration</h2>
 <h3 id="postfix">Postfix</h3>
 <ul>
@@ -73,7 +69,6 @@ update it (we assume you backup them to /opt/backup/):</li>
 <pre><code># cp -rfp /etc/postfix/ /opt/backup/
 # yum update postfix
 </code></pre>
-
 <ul>
 <li>
 <p>Parameters changed (Restart postfix to make it work):</p>
@@ -93,7 +88,6 @@ update it (we assume you backup them to /opt/backup/):</li>
 
 # postconf -e disable_vrfy_command='yes'
 </code></pre>
-
 <ul>
 <li>Reduce spam. Add one more pcre expression for smtpd helo restriction to
   block client which use dynamic ip address. Thanks muniao@gmail.</li>
@@ -102,7 +96,6 @@ update it (we assume you backup them to /opt/backup/):</li>
 
 /\d{1,3}-\d{1,3}-\d{1,3}-\d{1,3}/   REJECT Go away  (dynamic).
 </code></pre>
-
 <h3 id="openldap">OpenLDAP</h3>
 <p>In iRedMail 0.4.0+, LDAP schema was changed, several attributes were merged:</p>
 <ul>
@@ -120,13 +113,11 @@ update it (we assume you backup them to /opt/backup/):</li>
 </ul>
 <pre><code># slapcat -b 'o=domains,dc=iredmail,dc=org' -a '(|(objectClass=mailUser)(objectClass=mailDomain))' &gt; all.ldif
 </code></pre>
-
 <ul>
 <li>Backup original copy:</li>
 </ul>
 <pre><code># cp all.ldif all.ldif.orig
 </code></pre>
-
 <ul>
 <li>Change attributes and values:</li>
 </ul>
@@ -138,7 +129,6 @@ update it (we assume you backup them to /opt/backup/):</li>
 # perl -pi -e 's#enableFTPService: yes#enabledService: ftp#' all.ldif
 # perl -pi -e 's#enableIMService: yes#enabledService: im#' all.ldif
 </code></pre>
-
 <ul>
 <li>Delete all entries:</li>
 </ul>
@@ -152,25 +142,21 @@ update it (we assume you backup them to /opt/backup/):</li>
 
 # ldapdelete -x -D 'cn=Manager,dc=iredmail,dc=org' -W -f dn.del.list
 </code></pre>
-
 <ul>
 <li>Use schema file in iRedMail-0.4.0 (samples/iredmail.schema) to replace old file:</li>
 </ul>
 <pre><code># cp -f iRedMail-0.4.0/samples/iredmail.schema /etc/openldap/schema/
 </code></pre>
-
 <ul>
 <li>Restart ldap service:</li>
 </ul>
 <pre><code># /etc/init.d/ldap restart
 </code></pre>
-
 <ul>
 <li>Re-import LDIF data:</li>
 </ul>
 <pre><code># ldapadd -x -D 'cn=Manager,dc=iredmail,dc=org' -W -f all.ldif
 </code></pre>
-
 <ul>
 <li>
 <p>Change ldap search filter in all ldap enabled service:</p>
@@ -181,68 +167,55 @@ update it (we assume you backup them to /opt/backup/):</li>
 </ul>
 <pre><code>user_filter     = (&amp;(mail=%u)(objectClass=mailUser)(accountStatus=active)(enabledService=mail)(enabledService=%Ls))
 </code></pre>
-
 <pre><code>* Postfix:
     * /etc/postfix/ldap_virtual_mailbox_domains.cf
 </code></pre>
 <pre><code>query_filter    = (&amp;(objectClass=mailDomain)(domainName=%s)(domainStatus=active)(enabledService=mail))
 </code></pre>
-
 <pre><code>    * /etc/postfix/ldap_sender_login_maps.cf
 </code></pre>
 <pre><code>query_filter    = (&amp;(mail=%s)(objectClass=mailUser)(accountStatus=active)(enabledService=mail)(enabledService=smtp))
 </code></pre>
-
 <pre><code>    * /etc/postfix/ldap_accounts.cf
 </code></pre>
 <pre><code>query_filter    = (&amp;(objectClass=mailUser)(mail=%s)(accountStatus=active)(enabledService=mail))
 </code></pre>
-
 <pre><code>    * /etc/postfix/ldap_virtual_mailbox_maps.cf
 </code></pre>
 <pre><code>query_filter    = (&amp;(objectClass=mailUser)(mail=%s)(accountStatus=active)(enabledService=mail)(enabledService=deliver))
 </code></pre>
-
 <pre><code>    * /etc/postfix/ldap_sender_bcc_maps_user.cf
 </code></pre>
 <pre><code>query_filter    = (&amp;(mail=%s)(objectClass=mailUser)(accountStatus=active)(enabledService=mail))
 </code></pre>
-
 <pre><code>    * /etc/postfix/ldap_sender_bcc_maps_domain.cf
 </code></pre>
 <pre><code>query_filter    = (&amp;(domainName=%d)(objectClass=mailDomain)(domainStatus=active)(enabledService=mail))
 </code></pre>
-
 <pre><code>    * /etc/postfix/ldap_virtual_alias_maps.cf
 </code></pre>
 <pre><code>query_filter    = (&amp;(mail=%s)(objectClass=mailUser)(accountStatus=active)(enabledService=mail))
 </code></pre>
-
 <pre><code>    * /etc/postfix/ldap_recipient_bcc_maps_user.cf
 </code></pre>
 <pre><code>query_filter    = (&amp;(mail=%s)(objectClass=mailUser)(accountStatus=active)(enabledService=mail))
 </code></pre>
-
 <pre><code>    * /etc/postfix/ldap_recipient_bcc_maps_domain.cf
 </code></pre>
 <pre><code>query_filter    = (&amp;(domainName=%d)(objectClass=mailDomain)(domainStatus=active)(enabledService=mail))
 </code></pre>
-
 <pre><code>    * /etc/postfix/ldap_recipient_bcc_maps_user.cf
 </code></pre>
 <pre><code>query_filter    = (&amp;(mail=%s)(objectClass=mailUser)(accountStatus=active)(enabledService=mail))
 </code></pre>
-
 <pre><code>* Roundcube global ldap address book: /var/www/roundcubemail-x.y.z/config/main.inc.php
 </code></pre>
 <pre><code>    'filter'        =&gt; &quot;(&amp;(objectClass=mailUser)(accountStatus=active)(enabledService=mail)(enabledService=deliver))&quot;,
 </code></pre>
-
 <pre><code>* Change ldap password plugin in SquirrelMail: /var/www/squirrelmail-x.y.z/plugins/change_ldappass/config.php
 </code></pre>
 <pre><code>$ldap_filter = &quot;(&amp;(objectClass=mailUser)(accountStatus=active)(enabledService=mail))&quot;;
 </code></pre>
-
 <h3 id="apache">Apache</h3>
 <ul>
 <li>Add Directory container to disable autoindex feature in webmail directory.</li>
@@ -257,7 +230,6 @@ update it (we assume you backup them to /opt/backup/):</li>
 &lt;Directory /var/www/html/horde&gt;
     Options +FollowSymLinks -Indexes
 </code></pre>
-
 <pre><code>* File: /etc/httpd/conf.d/phpldapadmin.conf
 </code></pre>
 <pre><code># Comment below lines, make it can't access via http://.
@@ -269,7 +241,6 @@ update it (we assume you backup them to /opt/backup/):</li>
     Options -Indexes
 &lt;/Directory&gt;
 </code></pre>
-
 <pre><code>* File: /etc/httpd/conf.d/phpmyadmin.conf
 </code></pre>
 <pre><code># Comment below lines, make it can't access via http://.
@@ -280,13 +251,11 @@ update it (we assume you backup them to /opt/backup/):</li>
     Options -Indexes
 &lt;/Directory&gt;
 </code></pre>
-
 <pre><code>* File: /etc/httpd/conf.d/postfixadmin.conf
 </code></pre>
 <pre><code># Comment below lines, make it can't access via http://.
 #Alias /postfixadmin &quot;/var/www/postfixadmin-2.2.1.1/&quot;
 </code></pre>
-
 <pre><code>* File: /etc/httpd/conf.d/roundcubemail.conf
 </code></pre>
 <pre><code># Add below lines.
@@ -294,7 +263,6 @@ update it (we assume you backup them to /opt/backup/):</li>
     Options -Indexes
 &lt;/Directory&gt;
 </code></pre>
-
 <pre><code>* File: /etc/httpd/conf.d/roundcubemail.conf
 </code></pre>
 <pre><code># Add below lines.
@@ -302,7 +270,6 @@ update it (we assume you backup them to /opt/backup/):</li>
     Options -Indexes
 &lt;/Directory&gt;
 </code></pre>
-
 <pre><code>* File: /etc/httpd/conf.d/ssl.conf
 </code></pre>
 <pre><code># Add below lines before '&lt;/VirtualHost&gt;' mark, make all web-based
@@ -317,34 +284,29 @@ Alias /phpldapadmin /var/www/phpldapadmin-1.1.0.6/
 Alias /ldap /var/www/phpldapadmin-1.1.0.6/
 Alias /phpmyadmin /var/www/phpMyAdmin-2.11.9.4-all-languages/
 </code></pre>
-
 <h3 id="update-phpldapadmin-to-1106">Update phpLDAPadmin to 1.1.0.6.</h3>
 <ul>
 <li>Backup old version (we assume you backup it to /opt/backup/).</li>
 </ul>
 <pre><code># cp -rfp /var/www/phpldapadmin-1.1.0.5/ /opt/backup/
 </code></pre>
-
 <ul>
 <li>Extract new version to /var/www/:</li>
 </ul>
 <pre><code># tar zxf phpldapadmin-1.1.0.6.tar.gz -C /var/www/
 </code></pre>
-
 <ul>
 <li>Set file permission:</li>
 </ul>
 <pre><code># chown -R root:root /var/www/phpldapadmin-1.1.0.6/
 # chmod -R 0755 /var/www/phpldapadmin-1.1.0.6/
 </code></pre>
-
 <ul>
 <li>Update /etc/httpd/conf.d/ssl.conf, replace the version number:</li>
 </ul>
 <pre><code>Alias /phpldapadmin &quot;/var/www/phpldapadmin-1.1.0.6/&quot;
 Alias /ldap &quot;/var/www/phpldapadmin-1.1.0.6/&quot;
 </code></pre>
-
 <ul>
 <li>Restart Apache:</li>
 </ul>

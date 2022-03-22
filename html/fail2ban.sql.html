@@ -59,7 +59,6 @@ filter      = ...
 logpath     = ...
 action      = iptables-multiport[name=dovecot, port=&quot;80,443,25,587,465,110,995,143,993,4190&quot;, protocol=tcp]
 </code></pre>
-
 <p>Action name <code>iptables-multipart</code> maps to commands defined in
 <code>/etc/fail2ban/action.d/iptables-multiport.conf</code> for different fail2ban actions.
 For example:</p>
@@ -82,7 +81,6 @@ actionban = ...
 #          command is executed with Fail2Ban user rights.
 actionunban = ...
 </code></pre>
-
 <p>In this tutorial, we will add a custom action config file and update jail
 config files to use this action.</p>
 <h2 id="create-required-sql-database">Create required SQL database</h2>
@@ -95,7 +93,6 @@ also a SQL user <code>fail2ban</code>.</p>
 <pre><code>cd /tmp
 wget https://github.com/iredmail/iRedMail/raw/1.3.2/samples/fail2ban/sql/fail2ban.mysql
 </code></pre>
-
 <ul>
 <li>
 <p>Run <strong>SQL commands</strong> below as <strong>MySQL <code>root</code> user</strong>:</p>
@@ -111,7 +108,6 @@ GRANT ALL ON fail2ban.* TO 'fail2ban'@'localhost' IDENTIFIED BY '&lt;my-secret-p
 USE fail2ban;
 SOURCE /tmp/fail2ban.mysql;
 </code></pre>
-
 <ul>
 <li>Create required file: <code>/root/.my.cnf-fail2ban</code>. Script will read MySQL
   credential from this file instead of storing plain password in script.</li>
@@ -122,7 +118,6 @@ port=&quot;3306&quot;
 user=&quot;fail2ban&quot;
 password=&quot;&lt;my-secret-password&gt;&quot;
 </code></pre>
-
 <h3 id="for-postgresql-backend">For PostgreSQL backend</h3>
 <p>We will create a new database named <code>fail2ban</code> to store banned IP addresses,
 also a SQL user <code>fail2ban</code>.</p>
@@ -135,7 +130,6 @@ wget https://github.com/iredmail/iRedMail/raw/1.3/samples/fail2ban/sql/fail2ban.
 su - postgres
 psql -d template1
 </code></pre>
-
 <ul>
 <li>
 <p>Run <strong>SQL commands</strong> below:</p>
@@ -153,14 +147,12 @@ ALTER DATABASE fail2ban OWNER TO fail2ban;
 \c fail2ban fail2ban;
 \i /tmp/fail2ban.pgsql;
 </code></pre>
-
 <ul>
 <li>Now append line below to file <code>~/.pgpass</code> under PostgreSQL daemon user's
   HOME directory. Script will read SQL credential from this file.</li>
 </ul>
 <pre><code>*:*:*:fail2ban:&lt;my-secret-password&gt;
 </code></pre>
-
 <h2 id="add-required-fail2ban-config-file-and-script">Add required Fail2ban config file and script</h2>
 <p>On Linux, run commands below as <code>root</code> user:</p>
 <pre><code>wget https://github.com/iredmail/iRedMail/raw/1.3/samples/fail2ban/action.d/banned_db.conf
@@ -170,7 +162,6 @@ wget https://github.com/iredmail/iRedMail/raw/1.3/samples/fail2ban/bin/fail2ban_
 mv fail2ban_banned_db /usr/local/bin/
 chmod 0550 /usr/local/bin/fail2ban_banned_db
 </code></pre>
-
 <p>File <code>/etc/fail2ban/action.d/banned_db.conf</code> indicates we now have a new action
 named <code>banned_db</code> (it's file name without extension). Feel free to open this
 file and check what it does.</p>
@@ -188,7 +179,6 @@ want to store banned IP in SQL db. Let's take <code>dovecot.local</code> for exa
 ...
 action      = iptables-multiport[name=dovecot, port=&quot;80,443,25,587,465,110,995,143,993,4190&quot;, protocol=tcp]
 </code></pre>
-
 <ul>
 <li>
 <p>Add our new action under existing action:</p>
@@ -209,7 +199,6 @@ action      = iptables-multiport[name=dovecot, port=&quot;80,443,25,587,465,110,
 action      = iptables-multiport[name=dovecot, port=&quot;80,443,25,587,465,110,995,143,993,4190&quot;, protocol=tcp]
               banned_db[name=dovecot, port=&quot;80,443,25,587,465,110,995,143,993,4190&quot;, protocol=tcp]
 </code></pre>
-
 <p>That's it. It's recommend to enable this new action <code>banned_db</code> for all jails.</p>
 <p>Now restart <code>fail2ban</code> service to load modified config files.</p>
 <h2 id="add-required-cron-job-to-query-sql-database-and-unban-ip-addresses">Add required cron job to query SQL database and unban IP addresses</h2>
@@ -217,7 +206,6 @@ action      = iptables-multiport[name=dovecot, port=&quot;80,443,25,587,465,110,
 <pre><code># Fail2ban: Unban IP addresses pending for removal (stored in SQL db).
 * * * * * /bin/bash /usr/local/bin/fail2ban_banned_db unban_db
 </code></pre>
-
 <p>It runs every minute and queries SQL database to get banned IP addresses which
 are pending for removal.</p>
 <h2 id="optional-look-up-and-store-country-name-of-banned-ip-address">Optional: look up and store country name of banned IP address</h2>
@@ -230,25 +218,21 @@ country of banned IP address and store it in SQL database.</p>
 </ul>
 <pre><code>yum -y install GeoIP GeoIP-data
 </code></pre>
-
 <ul>
 <li>On RHEL/CentOS 8:</li>
 </ul>
 <pre><code>yum -y install GeoIP GeoIP-GeoLite-data
 </code></pre>
-
 <ul>
 <li>On Debian/Ubuntu:</li>
 </ul>
 <pre><code>apt -y install geoip-bin geoip-database
 </code></pre>
-
 <ul>
 <li>On OpenBSD 6.6:</li>
 </ul>
 <pre><code>pkg_add GeoIP geolite-country
 </code></pre>
-
 <h2 id="for-iredadmin-pro-users-enable-the-sql-integration">For iRedAdmin-Pro users: Enable the SQL integration</h2>
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>
@@ -270,7 +254,6 @@ fail2ban_db_name = 'fail2ban'
 fail2ban_db_user = 'fail2ban'
 fail2ban_db_password = '&lt;my-secret-password&gt;'
 </code></pre>
-
 <h2 id="tests">Tests</h2>
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>
@@ -280,11 +263,9 @@ fail2ban_db_password = '&lt;my-secret-password&gt;'
 <pre><code>fail2ban-client set dovecot banip 1.1.1.1
 fail2ban-client set dovecot banip 1.1.1.2
 </code></pre>
-
 <p>You can see the banned IP address with command <code>fail2ban-client status &lt;jail&gt;</code>:</p>
 <pre><code>fail2ban-client status dovecot
 </code></pre>
-
 <p>Command output:</p>
 <pre><code>Status for the jail: dovecot
 |- Filter
@@ -296,11 +277,9 @@ fail2ban-client set dovecot banip 1.1.1.2
    |- Total banned: 2
    `- Banned IP list:   1.1.1.2 1.1.1.1
 </code></pre>
-
 <p>Now run command below to query SQL table <code>fail2ban.banned</code> as <code>root</code> user:</p>
 <pre><code>mysql fail2ban -e &quot;SELECT * FROM banned&quot;
 </code></pre>
-
 <p>You should see the command output like below:</p>
 <pre><code>+----+---------+-------+----------+---------+------------------+---------------+---------------------+--------+
 | id | ip      | ports | protocol | jail    | hostname         | country       | timestamp           | remove |
@@ -309,27 +288,22 @@ fail2ban-client set dovecot banip 1.1.1.2
 |  4 | 1.1.1.2 | 22    | tcp      | dovecot | ob66.localdomain | AU, Australia | 2020-04-15 13:34:58 |      0 |
 +----+---------+-------+----------+---------+------------------+---------------+---------------------+--------+
 </code></pre>
-
 <p>Now run <code>fail2ban-client</code> command to unban IP and query SQL table
 <code>fail2ban.banned</code> again, you should see unbanned IP is gone:</p>
 <pre><code>fail2ban-client set dovecot unbanip 1.1.1.1
 </code></pre>
-
 <p>Now run command as <code>root</code> user to update SQL column <code>banned.remove=1</code> to
 simulate the unban triggered by iRedAdmin-Pro:</p>
 <pre><code>mysql fail2ban -e &quot;UPDATE banned SET remove=1 WHERE ip='1.1.1.2'&quot;
 </code></pre>
-
 <p>Run script <code>/usr/local/bin/fail2ban_banned_db</code> with argument <code>unban_db</code> as <code>root</code> user:</p>
 <pre><code>/usr/local/bin/fail2ban_banned_db unban_db
 </code></pre>
-
 <p>Again, query SQL table <code>fail2ban.banned</code> as <code>root</code> user, you should see the IP
 stored in SQL db with <code>remove=1</code> is gone, and unbanned in fail2ban too:</p>
 <pre><code>mysql fail2ban -e &quot;SELECT * FROM banned&quot;
 fail2ban-client status dovecot
 </code></pre>
-
 <h2 id="troubleshooting">Troubleshooting</h2>
 <p>If there's something, you should see related log in syslog log file or Fail2ban
 log file:</p>

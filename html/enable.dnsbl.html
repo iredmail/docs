@@ -38,7 +38,6 @@ DNS server speeds up the mail flow.</p>
     reject_rbl_client zen.spamhaus.org=127.0.0.[2..11]
     reject_rbl_client b.barracudacentral.org=127.0.0.2
 </code></pre>
-
 <p>It must be placed after <code>reject_unauth_destination</code>. You can add more DNSBL
 services after <code>reject_unauth_destination</code>, and they will be queried in the
 specified order.</p>
@@ -55,7 +54,6 @@ response code.</p>
     zen.spamhaus.org=127.0.0.[2..11]*3
     b.barracudacentral.org=127.0.0.2*2
 </code></pre>
-
 <ul>
 <li>Restart or reload Postfix service is required.</li>
 </ul>

@@ -62,10 +62,9 @@ iRedMail 会自动安装和配置邮件服务所需的组件，因此如果操�
 <h3 id="fqdn">为服务器设置一个完整域名（FQDN）的主机名</h3>
 <p>不管你的服务器将用于实际运行还是仅仅用作测试，都建议设置一个完整域名（FQDN）的主机名。</p>
 <p>输入命令 <code>hostname -f</code> 查看当前的主机名</p>
-<pre><code class="shell">$ hostname -f
+<pre><code class="language-shell">$ hostname -f
 mx.example.com
 </code></pre>
-
 <p>在 RHEL/CentOS 系统上，主机名需要在两个文件里设置：</p>
 <ol>
 <li>
@@ -81,20 +80,16 @@ mx.example.com
 <pre><code>$ hostname -f
 mx.example.com
 </code></pre>
-
 <h3 id="selinux">禁用 SELinux</h3>
 <p>iRedMail 不支持 SELinux，所以需要在 <code>/etc/selinux/config</code> 文件里禁用它。</p>
 <pre><code>SELINUX=disabled
 </code></pre>
-
 <p>如果不希望禁用 SELinux，可以设置为让它打印警告信息但不强制限制：</p>
 <pre><code>SELINUX=permissive
 </code></pre>
-
 <p>也可以无须重启服务就禁用它：</p>
 <pre><code># setenforce 0
 </code></pre>
-
 <h3 id="yum">启用必须的 yum 仓库</h3>
 <ul>
 <li>
@@ -115,19 +110,16 @@ mx.example.com
 <pre><code># cd /root/
 # tar zxf iRedMail-x.y.z.tar.gz
 </code></pre>
-
 <h2 id="iredmail_1">运行 iRedMail 安装程序</h2>
 <p>现在可以运行 iRedMail 安装程序了，它会问你几个简单的问题，仅此而已。</p>
 <pre><code>cd /root/iRedMail-x.y.z/
 bash iRedMail.sh
 </code></pre>
-
 <p>如果是在 CentOS 8 系统上安装，iRedMail 安装程序会使用 <code>pip2</code> 命令安装几个
 Python-2 的模块，国内用户请指定镜像站点完成安装，否则很大可能会因网络问题
 导致安装失败：</p>
 <pre><code>PIP_MIRROR_SITE='http://pypi.douban.com/simple/' PIP_TRUSTED_HOST=pypi.douban.com bash iRedMail.sh
 </code></pre>
-
 <h2 id="_3">安装过程的截图</h2>
 <ul>
 <li>欢迎和感谢使用</li>

@@ -86,7 +86,6 @@ yum install mlmmj uwsgi uwsgi-plugin-python36 uwsgi-logger-syslog python3-reques
 yum install mlmmj python3-pip3 python3-requests python3-ldap
 pip3 install uwsgi
 </code></pre>
-
 <ul>
 <li>On Debian/Ubuntu:</li>
 </ul>
@@ -96,7 +95,6 @@ apt-get install mlmmj uwsgi uwsgi-plugin-python3 python3-requests python3-pyldap
 # Other Debian/Ubuntu releases
 apt-get install mlmmj uwsgi uwsgi-plugin-python3 python3-requests python3-ldap
 </code></pre>
-
 <ul>
 <li>On FreeBSD:</li>
 </ul>
@@ -107,14 +105,12 @@ make install clean
 cd /usr/ports/www/py-requests
 make install clean
 </code></pre>
-
 <ul>
 <li>On OpenBSD (iRedMail always installs <code>uwsgi</code> during installation, so no need
   to install it here):</li>
 </ul>
 <pre><code>pkg_add mlmmj altermime py3-ldap
 </code></pre>
-
 <h2 id="create-required-system-account">Create required system account</h2>
 <p>mlmmj will be ran as user <code>mlmmj</code> and group <code>mlmmj</code>, all mailing list data will
 be stored under its home directory <code>/var/vmail/mlmmj</code>:</p>
@@ -126,7 +122,6 @@ chown -R mlmmj:mlmmj /var/vmail/mlmmj /var/vmail/mlmmj-archive
 chmod -R 0700 /var/vmail/mlmmj /var/vmail/mlmmj-archive
 chmod 0755 /var/vmail           # Make sure this directory is accessible by other users
 </code></pre>
-
 <p>On FreeBSD:</p>
 <pre><code>pw groupadd mlmmj
 pw useradd mlmmj -m -g mlmmj -s /sbin/nologin -d /var/vmail/mlmmj
@@ -135,7 +130,6 @@ chown -R mlmmj:mlmmj /var/vmail/mlmmj /var/vmail/mlmmj-archive
 chmod -R 0700 /var/vmail/mlmmj /var/vmail/mlmmj-archive
 chmod 0755 /var/vmail           # Make sure this directory is accessible by other users
 </code></pre>
-
 <h2 id="postfix-integration">Postfix integration</h2>
 <ul>
 <li>Please add lines below in Postfix config file <code>/etc/postfix/master.cf</code>:</li>
@@ -152,13 +146,11 @@ chmod 0755 /var/vmail           # Make sure this directory is accessible by othe
 mlmmj   unix  -       n       n       -       -       pipe
     flags=ORhu user=mlmmj argv=/usr/bin/mlmmj-amime-receive -L /var/vmail/mlmmj/${nexthop}
 </code></pre>
-
 <ul>
 <li>Add line below in Postfix config file <code>/etc/postfix/main.cf</code>:</li>
 </ul>
 <pre><code>mlmmj_destination_recipient_limit = 1
 </code></pre>
-
 <ul>
 <li>Open file <code>/etc/postfix/ldap/virtual_group_maps.cf</code>, replace the
   <code>query_filter</code> line by below one. It will query old mailing list and new
@@ -166,7 +158,6 @@ mlmmj   unix  -       n       n       -       -       pipe
 </ul>
 <pre><code>query_filter     = (&amp;(accountStatus=active)(!(domainStatus=disabled))(enabledService=mail)(enabledService=deliver)(|(&amp;(objectClass=mailUser)(|(memberOfGroup=%s)(shadowAddress=%s)))(&amp;(memberOfGroup=%s)(!(shadowAddress=%s))(|(objectClass=mailExternalUser)(&amp;(objectClass=mailList)(!(enabledService=mlmmj)))(objectClass=mailAlias)))(&amp;(objectClass=mailList)(enabledService=mlmmj)(|(mail=%s)(shadowAddress=%s)))))
 </code></pre>
-
 <ul>
 <li>Open file <code>/etc/postfix/ldap/transport_maps_user.cf</code>, make sure no <code>ou=Users,</code>
   in <code>search_base =</code> line, and change <code>scope = one</code> to <code>scope = sub</code>:</li>
@@ -174,7 +165,6 @@ mlmmj   unix  -       n       n       -       -       pipe
 <pre><code>search_base     = domainName=%d,o=domains,dc=xx,dc=xx
 scope           = sub
 </code></pre>
-
 <ul>
 <li>Open file <code>/etc/postfix/ldap/transport_maps_user.cf</code>, replace the
   <code>query_filter</code> line by below one. It will query both mail user and mlmmj
@@ -182,7 +172,6 @@ scope           = sub
 </ul>
 <pre><code>query_filter    = (&amp;(|(objectClass=mailUser)(&amp;(objectClass=mailList)(enabledService=mlmmj)))(|(mail=%s)(shadowAddress=%s))(accountStatus=active)(!(domainStatus=disabled))(enabledService=mail))
 </code></pre>
-
 <ul>
 <li>Run commands below to create file <code>/usr/bin/mlmmj-amime-receive</code> (Linux) or
   <code>/usr/local/bin/mlmmj-amime-receive</code> (FreeBSD/OpenBSD):</li>
@@ -201,14 +190,12 @@ wget https://github.com/iredmail/iRedMail/raw/1.0/samples/mlmmj/mlmmj-amime-rece
 chown mlmmj:mlmmj mlmmj-amime-receive
 chmod 0550 mlmmj-amime-receive
 </code></pre>
-
 <p>On FreeBSD or OpenBSD:</p>
 <pre><code>cd /usr/local/bin/
 wget https://github.com/iredmail/iRedMail/raw/1.0/samples/mlmmj/mlmmj-amime-receive
 chown mlmmj:mlmmj mlmmj-amime-receive
 chmod 0550 mlmmj-amime-receive
 </code></pre>
-
 <h2 id="amavisd-integration">Amavisd Integration</h2>
 <p>We need Amavisd to listen on one more port <code>10027</code>, it will be used to scan
 spam/virus for emails posted to mailing list.</p>
@@ -224,7 +211,6 @@ spam/virus for emails posted to mailing list.</p>
 </ul>
 <pre><code>$inet_socket_port = [10024, 10026, 10027, 9998];
 </code></pre>
-
 <ul>
 <li>Add lines below in Amavisd config file. It creates a new policy bank called
   <code>MLMMJ</code> for emails submitted by mlmmj from port 10027. The purpose is signing
@@ -246,7 +232,6 @@ $policy_bank{'MLMMJ'} = {
     bypass_header_checks_maps =&gt; [1],   # don't check bad header
 };
 </code></pre>
-
 <p>Now restart Amavisd and Postfix service, mlmmj mailing list manager is now
 fully integrated.</p>
 <p>We will setup <code>mlmmjadmin</code> program to make managing mailing lists easier.</p>
@@ -271,7 +256,6 @@ tar zxf 3.1.3.tar.gz -C /opt
 rm -f 3.1.3.tar.gz
 ln -s /opt/mlmmjadmin-3.1.3 /opt/mlmmjadmin
 </code></pre>
-
 <ul>
 <li>Generate config file by copying sample file, <code>settings.py.sample</code>:</li>
 </ul>
@@ -280,7 +264,6 @@ cp settings.py.sample settings.py
 chown mlmmj:mlmmj settings.py
 chmod 0400 settings.py
 </code></pre>
-
 <ul>
 <li>Generate a random, long string as API auth token, it will be used by your
   API client. For example:</li>
@@ -293,18 +276,15 @@ $ eval &lt;/dev/urandom tr -dc A-Za-z0-9 | (head -c $1 &amp;&gt;/dev/null || hea
 $ eval &lt;/dev/random tr -cd [:alnum:] | fold -w 32 | head -1
 43a89b7aa34354089e629ed9f9be0b3b
 </code></pre>
-
 <ul>
 <li>Add this string in <code>/opt/mlmmjadmin/settings.py</code>, parameter <code>api_auth_tokens</code>
   like below:</li>
 </ul>
 <pre><code>api_auth_tokens = ['43a89b7aa34354089e629ed9f9be0b3b']
 </code></pre>
-
 <p>You can add as many token as you want for different API clients. For example:</p>
 <pre><code>api_auth_tokens = ['43a89b7aa34354089e629ed9f9be0b3b', '703ed37b20243d7c51c56ce6cd90e94c']
 </code></pre>
-
 <ul>
 <li>if you manage mail accounts <strong>WITH</strong> iRedAdmin-Pro, please set values of
   parameters <code>backend_api</code> and <code>backend_cli</code> in <code>/opt/mlmmjadmin/settings.py</code>
@@ -313,7 +293,6 @@ $ eval &lt;/dev/random tr -cd [:alnum:] | fold -w 32 | head -1
 <pre><code>backend_api = 'bk_none'
 backend_cli = 'bk_iredmail_ldap'
 </code></pre>
-
 <ul>
 <li>if you do <strong>NOT</strong> manage mail accounts with iRedAdmin-Pro, please set values
   of parameters <code>backend_api</code> and <code>backend_cli</code> in <code>/opt/mlmmjadmin/settings.py</code>
@@ -322,7 +301,6 @@ backend_cli = 'bk_iredmail_ldap'
 <pre><code>backend_api = 'bk_iredmail_ldap'
 backend_cli = 'bk_iredmail_ldap'
 </code></pre>
-
 <ul>
 <li>
 <p>Add extra required parameters in <code>/opt/mlmmjadmin/settings.py</code>, so that
@@ -341,7 +319,6 @@ iredmail_ldap_basedn = 'o=domains,dc=XXX,dc=XXX'
 iredmail_ldap_bind_dn = 'cn=vmailadmin,dc=XXX,dc=XXX'
 iredmail_ldap_bind_password = 'xxxxxxxx'
 </code></pre>
-
 <ul>
 <li>Add extra required parameters in <code>/opt/mlmmjadmin/settings.py</code> to use the
   directory used to store mailing lists:</li>
@@ -350,7 +327,6 @@ iredmail_ldap_bind_password = 'xxxxxxxx'
 MLMMJ_ARCHIVE_DIR = '/var/vmail/mlmmj-archive'
 MLMMJ_DEFAULT_PROFILE_SETTINGS.update({'smtp_port': 10027})
 </code></pre>
-
 <ul>
 <li>If you're running OpenBSD or FreeBSD, please add parameter <code>MLMMJ_SKEL_DIR</code>
   in <code>/opt/mlmmjadmin/settings.py</code> to set the directory which stores mlmmj mail
@@ -358,7 +334,6 @@ MLMMJ_DEFAULT_PROFILE_SETTINGS.update({'smtp_port': 10027})
 </ul>
 <pre><code>MLMMJ_SKEL_DIR = '/usr/local/share/mlmmj/text.skel'
 </code></pre>
-
 <ul>
 <li>Copy rc/systemd scripts for service control:</li>
 </ul>
@@ -407,7 +382,6 @@ cp /opt/mlmmjadmin/rc_scripts/mlmmjadmin.openbsd /etc/rc.d/mlmmjadmin
 chmod 0755 /etc/rc.d/mlmmjadmin
 rcctl enable mlmmjadmin
 </code></pre>
-
 <ul>
 <li>Create directory used to store mlmmjadmin log file. mlmmjadmin is
   configured to log to syslog directly.</li>
@@ -440,7 +414,6 @@ mkdir /var/log/mlmmjadmin
 chown root:wheel /var/log/mlmmjadmin
 chmod 0755 /var/log/mlmmjadmin
 </code></pre>
-
 <ul>
 <li>Update syslog daemon config file to log mlmmjadmin to dedicated log file:</li>
 </ul>
@@ -448,17 +421,14 @@ chmod 0755 /var/log/mlmmjadmin
 <pre><code>cp /opt/mlmmjadmin/samples/rsyslog/mlmmjadmin.conf /etc/rsyslog.d/
 service rsyslog restart
 </code></pre>
-
 <p>For OpenBSD, please append below lines in <code>/etc/syslog.conf</code>:</p>
 <pre><code>!!mlmmjadmin
 local5.*            /var/log/mlmmjadmin/mlmmjadmin.log
 </code></pre>
-
 <p>For FreeBSD, please append below lines in <code>/etc/syslog.conf</code>:</p>
 <pre><code>!mlmmjadmin
 local5.*            /var/log/mlmmjadmin/mlmmjadmin.log
 </code></pre>
-
 <ul>
 <li>Now it's ok to start <code>mlmmjadmin</code> service, it listens on <code>127.0.0.1:7790</code>
   by default:</li>
@@ -473,16 +443,13 @@ service mlmmjadmin restart
 #
 rcctl start mlmmjadmin
 </code></pre>
-
 <p>On Linux, you can check the port number with command <code>netstat</code> or <code>ss</code> like below:</p>
 <pre><code>netstat -ntlp | grep 7790
 ss -ntlp | grep 7790
 </code></pre>
-
 <p>On FreeBSD/OpenBSD, run:</p>
 <pre><code>netstat -anl -p tcp | grep 7790
 </code></pre>
-
 <h2 id="manage-subscribeable-mailing-lists">Manage subscribeable mailing lists</h2>
 <p>Please read document <a href="./manage.subscribeable.mailing.lists.html">Manage subscribeable mailing lists</a>.</p>
 <h2 id="references">References</h2>

@@ -70,7 +70,6 @@
 iRedAdmin-Pro config file <code>settings.py</code>:</p>
 <pre><code>ENABLE_RESTFUL_API = True
 </code></pre>
-
 <p>Restarting Apache or uwsgi (if you're running Nginx) is required after changed
 iRedAdmin config file.</p>
 <div class="admonition note">
@@ -93,7 +92,6 @@ RESTRICT_API_ACCESS = True
 # List all IP addresses of allowed client for API access.
 RESTFUL_API_CLIENTS = ['172.16.244.1', ...]
 </code></pre>
-
 <h2 id="sample-code-to-interact-with-iredadmin-pro-restful-api">Sample code to interact with iRedAdmin-Pro RESTful API</h2>
 <ul>
 <li><a href="./iredadmin-pro.restful.api.curl.html">iRedAdmin-Pro RESTful API (interact with <code>curl</code>)</a></li>
@@ -112,7 +110,6 @@ RESTFUL_API_CLIENTS = ['172.16.244.1', ...]
 <div class="admonition api">
 <p class="admonition-title"><code class="post">POST</code> <code class="url">/api/login</code> <code class="comment">Login with an admin username (full email address) and password</code> <code class="has_params">Parameters</code></p>
 <div class="params params_domain">
-
 <table>
 <thead>
 <tr>
@@ -135,13 +132,11 @@ RESTFUL_API_CLIENTS = ['172.16.244.1', ...]
 </tbody>
 </table>
 </div>
-
 </div>
 <h3 class="toggle" id="domain">Domain</h3>
 <div class="admonition api">
 <p class="admonition-title"><code class="get">GET</code> <code class="url">/api/domains</code> <code class="comment">Get profiles of all managed mail domains</code> <code class="has_params">Parameters</code></p>
 <div class="params params_domain">
-
 <table>
 <thead>
 <tr>
@@ -164,7 +159,6 @@ RESTFUL_API_CLIENTS = ['172.16.244.1', ...]
 </tbody>
 </table>
 </div>
-
 </div>
 <div class="admonition api">
 <p class="admonition-title"><code class="get">GET</code> <code class="url">/api/domain/&lt;domain&gt;</code> <code class="comment">Get profile of an existing domain</code></p>
@@ -172,7 +166,6 @@ RESTFUL_API_CLIENTS = ['172.16.244.1', ...]
 <div class="admonition api">
 <p class="admonition-title"><code class="post">POST</code> <code class="url">/api/domain/&lt;domain&gt;</code> <code class="comment">Create a new domain</code> <code class="has_params">Parameters</code></p>
 <div class="params params_domain">
-
 <table>
 <thead>
 <tr>
@@ -240,7 +233,6 @@ RESTFUL_API_CLIENTS = ['172.16.244.1', ...]
 </tbody>
 </table>
 </div>
-
 </div>
 <div class="admonition api">
 <p class="admonition-title"><code class="delete">DELETE</code> <code class="url">/api/domain/&lt;domain&gt;</code> <code class="comment">Delete an existing domain (all mail messages will NOT be removed)</code></p>
@@ -251,7 +243,6 @@ RESTFUL_API_CLIENTS = ['172.16.244.1', ...]
 <div class="admonition api">
 <p class="admonition-title"><code class="put">PUT</code> <code class="url">/api/domain/&lt;domain&gt;</code> <code class="comment">Update profile of an existing domain</code> <code class="has_params">Parameters</code></p>
 <div class="params params_domain">
-
 <table>
 <thead>
 <tr>
@@ -569,12 +560,10 @@ RESTFUL_API_CLIENTS = ['172.16.244.1', ...]
 </tbody>
 </table>
 </div>
-
 </div>
 <div class="admonition api">
 <p class="admonition-title"><code class="put">PUT</code> <code class="url">/api/domain/admins/&lt;domain&gt;</code> <code class="comment">Manage normal domain admins.</code> <code class="has_params">Parameters</code></p>
 <div class="params params_domain_admins">
-
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>
 <p>Normal domain admin can only promote mail users under managed domains
@@ -607,7 +596,6 @@ to be a domain admin.</p>
 </tbody>
 </table>
 </div>
-
 </div>
 <h3 class="toggle" id="domain-admin">Domain Admin</h3>
 <div class="admonition attention">
@@ -623,7 +611,6 @@ to be a domain admin.</p>
 <div class="admonition api">
 <p class="admonition-title"><code class="post">POST</code> <code class="url">/api/admin/&lt;mail&gt;</code> <code class="comment">Create a new domain admin</code> <code class="has_params">Parameters</code></p>
 <div class="params params_admin">
-
 <table>
 <thead>
 <tr>
@@ -713,7 +700,6 @@ to be a domain admin.</p>
 </tbody>
 </table>
 </div>
-
 </div>
 <div class="admonition api">
 <p class="admonition-title"><code class="delete">DELETE</code> <code class="url">/api/admin/&lt;mail&gt;</code> <code class="comment">Delete an existing domain admin</code></p>
@@ -721,7 +707,6 @@ to be a domain admin.</p>
 <div class="admonition api">
 <p class="admonition-title"><code class="put">PUT</code> <code class="url">/api/admin/&lt;mail&gt;</code> <code class="comment">Update profile of an existing domain admin</code> <code class="has_params">Parameters</code></p>
 <div class="params params_admin">
-
 <table>
 <thead>
 <tr>
@@ -811,12 +796,10 @@ to be a domain admin.</p>
 </tbody>
 </table>
 </div>
-
 </div>
 <div class="admonition api">
 <p class="admonition-title"><code class="post">POST</code> <code class="url">/api/verify_password/admin/&lt;mail&gt;</code> <code class="comment">Verify given (plain) password against the one stored in SQL/LDAP</code> <code class="has_params">Parameters</code> </p>
 <div class="params params_admin">
-
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>
 <p>Password verification is limited to global domain admin.</p>
@@ -838,7 +821,6 @@ to be a domain admin.</p>
 </tbody>
 </table>
 </div>
-
 </div>
 <h3 class="toggle" id="mail-user">Mail User</h3>
 <div class="admonition api">
@@ -847,7 +829,6 @@ to be a domain admin.</p>
 <div class="admonition api">
 <p class="admonition-title"><code class="post">POST</code> <code class="url">/api/user/&lt;mail&gt;</code> <code class="comment">Create a new mail user</code> <code class="has_params">Parameters</code></p>
 <div class="params params_user">
-
 <table>
 <thead>
 <tr>
@@ -895,7 +876,6 @@ to be a domain admin.</p>
 </tbody>
 </table>
 </div>
-
 </div>
 <div class="admonition api">
 <p class="admonition-title"><code class="delete">DELETE</code> <code class="url">/api/user/&lt;mail&gt;</code> <code class="comment">Delete an existing mail user</code></p>
@@ -906,7 +886,6 @@ to be a domain admin.</p>
 <div class="admonition api">
 <p class="admonition-title"><code class="put">PUT</code> <code class="url">/api/user/&lt;mail&gt;</code> <code class="comment">Update profile of an existing mail user</code> <code class="has_params">Parameters</code> </p>
 <div class="params params_user">
-
 <table>
 <thead>
 <tr>
@@ -1059,7 +1038,6 @@ to be a domain admin.</p>
 </ul>
 </div>
 </div>
-
 </div>
 <div class="admonition api">
 <p class="admonition-title"><code class="post">POST</code> <code class="url">/api/user/&lt;mail&gt;/change_email/&lt;new_mail&gt;</code> <code class="comment">Change user's email address (from '&lt;mail&gt;' to '&lt;new_mail&gt;')</code></p>
@@ -1067,7 +1045,6 @@ to be a domain admin.</p>
 <div class="admonition api">
 <p class="admonition-title"><code class="put">PUT</code> <code class="url">/api/users/&lt;domain&gt;</code> <code class="comment">Update profiles of all users under domain</code> <code class="has_params">Parameters</code></p>
 <div class="params">
-
 <table>
 <thead>
 <tr>
@@ -1095,12 +1072,10 @@ to be a domain admin.</p>
 </tbody>
 </table>
 </div>
-
 </div>
 <div class="admonition api">
 <p class="admonition-title"><code class="post">POST</code> <code class="url">/api/verify_password/user/&lt;mail&gt;</code> <code class="comment">Verify given (plain) password against the one stored in SQL/LDAP</code> <code class="has_params">Parameters</code> </p>
 <div class="params params_user">
-
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>
 <p>Password verification is limited to global domain admin.</p>
@@ -1122,7 +1097,6 @@ to be a domain admin.</p>
 </tbody>
 </table>
 </div>
-
 </div>
 <h3 class="toggle" id="new-subscribable-mailing-list">[NEW] Subscribable Mailing List</h3>
 <div class="admonition attention">
@@ -1136,7 +1110,6 @@ to be a domain admin.</p>
 <div class="admonition api">
 <p class="admonition-title"><code class="get">GET</code> <code class="url">/api/mls/&lt;domain&gt;</code> <code class="comment">Get profile of all mailing lists under given domain</code> <code class="has_params">Parameters</code></p>
 <div class="params">
-
 <table>
 <thead>
 <tr>
@@ -1156,12 +1129,10 @@ to be a domain admin.</p>
 </tbody>
 </table>
 </div>
-
 </div>
 <div class="admonition api">
 <p class="admonition-title"><code class="get">GET</code> <code class="url">/api/ml/&lt;mail&gt;</code> <code class="comment">Get profile of an existing mailing list account</code> <code class="has_params">Parameters</code></p>
 <div class="params">
-
 <table>
 <thead>
 <tr>
@@ -1181,12 +1152,10 @@ to be a domain admin.</p>
 </tbody>
 </table>
 </div>
-
 </div>
 <div class="admonition api">
 <p class="admonition-title"><code class="post">POST</code> <code class="url">/api/ml/&lt;mail&gt;</code> <code class="comment">Create a new mailing list</code> <code class="has_params">Parameters</code></p>
 <div class="params">
-
 <table>
 <thead>
 <tr>
@@ -1441,12 +1410,10 @@ to be a domain admin.</p>
 </tbody>
 </table>
 </div>
-
 </div>
 <div class="admonition api">
 <p class="admonition-title"><code class="delete">DELETE</code> <code class="url">/api/ml/&lt;mail&gt;</code> <code class="comment">Delete an existing mailing list</code> <code class="has_params">Parameters</code></p>
 <div class="params">
-
 <table>
 <thead>
 <tr>
@@ -1464,12 +1431,10 @@ to be a domain admin.</p>
 </tbody>
 </table>
 </div>
-
 </div>
 <div class="admonition api">
 <p class="admonition-title"><code class="put">PUT</code> <code class="url">/api/ml/&lt;mail&gt;</code> <code class="comment">Update profile of an existing mailing list</code> <code class="has_params">Parameters</code></p>
 <div class="params">
-
 <table>
 <thead>
 <tr>
@@ -1743,7 +1708,6 @@ to be a domain admin.</p>
 </tbody>
 </table>
 </div>
-
 </div>
 <h3 class="toggle" id="mailing-list-unsubscribable">Mailing List (Unsubscribable)</h3>
 <div class="admonition attention">
@@ -1760,7 +1724,6 @@ to be a domain admin.</p>
 <div class="admonition api">
 <p class="admonition-title"><code class="post">POST</code> <code class="url">/api/maillist/&lt;mail&gt;</code> <code class="comment">Create a new mailing list</code> <code class="has_params">Parameters</code></p>
 <div class="params">
-
 <table>
 <thead>
 <tr>
@@ -1788,12 +1751,10 @@ to be a domain admin.</p>
 </tbody>
 </table>
 </div>
-
 </div>
 <div class="admonition api">
 <p class="admonition-title"><code class="delete">DELETE</code> <code class="url">/api/maillist/&lt;mail&gt;</code> <code class="comment">Delete an existing mailing list</code> <code class="has_params">Parameters</code></p>
 <div class="params">
-
 <table>
 <thead>
 <tr>
@@ -1811,12 +1772,10 @@ to be a domain admin.</p>
 </tbody>
 </table>
 </div>
-
 </div>
 <div class="admonition api">
 <p class="admonition-title"><code class="put">PUT</code> <code class="url">/api/maillist/&lt;mail&gt;</code> <code class="comment">Update profile of an existing mailing list</code> <code class="has_params">Parameters</code></p>
 <div class="params">
-
 <table>
 <thead>
 <tr>
@@ -1854,7 +1813,6 @@ to be a domain admin.</p>
 </tbody>
 </table>
 </div>
-
 </div>
 <h3 class="toggle" id="mail-alias">Mail Alias</h3>
 <div class="admonition api">
@@ -1863,7 +1821,6 @@ to be a domain admin.</p>
 <div class="admonition api">
 <p class="admonition-title"><code class="post">POST</code> <code class="url">/api/alias/&lt;mail&gt;</code> <code class="comment">Create a new mail alias</code> <code class="has_params">Parameters</code></p>
 <div class="params">
-
 <table>
 <thead>
 <tr>
@@ -1895,7 +1852,6 @@ to be a domain admin.</p>
 <p><code>accessPolicy</code> for mail alias account is only available for SQL backends.</p>
 </div>
 </div>
-
 </div>
 <div class="admonition api">
 <p class="admonition-title"><code class="delete">DELETE</code> <code class="url">/api/alias/&lt;mail&gt;</code> <code class="comment">Delete an existing mail alias</code></p>
@@ -1903,7 +1859,6 @@ to be a domain admin.</p>
 <div class="admonition api">
 <p class="admonition-title"><code class="put">PUT</code> <code class="url">/api/alias/&lt;mail&gt;</code> <code class="comment">Update profile of an existing mail alias</code> <code class="has_params">Parameters</code></p>
 <div class="params">
-
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>
 <p><code>accessPolicy</code> for mail alias account is only available for SQL backends.</p>
@@ -1945,7 +1900,6 @@ to be a domain admin.</p>
 </tbody>
 </table>
 </div>
-
 </div>
 <div class="admonition api">
 <p class="admonition-title"><code class="put">POST</code> <code class="url">/api/alias/&lt;mail&gt;/change_email/&lt;new_mail&gt;</code> <code class="comment">Change email address of alias account (from '&lt;mail&gt;' to '&lt;new_mail&gt;')</code></p>
@@ -1978,7 +1932,6 @@ to be a domain admin.</p>
 <div class="admonition api">
 <p class="admonition-title"><code class="put">PUT</code> <code class="url">/api/spampolicy/user/&lt;mail&gt;</code> <code class="comment">Set per-user spam policy</code> <code class="has_params_spampolicy">Parameters</code></p>
 <div class="params params_spampolicy">
-
 <p>Parameters available for global, per-domain, per-user spam policies.</p>
 <blockquote>
 <p>Per-user policy has the highest priority, then per-domain policy, then global policy.</p>
@@ -2050,7 +2003,6 @@ to be a domain admin.</p>
 </tbody>
 </table>
 </div>
-
 </div>
 <h3 class="toggle" id="throttling">Throttling</h3>
 <div class="admonition api">
@@ -2089,7 +2041,6 @@ to be a domain admin.</p>
 <div class="admonition api">
 <p class="admonition-title"><code class="post">POST</code> <code class="url">/api/throttle/&lt;mail&gt;/outbound</code> <code class="comment">Set user outbound throttle settings</code> <code class="has_params_throttle">Parameters</code></p>
 <div class="params params_throttle">
-
 <p>Parameters available for global, per-domain, per-user throttle settings.</p>
 <table>
 <thead>
@@ -2123,7 +2074,6 @@ to be a domain admin.</p>
 </tbody>
 </table>
 </div>
-
 </div>
 <h3 class="toggle" id="greylisting">Greylisting</h3>
 <div class="admonition api">
@@ -2147,7 +2097,6 @@ to be a domain admin.</p>
 <div class="admonition api">
 <p class="admonition-title"><code class="post">POST</code> <code class="url">/api/greylisting/&lt;mail&gt;</code> <code class="comment">Set per-user greylisting setting</code> <code class="has_params_greylisting">Parameters</code></p>
 <div class="params params_greylisting">
-
 <p>Parameters available for global, per-domain and per-user greylisting settings.</p>
 <table>
 <thead>
@@ -2166,7 +2115,6 @@ to be a domain admin.</p>
 </tbody>
 </table>
 </div>
-
 </div>
 <div class="admonition api">
 <p class="admonition-title"><code class="delete">DELETE</code> <code class="url">/api/greylisting/global</code> <code class="comment">Delete global greylisting setting</code></p>
@@ -2195,7 +2143,6 @@ to be a domain admin.</p>
 <div class="admonition api">
 <p class="admonition-title"><code class="post">POST</code> <code class="url">/api/greylisting/&lt;mail&gt;/whitelists</code> <code class="comment">Whitelist senders for greylisting services for specified user</code> <code class="has_params_greylisting_whitelists">Parameters</code></p>
 <div class="params params_greylisting_whitelists">
-
 <table>
 <thead>
 <tr>
@@ -2254,12 +2201,10 @@ to be a domain admin.</p>
 </tbody>
 </table>
 </div>
-
 </div>
 <div class="admonition api">
 <p class="admonition-title"><code class="post">POST</code> <code class="url">/api/greylisting/whitelist_spf_domains</code> <code class="comment">Whitelist IP addresses and networks listed in SPF/MX DNS record of given sender domains for greylisting service globally</code> <code class="has_params">Parameters</code></p>
 <div class="params">
-
 <p>Given sender domain names are not used directly while checking whitelisting, instead, there's a cron job to query SPF and MX DNS records of given sender domains, then whitelist the IP addresses/networks listed in DNS records.</p>
 <p>Multiple domains must be separated by comma.</p>
 <table>
@@ -2291,9 +2236,7 @@ to be a domain admin.</p>
 <!--
 <code>query_dns_immediately</code> | Query SPF/MX/A DNS records of given sender domains immediately, and whitelist returned IP/networks | <code>query_dns_immediately=yes</code>
 -->
-
 </div>
-
 </div>
 <h3 class="toggle" id="export-accounts">Export Accounts</h3>
 <h4 class="toggle" id="ldif-ldap-backend-only">LDIF (LDAP backend only)</h4>
@@ -2316,7 +2259,6 @@ to be a domain admin.</p>
 <p class="admonition-title"><code class="get">GET</code> <code class="url">/api/ldif/alias/&lt;mail&gt;</code> <code class="comment">Export mail alias account to LDIF</code></p>
 </div>
 <script src="./js/jquery-1.12.4.min.js"></script>
-
 <script type="text/javascript">
 $(document).ready(function(){
     /* Collapse all parameters by default */

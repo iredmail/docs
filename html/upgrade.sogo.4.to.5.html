@@ -39,21 +39,18 @@ switch to v5 as soon as possible.</p>
 cp /etc/sogo/* /root/sogo-backup/sogo/
 cp /etc/sysconfig/sogo /root/sogo-backup/sysconfig/
 </code></pre>
-
 <ul>
 <li>Backup its SQL database:</li>
 </ul>
 <pre><code>bash /var/vmail/backup/backup_*sql.sh
 bash /var/vmail/backup/backup_sogo.sh
 </code></pre>
-
 <ul>
 <li>Open file <code>/etc/yum.repos.d/sogo.repo</code>, change the version number in
   <code>baseurl=</code> line from <code>4</code> to <code>5</code>:</li>
 </ul>
 <pre><code>baseurl=https://packages.inverse.ca/SOGo/nightly/5/rhel/$releasever/$basearch/
 </code></pre>
-
 <ul>
 <li>SOGo relies on the GNUstep packages provided by SOGo team, and must not use
   the packages from EPEL repo. Please open file <code>/etc/yum.repos.d/epel.repo</code>,
@@ -61,14 +58,12 @@ bash /var/vmail/backup/backup_sogo.sh
 </ul>
 <pre><code>exclude=gnustep*
 </code></pre>
-
 <ul>
 <li>Upgrade SOGo packages:</li>
 </ul>
 <pre><code>yum clean all
 yum update 'sogo*' '*sope*'
 </code></pre>
-
 <ul>
 <li>Update config file <code>/etc/sogo/sogo.conf</code>, enable TLS without verifying ssl cert.</li>
 </ul>
@@ -78,14 +73,12 @@ yum update 'sogo*' '*sope*'
 
     SOGoSieveServer = &quot;sieve://127.0.0.1:4190/?tls=YES&amp;tlsVerifyMode=allowInsecureLocalhost&quot;;
 </code></pre>
-
 <ul>
 <li>Restart SOGo and memcached services:</li>
 </ul>
 <pre><code>service memcached restart
 service sogod restart
 </code></pre>
-
 <h2 id="upgrade-sogo-on-debianubuntu">Upgrade SOGo On Debian/Ubuntu</h2>
 <ul>
 <li>Backup config files first:</li>
@@ -94,14 +87,12 @@ service sogod restart
 cp /etc/sogo/* /root/sogo-backup/sogo/
 cp /etc/default/sogo /root/sogo-backup/default/
 </code></pre>
-
 <ul>
 <li>Backup its SQL database:</li>
 </ul>
 <pre><code>bash /var/vmail/backup/backup_*sql.sh
 bash /var/vmail/backup/backup_sogo.sh
 </code></pre>
-
 <ul>
 <li>Open file <code>/etc/apt/sources.list</code> or <code>/etc/apt/sources.list.d/sogo-nightly.list</code>,
   change the version number <code>4</code> to <code>5</code>, like below:</li>
@@ -112,14 +103,12 @@ https://packages.inverse.ca/SOGo/nightly/5/debian ...
 # Ubuntu
 https://packages.inverse.ca/SOGo/nightly/5/ubuntu ...
 </code></pre>
-
 <ul>
 <li>Upgrade SOGo packages:</li>
 </ul>
 <pre><code>apt-get update
 apt-get install --only-upgrade 'sogo*' '*sope*'
 </code></pre>
-
 <ul>
 <li>Update config file <code>/etc/sogo/sogo.conf</code>, enable TLS without verifying ssl cert.</li>
 </ul>
@@ -129,14 +118,12 @@ apt-get install --only-upgrade 'sogo*' '*sope*'
 
     SOGoSieveServer = &quot;sieve://127.0.0.1:4190/?tls=YES&amp;tlsVerifyMode=allowInsecureLocalhost&quot;;
 </code></pre>
-
 <ul>
 <li>Restart SOGo and memcached services:</li>
 </ul>
 <pre><code>service memcached restart
 service sogo restart
 </code></pre>
-
 <h2 id="upgrade-sogo-on-freebsd">Upgrade SOGo On FreeBSD</h2>
 <p>FreeBSD ports tree still ships SOGo-4, please wait for v5.</p>
 <h2 id="upgrade-sogo-on-openbsd">Upgrade SOGo On OpenBSD</h2>

@@ -63,7 +63,6 @@ of iRedAPD.</p>
 the version number with command below:</p>
 <pre><code>grep '__version__' /opt/iredapd/libs/__init__.py
 </code></pre>
-
 <p>If you're not running iRedAPD-1.7.0 or later release, please follow our
 tutorial to upgrade it: <a href="./upgrade.iredapd.html">Upgrade iRedAPD</a>.</p>
 <h3 id="migrate-cluebringer-to-iredapd">Migrate Cluebringer to iRedAPD</h3>
@@ -90,13 +89,11 @@ cluebringer_db_name = 'cluebringer'
 cluebringer_db_user = 'root'
 cluebringer_db_password = ''
 </code></pre>
-
 <p>Then run below commands to migrate greylisting and throttling settings:</p>
 <pre><code># cd /opt/iredapd/tools/
 # python migrate_cluebringer_greylisting.py
 # python migrate_cluebringer_throttle.py
 </code></pre>
-
 <p>That's it.</p>
 <h2 id="after-migration">After migration</h2>
 <h3 id="enable-required-plugins-remove-old-plugins">Enable required plugins, remove old plugins</h3>
@@ -112,7 +109,6 @@ cluebringer_db_password = ''
 
 plugins = [..., 'amavisd_wblist', 'greylisting', 'throttle']
 </code></pre>
-
 <p>The order of plugin names doesn't matter.</p>
 <ul>
 <li>
@@ -145,7 +141,6 @@ smtpd_end_of_data_restrictions =
     check_policy_service inet:127.0.0.1:10031       # &lt;- Remove this line
     ...
 </code></pre>
-
 <h3 id="enable-iredapd-in-postfix">Enable iRedAPD in Postfix</h3>
 <p>Make sure iRedAPD are enabled in <strong>BOTH</strong> <code>smtpd_recipient_restrictions</code>
 and <code>smtpd_end_of_data_restrictions</code> like below:</p>
@@ -157,7 +152,6 @@ and <code>smtpd_end_of_data_restrictions</code> like below:</p>
 
 smtpd_end_of_data_restrictions = check_policy_service inet:127.0.0.1:7777
 </code></pre>
-
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>If you have additional IP addresses/networks listed in Postfix setting
@@ -172,13 +166,11 @@ smtpd_end_of_data_restrictions = check_policy_service inet:127.0.0.1:7777
 </ul>
 <pre><code># service postfix restart
 </code></pre>
-
 <ul>
 <li>On OpenBSD:</li>
 </ul>
 <pre><code># /etc/rc.d/postfix restart
 </code></pre>
-
 <h3 id="stop-cluebringer-service-and-remove-cluebringer-packages">Stop Cluebringer service, and remove Cluebringer packages</h3>
 <p>We don't need Cluebringer anymore, so it's ok to stop cluebringer service and
 remove the packages:</p>
@@ -187,19 +179,16 @@ remove the packages:</p>
 </ul>
 <pre><code># service cbpolicyd stop &amp;&amp; yum remove cluebringer
 </code></pre>
-
 <ul>
 <li>On Debian/Ubuntu:</li>
 </ul>
 <pre><code># service postfix-cluebringer stop &amp;&amp; apt-get remove --purge postfix-cluebringer
 </code></pre>
-
 <ul>
 <li>On FreeBSD:</li>
 </ul>
 <pre><code># service policyd2 stop &amp;&amp; cd /usr/ports/mail/policyd2/ &amp;&amp; make deinstall
 </code></pre>
-
 <ul>
 <li>
 <p>Edit root user's cron job, remove the one used to clean up Cluebringer SQL
@@ -212,7 +201,6 @@ remove the packages:</p>
 </ul>
 <pre><code>3   3   *   *   *   /usr/sbin/cbpadmin --config=/etc/policyd/cluebringer.conf --cleanup &gt;/dev/null
 </code></pre>
-
 <ul>
 <li>Optionally, you can drop its SQL database <code>cluebringer</code> also.</li>
 </ul>

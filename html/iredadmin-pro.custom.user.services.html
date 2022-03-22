@@ -44,7 +44,6 @@ below:</p>
 </div>
 <pre><code>ADDITIONAL_ENABLED_USER_SERVICES = ['gitlab', 'jabber']
 </code></pre>
-
 <p>Then restart <code>iredadmin</code> service.</p>
 <p><strong>Newly</strong> created mail user will have these 2 services enabled by default, but
 for existing users, you have to add them either manually or do it with some
@@ -57,11 +56,9 @@ attribute/value pairs:</p>
 <pre><code>enabledService=gitlab
 enabledService=jabber
 </code></pre>
-
 <p>For GitLab, the LDAP filter used to query user should look like this:</p>
 <pre><code>(&amp;(objectClass=mailUser)(accountStatus=active)(enabledService=gitlab))
 </code></pre>
-
 <p>For Jabber, the LDAP filter used to query user should look like this:</p>
 <pre><code>(&amp;(objectClass=mailUser)(accountStatus=active)(enabledService=jabber))
 </code></pre><div class="footer">

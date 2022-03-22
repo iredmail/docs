@@ -47,7 +47,6 @@ you will find setting <code>Restrict to login from specified addresses</code> li
 <pre><code>sql&gt; USE vmail;
 sql&gt; UPDATE mailbox SET allow_nets='172.16.244.1,192.168.1.0/24' WHERE username='user@domain.com';
 </code></pre>
-
 <p>To remove this restriction (allow to login from anywhere), just set
 value of SQL column <code>mailbox.allow_nets</code> to NULL. WARNING: It must be NULL,
 not empty string.</p>
@@ -56,7 +55,6 @@ not empty string.</p>
 <code>192.168.1.0/24</code>, please add new attribute <code>allowNets</code> to this user:</p>
 <pre><code>allowNets: 192.168.1.10,192.168.1.0/24
 </code></pre>
-
 <p>To remove this restriction, just remove attribute <code>allowNets</code> for this user.</p>
 <h1 id="references">References</h1>
 <ul>

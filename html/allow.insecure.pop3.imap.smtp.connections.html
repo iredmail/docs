@@ -35,7 +35,6 @@ try to access mailbox via protocol POP3/IMAP without TLS support, you will
 get error message like below:</p>
 <pre><code>Plaintext authentication disallowed on non-secure (SSL/TLS) connections
 </code></pre>
-
 <p>This tutorial describes how to allow insecure connection for daily use.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
@@ -54,13 +53,11 @@ file <code>/etc/dovecot/dovecot.conf</code> and restart Dovecot service:</p>
 <pre><code>disable_plaintext_auth=no
 ssl=yes
 </code></pre>
-
 <p>Again, it's strongly recommended to use only POP3S/IMAPS for better security.</p>
 <p>Default and recommended setting configured by iRedMail is:</p>
 <pre><code>disable_plaintext_auth=yes
 ssl=required
 </code></pre>
-
 <h2 id="allow-insecure-smtp-connection-on-port-25">Allow insecure SMTP connection on port 25</h2>
 <p>Please comment out lines below in Postfix config file <code>/etc/postfix/main.cf</code>
 and reload or restart Postfix service:</p>

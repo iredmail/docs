@@ -57,7 +57,6 @@ with command <code>dovecot -n</code>.</p>
 # Change to:
 sieve_dir = /var/vmail/sieve/%Ld/%Ln              # &lt;-- Remove the last slash.
 </code></pre>
-
 <h3 id="add-indexes-for-amavisd-database">Add indexes for Amavisd database</h3>
 <pre><code>$ mysql -uroot -p
 mysql&gt; USE amavisd;
@@ -68,13 +67,11 @@ mysql&gt; ALTER TABLE msgs ADD INDEX msgs_idx_content_time_num (content, time_nu
 mysql&gt; ALTER TABLE msgs ADD INDEX msgs_idx_mail_id (mail_id);
 mysql&gt; ALTER TABLE quarantine ADD INDEX quar_idx_mail_id (mail_id);
 </code></pre>
-
 <h3 id="debian-and-ubuntu-special-assign-apache-daemon-user-to-group-adm">[Debian and Ubuntu special] Assign Apache daemon user to group <code>adm</code></h3>
 <p><strong>Note</strong>: This fix is applicable to only Debian and Ubuntu.</p>
 <p>Assign Apache daemon user to group <code>adm</code> to avoid Awstats cron job issue.</p>
 <pre><code># usermod -g adm www-data
 </code></pre>
-
 <h2 id="openldap-backend-special">OpenLDAP backend special</h2>
 <h3 id="fix-incorrect-calculation-of-mailbox-quota">Fix incorrect calculation of mailbox quota</h3>
 <p>There's a bug in iRedMail-0.7.3 and all earlier versions: Mailbox quota gets
@@ -96,7 +93,6 @@ their own mailbox quota usage. Here's the solution to fix it.</p>
 pass_attrs = mail=user,userPassword=password
 user_attrs = mail=user,homeDirectory=home,[...OMIT OTHER SETTINGS HERE...]
 </code></pre>
-
 <p>Restarting Dovecot service is required.</p>
 <h2 id="mysql-backend-special">MySQL backend special</h2>
 <h3 id="store-realtime-mailbox-quota-usage-in-seperate-sql-table">Store realtime mailbox quota usage in seperate SQL table</h3>
@@ -128,7 +124,6 @@ mysql&gt; CREATE TABLE IF NOT EXISTS `used_quota` (
 mysql&gt; ALTER TABLE mailbox DROP COLUMN bytes;
 mysql&gt; ALTER TABLE mailbox DROP COLUMN messages;
 </code></pre>
-
 <ul>
 <li>
 <p>Replace <code>table = mailbox</code> with <code>table = used_quota</code> in below config file,

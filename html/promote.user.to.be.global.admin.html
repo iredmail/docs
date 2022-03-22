@@ -44,14 +44,12 @@ for example):</p>
 sql&gt; UPDATE mailbox SET isadmin=1, isglobaladmin=1 WHERE username='john@example.com';
 sql&gt; INSERT INTO domain_admins (username, domain) VALUES ('john@example.com', 'ALL');
 </code></pre>
-
 <p>That's it, you can now login to iRedAdmin as <code>john@example.com</code> (with <code>john@example.com</code>'s password).</p>
 <p>To promote user <code>smith@test.com</code> to be admin of domain <code>test.com</code> (Note: normal domain admin is only available in iRedAdmin-Pro):</p>
 <pre><code>sql&gt; USE vmail;
 sql&gt; UPDATE mailbox SET isadmin=1, isglobaladmin=0 WHERE username='smith@test.com';
 sql&gt; INSERT INTO domain_admins (username, domain) VALUES ('smith@test.com', 'test.com');
 </code></pre>
-
 <h3 id="ldap-backends">LDAP backends</h3>
 <p>To promote existing mail user <code>john@example.com</code> to be <strong>global admin</strong>:</p>
 <ul>

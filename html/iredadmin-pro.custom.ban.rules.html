@@ -46,7 +46,6 @@
     'DEFAULT' =&gt; $banned_filename_re,
 );
 </code></pre>
-
 <ul>
 <li><code>ALLOW_MS_OFFICE</code>: Allow all Microsoft Office documents.</li>
 <li><code>ALLOW_MS_WORD</code>: Allow Microsoft Word documents (<code>.doc</code>, <code>.docx</code>).</li>
@@ -64,7 +63,6 @@ formats, and <code>ALLOW_PDF</code> to allow / bypass <code>.pdf</code> files:</
     'ALLOW_PDF'         =&gt; new_RE([qr'.\.pdf$'i =&gt; 0]),
 )
 </code></pre>
-
 <p>Restarting Amavisd service is required after updated its config file.</p>
 <p>If you're running iRedAdmin-Pro, please list your custom rules in its config
 file <code>/opt/www/iredadmin/settings.py</code> like below, so that you can use them
@@ -80,7 +78,6 @@ AMAVISD_BAN_RULES = {
     &quot;ALLOW_PDF&quot;: &quot;Allow PDF files (.pdf)&quot;,
 }
 </code></pre>
-
 <p>Restarting "iredadmin" service is required after updated its config file.</p>
 <h2 id="how-to-use-the-ban-rules">How to use the ban rules</h2>
 <h3 id="assign-ban-rules-with-iredadmin-pro">Assign ban rules with iRedAdmin-Pro</h3>
@@ -103,7 +100,6 @@ commands below to achieve it (Note: we use MySQL for example):</p>
 <pre><code>USE amavisd;
 UPDATE policy SET banned_rulenames=&quot;ALLOW_MS_WORD,ALLOW_MS_EXCEL&quot; WHERE policy_name=&quot;user@domain.com&quot;;
 </code></pre>
-
 <p>Multiple rule names must be separated by comma.</p><div class="footer">
     <p style="text-align: center; color: grey;">All documents are available in <a href="https://github.com/iredmail/docs/">GitHub repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://github.com/iredmail/docs/archive/master.zip">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
 </div></body></html>

@@ -42,14 +42,13 @@ navigation bar.</p>
 <h2 id="create-mail-alias-account-with-sql-command-line">Create mail alias account with SQL command line</h2>
 <p>To create an mail alias account, you can simply insert a SQL record in table
 <code>vmail.alias</code>. For example:</p>
-<pre><code class="mysql">sql&gt; USE vmail;
+<pre><code class="language-mysql">sql&gt; USE vmail;
 sql&gt; INSERT INTO alias (address, goto, domain, islist) \
      VALUES ('original@example.com', \
              'user1@example.com,user2@example.com,user1@test.com', \
              'example.com', \
              1);
 </code></pre>
-
 <p><strong>NOTES</strong>:</p>
 <ul>
 <li>Please always use lower cases for email addresses.</li>
@@ -64,7 +63,6 @@ account by adding proper policy name in SQL column <code>alias.accesspolicy</cod
 For example:</p>
 <pre><code>sql&gt; UPDATE alias SET accesspolicy='domain' WHERE address='original@example.com';
 </code></pre>
-
 <p>Available access policies are:</p>
 <ul>
 <li><code>public</code>: no restrictions.</li>

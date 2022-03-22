@@ -29,20 +29,18 @@ create many mail users quickly.</p>
 <li>Create the mail domain name <code>example.com</code> with iRedAdmin first.</li>
 <li>Bulk create mail users with the shell script:</li>
 </ul>
-<pre><code class="shell"># cd iRedMail-0.9.4/tools/
+<pre><code class="language-shell"># cd iRedMail-0.9.4/tools/
 # bash create_mail_user_SQL.sh example.com user1 user2 user3
 </code></pre>
-
 <p>It will generate the plain SQL file <code>output.sql</code> in current directory, please
 login to SQL server as root user, then import it. for example:</p>
 <ul>
 <li>MySQL or MariaDB:</li>
 </ul>
-<pre><code class="shell"># mysql -uroot -p
+<pre><code class="language-shell"># mysql -uroot -p
 sql&gt; USE vmail;
 sql&gt; SOURCE output.sql;
 </code></pre>
-
 <ul>
 <li>PostgreSQL:</li>
 </ul>
@@ -53,7 +51,6 @@ sql&gt; SOURCE output.sql;
 $ psql -d vmail
 sql&gt; \i output.sql;
 </code></pre>
-
 <p>Notes:</p>
 <ul>
 <li>Default password is same as username. if you prefer to set a password for all

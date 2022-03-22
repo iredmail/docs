@@ -79,7 +79,6 @@ installation, it's recommended to update this file after you upgraded iRedMail,
 so that you can know which version of iRedMail you're running. For example:</p>
 <pre><code>0.9.9
 </code></pre>
-
 <h3 id="upgrade-iredapd-postfix-policy-server-to-the-latest-stable-release-31">Upgrade iRedAPD (Postfix policy server) to the latest stable release (3.1)</h3>
 <p>Please follow below tutorial to upgrade iRedAPD to the latest stable release:
 <a href="./upgrade.iredapd.html">Upgrade iRedAPD to the latest stable release</a></p>
@@ -131,7 +130,6 @@ location ~ /mail/(CHANGELOG|composer.json|INSTALL|jsdeps.json|LICENSE|README|UPG
 location ~ /mail/plugins/.*/config.inc.php.* { deny all; }
 location ~ /mail/plugins/enigma/home($|/.*) { deny all; }
 </code></pre>
-
 <p>Add a <code>^</code> symbol before url path, this will exactly match the url begins
 with the path.</p>
 <pre><code>location ~ ^/mail/(bin|config|installer|logs|SQL|temp|vendor)($|/.*) { deny all; }
@@ -139,7 +137,6 @@ location ~ ^/mail/(CHANGELOG|composer.json|INSTALL|jsdeps.json|LICENSE|README|UP
 location ~ ^/mail/plugins/.*/config.inc.php.* { deny all; }
 location ~ ^/mail/plugins/enigma/home($|/.*) { deny all; }
 </code></pre>
-
 <p>Open file <code>/etc/nginx/templates/roundcube-subdomain.tmpl</code>, find <code>location</code>
 directives like below:</p>
 <pre><code>location ~ /(bin|config|installer|logs|SQL|temp|vendor)($|/.*) { deny all; }
@@ -147,14 +144,12 @@ location ~ /(CHANGELOG|composer.json|INSTALL|jsdeps.json|LICENSE|README|UPGRADIN
 location ~ /plugins/.*/config.inc.php.* { deny all; }
 location ~ /plugins/enigma/home($|/.*) { deny all; }
 </code></pre>
-
 <p>Add <code>^</code> symbol like below:</p>
 <pre><code>location ~ ^/(bin|config|installer|logs|SQL|temp|vendor)/.* { deny all; }
 location ~ ^/(CHANGELOG|composer.json|INSTALL|jsdeps.json|LICENSE|README|UPGRADING)$ { deny all; }
 location ~ ^/plugins/.*/config.inc.php.* { deny all; }
 location ~ ^/plugins/enigma/home($|/.*) { deny all; }
 </code></pre>
-
 <h3 id="improve-mlmmj-script-used-for-appending-footer-text">Improve mlmmj script used for appending footer text</h3>
 <p>Run commands below to create file <code>/usr/bin/mlmmj-amime-receive</code> (Linux) or
 <code>/usr/local/bin/mlmmj-amime-receive</code> (FreeBSD/OpenBSD):</p>
@@ -164,14 +159,12 @@ wget -O mlmmj-amime-receive https://github.com/iredmail/iRedMail/raw/1.0/samples
 chown mlmmj:mlmmj mlmmj-amime-receive
 chmod 0550 mlmmj-amime-receive
 </code></pre>
-
 <p>On FreeBSD or OpenBSD:</p>
 <pre><code>cd /usr/local/bin/
 wget -O mlmmj-amime-receive https://github.com/iredmail/iRedMail/raw/1.0/samples/mlmmj/mlmmj-amime-receive
 chown mlmmj:mlmmj mlmmj-amime-receive
 chmod 0550 mlmmj-amime-receive
 </code></pre>
-
 <h3 id="fix-address-mapping-issue-for-mlmmj-mailing-list">Fix address mapping issue for mlmmj mailing list</h3>
 <p>With default settings of iRedMail-0.9.8, if you use a per-user alias address
 as member of a mailing list, Postfix does not expand it to the final
@@ -191,14 +184,12 @@ Please follow steps below to fix it.</p>
     ...
 };
 </code></pre>
-
 <p>Add a new line inside the {} block:</p>
 <pre><code>$policy_bank{'MLMMJ'} = {
     ...
     forward_method =&gt; 'smtp:[127.0.0.1]:10028',
 };
 </code></pre>
-
 <p>Here we use a new smtp port 10028.</p>
 <ul>
 <li>Append new lines to file <code>/etc/postfix/master.cf</code> (Linux/OpenBSD) or
@@ -228,7 +219,6 @@ Please follow steps below to fix it.</p>
     -o smtpd_client_connection_rate_limit=0
     -o receive_override_options=no_header_body_checks,no_unknown_recipient_checks
 </code></pre>
-
 <p>It's very similar to existing transport '10025', but without option <code>no_address_mappings</code>.
 Port 10025 is used <strong>BEFORE</strong> content filter, but 10028 is used <strong>AFTER</strong>
 content filter.</p>
@@ -250,7 +240,6 @@ wget -O backup_sogo.sh https://github.com/iredmail/iRedMail/raw/1.0/tools/backup
 chown root backup_sogo.sh
 chmod 0400 backup_sogo.sh
 </code></pre>
-
 <h2 id="openldap-special">OpenLDAP special</h2>
 <h3 id="update-iredmail-ldap-schema-file">Update iRedMail LDAP schema file</h3>
 <p>iRedMail-0.9.9 introduces 2 new LDAP attributes for mail user account:</p>
@@ -281,7 +270,6 @@ cp iredmail.schema iredmail.schema.bak
 cp -f /tmp/iredmail.schema /etc/openldap/schema/
 service slapd restart
 </code></pre>
-
 <ul>
 <li>On Debian/Ubuntu:</li>
 </ul>
@@ -294,7 +282,6 @@ cp iredmail.schema iredmail.schema.bak
 cp -f /tmp/iredmail.schema /etc/ldap/schema/
 service slapd restart
 </code></pre>
-
 <ul>
 <li>On FreeBSD:</li>
 </ul>
@@ -307,7 +294,6 @@ cp iredmail.schema iredmail.schema.bak
 cp -f /tmp/iredmail.schema /usr/local/etc/openldap/schema/
 service slapd restart
 </code></pre>
-
 <ul>
 <li>
 <p>On OpenBSD:</p>
@@ -326,18 +312,15 @@ cp iredmail.schema iredmail.schema.bak
 cp -f /tmp/iredmail.schema /etc/openldap/schema/
 rcctl restart slapd
 </code></pre>
-
 <h3 id="dovecot-read-mailbox-format-from-ldap">Dovecot: read mailbox format from LDAP</h3>
 <p>Please open file <code>/etc/dovecot/dovecot-ldap.conf</code> (Linux/OpenBSD) or
 <code>/usr/local/etc/dovecot/dovecot-ldap.conf</code> (FreeBSD), find the <code>user_attrs =</code>
 line like below:</p>
 <pre><code>user_attrs      = mail=master_user,mail=user,homeDirectory=home,=mail=maildir:~/Maildir/,mailQuota=quota_rule=*:bytes=%$
 </code></pre>
-
 <p>Please replace it by below one:</p>
 <pre><code>user_attrs      = mail=master_user,mail=user,=home=%L{ldap:homeDirectory},=mail=%{ldap:mailboxFormat:maildir}:~/%{ldap:mailboxFolder:Maildir}/,mailQuota=quota_rule=*:bytes=%$
 </code></pre>
-
 <p>If attribute <code>mailboxFormat</code> doesn't present in user object, Dovecot will use
 string <code>maildir</code> as default value.</p>
 <p>For more details about changing mailbox format, please check our tutorial:
@@ -383,7 +366,6 @@ one you're using.</p>
 wget -O iredmail.mysql https://github.com/iredmail/iRedMail/raw/1.0/update/0.9.9/iredmail.mysql
 mysql vmail &lt; /root/iredmail.mysql
 </code></pre>
-
 <h3 id="dovecot-read-mailbox-format-from-sql">Dovecot: read mailbox format from SQL</h3>
 <p>Please open file <code>/etc/dovecot/dovecot-mysql.conf</code> (Linux/OpenBSD) or
 <code>/usr/local/etc/dovecot/dovecot-mysql.conf</code> (FreeBSD), find the <code>user_query =</code>
@@ -393,7 +375,6 @@ line like below:</p>
             CONCAT(mailbox.storagebasedirectory, '/', mailbox.storagenode, '/', mailbox.maildir) AS home, \
             ...
 </code></pre>
-
 <p>Update above line and also add a new <code>CONCAT</code> line after it:</p>
 <pre><code>user_query = SELECT \
             ...
@@ -401,7 +382,6 @@ line like below:</p>
             CONCAT(mailbox.mailboxformat, ':~/', mailbox.mailboxfolder, '/') AS mail, \
             ...
 </code></pre>
-
 <p>Restarting Dovecot service is required.</p>
 <p>For more details about changing mailbox format, please check our tutorial:
 <a href="./change.mailbox.format.html">Change mailbox format</a>.</p>
@@ -428,7 +408,6 @@ one you're using.</p>
 <pre><code>cd /tmp/
 wget -O iredmail.pgsql https://github.com/iredmail/iRedMail/raw/1.0/update/0.9.9/iredmail.pgsql
 </code></pre>
-
 <ul>
 <li>Run shell commands as root user below to connect to PostgreSQL server:</li>
 </ul>
@@ -436,7 +415,6 @@ wget -O iredmail.pgsql https://github.com/iredmail/iRedMail/raw/1.0/update/0.9.9
 $ psql -d vmail
 sql&gt; \i /tmp/iredmail.pgsql
 </code></pre>
-
 <h3 id="dovecot-read-mailbox-format-from-sql_1">Dovecot: read mailbox format from SQL</h3>
 <p>Please open file <code>/etc/dovecot/dovecot-pgsql.conf</code> (Linux/OpenBSD) or
 <code>/usr/local/etc/dovecot/dovecot-pgsql.conf</code> (FreeBSD), then</p>
@@ -447,14 +425,12 @@ below:</p>
     mailbox.storagebasedirectory || '/' || mailbox.storagenode || '/' || mailbox.maildir AS home, \
     ...
 </code></pre>
-
 <p>Update above line and also add a new line after it:</p>
 <pre><code>user_query = SELECT \
     LOWER(mailbox.storagebasedirectory || '/' || mailbox.storagenode || '/' || mailbox.maildir) AS home, \
     mailbox.mailboxformat || ':~/' || mailbox.mailboxfolder || '/' AS mail, \
     ...
 </code></pre>
-
 <p>Restarting Dovecot service is required.</p>
 <p>For more details about changing mailbox format, please check our tutorial:
 <a href="./change.mailbox.format.html">Change mailbox format</a>.</p>
@@ -466,7 +442,6 @@ below:</p>
             CONCAT(mailbox.storagebasedirectory, '/', mailbox.storagenode, '/', mailbox.maildir) AS home, \
             ...
 </code></pre>
-
 <p>Update above line and also add a new <code>CONCAT</code> line after it:</p>
 <pre><code>user_query = SELECT \
             ...
@@ -474,7 +449,6 @@ below:</p>
             CONCAT(mailbox.mailboxformat, ':~/', mailbox.mailboxfolder, '/') AS mail, \
             ...
 </code></pre>
-
 <p>Restarting Dovecot service is required.</p>
 <p>For more details about changing mailbox format, please check our tutorial:
 <a href="./change.mailbox.format.html">Change mailbox format</a>.</p><div class="footer">

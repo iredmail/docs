@@ -50,7 +50,6 @@ from iRedMail server (<code>192.168.1.200</code> in our case).</p>
 <pre><code># netstat -ntlp | grep 3306
 tcp        0      0 0.0.0.0:3306            0.0.0.0:*               LISTEN      2479/mysqld
 </code></pre>
-
 <p>If MySQL server is listening on only 127.0.0.1, please update parameter
 <code>bind-address</code> in MySQL config file <code>my.cnf</code> to make sure it listens on all
 available IPv4 addresses like below, restarting MySQL service is required:</p>
@@ -62,7 +61,6 @@ available IPv4 addresses like below, restarting MySQL service is required:</p>
 <pre><code># If you comment out this parameter, it listens on all available IPv6 addresses
 bind-address = 0.0.0.0
 </code></pre>
-
 <ul>
 <li>
 <p>Make sure remote MySQL request will not be blocked by network firewall like
@@ -84,7 +82,6 @@ GRANT ALL PRIVILEGES ON *.* TO 'admin_iredmail'@'192.168.1.200' IDENTIFIED BY 'a
 FLUSH PRIVILEGES;
 FLUSH HOSTS;
 </code></pre>
-
 <p>With above commands, MySQL user <code>admin_iredmail</code> is allowed to connect from IP
 address <code>192.168.1.200</code> with password <code>admin_password</code>.</p>
 <p><strong>Notes</strong>:</p>
@@ -116,7 +113,6 @@ DROP USER 'sogo'@'192.168.1.200';
 DROP USER 'vmail'@'192.168.1.200';
 DROP USER 'vmailadmin'@'192.168.1.200';
 </code></pre>
-
 <h2 id="install-iredmail">Install iRedMail</h2>
 <p>Please follow iRedMail installation guide strictly, but start iRedMail
 installer with below command instead of the original one (<code>bash iRedMail.sh</code>):</p>
@@ -133,7 +129,6 @@ surround it with <code>[]</code> like this: <code>[fd01:2345:6789:1::1]</code>.<
     MYSQL_GRANT_HOST='192.168.1.200' \
     bash iRedMail.sh
 </code></pre>
-
 <p>It will launch iRedMail installation wizard as usual.</p>
 <p>Parameters we used in above command line:</p>
 <ul>

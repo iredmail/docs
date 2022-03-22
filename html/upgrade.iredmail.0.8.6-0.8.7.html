@@ -81,7 +81,6 @@ so that you can know which version of iRedMail you're running. For example:</p>
 
 0.8.7
 </code></pre>
-
 <h3 id="upgrade-roundcube-webmail-to-the-latest-stable-release">Upgrade Roundcube webmail to the latest stable release</h3>
 <p>Please follow Roundcube official tutorial to upgrade Roundcube webmail to the
 latest stable release immediately: <a href="https://github.com/roundcube/roundcubemail/wiki/Upgrade">How to upgrade Roundcube</a>.</p>
@@ -108,7 +107,6 @@ Postfix service.</p>
 <pre><code># postconf -e smtpd_tls_auth_only='yes'
 # postfix reload
 </code></pre>
-
 <p>After this change, you have to update Roundcube config file to use SMTP service
 over TLS. For example:</p>
 <ul>
@@ -127,7 +125,6 @@ over TLS. For example:</p>
 $config['smtp_server'] = 'tls://127.0.0.1';
 $config['smtp_port'] = 587;
 </code></pre>
-
 <h3 id="optional-enable-lmtp-service-in-dovecot-2x">[OPTIONAL] Enable LMTP service in Dovecot-2.x</h3>
 <ul>
 <li>This step is optional. We already have Dovecot LDA as local mail deliver
@@ -138,7 +135,6 @@ $config['smtp_port'] = 587;
 </ul>
 <pre><code># dovecot --version
 </code></pre>
-
 <p>Before we go further, there're some questions we have to answer:</p>
 <ul>
 <li><strong>What's LMTP?</strong> LMTP is a mail deliver agent like Dovecot LDA.</li>
@@ -156,7 +152,6 @@ $config['smtp_port'] = 587;
 we go further: <code>dovecot-lmtpd</code>.</p>
 <pre><code># apt-get install dovecot-lmtpd
 </code></pre>
-
 <ul>
 <li>To enable LMTP service, please APPEND service name <code>lmtp</code> in parameter
   <code>protocols</code> in Dovecot config file, it's <code>/etc/dovecot/dovecot.conf</code> (on
@@ -166,7 +161,6 @@ we go further: <code>dovecot-lmtpd</code>.</p>
 
 protocols = ... lmtp
 </code></pre>
-
 <ul>
 <li>Then append below settings in Dovecot config file <code>dovecot.conf</code>:</li>
 </ul>
@@ -208,7 +202,6 @@ protocol lmtp {
     info_log_path = /var/log/dovecot-lmtp.log
 }
 </code></pre>
-
 <p><strong>NOTE</strong>: For OpenBSD users, please replace <code>user = postfix</code> by
 <code>user = _postfix</code>, and replace <code>group = postfix</code> by <code>group = _postfix</code>.</p>
 <ul>
@@ -218,7 +211,6 @@ protocol lmtp {
 # chown vmail:vmail /var/log/dovecot-lmtp.log
 # chmod 0600 /var/log/dovecot-lmtp.log
 </code></pre>
-
 <ul>
 <li>
 <p>Enable logrotate service for this newly created log file:</p>
@@ -231,14 +223,12 @@ protocol lmtp {
 
 /var/log/dovecot.log /var/log/dovecot-lmtp.log {
 </code></pre>
-
 <ul>
 <li>on FreeBSD, please append below line in file <code>/etc/newsyslog.conf</code>:</li>
 </ul>
 <pre><code># Part of file: /etc/newsyslog.conf
 /var/log/dovecot-lmtp.log    vmail:vmail   600  7     *    24    Z    /var/run/dovecot/master.pid
 </code></pre>
-
 <ul>
 <li>on OpenBSD, please append below line in file <code>/etc/newsyslog.conf</code>:</li>
 </ul>
@@ -246,7 +236,6 @@ protocol lmtp {
 
 /var/log/dovecot-lmtp.log    vmail:vmail   600  7     *    24    Z &quot;/usr/local/bin/doveadm log reopen&quot;
 </code></pre>
-
 <ul>
 <li>Restarting Dovecot service is required.</li>
 </ul>
@@ -259,14 +248,12 @@ protocol lmtp {
 # ---- On OpenBSD ----
 # /etc/rc.d/dovecot restart
 </code></pre>
-
 <p>That's all. You can now check whether Dovecot is listening on port 24 and
 created socket file <code>/var/spool/postfix/private/dovecot-lmtp</code> for LMTP service.</p>
 <pre><code># ---- On Linux ----
 # netstat -ntlp | grep ':24'
 # ls -l /var/spool/postfix/private/dovecot-lmtp
 </code></pre>
-
 <p>To use LMTP as local mail delivery agent, you can use either
 <code>lmtp:unix:private/dovecot-lmtp</code> (local socket) or <code>lmtp:inet:127.0.0.1:24</code>
 (network listener). Currently, default mail delivery agent is <code>dovecot</code>
@@ -279,7 +266,6 @@ created socket file <code>/var/spool/postfix/private/dovecot-lmtp</code> for LMT
 <pre><code>mysql&gt; USE vmail;
 mysql&gt; UPDATE domain SET transport='lmtp:unix:private/dovecot-lmtp' WHERE domain='abc.com';
 </code></pre>
-
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>It requires new LDAP value or SQL column for mail users mentioned later in
@@ -300,7 +286,6 @@ log file, but cannot resolve IP to DNS name. You can fix it with below steps:</p
 # cp /lib64/*nss* /lib64/*reso* /var/spool/postfix/lib64/
 # postfix reload
 </code></pre>
-
 <h2 id="openldap-backend-special">OpenLDAP backend special</h2>
 <h3 id="add-new-ldap-values-for-existing-mail-users">Add new LDAP values for existing mail users</h3>
 <p>We will add one new LDAP attribute/value pair for existing mail users:
@@ -311,7 +296,6 @@ log file, but cannot resolve IP to DNS name. You can fix it with below steps:</p
 <pre><code># cd /root/
 # wget https://github.com/iredmail/iRedMail/raw/1.0/update/ldap/updateLDAPValues_086_to_087.py
 </code></pre>
-
 <ul>
 <li>Open downloaded file <code>updateLDAPValues_086_to_087.py</code>, set LDAP server
 related settings in file head. for example:</li>
@@ -323,7 +307,6 @@ basedn = 'o=domains,dc=example,dc=com'
 bind_dn = 'cn=vmailadmin,dc=example,dc=com'
 bind_pw = 'passwd'
 </code></pre>
-
 <p>You can find required LDAP credential in iRedAdmin config file or <code>iRedMail.tips</code>
 file under your iRedMail installation directory. Using either
 <code>cn=Manager,dc=xx,dc=xx</code> or <code>cn=vmailadmin,dc=xx,dc=xx</code> as bind dn is ok.</p>
@@ -332,7 +315,6 @@ file under your iRedMail installation directory. Using either
 </ul>
 <pre><code># python updateLDAPValues_086_to_087.py
 </code></pre>
-
 <p>That's all.</p>
 <h2 id="mysql-backend-special">MySQL backend special</h2>
 <h3 id="add-and-remove-sql-columns-in-vmail-database">Add and remove SQL columns in <code>vmail</code> database</h3>
@@ -381,7 +363,6 @@ mysql&gt; ALTER TABLE domain DROP maxpasswordlength;
 mysql&gt; ALTER TABLE domain DROP disableddomainprofiles;
 mysql&gt; ALTER TABLE domain DROP disableduserprofiles;
 </code></pre>
-
 <h2 id="postgresql-backend-special">PostgreSQL backend special</h2>
 <h3 id="add-and-remove-sql-columns-in-vmail-database_1">Add and remove SQL columns in <code>vmail</code> database</h3>
 <p>We need 5 new SQL columns in <code>vmail</code> database:</p>

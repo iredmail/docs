@@ -35,7 +35,6 @@ email address, please follow below steps.</p>
 without domain name part in email address. For example:</p>
 <pre><code>auth_default_realm = mydomain.com
 </code></pre>
-
 <p>Restarting Dovecot is required. After restarted Dovecot, user logins as
 <code>john.smith</code> will be rewritten to <code>john.smith@mydomain.com</code> by Dovecot.
 This works for POP3/IMAP/SMTP services.</p>
@@ -56,7 +55,6 @@ in this parameter. For example:</p>
 // For example %n = mail.domain.tld, %t = domain.tld
 $config['username_domain'] = 'mydomain.com';
 </code></pre>
-
 <p>Restarting web server (Apache or php-fpm) is recommended.</p><div class="footer">
     <p style="text-align: center; color: grey;">All documents are available in <a href="https://github.com/iredmail/docs/">GitHub repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://github.com/iredmail/docs/archive/master.zip">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
 </div></body></html>

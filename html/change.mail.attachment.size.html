@@ -54,7 +54,6 @@ attachment.</p>
 <pre><code># postconf -e message_size_limit=104857600
 # postconf -e mailbox_size_limit=104857600
 </code></pre>
-
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <ul>
@@ -70,7 +69,6 @@ attachment.</p>
 <p>Restart postfix to make it work:</p>
 <pre><code># /etc/init.d/postfix restart
 </code></pre>
-
 <p><strong>NOTES</strong>:</p>
 <ul>
 <li><code>104857600</code> is 100 (MB) x 1024 (KB) x 1024 (Byte).</li>
@@ -121,7 +119,6 @@ explanation: <a href="https://github.com/iredmail/iRedAPD/blob/master/plugins/th
 upload_max_filesize = 100M;
 post_max_size = 100M;
 </code></pre>
-
 <p>Note:</p>
 <ul>
 <li>If you're running Nginx as web server, restarting php-fpm service is required.</li>
@@ -141,7 +138,6 @@ limit message size, please add or update this parameter in its config file:</p>
 </ul>
 <pre><code>$config['max_message_size'] = '100M';
 </code></pre>
-
 <p>Note: Roundcube <a href="https://github.com/roundcube/roundcubemail/blob/master/program/actions/mail/compose.php#L1455">preserves some percentage</a>
 of the max message size, so if you set the max to <code>100M</code>, it displays only
 <code>75MB</code> is allowed. This is better because email messsage will be encoded
@@ -157,7 +153,6 @@ proper value to match your need.</p>
 </div>
 <pre><code>client_max_body_size 100m;
 </code></pre>
-
 <p>Reloading or restarting Nginx service is required.</p>
 <h2 id="change-file-size-limits-in-sogo">Change file size limits in SOGo</h2>
 <p>SOGo config file is <code>/etc/sogo/sogo.conf</code> (Linux/OpenBSD) or
@@ -181,7 +176,6 @@ proper value to match your need.</p>
     // no limit will be set.
     SOGoMaximumMessageSizeLimit = 102400;
 </code></pre>
-
 <p>Restarting SOGo service is required if you changed any setting in SOGo config file.</p>
 <h2 id="change-attachment-size-limit-in-microsoft-outlook">Change attachment size limit in Microsoft Outlook</h2>
 <p>Outlook has its own attachment size limit, and will raise error like <code>The
@@ -200,7 +194,6 @@ follow these steps:</p>
 <pre><code>HKEY_CURRENT_USER\Software\Microsoft\Office\14.0\Outlook\Preferences
 HKEY_CURRENT_USER\Software\Policies\Microsoft\Office\14.0\Outlook\Preferences
 </code></pre>
-
 <ul>
 <li>
 <p>Add the following registry data under this subkey:</p>

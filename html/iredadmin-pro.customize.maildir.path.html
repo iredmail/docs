@@ -36,13 +36,11 @@ MAILDIR_PREPEND_DOMAIN = True
 # - without timestamp:  domain.ltd/username/
 MAILDIR_APPEND_TIMESTAMP = True
 </code></pre>
-
 <p>Also one setting in <code>settings.py</code>:</p>
 <pre><code># Directory used to store mailboxes. Defaults to /var/vmail/vmail1.
 # Note: This directory must be owned by 'vmail:vmail' with permission 0700.
 storage_base_directory = '/var/vmail/vmail1'
 </code></pre>
-
 <p>Note: each time you modified iRedAdmin source code (Python source file which
 file name ends with <code>.py</code>), you must restart Apache or uwsgi (if you're running
 Nginx) service to load modified code.</p><div class="footer">

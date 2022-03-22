@@ -38,7 +38,6 @@ postconf -e shlib_directory='/usr/lib/postfix'
 postconf -e compatibility_level=2
 for i in $(postconf -Mf | grep '^[0-9a-zA-Z]' | awk '{print $1&quot;/&quot;$2&quot;/chroot=n&quot;}'); do postconf -F $i; done
 </code></pre>
-
 <ul>
 <li>Incorrect <code>daemon_directory</code> causes Postfix cannot start.</li>
 <li>Incorrect <code>shlib_directory</code> causes Postfix cannot find pcre/mysql/pgsql/ldap modules.</li>
@@ -48,7 +47,6 @@ for i in $(postconf -Mf | grep '^[0-9a-zA-Z]' | awk '{print $1&quot;/&quot;$2&qu
 <p>Please remove <code>!SSLv2</code> from parameter <code>ssl_protocols</code>, and restart Dovecot service:</p>
 <pre><code>ssl_protocols = !SSLv3
 </code></pre>
-
 <h2 id="fail2ban">Fail2ban</h2>
 <p>There's a duplicate parameter in file <code>/etc/fail2ban/jail.conf</code>, under section
 <code>[pam-generic]</code> like below:</p>
@@ -58,7 +56,6 @@ port = all
 ...
 port = anyport
 </code></pre>
-
 <p>Comment out <code>port = anyport</code> and restart fail2ban service.</p><div class="footer">
     <p style="text-align: center; color: grey;">All documents are available in <a href="https://github.com/iredmail/docs/">GitHub repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://github.com/iredmail/docs/archive/master.zip">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
 </div></body></html>

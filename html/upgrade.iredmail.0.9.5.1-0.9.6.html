@@ -82,7 +82,6 @@ installation, it's recommended to update this file after you upgraded iRedMail,
 so that you can know which version of iRedMail you're running. For example:</p>
 <pre><code>0.9.6
 </code></pre>
-
 <h3 id="upgrade-iredapd-postfix-policy-server-to-the-latest-stable-release-20">Upgrade iRedAPD (Postfix policy server) to the latest stable release (2.0)</h3>
 <p>Please follow below tutorial to upgrade iRedAPD to the latest stable release:
 <a href="./upgrade.iredapd.html">Upgrade iRedAPD to the latest stable release</a></p>
@@ -108,13 +107,11 @@ latest stable release immediately: <a href="https://github.com/roundcube/roundcu
 </ul>
 <pre><code>RequestHeader unset Proxy early
 </code></pre>
-
 <ul>
 <li>On Debian/Ubuntu, please make sure Apache module <code>headers</code> are enabled:</li>
 </ul>
 <pre><code>a2enmod headers
 </code></pre>
-
 <p>Restarting Apache service is required.</p>
 <h4 id="nginx">Nginx</h4>
 <p>Please open all files under below directories which contains <code>fastcgi_pass</code>
@@ -135,7 +132,6 @@ parameter:</p>
 it:</p>
 <pre><code>fastcgi_param HTTP_PROXY '';
 </code></pre>
-
 <p>Restart Nginx service is required.</p>
 <h3 id="fixed-not-allow-access-to-well-known-in-nginx">Fixed: not allow access to '/.well-known/' in Nginx</h3>
 <p>It's popular to use Let's Encrypt ssl cert nowadays, but default Nginx config
@@ -154,7 +150,6 @@ fix this issue.</p>
 <pre><code># Deny all attempts to access hidden files such as .htaccess.
 location ~ /\. { deny all; }
 </code></pre>
-
 <p>Add lines below ABOVE lines found above:</p>
 <pre><code># Allow access to '^/.well-known/'
 location ~ ^/.well-known/ {
@@ -164,7 +159,6 @@ location ~ ^/.well-known/ {
     autoindex off;
 }
 </code></pre>
-
 <p>Save your change and reload Nginx service.</p>
 <h3 id="fixed-postfix-allows-email-sent-through-port-587-without-smtp-authentication-from-trusted-clients">Fixed: Postfix allows email sent through port 587 without smtp authentication from trusted clients</h3>
 <p>iRedMail-0.9.5 and iRedMail-0.9.5-1 allows trusted clients (listed in parameter
@@ -184,7 +178,6 @@ below to fix it.</p>
     ...
     -o smtpd_client_restrictions=permit_mynetworks,permit_sasl_authenticated,reject
 </code></pre>
-
 <ul>
 <li>Remove <code>permit_mynetworks,</code> and save your change. After modification, it's:</li>
 </ul>
@@ -192,7 +185,6 @@ below to fix it.</p>
     ...
     -o smtpd_client_restrictions=permit_sasl_authenticated,reject
 </code></pre>
-
 <ul>
 <li>Restart Postfix service is required to load the changed config file.</li>
 </ul>
@@ -204,7 +196,6 @@ setting in <code>/etc/postfix/main.cf</code>, it's safe to ignore this step.</p>
 <pre><code>postconf -e smtpd_tls_security_level='may'
 postfix reload
 </code></pre>
-
 <h3 id="fixed-one-incorrect-helo-restriction-rule-in-postfix">Fixed: one incorrect HELO restriction rule in Postfix</h3>
 <p>There's one incorrect HELO restriction rule file <code>helo_access.pcre</code></p>
 <ul>
@@ -214,12 +205,10 @@ postfix reload
 <p>It will match HELO identity like <code>[192.168.1.1]</code> which is legal.</p>
 <pre><code>/(\d{1,3}[\.-]\d{1,3}[\.-]\d{1,3}[\.-]\d{1,3})/ REJECT ACCESS DENIED. Your email was rejected because the sending mail server appears to be on a dynamic IP address that should not be doing direct mail delivery (${1})
 </code></pre>
-
 <p>Please replace it by the correct one below (it matches the IP address with
 <code>/^IP$/</code> strictly):</p>
 <pre><code>/^(\d{1,3}[\.-]\d{1,3}[\.-]\d{1,3}[\.-]\d{1,3})$/ REJECT ACCESS DENIED. Your email was rejected because the sending mail server appears to be on a dynamic IP address that should not be doing direct mail delivery (${1})
 </code></pre>
-
 <h3 id="fixed-incorrect-file-owner-and-permission-of-config-file-of-roundcube-password-plugin">Fixed: incorrect file owner and permission of config file of Roundcube password plugin</h3>
 <p>iRedMail-0.9.5-1 and earlier versions didn't correct set file owner and
 permission of config file of Roundcube password plugin, other system users may
@@ -233,13 +222,11 @@ follow steps below to fix it.</p>
 <pre><code>chown apache:apache /var/www/roundcubemail/plugins/password/config.inc.php
 chmod 0400 /var/www/roundcubemail/plugins/password/config.inc.php
 </code></pre>
-
 <h5>For Nginx:</h5>
 
 <pre><code>chown nginx:nginx /var/www/roundcubemail/plugins/password/config.inc.php
 chmod 0400 /var/www/roundcubemail/plugins/password/config.inc.php
 </code></pre>
-
 <ul>
 <li>On Debian/Ubuntu (Note: with old iRedMail release, Roundcube directory is
   <code>/usr/share/apache2/roundcubemail</code>):</li>
@@ -247,21 +234,18 @@ chmod 0400 /var/www/roundcubemail/plugins/password/config.inc.php
 <pre><code>chown www-data:www-data /opt/www/roundcubemail/plugins/password/config.inc.php
 chmod 0400 /opt/www/roundcubemail/plugins/password/config.inc.php
 </code></pre>
-
 <ul>
 <li>On FreeBSD:</li>
 </ul>
 <pre><code>chown www:www /usr/local/www/roundcube/plugins/password/config.inc.php
 chmod 0400 /usr/local/www/roundcube/plugins/password/config.inc.php
 </code></pre>
-
 <ul>
 <li>On OpenBSD:</li>
 </ul>
 <pre><code>chown www:www /var/www/roundcubemail/plugins/password/config.inc.php
 chmod 0400 /var/www/roundcubemail/plugins/password/config.inc.php
 </code></pre>
-
 <h3 id="fixed-missing-cron-job-used-to-clean-up-old-roundcube-temporary-files">Fixed: missing cron job used to clean up old Roundcube temporary files</h3>
 <p>iRedMail didn't run script <code>roundcubemail/bin/gc.sh</code> to clean up old files
 under <code>roundcubemail/temp/</code> directory regularly, this directory will grow
@@ -269,7 +253,6 @@ larger and larger with temporary files.</p>
 <p>Please edit <code>root</code>'s cron job with command below:</p>
 <pre><code># crontab -e -u root
 </code></pre>
-
 <p>Then add cron job like below:</p>
 <ul>
 <li>RHEL/CentOS:</li>
@@ -278,7 +261,6 @@ larger and larger with temporary files.</p>
 # Defaults to keep for 2 days, controlled by Roundcube parameter $config['temp_dir_ttl'].
 2   2   *   *   *   php /var/www/roundcubemail/bin/gc.sh &gt;/dev/null
 </code></pre>
-
 <ul>
 <li>
 <p>Debian/Ubuntu:</p>
@@ -293,7 +275,6 @@ correct one on your server.</p>
 # Defaults to keep for 2 days, controlled by Roundcube parameter $config['temp_dir_ttl'].
 2   2   *   *   *   php /opt/www/roundcubemail/bin/gc.sh &gt;/dev/null
 </code></pre>
-
 <ul>
 <li>FreeBSD:</li>
 </ul>
@@ -301,7 +282,6 @@ correct one on your server.</p>
 # Defaults to keep for 2 days, controlled by Roundcube parameter $config['temp_dir_ttl'].
 2   2   *   *   *   /usr/local/bin/php /usr/local/www/roundcube/bin/gc.sh &gt;/dev/null
 </code></pre>
-
 <ul>
 <li>OpenBSD:</li>
 </ul>
@@ -309,7 +289,6 @@ correct one on your server.</p>
 # Defaults to keep for 2 days, controlled by Roundcube parameter $config['temp_dir_ttl'].
 2   2   *   *   *   php /var/www/roundcubemail/bin/gc.sh &gt;/dev/null
 </code></pre>
-
 <h3 id="fixed-nginx-doesnt-forward-real-client-ip-address-to-sogo">Fixed: Nginx doesn't forward real client IP address to SOGo</h3>
 <p>iRedMail-0.9.5-1 and earlier releases didn't correctly configure Nginx to
 forward real client IP address to SOGo, this causes Fail2ban cannot catch
@@ -324,7 +303,6 @@ steps below to fix it.</p>
     #proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
     #proxy_set_header Host $host;
 </code></pre>
-
 <ul>
 <li>Remove the leading <code>#</code> to uncomment them:</li>
 </ul>
@@ -332,7 +310,6 @@ steps below to fix it.</p>
     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
     proxy_set_header Host $host;
 </code></pre>
-
 <ul>
 <li>Restart Nginx service.</li>
 </ul>
@@ -373,22 +350,18 @@ only <code>127.0.0.1</code>, steps below fix this issue.</p>
 </ul>
 <pre><code>OPTIONS=&quot;-l 127.0.0.1&quot;
 </code></pre>
-
 <p>Then restart memcached service:</p>
 <pre><code>service memcached restart
 </code></pre>
-
 <ul>
 <li>On Debian/Ubuntu, please make sure you have setting below in config file
   <code>/etc/memcached.conf</code></li>
 </ul>
 <pre><code>-l 127.0.0.1
 </code></pre>
-
 <p>Then restart memcached service:</p>
 <pre><code>service memcached restart
 </code></pre>
-
 <ul>
 <li>
 <p>On FreeBSD, please append line below in <code>/etc/rc.conf</code>:</p>
@@ -401,21 +374,17 @@ to the IP address of your jail.</p>
 </ul>
 <pre><code>memcached_flags='-l 127.0.0.1'
 </code></pre>
-
 <p>Then restart memcached service:</p>
 <pre><code>service memcached restart
 </code></pre>
-
 <ul>
 <li>On OpenBSD, please append line below in <code>/etc/rc.conf.local</code>:</li>
 </ul>
 <pre><code>memcached_flags='-u _memcached -l 127.0.0.1'
 </code></pre>
-
 <p>Then restart memcached service:</p>
 <pre><code>rcctl restart memcached
 </code></pre>
-
 <h3 id="fixed-awstats-is-world-accessible-with-apache">Fixed: Awstats is world-accessible with Apache</h3>
 <blockquote>
 <p>This is not applicable on OpenBSD system, because we don't have Apache nor Awstats installed.</p>
@@ -433,7 +402,6 @@ and accessible without authentication. Please follow steps below to fix it.</p>
 <pre><code>   Require all granted
    Require valid-user
 </code></pre>
-
 <ul>
 <li>Remove <code>Require all granted</code>, keep <code>Require valid-user</code>.</li>
 <li>Restart Apache service.</li>
@@ -458,7 +426,6 @@ rm -f dovecot.iredmail.conf
 wget https://github.com/iredmail/iRedMail/raw/1.0/samples/fail2ban/filter.d/dovecot.iredmail.conf
 service fail2ban reload
 </code></pre>
-
 <ul>
 <li>On FreeBSD and OpenBSD, we don't have Fail2ban configured, so not applicable.</li>
 </ul>
@@ -497,7 +464,6 @@ your Amavisd config file.</p>
     [qr'N=.*\.(9|386|LeChiffre|aaa|abc|aepl|ani|aru|atm|aut|b64|bat|bhx|bkd|blf|bll|bmw|boo|bps|bqf|breaking_bad|buk|bup|bxz|cc|ccc|ce0|ceo|cfxxe|chm|cih|cla|class|cmd|com|cpl|crinf|crjoker|crypt|cryptolocker|cryptowall|ctbl|cxq|cyw|dbd|delf|dev|dlb|dli|dll|dllx|dom|drv|dx|dxz|dyv|dyz|ecc|exe|exe-ms|exe1|exe_renamed|exx|ezt|ezz|fag|fjl|fnr|fuj|good|gzquar|hlp|hlw|hqx|hsq|hts|iva|iws|jar|js|kcd|keybtc@inbox_com|let|lik|lkh|lnk|locky|lok|lol!|lpaq5|magic|mfu|micro|mim|mjg|mjz|nls|oar|ocx|osa|ozd|pcx|pgm|php2|php3|pid|pif|plc|pr|pzdc|qit|qrn|r5a|rhk|rna|rsc_tmp|s7p|scr|shs|ska|smm|smtmp|sop|spam|ssy|swf|sys|tko|tps|tsa|tti|ttt|txs|upa|uu|uue|uzy|vb|vba|vbe|vbs|vbx|vexe|vxd|vzr|wlpginstall|ws|wsc|wsf|wsh|wss|xdu|xir|xlm|xlv|xnt|xnxx|xtbl|xxe|xxx|xyz|zix|zvz|zzz)$'xmi =&gt; 'DISCARD'],
 );
 </code></pre>
-
 <ul>
 <li>Restart Amavisd service is required.</li>
 </ul>
@@ -533,23 +499,19 @@ your Amavisd config file.</p>
 </ul>
 <pre><code>access to attrs=&quot;objectclass,domainName,mtaTransport,...&quot;
 </code></pre>
-
 <p>Add new attribute name <code>domainPendingAliasName</code> in this line (<strong>WARNING</strong>:
 don't leave any whitespace between attribute names and comma):</p>
 <pre><code>access to attrs=&quot;domainPendingAliasName,objectclass,domainName,mtaTransport,...&quot;
 </code></pre>
-
 <ul>
 <li>for new attribute <code>domainStatus</code>, please find line below:</li>
 </ul>
 <pre><code>access to attrs=&quot;employeeNumber,mail,...&quot;
 </code></pre>
-
 <p>Add new attribute name <code>domainStatus</code> in this line (<strong>WARNING</strong>: don't leave
 any whitespace between attribute names and comma):</p>
 <pre><code>access to attrs=&quot;domainStatus,employeeNumber,mail,...&quot;
 </code></pre>
-
 <h4 id="download-the-latest-iredmail-ldap-schema-file">Download the latest iRedMail LDAP schema file</h4>
 <ul>
 <li>On RHEL/CentOS:</li>
@@ -563,7 +525,6 @@ cp iredmail.schema iredmail.schema.bak
 cp -f /tmp/iredmail.schema /etc/openldap/schema/
 service slapd restart
 </code></pre>
-
 <ul>
 <li>On Debian/Ubuntu:</li>
 </ul>
@@ -576,7 +537,6 @@ cp iredmail.schema iredmail.schema.bak
 cp -f /tmp/iredmail.schema /etc/ldap/schema/
 service slapd restart
 </code></pre>
-
 <ul>
 <li>On FreeBSD:</li>
 </ul>
@@ -589,7 +549,6 @@ cp iredmail.schema iredmail.schema.bak
 cp -f /tmp/iredmail.schema /usr/local/etc/openldap/schema/
 service slapd restart
 </code></pre>
-
 <ul>
 <li>
 <p>On OpenBSD:</p>
@@ -608,7 +567,6 @@ cp iredmail.schema iredmail.schema.bak
 cp -f /tmp/iredmail.schema /etc/openldap/schema/
 rcctl restart slapd
 </code></pre>
-
 <h3 id="fixed-mail-accounts-user-alias-list-are-still-active-when-domain-is-disabled">Fixed: mail accounts (user, alias, list) are still active when domain is disabled</h3>
 <blockquote>
 <p>This fix is applicable to OpenBSD ldapd backend also.</p>
@@ -627,7 +585,6 @@ perl -pi -e 's#\(accountStatus=active\)#(accountStatus=active)(!(domainStatus=di
 cp /etc/dovecot/dovecot-ldap.conf /etc/dovecot/dovecot-ldap.conf.$(date +%Y%m%d)
 perl -pi -e 's#\(accountStatus=active\)#(accountStatus=active)(!(domainStatus=disabled))#g' /etc/dovecot/dovecot-ldap.conf
 </code></pre>
-
 <ul>
 <li>On FreeBSD, run commands:</li>
 </ul>
@@ -638,7 +595,6 @@ perl -pi -e 's#\(accountStatus=active\)#(accountStatus=active)(!(domainStatus=di
 cp /usr/local/etc/dovecot/dovecot-ldap.conf /usr/local/etc/dovecot/dovecot-ldap.conf.$(date +%Y%m%d)
 perl -pi -e 's#\(accountStatus=active\)#(accountStatus=active)(!(domainStatus=disabled))#g' /usr/local/etc/dovecot/dovecot-ldap.conf
 </code></pre>
-
 <ul>
 <li>Restart both Postfix and Dovecot services:<ul>
 <li>on Linux: <code>service postfix restart; service dovecot restart</code></li>
@@ -654,7 +610,6 @@ perl -pi -e 's#\(accountStatus=active\)#(accountStatus=active)(!(domainStatus=di
 <pre><code>cd /root/
 wget https://github.com/iredmail/iRedMail/raw/1.0/update/ldap/updateLDAPValues_095_1_to_096.py
 </code></pre>
-
 <ul>
 <li>Open downloaded file <code>updateLDAPValues_095_1_to_096.py</code>, set LDAP server
   related settings in this file. For example:</li>
@@ -666,7 +621,6 @@ basedn = 'o=domains,dc=example,dc=com'
 bind_dn = 'cn=vmailadmin,dc=example,dc=com'
 bind_pw = 'passwd'
 </code></pre>
-
 <p>You can find required LDAP credential in iRedAdmin config file or
 <code>iRedMail.tips</code> file under your iRedMail installation directory. Using either
 <code>cn=Manager,dc=xx,dc=xx</code> or <code>cn=vmailadmin,dc=xx,dc=xx</code> as bind dn is ok, both
@@ -676,7 +630,6 @@ of them have read-write privilege to update mail accounts.</p>
 </ul>
 <pre><code># python updateLDAPValues_095_1_to_096.py
 </code></pre>
-
 <h2 id="mysqlmariadb-backend-special">MySQL/MariaDB backend special</h2>
 <h3 id="fix-invalid-default-datetime-value-for-some-sql-columns-in-vmail-database">Fix invalid default (datetime) value for some SQL columns in 'vmail' database</h3>
 <p>Default value of some SQL columns in <code>vmail</code> database will become invalid (an error)

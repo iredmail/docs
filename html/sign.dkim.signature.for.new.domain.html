@@ -60,7 +60,6 @@ DKIM DNS record.</p>
     ...
 });
 </code></pre>
-
 <p>Add one line in <code>@dkim_signature_options_bysender_maps</code>, after <code>"mydomain.com"</code>
 line like below:</p>
 <pre><code>@dkim_signature_options_bysender_maps = ( {
@@ -70,7 +69,6 @@ line like below:</p>
     ...
 });
 </code></pre>
-
 <ul>
 <li>Restart Amavisd service.</li>
 </ul>
@@ -90,11 +88,10 @@ tutorial to <a href="setup.dns.html#dkim-record-for-your-mail-domain-name">add D
 </ul>
 </li>
 </ul>
-<pre><code class="shell">amavisd-new genrsa /var/lib/dkim/new_domain.com.pem 1024
+<pre><code class="language-shell">amavisd-new genrsa /var/lib/dkim/new_domain.com.pem 1024
 chown amavis:amavis /var/lib/dkim/new_domain.com.pem
 chmod 0400 /var/lib/dkim/new_domain.com.pem
 </code></pre>
-
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <ul>
@@ -114,11 +111,9 @@ chmod 0400 /var/lib/dkim/new_domain.com.pem
 </ul>
 <pre><code>dkim_key('mydomain.com', &quot;dkim&quot;, &quot;/var/lib/dkim/mydomain.com.pem&quot;);
 </code></pre>
-
 <p>Add one line after above line like below:</p>
 <pre><code>dkim_key('new_domain.com', &quot;dkim&quot;, &quot;/var/lib/dkim/new_domain.com.pem&quot;);
 </code></pre>
-
 <ul>
 <li>Find below setting in Amavisd config file <code>amavisd.conf</code>:</li>
 </ul>
@@ -128,7 +123,6 @@ chmod 0400 /var/lib/dkim/new_domain.com.pem
     ...
 });
 </code></pre>
-
 <p>Add one line after <code>"mydomain.com"</code> line like below:</p>
 <pre><code>@dkim_signature_options_bysender_maps = ( {
     ...
@@ -137,19 +131,16 @@ chmod 0400 /var/lib/dkim/new_domain.com.pem
     ...
 });
 </code></pre>
-
 <ul>
 <li>Restart Amavisd service.</li>
 </ul>
 <p>Again, don't forget to add DKIM DNS record for this new domain. The value of
 DKIM record can be checked with command below:</p>
-<pre><code class="shell"># amavisd-new showkeys
+<pre><code class="language-shell"># amavisd-new showkeys
 </code></pre>
-
 <p>After added DKIM DNS record, please verify it with command:</p>
-<pre><code class="shell"># amavisd-new testkeys
+<pre><code class="language-shell"># amavisd-new testkeys
 </code></pre>
-
 <p>Note: DNS vendor usually cache DNS records for 2 hours, so if above command
 shows "invalid" instead of "pass", you should try again later.</p>
 <h2 id="use-one-dkim-key-for-all-mail-domains">Use one DKIM key for all mail domains</h2>
@@ -160,7 +151,6 @@ shows "invalid" instead of "pass", you should try again later.</p>
 </ul>
 <pre><code>dkim_key('mydomain.com', &quot;dkim&quot;, &quot;/var/lib/dkim/mydomain.com.pem&quot;);
 </code></pre>
-
 <ul>
 <li>Find parameter <code>@dkim_signature_options_bysender_maps</code>, and set it to:</li>
 </ul>
@@ -172,7 +162,6 @@ shows "invalid" instead of "pass", you should try again later.</p>
             ttl =&gt; 30*24*3600 },
 });
 </code></pre>
-
 <ul>
 <li>Restart Amavisd serivce.</li>
 </ul>

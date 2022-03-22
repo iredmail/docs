@@ -31,7 +31,6 @@ $policy_bank{'QUARANTINE'} = {
 
 $clean_quarantine_to = 'clean-quarantine';
 </code></pre>
-
 <p>Riavviare il servizio Amavisd.</p>
 <ul>
 <li>Aggiungete il codice sottostante al file di configurazione di Postfix <code>/etc/postfix/master.cf</code>, configurando così Postfix per ascoltare sulla porta aggiuntiva <code>10026</code> (siete liberi di usare un'altra porta):</li>
@@ -61,19 +60,16 @@ $clean_quarantine_to = 'clean-quarantine';
     -o smtpd_client_connection_rate_limit=0
     -o receive_override_options=no_header_body_checks,no_unknown_recipient_checks,no_address_mappings
 </code></pre>
-
 <ul>
 <li>Riavviate il servizio Postfix.</li>
 </ul>
 <pre><code>service postfix restart
 </code></pre>
-
 <p>Per mettere in quarantena tutte le mail inviate da/per <code>user@domain.com</code> configurate il per-user transport a <code>smtp:[127.0.0.1]:10026</code>.</p>
 <p>Ora tutte le mail mandate da/per <code>user@domain.com</code> saranno messe in quarantena in un database SQL (specificato nel file di configurazione di Amavisd al parametro <code>@storage_sql_dsn</code>).</p>
 <p>Inviate, come prova,  una mail a <code>user@domain.com</code>:</p>
 <pre><code># echo &quot;mail body&quot; | mail -s &quot;test subject&quot; user@domain.com
 </code></pre>
-
 <h2 id="vedi-anche">Vedi anche</h2>
 <ul>
 <li><a href="./quarantining.html">Mettere in quarantena</a></li>

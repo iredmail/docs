@@ -89,7 +89,6 @@ include /etc/openldap/schema/iredmail.schema
 include /etc/openldap/schema/calentry.schema
 include /etc/openldap/schema/calresource.schema
 </code></pre>
-
 <p>Since we don't use any new ldap attribute names in LDAP query filter, no index
 required for new attribute names.</p>
 <p>Now restart OpenLDAP service.</p>
@@ -137,7 +136,6 @@ address book section like below:</p>
         }
         ...
 </code></pre>
-
 <p>Now restart SOGo service.</p>
 <h3 id="testing">Testing</h3>
 <p>We use mail domain name <code>example.com</code> for example below, you need to replace it
@@ -156,7 +154,6 @@ by your real domain name during testing.</p>
 </div>
 <pre><code>ldapvi -D 'cn=manager,dc=xx,dc=xx' -b 'o=domains,dc=xx,dc=xx' -W &quot;mail=meetingroom@example.com&quot;
 </code></pre>
-
 <p>In the ldapvi editor, you should see full LDIF data of user
 <code>meetingroom@example.com</code>. Please append few lines for this user:</p>
 <pre><code>objectClass: CalendarResource
@@ -164,7 +161,6 @@ objectClass: calEntry
 Kind: location
 MultipleBookings: 1
 </code></pre>
-
 <p>Save your change and quit ldapvi (just like quitting vi/vim text editor).</p>
 <ul>
 <li>Login to SOGo webmail as <code>meetingroom@example.com</code>, then click the <code>Calendar</code>
@@ -183,7 +179,6 @@ command below instead:</p>
     '&lt;default&gt;' \
     '[&quot;PublicDAndTViewer&quot;, &quot;ConfidentialDAndTViewer&quot;, &quot;PrivateDAndTViewer&quot;]'
 </code></pre>
-
 <ul>
 <li>Now logout of SOGo webmail, re-login as a different user under same domain.</li>
 <li>Create a new testing event, invite <code>meetingroom@example.com</code> as attendee.</li>

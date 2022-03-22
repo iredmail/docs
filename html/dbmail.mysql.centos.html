@@ -116,23 +116,20 @@ store mail accounts and messages.</p>
 </ul>
 <pre><code># useradd -s /sbin/nologin -m dbmail
 </code></pre>
-
 <p>Above command will create group <code>dbmail</code> and system user <code>dbmail</code>. You can verify it with command <code>id</code>:</p>
 <pre><code># id dbmail
 uid=504(dbmail) gid=504(dbmail) groups=504(dbmail)
 </code></pre>
-
 <ul>
 <li>Create MySQL database <code>dbmail</code> to store mail accounts and mail messages. Replace <code>password_of_dbmail</code> below with your password.</li>
 </ul>
-<pre><code class="sql">$ mysql -uroot -p
+<pre><code class="language-sql">$ mysql -uroot -p
 mysql&gt; CREATE DATABASE dbmail DEFAULT CHARACTER SET utf8;
 mysql&gt; GRANT ALL ON dbmail.* TO dbmail@localhost IDENTIFIED BY 'password_of_dbmail';
 mysql&gt; FLUSH PRIVILEGES;
 </code></pre>
-
 <p>We now have a MySQL database <code>dbmail</code>, you can access it with MySQL user <code>dbmail</code> and password <code>password_of_dbmail</code>. You can verify it with MySQL command line:</p>
-<pre><code class="sql">$ mysql -udbmail -p
+<pre><code class="language-sql">$ mysql -udbmail -p
 Enter password:                # &lt;- Type password of MySQL user dbmail here.
 
 mysql&gt; show databases;
@@ -144,14 +141,12 @@ mysql&gt; show databases;
 +--------------------+
 2 rows in set (0.04 sec)
 </code></pre>
-
 <ul>
 <li>Stop Dovecot daemon. Since Dovecot will be replaced by DBMail, we must stop it:</li>
 </ul>
 <pre><code># /etc/init.d/dovecot stop
 # chkconfig --level 345 dovecot off
 </code></pre>
-
 <h3 id="install-dbmail">Install DBMail</h3>
 <p>DBMail is available in <a href="http://fedoraproject.org/wiki/EPEL#How_can_I_use_these_extra_packages.3F">EPEL repository</a>, we will use this yum repository to install DBMail.</p>
 <p>It's now ready to install DBMail core component and library used to connect MySQL.</p>
@@ -169,15 +164,13 @@ mysql&gt; show databases;
 # yum clean all
 # yum install dbmail
 </code></pre>
-
 <p>On RHEL/CentOS/Scientific Linux 6.x, please make sure you have DBMail 3.0.0-rc3 or later version installed:</p>
 <pre><code># rpm -q dbmail
 dbmail-3.0.0-0.6.rc3.el6.x86_64
 </code></pre>
-
 <p>Main configure file of DBMail is <code>/etc/dbmail.conf</code> by default, we will configure it later.</p>
 <p>DBMail provides a MySQL template file <code>/usr/share/doc/dbmail-x.y.z/sql/mysql/create_tables.mysql</code> (replace 'x.y.z' by real version number on your server), we should import it to create necessary MySQL tables to store mail accounts and messages. Here we use 'dbmail-3.0.0' for example.</p>
-<pre><code class="shell"># rpm -ql dbmail | grep 'create_tables.mysql'
+<pre><code class="language-shell"># rpm -ql dbmail | grep 'create_tables.mysql'
 /usr/share/doc/dbmail-3.0.0/sql/mysql/create_tables.mysql
 
 # mysql -udbmail -p
@@ -185,7 +178,6 @@ mysql&gt; USE dbmail;
 mysql&gt; SOURCE /usr/share/doc/dbmail-3.0.0/sql/mysql/create_tables.mysql;
 mysql&gt; SHOW TABLES;               # &lt; See what tables were created.
 </code></pre>
-
 <h3 id="configure-dbmail">Configure DBMail</h3>
 <p>Now open configure file of DBMail, <code>/etc/dbmail.conf</code>, update below settings:</p>
 <pre><code>[DBMAIL]
@@ -262,20 +254,16 @@ tls_port              = 993
 # Note: Please set it to 2000 on RHEL/CentOS 5.x, 4190 on RHEL/CentOS 6.x.
 port                  = 4190
 </code></pre>
-
 <p>Create directory to store PID files:</p>
 <pre><code># mkdir /var/run/dbmail
 # chown dbmail:dbmail /var/run/dbmail
 </code></pre>
-
 <p>It's ready to start DBMail daemons:</p>
 <pre><code># for i in dbmail-imapd dbmail-lmtpd dbmail-pop3d dbmail-timsieved; do /etc/init.d/$i restart; done
 </code></pre>
-
 <p>Make sure DBMail daemons will start when system startup:</p>
 <pre><code># for i in dbmail-imapd dbmail-lmtpd dbmail-pop3d dbmail-timsieved; do chkconfig --level 345 $i on; done
 </code></pre>
-
 <p>Check status of DBMail daemons:</p>
 <pre><code># netstat -ntlp | grep dbmail
 tcp        0      0 0.0.0.0:110                 0.0.0.0:*                   LISTEN      1747/dbmail-pop3d
@@ -285,7 +273,6 @@ tcp        0      0 0.0.0.0:4190                0.0.0.0:*                   LIST
 tcp        0      0 0.0.0.0:993                 0.0.0.0:*                   LISTEN      1710/dbmail-imapd
 tcp        0      0 0.0.0.0:995                 0.0.0.0:*                   LISTEN      1747/dbmail-pop3d
 </code></pre>
-
 <h3 id="create-testing-account">Create testing account</h3>
 <p>DBMail daemons are running, let's create a testing account to test POP3/POP3S/IMAP/IMAPS/Managesieve services.</p>
 <ul>
@@ -297,7 +284,6 @@ Adding INBOX for new user... ok.
 Done
 test@domain.ltd:x:5:0:0.00:0.00:test@domain.ltd
 </code></pre>
-
 <p>Refer to DBMail wiki site for more information about managing users: http://dbmail.org/dokuwiki/doku.php/manage_users</p>
 <h3 id="test-pop3imapmanagesieve-services-with-telnet">Test POP3/IMAP/Managesieve services with telnet</h3>
 <p>It's OK to test POP3/POP3S/IMAP/IMAPS services with telnet, mutt or Roundcube webmail, here we use telnet and mutt instead. After testing, you can login to Roundcube Webmail directly.</p>
@@ -322,11 +308,9 @@ QUIT                 # &lt;-- DIsconnect
 +OK see ya later
 Connection closed by foreign host.
 </code></pre>
-
 <p>Telnet doesn't support SSL service, so we test POP3S with <code>mutt</code> (a console based mail client application) instead.</p>
 <pre><code>$ mutt -f pops://&quot;test@domain.ltd&quot;:mypass@localhost
 </code></pre>
-
 <p>If POP3S works well, mutt will show you an empty mailbox. Then type 'q' to exit mutt.</p>
 <h4 id="testing-imap-service">Testing IMAP service</h4>
 <pre><code>$ telnet localhost 143
@@ -348,11 +332,9 @@ Escape character is '^]'.
 . OK LOGOUT completed
 Connection closed by foreign host.
 </code></pre>
-
 <p>Telnet doesn't support SSL service, so we test IMAPS with <code>mutt</code> instead.</p>
 <pre><code>$ mutt -f imaps://&quot;test@domain.ltd&quot;:mypass@localhost
 </code></pre>
-
 <p>If IMAPS works well, mutt will show you an empty mailbox. Then type 'q' to exit mutt.</p>
 <h4 id="testing-managesieve-service">Testing Managesieve service</h4>
 <p>Before testing managesieve service, we have to encode username and password first.</p>
@@ -363,7 +345,6 @@ Connection closed by foreign host.
 <pre><code>$ perl sieve-auth-command.pl test@domain.ltd mypass
 AUTHENTICATE &quot;PLAIN&quot; &quot;AHRlc3RAZG9tYWluLmx0ZABteXBhc3M=&quot;
 </code></pre>
-
 <p>The command output is what we need.</p>
 <p>Now start to test managesieve service:</p>
 <pre><code>$ telnet localhost 4190
@@ -383,31 +364,26 @@ OK
 telnet&gt; quit          # &lt;-- Type 'quit' to quit telnet program.
 Connection closed.
 </code></pre>
-
 <h3 id="integrate-dbmail-in-postfix">Integrate DBMail in Postfix</h3>
 <p>Backup Postfix config files before we go further:</p>
 <pre><code># cp /etc/postfix/main.cf /etc/postfix/main.cf.bak
 # cp /etc/postfix/master.cf /etc/postfix/master.cf.bak
 </code></pre>
-
 <ul>
 <li>Add below line in <code>/etc/postfix/master.cf</code>, it's new transport provided by DBMail.</li>
 </ul>
 <pre><code>dbmail-lmtp     unix    -       -       n       -       -       lmtp
 </code></pre>
-
 <ul>
 <li>Since DBMail uses different SQL structure from iRedMail, we have to disable some iRedMail special features in Postfix first.</li>
 </ul>
 <pre><code># postconf -e recipient_bcc_maps='' relay_domains='$mydestination' sender_bcc_maps='' transport_maps='' virtual_alias_maps=''
 </code></pre>
-
 <ul>
 <li>Update postfix setting to use DBMail transport:</li>
 </ul>
 <pre><code># postconf -e virtual_transport='dbmail-lmtp:127.0.0.1:24'
 </code></pre>
-
 <ul>
 <li>
 <p>Update postfix setting in <code>/etc/postfix/main.cf</code>, remove <code>reject_unknown_sender_domain</code> in <code>smtpd_recipient_restrictions</code> setting.</p>
@@ -420,7 +396,6 @@ Connection closed.
 # postconf -e virtual_mailbox_domains='proxy:mysql:/etc/postfix/dbmail_domains.cf'
 # postconf -e virtual_mailbox_maps='proxy:mysql:/etc/postfix/dbmail_mailboxes.cf'
 </code></pre>
-
 <p>Content of file <code>/etc/postfix/dbmail_recipients.cf</code>:</p>
 <pre><code>hosts = 127.0.0.1
 dbname = dbmail
@@ -428,7 +403,6 @@ user = dbmail
 password = password_of_dbmail
 query = SELECT alias FROM dbmail_aliases WHERE alias='%s' LIMIT 1
 </code></pre>
-
 <p>Content of file <code>/etc/postfix/dbmail_domains.cf</code>:</p>
 <pre><code>hosts = 127.0.0.1
 dbname = dbmail
@@ -436,7 +410,6 @@ user = dbmail
 password = password_of_dbmail
 query = SELECT DISTINCT 1 FROM dbmail_aliases WHERE SUBSTRING_INDEX(alias, '@', -1) = '%s'
 </code></pre>
-
 <p>Content of file <code>/etc/postfix/dbmail_mailboxes.cf</code>:</p>
 <pre><code>hosts = 127.0.0.1
 dbname = dbmail
@@ -444,7 +417,6 @@ user = dbmail
 password = password_of_dbmail
 query    = SELECT 1 FROM dbmail_aliases WHERE alias='%s' LIMIT 1
 </code></pre>
-
 <ul>
 <li>Test MySQL queries:</li>
 </ul>
@@ -457,14 +429,12 @@ test@domain.ltd
 # postmap -q 'test@domain.ltd' mysql:/etc/postfix/dbmail_mailboxes.cf
 1
 </code></pre>
-
 <ul>
 <li>It's now OK to send a test email with command <code>mail</code> (provided by package <code>mailx</code>) after restarting Postfix service:</li>
 </ul>
 <pre><code># /etc/init.d/postfix restart
 # mail -s &quot;test&quot; test@domain.ltd &lt; /etc/hosts
 </code></pre>
-
 <p>Log in Postfix log file /var/log/maillog:</p>
 <blockquote>
 <p>Aug 14 06:40:20 c60 postfix/pickup[6017]: B89A141FAD: uid=0 from=<root>
@@ -475,13 +445,11 @@ Aug 14 06:40:20 c60 postfix/qmgr[6016]: B89A141FAD: removed</p>
 </blockquote>
 <h3 id="configure-roundcube-to-work-with-dbmail">Configure Roundcube to work with DBMail</h3>
 <p>Change below setting in <code>/var/www/roundcubemail/config/main.inc.php</code>:</p>
-<pre><code class="php">$rcmail_config['imap_auth_type'] = &quot;LOGIN&quot;;
+<pre><code class="language-php">$rcmail_config['imap_auth_type'] = &quot;LOGIN&quot;;
 </code></pre>
-
 <p>Restart Apache, you can now view sent email after logging into Roundcube webmail:</p>
 <pre><code># /etc/init.d/httpd restart
 </code></pre>
-
 <h2 id="replace-dovecot-with-cyrus-sasl-as-smtp-sasl-auth-daemon">Replace Dovecot with Cyrus-SASL as SMTP SASL auth daemon</h2>
 <p>Postfix uses <code>dovecot</code> as SASL type in iRedMail by default, since Dovecot will be replaced by DBMail, we cannot use Dovecot anymore. So we're going to install Cyrus-SASL libraries, and use daemon 'saslauthd' for SMTP SASL auth.</p>
 <p>In this section, we will:</p>
@@ -492,11 +460,10 @@ Aug 14 06:40:20 c60 postfix/qmgr[6016]: B89A141FAD: removed</p>
 </ul>
 <h3 id="install-cyrus-sasl-libraries">Install Cyrus-SASL libraries</h3>
 <p>Cyrus-SASL libraries are available in default yum repositories.
-<em> For RHEL, they're available in yum repository <code>rhn</code> or CD/DVD images.
-</em> For CentOS and Scientific Linux, they're available in default yum repositories.</p>
+* For RHEL, they're available in yum repository <code>rhn</code> or CD/DVD images.
+* For CentOS and Scientific Linux, they're available in default yum repositories.</p>
 <pre><code># yum install cyrus-sasl cyrus-sasl-lib cyrus-sasl-sql cyrus-sasl-plain cyrus-sasl-md5
 </code></pre>
-
 <h3 id="configure-cyrus-sasl">Configure Cyrus-SASL</h3>
 <p>Configure Cyrus-SASL daemon config file:</p>
 <ul>
@@ -522,13 +489,11 @@ sql_database: dbmail
 sql_verbose: no
 sql_select: SELECT passwd FROM dbmail_users WHERE userid = '%u'
 </code></pre>
-
 <p>Update <code>/etc/sysconfig/saslauthd</code> (refer to manual page saslauthd(8) for more information):</p>
 <pre><code>SOCKETDIR=/var/spool/postfix/var/run/saslauthd
 MECH=rimap
 FLAGS='-O 127.0.0.1 -r'
 </code></pre>
-
 <p>Notes:</p>
 <ul>
 <li>We set <code>SOCKETDIR</code> to <code>/var/spool/postfix/var/run/saslauthd/</code> so that Postfix works fine under chroot.</li>
@@ -537,26 +502,21 @@ FLAGS='-O 127.0.0.1 -r'
 <p>Create directory used to store saslauthd daemon socket file:</p>
 <pre><code># mkdir -p /var/spool/postfix/var/run/saslauthd/
 </code></pre>
-
 <p>Start service saslauthd now, and make it auto start when system boot:</p>
 <pre><code># /etc/init.d/saslauthd restart
 # chkconfig --level 345 saslauthd on
 </code></pre>
-
 <h3 id="test-saslauthd-and-troubleshooting">Test saslauthd and troubleshooting</h3>
 <pre><code># testsaslauthd -f /var/spool/postfix/var/run/saslauthd/mux -u 'test@domain.ltd' -p 'mypass'
 0: OK &quot;Success.&quot;
 </code></pre>
-
 <p>Note: If you're running DBMail-3.0.0-rc1, you will always get <code>0: NO "authentication failed"</code>, because DBMail-3.0.0-rc1 has a compatibility issue with Cyrus-SASL.</p>
 <h3 id="enable-cyrus-sasl-in-postfix">Enable Cyrus-SASL in Postfix</h3>
 <pre><code># postconf -e smtpd_sasl_path='smtpd' smtpd_sasl_type='cyrus'
 </code></pre>
-
 <p>Restarting Postfix service to make it work:</p>
 <pre><code># /etc/init.d/postfix restart
 </code></pre>
-
 <p>You can now send email with Roundcube webmail.</p><div class="footer">
     <p style="text-align: center; color: grey;">All documents are available in <a href="https://github.com/iredmail/docs/">GitHub repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://github.com/iredmail/docs/archive/master.zip">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
 </div></body></html>

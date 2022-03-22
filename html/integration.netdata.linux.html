@@ -61,13 +61,11 @@ install it first.</p>
 </ul>
 <pre><code>yum install curl libmnl libuuid lm_sensors nc PyYAML zlib iproute MySQL-python python-psycopg2
 </code></pre>
-
 <ul>
 <li>On Debian/Ubuntu:</li>
 </ul>
 <pre><code>apt-get install zlib1g libuuid1 libmnl0 curl lm-sensors iproute netcat python-mysqldb python-psycopg2
 </code></pre>
-
 <h2 id="install-netdata">Install netdata</h2>
 <ul>
 <li>
@@ -85,13 +83,11 @@ is: <a href="https://github.com/firehol/netdata/releases/download/v1.10.0/netdat
 chmod +x netdata-latest.gz.run
 ./netdata-latest.gz.run --accept
 </code></pre>
-
 <p>netdata installs its files under <code>/opt/netdata/</code> by default, let's create
 symbol link of the configuration and log directories:</p>
 <pre><code>ln -s /opt/netdata/etc/netdata /etc/netdata
 ln -s /opt/netdata/var/log/netdata /var/log/netdata
 </code></pre>
-
 <p>netdata will create required systemd script for service control, also logrotate
 config file, so there's not much we need to do after the package installation.</p>
 <h2 id="configure-netdata">Configure netdata</h2>
@@ -120,7 +116,6 @@ used by iRedMail:</p>
     # inbound packets dropped
     /proc/net/dev = no
 </code></pre>
-
 <p>netdata ships a lot modular config files to gather information of softwares
 running on the server, they have very good default settings and most config
 files don't need your attention at all, including:</p>
@@ -156,7 +151,6 @@ access to dn=&quot;cn=monitor&quot;
     by dn.exact=&quot;cn=vmail,dc=example,dc=com&quot; read
     by * none
 </code></pre>
-
 <p>It enables OpenLDAP backend <code>monitor</code>, also grant <code>read</code> access to dn
 <code>cn=Manager,dc=example,dc=com</code> and <code>cn=vmail,dc=example,dc=com</code>. Again, you
 must replace <code>dc=example,dc=com</code> by the real LDAP suffix that you use.</p>
@@ -164,12 +158,10 @@ must replace <code>dc=example,dc=com</code> by the real LDAP suffix that you use
 <pre><code>modulepath /usr/lib/ldap
 moduleload back_mdb
 </code></pre>
-
 <p>Append a new <code>moduleload</code> directive right after <code>moduleload back_mdb</code> like
 below:</p>
 <pre><code>moduleload back_monitor
 </code></pre>
-
 <p>Now restart OpenLDAP service.</p>
 <p>Create file <code>/opt/netdata/etc/netdata/python.d/openldap.conf</code> with content below:</p>
 <div class="admonition attention">
@@ -189,7 +181,6 @@ local:
     port     : 389
     timeout  : 1
 </code></pre>
-
 <p>Now restart netdata service.</p>
 <h3 id="monitor-nginx-and-php-fpm">Monitor Nginx and php-fpm</h3>
 <p>We need to enable <code>stub_status</code> in Nginx to get detailed server info, also
@@ -214,7 +205,6 @@ location = /status {
     deny all;
 }
 </code></pre>
-
 <ul>
 <li>Update default virtual host config file <code>/etc/nginx/sites-enabled/00-default.conf</code>,
   include new snippet config file <code>stub_status.tmpl</code> after the
@@ -227,7 +217,6 @@ location = /status {
     ...
 }
 </code></pre>
-
 <ul>
 <li>Update php-fpm pool config file <code>www.conf</code>, enable parameter <code>pm.status_path</code>
   like below:<ul>
@@ -239,7 +228,6 @@ location = /status {
 </ul>
 <pre><code>pm.status_path = /status
 </code></pre>
-
 <ul>
 <li>Restart both php-fpm and Nginx service.</li>
 </ul>
@@ -260,7 +248,6 @@ protocol imap {
     ...
 }
 </code></pre>
-
 <ul>
 <li>Append settings below in Dovecot config file:</li>
 </ul>
@@ -283,7 +270,6 @@ service stats {
     }
 }
 </code></pre>
-
 <ul>
 <li>Restart Dovecot service.</li>
 </ul>
@@ -298,7 +284,6 @@ gather MySQL server information.</p>
 sql&gt; GRANT USAGE ON *.* TO netdata@localhost IDENTIFIED BY '&lt;password&gt;';
 sql&gt; FLUSH PRIVILEGES;
 </code></pre>
-
 <ul>
 <li>
 <p>Create file <code>/etc/netdata/python.d/mysql.conf</code> with content below.</p>
@@ -319,7 +304,6 @@ sql&gt; FLUSH PRIVILEGES;
     user: 'netdata'
     pass: '&lt;password&gt;'
 </code></pre>
-
 <h3 id="monitor-postgresql-server">Monitor PostgreSQL server</h3>
 <p>netdata requires a SQL user (we use <code>netdata</code> here) to gather PostgreSQL server
 information.</p>
@@ -331,7 +315,6 @@ information.</p>
 $ psql
 sql&gt; CREATE USER netdata WITH ENCRYPTED PASSWORD '&lt;password&gt;' NOSUPERUSER NOCREATEDB NOCREATEROLE;
 </code></pre>
-
 <ul>
 <li>
 <p>Create file <code>/etc/netdata/python.d/postgres.conf</code> with content below.</p>
@@ -351,7 +334,6 @@ sql&gt; CREATE USER netdata WITH ENCRYPTED PASSWORD '&lt;password&gt;' NOSUPERUS
     password : '&lt;password&gt;'
     database : 'postgres'
 </code></pre>
-
 <h2 id="system-tuning">System tuning</h2>
 <p>To get better performance, netdata requires few sysctl settings. Please add
 lines below in <code>/etc/sysctl.conf</code>:</p>
@@ -359,20 +341,16 @@ lines below in <code>/etc/sysctl.conf</code>:</p>
 vm.dirty_background_ratio=80
 vm.dirty_ratio=90
 </code></pre>
-
 <p>Also increase max open files limit.</p>
 <pre><code>mkdir -p /etc/systemd/system/netdata.service.d
 </code></pre>
-
 <p>Create file <code>/etc/systemd/system/netdata.service.d/limits.conf</code>:</p>
 <pre><code>[Service]
 LimitNOFILE=30000
 </code></pre>
-
 <p>Reload systemd daemon:</p>
 <pre><code>systemctl daemon-reload
 </code></pre>
-
 <h2 id="configure-nginx-to-forward-requests-to-netdata">Configure Nginx to forward requests to netdata</h2>
 <ul>
 <li>Create Nginx config snippet <code>/etc/nginx/templates/netdata.tmpl</code> with
@@ -406,7 +384,6 @@ location ~ /netdata/(?&lt;ndpath&gt;.*) {
     auth_basic_user_file /etc/nginx/netdata.users;
 }
 </code></pre>
-
 <ul>
 <li>Update default virtual host (https site) config file
   <code>/etc/nginx/sites-enabled/00-default-ssl.conf</code>,
@@ -420,20 +397,17 @@ location ~ /netdata/(?&lt;ndpath&gt;.*) {
     ...
 }
 </code></pre>
-
 <ul>
 <li>Create new file <code>/etc/nginx/netdata.users</code> used for basic http auth:</li>
 </ul>
 <pre><code>touch /etc/nginx/netdata.users
 </code></pre>
-
 <ul>
 <li>Run command below to generate a SSHA password hash. NOTE: Please replace
   <code>&lt;password&gt;</code> below by a real, strong password.</li>
 </ul>
 <pre><code>doveadm pw -s SSHA -p '&lt;password&gt;'
 </code></pre>
-
 <p>The password looks like this <code>{SSHA}Tama1midwSV6XWTlonR6n6sNM8yuEPvv</code>.</p>
 <ul>
 <li>Now open <code>/etc/nginx/netdata.users</code> with your faviourite text
@@ -442,7 +416,6 @@ location ~ /netdata/(?&lt;ndpath&gt;.*) {
 </ul>
 <pre><code>postmaster@domain.com:{SSHA}Tama1midwSV6XWTlonR6n6sNM8yuEPvv
 </code></pre>
-
 <ul>
 <li>Restart nginx service.</li>
 </ul>
@@ -458,7 +431,6 @@ in file <code>/etc/nginx/netdata.users</code> to login.</p>
 <pre><code>chmod +x netdata-latest.gz.run
 ./netdata-latest.gz.run --accept
 </code></pre>
-
 <p>That's it.</p>
 <h2 id="see-also">See Also</h2>
 <ul>

@@ -30,7 +30,6 @@ add setting below to Amavisd config file, then restart Amavisd service. Amavisd
 will log verbose message for each processed message in its log file.</p>
 <pre><code>$log_templ = $log_verbose_templ;
 </code></pre>
-
 <p>Sample log:</p>
 <pre><code>Oct 12 21:26:34 d8 amavis[1389]: (01389-01) Passed CLEAN {RelayedInternal},
 ORIGINATING/MYNETS LOCAL [172.16.100.1]:54180 ESMTP/ESMTP &lt;postmaster@a.cn&gt; -&gt;
@@ -40,14 +39,12 @@ From: &lt;postmaster@a.cn&gt;, helo=test.com, Tests: [ALL_TRUSTED=-1,INVALID_DAT
 MISSING_MID=0.14], autolearn=no autolearn_force=no, autolearnscore=0.572,
 dkim_new=dkim:a.cn, 19162 ms
 </code></pre>
-
 <p>The "Tests:" flag includes spam scanning result from SpamAssassin.</p>
 <p>If you want Amavisd to insert <code>X-Spam-*</code> headers in each email, please decrease
 Amavisd setting <code>$sa_tag_level_deflt</code> (in Amavisd config file )to a very low
 score, e.g. <code>-999</code>, then restart Amavisd service:</p>
 <pre><code>$sa_tag_level_deflt  = -999;
 </code></pre>
-
 <p>That means Amavisd will insert <code>X-Spam-Flag</code> and other <code>X-Spam-*</code> headers when
 email score &gt;= <code>-999</code>.</p><div class="footer">
     <p style="text-align: center; color: grey;">All documents are available in <a href="https://github.com/iredmail/docs/">GitHub repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://github.com/iredmail/docs/archive/master.zip">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>

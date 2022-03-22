@@ -27,14 +27,12 @@
 </ul>
 <pre><code>plugins = [..., 'reject_sender_login_mismatch']
 </code></pre>
-
 <ul>
 <li>在 iRedAPD 配置文件 <code>/opt/iredapd/settings.py</code> 中添加如下参数，允许列表成员
   以列表邮件地址作为发件人发送邮件：</li>
 </ul>
 <pre><code>ALLOWED_LOGIN_MISMATCH_LIST_MEMBER = True
 </code></pre>
-
 <ul>
 <li>修改后需要重启 Postfix 和 iRedAPD 服务。</li>
 </ul><div class="footer">

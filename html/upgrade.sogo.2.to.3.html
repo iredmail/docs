@@ -39,34 +39,29 @@ below.</p>
 cp /etc/sogo/* /root/sogo-backup/sogo/
 cp /etc/sysconfig/sogo /root/sogo-backup/sysconfig/
 </code></pre>
-
 <ul>
 <li>Open file <code>/etc/yum.repos.d/sogo.repo</code>, change the <code>baseurl=</code> setting to:</li>
 </ul>
 <pre><code>baseurl=https://packages.inverse.ca/SOGo/nightly/3/rhel/$releasever/$basearch/
 </code></pre>
-
 <ul>
 <li>Remove <code>sope</code> and <code>sogo</code> packages first, then install SOGo again:</li>
 </ul>
 <pre><code>yum remove &quot;sope*&quot; &quot;sogo*&quot;
 yum install sogo sogo-ealarms-notify sogo-tool sogo-activesync sope49-gdl1-mysql sope49-gdl1-postgresql
 </code></pre>
-
 <ul>
 <li>Restore backup files:</li>
 </ul>
 <pre><code>cp /root/sogo-backup/sogo/* /etc/sogo/
 cp /root/sogo-backup/sysconfig/sogo /etc/sysconfig/
 </code></pre>
-
 <ul>
 <li>Restart SOGo and memcached services:</li>
 </ul>
 <pre><code>service memcached restart
 service sogod restart
 </code></pre>
-
 <h2 id="upgrade-sogo-on-debianubuntu">Upgrade SOGo On Debian/Ubuntu</h2>
 <ul>
 <li>Backup config files first:</li>
@@ -75,7 +70,6 @@ service sogod restart
 cp /etc/sogo/* /root/sogo-backup/sogo/
 cp /etc/default/sogo /root/sogo-backup/default/
 </code></pre>
-
 <ul>
 <li>
 <p>Open file <code>/etc/apt/sources.list</code>,</p>
@@ -97,14 +91,12 @@ cp /etc/default/sogo /root/sogo-backup/default/
 apt-get update
 apt-get install sogo sogo-activesync sope4.9-gdl1-mysql sope4.9-gdl1-postgresql
 </code></pre>
-
 <ul>
 <li>Restore backup files:</li>
 </ul>
 <pre><code>cp /root/sogo-backup/sogo/* /etc/sogo/
 cp /root/sogo-backup/default/sogo /etc/default/
 </code></pre>
-
 <ul>
 <li>Make sure SOGo log file is owned by SOGo daemon user and group:<ul>
 <li>On Linux, user/group names are: <code>sogo:sogo</code>.</li>
@@ -115,14 +107,12 @@ cp /root/sogo-backup/default/sogo /etc/default/
 </ul>
 <pre><code>chown sogo:sogo /var/log/sogo/sogo.log
 </code></pre>
-
 <ul>
 <li>Restart SOGo and memcached services:</li>
 </ul>
 <pre><code>service memcached restart
 service sogo restart
 </code></pre>
-
 <h2 id="troubleshooting">Troubleshooting</h2>
 <p>If SOGo doesn't work as expected, please check its log file
 <code>/var/log/sogo/sogo.log</code>. If you don't understand what the error message means,

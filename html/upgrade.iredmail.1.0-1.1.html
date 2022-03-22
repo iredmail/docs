@@ -69,7 +69,6 @@ installation, it's recommended to update this file after you upgraded iRedMail,
 so that you can know which version of iRedMail you're running. For example:</p>
 <pre><code>1.1
 </code></pre>
-
 <h3 id="upgrade-iredapd-postfix-policy-server-to-the-latest-stable-release">Upgrade iRedAPD (Postfix policy server) to the latest stable release</h3>
 <p>Please follow below tutorial to upgrade iRedAPD to the latest stable release:
 <a href="./upgrade.iredapd.html">Upgrade iRedAPD to the latest stable release</a></p>
@@ -106,7 +105,6 @@ latest stable release (1.4.2):</p>
 please replace the <code>if</code> line by below one and restart rsyslog service:</p>
 <pre><code>if $syslogfacility-text == 'local5' and ($syslogtag startswith 'iredapd' or $msg startswith 'iredapd ') then -/var/log/iredapd/iredapd.log
 </code></pre>
-
 <h3 id="fixed-sogo-backup-script-doesnt-relies-on-python-anymore">Fixed: SOGo backup script doesn't relies on Python anymore</h3>
 <p>SOGo backup script <code>/var/vmail/backup/backup_sogo.sh</code> shipped in iRedMail-1.0
 and earlier releases relies on Python to calculate the date of old backup for
@@ -117,7 +115,6 @@ wget -O backup_sogo.sh https://github.com/iredmail/iRedMail/raw/1.1/tools/backup
 chown root backup_sogo.sh
 chmod 0500 backup_sogo.sh
 </code></pre>
-
 <h2 id="for-openldap-backend">For OpenLDAP backend</h2>
 <h3 id="fixed-backup-mx-doesnt-work">Fixed: Backup MX doesn't work.</h3>
 <p>In iRedMail-1.0, the placeholder used by LDAP query for Backup MX domain is
@@ -125,7 +122,6 @@ incorrect, please run commands below to fix it.</p>
 <pre><code>perl -pi -e 's#%d#%s#g' /etc/postfix/ldap/relay_domains.cf
 postfix reload
 </code></pre>
-
 <h3 id="fixed-improper-ldap-query-filter">Fixed: improper LDAP query filter</h3>
 <p>The LDAP query used in file <code>/etc/postfix/ldap/virtual_group_maps.cf</code>
 (Linux/OpenBSD) or <code>/usr/local/etc/postfix/ldap/virtual_group_maps.cf</code>
@@ -139,7 +135,6 @@ Please follow steps below to fix it.</p>
 </ul>
 <pre><code>query_filter    = (&amp;(accountStatus=active)(!(domainStatus=disabled))(enabledService=mail)(enabledService=deliver)(|(&amp;(|(memberOfGroup=%s)(shadowAddress=%s))(|(objectClass=mailUser)(objectClass=mailExternalUser)))(&amp;(memberOfGroup=%s)(!(shadowAddress=%s))(|(objectClass=mailAlias)(&amp;(objectClass=mailList)(!(enabledService=mlmmj)))))(&amp;(objectClass=mailList)(enabledService=mlmmj)(|(mail=%s)(shadowAddress=%s)))))
 </code></pre>
-
 <ul>
 <li>Save your change and restart or reload Postfix service.</li>
 </ul>
@@ -155,7 +150,6 @@ wget -O backup_mysql.sh https://github.com/iredmail/iRedMail/raw/1.1/tools/backu
 chown root backup_openldap.sh backup_mysql.sh
 chmod 0500 backup_openldap.sh backup_mysql.sh
 </code></pre>
-
 <h2 id="for-mysqlmariadb-backends">For MySQL/MariaDB backends</h2>
 <h3 id="fixed-backup-mx-doesnt-work_1">Fixed: Backup MX doesn't work.</h3>
 <p>In iRedMail-1.0, the placeholder used by SQL query for Backup MX domain is
@@ -163,7 +157,6 @@ incorrect, please run commands below to fix it.</p>
 <pre><code>perl -pi -e 's#%d#%s#g' /etc/postfix/mysql/relay_domains.cf
 postfix reload
 </code></pre>
-
 <h3 id="fixed-mysql-backup-script-doesnt-relies-on-python-anymore">Fixed: MySQL backup script doesn't relies on Python anymore</h3>
 <p>Backup script <code>/var/vmail/backup/backup_mysql.sh</code> shipped in iRedMail-1.0
 and earlier releases relies on Python to calculate the date of old backup for
@@ -174,7 +167,6 @@ wget -O backup_mysql.sh https://github.com/iredmail/iRedMail/raw/1.1/tools/backu
 chown root backup_mysql.sh
 chmod 0500 backup_mysql.sh
 </code></pre>
-
 <h2 id="for-postgresql-backend">For PostgreSQL backend</h2>
 <h3 id="fixed-incorrect-index-on-sql-table-vmailsender_relayhost">Fixed: incorrect index on SQL table <code>vmail.sender_relayhost</code></h3>
 <p>Column <code>sender_relayhost.account</code> should be unique index. Please follow steps below to fix it.</p>
@@ -189,21 +181,18 @@ chmod 0500 backup_mysql.sh
 <pre><code>su - postgres
 psql -d vmail
 </code></pre>
-
 <ul>
 <li>Run SQL commands below:</li>
 </ul>
 <pre><code>DROP INDEX idx_sender_relayhost_account;
 CREATE UNIQUE INDEX idx_sender_relayhost_account ON sender_relayhost (account);
 </code></pre>
-
 <h3 id="fixed-backup-mx-doesnt-work_2">Fixed: Backup MX doesn't work.</h3>
 <p>In iRedMail-1.0, the placeholder used by SQL query for Backup MX domain is
 incorrect, please run commands below to fix it.</p>
 <pre><code>perl -pi -e 's#%d#%s#g' /etc/postfix/pgsql/relay_domains.cf
 postfix reload
 </code></pre>
-
 <h3 id="fixed-postgresql-backup-script-doesnt-relies-on-python-anymore">Fixed: PostgreSQL backup script doesn't relies on Python anymore</h3>
 <p>Backup script <code>/var/vmail/backup/backup_pgsql.sh</code> shipped in iRedMail-1.0
 and earlier releases relies on Python to calculate the date of old backup for

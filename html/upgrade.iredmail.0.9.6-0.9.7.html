@@ -84,7 +84,6 @@ installation, it's recommended to update this file after you upgraded iRedMail,
 so that you can know which version of iRedMail you're running. For example:</p>
 <pre><code>0.9.7
 </code></pre>
-
 <h3 id="upgrade-iredapd-postfix-policy-server-to-the-latest-stable-release-21">Upgrade iRedAPD (Postfix policy server) to the latest stable release (2.1)</h3>
 <p>Please follow below tutorial to upgrade iRedAPD to the latest stable release:
 <a href="./upgrade.iredapd.html">Upgrade iRedAPD to the latest stable release</a></p>
@@ -141,7 +140,6 @@ below to fix it.</p>
     reject_unknown_helo_hostname
     check_helo_access pcre:/etc/postfix/helo_access.pcre
 </code></pre>
-
 <ul>
 <li>Move the <code>check_helo_access</code> line after <code>permit_sasl_authenticated</code>:</li>
 </ul>
@@ -152,7 +150,6 @@ below to fix it.</p>
     reject_non_fqdn_helo_hostname
     reject_unknown_helo_hostname
 </code></pre>
-
 <ul>
 <li>Reloading or restarting Postfix service is required.</li>
 </ul>
@@ -167,7 +164,6 @@ permission to open log files. Please follow steps below to fix it.</p>
 <p>Please open file <code>/etc/logrotate.d/dovecot</code>, find line below:</p>
 <pre><code>    create 0600 vmail vmail
 </code></pre>
-
 <p>Remove above line and save the change.</p>
 <h3 id="fixed-incorrect-sessionsave_path-in-php-fpm-pool-config-file-on-rhelcentos">Fixed: incorrect session.save_path in php-fpm pool config file on RHEL/CentOS</h3>
 <div class="admonition attention">
@@ -181,20 +177,17 @@ pool config file <code>/etc/php-fpm.d/www.conf</code>, please fix it with steps 
 </ul>
 <pre><code>php_value[session.save_path] = &quot;/var/lib/php/session&quot;
 </code></pre>
-
 <ul>
 <li>The directory name should be <code>sessions</code> (ends with <code>s</code>), not <code>session</code>. So
   please change it to:</li>
 </ul>
 <pre><code>php_value[session.save_path] = &quot;/var/lib/php/sessions&quot;
 </code></pre>
-
 <ul>
 <li>Restarting php-fpm service is required:</li>
 </ul>
 <pre><code>service php-fpm restart
 </code></pre>
-
 <h3 id="fixed-incorrect-freshclam-setting-updatelogfile">Fixed: incorrect freshclam setting <code>UpdateLogFile</code></h3>
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>
@@ -207,7 +200,6 @@ syslog for logging.</p>
 <pre><code>#UpdateLogFile ...          # &lt;- Comment out this parameter
 LogSyslog true              # &lt;- Make sure you have this line. If not present, please add it manually.
 </code></pre>
-
 <h3 id="fail2ban-fixes-an-improper-filter-and-add-new-filter-rule">Fail2ban: fixes an improper filter and add new filter rule</h3>
 <p>iRedMail-0.9.7 fixes an improper filter for Dovecot log file which may cause
 incorrect ban, and adds a new filter for Roundcube log file to help ban bad
@@ -220,7 +212,6 @@ rm -f dovecot.iredmail.conf roundcube.iredmail.conf
 wget https://github.com/iredmail/iRedMail/raw/1.0/samples/fail2ban/filter.d/dovecot.iredmail.conf
 wget https://github.com/iredmail/iRedMail/raw/1.0/samples/fail2ban/filter.d/roundcube.iredmail.conf
 </code></pre>
-
 <p>Restarting Fail2ban service is required.</p>
 <h3 id="fail2ban-add-new-jail-for-nginx">Fail2ban: Add new jail for Nginx</h3>
 <div class="admonition attention">
@@ -241,7 +232,6 @@ filter      = nginx-http-auth
 action      = iptables-multiport[name=nginx, port=&quot;80,443&quot;, protocol=tcp]
 logpath     = /var/log/nginx/error.log
 </code></pre>
-
 <p>Restarting Fail2ban service is required.</p>
 <h3 id="new-new-backup-script-for-sogo">NEW: New backup script for SOGo</h3>
 <div class="admonition attention">
@@ -269,7 +259,6 @@ mentioned above, you can restore a single user's data or all users data with
 wget https://github.com/iredmail/iRedMail/raw/1.0/tools/backup_sogo.sh
 chmod 0400 backup_sogo.sh
 </code></pre>
-
 <ul>
 <li>This script will create new directory under <code>/var/vmail/backup</code> like below
   to store backup files:</li>
@@ -280,7 +269,6 @@ chmod 0400 backup_sogo.sh
                     |- 03/              # &lt;- month
                         |- 22.tar.bz2   # &lt;- day (file name is: &lt;day&gt;.tar.bz2)
 </code></pre>
-
 <p>If you want to use another directory to store backup files, please open file
 <code>backup_sogo.sh</code>, update variable <code>BACKUP_ROOTDIR</code> with the new directory.</p>
 <ul>
@@ -290,7 +278,6 @@ chmod 0400 backup_sogo.sh
 <pre><code># SOGo: backup all users' data at 3:05AM everyday.
 5   3   *   *   *   bash /var/vmail/backup/backup_sogo.sh
 </code></pre>
-
 <h3 id="openbsd-upgrade-uwsgi-to-the-latest-2015">OpenBSD: Upgrade uwsgi to the latest 2.0.15</h3>
 <p>uwsgi is the interface between Nginx and iRedAdmin, so if you're running
 iRedAdmin, it's recommended to upgrade uwsgi to the latest version, 2.0.15.</p>
@@ -301,11 +288,9 @@ tar zxf uwsgi-2.0.15.tar.gz
 cd uwsgi-2.0.15
 python setup.py install
 </code></pre>
-
 <p>uwsgi should be succesfully installed, then restart uwsgi service:</p>
 <pre><code>rcctl restart uwsgi
 </code></pre>
-
 <h2 id="openldap-backend-special">OpenLDAP backend special</h2>
 <h3 id="fixed-avoid-possible-backdooring-mysqldump-backups">Fixed: Avoid possible backdooring mysqldump backups</h3>
 <p>For more details about this backdooring mysqldump backup issue, please read
@@ -326,13 +311,11 @@ blog post:</p>
 </ul>
 <pre><code>export CMD_MYSQLDUMP=&quot;mysqldump ...&quot;
 </code></pre>
-
 <ul>
 <li>Make sure it has argument <code>--skip-comments</code> like below:</li>
 </ul>
 <pre><code>export CMD_MYSQLDUMP=&quot;mysqldump ... --skip-comments&quot;
 </code></pre>
-
 <ul>
 <li>Save your change. That's it.</li>
 </ul>
@@ -389,7 +372,6 @@ CREATE TABLE IF NOT EXISTS forwardings (
     INDEX (is_alias)
 ) ENGINE=InnoDB;
 </code></pre>
-
 <h4 id="migrate-mail-accounts">Migrate mail accounts</h4>
 <p>Please download script used to migrate mail accounts, and run it directly:</p>
 <div class="admonition attention">
@@ -402,7 +384,6 @@ and run it with command <code>python3 migrate_sql_alias_table.py</code>.</p>
 wget https://github.com/iredmail/iRedMail/raw/1.0/tools/migrate_sql_alias_table.py
 python migrate_sql_alias_table.py
 </code></pre>
-
 <p>Note: It will try to read iRedAdmin config file from one of paths below, and
 connects to SQL server as user <code>vmailadmin</code>:</p>
 <ul>
@@ -421,7 +402,6 @@ perl -pi -e 's#alias\.active#forwardings.active#g' *.cf
 perl -pi -e 's#alias\.domain#forwardings.domain#g' *.cf
 perl -pi -e 's#alias,#forwardings,#g' *.cf
 </code></pre>
-
 <p>Restarting Postfix service is required.</p>
 <h4 id="drop-unused-sql-columns-and-records-in-vmailalias-table">Drop unused SQL columns and records in <code>vmail.alias</code> table</h4>
 <div class="admonition warning">
@@ -452,7 +432,6 @@ ALTER TABLE alias DROP COLUMN islist;
 ALTER TABLE alias DROP COLUMN is_alias;
 ALTER TABLE alias DROP COLUMN alias_to;
 </code></pre>
-
 <h3 id="fixed-avoid-possible-backdooring-mysqldump-backups_1">Fixed: Avoid possible backdooring mysqldump backups</h3>
 <p>For more details about this backdooring mysqldump backup issue, please read
 blog post:</p>
@@ -472,13 +451,11 @@ blog post:</p>
 </ul>
 <pre><code>export CMD_MYSQLDUMP=&quot;mysqldump ...&quot;
 </code></pre>
-
 <ul>
 <li>Make sure it has argument <code>--skip-comments</code> like below:</li>
 </ul>
 <pre><code>export CMD_MYSQLDUMP=&quot;mysqldump ... --skip-comments&quot;
 </code></pre>
-
 <ul>
 <li>Save your change. That's it.</li>
 </ul>
@@ -499,7 +476,6 @@ SQL structure.</p>
 <pre><code>su - postgres
 psql -U vmailadmin -d vmail
 </code></pre>
-
 <p>Then execute SQL commands below to create required new tables:</p>
 <pre><code>CREATE TABLE alias_moderators (
     id SERIAL PRIMARY KEY,
@@ -542,14 +518,12 @@ CREATE INDEX idx_forwardings_is_alias ON forwardings (is_alias);
 GRANT SELECT ON TABLE forwardings to vmail;
 GRANT SELECT ON TABLE alias_moderators to vmail;
 </code></pre>
-
 <h4 id="migrate-mail-accounts_1">Migrate mail accounts</h4>
 <p>Please download script used to migrate mail accounts, and run it directly:</p>
 <pre><code>cd /root/
 wget https://github.com/iredmail/iRedMail/raw/1.0/tools/migrate_sql_alias_table.py
 python migrate_sql_alias_table.py
 </code></pre>
-
 <p>Note: It will try to read iRedAdmin config file from one of paths below, and
 connects to SQL server as user <code>vmailadmin</code>:</p>
 <ul>
@@ -568,7 +542,6 @@ perl -pi -e 's#alias\.active#forwardings.active#g' *.cf
 perl -pi -e 's#alias\.domain#forwardings.domain#g' *.cf
 perl -pi -e 's#alias,#forwardings,#g' *.cf
 </code></pre>
-
 <p>Restarting Postfix service is required.</p>
 <h4 id="drop-unused-sql-columns-in-vmailalias-table">Drop unused SQL columns in <code>vmail.alias</code> table</h4>
 <div class="admonition warning">

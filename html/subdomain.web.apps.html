@@ -68,7 +68,6 @@ server {
     include /etc/nginx/templates/stub_status.tmpl;  # &lt;- Nginx status monitoring
 }
 </code></pre>
-
 <p>As you can see, it loads multiple configuration snippets, and they define the
 URIs you can access to visit the web applications.</p>
 <p>iRedMail also generates configuration snippet files to run them under subdomain:</p>
@@ -97,13 +96,11 @@ a new web host config file, and load the <code>*-subdomain.tmpl</code> file.</p>
     include /etc/nginx/templates/roundcube-subdomain.tmpl;
 }
 </code></pre>
-
 <ul>
 <li>Create symbol link to <code>/etc/nginx/sites-enabled/</code> with shell command below:</li>
 </ul>
 <pre><code>ln -sf /etc/nginx/sites-available/webmail.example.com.conf /etc/nginx/sites-enabled/webmail.example.com.conf
 </code></pre>
-
 <ul>
 <li>[OPTIONAL] If you want to remove acess from <code>https://mail.example.com/mail/</code>
   (<code>mail.exmaple.com</code> is your server hostname), you can simply comment out
@@ -111,13 +108,11 @@ a new web host config file, and load the <code>*-subdomain.tmpl</code> file.</p>
 </ul>
 <pre><code>include /etc/nginx/templates/roundcube.tmpl;
 </code></pre>
-
 <ul>
 <li>Restart or reload Nginx service:</li>
 </ul>
 <pre><code>service nginx restart
 </code></pre>
-
 <h3 id="extra-steps-for-sogo">Extra steps for SOGo</h3>
 <p>SOGo is only accessible by <code>/SOGo</code> URI, so when you visit <code>https://your-site.com/</code>
 it won't redirect to <code>https://your-site.com/SOGo</code>. In this case you must
@@ -137,7 +132,6 @@ add a <code>location</code> directive for <code>/</code> URI and redirect reques
     include /etc/nginx/templates/subdomain-sogo.tmpl;
 }
 </code></pre>
-
 <h2 id="important-notes">Important notes</h2>
 <ul>
 <li>

@@ -48,7 +48,6 @@ convert your Dovecot 2.2 config file to fully work with Dovecot 2.3.</p>
 </ul>
 <pre><code>cd /etc/dovecot/
 </code></pre>
-
 <ul>
 <li>On FreeBSD:<ul>
 <li>Please upgrade ports <code>mail/dovecot</code> and <code>mail/dovecot-pigeonhole</code> first.
@@ -60,7 +59,6 @@ convert your Dovecot 2.2 config file to fully work with Dovecot 2.3.</p>
 </ul>
 <pre><code>cd /usr/local/etc/dovecot/
 </code></pre>
-
 <p>Run commands below as root user, these commands will:</p>
 <ul>
 <li>Comment out parameter <code>ssl_protocols</code></li>
@@ -84,7 +82,6 @@ perl -pi -e 's#fifo_listener stats-mail#fifo_listener old-stats-mail#g' dovecot.
 perl -pi -e 's#stats_refresh#old_stats_refresh#g' dovecot.conf
 perl -pi -e 's#stats_track_cmds#old_stats_track_cmds#g' dovecot.conf
 </code></pre>
-
 <ul>
 <li>On RHEL/CentOS, please add new setting in <code>dovecot.conf</code>:</li>
 </ul>
@@ -104,7 +101,6 @@ service stats {
     }
 }
 </code></pre>
-
 <ul>
 <li>On Debian/Ubuntu/OpenBSD/FreeBSD, please add new setting in <code>dovecot.conf</code>:</li>
 </ul>
@@ -124,7 +120,6 @@ service stats {
     }
 }
 </code></pre>
-
 <h2 id="sql-structure-changes-for-mysqlmariadbpostgresql-backends">SQL structure changes for MySQL/MariaDB/PostgreSQL backends</h2>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
@@ -146,7 +141,6 @@ ALTER TABLE mailbox ADD INDEX (enablepop3tls);
 ALTER TABLE mailbox ADD COLUMN enablesievetls TINYINT(1) NOT NULL DEFAULT 1;
 ALTER TABLE mailbox ADD INDEX (enablesievetls);
 </code></pre>
-
 <ul>
 <li>For PostgreSQL backend, please switch to PostgreSQL daemon user with <code>su</code>
   command first, then run SQL commands below:</li>
@@ -159,7 +153,6 @@ CREATE INDEX idx_mailbox_enablepop3tls ON mailbox (enablepop3tls);
 ALTER TABLE mailbox ADD COLUMN enablesievetls INT2 NOT NULL DEFAULT 1;
 CREATE INDEX idx_mailbox_enablesievetls ON mailbox (enablesievetls);
 </code></pre>
-
 <h2 id="ldap-changes-for-openldapldapd-backends">LDAP changes for OpenLDAP/ldapd backends</h2>
 <p>We need to add new ldap attribute/value pairs for existing mail users.</p>
 <ul>
@@ -168,7 +161,6 @@ CREATE INDEX idx_mailbox_enablesievetls ON mailbox (enablesievetls);
 <pre><code>cd /root/
 wget https://raw.githubusercontent.com/iredmail/iRedMail/master/update/ldap/update-ldap-dovecot-2.3.py
 </code></pre>
-
 <ul>
 <li>Open downloaded file <code>update-ldap-dovecot-2.3.py</code>, set LDAP server
   related settings in this file. For example:</li>
@@ -180,7 +172,6 @@ basedn = 'o=domains,dc=example,dc=com'
 bind_dn = 'cn=vmailadmin,dc=example,dc=com'
 bind_pw = 'password'
 </code></pre>
-
 <p>You can find required LDAP credential in iRedAdmin config file or
 <code>iRedMail.tips</code> file under your iRedMail installation directory. Using either
 <code>cn=Manager,dc=xx,dc=xx</code> or <code>cn=vmailadmin,dc=xx,dc=xx</code> as bind dn is ok, both

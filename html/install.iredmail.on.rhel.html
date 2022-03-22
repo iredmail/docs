@@ -86,10 +86,9 @@ is available through the ticket system.</p>
 <p>No matter your server is a testing machine or production server, it's strongly
 recommended to set a fully qualified domain name (FQDN) hostname.</p>
 <p>Enter command <code>hostname -f</code> to view the current hostname:</p>
-<pre><code class="shell">$ hostname -f
+<pre><code class="language-shell">$ hostname -f
 mx.example.com
 </code></pre>
-
 <p>On RHEL/CentOS Linux, hostname is set in two files:</p>
 <ol>
 <li>
@@ -105,23 +104,19 @@ mx.example.com
 <pre><code>$ hostname -f
 mx.example.com
 </code></pre>
-
 <h3 id="disable-selinux">Disable SELinux.</h3>
 <p>iRedMail doesn't work with SELinux, so please disable it by setting below
 value in its config file <code>/etc/selinux/config</code>. After server reboot, SELinux
 will be completely disabled.</p>
 <pre><code>SELINUX=disabled
 </code></pre>
-
 <p>If you prefer to let SELinux prints warnings instead of enforcing, you can
 set below value instead:</p>
 <pre><code>SELINUX=permissive
 </code></pre>
-
 <p>Disable it immediately without rebooting your server.</p>
 <pre><code># setenforce 0
 </code></pre>
-
 <h3 id="enable-yum-repositories-for-installing-new-packages">Enable yum repositories for installing new packages</h3>
 <ul>
 <li>
@@ -147,7 +142,6 @@ set below value instead:</p>
 <pre><code>dnf -y install https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
 subscription-manager repos --enable codeready-builder-for-rhel-8-x86_64-rpms
 </code></pre>
-
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>
 <p>Since official RHEL/CentOS and EPEL repositories don't have all
@@ -177,14 +171,12 @@ used by iRedMail team to build the binary packages are available
 <pre><code># cd /root/
 # tar zxf iRedMail-x.y.z.tar.gz
 </code></pre>
-
 <h2 id="start-iredmail-installer">Start iRedMail installer</h2>
 <p>It's now ready to start iRedMail installer, it will ask you several simple
 questions, that's all required to setup a full-featured mail server.</p>
 <pre><code># cd /root/iRedMail-x.y.z/
 # bash iRedMail.sh
 </code></pre>
-
 <h2 id="screenshots-of-installation">Screenshots of installation:</h2>
 <ul>
 <li>Welcome and thanks for your use</li>

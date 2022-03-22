@@ -26,11 +26,10 @@ white/blacklists instead, <a href="./manage.iredapd.html">doc here</a>.</strong>
 plugin <code>sql_user_restrictions</code> for per-user inbound/outbound restrictions.</p>
 <p>Please make sure plugin <code>sql_user_restrictions</code> is enabled in iRedAPD config
 file <code>/opt/iredapd/settings.py</code> like below:</p>
-<pre><code class="python"># Part of file: /opt/iredapd/settings.py
+<pre><code class="language-python"># Part of file: /opt/iredapd/settings.py
 
 plugins = [..., 'sql_user_restrictions']
 </code></pre>
-
 <p>Restarting iRedAPD service is required if you modified <code>/opt/iredapd/settings.py</code>.</p>
 <p>You can store allowed or disallowed recipient in 2 SQL columns in <code>vmail</code> database:</p>
 <ul>
@@ -51,7 +50,7 @@ plugins = [..., 'sql_user_restrictions']
 <li>allow local mail user <code>user@example.com</code> to send to domain (<code>example.com</code>)
   and <code>gmail.com</code>, but not others.</li>
 </ul>
-<pre><code class="sql">sql&gt; USE vmail;
+<pre><code class="language-sql">sql&gt; USE vmail;
 sql&gt; UPDATE mailbox
      SET
          rejectedrecipients='@.',
@@ -59,7 +58,6 @@ sql&gt; UPDATE mailbox
      WHERE
           username='user@example.com';
 </code></pre>
-
 <h2 id="openldap-backend-special">OpenLDAP backend special</h2>
 <p>OpenLDAP backend requires iRedAPD plugin <code>ldap_amavisd_block_blacklisted_senders</code>.</p>
 <ul>

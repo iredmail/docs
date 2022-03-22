@@ -105,7 +105,6 @@ need to switch your IPs quickly.</p>
 www.mydomain.com.   1800    A       192.168.1.2
 mail.mydomain.com.  1800    A       192.168.1.5
 </code></pre>
-
 <p>The end result of this record is that <code>www.mydomain.com</code> points to
 <code>192.168.1.2</code>, and <code>mail.mydomain.com</code> points to <code>192.168.1.5</code>.</p>
 <h2 id="ptr">Reverse PTR record for server IP address</h2>
@@ -155,7 +154,6 @@ you need to create the MX records in your DNS zone yourself.</p>
 
 mydomain.com.   10          mx      mail.mydomain.com.
 </code></pre>
-
 <p>The end result of this record is, emails sent to <code>[user]@mydomain.com</code> will
 be delivered to server <code>mail.mydomain.com</code>.</p>
 <h2 id="autodiscover-for-your-domain">autodiscover for your domain</h2>
@@ -175,7 +173,6 @@ you need to create the autoconfig/autodiscover records in your DNS zone yourself
 autodiscover.mydomain.com.   10          mx      mail.mydomain.com.
 autoconfig.mydomain.com.   10          mx      mail.mydomain.com.
 </code></pre>
-
 <h2 id="spf">SPF record for the mail domain name</h2>
 <h3 id="what-is-a-spf-record">What is a SPF record</h3>
 <p>SPF is a spam and phishing scam fighting method which uses DNS SPF-records to
@@ -191,7 +188,6 @@ IP address.</p>
 For example:</p>
 <pre><code>mydomain.com.   3600    IN  TXT &quot;v=spf1 mx -all&quot;
 </code></pre>
-
 <p>This SPF record means emails sent from all servers defined in MX record of
 <code>mydomain.com</code> are permitted to send as <code>someone@mydomain.com</code>.</p>
 <p><code>-all</code> means prohibit emails sent from all other servers. If it's too strict
@@ -199,11 +195,9 @@ for you, you can use <code>~all</code> instead which means soft fail (uncertain)
 <p>You can specify IP address(es) directly too:</p>
 <pre><code>mydomain.com.   3600    IN  TXT &quot;v=spf1 ip4:111.111.111.111 ip4:111.111.111.222 -all&quot;
 </code></pre>
-
 <p>Of course you can have them both or more in same record:</p>
 <pre><code>mydomain.com.   3600    IN  TXT &quot;v=spf1 mx ip4:111.111.111.222 -all&quot;
 </code></pre>
-
 <p>There're more valid mechanisms available, please check
 <a href="https://en.wikipedia.org/wiki/Sender_Policy_Framework">wikipedia</a> for more details.</p>
 <h2 id="dkim">DKIM record for the mail domain name</h2>
@@ -247,7 +241,7 @@ tag. Note that the same identity can have multiple identifiers.</p>
 </div>
 </li>
 </ul>
-<pre><code class="bash"># amavisd showkeys
+<pre><code class="language-bash"># amavisd showkeys
 dkim._domainkey.mydomain.com.   3600 TXT (
   &quot;v=DKIM1; p=&quot;
   &quot;MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDYArsr2BKbdhv9efugByf7LhaK&quot;
@@ -255,7 +249,6 @@ dkim._domainkey.mydomain.com.   3600 TXT (
   &quot;FcMycUvOBd7nsYn/TUrOua3Nns+qKSJBy88IWSh2zHaGbjRYujyWSTjlPELJ0H+5&quot;
   &quot;EV711qseo/omquskkwIDAQAB&quot;)
 </code></pre>
-
 <ul>
 <li>Copy output of command above into one line like below, remove all quotes, but
   keep <code>;</code>. <strong>we just need strings inside the <code>()</code> block</strong>, it's the value of
@@ -263,7 +256,6 @@ dkim._domainkey.mydomain.com.   3600 TXT (
 </ul>
 <pre><code>v=DKIM1; p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDYArsr2BKbdhv9efugBy...
 </code></pre>
-
 <p><strong>Note</strong>: BIND (<a href="http://www.isc.org/downloads/bind/">The most widely used Name Server Software</a>)
 can handle this kind of multi-line format, so you can paste it in your domain
 zone file directly.</p>
@@ -285,17 +277,14 @@ zone file directly.</p>
 
 $ nslookup -type=txt dkim._domainkey.foodmall.com
 </code></pre>
-
 <p>Sample output:</p>
 <pre><code>dkim._domainkey.mydomain.com. 600 IN TXT    &quot;v=DKIM1\;p=...&quot;
 
 </code></pre>
-
 <p>And verify it with Amavisd:</p>
-<pre><code class="shell"># amavisd testkeys
+<pre><code class="language-shell"># amavisd testkeys
 TESTING: dkim._domainkey.mydomain.com       =&gt; pass
 </code></pre>
-
 <p>If it shows <code>pass</code>, it works.</p>
 <p><strong>Note</strong>: If you use DNS service provided by ISP, new DNS record might take
 some hours to be available.</p>
@@ -338,11 +327,9 @@ correct and up to date SPF and DKIM records published.</p>
 <p>A simplified record looks like this:</p>
 <pre><code>v=DMARC1; p=none; rua=mailto:dmarc@mydomain.com
 </code></pre>
-
 <p>A detailed sample record looks like this:</p>
 <pre><code>v=DMARC1; p=reject; sp=none; adkim=s; aspf=s; rua=mailto:dmarc@mydomain.com; ruf=mailto:dmarc@mydomain.com
 </code></pre>
-
 <ul>
 <li><code>v=DMARC1</code> identifies the DMARC protocol version, currently only <code>DMARC1</code> is
   available, and <code>v=DMARC1</code> must appear first in a DMARC record.</li>
@@ -406,7 +393,6 @@ correct and up to date SPF and DKIM records published.</p>
 <pre><code>_xmpp-client._tcp.mydomain.com 18000 IN SRV 0 5 5222 mail.mydomain.com
 _xmpp-server._tcp.example.com. 18000 IN SRV 0 5 5269 mail.mydomain.com
 </code></pre>
-
 <p>The target domain <code>mail.mydomain.com</code> <strong>MUST</strong> be an existing A record, it
 cannot be an IP address or a CNAME record.</p>
 <h2 id="register-your-mail-domain-in-google-postmaster-tools">Register your mail domain in Google Postmaster Tools</h2>

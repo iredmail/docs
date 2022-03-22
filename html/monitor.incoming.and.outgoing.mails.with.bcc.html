@@ -56,7 +56,7 @@ PostgreSQL too.</p>
 <li>To add per-domain bcc settings for domain <code>mydomain.com</code>, you can add
   below records in SQL database <code>vmail</code>:</li>
 </ul>
-<pre><code class="sql">-- BCC outgoing emails to 'outbound@example.com'
+<pre><code class="language-sql">-- BCC outgoing emails to 'outbound@example.com'
 mysql&gt; INSERT INTO sender_bcc_domain (domain, bcc_address, active, created)
        VALUES ('mydomain.com', 'outbound@example.com', 1, NOW());
 
@@ -64,12 +64,11 @@ mysql&gt; INSERT INTO sender_bcc_domain (domain, bcc_address, active, created)
 mysql&gt; INSERT INTO recipient_bcc_domain (domain, bcc_address, active, created)
        VALUES ('mydomain.com', 'inbound@example.com', 1, NOW());
 </code></pre>
-
 <ul>
 <li>To add per-user bcc settings for user <code>user@mydomain.com</code>, you can add
   below records in SQL database <code>vmail</code>:</li>
 </ul>
-<pre><code class="sql">-- BCC outgoing emails to 'outbound@example.com'
+<pre><code class="language-sql">-- BCC outgoing emails to 'outbound@example.com'
 mysql&gt; INSERT INTO sender_bcc_user (username, bcc_address, domain, active, created)
        VALUES ('user@mydomain.com', 'outbound@example.com', 'mydomain.com', 1, NOW());
 
@@ -77,7 +76,6 @@ mysql&gt; INSERT INTO sender_bcc_user (username, bcc_address, domain, active, cr
 mysql&gt; INSERT INTO recipient_bcc_user (username, bcc_address, domain, active, created)
        VALUES ('user@mydomain.com', 'inbound@example.com', 'mydomain.com', 1, NOW());
 </code></pre>
-
 <h2 id="ldap-manage-bcc-settings-with-phpldapadmin-or-other-ldap-client-tools">LDAP: Manage BCC settings with phpLDAPadmin or other LDAP client tools</h2>
 <ul>
 <li>For per-domain BCC settings, you can add below LDAP attribute/value pairs
@@ -91,7 +89,6 @@ domainSenderBccAddress=outbound@example.com
 enabledService=recipientbcc
 domainRecipientBccAddress=inbound@example.com
 </code></pre>
-
 <ul>
 <li>For per-user BCC settings, you can add below LDAP attribute/value pairs
 for user object:</li>
@@ -104,14 +101,12 @@ userSenderBccAddress=outbound@example.com
 enabledService=recipientbcc
 userRecipientBccAddress=inbound@example.com
 </code></pre>
-
 <h2 id="monitor-all-inbound-and-outbound">Monitor all inbound and outbound</h2>
 <p>To monitor all inbound and outbound on the server, please specify the email
 address used to receive BCCed email in Postfix parameter <code>always_bcc</code>. For
 example:</p>
 <pre><code>always_bcc = user@domain.com
 </code></pre>
-
 <p>Then all inbound and outbound will be BCCed to <code>user@domain.com</code>.</p>
 <h2 id="screenshot-of-iredadmin-pro">Screenshot of iRedAdmin-Pro</h2>
 <p>Per-domain bcc settings:</p>

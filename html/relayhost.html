@@ -41,13 +41,12 @@ destination for you.</p>
 <p>To setup a global relay host in iRedMail, please append below settings in
 Postfix config file <code>/etc/postfix/main.cf</code> (Linux/OpenBSD) or
 <code>/usr/local/etc/postfix/main.cf</code> (FreeBSD):</p>
-<pre><code class="cfg">relayhost = [relay_server]:25
+<pre><code class="language-cfg">relayhost = [relay_server]:25
 smtp_sasl_password_maps = hash:/etc/postfix/sasl_password
 smtp_sasl_auth_enable = yes
 smtp_sasl_mechanism_filter = login
 smtp_sasl_security_options = noanonymous
 </code></pre>
-
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <ul>
@@ -64,14 +63,12 @@ smtp_sasl_security_options = noanonymous
 </ul>
 </div>
 <p>Then write the username and password in <code>/etc/postfix/sasl_password</code>:</p>
-<pre><code class="cfg">relay.server user:password
+<pre><code class="language-cfg">relay.server user:password
 </code></pre>
-
 <p>Run <code>postmap</code> and restart Postfix service:</p>
-<pre><code class="cmd">postmap hash:/etc/postfix/sasl_password
+<pre><code class="language-cmd">postmap hash:/etc/postfix/sasl_password
 service postfix restart
 </code></pre>
-
 <h2 id="sender-dependent-relay-host">Sender dependent relay host</h2>
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>
@@ -103,14 +100,12 @@ page, under tab <code>Relay</code>. Screenshot attached.</p>
 <pre><code>sql&gt; USE vmail;
 sql&gt; INSERT INTO sender_relayhost (account, relayhost) VALUES ('@domain.com', '[mail.gmail.com]:25');
 </code></pre>
-
 <ul>
 <li>Per-user sender dependent relay host:</li>
 </ul>
 <pre><code>sql&gt; USE vmail;
 sql&gt; INSERT INTO sender_relayhost (account, relayhost) VALUES ('user@domain.com', '[mail.gmail.com]:25');
 </code></pre>
-
 <h4 id="openldap">OpenLDAP</h4>
 <p>For OpenLDAP backend:</p>
 <ul>
@@ -125,7 +120,6 @@ sql&gt; INSERT INTO sender_relayhost (account, relayhost) VALUES ('user@domain.c
 senderRelayHost: [mail.gmail.com]:25
 ...
 </code></pre>
-
 <ul>
 <li>Per-user sender dependent relay host</li>
 </ul>
@@ -133,7 +127,6 @@ senderRelayHost: [mail.gmail.com]:25
 senderRelayHost: [mail.gmail.com]:25
 ...
 </code></pre>
-
 <h3 id="screenshot-of-iredadmin-pro">Screenshot of iRedAdmin-Pro</h3>
 <ul>
 <li>iRedAdmin-Pro: Per-domain relay setting:</li>

@@ -31,7 +31,7 @@ in Amavisd config file: <code>/etc/amavisd/amavisd.conf</code> (RHEL/CentOS) or
 <li>bypass_banned_checks_maps</li>
 </ul>
 <p>These settings can be added in setting block <code>$policy_bank{'ORIGINATING'}</code>:</p>
-<pre><code class="perl">$policy_bank{'ORIGINATING'} = {
+<pre><code class="language-perl">$policy_bank{'ORIGINATING'} = {
     [...OMIT OTHER SETTINGS HERE...]
 
     # don't perform spam/virus/header check.
@@ -43,7 +43,6 @@ in Amavisd config file: <code>/etc/amavisd/amavisd.conf</code> (RHEL/CentOS) or
     bypass_banned_checks_maps =&gt; [1],
 }
 </code></pre>
-
 <p>Restarting Amavisd service is required after changing settings.</p><div class="footer">
     <p style="text-align: center; color: grey;">All documents are available in <a href="https://github.com/iredmail/docs/">GitHub repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://github.com/iredmail/docs/archive/master.zip">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
 </div></body></html>

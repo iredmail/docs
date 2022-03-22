@@ -116,7 +116,6 @@ flush the DNS cache. Then you can test the autoconfig with curl commands below:<
 curl -k http://mail.host.com/mail/config-v1.1.xml?emailaddress=user@customer.com
 curl -k http://mail.host.com/.well-known/autoconfig/mail/config-v1.1.xml?emailaddress=user@customer.com
 </code></pre>
-
 <p>It should print a XML format content on console.</p>
 <h2 id="setup-dns-record-for-autodiscover">Setup DNS record for autodiscover</h2>
 <p>Please create a DNS SRV record for your customer's domain name <code>customer.com</code>:</p>
@@ -134,7 +133,6 @@ flush the DNS cache. Then try to query it with <code>dig</code> command like bel
 <pre><code># dig +short -t srv _autodiscover._tcp.customer.com
 1 1 443 mail.host.com.
 </code></pre>
-
 <p>Create temporary text file <code>/tmp/outlook.xml</code> with content below:</p>
 <pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?&gt;
 &lt;Autodiscover xmlns=&quot;http://schemas.microsoft.com/exchange/autodiscover/outlook/requestschema/2006&quot;&gt;
@@ -146,7 +144,6 @@ flush the DNS cache. Then try to query it with <code>dig</code> command like bel
     &lt;/Request&gt;
 &lt;/Autodiscover&gt;
 </code></pre>
-
 <p>Create temporary text file <code>/tmp/eas.xml</code> with content below:</p>
 <pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
 &lt;Autodiscover xmlns=&quot;http://schemas.microsoft.com/exchange/autodiscover/mobilesync/requestschema/2006&quot;&gt;
@@ -156,7 +153,6 @@ flush the DNS cache. Then try to query it with <code>dig</code> command like bel
     &lt;/Request&gt;
 &lt;/Autodiscover&gt;
 </code></pre>
-
 <p>Now run <code>curl</code> commands to verify it:</p>
 <pre><code>curl -k -X POST -d @/tmp/outlook.xml https://autodiscover.customer.com/autodiscover/autodiscover.xml
 curl -k -X POST -d @/tmp/eas.xml https://autodiscover.customer.com/autodiscover/autodiscover.xml
@@ -164,7 +160,6 @@ curl -k -X POST -d @/tmp/eas.xml https://autodiscover.customer.com/autodiscover/
 curl -k -X POST -d @/tmp/outlook.xml https://mail.host.com/autodiscover/autodiscover.xml
 curl -k -X POST -d @/tmp/eas.xml https://mail.host.com/autodiscover/autodiscover.xml
 </code></pre>
-
 <p>It should print XML format content on console.</p><div class="footer">
     <p style="text-align: center; color: grey;">All documents are available in <a href="https://github.com/iredmail/docs/">GitHub repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://github.com/iredmail/docs/archive/master.zip">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
 </div></body></html>

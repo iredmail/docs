@@ -48,7 +48,6 @@ in <code>/etc/postfix/master.cf</code> (on Linux/OpenBSD) or
   -o smtpd_tls_security_level=may
   -o smtpd_sender_restrictions=permit_sasl_authenticated,reject
 </code></pre>
-
 <ul>
 <li><code>2525</code> is the new port number for smtp service, you're free to change it to
   your favourite port number.</li>
@@ -58,7 +57,6 @@ in <code>/etc/postfix/master.cf</code> (on Linux/OpenBSD) or
 it's listening on this new port:</p>
 <pre><code>netstat -ntlp | grep 2525
 </code></pre>
-
 <p>Now update your network devices to send email through this port number,
 without STARTTLS and SSL.</p>
 <div class="admonition note">

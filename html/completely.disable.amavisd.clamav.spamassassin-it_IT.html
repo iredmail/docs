@@ -48,26 +48,23 @@
 <p>Trovate le seguenti linee in /etc/amavisd/amavisd.conf:</p>
 </li>
 </ul>
-<pre><code class="perl"># @bypass_virus_checks_maps = (1);  # controls running of anti-virus code
+<pre><code class="language-perl"># @bypass_virus_checks_maps = (1);  # controls running of anti-virus code
 # @bypass_spam_checks_maps  = (1);  # controls running of anti-spam code
 </code></pre>
-
 <p>Decommentate le righe sopra  (rimuovendo il carattere # da ogni riga), e riavviate il servizio Amavisd.</p>
 <h3 id="disabilitare-completamente-tutte-le-opzioni">Disabilitare completamente tutte le opzioni:</h3>
 <p>Se volete disabilitare completamente sia il servizio anti spam che anti virus, fate:</p>
 <ul>
 <li>Commentate le due righe sotto nel file di configurazione di Postfix <code>/etc/postfix/main.cf</code>:</li>
 </ul>
-<pre><code class="cfg">content_filter = smtp-amavis:[127.0.0.1]:10024
+<pre><code class="language-cfg">content_filter = smtp-amavis:[127.0.0.1]:10024
 receive_override_options = no_address_mappings  # &lt;- it's ok if you don't have this line
 </code></pre>
-
 <ul>
 <li>Commentate le righe sottostanti nel file di configurazione di Postfix <code>/etc/postfix/main.cf</code>:</li>
 </ul>
-<pre><code class="cfg">  -o content_filter=smtp-amavis:[127.0.0.1]:10026
+<pre><code class="language-cfg">  -o content_filter=smtp-amavis:[127.0.0.1]:10026
 </code></pre>
-
 <ul>
 <li>Il riavvio del servizio Postfix è necessario.</li>
 <li>Disabilitare i seguenti servizi di rete: Amavisd, ClamAV.</li>

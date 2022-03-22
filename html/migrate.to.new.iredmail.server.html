@@ -124,7 +124,6 @@ please update your mail client applications to use TLS connection.</p>
 on new jailed system may have privilege error like this:</p>
 <pre><code>ERROR 1449 (HY000): The user specified as a definer ('root'@'10.195.20.1') does not exist
 </code></pre>
-
 <p>iRedMail installer created SQL tables (or VIEWs, TRIGGERs) as <code>root@10.195.20.1</code>
 (<code>10.195.20.1</code> was private IP address of your old Jail system), but this
 address was gone on new jailed system. You must replace old IP address by the
@@ -133,7 +132,6 @@ re-created manualy later. For example,</p>
 <pre><code>perl -pi -e 's#`root`@`10.195.20.1`#`root`@`10.20.21.3`#g' vmail-2020-04-26-01:25:21.sql
 perl -pi -e 's#`root`@`10.195.20.1`#`root`@`10.20.21.3`#g' amavisd-2020-04-26-01:25:21.sql
 </code></pre>
-
 <p>Then import this modified SQL file instead.</p>
 <h2 id="migrate-mailboxes-maildir-format">Migrate mailboxes (Maildir format)</h2>
 <div class="admonition warning">
@@ -159,14 +157,12 @@ perl -pi -e 's#`root`@`10.195.20.1`#`root`@`10.20.21.3`#g' amavisd-2020-04-26-01
 <pre><code>mysql&gt; USE vmail;
 mysql&gt; SELECT CONCAT(storagebasedirectory, '/', storagenode, '/', maildir) FROM mailbox WHERE username='user@domain.com';
 </code></pre>
-
 <ul>
 <li>With OpenLDAP backend, full maildir path is stored in LDAP attribute
   <code>homeDirectory</code> of mail user object. You can query with <code>ldapsearch</code> command:</li>
 </ul>
 <pre><code>$ ldapsearch -x -D 'cn=Manager,dc=xx,dc=xx' -b 'o=domains,dc=xx,dc=xx' -W &quot;(mail=user@domain.com)&quot; homeDirectory
 </code></pre>
-
 <h2 id="migrate-mlmmj-mailing-lists">Migrate (mlmmj) mailing lists</h2>
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>
@@ -207,7 +203,6 @@ CREATE VIEW users (c_uid, c_name, c_password, c_cn, mail, domain)
     AS SELECT username, username, password, name, username, domain
          FROM vmail.mailbox WHERE enablesogo=1 AND active=1;
 </code></pre>
-
 <ul>
 <li>For PostgreSQL backend. Please switch to PostgreSQL daemon user <code>_postgres</code>
   first, then run <code>psql -d sogo</code> to connect to <code>sogo</code> database:</li>
@@ -243,7 +238,6 @@ CREATE VIEW users AS
 
 ALTER TABLE users OWNER TO sogo;
 </code></pre>
-
 <h3 id="solution-2-backup-and-restore-data">Solution 2: Backup and restore data</h3>
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>

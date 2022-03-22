@@ -66,7 +66,6 @@ installation, it's recommended to update this file after you upgraded iRedMail,
 so that you can know which version of iRedMail you're running. For example:</p>
 <pre><code>1.2
 </code></pre>
-
 <h3 id="upgrade-iredapd-postfix-policy-server-to-the-latest-stable-release">Upgrade iRedAPD (Postfix policy server) to the latest stable release</h3>
 <p>Please follow below tutorial to upgrade iRedAPD to the latest stable release:
 <a href="./upgrade.iredapd.html">Upgrade iRedAPD to the latest stable release</a></p>
@@ -94,14 +93,12 @@ wget -O mlmmj-amime-receive https://github.com/iredmail/iRedMail/raw/1.2/samples
 chown mlmmj:mlmmj mlmmj-amime-receive
 chmod 0550 mlmmj-amime-receive
 </code></pre>
-
 <p>On FreeBSD or OpenBSD:</p>
 <pre><code>cd /usr/local/bin/
 wget -O mlmmj-amime-receive https://github.com/iredmail/iRedMail/raw/1.2/samples/mlmmj/mlmmj-amime-receive
 chown mlmmj:mlmmj mlmmj-amime-receive
 chmod 0550 mlmmj-amime-receive
 </code></pre>
-
 <h2 id="for-openldap-backend">For OpenLDAP backend</h2>
 <h3 id="improved-last-login-track">Improved last login track</h3>
 <div class="admonition attention">
@@ -121,7 +118,6 @@ this improvement.</p>
 </ul>
 <pre><code>    last_login_key = last-login/%s/%u/%d
 </code></pre>
-
 <ul>
 <li>Open file <code>/etc/dovecot/dovecot-last-login.conf</code> (Linux/OpenBSD) or
   <code>/usr/local/etc/dovecot/dovecot-last-login.conf</code> (FreeBSD), <strong>remove</strong> existing
@@ -152,7 +148,6 @@ map {
     }
 }
 </code></pre>
-
 <ul>
 <li>Download prepared SQL file used to alter SQL tables:</li>
 </ul>
@@ -160,7 +155,6 @@ map {
 mysql iredadmin &lt; /root/last_login.mysql
 rm -f /root/last_login.mysql
 </code></pre>
-
 <ul>
 <li>Restarting Dovecot service is required.</li>
 </ul>
@@ -171,7 +165,6 @@ user or <code>amavisd</code> user, then run SQL commands below to fix it:</p>
 <pre><code>USE amavisd;
 ALTER TABLE msgs MODIFY COLUMN subject VARBINARY(255) NOT NULL DEFAULT '';
 </code></pre>
-
 <h3 id="optional-fail2ban-store-banned-ip-addresses-in-sql-database">[OPTIONAL] Fail2ban: Store banned IP addresses in SQL database</h3>
 <p>If you're running iRedAdmin-Pro, it's very useful to store banned IP addresses
 in SQL database, then you can view and manage them with iRedAdmin-Pro directly.</p>
@@ -197,7 +190,6 @@ improvement.</p>
 </ul>
 <pre><code>    last_login_key = last-login/%s/%u/%d
 </code></pre>
-
 <ul>
 <li>Open file <code>/etc/dovecot/dovecot-last-login.conf</code> (Linux/OpenBSD) or
   <code>/usr/local/etc/dovecot/dovecot-last-login.conf</code> (FreeBSD), <strong>remove</strong> existing
@@ -228,7 +220,6 @@ map {
     }
 }
 </code></pre>
-
 <ul>
 <li>Download prepared SQL file used to alter SQL tables:</li>
 </ul>
@@ -236,7 +227,6 @@ map {
 mysql vmail &lt; /root/last_login.mysql
 rm -f /root/last_login.mysql
 </code></pre>
-
 <ul>
 <li>Restarting Dovecot service is required.</li>
 </ul>
@@ -247,7 +237,6 @@ user or <code>amavisd</code> user, then run SQL commands below to fix it:</p>
 <pre><code>USE amavisd;
 ALTER TABLE msgs MODIFY COLUMN subject VARBINARY(255) NOT NULL DEFAULT '';
 </code></pre>
-
 <h3 id="optional-fail2ban-store-banned-ip-addresses-in-sql-database_1">[OPTIONAL] Fail2ban: Store banned IP addresses in SQL database</h3>
 <p>If you're running iRedAdmin-Pro, it's very useful to store banned IP addresses
 in SQL database, then you can view and manage them with iRedAdmin-Pro directly.</p>

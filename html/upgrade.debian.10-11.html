@@ -37,7 +37,6 @@
     event_name = imap_command_finished
 }
 </code></pre>
-
 <p>The newer Dovecot release uses a different syntax for this metric. Since
 netdata doesn't yet support Dovecot 2.3, we've removed it for now.</p>
 <h2 id="iredapd-and-iredadmin-pro">iRedAPD and iRedAdmin(-Pro)</h2>
@@ -45,12 +44,10 @@ netdata doesn't yet support Dovecot 2.3, we've removed it for now.</p>
 re-installed:</p>
 <pre><code>pip3 install -U web.py
 </code></pre>
-
 <p>These services must be restarted:</p>
 <pre><code>service iredapd restart
 service iredadmin restart
 </code></pre>
-
 <h2 id="php-fpm">php-fpm</h2>
 <p>Debian 11 ships with php 7.4, while Debian 10 ships with php 7.3.
 Although Debian 11 starts the <code>php7.4-fpm</code> service by default after an OS
@@ -60,18 +57,15 @@ the php7.4-fpm service, so that php7.4-fpm listens on same network address
 <pre><code>cp /etc/php/7.3/fpm/pool.d/www.conf /etc/php/7.4/fpm/pool.d/www.conf
 service php7.4-fpm restart
 </code></pre>
-
 <h2 id="sogo-groupware">SOGo Groupware</h2>
 <p>Please update <code>/etc/apt/sources.list.d/sogo.nightly.list</code> to use the correct
 URL for Debian 11 (bullseye):</p>
 <pre><code>deb https://packages.inverse.ca/SOGo/nightly/5/debian/ bullseye bullseye
 </code></pre>
-
 <p>To update SOGo packages, please run commands below as root user:</p>
 <pre><code>apt update
 apt --only-upgrade install &quot;sogo*&quot; &quot;*sope*&quot;
 </code></pre>
-
 <p>Note: SOGo package may override its config file <code>/etc/sogo/sogo.conf</code> after
 upgraded, in this case you should be able to find backup file under <code>/etc/sogo/</code>,
 double check its content and copy to <code>/etc/sogo/sogo.conf</code>, then restart SOGo

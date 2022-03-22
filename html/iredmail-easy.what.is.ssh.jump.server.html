@@ -27,12 +27,10 @@ from jump server.</p>
 | Laptop | &lt;---&gt; | Jump server | &lt;--&gt; | Protected server |
 +--------+       +-------------+      +------------------+
 </code></pre>
-
 <p>You can connect to the protected server through jump server via ssh with
 command like below:</p>
 <pre><code>ssh -v -J user1@jump-server user2@protected-server
 </code></pre>
-
 <h2 id="references">References</h2>
 <ul>
 <li><a href="https://man.openbsd.org/ssh#J">SSH manual page</a></li>

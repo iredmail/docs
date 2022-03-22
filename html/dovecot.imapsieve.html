@@ -109,7 +109,6 @@ plugin {
 
 }
 </code></pre>
-
 <h2 id="create-required-directories-and-files">Create required directories and files</h2>
 <p>We will create few directories and files used by <code>imap_sieve</code> plugin:</p>
 <ul>
@@ -134,7 +133,6 @@ mkdir -p /var/vmail/imapsieve_copy
 chown vmail:vmail /var/vmail/imapsieve_copy
 chmod 0700 /var/vmail/imapsieve_copy
 </code></pre>
-
 <p>Create file <code>/var/vmail/sieve/report_spam.sieve</code> with content below:</p>
 <pre><code>require [&quot;vnd.dovecot.pipe&quot;, &quot;copy&quot;, &quot;imapsieve&quot;, &quot;environment&quot;, &quot;variables&quot;];
 
@@ -144,7 +142,6 @@ if environment :matches &quot;imap.user&quot; &quot;*&quot; {
 
 pipe :copy &quot;imapsieve_copy&quot; [ &quot;${username}&quot;, &quot;spam&quot; ];
 </code></pre>
-
 <p>Create file <code>/var/vmail/sieve/report_ham.sieve</code> with content below:</p>
 <pre><code>require [&quot;vnd.dovecot.pipe&quot;, &quot;copy&quot;, &quot;imapsieve&quot;, &quot;environment&quot;, &quot;variables&quot;];
 
@@ -162,7 +159,6 @@ if environment :matches &quot;imap.user&quot; &quot;*&quot; {
 
 pipe :copy &quot;imapsieve_copy&quot; [ &quot;${username}&quot;, &quot;ham&quot; ];
 </code></pre>
-
 <p>Create file <code>/etc/dovecot/sieve/pipe/imapsieve_copy</code> with content below:</p>
 <pre><code>#!/usr/bin/env bash
 # Author: Zhang Huangbin &lt;zhb@iredmail.org&gt;
@@ -194,7 +190,6 @@ cat &gt; ${FILE} &lt; /dev/stdin
 #export LOG='logger -p local5.info -t imapsieve_copy'
 #[[ $? == 0 ]] &amp;&amp; ${LOG} &quot;Copied one ${MSG_TYPE} email reported by ${USER}: ${FILE}&quot;
 </code></pre>
-
 <p>Set correct file owner and permissions:</p>
 <pre><code>chown vmail:vmail /var/vmail/sieve/report_spam.sieve \
     /var/vmail/sieve/report_ham.sieve \
@@ -204,11 +199,9 @@ chmod 0700 /var/vmail/sieve/report_spam.sieve \
     /var/vmail/sieve/report_ham.sieve \
     /etc/dovecot/sieve/pipe/imapsieve_copy
 </code></pre>
-
 <p>Restart Dovecot service to enable this plugin.</p>
 <pre><code>service dovecot restart
 </code></pre>
-
 <h2 id="setup-cron-job-to-scan-and-learn-spamham-messages">Setup cron job to scan and learn spam/ham messages</h2>
 <p>Dovecot can now save a copy of reported spam/ham automatically, we still need
 a shell script to call SpamAssassin to actually learn spam/ham periodly.</p>
@@ -308,13 +301,11 @@ fi
 
 rm -f ${LOCK_FILE} &amp;&gt;/dev/null
 </code></pre>
-
 <p>Run command <code>crontab -e -u root</code> to setup cron job for root user, scan emails
 every 10 minutes:</p>
 <pre><code># iRedMail: Scan reported mails.
 */10   *   *   *   *   /bin/bash /etc/dovecot/sieve/scan_reported_mails.sh
 </code></pre>
-
 <h2 id="tests">Tests</h2>
 <h3 id="report-spam-move-email-from-inbox-to-junk">Report spam: Move email from Inbox to Junk</h3>
 <div class="admonition attention">
@@ -333,7 +324,6 @@ below:</p>
 Jan 31 21:10:42 c7 dovecot: imap(&lt;email&gt;): sieve: left message in mailbox 'Junk'
 Jan 31 21:10:42 c7 dovecot: imap(&lt;email&gt;): expunge: box=INBOX, uid=7, msgid=, size=7805, from=&lt;email&gt;, subject=&lt;subject&gt;
 </code></pre>
-
 <p>In the meantime, you should see an email in <code>/var/vmail/imapsieve_copy/spam/</code>,
 file name in <code>&lt;email&gt;-&lt;timestamp&gt;-&lt;random_number&gt;.eml</code> format.</p>
 <h3 id="report-ham-move-email-from-junk-to-any-other-folder-except-trash">Report ham: Move email from Junk to any other folder (except <code>Trash</code>)</h3>
@@ -345,20 +335,17 @@ see log lines like below:</p>
 Jan 31 21:15:51 c7 dovecot: imap(&lt;email&gt;): sieve: left message in mailbox 'INBOX'
 Jan 31 21:15:51 c7 dovecot: imap(&lt;email&gt;): expunge: box=Junk, uid=7, msgid=, size=7805, from=&lt;email&gt;, subject=&lt;subject&gt;
 </code></pre>
-
 <p>In the meantime, you should see an email in <code>/var/vmail/imapsieve_copy/ham/</code>,
 file name in <code>&lt;email&gt;-&lt;timestamp&gt;-&lt;random_number&gt;.eml</code> format.</p>
 <h3 id="scan-reported-mails">Scan reported mails</h3>
 <p>It's ok to run the script manually to scan reported mails:</p>
 <pre><code>bash /etc/dovecot/sieve/scan_reported_mails.sh
 </code></pre>
-
 <p>If it scanned messages, it will log a message in <code>/var/log/syslog</code> or
 <code>/var/log/messages</code> like this:</p>
 <pre><code>Jan 31 04:51:34 mail scan_reported_mails: [CLEAN] Learned tokens from 1 message(s) (1 message(s) examined)
 Jan 31 05:03:16 mail scan_reported_mails: [SPAM] Learned tokens from 1 message(s) (1 message(s) examined)
 </code></pre>
-
 <h3 id="check-detailed-bayes-learning-log-on-command-line">Check detailed bayes learning log on command line</h3>
 <p>You can either <a href="./debug.amavisd.html">turn on debug mode in Amavisd and SpamAssassin</a>
 to check how bayes learning works in SpamAssassin, or run <code>sa-learn</code> manually
@@ -372,7 +359,6 @@ May 21 05:27:08.264 [32241] dbg: bayes: learner_new: got store=Mail::SpamAssassi
 M
 ...
 </code></pre>
-
 <h2 id="check-bayes-data">Check bayes data</h2>
 <p>Run <code>sa-learn</code> as Amavisd daemon user with <code>--dump</code> argument will show the bayes data like below:</p>
 <pre><code># su -s /bin/bash amavis -c &quot;sa-learn --dump magic&quot;
@@ -388,7 +374,6 @@ M
 0.000          0      43200          0  non-token data: last expire atime delta
 0.000          0      59325          0  non-token data: last expire reduction count
 </code></pre>
-
 <ul>
 <li><code>nspam</code> means number of learnt spams.</li>
 <li><code>nham</code> means number of learnt ham/clean emails.</li>

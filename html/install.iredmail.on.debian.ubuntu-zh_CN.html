@@ -69,28 +69,24 @@ iRedMail 会自动安装和配置邮件服务所需的组件，因此如果操�
 <h3 id="fqdn">为服务器设置一个完整域名（FQDN）的主机名</h3>
 <p>不管你的服务器将用于实际运行还是仅仅用作测试，都建议设置一个完整域名（FQDN）的主机名。</p>
 <p>输入命令 <code>hostname -f</code> 查看当前的主机名</p>
-<pre><code class="shell">$ hostname -f
+<pre><code class="language-shell">$ hostname -f
 mx.example.com
 </code></pre>
-
 <p>在 Debian/Ubuntu 系统上，主机名需要在两个文件里设置：<code>/etc/hostname</code> 和 <code>/etc/hosts</code>。</p>
 <ul>
 <li><code>/etc/hostname</code>：短名称。</li>
 </ul>
 <pre><code>mx
 </code></pre>
-
 <ul>
 <li><code>/etc/hosts</code> 里定义主机名和 IP 地址的对应关系。注意：一定要将 FQDN 主机名列在第一个。</li>
 </ul>
 <pre><code>127.0.0.1   mx.example.com mx localhost localhost.localdomain
 </code></pre>
-
 <p>确认系统已使用设置好的 FQDN 作为主机名。如果没有生效，请重启系统。</p>
 <pre><code>$ hostname -f
 mx.example.com
 </code></pre>
-
 <h3 id="debianubuntu-apt">启用 Debian/Ubuntu 默认的官方 apt 软件源</h3>
 <ul>
 <li>iRedMail 依赖 Debian/Ubuntu 官方的 apt 软件源，请在 <code>/etc/apt/sources.list</code>
@@ -99,7 +95,6 @@ mx.example.com
 </ul>
 <pre><code># sudo apt-get install tar gzip
 </code></pre>
-
 <h3 id="iredmail">下载最新版本的 iRedMail</h3>
 <ul>
 <li>访问<a href="https://www.iredmail.org/download.html">下载页面</a>下载最新的版本。</li>
@@ -110,13 +105,11 @@ mx.example.com
 <pre><code># cd /root/
 # tar zxf iRedMail-x.y.z.tar.gz
 </code></pre>
-
 <h2 id="iredmail_1">运行 iRedMail 安装程序</h2>
 <p>现在可以运行 iRedMail 安装程序了，它会问你几个简单的问题，仅此而已。</p>
 <pre><code>cd /root/iRedMail-x.y.z/
 bash iRedMail.sh
 </code></pre>
-
 <h2 id="_3">安装过程的截图</h2>
 <ul>
 <li>欢迎和感谢使用</li>

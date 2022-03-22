@@ -43,11 +43,9 @@ con allegati di grosse dimensioni.</p>
 <pre><code># postconf -e message_size_limit='104857600'
 # postconf -e mailbox_size_limit='104857600'
 </code></pre>
-
 <p>Riavviate postfix per applicare le modifiche.</p>
 <pre><code># /etc/init.d/postfix restart
 </code></pre>
-
 <p><strong>NOTE</strong>:</p>
 <ul>
 <li><code>104857600</code> corrisponde a 100 (MB) x 1024 (KB) x 1024 (Bit).</li>
@@ -77,7 +75,6 @@ configurazioni: <code>memory_limit</code>, <code>upload_max_filesize</code> e <c
 upload_max_filesize = 100M;
 post_max_size = 100M;
 </code></pre>
-
 <h3 id="modifica-configurazioni-di-roundcube-webmail-per-permettere-allegati-di-grosse-dimensioni">Modifica configurazioni di Roundcube webmail per permettere allegati di grosse dimensioni</h3>
 <p>Modificate le stesse configurazioni in <code>.htaccess</code> nella directory root di roundcube:</p>
 <ul>
@@ -93,7 +90,6 @@ ignorare le seguenti modifiche</p>
 php_value    upload_max_filesize    100M
 php_value    post_max_size  100M
 </code></pre>
-
 <p>Riavviate il servizio di Apache o php-frm per accettare le modifiche fin qui applicate.</p>
 <h3 id="modifica-dimensione-di-upload-in-nginx">Modifica dimensione di upload in Nginx</h3>
 <p>Trovate, nel file di configurazione di Nginx, cher si trova a <code>/etc/nginx/nginx.conf</code>,  la riga con <code>client_max_body_size</code>e modificate il valore assegnato alle vostre specifiche esigenze.</p>

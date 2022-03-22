@@ -23,17 +23,14 @@
 <p>Create questo file di testo: <code>/etc/postfix/accepted_unauth_senders</code>, elencandoci tutti gli indirizzi mail degli utenti abilitati ad inviare posta senza l'autenticazione smtp. Verrà usato l'indirizzo <code>user@example.com</code> come esempio:</p>
 <pre><code>user@example.com OK
 </code></pre>
-
 <p>Create un file db hash con il comando <code>postmap</code> :</p>
 <pre><code># postmap hash:/etc/postfix/accepted_unauth_senders
 </code></pre>
-
 <p>Modificate il file di configurazione di Postfix <code>/etc/postmap/main.cf</code> affinché uso questo file di testo:</p>
 <pre><code>smtpd_sender_restrictions =
     check_sender_access hash:/etc/postfix/accepted_unauth_senders,
     [...OTHER RESTRICTIONS HERE...]
 </code></pre>
-
 <p>Riavviate/ricaricate Postfix per rendere effettiva la modifica.</p>
 <pre><code># /etc/init.d/postfix restart
 </code></pre><div class="footer">

@@ -32,7 +32,6 @@ $policy_bank{'QUARANTINE'} = {
 
 $clean_quarantine_to = 'clean-quarantine';
 </code></pre>
-
 <p>Restart Amavisd service.</p>
 <ul>
 <li>Append below content to Postfix config file <code>/etc/postfix/master.cf</code>, ask
@@ -64,13 +63,11 @@ $clean_quarantine_to = 'clean-quarantine';
     -o smtpd_client_connection_rate_limit=0
     -o receive_override_options=no_header_body_checks,no_unknown_recipient_checks,no_address_mappings
 </code></pre>
-
 <ul>
 <li>Restart Postfix service.</li>
 </ul>
 <pre><code>service postfix restart
 </code></pre>
-
 <ul>
 <li>To quarantine all emails sent from/to <code>user@domain.com</code>, set its per-user
   transport to <code>smtp:[127.0.0.1]:10031</code>.</li>
@@ -80,7 +77,6 @@ database (specified in Amavisd config file, parameter <code>@storage_sql_dsn</co
 <p>Send an email to <code>user@domain.com</code> for testing:</p>
 <pre><code># echo &quot;mail body&quot; | mail -s &quot;test subject&quot; user@domain.com
 </code></pre>
-
 <h2 id="see-also">See also</h2>
 <ul>
 <li><a href="./quarantining.html">Quarantining</a></li>

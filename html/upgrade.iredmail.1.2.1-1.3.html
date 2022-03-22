@@ -64,7 +64,6 @@ installation, it's recommended to update this file after you upgraded iRedMail,
 so that you can know which version of iRedMail you're running. For example:</p>
 <pre><code>1.3
 </code></pre>
-
 <h3 id="upgrade-iredapd-postfix-policy-server-to-the-latest-stable-release">Upgrade iRedAPD (Postfix policy server) to the latest stable release</h3>
 <p>Please follow below tutorial to upgrade iRedAPD to the latest stable release:
 <a href="./upgrade.iredapd.html">Upgrade iRedAPD to the latest stable release</a></p>
@@ -100,11 +99,9 @@ can not manage mail filters with Roundcube.</p>
 below:</p>
 <pre><code>ssl_protocols = !SSLv2 !SSLv3 !TLSv1 !TLSv1.1
 </code></pre>
-
 <p>Remove <code>!TLSv1</code> and restart Dovecot service:</p>
 <pre><code>ssl_protocols = !SSLv2 !SSLv3 !TLSv1.1
 </code></pre>
-
 <p>Note: TLSv1 and TLSv1.2 are supported with this change.</p>
 <h3 id="fixed-inconsistent-fail2ban-jail-names">Fixed: inconsistent Fail2ban jail names</h3>
 <div class="admonition attention">
@@ -125,14 +122,12 @@ perl -pi -e 's#postfix-iredmail#postfix#g' postfix.local
 perl -pi -e 's#roundcube-iredmail#roundcube#g' roundcube.local
 perl -pi -e 's#sogo-iredmail#sogo#g' sogo.local
 </code></pre>
-
 <h2 id="openldap-backend-special">OpenLDAP backend special</h2>
 <h3 id="add-missing-index-for-sql-column-msgstime_iso-in-amavisd-database">Add missing index for SQL column <code>msgs.time_iso</code> in <code>amavisd</code> database</h3>
 <p>Please run SQL commands below as MySQL root user:</p>
 <pre><code>USE amavisd;
 CREATE INDEX msgs_idx_time_iso ON msgs (time_iso);
 </code></pre>
-
 <h3 id="improvement-store-more-info-in-fail2ban-sql-db">Improvement: Store more info in Fail2ban SQL db</h3>
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>
@@ -154,22 +149,18 @@ ALTER TABLE banned ADD COLUMN loglines TEXT;
 ALTER TABLE banned ADD COLUMN `rdns` VARCHAR(255) NOT NULL DEFAULT '';
 CREATE INDEX rdns ON banned (`rdns`);
 </code></pre>
-
 <p>Now open file <code>/etc/fail2ban/action.d/banned_db.conf</code>, find the <code>actionban =</code>
 line like below:</p>
 <pre><code>actionban   = /usr/local/bin/fail2ban_banned_db ban &lt;ip&gt; &lt;port&gt; &lt;protocol&gt; &lt;name&gt;
 </code></pre>
-
 <p>Replace it by:</p>
 <pre><code>actionban   = /usr/local/bin/fail2ban_banned_db ban &lt;ip&gt; &lt;port&gt; &lt;protocol&gt; &lt;name&gt; &lt;ipjailfailures&gt; &lt;ipjailmatches&gt;
 </code></pre>
-
 <p>Download improved shell script and replace the existing one:</p>
 <pre><code>cd /usr/local/bin
 wget -O fail2ban_banned_db https://github.com/iredmail/iRedMail/raw/1.3/samples/fail2ban/bin/fail2ban_banned_db
 chmod 0550 fail2ban_banned_db
 </code></pre>
-
 <p>Now restart Fail2ban service.</p>
 <h2 id="mysqlmariadb-backend-special">MySQL/MariaDB backend special</h2>
 <h3 id="add-missing-index-for-sql-column-msgstime_iso-in-amavisd-database_1">Add missing index for SQL column <code>msgs.time_iso</code> in <code>amavisd</code> database</h3>
@@ -177,7 +168,6 @@ chmod 0550 fail2ban_banned_db
 <pre><code>USE amavisd;
 CREATE INDEX msgs_idx_time_iso ON msgs (time_iso);
 </code></pre>
-
 <h3 id="improvement-store-more-info-in-fail2ban-sql-db_1">Improvement: Store more info in Fail2ban SQL db</h3>
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>
@@ -199,22 +189,18 @@ ALTER TABLE banned ADD COLUMN loglines TEXT;
 ALTER TABLE banned ADD COLUMN `rdns` VARCHAR(255) NOT NULL DEFAULT '';
 CREATE INDEX rdns ON banned (`rdns`);
 </code></pre>
-
 <p>Now open file <code>/etc/fail2ban/action.d/banned_db.conf</code>, find the <code>actionban =</code>
 line like below:</p>
 <pre><code>actionban   = /usr/local/bin/fail2ban_banned_db ban &lt;ip&gt; &lt;port&gt; &lt;protocol&gt; &lt;name&gt;
 </code></pre>
-
 <p>Replace it by:</p>
 <pre><code>actionban   = /usr/local/bin/fail2ban_banned_db ban &lt;ip&gt; &lt;port&gt; &lt;protocol&gt; &lt;name&gt; &lt;ipjailfailures&gt; &lt;ipjailmatches&gt;
 </code></pre>
-
 <p>Download improved shell script and replace the existing one:</p>
 <pre><code>wget https://github.com/iredmail/iRedMail/raw/1.3/samples/fail2ban/bin/fail2ban_banned_db
 mv fail2ban_banned_db /usr/local/bin/
 chmod 0550 /usr/local/bin/fail2ban_banned_db
 </code></pre>
-
 <p>Now restart Fail2ban service.</p>
 <h2 id="postgresql-backend-special">PostgreSQL backend special</h2>
 <h3 id="improvement-store-more-info-in-fail2ban-sql-db_2">Improvement: Store more info in Fail2ban SQL db</h3>
@@ -243,7 +229,6 @@ tutorials: <a href="./iredmail.releases.html">iRedMail release notes and upgrade
 <pre><code>su - postgres
 psql -d fail2ban
 </code></pre>
-
 <ul>
 <li>Run SQL commands below:</li>
 </ul>
@@ -253,18 +238,15 @@ ALTER TABLE banned ADD COLUMN loglines TEXT;
 ALTER TABLE banned ADD COLUMN rdns VARCHAR(255) NOT NULL DEFAULT '';
 CREATE INDEX idx_banned_rdns ON banned (rdns);
 </code></pre>
-
 <ul>
 <li>Open file <code>/etc/fail2ban/action.d/banned_db.conf</code>, find the <code>actionban =</code>
   line like below:</li>
 </ul>
 <pre><code>actionban   = /usr/local/bin/fail2ban_banned_db ban &lt;ip&gt; &lt;port&gt; &lt;protocol&gt; &lt;name&gt;
 </code></pre>
-
 <p>Replace it by:</p>
 <pre><code>actionban   = /usr/local/bin/fail2ban_banned_db ban &lt;ip&gt; &lt;port&gt; &lt;protocol&gt; &lt;name&gt; &lt;ipjailfailures&gt; &lt;ipjailmatches&gt;
 </code></pre>
-
 <ul>
 <li>Download improved shell script and replace the existing one:</li>
 </ul>
@@ -272,7 +254,6 @@ CREATE INDEX idx_banned_rdns ON banned (rdns);
 mv fail2ban_banned_db /usr/local/bin/
 chmod 0550 /usr/local/bin/fail2ban_banned_db
 </code></pre>
-
 <ul>
 <li>Now restart Fail2ban service.</li>
 </ul><div class="footer">

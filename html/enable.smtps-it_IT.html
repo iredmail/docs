@@ -55,7 +55,6 @@ Estratto da <a href="https://it.wikipedia.org/wiki/SMTPS">wikipedia.org</a></p>
   -o smtpd_client_restrictions=permit_sasl_authenticated,reject
   -o content_filter=smtp-amavis:[127.0.0.1]:10026
 </code></pre>
-
 <p>Riavviate il servizio Postfix per abilitare SMTPS.</p>
 <p><strong>WARNING</strong>: Fare attenzione di avere  Amavisd in ascolto sulla porta 10026 (ed 10024, 9998).</p>
 <h3 id="aprirte-la-porta-465-sul-firewall">Aprirte la porta <code>465</code> sul firewall</h3>
@@ -68,7 +67,6 @@ Estratto da <a href="https://it.wikipedia.org/wiki/SMTPS">wikipedia.org</a></p>
 -A INPUT -p tcp --dport 587 -j ACCEPT
 -A INPUT -p tcp --dport 465 -j ACCEPT
 </code></pre>
-
 <ul>
 <li>Su RHEL/CentOS 7, aggiungete il file <code>/etc/firewalld/services/smtps.xml</code>, che contiene quello che vedete qui sotto:</li>
 </ul>
@@ -79,18 +77,15 @@ Estratto da <a href="https://it.wikipedia.org/wiki/SMTPS">wikipedia.org</a></p>
   &lt;port protocol=&quot;tcp&quot; port=&quot;465&quot;/&gt;
 &lt;/service&gt;
 </code></pre>
-
 <p>Modificate il file <code>/etc/firewalld/zones/iredmail.xml</code> abilitando il servizio smtp inserendo la linea <code>&lt;service name="smtps"/&gt;</code> inside <code>&lt;zone&gt;&lt;/zone&gt;</code>  nel blocco seguente:</p>
 <pre><code>&lt;zone&gt;
     ...
     &lt;service name=&quot;smtps&quot;/&gt;
 &lt;/zone&gt;
 </code></pre>
-
 <p>Riavviate il servizio firewall:</p>
 <pre><code># firewall-cmd --complete-reload
 </code></pre>
-
 <h3 id="su-debianububtu">Su Debian/Ububtu</h3>
 <p>Su Debian/Ubuntu, se usate le regole per iptables configurate da iRedMail, aggiornate il file <code>/etc/default/iptables</code>,  aggiungete una regola (la terza del codice qui sotto) per la porta 465 e successivamente riavviate il servizio iptables.</p>
 <pre><code># Part of file: /etc/default/iptables
@@ -98,13 +93,11 @@ Estratto da <a href="https://it.wikipedia.org/wiki/SMTPS">wikipedia.org</a></p>
 -A INPUT -p tcp --dport 587 -j ACCEPT
 -A INPUT -p tcp --dport 465 -j ACCEPT
 </code></pre>
-
 <h3 id="su-openbsd">Su OpenBSD</h3>
 <p>Su OpenBSD, aggiungete il servizio <code>smtps</code> in <code>/etc/pf.conf</code>, parameter <code>mail_services=</code>:</p>
 <pre><code># Part of file: /etc/pf.conf
 mail_services=&quot;{www, https, submission, imap, imaps, pop3, pop3s, ssh, smtps}&quot;
 </code></pre>
-
 <p>Ricaricate il file delle regole di PF</p>
 <pre><code># pfctl -f /etc/pf.conf
 </code></pre><div class="footer">

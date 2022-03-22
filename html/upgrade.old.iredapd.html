@@ -51,7 +51,6 @@ by iRedMail.</p>
 # chown -R iredapd:iredapd iRedAPD-1.4.4
 # chmod -R 0700 iRedAPD-1.4.4
 </code></pre>
-
 <ul>
 <li>Generate new config file from sample file, and set correct file owner and permission.</li>
 </ul>
@@ -60,7 +59,6 @@ by iRedMail.</p>
 # chown -R iredapd:iredapd settings.py
 # chmod -R 0400 settings.py
 </code></pre>
-
 <p><strong>WARNING</strong>: Config file <code>/opt/iredapd/settings.py</code> contains sensitive infomation
 (username, password), please don't make it world-readable. Permission 0400 is
 the best.</p>
@@ -81,7 +79,6 @@ the best.</p>
 </ul>
 <pre><code># rm -i /opt/iredapd               # &lt;- Don't not end with '/'.
 </code></pre>
-
 <ul>
 <li>
 <p>Copy new RC script. We have scripts for different Linux/BSD distributions,
@@ -97,14 +94,12 @@ the best.</p>
 <pre><code># cp /opt/iredapd/rc_scripts/iredapd.rhel /etc/init.d/iredapd
 # chmod +x /etc/init.d/iredapd
 </code></pre>
-
 <ul>
 <li>Create symbol link to the latest release:</li>
 </ul>
 <pre><code># cd /opt/
 # ln -s iRedAPD-1.4.4 iredapd
 </code></pre>
-
 <ul>
 <li>Restart iRedAPD service:</li>
 </ul>
@@ -123,7 +118,6 @@ the best.</p>
 #
 # /etc/rc.d/iredapd restart
 </code></pre>
-
 <ul>
 <li>If you don't have file <code>/etc/init.d/iredapd-rr</code> (on Linux), or
   <code>/etc/rc.d/iredapd-rr</code> (on OpenBSD), or <code>/usr/local/etc/rc.d/iredapd-rr</code>
@@ -135,7 +129,6 @@ the best.</p>
 <pre><code># /etc/init.d/iredapd-rr stop
 # rm /etc/init.d/iredapd-rr
 </code></pre>
-
 <p>Check whether you have <code>check_policy_service inet:127.0.0.1:__7778__</code> in Postfix
 config file <code>/etc/postfix/main.cf</code> (Linux/OpenBSD) or
 <code>/usr/local/etc/postfix/main.cf</code> (FreeBSD), if you have it, please remove it,

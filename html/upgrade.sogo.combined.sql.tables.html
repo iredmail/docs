@@ -54,7 +54,6 @@ Linux/OpenBSD, <code>/usr/local/etc/sogo/sogo.conf</code> on FreeBSD).</p>
 /usr/share/doc/sogo-3.1.5.20160928/sql-update-3.0.0-to-combined-mysql.sh
 /usr/share/doc/sogo-3.1.5.20160928/sql-update-3.0.0-to-combined.sh
 </code></pre>
-
 <p>If you are running iRedMail with OpenLDAP or MySQL/MariaDB backend, you need
 the first one with <code>mysql</code> in file name: <code>sql-update-3.0.0-to-combined-mysql.sh</code>,
 if you are running iRedMail with PostgreSQL backend, you need the second one
@@ -62,7 +61,6 @@ if you are running iRedMail with PostgreSQL backend, you need the second one
 <p>Now run the script as root user (or with <code>sudo</code>):</p>
 <pre><code>bash /usr/share/doc/sogo-3.1.5.20160928/sql-update-3.0.0-to-combined-mysql.sh
 </code></pre>
-
 <ul>
 <li>
 <p>Open <code>/etc/sogo/sogo.conf</code>, make sure you have 3 NEW parameters:</p>
@@ -79,7 +77,6 @@ like below (please use the correct SQL username and password):</p>
 OCSStoreURL = &quot;mysql://sogo:&lt;password&gt;@127.0.0.1:3306/sogo/sogo_store&quot;;
 OCSAclURL = &quot;mysql://sogo:&lt;password&gt;@127.0.0.1:3306/sogo/sogo_acl&quot;;
 </code></pre>
-
 <ul>
 <li>Start memcached service.</li>
 <li>

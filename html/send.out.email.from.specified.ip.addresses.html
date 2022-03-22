@@ -26,7 +26,6 @@ later releases.</p>
 <p>To check your Postfix version run:</p>
 <pre><code># postconf mail_version
 </code></pre>
-
 <p>Which would return something like: <code>mail_version = 2.10.3</code></p>
 <h3 id="steps">Steps</h3>
 <ul>
@@ -35,7 +34,6 @@ later releases.</p>
 </ul>
 <pre><code>sender_dependent_default_transport_maps = pcre:/etc/postfix/sdd_transport.pcre
 </code></pre>
-
 <ul>
 <li>Add file <code>/etc/postfix/sdd_transport.pcre</code> with below content. NOTE: we use
   domain <code>example.com</code> for example, it will use transport <code>sample-smtp</code> - see
@@ -43,7 +41,6 @@ later releases.</p>
 </ul>
 <pre><code>/@example\.com$/   sample-smtp:
 </code></pre>
-
 <ul>
 <li>Create new outgoing SMTP transports in <code>/etc/postfix/master.cf</code> like below.
   Note: you must replace our sample IP address <code>172.16.244.159</code> with your IP
@@ -55,12 +52,10 @@ later releases.</p>
 #    -o smtp_helo_name=example.com
 #    -o syslog_name=postfix-example-com
 </code></pre>
-
 <p>Option <code>smtp_helo_name</code> and <code>syslog_name</code> are optional.</p>
 <p>After this restart the Postfix service to apply your changes:</p>
 <pre><code># /etc/init.d/postfix restart
 </code></pre>
-
 <p>Note: any unmatched domains will continue using the server's primary IP address
 just as before.</p><div class="footer">
     <p style="text-align: center; color: grey;">All documents are available in <a href="https://github.com/iredmail/docs/">GitHub repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://github.com/iredmail/docs/archive/master.zip">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>

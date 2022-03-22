@@ -39,12 +39,10 @@
   -o smtpd_sasl_auth_enable=yes
   -o smtpd_sasl_security_options=noanonymous
 </code></pre>
-
 <p><code>2525</code> è il nuovo numero di porta per il servizio smtp. potete cambiarlo nel valore che preferite.</p>
 <p>Il riavvio del servizio Posfitx è necessario. Dopo il riavvio potete verificare se si sta ascoltando su questa nuova porta:</p>
 <pre><code>netstat -ntlp | grep 2525
 </code></pre>
-
 <p>Ora è il momento di aggiornare i vostri apparati di rete, affinché inviino la posta attraverso questo numero di porta, senza usare STARTTLS o SSL.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>

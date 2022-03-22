@@ -61,7 +61,6 @@ installation, it's recommended to update this file after you upgraded iRedMail,
 so that you can know which version of iRedMail you're running. For example:</p>
 <pre><code>1.3.2
 </code></pre>
-
 <h3 id="sogo-yum-and-apt-repositories-for-sogo-v4-has-been-removed-permanently-by-upstream">SOGo: yum and apt repositories for SOGo v4 has been removed permanently by upstream</h3>
 <p>SOGo team removed nightly builds for SOGo v4 + v3 permanently (FYI: <a href="https://sogo.nu/bugs/view.php?id=5157">https://sogo.nu/bugs/view.php?id=5157</a>), <strong>ALL</strong> servers must update yum/apt repository files and switch to SOGo v5.</p>
 <p>Please follow our tutorial to upgrade:</p>
@@ -114,7 +113,6 @@ the latest 1.2 branch instead.</p>
 <pre><code>cd /etc/fail2ban/filter.d/
 wget -O roundcube.iredmail.conf https://raw.githubusercontent.com/iredmail/iRedMail/1.3.2/samples/fail2ban/filter.d/roundcube.iredmail.conf
 </code></pre>
-
 <p>Restarting <code>fail2ban</code> service is required.</p>
 <h3 id="optional-amavisd-log-matched-virus-database-name">[OPTIONAL] Amavisd: Log matched virus database name</h3>
 <p>Please update parameter <code>@av_scanner</code> in Amavisd config file as described
@@ -133,7 +131,6 @@ below, so that Amavisd logs matched virus database name.</p>
     qr/^.*?: (?!Infected Archive)(.*) FOUND$/ ],
 );
 </code></pre>
-
 <p>Append letter <code>m</code> after <code>OK$/</code> and <code>FOUND$/</code> like below:</p>
 <pre><code>@av_scanners = (
     ...
@@ -142,7 +139,6 @@ below, so that Amavisd logs matched virus database name.</p>
     qr/^.*?: (?!Infected Archive)(.*) FOUND$/m ],
 );
 </code></pre>
-
 <p>Restarting Amavisd service is required.</p>
 <h2 id="openldap-backend">OpenLDAP backend</h2>
 <h3 id="fixed-can-not-store-mail-sender-address-with-utf8-characters-in-amavisd-database">Fixed: can not store mail sender address with utf8 characters in <code>amavisd</code> database</h3>
@@ -152,7 +148,6 @@ user or <code>amavisd</code> user, then run SQL commands below to fix it:</p>
 <pre><code>USE amavisd;
 ALTER TABLE msgs MODIFY COLUMN from_addr VARBINARY(255) NOT NULL DEFAULT '';
 </code></pre>
-
 <h2 id="mysqlmariadb-backends">MySQL/MariaDB backends</h2>
 <h3 id="fixed-can-not-store-mail-sender-address-with-utf8-characters-in-amavisd-database_1">Fixed: can not store mail sender address with utf8 characters in <code>amavisd</code> database</h3>
 <p>In <code>amavisd</code> database, column <code>msgs.from_addr</code> is defined as <code>VARCHAR(255)</code>, it

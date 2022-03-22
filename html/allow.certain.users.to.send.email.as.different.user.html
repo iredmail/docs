@@ -38,22 +38,19 @@ below:</p>
 </ul>
 <pre><code>smtpd_sender_restrictions = permit_mynetworks, permit_sasl_authenticated
 </code></pre>
-
 <ul>
 <li>Enable plugin <code>reject_sender_login_mismatch</code> in iRedAPD config file
   <code>/opt/iredapd/settings.py</code>:</li>
 </ul>
-<pre><code class="python">plugins = ['reject_sender_login_mismatch', ...]
+<pre><code class="language-python">plugins = ['reject_sender_login_mismatch', ...]
 </code></pre>
-
 <ul>
 <li>List senders who are allowed to send email as different users in iRedAPD
   config file <code>/opt/iredapd/settings.py</code>, in parameter
   <code>ALLOWED_LOGIN_MISMATCH_SENDERS</code>. For example:</li>
 </ul>
-<pre><code class="python">ALLOWED_LOGIN_MISMATCH_SENDERS = ['user1@here.com', 'user2@here.com']
+<pre><code class="language-python">ALLOWED_LOGIN_MISMATCH_SENDERS = ['user1@here.com', 'user2@here.com']
 </code></pre>
-
 <pre><code>NOTE: this parameter does not present by default, please add it manually.
 </code></pre>
 <p>Restart iRedAPD service. That's all.</p><div class="footer">

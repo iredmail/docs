@@ -40,7 +40,6 @@ plugin {
     ...
 }
 </code></pre>
-
 <p>因此，要忽略 <code>Trash</code> 目录的邮箱容量，可以在 <code>/etc/dovecot/dovecot.conf</code> 或
 <code>/etc/dovecot/dovecot-{mysql,pgsql,ldap}.conf</code> 中增加新的配额规则（quota_rule）。</p>
 <ul>
@@ -57,7 +56,6 @@ plugin {
     ...
 }
 </code></pre>
-
 <ul>
 <li>配置示例 2:</li>
 </ul>
@@ -66,7 +64,6 @@ plugin {
 
 user_attrs      = ...,mailQuota=quota_rule=*:bytes=%$,=quota_rule2=Trash:ignore
 </code></pre>
-
 <p>MySQL 或 PostgreSQL 后端：</p>
 <h1 id="file-etcdovecotdovecot-mysqlconf-or-dovecot-pgsqlconf">File: /etc/dovecot/dovecot-mysql.conf, or dovecot-pgsql.conf</h1>
 <p>user_query = SELECT ... \

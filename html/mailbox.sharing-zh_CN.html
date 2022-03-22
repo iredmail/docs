@@ -50,7 +50,6 @@ protocol imap {
     mail_plugins = ... acl imap_acl
 }
 </code></pre>
-
 <ul>
 <li>Dovecot-2.x 版：</li>
 </ul>
@@ -62,7 +61,6 @@ protocol imap {
     mail_plugins = ... imap_acl
 }
 </code></pre>
-
 <p>修改后需重启 Dovecot 服务，以使配置生效。</p>
 <h2 id="_2">测试共享目录</h2>
 <p>示例：将用户 <code>from@domain.ltd</code> 的 <code>Sent</code> 目录共享给用户 <code>testing@domain.ltd</code> 。</p>
@@ -84,7 +82,6 @@ protocol imap {
 ^]                                    # &lt;- 按 `Ctrl + ]` 组合键退出 telnet 程序。
 telnet&gt; quit
 </code></pre>
-
 <p>以用户 <code>testing@domain.ltd</code> 身份登录 Roundcube 或 SOGo webmail，即可看到共享的目录。</p>
 <p>额外信息：</p>
 <ul>
@@ -105,7 +102,6 @@ mysql&gt; SELECT * FROM share_folder;
 | from@domain.ltd | testing@domain.ltd | 1     |
 +-----------------+--------------------+-------+
 </code></pre>
-
 <h2 id="_3">参考资料</h2>
 <ul>
 <li>

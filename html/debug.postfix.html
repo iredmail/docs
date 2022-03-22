@@ -24,19 +24,16 @@ hostname or IP address in the <code>debug_peer_list</code> parameter (in
 <code>/etc/postfix/main.cf</code>). For example:</p>
 <pre><code>debug_peer_list = 192.168.0.1
 </code></pre>
-
 <p>You can specify one or more hosts, domains, addresses or net/masks. Execute
 command <code>postfix reload</code> to make the change effective immediately.</p>
 <h2 id="making-postfix-daemon-programs-more-verbose">Making Postfix daemon programs more verbose</h2>
 <p>There're many daemon services defined in <code>/etc/postfix/master.cf</code>, for example:</p>
 <pre><code>smtp      inet  n       -       n       -       -       smtpd
 </code></pre>
-
 <p>To make Postfix logging verbose info of this daemon, please append one or more
 <code>-v</code> options to selected daemon and execute command <code>postfix reload</code>.</p>
 <pre><code>smtp      inet  n       -       n       -       -       smtpd -v
 </code></pre>
-
 <ul>
 <li>To diagnose problems with address rewriting specify a <code>-v</code> option for the
   <code>cleanup(8)</code> and/or <code>trivial-rewrite(8)</code> daemon.</li>

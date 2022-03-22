@@ -47,7 +47,6 @@ without argument like this:</p>
 <pre><code># cd /opt/iredapd/tools/
 # python wblist_admin.py
 </code></pre>
-
 <p>Sample usages:</p>
 <ul>
 <li>Add server-wide whitelisted or blacklisted senders:</li>
@@ -55,14 +54,12 @@ without argument like this:</p>
 <pre><code># python wblist_admin.py --add --whitelist 202.96.134.133 john@example.com @test.com @.abc.com
 # python wblist_admin.py --add --blacklist 202.96.134.133 john@example.com @test.com @.abc.com
 </code></pre>
-
 <ul>
 <li>Show server-wide whitelisted and blacklisted senders:</li>
 </ul>
 <pre><code># python wblist_admin.py --list --whitelist
 # python wblist_admin.py --list --blacklist
 </code></pre>
-
 <ul>
 <li>For per-domain or per-user white/blacklists, please add argument <code>--account</code>.
   like below:</li>
@@ -73,13 +70,11 @@ without argument like this:</p>
 # python wblist_admin.py --account mydomain.com --list --whitelist
 # python wblist_admin.py --account user@mydomain.com --list --blacklist
 </code></pre>
-
 <ul>
 <li>For outbound messages, please add argument <code>--outbound</code>. like below:</li>
 </ul>
 <pre><code># python wblist_admin.py --outbound --account mydomain.com --add --whitelist 202.96.134.133
 </code></pre>
-
 <p>Screenshot of iRedAdmin-Pro:</p>
 <p><img alt="" src="./images/iredadmin/system_wblist.png" /></p><div class="footer">
     <p style="text-align: center; color: grey;">All documents are available in <a href="https://github.com/iredmail/docs/">GitHub repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://github.com/iredmail/docs/archive/master.zip">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>

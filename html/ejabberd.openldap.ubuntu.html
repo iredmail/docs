@@ -38,7 +38,6 @@
 <h2 id="install-ejabberd">Install Ejabberd</h2>
 <pre><code>apt-get install ejabberd
 </code></pre>
-
 <h2 id="configure-ejabberd">Configure ejabberd</h2>
 <h3 id="use-a-proper-ldap-bind-dnpassword-to-query-accounts">Use a proper LDAP bind dn/password to query accounts</h3>
 <p>iRedMail generates a LDAP bind dn <code>cn=vmail,dc=xxx,dc=xxx</code> with read-only
@@ -50,7 +49,6 @@ installation, you can find the full dn and password in
 bind_dn         = cn=vmail,dc=example,dc=com
 bind_pw         = InYTi8qGjamTb6Me2ESwbb6rxQUs5y
 </code></pre>
-
 <h3 id="configure-ejabberd_1">Configure ejabberd</h3>
 <p>Ejabberd's configuration files are written in Erlang syntax, which might be difficult to comprehend. Thankfully, the modifications we need to make are relatively minor and straightforward. The main ejabberd configuration file is located at /etc/ejabberd/ejabberd.cfg. We'll cover each relevant option in turn.</p>
 <p>In Erlang, comments begin with the % sign.</p>
@@ -91,7 +89,6 @@ bind_pw         = InYTi8qGjamTb6Me2ESwbb6rxQUs5y
 {ldap_filter, &quot;(&amp;(objectClass=mailUser)(accountStatus=active))&quot;}.
 {ldap_uids, [{&quot;mail&quot;, &quot;%u@%d&quot;}]}.
 </code></pre>
-
 <h3 id="start-ejabberd-service">Start ejabberd service</h3>
 <pre><code># /etc/init.d/ejabberd start
 Starting jabber server: ejabberd.
@@ -100,7 +97,6 @@ Starting jabber server: ejabberd.
 Node ejabberd@u910 is started. Status: started
 ejabberd is running
 </code></pre>
-
 <h3 id="config-iptables">Config iptables</h3>
 <p>Ejabberd uses some standard ports:</p>
 <ul>
@@ -115,11 +111,9 @@ ejabberd is running
 -A INPUT -p tcp --dport 5269 -j ACCEPT
 -A INPUT -p tcp --dport 5280 -j ACCEPT
 </code></pre>
-
 <p>Restart the iptables service.</p>
 <pre><code>/etc/init.d/iptables restart
 </code></pre>
-
 <h3 id="web-access-ejabberd-admin-console">Web Access Ejabberd Admin Console</h3>
 <p>Now you can access <a href="http://192.168.1.10:5280/admin/">http://192.168.1.10:5280/admin/</a></p>
 <p>Login in the ejabberd web admin, We have seting www@example.com as admin for the ejabberd server</p>
@@ -131,7 +125,6 @@ ejabberd is running
 <pre><code>% Hostname
 {hosts, [&quot;example.com&quot;,&quot;test.com&quot;]}.
 </code></pre>
-
 <h3 id="xmpp-clients">XMPP Clients</h3>
 <p>There're many free and open source XMPP clients available, you can choose the
 one you prefer listed on this page: <a href="http://xmpp.org/software/clients.html">http://xmpp.org/software/clients.html</a></p>
@@ -144,7 +137,6 @@ be created in the DNS Management tool of your choice:</p>
 <pre><code>_xmpp-client._tcp.example.net. 86400 IN SRV 5 0 5222 example.net.
 _xmpp-server._tcp.example.net. 86400 IN SRV 5 0 5269 example.net.
 </code></pre>
-
 <p>For more examples, please read this tutorial: <a href="http://wiki.xmpp.org/web/SRV_Records">http://wiki.xmpp.org/web/SRV_Records</a></p>
 <h2 id="troubleshooting">Troubleshooting</h2>
 <ol>

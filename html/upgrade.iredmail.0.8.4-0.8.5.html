@@ -81,7 +81,6 @@ so that you can know which version of iRedMail you're running. For example:</p>
 
 0.8.5
 </code></pre>
-
 <h3 id="upgrade-roundcube-webmail-to-the-latest-stable-release">Upgrade Roundcube webmail to the latest stable release</h3>
 <p>Please follow Roundcube official tutorial to upgrade Roundcube webmail to the
 latest stable release immediately: <a href="https://github.com/roundcube/roundcubemail/wiki/Upgrade">How to upgrade Roundcube</a>.</p>
@@ -119,7 +118,6 @@ latest stable release: <a href="./migrate.or.upgrade.iredadmin.html">Upgrade iRe
 # cp -f /tmp/iredmail.schema /etc/openldap/schema/
 # /etc/init.d/slapd restart       # &lt;-- Or: /etc/init.d/ldap restart
 </code></pre>
-
 <ul>
 <li>On Debian/Ubuntu:</li>
 </ul>
@@ -132,7 +130,6 @@ latest stable release: <a href="./migrate.or.upgrade.iredadmin.html">Upgrade iRe
 # cp -f /tmp/iredmail.schema /etc/ldap/schema/
 # /etc/init.d/slapd restart
 </code></pre>
-
 <ul>
 <li>On FreeBSD:</li>
 </ul>
@@ -145,7 +142,6 @@ latest stable release: <a href="./migrate.or.upgrade.iredadmin.html">Upgrade iRe
 # cp -f /tmp/iredmail.schema /usr/local/etc/openldap/schema/
 # service slapd restart
 </code></pre>
-
 <h3 id="fix-incorrect-acl-for-attribute-memberofgroup">Fix incorrect ACL for attribute <code>memberOfGroup</code></h3>
 <p>Permission for attribute <code>memberOfGroup</code> is not set correctly, it causes normal
 user can add himself to any mail list in LDAP. Default permission is writeable
@@ -165,7 +161,6 @@ by self, it should be "read" by "self" instead.</p>
 # User attrs.
 access to attrs=&quot;employeeNumber, ...&quot;
 </code></pre>
-
 <ul>
 <li>Prepend attribute name <code>memberOfGroup</code> before <code>employeeNumber</code>. The final
   result looks like below:</li>
@@ -176,7 +171,6 @@ access to attrs=&quot;employeeNumber, ...&quot;
 # WARNING: No space in attr list.
 access to attrs=&quot;memberOfGroup,employeeNumber,...&quot;
 </code></pre>
-
 <ul>
 <li>
 <p>Save the config file, then restart OpenLDAP service to make it use new ACL.</p>
@@ -200,7 +194,6 @@ access to attrs=&quot;memberOfGroup,employeeNumber,...&quot;
 # NEW SETTING
 query_filter    = (&amp;(accountStatus=active)(enabledService=mail)(enabledService=deliver)(|(&amp;(|(memberOfGroup=%s)(shadowAddress=%s))(objectClass=mailUser))(&amp;(memberOfGroup=%s)(!(shadowAddress=%s))(|(objectClass=mailExternalUser)(objectClass=mailList)(objectClass=mailAlias)))))
 </code></pre>
-
 <ul>
 <li>
 <p>Restart Postfix service to use our new setting.</p>
@@ -222,7 +215,6 @@ incorrect column name:</p>
 mysql&gt; USE amavisd;
 mysql&gt; ALTER TABLE policy CHANGE unchecked_lovers_maps unchecked_lover CHAR(1) DEFAULT NULL;
 </code></pre>
-
 <h3 id="add-sql-trigger-in-mysql-database-iredadmin">Add SQL trigger in MySQL database: <code>iredadmin</code></h3>
 <p>With OpenLDAP backend, Dovecot stores real-time mailbox quota in MySQL table
 <code>iredadmin.used_quota</code>. But it's hard to calculate per-domain used mailbox
@@ -244,7 +236,6 @@ DELIMITER ;
 
 UPDATE used_quota SET domain = SUBSTRING_INDEX(username, '@', -1);
 </code></pre>
-
 <ul>
 <li>Now login to MySQL database as MySQL <code>root</code> user, then execute below command
 to add required SQL trigger:</li>
@@ -253,7 +244,6 @@ to add required SQL trigger:</li>
 mysql&gt; USE iredadmin;
 mysql&gt; SOURCE /root/trigger.sql;
 </code></pre>
-
 <p>That's all.</p>
 <h3 id="add-new-table-in-mysql-database-iredadmin">Add new table in MySQL database: <code>iredadmin</code></h3>
 <p>We need a new SQL table to store maildir path of removed mail user, so that you
@@ -279,7 +269,6 @@ can delete his/her mailbox manually or with a cron job.</p>
     INDEX (admin)
 ) ENGINE=MyISAM;
 </code></pre>
-
 <ul>
 <li>Now login to MySQL database as MySQL <code>root</code> user, then execute below command to add required SQL table:</li>
 </ul>
@@ -287,7 +276,6 @@ can delete his/her mailbox manually or with a cron job.</p>
 mysql&gt; USE iredadmin;
 mysql&gt; SOURCE /root/deleted_mailboxes.sql;
 </code></pre>
-
 <p>That's all.</p>
 <h2 id="mysql-backend-special">MySQL backend special</h2>
 <h3 id="add-new-sql-columns-in-vmail-database">Add new SQL columns in vmail database</h3>
@@ -303,7 +291,6 @@ mysql&gt; ALTER TABLE domain ADD COLUMN defaultlanguage VARCHAR(5) NOT NULL DEFA
 mysql&gt; ALTER TABLE domain ADD COLUMN disableddomainprofiles VARCHAR(255) NOT NULL DEFAULT '';
 mysql&gt; ALTER TABLE domain ADD COLUMN disableduserprofiles VARCHAR(255) NOT NULL DEFAULT '';
 </code></pre>
-
 <p>No INDEX is required for those 3 new columns.</p>
 <h3 id="fix-incorrect-column-name-in-amavisd-database">fix incorrect column name in Amavisd database</h3>
 <p>NOTE: This fix is applicable to Amavisd-new-2.7 and later versions, not applicable to Amavisd-new-2.6 and earlier versions.</p>
@@ -312,7 +299,6 @@ mysql&gt; ALTER TABLE domain ADD COLUMN disableduserprofiles VARCHAR(255) NOT NU
 mysql&gt; USE amavisd;
 mysql&gt; ALTER TABLE policy CHANGE unchecked_lovers_maps unchecked_lover CHAR(1) DEFAULT NULL;
 </code></pre>
-
 <h3 id="add-sql-trigger-in-mysql-database-vmail">Add SQL trigger in MySQL database <code>vmail</code></h3>
 <p>With MySQL backend, Dovecot stores real-time mailbox quota in MySQL table
 <code>vmail.used_quota</code>. But it's hard to calculate per-domain used mailbox quota,
@@ -334,13 +320,11 @@ DELIMITER ;
 
 UPDATE used_quota SET domain = SUBSTRING_INDEX(username, '@', -1);
 </code></pre>
-
 <p>Now login to MySQL database as MySQL <code>root</code> user, then execute below command to add required SQL trigger:</p>
 <pre><code># mysql -uroot -p
 mysql&gt; USE vmail;
 mysql&gt; SOURCE /root/trigger.sql;
 </code></pre>
-
 <p>That's all.</p>
 <h3 id="add-new-table-in-mysql-database-vmail">Add new table in MySQL database: <code>vmail</code></h3>
 <p>We need a new SQL table to store maildir path of removed mail user, so that you
@@ -366,7 +350,6 @@ can delete his/her mailbox manually or with a cron job.</p>
     INDEX (admin)
 ) ENGINE=MyISAM;
 </code></pre>
-
 <ul>
 <li>Now login to MySQL database as MySQL <code>root</code> user, then execute below command
   to add required SQL table:</li>
@@ -375,7 +358,6 @@ can delete his/her mailbox manually or with a cron job.</p>
 mysql&gt; USE vmail;
 mysql&gt; SOURCE /root/deleted_mailboxes.sql;
 </code></pre>
-
 <p>That's all.</p>
 <h2 id="postgresql-backend-special">PostgreSQL backend special</h2>
 <h3 id="add-new-sql-columns-in-vmail-database_1">Add new SQL columns in vmail database</h3>
@@ -396,7 +378,6 @@ sql&gt; ALTER TABLE domain ADD COLUMN defaultlanguage VARCHAR(5) NOT NULL DEFAUL
 sql&gt; ALTER TABLE domain ADD COLUMN disableddomainprofiles VARCHAR(255) NOT NULL DEFAULT '';
 sql&gt; ALTER TABLE domain ADD COLUMN disableduserprofiles VARCHAR(255) NOT NULL DEFAULT '';
 </code></pre>
-
 <p>No INDEX is required for these 3 new columns.</p>
 <h3 id="fix-incorrect-column-name-in-amavisd-database_1">Fix incorrect column name in Amavisd database</h3>
 <p>NOTE: This fix is applicable to Amavisd-new-2.7 and later versions, not
@@ -407,7 +388,6 @@ incorrectly specified as <code>policy.unchecked_lovers_maps</code>.</p>
 $ psql -d amavisd
 sql&gt; ALTER TABLE policy RENAME unchecked_lovers_maps TO unchecked_lover;
 </code></pre>
-
 <h3 id="add-sql-trigger-in-postgresql-database-vmail">Add SQL trigger in PostgreSQL database: <code>vmail</code></h3>
 <p>With PostgreSQL backend, Dovecot stores real-time mailbox quota in PostgreSQL
 database <code>vmail</code>, table <code>used_quota</code>. But it's hard to calculate per-domain
@@ -462,7 +442,6 @@ CREATE TRIGGER mergequota BEFORE INSERT ON used_quota
 
 UPDATE used_quota SET domain = SPLIT_PART(username, '@', 2);
 </code></pre>
-
 <ul>
 <li>
 <p>Now switch to PostgreSQL daemon user, then execute SQL commands to add
@@ -478,7 +457,6 @@ required columns and indexes:</p>
 $ psql -d vmail
 sql&gt; \i /tmp/trigger.sql;
 </code></pre>
-
 <p>That's all.</p>
 <h3 id="add-new-table-in-postgresql-database-vmail">Add new table in PostgreSQL database: <code>vmail</code></h3>
 <p>We need a new SQL table to store maildir path of removed mail user, so that you
@@ -508,7 +486,6 @@ CREATE INDEX idx_deleted_mailboxes_admin ON deleted_mailboxes (admin);
 GRANT SELECT,UPDATE,INSERT,DELETE ON deleted_mailboxes TO vmail;
 GRANT SELECT,UPDATE,INSERT,DELETE ON deleted_mailboxes TO vmailadmin;
 </code></pre>
-
 <ul>
 <li>
 <p>Now switch to PostgreSQL daemon user, then execute SQL commands to add
@@ -524,7 +501,6 @@ required columns and indexes:</p>
 $ psql -d vmail
 sql&gt; \i /tmp/deleted_mailboxes.sql;
 </code></pre>
-
 <p>That's all.</p><div class="footer">
     <p style="text-align: center; color: grey;">All documents are available in <a href="https://github.com/iredmail/docs/">GitHub repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://github.com/iredmail/docs/archive/master.zip">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
 </div></body></html>

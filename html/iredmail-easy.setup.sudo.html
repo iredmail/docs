@@ -72,12 +72,10 @@ iredmail  ALL=(ALL) NOPASSWD: ALL
 # iRedMail deployment process.
 Defaults:iredmail !requiretty
 </code></pre>
-
 <p>To verify the sudo configuration, please login as user <code>iredmail</code> first, then run
 command:</p>
 <pre><code>sudo ls /root/
 </code></pre>
-
 <p>If sudo is correctly configured, it will show you list of files under <code>/root</code>
 directory.</p>
 <h2 id="openbsd-setup-doas">OpenBSD: Setup doas</h2>
@@ -86,12 +84,10 @@ directory.</p>
 create it manually):</p>
 <pre><code>permit nopass iredmail as root
 </code></pre>
-
 <p>To verify the sudo configuration, please login as user <code>iredmail</code> first, then run
 command:</p>
 <pre><code>doas ls /root/
 </code></pre>
-
 <p>If sudo is correctly configured, it will show you list of files under <code>/root</code>
 directory.</p>
 <h2 id="references">References</h2>

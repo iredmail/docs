@@ -39,7 +39,6 @@
 <pre><code># cd /opt/iredapd/tools/
 # python wblist_admin.py
 </code></pre>
-
 <p>Esempi di utilizzo:</p>
 <ul>
 <li>Aggiungere globalmente in whitelist o blacklist mittenti:</li>
@@ -47,14 +46,12 @@
 <pre><code># python wblist_admin.py --add --whitelist 202.96.134.133 john@example.com @test.com @.abc.com
 # python wblist_admin.py --add --blacklist 202.96.134.133 john@example.com @test.com @.abc.com
 </code></pre>
-
 <ul>
 <li>Elencare mittenti inseriti in whitelist o blacklist a livello globale:</li>
 </ul>
 <pre><code># python wblist_admin.py --list --whitelist
 # python wblist_admin.py --list --blacklist
 </code></pre>
-
 <ul>
 <li>Per gestire a livello utente o dominio le white/backlist aggiungete il parametro <code>--account</code> come sotto riportato:</li>
 </ul>
@@ -64,13 +61,11 @@
 # python wblist_admin.py --account mydomain.com --list --whitelist
 # python wblist_admin.py --account user@mydomain.com --list --blacklist
 </code></pre>
-
 <ul>
 <li>Per le mail in uscita aggiungete il parametro <code>--outbound</code> come sotto riportato:</li>
 </ul>
 <pre><code># python wblist_admin.py --outbound --account mydomain.com --add --whitelist 202.96.134.133
 </code></pre>
-
 <p>Screenshot di iRedAdmin-Pro:</p>
 <p><img alt="" src="./images/iredadmin/system_wblist.png" /></p><div class="footer">
     <p style="text-align: center; color: grey;">All documents are available in <a href="https://github.com/iredmail/docs/">GitHub repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://github.com/iredmail/docs/archive/master.zip">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>

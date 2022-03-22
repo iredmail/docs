@@ -76,7 +76,6 @@ so that you can know which version of iRedMail you're running. For example:</p>
 
 0.8.4
 </code></pre>
-
 <h3 id="upgrade-roundcube-webmail-to-the-latest-stable-release">Upgrade Roundcube webmail to the latest stable release</h3>
 <p>Please follow Roundcube official tutorial to upgrade Roundcube webmail to the
 latest stable release immediately: <a href="https://github.com/roundcube/roundcubemail/wiki/Upgrade">How to upgrade Roundcube</a>.</p>
@@ -98,7 +97,6 @@ and update the database:</p>
 <pre><code># echo 'virusalert: root' &gt;&gt; /etc/postfix/aliases
 # postalias /etc/postfix/aliases
 </code></pre>
-
 <h2 id="openldap-backend-special">OpenLDAP backend special</h2>
 <h3 id="fix-incorrect-ldap-query-filter-in-postfix">Fix incorrect LDAP query filter in Postfix</h3>
 <p>If you add external email addresses as mail list members, iRedAdmin-Pro will
@@ -126,7 +124,6 @@ Steps are:</p>
 # cp -f /tmp/iredmail.schema /etc/openldap/schema/
 # /etc/init.d/slapd restart       # &lt;-- Or: /etc/init.d/ldap restart
 </code></pre>
-
 <ul>
 <li>On Debian/Ubuntu:</li>
 </ul>
@@ -139,7 +136,6 @@ Steps are:</p>
 # cp -f /tmp/iredmail.schema /etc/ldap/schema/
 # /etc/init.d/slapd restart
 </code></pre>
-
 <ul>
 <li>On FreeBSD:</li>
 </ul>
@@ -152,7 +148,6 @@ Steps are:</p>
 # cp -f /tmp/iredmail.schema /usr/local/etc/openldap/schema/
 # service slapd restart
 </code></pre>
-
 <h4 id="update-existing-accounts">Update existing accounts</h4>
 <ul>
 <li>Download python script used to adding missing values.</li>
@@ -160,7 +155,6 @@ Steps are:</p>
 <pre><code># cd /root/
 # wget https://github.com/iredmail/iRedMail/raw/1.0/update/ldap/updateLDAPValues_083_to_084.py
 </code></pre>
-
 <p>Open downloaded file <code>updateLDAPValues_083_to_084.py</code>, set LDAP server related
 settings in file head. for example,</p>
 <pre><code># Part of file: updateLDAPValues_083_to_084.py
@@ -170,14 +164,12 @@ basedn = 'o=domains,dc=example,dc=com'
 bind_dn = 'cn=vmailadmin,dc=example,dc=com'
 bind_pw = 'passwd'
 </code></pre>
-
 <p>You can find required LDAP credential in iRedAdmin config file or <code>iRedMail.tips</code>
 file under your iRedMail installation directory. Using either
 <code>cn=Manager,dc=xx,dc=xx</code> or <code>cn=vmailadmin,dc=xx,dc=xx</code> as bind dn is ok.</p>
 <p>Execute this script, it will fix incorrect values and add correct ones:</p>
 <pre><code># python updateLDAPValues_083_to_084.py
 </code></pre>
-
 <h4 id="fix-incorrect-ldap-query-filter-in-postfix_1">Fix incorrect LDAP query filter in Postfix</h4>
 <ul>
 <li>On Linux/OpenBSD, please update <code>/etc/postfix/ldap/virtual_group_maps.cf</code>.
@@ -191,7 +183,6 @@ file under your iRedMail installation directory. Using either
 # New setting
 query_filter    = (&amp;(accountStatus=active)(enabledService=mail)(enabledService=deliver)(|(memberOfGroup=%s)(shadowAddress=%s))(|(objectClass=mailUser)(objectClass=mailExternalUser)))
 </code></pre>
-
 <p>Restarting Postfix service is required.</p>
 <h3 id="supports-alias-domains-in-postfix-per-user-bcc-lookup-files">Supports alias domains in Postfix per-user bcc lookup files</h3>
 <ul>
@@ -203,7 +194,6 @@ query_filter    = (&amp;(accountStatus=active)(enabledService=mail)(enabledServi
 
 query_filter    = (&amp;(|(mail=%s)(&amp;(enabledService=shadowaddress)(shadowAddress=%s)))(objectClass=mailUser)(accountStatus=active)(enabledService=mail)(enabledService=senderbcc))
 </code></pre>
-
 <ul>
 <li>Perform the same modification in file <code>/etc/postfix/ldap/recipient_bcc_maps_user.cf</code>,
   the final LDAP filter looks like below:</li>
@@ -212,7 +202,6 @@ query_filter    = (&amp;(|(mail=%s)(&amp;(enabledService=shadowaddress)(shadowAd
 
 query_filter    = (&amp;(|(mail=%s)(&amp;(enabledService=shadowaddress)(shadowAddress=%s)))(objectClass=mailUser)(accountStatus=active)(enabledService=mail)(enabledService=recipientbcc))
 </code></pre>
-
 <p>Restarting Postfix service is required.</p>
 <h3 id="create-additional-sql-index-for-amavisd-database">Create additional SQL index for Amavisd database</h3>
 <p>We need one new SQL index for Amavisd database, it's used to speed up
@@ -222,7 +211,6 @@ performance of viewing quarantined mails.</p>
 mysql&gt; USE amavisd;
 mysql&gt; ALTER TABLE msgs ADD INDEX (quar_type);
 </code></pre>
-
 <h2 id="mysql-backend-special">MySQL backend special</h2>
 <h3 id="add-4-new-columns-used-for-per-user-restriction">Add 4 new columns used for per-user restriction</h3>
 <p>New version of iRedAPD (Postfix policy daemon) requires 4 new columns in table
@@ -245,7 +233,6 @@ mysql&gt; ALTER TABLE mailbox ADD COLUMN rejectedsenders TEXT NOT NULL DEFAULT '
 mysql&gt; ALTER TABLE mailbox ADD COLUMN allowedrecipients TEXT NOT NULL DEFAULT '';
 mysql&gt; ALTER TABLE mailbox ADD COLUMN rejectedrecipients TEXT NOT NULL DEFAULT '';
 </code></pre>
-
 <p>Supported formats of sender/recipients are:</p>
 <ul>
 <li><code>user@example.com</code>: single user</li>
@@ -256,7 +243,6 @@ mysql&gt; ALTER TABLE mailbox ADD COLUMN rejectedrecipients TEXT NOT NULL DEFAUL
 <p>Multiple senders/recipients must be separated by comma, for example:</p>
 <pre><code>sql&gt; INSERT INTO mailbox SET allowedsenders='@gmail.com,user@example.com';
 </code></pre>
-
 <h3 id="create-additional-sql-index-for-amavisd-database_1">Create additional SQL index for Amavisd database</h3>
 <p>We need one new SQL index for Amavisd database, it's used to speed up
 performance of viewing quarantined mails.</p>
@@ -265,7 +251,6 @@ performance of viewing quarantined mails.</p>
 mysql&gt; USE amavisd;
 mysql&gt; ALTER TABLE msgs ADD INDEX (quar_type);
 </code></pre>
-
 <h2 id="postgresql-backend-special">PostgreSQL backend special</h2>
 <h3 id="add-4-new-columns-used-for-per-user-restriction_1">Add 4 new columns used for per-user restriction</h3>
 <p>New version of iRedAPD (Postfix policy daemon) requires 4 new columns in table
@@ -293,7 +278,6 @@ sql&gt; ALTER TABLE mailbox ADD COLUMN rejectedsenders TEXT NOT NULL DEFAULT '';
 sql&gt; ALTER TABLE mailbox ADD COLUMN allowedrecipients TEXT NOT NULL DEFAULT '';
 sql&gt; ALTER TABLE mailbox ADD COLUMN rejectedrecipients TEXT NOT NULL DEFAULT '';
 </code></pre>
-
 <p>Supported formats of sender/recipients are:</p>
 <ul>
 <li><code>user@example.com</code>: single user</li>
@@ -304,7 +288,6 @@ sql&gt; ALTER TABLE mailbox ADD COLUMN rejectedrecipients TEXT NOT NULL DEFAULT 
 <p>Multiple senders/recipients must be separated by comma, for example:</p>
 <pre><code>sql&gt; INSERT INTO mailbox SET allowedsenders='@gmail.com,user@example.com';
 </code></pre>
-
 <h3 id="create-additional-sql-index-for-amavisd-database_2">Create additional SQL index for Amavisd database</h3>
 <p>We need one new SQL index for Amavisd database, it's used to speed up
 performance of viewing quarantined mails.</p>

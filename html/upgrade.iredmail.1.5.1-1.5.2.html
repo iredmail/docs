@@ -23,8 +23,18 @@
 <li><a href="#general-all-backends-should-apply-these-changes">General (All backends should apply these changes)</a><ul>
 <li><a href="#update-etciredmail-release-with-new-iredmail-version-number">Update /etc/iredmail-release with new iRedMail version number</a></li>
 <li><a href="#upgrade-netdata-to-the-latest-stable-release-1331">Upgrade netdata to the latest stable release (1.33.1)</a></li>
+<li><a href="#amavisd-override-av_scanners_backup-settings">Amavisd: Override @av_scanners_backup settings</a></li>
 <li><a href="#nginx-increase-proxy-buffer-size-so-that-user-can-login-to-sogo-webmail">Nginx: Increase proxy buffer size so that user can login to SOGo webmail</a></li>
+<li><a href="#sogo-re-create-sql-table">SOGo: Re-create SQL table</a></li>
 <li><a href="#optional-roundcube-log-client-login-ip-addresses">[OPTIONAL] Roundcube: Log client login IP addresses</a></li>
+</ul>
+</li>
+<li><a href="#for-openldap-and-mariadb-backend">For OpenLDAP and MariaDB backend</a><ul>
+<li><a href="#sogo-re-create-sql-table_1">SOGo: Re-create SQL table</a></li>
+</ul>
+</li>
+<li><a href="#for-postgresql-backend">For PostgreSQL backend</a><ul>
+<li><a href="#sogo-re-create-sql-table_2">SOGo: Re-create SQL table</a></li>
 </ul>
 </li>
 </ul>
@@ -39,6 +49,11 @@ check <a href="https://www.iredmail.org/support.html">the details</a> and
 </div>
 <h2 id="changelog">ChangeLog</h2>
 <ul>
+<li>March 22, 2022: 2 new sections:<ul>
+<li>SOGo: Re-create SQL table</li>
+<li>Amavisd: Override <code>@av_scanners_backup</code> settings</li>
+</ul>
+</li>
 <li>March 16, 2022: initial release.</li>
 </ul>
 <h2 id="general-all-backends-should-apply-these-changes">General (All backends should apply these changes)</h2>
@@ -48,10 +63,23 @@ installation, it's recommended to update this file after you upgraded iRedMail,
 so that you can know which version of iRedMail you're running. For example:</p>
 <pre><code>1.5.2
 </code></pre>
-
 <h3 id="upgrade-netdata-to-the-latest-stable-release-1331">Upgrade netdata to the latest stable release (1.33.1)</h3>
 <p>If you have netdata installed, you can upgrade it by following this tutorial:
 <a href="./upgrade.netdata.html">Upgrade netdata</a>.</p>
+<h3 id="amavisd-override-av_scanners_backup-settings">Amavisd: Override <code>@av_scanners_backup</code> settings</h3>
+<p>Amavisd is configured to run virus scanning by connecting to ClamAV daemon
+socket first, if failed, try backup option which is calling <code>clamscan</code> command
+directly. The problem with <code>clamscan</code> is it needs to load all clamav database
+each time for each message, it may cause OOM (Out Of Memory) error or use too
+much system resource and cause mail service unstable.</p>
+<p>To prevent this case, we simply disable the backup option by adding (or
+overwriting) parameter <code>@av_scanners_backup</code> in Amavisd config file:
+    - On RHEL/CentOS/Rocky, it's <code>/etc/amavisd/amavisd.conf</code>
+    - On Debian/Ubuntu, it's <code>/etc/amavis/conf.d/50-user</code>
+    - On OpenBSD, it's <code>/etc/amavisd.conf</code></p>
+<pre><code>@av_scanners_backup = ();
+</code></pre>
+<p>Restarting Amavisd service is required.</p>
 <h3 id="nginx-increase-proxy-buffer-size-so-that-user-can-login-to-sogo-webmail">Nginx: Increase proxy buffer size so that user can login to SOGo webmail</h3>
 <p>The cookie used by SOGo is now <code>much bigger than before (just bellow 4096
 bytes, to accommodate longer passwords)</code>, so we have to increase Nginx proxy
@@ -75,7 +103,6 @@ location ^~ /SOGo/Microsoft-Server-ActiveSync {
     # ...omit existing parameters here ...
 }
 </code></pre>
-
 <p>Insert 3 new parameters into all above 3 <code>location</code> blocks like below:</p>
 <pre><code>location ^~ /SOGo {
     # ...omit existing parameters here ...
@@ -101,19 +128,55 @@ location ^~ /SOGo/Microsoft-Server-ActiveSync {
     proxy_buffer_size         64k;
 }
 </code></pre>
-
 <p>Run command <code>nginx -t</code> first to verify the configuration, if no error reported
 on console, then restart nginx service:</p>
 <pre><code>service nginx restart
 </code></pre>
-
+<h3 id="sogo-re-create-sql-table">SOGo: Re-create SQL table</h3>
+<p>SOGo has some internal change in March 2022, you may get error message like
+below in SOGo log file <code>/var/log/sogo/sogo.log</code>:</p>
+<blockquote>
+<p>Mar 09 17:28:20 sogod ... cannot write record: <MySQL4Exception: 0x55cbcfd4dfc0> NAME:ExecutionFailed REASON:<strong class="red">Data too long for column 'c_value'</strong> at row 1</p>
+</blockquote>
+<p>Please drop SQL table <code>sogo.sogo_sessions_folder</code> and restart SOGo service to
+fix it. SOGo will re-create this table automatically.</p>
 <h3 id="optional-roundcube-log-client-login-ip-addresses">[OPTIONAL] Roundcube: Log client login IP addresses</h3>
 <p>It might be useful to log client IPs in Roundcube log file, for example, for
 audit purpose. In this case you can add a new config in Roundcube config file
 <code>/opt/www/roundcubemail/config/config.inc.php</code> like below:</p>
 <pre><code>$config['log_logins'] = true;
 </code></pre>
-
-<p>Restarting php-fpm service is recommended but not required.</p><div class="footer">
+<p>Restarting php-fpm service is recommended but not required.</p>
+<h2 id="for-openldap-and-mariadb-backend">For OpenLDAP and MariaDB backend</h2>
+<h3 id="sogo-re-create-sql-table_1">SOGo: Re-create SQL table</h3>
+<p>SOGo has some internal change in March 2022, you may get error message like
+below in SOGo log file <code>/var/log/sogo/sogo.log</code>:</p>
+<blockquote>
+<p>Mar 09 17:28:20 sogod ... cannot write record: ... NAME:ExecutionFailed REASON:<strong class="red">Data too long for column 'c_value'</strong> at row 1</p>
+</blockquote>
+<p>Please drop SQL table <code>sogo.sogo_sessions_folder</code> and restart SOGo service to
+fix it. SOGo will re-create this table automatically.</p>
+<p>Please run shell commands below to fix it:</p>
+<pre><code>mysql sogo -e &quot;DROP TABLE sogo_sessions_folder;&quot;
+service sogo restart        # On CentOS/Rocky, the service name is &quot;sogod&quot;.
+</code></pre>
+<h2 id="for-postgresql-backend">For PostgreSQL backend</h2>
+<h3 id="sogo-re-create-sql-table_2">SOGo: Re-create SQL table</h3>
+<p>SOGo has some internal change in March 2022, you may get error message like
+below in SOGo log file <code>/var/log/sogo/sogo.log</code>:</p>
+<blockquote>
+<p>Mar 09 17:28:20 sogod ... cannot write record: ... NAME:ExecutionFailed REASON:<strong class="red">Data too long for column 'c_value'</strong> at row 1</p>
+</blockquote>
+<p>Please drop SQL table <code>sogo.sogo_sessions_folder</code> and restart SOGo service to
+fix it. SOGo will re-create this table automatically.</p>
+<p>Please switch to PostgreSQL daemon user first:</p>
+<pre><code>su - postgres
+</code></pre>
+<p>Run run shell commands below as PostgreSQL daemon user to fix it:</p>
+<pre><code>psql -d sogo -c &quot;DROP TABLE sogo_sessions_folder&quot;
+</code></pre>
+<p>Switch back to root user, then restart SOGo service:</p>
+<pre><code>service sogo restart        # On CentOS/Rocky, the service name is &quot;sogod&quot;.
+</code></pre><div class="footer">
     <p style="text-align: center; color: grey;">All documents are available in <a href="https://github.com/iredmail/docs/">GitHub repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://github.com/iredmail/docs/archive/master.zip">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
 </div></body></html>

@@ -7,7 +7,7 @@ Required Markdown module: http://pypi.python.org/pypi/Markdown/2.1.1
 #   shell> python markdown2html.py path/to/file.md path/to/output/dir
 
 import sys
-import commands
+import subprocess
 import web
 import markdown
 
@@ -36,7 +36,7 @@ for arg in args:
 
 # Get article title
 if 'title' not in cmd_opts:
-    cmd_opts['title'] = commands.getoutput("""grep 'Title:' %s |awk -F'Title: ' '{print $2}'""" % filename)
+    cmd_opts['title'] = subprocess.check_output("""grep 'Title:' %s |awk -F'Title: ' '{print $2}'""" % filename)
 cmd_opts['title'] = cmd_opts['title'].strip()
 
 # Set output file name
@@ -90,5 +90,5 @@ html += '</body></html>'
 
 # Write to file
 f = open(output_html_file, 'w')
-f.write(html.encode('utf-8'))
+f.write(html)
 f.close()

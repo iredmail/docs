@@ -82,14 +82,12 @@ enable a plugin, please find line <code>plugins =</code> in iRedAPD config file
 <code>/opt/iredapd/settings.py</code>, for example:</p>
 <pre><code>plugins = ['greylisting', 'throttle']
 </code></pre>
-
 <p>If you want to enable plugin <code>reject_sender_login_mismatch</code> (file
 <code>/opt/iredapd/plugins/reject_sender_login_mismatch.py</code>), please add the plugin
 name without extension <code>.py</code> in <code>plugins =</code> like below, then restart iRedAPD
 service:</p>
 <pre><code>plugins = ['greylisting', 'throttle', 'reject_sender_login_mismatch']
 </code></pre>
-
 <p>The priorities of plugins shipped in iRedAPD are hard-coded, so the order of
 plugin names doesn't matter.</p>
 <p>To disable a plugin, just remove the plugin name and restart iRedAPD service.</p>
@@ -129,7 +127,6 @@ CHECK_FORGED_SENDER = True
 ALLOWED_FORGED_SENDERS = []
 
 </code></pre>
-
 <ul>
 <li>for sender login mismatch:</li>
 </ul>
@@ -148,7 +145,6 @@ ALLOWED_LOGIN_MISMATCH_STRICTLY = True
 # ('From: &lt;email_of_mail_list&gt;' in mail header). Default is False.
 ALLOWED_LOGIN_MISMATCH_LIST_MEMBER = False
 </code></pre>
-
 <h3 id="whiteblacklisting">White/Blacklisting</h3>
 <h4 id="how-to-disable-whiteblacklists-completely">How to disable white/blacklists completely</h4>
 <p>To disable white/blacklists completely, please remove plugin name
@@ -156,7 +152,6 @@ ALLOWED_LOGIN_MISMATCH_LIST_MEMBER = False
 parameter <code>plugins =</code>:</p>
 <pre><code>plugins = [..., 'amavisd_wblist', ...]
 </code></pre>
-
 <p>Restarting iRedAPD service is required.</p>
 <h4 id="manage-whiteblacklists">Manage white/blacklists</h4>
 <blockquote>
@@ -205,7 +200,6 @@ parameter <code>plugins =</code>:</p>
 
     WARNING: Do not use --list, --add-whitelist, --add-blacklist at the same time.
 </code></pre>
-
 <h5 id="valid-formats-of-whitelisted-and-blacklisted-addresses">Valid formats of whitelisted and blacklisted addresses</h5>
 <ul>
 <li>a single user: <code>user@domain.com</code></li>
@@ -229,7 +223,6 @@ python3 wblist_admin.py --add --whitelist 192.168.1.10 user@domain.com @iredmail
 # Blacklist IP address, email address, entire domain, subdomain (including main domain)
 python3 wblist_admin.py --add --blacklist 202.96.134.133 bad-user@domain.com @bad-domain.com @.sub-domain.com
 </code></pre>
-
 <ul>
 <li>For per-user or per-domain whitelists and blacklists, please use option
   <code>--account</code>. for example:</li>
@@ -240,7 +233,6 @@ python3 wblist_admin.py --account user@mydomain.com --add --blacklist 172.16.1.1
 python3 wblist_admin.py --account @mydomain.com --list --whitelist
 python3 wblist_admin.py --account user@mydomain.com --list --blacklist
 </code></pre>
-
 <h3 id="greylisting">Greylisting</h3>
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>
@@ -251,7 +243,6 @@ python3 wblist_admin.py --account user@mydomain.com --list --blacklist
 <p>To disable greylisting global, please run command below:</p>
 <pre><code>python3 /opt/iredapd/tools/greylisting_admin.py --disable --from '@.'
 </code></pre>
-
 <h4 id="general-settings">General settings</h4>
 <p>There're several settings for greylisting behaviour, default values are defined
 in <code>/opt/iredapd/libs/default_settings.py</code>. If you want to modify them, please
@@ -323,72 +314,60 @@ add the settings with custom values in <code>/opt/iredapd/settings.py</code>.</p
     --delete
         Delete specified greylisting setting.
 </code></pre>
-
 <h5 id="sample-usages_1">Sample usages</h5>
 <ul>
 <li>List all existing greylisting settings:</li>
 </ul>
 <pre><code>python3 greylisting_admin.py --list
 </code></pre>
-
 <ul>
 <li>List all whitelisted sender domain names (in SQL table <code>greylisting_whitelist_domains</code>):</li>
 </ul>
 <pre><code>python3 greylisting_admin.py --list-whitelist-domains
 </code></pre>
-
 <ul>
 <li>List all whitelisted sender addresses (in SQL table <code>greylisting_whitelists</code>):</li>
 </ul>
 <pre><code>python3 greylisting_admin.py --list-whitelists
 </code></pre>
-
 <ul>
 <li>Whitelist IP networks/addresses specified in sender domain:</li>
 </ul>
 <pre><code>python3 greylisting_admin.py --whitelist-domain --from '@example.com'
 </code></pre>
-
 <p>This is same as:</p>
 <pre><code>python3 spf_to_whitelist_domains.py --submit example.com
 </code></pre>
-
 <ul>
 <li>Remove a whitelisted sender domain:</li>
 </ul>
 <pre><code>python3 greylisting_admin.py --remove-whitelist-domain --from '@example.com'
 </code></pre>
-
 <ul>
 <li>Enable greylisting for emails which are sent from anyone to local mail domain <code>example.com</code>:</li>
 </ul>
 <pre><code>python3 greylisting_admin.py --enable --to '@example.com'
 </code></pre>
-
 <ul>
 <li>Disable greylisting for emails which are sent from anyone to local mail user <code>user@example.com</code>:</li>
 </ul>
 <pre><code>python3 greylisting_admin.py --disable --to 'user@example.com'
 </code></pre>
-
 <ul>
 <li>Disable greylisting for emails which are sent from <code>gmail.com</code> to local mail user <code>user@example.com</code>:</li>
 </ul>
 <pre><code>python3 greylisting_admin.py --disable --from '@gmail.com' --to 'user@example.com'
 </code></pre>
-
 <ul>
 <li>Disable greylisting for sender IP:</li>
 </ul>
 <pre><code>python3 greylisting_admin.py --disable --from '45.56.127.226'
 </code></pre>
-
 <ul>
 <li>Delete greylisting setting for emails which are sent from anyone to local domain <code>test.com</code>:</li>
 </ul>
 <pre><code>python3 greylisting_admin.py --delete --to '@test.com'
 </code></pre>
-
 <h5 id="recommended-additional-greylisting-whitelist-support">RECOMMENDED: Additional greylisting whitelist support</h5>
 <p>Since many companies setup their mail servers to re-deliver returned email
 immediately from another server, this causes trouble with greylisting.</p>
@@ -411,7 +390,6 @@ converted IP addresses/networks defined in SPF/MX records in SQL table
 <pre><code>cd /opt/iredapd/tools/
 python3 spf_to_greylist_whitelists.py outlook.com microsoft.com
 </code></pre>
-
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Above command stores server addresses/networks in SPF/MX records in SQL
@@ -429,7 +407,6 @@ without any argument, it will fetch all mail domains stored in sql table
 <code>greylisting_whitelist_domains</code> instead of fetching from command line arguments.</p>
 <pre><code>python3 spf_to_greylist_whitelists.py
 </code></pre>
-
 <p>You should setup a cron job to run this script, so that it can keep the IP
 addresses/networks up to date. iRedMail sets up the cron job to run every 10 or
 30  minutes, like below:</p>

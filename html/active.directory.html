@@ -132,17 +132,15 @@ same account <code>vmail</code> in AD, with strong and complex password.</p>
 </ul>
 <p>Make sure this newly created user is able to connect to AD server with
 below command on iRedMail server:</p>
-<pre><code class="shell"># ldapsearch -x -h ad.example.com -D 'vmail' -W -b 'cn=users,dc=example,dc=com'
+<pre><code class="language-shell"># ldapsearch -x -h ad.example.com -D 'vmail' -W -b 'cn=users,dc=example,dc=com'
 Enter password: password_of_vmail
 </code></pre>
-
 <p>If it prints all users stored in AD server, then it's working as expected.</p>
 <p>If you're using LDAPS, replace <code>-h ad.example.com</code> by
 <code>-H ldaps://ad.example.com:636</code> instead:</p>
-<pre><code class="shell"># ldapsearch -x -H ldaps://ad.example.com:636 -D 'vmail' -W -b 'cn=users,dc=example,dc=com'
+<pre><code class="language-shell"># ldapsearch -x -H ldaps://ad.example.com:636 -D 'vmail' -W -b 'cn=users,dc=example,dc=com'
 Enter password: password_of_vmail
 </code></pre>
-
 <p>If LDAPS doesn't work, you may need to update parameter <code>TLS_CACERT</code> in
 <code>/etc/openldap/ldap.conf</code> (RHEL/CentOS) or <code>/etc/ldap/ldap.conf</code> to use correct CA
 certificate. For example:</p>
@@ -151,63 +149,53 @@ certificate. For example:</p>
 </ul>
 <pre><code>TLS_CACERT /etc/pki/tls/certs/ca-bundle.trust.crt
 </code></pre>
-
 <ul>
 <li>on Debian/Ubuntu, use <code>/etc/ssl/certs/ca-certificates.crt</code>:</li>
 </ul>
 <pre><code>TLS_CACERT /etc/ssl/certs/ca-certificates.crt
 </code></pre>
-
 <h3 id="enable-ldap-query-with-ad-in-postfix">Enable LDAP query with AD in Postfix</h3>
 <p>Disable unused iRedMail special settings:</p>
-<pre><code class="shell">postconf -e virtual_alias_maps=''
+<pre><code class="language-shell">postconf -e virtual_alias_maps=''
 postconf -e sender_bcc_maps=''
 postconf -e recipient_bcc_maps=''
 postconf -e relay_domains=''
 postconf -e relay_recipient_maps=''
 postconf -e sender_dependent_relayhost_maps=''
 </code></pre>
-
 <p>Add your mail domain name in <code>smtpd_sasl_local_domain</code> and <code>virtual_mailbox_domains</code>:</p>
-<pre><code class="shell">postconf -e smtpd_sasl_local_domain='example.com'
+<pre><code class="language-shell">postconf -e smtpd_sasl_local_domain='example.com'
 postconf -e virtual_mailbox_domains='example.com'
 </code></pre>
-
 <p>Change transport maps setting:</p>
 <pre><code>postconf -e transport_maps='hash:/etc/postfix/transport'
 </code></pre>
-
 <p>Enable AD query. <strong>Note</strong>: We will create these 3 files later.</p>
 <ul>
 <li>Verify SMTP senders</li>
 </ul>
-<pre><code class="shell">postconf -e smtpd_sender_login_maps='proxy:ldap:/etc/postfix/ad_sender_login_maps.cf'
+<pre><code class="language-shell">postconf -e smtpd_sender_login_maps='proxy:ldap:/etc/postfix/ad_sender_login_maps.cf'
 </code></pre>
-
 <ul>
 <li>Verify local mail users</li>
 </ul>
-<pre><code class="shell">postconf -e virtual_mailbox_maps='proxy:ldap:/etc/postfix/ad_virtual_mailbox_maps.cf'
+<pre><code class="language-shell">postconf -e virtual_mailbox_maps='proxy:ldap:/etc/postfix/ad_virtual_mailbox_maps.cf'
 </code></pre>
-
 <ul>
 <li>Verify local mail lists/groups.</li>
 </ul>
 <pre><code>postconf -e virtual_alias_maps='proxy:ldap:/etc/postfix/ad_virtual_group_maps.cf'
 </code></pre>
-
 <ul>
 <li>Create/edit file: <code>/etc/postfix/transport</code>.</li>
 </ul>
 <pre><code>example.com dovecot
 </code></pre>
-
 <p><strong>Note</strong>: the name <code>dovecot</code> used here is a Postfix transport defined in
 <code>/etc/postfix/master.cf</code>, used to deliver received emails to local user mailboxes.</p>
 <p>Run <code>postmap</code> so that postfix can read it:</p>
 <pre><code># postmap hash:/etc/postfix/transport
 </code></pre>
-
 <ul>
 <li>Create file: <code>/etc/postfix/ad_sender_login_maps.cf</code>:</li>
 </ul>
@@ -224,7 +212,6 @@ query_filter    = (&amp;(userPrincipalName=%s)(objectClass=person)(!(userAccount
 result_attribute= userPrincipalName
 debuglevel      = 0
 </code></pre>
-
 <ul>
 <li>Create file: <code>/etc/postfix/ad_virtual_mailbox_maps.cf</code>:</li>
 </ul>
@@ -242,7 +229,6 @@ result_attribute= userPrincipalName
 result_format   = %d/%u/Maildir/
 debuglevel      = 0
 </code></pre>
-
 <p><strong>Note</strong>: We hard-code user's mailbox path in <code>result_format =</code> parameter, it
 will be something like <code>example.com/username/Maildir/</code>.</p>
 <ul>
@@ -263,7 +249,6 @@ leaf_result_attribute = mail
 result_attribute= userPrincipalName
 debuglevel      = 0
 </code></pre>
-
 <p><strong>Notes</strong>:</p>
 <ul>
 <li>If your user have email address in both <code>mail</code> and <code>userPrincipalName</code>, you
@@ -285,10 +270,9 @@ Before testing, we have to create two testing mail accounts first:</p>
    user <code>user@example.com</code> as group member.</li>
 <li>Query mail user account with below command:</li>
 </ol>
-<pre><code class="shell"># postmap -q user@example.com ldap:/etc/postfix/ad_virtual_mailbox_maps.cf
+<pre><code class="language-shell"># postmap -q user@example.com ldap:/etc/postfix/ad_virtual_mailbox_maps.cf
 example.com/user/Maildir/
 </code></pre>
-
 <p>If nothing returned by the command, it means LDAP query doesn't get expected
 result. Please set <code>debuglevel = 1</code> file <code>/etc/postfix/ad_virtual_mailbox_maps.cf</code>,
 then query again, it now will print detailed debug message. If you're not
@@ -298,12 +282,10 @@ familiar with LDAP related info, please post the debug message in our
 <pre><code># postmap -q user@example.com ldap:/etc/postfix/ad_sender_login_maps.cf
 user@example.com
 </code></pre>
-
 <p>Verify mail group</p>
 <pre><code># postmap -q testgroup@example.com ldap:/etc/postfix/ad_virtual_group_maps.cf
 user@example.com
 </code></pre>
-
 <p><strong>NOTE</strong>: <code>postmap</code> return nothing if:</p>
 <ol>
 <li>mail group doesn't exist</li>
@@ -343,7 +325,6 @@ pass_attrs      = userPassword=password
 default_pass_scheme = CRYPT
 user_attrs      = mail=master_user,mail=user,=home=/var/vmail/vmail1/%Ld/%Ln/,=mail=maildir:~/Maildir/
 </code></pre>
-
 <p>Restart dovecot service to make it work.</p>
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>
@@ -373,7 +354,6 @@ number of gigabytes:</p>
 
 ^]                                         # &lt;- Quit telnet with &quot;Ctrl+]&quot;, then type 'quit'.
 </code></pre>
-
 <p>Note: Do NOT miss the dot character before <code>login</code> command. if it returns
 <code>Logged in</code>, then dovecot + AD works.</p>
 <h2 id="enable-active-directory-integration-in-roundcube-webmail-for-global-ldap-address-book">Enable Active Directory integration in Roundcube webmail for Global LDAP Address Book</h2>
@@ -383,7 +363,7 @@ address book setting added by iRedMail, and add new setting for AD like below:</
 <li>on RHEL/CentOS/Debian/Ubuntu and OpenBSD: it's <code>/opt/www/roundcubemail/config/config.inc.php</code></li>
 <li>on FreeBSD: it's <code>/usr/local/www/roundcubemail/config/config.inc.php</code></li>
 </ul>
-<pre><code class="php">#
+<pre><code class="language-php">#
 # &quot;sql&quot; is personal address book stored in roundcube database.
 # &quot;global_ldap_abook&quot; is the new LDAP address book for AD, we will create it below.
 #
@@ -456,7 +436,6 @@ $config['ldap_public'][&quot;global_ldap_abook&quot;] = array(
                                 // Directory setups
 );
 </code></pre>
-
 <h2 id="enable-active-directory-integration-in-sogo-groupware">Enable Active Directory integration in SOGo Groupware</h2>
 <p>Edit SOGo config file <code>/etc/sogo/sogo.conf</code>, comment out the LDAP address book
 setting added by iRedMail, and add new setting for AD like below:</p>
@@ -542,7 +521,6 @@ setting added by iRedMail, and add new setting for AD like below:</p>
         }
     );
 </code></pre>
-
 <h2 id="additions-documents">Additions documents</h2>
 <ul>
 <li>If your mail domain name is different than Windows Active Directory domain: <a href="https://forum.iredmail.org/topic3165-integration-with-windows-domain.html">https://forum.iredmail.org/topic3165-integration-with-windows-domain.html</a></li>

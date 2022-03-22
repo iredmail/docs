@@ -24,13 +24,11 @@ Sample usage:</p>
 </ul>
 <pre><code>doveadm quota recalc -u user@domain.ltd
 </code></pre>
-
 <ul>
 <li>Recalculate ALL mail accounts:</li>
 </ul>
 <pre><code>doveadm quota recalc -A
 </code></pre>
-
 <p>Reference: <a href="http://wiki2.dovecot.org/Tools/Doveadm/Quota">Doveadm-Quota</a></p>
 <h2 id="dovecot-1x-and-dovecot-2x">Dovecot-1.x and Dovecot-2.x</h2>
 <p>iRedMail enables dict quota since iRedMail-0.7.0, dict quota is recalculated
@@ -41,14 +39,12 @@ only if the quota goes below zero.</p>
 <pre><code>mysql&gt; USE vmail;
 mysql&gt; DELETE FROM used_quota WHERE username='user@domain.ltd';
 </code></pre>
-
 <ul>
 <li>For OpenLDAP backend:</li>
 </ul>
 <pre><code>mysql&gt; USE iredadmin;
 mysql&gt; DELETE FROM used_quota WHERE username='user@domain.ltd';
 </code></pre>
-
 <p>Re-login via POP3/IMAP (or webmail) will trigger Dovecot to recalculate mailbox
 quota.</p>
 <p><strong>TIP</strong>: it's safe to delete records in SQL table <code>used_quota</code> if mail user

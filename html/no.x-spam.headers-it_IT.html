@@ -29,11 +29,9 @@ tutorial:
 <p>Per default nel file di configurazione <code>/etc/amavisd/amavisd.conf</code> Amavisd ha:</p>
 <pre><code>$sa_tag_level_deflt  = 2.0;
 </code></pre>
-
 <p>Questo significa che Amavisd inserirà intestazioni come <code>X-Spam-Flag</code> ed altre come <code>X-Spam-*</code> quando il punteggio della mail sarà &gt;=2.0. Se preferite che Amavisd inserisca sempre queste intestazioni, configurate il valore del punteggio piu basso, per esempio:</p>
 <pre><code>$sa_tag_level_deflt  = -999;
 </code></pre>
-
 <p>Il riavvio del servizio di Amavisd è necessario dopo aver modificato le configurazioni.</p><div class="footer">
     <p style="text-align: center; color: grey;">All documents are available in <a href="https://github.com/iredmail/docs/">GitHub repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://github.com/iredmail/docs/archive/master.zip">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
 </div></body></html>

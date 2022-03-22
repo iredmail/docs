@@ -45,7 +45,7 @@
 <p>To create an mail alias account, you need to add SQL records in 2 sql tables.
 for example: create a mail alias account <code>alias@mydomain.com</code> and forward emails
 to two addresses <code>someone@gmail.com</code> and <code>someone@test.com</code>:</p>
-<pre><code class="mysql">sql&gt; USE vmail;
+<pre><code class="language-mysql">sql&gt; USE vmail;
 
 -- Create mail alias account
 sql&gt; INSERT INTO alias (address, domain, active)
@@ -67,7 +67,6 @@ sql&gt; INSERT INTO forwardings (address, forwarding,
                               'mydomain.com', 'test.com',
                               1, 1);
 </code></pre>
-
 <p><strong>NOTES</strong>:</p>
 <ul>
 <li>Please always use lower cases for email addresses.</li>
@@ -87,7 +86,6 @@ account by adding proper policy name in SQL column <code>alias.accesspolicy</cod
 For example:</p>
 <pre><code>sql&gt; UPDATE alias SET accesspolicy='domain' WHERE address='alias@mydomain.com';
 </code></pre>
-
 <p>Available access policies:</p>
 <table>
 <thead>
@@ -135,7 +133,6 @@ mail alias <code>alias@mydomain.com</code>:</p>
 sql&gt; INSERT INTO moderators (address, moderator, domain, dest_domain)
                     VALUES ('alias@mydomain.com', 'someone@outlook.com', 'mydomain.com', 'outlook.com');
 </code></pre>
-
 <h2 id="see-also">See also</h2>
 <ul>
 <li><a href="./ldap.add.mail.list.html">Create mailing list for OpenLDAP backend</a></li>

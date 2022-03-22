@@ -51,7 +51,6 @@ to enable it.</li>
 <pre><code># yum repolist | grep -i 'epel'
 epel              Extra Packages for Enterprise Linux 6 - x86_64          11,109
 </code></pre>
-
 <ul>
 <li>Add yum repo file <code>/etc/yum.repos.d/sogo.repo</code>:</li>
 </ul>
@@ -60,13 +59,11 @@ name=Inverse SOGo Repository
 baseurl=http://packages.inverse.ca/SOGo/nightly/3/rhel/6/$basearch
 gpgcheck=0
 </code></pre>
-
 <ul>
 <li>Install SOGo and dependences:</li>
 </ul>
 <pre><code># yum install sogo sope49-gdl1-mysql sope49-ldap sogo-activesync libwbxml sogo-ealarms-notify sogo-tool
 </code></pre>
-
 <ul>
 <li>Append an alias entry in Postfix config file <code>/etc/postfix/aliases</code>, so that
   notifications of cron jobs will be sent to mail server administrator.</li>
@@ -75,11 +72,9 @@ gpgcheck=0
 
 sogo: root
 </code></pre>
-
 <p>Execute command to update alias db:</p>
 <pre><code># postalias /etc/postfix/aliases
 </code></pre>
-
 <h2 id="create-required-sql-database">Create required SQL database</h2>
 <p>SOGo will store some data (e.g. user preferences, sieve rules) in SQL database,
 so we need to create a database for it.</p>
@@ -88,7 +83,6 @@ so we need to create a database for it.</p>
 mysql&gt; CREATE DATABASE sogo CHARSET='UTF8';
 mysql&gt; GRANT ALL ON sogo.* TO sogo@localhost IDENTIFIED BY 'password';
 </code></pre>
-
 <p>Note: SOGo will create required SQL tables automatically, we don't need to
 create them manually.</p>
 <h2 id="configure-sogo">Configure SOGo</h2>
@@ -229,7 +223,6 @@ in iRedMail source code repository</a>.</p>
     );
 }
 </code></pre>
-
 <p>Important note:</p>
 <ul>
 <li>
@@ -252,7 +245,6 @@ in iRedMail source code repository</a>.</p>
     SOGoVacationEnabled = YES;
     SOGoForwardEnabled = YES;
 </code></pre>
-
 <h2 id="configure-web-server">Configure web server</h2>
 <p>To access SOGo groupware (webmail/calendar/contact), we need to configure
 web server.</p>
@@ -263,13 +255,11 @@ open it and find below lines:</p>
 # http://127.0.0.1:20000/SOGo/Microsoft-Server-ActiveSync \
 # retry=60 connectiontimeout=5 timeout=360
 </code></pre>
-
 <p>Remove <code>#</code> at the beginning to enable ActiveSync support:</p>
 <pre><code>ProxyPass /Microsoft-Server-ActiveSync \
  http://127.0.0.1:20000/SOGo/Microsoft-Server-ActiveSync \
  retry=60 connectiontimeout=5 timeout=360
 </code></pre>
-
 <ul>
 <li>
 <p>Find string <code>yourhostname</code> in the same file, replace all <code>yourhostname</code> by
@@ -283,7 +273,6 @@ your FQDN server hostname. (Tip: you can get your FQDN hostname with command
 </ul>
 <pre><code>RedirectMatch ^/[Ss][Oo][Gg][Oo](.*) /SOGo$1
 </code></pre>
-
 <h3 id="nginx-web-server">Nginx web server</h3>
 <p>If you're running Nginx web server configured by iRedMail, please open file
 <code>/etc/nginx/conf.d/default.conf</code>, add some lines in <code>server {}</code> configured for
@@ -337,7 +326,6 @@ HTTPS:</p>
     }
 }
 </code></pre>
-
 <p><strong>Important note</strong>: You must replace path <code>/usr/lib/GNUstep/SOGo</code> with
 the real directory which contains SOGo files:</p>
 <ul>
@@ -349,7 +337,6 @@ the real directory which contains SOGo files:</p>
 # service memcached restart
 # service sogod restart
 </code></pre>
-
 <h2 id="add-dovecot-master-user-used-for-vacation-message-expiration">Add Dovecot Master User, used for vacation message expiration</h2>
 <p>SOGo need a Dovecot Master User to cleanup vacation expiration, please follow
 our tutorial to add a Dovecot Master User for this purpose: <a href="./dovecot.master.user.html">Dovecot Master User</a>.</p>
@@ -360,12 +347,10 @@ here for example.</p>
 format: <code>username:password</code>. For example:</p>
 <pre><code>my_master_user@non-exist.com:my_master_password
 </code></pre>
-
 <p>Set strict file owner and permission:</p>
 <pre><code># chown sogo:sogo /etc/sogo/sieve.cred
 # chmod 0400 /etc/sogo/sieve.cred
 </code></pre>
-
 <h2 id="add-required-cron-jobs">Add required cron jobs</h2>
 <p>Please add below cron jobs for SOGo daemon user <code>sogo</code>. You can add them with
 command: <code>crontab -l -u sogo</code></p>
@@ -381,7 +366,6 @@ command: <code>crontab -l -u sogo</code></p>
 # The credentials file should contain the sieve admin credentials (username:passwd)
 0   0   *   *   *   /usr/sbin/sogo-tool update-autoreply -p /etc/sogo/sieve.cred
 </code></pre>
-
 <h2 id="access-sogo-from-web-browser">Access SOGo from web browser</h2>
 <p>Open your favourite web browser, access URL: <code>https://[your_server]/SOGo</code> (the
 word <code>SOGo</code> is case-sensitive), you can login with your email account credential.</p>

@@ -25,7 +25,6 @@ master user.</p>
 <p>The format is simple:</p>
 <pre><code>username:password
 </code></pre>
-
 <p>You can generate a password supported by Dovecot first. for example, SSHA512.
 Let's generate password hash for our password <code>my_master_password</code>:</p>
 <pre><code># doveadm pw -s SSHA512
@@ -33,13 +32,11 @@ Enter new password: my_master_password
 Retype new password: my_master_password
 {SSHA512}B0VHomJaMk6aLXOPglgNgJtCUA8JRnOweAwJxRW6NPWSNZ25rG/L6T05DJXH+t8WCQkemBilgkcEi6mq4Kadssivtts=
 </code></pre>
-
 <p>You can now pick up any username you like, for example, <code>my_master_user@not-exist.com</code>.
 Now add new master user in file
 <code>/etc/dovecot/dovecot-master-users</code> like below:</p>
 <pre><code>my_master_user@not-exist.com:{SSHA512}B0VHomJaMk6aLXOPglgNgJtCU...
 </code></pre>
-
 <p>Now you can access <code>user@domain.ltd</code>'s mailbox (via either IMAP or POP3
 protocol) as user <code>user@domain.ltd*my_master_user@not-exist.com</code> with password
 <code>my_master_password</code> with Roundcube webmail (it should work with other MUAs).</p>

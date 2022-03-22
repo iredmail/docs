@@ -10,6 +10,9 @@
 
 ## ChangeLog
 
+- March 22, 2022: 2 new sections:
+    - SOGo: Re-create SQL table
+    - Amavisd: Override `@av_scanners_backup` settings
 - March 16, 2022: initial release.
 
 ## General (All backends should apply these changes)
@@ -28,6 +31,26 @@ so that you can know which version of iRedMail you're running. For example:
 
 If you have netdata installed, you can upgrade it by following this tutorial:
 [Upgrade netdata](./upgrade.netdata.html).
+
+### Amavisd: Override `@av_scanners_backup` settings
+
+Amavisd is configured to run virus scanning by connecting to ClamAV daemon
+socket first, if failed, try backup option which is calling `clamscan` command
+directly. The problem with `clamscan` is it needs to load all clamav database
+each time for each message, it may cause OOM (Out Of Memory) error or use too
+much system resource and cause mail service unstable.
+
+To prevent this case, we simply disable the backup option by adding (or
+overwriting) parameter `@av_scanners_backup` in Amavisd config file:
+    - On RHEL/CentOS/Rocky, it's `/etc/amavisd/amavisd.conf`
+    - On Debian/Ubuntu, it's `/etc/amavis/conf.d/50-user`
+    - On OpenBSD, it's `/etc/amavisd.conf`
+
+```
+@av_scanners_backup = ();
+```
+
+Restarting Amavisd service is required.
 
 ### Nginx: Increase proxy buffer size so that user can login to SOGo webmail
 
@@ -92,6 +115,16 @@ on console, then restart nginx service:
 service nginx restart
 ```
 
+### SOGo: Re-create SQL table
+
+SOGo has some internal change in March 2022, you may get error message like
+below in SOGo log file `/var/log/sogo/sogo.log`:
+
+> Mar 09 17:28:20 sogod ... cannot write record: <MySQL4Exception: 0x55cbcfd4dfc0> NAME:ExecutionFailed REASON:__Data too long for column 'c_value'__{: .red } at row 1
+
+Please drop SQL table `sogo.sogo_sessions_folder` and restart SOGo service to
+fix it. SOGo will re-create this table automatically.
+
 ### [OPTIONAL] Roundcube: Log client login IP addresses
 
 It might be useful to log client IPs in Roundcube log file, for example, for
@@ -103,3 +136,47 @@ $config['log_logins'] = true;
 ```
 
 Restarting php-fpm service is recommended but not required.
+
+## For OpenLDAP and MariaDB backend
+### SOGo: Re-create SQL table
+
+SOGo has some internal change in March 2022, you may get error message like
+below in SOGo log file `/var/log/sogo/sogo.log`:
+
+> Mar 09 17:28:20 sogod ... cannot write record: ... NAME:ExecutionFailed REASON:__Data too long for column 'c_value'__{: .red } at row 1
+
+Please drop SQL table `sogo.sogo_sessions_folder` and restart SOGo service to
+fix it. SOGo will re-create this table automatically.
+
+Please run shell commands below to fix it:
+```
+mysql sogo -e "DROP TABLE sogo_sessions_folder;"
+service sogo restart        # On CentOS/Rocky, the service name is "sogod".
+```
+
+## For PostgreSQL backend
+### SOGo: Re-create SQL table
+
+SOGo has some internal change in March 2022, you may get error message like
+below in SOGo log file `/var/log/sogo/sogo.log`:
+
+> Mar 09 17:28:20 sogod ... cannot write record: ... NAME:ExecutionFailed REASON:__Data too long for column 'c_value'__{: .red } at row 1
+
+Please drop SQL table `sogo.sogo_sessions_folder` and restart SOGo service to
+fix it. SOGo will re-create this table automatically.
+
+Please switch to PostgreSQL daemon user first:
+```
+su - postgres
+```
+
+Run run shell commands below as PostgreSQL daemon user to fix it:
+
+```
+psql -d sogo -c "DROP TABLE sogo_sessions_folder"
+```
+
+Switch back to root user, then restart SOGo service:
+```
+service sogo restart        # On CentOS/Rocky, the service name is "sogod".
+```

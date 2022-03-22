@@ -38,14 +38,12 @@ address which you're going to allow to send email without smtp
 authentication. We use email address <code>user@example.com</code> for example here.</p>
 <pre><code>/^user@example\.com$/ OK
 </code></pre>
-
 <p>It's ok to use IP address instead like below if you want to allow all emails
 sent from this IP address:</p>
 <pre><code>/^192\.168\.1\.1$/ OK
 /^192\.168\.2\./   OK
 /^172\.16\./       OK
 </code></pre>
-
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>
 <ul>
@@ -58,7 +56,6 @@ sent from this IP address:</p>
 <p>Now restart or reload postfix to make it work:</p>
 <pre><code>postfix reload
 </code></pre>
-
 <h2 id="iredapd">iRedAPD</h2>
 <p>iRedAPD plugin <code>reject_sender_login_mismatch</code> checks forged sender address.
 If sender domain is hosted on your server, but email was sent without smtp
@@ -77,14 +74,12 @@ in file <code>/opt/iredapd/libs/default_settings.py</code>.</p>
 </ul>
 <pre><code>ALLOWED_FORGED_SENDERS = ['user@example.com']
 </code></pre>
-
 <ul>
 <li>To bypass sender IP address or network, for example, <code>192.168.0.1</code> and
   <code>192.168.1.0/24</code>, please add setting in <code>/opt/iredapd/settings.py</code> like below:</li>
 </ul>
 <pre><code>MYNETWORKS = ['192.168.0.1', '192.168.1.0/24']
 </code></pre>
-
 <p>Restarting iRedAPD service is required if you updated <code>/opt/iredapd/settings.py</code>.</p><div class="footer">
     <p style="text-align: center; color: grey;">All documents are available in <a href="https://github.com/iredmail/docs/">GitHub repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://github.com/iredmail/docs/archive/master.zip">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
 </div></body></html>

@@ -47,7 +47,6 @@ mail server in MX type DNS record.</p>
 <pre><code>example.com.    3600    IN  MX  5   mx01.example.com
 example.com.    3600    IN  MX  10  mx02.example.com
 </code></pre>
-
 <p>Server <code>mx01.example.com</code> has priority number <code>5</code>, and <code>mx02.example.com</code> has
 priority number <code>10</code>. For mail service, the lowest number has highest priority.
 so with above example, server <code>mx01.example.com</code> is the primary MX, and
@@ -69,7 +68,6 @@ avoid mail loop.</p>
 <pre><code>USE vmail;
 UPDATE domain SET transport='relay:[45.56.127.226]:25',backupmx=1 WHERE domain='example.com';
 </code></pre>
-
 <p>In above example, we mark domain <code>example.com</code> as a backup MX, and use IP
 address <code>45.56.127.226</code> as primary MX server, you should replace it by the real
 IP address.</p>
@@ -78,7 +76,6 @@ IP address.</p>
 <pre><code>domainBackupMX: yes
 mtaTransport: relay:[45.56.127.226]:25
 </code></pre>
-
 <h2 id="see-also">See also</h2>
 <ul>
 <li><a href="https://en.wikipedia.org/wiki/MX_record#The_backup_MX">Backup MX (wikipedia)</a></li>

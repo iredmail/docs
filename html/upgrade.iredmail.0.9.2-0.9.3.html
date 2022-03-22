@@ -98,7 +98,6 @@ so that you can know which version of iRedMail you're running. For example:</p>
 
 0.9.3
 </code></pre>
-
 <h3 id="upgrade-iredapd-postfix-policy-server-to-the-latest-170">Upgrade iRedAPD (Postfix policy server) to the latest 1.7.0</h3>
 <p>Please follow below tutorial to upgrade iRedAPD to the latest stable release:
 <a href="./upgrade.iredapd.html">Upgrade iRedAPD to the latest stable release</a></p>
@@ -111,7 +110,6 @@ so that you can know which version of iRedMail you're running. For example:</p>
 <pre><code>sql&gt; USE iredapd;
 sql&gt; INSERT INTO greylisting (account, priority, sender, sender_priority, active) VALUES ('@.', 0, '@.', 0, 1);
 </code></pre>
-
 <ul>
 <li>iRedAPD-1.7.0 creates a new SQL database <code>iredapd</code>, please update your
    backup script to backup this database. The backup script was set up by
@@ -122,7 +120,6 @@ sql&gt; INSERT INTO greylisting (account, priority, sender, sender_priority, act
 </ul>
 <pre><code>DATABASES='... iredapd'
 </code></pre>
-
 <p>Detailed release notes are available <a href="./iredapd.releases.html">here</a>.</p>
 <h3 id="migrate-from-cluebringer-to-iredapd">Migrate from Cluebringer to iRedAPD</h3>
 <blockquote>
@@ -157,21 +154,19 @@ latest stable release immediately: <a href="https://github.com/roundcube/roundcu
   already have line <code>virusalert: root</code>, please ignore this step. if not, please
   run commands below to add it.</li>
 </ul>
-<pre><code class="shell">perl -pi -e 's/(virusalert:.*)/#${1}/g' /etc/postfix/aliases
+<pre><code class="language-shell">perl -pi -e 's/(virusalert:.*)/#${1}/g' /etc/postfix/aliases
 echo -e '\nvirusalert: root' &gt;&gt; /etc/postfix/aliases
 postalias /etc/postfix/aliases
 </code></pre>
-
 <ul>
 <li>For FreeBSD: please open file <code>/usr/local/etc/postfix/aliases</code>, if you
   already have line <code>virusalert: root</code>, please ignore this step. if not, please
   run commands below to add it.</li>
 </ul>
-<pre><code class="shell">perl -pi -e 's/(virusalert:.*)/#${1}/g' /usr/local/etc/postfix/aliases
+<pre><code class="language-shell">perl -pi -e 's/(virusalert:.*)/#${1}/g' /usr/local/etc/postfix/aliases
 echo -e '\nvirusalert: root' &gt;&gt; /usr/local/etc/postfix/aliases
 postalias /usr/local/etc/postfix/aliases
 </code></pre>
-
 <h3 id="amavisd-fix-incorrect-setting-which-treats-external-sender-as-internal-user">Amavisd: Fix incorrect setting which treats external sender as internal user</h3>
 <p>In iRedMail-0.9.2 and earlier releases, Amavisd was incorrectly configured
 which causes it treats external sender as internal user, and it (incorrectly)
@@ -195,7 +190,6 @@ sent by others, and Amavisd won't sign DKIM on inbound message anymore.</p>
 <pre><code>$inet_socket_port = [10024, 10026, 9998];
 $interface_policy{'10026'} = 'ORIGINATING';
 </code></pre>
-
 <p>We will configure Postfix to pipe email submitted by authenticated user through
 port 10026, others through port 10024. And port 9998 is used to manage
 quarantined mails.</p>
@@ -205,7 +199,6 @@ quarantined mails.</p>
 </ul>
 <pre><code>  #forward_method =&gt; 'smtp:[127.0.0.1]:10027',
 </code></pre>
-
 <ul>
 <li>Comment out below line in Amavisd config file:</li>
 </ul>
@@ -217,7 +210,6 @@ is the one we need to comment out.</p>
 </blockquote>
 <pre><code>$originating = 1;
 </code></pre>
-
 <ul>
 <li>Comment out the whole <code>$policy_bank{'MYUSERS'}</code> block:</li>
 </ul>
@@ -225,7 +217,6 @@ is the one we need to comment out.</p>
 #   ...
 #}
 </code></pre>
-
 <ul>
 <li>
 <p>Restart Amavisd service.</p>
@@ -241,7 +232,6 @@ is the one we need to comment out.</p>
   ... [omit other settings here] ...
   -o content_filter=smtp-amavis:[127.0.0.1]:10026
 </code></pre>
-
 <ul>
 <li>Restart Postfix service.</li>
 </ul>
@@ -257,7 +247,6 @@ fix it with steps below.</p>
     quota_warning2 = storage=90%% quota-warning 90 %u
     quota_warning3 = storage=95%% quota-warning 95 %u
 </code></pre>
-
 <p><code>quota_warning</code> has the highest priority, <code>quota_warning3</code> has the lowest
 priority. Only the command for the first exceeded limit is executed, so we must
 configure the highest limit first.</p>
@@ -272,7 +261,6 @@ it's expected to be warned as 95% full instead.</p>
     quota_warning2 = storage=90%% quota-warning 90 %u
     quota_warning3 = storage=85%% quota-warning 85 %u
 </code></pre>
-
 <p>Restart Dovecot service is required.</p>
 <p>For more details, please read Dovecot document:
 <a href="http://wiki2.dovecot.org/Quota/Configuration">Quota Configuration</a></p>
@@ -280,9 +268,8 @@ it's expected to be warned as 95% full instead.</p>
 <p>Note: This is applicable to Dovecot-2.2.x. if you're running Dovecot-2.1.x or
 earlier versions, please skip this step.</p>
 <p>Check Dovecot version number with below command first:</p>
-<pre><code class="bash"># dovecot --version
+<pre><code class="language-bash"># dovecot --version
 </code></pre>
-
 <p>Open Dovecot config file <code>/etc/dovecot/dovecot.conf</code> (Linux/OpenBSD) or
 <code>/usr/local/etc/dovecot/dovecot.conf</code> (FreeBSD), find below setting:</p>
 <pre><code>namespace {
@@ -292,7 +279,6 @@ earlier versions, please skip this step.</p>
     ...
 }
 </code></pre>
-
 <p>Add below alias folders inside the same <code>namespace {}</code> block:</p>
 <pre><code>    mailbox &quot;Sent Items&quot; {
         auto = no
@@ -319,7 +305,6 @@ earlier versions, please skip this step.</p>
         special_use = \Archive
     }
 </code></pre>
-
 <p>Restart Dovecot service is required.</p>
 <h3 id="roundcube-webmail-add-daily-cron-job-to-cleanup-roundcube-sql-database">Roundcube webmail: Add daily cron job to cleanup Roundcube SQL database</h3>
 <p>It's recommended to setup a daily cron job to keep Roundcube SQL database slick
@@ -327,7 +312,6 @@ and clean, it removes all records that are marked as deleted.</p>
 <p>Please edit <code>root</code>'s cron job with command below:</p>
 <pre><code># crontab -e -u root
 </code></pre>
-
 <p>Then add cron job like below:</p>
 <ul>
 <li>RHEL/CentOS:</li>
@@ -335,14 +319,12 @@ and clean, it removes all records that are marked as deleted.</p>
 <pre><code># Cleanup Roundcube SQL database.
 2   2   *   *   *   php /var/www/roundcubemail/bin/cleandb.sh &gt;/dev/null
 </code></pre>
-
 <ul>
 <li>Debian/Ubuntu:</li>
 </ul>
 <pre><code># Cleanup Roundcube SQL database.
 2   2   *   *   *   php /opt/www/roundcubemail/bin/cleandb.sh &gt;/dev/null
 </code></pre>
-
 <p><strong>WARNING</strong>: with old iRedMail release, Roundcube directory is
 <code>/usr/share/apache2/roundcubemail</code>, please make sure you're using the correct
 one on your server.</p>
@@ -352,14 +334,12 @@ one on your server.</p>
 <pre><code># Cleanup Roundcube SQL database.
 2   2   *   *   *   php /usr/local/www/roundcube/bin/cleandb.sh &gt;/dev/null
 </code></pre>
-
 <ul>
 <li>OpenBSD:</li>
 </ul>
 <pre><code># Cleanup Roundcube SQL database.
 2   2   *   *   *   php /var/www/roundcubemail/bin/cleandb.sh &gt;/dev/null
 </code></pre>
-
 <h3 id="web-server-enable-hsts-http-strict-transport-security-support">Web server: Enable HSTS (HTTP Strict Transport Security) support</h3>
 <p>HTTP Strict Transport Security (often abbreviated as HSTS) is a security
 feature that lets a web site tell browsers that it should only be communicated
@@ -381,13 +361,11 @@ and append below settings right after <code>SSLEngine on</code> line:</p>
 # Module mod_headers is required. 15768000 seconds = 6 months.
 Header always set Strict-Transport-Security &quot;max-age=15768000&quot;
 </code></pre>
-
 <p>On Debian 8 and Ubuntu, run command below to make sure Apache module <code>headers</code>
 is enabled:</p>
 <pre><code>a2enmod headers
 service apache2 restart
 </code></pre>
-
 <h4>Nginx</h4>
 
 <p>For Nginx, please edit its config file which manages SSL related settings,
@@ -401,7 +379,6 @@ and append below settings right after <code>ssl on</code> line:</p>
 # https://developer.mozilla.org/en-US/docs/Web/Security/HTTP_strict_transport_security
 add_header Strict-Transport-Security &quot;max-age=15768000&quot;;
 </code></pre>
-
 <h3 id="sogo-fix-improper-settings-in-apachenginx-config-file">SOGo: Fix improper settings in Apache/Nginx config file</h3>
 <p>iRedMail-0.9.2 has improper settings in Apache/Nginx config files:</p>
 <ul>
@@ -427,18 +404,15 @@ config file, then restart Apache service.</p>
 #RequestHeader set &quot;x-webobjects-server-name&quot; &quot;yourhostname&quot;
 #RequestHeader set &quot;x-webobjects-server-url&quot; &quot;https://yourhostname&quot;
 </code></pre>
-
 <h5>2: Redirect /.well-known/carddav access to SOGo</h5>
 
 <p>Find below line in <code>SOGo.conf</code>:</p>
 <pre><code>  RewriteRule ^/.well-known/caldav/?$ /SOGo/dav [R=301]
 </code></pre>
-
 <p>Add a new line right after above line:</p>
 <pre><code>  RewriteRule ^/.well-known/caldav/?$ /SOGo/dav [R=301]
   RewriteRule ^/.well-known/carddav/?$ /SOGo/dav [R=301]
 </code></pre>
-
 <p>Restarting Apache service is required.</p>
 <h4>Nginx</h4>
 
@@ -454,7 +428,6 @@ file, then restart or reload Nginx service.</p>
 #proxy_set_header x-webobjects-server-name $server_name;
 #proxy_set_header x-webobjects-server-url $scheme://$host;
 </code></pre>
-
 <h5>2: Redirect /.well-known/carddav access to SOGo</h5>
 
 <p>iRedMail doesn't have <code>/.well-known</code> redirection in Nginx by default, so
@@ -463,7 +436,6 @@ in file <code>default.conf</code>:</p>
 <pre><code>rewrite ^/.well-known/caldav    /SOGo/dav permanent;
 rewrite ^/.well-known/carddav   /SOGo/dav permanent;
 </code></pre>
-
 <p>Restarting Nginx service is required.</p>
 <h3 id="sogo-the-dovecot-master-user-used-by-sogo-doesnt-work-due-to-incorrect-username">SOGo: The Dovecot Master User used by SOGo doesn't work due to incorrect username.</h3>
 <p>Note: you can skip this step if you don't run SOGo groupware, and iRedMail
@@ -484,21 +456,18 @@ exist on your server, then this login attempt fails.</p>
 </ul>
 <pre><code>sogo_sieve_master:...
 </code></pre>
-
 <ul>
 <li>Append any mail domain name which is not hosted on your server to this
   account, save your change. for example:</li>
 </ul>
 <pre><code>sogo_sieve_master@not-exist.com:...
 </code></pre>
-
 <ul>
 <li>Open file <code>/etc/sogo/sieve.cred</code>, append the same mail domain name for the
   sieve account:</li>
 </ul>
 <pre><code>sogo_sieve_master@not-exist.com:...
 </code></pre>
-
 <p>That's all.</p>
 <h3 id="sogo-cron-jobs-which-run-every-minute-must-be-grouped-in-one-job">SOGo: cron jobs which run every minute must be grouped in one job.</h3>
 <p>Note: this is applicable to iRedMail server which has SOGo groupware installed
@@ -515,7 +484,6 @@ can check the cron jobs with command below. Note:</p>
 *   *   *   *   *   /usr/sbin/sogo-tool expire-sessions 30
 *   *   *   *   *   /usr/sbin/sogo-ealarms-notify
 </code></pre>
-
 <p>It always complains with error message like below:</p>
 <blockquote>
 <p>sogo-tool[27443] Failed to create lock directory '/var/lib/sogo/GNUstep/Defaults/.lck/.GNUstepDefaults.lck'</p>
@@ -529,12 +497,10 @@ cron entry only for both (jobs).</code></p>
 <p>Please edit the cron job with command below:</p>
 <pre><code># crontab -u sogo -e
 </code></pre>
-
 <p>Then group those 2 jobs into one cron job like below (note, use semicolon <code>;</code>
 to separate jobs):</p>
 <pre><code>*   *   *   *   *   /usr/sbin/sogo-tool expire-sessions 30; /usr/sbin/sogo-ealarms-notify
 </code></pre>
-
 <p>That's all.</p>
 <h3 id="sogo-use-correct-sieve-folder-encoding">SOGo: Use correct sieve folder encoding</h3>
 <p>SOGo uses <code>UTF-7</code> as sieve folder encoding by default, this is improper, we
@@ -544,7 +510,6 @@ cannot be correctly created or displayed.</p>
 (Linux/OpenBSD) or <code>/usr/local/etc/sogo/sogo.conf</code> (FreeBSD):</p>
 <pre><code>    SOGoSieveFolderEncoding = UTF-8;
 </code></pre>
-
 <p>Restarting SOGo service is required.</p>
 <h3 id="rhelcentos-7-remove-daemonze-line-in-etcuwsgiini">[RHEL/CentOS 7] Remove <code>daemonze =</code> line in <code>/etc/uwsgi.ini</code></h3>
 <p>NOTE: this is required by RHEL/CentOS 7, and not applicable to other Linux/BSD
@@ -564,7 +529,6 @@ you must set the default firewall zone manually with steps below.</p>
 </ul>
 <pre><code>DefaultZone=public
 </code></pre>
-
 <ul>
 <li>Please replace <code>public</code> by <code>iredmail</code>, it will open ports required by ssh and
   mail services. The zone file is <code>/etc/firewalld/zones/iredmail.xml</code>, please
@@ -572,13 +536,11 @@ you must set the default firewall zone manually with steps below.</p>
 </ul>
 <pre><code>DefaultZone=iredmail
 </code></pre>
-
 <ul>
 <li>Reload firewall rules with command below:</li>
 </ul>
 <pre><code>firewall-cmd --complete-reload
 </code></pre>
-
 <h3 id="optional-fixed-not-preserve-the-case-of-extension-while-delivering-message-to-mailbox">[OPTIONAL] Fixed: Not preserve the case of <code>${extension}</code> while delivering message to mailbox</h3>
 <p>With iRedMail-0.9.2 and earlier releases, email sent to user
 <code>username+Ext@domain.com</code> (upper case <code>E</code>) will be delivered to folder
@@ -592,13 +554,11 @@ preserve the case of address extension.</p>
 dovecot unix    -       n       n       -       -      pipe
     flags=DRhu ...
 </code></pre>
-
 <ul>
 <li>Replace <code>flags=DRhu</code> by <code>flags=DRh</code> (remove <code>u</code>) in the third line:</li>
 </ul>
 <pre><code>    flags=DRh ...
 </code></pre>
-
 <h3 id="optional-fail2ban-update-regular-expression-to-catch-postscreen-log">[OPTIONAL] Fail2ban: Update regular expression to catch postscreen log</h3>
 <p>We added one new regular expression to catch postscreen log to help reduce
 spam, please follow steps below to add it.</p>
@@ -607,7 +567,6 @@ spam, please follow steps below to add it.</p>
 below line under <code>[Definition]</code> section:</p>
 <pre><code>            reject: RCPT from (.*)\[&lt;HOST&gt;\]:([0-9]{4,5}:)? 550
 </code></pre>
-
 <p>Restarting Fail2ban service is required.</p>
 <h3 id="optional-postfix-remove-one-non-spam-helo-identity-in-helo-restriction">[OPTIONAL] Postfix: Remove one non-spam HELO identity in helo restriction</h3>
 <p>iRedMail ships a Postfix HELO rule file, <code>/etc/postfix/helo_access.pcre</code>, it
@@ -618,7 +577,6 @@ remove it.</p>
 or <code>/usr/local/etc/postfix/helo_access.pcre</code> (FreeBSD), and remove it.</p>
 <pre><code>/(bezeqint\.net)$/ REJECT ACCESS DENIED. Your email was rejected because the sending mail server does not identify itself correctly (${1})
 </code></pre>
-
 <h3 id="optional-postfix-add-some-more-restriction-methods">[OPTIONAL] Postfix: add some more restriction methods</h3>
 <blockquote>
 <p>Note: this is an optional operation, not required but recommended.</p>
@@ -634,7 +592,6 @@ for example, reject spammer whom sends emails with different domain names.</p>
 <pre><code>header_checks = pcre:/etc/postfix/header_checks
 body_checks = pcre:/etc/postfix/body_checks.pcre
 </code></pre>
-
 <ul>
 <li>In <code>main.cf</code>, find parameter <code>smtpd_sender_restrictions =</code>, add a new setting
   <code>check_sender_access pcre:/etc/postfix/sender_access.pcre</code> right after
@@ -646,13 +603,11 @@ body_checks = pcre:/etc/postfix/body_checks.pcre
     check_sender_access pcre:/etc/postfix/sender_access.pcre
     ...
 </code></pre>
-
 <ul>
 <li>Create required files:</li>
 </ul>
 <pre><code># touch /etc/postfix/{header_checks,body_checks.pcre,sender_access.pcre}
 </code></pre>
-
 <ul>
 <li>Reloading or restarting Postfix service is required.</li>
 </ul>
@@ -682,7 +637,6 @@ like password), we'd better remove this ACL control due to security concern.</p>
     by dn.regex=&quot;mail=[^,]+,ou=Users,domainName=$1,o=domains,dc=example,dc=com$&quot; read
     by users                        read
 </code></pre>
-
 <p>The LDAP suffix <code>dc=example,dc=com</code> might be different on your server.</p>
 <ul>
 <li>Remove the 6th line (<code>by dn.regex="mail=..."</code>), and replace the line <code>by users read</code>
@@ -695,7 +649,6 @@ like password), we'd better remove this ACL control due to security concern.</p>
     by dn.exact=&quot;cn=vmailadmin,dc=example,dc=com&quot;  write
     by users                        none
 </code></pre>
-
 <ul>
 <li>Save your change and restart OpenLDAP service.</li>
 </ul>
@@ -711,13 +664,11 @@ below.</p>
 </ul>
 <pre><code>user_attrs      = mail=user, ...
 </code></pre>
-
 <ul>
 <li>Add new setting <code>mail=master_user</code> in <code>user_attrs</code> like below:</li>
 </ul>
 <pre><code>user_attrs      = mail=master_user,mail=user, ...
 </code></pre>
-
 <ul>
 <li>Restart Dovecot service.</li>
 </ul>
@@ -730,7 +681,6 @@ to store white/blacklists for outbound message, required by iRedAPD plugin
 mysql&gt; USE amavisd;
 mysql&gt; CREATE TABLE outbound_wblist (rid integer unsigned NOT NULL, sid integer unsigned NOT NULL, wb varchar(10) NOT NULL, PRIMARY KEY (rid,sid));
 </code></pre>
-
 <p>After table created, please restart iRedAPD service.</p>
 <h3 id="add-new-column-delete_date-in-sql-table-iredadmindeleted_mailboxes">Add new column <code>delete_date</code> in SQL table <code>iredadmin.deleted_mailboxes</code></h3>
 <p>We need a SQL column to store the date we schedule to delete the mailbox after
@@ -742,7 +692,6 @@ sql&gt; USE iredadmin;
 sql&gt; ALTER TABLE deleted_mailboxes ADD COLUMN delete_date DATE DEFAULT NULL;
 sql&gt; CREATE INDEX idx_delete_date ON deleted_mailboxes (delete_date);
 </code></pre>
-
 <p>That's it.</p>
 <h2 id="mysqlmariadb-backend-special">MySQL/MariaDB backend special</h2>
 <h3 id="add-new-sql-columns-in-vmail-database-aliasis_alias-aliasalias_to">Add new SQL columns in <code>vmail</code> database: <code>alias.is_alias</code>, <code>alias.alias_to</code></h3>
@@ -767,7 +716,6 @@ sql&gt; ALTER TABLE alias ADD COLUMN alias_to VARCHAR(255) NOT NULL DEFAULT '';
 sql&gt; ALTER TABLE alias ADD INDEX (is_alias);
 sql&gt; ALTER TABLE alias ADD INDEX (alias_to);
 </code></pre>
-
 <blockquote>
 <p><strong>Sample usage</strong>: add additional email addresses <code>extra@domain.com</code> for
 existing user <code>user@domain.com</code>:
@@ -777,7 +725,6 @@ existing user <code>user@domain.com</code>:
 sql&gt; INSERT INTO alias (address, goto, is_alias, alias_to, domain)
                 VALUES ('extra@domain.com', 'user@domain.com', 1, 'user@domain.com', 'domain.com');
 </code></pre>
-
 <blockquote>
 <p>Notes:</p>
 <ul>
@@ -795,7 +742,6 @@ to store white/blacklists for outbound message, required by iRedAPD plugin
 mysql&gt; USE amavisd;
 mysql&gt; CREATE TABLE outbound_wblist (rid integer unsigned NOT NULL, sid integer unsigned NOT NULL, wb varchar(10) NOT NULL, PRIMARY KEY (rid,sid));
 </code></pre>
-
 <p>After table created, please restart iRedAPD service.</p>
 <h3 id="add-new-column-delete_date-in-sql-table-vmaildeleted_mailboxes">Add new column <code>delete_date</code> in SQL table <code>vmail.deleted_mailboxes</code></h3>
 <p>We need a SQL column to store the date we schedule to delete the mailbox after
@@ -807,7 +753,6 @@ sql&gt; USE vmail;
 sql&gt; ALTER TABLE deleted_mailboxes ADD COLUMN delete_date DATE DEFAULT NULL;
 sql&gt; CREATE INDEX idx_delete_date ON deleted_mailboxes (delete_date);
 </code></pre>
-
 <h3 id="optional-sogo-enable-isolated-per-domain-global-address-book">[OPTIONAL] SOGo: enable isolated per-domain global address book</h3>
 <p>iRedMail doesn't enable global address book by default, this step will help
 you enable isolated per-domain global address book.</p>
@@ -823,7 +768,6 @@ sql&gt; USE sogo;
 sql&gt; DROP VIEW users;
 sql&gt; CREATE VIEW sogo.users (c_uid, c_name, c_password, c_cn, mail, domain) AS SELECT username, username, password, name, username, domain FROM vmail.mailbox WHERE active=1;
 </code></pre>
-
 <p>Open SOGo config file <code>/etc/sogo/sogo.conf</code> (Linux, OpenBSD) or
 <code>/usr/local/etc/sogo/sogo.conf</code> (FreeBSD), find the <code>SOGoUserSources</code> block
 defined for SQL backend. for example:</p>
@@ -837,7 +781,6 @@ defined for SQL backend. for example:</p>
         }
     );
 </code></pre>
-
 <p>Uncomment <code>isAddressBook</code> and <code>displayName</code> lines, and add two new parameters
 like below:</p>
 <pre><code>            isAddressBook = YES;
@@ -845,7 +788,6 @@ like below:</p>
             SOGoEnableDomainBasedUID = YES;
             DomainFieldName = &quot;domain&quot;;
 </code></pre>
-
 <p>Restart SOGo service is required.</p>
 <h2 id="postgresql-backend-special">PostgreSQL backend special</h2>
 <h3 id="add-new-sql-columns-in-vmail-database-aliasis_alias-aliasalias_to_1">Add new SQL columns in <code>vmail</code> database: <code>alias.is_alias</code>, <code>alias.alias_to</code></h3>
@@ -870,7 +812,6 @@ sql&gt; ALTER TABLE alias ADD COLUMN alias_to VARCHAR(255) NOT NULL DEFAULT '';
 sql&gt; CREATE INDEX idx_alias_is_alias ON alias (is_alias);
 sql&gt; CREATE INDEX idx_alias_alias_to ON alias (alias_to);
 </code></pre>
-
 <blockquote>
 <p><strong>Sample usage</strong>: add additional email addresses <code>extra@domain.com</code> for
 existing user <code>user@domain.com</code>:
@@ -880,7 +821,6 @@ existing user <code>user@domain.com</code>:
 sql&gt; INSERT INTO alias (address, goto, is_alias, alias_to, domain)
                 VALUES ('extra@domain.com', 'user@domain.com', 1, 'user@domain.com', 'domain.com');
 </code></pre>
-
 <blockquote>
 <p>Notes:</p>
 <ul>
@@ -904,7 +844,6 @@ $ psql -d amavisd
 sql&gt; CREATE TABLE outbound_wblist (rid integer NOT NULL CHECK (rid &gt;= 0), sid integer NOT NULL CHECK (sid &gt;= 0), wb varchar(10) NOT NULL, PRIMARY KEY (rid,sid));
 sql&gt; ALTER TABLE outbound_wblist OWNER TO amavisd;
 </code></pre>
-
 <p>After table created, please restart iRedAPD service.</p>
 <h3 id="add-new-column-delete_date-in-sql-table-vmaildeleted_mailboxes_1">Add new column <code>delete_date</code> in SQL table <code>vmail.deleted_mailboxes</code></h3>
 <p>We need a SQL column to store the date we schedule to delete the mailbox after
@@ -921,7 +860,6 @@ $ psql -d vmail
 sql&gt; ALTER TABLE deleted_mailboxes ADD COLUMN delete_date DATE DEFAULT NULL;
 sql&gt; CREATE INDEX idx_delete_date ON deleted_mailboxes (delete_date);
 </code></pre>
-
 <p>That's it.</p>
 <h3 id="optional-sogo-enable-isolated-per-domain-global-address-book_1">[OPTIONAL] SOGo: enable isolated per-domain global address book</h3>
 <p>iRedMail doesn't enable global address book by default, this step will help
@@ -940,7 +878,6 @@ user        = vmail
 password    = NGtLm0jFiwwOH5AeQtTsSAkScUMdFc
 dbname      = vmail
 </code></pre>
-
 <p>We need SQL server address, port, user, password and database name.</p>
 <p>Now connect to PostgreSQL server as admin user, drop existing SQL VIEW
 <code>sogo.users</code>, and re-create it.</p>
@@ -954,7 +891,6 @@ sql&gt; DROP TABLE users;
 sql&gt; CREATE VIEW users AS SELECT * FROM dblink('host=127.0.0.1 port=5432 user=vmail password=NGtLm0jFiwwOH5AeQtTsSAkScUMdFc dbname=vmail', 'SELECT username AS c_uid, username AS c_name, password AS c_password, name AS c_cn, username AS mail, domain AS domain FROM mailbox WHERE active=1') AS users (c_uid VARCHAR(255), c_name VARCHAR(255), c_password VARCHAR(255), c_cn VARCHAR(255), mail VARCHAR(255), domain VARCHAR(255));
 sql&gt; ALTER TABLE users OWNER TO sogo;
 </code></pre>
-
 <p>Open SOGo config file <code>/etc/sogo/sogo.conf</code> (Linux, OpenBSD) or
 <code>/usr/local/etc/sogo/sogo.conf</code> (FreeBSD), find the <code>SOGoUserSources</code> block
 defined for SQL backend. for example:</p>
@@ -968,7 +904,6 @@ defined for SQL backend. for example:</p>
         }
     );
 </code></pre>
-
 <p>Uncomment <code>isAddressBook</code> and <code>displayName</code> lines, and add two new parameters
 like below:</p>
 <pre><code>            isAddressBook = YES;
@@ -976,7 +911,6 @@ like below:</p>
             SOGoEnableDomainBasedUID = YES;
             DomainFieldName = &quot;domain&quot;;
 </code></pre>
-
 <p>Restart SOGo service is required.</p><div class="footer">
     <p style="text-align: center; color: grey;">All documents are available in <a href="https://github.com/iredmail/docs/">GitHub repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://github.com/iredmail/docs/archive/master.zip">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
 </div></body></html>

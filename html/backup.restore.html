@@ -67,7 +67,6 @@ installation, so what you need to do is checking whether or not they're
 defined as cron jobs with below commands:</p>
 <pre><code># crontab -l -u root
 </code></pre>
-
 <p>Sample output on an iRedMail server with OpenLDAP backend:</p>
 <pre><code># iRedMail: Backup OpenLDAP data every day on 03:01 AM
 1   3   *   *   *   /bin/bash /var/vmail/backup/backup_openldap.sh
@@ -75,7 +74,6 @@ defined as cron jobs with below commands:</p>
 # iRedMail: Backup MySQL databases every day on 03:10 AM
 10   3   *   *   *   /bin/bash /var/vmail/backup/backup_mysql.sh
 </code></pre>
-
 <p>Notes:</p>
 <ul>
 <li>Backup files are stored under directory defined in parameter <code>BACKUP_ROOTDIR</code>
@@ -153,7 +151,6 @@ SQL credentials.</p>
 <pre><code>USE iredapd;
 SOURCE /var/vmail/backup/mysql/2021/11/19/iredapd-2021-11-19-23-02-01.sql;
 </code></pre>
-
 <p>That's it.</p>
 <p>You should restore other databases with same steps but different
 backup files. Again, <strong>do not restore the database named <code>mysql</code></strong>.</p>
@@ -197,7 +194,6 @@ the correct ones in this tutorial:
 # ls -l 2015-05-10-03:01:01.ldif
 -rw-r--r-- 1 root root 7352 May 10 03:01 2015-05-10-03:01:01.ldif
 </code></pre>
-
 <ul>
 <li>
 <p>Find passwords for <code>cn=vmail,dc=xx,dc=xx</code> and <code>cn=vmailadmin,dc=xx,dc=xx</code>
@@ -219,7 +215,6 @@ the correct ones in this tutorial:
     * LDAP bind dn (read-only): cn=vmail,dc=example,dc=com, password: py2BQwM0zoRM5nciK68AlP8dyu2Mq6
     * LDAP admin dn (used for iRedAdmin): cn=vmailadmin,dc=example,dc=com, password: 9wr0mHeVYz2uaxSAGBLucVkOgYPSBB
 </code></pre>
-
 <ul>
 <li>Now hash them with command <code>slappasswd</code>:</li>
 </ul>
@@ -229,7 +224,6 @@ the correct ones in this tutorial:
 # slappasswd -h '{ssha}' -s '9wr0mHeVYz2uaxSAGBLucVkOgYPSBB'    # &lt;- cn=vmailadmin's password
 {SSHA}lWt6zjOOUq+2WUmiAea2FXLB4oHMYvIb
 </code></pre>
-
 <ul>
 <li>
 <p>Open the backup file <code>2015-05-10-03:01:01.ldif</code> with your favourite text
@@ -254,7 +248,6 @@ userPassword:: e1NTSEF9alZi8E12dS9FNllaMktteFh7YkZham1mM3Jqc21cdEFsZjJIeEE9PQ=  
  =                                                                              # &lt;- remove this line
 ...
 </code></pre>
-
 <p>Replace these two <code>userPassword</code> lines by the newly generated ssha passwords,
 save your change, exit your text editor.</p>
 <pre><code>dn: cn=vmail,dc=iredmail,dc=org
@@ -266,7 +259,6 @@ dn: cn=vmailadmin,dc=iredmail,dc=org
 userPassword: {SSHA}lWt6zjOOUq+2WUmiAea2FXLB4oHMYvIb
 ...
 </code></pre>
-
 <p><strong>Important note</strong>:  There's only <strong>ONE</strong> colon after <code>userPassword</code> string
 (<code>userPassword:</code>).</p>
 <ul>
@@ -274,7 +266,6 @@ userPassword: {SSHA}lWt6zjOOUq+2WUmiAea2FXLB4oHMYvIb
 </ul>
 <pre><code># /etc/init.d/ldap stop
 </code></pre>
-
 <ul>
 <li>
 <p>If you enabled additional LDAP schema files on old server, you <code>MUST</code> copy
@@ -305,7 +296,6 @@ suffix      dc=iredmail,dc=org
 directory   /var/lib/ldap/iredmail.org
 ...
 </code></pre>
-
 <p>So you should remove all files under directory <code>/var/lib/ldap/iredmail.org</code>
 except <code>/var/lib/ldap/iredmail.org/DB_CONFIG</code>.</p>
 <pre><code># cd /var/lib/ldap/iredmail.org/
@@ -313,7 +303,6 @@ except <code>/var/lib/ldap/iredmail.org/DB_CONFIG</code>.</p>
 # rm -rf /var/lib/ldap/iredmail.org/*
 # mv ~/DB_CONFIG .
 </code></pre>
-
 <ul>
 <li>Start OpenLDAP service immediately, then stop it again. it will help create
   necessary files required by backend db (<code>dbd</code> in our case, <code>database dbd</code>).</li>
@@ -321,14 +310,12 @@ except <code>/var/lib/ldap/iredmail.org/DB_CONFIG</code>.</p>
 <pre><code># /etc/init.d/slapd start
 # /etc/init.d/slapd stop
 </code></pre>
-
 <ul>
 <li>Make sure OpenLDAP server is <strong>NOT</strong> running, then restore backup LDIF file
   with command <code>slapadd</code>.</li>
 </ul>
 <pre><code># slapadd -f /etc/openldap/slapd.conf -l /path/to/backup/backup.ldif
 </code></pre>
-
 <ul>
 <li>It's OK to start OpenLDAP server now. It may report errors like below:</li>
 </ul>
@@ -341,13 +328,11 @@ Checking configuration files for slapd:  config file testing succeeded
                                                            [  OK  ]
 Starting slapd:                                            [  OK  ]
 </code></pre>
-
 <p>If you see above warning about improper file ownership, please set correct file
 owner on newly created bdb files immediately, then restart OpenLDAP service:</p>
 <pre><code># chown ldap:ldap /var/lib/ldap/iredmail.org/*.bdb
 # /etc/init.d/ldap restart
 </code></pre>
-
 <p>If you're restoring LDAP data from an old iRedMail server, you should add
 missing LDAP attribute/values, which are introduced in newer iRedMail releases,
 by following step below: <a href="#after-ldap-restore">After LDAP Restore</a>.</p>
@@ -361,14 +346,12 @@ to restore its data with command <code>ldapadd</code>.</p>
 </ul>
 <pre><code>rcctl stop ldapd
 </code></pre>
-
 <ul>
 <li>Remove all files under ldapd data directory <code>/var/db/ldap/</code>.</li>
 <li>Start ldapd service.</li>
 </ul>
 <pre><code>rcctl start ldapd
 </code></pre>
-
 <ul>
 <li>
 <p>Import backup LDIF file:</p>
@@ -380,7 +363,6 @@ to restore its data with command <code>ldapadd</code>.</p>
 </ul>
 <pre><code># ldapadd -x -D 'cn=Manager,dc=xx,dc=xx' -W -f /path/to/backup.ldif
 </code></pre>
-
 <p>If you're restoring LDAP data from an old iRedMail server, you should add
 missing LDAP attribute/values, which are introduced in newer iRedMail releases,
 by following step below: <a href="#after-ldap-restore">After LDAP Restore</a>.</p>
@@ -411,7 +393,6 @@ basedn = 'o=domains,dc=example,dc=com'
 bind_dn = 'cn=Manager,dc=example,dc=com'
 bind_pw = 'passwd'
 </code></pre>
-
 <p>Please update them with the correct LDAP prefix (<code>dc=xx,dc=xx</code>) and bind
 password, then run it with <code>python</code> command:</p>
 <pre><code>python updateLDAPValues_094_to_095.py

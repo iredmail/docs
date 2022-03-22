@@ -25,21 +25,17 @@
 发送邮件的用户邮件地址。下面以用户 <code>user@example.com</code> 为例：</p>
 <pre><code>user@example.com OK
 </code></pre>
-
 <p>使用 <code>postmap</code> 命令建立哈希数据库文件：</p>
 <pre><code># postmap hash:/etc/postfix/accepted_unauth_senders
 </code></pre>
-
 <p>修改 Postfix 配置文件 <code>/etc/postfix/main.cf</code> 以使用该文件：</p>
 <pre><code>smtpd_sender_restrictions =
     check_sender_access hash:/etc/postfix/accepted_unauth_senders,
     [...OTHER RESTRICTIONS HERE...]
 </code></pre>
-
 <p>重启 postfix 服务以使设置生效：</p>
 <pre><code># /etc/init.d/postfix restart
 </code></pre>
-
 <h2 id="iredapd">iRedAPD</h2>
 <p>iRedAPD 插件 <code>reject_sender_login_mismatch</code> 会检测伪造的发件人地址。如果发件人
 的域名在你的服务器托管，并且邮件不是经由 SMTP 验证发送的，就会被认为是伪造的
@@ -52,14 +48,12 @@ not logged in</code>），因此需要在 iRedAPD 里放行将该收件人邮件
 </ul>
 <pre><code>ALLOWED_FORGED_SENDERS = ['user@example.com']
 </code></pre>
-
 <ul>
 <li>放行发件人 IP 地址或网段，例如, <code>192.168.0.1</code> 和 <code>192.168.1.0/24</code>，请在
   <code>/opt/iredapd/settings.py</code> 里加以下参数：</li>
 </ul>
 <pre><code>MYNETWORKS = ['192.168.0.1', '192.168.1.0/24']
 </code></pre>
-
 <p>修改后需要重启 iRedAPD 服务。</p><div class="footer">
     <p style="text-align: center; color: grey;">All documents are available in <a href="https://github.com/iredmail/docs/">GitHub repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://github.com/iredmail/docs/archive/master.zip">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
 </div></body></html>

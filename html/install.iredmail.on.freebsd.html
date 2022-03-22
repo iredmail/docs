@@ -82,10 +82,9 @@ this installation guide instead:
 <p>No matter your server is a testing machine or production server, it's strongly
 recommended to set a fully qualified domain name (FQDN) hostname.</p>
 <p>Enter command <code>hostname -f</code> to view the current hostname:</p>
-<pre><code class="shell"># hostname -f
+<pre><code class="language-shell"># hostname -f
 mx.example.com
 </code></pre>
-
 <p>On FreeBSD, hostname is set in two files: <code>/etc/rc.conf</code>, <code>/etc/hosts</code>.</p>
 <ul>
 <li><code>/etc/rc.conf</code>: set hostname.</li>
@@ -93,27 +92,22 @@ mx.example.com
 <pre><code># Part of File: /etc/rc.conf
 hostname=&quot;mx.example.com&quot;
 </code></pre>
-
 <ul>
 <li><code>/etc/hosts</code>: hostname &lt;=&gt; IP address mapping.</li>
 </ul>
 <pre><code># Part of file: /etc/hosts
 127.0.0.1   mx.example.com mx localhost localhost.localdomain
 </code></pre>
-
 <p>Verify the FQDN hostname. If it wasn't changed, please reboot server to make it work.</p>
 <pre><code># hostname -f
 mx.example.com
 </code></pre>
-
 <h3 id="update-ports-tree-via-portsnap">Update ports tree via portsnap</h3>
 <pre><code># portsnap fetch extract update
 </code></pre>
-
 <h3 id="install-package-bash-static-its-required-by-iredmail">Install package <code>bash-static</code>, it's required by iRedMail</h3>
-<pre><code class="bash"># pkg install bash-static
+<pre><code class="language-bash"># pkg install bash-static
 </code></pre>
-
 <h3 id="download-the-latest-release-of-iredmail">Download the latest release of iRedMail</h3>
 <ul>
 <li>
@@ -132,14 +126,12 @@ mx.example.com
 <pre><code># cd /root/
 # tar zxf iRedMail-x.y.z.tar.gz
 </code></pre>
-
 <h2 id="start-iredmail-installer">Start iRedMail installer</h2>
 <p>It's now ready to start iRedMail installer, it will ask you several simple
 questions, that's all required to setup a full-featured mail server.</p>
 <pre><code># cd /root/iRedMail-x.y.z/
 # bash iRedMail.sh
 </code></pre>
-
 <h2 id="screenshots-of-installation">Screenshots of installation:</h2>
 <ul>
 <li>Welcome and thanks for your use</li>

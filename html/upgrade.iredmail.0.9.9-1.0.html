@@ -85,7 +85,6 @@ installation, it's recommended to update this file after you upgraded iRedMail,
 so that you can know which version of iRedMail you're running. For example:</p>
 <pre><code>1.0
 </code></pre>
-
 <h3 id="upgrade-iredapd-postfix-policy-server-to-the-latest-stable-release-33">Upgrade iRedAPD (Postfix policy server) to the latest stable release: 3.3</h3>
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>
@@ -134,7 +133,6 @@ steps below to fix it.</p>
     ...
     check_sender_access pcre:...
 </code></pre>
-
 <ul>
 <li>Move the <code>reject_unknown_sender_domain</code> line after <code>check_sender_access</code> line
   like below:</li>
@@ -144,7 +142,6 @@ steps below to fix it.</p>
     check_sender_access pcre:...
     reject_unknown_sender_domain
 </code></pre>
-
 <ul>
 <li>Reloading or restarting Postfix service is required.</li>
 </ul>
@@ -159,13 +156,11 @@ below, but solution 1 is the recommended.</p>
 </ol>
 <pre><code>/^\d{1,3}-\d{1,3}-\d{1,3}-\d{1,3}\.mail-mail\.facebook\.com$/ DUNNO
 </code></pre>
-
 <ol>
 <li>Or, find line below in <code>helo_access.pcre</code> and remove it.</li>
 </ol>
 <pre><code>/(\d{1,3}[\.-]\d{1,3}[\.-]\d{1,3}[\.-]\d{1,3})/ REJECT ACCESS DENIED. Your email was rejected because the sending mail server appears to be on a dynamic IP address that should not be doing direct mail delivery
 </code></pre>
-
 <p>Reloading or restarting Postfix service is required.</p>
 <h3 id="fixed-incorrect-ssl-ca-file-path-in-postfix-on-freebsd-and-openbsd">Fixed: Incorrect SSL CA file path in Postfix on FreeBSD and OpenBSD</h3>
 <div class="admonition attention">
@@ -179,7 +174,6 @@ directory like Linux. Commands below fix this issue.</p>
 postconf -e smtpd_tls_CApath=''
 postfix reload
 </code></pre>
-
 <h3 id="fail2ban-slightly-loose-filter-rule-for-postfix">Fail2ban: slightly loose filter rule for postfix</h3>
 <p>We received few reports from clients that Outlook for macOS may trigger some
 unexpected smtp errors, and caught by the Fail2ban filter rules shipped by
@@ -193,7 +187,6 @@ iRedMail, so we decide to remove the filter rule used to match Postfix log
 wget -O postfix.iredmail.conf https://github.com/iredmail/iRedMail/raw/1.0/samples/fail2ban/filter.d/postfix.iredmail.conf
 wget -O dovecot.iredmail.conf https://github.com/iredmail/iRedMail/raw/1.0/samples/fail2ban/filter.d/dovecot.iredmail.conf
 </code></pre>
-
 <p>Restarting Fail2ban service is required.</p>
 <h2 id="for-openldap-backend">For OpenLDAP backend</h2>
 <h3 id="optional-enable-mailbox-quota-status-check-in-dovecot-and-postfix">[OPTIONAL] Enable mailbox quota status check in Dovecot and Postfix.</h3>
@@ -214,7 +207,6 @@ this service.</p>
 <pre><code>cd /root/
 wget https://github.com/iredmail/iRedMail/raw/1.0/update/ldap/updateLDAPValues_099_to_1.py
 </code></pre>
-
 <ul>
 <li>Open downloaded file <code>updateLDAPValues_099_to_1.py</code>, set LDAP server
   related settings in this file. For example:</li>
@@ -226,7 +218,6 @@ basedn = 'o=domains,dc=example,dc=com'
 bind_dn = 'cn=vmailadmin,dc=example,dc=com'
 bind_pw = 'passwd'
 </code></pre>
-
 <p>You can find required LDAP credential in iRedAdmin config file or
 <code>iRedMail.tips</code> file under your iRedMail installation directory. Using either
 <code>cn=Manager,dc=xx,dc=xx</code> or <code>cn=vmailadmin,dc=xx,dc=xx</code> as bind dn is ok, both
@@ -236,7 +227,6 @@ of them have read-write privilege to update mail accounts.</p>
 </ul>
 <pre><code># python2 updateLDAPValues_099_to_1.py
 </code></pre>
-
 <h4 id="enable-quota-status-service-in-dovecot">Enable quota-status service in Dovecot</h4>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
@@ -255,7 +245,6 @@ and add 3 new parameters:</p>
     ...
 }
 </code></pre>
-
 <p>In same <code>dovecot.conf</code>, append settings below <strong>at the end of file</strong>:</p>
 <ul>
 <li>With settings below, Dovecot quota-status service will listen on <code>127.0.0.1:12340</code>.</li>
@@ -270,7 +259,6 @@ and add 3 new parameters:</p>
     }
 }
 </code></pre>
-
 <p>Restarting Dovecot service is required.</p>
 <h4 id="enable-quota-status-check-in-postfix">Enable quota status check in Postfix</h4>
 <div class="admonition warning">
@@ -286,7 +274,6 @@ Dovecot-2.1.x or earlier versions.</p>
     ...
     check_policy_service inet:127.0.0.1:12340
 </code></pre>
-
 <p>Restarting Postfix service is required.</p>
 <h3 id="optional-track-the-time-of-user-last-login-via-imappop3">[OPTIONAL] Track the time of user last login via IMAP/POP3</h3>
 <p>Sometimes you may want/need to know the time of user last login via IMAP/POP3,
@@ -313,7 +300,6 @@ it directly as MySQL root user (Please run commands below as <code>root</code> u
 mysql vmail &lt; /tmp/iredmail.mysql
 rm -f /tmp/iredmail.mysql
 </code></pre>
-
 <h4 id="enable-quota-status-service-in-dovecot_1">Enable quota-status service in Dovecot</h4>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
@@ -332,7 +318,6 @@ and add 3 new parameters:</p>
     ...
 }
 </code></pre>
-
 <p>In same <code>dovecot.conf</code>, append settings below <strong>at the end of file</strong>:</p>
 <ul>
 <li>With settings below, Dovecot quota-status service will listen on <code>127.0.0.1:12340</code>.</li>
@@ -347,7 +332,6 @@ and add 3 new parameters:</p>
     }
 }
 </code></pre>
-
 <p>Restarting Dovecot service is required.</p>
 <h4 id="enable-quota-status-check-in-postfix_1">Enable quota status check in Postfix</h4>
 <div class="admonition warning">
@@ -363,7 +347,6 @@ Dovecot-2.1.x or earlier versions.</p>
     ...
     check_policy_service inet:127.0.0.1:12340
 </code></pre>
-
 <p>Restarting Postfix service is required.</p>
 <h3 id="optional-track-the-time-of-user-last-login-via-imappop3_1">[OPTIONAL] Track the time of user last login via IMAP/POP3</h3>
 <p>Sometimes you may want/need to know the time of user last login via IMAP/POP3,
@@ -389,7 +372,6 @@ to process this email (e.g. spam/virus scanning), and avoids bounce message.</p>
 </ul>
 <pre><code>wget -O /tmp/iredmail.pgsql https://github.com/iredmail/iRedMail/raw/1.0/update/1.0/iredmail.pgsql
 </code></pre>
-
 <ul>
 <li>Connect to PostgreSQL server as <code>postgres</code> user and import the SQL file:<ul>
 <li>on Linux, it's <code>postgres</code> user</li>
@@ -401,13 +383,11 @@ to process this email (e.g. spam/virus scanning), and avoids bounce message.</p>
 <pre><code>su - postgres
 psql -d vmail &lt; /tmp/iredmail.pgsql
 </code></pre>
-
 <ul>
 <li>Remove downloaded file as root user:</li>
 </ul>
 <pre><code>rm -f /tmp/iredmail.pgsql
 </code></pre>
-
 <h4 id="enable-quota-status-service-in-dovecot_2">Enable quota-status service in Dovecot</h4>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
@@ -426,7 +406,6 @@ and add 3 new parameters:</p>
     ...
 }
 </code></pre>
-
 <p>In same <code>dovecot.conf</code>, append settings below <strong>at the end of file</strong>:</p>
 <ul>
 <li>With settings below, Dovecot quota-status service will listen on <code>127.0.0.1:12340</code>.</li>
@@ -441,7 +420,6 @@ and add 3 new parameters:</p>
     }
 }
 </code></pre>
-
 <p>Restarting Dovecot service is required.</p>
 <h4 id="enable-quota-status-check-in-postfix_2">Enable quota status check in Postfix</h4>
 <div class="admonition warning">
@@ -457,7 +435,6 @@ Dovecot-2.1.x or earlier versions.</p>
     ...
     check_policy_service inet:127.0.0.1:12340
 </code></pre>
-
 <p>Restarting Postfix service is required.</p><div class="footer">
     <p style="text-align: center; color: grey;">All documents are available in <a href="https://github.com/iredmail/docs/">GitHub repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://github.com/iredmail/docs/archive/master.zip">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
 </div></body></html>

@@ -56,7 +56,6 @@ firmare le mail in uscita per il nuovo dominio. Così facendo non dovrete chiede
     ...
 });
 </code></pre>
-
 <p>Aggiungete una riga  nel blocco <code>@dkim_signature_options_bysender_maps</code>, dopo la linea <code>"mydomain.com"</code> come
 riportato qui sotto:</p>
 <pre><code>@dkim_signature_options_bysender_maps = ( {
@@ -66,7 +65,6 @@ riportato qui sotto:</p>
     ...
 });
 </code></pre>
-
 <ul>
 <li>Riavviate il servizio Amavisd.</li>
 </ul>
@@ -77,11 +75,10 @@ vostro cliente di aggiungere un record DNS DIKIM sul proprio dominio. Fate rifer
 <ul>
 <li>Generare una  nuova chiave DKIM (lunghezza della chiave 1024`) per il nuovo dominio.</li>
 </ul>
-<pre><code class="shell">amavisd-new genrsa /var/lib/dkim/new_domain.com.pem 1024
+<pre><code class="language-shell">amavisd-new genrsa /var/lib/dkim/new_domain.com.pem 1024
 chown amavis:amavis /var/lib/dkim/new_domain.com.pem
 chmod 0400 /var/lib/dkim/new_domain.com.pem
 </code></pre>
-
 <blockquote>
 <ul>
 <li>se state eseguendo CentOS, potrebbe essere necessario specificare il file di configurazione sulla linea di comando
@@ -94,11 +91,9 @@ chmod 0400 /var/lib/dkim/new_domain.com.pem
 </ul>
 <pre><code>dkim_key('mydomain.com', &quot;dkim&quot;, &quot;/var/lib/dkim/mydomain.com.pem&quot;);
 </code></pre>
-
 <p>Aggiungere una riga dopo le righe sopra, come di seguito:</p>
 <pre><code>dkim_key('new_domain.com', &quot;dkim&quot;, &quot;/var/lib/dkim/new_domain.com.pem&quot;);
 </code></pre>
-
 <ul>
 <li>Cercate le seguenti righe nel file di configurazione di Amavisd, <code>amavisd.conf</code>:</li>
 </ul>
@@ -108,7 +103,6 @@ chmod 0400 /var/lib/dkim/new_domain.com.pem
     ...
 });
 </code></pre>
-
 <p>Aggiungete una riga dopo la linea contenente <code>"mydomain.com"</code> come la linea che segue:</p>
 <pre><code>@dkim_signature_options_bysender_maps = ( {
     ...
@@ -117,19 +111,16 @@ chmod 0400 /var/lib/dkim/new_domain.com.pem
     ...
 });
 </code></pre>
-
 <ul>
 <li>Riavviate il servizio Amavids.</li>
 </ul>
 <p>Di nuovo, non dimenticate di aggiungere un nuovo record DNS DKIM nel nuovo dominio. Il valore del record DKIM
 può essere verificato con il seguente comando;</p>
-<pre><code class="shell"># amavisd-new showkeys
+<pre><code class="language-shell"># amavisd-new showkeys
 </code></pre>
-
 <p>Dopo aver aggiunto il record DNS DKIM, verificatelo con il seguente comando;</p>
-<pre><code class="shell"># amavisd-new testkeys
+<pre><code class="language-shell"># amavisd-new testkeys
 </code></pre>
-
 <p>Nota: I provider DNS generalmente tengono in cache per due ore i record DNS, per cui se il comando ritorna " invalid"
 invece di "pass", dovrete seguire nuovamente il test dopo un po' di tempo.</p>
 <h2 id="uso-di-uanchiave-dkim-per-tutti-i-domini-di-posta">Uso di uanchiave DKIM per tutti i domini di posta</h2>
@@ -140,7 +131,6 @@ invece di "pass", dovrete seguire nuovamente il test dopo un po' di tempo.</p>
 </ul>
 <pre><code>dkim_key('mydomain.com', &quot;dkim&quot;, &quot;/var/lib/dkim/mydomain.com.pem&quot;);
 </code></pre>
-
 <ul>
 <li>
 <p>Sostituitela con la riga seguente:</p>
@@ -151,7 +141,6 @@ invece di "pass", dovrete seguire nuovamente il test dopo un po' di tempo.</p>
 </ul>
 <pre><code>dkim_key('*', &quot;dkim&quot;, &quot;/var/lib/dkim/mydomain.com.pem&quot;);
 </code></pre>
-
 <ul>
 <li>Riavviate il servizio Amavisd.</li>
 </ul>

@@ -31,7 +31,6 @@ attribute <code>mtaTransport</code>, per-user transport is set in user account w
 the same attribute. For example:</p>
 <pre><code>mtaTransport: dovecot
 </code></pre>
-
 <p>With SQL backends, per-domain transport is set in SQL table <code>vmail.domain</code>,
 column <code>transport</code>. For example:</p>
 <pre><code>sql&gt; USE vmail;
@@ -42,7 +41,6 @@ sql&gt; SELECT domain,transport from domain LIMIT 10;
 -- Update transport setting for domain 'my_domain.com'
 sql&gt; UPDATE domain SET transport='[new_transport_here]' WHERE domain='my_domain.com';
 </code></pre>
-
 <p>Per-user transport is set in table <code>vmail.mailbox</code>, column <code>transport</code>.</p>
 <p>Per-user transport has higher priority. If no per-user transport is set
 for your mail user, per-domain transport will be used.</p>

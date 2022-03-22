@@ -53,7 +53,6 @@ installation, it's recommended to update this file after you upgraded iRedMail,
 so that you can know which version of iRedMail you're running. For example:</p>
 <pre><code>1.6.0
 </code></pre>
-
 <h2 id="for-postgresql-backend">For PostgreSQL backend</h2>
 <h3 id="move-sql-view-sogousers-to-vmail-database">Move SQL view <code>sogo.users</code> to <code>vmail</code> database</h3>
 <p>In iRedMail-1.5.2 and early releases, we create SQL view <code>users</code> in <code>sogo</code>
@@ -65,7 +64,6 @@ end users can change their own passwords.</p>
 <pre><code>wget -O /tmp/sogo_view.pgsql https://github.com/iredmail/iRedMail/raw/1.6.0/update/1.6.0/sogo_view.pgsql
 chmod +r /tmp/sogo_view.pgsql
 </code></pre>
-
 <ul>
 <li>Connect to PostgreSQL server as <code>postgres</code> user and import the SQL file:<ul>
 <li>on Linux, it's <code>postgres</code> user</li>
@@ -77,13 +75,11 @@ chmod +r /tmp/sogo_view.pgsql
 <pre><code>su - postgres
 psql -d vmail &lt; /tmp/sogo_view.pgsql
 </code></pre>
-
 <ul>
 <li>Remove downloaded file:</li>
 </ul>
 <pre><code>rm -f /tmp/sogo_view.pgsql
 </code></pre>
-
 <p>Now we need to update SOGo config file to use this new SQL view.</p>
 <ul>
 <li>Open file <code>/etc/sogo/sogo.conf</code>, find block <code>SOGoUserSources = ()</code> like below:</li>
@@ -98,7 +94,6 @@ psql -d vmail &lt; /tmp/sogo_view.pgsql
         },
     );
 </code></pre>
-
 <ul>
 <li>Update the <code>viewURL =</code> line:<ul>
 <li>Replace the SQL database name <code>sogo</code> by <code>vmail</code></li>
@@ -108,7 +103,6 @@ psql -d vmail &lt; /tmp/sogo_view.pgsql
 </ul>
 <pre><code>            viewURL = &quot;postgresql://sogo:...@127.0.0.1:5432/vmail/sogo_users&quot;;
 </code></pre>
-
 <ul>
 <li>Restart memcached and SOGo service (Note: on CentOS, the service name is
   <code>sogod</code>, not <code>sogo</code>):</li>
@@ -116,7 +110,6 @@ psql -d vmail &lt; /tmp/sogo_view.pgsql
 <pre><code>service memcached restart
 service sogo restart
 </code></pre>
-
 <ul>
 <li>Connect to PostgreSQL server as <code>postgres</code> user and drop old SQL view, it's not used anymore.<ul>
 <li>on Linux, it's <code>postgres</code> user</li>

@@ -104,17 +104,15 @@ is available through the ticket system.</p>
 <p>No matter your server is a testing machine or production server, it's strongly
 recommended to set a fully qualified domain name (FQDN) hostname.</p>
 <p>Enter command <code>hostname</code> to view the current hostname:</p>
-<pre><code class="shell">$ hostname
+<pre><code class="language-shell">$ hostname
 mx.example.com
 </code></pre>
-
 <p>On OpenBSD, hostname is set in two files: <code>/etc/myname</code> and <code>/etc/hosts</code>.</p>
 <ul>
 <li><code>/etc/myname</code>: FQDN.</li>
 </ul>
 <pre><code>mx.example.com
 </code></pre>
-
 <ul>
 <li><code>/etc/hosts</code>: static table lookup for hostnames. <strong>Warning</strong>: Please list the
   FQDN hostname as first item.</li>
@@ -122,13 +120,11 @@ mx.example.com
 <pre><code># Part of file: /etc/hosts
 127.0.0.1   mx.example.com mx localhost localhost.localdomain
 </code></pre>
-
 <p>Verify the FQDN hostname. If it wasn't changed after updating above two files,
 please reboot server to make it work.</p>
 <pre><code>$ hostname
 mx.example.com
 </code></pre>
-
 <h3 id="choose-a-nearest-mirror-site-for-installing-binary-packages">Choose a nearest mirror site for installing binary packages</h3>
 <p>iRedMail will install all required binary packages with command <code>pkg_add -i</code>
 from mirror site defined in file <code>/etc/installurl</code> (FYI:
@@ -145,7 +141,6 @@ near you on OpenBSD web site:
 is required, install it first:</p>
 <pre><code>pkg_add bash
 </code></pre>
-
 <h3 id="download-the-latest-release-of-iredmail">Download the latest release of iRedMail</h3>
 <ul>
 <li>
@@ -164,14 +159,12 @@ is required, install it first:</p>
 <pre><code># cd /root/
 # tar zxf iRedMail-x.y.z.tar.gz
 </code></pre>
-
 <h2 id="start-iredmail-installer">Start iRedMail installer</h2>
 <p>It's now ready to start iRedMail installer, it will ask you several simple
 questions, that's all required to setup a full-featured mail server.</p>
 <pre><code># cd /root/iRedMail-x.y.z/
 # bash iRedMail.sh
 </code></pre>
-
 <h2 id="screenshots-of-installation">Screenshots of installation</h2>
 <ul>
 <li>Welcome and thanks for your use</li>

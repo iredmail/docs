@@ -69,9 +69,8 @@ $banned_files_quarantine_method = 'sql:';
 $bad_header_quarantine_method = 'sql:';
 $bad_header_quarantine_to = 'bad-header-quarantine';
 </code></pre>
-
 <p>Inoltre verificare di avere le righe sottostanti presenti nello stesso file di configurazione:</p>
-<pre><code class="perl"># For MySQL/MariaDB/OpenLDAP backends
+<pre><code class="language-perl"># For MySQL/MariaDB/OpenLDAP backends
 @storage_sql_dsn = (
     ['DBI:mysql:database=amavisd;host=127.0.0.1;port=3306', 'amavisd', 'password'],
 );
@@ -81,7 +80,6 @@ $bad_header_quarantine_to = 'bad-header-quarantine';
 #    ['DBI:Pg:database=amavisd;host=127.0.0.1;port=5432', 'amavisd', 'password'],
 #);
 </code></pre>
-
 <p>Il riavvio del servizio Amavaisd è richiesto per confermare le modifiche.</p>
 <h2 id="configurare-iredadmin-pro-affinche-gestisca-le-mail-in-quarantena">Configurare iRedAdmin-Pro affinché gestisca le mail in quarantena.</h2>
 <p>Aggiornate il file di configurazione di iRedAdmin-Pro, siate certi di avere le configurazioni corrette per Amavisd:</p>
@@ -91,7 +89,7 @@ $bad_header_quarantine_to = 'bad-header-quarantine';
 <li>in FreeBSD è <code>/usr/local/www/iredadmin/settings.py</code>.</li>
 <li>in OpenBSD è <code>/var/www/iredadmin/settings.py</code>.</li>
 </ul>
-<pre><code class="python"># File: settings.py
+<pre><code class="language-python"># File: settings.py
 
 amavisd_db_host = '127.0.0.1'
 amavisd_db_port = 3306
@@ -109,7 +107,6 @@ amavisd_quarantine_port = 9998
 # Per-recipient policy lookup
 amavisd_enable_policy_lookup = True
 </code></pre>
-
 <p>Il riavvio del web server Apache o servizio <code>uwsgi</code> (se usate Nginx come web server) è necessario.</p>
 <p>Adesso potete autenticarvi in iRedAdmin-Pro e gestire i messaggi in quarantena dal menu <code>System -&gt; Quarantined Mails</code>. Scegliete l'azione adatta nella lista del menu a tendina per rilasciarli o cancellarli.</p>
 <p>Copie delle videate sono allegate in fondo.</p>
@@ -124,37 +121,32 @@ amavisd_enable_policy_lookup = True
 <p>La mail di notifica conterrà il link ad iRedAdmin-Pro affinché l'utente possa cliccarlo ed autenticarsi per poter gestire le mail in quarantena. Dovete cambiare l'URL aggiungendo il parametro sotto riportato, con l'URL corretto, nel file di configurazione di iRedAdmin-Pro:</p>
 <pre><code>NOTIFICATION_IREDADMIN_URL = 'https://[tuo_server]/iredadmin/'
 </code></pre>
-
 <p>Per mandare le notifiche aggiungete un cron job che esegua: <code>tools/notify_quarantined_recipients.py</code> . Esempio per inviare notifiche ogni 6 ore:</p>
 <pre><code>1 */12 * * * python /path/to/tools/notify_quarantined_recipients.py &gt;/dev/null
 </code></pre>
-
 <p>Non dimenticare di usare il percorso corretto verso il file <code>notify_quarantined_recipients.py</code> nel vostro server.</p>
 <p>Potete anche eseguire lo script manualmente per notificare diversi utenti. Per esempio su RHEL/CentOS:</p>
 <pre><code>cd /var/www/iredadmin/tools/
 python notify_quarantined_recipients.py
 </code></pre>
-
 <h2 id="messa-in-quarantena-di-mail-pulite">Messa in quarantena di mail pulite.</h2>
 <p>Nota: se volete mettere in quarantena mail invitate da/per certi utenti locali, fate invece  riferimento a questo documento: <a href="./quarantine.clean.mails.per-user.html">Quarantine clean emails sent from/to certain local user</a></p>
 <p>Se volete mettere in quarantena mail pulite in un database SQL per una futura approvazione o qualunque altra ragione, seguite i seguenti passi:</p>
 <ul>
 <li>Modificare i parametri sotto riportati nel file di configurazione di Amavisd <code>amavisd.conf</code>:</li>
 </ul>
-<pre><code class="perl">$clean_quarantine_method = 'sql:';
+<pre><code class="language-perl">$clean_quarantine_method = 'sql:';
 $clean_quarantine_to = 'clean-quarantine';
 </code></pre>
-
 <ul>
 <li>Trovate la policy bank <code>ORIGINATING</code>, ed aggiungeteci due linee come mostrato sotto:</li>
 </ul>
-<pre><code class="perl">$policy_bank{'ORIGINATING'} = {
+<pre><code class="language-perl">$policy_bank{'ORIGINATING'} = {
     ...
     clean_quarantine_method =&gt; 'sql:',
     final_destiny_by_ccat =&gt; {CC_CLEAN, D_DISCARD},
 }
 </code></pre>
-
 <ul>
 <li>Riavviate il servizio Amavisd.</li>
 </ul>

@@ -40,22 +40,19 @@ con il plugin iRedAPD <code>reject_sender_login_mismatch</code>.</p>
 </ul>
 <pre><code>smtpd_sender_restrictions = permit_mynetworks, permit_sasl_authenticated
 </code></pre>
-
 <ul>
 <li>Nel file di configurazione iRedADP <code>/opt/iredapd/settings.py</code> abilita il
   plugin:</li>
 </ul>
-<pre><code class="python">plugins = ['reject_sender_login_mismatch', ...]
+<pre><code class="language-python">plugins = ['reject_sender_login_mismatch', ...]
 </code></pre>
-
 <ul>
 <li>Elenca i mittenti che sono autorizzati ad inviare email con indirizzi
   diversi dai propri, nel file di configurazione iRedAPD
   <code>ALLOWED_LOGIN_MISMATCH_SENDERS</code>. Per esempio:</li>
 </ul>
-<pre><code class="python">ALLOWED_LOGIN_MISMATCH_SENDERS = ['user1@here.com', 'user2@here.com']
+<pre><code class="language-python">ALLOWED_LOGIN_MISMATCH_SENDERS = ['user1@here.com', 'user2@here.com']
 </code></pre>
-
 <pre><code>NOTA: Questo parametro non è presnete di default, aggiungilo manualmente.
 </code></pre>
 <p>Riavvia il servizio iRedAPD. Questo è tutto.</p><div class="footer">

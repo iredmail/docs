@@ -55,7 +55,6 @@ key and signing request file on your server with <code>openssl</code> command:</
 </div>
 <pre><code># openssl req -new -newkey rsa:2048 -nodes -keyout privkey.pem -out server.csr
 </code></pre>
-
 <p>This command will generate two files:</p>
 <ul>
 <li><code>privkey.pem</code>: the private key for the decryption of your SSL certificate.</li>
@@ -124,7 +123,6 @@ mv /etc/pki/tls/private/iRedMail.key{,.bak}     # Backup. Rename iRedMail.key to
 cp fullchain.pem /etc/pki/tls/certs/iRedMail.crt
 cp privkey.pem /etc/pki/tls/private/iRedMail.key
 </code></pre>
-
 <ul>
 <li>On Debian/Ubuntu, FreeBSD and OpenBSD:</li>
 </ul>
@@ -133,7 +131,6 @@ mv /etc/ssl/private/iRedMail.key{,.bak}     # Backup. Rename iRedMail.key to iRe
 cp fullchain.pem /etc/ssl/certs/iRedMail.crt
 cp privkey.pem /etc/ssl/private/iRedMail.key
 </code></pre>
-
 <h3 id="restart-network-services">Restart network services</h3>
 <p>Required services:</p>
 <ul>

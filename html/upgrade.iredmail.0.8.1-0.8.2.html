@@ -78,7 +78,6 @@ so that you can know which version of iRedMail you're running. For example:</p>
 
 0.8.2
 </code></pre>
-
 <h3 id="upgrade-roundcube-webmail-to-the-latest-stable-release">Upgrade Roundcube webmail to the latest stable release</h3>
 <p>Please follow Roundcube official tutorial to upgrade Roundcube webmail to the
 latest stable release immediately: <a href="https://github.com/roundcube/roundcubemail/wiki/Upgrade">How to upgrade Roundcube</a>.</p>
@@ -99,7 +98,6 @@ latest stable release: <a href="./migrate.or.upgrade.iredadmin.html">Upgrade iRe
 score SPF_PASS -10.000
 score SPF_FAIL 5.00
 </code></pre>
-
 <h3 id="add-missing-log-rotate-settings-for-dovecot-log-files-on-openbsd">Add missing log rotate settings for Dovecot log files on OpenBSD</h3>
 <p><strong>NOTE</strong>: This is only applicable to OpenBSD.</p>
 <p>Please add below two lines in <code>/etc/newsyslog.conf</code> to rotate Dovecot log
@@ -109,7 +107,6 @@ files: <code>/var/log/dovecot.log</code>, <code>/var/log/sieve.log</code>.</p>
 /var/log/dovecot.log    vmail:vmail     600  7     *    24    Z &quot;doveadm log reopen&quot;
 /var/log/sieve.log      vmail:vmail     600  7     *    24    Z &quot;doveadm log reopen&quot;
 </code></pre>
-
 <h3 id="add-missing-log-rotate-settings-for-dovecot-log-files-on-freebsd">Add missing log rotate settings for Dovecot log files on FreeBSD</h3>
 <p><strong>NOTE</strong>: This fix is only applicable to FreeBSD.</p>
 <p>Please add below two lines in <code>/etc/newsyslog.conf</code> to rotate Dovecot log
@@ -119,7 +116,6 @@ files: <code>/var/log/dovecot.log</code>, <code>/var/log/sieve.log</code>.</p>
 /var/log/dovecot.log    vmail:vmail     600  7     *    24    Z    /var/run/dovecot/master.pid
 /var/log/sieve.log      vmail:vmail     600  7     *    24    Z    /var/run/dovecot/master.pid
 </code></pre>
-
 <h3 id="fix-incorrect-rotate-setting-for-iredapd-log-file-on-freebsd">Fix incorrect rotate setting for iRedAPD log file on FreeBSD</h3>
 <p><strong>NOTE</strong>: This fix is only applicable to FreeBSD.</p>
 <p>iRedMail-0.8.1 defines incorrectly path of iRedAPD PID file in
@@ -131,14 +127,12 @@ files: <code>/var/log/dovecot.log</code>, <code>/var/log/sieve.log</code>.</p>
 
 /var/log/iredapd.log    root:wheel      640  7     *    24    Z /var/run/iredapd.pid
 </code></pre>
-
 <p>Be careful, don't use quotes around path of pid file.</p>
 <ul>
 <li>Then restart syslogd service:</li>
 </ul>
 <pre><code># /etc/rc.d/syslogd restart
 </code></pre>
-
 <h2 id="openldap-backend-special">OpenLDAP backend special</h2>
 <h3 id="use-the-newest-schema-file">Use the newest schema file</h3>
 <p>Changes in the newest LDAP schema file shipped in iRedMail-0.8.2:</p>
@@ -168,7 +162,6 @@ files: <code>/var/log/dovecot.log</code>, <code>/var/log/sieve.log</code>.</p>
 # cp -f /tmp/iredmail.schema /etc/openldap/schema/
 # /etc/init.d/slapd restart       # &lt;-- Or: /etc/init.d/ldap restart
 </code></pre>
-
 <ul>
 <li>On Debian/Ubuntu:</li>
 </ul>
@@ -181,7 +174,6 @@ files: <code>/var/log/dovecot.log</code>, <code>/var/log/sieve.log</code>.</p>
 # cp -f /tmp/iredmail.schema /etc/ldap/schema/
 # /etc/init.d/slapd restart
 </code></pre>
-
 <ul>
 <li>On FreeBSD:</li>
 </ul>
@@ -194,7 +186,6 @@ files: <code>/var/log/dovecot.log</code>, <code>/var/log/sieve.log</code>.</p>
 # cp -f /tmp/iredmail.schema /usr/local/etc/openldap/schema/
 # service slapd restart
 </code></pre>
-
 <h3 id="return-correct-maildir-path-while-using-virtual-transport">Return correct maildir path while using <code>virtual</code> transport</h3>
 <p>Postfix setting <code>virtual_mailbox_maps</code> doesn't return correct maildir path.
 Usually, this is fine because iRedMail uses transport program provided by
@@ -209,7 +200,6 @@ FreeBSD), append parameter <code>result_format = %s/Maildir/</code> line after l
 result_attribute = mailMessageStore
 result_format   = %s/Maildir/
 </code></pre>
-
 <p>Restarting Postfix service is required.</p>
 <h3 id="add-checkpoint-setting-in-slapdconf-used-for-bdb-recovery">Add checkpoint setting in slapd.conf, used for BDB recovery</h3>
 <p>Add below lines in your OpenLDAP config file, <code>slapd.conf</code>, after the line
@@ -235,7 +225,6 @@ it's used for.</p>
 # whenever 128kb data bytes written or 5 minutes has elapsed
 checkpoint  128 5
 </code></pre>
-
 <p>Restarting OpenLDAP service is required.</p>
 <h2 id="mysql-backend-special">MySQL backend special</h2>
 <h3 id="add-3-new-columns-required-by-iredadmin">Add 3 new columns required by iRedAdmin</h3>
@@ -258,7 +247,6 @@ mysql&gt; ALTER TABLE mailbox ADD COLUMN language VARCHAR(5) NOT NULL DEFAULT 'e
 mysql&gt; ALTER TABLE mailbox ADD INDEX (isadmin);
 mysql&gt; ALTER TABLE mailbox ADD INDEX (isglobaladmin);
 </code></pre>
-
 <h2 id="postgresql-backend-special">PostgreSQL backend special</h2>
 <h3 id="add-3-new-columns-required-by-iredadmin_1">Add 3 new columns required by iRedAdmin</h3>
 <p>New version of iRedAdmin (both open source edition and iRedAdmin-Pro) requires

@@ -88,11 +88,9 @@ now let's create mailing list <code>newsletter@mydomain.com</code> from command 
 <pre><code>cd /opt/mlmmjadmin/tools/
 python maillist_admin.py create newsletter@mydomain.com
 </code></pre>
-
 <p>You can create mailing list with extra options, for example:</p>
 <pre><code>python maillist_admin.py create newsletter@mydomain.com name='Support Team' disable_archive=no
 </code></pre>
-
 <ul>
 <li>All options are listed in file <code>/opt/mlmmjadmin/docs/API.md</code> on your server.</li>
 <li>You can specify as many (different) options as you want.</li>
@@ -101,35 +99,29 @@ python maillist_admin.py create newsletter@mydomain.com
 <p>To view mailing list settings, use the <code>info</code> argument like below:</p>
 <pre><code>python maillist_admin.py info newsletter@mydomain.com
 </code></pre>
-
 <h3 id="update-an-existing-mailing-list">Update an existing mailing list</h3>
 <p>To update existing mailing list, use the <code>update</code> argument like below:</p>
 <pre><code>python maillist_admin.py update newsletter@mydomain.com name='Updated name' disable_archive=yes
 </code></pre>
-
 <p>All options are listed in file <code>/opt/mlmmjadmin/docs/API.md</code> on your server.</p>
 <h3 id="delete-an-existing-mailing-list">Delete an existing mailing list</h3>
 <p>To delete an existing mailing list, use the <code>delete</code> argument like below:</p>
 <pre><code>python maillist_admin.py delete newsletter@mydomain.com
 </code></pre>
-
 <h3 id="list-all-memberssubscribers">List all members/subscribers</h3>
 <p>To delete an existing mailing list, use the <code>subscribers</code> argument like below:</p>
 <pre><code>python maillist_admin.py subscribers newsletter@mydomain.com
 </code></pre>
-
 <h3 id="check-whether-mailing-list-has-given-membersubscriber">Check whether mailing list has given member/subscriber</h3>
 <p>To check whether mailing list has given member/subscriber, use the
 <code>has_subscriber</code> argument like below:</p>
 <pre><code>python maillist_admin.py has_subscriber newsletter@mydomain.com subscriber@gmail.com
 </code></pre>
-
 <h3 id="check-all-subscribed-mailing-lists-of-a-given-membersubscriber">Check all subscribed mailing lists of a given member/subscriber</h3>
 <p>To check all subscribed mailing lists of a given member/subscriber, use the
 <code>subscribed</code> argument like below:</p>
 <pre><code>python maillist_admin.py subscribed subscriber@gmail.com
 </code></pre>
-
 <h2 id="how-to-subscribe-to-or-unsubscribe-from-a-mailing-list">How to subscribe to or unsubscribe from a mailing list</h2>
 <ul>
 <li>

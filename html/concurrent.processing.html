@@ -37,13 +37,11 @@ Sample settings:</p>
 
 $max_servers = 4;
 </code></pre>
-
 <pre><code># File: /etc/postfix/master.cf
 
 smtp-amavis unix -  -   -   -   4  smtp
     ...
 </code></pre>
-
 <p>Both values should be identical for two reasons: If Amavisd offers more
 processes than Postfix will ever use, Amavisd wastes resources. On the other
 hand, if Postfix starts more dedicated transports than amavisd can handle
@@ -56,14 +54,12 @@ time. Sample setting:</p>
 
 $max_servers = 10;
 </code></pre>
-
 <p>Restarting Amavisd service is required.</p>
 <pre><code># File: /etc/postfix/master.cf
 
 smtp-amavis unix -  -   -   -   10  smtp
     ...
 </code></pre>
-
 <p>Note: If you don't want to modify <code>/etc/postfix/master.cf</code>, it's ok to set
 <code>smtp-amavis_destination_concurrency_limit = 10</code> in <code>/etc/postfix/main.cf</code>
 instead.</p>

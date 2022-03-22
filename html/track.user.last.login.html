@@ -72,7 +72,6 @@ easily save and update user's last-login timestamp in SQL database.</p>
     INDEX (`lda`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 </code></pre>
-
 <h2 id="configure-dovecot">Configure Dovecot</h2>
 <p>Open Dovecot config file <code>/etc/dovecot/dovecot.conf</code> (Linux/OpenBSD) or
 <code>/usr/local/etc/dovecot/dovecot.conf</code> (FreeBSD), enable <code>last_login</code> plugin
@@ -119,7 +118,6 @@ plugin {
     last_login_key = last-login/%s/%u/%d
 }
 </code></pre>
-
 <p>Create file <code>/etc/dovecot/dovecot-last-login.conf</code> (Linux/OpenBSD) or
 <code>/usr/local/etc/dovecot/dovecot-last-login.conf</code> (FreeBSD) with content below:</p>
 <div class="admonition attention">
@@ -190,13 +188,11 @@ map {
     }
 }
 </code></pre>
-
 <p>Since this file contain SQL username and password, we must protect it with
 proper owner/group and permission (we use Linux/BSD for example below):</p>
 <pre><code>chown dovecot:dovecot /etc/dovecot/dovecot-last-login.conf
 chmod 0400 /etc/dovecot/dovecot-last-login.conf
 </code></pre>
-
 <p>Now it's ok to restart Dovecot service.</p>
 <h2 id="test">Test</h2>
 <p>After restarted Dovecot service, please monitor its log file
@@ -215,7 +211,6 @@ sql&gt; SELECT * FROM last_login;
 +-----------------+--------+------------+------+------+
 1 row in set (0.01 sec)
 </code></pre>
-
 <h2 id="references">References</h2>
 <ul>
 <li><a href="https://doc.dovecot.org/configuration_manual/lastlogin_plugin/">Dovecot plugin: last_login</a></li>

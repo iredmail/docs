@@ -35,9 +35,8 @@ config file, and asks for your confirmation to use it if found one. You can use
 this procedure to perform unattended iRedMail installation.</p>
 <h2 id="generate-a-sample-config-file">Generate a sample config file</h2>
 <p>To generate a sample config file, just run the installer:</p>
-<pre><code class="bash">bash iRedMail.sh
+<pre><code class="language-bash">bash iRedMail.sh
 </code></pre>
-
 <p>After finished the configuration dialog, iRedMail installer prints your
 configuration and ask for your confirmation to perform the actual installation.
 You should abort it here since you just want to generate a sample config file.</p>
@@ -52,7 +51,7 @@ deployment if you want.</p>
 <li>Upload the prepared config file to <code>/root/iRedMail-1.2/config</code> on new server.</li>
 <li>Now launch iRedMail installer with some environment variables:</li>
 </ul>
-<pre><code class="bash">AUTO_USE_EXISTING_CONFIG_FILE=y \
+<pre><code class="language-bash">AUTO_USE_EXISTING_CONFIG_FILE=y \
     AUTO_INSTALL_WITHOUT_CONFIRM=y \
     AUTO_CLEANUP_REMOVE_SENDMAIL=y \
     AUTO_CLEANUP_REPLACE_FIREWALL_RULES=y \
@@ -60,7 +59,6 @@ deployment if you want.</p>
     AUTO_CLEANUP_REPLACE_MYSQL_CONFIG=y \
     bash iRedMail.sh
 </code></pre>
-
 <p>It's easy to understand what the variable names are used for:</p>
 <ul>
 <li><code>AUTO_USE_EXISTING_CONFIG_FILE=y</code>: Use existing <code>config</code> file without asking for confirmation.</li>

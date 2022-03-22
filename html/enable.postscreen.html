@@ -40,7 +40,6 @@ service.</p>
 </ol>
 <pre><code># bash enable_postscreen.sh
 </code></pre>
-
 <p>That's all.</p>
 <p>Important notes:</p>
 <ul>
@@ -62,7 +61,6 @@ it by following steps below.</p>
 smtp      inet  n       -       -       -       1       postscreen
 smtpd     pass  -       -       n       -       -       smtpd
 </code></pre>
-
 <ul>
 <li>Uncomment first line, comment out the other 2 lines:</li>
 </ul>
@@ -70,7 +68,6 @@ smtpd     pass  -       -       n       -       -       smtpd
 #smtp      inet  n       -       -       -       1       postscreen
 #smtpd     pass  -       -       n       -       -       smtpd
 </code></pre>
-
 <ul>
 <li>Now restart or reload Postfix service. That's it. No need to modify any
   setting in <code>/etc/postfix/main.cf</code>.</li>

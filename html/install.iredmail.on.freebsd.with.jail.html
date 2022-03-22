@@ -95,7 +95,6 @@
 <pre><code># cd /usr/ports/sysutils/ezjail/
 # make install clean
 </code></pre>
-
 <ul>
 <li>Enable ezjail service and sysvipc by appending lines below to <code>/etc/rc.conf</code>:</li>
 </ul>
@@ -105,27 +104,23 @@ ezjail_enable=&quot;YES&quot;
 # Enable sysvipc. Required by PostgreSQL.
 jail_sysvipc_allow=&quot;YES&quot;
 </code></pre>
-
 <ul>
 <li>Add parameter in <code>/etc/sysctl.conf</code>, this is required if you're
   going to install iRedMail with PostgreSQL backend.</li>
 </ul>
 <pre><code>security.jail.sysvipc_allowed=1
 </code></pre>
-
 <ul>
 <li>Rebooting system is required after changing <code>/etc/rc.conf</code>.</li>
 </ul>
 <pre><code># reboot
 </code></pre>
-
 <h3 id="create-jail">Create Jail</h3>
 <ul>
 <li>After server reboot, populate the Jail with FreeBSD-RELEASE</li>
 </ul>
 <pre><code># ezjail-admin install -p
 </code></pre>
-
 <ul>
 <li>
 <p>Create a new jail</p>
@@ -138,13 +133,11 @@ jail_sysvipc_allow=&quot;YES&quot;
 </ul>
 <pre><code># ezjail-admin create -r /jails/mx.example.com mx.example.com 'em0|172.16.244.254'
 </code></pre>
-
 <ul>
 <li>Start Jail.</li>
 </ul>
 <pre><code># service ezjail restart
 </code></pre>
-
 <ul>
 <li>List all Jails:</li>
 </ul>
@@ -153,25 +146,21 @@ STA JID  IP               Hostname                          Root Directory
 --- ---- ---------------- --------------------------------- ------------------------
 DS  1    172.16.244.254   mx.example.com                    /jails/mx.example.com
 </code></pre>
-
 <h2 id="install-iredmail">Install iRedMail</h2>
 <p>We can now enter this Jail with below command:</p>
 <pre><code># ezjail-admin console mx.example.com
 </code></pre>
-
 <ul>
 <li>In Jail, update <code>/etc/resolv.conf</code> with valid DNS server address(es). For example:</li>
 </ul>
 <pre><code># File: /etc/resolv.conf
 nameserver 172.16.244.2
 </code></pre>
-
 <ul>
 <li>In Jail, install binary package <code>bash-static</code>, it's required by iRedMail.</li>
 </ul>
 <pre><code># pkg install bash-static
 </code></pre>
-
 <h2 id="start-iredmail-installer">Start iRedMail installer</h2>
 <p>It's now ready to start iRedMail installer inside Jail, it will ask you several simple
 questions, that's all required to setup a full-featured mail server.</p>
@@ -179,7 +168,6 @@ questions, that's all required to setup a full-featured mail server.</p>
 # cd /root/iRedMail/
 # LOCAL_ADDRESS='172.16.244.254' bash iRedMail.sh
 </code></pre>
-
 <h2 id="screenshots-of-installation">Screenshots of installation:</h2>
 <ul>
 <li>Welcome and thanks for your use</li>
@@ -305,13 +293,11 @@ expected.</p>
 </ul>
 <pre><code>security.jail.allow_raw_sockets=1
 </code></pre>
-
 <ul>
 <li>Update <code>/usr/local/etc/ezjail/mx_example_com</code> to allow <code>ping</code> inside Jail:</li>
 </ul>
 <pre><code>export jail_mx_example_com_parameters=&quot;allow.raw_sockets=1&quot;
 </code></pre>
-
 <h3 id="share-usrportsdistfiles-with-jail">Share <code>/usr/ports/distfiles</code> with Jail</h3>
 <p>To share <code>/usr/ports/distfiles/</code> with Jail, please append below line in
   <code>/etc/fstab.mx_example_com</code>:</p>
@@ -323,7 +309,6 @@ either use this default setting or change it to <code>/usr/ports</code>.</p>
 <pre><code># Part of file: /etc/fstab.mx_example.com
 /usr/ports/distfiles /jails/mx.example.com/basejail/var/ports/distfiles nullfs rw 0 0
 </code></pre>
-
 <p>Create directory <code>/usr/jails/basejail/var/ports/distfiles</code>:</p>
 <pre><code># mkdir /usr/jails/basejail/var/ports/distfiles
 </code></pre><div class="footer">

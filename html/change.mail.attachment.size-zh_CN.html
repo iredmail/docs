@@ -44,11 +44,9 @@
 <pre><code># postconf -e message_size_limit='104857600'
 # postconf -e mailbox_size_limit='104857600'
 </code></pre>
-
 <p>之后重启 Postfix 服务，使上述修改生效:</p>
 <pre><code># /etc/init.d/postfix restart
 </code></pre>
-
 <p><strong>注意</strong>:</p>
 <ul>
 <li><code>104857600</code> 是由 100 (MB) x 1024 (KB) x 1024 (Bit) 计算得到的结果。</li>
@@ -73,7 +71,6 @@
 upload_max_filesize = 100M;
 post_max_size = 100M;
 </code></pre>
-
 <h3 id="roundcube_1">修改 Roundcube 网页邮箱设置以允许上传大附件</h3>
 <p>修改 roundcube 目录下的 <code>.htaccess</code> 文件:</p>
 <ul>
@@ -88,7 +85,6 @@ post_max_size = 100M;
 php_value    upload_max_filesize    100M
 php_value    post_max_size  100M
 </code></pre>
-
 <p>重启 Apache 或 php-fpm 服务以使上述修改生效。</p>
 <h2 id="nginx">限制 Nginx 上传文件大小</h2>
 <p>在配置文件 <code>/etc/nginx/nginx.conf</code> 中找到参数 <code>client_max_body_size</code>  ，按需要修改大小：</p>
@@ -98,7 +94,6 @@ php_value    post_max_size  100M
     ...
 }
 </code></pre>
-
 <h2 id="sogo">限制 SOGo 上传文件大小</h2>
 <p>SOGo-3.x 引入新参数 <code>WOMaxUploadSize</code> 用于限制上传文件的大小，请将它添加到 SOGo
 配置文件 <code>/etc/sogo/sogo.conf</code> 里并设置一个合适的附件大小。</p>
@@ -110,7 +105,6 @@ php_value    post_max_size  100M
 //  - By default, the value is 0, or disabled so no limit will be set.
 WOMaxUploadSize = 102400;
 </code></pre>
-
 <p>修改后需要重启 SOGo 服务。</p>
 <h2 id="outlook">修改 Outlook 程序的附件大小限制</h2>
 <p>Outlook 有自己的附件大小限制，如果超出限制会弹出错误信息 <code>The
@@ -128,7 +122,6 @@ attachment size exceeds the allowable limit.</code></p>
 <pre><code>HKEY_CURRENT_USER\Software\Microsoft\Office\14.0\Outlook\Preferences
 HKEY_CURRENT_USER\Software\Policies\Microsoft\Office\14.0\Outlook\Preferences
 </code></pre>
-
 <ul>
 <li>
 <p>在以上条目底下添加注册表项：</p>

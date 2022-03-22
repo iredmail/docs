@@ -66,7 +66,6 @@ so that you can know which version of iRedMail you're running. For example:</p>
 
 0.8.3
 </code></pre>
-
 <h3 id="upgrade-roundcube-webmail-to-the-latest-stable-release">Upgrade Roundcube webmail to the latest stable release</h3>
 <p>Please follow Roundcube official tutorial to upgrade Roundcube webmail to the
 latest stable release immediately: <a href="https://github.com/roundcube/roundcubemail/wiki/Upgrade">How to upgrade Roundcube</a>.</p>
@@ -87,20 +86,17 @@ it to <code>/var/spool/amavisd/quarantine/</code> instead. Steps:</p>
 </ul>
 <pre><code># crontab -e -u amavis
 </code></pre>
-
 <ul>
 <li>Find below line:</li>
 </ul>
 <pre><code># Delete virus mails which created 15 days ago.
 1   5   *   *   *   find / -ctime +15 | xargs rm -rf {}
 </code></pre>
-
 <ul>
 <li>Change the path <code>/</code> to <code>/var/spool/amavisd/quarantine/</code> like below:</li>
 </ul>
 <pre><code>1   5   *   *   *   find /var/spool/amavisd/quarantine/ -ctime +15 | xargs rm -rf {}
 </code></pre>
-
 <ul>
 <li>Save your changes and exit editor.</li>
 </ul>
@@ -122,7 +118,6 @@ further incoming mails.
 EOF
 fi
 </code></pre>
-
 <ul>
 <li>
 <p>Replace <code>PH_DOVECOT_DELIVER</code> above by the real path of Dovecot deliver
@@ -139,7 +134,6 @@ fi
 </ul>
 <pre><code># hostname --fqdn
 </code></pre>
-
 <h2 id="openldap-backend-special">OpenLDAP backend special</h2>
 <h3 id="fix-incorrect-ldap-uri-in-cluebringer-config-file">Fix incorrect LDAP URI in Cluebringer config file</h3>
 <p>Note: This step is applicable if you have Cluebringer installed, which means
@@ -174,7 +168,6 @@ and later releases.</p>
 
     AuthMySQL_Password_Table mailbox
 </code></pre>
-
 <p>Restarting Apache service is required.</p><div class="footer">
     <p style="text-align: center; color: grey;">All documents are available in <a href="https://github.com/iredmail/docs/">GitHub repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://github.com/iredmail/docs/archive/master.zip">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
 </div></body></html>

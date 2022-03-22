@@ -71,7 +71,6 @@ installation, it's recommended to update this file after you upgraded iRedMail,
 so that you can know which version of iRedMail you're running. For example:</p>
 <pre><code>1.4.1
 </code></pre>
-
 <h3 id="upgrade-iredapd-postfix-policy-server-to-the-latest-stable-release-503">Upgrade iRedAPD (Postfix policy server) to the latest stable release (5.0.3)</h3>
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>
@@ -120,7 +119,6 @@ server admin can update per-user spam policy to allow receiving such documents.<
     'DEFAULT' =&gt; $banned_filename_re,
 );
 </code></pre>
-
 <ul>
 <li>Restarting Amavisd service is required.</li>
 </ul>
@@ -163,7 +161,6 @@ access.</p>
 <pre><code>cd /root/
 wget https://github.com/iredmail/iRedMail/raw/1.4.1/update/1.4.1/update-ldap.py
 </code></pre>
-
 <ul>
 <li>
 <p>Open downloaded file <code>update-ldap.py</code>, set LDAP server related settings in
@@ -180,13 +177,11 @@ basedn = 'o=domains,dc=example,dc=com'
 bind_dn = 'cn=vmailadmin,dc=example,dc=com'
 bind_pw = 'passwd'
 </code></pre>
-
 <ul>
 <li>Execute this script with Python-3 to update LDAP data:</li>
 </ul>
 <pre><code># python3 update-ldap.py
 </code></pre>
-
 <h3 id="sogo-update-config-file">SOGo: Update config file</h3>
 <p>Open SOGo main config file <code>/etc/sogo/sogo.conf</code> (Linux/OpenBSD) or
 <code>/usr/local/etc/sogo/sogo.conf</code> (FreeBSD), find the <code>SOGoUserSources</code> block
@@ -203,7 +198,6 @@ like below:</p>
         }
     )
 </code></pre>
-
 <p>Add new parameter <code>ModulesConstraints</code> right after <code>canAuthenticate = YES;</code>
 line like below:</p>
 <pre><code>    SOGoUserSources = (
@@ -221,7 +215,6 @@ line like below:</p>
         }
     )
 </code></pre>
-
 <h2 id="for-mysql-and-mariadb-backends">For MySQL and MariaDB backends</h2>
 <h3 id="add-new-sql-columns-in-vmailmailbox-table-for-per-user-sogo-webmail-calendar-activesync-service-control">Add new SQL columns in <code>vmail.mailbox</code> table for per-user SOGo webmail / calendar / activesync service control</h3>
 <p>iRedMail-1.4.1 introduces 3 new columns used to enable or disable per-user
@@ -237,7 +230,6 @@ MySQL root user (Please run commands below as <code>root</code> user):</p>
 mysql vmail &lt; /tmp/iredmail.mysql
 rm -f /tmp/iredmail.mysql
 </code></pre>
-
 <h3 id="sogo-re-create-sql-view-and-update-config-file">SOGo: Re-create SQL VIEW and update config file</h3>
 <p>Download plain SQL file used to update SQL table, then import it as
 MySQL root user (Please run commands below as <code>root</code> user):</p>
@@ -245,7 +237,6 @@ MySQL root user (Please run commands below as <code>root</code> user):</p>
 mysql sogo &lt; /tmp/sogo.mysql
 rm -f /tmp/sogo.mysql
 </code></pre>
-
 <p>Now open SOGo main config file <code>/etc/sogo/sogo.conf</code> (Linux/OpenBSD) or
 <code>/usr/local/etc/sogo/sogo.conf</code> (FreeBSD), find the <code>SOGoUserSources</code> block
 like below:</p>
@@ -261,7 +252,6 @@ like below:</p>
         }
     )
 </code></pre>
-
 <p>Add new parameter <code>ModulesConstraints</code> right after <code>canAuthenticate = YES;</code>
 line like below:</p>
 <pre><code>    SOGoUserSources = (
@@ -279,7 +269,6 @@ line like below:</p>
         }
     )
 </code></pre>
-
 <p>Restarting SOGo service is requried.</p>
 <h2 id="for-postgresql-backend">For PostgreSQL backend</h2>
 <h3 id="add-new-sql-columns-in-vmailmailbox-table-for-per-user-sogo-webmail-calendar-activesync-service-control_1">Add new SQL columns in <code>vmail.mailbox</code> table for per-user SOGo webmail / calendar / activesync service control</h3>
@@ -294,7 +283,6 @@ SOGo webmail, calendar and activesync services:</p>
 <pre><code>wget -O /tmp/iredmail.pgsql https://github.com/iredmail/iRedMail/raw/1.4.1/update/1.4.1/iredmail.pgsql
 chmod +r /tmp/iredmail.pgsql
 </code></pre>
-
 <ul>
 <li>Connect to PostgreSQL server as <code>postgres</code> user and import the SQL file:<ul>
 <li>on Linux, it's <code>postgres</code> user</li>
@@ -306,37 +294,32 @@ chmod +r /tmp/iredmail.pgsql
 <pre><code>su - postgres
 psql -d vmail &lt; /tmp/iredmail.pgsql
 </code></pre>
-
 <ul>
 <li>Remove downloaded file:</li>
 </ul>
 <pre><code>rm -f /tmp/iredmail.pgsql
 </code></pre>
-
 <h3 id="sogo-re-create-sql-view-and-update-config-file_1">SOGo: Re-create SQL VIEW and update config file</h3>
 <p>Download plain SQL file used to update SQL table:</p>
 <pre><code>wget -O /tmp/sogo.pgsql https://github.com/iredmail/iRedMail/raw/1.4.1/update/1.4.1/sogo.pgsql
 chmod +r /tmp/sogo.pgsql
 </code></pre>
-
 <p>Please open file <code>/tmp/sogo.pgsql</code>, replace string <code>VMAIL_DB_BIND_PASSWD</code> by
 the real password of SQL user <code>vmail</code>. You can find the password in any file
 under <code>/etc/postfix/pgsql/</code>.</p>
 <p>After updated <code>/tmp/sogo.pgsql</code>, please connect to PostgreSQL server as
 <code>postgres</code> user and import the SQL file:
-<em> on Linux, it's <code>postgres</code> user
-</em> on FreeBSD, it's <code>pgsql</code> user
+* on Linux, it's <code>postgres</code> user
+* on FreeBSD, it's <code>pgsql</code> user
 * on OpenBSD, it's <code>_postgresql</code> user</p>
 <pre><code>su - postgres
 psql -d sogo &lt; /tmp/sogo.pgsql
 </code></pre>
-
 <ul>
 <li>Remove downloaded file:</li>
 </ul>
 <pre><code>rm -f /tmp/sogo.pgsql
 </code></pre>
-
 <p>Now open SOGo main config file <code>/etc/sogo/sogo.conf</code> (Linux/OpenBSD) or
 <code>/usr/local/etc/sogo/sogo.conf</code> (FreeBSD), find the <code>SOGoUserSources</code> block
 like below:</p>
@@ -352,7 +335,6 @@ like below:</p>
         }
     )
 </code></pre>
-
 <p>Add new parameter <code>ModulesConstraints</code> right after <code>canAuthenticate = YES;</code>
 line like below:</p>
 <pre><code>    SOGoUserSources = (
@@ -370,7 +352,6 @@ line like below:</p>
         }
     )
 </code></pre>
-
 <p>Restarting SOGo service is requried.</p><div class="footer">
     <p style="text-align: center; color: grey;">All documents are available in <a href="https://github.com/iredmail/docs/">GitHub repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://github.com/iredmail/docs/archive/master.zip">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
 </div></body></html>

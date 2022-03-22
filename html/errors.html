@@ -86,7 +86,6 @@ Postfix parameter <code>smtpd_recipient_restrictions</code>, in file <code>/etc/
     reject_sender_login_mismatch,
     ...
 </code></pre>
-
 <p>It will reject the request when $smtpd_sender_login_maps specifies an owner
 for the MAIL FROM address, but the client is not (SASL) logged in as that MAIL
 FROM address owner; or when the client is (SASL) logged in, but the client
@@ -183,7 +182,6 @@ SMTP authentication, and specify a sender address.</p>
 </ul>
 <pre><code>ALLOWED_LOGIN_MISMATCH_SENDERS = ['user@mydomain.com']
 </code></pre>
-
 <p>Notes: <code>user@mydomain.com</code> is the email address you used for smtp authentication.</p>
 <h4 id="case-2">case #2</h4>
 <p>If you're a member of mailing list or mail alias, and trying to send email with
@@ -191,7 +189,6 @@ the email address of mailing list/alias as sender address, you will get same
 error. There's another setting you can try (either one is ok):</p>
 <pre><code>ALLOWED_LOGIN_MISMATCH_LIST_MEMBER = True
 </code></pre>
-
 <p>It will allow all members of mailing list/alias to send email with the email
 of mailing list/alias as the sender address.</p>
 <h3 id="unreasonable-virtual_alias_maps-map-expansion-size-for-userdomaincom">unreasonable virtual_alias_maps map expansion size for user@domain.com</h3>
@@ -208,7 +205,6 @@ hard limit (default is 1000), or reduce alias members.</p>
 Postfix config file <code>/etc/postfix/main.cf</code>:</p>
 <pre><code>virtual_alias_expansion_limit = 1500
 </code></pre>
-
 <p>Reference: <a href="http://www.postfix.org/postconf.5.html#virtual_alias_expansion_limit">Postfix Configuration Parameters</a></p>
 <h3 id="helo-command-rejected-need-fully-qualified-hostname">Helo command rejected: need fully-qualified hostname</h3>
 <p>Sample error message in Postfix log file:</p>
@@ -226,7 +222,6 @@ by adding a line like below at the top of file <code>/etc/postfix/helo_access.pc
 (Linux/OpenBSD) or <code>/usr/local/etc/postfix/helo_access.pcre</code> (FreeBSD):</p>
 <pre><code>/^EHSGmbHLUCASPC$/ OK
 </code></pre>
-
 <h3 id="helo-command-rejected-host-not-found">Helo command rejected: Host not found</h3>
 <p>Sample error message in Postfix log file:</p>
 <blockquote>
@@ -239,7 +234,6 @@ by adding a line like below at the top of file <code>/etc/postfix/helo_access.pc
 (Linux/OpenBSD) or <code>/usr/local/etc/postfix/helo_access.pcre</code> (FreeBSD):</p>
 <pre><code>/^mta02\.globetel\.com$/ OK
 </code></pre>
-
 <h3 id="helo-command-rejected-access-denied-your-email-was-rejected-because-the-sending-mail-server-does-not-identify-itself-correctly-local">Helo command rejected: ACCESS DENIED. Your email was rejected because the sending mail server does not identify itself correctly (.local)</h3>
 <p>It means sender mail server uses a FQDN hostname which ends with <code>.local</code> as
 HELO identity. <code>.local</code> is not a valid top level domain name, and all mail

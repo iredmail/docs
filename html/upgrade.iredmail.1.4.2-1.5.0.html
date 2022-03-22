@@ -52,7 +52,6 @@ installation, it's recommended to update this file after you upgraded iRedMail,
 so that you can know which version of iRedMail you're running. For example:</p>
 <pre><code>1.5.0
 </code></pre>
-
 <h3 id="upgrade-iredapd-postfix-policy-server-to-the-latest-stable-release-504">Upgrade iRedAPD (Postfix policy server) to the latest stable release (5.0.4)</h3>
 <p>Please follow below tutorial to upgrade iRedAPD to the latest stable release:
 <a href="./upgrade.iredapd.html">Upgrade iRedAPD to the latest stable release</a></p>
@@ -126,14 +125,12 @@ your favourite text editor, then:</p>
 </ul>
 <pre><code>ssl_protocols TLSv1.2 TLSv1.3;
 </code></pre>
-
 <ul>
 <li>Prepend <code>EECDH+CHACHA20</code> in parameter <code>ssl_ciphers</code>, also remove <code>AES256+EDH</code>.
   For example:</li>
 </ul>
 <pre><code>ssl_ciphers EECDH+CHACHA20:EECDH+AESGCM:EDH+AESGCM:AES256+EECDH;
 </code></pre>
-
 <ul>
 <li>Add new parameter <code>ssl_session_cache</code> and optional comment lines:</li>
 </ul>
@@ -142,7 +139,6 @@ your favourite text editor, then:</p>
 # every request, thus saving time and cpu-resources.
 ssl_session_cache shared:SSL:10m;
 </code></pre>
-
 <p>Restarting Nginx service is required.</p>
 <h3 id="dovecot-enable-a-new-ssl-cipher-and-remove-a-weak-one">Dovecot: enable a new ssl cipher and remove a weak one</h3>
 <p>Please open file <code>/etc/dovecot/dovecot.conf</code> (Linux/OpenBSD) or
@@ -151,7 +147,6 @@ ssl_session_cache shared:SSL:10m;
 removes the weak one <code>AES256+EDH</code>:</p>
 <pre><code>ssl_cipher_list = EECDH+CHACHA20:EECDH+AESGCM:EDH+AESGCM:AES256+EECDH
 </code></pre>
-
 <p>Restarting Dovecot service is required.</p><div class="footer">
     <p style="text-align: center; color: grey;">All documents are available in <a href="https://github.com/iredmail/docs/">GitHub repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://github.com/iredmail/docs/archive/master.zip">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
 </div></body></html>

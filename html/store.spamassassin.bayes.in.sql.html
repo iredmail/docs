@@ -73,21 +73,18 @@ If you're running different version, please find the proper SQL file here:
 <pre><code># cd /root/
 # wget http://svn.apache.org/repos/asf/spamassassin/tags/spamassassin_release_3_3_1/sql/bayes_mysql.sql
 </code></pre>
-
 <p>Create MySQL database and import SQL template file:</p>
 <pre><code># mysql -uroot -p
 mysql&gt; CREATE DATABASE sa_bayes;
 mysql&gt; USE sa_bayes;
 mysql&gt; SOURCE /root/bayes_mysql.sql;
 </code></pre>
-
 <p>Create a new MySQL user (with password <code>sa_user_password</code>) and grant
 permissions. <strong>IMPORTANT NOTE</strong>: Please replace password <code>sa_user_password</code>
 by your own password.</p>
 <pre><code>mysql&gt; GRANT SELECT, INSERT, UPDATE, DELETE ON sa_bayes.* TO sa_user@localhost IDENTIFIED BY 'sa_user_password';
 mysql&gt; FLUSH PRIVILEGES;
 </code></pre>
-
 <h2 id="enable-bayes-modules-in-spamassassin">Enable Bayes modules in SpamAssassin</h2>
 <p>Edit <code>/etc/mail/spamassassin/local.cf</code>, add (or modify below settings):</p>
 <pre><code>use_bayes          1
@@ -117,7 +114,6 @@ bayes_sql_password sa_user_password
 #   - on OpenBSD, it's user `_vscan`.
 bayes_sql_override_username amavis
 </code></pre>
-
 <p>Make sure SpamAssassin will load bayes modules:</p>
 <pre><code># /etc/init.d/amavisd stop
 # amavisd -c /etc/amavisd/amavisd.conf debug 2&gt;&amp;1 | grep -i 'bayes'
@@ -125,12 +121,10 @@ May 16 09:59:33 ... SpamAssassin loaded plugins: ..., Bayes, ...
 May 16 10:27:38 ... extra modules loaded after daemonizing/chrooting:
     Mail/SpamAssassin/BayesStore/MySQL.pm, Mail/SpamAssassin/BayesStore/SQL.pm, ...
 </code></pre>
-
 <p>Looks fine, now press <code>Ctrl-C</code> to terminate above command, and start Amavisd
 service again normally:</p>
 <pre><code># /etc/init.d/amavisd restart
 </code></pre>
-
 <p>It is required to initialize the database by learning a message. We use the
 sample spam email shipped in the RPM package provided by CentOS 6:</p>
 <pre><code># rpm -ql spamassassin | grep 'sample-spam'
@@ -139,7 +133,6 @@ sample spam email shipped in the RPM package provided by CentOS 6:</p>
 # sa-learn --spam --username=amavis /usr/share/doc/spamassassin-3.3.1/sample-spam.txt
 Learned tokens from 1 message(s) (1 message(s) examined)
 </code></pre>
-
 <h2 id="check-number-of-learned-spamshams">Check number of learned spams/hams</h2>
 <p>Run SQL commands below to check how many spams/hams have been learnt (note:
 the numbers will be different on your server):</p>
@@ -151,7 +144,6 @@ mysql&gt; SELECT username,spam_count,ham_count FROM bayes_vars;
 | amavis   |          3 |        38 |
 +----------+------------+-----------+
 </code></pre>
-
 <h2 id="auto-learn-spamham-with-dovecot-imap_sieve-plugin">Auto learn spam/ham with Dovecot imap_sieve plugin</h2>
 <ul>
 <li><a href="./dovecot.imapsieve.html">Auto learn spam/ham with Dovecot imap_sieve plugin</a></li>
@@ -163,7 +155,6 @@ created <code>sa_bayes</code> database. For example:</p>
 <pre><code># Part of file `/var/vmail/backup/backup_mysql.sh`
 DATABASES='... sa_bayes'
 </code></pre>
-
 <h2 id="references">References</h2>
 <ul>
 <li><a href="http://wiki.apache.org/spamassassin/BayesInSpamAssassin">Bayes Introduction</a>. Please do read section <code>Things to remember</code>.</li>

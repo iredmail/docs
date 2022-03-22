@@ -79,7 +79,6 @@ so that you can know which version of iRedMail you're running. For example:</p>
 
 0.8.1
 </code></pre>
-
 <h3 id="upgrade-roundcube-webmail-to-the-latest-stable-release">Upgrade Roundcube webmail to the latest stable release</h3>
 <p>Please follow Roundcube official tutorial to upgrade Roundcube webmail to the
 latest stable release immediately: <a href="https://github.com/roundcube/roundcubemail/wiki/Upgrade">How to upgrade Roundcube</a>.</p>
@@ -95,7 +94,6 @@ and its main config file with command:</p>
 <pre><code># dovecot -n | head -1
 2.0.17 ...
 </code></pre>
-
 <ul>
 <li>Edit <code>/etc/dovecot/dovecot.conf</code>, add service <code>auth-userdb</code> in section <code>service auth {}</code>:</li>
 </ul>
@@ -110,7 +108,6 @@ service auth {
     }
 }
 </code></pre>
-
 <ul>
 <li>Restarting Dovecot service is required.</li>
 </ul>
@@ -139,7 +136,6 @@ map {
     }
 }
 </code></pre>
-
 <ul>
 <li>Restarting Dovecot service is required.</li>
 </ul>
@@ -154,7 +150,6 @@ map {
 
 /var/log/iredapd.log    root:wheel      640  7     *    24    Z /var/run/iredapd.pid
 </code></pre>
-
 <ul>
 <li>For OpenBSD, please append below line to <code>/etc/newsyslog.conf</code> to rotate
   iRedAPD log file:</li>
@@ -163,11 +158,9 @@ map {
 
 /var/log/iredapd.log    root:wheel      640  7     *    24    Z &quot;/etc/rc.d/iredapd restart&quot;
 </code></pre>
-
 <p>Then restart syslogd service on either FreeBSD or OpenBSD:</p>
 <pre><code># /etc/rc.d/syslogd restart
 </code></pre>
-
 <h2 id="openldap-backend-special">OpenLDAP backend special</h2>
 <h3 id="deliver-emails-to-mail-list-members-without-enabledservicesmtp">Deliver emails to mail list members without <code>enabledService=smtp</code></h3>
 <p>With default Postfix settings in iRedMail-0.7.4 and earlier versions, if a mail
@@ -194,7 +187,6 @@ lists which the user belongs to. Below steps fix this issue.</p>
 # NEW SETTING
 virtual_alias_maps = ..., proxy:ldap:/etc/postfix/ldap/virtual_group_members_maps.cf, ...
 </code></pre>
-
 <ul>
 <li>
 <p>Create new file <code>virtual_group_members_maps.cf</code>:</p>
@@ -212,7 +204,6 @@ virtual_alias_maps = ..., proxy:ldap:/etc/postfix/ldap/virtual_group_members_map
 # ---- NEW SETTING ----
 query_filter    = ...(enabledService=deliver)...
 </code></pre>
-
 <ul>
 <li>Fix file permission:</li>
 </ul>
@@ -224,7 +215,6 @@ query_filter    = ...(enabledService=deliver)...
 # chown root:_postfix virtual_group_members_maps.cf
 # chmod 0640 virtual_group_members_maps.cf
 </code></pre>
-
 <ul>
 <li>Restarting Postfix service is required.</li>
 </ul>
@@ -240,7 +230,6 @@ Below steps are used to add it for all mail users.</p>
 <pre><code># cd /root/
 # wget https://github.com/iredmail/iRedMail/raw/1.0/update/ldap/updateLDAPValues_080_to_081.py
 </code></pre>
-
 <ul>
 <li>Open <code>updateLDAPValues_080_to_081.py</code>, config LDAP server related settings in
   file head. e.g.</li>
@@ -252,7 +241,6 @@ basedn = 'o=domains,dc=iredmail,dc=org'
 bind_dn = 'cn=vmailadmin,dc=iredmail,dc=org'
 bind_pw = 'passwd'
 </code></pre>
-
 <p>You can find required LDAP credential in iRedAdmin config file or <code>iRedMail.tips</code>
 file under your iRedMail installation directory. Using either
 <code>cn=Manager,dc=xx,dc=xx</code> or <code>cn=vmailadmin,dc=xx,dc=xx</code> as bind dn is ok.</p>
@@ -261,7 +249,6 @@ file under your iRedMail installation directory. Using either
 </ul>
 <pre><code># python updateLDAPValues_080_to_081.py
 </code></pre>
-
 <h3 id="add-missing-sql-table-anyone_shares-in-mysql-database-iredadmin">Add missing SQL table <code>anyone_shares</code> in MySQL database <code>iredadmin</code></h3>
 <p>If you want to share IMAP folder to anyone, you have to create new SQL table
 <code>anyone_shares</code> in MySQL database <code>iredadmin</code>. Steps:</p>
@@ -273,7 +260,6 @@ sql&gt; CREATE TABLE IF NOT EXISTS anyone_shares (
     PRIMARY KEY (from_user)
 );
 </code></pre>
-
 <h3 id="make-per-user-bcc-settings-have-higher-priority-than-per-domain-settings">Make per-user BCC settings have higher priority than per-domain settings</h3>
 <p>To make sure per-user BCC settings have higher priority than per-domain
 settings, please edit Postfix main config file <code>main.cf</code>, reverse the lookup
@@ -291,7 +277,6 @@ maps in both <code>sender_bcc_maps</code> and <code>recipient_bcc_maps</code>.</
 recipient_bcc_maps = proxy:ldap:/etc/postfix/ldap/recipient_bcc_maps_user.cf, proxy:ldap:/etc/postfix/ldap/recipient_bcc_maps_domain.cf
 sender_bcc_maps = proxy:ldap:/etc/postfix/ldap/sender_bcc_maps_user.cf, proxy:ldap:/etc/postfix/ldap/sender_bcc_maps_domain.cf
 </code></pre>
-
 <h2 id="mysql-backend-special">MySQL backend special</h2>
 <h3 id="fix-incorrect-maildir-path-with-virtual-transport">Fix incorrect maildir path with 'virtual' transport</h3>
 <p>iRedMail uses Dovecot LDA as transport by default, but if you use transport
@@ -308,7 +293,6 @@ from Dovecot LDA. Below step is used to fix it.</p>
 # NEW SETTING
 query       = SELECT CONCAT(mailbox.storagenode, '/', mailbox.maildir, '/Maildir/') FROM ...
 </code></pre>
-
 <ul>
 <li>Restart Postfix service to make it use new setting.</li>
 </ul>
@@ -329,7 +313,6 @@ maps in both <code>sender_bcc_maps</code> and <code>recipient_bcc_maps</code>.</
 recipient_bcc_maps = proxy:mysql:/etc/postfix/mysql/recipient_bcc_maps_user.cf, proxy:mysql:/etc/postfix/mysql/recipient_bcc_maps_domain.cf
 sender_bcc_maps = proxy:mysql:/etc/postfix/mysql/sender_bcc_maps_user.cf, proxy:mysql:/etc/postfix/mysql/sender_bcc_maps_domain.cf
 </code></pre>
-
 <h3 id="add-new-column-required-by-imap-share-folder-in-dovecot-2-enablelib-storage1">Add new column required by IMAP share folder in Dovecot-2: <code>enablelib-storage=1</code></h3>
 <p>Dovecot-2.x requires <code>mailbox.enablelib-storage=1</code> for IMAP folder sharing.
 Below steps are used to add it for all mail users.</p>
@@ -345,7 +328,6 @@ sql&gt; CREATE INDEX idx_mailbox_lib_storage ON mailbox (`enablelib-storage`);
 -- Add missing index
 sql&gt; CREATE INDEX idx_mailbox_enabledoveadm ON mailbox (enabledoveadm);
 </code></pre>
-
 <ul>
 <li>Update <code>/etc/dovecot/dovecot-mysql.conf</code>, add <code>`` (not single quote) around</code>enable%Ls%Lc`.</li>
 </ul>
@@ -357,7 +339,6 @@ sql&gt; CREATE INDEX idx_mailbox_enabledoveadm ON mailbox (enabledoveadm);
 # NEW SETTING
     AND mailbox.`enable%Ls%Lc`=1 \
 </code></pre>
-
 <h3 id="add-missing-sql-table-anyone_shares-in-mysql-database-vmail">Add missing SQL table <code>anyone_shares</code> in MySQL database <code>vmail</code></h3>
 <p>If you want to share IMAP folder to anyone, you have to create new SQL table
 <code>anyone_shares</code> in MySQL database <code>vmail</code>. Steps:</p>
@@ -369,7 +350,6 @@ sql&gt; CREATE TABLE IF NOT EXISTS anyone_shares (
     PRIMARY KEY (from_user)
 );
 </code></pre>
-
 <h3 id="add-new-column-language-in-table-vmailmailbox">Add new column <code>language</code> in table <code>vmail.mailbox</code></h3>
 <p>Column <code>mailbox.language</code> is used to store short code of user preferred
 language used by iRedAdmin.</p>
@@ -381,7 +361,6 @@ language used by iRedAdmin.</p>
 sql&gt; USE vmail;
 sql&gt; ALTER TABLE mailbox ADD COLUMN language VARCHAR(5) NOT NULL DEFAULT 'en_US';
 </code></pre>
-
 <h2 id="postgresql-backend-special">PostgreSQL backend special</h2>
 <h3 id="fix-incorrect-maildir-path-with-virtual-transport_1">Fix incorrect maildir path with 'virtual' transport</h3>
 <p>iRedMail uses Dovecot LDA as transport by default, but if you use transport
@@ -398,7 +377,6 @@ from Dovecot LDA. Below step is used to fix it.</p>
 # NEW SETTING
 query       = SELECT CONCAT(mailbox.storagenode, '/', mailbox.maildir, '/Maildir/') FROM ...
 </code></pre>
-
 <ul>
 <li>Restart Postfix service to make it use new setting.</li>
 </ul>
@@ -419,7 +397,6 @@ maps in both <code>sender_bcc_maps</code> and <code>recipient_bcc_maps</code>.</
 recipient_bcc_maps = proxy:pgsql:/etc/postfix/pgsql/recipient_bcc_maps_user.cf, proxy:pgsql:/etc/postfix/pgsql/recipient_bcc_maps_domain.cf
 sender_bcc_maps = proxy:pgsql:/etc/postfix/pgsql/sender_bcc_maps_user.cf, proxy:pgsql:/etc/postfix/pgsql/sender_bcc_maps_domain.cf
 </code></pre>
-
 <h3 id="add-new-column-required-by-imap-share-folder-in-dovecot-2-enablelib-storage1_1">Add new column required by IMAP share folder in Dovecot-2: <code>enablelib-storage=1</code></h3>
 <p>Dovecot-2.x requires <code>mailbox.enablelib-storage=1</code> for IMAP folder sharing.
 Below steps are used to add it for all mail users.</p>
@@ -445,7 +422,6 @@ sql&gt; CREATE INDEX idx_mailbox_enabledoveadm ON mailbox (enabledoveadm);
 sql&gt; GRANT SELECT ON mailbox TO vmail;
 sql&gt; GRANT SELECT,UPDATE,INSERT,DELETE ON mailbox to vmailadmin;
 </code></pre>
-
 <ul>
 <li>Update <code>/etc/dovecot/dovecot-pgsql.conf</code>, add quotes for column <code>mailbox.enable%Ls%Lc</code>:</li>
 </ul>
@@ -457,7 +433,6 @@ sql&gt; GRANT SELECT,UPDATE,INSERT,DELETE ON mailbox to vmailadmin;
 # NEW SETTING
     AND mailbox.&quot;enable%Ls%Lc&quot;=1 \
 </code></pre>
-
 <h3 id="add-missing-sql-table-anyone_shares-in-postgresql-database-vmail">Add missing SQL table <code>anyone_shares</code> in PostgreSQL database <code>vmail</code></h3>
 <p>If you want to share IMAP folder to anyone, you have to create new SQL table
 <code>anyone_shares</code> in PostgreSQL database <code>vmail</code>. Steps:</p>
@@ -473,7 +448,6 @@ sql&gt; CREATE TABLE anyone_shares (
     PRIMARY KEY (from_user)
 );
 </code></pre>
-
 <h3 id="add-new-column-language-in-table-vmailmailbox_1">Add new column <code>language</code> in table <code>vmail.mailbox</code></h3>
 <p>Column <code>mailbox.language</code> is used to store short code of user preferred
 language used by iRedAdmin.</p>

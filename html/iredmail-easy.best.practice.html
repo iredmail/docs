@@ -75,7 +75,6 @@ at the bottom of <code>dovecot.conf</code> like this:</p>
 <pre><code>!include_try /etc/dovecot/conf-enabled/*.conf
 !include_try /opt/iredmail/custom/dovecot/conf-enabled/*.conf
 </code></pre>
-
 <p>It will try to load all files ends with <code>.conf</code> under
 <code>/etc/dovecot/conf-enabled/</code> first, then
 <code>/opt/iredmail/custom/dovecot/conf-enabled/</code>.</p>
@@ -86,14 +85,12 @@ settings. for example, Dovecot is configured to enable services like below by
 iRedMail Easy:</p>
 <pre><code>protocols = pop3 imap sieve lmtp
 </code></pre>
-
 <p>What can you do to disable <code>pop3</code> service without modify files under
 <code>/etc/dovecot/</code>? Easy, just create a file, e.g. <code>custom.conf</code> under
 <code>/opt/iredmail/custom/dovecot/conf-enabled/</code> with content below (note: service
 name <code>pop3</code> is removed in this setting), then restart Dovecot service:</p>
 <pre><code>protocols = imap sieve lmtp
 </code></pre>
-
 <h3 id="modify-config-files-in-place">Modify config files in-place</h3>
 <p>If software does not support loading settings from extra config files,
 you may need to apply your own settings by running commands to modify its
@@ -111,12 +108,10 @@ deploying or upgrading a software. For Postfix, it's
 write shell commands in <code>/opt/iredmail/custom/postfix/custom.sh</code> like below:</p>
 <pre><code>postconf -e mynetworks='127.0.0.1 192.168.1.1'
 </code></pre>
-
 <p>Then run it manually:</p>
 <pre><code>cd /opt/iredmail/custom/postfix/
 bash custom.sh
 </code></pre>
-
 <p>When iRedMail Easy deploys or upgrades Postfix, it will run this script the
 same way.</p>
 <h3 id="remove-existing-file-and-create-a-new-one">Remove existing file and create a new one</h3>
@@ -132,18 +127,15 @@ parameters, and parameter <code>client_max_body_size</code> is defined in
 <code>/etc/nginx/conf-enabled/client_max_body_size.conf</code> like this:</p>
 <pre><code>client_max_body_size 15m;
 </code></pre>
-
 <p>You need to add a new file under <code>/opt/iredmail/custom/nginx/conf-enabled/</code>
 first, then add shell command in <code>/opt/iredmail/custom/nginx/custom.sh</code> to
 remove <code>/etc/nginx/conf-enabled/client_max_body_size.conf</code> like below:</p>
 <pre><code>rm -f /etc/nginx/conf-enabled/client_max_body_size.conf
 </code></pre>
-
 <p>Now run this script:</p>
 <pre><code>cd /opt/iredmail/custom/nginx/
 bash custom.sh
 </code></pre>
-
 <p>When iRedMail Easy deploys or upgrades Nginx, it will run this script the
 same way.</p>
 <h3 id="the-rest">The rest</h3>
@@ -314,7 +306,6 @@ under <code>/opt/iredmail/ssl/</code>:</p>
 <pre><code>[mysqld]
 max_connections     = 1024
 </code></pre>
-
 <h3 id="openldap">OpenLDAP</h3>
 <ul>
 <li>
@@ -350,7 +341,6 @@ mode        0700
 index attr_1,attr_2,attr_3  eq,pres
 index attr_4,attr_5,attr_6  eq,pres
 </code></pre>
-
 <h3 id="nginx">Nginx</h3>
 <ul>
 <li>
@@ -423,7 +413,6 @@ index attr_4,attr_5,attr_6  eq,pres
                         |- webapps/         # config snippets for certain web applications.
                         |- custom.sh        # shell script used for advanced customization
 </code></pre>
-
 <h3 id="postfix">Postfix</h3>
 <p>Postfix doesn't support loading main settings (<code>/etc/postfix/main.cf</code> and
 <code>/etc/postfix/master.cf</code>) from multiple files, so iRedMail Easy uses alternative
@@ -453,7 +442,6 @@ matches, Postfix will skip the second file.</p>
     check_helo_access pcre:/etc/postfix/helo_access.pcre
     ...
 </code></pre>
-
 <ul>
 <li>The first one, <code>/opt/iredmail/custom/postfix/helo_access.pcre</code>, is used to
   store your cusotm HELO access rules. If rule in this file matched,
@@ -481,7 +469,6 @@ deployment or upgrade through iRedMail Easy platform.</p>
 <code>/opt/iredmail/custom/postfix/custom.sh</code> like below:</p>
 <pre><code>postconf -e enable_original_recipient=yes
 </code></pre>
-
 <p>To add new or update existing transport settings in <code>/etc/postfix/master.cf</code>,
 you can run <code>postconf -M</code> and <code>postconf -P</code>. For example, create new transport
 <code>465</code> for <a href="./enable.smtps.html">SMTPS (SMTP over SSL)</a>:</p>
@@ -492,7 +479,6 @@ postconf -P &quot;465/inet/smtpd_sasl_auth_enable=yes&quot;
 postconf -P &quot;465/inet/smtpd_client_restrictions=permit_sasl_authenticated,reject&quot;
 postconf -P &quot;465/inet/content_filter=smtp-amavis:[127.0.0.1]:10026&quot;
 </code></pre>
-
 <p>It will generate new lines in <code>/etc/postfix/master.cf</code> like below:</p>
 <pre><code>465 inet n - n - - smtpd
   -o syslog_name=postfix/smtps
@@ -501,7 +487,6 @@ postconf -P &quot;465/inet/content_filter=smtp-amavis:[127.0.0.1]:10026&quot;
   -o smtpd_client_restrictions=permit_sasl_authenticated,reject
   -o content_filter=smtp-amavis:[127.0.0.1]:10026
 </code></pre>
-
 <p>For more details about <code>postconf</code> command, please check its manual page:
 <a href="http://www.postfix.org/postconf.1.html">postconf(1)</a>.</p>
 <h3 id="dovecot">Dovecot</h3>
@@ -553,7 +538,6 @@ iRedMail Easy:</p>
 cp config.inc.php.dist config.inc.php
 echo 'require_once &quot;/opt/iredmail/custom/roundcube/config_&lt;plugin&gt;.inc.php&quot;;' &gt;&gt; config.inc.php
 </code></pre>
-
 <ul>
 <li>Create file <code>/opt/iredmail/custom/roundcube/config_&lt;plugin&gt;.inc.php</code> and
   store all your custom settings in this file. <strong>WARNING</strong>: this file must be a
@@ -567,7 +551,6 @@ should add shell commands like below in <code>/opt/iredmail/custom/roundcube/cus
 cp config.inc.php.dist config.inc.php
 echo 'require_once &quot;/opt/iredmail/custom/roundcube/config_enigma.inc.php&quot;;' &gt;&gt; config.inc.php
 </code></pre>
-
 <p>Then put all custom settings for plugin <code>enigma</code> to
 <code>/opt/iredmail/custom/roundcube/config_enigma.inc.php</code>.</p>
 <h4 id="custom-skins">Custom skins</h4>

@@ -35,7 +35,6 @@ config file <code>/etc/postfix/master.cf</code>:</p>
 <pre><code>external-pipe   unix    -   n   n   -   -   pipe
     flags=DRhu user=vmail:vmail argv=/path/to/your/external/script.sh
 </code></pre>
-
 <p><strong>Note</strong>:</p>
 <ul>
 <li>You can use some macros to replace with corresponding information from the
@@ -45,7 +44,6 @@ Postfix queue manager delivery request. Refer to Postfix manual page
 <pre><code>external-pipe   unix    -   n   n   -   -   pipe
     flags=DRhu user=vmail:vmail argv=/path/to/your/external/script.sh -f ${sender} -d ${user}@${domain} -m ${extension}
 </code></pre>
-
 <ul>
 <li>the second line needs to be right under the first line and must start with
 one (or more) whitespace, and the first line cannot start with whitespace,
@@ -57,7 +55,6 @@ or the pipe will fail.</li>
 <p>Now restart Postfix service to make this new transport available:</p>
 <pre><code># /etc/init.d/postfix restart
 </code></pre>
-
 <h2 id="update-per-user-transport-to-use-this-new-transport">Update per-user transport to use this new transport</h2>
 <p>We need to update per-user transport setting, so that all emails delivered to
 this user will be piped to this new transport - your script.</p>
@@ -93,7 +90,6 @@ use this new transport.</p>
 <pre><code>sql&gt; USE vmail;
 sql&gt; UPDATE mailbox SET transport='external-pipe' WHERE username='user@domain.ltd';
 </code></pre>
-
 <p>That's all.</p><div class="footer">
     <p style="text-align: center; color: grey;">All documents are available in <a href="https://github.com/iredmail/docs/">GitHub repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://github.com/iredmail/docs/archive/master.zip">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
 </div></body></html>

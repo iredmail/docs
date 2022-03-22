@@ -55,7 +55,6 @@ enabledService: displayedInGlobalAddressBook
 mail: demolist@mydomain.com
 objectClass: mailList
 </code></pre>
-
 <p>Now switch to <code>ou=Users</code> under you domain LDAP dn in left panel.</p>
 <ul>
 <li>Expand <code>ou=Users</code> in left panel.</li>
@@ -85,20 +84,17 @@ mail: user02@external.com
 memberofgroup: demolist@mydomain.com
 objectclass: mailExternalUser
 </code></pre>
-
 <p><strong>IMPORTANT NOTE</strong>: If you don't have any mail list member, Postfix will report error like below:</p>
 <pre><code>Aug  1 15:45:42 mail postfix/smtpd[6024]: NOQUEUE: reject: RCPT from unknown[1.1.1.1]: 550 5.1.1
 &lt;it@domain1.ru&gt;: Recipient address rejected: User unknown in virtual mailbox table; from=&lt;test@domain1.ru&gt;
  to=&lt;it@domain1.ru&gt; proto=ESMTP helo=&lt;[2.2.2.2]&gt;
 </code></pre>
-
 <h2 id="mail-list-access-policies">Mail list access policies</h2>
 <p>You can restrict who can send email to this mailing list by adding LDAP attribute <code>accessPolicy</code>. For example:</p>
 <pre><code>dn: mail=demolist@mydomain.com,ou=Groups,domainName=mydomain.com,o=domains,dc=iredmail,dc=org
 accesspolicy: domain
 ...
 </code></pre>
-
 <p>Available access policies are:</p>
 <ul>
 <li><code>public</code>: no restrictions.</li>

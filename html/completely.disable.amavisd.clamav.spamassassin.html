@@ -57,10 +57,9 @@
 </ul>
 </li>
 </ul>
-<pre><code class="perl"># @bypass_virus_checks_maps = (1);  # controls running of anti-virus code
+<pre><code class="language-perl"># @bypass_virus_checks_maps = (1);  # controls running of anti-virus code
 # @bypass_spam_checks_maps  = (1);  # controls running of anti-spam code
 </code></pre>
-
 <p>Uncomment above lines (removing "# " at the beginning of each line), and restart Amavisd service.</p>
 <p>You may want to stop and disable ClamAV service, then remove clamav packages
 since it's not called by Amavisd or other programs anymore:</p>
@@ -96,22 +95,19 @@ rcctl disable clamd
 rcctl restart amavisd
 pkg_delete clamav
 </code></pre>
-
 <h3 id="completely-disable-all-features">Completely disable all features</h3>
 <p>If you want to completely disable spam and virus scanning services, steps:</p>
 <ul>
 <li>Comment out below two lines in Postfix config file <code>/etc/postfix/main.cf</code>:</li>
 </ul>
-<pre><code class="cfg">content_filter = smtp-amavis:[127.0.0.1]:10024
+<pre><code class="language-cfg">content_filter = smtp-amavis:[127.0.0.1]:10024
 receive_override_options = no_address_mappings  # &lt;- it's ok if you don't have this line
 </code></pre>
-
 <ul>
 <li>Comment out below line in Postfix config file <code>/etc/postfix/master.cf</code>,</li>
 </ul>
-<pre><code class="cfg">  -o content_filter=smtp-amavis:[127.0.0.1]:10026
+<pre><code class="language-cfg">  -o content_filter=smtp-amavis:[127.0.0.1]:10026
 </code></pre>
-
 <ul>
 <li>Restarting Postfix service is required.</li>
 <li>Disable network services: Amavisd, ClamAV.</li>
@@ -134,7 +130,6 @@ connect to this port anymore.</p>
 </ul>
 <pre><code>MLMMJ_DEFAULT_PROFILE_SETTINGS.update({'smtp_port': 10027})
 </code></pre>
-
 <ul>
 <li>
 <p>Remove all <code>control/smtpport</code> file under <code>/var/vmail/mlmmj/&lt;domain&gt;/&lt;list-name&gt;/</code>.

@@ -50,7 +50,6 @@ protocol imap {
     mail_plugins = ... acl imap_acl
 }
 </code></pre>
-
 <ul>
 <li>For Dovecot-2.x:</li>
 </ul>
@@ -62,7 +61,6 @@ protocol imap {
     mail_plugins = ... imap_acl
 }
 </code></pre>
-
 <p>Restarting Dovecot service is required.</p>
 <h2 id="test-shared-folder">Test shared folder</h2>
 <p>Example: share <code>from@domain.ltd</code>'s <code>Sent</code> folder to user <code>testing@domain.ltd</code>.</p>
@@ -85,7 +83,6 @@ protocol imap {
 ^]                                    # &lt;- Press `Ctrl + ]` to exit telnet.
 telnet&gt; quit
 </code></pre>
-
 <p>Log into Roundcube webmail or SOGo as user <code>testing@domain.ltd</code>, you should
 see the shared folder.</p>
 <p>Some more details:</p>
@@ -108,7 +105,6 @@ mysql&gt; SELECT * FROM share_folder;
 | from@domain.ltd | testing@domain.ltd | 1     |
 +-----------------+--------------------+-------+
 </code></pre>
-
 <h2 id="references">References</h2>
 <ul>
 <li>

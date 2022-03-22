@@ -55,7 +55,6 @@ what you need to do is:</p>
 #    subscriptions = yes
 #}
 </code></pre>
-
 <p>Remove comment marks (<code>#</code>) for above <code>namespace {}</code> block, like below:</p>
 <pre><code># Public mailboxes.
 # Refer to Dovecot wiki page for more details:
@@ -73,12 +72,10 @@ namespace {
     subscriptions = yes
 }
 </code></pre>
-
 <p>If you want to share the public folder to all users hosted on same server,
 please also remove the comment mark in below line in <code>dovecot.conf</code>:</p>
 <pre><code>    acl_anyone = allow
 </code></pre>
-
 <p>Restarting Dovecot service is required after changed its config file.</p>
 <p>Important notes:</p>
 <ul>
@@ -93,7 +90,6 @@ please also remove the comment mark in below line in <code>dovecot.conf</code>:<
 chown -R vmail:vmail /var/vmail/public/.TestFolder
 chmod -R 0700 /var/vmail/public/.TestFolder
 </code></pre>
-
 <div class="admonition note">
 <p class="admonition-title">Notes</p>
 <ul>
@@ -118,11 +114,9 @@ correct, because no one has permission to access this folder right now.</p>
 folder first with command <code>doveadm acl get</code>:</p>
 <pre><code>doveadm acl get -A &quot;Public/TestFolder&quot;
 </code></pre>
-
 <p>You can see output like below, no access control at all:</p>
 <pre><code>Username ID Global Rights
 </code></pre>
-
 <p>Below is list of all available permissions. Please check <a href="http://wiki2.dovecot.org/ACL">Dovecot web
 site</a> for more details or update.</p>
 <div class="admonition note">
@@ -198,33 +192,28 @@ site</a> for more details or update.</p>
 <code>postmaster@test.com</code> (again, this user is hosted on same server):</p>
 <pre><code>doveadm acl set &quot;Public/TestFolder&quot; &quot;user=postmaster@test.com&quot; lookup read write write-seen write-deleted insert delete expunge create
 </code></pre>
-
 <p>Check the ACl with <code>doveadm</code> again:</p>
 <pre><code># doveadm acl get -A &quot;Public/TestFolder&quot;
 Username        ID                       Global Rights
 postmaster@a.cn user=postmaster@test.com        create delete expunge insert lookup read write
 </code></pre>
-
 <p>If you now login to webmail (or other IMAP client) as user <code>postmaster@test.com</code>,
 you can see a new folder <code>TestFolder</code>.</p>
 <p>With shell command below, we grant all users (with the <code>-A</code> argument) hosted on
 same server <code>lookup</code>, and <code>read</code> permissions:</p>
 <pre><code>doveadm acl set -A &quot;Public/TestFolder&quot; &quot;anyone&quot; lookup read
 </code></pre>
-
 <p>Check the ACl with <code>doveadm</code> now:</p>
 <pre><code># doveadm acl get -A &quot;Public/TestFolder&quot;
 Username        ID                       Global Rights
 postmaster@a.cn anyone                          lookup read
 postmaster@a.cn user=postmaster@test.com        create delete expunge insert lookup read write
 </code></pre>
-
 <p>If you login to webmail (or other IMAP client) as any user hosted on same
 server, you can see a new folder <code>TestFolder</code>.</p>
 <p>With shell command below we delete access control for user <code>postmaster@test.com</code>:</p>
 <pre><code>doveadm acl delete -A &quot;Public/TestFolder&quot; &quot;user=postmaster@test.com&quot;
 </code></pre>
-
 <p>For more details about ACL control, please read Dovecot tutorials mentioned in
 <a href="#references">References</a> below.</p>
 <h2 id="troubleshooting">Troubleshooting</h2>
@@ -242,7 +231,6 @@ server, you can see a new folder <code>TestFolder</code>.</p>
 </ul>
 <pre><code>doveadm -D acl ...
 </code></pre>
-
 <h2 id="use-someones-mailbox-as-public-folder">Use someone's mailbox as public folder</h2>
 <p>If you want to use someone's mailbox as public folder, here's a simplest way to
 achieve it.</p>
@@ -261,7 +249,6 @@ not <code>public/PublicMailbox</code>.</p>
 </div>
 <pre><code>ln -s /var/vmail/vmail1/domain.com/p/u/b/public-20160714100502/Maildir /var/vmail/public/.PublicMailbox
 </code></pre>
-
 <h2 id="references">References</h2>
 <ul>
 <li>

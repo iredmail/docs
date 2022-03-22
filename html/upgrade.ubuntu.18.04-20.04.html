@@ -60,7 +60,6 @@ OS, their upgrade scripts will help fix some issues caused by OS upgrade.</p>
 </ul>
 <pre><code>mkdir /var/log/php-fpm
 </code></pre>
-
 <ul>
 <li>Override config file <code>/etc/php/7.4/fpm/pool.d/www.conf</code> with content below:</li>
 </ul>
@@ -92,7 +91,6 @@ access.log = /var/log/php-fpm/access.log
 slowlog = /var/log/php-fpm/slow.log
 request_slowlog_timeout = 10s
 </code></pre>
-
 <ul>
 <li>Override file <code>/etc/nginx/conf-available/php-fpm.conf</code> with content below:</li>
 </ul>
@@ -100,14 +98,12 @@ request_slowlog_timeout = 10s
     server 127.0.0.1:9999;
 }
 </code></pre>
-
 <ul>
 <li>Restart php7.4-fpm and nginx services:</li>
 </ul>
 <pre><code>service php7.4-fpm restart
 service nginx restart
 </code></pre>
-
 <h2 id="update-clamav-config-file">Update clamav config file</h2>
 <p>Remove deprecated options in <code>/etc/clamav/clamd.conf</code>:</p>
 <pre><code>DetectBrokenExecutables
@@ -117,7 +113,6 @@ StatsPEDisabled
 StatsHostID
 StatsTimeout
 </code></pre>
-
 <p>Then restart service <code>clamav-daemon</code>:</p>
 <pre><code>service clamav-daemon restart
 </code></pre><div class="footer">
