@@ -81,7 +81,7 @@ overwriting) parameter <code>@av_scanners_backup</code> in Amavisd config file:
 </code></pre>
 <p>Restarting Amavisd service is required.</p>
 <h3 id="nginx-increase-proxy-buffer-size-so-that-user-can-login-to-sogo-webmail">Nginx: Increase proxy buffer size so that user can login to SOGo webmail</h3>
-<p>The cookie used by SOGo is now <code>much bigger than before (just bellow 4096
+<p>The cookie used by SOGo is now <code>much bigger than before (just below 4096
 bytes, to accommodate longer passwords)</code>, so we have to increase Nginx proxy
 buffer size too, otherwise user can not login to SOGo webmail.</p>
 <p>Find below 3 <code>location</code> directives in 2 Nginx config files:

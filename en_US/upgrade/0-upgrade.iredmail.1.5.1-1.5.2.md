@@ -54,7 +54,7 @@ Restarting Amavisd service is required.
 
 ### Nginx: Increase proxy buffer size so that user can login to SOGo webmail
 
-The cookie used by SOGo is now `much bigger than before (just bellow 4096
+The cookie used by SOGo is now `much bigger than before (just below 4096
 bytes, to accommodate longer passwords)`, so we have to increase Nginx proxy
 buffer size too, otherwise user can not login to SOGo webmail.
 
