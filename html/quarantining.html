@@ -128,13 +128,13 @@ NOTIFICATION_QUARANTINE_MAIL_SUBJECT = '[Attention] You have %(total)d emails qu
 <p>To notify user periodly, please add a cron job for root user to run
 <code>tools/notify_quarantined_recipients.py</code>. For example, every 6 hours ('6 hours'
 is just an example, the period is totally up to you):</p>
-<pre><code>1 */6 * * * /usr/bin/python /var/www/iredadmin/tools/notify_quarantined_recipients.py --force-all &gt;/dev/null
+<pre><code>1 */6 * * * /usr/bin/python3 /var/www/iredadmin/tools/notify_quarantined_recipients.py --force-all &gt;/dev/null
 </code></pre>
 <p>Don't forget to use the correct path to <code>notify_quarantined_recipients.py</code> on your server.</p>
 <p>You can also run this script manually to notify users. for example,
 on RHEL/CentOS:</p>
 <pre><code>cd /var/www/iredadmin/tools/
-python notify_quarantined_recipients.py --force-all
+python3 notify_quarantined_recipients.py --force-all
 </code></pre>
 <p><code>notify_quarantined_recipients.py</code> supports few arguments:</p>
 <table>

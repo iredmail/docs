@@ -115,7 +115,7 @@ To notify user periodly, please add a cron job for root user to run
 is just an example, the period is totally up to you):
 
 ```
-1 */6 * * * /usr/bin/python /var/www/iredadmin/tools/notify_quarantined_recipients.py --force-all >/dev/null
+1 */6 * * * /usr/bin/python3 /var/www/iredadmin/tools/notify_quarantined_recipients.py --force-all >/dev/null
 ```
 
 Don't forget to use the correct path to `notify_quarantined_recipients.py` on your server.
@@ -125,7 +125,7 @@ on RHEL/CentOS:
 
 ```
 cd /var/www/iredadmin/tools/
-python notify_quarantined_recipients.py --force-all
+python3 notify_quarantined_recipients.py --force-all
 ```
 
 `notify_quarantined_recipients.py` supports few arguments:
