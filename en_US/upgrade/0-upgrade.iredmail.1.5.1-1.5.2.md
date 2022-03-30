@@ -59,12 +59,13 @@ bytes, to accommodate longer passwords)`, so we have to increase Nginx proxy
 buffer size too, otherwise user can not login to SOGo webmail.
 
 Find below 3 `location` directives in 2 Nginx config files:
-    - On Linux and OpenBSD:
-        - `/etc/nginx/templates/sogo.tmpl`
-        - `/etc/nginx/templates/sogo-subdomain.tmpl`
-    - On FreeBSD:
-        - `/usr/local/etc/nginx/templates/sogo.tmpl`
-        - `/usr/local/etc/nginx/templates/sogo-subdomain.tmpl`
+
+- On Linux and OpenBSD:
+    - `/etc/nginx/templates/sogo.tmpl`
+    - `/etc/nginx/templates/sogo-subdomain.tmpl`
+- On FreeBSD:
+    - `/usr/local/etc/nginx/templates/sogo.tmpl`
+    - `/usr/local/etc/nginx/templates/sogo-subdomain.tmpl`
 
 ```
 location ^~ /SOGo {

@@ -84,13 +84,19 @@ overwriting) parameter <code>@av_scanners_backup</code> in Amavisd config file:
 <p>The cookie used by SOGo is now <code>much bigger than before (just below 4096
 bytes, to accommodate longer passwords)</code>, so we have to increase Nginx proxy
 buffer size too, otherwise user can not login to SOGo webmail.</p>
-<p>Find below 3 <code>location</code> directives in 2 Nginx config files:
-    - On Linux and OpenBSD:
-        - <code>/etc/nginx/templates/sogo.tmpl</code>
-        - <code>/etc/nginx/templates/sogo-subdomain.tmpl</code>
-    - On FreeBSD:
-        - <code>/usr/local/etc/nginx/templates/sogo.tmpl</code>
-        - <code>/usr/local/etc/nginx/templates/sogo-subdomain.tmpl</code></p>
+<p>Find below 3 <code>location</code> directives in 2 Nginx config files:</p>
+<ul>
+<li>On Linux and OpenBSD:<ul>
+<li><code>/etc/nginx/templates/sogo.tmpl</code></li>
+<li><code>/etc/nginx/templates/sogo-subdomain.tmpl</code></li>
+</ul>
+</li>
+<li>On FreeBSD:<ul>
+<li><code>/usr/local/etc/nginx/templates/sogo.tmpl</code></li>
+<li><code>/usr/local/etc/nginx/templates/sogo-subdomain.tmpl</code></li>
+</ul>
+</li>
+</ul>
 <pre><code>location ^~ /SOGo {
     # ...omit existing parameters here ...
 }
