@@ -116,16 +116,6 @@ on console, then restart nginx service:
 service nginx restart
 ```
 
-### SOGo: Re-create SQL table
-
-SOGo has some internal change in March 2022, you may get error message like
-below in SOGo log file `/var/log/sogo/sogo.log`:
-
-> Mar 09 17:28:20 sogod ... cannot write record: <MySQL4Exception: 0x55cbcfd4dfc0> NAME:ExecutionFailed REASON:__Data too long for column 'c_value'__{: .red } at row 1
-
-Please drop SQL table `sogo.sogo_sessions_folder` and restart SOGo service to
-fix it. SOGo will re-create this table automatically.
-
 ### [OPTIONAL] Roundcube: Log client login IP addresses
 
 It might be useful to log client IPs in Roundcube log file, for example, for
@@ -139,6 +129,7 @@ $config['log_logins'] = true;
 Restarting php-fpm service is recommended but not required.
 
 ## For OpenLDAP and MariaDB backend
+
 ### SOGo: Re-create SQL table
 
 SOGo has some internal change in March 2022, you may get error message like
