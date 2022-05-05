@@ -337,7 +337,7 @@ Again, query SQL table `fail2ban.banned` as `root` user, you should see the IP
 stored in SQL db with `remove=1` is gone, and unbanned in fail2ban too:
 
 ```
-mysql fail2ban -e "SELECT * FROM banned"
+mysql fail2ban -e "SELECT id,ip,jail FROM banned"
 fail2ban-client status dovecot
 ```
 

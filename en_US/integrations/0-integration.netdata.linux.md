@@ -29,28 +29,27 @@ install it first.
 yum install curl libmnl libuuid lm_sensors nc PyYAML zlib iproute MySQL-python python-psycopg2
 ```
 
-* On Debian/Ubuntu:
+* On Debian 11 and Ubuntu 20.04:
 
 ```
-apt-get install zlib1g libuuid1 libmnl0 curl lm-sensors iproute netcat python-mysqldb python-psycopg2
+apt-get install zlib1g libuuid1 libmnl0 curl lm-sensors iproute2 netcat python3-mysqldb python3-psycopg2
 ```
 
 ## Install netdata
 
 * Download the latest netdata from its github project page, and upload to
-  iRedMail server: <https://github.com/firehol/netdata/releases>
+  iRedMail server: <https://github.com/netdata/netdata/releases>
 
-    We use version `1.10.0` for example in this tutorial, the package we download
-    is: <https://github.com/firehol/netdata/releases/download/v1.10.0/netdata-latest.gz.run>
+    We use version `1.34.1` for example in this tutorial.
 
-    We assume you upload the package to `/root/netdata-latest.gz.run`.
+    We assume you upload the package to `/root/netdata-v1.34.1.gz.run`.
 
 * Install netdata:
 
 ```
 cd /root/
-chmod +x netdata-latest.gz.run
-./netdata-latest.gz.run --accept
+chmod +x netdata-v1.34.1.gz.run
+./netdata-v1.34.1.gz.run --accept
 ```
 
 netdata installs its files under `/opt/netdata/` by default, let's create
