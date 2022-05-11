@@ -37,7 +37,9 @@ dkim_key('mydomain.com', "dkim", "/var/lib/dkim/mydomain.com.pem");
 });
 ```
 
-Add one line in `@dkim_signature_options_bysender_maps`, after `"mydomain.com"`
+Copy the `dkim_key('mydomain.com........` line, changing to new hostname, but keep same cert path.  You should now have 2 lines starting with `dkim_key` with differetent domains, but same file path.
+
+Next, add one line in `@dkim_signature_options_bysender_maps`, after `"mydomain.com"`
 line like below:
 
 ```
@@ -50,6 +52,7 @@ line like below:
 ```
 
 * Restart Amavisd service.
+* Test with `amavisd testkeys` and both domains should print with a `pass`
 
 ## Generate new DKIM key for new mail domain
 
