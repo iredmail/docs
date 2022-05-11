@@ -94,7 +94,7 @@ server from the internet, MX provides the location or IP address where to send
 that e-mail. MX record is the location of your mail server that you have
 provided to the outside world via the DNS.
 
-Many DNS names have more than one MX record, meaning you could
+Most mail servers generally have more than one MX record, meaning you could
 have more than one mail server setup per DNS name to receive e-mails. Each MX record has a
 priority number assigned to it in the DNS. The MX record with __lowest number
 has the highest priority__ and that is considered your primary MX record or
@@ -123,7 +123,7 @@ be delivered to server `mail.mydomain.com`.
 
 ### What is an autoconfig/autodiscover record
 
-`autoconfig/autodiscover.company.com` records allow mail clients to fetch automatically the mail
+`autodiscover.company.com` and `autoconfig.company.com` records allow mail clients to fetch automatically the mail
 client configuration of a mailbox. If the mailbox to configure is `user@company.com` then
 it will automatically check `autodiscover.company.com` for the correct configuration.
 
@@ -147,7 +147,7 @@ autoconfig.mydomain.com.   10          mx      mail.mydomain.com.
 
 ## SPF record for the mail domain name {: id="spf" }
 
-### What is a SPF record
+### What is an SPF record
 
 SPF is a spam and phishing scam fighting method which uses DNS SPF-records to
 define which hosts are permitted to send e-mails for a domain. For details on
@@ -160,7 +160,7 @@ Other e-mail servers can lookup this record when receiving an e-mail from this
 domain name to verify that sending e-mail server is connecting from a permitted
 IP address.
 
-### How to setup an SPF record
+### How to setup the SPF record
 
 SPF is a TXT type DNS record, you can list IP address(es) or MX domains in it.
 For example:
