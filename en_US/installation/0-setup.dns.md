@@ -9,14 +9,14 @@ __IMPORTANT NOTE__: `A`, `MX` records are required, `Reverse PTR`, `SPF`,
 
 ### What is an `A` record
 
-`A` records map a FQDN (fully qualified domain name) to an IP address. This is
+`A` records map a FQDN (fully qualified domain name) to an IP(v4) address. This is
 usually the most often used record type in any DNS system. This is the DNS
 record you should add if you want to point a domain name to a web server.
 
 ### How to setup an `A` Record
 
 * `Name`: This will be the host for your domain which is actually a computer
-  within your domain. Your domain name is automatically appended to your name.
+  within your domain. Your domain name is automatically appended to the value you enter for this field.
   If you are trying to make a record for the system `www.mydomain.com`. Then all
   you enter in the textbox for the name value is `www`.
 
@@ -25,21 +25,21 @@ record you should add if you want to point a domain name to a web server.
     called the root record or apex record.
 
 * `IP`: The IP address of your FQDN. An IP address can be thought of as
-the telephone number to your computer. It is how one computer knows how to
-reach another computer. Similar to the country codes, area codes, and phone
-number it is used to call someone.
+  the telephone number to your computer. It is how one computer knows how to
+  reach another computer. Similar to the country codes, area codes, and phone
+  number it is used to call someone.
 
 * `TTL`: The TTL (Time to Live) is the amount of time your record will stay
-in cache on systems requesting your record (resolving nameservers, browsers,
-etc.). The TTL is set in seconds, so 60 is one minute, 1800 is 30 minutes, etc..
+  in cache on systems requesting your record (resolving nameservers, browsers,
+  etc.). The TTL is set in seconds, so 60 is one minute, 1800 is 30 minutes, etc..
 
-Systems that have a static IP should usually have a TTL of 1800 or higher.
-Systems that have a dynamic IP should usually have a TTL of 1800 of less.
+  Systems that have a static IP should usually have a TTL of 1800 or higher.
+  Systems that have a dynamic IP should usually have a TTL of 1800 of less.
 
-The lower the TTL the more often a client will need to query the name servers
-for your host's (record's) IP address this will result in higher query traffic
-for your domain name. Where as a very high TTL can cause downtime when you
-need to switch your IPs quickly.
+  The lower the TTL the more often a client will need to query the name servers
+  for your host's (record's) IP address this will result in higher query traffic
+  for your domain name, whereas a very high TTL can cause downtime when you
+  need to switch your IPs quickly.
 
 Sample record:
 
@@ -94,8 +94,8 @@ server from the internet, MX provides the location or IP address where to send
 that e-mail. MX record is the location of your mail server that you have
 provided to the outside world via the DNS.
 
-Most mail servers generally have more than one MX record, meaning you could
-have more than one mail server setup to receive e-mails. Each MX record has a
+Many DNS names have more than one MX record, meaning you could
+have more than one mail server setup per DNS name to receive e-mails. Each MX record has a
 priority number assigned to it in the DNS. The MX record with __lowest number
 has the highest priority__ and that is considered your primary MX record or
 your main mail server. The next lowest mx number has the next highest primary
@@ -123,9 +123,9 @@ be delivered to server `mail.mydomain.com`.
 
 ### What is an autoconfig/autodiscover record
 
-autoconfig/autodiscover.company.com records allow mail clients to fetch automatically the mail
-client configuration of a mailbox. If the mailbox to configure is user@company.com then
-it will automatically check autodiscover.company.com for the correct configuration.
+`autoconfig/autodiscover.company.com` records allow mail clients to fetch automatically the mail
+client configuration of a mailbox. If the mailbox to configure is `user@company.com` then
+it will automatically check `autodiscover.company.com` for the correct configuration.
 
 More information is available here:
 [Setup DNS records for autoconfig and autodiscover](https://docs.iredmail.org/iredmail-easy.autoconfig.autodiscover.html).
@@ -160,7 +160,7 @@ Other e-mail servers can lookup this record when receiving an e-mail from this
 domain name to verify that sending e-mail server is connecting from a permitted
 IP address.
 
-### How to setup the SPF record
+### How to setup an SPF record
 
 SPF is a TXT type DNS record, you can list IP address(es) or MX domains in it.
 For example:
@@ -216,7 +216,7 @@ with this abstraction can be a label used as a reference, or "identifier".
 This is the distinction between a thing and the name of the thing. DKIM uses
 a domain name as an identifier, to refer to the identity of a responsible
 person or organization. In DKIM, this identifier is called the Signing Domain
-IDentifier (SDID) and is contained in the DKIM-Signature header fields `d=`
+Identifier (SDID) and is contained in the DKIM-Signature header fields `d=`
 tag. Note that the same identity can have multiple identifiers.
 
 ### How to setup the DKIM record
