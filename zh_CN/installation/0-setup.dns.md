@@ -410,15 +410,15 @@ Google Postmaster 工具包网址 <https://postmaster.google.com> ，以及 [Pos
 注册过程极其简单，你只需要在其网站上注册你的邮件域名，然后它会给你一段 TXT 记录的文字。然后在邮件域名管理页面创建次 TXT 记录。 其记录是用来验证你是否是这个域名的拥有者。
 
 
-为什么要使用 Google Postmaster 工具包呢？见一下 [Google Postmaster Tools 帮助页面](https://support.google.com/mail/answer/6227174)的节选：
+为什么要使用 Google Postmaster 工具包呢？ 参见一下 [Google Postmaster Tools 帮助页面](https://support.google.com/mail/answer/6227174)的节选：
 
 
-> If you send a large volume of emails to Gmail users, you can use Postmaster Tools to see:
+> 如果你向 Gmail 用户发送大量的邮件的话，你可以使用 Postmaster Tools 来查看：
 >
-> * If users are marking your emails as spam
-> * Whether you’re following Gmail's best practices
-> * Why your emails might not be delivered
-> * If your emails are being sent securely
+> * 是否用户将你的邮件标记为诈骗骚扰邮件。
+> * 是否你在遵守 Gmail 的最佳实践。
+> * 为什么你的邮件没有被正确投递。
+> * 问什么你的邮件没有被安全的发送。
 
 这样做*__也许__*可以帮助你将你的邮件移出 `Junk` 邮箱。
 
