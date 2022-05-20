@@ -155,12 +155,15 @@ wget -O /tmp/sogo.pgsql https://github.com/iredmail/iRedMail/raw/1.4.2/update/1.
 chmod +r /tmp/sogo.pgsql
 ```
 
-Please open file `/tmp/sogo.pgsql`, replace string `VMAIL_DB_BIND_PASSWD` by
-the real password of SQL user `vmail`. You can find the password in any file
-under `/etc/postfix/pgsql/`.
+!!! warning
+
+    Please open downloaded file `/tmp/sogo.pgsql`, replace placeholder
+    `VMAIL_DB_BIND_PASSWD` by the real password of SQL user `vmail`.
+    You can find the password in any file under `/etc/postfix/pgsql/`.
 
 After updated `/tmp/sogo.pgsql`, please connect to PostgreSQL server as
 `postgres` user and import the SQL file:
+
 * on Linux, it's `postgres` user
 * on FreeBSD, it's `pgsql` user
 * on OpenBSD, it's `_postgresql` user

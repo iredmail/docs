@@ -172,14 +172,19 @@ psql -d vmail &lt; /tmp/iredmail.pgsql
 <pre><code>wget -O /tmp/sogo.pgsql https://github.com/iredmail/iRedMail/raw/1.4.2/update/1.4.2/sogo.pgsql
 chmod +r /tmp/sogo.pgsql
 </code></pre>
-<p>Please open file <code>/tmp/sogo.pgsql</code>, replace string <code>VMAIL_DB_BIND_PASSWD</code> by
-the real password of SQL user <code>vmail</code>. You can find the password in any file
-under <code>/etc/postfix/pgsql/</code>.</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Please open downloaded file <code>/tmp/sogo.pgsql</code>, replace placeholder
+<code>VMAIL_DB_BIND_PASSWD</code> by the real password of SQL user <code>vmail</code>.
+You can find the password in any file under <code>/etc/postfix/pgsql/</code>.</p>
+</div>
 <p>After updated <code>/tmp/sogo.pgsql</code>, please connect to PostgreSQL server as
-<code>postgres</code> user and import the SQL file:
-* on Linux, it's <code>postgres</code> user
-* on FreeBSD, it's <code>pgsql</code> user
-* on OpenBSD, it's <code>_postgresql</code> user</p>
+<code>postgres</code> user and import the SQL file:</p>
+<ul>
+<li>on Linux, it's <code>postgres</code> user</li>
+<li>on FreeBSD, it's <code>pgsql</code> user</li>
+<li>on OpenBSD, it's <code>_postgresql</code> user</li>
+</ul>
 <pre><code>su - postgres
 psql -d sogo &lt; /tmp/sogo.pgsql
 </code></pre>
