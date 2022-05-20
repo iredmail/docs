@@ -19,6 +19,7 @@
 <div class="toc">
 <ul>
 <li><a href="#iredmail-easy-release-notes">iRedMail Easy: Release Notes</a><ul>
+<li><a href="#2022052001">Version: 2022052001 (May 20, 2022)</a></li>
 <li><a href="#2022031601">Version: 2022031601 (March 16, 2022)</a></li>
 <li><a href="#2021123101">Version: 2021123101 (Dec 31, 2021)</a></li>
 <li><a href="#2021122701">Version: 2021122701 (Dec 27, 2021)</a></li>
@@ -58,6 +59,43 @@
 </li>
 </ul>
 </div>
+<h2 id="2022052001">Version: 2022052001 (May 20, 2022)</h2>
+<ul>
+<li>
+<p>Supports new distribution releases:</p>
+<ul>
+<li>Ubuntu 22.04 LTS</li>
+</ul>
+</li>
+<li>
+<p>Improvements:</p>
+<ul>
+<li>[Fail2ban] Shorten jail name to avoid nftables failure:
+  postfix-pregreet -&gt; pregreet.</li>
+<li>[CentOS/Rocky 8] Install uwsgi from official yum repo instead of pip.</li>
+<li>[Rocky Linux 8] Build dovecot-fts-xapian for Rocky for full-text search
+  in IMAP mailbox.</li>
+<li>[SOGo] PostgreSQL backend: Allow end users to change their own passwords.</li>
+</ul>
+</li>
+<li>
+<p>Fixed issues:</p>
+<ul>
+<li>[Postfix] Incorrect permission on /opt/iredmail/custom/postfix/main.cf
+  and master.cf.
+  Thanks Marcin Wisniowski for the report.</li>
+</ul>
+</li>
+<li>
+<p>Updated packages:</p>
+<ul>
+<li>iRedAdmin 1.7</li>
+<li>netdata 1.34.1</li>
+<li>SOGo 5.6.0</li>
+<li>mlmmjadmin 3.1.4</li>
+</ul>
+</li>
+</ul>
 <h2 id="2022031601">Version: 2022031601 (March 16, 2022)</h2>
 <ul>
 <li>

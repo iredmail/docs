@@ -2,6 +2,30 @@
 
 [TOC]
 
+## Version: 2022052001 (May 20, 2022) {: id=2022052001 }
+
+* Supports new distribution releases:
+    + Ubuntu 22.04 LTS
+
+* Improvements:
+    - [Fail2ban] Shorten jail name to avoid nftables failure:
+      postfix-pregreet -> pregreet.
+    - [CentOS/Rocky 8] Install uwsgi from official yum repo instead of pip.
+    - [Rocky Linux 8] Build dovecot-fts-xapian for Rocky for full-text search
+      in IMAP mailbox.
+    - [SOGo] PostgreSQL backend: Allow end users to change their own passwords.
+
+* Fixed issues:
+    - [Postfix] Incorrect permission on /opt/iredmail/custom/postfix/main.cf
+      and master.cf.
+      Thanks Marcin Wisniowski for the report.
+
+* Updated packages:
+    - iRedAdmin 1.7
+    - netdata 1.34.1
+    - SOGo 5.6.0
+    - mlmmjadmin 3.1.4
+
 ## Version: 2022031601 (March 16, 2022) {: id=2022031601 }
 
 * Fixed issues:
