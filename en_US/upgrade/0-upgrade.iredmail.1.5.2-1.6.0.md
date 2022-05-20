@@ -2,10 +2,6 @@
 
 [TOC]
 
-!!! warning
-
-    THIS IS A DRAFT DOCUMENT, DO NOT APPLY IT.
-
 !!! note "Paid Remote Upgrade Support"
 
     We offer remote upgrade support if you don't want to get your hands dirty,
@@ -14,7 +10,7 @@
 
 ## ChangeLog
 
-- XXX XX, 2022: initial release.
+- May 20, 2022: initial release.
 
 ## General (All backends should apply these changes)
 
@@ -27,6 +23,16 @@ so that you can know which version of iRedMail you're running. For example:
 ```
 1.6.0
 ```
+
+### Upgrade iRedAdmin (open source edition) to the latest stable release (1.7)
+
+Please follow below tutorial to upgrade iRedAdmin to the latest stable release:
+[Upgrade iRedAdmin to the latest stable release](./migrate.or.upgrade.iredadmin.html).
+
+### Upgrade netdata to the latest stable release (1.34.1)
+
+If you have netdata installed, you can upgrade it by following this tutorial:
+[Upgrade netdata](./upgrade.netdata.html).
 
 ## For PostgreSQL backend
 
