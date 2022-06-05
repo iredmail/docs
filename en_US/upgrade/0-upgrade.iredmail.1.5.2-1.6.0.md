@@ -10,6 +10,7 @@
 
 ## ChangeLog
 
+- Jun 5, 2022: Add mlmmjadmin upgrade tutorial.
 - May 20, 2022: initial release.
 
 ## General (All backends should apply these changes)
@@ -23,6 +24,11 @@ so that you can know which version of iRedMail you're running. For example:
 ```
 1.6.0
 ```
+
+### Upgrade mlmmjadmin to the latest stable release (3.1.5)
+
+Please follow below tutorial to upgrade mlmmjadmin to the latest stable release:
+[Upgrade mlmmjadmin to the latest stable release](./upgrade.mlmmjadmin.html)
 
 ### Upgrade iRedAdmin (open source edition) to the latest stable release (1.7)
 
