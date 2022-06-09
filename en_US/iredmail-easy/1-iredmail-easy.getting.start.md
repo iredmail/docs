@@ -1,4 +1,4 @@
-# iRedMail Easy: Getting start
+# iRedMail Easy: Getting started
 
 [TOC]
 

@@ -215,7 +215,7 @@ Copy custom settings from `/opt/www/iredadmin/settings.py` to `/opt/iredmail/cus
 
 ## Run the full deployment with iRedMail Easy platform
 
-Please follow our tutorial [Getting start with iRedMail Easy](./iredmail-easy.getting.start.html)
+Please follow our tutorial [Getting started with iRedMail Easy](./iredmail-easy.getting.start.html)
 to sign up, and add your mail server info, then perform the full deployment.
 
 ## Post-deployment tasks
