@@ -46,7 +46,7 @@ in <code>/etc/postfix/master.cf</code> (on Linux/OpenBSD) or
   -o smtpd_sasl_auth_enable=yes
   -o smtpd_sasl_security_options=noanonymous
   -o smtpd_tls_security_level=may
-  -o smtpd_sender_restrictions=permit_sasl_authenticated,reject
+  -o smtpd_sender_restrictions=permit_mynetworks,permit_sasl_authenticated,reject
 </code></pre>
 <ul>
 <li><code>2525</code> is the new port number for smtp service, you're free to change it to
