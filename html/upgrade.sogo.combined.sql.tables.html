@@ -16,13 +16,14 @@
         <span>iRedMail</span>
     </a>
     &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><h1 id="upgrade-sogo-sql-schema">Upgrade SOGo SQL schema</h1>
-<p>With default SOGo settings in iRedMail-0.9.5-1 and earlier releases, SOGo will
-create 3 SQL tables for each user, this introduces some issues:</p>
+<p>With default SOGo settings in iRedMail-0.9.5-1 and earlier releases, SOGo
+creates 3 SQL tables for each user, this introduces some issues:</p>
 <ul>
-<li>Your <code>sogo</code> database will contains lots of sql tables.</li>
-<li>MySQL limits the table name to 64 characters, if your email address is long,
-  SOGo cannot create required table for you. Related bug report in SOGo bug
-  tracker: <a href="https://sogo.nu/bugs/view.php?id=3447">https://sogo.nu/bugs/view.php?id=3447</a></li>
+<li><code>sogo</code> database contains a lot sql tables, it's slow when you access this
+  database from MySQL command line tool.</li>
+<li>MySQL limits the table name to 64 characters, if some user has long email
+  address, SOGo cannot create required table for you. Related bug report in
+  <a href="https://sogo.nu/bugs/view.php?id=3447">SOGo bug tracker</a>.</li>
 </ul>
 <p>We need few steps to migrate SOGo to use 9 SQL tables in total instead of
 creating 3 tables for each user. This solution was first introduced in
