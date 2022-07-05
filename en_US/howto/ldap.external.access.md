@@ -56,7 +56,7 @@ last `</zone>` line:
 Restart the firewall:
 
 ```
-servivce firewalld restart
+service firewalld restart
 ```
 
 ### On Debian, Ubuntu Linux
