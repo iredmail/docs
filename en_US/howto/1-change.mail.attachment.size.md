@@ -119,11 +119,10 @@ limit message size, please add or update this parameter in its config file:
 $config['max_message_size'] = '100M';
 ```
 
-Note: Roundcube [preserves some percentage](https://github.com/roundcube/roundcubemail/blob/master/program/actions/mail/compose.php#L1455)
-of the max message size, so if you set the max to `100M`, it displays only
-`75MB` is allowed. This is better because email messsage will be encoded
-before sending to MTA and the encoded attachment is larger than the original
-file.
+Note: Roundcube preserves some percentage of the max message size
+(search `1.33` on [this page](https://github.com/roundcube/roundcubemail/blob/master/program/actions/mail/compose.php#L1484), so if you set the max to `100M`, it tells you only `75MB` is
+allowed (`100 / 1.33`). This is better because email messsage will be encoded
+before sending to MTA and the encoded attachment is larger than the original file.
 
 ## Change upload file size in Nginx
 
