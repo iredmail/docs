@@ -26,6 +26,13 @@ so that you can know which version of iRedMail you're running. For example:
 1.6.1
 ```
 
+### Upgrade Roundcube webmail to the latest stable release (1.5.3)
+
+Please follow Roundcube official tutorial to upgrade Roundcube webmail to the
+latest stable release:
+
+* [How to upgrade Roundcube](https://github.com/roundcube/roundcubemail/wiki/Upgrade).
+
 ### Upgrade netdata to the latest stable release (1.35.1)
 
 If you have netdata installed, you can upgrade it by following this tutorial:
