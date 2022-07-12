@@ -56,3 +56,33 @@ Replace it by:
 ```
 
 Reloading or restarting postfix service is required.
+
+## For PostgreSQL backend
+
+### Fix incorrect SQL database and table names
+
+Since iRedMail-1.6.0, we create SQL VIEW in `vmail` database directly for
+user authentication in SOGo Groupware, but its config file was configured with
+wrong SQL database and table names.
+
+- Open file `/etc/sogo/sogo.conf` (on Linux/OpenBSD) or
+  `/usr/local/etc/sogo/sogo.conf` (on FreeBSD), find __ALL__ `viewURL =`
+  parameters like below:
+
+```
+            viewURL = "postgresql://.../sogo/users";
+```
+
+- Replace the database name `sogo` and `users`:
+
+```
+            viewURL = "postgresql://.../vmail/sogo_users";
+```
+
+- Restart memcached and SOGo service (Note: on CentOS, the service name is
+  `sogod`, not `sogo`):
+
+```
+service memcached restart
+service sogo restart
+```

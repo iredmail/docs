@@ -91,7 +91,9 @@ psql -d vmail &lt; /tmp/sogo_view.pgsql
 </code></pre>
 <p>Now we need to update SOGo config file to use this new SQL view.</p>
 <ul>
-<li>Open file <code>/etc/sogo/sogo.conf</code>, find block <code>SOGoUserSources = ()</code> like below:</li>
+<li>Open file <code>/etc/sogo/sogo.conf</code> (on Linux/OpenBSD) or
+  <code>/usr/local/etc/sogo/sogo.conf</code> (on FreeBSD), find block
+  <code>SOGoUserSources = ()</code> like below:</li>
 </ul>
 <pre><code>    SOGoUserSources = (
         {

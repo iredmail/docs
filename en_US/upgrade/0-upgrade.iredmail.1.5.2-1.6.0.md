@@ -76,7 +76,9 @@ rm -f /tmp/sogo_view.pgsql
 
 Now we need to update SOGo config file to use this new SQL view.
 
-- Open file `/etc/sogo/sogo.conf`, find block `SOGoUserSources = ()` like below:
+- Open file `/etc/sogo/sogo.conf` (on Linux/OpenBSD) or
+  `/usr/local/etc/sogo/sogo.conf` (on FreeBSD), find block
+  `SOGoUserSources = ()` like below:
 
 ```
     SOGoUserSources = (
@@ -105,7 +107,6 @@ Now we need to update SOGo config file to use this new SQL view.
 service memcached restart
 service sogo restart
 ```
-
 
 - Connect to PostgreSQL server as `postgres` user and drop old SQL view, it's not used anymore.
     * on Linux, it's `postgres` user
