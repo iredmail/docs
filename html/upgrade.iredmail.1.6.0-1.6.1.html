@@ -30,7 +30,12 @@
 <li><a href="#postfix-bypass-more-facebook-helo-hostnames">Postfix: Bypass more facebook HELO hostnames</a></li>
 </ul>
 </li>
+<li><a href="#for-mysql-mariadb-backends">For MySQL / MariaDB backends</a><ul>
+<li><a href="#enable-iredapd-plugin-for-mailing-list-access-control">Enable iRedAPD plugin for mailing list access control</a></li>
+</ul>
+</li>
 <li><a href="#for-postgresql-backend">For PostgreSQL backend</a><ul>
+<li><a href="#enable-iredapd-plugin-for-mailing-list-access-control_1">Enable iRedAPD plugin for mailing list access control</a></li>
 <li><a href="#fix-incorrect-sql-database-and-table-names">Fix incorrect SQL database and table names</a></li>
 </ul>
 </li>
@@ -75,7 +80,32 @@ latest stable release:</p>
 <pre><code>/^\d{1,3}-\d{1,3}-\d{1,3}-\d{1,3}\.mail-.*\.facebook\.com$/ OK
 </code></pre>
 <p>Reloading or restarting postfix service is required.</p>
+<h2 id="for-mysql-mariadb-backends">For MySQL / MariaDB backends</h2>
+<h3 id="enable-iredapd-plugin-for-mailing-list-access-control">Enable iRedAPD plugin for mailing list access control</h3>
+<p>iRedMail-1.6.0 and earlier releases didn't enable plugin <code>sql_ml_access_policy</code>
+by default, this causes some confusion, and not stop unauthorized emails to
+certain mailing lists.</p>
+<p>Please open file <code>/opt/iredapd/settings.py</code>, find parameter <code>plugins =</code> like
+below:</p>
+<pre><code>plugins = [..., &quot;sql_alias_access_policy&quot;]
+</code></pre>
+<p>Append the plugin name <code>sql_ml_access_policy</code> like below:</p>
+<pre><code>plugins = [..., &quot;sql_alias_access_policy&quot;, &quot;sql_ml_access_policy&quot;]
+</code></pre>
+<p>Restarting <code>iredapd</code> service is required.</p>
 <h2 id="for-postgresql-backend">For PostgreSQL backend</h2>
+<h3 id="enable-iredapd-plugin-for-mailing-list-access-control_1">Enable iRedAPD plugin for mailing list access control</h3>
+<p>iRedMail-1.6.0 and earlier releases didn't enable plugin <code>sql_ml_access_policy</code>
+by default, this causes some confusion, and not stop unauthorized emails to
+certain mailing lists.</p>
+<p>Please open file <code>/opt/iredapd/settings.py</code>, find parameter <code>plugins =</code> like
+below:</p>
+<pre><code>plugins = [..., &quot;sql_alias_access_policy&quot;]
+</code></pre>
+<p>Append the plugin name <code>sql_ml_access_policy</code> like below:</p>
+<pre><code>plugins = [..., &quot;sql_alias_access_policy&quot;, &quot;sql_ml_access_policy&quot;]
+</code></pre>
+<p>Restarting <code>iredapd</code> service is required.</p>
 <h3 id="fix-incorrect-sql-database-and-table-names">Fix incorrect SQL database and table names</h3>
 <p>Since iRedMail-1.6.0, we create SQL VIEW in <code>vmail</code> database directly for
 user authentication in SOGo Groupware, but its config file was configured with

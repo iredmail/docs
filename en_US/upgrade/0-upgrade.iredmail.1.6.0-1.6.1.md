@@ -57,7 +57,51 @@ Replace it by:
 
 Reloading or restarting postfix service is required.
 
+## For MySQL / MariaDB backends
+
+### Enable iRedAPD plugin for mailing list access control
+
+iRedMail-1.6.0 and earlier releases didn't enable plugin `sql_ml_access_policy`
+by default, this causes some confusion, and not stop unauthorized emails to
+certain mailing lists.
+
+Please open file `/opt/iredapd/settings.py`, find parameter `plugins =` like
+below:
+
+```
+plugins = [..., "sql_alias_access_policy"]
+```
+
+Append the plugin name `sql_ml_access_policy` like below:
+
+```
+plugins = [..., "sql_alias_access_policy", "sql_ml_access_policy"]
+```
+
+Restarting `iredapd` service is required.
+
 ## For PostgreSQL backend
+
+### Enable iRedAPD plugin for mailing list access control
+
+iRedMail-1.6.0 and earlier releases didn't enable plugin `sql_ml_access_policy`
+by default, this causes some confusion, and not stop unauthorized emails to
+certain mailing lists.
+
+Please open file `/opt/iredapd/settings.py`, find parameter `plugins =` like
+below:
+
+```
+plugins = [..., "sql_alias_access_policy"]
+```
+
+Append the plugin name `sql_ml_access_policy` like below:
+
+```
+plugins = [..., "sql_alias_access_policy", "sql_ml_access_policy"]
+```
+
+Restarting `iredapd` service is required.
 
 ### Fix incorrect SQL database and table names
 
