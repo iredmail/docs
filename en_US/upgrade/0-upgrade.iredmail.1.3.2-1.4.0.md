@@ -206,6 +206,7 @@ chmod +r /tmp/iredmail.pgsql
 ```
 su - postgres
 psql -d vmail < /tmp/iredmail.pgsql
+psql -d vmail -c "ALTER TABLE maillist_owners OWNER TO vmailadmin;"
 ```
 
 * Remove downloaded file:
