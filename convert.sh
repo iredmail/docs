@@ -103,6 +103,9 @@ for lang in ${all_languages}; do
     echo -e "\t${_md_lang}\n" >> ${INDEX_MD}
     unset _md_lang
 
+    # Show spiderd.io
+    echo -e '!!! attention \n\n\t Check out our lightweight email archiving software: [Spider Email Archiver](https://spiderd.io/).' >> ${INDEX_MD}
+
     # Initial index file.
     if [ -f ${src_dir}/_title.md ]; then
         cat ${src_dir}/_title.md >> ${INDEX_MD}
