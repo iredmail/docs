@@ -22,12 +22,18 @@
 <li><a href="#changelog">ChangeLog</a></li>
 <li><a href="#general-all-backends-should-apply-these-changes">General (All backends should apply these changes)</a><ul>
 <li><a href="#update-etciredmail-release-with-new-iredmail-version-number">Update /etc/iredmail-release with new iRedMail version number</a></li>
-<li><a href="#upgrade-roundcube-webmail-to-the-latest-stable-release-153">Upgrade Roundcube webmail to the latest stable release (1.5.3)</a></li>
+<li><a href="#upgrade-iredapd-postfix-policy-server-to-the-latest-stable-release-51">Upgrade iRedAPD (Postfix policy server) to the latest stable release (5.1)</a></li>
+<li><a href="#upgrade-iredadmin-open-source-edition-to-the-latest-stable-release-18">Upgrade iRedAdmin (open source edition) to the latest stable release (1.8)</a></li>
 <li><a href="#upgrade-netdata-to-the-latest-stable-release-1351">Upgrade netdata to the latest stable release (1.35.1)</a></li>
+<li><a href="#upgrade-roundcube-webmail-to-the-latest-stable-release-153">Upgrade Roundcube webmail to the latest stable release (1.5.3)</a></li>
 </ul>
 </li>
 <li><a href="#general-all-backends-should-apply-these-changes_1">General (All backends should apply these changes)</a><ul>
 <li><a href="#postfix-bypass-more-facebook-helo-hostnames">Postfix: Bypass more facebook HELO hostnames</a></li>
+</ul>
+</li>
+<li><a href="#for-openldap-backend">For OpenLDAP backend</a><ul>
+<li><a href="#fixed-sogo-not-expand-mailing-list-members-while-inviting-a-mailing-list-in-event">Fixed: SOGo: Not expand mailing list members while inviting a mailing list in event</a></li>
 </ul>
 </li>
 <li><a href="#for-mysql-mariadb-backends">For MySQL / MariaDB backends</a><ul>
@@ -36,7 +42,7 @@
 </li>
 <li><a href="#for-postgresql-backend">For PostgreSQL backend</a><ul>
 <li><a href="#enable-iredapd-plugin-for-mailing-list-access-control_1">Enable iRedAPD plugin for mailing list access control</a></li>
-<li><a href="#fix-incorrect-sql-database-and-table-names">Fix incorrect SQL database and table names</a></li>
+<li><a href="#sogo-fix-incorrect-sql-database-and-table-names">SOGo: Fix incorrect SQL database and table names</a></li>
 </ul>
 </li>
 </ul>
@@ -61,15 +67,35 @@ installation, it's recommended to update this file after you upgraded iRedMail,
 so that you can know which version of iRedMail you're running. For example:</p>
 <pre><code>1.6.1
 </code></pre>
+<h3 id="upgrade-iredapd-postfix-policy-server-to-the-latest-stable-release-51">Upgrade iRedAPD (Postfix policy server) to the latest stable release (5.1)</h3>
+<p>Please follow below tutorial to upgrade iRedAPD to the latest stable release:
+<a href="./upgrade.iredapd.html">Upgrade iRedAPD to the latest stable release</a></p>
+<h3 id="upgrade-iredadmin-open-source-edition-to-the-latest-stable-release-18">Upgrade iRedAdmin (open source edition) to the latest stable release (1.8)</h3>
+<p>Please follow below tutorial to upgrade iRedAdmin to the latest stable release:
+<a href="./migrate.or.upgrade.iredadmin.html">Upgrade iRedAdmin to the latest stable release</a>.</p>
+<h3 id="upgrade-netdata-to-the-latest-stable-release-1351">Upgrade netdata to the latest stable release (1.35.1)</h3>
+<p>If you have netdata installed, you can upgrade it by following this tutorial:
+<a href="./upgrade.netdata.html">Upgrade netdata</a>.</p>
 <h3 id="upgrade-roundcube-webmail-to-the-latest-stable-release-153">Upgrade Roundcube webmail to the latest stable release (1.5.3)</h3>
+<div class="admonition warning">
+<p class="admonition-title">CentOS 7: please stick to Roundcube 1.5.2</p>
+<p>If you're running CentOS 7, please upgrade to Roundcube 1.5.2 instead.
+Roundcube 1.5.3 requires PHP-7, but CentOS 7 ships PHP-5.4 which is not
+supported by Roundcube 1.5.3 (and the latest 1.6.0).</p>
+<p>It's time to leave your comfort zone and upgrade this server to CentOS
+Stream 8 or <a href="https://docs.rockylinux.org/guides/migrate2rocky/">Rocky Linux 8</a>.</p>
+</div>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>Latest Roundcube release is 1.6.0, but it still has some compatibility
+issues with PHP-8 (Ubuntu 22.04 ships PHP-8.1), so we suggest wait for
+next new release, e.g. Roundcube 1.6.1 or even 1.6.2.</p>
+</div>
 <p>Please follow Roundcube official tutorial to upgrade Roundcube webmail to the
 latest stable release:</p>
 <ul>
 <li><a href="https://github.com/roundcube/roundcubemail/wiki/Upgrade">How to upgrade Roundcube</a>.</li>
 </ul>
-<h3 id="upgrade-netdata-to-the-latest-stable-release-1351">Upgrade netdata to the latest stable release (1.35.1)</h3>
-<p>If you have netdata installed, you can upgrade it by following this tutorial:
-<a href="./upgrade.netdata.html">Upgrade netdata</a>.</p>
 <h2 id="general-all-backends-should-apply-these-changes_1">General (All backends should apply these changes)</h2>
 <h3 id="postfix-bypass-more-facebook-helo-hostnames">Postfix: Bypass more facebook HELO hostnames</h3>
 <p>Find below line in <code>/etc/postfix/helo_access.pcre</code> (Linux/OpenBSD) or
@@ -80,6 +106,41 @@ latest stable release:</p>
 <pre><code>/^\d{1,3}-\d{1,3}-\d{1,3}-\d{1,3}\.mail-.*\.facebook\.com$/ OK
 </code></pre>
 <p>Reloading or restarting postfix service is required.</p>
+<h2 id="for-openldap-backend">For OpenLDAP backend</h2>
+<h3 id="fixed-sogo-not-expand-mailing-list-members-while-inviting-a-mailing-list-in-event">Fixed: SOGo: Not expand mailing list members while inviting a mailing list in event</h3>
+<p>Please open SOGo config file <code>/etc/sogo/sogo.conf</code> (on Linux/OpenBSD) or
+<code>/usr/local/etc/sogo/sogo.conf</code> (on FreeBSD), find the <code>SOGoUserSources</code>
+parameter like below:</p>
+<pre><code>    SOGoUserSources = (
+        {
+            // Used for user authentication
+            type = ldap;
+            id = users;
+            canAuthenticate = YES;
+
+            // ... omit other lines ...
+        },
+</code></pre>
+<p>Add new parameter <code>GroupObjectClasses</code> like below:</p>
+<pre><code>    SOGoUserSources = (
+        {
+            // Used for user authentication
+            type = ldap;
+            id = users;
+            canAuthenticate = YES;
+
+            // ... omit other lines ...
+
+            GroupObjectClasses = (
+                &quot;mailList&quot;,
+                &quot;group&quot;,
+                &quot;groupOfNames&quot;,
+                &quot;groupOfUniqueNames&quot;,
+                &quot;posixgroup&quot;
+            );
+        },
+</code></pre>
+<p>Restarting SOGo service is required.</p>
 <h2 id="for-mysql-mariadb-backends">For MySQL / MariaDB backends</h2>
 <h3 id="enable-iredapd-plugin-for-mailing-list-access-control">Enable iRedAPD plugin for mailing list access control</h3>
 <p>iRedMail-1.6.0 and earlier releases didn't enable plugin <code>sql_ml_access_policy</code>
@@ -106,7 +167,7 @@ below:</p>
 <pre><code>plugins = [..., &quot;sql_alias_access_policy&quot;, &quot;sql_ml_access_policy&quot;]
 </code></pre>
 <p>Restarting <code>iredapd</code> service is required.</p>
-<h3 id="fix-incorrect-sql-database-and-table-names">Fix incorrect SQL database and table names</h3>
+<h3 id="sogo-fix-incorrect-sql-database-and-table-names">SOGo: Fix incorrect SQL database and table names</h3>
 <p>Since iRedMail-1.6.0, we create SQL VIEW in <code>vmail</code> database directly for
 user authentication in SOGo Groupware, but its config file was configured with
 wrong SQL database and table names.</p>
