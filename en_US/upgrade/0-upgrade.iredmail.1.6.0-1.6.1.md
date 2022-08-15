@@ -2,10 +2,6 @@
 
 [TOC]
 
-!!! warning
-
-    THIS IS A DRAFT DOCUMENT, DO NOT APPLY IT.
-
 !!! note "Paid Remote Upgrade Support"
 
     We offer remote upgrade support if you don't want to get your hands dirty,
@@ -13,6 +9,8 @@
     [contact us](https://www.iredmail.org/contact.html).
 
 ## ChangeLog
+
+- Aug 16, 2022: initial publish.
 
 ## General (All backends should apply these changes)
 
@@ -84,6 +82,59 @@ Replace it by:
 ```
 
 Reloading or restarting postfix service is required.
+
+### SOGo: New yum / apt repository sites, new GPG signing key
+
+SOGo team [announced](https://www.mail-archive.com/users@sogo.nu/msg31386.html)
+that the SOGo groupware was acquired by Alinto on 16 May 2022, and [officially
+transferred](https://www.mail-archive.com/users@sogo.nu/msg31614.html) since
+08 Aug 2022. New yum and apt repository site replaces old one, so all users
+must update the yum / apt repo config file for updating packages.
+
+#### CentOS, CentOS Stream, Rocky Linux
+
+- Replace all content in file `/etc/yum.repos.d/sogo.repo` by content below:
+
+    ```
+    [SOGo]
+    name=SOGo Groupware
+    baseurl=https://packages.sogo.nu/nightly/5/rhel/$releasever/$basearch
+    enabled=1
+    gpgcheck=1
+    gpgkey=file:///etc/pki/rpm-gpg/sogo-nightly
+    ```
+
+- Download GPG key:
+
+    ```
+    wget \
+        -O /etc/pki/rpm-gpg/sogo-nightly \
+        https://keys.openpgp.org/vks/v1/by-fingerprint/74FFC6D72B925A34B5D356BDF8A27B36A6E2EAE9
+    ```
+
+- Refresh yum repo metadata and (optionally) update sogo packages:
+
+    ```
+    yum clean metadata
+    yum update 'sogo*' '*sope*'
+    ```
+
+#### Debian, Ubuntu
+
+- Import GPG key with command below (run as `root` user):
+
+    ```
+    wget -O- "https://keys.openpgp.org/vks/v1/by-fingerprint/74FFC6D72B925A34B5D356BDF8A27B36A6E2EAE9" | gpg --dearmor | apt-key add -
+    ```
+
+- Open file `/etc/apt/sources.list.d/sogo-nightly.list`, replace URL
+  `https://packages.inverse.ca/SOGo/` by `https://packages.sogo.nu/`.
+
+- Refresh the repository metadata:
+
+    ```
+    apt-get update
+    ```
 
 ## For OpenLDAP backend
 

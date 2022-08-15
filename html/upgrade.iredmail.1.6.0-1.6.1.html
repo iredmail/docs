@@ -30,6 +30,11 @@
 </li>
 <li><a href="#general-all-backends-should-apply-these-changes_1">General (All backends should apply these changes)</a><ul>
 <li><a href="#postfix-bypass-more-facebook-helo-hostnames">Postfix: Bypass more facebook HELO hostnames</a></li>
+<li><a href="#sogo-new-yum-apt-repository-sites-new-gpg-signing-key">SOGo: New yum / apt repository sites, new GPG signing key</a><ul>
+<li><a href="#centos-centos-stream-rocky-linux">CentOS, CentOS Stream, Rocky Linux</a></li>
+<li><a href="#debian-ubuntu">Debian, Ubuntu</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li><a href="#for-openldap-backend">For OpenLDAP backend</a><ul>
@@ -90,6 +95,8 @@ Stream 8 or <a href="https://docs.rockylinux.org/guides/migrate2rocky/">Rocky Li
 <p>Latest Roundcube release is 1.6.0, but it still has some compatibility
 issues with PHP-8 (Ubuntu 22.04 ships PHP-8.1), so we suggest wait for
 next new release, e.g. Roundcube 1.6.1 or even 1.6.2.</p>
+<p>If you're running Debian 11 or Ubuntu 20.04, it's ok to upgrade to
+Roundcube 1.6.0 since both ship PHP-7.4.</p>
 </div>
 <p>Please follow Roundcube official tutorial to upgrade Roundcube webmail to the
 latest stable release:</p>
@@ -106,6 +113,50 @@ latest stable release:</p>
 <pre><code>/^\d{1,3}-\d{1,3}-\d{1,3}-\d{1,3}\.mail-.*\.facebook\.com$/ OK
 </code></pre>
 <p>Reloading or restarting postfix service is required.</p>
+<h3 id="sogo-new-yum-apt-repository-sites-new-gpg-signing-key">SOGo: New yum / apt repository sites, new GPG signing key</h3>
+<p>SOGo team <a href="https://www.mail-archive.com/users@sogo.nu/msg31386.html">announced</a>
+that the SOGo groupware was acquired by Alinto on 16 May 2022, and <a href="https://www.mail-archive.com/users@sogo.nu/msg31614.html">officially
+transferred</a> since
+08 Aug 2022. New yum and apt repository site replaces old one, so all users
+must update the yum / apt repo config file for updating packages.</p>
+<h4 id="centos-centos-stream-rocky-linux">CentOS, CentOS Stream, Rocky Linux</h4>
+<ul>
+<li>
+<p>Replace all content in file <code>/etc/yum.repos.d/sogo.repo</code> by content below:</p>
+<p><code>[SOGo]
+name=SOGo Groupware
+baseurl=https://packages.sogo.nu/nightly/5/rhel/$releasever/$basearch
+enabled=1
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/sogo-nightly</code></p>
+</li>
+<li>
+<p>Download GPG key:</p>
+<p><code>wget \
+    -O /etc/pki/rpm-gpg/sogo-nightly \
+    https://keys.openpgp.org/vks/v1/by-fingerprint/74FFC6D72B925A34B5D356BDF8A27B36A6E2EAE9</code></p>
+</li>
+<li>
+<p>Refresh yum repo metadata and (optionally) update sogo packages:</p>
+<p><code>yum clean metadata
+yum update 'sogo*' '*sope*'</code></p>
+</li>
+</ul>
+<h4 id="debian-ubuntu">Debian, Ubuntu</h4>
+<ul>
+<li>
+<p>Import GPG key with command below (run as <code>root</code> user):</p>
+<p><code>wget -O- "https://keys.openpgp.org/vks/v1/by-fingerprint/74FFC6D72B925A34B5D356BDF8A27B36A6E2EAE9" | gpg --dearmor | apt-key add -</code></p>
+</li>
+<li>
+<p>Open file <code>/etc/apt/sources.list.d/sogo-nightly.list</code>, replace URL
+  <code>https://packages.inverse.ca/SOGo/</code> by <code>https://packages.sogo.nu/</code>.</p>
+</li>
+<li>
+<p>Refresh the repository metadata:</p>
+<p><code>apt-get update</code></p>
+</li>
+</ul>
 <h2 id="for-openldap-backend">For OpenLDAP backend</h2>
 <h3 id="fixed-sogo-not-expand-mailing-list-members-while-inviting-a-mailing-list-in-event">Fixed: SOGo: Not expand mailing list members while inviting a mailing list in event</h3>
 <p>Please open SOGo config file <code>/etc/sogo/sogo.conf</code> (on Linux/OpenBSD) or
