@@ -95,46 +95,42 @@ must update the yum / apt repo config file for updating packages.
 
 - Replace all content in file `/etc/yum.repos.d/sogo.repo` by content below:
 
-    ```
-    [SOGo]
-    name=SOGo Groupware
-    baseurl=https://packages.sogo.nu/nightly/5/rhel/$releasever/$basearch
-    enabled=1
-    gpgcheck=1
-    gpgkey=file:///etc/pki/rpm-gpg/sogo-nightly
-    ```
+```
+[SOGo]
+name=SOGo Groupware
+baseurl=https://packages.sogo.nu/nightly/5/rhel/$releasever/$basearch
+enabled=1
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/sogo-nightly
+```
 
-- Download GPG key:
+- Run commands to download GPG key, refresh yum repo metadata and (optionally)
+  update sogo packages:
 
-    ```
-    wget \
-        -O /etc/pki/rpm-gpg/sogo-nightly \
-        https://keys.openpgp.org/vks/v1/by-fingerprint/74FFC6D72B925A34B5D356BDF8A27B36A6E2EAE9
-    ```
-
-- Refresh yum repo metadata and (optionally) update sogo packages:
-
-    ```
-    yum clean metadata
-    yum update 'sogo*' '*sope*'
-    ```
+```
+wget \
+    -O /etc/pki/rpm-gpg/sogo-nightly \
+    https://keys.openpgp.org/vks/v1/by-fingerprint/74FFC6D72B925A34B5D356BDF8A27B36A6E2EAE9
+yum clean metadata
+yum update 'sogo*' '*sope*'
+```
 
 #### Debian, Ubuntu
 
 - Import GPG key with command below (run as `root` user):
 
-    ```
-    wget -O- "https://keys.openpgp.org/vks/v1/by-fingerprint/74FFC6D72B925A34B5D356BDF8A27B36A6E2EAE9" | gpg --dearmor | apt-key add -
-    ```
+```
+wget -O- "https://keys.openpgp.org/vks/v1/by-fingerprint/74FFC6D72B925A34B5D356BDF8A27B36A6E2EAE9" | gpg --dearmor | apt-key add -
+```
 
 - Open file `/etc/apt/sources.list.d/sogo-nightly.list`, replace URL
   `https://packages.inverse.ca/SOGo/` by `https://packages.sogo.nu/`.
 
 - Refresh the repository metadata:
 
-    ```
-    apt-get update
-    ```
+```
+apt-get update
+```
 
 ## For OpenLDAP backend
 

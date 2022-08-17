@@ -54,10 +54,6 @@
 </li>
 </ul>
 </div>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>THIS IS A DRAFT DOCUMENT, DO NOT APPLY IT.</p>
-</div>
 <div class="admonition note">
 <p class="admonition-title">Paid Remote Upgrade Support</p>
 <p>We offer remote upgrade support if you don't want to get your hands dirty,
@@ -65,6 +61,9 @@ check <a href="https://www.iredmail.org/support.html">the details</a> and
 <a href="https://www.iredmail.org/contact.html">contact us</a>.</p>
 </div>
 <h2 id="changelog">ChangeLog</h2>
+<ul>
+<li>Aug 16, 2022: initial publish.</li>
+</ul>
 <h2 id="general-all-backends-should-apply-these-changes">General (All backends should apply these changes)</h2>
 <h3 id="update-etciredmail-release-with-new-iredmail-version-number">Update <code>/etc/iredmail-release</code> with new iRedMail version number</h3>
 <p>iRedMail stores the release version in <code>/etc/iredmail-release</code> after
@@ -121,42 +120,42 @@ transferred</a> since
 must update the yum / apt repo config file for updating packages.</p>
 <h4 id="centos-centos-stream-rocky-linux">CentOS, CentOS Stream, Rocky Linux</h4>
 <ul>
-<li>
-<p>Replace all content in file <code>/etc/yum.repos.d/sogo.repo</code> by content below:</p>
-<p><code>[SOGo]
+<li>Replace all content in file <code>/etc/yum.repos.d/sogo.repo</code> by content below:</li>
+</ul>
+<pre><code>[SOGo]
 name=SOGo Groupware
 baseurl=https://packages.sogo.nu/nightly/5/rhel/$releasever/$basearch
 enabled=1
 gpgcheck=1
-gpgkey=file:///etc/pki/rpm-gpg/sogo-nightly</code></p>
-</li>
-<li>
-<p>Download GPG key:</p>
-<p><code>wget \
-    -O /etc/pki/rpm-gpg/sogo-nightly \
-    https://keys.openpgp.org/vks/v1/by-fingerprint/74FFC6D72B925A34B5D356BDF8A27B36A6E2EAE9</code></p>
-</li>
-<li>
-<p>Refresh yum repo metadata and (optionally) update sogo packages:</p>
-<p><code>yum clean metadata
-yum update 'sogo*' '*sope*'</code></p>
-</li>
+gpgkey=file:///etc/pki/rpm-gpg/sogo-nightly
+</code></pre>
+<ul>
+<li>Run commands to download GPG key, refresh yum repo metadata and (optionally)
+  update sogo packages:</li>
 </ul>
+<pre><code>wget \
+    -O /etc/pki/rpm-gpg/sogo-nightly \
+    https://keys.openpgp.org/vks/v1/by-fingerprint/74FFC6D72B925A34B5D356BDF8A27B36A6E2EAE9
+yum clean metadata
+yum update 'sogo*' '*sope*'
+</code></pre>
 <h4 id="debian-ubuntu">Debian, Ubuntu</h4>
 <ul>
-<li>
-<p>Import GPG key with command below (run as <code>root</code> user):</p>
-<p><code>wget -O- "https://keys.openpgp.org/vks/v1/by-fingerprint/74FFC6D72B925A34B5D356BDF8A27B36A6E2EAE9" | gpg --dearmor | apt-key add -</code></p>
-</li>
+<li>Import GPG key with command below (run as <code>root</code> user):</li>
+</ul>
+<pre><code>wget -O- &quot;https://keys.openpgp.org/vks/v1/by-fingerprint/74FFC6D72B925A34B5D356BDF8A27B36A6E2EAE9&quot; | gpg --dearmor | apt-key add -
+</code></pre>
+<ul>
 <li>
 <p>Open file <code>/etc/apt/sources.list.d/sogo-nightly.list</code>, replace URL
   <code>https://packages.inverse.ca/SOGo/</code> by <code>https://packages.sogo.nu/</code>.</p>
 </li>
 <li>
 <p>Refresh the repository metadata:</p>
-<p><code>apt-get update</code></p>
 </li>
 </ul>
+<pre><code>apt-get update
+</code></pre>
 <h2 id="for-openldap-backend">For OpenLDAP backend</h2>
 <h3 id="fixed-sogo-not-expand-mailing-list-members-while-inviting-a-mailing-list-in-event">Fixed: SOGo: Not expand mailing list members while inviting a mailing list in event</h3>
 <p>Please open SOGo config file <code>/etc/sogo/sogo.conf</code> (on Linux/OpenBSD) or
