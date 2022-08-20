@@ -358,8 +358,9 @@ postconf -e enable_original_recipient=yes
 ```
 
 To add new or update existing transport settings in `/etc/postfix/master.cf`,
-you can run `postconf -M` and `postconf -P`. For example, create new transport
-`465` for [SMTPS (SMTP over SSL)](./enable.smtps.html):
+you can run `postconf -M` and `postconf -P` (requires Postfix-2.11 or later
+releases). For example, create new transport `465` for
+[SMTPS (SMTP over SSL)](./enable.smtps.html):
 
 ```
 postconf -M 465/inet="465 inet n - n - - smtpd"

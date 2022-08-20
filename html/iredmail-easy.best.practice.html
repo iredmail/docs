@@ -470,8 +470,9 @@ deployment or upgrade through iRedMail Easy platform.</p>
 <pre><code>postconf -e enable_original_recipient=yes
 </code></pre>
 <p>To add new or update existing transport settings in <code>/etc/postfix/master.cf</code>,
-you can run <code>postconf -M</code> and <code>postconf -P</code>. For example, create new transport
-<code>465</code> for <a href="./enable.smtps.html">SMTPS (SMTP over SSL)</a>:</p>
+you can run <code>postconf -M</code> and <code>postconf -P</code> (requires Postfix-2.11 or later
+releases). For example, create new transport <code>465</code> for
+<a href="./enable.smtps.html">SMTPS (SMTP over SSL)</a>:</p>
 <pre><code>postconf -M 465/inet=&quot;465 inet n - n - - smtpd&quot;
 postconf -P &quot;465/inet/syslog_name=postfix/smtps&quot;
 postconf -P &quot;465/inet/smtpd_tls_wrappermode=yes&quot;
