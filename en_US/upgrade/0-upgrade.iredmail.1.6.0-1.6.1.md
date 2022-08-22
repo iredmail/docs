@@ -56,9 +56,6 @@ If you have netdata installed, you can upgrade it by following this tutorial:
     issues with PHP-8 (Ubuntu 22.04 ships PHP-8.1), so we suggest wait for
     next new release, e.g. Roundcube 1.6.1 or even 1.6.2.
 
-    If you're running Debian 11 or Ubuntu 20.04, it's ok to upgrade to
-    Roundcube 1.6.0 since both ship PHP-7.4.
-
 Please follow Roundcube official tutorial to upgrade Roundcube webmail to the
 latest stable release:
 
