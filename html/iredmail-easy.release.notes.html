@@ -19,6 +19,7 @@
 <div class="toc">
 <ul>
 <li><a href="#iredmail-easy-release-notes">iRedMail Easy: Release Notes</a><ul>
+<li><a href="#2022082201">Version: 2022082201 (Aug 22, 2022)</a></li>
 <li><a href="#2022052001">Version: 2022052001 (May 20, 2022)</a></li>
 <li><a href="#2022031601">Version: 2022031601 (March 16, 2022)</a></li>
 <li><a href="#2021123101">Version: 2021123101 (Dec 31, 2021)</a></li>
@@ -59,6 +60,53 @@
 </li>
 </ul>
 </div>
+<h2 id="2022082201">Version: 2022082201 (Aug 22, 2022)</h2>
+<ul>
+<li>
+<p>Improvements:</p>
+<ul>
+<li>[Postfix] Bypass more facebook mail server HELOs.
+  Thanks <code>damiandabrowski5</code>@GitHub for the contribution.</li>
+<li>Tune SpamAssassin rules to catch more spams from free email providers.</li>
+<li>Nginx: Increase <code>uwsgi_read_timeout</code> to 900 seconds for iRedAdmin-Pro,
+  so that exporting massive accounts can finish in time not cause the
+  famous '504 gateway timeout' error. Tested with 50000 mail accounts.</li>
+</ul>
+</li>
+<li>
+<p>Fixed issues:</p>
+<ul>
+<li>Duplicate line in Postfix helo_access.pcre file.</li>
+<li>Default uwsgi buffer size (4096) for iRedAdmin may be too small if
+  iRedAdmin is running behind a proxy server. Increased to 8192 now.
+  Thanks Marcel for the feedback.</li>
+<li>Not remove logrotate config file for old php version. This may cause
+  logrotate fail to rotate log files.</li>
+<li>Fix bind9 service name on Ubuntu 20.04: bind9 -&gt; named.</li>
+<li>SOGo: Use new official yum/apt repository and GPG key.</li>
+</ul>
+</li>
+<li>
+<p>Updated packages:</p>
+<ul>
+<li>
+<p>Roundcube webmail 1.5.3. Notes:</p>
+<ul>
+<li>1.6.0 doesn't work very well with PHP-8, mostly compatibility
+  warnings, to avoid confusion for sysadmins, we decided to postpone it.</li>
+<li>CentOS 7 ships PHP 5.4 but not supported by Roundcube 1.5.3, so we
+  it has to stick to Roundcube 1.5.2.</li>
+</ul>
+</li>
+<li>
+<p>mlmmjadmin 3.1.5</p>
+</li>
+<li>netdata 1.36.1</li>
+<li>iRedAPD 5.1</li>
+<li>iRedAdmin 1.8</li>
+</ul>
+</li>
+</ul>
 <h2 id="2022052001">Version: 2022052001 (May 20, 2022)</h2>
 <ul>
 <li>

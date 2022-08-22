@@ -2,6 +2,39 @@
 
 [TOC]
 
+## Version: 2022082201 (Aug 22, 2022) {: id=2022082201 }
+
+* Improvements:
+    - [Postfix] Bypass more facebook mail server HELOs.
+      Thanks `damiandabrowski5`@GitHub for the contribution.
+    - Tune SpamAssassin rules to catch more spams from free email providers.
+    - Nginx: Increase `uwsgi_read_timeout` to 900 seconds for iRedAdmin-Pro,
+      so that exporting massive accounts can finish in time not cause the
+      famous '504 gateway timeout' error. Tested with 50000 mail accounts.
+
+* Fixed issues:
+    - Duplicate line in Postfix helo_access.pcre file.
+    - Default uwsgi buffer size (4096) for iRedAdmin may be too small if
+      iRedAdmin is running behind a proxy server. Increased to 8192 now.
+      Thanks Marcel for the feedback.
+    - Not remove logrotate config file for old php version. This may cause
+      logrotate fail to rotate log files.
+    - Fix bind9 service name on Ubuntu 20.04: bind9 -> named.
+    - SOGo: Use new official yum/apt repository and GPG key.
+
+* Updated packages:
+    - Roundcube webmail 1.5.3. Notes:
+
+        - 1.6.0 doesn't work very well with PHP-8, mostly compatibility
+          warnings, to avoid confusion for sysadmins, we decided to postpone it.
+        - CentOS 7 ships PHP 5.4 but not supported by Roundcube 1.5.3, so we
+          it has to stick to Roundcube 1.5.2.
+
+    - mlmmjadmin 3.1.5
+    - netdata 1.36.1
+    - iRedAPD 5.1
+    - iRedAdmin 1.8
+
 ## Version: 2022052001 (May 20, 2022) {: id=2022052001 }
 
 * Supports new distribution releases:
