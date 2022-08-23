@@ -10,6 +10,7 @@
 
 ## ChangeLog
 
+- Aug 23, 2022: Roundcube: replace default value of parameter `auto_create_user`
 - Aug 22, 2022: initial publish.
 
 ## General (All backends should apply these changes)
@@ -79,6 +80,21 @@ Replace it by:
 ```
 
 Reloading or restarting postfix service is required.
+
+### Roundcube: replace default value of parameter `auto_create_user`
+
+Since Roundcube 1.6.0, it sets `auto_create_user` to false, which causes newly
+created mail users can not login to Roundcube. Please overwrite this parameter
+no matter you already upgraded to Roundcube 1.6.0 or not.
+
+Open Roundcube config file `/opt/www/roundcubemail/config/config.inc.php`,
+find existing parameter or add it:
+
+```php
+$config["auto_create_user"] = true;
+```
+
+No need to restart any service.
 
 ### SOGo: New yum / apt repository sites, new GPG signing key
 

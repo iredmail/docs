@@ -30,6 +30,7 @@
 </li>
 <li><a href="#general-all-backends-should-apply-these-changes_1">General (All backends should apply these changes)</a><ul>
 <li><a href="#postfix-bypass-more-facebook-helo-hostnames">Postfix: Bypass more facebook HELO hostnames</a></li>
+<li><a href="#roundcube-replace-default-value-of-parameter-auto_create_user">Roundcube: replace default value of parameter auto_create_user</a></li>
 <li><a href="#sogo-new-yum-apt-repository-sites-new-gpg-signing-key">SOGo: New yum / apt repository sites, new GPG signing key</a><ul>
 <li><a href="#centos-centos-stream-rocky-linux">CentOS, CentOS Stream, Rocky Linux</a></li>
 <li><a href="#debian-ubuntu">Debian, Ubuntu</a></li>
@@ -62,6 +63,7 @@ check <a href="https://www.iredmail.org/support.html">the details</a> and
 </div>
 <h2 id="changelog">ChangeLog</h2>
 <ul>
+<li>Aug 23, 2022: Roundcube: replace default value of parameter <code>auto_create_user</code></li>
 <li>Aug 22, 2022: initial publish.</li>
 </ul>
 <h2 id="general-all-backends-should-apply-these-changes">General (All backends should apply these changes)</h2>
@@ -110,6 +112,15 @@ latest stable release:</p>
 <pre><code>/^\d{1,3}-\d{1,3}-\d{1,3}-\d{1,3}\.mail-.*\.facebook\.com$/ OK
 </code></pre>
 <p>Reloading or restarting postfix service is required.</p>
+<h3 id="roundcube-replace-default-value-of-parameter-auto_create_user">Roundcube: replace default value of parameter <code>auto_create_user</code></h3>
+<p>Since Roundcube 1.6.0, it sets <code>auto_create_user</code> to false, which causes newly
+created mail users can not login to Roundcube. Please overwrite this parameter
+no matter you already upgraded to Roundcube 1.6.0 or not.</p>
+<p>Open Roundcube config file <code>/opt/www/roundcubemail/config/config.inc.php</code>,
+find existing parameter or add it:</p>
+<pre><code class="language-php">$config[&quot;auto_create_user&quot;] = true;
+</code></pre>
+<p>No need to restart any service.</p>
 <h3 id="sogo-new-yum-apt-repository-sites-new-gpg-signing-key">SOGo: New yum / apt repository sites, new GPG signing key</h3>
 <p>SOGo team <a href="https://www.mail-archive.com/users@sogo.nu/msg31386.html">announced</a>
 that the SOGo groupware was acquired by Alinto on 16 May 2022, and <a href="https://www.mail-archive.com/users@sogo.nu/msg31614.html">officially
