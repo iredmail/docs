@@ -1,5 +1,9 @@
 # Setup Thunderbird: SOGo Address Book and Calendar synchronization with CardDAV and CalDAV
 
+!!! attention
+
+	 Check out the lightweight on-premises email archiving software developed by iRedMail team: [Spider Email Archiver](https://spiderd.io/).
+
 [TOC]
 
 SOGo Connector extention provides integration of Mozilla Thunderbird with the SOGo groupware solution. It does this by adding support for remote DAV address books and by adding features to the calendar.

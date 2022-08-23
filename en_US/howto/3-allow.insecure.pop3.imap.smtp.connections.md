@@ -1,5 +1,9 @@
 # Allow insecure POP3/IMAP/SMTP connections without STARTTLS
 
+!!! attention
+
+	 Check out the lightweight on-premises email archiving software developed by iRedMail team: [Spider Email Archiver](https://spiderd.io/).
+
 [TOC]
 
 With default iRedMail setting, all clients are forced to use POP3/IMAP/SMTP

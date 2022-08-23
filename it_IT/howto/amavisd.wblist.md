@@ -1,5 +1,9 @@
 # WhiteList e BlackList
 
+!!! attention
+
+	 Check out the lightweight on-premises email archiving software developed by iRedMail team: [Spider Email Archiver](https://spiderd.io/).
+
 [TOC]
 
 questo tutorial mostra come mettere in whitelist e blacklist mittenti o destinatari con iRedAmdin-Pro e gli script annessi ad iRedADP (sin dalla versione 1.7.1).

@@ -104,7 +104,7 @@ for lang in ${all_languages}; do
     unset _md_lang
 
     # Show spiderd.io
-    echo -e '!!! attention \n\n\t Check out our lightweight email archiving software: [Spider Email Archiver](https://spiderd.io/).' >> ${INDEX_MD}
+    echo -e '!!! attention \n\n\t Check out the lightweight on-premises email archiving software developed by iRedMail team: [Spider Email Archiver](https://spiderd.io/).' >> ${INDEX_MD}
 
     # Initial index file.
     if [ -f ${src_dir}/_title.md ]; then
@@ -167,13 +167,6 @@ for lang in ${all_languages}; do
 
             # Get first line (without the leading '# ') as article title
             _article_title="$(head -1 ${article_file} | awk -F'# ' '{print $2}')"
-
-            #
-            # Get title in markdown file: 'Title: title'
-            #_article_title="$(grep '^Title: ' ${article_file} | head -1 | awk -F'Title: ' '{print $2}')"
-            #
-            # Get title in markdown file: '<h1>title</h1>'
-            #_article_title="$(head -1 ${article_file} | awk -F'[<|>]' '{print $3}')"
 
             if [ X"${hide_article_in_index}" == X'NO' ]; then
                 echo "* [${_article_title}](${article_html_file})" >> ${INDEX_MD}

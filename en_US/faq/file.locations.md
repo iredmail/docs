@@ -1,5 +1,9 @@
 # Locations of configuration and log files of major components
 
+!!! attention
+
+	 Check out the lightweight on-premises email archiving software developed by iRedMail team: [Spider Email Archiver](https://spiderd.io/).
+
 [TOC]
 
 ## SSL certificate {: #ssl }

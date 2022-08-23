@@ -1,5 +1,9 @@
 # iRedMail Easy: Setup DNS records for autoconfig and autodiscover
 
+!!! attention
+
+	 Check out the lightweight on-premises email archiving software developed by iRedMail team: [Spider Email Archiver](https://spiderd.io/).
+
 [TOC]
 
 [iRedMail Easy](https://www.iredmail.org/easy.html) offers component

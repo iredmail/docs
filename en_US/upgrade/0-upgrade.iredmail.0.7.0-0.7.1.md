@@ -1,5 +1,9 @@
 # Upgrade iRedMail from 0.7.0 to 0.7.1
 
+!!! attention
+
+	 Check out the lightweight on-premises email archiving software developed by iRedMail team: [Spider Email Archiver](https://spiderd.io/).
+
 [TOC]
 
 ## ChangeLog

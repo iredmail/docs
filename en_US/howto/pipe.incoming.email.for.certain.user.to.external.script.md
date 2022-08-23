@@ -1,5 +1,9 @@
 # Pipe incoming email for certain user to external script
 
+!!! attention
+
+	 Check out the lightweight on-premises email archiving software developed by iRedMail team: [Spider Email Archiver](https://spiderd.io/).
+
 [TOC]
 
 This tutorial explains how to pipe incoming email for certain user to an

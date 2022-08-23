@@ -1,5 +1,9 @@
 # 性能优化
 
+!!! attention
+
+	 Check out the lightweight on-premises email archiving software developed by iRedMail team: [Spider Email Archiver](https://spiderd.io/).
+
 [TOC]
 
 如果你运行的是一台高负载的邮件服务器（每天都需要处理大量的收发件请求），可以

@@ -1,5 +1,9 @@
 # Setup DNS records for your iRedMail server (A, PTR, MX, SPF, DKIM, DMARC)
 
+!!! attention
+
+	 Check out the lightweight on-premises email archiving software developed by iRedMail team: [Spider Email Archiver](https://spiderd.io/).
+
 [TOC]
 
 __IMPORTANT NOTE__: `A`, `MX` records are required, `Reverse PTR`, `SPF`,

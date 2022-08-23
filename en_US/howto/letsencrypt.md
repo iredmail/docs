@@ -1,5 +1,9 @@
 # Request a free cert from Let's Encrypt
 
+!!! attention
+
+	 Check out the lightweight on-premises email archiving software developed by iRedMail team: [Spider Email Archiver](https://spiderd.io/).
+
 [TOC]
 
 iRedMail generates a self-signed SSL certificate during installation, it's

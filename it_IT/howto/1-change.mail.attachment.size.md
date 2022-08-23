@@ -1,5 +1,9 @@
 # Modifica dimensione massima per un'allegato di una mail
 
+!!! attention
+
+	 Check out the lightweight on-premises email archiving software developed by iRedMail team: [Spider Email Archiver](https://spiderd.io/).
+
 [TOC]
 
 Per cambiare la dimensione dell'allegato, dobbiamo modificare 3 configurazioni

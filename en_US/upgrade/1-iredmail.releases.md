@@ -5,6 +5,10 @@
     * iRedMail source code: <https://github.com/iredmail/iRedMail>.
     * Download the [latest iRedMail stable release](https://www.iredmail.org/download.html).
 
+!!! attention
+
+	 Check out the lightweight on-premises email archiving software developed by iRedMail team: [Spider Email Archiver](https://spiderd.io/).
+
 [TOC]
 
 ### Why keep your iRedMail server up to date

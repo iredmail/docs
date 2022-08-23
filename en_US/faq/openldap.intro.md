@@ -1,5 +1,9 @@
 # Introduce the OpenLDAP server configured by iRedMail
 
+!!! attention
+
+	 Check out the lightweight on-premises email archiving software developed by iRedMail team: [Spider Email Archiver](https://spiderd.io/).
+
 [TOC]
 
 This is a brief introduction of the OpenLDAP server configured by

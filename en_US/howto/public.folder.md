@@ -1,5 +1,9 @@
 # How to create and manage public folder
 
+!!! attention
+
+	 Check out the lightweight on-premises email archiving software developed by iRedMail team: [Spider Email Archiver](https://spiderd.io/).
+
 [TOC]
 
 iRedMail has setting for public folder in `/etc/dovecot/dovecot.conf`,

@@ -1,5 +1,9 @@
 # Abilitare servizio SMTPS ( SMTP over SSL su porta 465)
 
+!!! attention
+
+	 Check out the lightweight on-premises email archiving software developed by iRedMail team: [Spider Email Archiver](https://spiderd.io/).
+
 [TOC]
 
 ### Perché iRedMail non abilita SMTPS (SMTP over SSL) per default.

@@ -1,5 +1,9 @@
 # Upgrade SOGo from v3 to v4
 
+!!! attention
+
+	 Check out the lightweight on-premises email archiving software developed by iRedMail team: [Spider Email Archiver](https://spiderd.io/).
+
 [TOC]
 
 SOGo v4 was released on Mar 7, 2018 by the SOGo team (<https://sogo.nu>), it

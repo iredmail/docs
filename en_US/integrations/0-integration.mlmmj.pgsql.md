@@ -1,5 +1,9 @@
 # Integrate mlmmj mailing list manager in iRedMail (PostgreSQL backend)
 
+!!! attention
+
+	 Check out the lightweight on-premises email archiving software developed by iRedMail team: [Spider Email Archiver](https://spiderd.io/).
+
 [TOC]
 
 ## Summary

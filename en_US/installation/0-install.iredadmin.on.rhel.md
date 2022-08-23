@@ -1,5 +1,9 @@
 # Install iRedAdmin on Red Hat Enterprise Linux, CentOS, Scientific Linux
 
+!!! attention
+
+	 Check out the lightweight on-premises email archiving software developed by iRedMail team: [Spider Email Archiver](https://spiderd.io/).
+
 [TOC]
 
 !!! warning

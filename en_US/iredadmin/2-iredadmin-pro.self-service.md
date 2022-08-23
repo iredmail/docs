@@ -1,5 +1,9 @@
 # iRedAdmin-Pro: Enable self-service to allow users to manage their own preferences and more
 
+!!! attention
+
+	 Check out the lightweight on-premises email archiving software developed by iRedMail team: [Spider Email Archiver](https://spiderd.io/).
+
 [TOC]
 
 !!! attention

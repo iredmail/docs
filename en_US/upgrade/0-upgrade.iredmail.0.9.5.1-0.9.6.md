@@ -1,5 +1,9 @@
 # Upgrade iRedMail from 0.9.5-1 to 0.9.6
 
+!!! attention
+
+	 Check out the lightweight on-premises email archiving software developed by iRedMail team: [Spider Email Archiver](https://spiderd.io/).
+
 [TOC]
 
 !!! note "Paid Remote Upgrade Support"

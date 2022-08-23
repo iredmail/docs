@@ -1,5 +1,9 @@
 # Integrate DBMail with iRedMail (MySQL backend) on CentOS
 
+!!! attention
+
+	 Check out the lightweight on-premises email archiving software developed by iRedMail team: [Spider Email Archiver](https://spiderd.io/).
+
 [TOC]
 
 ## ChangeLog

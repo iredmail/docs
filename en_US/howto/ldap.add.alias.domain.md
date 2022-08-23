@@ -1,5 +1,9 @@
 # LDAP: Add an alias domain
 
+!!! attention
+
+	 Check out the lightweight on-premises email archiving software developed by iRedMail team: [Spider Email Archiver](https://spiderd.io/).
+
 [TOC]
 
 ## What an alias domain is used for?

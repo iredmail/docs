@@ -1,5 +1,9 @@
 # Enable postscreen service
 
+!!! attention
+
+	 Check out the lightweight on-premises email archiving software developed by iRedMail team: [Spider Email Archiver](https://spiderd.io/).
+
 [TOC]
 
 __WARNING__: With postscreen service enabled, your users must use port 587 to

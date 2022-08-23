@@ -1,5 +1,9 @@
 # 在 Red Hat Enterprise Linux 或 CentOS 系统上安装 iRedMail
 
+!!! attention
+
+	 Check out the lightweight on-premises email archiving software developed by iRedMail team: [Spider Email Archiver](https://spiderd.io/).
+
 [TOC]
 
 ## 系统要求

@@ -1,5 +1,9 @@
 # 允许用户在不使用 smtp 验证的情况下发送邮件
 
+!!! attention
+
+	 Check out the lightweight on-premises email archiving software developed by iRedMail team: [Spider Email Archiver](https://spiderd.io/).
+
 [TOC]
 
 !!! attention

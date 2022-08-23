@@ -1,5 +1,9 @@
 # Messa in quarantena
 
+!!! attention
+
+	 Check out the lightweight on-premises email archiving software developed by iRedMail team: [Spider Email Archiver](https://spiderd.io/).
+
 [TOC]
 
 Sin dalla versione 0.7.0 di IredMail, la messa in quarantena e le relative configurazioni in Amavisd sono configurate da iRedMail, ma disabilitate per default, potere facilmente abilitate il sistema di messa in quarantena tramite questo tutoria.

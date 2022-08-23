@@ -1,5 +1,9 @@
 # Restrict mail user to login from specified IP addresses or networks
 
+!!! attention
+
+	 Check out the lightweight on-premises email archiving software developed by iRedMail team: [Spider Email Archiver](https://spiderd.io/).
+
 [TOC]
 
 Since iRedMail-0.9.1, it's able to restrict mail users to login from specified

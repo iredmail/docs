@@ -1,5 +1,9 @@
 # iRedAdmin-Pro: Subscribable mailing list
 
+!!! attention
+
+	 Check out the lightweight on-premises email archiving software developed by iRedMail team: [Spider Email Archiver](https://spiderd.io/).
+
 [TOC]
 
 Since iRedMail-0.9.8 and iRedAdmin-Pro-SQL-2.9.0, iRedAdmin-Pro-LDAP-3.1, you

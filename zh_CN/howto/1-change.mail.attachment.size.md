@@ -1,5 +1,9 @@
 # 修改邮件附件大小
 
+!!! attention
+
+	 Check out the lightweight on-premises email archiving software developed by iRedMail team: [Spider Email Archiver](https://spiderd.io/).
+
 [TOC]
 
 要修改邮件附件大小，需要修改三个地方。

@@ -1,5 +1,9 @@
 # Performance tuning
 
+!!! attention
+
+	 Check out the lightweight on-premises email archiving software developed by iRedMail team: [Spider Email Archiver](https://spiderd.io/).
+
 [TOC]
 
 If you're running a busy mail server (many inbound/outbound emails every day),

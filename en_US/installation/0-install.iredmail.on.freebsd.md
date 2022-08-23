@@ -1,5 +1,9 @@
 # Install iRedMail on FreeBSD
 
+!!! attention
+
+	 Check out the lightweight on-premises email archiving software developed by iRedMail team: [Spider Email Archiver](https://spiderd.io/).
+
 [TOC]
 
 > If you want to install iRedMail inside FreeBSD __Jail__, please use

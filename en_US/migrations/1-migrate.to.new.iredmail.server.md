@@ -1,5 +1,9 @@
 # Migrate old iRedMail server to the latest stable release
 
+!!! attention
+
+	 Check out the lightweight on-premises email archiving software developed by iRedMail team: [Spider Email Archiver](https://spiderd.io/).
+
 [TOC]
 
 !!! warning

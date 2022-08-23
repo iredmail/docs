@@ -1,5 +1,9 @@
 # Change mail attachment size
 
+!!! attention
+
+	 Check out the lightweight on-premises email archiving software developed by iRedMail team: [Spider Email Archiver](https://spiderd.io/).
+
 [TOC]
 
 Mail attachment size is configured in multiple places with default iRedMail settings:

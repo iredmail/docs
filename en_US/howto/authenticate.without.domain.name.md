@@ -1,5 +1,9 @@
 # Authenticate without domain part in email address
 
+!!! attention
+
+	 Check out the lightweight on-premises email archiving software developed by iRedMail team: [Spider Email Archiver](https://spiderd.io/).
+
 [TOC]
 
 With default settings, client must use full email address as username for

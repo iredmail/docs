@@ -1,5 +1,9 @@
 # iRedMail Easy: Release Notes
 
+!!! attention
+
+	 Check out the lightweight on-premises email archiving software developed by iRedMail team: [Spider Email Archiver](https://spiderd.io/).
+
 [TOC]
 
 ## Version: 2022082201 (Aug 22, 2022) {: id=2022082201 }

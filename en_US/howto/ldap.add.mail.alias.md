@@ -1,5 +1,9 @@
 # LDAP: Add a mail alias account
 
+!!! attention
+
+	 Check out the lightweight on-premises email archiving software developed by iRedMail team: [Spider Email Archiver](https://spiderd.io/).
+
 [TOC]
 
 ## Add mail alias with iRedAdmin-Pro

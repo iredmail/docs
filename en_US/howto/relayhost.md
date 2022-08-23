@@ -1,5 +1,9 @@
 # Setup relayhost
 
+!!! attention
+
+	 Check out the lightweight on-premises email archiving software developed by iRedMail team: [Spider Email Archiver](https://spiderd.io/).
+
 [TOC]
 
 Relay host is a server which can accept your email and sent it out to the final

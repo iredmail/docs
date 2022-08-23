@@ -1,5 +1,9 @@
 # Run web applications under subdomain with Nginx
 
+!!! attention
+
+	 Check out the lightweight on-premises email archiving software developed by iRedMail team: [Spider Email Archiver](https://spiderd.io/).
+
 [TOC]
 
 ## Introduction

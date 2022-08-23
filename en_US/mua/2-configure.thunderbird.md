@@ -1,5 +1,9 @@
 # Setup Thunderbird: POP3/IMAP, SMTP and global ldap address book
 
+!!! attention
+
+	 Check out the lightweight on-premises email archiving software developed by iRedMail team: [Spider Email Archiver](https://spiderd.io/).
+
 [TOC]
 
 iRedMail provides POP3S (POP3 over TLS), IMAPS (IMAP over TLS), SMTPS (SMTP over TLS) for receiving and sending emails by default.

@@ -1,5 +1,9 @@
 # Upgrade iRedMail from 0.4.0 to 0.5.0
 
+!!! attention
+
+	 Check out the lightweight on-premises email archiving software developed by iRedMail team: [Spider Email Archiver](https://spiderd.io/).
+
 [TOC]
 
 > We provide remote upgrade service, check

@@ -1,5 +1,9 @@
 # Permettere connessioni inscurire senza STARTTLS per POP3/IMAP/SMTP
 
+!!! attention
+
+	 Check out the lightweight on-premises email archiving software developed by iRedMail team: [Spider Email Archiver](https://spiderd.io/).
+
 [TOC]
 
 Con la configurazione di default di iRedMail, tutti i client di posta sono forzati ad usare i servizi POP3/IMAP/SMTP over STARTTLS per ottenere connessioni sicure. Se il vostro client di posta tentasse l'accesso alla casella di posta con il protocollo POP3/IMAP/SMTP senza il support TLS, otterreste un messaggio di errore simile quello sottostante:

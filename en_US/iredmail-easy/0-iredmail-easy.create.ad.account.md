@@ -1,4 +1,8 @@
 # iRedMail Easy: Create AD account for iRedMail
+!!! attention
+
+	 Check out the lightweight on-premises email archiving software developed by iRedMail team: [Spider Email Archiver](https://spiderd.io/).
+
 [TOC]
 
 ## Summary
