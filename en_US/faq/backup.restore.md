@@ -19,21 +19,11 @@ group `vmail`, permission `0700` on iRedMail server.
 
 ### Backup mail accounts
 
-Mail accounts are stored in SQL/LDAP database. iRedMail provides shell scripts
-to backup SQL/LDAP databases, you can find them in downloaded iRedMail release,
-or find them in [iRedMail source code repository](https://github.com/iredmail/iRedMail/tree/master/tools):
+iRedMail has daily cron job to backup mail accounts which are stored in
+SQL/LDAP database, you can run command below as `root` user to verify it:
 
-* `iRedMail-[VERSION]/tools/backup_openldap.sh`: used to backup OpenLDAP data.
-* `iRedMail-[VERSION]/tools/backup_ldapd.sh`: used to backup OpenBSD ldapd(8).
-* `iRedMail-[VERSION]/tools/backup_mysql.sh`: used to backup MySQL/MariaDB databases.
-* `iRedMail-[VERSION]/tools/backup_pgsql.sh`: used to backup PostgreSQL databases.
-
-iRedMail will setup a daily cron job to run backup script(s) during
-installation, so what you need to do is checking whether or not they're
-defined as cron jobs with below commands:
-
-```
-# crontab -l -u root
+```shell
+crontab -l -u root
 ```
 
 Sample output on an iRedMail server with OpenLDAP backend:
@@ -48,9 +38,11 @@ Sample output on an iRedMail server with OpenLDAP backend:
 
 Notes:
 
-* Backup files are stored under directory defined in parameter `BACKUP_ROOTDIR`
-  in backup scripts, default is `/var/vmail/backup`.
-* SQL backup is plain SQL file, LDAP backup is plain LDIF file.
+* Backup files are stored under directory `/var/vmail/backup` by default, if
+  you want to change it, please update parameter `BACKUP_ROOTDIR` in
+  backup script (e.g. `/var/vmail/backup/backup_mysql.sh`).
+* SQL backup is a plain SQL file for each database.
+* LDAP backup is only a plain file in LDIF format.
 * Backup files are compressed with `bzip2` by default, you can decompress them
   with command `bunzip2`. for example, `bunzip2 file_name.bz2`.
 * It's ok to run the backup scripts manually.

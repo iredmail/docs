@@ -53,19 +53,9 @@ mailboxes with tool like <code>rsync</code> or other backup tools.</p>
 <p>After restored mailboxes, <code>/var/vmail/vmail1</code> must be owned by user <code>vmail</code>,
 group <code>vmail</code>, permission <code>0700</code> on iRedMail server.</p>
 <h3 id="backup-mail-accounts">Backup mail accounts</h3>
-<p>Mail accounts are stored in SQL/LDAP database. iRedMail provides shell scripts
-to backup SQL/LDAP databases, you can find them in downloaded iRedMail release,
-or find them in <a href="https://github.com/iredmail/iRedMail/tree/master/tools">iRedMail source code repository</a>:</p>
-<ul>
-<li><code>iRedMail-[VERSION]/tools/backup_openldap.sh</code>: used to backup OpenLDAP data.</li>
-<li><code>iRedMail-[VERSION]/tools/backup_ldapd.sh</code>: used to backup OpenBSD ldapd(8).</li>
-<li><code>iRedMail-[VERSION]/tools/backup_mysql.sh</code>: used to backup MySQL/MariaDB databases.</li>
-<li><code>iRedMail-[VERSION]/tools/backup_pgsql.sh</code>: used to backup PostgreSQL databases.</li>
-</ul>
-<p>iRedMail will setup a daily cron job to run backup script(s) during
-installation, so what you need to do is checking whether or not they're
-defined as cron jobs with below commands:</p>
-<pre><code># crontab -l -u root
+<p>iRedMail has daily cron job to backup mail accounts which are stored in
+SQL/LDAP database, you can run command below as <code>root</code> user to verify it:</p>
+<pre><code class="language-shell">crontab -l -u root
 </code></pre>
 <p>Sample output on an iRedMail server with OpenLDAP backend:</p>
 <pre><code># iRedMail: Backup OpenLDAP data every day on 03:01 AM
@@ -76,9 +66,11 @@ defined as cron jobs with below commands:</p>
 </code></pre>
 <p>Notes:</p>
 <ul>
-<li>Backup files are stored under directory defined in parameter <code>BACKUP_ROOTDIR</code>
-  in backup scripts, default is <code>/var/vmail/backup</code>.</li>
-<li>SQL backup is plain SQL file, LDAP backup is plain LDIF file.</li>
+<li>Backup files are stored under directory <code>/var/vmail/backup</code> by default, if
+  you want to change it, please update parameter <code>BACKUP_ROOTDIR</code> in
+  backup script (e.g. <code>/var/vmail/backup/backup_mysql.sh</code>).</li>
+<li>SQL backup is a plain SQL file for each database.</li>
+<li>LDAP backup is only a plain file in LDIF format.</li>
 <li>Backup files are compressed with <code>bzip2</code> by default, you can decompress them
   with command <code>bunzip2</code>. for example, <code>bunzip2 file_name.bz2</code>.</li>
 <li>It's ok to run the backup scripts manually.</li>
