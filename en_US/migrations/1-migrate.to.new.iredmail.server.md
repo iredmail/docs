@@ -169,47 +169,40 @@ database:
 * For MySQL, MariaDB backends:
 
 ```
-USE sogo;
-DROP VIEW users;
-CREATE VIEW users (c_uid, c_name, c_password, c_cn, mail, domain)
-    AS SELECT username, username, password, name, username, domain
-         FROM vmail.mailbox WHERE enablesogo=1 AND active=1;
+GRANT SELECT ON vmail.mailbox TO sogo@"127.0.0.1";
+CREATE VIEW sogo.users (
+        c_uid, c_name, c_password, c_cn, mail, domain,
+        c_webmail, c_calendar, c_activesync
+    ) AS SELECT
+            username, username, password, name, username, domain,
+            enablesogowebmail, enablesogocalendar, enablesogoactivesync
+        FROM vmail.mailbox WHERE enablesogo=1 AND active=1;
 ```
 
 * For PostgreSQL backend. Please switch to PostgreSQL daemon user `_postgres`
-  first, then run `psql -d sogo` to connect to `sogo` database:
-
-!!! warning
-
-    Please replace `<vmail_user_password>` by the real password for SQL user `vmail`.
+  first, then run `psql -d vmail` to connect to `vmail` database (SOGo is
+  configured to query users from `vmail` database since iRedMail-1.6.0, so that
+  end users can change their own passwords):
 
 ```
-\c sogo;
-CREATE EXTENSION IF NOT EXISTS dblink;
+-- create SQL view in vmail database.
 
-DROP VIEW users;
-CREATE VIEW users AS
-    SELECT * FROM dblink('host=127.0.0.1
-                          port=5432
-                          dbname=vmail
-                          user=vmail
-                          password=<vmail_user_password>',
-                          'SELECT username AS c_uid,
-                                  username AS c_name,
-                                  password AS c_password,
-                                  name     AS c_cn,
-                                  username AS mail,
-                                  domain   AS domain
-                             FROM mailbox
-                            WHERE enablesogo=1 AND active=1')
-         AS users (c_uid         VARCHAR(255),
-                   c_name        VARCHAR(255),
-                   c_password    VARCHAR(255),
-                   c_cn          VARCHAR(255),
-                   mail          VARCHAR(255),
-                   domain        VARCHAR(255));
+CREATE VIEW sogo_users AS
+     SELECT username AS c_uid,
+            username AS c_name,
+            password AS c_password,
+            name     AS c_cn,
+            username AS mail,
+            domain   AS domain,
+            enablesogowebmail     AS c_webmail,
+            enablesogocalendar    AS c_calendar,
+            enablesogoactivesync  AS c_activesync
+       FROM mailbox
+      WHERE enablesogo=1 AND active=1;
 
-ALTER TABLE users OWNER TO sogo;
+-- allow end users to change their own passwords.
+GRANT SELECT,UPDATE ON mailbox TO sogo;
+GRANT SELECT,UPDATE ON sogo_users TO sogo;
 ```
 
 ### Solution 2: Backup and restore data
