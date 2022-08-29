@@ -103,7 +103,7 @@ psql -d vmail &lt; /tmp/sogo_view.pgsql
         {
             type = sql;
             id = users;
-            viewURL = &quot;postgresql://sogo:...@127.0.0.1:5432/sogo/users&quot;;
+            viewURL = &quot;postgresql://...@127.0.0.1:5432/sogo/users&quot;;
             canAuthenticate = YES;
             ...
         },
@@ -116,7 +116,7 @@ psql -d vmail &lt; /tmp/sogo_view.pgsql
 </ul>
 </li>
 </ul>
-<pre><code>            viewURL = &quot;postgresql://sogo:...@127.0.0.1:5432/vmail/sogo_users&quot;;
+<pre><code>            viewURL = &quot;postgresql://...@127.0.0.1:5432/vmail/sogo_users&quot;;
 </code></pre>
 <ul>
 <li>Restart memcached and SOGo service (Note: on CentOS, the service name is

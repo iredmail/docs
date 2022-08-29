@@ -89,7 +89,7 @@ Now we need to update SOGo config file to use this new SQL view.
         {
             type = sql;
             id = users;
-            viewURL = "postgresql://sogo:...@127.0.0.1:5432/sogo/users";
+            viewURL = "postgresql://...@127.0.0.1:5432/sogo/users";
             canAuthenticate = YES;
             ...
         },
@@ -101,7 +101,7 @@ Now we need to update SOGo config file to use this new SQL view.
     - Replace the SQL table name `users` by `sogo_users`
 
 ```
-            viewURL = "postgresql://sogo:...@127.0.0.1:5432/vmail/sogo_users";
+            viewURL = "postgresql://...@127.0.0.1:5432/vmail/sogo_users";
 ```
 
 - Restart memcached and SOGo service (Note: on CentOS, the service name is
