@@ -50,14 +50,15 @@ Please follow below tutorial to upgrade mlmmjadmin to the latest stable release:
     On CentOS 7, Debian 10 and Ubuntu 18.04, you must add 2 parameters in
     MySQL or MariaDB config file to avoid error
     `Specified key was too long; max key length is 767 bytes`:
-        - On CentOS 7: it's `/etc/my.cnf`
-        - On Debian 10: it's `/etc/mysql/my.cnf`
 
-    ```
-    [mysqld]
-    innodb_large_prefix=ON
-    innodb_file_format=Barracuda
-    ```
+    - On CentOS 7: it's `/etc/my.cnf`
+    - On Debian 10: it's `/etc/mysql/my.cnf`
+
+```
+[mysqld]
+innodb_large_prefix=ON
+innodb_file_format=Barracuda
+```
 
 Please follow Roundcube official tutorial to upgrade Roundcube webmail to the
 latest stable release:

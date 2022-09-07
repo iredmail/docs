@@ -129,7 +129,7 @@ wget \
     -O /etc/pki/rpm-gpg/sogo-nightly \
     https://keys.openpgp.org/vks/v1/by-fingerprint/74FFC6D72B925A34B5D356BDF8A27B36A6E2EAE9
 yum clean metadata
-yum update 'sogo*' '*sope*'
+yum update -y 'sogo*' '*sope*'
 ```
 
 #### Debian, Ubuntu
