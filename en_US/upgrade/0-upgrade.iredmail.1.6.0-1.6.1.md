@@ -66,8 +66,6 @@ latest stable release:
 
 * [How to upgrade Roundcube](https://github.com/roundcube/roundcubemail/wiki/Upgrade).
 
-## General (All backends should apply these changes)
-
 ### Postfix: Bypass more facebook HELO hostnames
 
 Find below line in `/etc/postfix/helo_access.pcre` (Linux/OpenBSD) or
