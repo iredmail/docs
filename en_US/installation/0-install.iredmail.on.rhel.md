@@ -269,7 +269,7 @@ hostname or IP address.
 
 * __Roundcube webmail__: <https://your_server/mail/>
 * __SOGo Groupware__: <https://your_server/SOGo>
-* __Web admin panel (iRedAdmin)__: <httpS://your_server/iredadmin/>
+* __Web admin panel (iRedAdmin)__: <https://your_server/iredadmin/>
 
 ## Get technical support
 

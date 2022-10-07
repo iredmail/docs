@@ -134,7 +134,7 @@ mysql> FLUSH PRIVILEGES;
 
 ## Access iRedAdmin
 
-Open your web browser to access iRedAdmin: `httpS://your_server_ip_address/iredadmin/`
+Open your web browser to access iRedAdmin: `https://your_server_ip_address/iredadmin/`
 
 Make sure you use `HTTPS://` instead of `HTTP://`.
 

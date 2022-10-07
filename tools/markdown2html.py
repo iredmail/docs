@@ -8,7 +8,6 @@ Required Markdown module: http://pypi.python.org/pypi/Markdown/2.1.1
 
 import sys
 import subprocess
-import web
 import markdown
 
 # https://github.com/FND/markdown-checklist
@@ -74,12 +73,9 @@ if 'add_index_link' in cmd_opts:
 
 html += """</div>"""
 
-# Convert to unicode first.
-html = web.safeunicode(html)
-
 # Read markdown file and render as HTML body
 # Handle unicode characters with web.safeunicode
-orig_content = web.safeunicode(open(filename).read())
+orig_content = str(open(filename).read())
 html += markdown.markdown(orig_content, extensions=MD_EXTENSIONS)
 
 html += """<div class="footer">

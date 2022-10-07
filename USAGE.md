@@ -2,8 +2,8 @@
 
 ## Required Python modules
 
-* markdown
-* markdown_checklist
+* markdown: <https://pypi.org/project/Markdown/>
+* markdown_checklist: <https://pypi.org/project/markdown-checklist/>
 
 ## Usage
 

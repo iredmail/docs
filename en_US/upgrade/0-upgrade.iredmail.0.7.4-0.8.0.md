@@ -167,7 +167,7 @@ This step is optional but highly recommended for better security.
 Please update below parameter in Roundcube config file
 `roundcubemail/config/main.inc.php` to enforce connections over https for
 better security. With this option enabled, all non-secure connections will be
-redirected to httpS://.
+redirected to `https://`.
 
     * On RHEL/CentOS/Scientific Linux, Gentoo, OpenBSD, it's `/var/www/roundcubemail/config/main.inc.php`.
     * On Debian/Ubuntu, it's `/usr/share/apache2/roundcubemail/config/main.inc.php`.
