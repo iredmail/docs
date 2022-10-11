@@ -126,7 +126,7 @@ mysql> SELECT CONCAT(storagebasedirectory, '/', storagenode, '/', maildir) FROM 
   `homeDirectory` of mail user object. You can query with `ldapsearch` command:
 
 ```
-$ ldapsearch -x -D 'cn=Manager,dc=xx,dc=xx' -b 'o=domains,dc=xx,dc=xx' -W "(mail=user@domain.com)" homeDirectory
+ldapsearch -x -o ldif-wrap=no -D 'cn=Manager,dc=xx,dc=xx' -W -b 'o=domains,dc=xx,dc=xx' "(mail=user@domain.com)" homeDirectory
 ```
 
 ## Migrate (mlmmj) mailing lists

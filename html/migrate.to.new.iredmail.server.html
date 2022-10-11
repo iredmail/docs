@@ -165,7 +165,7 @@ mysql&gt; SELECT CONCAT(storagebasedirectory, '/', storagenode, '/', maildir) FR
 <li>With OpenLDAP backend, full maildir path is stored in LDAP attribute
   <code>homeDirectory</code> of mail user object. You can query with <code>ldapsearch</code> command:</li>
 </ul>
-<pre><code>$ ldapsearch -x -D 'cn=Manager,dc=xx,dc=xx' -b 'o=domains,dc=xx,dc=xx' -W &quot;(mail=user@domain.com)&quot; homeDirectory
+<pre><code>ldapsearch -x -o ldif-wrap=no -D 'cn=Manager,dc=xx,dc=xx' -W -b 'o=domains,dc=xx,dc=xx' &quot;(mail=user@domain.com)&quot; homeDirectory
 </code></pre>
 <h2 id="migrate-mlmmj-mailing-lists">Migrate (mlmmj) mailing lists</h2>
 <div class="admonition attention">
