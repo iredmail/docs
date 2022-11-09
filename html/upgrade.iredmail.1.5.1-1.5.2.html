@@ -76,10 +76,12 @@ directly. The problem with <code>clamscan</code> is it needs to load all clamav 
 each time for each message, it may cause OOM (Out Of Memory) error or use too
 much system resource and cause mail service unstable.</p>
 <p>To prevent this case, we simply disable the backup option by adding (or
-overwriting) parameter <code>@av_scanners_backup</code> in Amavisd config file:
-    - On RHEL/CentOS/Rocky, it's <code>/etc/amavisd/amavisd.conf</code>
-    - On Debian/Ubuntu, it's <code>/etc/amavis/conf.d/50-user</code>
-    - On OpenBSD, it's <code>/etc/amavisd.conf</code></p>
+overwriting) parameter <code>@av_scanners_backup</code> in Amavisd config file:</p>
+<ul>
+<li>On RHEL/CentOS/Rocky, it's <code>/etc/amavisd/amavisd.conf</code></li>
+<li>On Debian/Ubuntu, it's <code>/etc/amavis/conf.d/50-user</code></li>
+<li>On OpenBSD, it's <code>/etc/amavisd.conf</code></li>
+</ul>
 <pre><code>@av_scanners_backup = ();
 </code></pre>
 <p>Restarting Amavisd service is required.</p>

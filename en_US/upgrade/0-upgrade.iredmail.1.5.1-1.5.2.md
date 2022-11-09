@@ -46,9 +46,10 @@ much system resource and cause mail service unstable.
 
 To prevent this case, we simply disable the backup option by adding (or
 overwriting) parameter `@av_scanners_backup` in Amavisd config file:
-    - On RHEL/CentOS/Rocky, it's `/etc/amavisd/amavisd.conf`
-    - On Debian/Ubuntu, it's `/etc/amavis/conf.d/50-user`
-    - On OpenBSD, it's `/etc/amavisd.conf`
+
+- On RHEL/CentOS/Rocky, it's `/etc/amavisd/amavisd.conf`
+- On Debian/Ubuntu, it's `/etc/amavis/conf.d/50-user`
+- On OpenBSD, it's `/etc/amavisd.conf`
 
 ```
 @av_scanners_backup = ();
