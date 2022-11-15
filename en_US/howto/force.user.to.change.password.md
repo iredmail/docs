@@ -8,12 +8,14 @@
 
 ## How it works
 
-iRedMail configures Roundcube webmail to store last password change date while
-user changed password. For MySQL/MariaDB/PostgreSQL backends, it's stored in
-SQL database `vmail`, column `mailbox.passwordlastchange`. For LDAP backends,
-it's stored in LDAP attribute `shadowLastChange` of user account. If user
-didn't change password before, or user account is newly created, the password
-last change date will be set to `0000-00-00 00:00:00`.
+Roundcube webmail and SOGo groupware are configured to store password change
+date while user changed password.
+
+- For iRedMail SQL backends, the date is stored in SQL database `vmail`,
+  column `mailbox.passwordlastchange`. If user didn't change password before,
+  the password last change date will be set to `0000-00-00 00:00:00`.
+- For LDAP backends, it's stored in LDAP attribute `shadowLastChange` of user
+  account. If user didn't change password before, this attribute is absent.
 
 iRedAPD has plugin to force mail users to change password before sending email:
 
@@ -22,10 +24,11 @@ iRedAPD has plugin to force mail users to change password before sending email:
 * `ldap_force_change_password`: for LDAP backends (OpenLDAP and OpenBSD
   built-in LDAP server `ldapd(8)`).
 
-When user trying to send an email, iRedAPD will invoke this plugin to
-check password last change date stored in SQL/LDAP and compare
-it with current date. if password last change date is longer than specified
-days, this plugin rejects smtp session with specified message.
+When user trying to send an email, iRedAPD invokes this plugin to check
+password last change date stored in SQL/LDAP and compare it with current time,
+if it's longer than defined days (parameter `CHANGE_PASSWORD_DAYS`), this
+plugin rejects the smtp session with defined message (parameter
+`CHANGE_PASSWORD_MESSAGE`).
 
 ## How to enable iRedAPD plugin
 
@@ -67,3 +70,14 @@ There's a third-party Roundcube plugin can force user to change password.
 
 Roundcube will __ALWAYS__ redirect user to `Password` page (offered by official
 Roundcube plugin password) until user changed the password.
+
+## iRedAdmin-Pro: Don't set password last change date while creating new user
+
+iRedAdmin-Pro sets password last change date to the time when the account was
+created, if you don't want to set the time, please set parameter
+`SET_PASSWORD_CHANGE_DATE_FOR_NEW_USER` to `False` in config file
+`/opt/www/iredadmin/settings.py`, then restart `iredadmin` service:
+
+```
+SET_PASSWORD_CHANGE_DATE_FOR_NEW_USER = False
+```
