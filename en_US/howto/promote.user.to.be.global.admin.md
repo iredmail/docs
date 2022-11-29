@@ -4,6 +4,11 @@
 
 	 Check out the lightweight on-premises email archiving software developed by iRedMail team: [Spider Email Archiver](https://spiderd.io/).
 
+!!! warning
+
+    iRedAdmin open source edition supports only global admin, no per-domain
+    admin. iRedAdmin-Pro supports both.
+
 [TOC]
 
 ## Summary
