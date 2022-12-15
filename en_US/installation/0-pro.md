@@ -51,7 +51,7 @@ installation guides here: [Install iRedMail](./index.html#install).
 
 ### Supported Linux and BSD distribution releases
 
-Linux/BSD distribution releases supported by __iRedMail Easy__:
+Linux/BSD distribution releases supported by __iRedMail Pro__:
 
 Distribution | Release Versions
 --- |---
