@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>iRedMail Pro: Getting started</title>
+        <link rel="stylesheet" type="text/css" href="./css/markdown.css" />
+    </head>
+    <body>
+
+    <div id="navigation">
+    <a href="https://www.iredmail.org" target="_blank">
+        <img alt="iRedMail web site"
+             src="./images/logo-iredmail.png"
+             style="vertical-align: middle; height: 30px;"
+             />&nbsp;
+        <span>iRedMail</span>
+    </a>
+    &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><h1 id="iredmail-pro-getting-started">iRedMail Pro: Getting started</h1>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>Check out the lightweight on-premises email archiving software developed by iRedMail team: <a href="https://spiderd.io/">Spider Email Archiver</a>.</p>
+</div>
+<div class="toc">
+<ul>
+<li><a href="#iredmail-pro-getting-started">iRedMail Pro: Getting started</a><ul>
+<li><a href="#summary">Summary</a></li>
+<li><a href="#system-requirements">System Requirements</a><ul>
+<li><a href="#supported-linux-and-bsd-distribution-releases">Supported Linux and BSD distribution releases</a></li>
+<li><a href="#hardware-requirements">Hardware Requirements</a></li>
+</ul>
+</li>
+<li><a href="#download-and-run-the-installer">Download and run the installer</a></li>
+<li><a href="#choose-preferred-backend">Choose preferred backend</a></li>
+<li><a href="#choose-the-components-you-want-to-deploy">Choose the components you want to deploy</a></li>
+<li><a href="#required-settings">Required settings</a></li>
+<li><a href="#optional-settings">Optional settings</a></li>
+<li><a href="#review-and-deploy">Review and deploy</a></li>
+<li><a href="#see-also">See Also</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<ul>
+<li>All accounts and passwords generated during deployment are stored in
+  files under <code>/root/.iredmail/kv/</code> on your server, also organized in file
+  <code>/root/iRedMail/iRedMail.tips</code>.</li>
+<li>To migrate your existing iRedMail server to <strong>iRedMail Pro</strong>,
+  please check this tutorial:
+  <a href="./migrate.to.iredmail.easy.html">Migrate from iRedMail to iRedMail Easy platform</a>.</li>
+</ul>
+</div>
+<h2 id="summary">Summary</h2>
+<p><strong>iRedMail Pro</strong> is a web-based, on-premises iRedMail server installer and
+management admin panel.</p>
+<p>With iRedMail Pro, it's easy to deploy (or re-deploy) and keep the iRedMail
+server up to date.</p>
+<p>We encourage all users to deploy new iRedMail servers with this platform and
+keep the servers up to date.</p>
+<p>If you prefer classic downloadable iRedMail installer, you can find the
+installation guides here: <a href="./index.html#install">Install iRedMail</a>.</p>
+<h2 id="system-requirements">System Requirements</h2>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<ul>
+<li>iRedMail is designed to be deployed on a fresh / clean server, which means you
+  can not have other network services running on the server <strong>BEFORE</strong>
+  iRedMail installation.</li>
+<li>iRedMail will install and configure all required softwares automatically.</li>
+<li>
+<p>Many ISPs block port 25 by default, it's used for communication between
+  mail servers, it must be open, otherwise your server may be not able to
+  receive or / and send emails. Please contact your ISP to make sure it's
+  not blocked, or ask them to unblock.</p>
+<ul>
+<li>Amazon AWS EC2. Request to <a href="https://aws.amazon.com/premiumsupport/knowledge-center/ec2-port-25-throttle/">remove the throttle on port 25</a>.</li>
+<li>Google Cloud Platform.</li>
+<li>Microsoft Azure.</li>
+<li>Linode. Explained in the <a href="https://www.linode.com/blog/linode/a-new-policy-to-help-fight-spam/">blog post</a>,
+    you can open a support ticket to request the Linode team to open it. If you <a href="https://www.linode.com/?r=b4d04083428fb99ce452d84b57253d11692a0850">sign up to Linode with our reference</a>, iRedMail Team's Linode account will receive a credit of $15-20.00. Thanks.</li>
+<li>DigitalOcean. According to <a href="https://www.digitalocean.com/community/questions/port-25-465-is-blocked-how-can-i-enable-it">a post in their community</a>, <strong>SEEMS</strong> impossible to unblock port 25, that means you can <strong>NOT</strong> run mail server on DigitalOcean VPS.</li>
+</ul>
+</li>
+</ul>
+</div>
+<h3 id="supported-linux-and-bsd-distribution-releases">Supported Linux and BSD distribution releases</h3>
+<p>Linux/BSD distribution releases supported by <strong>iRedMail Easy</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Distribution</th>
+<th>Release Versions</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CentOS Stream</td>
+<td>8, 9</td>
+</tr>
+<tr>
+<td>Rocky Linux</td>
+<td>8, 9</td>
+</tr>
+<tr>
+<td>AlmaLinux</td>
+<td>8, 9</td>
+</tr>
+<tr>
+<td>Debian</td>
+<td>11</td>
+</tr>
+<tr>
+<td>Ubuntu</td>
+<td>20.04, 22.07</td>
+</tr>
+<tr>
+<td>OpenBSD</td>
+<td>7.2</td>
+</tr>
+</tbody>
+</table>
+<p>If you need to install iRedMail on FreeBSD, please use the <a href="https://www.iredmail.org/download.html">downloadable
+installer</a> instead.</p>
+<h3 id="hardware-requirements">Hardware Requirements</h3>
+<ul>
+<li>iRedMail requires at least <code>4 GB</code> memory for a low traffic production server.</li>
+<li>If you plan to run SOGo Groupware (which offers webmail, calendar (CalDAV),
+  contacts (CardDAV) and ActiveSync), you need a lot more memory. Consider 16
+  GB memory to support 500 ActiveSync clients.</li>
+</ul>
+<h2 id="download-and-run-the-installer">Download and run the installer</h2>
+<p>Run commands below on the server to download iRedMail Pro for Linux (x86_64):</p>
+<pre><code>wget -O /usr/local/bin/iredmail https://dl.iredmail.org/iredmail-2.0-beta1-linux-x86_64
+chmod +x /usr/local/bin/iredmail
+</code></pre>
+<p>Launch the installer:</p>
+<pre><code>/usr/local/bin/iredmail
+</code></pre>
+<p>It runs a web server on port <code>8080</code>, please visit it with a web browser and go
+through the wizard to finish the installation. Below are screenshots of the
+installation wizard.</p>
+<h2 id="choose-preferred-backend">Choose preferred backend</h2>
+<p>A backend is a SQL or LDAP database used to store mail domains and
+accounts. We suggest you choose the one you're familiar with for easier
+maintenance.</p>
+<p><img alt="" src="./images/pro/setup-backend.png" width="700px" /></p>
+<h2 id="choose-the-components-you-want-to-deploy">Choose the components you want to deploy</h2>
+<p>A component is a software (or software group, service) which implements some
+network service(s). On this page you can choose the components you want to
+deploy on your mail server.</p>
+<p><img alt="" src="./images/pro/setup-components.png" width="700px" /></p>
+<h2 id="required-settings">Required settings</h2>
+<p>Few settings are required to deploy a mail server.</p>
+<p><img alt="" src="./images/pro/setup-required-settings.png" width="700px" /></p>
+<h2 id="optional-settings">Optional settings</h2>
+<p>Depends on the components you chose to install, the settings on this page may
+be different.</p>
+<p><img alt="" src="./images/pro/setup-optional-settings.png" width="700px" /></p>
+<h2 id="review-and-deploy">Review and deploy</h2>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>All account passwords are generated during deployment are stored in
+files under <code>/root/.iredmail/kv/</code> on your server, also organized in file
+<code>/root/iRedMail/iRedMail.tips</code>.</p>
+</div>
+<p>Review the settings:</p>
+<p><img alt="" src="./images/pro/setup-review-and-deploy.png" width="700px" /></p>
+<p>And click <code>Confirm and Deploy</code> button to deploy immediately:</p>
+<p><img alt="" src="./images/pro/setup-deploy.png" width="700px" /></p>
+<h2 id="see-also">See Also</h2>
+<ul>
+<li><a href="./setup.dns.html">Setup DNS records for your iRedMail server</a></li>
+<li><a href="./letsencrypt.html">Request a free cert from Let's Encrypt</a></li>
+<li><a href="./index.html#mua">Configure mail client applications</a></li>
+</ul><div class="footer">
+    <p style="text-align: center; color: grey;">All documents are available in <a href="https://github.com/iredmail/docs/">GitHub repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://github.com/iredmail/docs/archive/master.zip">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
+</div></body></html>
