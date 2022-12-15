@@ -8,7 +8,7 @@
 
 !!! attention
 
-    - All accounts and passwords generated during deployment are stored in
+    - All account passwords are generated randomly during deployment, stored in
       files under `/root/.iredmail/kv/` on your server, also organized in file
       `/root/iRedMail/iRedMail.tips`.
     - To migrate your existing iRedMail server to __iRedMail Pro__,
@@ -124,7 +124,7 @@ be different.
 
 !!! attention
 
-    All account passwords are generated during deployment are stored in
+    All account passwords are generated randomly during deployment, stored in
     files under `/root/.iredmail/kv/` on your server, also organized in file
     `/root/iRedMail/iRedMail.tips`.
 
