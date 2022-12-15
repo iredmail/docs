@@ -88,8 +88,11 @@ Launch the installer:
 ```
 
 It runs a web server on port `8080`, please visit it with a web browser and go
-through the wizard to finish the installation. Below are screenshots of the
-installation wizard.
+through the wizard to finish the installation.
+
+After installation, it runs on port `7793`.
+
+Below are screenshots of the installation wizard.
 
 ## Choose preferred backend
 
