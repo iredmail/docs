@@ -59,7 +59,7 @@ CentOS Stream | 8, 9
 Rocky Linux | 8, 9
 AlmaLinux | 8, 9
 Debian | 11
-Ubuntu | 20.04, 22.07
+Ubuntu | 20.04, 22.04
 OpenBSD | 7.2
 
 If you need to install iRedMail on FreeBSD, please use the [downloadable
