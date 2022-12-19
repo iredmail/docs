@@ -6,6 +6,27 @@
 
 [TOC]
 
+## Version: 2022121901 (Dec 19, 2022) {: id=2022121901 }
+
+* Improvements:
+    - Dovecot: Do not enable quota-status service if mailboxes are stored in
+      NFS storage.
+
+* Fixed issues:
+    - [SpamAssassin] Use default score of rule `URIBL_BLACK`.
+    - Can not enable Bind DNS server on Ubuntu 22.04.
+    - [CentOS] Missing cyrus-sasl packages which causes Postfix doesn't
+      support PLAIN auth.
+    - [SOGo] Disable SOGo on Ubuntu 22.04 (no binary packages from upstream).
+    - [Roundcube] Enables separate management interface for mail forwardings.
+    - [Roundcube] Incorrect DES key length (was 32 characters, now 24).
+
+* Updated packages:
+    - iRedAdmin 2.1
+    - iRedAPD 5.1.2
+    - Fail2ban 1.0.2 (OpenBSD)
+    - netdata 1.37.1
+
 ## Version: 2022082201 (Aug 22, 2022) {: id=2022082201 }
 
 * Improvements:

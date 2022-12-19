@@ -23,6 +23,7 @@
 <div class="toc">
 <ul>
 <li><a href="#iredmail-easy-release-notes">iRedMail Easy: Release Notes</a><ul>
+<li><a href="#2022121901">Version: 2022121901 (Dec 19, 2022)</a></li>
 <li><a href="#2022082201">Version: 2022082201 (Aug 22, 2022)</a></li>
 <li><a href="#2022052001">Version: 2022052001 (May 20, 2022)</a></li>
 <li><a href="#2022031601">Version: 2022031601 (March 16, 2022)</a></li>
@@ -64,6 +65,37 @@
 </li>
 </ul>
 </div>
+<h2 id="2022121901">Version: 2022121901 (Dec 19, 2022)</h2>
+<ul>
+<li>
+<p>Improvements:</p>
+<ul>
+<li>Dovecot: Do not enable quota-status service if mailboxes are stored in
+  NFS storage.</li>
+</ul>
+</li>
+<li>
+<p>Fixed issues:</p>
+<ul>
+<li>[SpamAssassin] Use default score of rule <code>URIBL_BLACK</code>.</li>
+<li>Can not enable Bind DNS server on Ubuntu 22.04.</li>
+<li>[CentOS] Missing cyrus-sasl packages which causes Postfix doesn't
+  support PLAIN auth.</li>
+<li>[SOGo] Disable SOGo on Ubuntu 22.04 (no binary packages from upstream).</li>
+<li>[Roundcube] Enables separate management interface for mail forwardings.</li>
+<li>[Roundcube] Incorrect DES key length (was 32 characters, now 24).</li>
+</ul>
+</li>
+<li>
+<p>Updated packages:</p>
+<ul>
+<li>iRedAdmin 2.1</li>
+<li>iRedAPD 5.1.2</li>
+<li>Fail2ban 1.0.2 (OpenBSD)</li>
+<li>netdata 1.37.1</li>
+</ul>
+</li>
+</ul>
 <h2 id="2022082201">Version: 2022082201 (Aug 22, 2022)</h2>
 <ul>
 <li>
