@@ -8,6 +8,12 @@
 
 ## Version: 2022121901 (Dec 19, 2022) {: id=2022121901 }
 
+* Supports new distribution releases:
+    + CentOS Stream 9
+    + Rocky Linux 9
+    + AlmaLinux 9
+    + OpenBSD 7.2
+
 * Improvements:
     - Dovecot: Do not enable quota-status service if mailboxes are stored in
       NFS storage.
