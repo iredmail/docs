@@ -73,9 +73,9 @@ deliver the same email, and your server will accept it after few retries.</p>
 <p>Sample error message in Postfix log file:</p>
 <blockquote>
 <p>Jun 24 11:57:13 mx1 postfix/smtpd[2667]: NOQUEUE: reject: RCPT from
-mail.mydomain.com[1.2.3.4]: 553 5.7.1 &lt;sombody@my-domain.com>: <strong class="red">Sender address
-rejected: not logged in</strong>; from=&lt;sombody@my-domain.com>
-to=&lt;receipent@receipentdomain.com> proto=ESMTP helo=&lt;client_helo.com></p>
+mail.mydomain.com[1.2.3.4]: 553 5.7.1 &lt;sombody@my-domain.com&gt;: <strong class="red">Sender address
+rejected: not logged in</strong>; from=&lt;sombody@my-domain.com&gt;
+to=&lt;receipent@receipentdomain.com&gt; proto=ESMTP helo=&lt;client_helo.com&gt;</p>
 </blockquote>
 <p>This error is caused by incorrectly configured mail client application, not a
 server issue.</p>
@@ -215,8 +215,8 @@ Postfix config file <code>/etc/postfix/main.cf</code>:</p>
 <blockquote>
 <p>Sep 22 08:51:03 mail postfix/smtpd[22067]: NOQUEUE: reject: RCPT from
 dslb-092-074-062-133.092.074.pools.vodafone-ip.de[92.74.62.133]: 504 5.5.2
-&lt;EHSGmbHLUCASPC>: <strong>Helo command rejected: need fully-qualified hostname</strong>;
-from=<a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#117;&#115;&#101;&#114;&#64;&#100;&#111;&#109;&#97;&#105;&#110;&#45;&#97;&#46;&#99;&#111;&#109;">&#117;&#115;&#101;&#114;&#64;&#100;&#111;&#109;&#97;&#105;&#110;&#45;&#97;&#46;&#99;&#111;&#109;</a> to=<a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#117;&#115;&#101;&#114;&#64;&#100;&#111;&#109;&#97;&#105;&#110;&#45;&#98;&#46;&#99;&#111;&#109;">&#117;&#115;&#101;&#114;&#64;&#100;&#111;&#109;&#97;&#105;&#110;&#45;&#98;&#46;&#99;&#111;&#109;</a> proto=ESMTP helo=&lt;EHSGmbHLUCASPC></p>
+&lt;EHSGmbHLUCASPC&gt;: <strong>Helo command rejected: need fully-qualified hostname</strong>;
+from=<a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#117;&#115;&#101;&#114;&#64;&#100;&#111;&#109;&#97;&#105;&#110;&#45;&#97;&#46;&#99;&#111;&#109;">&#117;&#115;&#101;&#114;&#64;&#100;&#111;&#109;&#97;&#105;&#110;&#45;&#97;&#46;&#99;&#111;&#109;</a> to=<a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#117;&#115;&#101;&#114;&#64;&#100;&#111;&#109;&#97;&#105;&#110;&#45;&#98;&#46;&#99;&#111;&#109;">&#117;&#115;&#101;&#114;&#64;&#100;&#111;&#109;&#97;&#105;&#110;&#45;&#98;&#46;&#99;&#111;&#109;</a> proto=ESMTP helo=&lt;EHSGmbHLUCASPC&gt;</p>
 </blockquote>
 <p>According to RFC document, HELO identity must be a FQDN (fully-qualified
 hostname). Sender sends <code>EHSGmbHLUCASPC</code> as HELO hostname, but it's not a FQDN.
