@@ -75,19 +75,19 @@ either open source edition or iRedAdmin-Pro).
 For iRedAdmin open source edition:
 
 ```
-# cd /root/
-# tar zxf iRedAdmin-x.y.z.tar.gz
-# cd iRedAdmin-x.y.z/tools/
-# bash upgrade_iredadmin.sh
+cd /root/
+tar zxf iRedAdmin-x.y.z.tar.gz
+cd iRedAdmin-x.y.z/tools/
+sudo bash upgrade_iredadmin.sh
 ```
 
 For iRedAdmin-Pro:
 
 ```
-# cd /root/
-# tar xjf iRedAdmin-Pro-x.y.z.tar.bz2
-# cd iRedAdmin-Pro-x.y.z/tools/
-# bash upgrade_iredadmin.sh
+cd /root/
+tar xjf iRedAdmin-Pro-x.y.z.tar.bz2
+cd iRedAdmin-Pro-x.y.z/tools/
+sudo bash upgrade_iredadmin.sh
 ```
 
 That's all. If it doesn't work for you, please post a new topic in our
