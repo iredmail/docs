@@ -61,10 +61,11 @@ is available through the ticket system.</p>
   existing files/configurations although it will backup files before
   modifying, and it may not be working as expected.</li>
 <li>
-<p>Many ISPs block port 25 by default, it's used for communication between
-  mail servers, it must be open, otherwise your server may be not able to
-  receive or / and send emails. Please contact your ISP to make sure it's
-  not blocked, or ask them to unblock.</p>
+<p><strong>Port 25 is required</strong> by mail server but many ISPs block it by default.</p>
+<p>Port 25 is used for communication between mail servers, <strong>it must be open</strong>,
+otherwise your mail server won't be able to receive and send emails.
+Please contact your ISP to make sure it's not blocked, or ask them to
+unblock it.</p>
 <ul>
 <li>Linode. Explained in the <a href="https://www.linode.com/blog/linode/a-new-policy-to-help-fight-spam/">blog post</a>,
     you can open a support ticket to ask the Linode team to open it. If you <a href="https://www.linode.com/?r=b4d04083428fb99ce452d84b57253d11692a0850">sign up to Linode with our reference</a>, iRedMail Team's Linode account will receive a credit of $15-20.00. Thanks.</li>
@@ -81,7 +82,7 @@ is available through the ticket system.</p>
 <li>A <strong>FRESH</strong>, working Debian/Ubuntu Linux. Supported releases are listed on
   <a href="https://www.iredmail.org/download.html">Download</a> page.</li>
 <li>At least <code>4 GB</code> memory is required for a low traffic production mail server
-  with spam/virus scanning enabled..</li>
+  with spam/virus scanning enabled.</li>
 <li>Make sure 3 UID/GID are not used by other user/group: 2000, 2001, 2002.</li>
 </ul>
 <p>Notes:</p>

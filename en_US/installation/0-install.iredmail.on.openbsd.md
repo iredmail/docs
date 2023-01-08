@@ -24,10 +24,12 @@
       and configure them for you automatically. Otherwise it may override your
       existing files/configurations although it will backup files before
       modifying, and it may not be working as expected.
-    * Many ISPs block port 25 by default, it's used for communication between
-      mail servers, it must be open, otherwise your server may be not able to
-      receive or / and send emails. Please contact your ISP to make sure it's
-      not blocked, or ask them to unblock.
+    * __Port 25 is required__ by mail server but many ISPs block it by default.
+
+        Port 25 is used for communication between mail servers, __it must be open__,
+        otherwise your mail server won't be able to receive and send emails.
+        Please contact your ISP to make sure it's not blocked, or ask them to
+        unblock it.
 
           - Linode. Explained in the [blog post](https://www.linode.com/blog/linode/a-new-policy-to-help-fight-spam/),
             you can open a support ticket to ask the Linode team to open it. If you [sign up to Linode with our reference](https://www.linode.com/?r=b4d04083428fb99ce452d84b57253d11692a0850), iRedMail Team's Linode account will receive a credit of $15-20.00. Thanks.
@@ -41,7 +43,7 @@ To install iRedMail on OpenBSD, you need:
 * A __FRESH__, working OpenBSD system. Supported releases are listed on
   [Download](https://www.iredmail.org/download.html) page.
 * At least `4 GB` memory is required for a low traffic production mail server
-  with spam/virus scanning enabled..
+  with spam/virus scanning enabled.
 * Required OpenBSD installation file sets are (replace `[XX]` by the real
   OpenBSD release number):
 

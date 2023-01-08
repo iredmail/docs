@@ -35,7 +35,7 @@ number it is used to call someone.
 
 * `TTL`: The TTL (Time to Live) is the amount of time your record will stay
 in cache on systems requesting your record (resolving nameservers, browsers,
-etc.). The TTL is set in seconds, so 60 is one minute, 1800 is 30 minutes, etc..
+etc.). The TTL is set in seconds, so 60 is one minute, 1800 is 30 minutes, etc.
 
 Systems that have a static IP should usually have a TTL of 1800 or higher.
 Systems that have a dynamic IP should usually have a TTL of 1800 of less.
