@@ -33,11 +33,11 @@ file, then login to SQL server as root user and import this file. for example:
 
 ```shell
 # cd iRedMail-0.9.6/tools/
-# bash create_mail_user_SQL.sh user1@example.com 'plain_password' > user.sql
+# bash create_mail_user_SQL.sh user1@example.com 'plain_password' > /tmp/user.sql
 
 # mysql -uroot -p
 sql> USE vmail;
-sql> SOURCE user.sql;
+sql> SOURCE /tmp/user.sql;
 ```
 
 * PostgreSQL:
@@ -48,7 +48,7 @@ sql> SOURCE user.sql;
 
 # su - postgres
 $ psql -d vmail
-sql> \i output.sql;
+sql> \i /tmp/user.sql;
 ```
 
 Don't forget to remove /tmp/user.sql.
