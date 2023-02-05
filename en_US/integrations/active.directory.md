@@ -93,6 +93,13 @@ __NOTES__:
 Make sure this newly created user is able to connect to AD server with
 below command on iRedMail server:
 
+!!! info
+
+    `-h` is deprecated in new OpenLDAP, please use `-H` instead. For example,
+    `-H ldap://ad.example.com`, `-H ldap://ad.example.com:389`,
+    `-H ldaps://ad.example.com:636`.
+
+
 ```shell
 # ldapsearch -x -h ad.example.com -D 'vmail' -W -b 'cn=users,dc=example,dc=com'
 Enter password: password_of_vmail

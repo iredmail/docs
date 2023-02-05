@@ -95,10 +95,10 @@ mx.example.com
 
 * iRedMail needs official Debian/Ubuntu apt repositories, please enable them in
   `/etc/apt/sources.list`.
-* Install package `gzip` so that you can uncompress downloaded iRedMail package.
+* Install packages required by iRedMail installer:
 
 ```
-sudo apt-get install gzip
+sudo apt-get install gzip dialog
 ```
 
 ### Download the latest release of iRedMail

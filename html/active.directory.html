@@ -136,6 +136,12 @@ same account <code>vmail</code> in AD, with strong and complex password.</p>
 </ul>
 <p>Make sure this newly created user is able to connect to AD server with
 below command on iRedMail server:</p>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p><code>-h</code> is deprecated in new OpenLDAP, please use <code>-H</code> instead. For example,
+<code>-H ldap://ad.example.com</code>, <code>-H ldap://ad.example.com:389</code>,
+<code>-H ldaps://ad.example.com:636</code>.</p>
+</div>
 <pre><code class="language-shell"># ldapsearch -x -h ad.example.com -D 'vmail' -W -b 'cn=users,dc=example,dc=com'
 Enter password: password_of_vmail
 </code></pre>

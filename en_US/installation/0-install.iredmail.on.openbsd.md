@@ -120,7 +120,7 @@ iRedMail is wrote in Bash shell scripting language, so bash shell interpreter
 is required, install it first:
 
 ```
-pkg_add bash
+pkg_add bash dialog
 ```
 
 ### Download the latest release of iRedMail
