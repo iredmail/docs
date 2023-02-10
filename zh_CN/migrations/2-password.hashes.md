@@ -10,7 +10,7 @@
 
 在 iRedMail 中，Doevcot 被配置为 Postfix 的 SASL 认证服务器，因此，Dovecot 支持
 的所有密码格式都可以在 Postfix (SMTP 服务）中使用。 查看 Dovecot 的 wiki 页面
-[Password Schemes](http://wiki2.dovecot.org/Authentication/PasswordSchemes)
+[Password Schemes](https://doc.dovecot.org/configuration_manual/authentication/password_schemes/)
 获取更多信息。
 
 iRedAdmin-Pro 支持以下密码格式，因此你可以使用给用户使用下列任意一种。
