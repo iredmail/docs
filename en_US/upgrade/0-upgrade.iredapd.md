@@ -27,8 +27,8 @@ Run commands below on your iRedMail server:
 
 ```
 cd /root
-wget -O iRedAPD-5.1.tar.gz https://github.com/iredmail/iRedAPD/archive/5.1.tar.gz
-tar zxf iRedAPD-5.1.tar.gz
+wget -O iRedAPD-5.2.tar.gz https://github.com/iredmail/iRedAPD/archive/5.2.tar.gz
+tar zxf iRedAPD-5.2.tar.gz
 cd iRedAPD-5.1/tools/
 bash upgrade_iredapd.sh
 ```
@@ -37,4 +37,5 @@ That's all.
 
 ## See Also
 
+* [Manage iRedAPD (white/blacklists, greylisting, throttling and more)](./manage.iredapd.html)
 * [Enable SRS (Sender Rewriting Scheme) support](./srs.html)
