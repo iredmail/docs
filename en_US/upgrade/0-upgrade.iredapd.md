@@ -29,7 +29,7 @@ Run commands below on your iRedMail server:
 cd /root
 wget -O iRedAPD-5.2.tar.gz https://github.com/iredmail/iRedAPD/archive/5.2.tar.gz
 tar zxf iRedAPD-5.2.tar.gz
-cd iRedAPD-5.1/tools/
+cd iRedAPD-5.2/tools/
 bash upgrade_iredapd.sh
 ```
 
