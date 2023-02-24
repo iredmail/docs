@@ -92,7 +92,11 @@ server, but sender doesn't perform SMTP AUTH to send email.
    `/opt/iredapd/settings.py`, parameter `ALLOWED_FORGED_SENDERS` like below:
 
     ```
+    # Single address.
     ALLOWED_FORGED_SENDERS = ['user@domain.com']
+
+    # Or, whole domain.
+    ALLOWED_FORGED_SENDERS = ['domain.com']
     ```
 
     !!! warning
