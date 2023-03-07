@@ -150,7 +150,7 @@ files under `/opt/iredmail/custom/<software>/`.
     if they don't exist, iRedMail Easy will set correct owner/group and
     permission for them during deployment.
 
-    If you're lasy and don't want to check files one by one, it's ok to simply
+    If you're lazy and don't want to check files one by one, it's ok to simply
     copy these files from `/etc/postfix/` to `/opt/iredmail/custom/postfix/`
     directly, and (optionally) remove non-custom settings later.
 
