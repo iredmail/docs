@@ -145,8 +145,8 @@ Sample autoconfig/autodiscover record:
 ```
 NAME            PRIORITY    TYPE    DATA
 
-autodiscover.mydomain.com.   10          mx      mail.mydomain.com.
-autoconfig.mydomain.com.   10          mx      mail.mydomain.com.
+autodiscover.mydomain.com.   10          A      mail.mydomain.com.
+autoconfig.mydomain.com.   10          A      mail.mydomain.com.
 ```
 
 ## SPF record for the mail domain name {: id="spf" }
