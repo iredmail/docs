@@ -20,10 +20,11 @@
 __iRedMail Pro__ is a web-based, on-premises iRedMail server installer and
 management admin panel.
 
-With iRedMail Pro, it's easy to deploy (or re-deploy) and keep the iRedMail
-server up to date.
+With iRedMail Pro, it's easy to deploy (and re-deploy) and keep the server up
+to date with just few clicks, you can also manage or tune (mail service
+related) server settings on web UI.
 
-We encourage all users to deploy new iRedMail servers with this platform and
+We encourage all users to deploy new iRedMail servers with iRedMail Pro and
 keep the servers up to date.
 
 If you prefer classic downloadable iRedMail installer, you can find the
@@ -67,7 +68,8 @@ installer](https://www.iredmail.org/download.html) instead.
 
 ### Hardware Requirements
 
-* iRedMail requires at least `4 GB` memory for a low traffic production server.
+* iRedMail requires at least `4 GB` memory for a low traffic production server
+  with spam/virus scanning enabled.
 * If you plan to run SOGo Groupware (which offers webmail, calendar (CalDAV),
   contacts (CardDAV) and ActiveSync), you need a lot more memory. Consider 16
   GB memory to support 500 ActiveSync clients.
