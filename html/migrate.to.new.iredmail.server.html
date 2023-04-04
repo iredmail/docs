@@ -30,6 +30,7 @@
 </ul>
 </li>
 <li><a href="#migrate-mailboxes-maildir-format">Migrate mailboxes (Maildir format)</a></li>
+<li><a href="#migrate-sieve-rules">Migrate sieve rules</a></li>
 <li><a href="#migrate-mlmmj-mailing-lists">Migrate (mlmmj) mailing lists</a></li>
 <li><a href="#migrate-roundcube-webmail-data">Migrate Roundcube webmail data</a></li>
 <li><a href="#migrate-sogo-groupware-data">Migrate SOGo Groupware data</a><ul>
@@ -167,6 +168,11 @@ mysql&gt; SELECT CONCAT(storagebasedirectory, '/', storagenode, '/', maildir) FR
 </ul>
 <pre><code>ldapsearch -x -o ldif-wrap=no -D 'cn=Manager,dc=xx,dc=xx' -W -b 'o=domains,dc=xx,dc=xx' &quot;(mail=user@domain.com)&quot; homeDirectory
 </code></pre>
+<h2 id="migrate-sieve-rules">Migrate sieve rules</h2>
+<ul>
+<li>Global sieve rule is <code>/var/vmail/sieve/dovecot.sieve</code>.</li>
+<li>Per-user sieve rules are stored in user's own mailbox. For example: <code>/var/vmail/vmail1/example.com/z/h/b/zhb-2023.04.04.01.24.26/sieve</code>.</li>
+</ul>
 <h2 id="migrate-mlmmj-mailing-lists">Migrate (mlmmj) mailing lists</h2>
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>

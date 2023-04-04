@@ -129,6 +129,11 @@ mysql> SELECT CONCAT(storagebasedirectory, '/', storagenode, '/', maildir) FROM 
 ldapsearch -x -o ldif-wrap=no -D 'cn=Manager,dc=xx,dc=xx' -W -b 'o=domains,dc=xx,dc=xx' "(mail=user@domain.com)" homeDirectory
 ```
 
+## Migrate sieve rules
+
+- Global sieve rule is `/var/vmail/sieve/dovecot.sieve`.
+- Per-user sieve rules are stored in user's own mailbox. For example: `/var/vmail/vmail1/example.com/z/h/b/zhb-2023.04.04.01.24.26/sieve`.
+
 ## Migrate (mlmmj) mailing lists
 
 !!! attention
