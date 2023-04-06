@@ -30,11 +30,16 @@
 </ul>
 </li>
 <li><a href="#download-and-run-the-installer">Download and run the installer</a></li>
+<li><a href="#installation">Installation</a><ul>
 <li><a href="#choose-preferred-backend">Choose preferred backend</a></li>
 <li><a href="#choose-the-components-you-want-to-deploy">Choose the components you want to deploy</a></li>
 <li><a href="#required-settings">Required settings</a></li>
 <li><a href="#optional-settings">Optional settings</a></li>
 <li><a href="#review-and-deploy">Review and deploy</a></li>
+<li><a href="#setup-complete">Setup complete</a></li>
+<li><a href="#login-to-admin-panel">Login to admin panel</a></li>
+</ul>
+</li>
 <li><a href="#see-also">See Also</a></li>
 </ul>
 </li>
@@ -143,34 +148,50 @@ chmod +x /usr/local/bin/iredmail
 through the wizard to finish the installation.</p>
 <p>After installation, it runs on port <code>7793</code>.</p>
 <p>Below are screenshots of the installation wizard.</p>
-<h2 id="choose-preferred-backend">Choose preferred backend</h2>
+<h2 id="installation">Installation</h2>
+<h3 id="choose-preferred-backend">Choose preferred backend</h3>
 <p>A backend is a SQL or LDAP database used to store mail domains and
-accounts. We suggest you choose the one you're familiar with for easier
-maintenance.</p>
+accounts. There're not big differences between them, so we suggest you choose
+the one you're familiar with for easier maintenance.</p>
 <p><img alt="" src="./images/pro/setup-backend.png" width="700px" /></p>
-<h2 id="choose-the-components-you-want-to-deploy">Choose the components you want to deploy</h2>
+<h3 id="choose-the-components-you-want-to-deploy">Choose the components you want to deploy</h3>
 <p>A component is a software (or software group, service) which implements some
 network service(s). On this page you can choose the components you want to
 deploy on your mail server.</p>
 <p><img alt="" src="./images/pro/setup-components.png" width="700px" /></p>
-<h2 id="required-settings">Required settings</h2>
+<h3 id="required-settings">Required settings</h3>
 <p>Few settings are required to deploy a mail server.</p>
+<p>Note: while typing, it will validate the input value, please fill and wait for
+1-3 seconds until it finished the validation.</p>
 <p><img alt="" src="./images/pro/setup-required-settings.png" width="700px" /></p>
-<h2 id="optional-settings">Optional settings</h2>
+<h3 id="optional-settings">Optional settings</h3>
 <p>Depends on the components you chose to install, the settings on this page may
 be different.</p>
 <p><img alt="" src="./images/pro/setup-optional-settings.png" width="700px" /></p>
-<h2 id="review-and-deploy">Review and deploy</h2>
+<h3 id="review-and-deploy">Review and deploy</h3>
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>
-<p>All account passwords are generated randomly during deployment, stored in
-files under <code>/root/.iredmail/kv/</code> on your server, also organized in file
-<code>/root/iRedMail/iRedMail.tips</code>.</p>
+<p>All account passwords are generated randomly during deployment, and stored
+in files under <code>/root/.iredmail/kv/</code> on your own server, also organized in
+file <code>/root/iRedMail/iRedMail.tips</code> for your reference.</p>
 </div>
 <p>Review the settings:</p>
 <p><img alt="" src="./images/pro/setup-review-and-deploy.png" width="700px" /></p>
-<p>And click <code>Confirm and Deploy</code> button to deploy immediately:</p>
+<p>Click <code>Confirm and Deploy</code> button to deploy immediately:</p>
 <p><img alt="" src="./images/pro/setup-deploy.png" width="700px" /></p>
+<h3 id="setup-complete">Setup complete</h3>
+<p>Once setup finished successfully, you should see info for login to admin panel.
+Please visit the URL and login with given username and password.</p>
+<p>Note: This is a global admin which has all privileges.</p>
+<p><img alt="" src="./images/pro/setup-complete.png" width="500px" /></p>
+<h3 id="login-to-admin-panel">Login to admin panel</h3>
+<p>After logged into admin panel, you can manage software components, tune server
+settings, manage mail accounts, etc.</p>
+<p><img alt="" src="./images/pro/components.png" width="700px" />
+<br/>
+<img alt="" src="./images/pro/server-settings.png" width="700px" />
+<br/>
+<img alt="" src="./images/pro/domains.png" width="700px" /></p>
 <h2 id="see-also">See Also</h2>
 <ul>
 <li><a href="./setup.dns.html">Setup DNS records for your iRedMail server</a></li>

@@ -96,15 +96,17 @@ After installation, it runs on port `7793`.
 
 Below are screenshots of the installation wizard.
 
-## Choose preferred backend
+## Installation
+
+### Choose preferred backend
 
 A backend is a SQL or LDAP database used to store mail domains and
-accounts. We suggest you choose the one you're familiar with for easier
-maintenance.
+accounts. There're not big differences between them, so we suggest you choose
+the one you're familiar with for easier maintenance.
 
 ![](./images/pro/setup-backend.png){: width="700px" }
 
-## Choose the components you want to deploy
+### Choose the components you want to deploy
 
 A component is a software (or software group, service) which implements some
 network service(s). On this page you can choose the components you want to
@@ -112,34 +114,57 @@ deploy on your mail server.
 
 ![](./images/pro/setup-components.png){: width="700px" }
 
-## Required settings
+### Required settings
 
 Few settings are required to deploy a mail server.
 
+Note: while typing, it will validate the input value, please fill and wait for
+1-3 seconds until it finished the validation.
+
 ![](./images/pro/setup-required-settings.png){: width="700px" }
 
-## Optional settings
+### Optional settings
 
 Depends on the components you chose to install, the settings on this page may
 be different.
 
 ![](./images/pro/setup-optional-settings.png){: width="700px" }
 
-## Review and deploy
+### Review and deploy
 
 !!! attention
 
-    All account passwords are generated randomly during deployment, stored in
-    files under `/root/.iredmail/kv/` on your server, also organized in file
-    `/root/iRedMail/iRedMail.tips`.
+    All account passwords are generated randomly during deployment, and stored
+    in files under `/root/.iredmail/kv/` on your own server, also organized in
+    file `/root/iRedMail/iRedMail.tips` for your reference.
 
 Review the settings:
 
 ![](./images/pro/setup-review-and-deploy.png){: width="700px" }
 
-And click `Confirm and Deploy` button to deploy immediately:
+Click `Confirm and Deploy` button to deploy immediately:
 
 ![](./images/pro/setup-deploy.png){: width="700px" }
+
+### Setup complete
+
+Once setup finished successfully, you should see info for login to admin panel.
+Please visit the URL and login with given username and password.
+
+Note: This is a global admin which has all privileges.
+
+![](./images/pro/setup-complete.png){: width="500px" }
+
+### Login to admin panel
+
+After logged into admin panel, you can manage software components, tune server
+settings, manage mail accounts, etc.
+
+![](./images/pro/components.png){: width="700px" }
+<br/>
+![](./images/pro/server-settings.png){: width="700px" }
+<br/>
+![](./images/pro/domains.png){: width="700px" }
 
 ## See Also
 
