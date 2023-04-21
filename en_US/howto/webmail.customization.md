@@ -31,9 +31,9 @@ $config['skin_logo'] = '...';   // Please read the comment lines in
 ### Logo image
 
 You can set custom logo image displayed on the login page of SOGo by replacing
-file `sogo-logo.png`:
+file `sogo-full.svg`:
 
-* On RHEL/CentOS, it's `/usr/lib64/GNUstep/SOGo/WebServerResources/img/sogo-logo.png`
-* On Debian/Ubuntu, it's `/usr/lib/GNUstep/SOGo/WebServerResources/img/sogo-logo.png`
-* On FreeBSD, it's `/usr/local/GNUstep/Local/Library/SOGo/WebServerResources/img/sogo-logo.png`.
-* On OpenBSD, it's `/usr/local/lib/GNUstep/SOGo/WebServerResources/img/sogo-logo.png`.
+* On RHEL/CentOS: `/usr/lib64/GNUstep/SOGo/WebServerResources/img/sogo-full.svg`
+* On Debian/Ubuntu, it's `/usr/lib/GNUstep/SOGo/WebServerResources/img/sogo-full.svg`
+* On FreeBSD, it's `/usr/local/GNUstep/Local/Library/SOGo/WebServerResources/img/sogo-full.svg`.
+* On OpenBSD, it's `/usr/local/lib/GNUstep/SOGo/WebServerResources/img/sogo-full.svg`.

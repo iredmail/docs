@@ -1,6 +1,11 @@
 """Convert Markdown to HTML file.
 
-Required Markdown module: http://pypi.python.org/pypi/Markdown/2.1.1
+Required Python modules:
+
+    pip3 install Markdown markdown-checklist
+
+- http://pypi.python.org/pypi/Markdown
+- https://github.com/FND/markdown-checklist
 """
 
 # Usage:
@@ -10,7 +15,6 @@ import sys
 import subprocess
 import markdown
 
-# https://github.com/FND/markdown-checklist
 from markdown_checklist.extension import ChecklistExtension
 
 # Markdown extensions
