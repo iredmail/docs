@@ -210,12 +210,31 @@ It's necessary to set the permission to 0755 for other applications to access th
 <pre><code>chmod 0755 /etc/letsencrypt/{live,archive}
 </code></pre>
 <h2 id="renew-the-cert-automatically">Renew the cert automatically</h2>
-<p>You can setup a daily cron job to run command <code>certbot renew</code> to renew all
-existing ssl certs which will expire in less than 30 days. We need its
-<code>--post-hook</code> argument to restart network services to load renewed ssl certs.</p>
-<p>A sample cron job that runs at 3:01AM everyday, and restart
+<p>Cert can be renewed manually with command <code>certbot renew</code>, or run same command
+in a daily or weekly cron job to renew automatically. Only those certs which
+expires in less than 30 days will be renewed. Applications use ssl cert must
+be restarted to load renewed cert files.</p>
+<p>If cert was renewed, private key <code>/etc/letsencrypt/live/&lt;domain&gt;/privkey.pem</code>
+is re-created and linked to file under <code>/etc/letsencrypt/archive/&lt;domain&gt;/privkey&lt;X&gt;.pem</code>
+(where <code>&lt;X&gt;</code> is a digit number), but all files linked to
+<code>/etc/letsencrypt/live/&lt;domain&gt;/privkey.pem</code> were left to the old one,
+so we must update all files linked to <code>/etc/letsencrypt/live/&lt;domain&gt;/privkey.pem</code>
+with argument <code>--post-hook</code> right after renewed to make sure they're linked to
+correct one.</p>
+<p>Here's a sample cron job that runs at 3:01AM everyday, and restart
 postfix/nginx/dovecot after renewed:</p>
-<pre><code>1   3   *   *   *   certbot renew --post-hook '/usr/sbin/service postfix restart; /usr/sbin/service nginx restart; /usr/sbin/service dovecot restart'
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<ul>
+<li>Replace <code>&lt;domain&gt;</code> by the real domain name.</li>
+<li>Replace <code>/opt/iredmail/ssl/key.pem</code> by the real linked private key file path on your server.<ul>
+<li>On CentOS/Rocky, it's <code>/etc/pki/tls/private/iRedMail.key</code> or <code>/opt/iredmail/ssl/key.pem</code> (deployed with iRedMail Easy platform).</li>
+<li>On Debian/Ubuntu, FreeBSD and OpenBSD, it's <code>/etc/ssl/private/iRedMail.key</code> or <code>/opt/iredmail/ssl/key.pem</code> (deployed with iRedMail Easy platform).</li>
+</ul>
+</li>
+</ul>
+</div>
+<pre><code>1 3 * * * certbot renew --post-hook 'ln -sf /etc/letsencrypt/live/&lt;domain&gt;/privkey.pem /opt/iredmail/ssl/key.pem; /usr/sbin/service postfix restart; /usr/sbin/service nginx restart; /usr/sbin/service dovecot restart'
 </code></pre>
 <h2 id="use-lets-encrypt-cert">Use Let's Encrypt cert</h2>
 <p>The easiest and quickest way to use Let's Encrypt cert is creating symbol links

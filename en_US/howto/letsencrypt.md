@@ -180,15 +180,31 @@ chmod 0755 /etc/letsencrypt/{live,archive}
 
 ## Renew the cert automatically
 
-You can setup a daily cron job to run command `certbot renew` to renew all
-existing ssl certs which will expire in less than 30 days. We need its
-`--post-hook` argument to restart network services to load renewed ssl certs.
+Cert can be renewed manually with command `certbot renew`, or run same command
+in a daily or weekly cron job to renew automatically. Only those certs which
+expires in less than 30 days will be renewed. Applications use ssl cert must
+be restarted to load renewed cert files.
 
-A sample cron job that runs at 3:01AM everyday, and restart
+If cert was renewed, private key `/etc/letsencrypt/live/<domain>/privkey.pem`
+is re-created and linked to file under `/etc/letsencrypt/archive/<domain>/privkey<X>.pem`
+(where `<X>` is a digit number), but all files linked to
+`/etc/letsencrypt/live/<domain>/privkey.pem` were left to the old one,
+so we must update all files linked to `/etc/letsencrypt/live/<domain>/privkey.pem`
+with argument `--post-hook` right after renewed to make sure they're linked to
+correct one.
+
+Here's a sample cron job that runs at 3:01AM everyday, and restart
 postfix/nginx/dovecot after renewed:
 
+!!! attention
+
+    - Replace `<domain>` by the real domain name.
+    - Replace `/opt/iredmail/ssl/key.pem` by the real linked private key file path on your server.
+        - On CentOS/Rocky, it's `/etc/pki/tls/private/iRedMail.key` or `/opt/iredmail/ssl/key.pem` (deployed with iRedMail Easy platform).
+        - On Debian/Ubuntu, FreeBSD and OpenBSD, it's `/etc/ssl/private/iRedMail.key` or `/opt/iredmail/ssl/key.pem` (deployed with iRedMail Easy platform).
+
 ```
-1   3   *   *   *   certbot renew --post-hook '/usr/sbin/service postfix restart; /usr/sbin/service nginx restart; /usr/sbin/service dovecot restart'
+1 3 * * * certbot renew --post-hook 'ln -sf /etc/letsencrypt/live/<domain>/privkey.pem /opt/iredmail/ssl/key.pem; /usr/sbin/service postfix restart; /usr/sbin/service nginx restart; /usr/sbin/service dovecot restart'
 ```
 
 ## Use Let's Encrypt cert
