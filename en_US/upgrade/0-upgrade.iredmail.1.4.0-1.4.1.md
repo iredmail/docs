@@ -319,6 +319,7 @@ under `/etc/postfix/pgsql/`.
 
 After updated `/tmp/sogo.pgsql`, please connect to PostgreSQL server as
 `postgres` user and import the SQL file:
+
 * on Linux, it's `postgres` user
 * on FreeBSD, it's `pgsql` user
 * on OpenBSD, it's `_postgresql` user

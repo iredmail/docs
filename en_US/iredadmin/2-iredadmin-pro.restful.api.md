@@ -110,8 +110,6 @@ Notes:
     `numberOfUsers` | Max number of mail user accounts | `numberOfUsers=20`
     `numberOfAliases` | Max number of mail alias accounts | `numberOfAliases=30`
     `numberOfLists` | Max number of mailing list accounts (Available in LDAP backends)| `numberOfLists=40`
-    `senderBcc` | Per-domain sender bcc | `senderBcc=user@domain.com`
-    `recipientBcc` | Per-domain recipient bcc | `recipientBcc=user@domain.com`
 
     </div>
 

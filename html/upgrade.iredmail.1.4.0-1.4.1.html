@@ -312,10 +312,12 @@ chmod +r /tmp/sogo.pgsql
 the real password of SQL user <code>vmail</code>. You can find the password in any file
 under <code>/etc/postfix/pgsql/</code>.</p>
 <p>After updated <code>/tmp/sogo.pgsql</code>, please connect to PostgreSQL server as
-<code>postgres</code> user and import the SQL file:
-* on Linux, it's <code>postgres</code> user
-* on FreeBSD, it's <code>pgsql</code> user
-* on OpenBSD, it's <code>_postgresql</code> user</p>
+<code>postgres</code> user and import the SQL file:</p>
+<ul>
+<li>on Linux, it's <code>postgres</code> user</li>
+<li>on FreeBSD, it's <code>pgsql</code> user</li>
+<li>on OpenBSD, it's <code>_postgresql</code> user</li>
+</ul>
 <pre><code>su - postgres
 psql -d sogo &lt; /tmp/sogo.pgsql
 </code></pre>
