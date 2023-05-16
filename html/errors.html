@@ -28,12 +28,6 @@
 <li><a href="#sender-address-rejected-not-logged-in">Sender address rejected: not logged in</a></li>
 <li><a href="#sender-address-rejected-not-owned-by-user-userdomainltd">Sender address rejected: not owned by user user@domain.ltd</a></li>
 <li><a href="#recipient-address-rejected-smtp-auth-is-required-for-users-under-this-sender-domain">Recipient address rejected: SMTP AUTH is required for users under this sender domain</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a href="#single-address">Single address.</a></li>
-<li><a href="#or-whole-domain">Or, whole domain.</a><ul>
 <li><a href="#recipient-address-rejected-policy-rejection-due-to-null-sender">Recipient address rejected: Policy rejection due to null sender</a></li>
 <li><a href="#recipient-address-rejected-sender-is-not-same-as-smtp-authenticate-username">Recipient address rejected: Sender is not same as SMTP authenticate username</a><ul>
 <li><a href="#case-1">case #1</a></li>
@@ -45,6 +39,8 @@
 <li><a href="#helo-command-rejected-host-not-found">Helo command rejected: Host not found</a></li>
 <li><a href="#helo-command-rejected-access-denied-your-email-was-rejected-because-the-sending-mail-server-does-not-identify-itself-correctly-local">Helo command rejected: ACCESS DENIED. Your email was rejected because the sending mail server does not identify itself correctly (.local)</a></li>
 <li><a href="#warning-do-not-list-domain-mydomaincom-in-both-mydestination-and-virtual_mailbox_domains">warning: do not list domain mydomain.com in BOTH mydestination and virtual_mailbox_domains</a></li>
+</ul>
+</li>
 <li><a href="#dovecot-imap-pop3">Dovecot (IMAP / POP3)</a><ul>
 <li><a href="#plaintext-authentication-not-allowed-without-ssltls">Plaintext authentication not allowed without SSL/TLS</a></li>
 </ul>
@@ -128,17 +124,17 @@ server, but sender doesn't perform SMTP AUTH to send email.</p>
 <li>If the email is sent from your server, that means your MUA (Mail User Agent,
    e.g. Outlook, Thunderbird, etc) is not configured to perform SMTP
    authentication to send email. Enabling smtp auth will fix this automatically.</li>
-<li>
-<p>If the email is sent from a server or device <strong>NOT</strong> under your control,
+<li>If the email is sent from a server or device <strong>NOT</strong> under your control,
    you want to bypass the email sent from this sender address but not the whole
    server, please list this sender address in iRedAPD config file
-   <code>/opt/iredapd/settings.py</code>, parameter <code>ALLOWED_FORGED_SENDERS</code> like below:</p>
-<p>```</p>
-<h1 id="single-address">Single address.</h1>
-<p>ALLOWED_FORGED_SENDERS = ['user@domain.com']</p>
-<h1 id="or-whole-domain">Or, whole domain.</h1>
-<p>ALLOWED_FORGED_SENDERS = ['domain.com']
-```</p>
+   <code>/opt/iredapd/settings.py</code>, parameter <code>ALLOWED_FORGED_SENDERS</code> like below:</li>
+</ol>
+<pre><code># Single address.
+ALLOWED_FORGED_SENDERS = ['user@domain.com']
+
+# Or, whole domain.
+ALLOWED_FORGED_SENDERS = ['domain.com']
+</code></pre>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <p>With this setting, iRedAPD accepts all emails with this forged address
@@ -150,8 +146,8 @@ from <strong>ANY</strong> mail server.</p>
   feel free to add it manually. You can find detailed comments in file
   <code>/opt/iredapd/libs/default_settings.py</code>, read the comments to understand
   it better.</li>
-<li>This parameter name must be in upper cases.</li>
-</ul>
+<li>
+<p>This parameter name must be in upper cases.</p>
 </li>
 <li>
 <p>If the email is sent by a server or device under your control and you want to
@@ -167,7 +163,7 @@ from <strong>ANY</strong> mail server.</p>
 <li>This parameter name must be in upper cases.</li>
 </ul>
 </li>
-</ol>
+</ul>
 <h3 id="recipient-address-rejected-policy-rejection-due-to-null-sender">Recipient address rejected: Policy rejection due to null sender</h3>
 <p>Sample error message in Postfix log file:</p>
 <blockquote>
