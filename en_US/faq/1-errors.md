@@ -91,6 +91,11 @@ server, but sender doesn't perform SMTP AUTH to send email.
    server, please list this sender address in iRedAPD config file
    `/opt/iredapd/settings.py`, parameter `ALLOWED_FORGED_SENDERS` like below:
 
+    !!! warning
+
+        With this setting, iRedAPD accepts all emails with this forged address
+        from __ANY__ mail server.
+
 ```
 # Single address.
 ALLOWED_FORGED_SENDERS = ['user@domain.com']
@@ -98,11 +103,6 @@ ALLOWED_FORGED_SENDERS = ['user@domain.com']
 # Or, whole domain.
 ALLOWED_FORGED_SENDERS = ['domain.com']
 ```
-
-!!! warning
-
-    With this setting, iRedAPD accepts all emails with this forged address
-    from __ANY__ mail server.
 
 Notes:
 

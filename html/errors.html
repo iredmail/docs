@@ -124,10 +124,17 @@ server, but sender doesn't perform SMTP AUTH to send email.</p>
 <li>If the email is sent from your server, that means your MUA (Mail User Agent,
    e.g. Outlook, Thunderbird, etc) is not configured to perform SMTP
    authentication to send email. Enabling smtp auth will fix this automatically.</li>
-<li>If the email is sent from a server or device <strong>NOT</strong> under your control,
+<li>
+<p>If the email is sent from a server or device <strong>NOT</strong> under your control,
    you want to bypass the email sent from this sender address but not the whole
    server, please list this sender address in iRedAPD config file
-   <code>/opt/iredapd/settings.py</code>, parameter <code>ALLOWED_FORGED_SENDERS</code> like below:</li>
+   <code>/opt/iredapd/settings.py</code>, parameter <code>ALLOWED_FORGED_SENDERS</code> like below:</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>With this setting, iRedAPD accepts all emails with this forged address
+from <strong>ANY</strong> mail server.</p>
+</div>
+</li>
 </ol>
 <pre><code># Single address.
 ALLOWED_FORGED_SENDERS = ['user@domain.com']
@@ -135,11 +142,6 @@ ALLOWED_FORGED_SENDERS = ['user@domain.com']
 # Or, whole domain.
 ALLOWED_FORGED_SENDERS = ['domain.com']
 </code></pre>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>With this setting, iRedAPD accepts all emails with this forged address
-from <strong>ANY</strong> mail server.</p>
-</div>
 <p>Notes:</p>
 <ul>
 <li>This parameter doesn't exist in <code>/opt/iredapd/settings.py</code> by default,
