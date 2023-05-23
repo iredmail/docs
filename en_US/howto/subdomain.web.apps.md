@@ -90,7 +90,7 @@ ln -sf /etc/nginx/sites-available/webmail.example.com.conf /etc/nginx/sites-enab
 ```
 
 - [OPTIONAL] If you want to remove acess from `https://mail.example.com/mail/`
-  (`mail.exmaple.com` is your server hostname), you can simply comment out
+  (`mail.example.com` is your server hostname), you can simply comment out
   (or add) below line in `/etc/nginx/sites-available/00-default-ssl.conf`:
 
 ```
