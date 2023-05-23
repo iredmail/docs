@@ -40,8 +40,9 @@
 
 Release Notes | Date | Upgrade tutorial | Comment
 ---|---|---|---
+[1.6.3](https://forum.iredmail.org/) | May 23, 2023 | [Upgrade from iRedMail-1.6.1 or 1.6.2](./upgrade.iredmail.1.6.1-1.6.3.html) |Contains MySQL structure change.|
 [1.6.2](https://forum.iredmail.org/topic19336.html) | Sep 30, 2022 | Supports new linux distribution releases, no other new features, improvements or bug fixes, hence no upgrade required for iRedMail-1.6.1 servers. |
-[1.6.1](https://forum.iredmail.org/topic19232.html) | Aug 22, 2022 | [Upgrade from iRedMail-1.6.0](./upgrade.iredmail.1.6.0-1.6.1.html) |
+[1.6.1](https://forum.iredmail.org/topic19232.html) | Aug 22, 2022 | 
 [1.6.0](https://forum.iredmail.org/topic19008.html) | May 20, 2022 | [Upgrade from iRedMail-1.5.2](./upgrade.iredmail.1.5.2-1.6.0.html) |
 [1.5.2](https://forum.iredmail.org/topic18820.html) | Mar 16, 2022 | [Upgrade from iRedMail-1.5.1](./upgrade.iredmail.1.5.1-1.5.2.html) |
 [1.5.1](https://forum.iredmail.org/topic18638.html) | Dec 31, 2021 | [Upgrade from iRedMail-1.5.0](./upgrade.iredmail.1.5.0-1.5.1.html) |
