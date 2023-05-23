@@ -1,4 +1,4 @@
-# Upgrade iRedMail from 1.6.1 (and 1.6.2) to 1.6.3
+# Upgrade iRedMail from 1.6.1 (or 1.6.2) to 1.6.3
 
 !!! attention
 
