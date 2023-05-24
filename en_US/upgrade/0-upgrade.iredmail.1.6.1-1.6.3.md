@@ -30,7 +30,7 @@ so that you can know which version of iRedMail you're running. For example:
 
 ### Disable TLSv1 and TLSv1.1 in Postfix
 
-!!! info
+!!! attention
 
     - TLS 1.0 and 1.1 are vulnerable to downgrade attacks since they rely on
       SHA-1 hash for the integrity of exchanged messages.
