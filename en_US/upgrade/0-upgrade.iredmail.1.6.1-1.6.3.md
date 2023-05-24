@@ -59,7 +59,7 @@ Please follow below tutorial to upgrade iRedAPD to the latest stable release:
 Please follow below tutorial to upgrade iRedAdmin to the latest stable release:
 [Upgrade iRedAdmin to the latest stable release](./migrate.or.upgrade.iredadmin.html).
 
-### Upgrade Roundcube webmail to the latest stable release (1.6.1)
+### Upgrade Roundcube webmail to the latest stable release (1.6.1). WARNING: There're breaking changes.
 
 !!! warning "CentOS 7: please stick to Roundcube 1.5.2"
 
