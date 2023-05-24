@@ -49,6 +49,7 @@ check <a href="https://www.iredmail.org/support.html">the details</a> and
 </div>
 <h2 id="changelog">ChangeLog</h2>
 <ul>
+<li>May 24, 2023: Mention breaking changes between Roundcube 1.5.x and 1.6.x.</li>
 <li>May 23, 2023: initial publish.</li>
 </ul>
 <h2 id="general-all-backends-should-apply-these-changes">General (All backends should apply these changes)</h2>
@@ -100,6 +101,30 @@ latest stable release:</p>
 <ul>
 <li><a href="https://github.com/roundcube/roundcubemail/wiki/Upgrade">How to upgrade Roundcube</a>.</li>
 </ul>
+<p>Few changes  are required if you upgrade from Roundcube 1.5.x or earlier to 1.6.x:</p>
+<ul>
+<li>Main config file <code>/opt/www/roundcubemail/config/config.inc.php</code>:<ul>
+<li>Remove (or comment out) <code>smtp_server</code> and <code>smtp_port</code> parameters, add new
+  parameter <code>smtp_host</code>.</li>
+<li>Remove (or comment out) <code>default_host</code> and <code>default_port</code>, add <code>imap_host</code>.</li>
+<li>Set <code>auto_create_user</code> to <code>true</code> (default value is <code>false</code>). Otherwise newly
+  created mail users can not login to Roundcube.</li>
+</ul>
+</li>
+</ul>
+<pre><code>$config[&quot;smtp_host&quot;] = &quot;tls://127.0.0.1:587&quot;;
+$config[&quot;imap_host&quot;] = &quot;tls://127.0.0.1:143&quot;;
+$config['auto_create_user'] = true;
+</code></pre>
+<ul>
+<li>Plugin <code>managesieve</code> config file <code>/opt/www/roundcubemail/plugins/managesieve/config.inc.php</code>:<ul>
+<li>Remove (or comment out) <code>managesieve_port</code> and <code>managesieve_usetls</code>,
+  add new parameter <code>managesieve_host</code>.</li>
+</ul>
+</li>
+</ul>
+<pre><code>$config[&quot;managesieve_host&quot;] = &quot;tls://127.0.0.1:4190&quot;;
+</code></pre>
 <h3 id="upgrade-netdata-to-the-latest-stable-release-1391">Upgrade netdata to the latest stable release (1.39.1)</h3>
 <p>If you have netdata installed, you can upgrade it by following this tutorial:
 <a href="./upgrade.netdata.html">Upgrade netdata</a>.</p>

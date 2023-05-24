@@ -14,6 +14,7 @@
 
 ## ChangeLog
 
+- May 24, 2023: Mention breaking changes between Roundcube 1.5.x and 1.6.x.
 - May 23, 2023: initial publish.
 
 ## General (All backends should apply these changes)
@@ -77,6 +78,29 @@ Please follow Roundcube official tutorial to upgrade Roundcube webmail to the
 latest stable release:
 
 * [How to upgrade Roundcube](https://github.com/roundcube/roundcubemail/wiki/Upgrade).
+
+Few changes  are required if you upgrade from Roundcube 1.5.x or earlier to 1.6.x:
+
+- Main config file `/opt/www/roundcubemail/config/config.inc.php`:
+    - Remove (or comment out) `smtp_server` and `smtp_port` parameters, add new
+      parameter `smtp_host`.
+    - Remove (or comment out) `default_host` and `default_port`, add `imap_host`.
+    - Set `auto_create_user` to `true` (default value is `false`). Otherwise newly
+      created mail users can not login to Roundcube.
+
+```
+$config["smtp_host"] = "tls://127.0.0.1:587";
+$config["imap_host"] = "tls://127.0.0.1:143";
+$config['auto_create_user'] = true;
+```
+
+- Plugin `managesieve` config file `/opt/www/roundcubemail/plugins/managesieve/config.inc.php`:
+    - Remove (or comment out) `managesieve_port` and `managesieve_usetls`,
+      add new parameter `managesieve_host`.
+
+```
+$config["managesieve_host"] = "tls://127.0.0.1:4190";
+```
 
 ### Upgrade netdata to the latest stable release (1.39.1)
 
