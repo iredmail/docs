@@ -29,6 +29,7 @@
 
           - Linode. Explained in the [blog post](https://www.linode.com/blog/linode/a-new-policy-to-help-fight-spam/),
             you can open a support ticket to ask the Linode team to open it. If you [sign up to Linode with our reference](https://www.linode.com/?r=b4d04083428fb99ce452d84b57253d11692a0850), iRedMail Team's Linode account will receive a credit of $15-20.00. Thanks.
+          - Vultr. [Port 25 is blocked by default](https://www.vultr.com/docs/what-ports-are-blocked/), you may request these blocks be removed by [opening a support ticket](https://my.vultr.com/support/create_ticket/).
           - Amazon AWS EC2. Request to [remove the throttle on port 25](https://aws.amazon.com/premiumsupport/knowledge-center/ec2-port-25-throttle/).
           - Google Cloud Platform.
           - Microsoft Azure.

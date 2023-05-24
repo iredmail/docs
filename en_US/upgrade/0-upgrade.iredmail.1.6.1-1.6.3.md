@@ -77,6 +77,10 @@ Please follow below tutorial to upgrade iRedAdmin to the latest stable release:
 Please follow Roundcube official tutorial to upgrade Roundcube webmail to the
 latest stable release:
 
+!!! attention
+
+    Please upgrade `/opt/www/roundcubemail/composer.json` before upgrade.
+
 * [How to upgrade Roundcube](https://github.com/roundcube/roundcubemail/wiki/Upgrade).
 
 Few changes  are required if you upgrade from Roundcube 1.5.x or earlier to 1.6.x:
