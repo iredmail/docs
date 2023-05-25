@@ -6,10 +6,6 @@
 
 [TOC]
 
-!!! warning
-
-    THIS IS A DRAFT DOCUMENT, DO NOT APPLY IT.
-
 ### Upgrade iRedMail to the latest stable release first
 
 Before upgrading server OS, it's better upgrade iRedMail to the latest stable
