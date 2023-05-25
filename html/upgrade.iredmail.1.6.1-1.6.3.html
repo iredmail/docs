@@ -134,11 +134,8 @@ $config['auto_create_user'] = true;
 <a href="./upgrade.netdata.html">Upgrade netdata</a>.</p>
 <h2 id="for-mysqlmariadb-backends">For MySQL/MariaDB backends</h2>
 <h3 id="add-missing-index-for-sql-column-forwardingsforwarding">Add missing index for SQL column <code>forwardings.forwarding</code></h3>
-<p>Download plain SQL file used to update SQL table, then import it as
-MySQL root user (Please run commands below as <code>root</code> user):</p>
-<pre><code>wget -O /tmp/iredmail.mysql https://github.com/iredmail/iRedMail/raw/1.6.3/update/1.6.3/iredmail.mysql
-mysql vmail &lt; /tmp/iredmail.mysql
-rm -f /tmp/iredmail.mysql
+<p>Please run shell commands below as <code>root</code> user to add missing SQL index:</p>
+<pre><code>mysql vmail -e &quot;ALTER TABLE forwardings ADD INDEX forwarding (forwarding);&quot;
 </code></pre><div class="footer">
     <p style="text-align: center; color: grey;">All documents are available in <a href="https://github.com/iredmail/docs/">GitHub repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://github.com/iredmail/docs/archive/master.zip">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
 </div></body></html>

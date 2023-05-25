@@ -115,11 +115,8 @@ If you have netdata installed, you can upgrade it by following this tutorial:
 
 ### Add missing index for SQL column `forwardings.forwarding`
 
-Download plain SQL file used to update SQL table, then import it as
-MySQL root user (Please run commands below as `root` user):
+Please run shell commands below as `root` user to add missing SQL index:
 
 ```
-wget -O /tmp/iredmail.mysql https://github.com/iredmail/iRedMail/raw/1.6.3/update/1.6.3/iredmail.mysql
-mysql vmail < /tmp/iredmail.mysql
-rm -f /tmp/iredmail.mysql
+mysql vmail -e "ALTER TABLE forwardings ADD INDEX forwarding (forwarding);"
 ```
