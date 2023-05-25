@@ -6,6 +6,40 @@
 
 [TOC]
 
+## Version: 2023052301 (May 23, 2023) {: id=2023052301 }
+
+* Supports new distribution releases:
+    + OpenBSD 7.3
+
+* Improvements:
+    + SOGo Groupware is now available on Ubuntu 22.04 LTS. Thanks to SOGo team.
+    + Disable TLSv1 and TLSv1.1 in Postfix.
+    + Full-text search is now available on Debian 11 (bullseye).
+    + New fail2ban jail: nginx-403. It scans Nginx error log and bans clients
+      which triggered error "access forbidden by rule".
+
+* Fixed issues:
+    - Amavisd is not listening on only 127.0.0.1.
+    - Use Roundcube 1.5.3 on CentOS Stream / Rocky / Alma 8.
+    - [CentOS] Not rotate system log files (missing package `rsyslog-rotate`).
+    - [CentOS] Can not run chronyd on CentoS 9.
+    - [Debian/Ubuntu] ClamAV log files may be changed to incorrect owner after
+      log rotation.
+    - [Firewall] Not open TCP port 5281 in firewall for XMPP file transfer.
+    - [Nginx] Not remove config file for autoconfig if it's not enabled.
+    - [Nginx] Exactly match URI prefix `/SOGo/`. This avoid accessing to URI
+      with `/SOGo` prefix like `/SOGotesting`.
+    - [Nginx] Not remove config snippet files for php web application when
+      php is not enabled.
+    - [Nginx] Not support WebSocket in http header Content-Security-Policy.
+
+* Updated packages:
+    + mlmmjadmin 3.1.7
+    + netdata 1.39.1
+    + iRedAPD 5.3
+    + iRedAdmin 2.3
+    + Roundcube 1.6.1. Note: CentOS 7 stays with Roundcube 1.5.3 due to old php packages.
+
 ## Version: 2022121901 (Dec 19, 2022) {: id=2022121901 }
 
 * Supports new distribution releases:

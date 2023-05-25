@@ -23,6 +23,7 @@
 <div class="toc">
 <ul>
 <li><a href="#iredmail-easy-release-notes">iRedMail Easy: Release Notes</a><ul>
+<li><a href="#2023052301">Version: 2023052301 (May 23, 2023)</a></li>
 <li><a href="#2022121901">Version: 2022121901 (Dec 19, 2022)</a></li>
 <li><a href="#2022082201">Version: 2022082201 (Aug 22, 2022)</a></li>
 <li><a href="#2022052001">Version: 2022052001 (May 20, 2022)</a></li>
@@ -65,6 +66,53 @@
 </li>
 </ul>
 </div>
+<h2 id="2023052301">Version: 2023052301 (May 23, 2023)</h2>
+<ul>
+<li>
+<p>Supports new distribution releases:</p>
+<ul>
+<li>OpenBSD 7.3</li>
+</ul>
+</li>
+<li>
+<p>Improvements:</p>
+<ul>
+<li>SOGo Groupware is now available on Ubuntu 22.04 LTS. Thanks to SOGo team.</li>
+<li>Disable TLSv1 and TLSv1.1 in Postfix.</li>
+<li>Full-text search is now available on Debian 11 (bullseye).</li>
+<li>New fail2ban jail: nginx-403. It scans Nginx error log and bans clients
+  which triggered error "access forbidden by rule".</li>
+</ul>
+</li>
+<li>
+<p>Fixed issues:</p>
+<ul>
+<li>Amavisd is not listening on only 127.0.0.1.</li>
+<li>Use Roundcube 1.5.3 on CentOS Stream / Rocky / Alma 8.</li>
+<li>[CentOS] Not rotate system log files (missing package <code>rsyslog-rotate</code>).</li>
+<li>[CentOS] Can not run chronyd on CentoS 9.</li>
+<li>[Debian/Ubuntu] ClamAV log files may be changed to incorrect owner after
+  log rotation.</li>
+<li>[Firewall] Not open TCP port 5281 in firewall for XMPP file transfer.</li>
+<li>[Nginx] Not remove config file for autoconfig if it's not enabled.</li>
+<li>[Nginx] Exactly match URI prefix <code>/SOGo/</code>. This avoid accessing to URI
+  with <code>/SOGo</code> prefix like <code>/SOGotesting</code>.</li>
+<li>[Nginx] Not remove config snippet files for php web application when
+  php is not enabled.</li>
+<li>[Nginx] Not support WebSocket in http header Content-Security-Policy.</li>
+</ul>
+</li>
+<li>
+<p>Updated packages:</p>
+<ul>
+<li>mlmmjadmin 3.1.7</li>
+<li>netdata 1.39.1</li>
+<li>iRedAPD 5.3</li>
+<li>iRedAdmin 2.3</li>
+<li>Roundcube 1.6.1. Note: CentOS 7 stays with Roundcube 1.5.3 due to old php packages.</li>
+</ul>
+</li>
+</ul>
 <h2 id="2022121901">Version: 2022121901 (Dec 19, 2022)</h2>
 <ul>
 <li>
