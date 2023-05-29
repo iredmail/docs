@@ -79,7 +79,7 @@ latest stable release:
 
 !!! attention
 
-    Please upgrade `/opt/www/roundcubemail/composer.json` before upgrade.
+    Please remove file `/opt/www/roundcubemail/composer.json` before upgrade.
 
 * [How to upgrade Roundcube](https://github.com/roundcube/roundcubemail/wiki/Upgrade).
 
