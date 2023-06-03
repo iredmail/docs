@@ -502,7 +502,7 @@ Notes:
 
 
 
-<script src="./js/jquery-3.6.4.min.js"></script>
+<script src="./js/jquery-3.7.0.min.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
     /* Collapse all parameters by default */
