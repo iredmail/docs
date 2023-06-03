@@ -57,10 +57,10 @@ Linux/BSD distribution releases supported by __iRedMail Easy__:
 
 Distribution | Release Versions
 --- |---
-CentOS | 7, 8
-Debian | 9, 10
-Ubuntu | 18.04, 20.04
-OpenBSD | 6.6, 6.7
+CentOS | 8, 9 (recommended)
+Debian | 10, 11 (recommended)
+Ubuntu | 20.04, 22.04 (recommended)
+OpenBSD | 7.3
 
 If you need to install iRedMail on FreeBSD, please use the [downloadable
 installer](https://www.iredmail.org/download.html) instead.
