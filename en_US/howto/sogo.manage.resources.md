@@ -138,7 +138,7 @@ by your real domain name during testing.
     * It will ask you to input password of `cn=manager,dc=xx,dc=xx`.
 
 ```
-ldapvi -D 'cn=manager,dc=xx,dc=xx' -b 'o=domains,dc=xx,dc=xx' -W "mail=meetingroom@example.com"
+ldapvi -D 'cn=manager,dc=xx,dc=xx' -b 'o=domains,dc=xx,dc=xx' "mail=meetingroom@example.com"
 ```
 
 In the ldapvi editor, you should see full LDIF data of user
