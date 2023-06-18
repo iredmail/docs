@@ -37,6 +37,12 @@ so that you can know which version of iRedMail you're running. For example:
       SHA-1 hash for the integrity of exchanged messages.
     - TLS 1.1 was deprecated in March 2021.
 
+!!! warning
+
+    - Do not apply this on CentOS 7, because TLSv1 is still required by
+      Roundcube. Please upgrade CentOS to at least CentOS Stream 8 or Rocky
+      Linux 8, or AlmaLinux 8.
+
 Run shell commands below as root user to disable TLSv1 and TLSv1.1 for SMTP service:
 
 ```
