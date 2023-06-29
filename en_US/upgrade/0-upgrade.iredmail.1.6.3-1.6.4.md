@@ -28,15 +28,17 @@ so that you can know which version of iRedMail you're running. For example:
 1.6.4
 ```
 
-### Fix incorrect ssl CA file in Postfix
+### Fix incorrect ssl CA file and IDN support in Postfix
 
-Run shell commands below as root user to fix incorrect ssl ca file:
+Run shell commands below as root user to fix incorrect ssl ca file, also
+disable IDN support.
 
 * On RHEL/CentOS/Rocky/AlmaLinux:
 
 ```
 postconf -e smtp_tls_CAfile='/etc/pki/tls/certs/ca-bundle.crt'
 postconf -e smtpd_tls_CAfile='/etc/pki/tls/certs/ca-bundle.crt'
+postconf -e smtputf8_enable=no
 postfix reload
 ```
 
@@ -45,6 +47,7 @@ postfix reload
 ```
 postconf -e smtp_tls_CAfile='/etc/ssl/certs/ca-certificates.crt'
 postconf -e smtpd_tls_CAfile='/etc/ssl/certs/ca-certificates.crt'
+postconf -e smtputf8_enable=no
 postfix reload
 ```
 
@@ -53,6 +56,7 @@ postfix reload
 ```
 postconf -e smtp_tls_CAfile='/etc/ssl/cert.pem'
 postconf -e smtpd_tls_CAfile='/etc/ssl/cert.pem'
+postconf -e smtputf8_enable=no
 postfix reload
 ```
 

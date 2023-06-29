@@ -26,7 +26,7 @@
 <li><a href="#changelog">ChangeLog</a></li>
 <li><a href="#general-all-backends-should-apply-these-changes">General (All backends should apply these changes)</a><ul>
 <li><a href="#update-etciredmail-release-with-new-iredmail-version-number">Update /etc/iredmail-release with new iRedMail version number</a></li>
-<li><a href="#fix-incorrect-ssl-ca-file-in-postfix">Fix incorrect ssl CA file in Postfix</a></li>
+<li><a href="#fix-incorrect-ssl-ca-file-and-idn-support-in-postfix">Fix incorrect ssl CA file and IDN support in Postfix</a></li>
 </ul>
 </li>
 </ul>
@@ -50,13 +50,15 @@ installation, it's recommended to update this file after you upgraded iRedMail,
 so that you can know which version of iRedMail you're running. For example:</p>
 <pre><code>1.6.4
 </code></pre>
-<h3 id="fix-incorrect-ssl-ca-file-in-postfix">Fix incorrect ssl CA file in Postfix</h3>
-<p>Run shell commands below as root user to fix incorrect ssl ca file:</p>
+<h3 id="fix-incorrect-ssl-ca-file-and-idn-support-in-postfix">Fix incorrect ssl CA file and IDN support in Postfix</h3>
+<p>Run shell commands below as root user to fix incorrect ssl ca file, also
+disable IDN support.</p>
 <ul>
 <li>On RHEL/CentOS/Rocky/AlmaLinux:</li>
 </ul>
 <pre><code>postconf -e smtp_tls_CAfile='/etc/pki/tls/certs/ca-bundle.crt'
 postconf -e smtpd_tls_CAfile='/etc/pki/tls/certs/ca-bundle.crt'
+postconf -e smtputf8_enable=no
 postfix reload
 </code></pre>
 <ul>
@@ -64,6 +66,7 @@ postfix reload
 </ul>
 <pre><code>postconf -e smtp_tls_CAfile='/etc/ssl/certs/ca-certificates.crt'
 postconf -e smtpd_tls_CAfile='/etc/ssl/certs/ca-certificates.crt'
+postconf -e smtputf8_enable=no
 postfix reload
 </code></pre>
 <ul>
@@ -71,6 +74,7 @@ postfix reload
 </ul>
 <pre><code>postconf -e smtp_tls_CAfile='/etc/ssl/cert.pem'
 postconf -e smtpd_tls_CAfile='/etc/ssl/cert.pem'
+postconf -e smtputf8_enable=no
 postfix reload
 </code></pre><div class="footer">
     <p style="text-align: center; color: grey;">All documents are available in <a href="https://github.com/iredmail/docs/">GitHub repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://github.com/iredmail/docs/archive/master.zip">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
