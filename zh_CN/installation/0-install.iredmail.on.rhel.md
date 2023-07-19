@@ -23,7 +23,7 @@
 要在 Red Hat Enterprise Linux （以下简称 RHEL）或 CentOS 上安装 iRedMail，你需要：
 
 * 一个全新安装的 RHEL 或 CentOS 系统。支持的版本号在[下载](https://www.iredmail.org/download.html)页面有注明。
-* 要运行一个低流量的邮件服务器，要求至少`2 GB` 内存才能使用完整的垃圾邮件和病毒扫描功能。
+* 要运行一个低流量的邮件服务器，要求至少`4 GB` 内存才能使用完整的垃圾邮件和病毒扫描功能。
 
 ## 准备
 
