@@ -2,9 +2,9 @@
 
 It's reasonable that you want to use OpenLDAP server running on iRedMail
 server as a central identity management database. If you have other
-softwares/services, and need to restrict some users to use these
+software/services, and need to restrict some users to use these
 software/services, the easiest and most elegent soluion is adding extra service
-name in LDAP database, and update your softwares to use a proper LDAP filter to
+name in LDAP database, and update your software to use a proper LDAP filter to
 query users.
 
 We assume you have a GitLab server and Jabber (XMPP) server running on internal

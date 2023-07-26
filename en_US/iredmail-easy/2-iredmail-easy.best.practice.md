@@ -8,7 +8,7 @@
 
 ## How the fearless upgrade works
 
-iRedMail Easy splits config files of softwares to 2 parts: Core and Custom,
+iRedMail Easy splits config files of software to 2 parts: Core and Custom,
 this is the magic of fearless one-click upgrade.
 
 iRedMail Easy maintains core config files to make sure everything works as
@@ -20,7 +20,7 @@ modify the core config files (manually) managed by iRedMail Easy.
 
 ### Including config files
 
-Many softwares support loading settings from extra config files with directive
+Many software support loading settings from extra config files with directive
 like `include` (Nginx, Dovecot), `include_try` (Dovecot), `require_once` (PHP
 applications). In this case, it will be configured to load extra config files
 under `/opt/iredmail/custom/<software-name>/`. We use Dovecot for example to
@@ -176,7 +176,7 @@ ALL | `roundcube_des_key` | The DES key used by Roundcube to encrypt the session
 ALL | `mlmmjadmin_api_token` | API token for authentication. | `/opt/mlmmjadmin/settings.py`, parameter `api_auth_tokens =`.
 ALL | `first_domain_admin_password` | Password of the mail user `postmaster@<your-domain.com>`. | `your-domain.com` is the first mail domain name you (are going to) set in mail server profile page on iRedMail Easy platform, you can find it in mail server profile page, under tab `Settings`.
 
-## Custom settings used by softwares
+## Custom settings used by software
 
 ### MariaDB
 

@@ -32,7 +32,7 @@
 </li>
 <li><a href="#ssl-cert">SSL cert</a></li>
 <li><a href="#passwords">Passwords</a></li>
-<li><a href="#custom-settings-used-by-softwares">Custom settings used by softwares</a><ul>
+<li><a href="#custom-settings-used-by-software">Custom settings used by software</a><ul>
 <li><a href="#mariadb">MariaDB</a></li>
 <li><a href="#openldap">OpenLDAP</a></li>
 <li><a href="#nginx">Nginx</a></li>
@@ -61,7 +61,7 @@
 </ul>
 </div>
 <h2 id="how-the-fearless-upgrade-works">How the fearless upgrade works</h2>
-<p>iRedMail Easy splits config files of softwares to 2 parts: Core and Custom,
+<p>iRedMail Easy splits config files of software to 2 parts: Core and Custom,
 this is the magic of fearless one-click upgrade.</p>
 <p>iRedMail Easy maintains core config files to make sure everything works as
 expected, but we understand that one rule doesn't work for everyone and you may
@@ -69,7 +69,7 @@ want to change/override some settings configured by iRedMail Easy.</p>
 <p>Please follow some simple rules to store your custom settings, and do not
 modify the core config files (manually) managed by iRedMail Easy.</p>
 <h3 id="including-config-files">Including config files</h3>
-<p>Many softwares support loading settings from extra config files with directive
+<p>Many software support loading settings from extra config files with directive
 like <code>include</code> (Nginx, Dovecot), <code>include_try</code> (Dovecot), <code>require_once</code> (PHP
 applications). In this case, it will be configured to load extra config files
 under <code>/opt/iredmail/custom/&lt;software-name&gt;/</code>. We use Dovecot for example to
@@ -294,7 +294,7 @@ under <code>/opt/iredmail/ssl/</code>:</p>
 </tr>
 </tbody>
 </table>
-<h2 id="custom-settings-used-by-softwares">Custom settings used by softwares</h2>
+<h2 id="custom-settings-used-by-software">Custom settings used by software</h2>
 <h3 id="mariadb">MariaDB</h3>
 <ul>
 <li><code>/opt/iredmail/custom/mysql/</code>:<ul>

@@ -12,7 +12,7 @@ strongly recommended to use a valid ssl cert.
 You can either request free cert, or buy one from ssl cert vendors. In this
 tutorial, we will show you how to request a free cert for host name
 `mail.mydomain.com` from __[Let's Encrypt](https://letsencrypt.org)__, and ssl
-related configurations in relevant softwares running on iRedMail server.
+related configurations in relevant software running on iRedMail server.
 
 Let's Encrypt supports wildcard host names, but it's not covered in this
 tutorial, please read its [User Guide](https://certbot.eff.org/docs/using.html)

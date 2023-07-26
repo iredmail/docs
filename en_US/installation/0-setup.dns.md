@@ -76,7 +76,7 @@ Concept behind this idea is that fly by night spammers who send e-mails out
 using fake domains generally will not have the appropriate reverse PTR setup
 at the ISP DNS zone. This criterion is used by spam filters to detect spam. If
 your domain does not have an appropriate reverse PTR record setup then chances
-are email spam filtering softwares __MIGHT__ block e-mails from your mail server.
+are email spam filtering software __MIGHT__ block e-mails from your mail server.
 
 ### How to setup a Reverse PTR record
 
