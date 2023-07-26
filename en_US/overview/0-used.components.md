@@ -1,4 +1,4 @@
-# Major open source softwares used in iRedMail
+# Major open source software used in iRedMail
 
 !!! attention
 
