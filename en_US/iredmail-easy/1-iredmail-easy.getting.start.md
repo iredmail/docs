@@ -38,7 +38,7 @@ installation guides here: [Install iRedMail](./index.html#install).
     * iRedMail is designed to be deployed on a dedicated server, which means you
       can not have other network services running on the server __BEFORE__
       iRedMail installation.
-    * iRedMail will install and configure all required softwares automatically.
+    * iRedMail will install and configure all required software automatically.
     * Many ISPs block port 25 by default, it's used for communication between
       mail servers, it must be open, otherwise your server may be not able to
       receive or / and send emails. Please contact your ISP to make sure it's
