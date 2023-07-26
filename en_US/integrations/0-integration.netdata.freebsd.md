@@ -20,7 +20,7 @@ which can monitor almost everyting on your Linux/FreeBSD system. You can visit
 its website to check online demo.
 
 We will show you how to install and configure netdata on iRedMail server
-(Linux) to monitor mail service related softwares.
+(Linux) to monitor mail service related software.
 
 ## Install netdata
 
