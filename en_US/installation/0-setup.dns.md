@@ -69,14 +69,14 @@ to something like `192.168.1.5`. Reverse PTR record does the opposite; it looks
 up the hostname for the given IP address. In the example above the PTR record
 for IP address `192.168.1.5` will get resolved to `mail.mydomain.com`.
 
-### Why do you need a reverse PTR record
+### Why you need a reverse PTR record
 
 The most common use for looking up a PTR record is done by spam filters.
 Concept behind this idea is that fly by night spammers who send e-mails out
 using fake domains generally will not have the appropriate reverse PTR setup
 at the ISP DNS zone. This criterion is used by spam filters to detect spam. If
 your domain does not have an appropriate reverse PTR record setup then chances
-are email spam filtering softwares __MIGHT__ block e-mails from your mail server.
+are email spam filtering software __MIGHT__ block e-mails from your mail server.
 
 ### How to setup a Reverse PTR record
 
