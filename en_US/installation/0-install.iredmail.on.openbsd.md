@@ -61,7 +61,7 @@ To install iRedMail on OpenBSD, you need:
     * All binary packages will be installed with command `pkg_add -i`.
     * Nginx is used as web server.
     * PF is enabled by default, with basic rules for ssh and mail services.
-    * OpenSMTPd are disabled by default, replaced by Postfix.
+    * OpenSMTPd is disabled by default, replaced by Postfix.
 
 ## Preparations
 
