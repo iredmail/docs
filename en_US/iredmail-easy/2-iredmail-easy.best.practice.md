@@ -20,7 +20,7 @@ modify the core config files (manually) managed by iRedMail Easy.
 
 ### Including config files
 
-Many software support loading settings from extra config files with directive
+A lot of software supports loading settings from extra config files with directives
 like `include` (Nginx, Dovecot), `include_try` (Dovecot), `require_once` (PHP
 applications). In this case, it will be configured to load extra config files
 under `/opt/iredmail/custom/<software-name>/`. We use Dovecot for example to
