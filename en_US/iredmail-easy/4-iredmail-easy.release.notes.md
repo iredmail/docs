@@ -6,6 +6,26 @@
 
 [TOC]
 
+## Version: 2023072801 (Jul 28, 2023) {: id=2023072801 }
+
+* Supports new distribution releases:
+    * Debian 12 (Bookworm). Notes:
+        - Both Debian 11 and 12 are supported, but 12 is now recommended.
+        - SOGo Groupware is not yet available on Debian 12 because SOGo
+          team does not offer binary packages for Debian 12 yet
+* Switch php to 8.0 on CentOS Stream 8, Rocky 8, AlmaLinux 8.
+      Note: php v8 is offered by official yum repository of Linux vendors, no
+      third-party yum repo introduced.
+* SOGo Groupware is now available on CentOS Stream 9, Rocky Linux 9, AlmaLinux
+  9. Thanks to SOGo team.
+* Disable IDN support in Postfix (`smtputf8_enable = no`).
+* Fixed issues:
+    - PostgreSQL backend: Incorrect database owner of "iredadmin" database.
+* Updated packages:
+    - Roundcube webmail 1.6.2
+    - netdata 1.41.0
+    - iRedAPD 5.3.3
+
 ## Version: 2023052301 (May 23, 2023) {: id=2023052301 }
 
 * Supports new distribution releases:
