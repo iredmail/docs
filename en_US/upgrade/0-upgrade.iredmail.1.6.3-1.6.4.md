@@ -14,7 +14,7 @@
 
 ## ChangeLog
 
-- Jun 13, 2023: initial publish.
+- Jul 28, 2023: initial publish.
 
 ## General (All backends should apply these changes)
 
@@ -60,3 +60,36 @@ postconf -e smtputf8_enable=no
 postfix reload
 ```
 
+### [OPTIONAL] CentOS Stream / Rocky / AlmaLinux 8: Switch to PHP v8.0
+
+CentOS / Rocky / AlmaLinux 8 offers php v8.0 in offical yum repository, you
+can switch to php v8.0 if you want by following this short tutorial, so that
+you can upgrade Roundcube to latest v1.6.2.
+
+- [Upgrade php to 8.0 on CentOS Stream / Rocky / AlmaLinux 8](./upgrade.php.v8.0.on.centos.8.html)
+
+### Upgrade iRedAdmin (open source edition) to the latest stable release (1.8)
+
+Please follow below tutorial to upgrade iRedAdmin to the latest stable release:
+[Upgrade iRedAdmin to the latest stable release](./migrate.or.upgrade.iredadmin.html).
+
+### Upgrade netdata to the latest stable release (1.36.1)
+
+If you have netdata installed, you can upgrade it by following this tutorial:
+[Upgrade netdata](./upgrade.netdata.html).
+
+### Upgrade Roundcube webmail to the latest stable release (1.6.2)
+
+!!! warning "CentOS 7: please stick to Roundcube 1.5.2"
+
+    If you're running CentOS 7, please upgrade to Roundcube 1.5.2 instead.
+    Roundcube 1.5.3 requires PHP-7, but CentOS 7 ships PHP-5.4 which is not
+    supported by Roundcube 1.5.3 (and the latest 1.6.0).
+
+    It's time to leave your comfort zone and upgrade this server to at least
+    CentOS Stream 8 or [Rocky Linux 8](https://docs.rockylinux.org/guides/migrate2rocky/).
+
+Please follow Roundcube official tutorial to upgrade Roundcube webmail to the
+latest stable release:
+
+* [How to upgrade Roundcube](https://github.com/roundcube/roundcubemail/wiki/Upgrade).

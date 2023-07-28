@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Upgrade php to v8.0 on CentOS Stream / Rocky / AlmaLinux 8</title>
+        <link rel="stylesheet" type="text/css" href="./css/markdown.css" />
+    </head>
+    <body>
+
+    <div id="navigation">
+    <a href="https://www.iredmail.org" target="_blank">
+        <img alt="iRedMail web site"
+             src="./images/logo-iredmail.png"
+             style="vertical-align: middle; height: 30px;"
+             />&nbsp;
+        <span>iRedMail</span>
+    </a>
+    &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><h1 id="upgrade-php-to-v80-on-centos-stream-rocky-almalinux-8">Upgrade php to v8.0 on CentOS Stream / Rocky / AlmaLinux 8</h1>
+<p>CentOS Stream / Rocky / AlmaLinux 8 offers both php 7 and 8 in official yum
+repository <code>AppStream</code>, we just need to switch php module to 8.0 with steps
+below:</p>
+<blockquote>
+<p>Please pay close attention to the package names it removes in first command,
+we need to reinstall them later.</p>
+</blockquote>
+<pre><code>dnf remove &quot;php*&quot;
+dnf module reset php
+dnf module enable php:8.0
+dnf module switch-to php:8.0
+</code></pre>
+<p>Then (re-)install the packages removed by first command above:</p>
+<pre><code>dnf install php php-{cli,common,gd,fpm,mbstring,xml,json,intl,zip,mysqlnd,ldap,pgsql}
+</code></pre>
+<p>Then restart php-fpm service:</p>
+<pre><code>systemctl restart php-fpm
+</code></pre><div class="footer">
+    <p style="text-align: center; color: grey;">All documents are available in <a href="https://github.com/iredmail/docs/">GitHub repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://github.com/iredmail/docs/archive/master.zip">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
+</div></body></html>
