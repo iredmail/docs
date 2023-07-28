@@ -28,6 +28,14 @@ so that you can know which version of iRedMail you're running. For example:
 1.6.4
 ```
 
+### [OPTIONAL] CentOS Stream / Rocky / AlmaLinux 8: Switch to PHP v8.0
+
+CentOS / Rocky / AlmaLinux 8 offers php v8.0 in offical yum repository, you
+can switch to php v8.0 if you want by following this short tutorial, so that
+you can upgrade Roundcube to latest v1.6.2.
+
+- [Upgrade php to 8.0 on CentOS Stream / Rocky / AlmaLinux 8](./upgrade.php.v8.0.on.centos.8.html)
+
 ### Fix incorrect ssl CA file and IDN support in Postfix
 
 Run shell commands below as root user to fix incorrect ssl ca file, also
@@ -60,20 +68,12 @@ postconf -e smtputf8_enable=no
 postfix reload
 ```
 
-### [OPTIONAL] CentOS Stream / Rocky / AlmaLinux 8: Switch to PHP v8.0
+### Upgrade iRedAPD (Postfix policy server) to the latest stable release (5.3)
 
-CentOS / Rocky / AlmaLinux 8 offers php v8.0 in offical yum repository, you
-can switch to php v8.0 if you want by following this short tutorial, so that
-you can upgrade Roundcube to latest v1.6.2.
+Please follow below tutorial to upgrade iRedAPD to the latest stable release:
+[Upgrade iRedAPD to the latest stable release](./upgrade.iredapd.html)
 
-- [Upgrade php to 8.0 on CentOS Stream / Rocky / AlmaLinux 8](./upgrade.php.v8.0.on.centos.8.html)
-
-### Upgrade iRedAdmin (open source edition) to the latest stable release (1.8)
-
-Please follow below tutorial to upgrade iRedAdmin to the latest stable release:
-[Upgrade iRedAdmin to the latest stable release](./migrate.or.upgrade.iredadmin.html).
-
-### Upgrade netdata to the latest stable release (1.36.1)
+### Upgrade netdata to the latest stable release (1.41.0)
 
 If you have netdata installed, you can upgrade it by following this tutorial:
 [Upgrade netdata](./upgrade.netdata.html).

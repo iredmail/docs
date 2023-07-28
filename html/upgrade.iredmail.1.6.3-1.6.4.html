@@ -26,10 +26,10 @@
 <li><a href="#changelog">ChangeLog</a></li>
 <li><a href="#general-all-backends-should-apply-these-changes">General (All backends should apply these changes)</a><ul>
 <li><a href="#update-etciredmail-release-with-new-iredmail-version-number">Update /etc/iredmail-release with new iRedMail version number</a></li>
-<li><a href="#fix-incorrect-ssl-ca-file-and-idn-support-in-postfix">Fix incorrect ssl CA file and IDN support in Postfix</a></li>
 <li><a href="#optional-centos-stream-rocky-almalinux-8-switch-to-php-v80">[OPTIONAL] CentOS Stream / Rocky / AlmaLinux 8: Switch to PHP v8.0</a></li>
-<li><a href="#upgrade-iredadmin-open-source-edition-to-the-latest-stable-release-18">Upgrade iRedAdmin (open source edition) to the latest stable release (1.8)</a></li>
-<li><a href="#upgrade-netdata-to-the-latest-stable-release-1361">Upgrade netdata to the latest stable release (1.36.1)</a></li>
+<li><a href="#fix-incorrect-ssl-ca-file-and-idn-support-in-postfix">Fix incorrect ssl CA file and IDN support in Postfix</a></li>
+<li><a href="#upgrade-iredapd-postfix-policy-server-to-the-latest-stable-release-53">Upgrade iRedAPD (Postfix policy server) to the latest stable release (5.3)</a></li>
+<li><a href="#upgrade-netdata-to-the-latest-stable-release-1410">Upgrade netdata to the latest stable release (1.41.0)</a></li>
 <li><a href="#upgrade-roundcube-webmail-to-the-latest-stable-release-162">Upgrade Roundcube webmail to the latest stable release (1.6.2)</a></li>
 </ul>
 </li>
@@ -54,6 +54,13 @@ installation, it's recommended to update this file after you upgraded iRedMail,
 so that you can know which version of iRedMail you're running. For example:</p>
 <pre><code>1.6.4
 </code></pre>
+<h3 id="optional-centos-stream-rocky-almalinux-8-switch-to-php-v80">[OPTIONAL] CentOS Stream / Rocky / AlmaLinux 8: Switch to PHP v8.0</h3>
+<p>CentOS / Rocky / AlmaLinux 8 offers php v8.0 in offical yum repository, you
+can switch to php v8.0 if you want by following this short tutorial, so that
+you can upgrade Roundcube to latest v1.6.2.</p>
+<ul>
+<li><a href="./upgrade.php.v8.0.on.centos.8.html">Upgrade php to 8.0 on CentOS Stream / Rocky / AlmaLinux 8</a></li>
+</ul>
 <h3 id="fix-incorrect-ssl-ca-file-and-idn-support-in-postfix">Fix incorrect ssl CA file and IDN support in Postfix</h3>
 <p>Run shell commands below as root user to fix incorrect ssl ca file, also
 disable IDN support.</p>
@@ -81,17 +88,10 @@ postconf -e smtpd_tls_CAfile='/etc/ssl/cert.pem'
 postconf -e smtputf8_enable=no
 postfix reload
 </code></pre>
-<h3 id="optional-centos-stream-rocky-almalinux-8-switch-to-php-v80">[OPTIONAL] CentOS Stream / Rocky / AlmaLinux 8: Switch to PHP v8.0</h3>
-<p>CentOS / Rocky / AlmaLinux 8 offers php v8.0 in offical yum repository, you
-can switch to php v8.0 if you want by following this short tutorial, so that
-you can upgrade Roundcube to latest v1.6.2.</p>
-<ul>
-<li><a href="./upgrade.php.v8.0.on.centos.8.html">Upgrade php to 8.0 on CentOS Stream / Rocky / AlmaLinux 8</a></li>
-</ul>
-<h3 id="upgrade-iredadmin-open-source-edition-to-the-latest-stable-release-18">Upgrade iRedAdmin (open source edition) to the latest stable release (1.8)</h3>
-<p>Please follow below tutorial to upgrade iRedAdmin to the latest stable release:
-<a href="./migrate.or.upgrade.iredadmin.html">Upgrade iRedAdmin to the latest stable release</a>.</p>
-<h3 id="upgrade-netdata-to-the-latest-stable-release-1361">Upgrade netdata to the latest stable release (1.36.1)</h3>
+<h3 id="upgrade-iredapd-postfix-policy-server-to-the-latest-stable-release-53">Upgrade iRedAPD (Postfix policy server) to the latest stable release (5.3)</h3>
+<p>Please follow below tutorial to upgrade iRedAPD to the latest stable release:
+<a href="./upgrade.iredapd.html">Upgrade iRedAPD to the latest stable release</a></p>
+<h3 id="upgrade-netdata-to-the-latest-stable-release-1410">Upgrade netdata to the latest stable release (1.41.0)</h3>
 <p>If you have netdata installed, you can upgrade it by following this tutorial:
 <a href="./upgrade.netdata.html">Upgrade netdata</a>.</p>
 <h3 id="upgrade-roundcube-webmail-to-the-latest-stable-release-162">Upgrade Roundcube webmail to the latest stable release (1.6.2)</h3>
