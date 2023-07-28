@@ -271,7 +271,7 @@ expected.
 
 ### Allow `ping` in Jail
 
-* Appending below line in `/etc/sysctl.conf` to allow to use `ping` command
+* Append below line in `/etc/sysctl.conf` to allow to use `ping` command
   inside Jail:
 
 ```
