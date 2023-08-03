@@ -41,10 +41,10 @@ The big picture:
 Hostnames and IP addresses:
 
 * We use hostname `ha1.example.com` and `ha2.example.com` for our 2 servers
-  which runs HAProxy and KeepAlived, use `ha1` and `ha2` for short.
+  which run HAProxy and KeepAlived, use `ha1` and `ha2` for short.
 
 * We use hostname `mail1.example.com` and `mail2.example.com` for our 2 servers
-  which runs iRedMail for mail services, use `mail1` and `mail2` for short.
+  which run iRedMail for mail services, use `mail1` and `mail2` for short.
 
 * IP addresses:
 
@@ -325,7 +325,7 @@ first, add new hard drive with the same capacity
 
 * add new disk on `mail1`:
 
-type 'n', and hit enter for next question, (dont forget to write) hit 'w'
+type 'n', and hit enter for next question, (don't forget to write) hit 'w'
 
 ```
 fdisk /dev/sdb
@@ -347,7 +347,7 @@ mount -a
 
 * add new disk on mail2:
 
-type 'n', and hit enter for next question, (dont forget to write) hit 'w'
+type 'n', and hit enter for next question, (don't forget to write) hit 'w'
 
 ```
 fdisk /dev/sdb
@@ -474,13 +474,13 @@ check it
 df -h
 ```
 
-you can test it by creating any files on one of your mail servers
+you can test it by creating some files on one of your mail servers
 
 ```
 cd /var/vmail; touch R1 R2 R3 R4 R5 R6
 ```
 
-make sure it, by checking files on both servers
+make sure it syncs, by checking files on both servers
 
 ```
 ls -la /var/vmail
@@ -496,10 +496,10 @@ ls -la /var/vmail
 !!! note
 
     * install iRedMail on `mail1` first, after mail1 finish you can install it
-      to mail2 (better do not reboot after installing iRedMail, wait untill
-      finish install/configure)
+      to mail2 (it's better to not reboot after installing iRedMail, wait until it
+      finishes installation/configuration)
 
-    * Dont forget to choose LDAP and using default mail folder: `/var/vmail`
+    * Don't forget to choose LDAP and using default mail folder: `/var/vmail`
     * Choose Nginx as web server
 
 
@@ -538,7 +538,7 @@ syncrepl rid=001
 ```
 
 on both servers set firewalld to accept gluster port, ldap port, and database to each servers,
-or you can set by your own rules:
+or you can set your own rules:
 
 ```
 firewall-cmd --permanent \
@@ -707,16 +707,16 @@ Restart MariaDB service:
 systemctl restart mariadb
 ```
 
-* reboot one of mailserver and wait till up, then reboot the other mailserver
+* reboot one of mailserver and wait until up, then reboot the other mailserver
 
 ## Testing
 
-* For HA Testing, u can try to shutdown one of your server to testing it (ha1 or ha2 --/OR-- mail1 or mail2)
-* u can create users using iredadmin on mail1, then check users from mail2 and you can see its already sync
-* try to login using roundcubemail from any mailserver then u can check users on database 'roundcubemail->users', and its already sync
-* only mail1 'can add n modify' users
-* this mailservers act as Glusterserver & Glusterclient, if u want to reboot the servers, please reboot first server untill this up then reboot the second server.
-* if all servers are reboot for the same time it will not mounting '/var/vmail' folder. u must force mount manually using this command 'gluster volume start mailrep-volume force'
+* For HA Testing, you can try to shutdown one of your server to test it (ha1 or ha2 --/OR-- mail1 or mail2)
+* you can create users using iredadmin on mail1, then check users from mail2 and you should see it's already synced
+* try to login using roundcubemail from any mailserver, then you can check users on database 'roundcubemail->users', and it should already have synced
+* only mail1 'can add and modify' users
+* this mailservers acts as Glusterserver & Glusterclient, if you want to reboot the servers, please reboot first server until this up, then reboot the second server.
+* if all servers are rebooted at the same time it will not mount '/var/vmail' folder. you must force mount manually using this command 'gluster volume start mailrep-volume force'
 
 
-To view the DB easily, you may want to install adminer from <http://adminer.org/> (it's web-based SQL management tool, just a single PHP file):
+To view the DB easily, you may want to install adminer from <http://adminer.org/> (it's a web-based SQL management tool, just a single PHP file):
