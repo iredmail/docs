@@ -78,11 +78,11 @@ Thanks Setyo. :) iRedMail Team doesn't offer tech support for this setup.</p>
 <ul>
 <li>
 <p>We use hostname <code>ha1.example.com</code> and <code>ha2.example.com</code> for our 2 servers
-  which runs HAProxy and KeepAlived, use <code>ha1</code> and <code>ha2</code> for short.</p>
+  which run HAProxy and KeepAlived, use <code>ha1</code> and <code>ha2</code> for short.</p>
 </li>
 <li>
 <p>We use hostname <code>mail1.example.com</code> and <code>mail2.example.com</code> for our 2 servers
-  which runs iRedMail for mail services, use <code>mail1</code> and <code>mail2</code> for short.</p>
+  which run iRedMail for mail services, use <code>mail1</code> and <code>mail2</code> for short.</p>
 </li>
 <li>
 <p>IP addresses:</p>
@@ -334,7 +334,7 @@ firewall-cmd --complete-reload
 <ul>
 <li>add new disk on <code>mail1</code>:</li>
 </ul>
-<p>type 'n', and hit enter for next question, (dont forget to write) hit 'w'</p>
+<p>type 'n', and hit enter for next question, (don't forget to write) hit 'w'</p>
 <pre><code>fdisk /dev/sdb
 /sbin/mkfs.ext4 /dev/sdb1
 mkdir /glusterfs1
@@ -348,7 +348,7 @@ mkdir /glusterfs1
 <ul>
 <li>add new disk on mail2:</li>
 </ul>
-<p>type 'n', and hit enter for next question, (dont forget to write) hit 'w'</p>
+<p>type 'n', and hit enter for next question, (don't forget to write) hit 'w'</p>
 <pre><code>fdisk /dev/sdb
 /sbin/mkfs.ext4 /dev/sdb1
 mkdir /glusterfs2
@@ -428,10 +428,10 @@ mount.glusterfs mail2:/mailrep-volume /var/vmail/
 <p>check it</p>
 <pre><code>df -h
 </code></pre>
-<p>you can test it by creating any files on one of your mail servers</p>
+<p>you can test it by creating some files on one of your mail servers</p>
 <pre><code>cd /var/vmail; touch R1 R2 R3 R4 R5 R6
 </code></pre>
-<p>make sure it, by checking files on both servers</p>
+<p>make sure it syncs, by checking files on both servers</p>
 <pre><code>ls -la /var/vmail
 </code></pre>
 <h2 id="install-and-configure-iredmail">Install and configure iRedMail</h2>
@@ -449,11 +449,11 @@ mount.glusterfs mail2:/mailrep-volume /var/vmail/
 <ul>
 <li>
 <p>install iRedMail on <code>mail1</code> first, after mail1 finish you can install it
-  to mail2 (better do not reboot after installing iRedMail, wait untill
-  finish install/configure)</p>
+  to mail2 (it's better to not reboot after installing iRedMail, wait until it
+  finishes installation/configuration)</p>
 </li>
 <li>
-<p>Dont forget to choose LDAP and using default mail folder: <code>/var/vmail</code></p>
+<p>Don't forget to choose LDAP and using default mail folder: <code>/var/vmail</code></p>
 </li>
 <li>Choose Nginx as web server</li>
 </ul>
@@ -490,7 +490,7 @@ query files under <code>/etc/postfix/ldap/</code>.</p>
          attrs=&quot;*,+&quot;
 </code></pre>
 <p>on both servers set firewalld to accept gluster port, ldap port, and database to each servers,
-or you can set by your own rules:</p>
+or you can set your own rules:</p>
 <pre><code>firewall-cmd --permanent \
      --zone=iredmail \
      --add-rich-rule='rule family=&quot;ipv4&quot; source address=&quot;192.168.1.3/24&quot; port protocol=&quot;tcp&quot; port=&quot;389&quot; accept'
@@ -631,17 +631,17 @@ exit;
 <pre><code>systemctl restart mariadb
 </code></pre>
 <ul>
-<li>reboot one of mailserver and wait till up, then reboot the other mailserver</li>
+<li>reboot one of mailserver and wait until up, then reboot the other mailserver</li>
 </ul>
 <h2 id="testing">Testing</h2>
 <ul>
-<li>For HA Testing, u can try to shutdown one of your server to testing it (ha1 or ha2 --/OR-- mail1 or mail2)</li>
-<li>u can create users using iredadmin on mail1, then check users from mail2 and you can see its already sync</li>
-<li>try to login using roundcubemail from any mailserver then u can check users on database 'roundcubemail-&gt;users', and its already sync</li>
-<li>only mail1 'can add n modify' users</li>
-<li>this mailservers act as Glusterserver &amp; Glusterclient, if u want to reboot the servers, please reboot first server untill this up then reboot the second server.</li>
-<li>if all servers are reboot for the same time it will not mounting '/var/vmail' folder. u must force mount manually using this command 'gluster volume start mailrep-volume force'</li>
+<li>For HA Testing, you can try to shutdown one of your server to test it (ha1 or ha2 --/OR-- mail1 or mail2)</li>
+<li>you can create users using iredadmin on mail1, then check users from mail2 and you should see it's already synced</li>
+<li>try to login using roundcubemail from any mailserver, then you can check users on database 'roundcubemail-&gt;users', and it should already have synced</li>
+<li>only mail1 'can add and modify' users</li>
+<li>this mailservers acts as Glusterserver &amp; Glusterclient, if you want to reboot the servers, please reboot first server until this up, then reboot the second server.</li>
+<li>if all servers are rebooted at the same time it will not mount '/var/vmail' folder. you must force mount manually using this command 'gluster volume start mailrep-volume force'</li>
 </ul>
-<p>To view the DB easily, you may want to install adminer from <a href="http://adminer.org/">http://adminer.org/</a> (it's web-based SQL management tool, just a single PHP file):</p><div class="footer">
+<p>To view the DB easily, you may want to install adminer from <a href="http://adminer.org/">http://adminer.org/</a> (it's a web-based SQL management tool, just a single PHP file):</p><div class="footer">
     <p style="text-align: center; color: grey;">All documents are available in <a href="https://github.com/iredmail/docs/">GitHub repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://github.com/iredmail/docs/archive/master.zip">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
 </div></body></html>

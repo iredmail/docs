@@ -98,7 +98,7 @@ etc.). The TTL is set in seconds, so 60 is one minute, 1800 is 30 minutes, etc.<
 </li>
 </ul>
 <p>Systems that have a static IP should usually have a TTL of 1800 or higher.
-Systems that have a dynamic IP should usually have a TTL of 1800 of less.</p>
+Systems that have a dynamic IP should usually have a TTL of 1800 or less.</p>
 <p>The lower the TTL the more often a client will need to query the name servers
 for your host's (record's) IP address this will result in higher query traffic
 for your domain name. Where as a very high TTL can cause downtime when you
@@ -152,7 +152,7 @@ and the others as backups, only one MX for mail server is OK too.</p>
 <h3 id="how-to-setup-the-mx-record">How to setup the MX record</h3>
 <p>If your ISP or domain name registrar is providing the DNS service, you can
 request them to set one up for you. If you manage your own DNS servers then
-you need to create the MX records in your DNS zone yourself.</p>
+you need to create the MX record(s) in your DNS zone yourself.</p>
 <p>Sample MX record:</p>
 <pre><code>NAME            PRIORITY    TYPE    DATA
 
@@ -162,15 +162,15 @@ mydomain.com.   10          mx      mail.mydomain.com.
 be delivered to server <code>mail.mydomain.com</code>.</p>
 <h2 id="autodiscover-for-your-domain">autodiscover for your domain</h2>
 <h3 id="what-is-an-autoconfigautodiscover-record">What is an autoconfig/autodiscover record</h3>
-<p>autoconfig/autodiscover.company.com records allow mail clients to fetch automatically the mail
-client configuration of a mailbox. If the mailbox to configure is user@company.com then
-it will automatically check autodiscover.company.com for the correct configuration.</p>
+<p>autoconfig/autodiscover records allow mail clients to fetch automatically the mail
+client configuration of a mailbox. If the mailbox to configure is <code>user@company.com</code> then
+it will automatically check <code>autodiscover.company.com</code> for the correct configuration.</p>
 <p>More information is available here:
 <a href="https://docs.iredmail.org/iredmail-easy.autoconfig.autodiscover.html">Setup DNS records for autoconfig and autodiscover</a>.</p>
 <h3 id="how-to-setup-the-autoconfigautodiscover-record">How to setup the autoconfig/autodiscover record</h3>
 <p>If your ISP or domain name registrar is providing the DNS service, you can
 request them to set one up for you. If you manage your own DNS servers then
-you need to create the autoconfig/autodiscover records in your DNS zone yourself.</p>
+you need to create the autoconfig/autodiscover record(s) in your DNS zone yourself.</p>
 <p>Sample autoconfig/autodiscover record:</p>
 <pre><code>NAME            PRIORITY    TYPE    DATA
 
@@ -179,7 +179,7 @@ autoconfig.mydomain.com.   10          A      mail.mydomain.com.
 </code></pre>
 <h2 id="spf">SPF record for the mail domain name</h2>
 <h3 id="what-is-a-spf-record">What is a SPF record</h3>
-<p>SPF is a spam and phishing scam fighting method which uses DNS SPF-records to
+<p>SPF is a spam and phishing fighting method which uses DNS SPF-records to
 define which hosts are permitted to send e-mails for a domain. For details on
 SPF, please check <a href="https://en.wikipedia.org/wiki/Sender_Policy_Framework">wikipedia</a>.</p>
 <p>This works by defining a DNS SPF-record for the e-mail domain name specifying
