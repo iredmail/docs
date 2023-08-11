@@ -197,10 +197,10 @@ For example:</p>
 <p><code>-all</code> means prohibit emails sent from all other servers. If it's too strict
 for you, you can use <code>~all</code> instead which means soft fail (uncertain).</p>
 <p>You can specify IP address(es) directly too:</p>
-<pre><code>mydomain.com.   3600    IN  TXT &quot;v=spf1 ip4:111.111.111.111 ip4:111.111.111.222 -all&quot;
+<pre><code>mydomain.com.   3600    IN  TXT &quot;v=spf1 mx ip4:111.111.111.222 -all&quot;
 </code></pre>
 <p>Of course you can have them both or more in same record:</p>
-<pre><code>mydomain.com.   3600    IN  TXT &quot;v=spf1 mx ip4:111.111.111.222 -all&quot;
+<pre><code>mydomain.com.   3600    IN  TXT &quot;v=spf1 mx ip4:111.111.111.111 ip4:111.111.111.222 -all&quot;
 </code></pre>
 <p>There're more valid mechanisms available, please check
 <a href="https://en.wikipedia.org/wiki/Sender_Policy_Framework">wikipedia</a> for more details.</p>
