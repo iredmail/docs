@@ -182,13 +182,13 @@ for you, you can use `~all` instead which means soft fail (uncertain).
 You can specify IP address(es) directly too:
 
 ```
-mydomain.com.   3600    IN  TXT "v=spf1 ip4:111.111.111.111 ip4:111.111.111.222 -all"
+mydomain.com.   3600    IN  TXT "v=spf1 mx ip4:111.111.111.222 -all"
 ```
 
 Of course you can have them both or more in same record:
 
 ```
-mydomain.com.   3600    IN  TXT "v=spf1 mx ip4:111.111.111.222 -all"
+mydomain.com.   3600    IN  TXT "v=spf1 mx ip4:111.111.111.111 ip4:111.111.111.222 -all"
 ```
 
 There're more valid mechanisms available, please check
