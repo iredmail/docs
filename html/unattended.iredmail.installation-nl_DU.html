@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Voer stille iRedMail installatie uit zonder toezicht en user input</title>
+        <link rel="stylesheet" type="text/css" href="./css/markdown.css" />
+    </head>
+    <body>
+
+    <div id="navigation">
+    <a href="https://www.iredmail.org" target="_blank">
+        <img alt="iRedMail web site"
+             src="./images/logo-iredmail.png"
+             style="vertical-align: middle; height: 30px;"
+             />&nbsp;
+        <span>iRedMail</span>
+    </a>
+    &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><div class="admonition note">
+<p class="admonition-title">This tutorial is available in other languages. <a href="https://github.com/iredmail/docs">Help translate more</a></p>
+<p><a href="./unattended.iredmail.installation.html">English</a> /</p>
+</div>
+<h1 id="voer-stille-iredmail-installatie-uit-zonder-toezicht-en-user-input">Voer stille iRedMail installatie uit zonder toezicht en user input</h1>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>Bekijk onze lichtgewichte on-premise e-mail archiveringsoftware ontwikkeld door 
+ het iRedMail team: <a href="https://spiderd.io/">Spider Email Archiver</a>.</p>
+</div>
+<div class="toc">
+<ul>
+<li><a href="#voer-stille-iredmail-installatie-uit-zonder-toezicht-en-user-input">Voer stille iRedMail installatie uit zonder toezicht en user input</a><ul>
+<li><a href="#samenvatting">Samenvatting</a></li>
+<li><a href="#genereer-een-voorbeeldconfiguratiebestand">Genereer een voorbeeldconfiguratiebestand</a></li>
+<li><a href="#start-een-nieuwe-server-op-met-voordien-gemaakt-configuratiebestand">Start een nieuwe server op met voordien gemaakt configuratiebestand</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<h2 id="samenvatting">Samenvatting</h2>
+<p>Het iRedMail installatieprogramma slaat zijn eigen configuraties op in een bestand genaamd  <code>config</code> tijdens installatie. Als je bijvoorbeeld iRedMail-1.2 hebt gedownload naar <code>/root</code>, is dat: <code>/root/iRedMail-1.2/config</code> .</p>
+<p>Wanneer je het iRedMail installatieprogramma start, detecteert het automatisch 
+het configuratiebestand, en vraagt het voor je bevestiging om degene te gebruiken die het gevonden heeft. Je kunt deze procedure gebruiken om een iRedMail installatie uit te voeren zonder erbij te moeten zijn.</p>
+<h2 id="genereer-een-voorbeeldconfiguratiebestand">Genereer een voorbeeldconfiguratiebestand</h2>
+<p>Om een voorbeeldconfiguratiebestand te genereren kan je het installatieprogramma opstarten:</p>
+<pre><code class="language-bash">bash iRedMail.sh
+</code></pre>
+<p>Nadat je de installatiewizard hebt overlopen, geeft het iRedMail installatieprogramma je configuraties weer en vraagt het voor bevestiging om de echte installatie te starten.
+Je moet de installatie hier niet voltooien omdat je alleen maar het configuratiebestand nodig hebt.</p>
+<p>Laat je niet tegenhouden om dit <code>config</code> bestand te openen, de instellingen te veranderen naar wat je van de echte installatie wilt.</p>
+<h2 id="start-een-nieuwe-server-op-met-voordien-gemaakt-configuratiebestand">Start een nieuwe server op met voordien gemaakt configuratiebestand</h2>
+<p>Om een nieuwe server op te starten met voordien gemaakt configuratiebestand:</p>
+<ul>
+<li>Download iRedMail installatieprogramma van website: <a href="https://www.iredmail.org/download.html">Download</a>.</li>
+<li>Upload het gecomprimeerde iRedMail installatieprogramma naar de nieuwe server en decomprimeer het bestand. we gaan ervan uit dat u het bestand in deze map decomprimeert: <code>/root/iRedMail-1.2/</code>.</li>
+<li>Upload het voordien gemaakte configuratiebestand naar <code>/root/iRedMail-1.2/config</code> op de nieuwe server.</li>
+<li>Lanceer het iRedMail installatieprogramma nu met wat voordien-gedefinieerde variabelen:</li>
+</ul>
+<pre><code class="language-bash">AUTO_USE_EXISTING_CONFIG_FILE=y \
+    AUTO_INSTALL_WITHOUT_CONFIRM=y \
+    AUTO_CLEANUP_REMOVE_SENDMAIL=y \
+    AUTO_CLEANUP_REPLACE_FIREWALL_RULES=y \
+    AUTO_CLEANUP_RESTART_FIREWALL=y \
+    AUTO_CLEANUP_REPLACE_MYSQL_CONFIG=y \
+    bash iRedMail.sh
+</code></pre>
+<p>Het is makkelijk te begrijpen wat de namen van de variabelen betekenen:</p>
+<ul>
+<li><code>AUTO_USE_EXISTING_CONFIG_FILE=y</code>: Gebruik bestaand <code>config</code> bestand zonder voor bevestiging te vragen.</li>
+<li><code>AUTO_INSTALL_WITHOUT_CONFIRM=y</code>: Start de installatie zonder voor bevestiging te vragen.</li>
+<li><code>AUTO_CLEANUP_REMOVE_SENDMAIL=y</code>: Verwijder <code>sendmail</code> package zonder voor bevestiging te vragen.</li>
+<li><code>AUTO_CLEANUP_REPLACE_FIREWALL_RULES=y</code>: Kopieer en gebruik de firewall regels die standaard samen met het iRedMail installatieprogramma ter beschikking staan.</li>
+<li><code>AUTO_CLEANUP_RESTART_FIREWALL=y</code>: herstart firewall service zonder voor bevestiging te vragen.</li>
+<li><code>AUTO_CLEANUP_REPLACE_MYSQL_CONFIG=y</code>: Kopieer en gebruik het MySQL (server) configuratiebestand dat standaard samen met het iRedMail installatieprogramma ter beschikking staat.</li>
+</ul><div class="footer">
+    <p style="text-align: center; color: grey;">All documents are available in <a href="https://github.com/iredmail/docs/">GitHub repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://github.com/iredmail/docs/archive/master.zip">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
+</div></body></html>

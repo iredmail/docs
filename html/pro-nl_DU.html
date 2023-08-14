@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>iRedMail Pro: Getting started</title>
+        <link rel="stylesheet" type="text/css" href="./css/markdown.css" />
+    </head>
+    <body>
+
+    <div id="navigation">
+    <a href="https://www.iredmail.org" target="_blank">
+        <img alt="iRedMail web site"
+             src="./images/logo-iredmail.png"
+             style="vertical-align: middle; height: 30px;"
+             />&nbsp;
+        <span>iRedMail</span>
+    </a>
+    &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><div class="admonition note">
+<p class="admonition-title">This tutorial is available in other languages. <a href="https://github.com/iredmail/docs">Help translate more</a></p>
+<p><a href="./pro.html">English</a> /</p>
+</div>
+<h1 id="iredmail-pro-getting-started">iRedMail Pro: Getting started</h1>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>Bekijk onze lichtgewicht on-premise e-mail archiveringsoftware ontwikkeld door 
+ het iRedMail team: <a href="https://spiderd.io/">Spider Email Archiver</a>.</p>
+</div>
+<div class="toc">
+<ul>
+<li><a href="#iredmail-pro-getting-started">iRedMail Pro: Getting started</a><ul>
+<li><a href="#samenvatting">Samenvatting</a></li>
+<li><a href="#systeemvereisten">Systeemvereisten</a><ul>
+<li><a href="#ondersteunde-linux-en-bsd-sofwareversies">Ondersteunde Linux en BSD sofwareversies</a></li>
+<li><a href="#hardware-requirements">Hardware Requirements</a></li>
+</ul>
+</li>
+<li><a href="#download-en-start-het-installatieprogramma">Download en start het installatieprogramma</a></li>
+<li><a href="#installatie">Installatie</a><ul>
+<li><a href="#kies-je-verkozen-backend">Kies je verkozen backend</a></li>
+<li><a href="#kies-componenten-die-je-wilt-gebruiken">Kies componenten die je wilt gebruiken</a></li>
+<li><a href="#vereiste-instellingen">Vereiste instellingen</a></li>
+<li><a href="#optionele-instellingen">Optionele instellingen</a></li>
+<li><a href="#verifieer-en-installeer">Verifiëer en installeer</a></li>
+<li><a href="#installatie-compleet">Installatie compleet</a></li>
+<li><a href="#log-in-op-het-administratiepaneel">Log in op het administratiepaneel</a></li>
+</ul>
+</li>
+<li><a href="#zie-ook">Zie ook</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<ul>
+<li>Alle accountpaswoorden zijn volledig willekeurig gegenereerd tijdens installatie, ze worden bewaard onder <code>/root/.iredmail/kv/</code> op je server. Ze zijn ook georganiseerd in het bestand
+  <code>/root/iRedMail/iRedMail.tips</code>.</li>
+<li>Om een al-bestaande iRedMail server om te zetten in een <strong>iRedMail Pro</strong> installatie,
+  bekijk deze tutorial:
+  <a href="./migrate.to.iredmail.easy.html">Migrate from iRedMail to iRedMail Easy platform</a>.</li>
+</ul>
+</div>
+<h2 id="samenvatting">Samenvatting</h2>
+<p><strong>iRedMail Pro</strong> is een webgebaseerd, on-prem iRedMail server installatieprogramma en administratiepaneel.</p>
+<p>Met iRedMail Pro is het gemakkelijk om de server te installeren (en mogelijks herinstalleren) en up-to-date te houden.
+Je kunt ook (mail-service gerelateerde) instellingen configureren via de web UI.</p>
+<p>We moedigen alle gebruikers aan om nieuwe iRedMail servers op te starten met iRedMail Pro en
+om servers up-to-date to houden.</p>
+<p>Als je het klassieke downloadbare iRedMail installatieprogramma verkiest, kan je daarvoor hier tutorials terugvinden: <a href="./index.html#install">Installeer iRedMail.</a></p>
+<h2 id="systeemvereisten">Systeemvereisten</h2>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<ul>
+<li>iRedMail is gemaakt om geïnstalleerd te worden op een <strong>NIEUWE</strong> server, dat betekent dat je server nog <strong>GEEN</strong> e-mail gerelateerde componenten geïnstalleerd heeft.
+  bv: MySQL, OpenLDAP, Postfix, Dovecot, Amavisd, etc. iRedMail zal automatisch alles installeren en configureren. Als er toch e-mail gerelateerde componenten op je server zijn, kan et zijn dat je bestaande bestanden/configuraties worden gewijzigd. Ook al zou iRedMail normaal gezien backups moeten maken voordat wijzigingen worden gemaakt, kan het zijn dat dat systeem niet werkt zoals het zou moeten.</li>
+<li>
+<p><strong>Port 25 is vereist</strong> voor e-mail, maar veel Internet Service Providers blokkeren standaard port 25.</p>
+<p>Port 25 wordt gebruikt voor communicatie tussen e-mail servers, <strong>het moet open staan</strong>,
+anders zal je server geen e-mail kunnen ontvangen of versturen.
+Contacteer je ISP om zeker te zijn dat het niet geblokkeerd is, of om het te deblokkeren.</p>
+<ul>
+<li>Linode. legde uit in een <a href="https://www.linode.com/blog/linode/a-new-policy-to-help-fight-spam/">blog post</a>,
+    dat je een support ticket moet openen om port 25 te deblokkeren. 
+    als je linode kiest als VPS provider en op de link hier klikt, krijgt de Linode account van het iRedMail team 15-20 dollar <a href="https://www.linode.com/?r=b4d04083428fb99ce452d84b57253d11692a0850">sign up to Linode with our reference</a> Bedankt.</li>
+<li>Vultr. <a href="https://www.vultr.com/docs/what-ports-are-blocked/">Port 25 is standaard geblokkeerd</a>, deblokkeren kan je aanvragen door <a href="https://my.vultr.com/support/create_ticket/">een support ticket te openen</a>.</li>
+<li>Amazon AWS EC2. Vraag om <a href="https://aws.amazon.com/premiumsupport/knowledge-center/ec2-port-25-throttle/">de throttle op port 25</a> te verwijderen.</li>
+<li>Google Cloud Platform.</li>
+<li>Microsoft Azure.</li>
+<li>DigitalOcean. Volgens <a href="https://www.digitalocean.com/community/questions/port-25-465-is-blocked-how-can-i-enable-it">een post in hun community</a>, <strong>LIJKT</strong> het onmogelijk om port 25 te deblokkeren, dat betekent dat je <strong>GEEN</strong> e-mailserver kunt starten bij DigitalOcean VPS.</li>
+</ul>
+</li>
+</ul>
+</div>
+<h3 id="ondersteunde-linux-en-bsd-sofwareversies">Ondersteunde Linux en BSD sofwareversies</h3>
+<p>Dit zijn de ondersteunde Linux/BSD softwareversies die ondersteund worden bij <strong>iRedMail Pro</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Distributie</th>
+<th>Softwareversie</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CentOS Stream</td>
+<td>8, 9</td>
+</tr>
+<tr>
+<td>Rocky Linux</td>
+<td>8, 9</td>
+</tr>
+<tr>
+<td>AlmaLinux</td>
+<td>8, 9</td>
+</tr>
+<tr>
+<td>Debian</td>
+<td>11</td>
+</tr>
+<tr>
+<td>Ubuntu</td>
+<td>20.04, 22.04</td>
+</tr>
+<tr>
+<td>OpenBSD</td>
+<td>7.2</td>
+</tr>
+</tbody>
+</table>
+<p>Als je iRedMail moet installeren op FreeBSD, gebruik dan alstublieft het <a href="https://www.iredmail.org/download.html">downloadbare installatieprogramma</a> indeplaats.</p>
+<h3 id="hardware-requirements">Hardware Requirements</h3>
+<ul>
+<li>Ten minste <code>4 GB</code> RAM is nodig voor een e-mail server onder lage load met spam/virus scanner aanstaan.</li>
+<li>Als je van plan bent om SOGo Groupware te gebruiken (dat webmail, kalender(CalDAV), contactenlijst(CardDAV), en ActiveSync voorziet), heb je veel meer geheugen nodig. Overweeg bijvoorbeeld 16GB RAM om 500 ActiveSync clients te voorzien.</li>
+</ul>
+<h2 id="download-en-start-het-installatieprogramma">Download en start het installatieprogramma</h2>
+<p>Geef onderstaande commando's in op je server om iRedMail pro te downloaden voor Linux (x86_64):</p>
+<pre><code>wget -O /usr/local/bin/iredmail https://dl.iredmail.org/iredmail-2.0-beta1-linux-x86_64
+chmod +x /usr/local/bin/iredmail
+</code></pre>
+<p>Lanceer het installatieprogramma:</p>
+<pre><code>/usr/local/bin/iredmail
+</code></pre>
+<p>Dit draait een webserver op port <code>8080</code>, ga er naartoe met een webbrowser en gebruik de installatiewizard om iRedMail te installeren.</p>
+<p>Na installatie draait het op port <code>7793</code>.</p>
+<p>Hieronder bevinden zich screenshots van de installatiewizard.</p>
+<h2 id="installatie">Installatie</h2>
+<h3 id="kies-je-verkozen-backend">Kies je verkozen backend</h3>
+<p>Een backend is een SQL of LDAP database die gebruikt wordt om mail domains en
+accounts op te slaan. Er is geen groot verschil tussen de aangeboden backends, het is dus sterk aangeraden om diegene te gebruiken die je het beste kent voor makkelijker beheer en onderhoud na installatie.</p>
+<p><img alt="" src="./images/pro/setup-backend.png" width="700px" /></p>
+<h3 id="kies-componenten-die-je-wilt-gebruiken">Kies componenten die je wilt gebruiken</h3>
+<p>Een component is een softwareprogramma (of softwaregroep, service) die (een) bepaald(e) network service(s) voorziet. Op deze pagina kan je de componenten kiezen die je wilt gebruiken op je e-mail server.</p>
+<p><img alt="" src="./images/pro/setup-components.png" width="700px" /></p>
+<h3 id="vereiste-instellingen">Vereiste instellingen</h3>
+<p>Weinig settings zijn vereist om een e-mail server op te starten.</p>
+<p>Merk op: terwijl je typt zal het je ingegeven waarde controleren, wacht alstublieft tussen de 1 à 3 seconden totdat het verificatie afrond.</p>
+<p><img alt="" src="./images/pro/setup-required-settings.png" width="700px" /></p>
+<h3 id="optionele-instellingen">Optionele instellingen</h3>
+<p>Afhankelijk van welke componenten je kiest om te installeren, zullen de instellingen op deze pagina anders zijn.</p>
+<p><img alt="" src="./images/pro/setup-optional-settings.png" width="700px" /></p>
+<h3 id="verifieer-en-installeer">Verifiëer en installeer</h3>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>Alle accountpaswoorden worden willekeurig gegenereerd tijdens installatie.
+ Ze bevinden zich in bestanden onder <code>/root/.iredmail/kv/</code> op je eigen e-mailserver, en staan ook georganiseerd in
+bestand <code>/root/iRedMail/iRedMail.tips</code> ter informatie.</p>
+</div>
+<p>Verifiëer de instellingen:</p>
+<p><img alt="" src="./images/pro/setup-review-and-deploy.png" width="700px" /></p>
+<p>Klik op de <code>Confirm and Deploy</code> knop om installatie direct te starten:</p>
+<p><img alt="" src="./images/pro/setup-deploy.png" width="700px" /></p>
+<h3 id="installatie-compleet">Installatie compleet</h3>
+<p>Nadat installatie succesvol is, zou je informatie moeten zien omtrent het inloggen  op het administratiepaneel.
+Ga alstublieft naar de URL en log in met gegeven username en paswoord.</p>
+<p>Merk op: Dit is een globaal administratiepaneel dat alle privileges heeft.</p>
+<p><img alt="" src="./images/pro/setup-complete.png" width="500px" /></p>
+<h3 id="log-in-op-het-administratiepaneel">Log in op het administratiepaneel</h3>
+<p>Nadat je bent ingelogd op het administratiepaneel kan je softwarecomponenten beheren, e-mail server settings aanpassen, e-mail accounts beheren, etc.</p>
+<p><img alt="" src="./images/pro/components.png" width="700px" />
+<br/>
+<img alt="" src="./images/pro/server-settings.png" width="700px" />
+<br/>
+<img alt="" src="./images/pro/domains.png" width="700px" /></p>
+<h2 id="zie-ook">Zie ook</h2>
+<ul>
+<li><a href="./setup.dns.html">Creëer DNS records voor je e-mailserver</a></li>
+<li><a href="./letsencrypt.html">Vraag een gratis SSL certificaat aan bij Let's  Encrypt</a></li>
+<li><a href="./index.html#mua">Configureer e-mail client applicaties</a></li>
+</ul><div class="footer">
+    <p style="text-align: center; color: grey;">All documents are available in <a href="https://github.com/iredmail/docs/">GitHub repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://github.com/iredmail/docs/archive/master.zip">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
+</div></body></html>

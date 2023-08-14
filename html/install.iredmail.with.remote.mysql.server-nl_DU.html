@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Installeer iRedMail met een externe MySQL server</title>
+        <link rel="stylesheet" type="text/css" href="./css/markdown.css" />
+    </head>
+    <body>
+
+    <div id="navigation">
+    <a href="https://www.iredmail.org" target="_blank">
+        <img alt="iRedMail web site"
+             src="./images/logo-iredmail.png"
+             style="vertical-align: middle; height: 30px;"
+             />&nbsp;
+        <span>iRedMail</span>
+    </a>
+    &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><div class="admonition note">
+<p class="admonition-title">This tutorial is available in other languages. <a href="https://github.com/iredmail/docs">Help translate more</a></p>
+<p><a href="./install.iredmail.with.remote.mysql.server.html">English</a> /</p>
+</div>
+<h1 id="installeer-iredmail-met-een-externe-mysql-server">Installeer iRedMail met een externe MySQL server</h1>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>Bekijk onze lichtgewicht on-premise e-mail archiveringsoftware ontwikkeld door 
+ het iRedMail team: <a href="https://spiderd.io/">Spider Email Archiver</a>.</p>
+</div>
+<div class="toc">
+<ul>
+<li><a href="#installeer-iredmail-met-een-externe-mysql-server">Installeer iRedMail met een externe MySQL server</a><ul>
+<li><a href="#samenvatting">Samenvatting</a></li>
+<li><a href="#benodigdheden">Benodigdheden</a></li>
+<li><a href="#installeer-iredmail">Installeer iRedMail</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<h2 id="samenvatting">Samenvatting</h2>
+<p>Dit artikel legt uit hoe een iRedMail server versie <strong>0.9.6</strong> opzetten met een al-bestaande externe MySQL server.</p>
+<p>We gebruiken onderstaande IP adressen in onze voorbeeldinstallatie:</p>
+<ul>
+<li><code>192.168.1.100</code>: Externe MySQL server.</li>
+<li><code>192.168.1.200</code>: iRedMail server. We gaan hierop de nieuwste iRedMail-versie installeren.</li>
+</ul>
+<p>iRedMail zal geen MySQL server installeren (RPM/DEB package) op de localhost met connectie tot de externe database.
+MySQL server, maar MySQL client tools zijn nog steeds nodig voor de connectie met de externe database.</p>
+<h2 id="benodigdheden">Benodigdheden</h2>
+<p>In ons voorbeeld bevindt de MySQL server zich op <code>192.168.1.100</code>. Het moet externe connecties aanvaarden van de iRedMail server VOORDAT we beginnen met de installatie van iRedMail.
+We moeten een nieuwe SQL gebruiker creëren met password en de nodige toegang voor remote login van de iRedMail server (<code>192.168.1.200</code> in ons geval.</p>
+<ul>
+<li>Wees zeker dat je externe MySQL server verbindingen accepteerd  die van de iRedMail
+  server komen. Je kunt het verifieëren met commando <code>netstat</code>:</li>
+</ul>
+<pre><code># netstat -ntlp | grep 3306
+tcp        0      0 0.0.0.0:3306            0.0.0.0:*               LISTEN      2479/mysqld
+</code></pre>
+<p>Als de MySQL server alleen maar luistert naar 127.0.0.1, bewerk dan de parameter
+<code>bind-address</code> in het MySQL configuratiebestand <code>my.cnf</code> om zeker te zijn dat het luistert naar onderstaande IPv4 adressen, moet je de MySQL service herstarten.</p>
+<ul>
+<li>Op Red Hat Enterprise Linux, CentOS, openSUSE, OpenBSD moet je <code>/etc/my.cnf</code>. bewerken</li>
+<li>Op Debian, Ubuntu, moet je <code>/etc/mysql/my.cnf</code>. bewerken</li>
+<li>Op FreeBSD,  moet je <code>/var/db/mysql/my.cnf</code>. bewerken</li>
+</ul>
+<pre><code># Als je de comment bij deze parameter weglaat, luistert het naar alle IPv6-adressen
+bind-address = 0.0.0.0
+</code></pre>
+<ul>
+<li>
+<p>Zorg ervoor dat de externe MySQL server zijn verzoeken niet worden geblokkeerd door een network firewall zoals  iptables (Linux), ipfw (FreeBSD) of PF (OpenBSD).</p>
+</li>
+<li>
+<p>Creëer een nieuwe SQL user (<code>admin_iredmail</code>) met een password (<code>admin_password</code>)
+  en alle priviliges op de externe MySQL server (natuurlijk moet je ook daarvoor een ander sterk paswoord gebruiken):</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Deze SQL gebruiker zal worden gebruikt voor dagenlijkse backup, delete het alstublieft niet.
+na je installatie van iRedMail.</p>
+</div>
+</li>
+</ul>
+<pre><code>-- Geef volgende commando's in op de MySQL server als root gebruiker
+GRANT ALL PRIVILEGES ON *.* TO 'admin_iredmail'@'192.168.1.200' IDENTIFIED BY 'admin_password' WITH GRANT OPTION;
+FLUSH PRIVILEGES;
+FLUSH HOSTS;
+</code></pre>
+<p>Met bovenstaande commando's wordt MySQL user <code>admin_iredmail</code> toegelaten om te communiceren met IP adres <code>192.168.1.200</code> met password <code>admin_password</code>.</p>
+<p><strong>Opmerkingen</strong>:</p>
+<ul>
+<li><code>WITH GRANT OPTION</code> in bovenstaand SQL commando is vereist.</li>
+<li>Natuurlijk kan je <code>root</code> of een andere MySQL gebruikersnaam gebruiken voor het SQL commando, maar verschillende gebruikersnamen gebruiken voor verschillende gebruikers zorgt ervoor dat je makkelijker 
+  begrijpt waarvoor elke gebruiker dient. Zorgt voor minder verwarring met de staandaard <code>root</code> gebruiker.</li>
+<li>Je moet <code>192.168.1.200</code> veranderen met het echte IP adres van je iRedMail server in bovenstaand commando.</li>
+</ul>
+<p>Als je al eerder hebt geprobeerd om iRedMail te installeren met deze externe MySQL server,
+neem dan eerst een backup <strong>van de externe MySQL server</strong>. 
+Vervolgens drop en delete je gerelateerde MySQL gebruikers van je vorige installatie, want die zullen automatisch worden opgesteld door iRedMail
+op je externe MySQL server:</p>
+<pre><code>-- Geef volgende commando's in op de MySQL server als root gebruiker
+DROP DATABASE amavisd;
+DROP DATABASE iredadmin;
+DROP DATABASE iredapd;
+DROP DATABASE roundcubemail;
+DROP DATABASE sogo;
+DROP DATABASE vmail;
+
+DROP USER 'amavisd'@'192.168.1.200';
+DROP USER 'iredadmin'@'192.168.1.200';
+DROP USER 'iredapd'@'192.168.1.200';
+DROP USER 'roundcube'@'192.168.1.200';
+DROP USER 'sogo'@'192.168.1.200';
+DROP USER 'vmail'@'192.168.1.200';
+DROP USER 'vmailadmin'@'192.168.1.200';
+</code></pre>
+<h2 id="installeer-iredmail">Installeer iRedMail</h2>
+<p>Volgt u alstublieft de iRedMail installatiegids tot op de letter, maar start de installatie met onderstaand commando in plaats van het normale iRedMail installatiescript (bij een 'normale' installatie is dat: <code>bash iRedMail.sh</code>):</p>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Als je externe MySQL server een IPv6 adres gebruikt, omring the dan met <code>[]</code> zoals hier het geval is: <code>[fd01:2345:6789:1::1]</code>.</p>
+</div>
+<pre><code>USE_EXISTING_MYSQL='YES' \
+    MYSQL_SERVER_ADDRESS='192.168.1.100' \
+    MYSQL_SERVER_PORT='3306' \
+    MYSQL_ROOT_USER='admin_iredmail' \
+    MYSQL_ROOT_PASSWD='admin_password' \
+    MYSQL_GRANT_HOST='192.168.1.200' \
+    bash iRedMail.sh
+</code></pre>
+<p>Na dat gedaan te hebben start de iRedMail installatiegids zoals bij een 'normale' installatie het geval is.</p>
+<p>Beschrijvingen van de gebruikte parameters van bovenstaand commando :</p>
+<ul>
+<li><code>USE_EXISTING_MYSQL</code>: Extern MySQL server adres.</li>
+<li><code>MYSQL_SERVER_ADDRESS</code>: Extern MySQL server adres.</li>
+<li><code>MYSQL_SERVER_PORT</code>: Externe MySQL server port. Standaard is <code>3306</code>.</li>
+<li><code>MYSQL_ROOT_USER</code>: Gebruikersnaam MySQL gebruiker die we gecreëerd hadden op de externe MySQL server voor iRedMail te installeren.</li>
+<li><code>MYSQL_ROOT_PASSWD</code>: MySQL paswoord dat we gecreëerd hebben op de externe MySQL server voor iRedMail te installeren.</li>
+<li><code>MYSQL_GRANT_HOST</code>: Hostname of IP adres van de iRedMail server.</li>
+</ul>
+<p>iRedMail zal nieuwe SQL gebruikers creëren voor applicaties zoals Postfix, Amavisd,
+Roundcube webmail, etc, en zal die gebruikers nodige privileges geven zodat ze een verbinding kunnen opstarten vanaf de iRedMail server.</p>
+<p>Je kunt optionele parameter <code>INITIALIZE_SQL_DATA</code> gebruiken om het iRedMail installatieprogramma geen sql bestanden te laten opstarten. Gebruik
+<code>INITIALIZE_SQL_DATA=NO</code> als je dat niet wilt. Op deze manier zal het installatieprogramma alleen maar gerelateerde configuratiebestanden configureren die nodig zijn voor het gebruik van de externe MySQL server.</p><div class="footer">
+    <p style="text-align: center; color: grey;">All documents are available in <a href="https://github.com/iredmail/docs/">GitHub repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://github.com/iredmail/docs/archive/master.zip">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
+</div></body></html>

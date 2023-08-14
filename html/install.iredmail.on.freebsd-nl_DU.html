@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Installeer iRedMail op FreeBSD</title>
+        <link rel="stylesheet" type="text/css" href="./css/markdown.css" />
+    </head>
+    <body>
+
+    <div id="navigation">
+    <a href="https://www.iredmail.org" target="_blank">
+        <img alt="iRedMail web site"
+             src="./images/logo-iredmail.png"
+             style="vertical-align: middle; height: 30px;"
+             />&nbsp;
+        <span>iRedMail</span>
+    </a>
+    &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><div class="admonition note">
+<p class="admonition-title">This tutorial is available in other languages. <a href="https://github.com/iredmail/docs">Help translate more</a></p>
+<p><a href="./install.iredmail.on.freebsd.html">English</a> /</p>
+</div>
+<h1 id="installeer-iredmail-op-freebsd">Installeer iRedMail op FreeBSD</h1>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>Bekijk onze lichtgewicht on-premise e-mail archiveringsoftware ontwikkeld door 
+ het iRedMail team: <a href="https://spiderd.io/">Spider Email Archiver</a>.</p>
+</div>
+<div class="toc">
+<ul>
+<li><a href="#installeer-iredmail-op-freebsd">Installeer iRedMail op FreeBSD</a><ul>
+<li><a href="#systeemvereisten">Systeemvereisten</a></li>
+<li><a href="#voorbereiding">Voorbereiding</a><ul>
+<li><a href="#een-fully-qualified-domain-name-fqdn-opzetten-als-hostname-voor-je-server">Een fully qualified domain name (FQDN) opzetten als hostname voor je server</a></li>
+<li><a href="#update-ports-tree-met-portsnap">Update ports tree met portsnap</a></li>
+<li><a href="#installeer-de-package-bash-static-iredmail-heeft-het-nodig-om-correct-te-werken">Installeer de package bash-static, iRedMail heeft het nodig om correct te werken</a></li>
+<li><a href="#download-de-nieuwste-versie-van-iredmail">Download de nieuwste versie van iRedMail</a></li>
+</ul>
+</li>
+<li><a href="#start-iredmail-installatieprogramma">Start iRedMail installatieprogramma</a></li>
+<li><a href="#screenshots-van-installatie">Screenshots van installatie:</a></li>
+<li><a href="#belangrijke-dingen-die-je-moet-weten-na-installatie">Belangrijke dingen die je MOET weten na installatie</a></li>
+<li><a href="#toegang-tot-webmail-en-andere-web-applicaties">Toegang tot webmail en andere web applicaties</a></li>
+<li><a href="#verkrijg-technische-ondersteuning">Verkrijg technische ondersteuning</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<blockquote>
+<p>Als je iRedMail wilt installeren binnen FreeBSD <strong>Jail</strong>, gebruik dan
+deze installatiegids:
+<a href="./install.iredmail.on.freebsd.with.jail.html">Installeer iRedMail binnen FreeBSD Jail (met ezjail)</a></p>
+</blockquote>
+<h2 id="systeemvereisten">Systeemvereisten</h2>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<ul>
+<li>iRedMail is gemaakt om geïnstalleerd te worden op een <strong>NIEUWE</strong> server, dat betekent dat je server nog <strong>GEEN</strong> e-mail gerelateerde componenten geïnstalleerd heeft.
+  bv: MySQL, OpenLDAP, Postfix, Dovecot, Amavisd, etc. iRedMail zal automatisch alles installeren en configureren. Als er toch e-mail gerelateerde componenten op je server zijn, kan et zijn dat je bestaande bestanden/configuraties worden gewijzigd. Ook al zou iRedMail normaal gezien backups moeten maken voordat wijzigingen worden gemaakt, kan het zijn dat dat systeem niet werkt zoals het zou moeten.</li>
+<li>
+<p><strong>Port 25 is vereist</strong> voor e-mail, maar veel Internet Service Providers blokkeren standaard port 25.</p>
+<p>Port 25 wordt gebruikt voor communicatie tussen e-mail servers, <strong>het moet open staan</strong>,
+anders zal je server geen e-mail kunnen ontvangen of versturen.
+Contacteer je ISP om zeker te zijn dat het niet geblokkeerd is, of om het te deblokkeren.</p>
+<ul>
+<li>Linode. legde uit in een <a href="https://www.linode.com/blog/linode/a-new-policy-to-help-fight-spam/">blog post</a>,
+    dat je een support ticket moet openen om port 25 te deblokkeren. 
+    als je linode kiest als VPS provider en op de link hier klikt, krijgt de Linode account van het iRedMail team 15-20 dollar <a href="https://www.linode.com/?r=b4d04083428fb99ce452d84b57253d11692a0850">sign up to Linode with our reference</a> Bedankt.</li>
+<li>Vultr. <a href="https://www.vultr.com/docs/what-ports-are-blocked/">Port 25 is standaard geblokkeerd</a>, deblokkeren kan je aanvragen door <a href="https://my.vultr.com/support/create_ticket/">een support ticket te openen</a>.</li>
+<li>Amazon AWS EC2. Vraag om <a href="https://aws.amazon.com/premiumsupport/knowledge-center/ec2-port-25-throttle/">de throttle op port 25</a> te verwijderen.</li>
+<li>Google Cloud Platform.</li>
+<li>Microsoft Azure.</li>
+<li>DigitalOcean. Volgens <a href="https://www.digitalocean.com/community/questions/port-25-465-is-blocked-how-can-i-enable-it">een post in hun community</a>, <strong>LIJKT</strong> het onmogelijk om port 25 te deblokkeren, dat betekent dat je <strong>GEEN</strong> e-mailserver kunt starten bij DigitalOcean VPS.</li>
+</ul>
+</li>
+</ul>
+</div>
+<p>Om iRedMail te installeren op Debian of Ubuntu Linux, heb je nodig:</p>
+<ul>
+<li>Een <strong>NIEUWE</strong>, minimale, werkende installatie van FreeBSD, 
+  geen extra ports of geïnstalleerde binaire
+  packages. Ondersteunde versies staan op de
+  <a href="https://www.iredmail.org/download.html">Download</a> pagina.</li>
+<li>Ten minste <code>4 GB</code> RAM is nodig voor een e-mail server onder lage load met spam/virus scanner aanstaan.</li>
+<li>Wees zeker dat 3 UID/GID niet in gebruik zijn door andere gebruiker/groep: 2000, 2001, 2002.</li>
+</ul>
+<p>Opmerking: Alle packages worden geïnstalleerd van de ports tree.</p>
+<h2 id="voorbereiding">Voorbereiding</h2>
+<h3 id="een-fully-qualified-domain-name-fqdn-opzetten-als-hostname-voor-je-server">Een fully qualified domain name (FQDN) opzetten als hostname voor je server</h3>
+<p>Of je server nu een testserver is of een production server, is het sterk aangeraden om een fully qualified domain name (FQDN) op te zetten als je hostname.</p>
+<p>Geef commando <code>hostname -f</code> in om huidige hostname te zien:</p>
+<pre><code class="language-shell">$ hostname -f
+mx.example.com
+</code></pre>
+<p>Op FreeBSD wordt de hostname bepaald door 2 bestanden: <code>/etc/rc.conf</code>, <code>/etc/hosts</code>.</p>
+<ul>
+<li><code>/etc/rc.conf</code>: bepaalt hostname.</li>
+</ul>
+<pre><code># Deel van het bestand: /etc/rc.conf
+hostname=&quot;mx.example.com&quot;
+</code></pre>
+<ul>
+<li><code>/etc/hosts</code>: hostname &lt;=&gt; IP-adres mapping.</li>
+</ul>
+<pre><code># Deel van het bestand: /etc/hosts
+127.0.0.1   mx.example.com mx localhost localhost.localdomain
+</code></pre>
+<p>Verifieer de FQDN hostname. Als het niet is veranderd na de bovenstaande bestanden te bewerken, herstart dan de server.</p>
+<pre><code># hostname -f
+mx.example.com
+</code></pre>
+<h3 id="update-ports-tree-met-portsnap">Update ports tree met portsnap</h3>
+<pre><code># portsnap fetch extract update
+</code></pre>
+<h3 id="installeer-de-package-bash-static-iredmail-heeft-het-nodig-om-correct-te-werken">Installeer de package <code>bash-static</code>, iRedMail heeft het nodig om correct te werken</h3>
+<pre><code class="language-bash"># pkg install bash-static
+</code></pre>
+<h3 id="download-de-nieuwste-versie-van-iredmail">Download de nieuwste versie van iRedMail</h3>
+<ul>
+<li>
+<p>Ga naar <a href="https://www.iredmail.org/download.html">Downloadpagina</a> om de nieuwste 
+stabiele versie van iRedMail te verkrijgen.</p>
+</li>
+<li>
+<p>Upload iRedMail naar je e-mailserver via ftp of scp of een andere methode die je kunt gebruiken, 
+log in en installeer iRedMail. We gaan ervan uit dat je het hebt geüpload naar
+  <code>/root/iRedMail-x.y.z.tar.gz</code> (verander x.y.z met de echte cijfers van de versie die je hebt gedownload).</p>
+</li>
+<li>
+<p>Decomprimeer iRedMail tarball:</p>
+</li>
+</ul>
+<pre><code>cd /root/
+tar zxf iRedMail-x.y.z.tar.gz
+</code></pre>
+<h2 id="start-iredmail-installatieprogramma">Start iRedMail installatieprogramma</h2>
+<p>Je server is nu klaar om het iRedMail installatieprogramma op te starten.
+Het zal je meerdere simpele vragen stellen, dit allemaal is het enige dat je moet doen om een volledig werkende e-mailserver op te starten.</p>
+<pre><code>cd /root/iRedMail-x.y.z/
+bash iRedMail.sh
+</code></pre>
+<h2 id="screenshots-van-installatie">Screenshots van installatie:</h2>
+<ul>
+<li>Welkom en bedankt voor je gebruik</li>
+</ul>
+<p><img alt="" src="./images/installation/welcome.png" width="700px" /></p>
+<ul>
+<li>Specifieer locatie om alle mailboxen op te slaan. Standaard is <code>/var/vmail/</code>.</li>
+</ul>
+<p><img alt="" src="./images/installation/mail_storage.png" width="700px" /></p>
+<ul>
+<li>Kies backend dat gebruikt wordt om e-mail accounts op te slaan. Je kunt alle accounts beheren met iRedAdmin, ons webgebaseerde iRedMail administratiepaneel</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Er is geen groot verschil tussen de aangeboden backends, het is
+dus sterk aangeraden om diegene te gebruiken die je het beste kent
+voor makkelijker beheer en onderhoud na installatie.</p>
+</div>
+<p><img alt="" src="./images/installation/backends.png" width="700px" /></p>
+<ul>
+<li>Als je kiest om e-mail accounts op te slaan in OpenLDAP, zal het iRedMail installatieprogramma je vragen om een LDAP suffix op te stellen.</li>
+</ul>
+<p><img alt="" src="./images/installation/ldap_suffix.png" width="700px" /></p>
+<div class="admonition boodschap">
+<p class="admonition-title">aan alle MySQL/MariaDB/PostgreSQL gebruikers</p>
+<p>Als je kiest om e-mail accounts op te slaan in MySQL/MariaDB/PostgreSQL,
+zal het installatieprogramma een willekeurig, sterk password voor je bedenken. Je kunt het terugvinden in het bestand <code>iRedMail.tips</code>.</p>
+</div>
+<ul>
+<li>Voer je eerste e-mail domain name in</li>
+</ul>
+<p><img alt="" src="./images/installation/first_domain.png" width="700px" /></p>
+<ul>
+<li>Creëer password voor admin-account die de eerste e-mailgebruiker is.</li>
+</ul>
+<p><strong>Opmerking</strong>: Deze account is een admin account en een e-mailgebruiker. Dat betekent dat je kunt inloggen
+op de webmail en het administratiepaneel (iRedAdmin) met deze account, de login username is het volledige e-mailadres.</p>
+<p><img alt="" src="./images/installation/admin_pw.png" width="700px" /></p>
+<ul>
+<li>
+<p>Kies optionele componenten</p>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p><strong>Which webmail should you choose?</strong> Roundcube or SOGo?</p>
+<ul>
+<li>Roundcube is a fast and lightweight webmail, and webmail only.
+  If all you need is a webmail to access mailbox and manage mail
+  filters, then Roundcube is the best option.</li>
+<li>SOGo offers webmail, calendar (CalDAV), contacts (CardDAV) and
+  ActiveSync. If you need calendar and contacts support, also syncing
+  them to mobile or PC mail client applications, then SOGo is the one
+  to go. Note: If you have many ActiveSync clients, it requires a lot RAM.</li>
+<li>It's ok to install both, but you can only manage mail filters with
+  Roundcube in this case, because the filter rules generated by
+  Roundcube and SOGo are not compatible. You can <a href="./why.no.sieve.support.in.sogo.html">force to enable it in
+  SOGo</a>, but please inform end
+  users and ask them to stick to one of them for managing mail filters.</li>
+</ul>
+</div>
+</li>
+</ul>
+<p><img alt="" src="./images/installation/optional_components.png" width="700px" /></p>
+<p>Nadat je bovenstaande vragen hebt beantwoord, zal het iRedMail installatieprogramma
+je vragen om je veranderingen te bekijken en toe te staan. Het zal de nodige packages
+automatisch installeren en configureren.
+Typ <code>y</code> of <code>Y</code> en druk op <code>Enter</code> om te starten.</p>
+<p><img alt="" src="./images/installation/review.png" width="700px" /></p>
+<h2 id="belangrijke-dingen-die-je-moet-weten-na-installatie">Belangrijke dingen die je <strong>MOET</strong> weten na installatie</h2>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Het zwakste deel van je e-mailserver is een gebruiker hun password.
+Spammers willen je server niet hacken, ze willen gewoon spam sturen vanuit je e-mailserver.
+Alstublieft <strong>ALTIJD ALTIJD ALTIJD</strong> gebruikers forceren om sterke paswoorden te gebruiken.</p>
+</div>
+<ul>
+<li>
+<p>Lees bestand <code>/root/iRedMail-x.y.z/iRedMail.tips</code> ten eerste bevat het:</p>
+<ul>
+<li>URLs, usernames en paswoorden van webgebaseerde applicaties</li>
+<li>Locaties van e-mail gerelateerde software configuratiebestanden. je kunt ook deze tutorial raadplegen:
+  <a href="./file.locations.html">Locaties van configuratiebestanden en logbestanden van belangrijke componenten</a>.</li>
+<li>Andere belangrijke en vertrouwelijke informatie</li>
+</ul>
+</li>
+<li>
+<p><a href="./setup.dns.html">Creëer DNS records voor je e-mailserver</a></p>
+</li>
+<li><a href="./index.html#configure-mail-client-applications">Hoe je e-mail client configureren</a></li>
+<li><a href="./file.locations.html">Locaties van configuratiebestanden en logbestanden van belangrijke componenten</a></li>
+<li>Het is sterk aangeraden om een SSl certificaat te verkrijgen om irritante waarschuwingen in je webbrowser
+of e-mailclient te voorkomen als je je mailbox opent via
+  HTTPS/IMAPS/POP3/SMTPS. <a href="https://letsencrypt.org">Let's Encrypt deelt <strong>GRATIS</strong> SSL certificaten uit</a>.
+  We hebben een document voor je om
+  <a href="./use.a.bought.ssl.certificate.html">een gekocht SSL certificaat te gebruiken</a>.</li>
+<li>Als je meerdere gebruikers tegelijkertijd moet creëren, bekijk ons document over
+  <a href="./ldap.bulk.create.mail.users.html">OpenLDAP</a> en
+  <a href="./sql.bulk.create.mail.users.html">MySQL/MariaDB/PostgreSQL</a>.</li>
+<li>Als je een drukke e-mailserver beheert hebben wij <a href="./performance.tuning.html">wat suggesties voor betere performantie</a>.</li>
+</ul>
+<h2 id="toegang-tot-webmail-en-andere-web-applicaties">Toegang tot webmail en andere web applicaties</h2>
+<p>Nadat de installatie succesvol werd afgerond, kan je webgebaseerde programma's gebruiken als je
+ervoor had gekozen om die te installeren. Vervang <code>your_server</code> hieronder door je server hostname of IP-adres</p>
+<ul>
+<li><strong>Roundcube webmail</strong>: <a href="https://your_server/mail/">https://your_server/mail/</a></li>
+<li><strong>SOGo Groupware</strong>: <a href="https://your_server/SOGo">https://your_server/SOGo</a></li>
+<li><strong>Web admin panel (iRedAdmin)</strong>: <a href="https://your_server/iredadmin/">https://your_server/iredadmin/</a></li>
+</ul>
+<h2 id="verkrijg-technische-ondersteuning">Verkrijg technische ondersteuning</h2>
+<ul>
+<li>Je bent welkom op ons <a href="https://forum.iredmail.org/">online ondersteuningsforum</a> om feedback, ideën en suggesties te communiceren.
+Het reageert sneller dan je denkt.</li>
+<li>We bieden ook betalende professionele ondersteuning aan, check onze website voor meer informatie: <a href="https://www.iredmail.org/support.html">Verkrijg Professionele ondersteuning van het iRedMail Team</a>.</li>
+</ul><div class="footer">
+    <p style="text-align: center; color: grey;">All documents are available in <a href="https://github.com/iredmail/docs/">GitHub repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://github.com/iredmail/docs/archive/master.zip">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
+</div></body></html>
