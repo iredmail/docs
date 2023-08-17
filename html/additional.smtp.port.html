@@ -47,6 +47,7 @@ Postfix to listen on additional port for smtp service by appending below line
 in <code>/etc/postfix/master.cf</code> (on Linux/OpenBSD) or
 <code>/usr/local/etc/postfix/master.cf</code> (on FreeBSD):</p>
 <pre><code>2525      inet  n       -       -       -       -       smtpd
+  -o syslog_name=postfix/2525
   -o smtpd_sasl_auth_enable=yes
   -o smtpd_sasl_security_options=noanonymous
   -o smtpd_tls_security_level=may

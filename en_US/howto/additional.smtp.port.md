@@ -25,6 +25,7 @@ in `/etc/postfix/master.cf` (on Linux/OpenBSD) or
 
 ```
 2525      inet  n       -       -       -       -       smtpd
+  -o syslog_name=postfix/2525
   -o smtpd_sasl_auth_enable=yes
   -o smtpd_sasl_security_options=noanonymous
   -o smtpd_tls_security_level=may
