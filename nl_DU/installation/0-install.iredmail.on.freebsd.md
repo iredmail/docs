@@ -16,7 +16,7 @@
 !!! warning
 
     * iRedMail is gemaakt om geïnstalleerd te worden op een __NIEUWE__ server, dat betekent dat je server nog __GEEN__ e-mail gerelateerde componenten geïnstalleerd heeft.
-      bv: MySQL, OpenLDAP, Postfix, Dovecot, Amavisd, etc. iRedMail zal automatisch alles installeren en configureren. Als er toch e-mail gerelateerde componenten op je server zijn, kan et zijn dat je bestaande bestanden/configuraties worden gewijzigd. Ook al zou iRedMail normaal gezien backups moeten maken voordat wijzigingen worden gemaakt, kan het zijn dat dat systeem niet werkt zoals het zou moeten.
+      bv: MySQL, OpenLDAP, Postfix, Dovecot, Amavisd, etc. iRedMail zal automatisch alles installeren en configureren. Als er toch e-mail gerelateerde componenten op je server zijn kan het zijn dat je bestaande bestanden/configuraties worden gewijzigd. Ook al zou iRedMail normaal gezien backups moeten maken voordat wijzigingen worden gemaakt, kan het zijn dat dat systeem niet werkt zoals het zou moeten.
     * __Port 25 is vereist__ voor e-mail, maar veel Internet Service Providers blokkeren standaard port 25.
 
         Port 25 wordt gebruikt voor communicatie tussen e-mail servers, __het moet open staan__,
