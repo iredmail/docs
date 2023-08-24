@@ -6,7 +6,7 @@
 
 [TOC]
 
-## What an alias domain is used for?
+## What is an alias domain used for?
 
 Let's say you have a mail domain `example.com` hosted on your iRedMail server,
 if you add domain name `domain.ltd` as an alias domain of `example.com`, all
