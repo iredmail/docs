@@ -64,7 +64,7 @@ Op RHEL/CentOS Linux wordt de hostname bepaald door 2 bestanden::
     mx.example.com
     ```
 
-1. `/etc/hosts`: hostname <=> IP-adress mapping. Waarschuwing: Geef de FQDN hostname op als eerste item.
+1. `/etc/hosts`: hostname <=> IP-adres mapping. Waarschuwing: Geef de FQDN hostname op als eerste item.
 
     ```
     127.0.0.1   mx.example.com mx localhost localhost.localdomain
