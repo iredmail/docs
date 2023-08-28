@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Creëer DNS records voor je iRedMail server (A, PTR, MX, SPF, DKIM, DMARC)</title>
+        <link rel="stylesheet" type="text/css" href="./css/markdown.css" />
+    </head>
+    <body>
+
+    <div id="navigation">
+    <a href="https://www.iredmail.org" target="_blank">
+        <img alt="iRedMail web site"
+             src="./images/logo-iredmail.png"
+             style="vertical-align: middle; height: 30px;"
+             />&nbsp;
+        <span>iRedMail</span>
+    </a>
+    &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><div class="admonition note">
+<p class="admonition-title">This tutorial is available in other languages. <a href="https://github.com/iredmail/docs">Help translate more</a></p>
+<p><a href="./setup.dns.html">English</a> /</p>
+</div>
+<h1 id="creeer-dns-records-voor-je-iredmail-server-a-ptr-mx-spf-dkim-dmarc">Creëer DNS records voor je iRedMail server (A, PTR, MX, SPF, DKIM, DMARC)</h1>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>Bekijk onze lichtgewicht on-premise e-mail archiveringsoftware ontwikkeld door 
+ het iRedMail team: <a href="https://spiderd.io/">Spider Email Archiver</a>.</p>
+</div>
+<div class="toc">
+<ul>
+<li><a href="#creeer-dns-records-voor-je-iredmail-server-a-ptr-mx-spf-dkim-dmarc">Creëer DNS records voor je iRedMail server (A, PTR, MX, SPF, DKIM, DMARC)</a><ul>
+<li><a href="#a">A record voor server hostname</a><ul>
+<li><a href="#wat-is-een-a-record">Wat is een A record?</a></li>
+<li><a href="#hoe-een-a-record-opzetten">Hoe een A Record opzetten</a></li>
+</ul>
+</li>
+<li><a href="#ptr">Reverse PTR record voor server IP-adres</a><ul>
+<li><a href="#wat-is-een-reverse-ptr-record">Wat is een reverse PTR record</a></li>
+<li><a href="#waarom-je-een-reverse-ptr-record-nodig-hebt">Waarom je een reverse PTR record nodig hebt</a></li>
+<li><a href="#hoe-een-reverse-ptr-record-creeren">Hoe een Reverse PTR record creëren</a></li>
+</ul>
+</li>
+<li><a href="#mx">MX record voor e-mail domain name</a><ul>
+<li><a href="#wat-is-een-mx-record">Wat is een MX record</a></li>
+<li><a href="#hoe-een-mx-record-creeren">Hoe een MX record creëren</a></li>
+</ul>
+</li>
+<li><a href="#autodiscover-voor-je-domain">autodiscover voor je domain</a><ul>
+<li><a href="#wat-is-een-autoconfigautodiscover-record">Wat is een autoconfig/autodiscover record</a></li>
+<li><a href="#hoe-een-autoconfigautodiscover-record-creeren">Hoe een autoconfig/autodiscover record creëren</a></li>
+</ul>
+</li>
+<li><a href="#spf">SPF record voor je e-mail domain name</a><ul>
+<li><a href="#wat-is-een-spf-record">Wat is een SPF record</a></li>
+<li><a href="#hoe-een-spf-record-creeeren">Hoe een SPF record creëeren</a></li>
+</ul>
+</li>
+<li><a href="#dkim">DKIM record voor je e-mail domain name</a><ul>
+<li><a href="#wat-is-een-dkim-record">Wat is een DKIM record</a></li>
+<li><a href="#hoe-een-dkim-record-creeren">Hoe een DKIM record creëren</a></li>
+</ul>
+</li>
+<li><a href="#dmarc">DMARC record voor de e-mail domain name</a><ul>
+<li><a href="#wat-is-dmarc-en-hoe-vecht-het-phishing-aan">Wat is DMARC, en hoe vecht het phishing aan?</a></li>
+<li><a href="#hoe-een-dmarc-record-creeren">Hoe een DMARC record creëren</a></li>
+</ul>
+</li>
+<li><a href="#srv-record-voor-jabberxmpp-service">SRV record voor Jabber/XMPP service</a></li>
+<li><a href="#registeer-je-e-mail-domain-bij-google-postmaster-tools">Registeer je e-mail domain bij Google Postmaster Tools</a></li>
+<li><a href="#check-outlookcom-postmaster-site">Check Outlook.com Postmaster site</a></li>
+<li><a href="#referenties">Referenties</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<p><strong>BELANGRIJKE INFORMATIE:</strong> <code>A</code>, <code>MX</code> records zijn vereist, <code>Reverse PTR</code>, <code>SPF</code>,
+<code>DKIM</code> en <code>DMARC</code> zijn optioneel maar <strong>ZWAAR AANGERADEN</strong>.</p>
+<h2 id="a"><code>A</code> record voor server hostname</h2>
+<h3 id="wat-is-een-a-record">Wat is een <code>A</code> record?</h3>
+<p><code>A</code> records verbinden een FQDN (fully qualified domain name) met een IP-adres. Dit is
+meestal het meest gebruikte DNS record type in een DNS systeem. Dit is het DNS
+record dat je moet toevoegen als je een domain name wilt laten wijzen naar een webserver.</p>
+<h3 id="hoe-een-a-record-opzetten">Hoe een <code>A</code> Record opzetten</h3>
+<ul>
+<li>
+<p><code>Name</code>: Dit zal je host zijn voor je domain en is eigelijk een computer binnen je domain. Je domain name wordt automatisch toegevoegd aan je <code>Name</code>.
+  Als je probeert om een record te maken voor het systeem <code>www.mydomain.com</code>, moet je alleen maar  <code>www</code> invullen in de tekstbox.</p>
+<p><strong>Merk op</strong>: als je het <code>Name</code> veld leeglaat zal het standaard verwijzen naar je root record voor je domain  <code>mydomain.com</code>. Het record voor de basis van je domain wordt
+een root record of apex record genoemd.</p>
+</li>
+<li>
+<p><code>IP</code>: Het IP-adres van je FQDN. Een IP-adres kan worden conceptueel worden voorgesteld als het telefoonnummer van je computer. Dit is hoe een computer een andere computer kan bereiken. Net zoals landcodes, netnummers en telefoonnummers worden gebruikt om iemand op te roepen.</p>
+</li>
+<li>
+<p><code>TTL</code>: De TTL (Time to Live) is hoe lang je record in cache moet blijven op systemen die je record verzoeken (resolving nameservers, browsers,
+etc.). De TTL staat in seconden, dus 60 is een minuut, 1800 is 30 minuten, etc.</p>
+</li>
+</ul>
+<p>Systemen met een static IP zouden normaal gezien een TTL van 1800 of hoger moeten gebruiken.
+Systemen  met een dynamic IP zouden normaal gezien een TTL van 1800 of minder moeten gebruiken.</p>
+<p>Hoe lager de TTL, hoe meer een client bij de nameservers (van je domain record) moet gaan vragen naar het IP-adres van je host.
+Voor je host zijn IP-adres betekent dit in meer verkeer van en naar je domain name.
+Daartegenover kan een hoge TTL voor downtime zorgen als je snel van IPs moet veranderen.</p>
+<p>Voorbeeld record:</p>
+<pre><code>NAME                TTL     TYPE    DATA
+
+www.mydomain.com.   1800    A       192.168.1.2
+mail.mydomain.com.  1800    A       192.168.1.5
+</code></pre>
+<p>Het eindresultaat van dit record is dat <code>www.mydomain.com</code> naar
+<code>192.168.1.2</code> verwijst, <code>mail.mydomain.com</code> naar <code>192.168.1.5</code>.</p>
+<h2 id="ptr">Reverse PTR record voor server IP-adres</h2>
+<h3 id="wat-is-een-reverse-ptr-record">Wat is een reverse PTR record</h3>
+<p>Een PTR record of eigenlijk correcter; een reverse PTR record is een manier om
+een IP-adres te verbinden met zijn geassocieerde hostname. Dit is exact het omgekeerde van een hostname te verbinden met een IP-adres (<code>A</code> record). Bijvoorbeeld: wanneer je de name <code>mail.mydomain.com</code> pingt, zal het worden verbonden met het IP-adres door DNS
+naar iets zoals <code>192.168.1.5</code>. Een reverse PTR record doet het omgekeerde; het zoekt voor de hostname die geassocieerd is met een gegeven IP-adres. In bovenstaand voorbeeld is  het PTR record voor het IP-adres <code>192.168.1.5</code> verbonden met <code>mail.mydomain.com</code>.</p>
+<h3 id="waarom-je-een-reverse-ptr-record-nodig-hebt">Waarom je een reverse PTR record nodig hebt</h3>
+<p>Een reverse PTR record wordt het meeste opgezocht door spam filters.
+Het idee hierachter is dat luie spammers die e-mail sturen vanuit kwaadwillende domains meestal geen (juist opgezet) reverse PTR record hebben. Dit criterium wordt gebruikt door spam filters om spam te blokkeren. Als je domein geen correct reverse PTR record heeft <strong>IS HET MOGELIJK</strong> dat e-mail spam filters je e-mails blokkeren.</p>
+<h3 id="hoe-een-reverse-ptr-record-creeren">Hoe een Reverse PTR record creëren</h3>
+<p>Je zult hoogstwaarschijnlijk je ISP moeten contacteren en vragen om een reverse PTR record te maken voor je e-mail server zijn IP-adres. Als je e-mail server zijn hostname bijvoorbeeld <code>mail.mydomain.com</code> is, moet je je ISP vragen om een reverse
+PTR record te maken voor <code>192.168.1.5</code> (your internet public IP-adres) in hun reverse DNS
+zone. Reverse DNS zones worden altijd beheerd door je ISP zelfs als je je eigen DNS zone beheert.</p>
+<h2 id="mx">MX record voor e-mail domain name</h2>
+<h3 id="wat-is-een-mx-record">Wat is een MX record</h3>
+<p>Een Mail Exchanger Record of meer bekend een MX record is een ingevoerde toevoeging in de DNS server van je domain dat andere e-mail servers vertelt waar je e-mail server zich bevindt. Wanneer iemand een e-mail stuurt naar een gebruiker op jouw server en die e-mail komt van het internet, voorziet MX de locatie of het IP-adres om die e-mail naartoe te sturen. Een MX record is de locatie van je e-mail server die je vrijgeeft aan de buitenwereld via DNS.</p>
+<p>De meeste e-mail servers hebben gemiddeld meer dan één MX record, wat betekent dat
+je meer dan één e-mail server kunt gebruiken om e-mails te ontvangen. Elk MX record heeft een op voorhand gegeven prioriteitsnummer dat wordt vastgelegd in DNS. Het MX record met <strong>het laagste nummer heeft de hoogste prioriteit</strong> en dat wordt als je primaire MX record of belangrijkste e-mail server gezien. Het volgende laagste mx nummer heeft de op één na hoogste prioriteit en zo voort. Je hebt gemiddeld gezien meer dan één e-mail server, één als primaire e-mail server en de rest als backups, maar 1 MX record voor je e-mail server is ook OK.</p>
+<h3 id="hoe-een-mx-record-creeren">Hoe een MX record creëren</h3>
+<p>Als je ISP of domain name registrar je DNS service voorziet, kan je hun vragen om
+er een te creëren. Als je je eigen DNS servers beheert moet je het MX record(s) zelf opstellen in je DNS zone.</p>
+<p>Voorbeeld MX record:</p>
+<pre><code>NAME            PRIORITY    TYPE    DATA
+
+mydomain.com.   10          mx      mail.mydomain.com.
+</code></pre>
+<p>Het eindresultaat van dit record is dat alle emails die gestuurd worden naar <code>[user]@mydomain.com</code> op <code>mail.mydomain.com</code> worden ontvangen.</p>
+<h2 id="autodiscover-voor-je-domain">autodiscover voor je domain</h2>
+<h3 id="wat-is-een-autoconfigautodiscover-record">Wat is een autoconfig/autodiscover record</h3>
+<p>autoconfig/autodiscover records laten mail clients toe om automatisch de client configuratie van de mailbox te verkrijgen via DNS records. Als de te configureren mailbox bijvoorbeeld <code>user@company.com</code> is, zal je mail client automatisch checken bij <code>autodiscover.company.com</code> voor de correcte configuratie.</p>
+<p>Daarover is meer informatie te vinden hier:
+<a href="https://docs.iredmail.org/iredmail-easy.autoconfig.autodiscover.html">DNS records creëren voor autoconfig en autodiscover</a>.</p>
+<h3 id="hoe-een-autoconfigautodiscover-record-creeren">Hoe een autoconfig/autodiscover record creëren</h3>
+<p>Als je ISP of domain name registrar je DNS service voorziet, kan je hun vragen om
+er een te creëren. Als je je eigen DNS servers beheert moet je het autoconfig/autodiscover record(s) zelf opstellen in je DNS zone.</p>
+<p>Voorbeeld autoconfig/autodiscover record:</p>
+<pre><code>NAME            PRIORITY    TYPE    DATA
+
+autodiscover.mydomain.com.   10          A      mail.mydomain.com.
+autoconfig.mydomain.com.   10          A      mail.mydomain.com.
+</code></pre>
+<h2 id="spf">SPF record voor je e-mail domain name</h2>
+<h3 id="wat-is-een-spf-record">Wat is een SPF record</h3>
+<p>SPF is een spam en phishing bestrijdingsmethode die DNS SPF-records gebruikt
+die definiëren welke hosts toegestaan zijn om e-mails te versturen vanuit een bepaald domain. Voor meer informatie over SPF, raadpleeg <a href="https://en.wikipedia.org/wiki/Sender_Policy_Framework">wikipedia</a>.</p>
+<p>Het werkt door een DNS SPF-record te definiëren voor een e-mail domain name die  specificeert welke hosts (e-mail servers) toegelaten zijn om e-mail te versturen vanuit een bepaalde domain name.</p>
+<p>Andere e-mail servers kunnen dit record opzoeken als ze e-mail krijgen van je domain, zo kunnen ze verifiëren dat die e-mail server is toegelaten om e-mail te sturen.</p>
+<h3 id="hoe-een-spf-record-creeeren">Hoe een SPF record creëeren</h3>
+<p>SPF is een TXT type DNS record, je kunt er IP-adress(en) of MX domains in oplijsten.
+Bijvoorbeeld:</p>
+<pre><code>mydomain.com.   3600    IN  TXT &quot;v=spf1 mx -all&quot;
+</code></pre>
+<p>Dit SPF record zorgt ervoor dat alle e-mails die gestuurd worden van alle servers gedefinieerd in het MX record van <code>mydomain.com</code> toegelaten worden als <code>someone@mydomain.com</code>.</p>
+<p><code>-all</code> betekent verbied alle emails gestuurd van alle andere servers. Als het te strict is voor jouw geval, kan je <code>~all</code> gebruiken, wat een soft fail betekent (onzeker).</p>
+<p>Je kunt ook IP-adress(en) specifiëren:</p>
+<pre><code>mydomain.com.   3600    IN  TXT &quot;v=spf1 ip4:111.111.111.111 ip4:111.111.111.222 -all&quot;
+</code></pre>
+<p>Natuurlijk kan je ze ook allebei (of meer dan 2) invoegen in hetzelfde record:</p>
+<pre><code>mydomain.com.   3600    IN  TXT &quot;v=spf1 mx ip4:111.111.111.222 -all&quot;
+</code></pre>
+<p>Er zijn nog meer validatiesystemen die je kunt gebruiken, raadpleeg
+<a href="https://en.wikipedia.org/wiki/Sender_Policy_Framework">wikipedia</a> voor meer details.</p>
+<h2 id="dkim">DKIM record voor je e-mail domain name</h2>
+<h3 id="wat-is-een-dkim-record">Wat is een DKIM record</h3>
+<p>DKIM zorgt ervoor dat een organisatie verantwoordelijk is voor een bericht op een manier die kan worden geverifieerd door de ontvanger. De organisatie kan direct in contact komen met het bericht, zoals bij de schrijver van het bericht het geval is,  de site die het gestuurd heeft of een tussenpersoon langs de weg die de e-mail aflegt. Het kan ook een indirecte handler zijn, zoals een onafhankelijke service die assistentie biedt aan een directe handler. DKIM definieert een framework voor digitaal e-mail te signeren op domain niveau, door zijn gebruik van public-key cryptografie en domain name service als key server technologie 
+(<a href="http://www.dkim.org/specs/rfc5585.html#RFC4871">RFC4871</a>). 
+Het staat verificatie van de eigenaar van een bericht toe, samen met zekerheid dat de inhoud van het bericht niet werd verandert. DKIM zal ook een mechanisme voorzien dat mensen die hun e-mail signeren toelaat om informatie vrij te geven over hoe hun e-mail normaal gesigneerd is; dit laat e-mail ontvangers toe om aanvullende beoordeling te maken over ongesigneerde berichten.
+De authenticatie van DKIM kan meehelpen in de globale controle van "spam" en "phishing".</p>
+<p>Een persoon of organisatie heeft een "identiteit" -- dat betekent, een verzameling van eigenschappen dat hun onderscheid van een andere identiteit. Geassocieerd met deze abstractie kan een label gebruikt worden als standaard, of "identifier".
+Dit is het verschil tussen een ding en de naam van dat ding. DKIM gebruikt een domain name als identificatiemethode om te verwijzen naar de identiteit van een verantwoordelijke organisatie of persoon. In DKIM wordt dit ID Signing Domain
+IDentifier (SDID) genoemd, het bevindt zich in de DKIM-Signature header fields <code>d=</code>
+tag. Merk op dat eenzelfde identiteit meerdere ID's kan hebben.</p>
+<h3 id="hoe-een-dkim-record-creeren">Hoe een DKIM record creëren</h3>
+<ul>
+<li>
+<p>Geef onderstaand commando in in je terminal om je DKIM keys weer te geven:</p>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<ul>
+<li>Op sommige Linux/BSD distributions, moet je het commando <code>amavisd-new</code> 
+gebruiken indeplaats van <code>amavisd</code>.</li>
+<li>Moest CentOS klagen <code>/etc/amavisd.conf not found</code>, dan
+  moet je het commando ingeven met zijn configuratiebestand. Bijvoorbeeld:</li>
+</ul>
+<p><code>amavisd -c /etc/amavisd/amavisd.conf showkeys</code></p>
+</div>
+</li>
+</ul>
+<pre><code class="language-bash"># amavisd showkeys
+dkim._domainkey.mydomain.com.   3600 TXT (
+  &quot;v=DKIM1; p=&quot;
+  &quot;MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDYArsr2BKbdhv9efugByf7LhaK&quot;
+  &quot;txFUt0ec5+1dWmcDv0WH0qZLFK711sibNN5LutvnaiuH+w3Kr8Ylbw8gq2j0UBok&quot;
+  &quot;FcMycUvOBd7nsYn/TUrOua3Nns+qKSJBy88IWSh2zHaGbjRYujyWSTjlPELJ0H+5&quot;
+  &quot;EV711qseo/omquskkwIDAQAB&quot;)
+</code></pre>
+<ul>
+<li>Kopieer de output van bovenstaand commando naar een lijn zoals hieronder te zien is, verwijder alle quotes, maar houd <code>;</code>. <strong>we hebben alleen de string nodig binnen  <code>()</code></strong>, dat is de waarde van ons DKIM DNS record.</li>
+</ul>
+<pre><code>v=DKIM1; p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDYArsr2BKbdhv9efugBy...
+</code></pre>
+<p>__Merk op: BIND (<a href="http://www.isc.org/downloads/bind/">De meest gebruikte Name Server Software</a>)
+aanvaardt dit soort van multi-line formaat, daar kun je het gewoon in je domain zone kopieëren.</p>
+<ul>
+<li>
+<p>Voeg een <code>TXT</code> type DNS record voor domain name <code>dkim._domainkey.mydomain.com</code> toe,
+  stel als waarde de lijn in die je voordien hebt geformatteerd (voorbeeld hierboven te zien): <code>v=DKIM1; p=...</code>.</p>
+<blockquote>
+<p>WAARSCHUWING: Een gebruikelijke fout is om dit DKIM record met domain name
+<code>mydomain.com</code> te verbinden, dat is fout. Zorg ervoor dat je het toevoegt aan domain name <code>dkim._domainkey.mydomain.com</code>.</p>
+</blockquote>
+</li>
+<li>
+<p>Nadat je dit hebt toegevoegd in DNS, kan je het checken met <code>dig</code> of <code>nslookup</code>:</p>
+</li>
+</ul>
+<pre><code>$ dig -t txt dkim._domainkey.mydomain.com
+
+$ nslookup -type=txt dkim._domainkey.foodmall.com
+</code></pre>
+<p>Voorbeeld mogelijke output:</p>
+<pre><code>dkim._domainkey.mydomain.com. 600 IN TXT    &quot;v=DKIM1\;p=...&quot;
+
+</code></pre>
+<p>Verifieer het met Amavisd:</p>
+<pre><code class="language-shell"># amavisd testkeys
+TESTING: dkim._domainkey.mydomain.com       =&gt; pass
+</code></pre>
+<p>Als het <code>pass</code> laat zien, werkt het.</p>
+<p><strong>Merk op</strong>: Als je een DNS service gebruikt die wordt voorzien door je ISP, kan het zijn dat nieuwe DNS records een paar uur op zich laten wachten.</p>
+<p>Als je een opnieuw een (nieuwe) DKIM key wilt genereren, bekijk dan onze andere tutorial:
+<a href="./sign.dkim.signature.for.new.domain.html">Signeer DKIM signature bij uitgaande e-mails voor nieuw mail domain</a>.</p>
+<h2 id="dmarc">DMARC record voor de e-mail domain name</h2>
+<h3 id="wat-is-dmarc-en-hoe-vecht-het-phishing-aan">Wat is DMARC, en hoe vecht het phishing aan?</h3>
+<p>Quote van <a href="https://dmarc.org/wiki/FAQ">FAQ pagina op dmarc.org website</a> (het is sterk aangeraden om de volledige FAQ pagina te lezen):</p>
+<blockquote>
+<p>DMARC biedt een makkelijke manier aan voor zowel e-mailverzenders als e-mailontvangers om te bepalen of een gegeven bericht echt komt van de afzender, en wat te doen als dat niet het geval is. Dit maakt het gemakkelijker om spam en phishing te identificerend, zorgt ervoor dat dit niet in mensen hun inbox terechtkomt.</p>
+<p>DMARC is een voorgestelde standaard dat e-mail e-mailverzenders en e-mailontvangers toelaat om informatie te delen over de e-mails die ze naar elkaar sturen.
+Deze informatie help e-mailverzenders om hun e-mail authenticatieinfrastructuur te verbeteren zodat al hun mail kan worden geauthenticeerd. Het geeft de echte eigenaar van een internet domain een manier om kwaadwillende berichten zoals
+gespoofte spamberichten of phishing e-mails direct naar de spam folder te verplaatsen, of zelfs gewoon weigeren om ze te ontvangen.</p>
+</blockquote>
+<p>Wat belangrijke documenten van <a href="https://dmarc.org">https://dmarc.org</a>:</p>
+<ul>
+<li><a href="https://dmarc.org/wiki/FAQ">DMARC FAQ</a><ul>
+<li><a href="https://dmarc.org/wiki/FAQ#Why_is_DMARC_important.3F">Why is DMARC Important?</a></li>
+</ul>
+</li>
+<li><a href="https://dmarc.org/overview/">How Does DMARC Work?</a></li>
+<li><a href="https://dmarc.org/resources/specification/">Specifications</a></li>
+</ul>
+<h3 id="hoe-een-dmarc-record-creeren">Hoe een DMARC record creëren</h3>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>DMARC steunt op correct gecreëerde SPF en DKIM records, zorg ervoor dat je correcte up-to-date SPF en DKIM records hebt.</p>
+</div>
+<p>Een DMARC record is een TXT type DNS record.</p>
+<p>Een vereenvoudigd DMARC record ziet er zo uit:</p>
+<pre><code>v=DMARC1; p=none; rua=mailto:dmarc@mydomain.com
+</code></pre>
+<p>Een gedetailleerd DMARC record ziet er zo uit:</p>
+<pre><code>v=DMARC1; p=reject; sp=none; adkim=s; aspf=s; rua=mailto:dmarc@mydomain.com; ruf=mailto:dmarc@mydomain.com
+</code></pre>
+<ul>
+<li><code>v=DMARC1</code> identificeert de DMARC protocol versie, momenteel is enkel <code>DMARC1</code> een optie,   <code>v=DMARC1</code> moet als eerste komen in een DMARC record.</li>
+<li><code>adkim</code> specifieert hoeveel het DMARC record overeenkomt met DKIM. Er zijn 2 opties:<ul>
+<li><code>r</code>: relaxte modus (<code>adkim=r</code>)</li>
+<li><code>s</code>: stricte modus (<code>adkim=s</code>)</li>
+</ul>
+</li>
+<li><code>aspf</code> specifieert hoeveel het DMARC record overeenkomt met SPF. Er zijn 2 opties:<ul>
+<li><code>r</code>: relaxte modus (<code>aspf=r</code>)</li>
+<li><code>s</code>: stricte modus (<code>aspf=s</code>)</li>
+</ul>
+</li>
+<li>
+<p><code>p</code> specifieert de procedure voor het domain. Het vertelt de ontvangende
+  server wat te doen als het DMARC verificatiemechanisme zijn veri faalt. Er zijn 3 mogelijke opties:</p>
+<ul>
+<li><code>none</code> (<code>p=none</code>): De eigenaar van het domain verzoekt om geen specifieke actie te ondernemen omtrent de verzending van het bericht.</li>
+<li><code>quarantine</code> (<code>p=quarantine</code>): De eigenaar van het domain verzoekt dat e-mail die het DMARC verificatiemechanisme faalt gezien wordt als verdacht. Afhankelijk van de mogelijkheden die de ontvanger tot hun beschikking heeft kan dat betekenen: 'plaats in spam folder', 'markeer als verdacht', 'plaats e-mail in quarantaine' of misschien meer.</li>
+<li><code>reject</code> (<code>p=reject</code>): De eigenaar van het domain verzoekt dat e-mail die het DMARC verificatiemechanisme faalt wordt afgewezen.</li>
+</ul>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<ul>
+<li>Als je zeker bent dat al je e-mails gestuurd worden vanuit de server(s) die staan opgelijst in je SPF record, of dat ze een correct gesigneerde DKIM signatuur hebben, is <code>p=reject</code> sterk aangeraden.</li>
+<li>Volgens <a href="https://tools.ietf.org/html/rfc7489#section-6.3">RFC 7489</a>,
+  <strong>MOETEN de "v" en "p" tags altijd aanwezig zijn en MOETEN ze altijd in die volgorde voorkomen.</strong>
+  dus plaats altijd eerst de "p" tag direct gevolgd door de "v" tag. bv:
+  <code>v=DMARC1; p=reject; aspf=s; ...</code> is ok, maar niet <code>v=DMARC1; aspf=s; p=reject; ...</code>.</li>
+</ul>
+</div>
+</li>
+<li>
+<p><code>sp</code> specifieert procedure voor alle subdomains. Dit is optioneel. Mogelijke opties zijn hetzelfde als <code>p</code>.</p>
+</li>
+<li><code>rua</code> specifieert een transportmechanisme om verzamelde feedback te versturen. Momenteel is enkel <code>mailto:</code> ondersteund. Dit is optioneel.</li>
+<li><code>ruf</code> specifieert een transportmechanisme om berichtspecifieke fouten te rapporteren. Momenteel is enkel <code>mailto:</code> ondersteund. Dit is optioneel.</li>
+</ul>
+<h2 id="srv-record-voor-jabberxmpp-service">SRV record voor Jabber/XMPP service</h2>
+<p>Als je Prosody installeert (met het iRedMail Easy platform) als Jabber/XMPP server,
+zijn 2 SRV records vereist.</p>
+<p>Als je e-mail domain name <code>mydomain.com</code> is en je server hostname
+<code>mail.mydomain.com</code> is, moet je 2 SRV type DNS records toevoegen:</p>
+<ul>
+<li><code>_xmpp-client._tcp.mydomain.com</code></li>
+<li><code>_xmpp-server._tcp.mydomain.com</code></li>
+</ul>
+<p>Voorbeeld DNS records:</p>
+<pre><code>_xmpp-client._tcp.mydomain.com 18000 IN SRV 0 5 5222 mail.mydomain.com
+_xmpp-server._tcp.example.com. 18000 IN SRV 0 5 5269 mail.mydomain.com
+</code></pre>
+<p>Het doelwit domain <code>mail.mydomain.com</code> <strong>MOET</strong> een bestaand A record zijn, het kan geen
+IP-adres of CNAME record zijn.</p>
+<h2 id="registeer-je-e-mail-domain-bij-google-postmaster-tools">Registeer je e-mail domain bij Google Postmaster Tools</h2>
+<p>Deze stap is <strong>optioneel</strong>, maar <strong>zwaar aangeraden</strong>.</p>
+<p>Google Postmaster Tools website: <a href="https://postmaster.google.com">https://postmaster.google.com</a>, en
+<a href="https://support.google.com/mail/answer/6258950">Postmaster Tools FAQs</a>.</p>
+<p>Het is zeer simpel: registreer je e-mail domain hier, en ze zullen je een
+text record geven voor je DNS zodat Google eigendom van het domain kan valideren.</p>
+<p>Waarom Google Postmaster Tools gebruiken? Quote van
+<a href="https://support.google.com/mail/answer/6227174">Google Postmaster Tools help page</a>:</p>
+<blockquote>
+<p>Als je veel e-mails stuurt naar Gmail users, kan je met Postmaster Tools het volgende zien:</p>
+<ul>
+<li>Of gebruikers je e-mails als spam markeren</li>
+<li>Of je 'Gmail's best practices' volgt</li>
+<li>Waarom je e-mails misschien niet worden ontvangen</li>
+<li>Of je e-mails veilig worden verstuurd</li>
+</ul>
+</blockquote>
+<p>het <em><strong>KAN</strong></em> ook helpen om je e-mails uit de  <code>Junk</code> mailbox te houden.</p>
+<p>Als je moeilijkheden hebt om e-mail te versturen naar Gmail (of Google Apps), Biedt Google wat informatie aan over best practices om te verzekeren dat je e-mail wordt doorgestuurd naar Gmail gebruikers: <a href="https://support.google.com/mail/answer/81126?hl=en">Bulk Senders Guidelines</a>.</p>
+<p>Je kunt ook dit formulier invullen om Google te contacteren:
+<a href="https://support.google.com/mail/contact/bulk_send_new?rd=1">Bulk Sender Contact Form</a></p>
+<h2 id="check-outlookcom-postmaster-site">Check Outlook.com Postmaster site</h2>
+<p>De Outlook Postmaster voorziet wat nuttige informatie voor e-mail server admins, als de e-mail die je gestuurd hebt Outlook.com gemarkeerd wordt als spam, kijk hier dan eens naar:</p>
+<ul>
+<li><a href="https://sendersupport.olc.protection.outlook.com/pm/">Outlook.com Postmaster</a></li>
+<li><a href="https://sendersupport.olc.protection.outlook.com/snds/">Smart Network Data Service</a></li>
+</ul>
+<h2 id="referenties">Referenties</h2>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Sender_Policy_Framework">wikipedia: Sender Policy Framework</a></li>
+<li><a href="http://www.dkim.org/">http://www.dkim.org/</a></li>
+</ul><div class="footer">
+    <p style="text-align: center; color: grey;">All documents are available in <a href="https://github.com/iredmail/docs/">GitHub repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://github.com/iredmail/docs/archive/master.zip">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
+</div></body></html>
