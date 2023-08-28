@@ -92,7 +92,7 @@ security.jail.sysvipc_allowed=1
 * Creëer een nieuwe jail
 
     * hostname `mx.example.com`
-    * verbind IP-adress `172.16.244.254` aan network interface `em0`
+    * verbind IP-adres `172.16.244.254` aan network interface `em0`
     * Jail bevindt zich in   `/jails/mx.example.com`
 
 ```
