@@ -162,10 +162,10 @@ Bijvoorbeeld:</p>
 <p>Dit SPF record zorgt ervoor dat alle e-mails die gestuurd worden van alle servers gedefinieerd in het MX record van <code>mydomain.com</code> toegelaten worden als <code>someone@mydomain.com</code>.</p>
 <p><code>-all</code> betekent verbied alle emails gestuurd van alle andere servers. Als het te strict is voor jouw geval, kan je <code>~all</code> gebruiken, wat een soft fail betekent (onzeker).</p>
 <p>Je kunt ook IP-adress(en) specifiëren:</p>
-<pre><code>mydomain.com.   3600    IN  TXT &quot;v=spf1 ip4:111.111.111.111 ip4:111.111.111.222 -all&quot;
+<pre><code>mydomain.com.   3600    IN  TXT &quot;v=spf1 mx ip4:111.111.111.222 -all&quot;
 </code></pre>
 <p>Natuurlijk kan je ze ook allebei (of meer dan 2) invoegen in hetzelfde record:</p>
-<pre><code>mydomain.com.   3600    IN  TXT &quot;v=spf1 mx ip4:111.111.111.222 -all&quot;
+<pre><code>mydomain.com.   3600    IN  TXT &quot;v=spf1 mx ip4:111.111.111.111 ip4:111.111.111.222 -all&quot;
 </code></pre>
 <p>Er zijn nog meer validatiesystemen die je kunt gebruiken, raadpleeg
 <a href="https://en.wikipedia.org/wiki/Sender_Policy_Framework">wikipedia</a> voor meer details.</p>
