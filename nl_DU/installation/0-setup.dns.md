@@ -143,13 +143,13 @@ Dit SPF record zorgt ervoor dat alle e-mails die gestuurd worden van alle server
 Je kunt ook IP-adress(en) specifiëren:
 
 ```
-mydomain.com.   3600    IN  TXT "v=spf1 ip4:111.111.111.111 ip4:111.111.111.222 -all"
+mydomain.com.   3600    IN  TXT "v=spf1 mx ip4:111.111.111.222 -all"
 ```
 
 Natuurlijk kan je ze ook allebei (of meer dan 2) invoegen in hetzelfde record:
 
 ```
-mydomain.com.   3600    IN  TXT "v=spf1 mx ip4:111.111.111.222 -all"
+mydomain.com.   3600    IN  TXT "v=spf1 mx ip4:111.111.111.111 ip4:111.111.111.222 -all"
 ```
 
 Er zijn nog meer validatiesystemen die je kunt gebruiken, raadpleeg
