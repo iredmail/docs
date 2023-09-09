@@ -158,25 +158,23 @@ check upgrade tutorials for iRedMail-0.9.1 and newer releases, then apply all
 SQL structure changes mentioned in the upgrade tutorials.</p>
 <p>You can find <a href="./iredmail.releases.html">all iRedMail upgrade tutorials here</a>.</p>
 <h3 id="ldap">LDAP</h3>
+<h4 id="how-to-restore-openldap-backup">How to restore OpenLDAP backup</h4>
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>
 <ul>
-<li>If you backup with <code>slapcat</code> command, you must restore the backup with
-  <code>slapadd</code> command.</li>
-<li>If you backup with <code>ldapsearch</code> command or phpLDAPadmin, you must restore
-  the backup with <code>ldapadd</code> command.</li>
+<li>Data dumped with <code>slapcat</code> command must be restored with <code>slapadd</code> command.</li>
+<li>Data exported with <code>ldapsearch</code> command can be imported with <code>ldapadd</code> command.</li>
 </ul>
 </div>
-<h4 id="how-to-restore-openldap-backup">How to restore OpenLDAP backup</h4>
-<p>Backup script runs command <code>slapcat</code> to dump whole LDAP tree as a backup, it
-must be so restored with command <code>slapadd</code>.</p>
+<p>Backup script runs command <code>slapcat</code> to dump whole LDAP tree as a backup copy,
+it must be restored with command <code>slapadd</code>.</p>
 <p>Below example shows how to restore a LDAP backup on RHEL/CentOS 6.x, files and
 directories may be different on other Linux/BSD distributions, you can find
 the correct ones in this tutorial:
 <a href="./file.locations.html#openldap">Locations of configuration and log files of major components</a>.</p>
 <ul>
 <li>
-<p>LDAP backups are stored under <code>/var/vmail/backup/ldap/[YEAR]/[MONTH]</code> by
+<p>LDAP backups are stored under <code>/var/vmail/backup/ldap/[YEAR]/[MONTH]/</code> by
   default, for example, <code>/var/vmail/backup/ldap/2015/05/</code>. And it's compressed
   with <code>bzip2</code> command to save disk space. we must decompress it first.</p>
 </li>
@@ -258,9 +256,9 @@ userPassword: {SSHA}lWt6zjOOUq+2WUmiAea2FXLB4oHMYvIb
 <p><strong>Important note</strong>:  There's only <strong>ONE</strong> colon after <code>userPassword</code> string
 (<code>userPassword:</code>).</p>
 <ul>
-<li>OpenLDAP service must be stopped while restoring backup. So we stop it first:</li>
+<li>OpenLDAP service must be stopped while restoring backup. So we stop it first (Note: OpenLDAP service name may be different on your machine, for example, <code>ldap</code>, <code>slapd</code>, etc, please use the correct one):</li>
 </ul>
-<pre><code># /etc/init.d/ldap stop
+<pre><code># systemctl stop slapd
 </code></pre>
 <ul>
 <li>
@@ -300,22 +298,22 @@ except <code>/var/lib/ldap/iredmail.org/DB_CONFIG</code>.</p>
 # mv ~/DB_CONFIG .
 </code></pre>
 <ul>
-<li>Start OpenLDAP service immediately, then stop it again. it will help create
+<li>Start OpenLDAP service immediately, then stop it again. It will create
   necessary files required by backend db (<code>dbd</code> in our case, <code>database dbd</code>).</li>
 </ul>
-<pre><code># /etc/init.d/slapd start
-# /etc/init.d/slapd stop
+<pre><code># systemctl start slapd
+# systemctl stop slapd
 </code></pre>
 <ul>
 <li>Make sure OpenLDAP server is <strong>NOT</strong> running, then restore backup LDIF file
   with command <code>slapadd</code>.</li>
 </ul>
-<pre><code># slapadd -f /etc/openldap/slapd.conf -l /path/to/backup/backup.ldif
+<pre><code># slapadd -f /etc/openldap/slapd.conf -l /var/vmail/backup/ldap/2015/05/2015-05-10-03:01:01.ldif
 </code></pre>
 <ul>
 <li>It's OK to start OpenLDAP server now. It may report errors like below:</li>
 </ul>
-<pre><code># /etc/init.d/slapd start
+<pre><code># systemctl restart slapd
 Stopping slapd:                                            [  OK  ]
 /var/lib/ldap/iredmail.org/mailMessageStore.bdb is not owned[WARNING]&quot;
 /var/lib/ldap/iredmail.org/objectClass.bdb is not owned by &quot;[WARNING]
@@ -325,9 +323,9 @@ Checking configuration files for slapd:  config file testing succeeded
 Starting slapd:                                            [  OK  ]
 </code></pre>
 <p>If you see above warning about improper file ownership, please set correct file
-owner on newly created bdb files immediately, then restart OpenLDAP service:</p>
-<pre><code># chown ldap:ldap /var/lib/ldap/iredmail.org/*.bdb
-# /etc/init.d/ldap restart
+owner on newly created db files immediately, then restart OpenLDAP service:</p>
+<pre><code># chown ldap:ldap /var/lib/ldap/iredmail.org/*
+# systemctl restart slapd
 </code></pre>
 <p>If you're restoring LDAP data from an old iRedMail server, you should add
 missing LDAP attribute/values, which are introduced in newer iRedMail releases,
