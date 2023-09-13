@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Zet debug modus aan in Postfix</title>
+        <link rel="stylesheet" type="text/css" href="./css/markdown.css" />
+    </head>
+    <body>
+
+    <div id="navigation">
+    <a href="https://www.iredmail.org" target="_blank">
+        <img alt="iRedMail web site"
+             src="./images/logo-iredmail.png"
+             style="vertical-align: middle; height: 30px;"
+             />&nbsp;
+        <span>iRedMail</span>
+    </a>
+    &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><div class="admonition note">
+<p class="admonition-title">This tutorial is available in other languages. <a href="https://github.com/iredmail/docs">Help translate more</a></p>
+<p><a href="./debug.postfix.html">English</a> /</p>
+</div>
+<h1 id="zet-debug-modus-aan-in-postfix">Zet debug modus aan in Postfix</h1>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>Bekijk onze lichtgewicht on-premise e-mail archiveringsoftware ontwikkeld door 
+ het iRedMail team: <a href="https://spiderd.io/">Spider Email Archiver</a>.</p>
+</div>
+<div class="toc">
+<ul>
+<li><a href="#zet-debug-modus-aan-in-postfix">Zet debug modus aan in Postfix</a><ul>
+<li><a href="#gedetailleerde-logging-voor-specifieke-smtp-connecties">Gedetailleerde logging voor specifieke SMTP connecties</a></li>
+<li><a href="#postfix-daemon-programmas-meer-gedetailleerde-output-laten-geven">Postfix daemon programma's meer gedetailleerde output laten geven</a></li>
+<li><a href="#zie-ook">Zie ook</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<p>Er zijn een paar manieren om debug modus aan te zetten in postfix, je kunt de manier die je verkiest uitvoeren.</p>
+<h2 id="gedetailleerde-logging-voor-specifieke-smtp-connecties">Gedetailleerde logging voor specifieke SMTP connecties</h2>
+<p>Om smtp verbindingen van een bepaalde client of server te loggen moet de hostname of het IP-adres met de <code>debug_peer_list</code> parameter worden opgelijst (in
+<code>/etc/postfix/main.cf</code>). Bijvoorbeeld:</p>
+<pre><code>debug_peer_list = 192.168.0.1
+</code></pre>
+<p>Je kunt een of meer hosts, domains, adressen en/of net/masks toevoegen. Voer commando <code>postfix reload</code> uit om de verandering direct aan te activeren.</p>
+<h2 id="postfix-daemon-programmas-meer-gedetailleerde-output-laten-geven">Postfix daemon programma's meer gedetailleerde output laten geven</h2>
+<p>Er zijn veel daemon services gedefinieerd in <code>/etc/postfix/master.cf</code>, bijvoorbeeld:</p>
+<pre><code>smtp      inet  n       -       n       -       -       smtpd
+</code></pre>
+<p>Om gedetailleerde logging over een Postfix daemon te verkrijgen moet je een of meerdere
+<code>-v</code> opties toevoegen aan diezelfde daemon. Daarna moet je het commando <code>postfix reload</code> ingeven.</p>
+<pre><code>smtp      inet  n       -       n       -       -       smtpd -v
+</code></pre>
+<ul>
+<li>Om problemen te diagnostiseren  met adres rewriting moet je de <code>-v</code> optie gebruiken voor
+  <code>cleanup(8)</code> en/of <code>trivial-rewrite(8)</code> daemon.</li>
+<li>Om problemen met e-mail ontvangst te diagnostiseren kan je de <code>-v</code> optie specifiëren  voor de
+  <code>qmgr(8)</code> of <code>oqmgr(8)</code> wachtlijn manager, of voor de <code>lmtp(8)</code>, <code>local(8)</code>,
+  <code>pipe(8)</code>, <code>smtp(8)</code>, of <code>virtual(8)</code> delivery agent.</li>
+</ul>
+<h2 id="zie-ook">Zie ook</h2>
+<ul>
+<li><a href="http://www.postfix.org/DEBUG_README.html">Postfix Debuggen hoe</a></li>
+</ul><div class="footer">
+    <p style="text-align: center; color: grey;">All documents are available in <a href="https://github.com/iredmail/docs/">GitHub repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://github.com/iredmail/docs/archive/master.zip">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
+</div></body></html>

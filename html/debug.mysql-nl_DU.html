@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title>Turn on debug mode in Nginx</title>
+        <title>Log uitgevoerde SQL commando's in MySQL/MariaDB</title>
         <link rel="stylesheet" type="text/css" href="./css/markdown.css" />
     </head>
     <body>
@@ -17,17 +17,19 @@
     </a>
     &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><div class="admonition note">
 <p class="admonition-title">This tutorial is available in other languages. <a href="https://github.com/iredmail/docs">Help translate more</a></p>
-<p><a href="./debug.nginx-nl_DU.html">Nederlands</a> /</p>
+<p><a href="./debug.mysql.html">English</a> /</p>
 </div>
-<h1 id="turn-on-debug-mode-in-nginx">Turn on debug mode in Nginx</h1>
-<p>To turn on debug mode in Nginx, please update Nginx config file
-<code>/etc/nginx/conf-enabled/log.conf</code> (Linux/OpenBSD) or
-<code>/usr/local/etc/nginx/conf-enabled/log.conf</code> (FreeBSD), append string <code>debug</code>
-in parameter <code>error_log</code> like below:</p>
-<pre><code>error_log ... debug;
+<h1 id="log-uitgevoerde-sql-commandos-in-mysqlmariadb">Log uitgevoerde SQL commando's in MySQL/MariaDB</h1>
+<blockquote>
+<p>Weet je niet waar het MySQL configuratiebestand zich bevindt? Check deze tutorial:
+<a href="file.locations.html#mysql-mariadb">Locaties van configuratie and log bestanden van belangrijke componenten</a>.</p>
+</blockquote>
+<p>Om uitgevoerde SQL commando's te loggen moet je onderstaande instellingen toevoegen aan MySQL/MariaDB configuratiebestand <code>my.cnf</code>:</p>
+<pre><code>[mysqld]
+general_log = 1
+general_log_file = /var/log/mysql.log
 </code></pre>
-<p>Then restart Nginx service.</p>
-<p>Nginx logs detailed debug info to <code>/var/log/nginx/error.log</code> (Linux/FreeBSD)
-or <code>/var/www/logs/error.log</code> (OpenBSD).</p><div class="footer">
+<p>Dan MySQL/MariaDB service herstarten.</p>
+<p>Merk op: MySQL/MariaDB daemon gebruiker moet de bemachtigingen hebben om te kunnen schrijven naar dit logbestand.</p><div class="footer">
     <p style="text-align: center; color: grey;">All documents are available in <a href="https://github.com/iredmail/docs/">GitHub repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://github.com/iredmail/docs/archive/master.zip">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
 </div></body></html>

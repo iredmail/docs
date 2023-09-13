@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title>Turn on debug mode in OpenLDAP</title>
+        <title>Zet debug logging aan in Fail2ban</title>
         <link rel="stylesheet" type="text/css" href="./css/markdown.css" />
     </head>
     <body>
@@ -17,17 +17,35 @@
     </a>
     &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><div class="admonition note">
 <p class="admonition-title">This tutorial is available in other languages. <a href="https://github.com/iredmail/docs">Help translate more</a></p>
-<p><a href="./debug.openldap-nl_DU.html">Nederlands</a> /</p>
+<p><a href="./debug.fail2ban.html">English</a> /</p>
 </div>
-<h1 id="turn-on-debug-mode-in-openldap">Turn on debug mode in OpenLDAP</h1>
-<p>In OpenLDAP config file <code>slapd.conf</code>, update parameter <code>loglevel</code> to value <code>256</code>, then restart OpenLDAP service.</p>
+<h1 id="zet-debug-logging-aan-in-fail2ban">Zet debug logging aan in Fail2ban</h1>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>Bekijk onze lichtgewicht on-premise e-mail archiveringsoftware ontwikkeld door 
+ het iRedMail team: <a href="https://spiderd.io/">Spider Email Archiver</a>.</p>
+</div>
+<div class="toc">
 <ul>
-<li>On RHEL/CentOS and OpenBSD, it's <code>/etc/openldap/slapd.conf</code></li>
-<li>On Debian/Ubuntu, it's <code>/etc/ldap/slapd.conf</code></li>
-<li>On FreeBSD, it's <code>/usr/local/etc/openldap/slapd.conf</code></li>
+<li><a href="#zet-debug-logging-aan-in-fail2ban">Zet debug logging aan in Fail2ban</a><ul>
+<li><a href="#logbestand">Logbestand</a></li>
 </ul>
-<pre><code>loglevel    256
+</li>
+</ul>
+</div>
+<p>Om debug modus aan te zetten in Fail2ban moet je zijn logniveau instellen op <code>debug</code> in
+configuratiebestand <code>/etc/fail2ban/fail2ban.local</code>, dan fail2ban service herstarten.
+Als bestand <code>/etc/fail2ban/fail2ban.local</code> niet bestaat, gebruik dan
+<code>/etc/fail2ban/fail2ban.conf</code>.</p>
+<pre><code>loglevel = DEBUG
 </code></pre>
-<p>OpenLDAP is configured by iRedMail to log into <code>/var/log/openldap.log</code> by default.</p><div class="footer">
+<h2 id="logbestand">Logbestand</h2>
+<p>Fail2ban kan loggen naar verschillende logbestanden afhankelijk van de Linux/BSD distributie:</p>
+<ul>
+<li><code>/var/log/fail2ban.log</code></li>
+<li><code>/var/log/fail2ban/fail2ban.log</code></li>
+<li><code>/var/log/messages</code></li>
+<li><code>/var/log/syslog</code></li>
+</ul><div class="footer">
     <p style="text-align: center; color: grey;">All documents are available in <a href="https://github.com/iredmail/docs/">GitHub repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://github.com/iredmail/docs/archive/master.zip">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
 </div></body></html>

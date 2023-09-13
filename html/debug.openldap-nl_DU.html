@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title>Turn on debug mode in Nginx</title>
+        <title>Zet debug modus aan in OpenLDAP</title>
         <link rel="stylesheet" type="text/css" href="./css/markdown.css" />
     </head>
     <body>
@@ -17,17 +17,17 @@
     </a>
     &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><div class="admonition note">
 <p class="admonition-title">This tutorial is available in other languages. <a href="https://github.com/iredmail/docs">Help translate more</a></p>
-<p><a href="./debug.nginx-nl_DU.html">Nederlands</a> /</p>
+<p><a href="./debug.openldap.html">English</a> /</p>
 </div>
-<h1 id="turn-on-debug-mode-in-nginx">Turn on debug mode in Nginx</h1>
-<p>To turn on debug mode in Nginx, please update Nginx config file
-<code>/etc/nginx/conf-enabled/log.conf</code> (Linux/OpenBSD) or
-<code>/usr/local/etc/nginx/conf-enabled/log.conf</code> (FreeBSD), append string <code>debug</code>
-in parameter <code>error_log</code> like below:</p>
-<pre><code>error_log ... debug;
+<h1 id="zet-debug-modus-aan-in-openldap">Zet debug modus aan in OpenLDAP</h1>
+<p>Bewerk in OpenLDAP configuratiebestand <code>slapd.conf</code> parameter <code>loglevel</code> naar waarde <code>256</code>, herstart OpenLDAP service.</p>
+<ul>
+<li>Op RHEL/CentOS en OpenBSD is het  <code>/etc/openldap/slapd.conf</code></li>
+<li>Op Debian/Ubuntu is het <code>/etc/ldap/slapd.conf</code></li>
+<li>Op FreeBSD is het  <code>/usr/local/etc/openldap/slapd.conf</code></li>
+</ul>
+<pre><code>loglevel    256
 </code></pre>
-<p>Then restart Nginx service.</p>
-<p>Nginx logs detailed debug info to <code>/var/log/nginx/error.log</code> (Linux/FreeBSD)
-or <code>/var/www/logs/error.log</code> (OpenBSD).</p><div class="footer">
+<p>OpenLDAP wordt standaard geconfigureerd door iRedMail om te loggen naar  <code>/var/log/openldap.log</code>.</p><div class="footer">
     <p style="text-align: center; color: grey;">All documents are available in <a href="https://github.com/iredmail/docs/">GitHub repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://github.com/iredmail/docs/archive/master.zip">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
 </div></body></html>
