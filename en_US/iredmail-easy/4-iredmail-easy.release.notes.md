@@ -6,6 +6,37 @@
 
 [TOC]
 
+## Version: 2023092001 (Sep 20, 2023) {: id=2023092001 }
+
+* Fixed issues:
+    - Not switch to nftables on Ubuntu 22.04.
+
+        > Note: If you have custom firewall rules in
+        > `/opt/iredmail/custom/firewall/custom.sh` with `iptables` command,
+        > you must switch to nftables manually.
+
+    - Not disable cron job used to clean up Amavisd SQL db when Amavisd is not
+      enabled.
+    - Duplicate firewall entry in `/opt/iredmail/bin/apply_all_custom_settings`.
+    - Not disable `spamd` service on Debian/Ubuntu.
+    - Not enable php function `proc_get_status` required by Roundcube plugin `enigma`.
+
+* Updated packages:
+    - iRedAdmin 2.5.
+    - netdata 1.42.4
+    - __SECURITY UPDATE__: roundcube [v1.6.3](https://roundcube.net/news/2023/09/15/security-update-1.6.3-released) and [1.5.4](https://roundcube.net/news/2023/09/18/security-update-1.5.4-released). Both fix the cross-site scripting (XSS) vulnerability.
+
+        > NOTES:
+        >
+        > - __Ubuntu 18.04__ gets Roundcube v1.5.4 instead of v1.6.3 due to old
+        >   php version, v1.5.4 contains the security fix too. Anyway, please
+        >   consider upgrade OS to 20.04 LTS as soon as possible.
+        > - __CentOS / Rocky 7__ gets Roundcube v1.5.2 due to old php version, this
+        >   version does __NOT contain the security fix__ which is fixed in v1.5.4 and
+        >   v1.6.3, please upgrade OS to at least CentOS / Rocky 8 and switch
+        >   php to v8 immediately by following
+        >   [this tutorial](./upgrade.php.v8.0.on.centos.8.html).
+
 ## Version: 2023072801 (Jul 28, 2023) {: id=2023072801 }
 
 * Supports new distribution releases:
