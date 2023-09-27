@@ -12,11 +12,12 @@ to accept emails sent from other mail servers (not submitted by end users).
 
 ## Enable postscreen service
 
-iRedMail ships a script to enable postscreen. You can enable it with steps below:
+iRedMail ships a script to enable postscreen. You can enable it with shell
+commands below:
 
-```
-# wget https://github.com/iredmail/iRedMail/raw/master/tools/enable_postscreen.sh
-# bash enable_postscreen.sh
+```shell
+wget https://github.com/iredmail/iRedMail/raw/master/tools/enable_postscreen.sh
+bash enable_postscreen.sh
 ```
 
 That's all.
