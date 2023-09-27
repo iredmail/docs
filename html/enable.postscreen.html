@@ -31,18 +31,13 @@
 </li>
 </ul>
 </div>
-<p><strong>WARNING</strong>: With postscreen service enabled, your users must use port 587 to
-send email, port 25 will be used by postscreen service instead of normal smtp
-service.</p>
+<p><strong>WARNING</strong>: With postscreen service enabled, your users must use port 587
+(TLS) or 465 (SSL) to send email, port 25 will be used by postscreen service
+to accept emails sent from other mail servers (not submitted by end users).</p>
 <h2 id="enable-postscreen-service_1">Enable postscreen service</h2>
 <p>iRedMail ships a script to enable postscreen. You can enable it with steps below:</p>
-<ol>
-<li>Download script <code>enable_postscreen.sh</code> from <a href="https://github.com/iredmail/iRedMail/blob/1.0/tools/enable_postscreen.sh">iRedMail source code
-   repository</a>.</li>
-<li>Upload this script to your iRedMail server, then execute it to enable
-   postscreen service:</li>
-</ol>
-<pre><code># bash enable_postscreen.sh
+<pre><code># wget https://github.com/iredmail/iRedMail/raw/master/tools/enable_postscreen.sh
+# bash enable_postscreen.sh
 </code></pre>
 <p>That's all.</p>
 <p>Important notes:</p>
