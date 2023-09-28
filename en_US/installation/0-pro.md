@@ -76,23 +76,30 @@ installer](https://www.iredmail.org/download.html) instead.
 
 ## Download and run the installer
 
-Run commands below on the server to download iRedMail Enterprise for Linux (x86_64):
+Run commands below on the server to download iRedMail Enterprise for Linux (amd64 / x86_64):
 
-```
-wget -O /usr/local/bin/iredmail https://dl.iredmail.org/iredmail-enterprise-1.0-beta1-linux-x86_64
+!!! attention
+
+    Please download it and save to `/usr/local/bin/iredmail`. This path is
+    hard-coded in systemd service file to start iRedMail Enterprise.
+
+```bash
+wget -O /usr/local/bin/iredmail https://dl.iredmail.org/iredmail-enterprise-1.0-beta1-linux-amd64
 chmod +x /usr/local/bin/iredmail
 ```
 
 Launch the installer:
 
-```
+```bash
 /usr/local/bin/iredmail
 ```
 
-It runs a web server on port `8080`, please visit it with a web browser and go
-through the wizard to finish the installation.
-
-After installation, it runs on port `7793`.
+- It runs a web server on port `8080` for initial deployment, please visit
+  <http://your-server:8080> with a web browser and go through the wizard to
+  finish the installation.
+- After deployment succeeded, it closes port `8080` and runs on port
+  `127.0.0.1:7793`. Nginx is configured to proxy requests to it through URI
+  `/admin/`, please visit <httpS://your-server/admin/> to access it.
 
 Below are screenshots of the installation wizard.
 

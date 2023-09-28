@@ -141,16 +141,26 @@ installer</a> instead.</p>
   GB memory to support 500 ActiveSync clients.</li>
 </ul>
 <h2 id="download-and-run-the-installer">Download and run the installer</h2>
-<p>Run commands below on the server to download iRedMail Enterprise for Linux (x86_64):</p>
-<pre><code>wget -O /usr/local/bin/iredmail https://dl.iredmail.org/iredmail-enterprise-1.0-beta1-linux-x86_64
+<p>Run commands below on the server to download iRedMail Enterprise for Linux (amd64 / x86_64):</p>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>Please download it and save to <code>/usr/local/bin/iredmail</code>. This path is
+hard-coded in systemd service file to start iRedMail Enterprise.</p>
+</div>
+<pre><code class="language-bash">wget -O /usr/local/bin/iredmail https://dl.iredmail.org/iredmail-enterprise-1.0-beta1-linux-amd64
 chmod +x /usr/local/bin/iredmail
 </code></pre>
 <p>Launch the installer:</p>
-<pre><code>/usr/local/bin/iredmail
+<pre><code class="language-bash">/usr/local/bin/iredmail
 </code></pre>
-<p>It runs a web server on port <code>8080</code>, please visit it with a web browser and go
-through the wizard to finish the installation.</p>
-<p>After installation, it runs on port <code>7793</code>.</p>
+<ul>
+<li>It runs a web server on port <code>8080</code> for initial deployment, please visit
+  <a href="http://your-server:8080">http://your-server:8080</a> with a web browser and go through the wizard to
+  finish the installation.</li>
+<li>After deployment succeeded, it closes port <code>8080</code> and runs on port
+  <code>127.0.0.1:7793</code>. Nginx is configured to proxy requests to it through URI
+  <code>/admin/</code>, please visit <a href="httpS://your-server/admin/">httpS://your-server/admin/</a> to access it.</li>
+</ul>
 <p>Below are screenshots of the installation wizard.</p>
 <h2 id="installation">Installation</h2>
 <h3 id="choose-preferred-backend">Choose preferred backend</h3>
