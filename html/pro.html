@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title>iRedMail Pro: Getting started</title>
+        <title>iRedMail Enterprise: Getting started</title>
         <link rel="stylesheet" type="text/css" href="./css/markdown.css" />
     </head>
     <body>
@@ -19,14 +19,14 @@
 <p class="admonition-title">This tutorial is available in other languages. <a href="https://github.com/iredmail/docs">Help translate more</a></p>
 <p><a href="./pro-nl_DU.html">Nederlands</a> /</p>
 </div>
-<h1 id="iredmail-pro-getting-started">iRedMail Pro: Getting started</h1>
+<h1 id="iredmail-enterprise-getting-started">iRedMail Enterprise: Getting started</h1>
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>
 <p>Check out the lightweight on-premises email archiving software developed by iRedMail team: <a href="https://spiderd.io/">Spider Email Archiver</a>.</p>
 </div>
 <div class="toc">
 <ul>
-<li><a href="#iredmail-pro-getting-started">iRedMail Pro: Getting started</a><ul>
+<li><a href="#iredmail-enterprise-getting-started">iRedMail Enterprise: Getting started</a><ul>
 <li><a href="#summary">Summary</a></li>
 <li><a href="#system-requirements">System Requirements</a><ul>
 <li><a href="#supported-linux-and-bsd-distribution-releases">Supported Linux and BSD distribution releases</a></li>
@@ -55,28 +55,28 @@
 <li>All account passwords are generated randomly during deployment, stored in
   files under <code>/root/.iredmail/kv/</code> on your server, also organized in file
   <code>/root/iRedMail/iRedMail.tips</code>.</li>
-<li>To migrate your existing iRedMail server to <strong>iRedMail Pro</strong>,
+<li>To migrate your existing iRedMail server to <strong>iRedMail Enterprise</strong>,
   please check this tutorial:
   <a href="./migrate.to.iredmail.easy.html">Migrate from iRedMail to iRedMail Easy platform</a>.</li>
 </ul>
 </div>
 <h2 id="summary">Summary</h2>
-<p><strong>iRedMail Pro</strong> is a web-based, on-premises iRedMail server installer and
-management admin panel.</p>
-<p>With iRedMail Pro, it's easy to deploy (and re-deploy) and keep the server up
-to date with just few clicks, you can also manage or tune (mail service
-related) server settings on web UI.</p>
-<p>We encourage all users to deploy new iRedMail servers with iRedMail Pro and
-keep the servers up to date.</p>
-<p>If you prefer classic downloadable iRedMail installer, you can find the
-installation guides here: <a href="./index.html#install">Install iRedMail</a>.</p>
+<p><strong>iRedMail Enterprise</strong> is a web-based, on-premises iRedMail server installer
+and management admin panel.</p>
+<p>With iRedMail Enterprise, it's easy to deploy (and re-deploy) and keep the
+server up to date with just few clicks on the web console, also manage
+or tune (mail service related) server settings.</p>
+<p>We encourage all users to deploy new iRedMail servers with iRedMail Enterprise
+and keep the servers up to date.</p>
+<p>If you prefer classic downloadable shell-based iRedMail installer, you can
+find the installation guides here: <a href="./index.html#install">Install iRedMail</a>.</p>
 <h2 id="system-requirements">System Requirements</h2>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <ul>
-<li>iRedMail is designed to be deployed on a fresh / clean server, which means you
-  can not have other network services running on the server <strong>BEFORE</strong>
-  iRedMail installation.</li>
+<li>iRedMail is designed to be deployed on a fresh / clean server, which
+  means you can not have other network services running on the server
+  <strong>BEFORE</strong> iRedMail installation.</li>
 <li>iRedMail will install and configure all required software automatically.</li>
 <li>
 <p>Many ISPs block port 25 by default, it's used for communication between
@@ -95,7 +95,7 @@ installation guides here: <a href="./index.html#install">Install iRedMail</a>.</
 </ul>
 </div>
 <h3 id="supported-linux-and-bsd-distribution-releases">Supported Linux and BSD distribution releases</h3>
-<p>Linux/BSD distribution releases supported by <strong>iRedMail Pro</strong>:</p>
+<p>Linux/BSD distribution releases supported by <strong>iRedMail Enterprise</strong>:</p>
 <table>
 <thead>
 <tr>
@@ -118,7 +118,7 @@ installation guides here: <a href="./index.html#install">Install iRedMail</a>.</
 </tr>
 <tr>
 <td>Debian</td>
-<td>11</td>
+<td>11, 12</td>
 </tr>
 <tr>
 <td>Ubuntu</td>
@@ -126,7 +126,7 @@ installation guides here: <a href="./index.html#install">Install iRedMail</a>.</
 </tr>
 <tr>
 <td>OpenBSD</td>
-<td>7.2</td>
+<td>7.3</td>
 </tr>
 </tbody>
 </table>
@@ -141,8 +141,8 @@ installer</a> instead.</p>
   GB memory to support 500 ActiveSync clients.</li>
 </ul>
 <h2 id="download-and-run-the-installer">Download and run the installer</h2>
-<p>Run commands below on the server to download iRedMail Pro for Linux (x86_64):</p>
-<pre><code>wget -O /usr/local/bin/iredmail https://dl.iredmail.org/iredmail-2.0-beta1-linux-x86_64
+<p>Run commands below on the server to download iRedMail Enterprise for Linux (x86_64):</p>
+<pre><code>wget -O /usr/local/bin/iredmail https://dl.iredmail.org/iredmail-enterprise-1.0-beta1-linux-x86_64
 chmod +x /usr/local/bin/iredmail
 </code></pre>
 <p>Launch the installer:</p>

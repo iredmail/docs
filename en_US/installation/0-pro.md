@@ -1,4 +1,4 @@
-# iRedMail Pro: Getting started
+# iRedMail Enterprise: Getting started
 
 !!! attention
 
@@ -11,32 +11,32 @@
     - All account passwords are generated randomly during deployment, stored in
       files under `/root/.iredmail/kv/` on your server, also organized in file
       `/root/iRedMail/iRedMail.tips`.
-    - To migrate your existing iRedMail server to __iRedMail Pro__,
+    - To migrate your existing iRedMail server to __iRedMail Enterprise__,
       please check this tutorial:
       [Migrate from iRedMail to iRedMail Easy platform](./migrate.to.iredmail.easy.html).
 
 ## Summary
 
-__iRedMail Pro__ is a web-based, on-premises iRedMail server installer and
-management admin panel.
+__iRedMail Enterprise__ is a web-based, on-premises iRedMail server installer
+and management admin panel.
 
-With iRedMail Pro, it's easy to deploy (and re-deploy) and keep the server up
-to date with just few clicks, you can also manage or tune (mail service
-related) server settings on web UI.
+With iRedMail Enterprise, it's easy to deploy (and re-deploy) and keep the
+server up to date with just few clicks on the web console, also manage
+or tune (mail service related) server settings.
 
-We encourage all users to deploy new iRedMail servers with iRedMail Pro and
-keep the servers up to date.
+We encourage all users to deploy new iRedMail servers with iRedMail Enterprise
+and keep the servers up to date.
 
-If you prefer classic downloadable iRedMail installer, you can find the
-installation guides here: [Install iRedMail](./index.html#install).
+If you prefer classic downloadable shell-based iRedMail installer, you can
+find the installation guides here: [Install iRedMail](./index.html#install).
 
 ## System Requirements
 
 !!! warning
 
-    * iRedMail is designed to be deployed on a fresh / clean server, which means you
-      can not have other network services running on the server __BEFORE__
-      iRedMail installation.
+    * iRedMail is designed to be deployed on a fresh / clean server, which
+      means you can not have other network services running on the server
+      __BEFORE__ iRedMail installation.
     * iRedMail will install and configure all required software automatically.
     * Many ISPs block port 25 by default, it's used for communication between
       mail servers, it must be open, otherwise your server may be not able to
@@ -52,16 +52,16 @@ installation guides here: [Install iRedMail](./index.html#install).
 
 ### Supported Linux and BSD distribution releases
 
-Linux/BSD distribution releases supported by __iRedMail Pro__:
+Linux/BSD distribution releases supported by __iRedMail Enterprise__:
 
 Distribution | Release Versions
 --- |---
 CentOS Stream | 8, 9
 Rocky Linux | 8, 9
 AlmaLinux | 8, 9
-Debian | 11
+Debian | 11, 12
 Ubuntu | 20.04, 22.04
-OpenBSD | 7.2
+OpenBSD | 7.3
 
 If you need to install iRedMail on FreeBSD, please use the [downloadable
 installer](https://www.iredmail.org/download.html) instead.
@@ -76,10 +76,10 @@ installer](https://www.iredmail.org/download.html) instead.
 
 ## Download and run the installer
 
-Run commands below on the server to download iRedMail Pro for Linux (x86_64):
+Run commands below on the server to download iRedMail Enterprise for Linux (x86_64):
 
 ```
-wget -O /usr/local/bin/iredmail https://dl.iredmail.org/iredmail-2.0-beta1-linux-x86_64
+wget -O /usr/local/bin/iredmail https://dl.iredmail.org/iredmail-enterprise-1.0-beta1-linux-x86_64
 chmod +x /usr/local/bin/iredmail
 ```
 
