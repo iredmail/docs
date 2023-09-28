@@ -93,7 +93,7 @@ It should return the (public) IP address of your server.
     !!! warning
 
         If your iRedMail server was deployed with [iRedMail Easy
-        platform](https://www.iredmail.og/easy.html), please use
+        platform](https://www.iredmail.org/easy.html), please use
         `-w /opt/www/well_known` instead.
 
 ```
