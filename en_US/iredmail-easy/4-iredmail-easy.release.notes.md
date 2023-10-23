@@ -8,7 +8,7 @@
 
 ## Version: 2023102301 (Oct 23, 2023) {: id=2023102301 }
 
-- Fail2ban: Not ban client which triggers `lost connection after UNKNOWN` error.
+- Fail2ban: Do not ban client which triggers `lost connection after UNKNOWN` error.
 
 * Updated packages:
     - netdata 1.43.0
