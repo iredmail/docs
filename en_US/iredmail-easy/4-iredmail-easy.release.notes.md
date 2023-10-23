@@ -6,6 +6,25 @@
 
 [TOC]
 
+## Version: 2023102301 (Oct 23, 2023) {: id=2023102301 }
+
+- Fail2ban: Not ban client which triggers `lost connection after UNKNOWN` error.
+
+* Updated packages:
+    - netdata 1.43.0
+    - __SECURITY UPDATE__: Roundcube [v1.6.4](https://roundcube.net/news/2023/10/16/security-update-1.6.4-released) and [1.5.5](https://roundcube.net/news/2023/10/16/security-updates-1.5.5-and-1.4.15). Both fix a new cross-site scripting (XSS) vulnerability.
+
+        > NOTES:
+        >
+        > - __Ubuntu 18.04__ gets Roundcube v1.5.5 instead of v1.6.4 due to old
+        >   php version, v1.5.5 contains the security fix too. Anyway, please
+        >   consider upgrade OS to at least 20.04 LTS as soon as possible.
+        > - __CentOS / Rocky 7__ gets Roundcube v1.5.2 due to old php version, this
+        >   version does __NOT contain the security fix__ which is fixed in
+        >   v1.5.4, v1.5.5, v1.6.3, v1.6.4. Please upgrade OS to at least
+        >   CentOS / Rocky 8 and switch php to v8 immediately by following
+        >   [this tutorial](./upgrade.php.v8.0.on.centos.8.html).
+
 ## Version: 2023092001 (Sep 20, 2023) {: id=2023092001 }
 
 * Fixed issues:
