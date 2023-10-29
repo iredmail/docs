@@ -30,7 +30,7 @@ so that you can know which version of iRedMail you're running. For example:
 
 ### [REQUIRED] CentOS Stream / Rocky / AlmaLinux 8: Switch to PHP v8.0
 
-CentOS / Rocky / AlmaLinux 8 offers php v8.0 in offical yum repository, you
+CentOS / Rocky / AlmaLinux 8 offers php v8.0 in official yum repository, you
 can switch to php v8.0 if you want by following this short tutorial, so that
 you can upgrade Roundcube to latest v1.6.2.
 

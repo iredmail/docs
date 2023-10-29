@@ -49,10 +49,10 @@ If you have netdata installed, you can upgrade it by following this tutorial:
 
 !!! warning "Ubuntu 18.04: please stick to Roundcube 1.5.4"
 
-    Ubuntu 18.04 runs old php version, v1.5.4 contains the security fix too. Anyway, please consider upgrade OS to 20.04 LTS as soon as possible.
+    Ubuntu 18.04 runs old php version, v1.5.4 contains the security fix too. Anyway, please consider upgrading your OS to 20.04 LTS as soon as possible.
 
 
-Roundcube v1.6.3 and 1.5.4 are security update. Both fix a cross-site
+Roundcube v1.6.3 and 1.5.4 are security updates. Both fix a cross-site
 scripting (XSS) vulnerability.
 
 Please follow Roundcube official tutorial to upgrade Roundcube webmail to the
