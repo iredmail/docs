@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Update iRedMail van versie 1.6.3 naar 1.6.4</title>
+        <link rel="stylesheet" type="text/css" href="./css/markdown.css" />
+    </head>
+    <body>
+
+    <div id="navigation">
+    <a href="https://www.iredmail.org" target="_blank">
+        <img alt="iRedMail web site"
+             src="./images/logo-iredmail.png"
+             style="vertical-align: middle; height: 30px;"
+             />&nbsp;
+        <span>iRedMail</span>
+    </a>
+    &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><div class="admonition note">
+<p class="admonition-title">This tutorial is available in other languages. <a href="https://github.com/iredmail/docs">Help translate more</a></p>
+<p><a href="./upgrade.iredmail.1.6.3-1.6.4.html">English</a> /</p>
+</div>
+<h1 id="update-iredmail-van-versie-163-naar-164">Update iRedMail van versie 1.6.3 naar 1.6.4</h1>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>Bekijk onze lichtgewicht on-premise e-mail archiveringsoftware ontwikkeld door 
+ het iRedMail team: <a href="https://spiderd.io/">Spider Email Archiver</a>.</p>
+</div>
+<div class="toc">
+<ul>
+<li><a href="#update-iredmail-van-versie-163-naar-164">Update iRedMail van versie 1.6.3 naar 1.6.4</a><ul>
+<li><a href="#changelog">ChangeLog</a></li>
+<li><a href="#algemeen-alle-backends-zouden-dit-moeten-aanpassen">Algemeen (Alle backends zouden dit moeten aanpassen)</a><ul>
+<li><a href="#update-etciredmail-release-met-nieuw-iredmail-versienummer">Update /etc/iredmail-release met nieuw iRedMail versienummer</a></li>
+<li><a href="#verplicht-centos-stream-rocky-almalinux-8-overgang-naar-php-v80">[VERPLICHT] CentOS Stream / Rocky / AlmaLinux 8: Overgang naar PHP v8.0</a></li>
+<li><a href="#corrigeer-incorrect-ssl-ca-bestand-en-idn-ondersteuning-in-postfix">Corrigeer incorrect ssl CA bestand en IDN ondersteuning in Postfix</a></li>
+<li><a href="#update-iredapd-postfix-policy-server-naar-nieuwste-stabiele-versie-53">Update iRedAPD (Postfix policy server) naar nieuwste stabiele versie (5.3)</a></li>
+<li><a href="#update-netdata-naar-de-nieuwste-stabiele-versie-1410">Update netdata naar de nieuwste stabiele versie (1.41.0)</a></li>
+<li><a href="#update-roundcube-webmail-naar-de-nieuwste-stabiele-versie-162">Update Roundcube webmail naar de nieuwste stabiele versie (1.6.2)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Betaalde externe updateservice</p>
+<p>We bieden een externe updateservice aan als je je hier niet wilt mee bezig houden,
+<a href="https://www.iredmail.org/support.html">zie hier voor meer informatie</a> en
+<a href="https://www.iredmail.org/contact.html">contacteer ons</a>.</p>
+</div>
+<h2 id="changelog">ChangeLog</h2>
+<ul>
+<li>Jul 28, 2023: initiële publicatie.</li>
+</ul>
+<h2 id="algemeen-alle-backends-zouden-dit-moeten-aanpassen">Algemeen (Alle backends zouden dit moeten aanpassen)</h2>
+<h3 id="update-etciredmail-release-met-nieuw-iredmail-versienummer">Update <code>/etc/iredmail-release</code> met nieuw iRedMail versienummer</h3>
+<p>iRedMail slaat de huidige versie op in bestand <code>/etc/iredmail-release</code> na installatie, het is aangeraden om dit bestand aan te passen nadat je iRedMail hebt geüpdatet,
+zodat je weet welke versie van  iRedMail je gebruikt. Bijvoorbeeld:</p>
+<pre><code>1.6.4
+</code></pre>
+<h3 id="verplicht-centos-stream-rocky-almalinux-8-overgang-naar-php-v80">[VERPLICHT] CentOS Stream / Rocky / AlmaLinux 8: Overgang naar PHP v8.0</h3>
+<p>CentOS / Rocky / AlmaLinux 8 biedt php v8.0 aan in het officiële yum repository, je
+kunt overgaan naar php v8.0 door deze korte tutorial te volgen, zodat je Roundcube kunt updaten naar de nieuwste versie: v1.6.2.</p>
+<ul>
+<li><a href="./upgrade.php.v8.0.on.centos.8.html">Update php naar 8.0 op CentOS Stream / Rocky / AlmaLinux 8</a></li>
+</ul>
+<h3 id="corrigeer-incorrect-ssl-ca-bestand-en-idn-ondersteuning-in-postfix">Corrigeer incorrect ssl CA bestand en IDN ondersteuning in Postfix</h3>
+<p>Geef onderstaande shell commando's in als root gebruiker om incorrect ssl ca bestand te corrigeren, ook IDN ondersteuning af te zetten.</p>
+<ul>
+<li>Op RHEL/CentOS/Rocky/AlmaLinux:</li>
+</ul>
+<pre><code>postconf -e smtp_tls_CAfile='/etc/pki/tls/certs/ca-bundle.crt'
+postconf -e smtpd_tls_CAfile='/etc/pki/tls/certs/ca-bundle.crt'
+postconf -e smtputf8_enable=no
+postfix reload
+</code></pre>
+<ul>
+<li>Op Debian en Ubuntu:</li>
+</ul>
+<pre><code>postconf -e smtp_tls_CAfile='/etc/ssl/certs/ca-certificates.crt'
+postconf -e smtpd_tls_CAfile='/etc/ssl/certs/ca-certificates.crt'
+postconf -e smtputf8_enable=no
+postfix reload
+</code></pre>
+<ul>
+<li>Op FreeBSD en OpenBSD:</li>
+</ul>
+<pre><code>postconf -e smtp_tls_CAfile='/etc/ssl/cert.pem'
+postconf -e smtpd_tls_CAfile='/etc/ssl/cert.pem'
+postconf -e smtputf8_enable=no
+postfix reload
+</code></pre>
+<h3 id="update-iredapd-postfix-policy-server-naar-nieuwste-stabiele-versie-53">Update iRedAPD (Postfix policy server) naar nieuwste stabiele versie (5.3)</h3>
+<p>Volg onderstaande tutorial om iRedAPD te updaten naar de nieuwste stabiele versie:
+<a href="./upgrade.iredapd.html">Update iRedAPD naar de nieuwste stabiele versie</a></p>
+<h3 id="update-netdata-naar-de-nieuwste-stabiele-versie-1410">Update netdata naar de nieuwste stabiele versie (1.41.0)</h3>
+<p>Als je netdata hebt geïnstalleerd, kan je het updaten door deze tutorial te volgen:
+<a href="./upgrade.netdata.html">Update netdata</a>.</p>
+<h3 id="update-roundcube-webmail-naar-de-nieuwste-stabiele-versie-162">Update Roundcube webmail naar de nieuwste stabiele versie (1.6.2)</h3>
+<div class="admonition warning">
+<p class="admonition-title">CentOS 7: blijf alstublieft bij Roundcube 1.5.2</p>
+<p>Als je server CentOS 7 draait, update dan naar Roundcube versie 1.5.2.
+Roundcube versie 1.5.3 heeft PHP-7 nodig, maar CentOS 7 komt met PHP-5.4 wat niet wordt ondersteund door Roundcube versie 1.5.3 (en de nieuwste 1.6.0).</p>
+<p>Het is tijd om uw comfortzone te verlaten en deze server te updaten naar ten minste CentOS Stream 8 of <a href="https://docs.rockylinux.org/guides/migrate2rocky/">Rocky Linux 8</a>.</p>
+</div>
+<p>Volg alstublieft de officiële Roundcube tutorial om Roundcube webmail te updaten naar de nieuwste stabiele versie:</p>
+<ul>
+<li><a href="https://github.com/roundcube/roundcubemail/wiki/Upgrade">Hoe Roundcube updaten</a>.</li>
+</ul><div class="footer">
+    <p style="text-align: center; color: grey;">All documents are available in <a href="https://github.com/iredmail/docs/">GitHub repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://github.com/iredmail/docs/archive/master.zip">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
+</div></body></html>

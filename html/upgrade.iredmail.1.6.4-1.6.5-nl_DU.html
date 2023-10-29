@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Update iRedMail van versie 1.6.4 naar 1.6.5</title>
+        <link rel="stylesheet" type="text/css" href="./css/markdown.css" />
+    </head>
+    <body>
+
+    <div id="navigation">
+    <a href="https://www.iredmail.org" target="_blank">
+        <img alt="iRedMail web site"
+             src="./images/logo-iredmail.png"
+             style="vertical-align: middle; height: 30px;"
+             />&nbsp;
+        <span>iRedMail</span>
+    </a>
+    &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><div class="admonition note">
+<p class="admonition-title">This tutorial is available in other languages. <a href="https://github.com/iredmail/docs">Help translate more</a></p>
+<p><a href="./upgrade.iredmail.1.6.4-1.6.5.html">English</a> /</p>
+</div>
+<h1 id="update-iredmail-van-versie-164-naar-165">Update iRedMail van versie 1.6.4 naar 1.6.5</h1>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>Bekijk onze lichtgewicht on-premise e-mail archiveringsoftware ontwikkeld door 
+ het iRedMail team: <a href="https://spiderd.io/">Spider Email Archiver</a>.</p>
+</div>
+<div class="toc">
+<ul>
+<li><a href="#update-iredmail-van-versie-164-naar-165">Update iRedMail van versie 1.6.4 naar 1.6.5</a><ul>
+<li><a href="#changelog">ChangeLog</a></li>
+<li><a href="#algemeen-alle-backends-zouden-dit-moeten-aanpassen">Algemeen (Alle backends zouden dit moeten aanpassen)</a><ul>
+<li><a href="#update-etciredmail-release-met-nieuw-iredmail-versienummer">Update /etc/iredmail-release met nieuw iRedMail versienummer</a></li>
+<li><a href="#update-netdata-naar-de-nieuwste-stabiele-versie-1424">Update netdata naar de nieuwste stabiele versie (1.42.4)</a></li>
+<li><a href="#update-roundcube-webmail-naar-de-nieuwste-stabiele-versie-163">Update Roundcube webmail naar de nieuwste stabiele versie (1.6.3)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Betaalde externe updateservice</p>
+<p>We bieden een externe updateservice aan als je je hier niet wilt mee bezig houden,
+<a href="https://www.iredmail.org/support.html">zie hier voor meer informatie</a> en
+<a href="https://www.iredmail.org/contact.html">contacteer ons</a>.</p>
+</div>
+<h2 id="changelog">ChangeLog</h2>
+<ul>
+<li>Sep 20, 2023: initiële publicatie.</li>
+</ul>
+<h2 id="algemeen-alle-backends-zouden-dit-moeten-aanpassen">Algemeen (Alle backends zouden dit moeten aanpassen)</h2>
+<h3 id="update-etciredmail-release-met-nieuw-iredmail-versienummer">Update <code>/etc/iredmail-release</code> met nieuw iRedMail versienummer</h3>
+<p>iRedMail slaat de huidige versie op in bestand <code>/etc/iredmail-release</code> na installatie, het is aangeraden om dit bestand aan te passen nadat je iRedMail hebt geüpdatet,
+zodat je weet welke versie van  iRedMail je gebruikt. Bijvoorbeeld:</p>
+<pre><code>1.6.5
+</code></pre>
+<h3 id="update-netdata-naar-de-nieuwste-stabiele-versie-1424">Update netdata naar de nieuwste stabiele versie (1.42.4)</h3>
+<p>Als je netdata hebt geïnstalleerd, kan je het updaten door deze tutorial te volgen:
+<a href="./upgrade.netdata.html">Update netdata</a>.</p>
+<h3 id="update-roundcube-webmail-naar-de-nieuwste-stabiele-versie-163">Update Roundcube webmail naar de nieuwste stabiele versie (1.6.3)</h3>
+<div class="admonition warning">
+<p class="admonition-title">CentOS 7: blijf alstublieft bij Roundcube 1.5.2</p>
+<p>Als je server CentOS 7 draait, update dan naar Roundcube versie 1.5.2.
+Roundcube versie 1.5.3 heeft PHP-7 nodig, maar CentOS 7 komt met PHP-5.4 wat niet wordt ondersteund door Roundcube versie 1.5.3 (en de nieuwste 1.6.0).</p>
+<p><strong>Jammer genoeg bevat Roundcube 1.5.2 NIET de beveiligingsupdate die met Roundcube 1.5.4 of 1.6.3 worden toegevoegd.</strong></p>
+<p>Het is tijd om uw comfortzone te verlaten en deze server te updaten naar ten minste CentOS Stream 8 of <a href="https://docs.rockylinux.org/guides/migrate2rocky/">Rocky Linux 8</a>.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Ubuntu 18.04: blijf alstublieft bij Roundcube 1.5.4</p>
+<p>Ubuntu 18.04 gebruikt een oude php versie, v1.5.4 bevat de beveiligingsupdate ook.  Overweeg alstublieft om het besturingssysteem te updaten naar 20.04 LTS zo snel als mogelijk is.</p>
+</div>
+<p>Roundcube v1.6.3 en 1.5.4 zijn beveiligingsupdates. beide lossen een cross-site
+scripting (XSS) vulnerability op.</p>
+<p>Volg alstublieft de officiële Roundcube tutorial om Roundcube webmail te updaten naar de nieuwste stabiele versie:</p>
+<ul>
+<li><a href="https://github.com/roundcube/roundcubemail/wiki/Upgrade">Hoe Roundcube updaten</a>.</li>
+</ul><div class="footer">
+    <p style="text-align: center; color: grey;">All documents are available in <a href="https://github.com/iredmail/docs/">GitHub repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://github.com/iredmail/docs/archive/master.zip">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
+</div></body></html>

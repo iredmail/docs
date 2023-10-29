@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Locaties van configuratie and log bestanden van belangrijke componenten</title>
+        <link rel="stylesheet" type="text/css" href="./css/markdown.css" />
+    </head>
+    <body>
+
+    <div id="navigation">
+    <a href="https://www.iredmail.org" target="_blank">
+        <img alt="iRedMail web site"
+             src="./images/logo-iredmail.png"
+             style="vertical-align: middle; height: 30px;"
+             />&nbsp;
+        <span>iRedMail</span>
+    </a>
+    &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><div class="admonition note">
+<p class="admonition-title">This tutorial is available in other languages. <a href="https://github.com/iredmail/docs">Help translate more</a></p>
+<p><a href="./file.locations.html">English</a> /</p>
+</div>
+<h1 id="locaties-van-configuratie-and-log-bestanden-van-belangrijke-componenten">Locaties van configuratie and log bestanden van belangrijke componenten</h1>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>Bekijk onze lichtgewichte on-premise e-mail archiveringsoftware ontwikkeld door 
+ het iRedMail team: <a href="https://spiderd.io/">Spider Email Archiver</a>.</p>
+</div>
+<div class="toc">
+<ul>
+<li><a href="#locaties-van-configuratie-and-log-bestanden-van-belangrijke-componenten">Locaties van configuratie and log bestanden van belangrijke componenten</a><ul>
+<li><a href="#ssl">SSL certificaat</a></li>
+<li><a href="#postfix">Postfix</a><ul>
+<li><a href="#postfix-config">Belangrijkste configuratiebestanden:</a></li>
+<li><a href="#postfix-log">Logbestanden</a></li>
+</ul>
+</li>
+<li><a href="#dovecot">Dovecot</a><ul>
+<li><a href="#dovecot-config">Configuratiebestanden</a></li>
+<li><a href="#dovecot-log">Logbestanden</a></li>
+</ul>
+</li>
+<li><a href="#nginx">Nginx</a></li>
+<li><a href="#php">PHP</a></li>
+<li><a href="#openldap">OpenLDAP</a></li>
+<li><a href="#mysql">MySQL, MariaDB</a></li>
+<li><a href="#roundcube">Roundcube webgebaseerde e-mail</a></li>
+<li><a href="#amavisd">Amavisd</a><ul>
+<li><a href="#amavisd-config">Belangrijkste configuratiebestand</a></li>
+<li><a href="#amavisd-log">Logbestanden</a></li>
+</ul>
+</li>
+<li><a href="#spamassassin">SpamAssassin</a></li>
+<li><a href="#fail2ban">Fail2ban</a></li>
+<li><a href="#sogo">SOGo Groupware</a></li>
+<li><a href="#mlmmjadmin">mlmmjadmin</a></li>
+<li><a href="#iredapd">iRedAPD</a></li>
+<li><a href="#iredadmin">iRedAdmin</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<h2 id="ssl">SSL certificaat</h2>
+<p>Het zelf-gesigneerd SSL certificaat gegenereerd tijdens iRedMail installatie:</p>
+<ul>
+<li>
+<p>op RHEL/CentOS:</p>
+<ul>
+<li><code>/etc/pki/tls/certs/iRedMail.crt</code></li>
+<li>Private key: <code>/etc/pki/tls/private/iRedMail.key</code></li>
+</ul>
+</li>
+<li>
+<p>op Debian/Ubuntu:</p>
+<ul>
+<li><code>/etc/ssl/certs/iRedMail.crt</code></li>
+<li>Private key: <code>/etc/ssl/private/iRedMail.key</code></li>
+</ul>
+</li>
+<li>
+<p>op FreeBSD:</p>
+<ul>
+<li><code>/etc/ssl/certs/iRedMail.crt</code></li>
+<li>Private key: <code>/etc/ssl/private/iRedMail.key</code></li>
+</ul>
+</li>
+<li>
+<p>op OpenBSD:</p>
+<ul>
+<li><code>/etc/ssl/iRedMail.crt</code></li>
+<li>Private key: <code>/etc/ssl/iRedMail.key</code></li>
+</ul>
+</li>
+</ul>
+<h2 id="postfix">Postfix</h2>
+<ul>
+<li>op <code>Linux</code> en OpenBSD bevinden Postfix configuratiebestanden zich in <code>/etc/postfix/</code>.</li>
+<li>op FreeBSD bevinden Postfix configuratiebestanden zich onder <code>/usr/local/etc/postfix/</code>.</li>
+</ul>
+<h3 id="postfix-config">Belangrijkste configuratiebestanden:</h3>
+<ul>
+<li><code>main.cf</code>: bevat de meeste configuraties.</li>
+<li><code>master.cf</code>: bevat transportgerelateerde instellingen.</li>
+<li><code>aliases</code>: aliassen voor systeemaccounts.</li>
+<li><code>helo_access.pcre</code>: PCRE regular expressions van HELO check rules.</li>
+<li><code>ldap/*.cf</code>: gebruikt om e-mailaccounts op te vragen. Enkel toepasselijk voor LDAP backends.</li>
+<li><code>mysql/*.cf</code>: gebruikt om e-mailaccounts op te vragen. Enkel voor MySQL/MariaDB backends.</li>
+<li><code>pgsql/*.cf</code>: gebruikt om e-mailaccounts op te vragen. Enkel voor PostgreSQL backend.</li>
+</ul>
+<h3 id="postfix-log">Logbestanden</h3>
+<ul>
+<li>op RHEL/CentOS, FreeBSD, OpenBSD, is het <code>/var/log/maillog</code>.</li>
+<li>op Debian, Ubuntu, is het <code>/var/log/mail.log</code>.</li>
+</ul>
+<h2 id="dovecot">Dovecot</h2>
+<ul>
+<li>op Linux en OpenBSD worden Dovecot configuratiebestanden geplaatst in <code>/etc/dovecot/</code>.</li>
+<li>op FreeBSD worden Dovecot configuratiebestanden geplaatst in<code>/usr/local/etc/dovecot/</code>.</li>
+</ul>
+<h3 id="dovecot-config">Configuratiebestanden</h3>
+<p>Belangrijkste configuratiebestand is <code>dovecot.conf</code>. Het bevat de meeste configuraties.</p>
+<p>Extra configuratiebestanden in <code>/etc/dovecot/</code>:</p>
+<ul>
+<li><code>dovecot-ldap.conf</code>: gebruikt om e-mail gebruikers en paswoorden op te vragen. Enkel bij LDAP backend.</li>
+<li><code>dovecot-mysql.conf</code>: gebruikt om e-mail gebruikers en paswoorden op te vragen. Enkel bij MySQL/MariaDB backend.</li>
+<li><code>dovecot-pgsql.conf</code>: gebruikt om e-mail gebruikers en paswoorden op te vragen.. Enkel bij PostgreSQL backend.</li>
+<li><code>dovecot-used-quota.conf</code>: gebruikt om in-real-time de e-mailbox quota van een gebruiker op te vragen.</li>
+<li><code>dovecot-share-folder.conf</code>: gebruikt om instellingen van gedeelde IMAP e-mailboxen op te slaan.</li>
+<li><code>dovecot-master-users-password</code> of <code>dovecot-master-users</code>: gebruikt om Dovecot master gebruikersaccounts op te slaan.</li>
+</ul>
+<h3 id="dovecot-log">Logbestanden</h3>
+<ul>
+<li><code>/var/log/dovecot/*.log</code>: hoofdlogbestand na iRedMail versie 0.9.8.</li>
+</ul>
+<p>Vorige versies loggen naar <code>/var/log/dovecot.log</code> en <code>/var/log/dovecot-*.log</code>.</p>
+<h2 id="nginx">Nginx</h2>
+<ul>
+<li>Op <code>Linux</code> en OpenBSD:<ul>
+<li>Nginx configuratiebestanden bevinden zich in <code>/etc/nginx/</code></li>
+<li>uWSGI configuratiebestanden bevinden zich in <code>/etc/uwsgi/</code></li>
+</ul>
+</li>
+<li>Op FreeBSD:<ul>
+<li>Nginx configuratiebestanden bevinden zich in <code>/usr/local/etc/nginx</code></li>
+<li>Webapplicaties worden opgeslagen in <code>/usr/local/www</code></li>
+<li>uWSGI configuratiebestanden bevinden zich in <code>/usr/local/etc/uwsgi/</code></li>
+</ul>
+</li>
+</ul>
+<p>Belangrijkste configuratiebestanden zijn nginx.conf en <code>default.conf</code>.</p>
+<ul>
+<li>Op <code>Linux</code> en FreeBSD: logbestanden bevinden zich in <code>/var/log/nginx/</code>.</li>
+<li>Op OpenBSD: logbestanden bevinden zich in <code>/var/www/logs/</code> (zelfde als Apache).</li>
+</ul>
+<h2 id="php">PHP</h2>
+<p>Belangrijkste configuratiebestand:</p>
+<ul>
+<li>op RHEL/CentOS: is het <code>/etc/php.ini</code></li>
+<li>op Debian/Ubuntu:<ul>
+<li>Als je Apache als web server gebruikt:<ul>
+<li>Voor PHP-5 is het: <code>/etc/php5/apache2/php.ini</code> (Debian 8, Ubuntu 14.04)</li>
+<li>Voor PHP-7 is het: <code>/etc/php/7.0/cli/php.ini</code> (Ubuntu 16.04)</li>
+</ul>
+</li>
+<li>Als je Nginx als web server gebruikt is het: <code>/etc/php5/fpm/php.ini</code>.<ul>
+<li>Voor PHP-5 is het: <code>/etc/php5/fpm/php.ini</code> (Debian 8, Ubuntu 14.04)</li>
+<li>Voor PHP-7 is het: <code>/etc/php/7.0/fpm/php.ini</code> (Ubuntu 16.04)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>op FreeBSD is het: <code>/usr/local/etc/php.ini</code>.</li>
+<li>op OpenBSD is het: <code>/etc/php-5.X.ini</code></li>
+</ul>
+<h2 id="openldap">OpenLDAP</h2>
+<p>Belangrijkste configuratiebestand:</p>
+<ul>
+<li>op RHEL/CentOS is het: <code>/etc/openldap/slapd.conf</code>.</li>
+<li>op Debian/Ubuntu is het: <code>/etc/ldap/slapd.conf</code>.</li>
+<li>op FreeBSD is het: <code>/usr/local/etc/openldap/slapd.conf</code>.</li>
+<li>op OpenBSD is het: <code>/etc/openldap/slapd.conf</code>.</li>
+</ul>
+<p>Schemabestanden worden opgeslagen in het <code>schema/</code> folder (zelfde folder als <code>slapd.conf</code>).</p>
+<p>OpenLDAP is standaard geconfigureerd om te loggen naar <code>/var/log/openldap.log</code>, als dat leeg is, bekijk dan het normale syslog bestand in <code>/var/log/messages</code> of
+<code>/var/log/syslog</code>.</p>
+<h2 id="mysql">MySQL, MariaDB</h2>
+<p>Belangrijkste configuratiebestand:</p>
+<ul>
+<li>op RHEL/CentOS: <code>/etc/my.cnf</code>.</li>
+<li>op Debian/Ubuntu is het: <code>/etc/mysql/my.cnf</code>. Als je MariaDB gebruikt is het:
+  <code>/etc/mysql/mariadb.conf.d/mysqld.cnf</code>.</li>
+<li>op FreeBSD: <code>/var/db/mysql/my.cnf</code>.</li>
+<li>op OpenBSD: <code>/etc/my.cnf</code>.</li>
+</ul>
+<h2 id="roundcube">Roundcube webgebaseerde e-mail</h2>
+<ul>
+<li>
+<p>Root folder. Roundcube webmail wordt standaard geïnstalleerd in onderstaand folder:</p>
+<ul>
+<li>
+<p>RHEL/CentOS: <code>/opt/www/roundcubemail</code>. Het is een symbolische link naar <code>roundcubemail-x.y.z</code> onder zelfde folder.</p>
+<p>Opmerking: bij oude versies van iRedMail is het <code>/var/www/roundcubemail</code>.</p>
+</li>
+<li>
+<p>Debian/Ubuntu: <code>/opt/www/roundcubemail</code>. Het is een symbolische link naar 
+  <code>/opt/www/roundcubemail-x.y.z</code>.</p>
+<p>Opmerking: bij oude versies van iRedMail is het <code>/usr/share/apache2/roundcubemail</code>,
+het is een symbolische link naar <code>/usr/share/apache2/roundcubemail-x.y.z/</code>.</p>
+</li>
+<li>
+<p>FreeBSD: <code>/usr/local/www/roundcube</code>.</p>
+</li>
+<li>
+<p>OpenBSD: <code>/opt/www/roundcubemail</code>. Het is een symbolische link naar <code>roundcubemail-x.y.z</code>
+ onder hetzelfde folder.</p>
+<p>Opmerking: bij oude versies van iRedMail is het <code>/var/www/roundcubemail</code>.</p>
+</li>
+</ul>
+</li>
+<li>
+<p>Configuratiebestanden:</p>
+<ul>
+<li>
+<p>Belangrijkste configuratiebestand is <code>config/config.inc.php</code> binnen het Roundcube webmail folder.</p>
+<p>Als je een oude versie van Roundcube webmail (0.9.x en vroegere versies) gebruikt, heeft het twee aparte configuratiebestanden: <code>config/db.inc.php</code> en
+<code>config/main.inc.php</code>.</p>
+</li>
+<li>
+<p>Configuratiebestanden van plugins bevinden zich in je plugin folder. Bijvoorbeeld,
+  het configuratiebestand van <code>password</code> plugin is <code>plugins/password/config.inc.php</code>.</p>
+</li>
+</ul>
+</li>
+<li>
+<p id="roundcube-log">Logbestand. Roundcube is standaard geconfigureerd om te loggen naar het <a href="#postfix">Postfix logbestand</a> .</p>
+</li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Roundcube slaat alle standaardinstellingen op in <code>config/defaults.inc.php</code>, bewerk dat alstublieft niet, in plaats daarvan zou je de instellingen die je wilt aanpassen moeten kopiëren van
+<code>config/defaults.inc.php</code> naar <code>config/config.inc.php</code>, dan bewerken in
+<code>config/config.inc.php</code>.</p>
+</div>
+<h2 id="amavisd">Amavisd</h2>
+<h3 id="amavisd-config">Belangrijkste configuratiebestand</h3>
+<ul>
+<li>op RHEL/CentOS is het <code>/etc/amavisd/amavisd.conf</code>.</li>
+<li>
+<p>op Debian/Ubuntu is het <code>/etc/amavis/conf.d/50-user</code>.</p>
+<p>Debian/Ubuntu heeft nog wat aanvullende configuratiebestanden onder <code>/etc/amavis/conf.d/</code>, maar je kunt die altijd aanpassen in <code>/etc/amavis/conf.d/50-user</code>.
+Wanneer we <code>amavisd.conf</code> opnoemen in andere documenten, betekent dat altijd <code>50-user</code>
+op Debian/Ubuntu.</p>
+</li>
+<li>
+<p>op FreeBSD is het <code>/usr/local/etc/amavisd.conf</code>.</p>
+</li>
+<li>op OpenBSD is het <code>/etc/amavisd.conf</code>.</li>
+</ul>
+<h3 id="amavisd-log">Logbestanden</h3>
+<p>Amavisd is geconfigureerd om te loggen naar het <a href="#postfix">Postfix logbestand</a> door iRedMail.</p>
+<h2 id="spamassassin">SpamAssassin</h2>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>Met standaard iRedMail instelling wordt SpamAssassin opgeroepen door Amavisd, niet gestart als daemon.</p>
+</div>
+<p id="spamassassin-config">Belangrijkste configuratiebestand:</p>
+<ul>
+<li>Op Linux/OpenBSD is het <code>/etc/mail/spamassassin/local.cf</code>.</li>
+<li>Op FreeBSD is het <code>/usr/local/etc/mail/spamassassin/local.cf</code>.</li>
+</ul>
+<p id="spamassassin-log">SpamAssassin heeft geen apart logbestand, om SpamAssassin te doen loggen moet je <code>$sa_debug = 1;</code> toevoegen aan het Amavisd configuratiebestand, dan de Amavisd service herstarten.</p>
+<h2 id="fail2ban">Fail2ban</h2>
+<p id="fail2ban-config">Belangrijkste configuratiebestand:</p>
+<ul>
+<li>Op Linux/OpenBSD is het <code>/etc/fail2ban/jail.local</code>.</li>
+<li>Op FreeBSD is het <code>/usr/local/etc/fail2ban/jail.local</code>.</li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Alle aangepaste instellingen moeten geplaatst worden in <code>jail.local</code>, en
+<code>jail.conf</code> mag je niet aanraken, zodat het updaten van je Fail2ban binaire softwarepakket niet het verliezen/aanpassen van je eigen instellingen tot gevolg heeft.</p>
+</div>
+<p>Filters:</p>
+<ul>
+<li>Op Linux/OpenBSD zijn alle filters gedefinieerd in bestanden onder <code>/etc/fail2ban/filter.d/</code>.</li>
+<li>Op FreeBSD zijn alle filters gedefinieerd in bestanden onder  <code>/usr/local/etc/fail2ban/filter.d/</code>.</li>
+</ul>
+<p>Ban/Unban acties:</p>
+<ul>
+<li>Op Linux/OpenBSD zijn alle acties gedefinieerd in bestanden onder  <code>/etc/fail2ban/action.d/</code>.</li>
+<li>Op FreeBSD zijn alle filters gedefinieerd in bestanden onder  <code>/usr/local/etc/fail2ban/action.d/</code>.</li>
+</ul>
+<p id="fail2ban-log">Logbestand: Fail2ban logt naar het standaard syslog bestand.</p>
+<ul>
+<li>op RHEL/CentOS/OpenBSD/FreeBSD is het <code>/var/log/messages</code>.</li>
+<li>op Debian/Ubuntu is het <code>/var/log/syslog</code>.</li>
+</ul>
+<h2 id="sogo">SOGo Groupware</h2>
+<ul>
+<li>Belangrijkste configuratiebestand<ul>
+<li>on Linux/OpenBSD: <code>/etc/sogo/sogo.conf</code></li>
+<li>op FreeBSD: <code>/usr/local/etc/sogo/sogo.conf</code></li>
+</ul>
+</li>
+<li>Logbestand is <code>/var/log/sogo/sogo.log</code>.</li>
+</ul>
+<h2 id="mlmmjadmin">mlmmjadmin</h2>
+<ul>
+<li>Configuratiebestand: <code>/opt/mlmmjadmin/settings.py</code> (zelfde op alle Linux/BSD distributies)</li>
+<li>Logbestand: <code>/var/log/mlmmjadmin/mlmmjadmin.log</code></li>
+<li>Folders voor data:<ul>
+<li>Alle actieve mailinglijsten: <code>/var/vmail/mlmmj</code>. Inclusief archief.</li>
+<li>Verwijderde en gearchiveerde mailinglijsten: <code>/var/vmail/mlmmj-archive</code></li>
+</ul>
+</li>
+</ul>
+<h2 id="iredapd">iRedAPD</h2>
+<ul>
+<li>Belangrijkste configuratiebestand is <code>/opt/iredapd/settings.py</code> op all Linux/BSD distributies.</li>
+<li>
+<p>Logbestand:</p>
+<ul>
+<li>Met iRedAPD-1.7.0 en latere versies is het logbestand <code>/var/log/iredapd/iredapd.log</code>.</li>
+<li>Met iRedAPD-1.6.0 en latere versies is het logbestand <code>/var/log/iredapd.log</code>.</li>
+</ul>
+</li>
+</ul>
+<h2 id="iredadmin">iRedAdmin</h2>
+<p>Belangrijkste configuratiebestand:</p>
+<ul>
+<li>
+<p>Op RHEL/CentOS is het <code>/opt/www/iredadmin/settings.py</code>.</p>
+<p>Opmerking: bij oude iRedMail versies is het <code>/var/www/iredadmin/settings.py</code>.</p>
+</li>
+<li>
+<p>op Debian/Ubuntu is het <code>/opt/www/iredadmin/settings.py</code>.</p>
+<p>Opmerking: bij oude iRedMail versies is het <code>/usr/share/apache2/iredadmin/settings.py</code>.</p>
+</li>
+<li>
+<p>op FreeBSD is het <code>/opt/www/iredadmin/settings.py</code>.</p>
+<p>Opmerking: bij oude iRedMail versies is het <code>/usr/local/www/iredadmin/settings.py</code>.</p>
+</li>
+<li>
+<p>op OpenBSD is het <code>/opt/www/iredadmin/settings.py</code>.</p>
+<p>Opmerking: bij oude iRedMail versies is het <code>/var/www/iredadmin/settings.py</code>.</p>
+</li>
+</ul>
+<p>iRedAdmin is een web-applicatie, wanneer debug modus aanstaat, zal het error berichten loggen naar:</p>
+<ul>
+<li>Als je Apache gebruikt, logt het naar het  <a href="#apache">Apache ssl error logbestand</a>.</li>
+<li>Als je Nginx met uwsgi gebruikt:<ul>
+<li>op Debian/Ubuntu logt het naar <code>/var/log/uwsgi/app/iredadmin.log</code>.</li>
+<li>op RHEL/CentOS logt het naar <code>/var/log/messages</code>.</li>
+<li>op OpenBSD logt het naar <code>/var/www/logs/uwsgi.log</code>.</li>
+<li>op FreeBSD logt het naar <code>/var/log/uwsgi-iredadmin.log</code>.</li>
+</ul>
+</li>
+</ul>
+<p>Opmerking: Als je enige iRedAdmin bestanden hebt aangepast (niet alleen configuratiebestanden), moet je
+Apache of uwsgi service (als je Nginx gebruikt) herstarten om de aangepaste bestanden in te laden.</p><div class="footer">
+    <p style="text-align: center; color: grey;">All documents are available in <a href="https://github.com/iredmail/docs/">GitHub repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://github.com/iredmail/docs/archive/master.zip">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
+</div></body></html>

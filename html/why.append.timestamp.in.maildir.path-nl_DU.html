@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Waarom tijdstip toevoegd aan e-mailfolder path</title>
+        <link rel="stylesheet" type="text/css" href="./css/markdown.css" />
+    </head>
+    <body>
+
+    <div id="navigation">
+    <a href="https://www.iredmail.org" target="_blank">
+        <img alt="iRedMail web site"
+             src="./images/logo-iredmail.png"
+             style="vertical-align: middle; height: 30px;"
+             />&nbsp;
+        <span>iRedMail</span>
+    </a>
+    &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><div class="admonition note">
+<p class="admonition-title">This tutorial is available in other languages. <a href="https://github.com/iredmail/docs">Help translate more</a></p>
+<p><a href="./why.append.timestamp.in.maildir.path.html">English</a> /</p>
+</div>
+<h1 id="waarom-tijdstip-toevoegd-aan-e-mailfolder-path">Waarom tijdstip toevoegd aan e-mailfolder path</h1>
+<p>iRedMail voegt standaard een tijdstip toe aan een gebruiker hun e-mailfolder path, mensen vroegen ons vele keren waarom we dit doen, hier is waarom. :)</p>
+<p>Stel je deze situatie voor:</p>
+<ul>
+<li>
+<p>Werknemer <strong>Michael Jordan</strong> heeft email adres <code>mj@domain.ltd</code>. Zonder timestamp in
+  e-mailfolder, zou zijn e-mailfolder path <code>/var/vmail/vmail1/domain.ltd/mj/</code> zijn.</p>
+</li>
+<li>
+<p>Michael verlaat het bedrijf, je bedrijf verwijdert zijn e-mail account, en er wordt ingepland dat zijn e-mailbox zal worden vernietigd in een bepaald aantal jaar (om lokale wetten te volgen die je verplichten om het bij te houden, oftewel wil je gewoon een lokale backup).</p>
+</li>
+<li>
+<p>Een nieuw talent, <strong>Mike Jackson</strong>, komt werken in je bedrijf, hij wil
+  <code>mj@domain.ltd</code> gebruiken omdat dat momenteel door niemand wordt benuttigd. Je maakt dat aan voor hem. Zonder een tijdstip in het e-mailfolder zal die hetzelfde zijn als <strong>Michael Jordan</strong>'s, namelijk <code>/var/vmail/vmail1/domain.ltd/mj/</code>.
+  In dat geval zal <strong>Mike Jackson</strong> alle oude e-mails zien die overblijven in <strong>Michael Jordan</strong>'s
+  e-mailbox.</p>
+</li>
+</ul>
+<p>Om dit probleem te voorkomen, voegt iRedMail een tijdstip toe aan alle e-mailfolders om te verzekeren dat alle gebruikers unieke e-mailfolder paths hebben.</p>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>Als je een e-mail gebruiker creëert met iRedAdmin of iRedAdmin-Pro kan dat worden aangepast:</p>
+<ul>
+<li><a href="https://docs.iredmail.org/iredadmin-pro.customize.maildir.path.html">Pas e-mailfolder path aan</a></li>
+</ul>
+</div><div class="footer">
+    <p style="text-align: center; color: grey;">All documents are available in <a href="https://github.com/iredmail/docs/">GitHub repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://github.com/iredmail/docs/archive/master.zip">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
+</div></body></html>
