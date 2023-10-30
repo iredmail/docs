@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title>Major open source software used in iRedMail</title>
+        <title>Belangrijkste open-source software die gebruikt wordt in iRedMail, en "the big picture" van hoe e-mails worden verwerkt</title>
         <link rel="stylesheet" type="text/css" href="./css/markdown.css" />
     </head>
     <body>
@@ -17,21 +17,22 @@
     </a>
     &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><div class="admonition note">
 <p class="admonition-title">This tutorial is available in other languages. <a href="https://github.com/iredmail/docs">Help translate more</a></p>
-<p><a href="./used.components-nl_DU.html">Nederlands</a> /</p>
+<p><a href="./used.components.html">English</a> /</p>
 </div>
-<h1 id="major-open-source-software-used-in-iredmail">Major open source software used in iRedMail</h1>
+<h1 id="belangrijkste-open-source-software-die-gebruikt-wordt-in-iredmail-en-the-big-picture-van-hoe-e-mails-worden-verwerkt">Belangrijkste open-source software die gebruikt wordt in iRedMail, en "the big picture" van hoe e-mails worden verwerkt</h1>
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>
-<p>Check out the lightweight on-premises email archiving software developed by iRedMail team: <a href="https://spiderd.io/">Spider Email Archiver</a>.</p>
+<p>Bekijk onze lichtgewicht on-premise e-mail archiveringsoftware ontwikkeld door 
+ het iRedMail team: <a href="https://spiderd.io/">Spider Email Archiver</a>.</p>
 </div>
 <div class="toc">
 <ul>
-<li><a href="#major-open-source-software-used-in-iredmail">Major open source software used in iRedMail</a><ul>
+<li><a href="#belangrijkste-open-source-software-die-gebruikt-wordt-in-iredmail-en-the-big-picture-van-hoe-e-mails-worden-verwerkt">Belangrijkste open-source software die gebruikt wordt in iRedMail, en "the big picture" van hoe e-mails worden verwerkt</a><ul>
 <li><a href="#used-components">Used Components</a></li>
 <li><a href="#the-big-picture">The Big Picture</a></li>
-<li><a href="#mail-flow-of-inbound-emails">Mail Flow of Inbound Emails</a></li>
-<li><a href="#mail-flow-of-outbound-emails">Mail Flow of Outbound Emails</a></li>
-<li><a href="#see-also">See also</a></li>
+<li><a href="#mailstroom-van-binnenkomende-e-mails">Mailstroom van binnenkomende e-mails</a></li>
+<li><a href="#mailstroom-van-buitengaande-e-mails">Mailstroom van buitengaande e-mails</a></li>
+<li><a href="#zie-ook">Zie ook</a></li>
 </ul>
 </li>
 </ul>
@@ -51,7 +52,7 @@
 </tr>
 <tr>
 <td><a href="http://www.dovecot.org">Dovecot</a></td>
-<td>POP3, IMAP and Managesieve server</td>
+<td>POP3, IMAP en Managesieve server</td>
 </tr>
 <tr>
 <td><a href="http://www.nginx.org">Nginx</a>, <a href="http://nginx.org">Nginx</a></td>
@@ -59,23 +60,23 @@
 </tr>
 <tr>
 <td><a href="http://www.openldap.org">OpenLDAP</a>, <a href="http://www.openbsd.org/cgi-bin/man.cgi/OpenBSD-current/man8/ldapd.8?query=ldapd&amp;arch=i386">ldapd(8)</a></td>
-<td>LDAP server, used for storing mail accounts (optional)</td>
+<td>LDAP server, gebruikt voor het opslaan van e-mail accounts (optioneel)</td>
 </tr>
 <tr>
 <td><a href="http://www.mysql.com">MySQL</a>, <a href="https://mariadb.org">MariaDB</a>, <a href="http://www.postgresql.org">PostgreSQL</a></td>
-<td>SQL server used to store application data. Could be used to store mail accounts too.</td>
+<td>SQL server gebruikt voor het opslaan van applicatiedata. Kan ook gebruikt worden om e-mail accounts op te slaan.</td>
 </tr>
 <tr>
 <td><a href="http://mlmmj.org">mlmmj</a></td>
-<td>Mailing list manager. Shipped in iRedMail-0.9.8 and later releases.</td>
+<td>Mailing lijst beheerder. Wordt met iRedMail-0.9.8 en latere versies gebundeld.</td>
 </tr>
 <tr>
 <td><a href="http://www.amavis.org">Amavisd-new</a></td>
-<td>Interface between Postfix and SpamAssassin, ClamAV.</td>
+<td>Interface tussen Postfix en SpamAssassin, ClamAV.</td>
 </tr>
 <tr>
 <td><a href="http://spamassassin.apache.org">SpamAssassin</a></td>
-<td>Content-based spam scanner</td>
+<td>Content-gebaseerde spam scanner</td>
 </tr>
 <tr>
 <td><a href="http://www.clamav.net/">ClamAV</a></td>
@@ -87,28 +88,28 @@
 </tr>
 <tr>
 <td><a href="http://sogo.nu">SOGo Groupware</a></td>
-<td>A groupware which provides calendar (CalDAV), contact (CardDAV), tasks and ActiveSync services</td>
+<td>Een groupware die kalender (CalDAV), contactenlijst (CardDAV), taken en ActiveSync services voorziet.</td>
 </tr>
 <tr>
 <td><a href="http://www.fail2ban.org">Fail2ban</a></td>
-<td>Scans log files and bans IPs that show the malicious signs</td>
+<td>Scant logbestanden en verbant IPs die kwaadwillende tekens vertonen.</td>
 </tr>
 <tr>
 <td><a href="https://github.com/iredmail/iRedAPD/">iRedAPD</a></td>
-<td>A simple postfix policy server developed by iRedMail team, with SRS (Sender Rewrite Scheme) support.</td>
+<td>Een simpele postfix policy server ontworpen door het iRedMail team, met SRS (Sender Rewrite Scheme) ondersteuning.</td>
 </tr>
 </tbody>
 </table>
 <h2 id="the-big-picture">The Big Picture</h2>
 <p><img alt="" src="./images/big.picture.png" /></p>
-<h2 id="mail-flow-of-inbound-emails">Mail Flow of Inbound Emails</h2>
+<h2 id="mailstroom-van-binnenkomende-e-mails">Mailstroom van binnenkomende e-mails</h2>
 <p><img alt="" src="./images/flow.inbound.png" /></p>
-<h2 id="mail-flow-of-outbound-emails">Mail Flow of Outbound Emails</h2>
+<h2 id="mailstroom-van-buitengaande-e-mails">Mailstroom van buitengaande e-mails</h2>
 <p><img alt="" src="./images/flow.outbound.png" /></p>
-<h2 id="see-also">See also</h2>
+<h2 id="zie-ook">Zie ook</h2>
 <ul>
-<li><a href="./file.locations.html">Locations of configuration and log files of major components</a></li>
-<li><a href="./network.ports.html">Which network ports are open by iRedMail</a></li>
+<li><a href="./file.locations.html">[Locaties van configuratie and log bestanden van belangrijke componenten](https://docs.iredmail.org/file.locations-nl_DU.html)</a></li>
+<li><a href="./network.ports.html">Welke netwerkpoorten staan open bij iRedMail</a></li>
 </ul><div class="footer">
     <p style="text-align: center; color: grey;">All documents are available in <a href="https://github.com/iredmail/docs/">GitHub repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://github.com/iredmail/docs/archive/master.zip">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
 </div></body></html>

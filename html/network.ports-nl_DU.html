@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Welke netwerkpoorten staan open bij iRedMail</title>
+        <link rel="stylesheet" type="text/css" href="./css/markdown.css" />
+    </head>
+    <body>
+
+    <div id="navigation">
+    <a href="https://www.iredmail.org" target="_blank">
+        <img alt="iRedMail web site"
+             src="./images/logo-iredmail.png"
+             style="vertical-align: middle; height: 30px;"
+             />&nbsp;
+        <span>iRedMail</span>
+    </a>
+    &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><div class="admonition note">
+<p class="admonition-title">This tutorial is available in other languages. <a href="https://github.com/iredmail/docs">Help translate more</a></p>
+<p><a href="./network.ports.html">English</a> /</p>
+</div>
+<h1 id="welke-netwerkpoorten-staan-open-bij-iredmail">Welke netwerkpoorten staan open bij iRedMail</h1>
+<table>
+<thead>
+<tr>
+<th>Poort</th>
+<th>Service</th>
+<th>Software</th>
+<th>Info</th>
+<th>Publieke Toegang Vereist?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>25</td>
+<td>smtp</td>
+<td>Postfix</td>
+<td>Gebruikt voor communicatie tussen e-mail servers. <strong>WAARSCHUWING</strong>: Deze poort <strong>MOET</strong> openstaan, anders kan je geen e-mail ontvangen die verstuurd is door andere e-mail servers.</td>
+<td><strong class="red">JA (VERPLICHT)</strong></td>
+</tr>
+<tr>
+<td>587</td>
+<td>submission</td>
+<td>Postfix</td>
+<td>SMTP over TLS. Gebruikt door jouw gebruikers om e-mails te versturen.</td>
+<td>JA (staat open voor je gebruikers)</td>
+</tr>
+<tr>
+<td>110</td>
+<td>pop3</td>
+<td>Dovecot</td>
+<td>Gebruikt door jouw gebruikers om e-mails af te halen via het POP3 protocol, beveiligde connectie over STARTTLS staat standaard aan.</td>
+<td>JA (staat open voor je gebruikers)</td>
+</tr>
+<tr>
+<td>995</td>
+<td>pop3s</td>
+<td>Dovecot</td>
+<td>Gebruikt door jouw gebruikers om e-mails af te halen via het POP3 protocol over SSL.</td>
+<td>JA (staat open voor je gebruikers)</td>
+</tr>
+<tr>
+<td>143</td>
+<td>imap</td>
+<td>Dovecot</td>
+<td>Gebruikt door jouw gebruikers om e-mails af te halen via het POP3 protocol, beveiligde connectie over STARTTLS staat standaard aan.</td>
+<td>JA (staat open voor je gebruikers)</td>
+</tr>
+<tr>
+<td>993</td>
+<td>imaps</td>
+<td>Dovecot</td>
+<td>Gebruikt door jouw gebruikers om e-mails af te halen via het IMAP protocol over SSL.</td>
+<td>JA (staat open voor je gebruikers)</td>
+</tr>
+<tr>
+<td>24</td>
+<td>lmtp</td>
+<td>Dovecot</td>
+<td>Gebruikt om e-mail te versturen naar lokale inboxen via het LMTP protocol.</td>
+<td>NEE (luistert standaard naar poort <code>127.0.0.1</code>)</td>
+</tr>
+<tr>
+<td>4190</td>
+<td>managesieve</td>
+<td>Dovecot</td>
+<td>Sieve service gebruikt door jouw gebruikers om e-mail filters te beheren. Opmerking: in oude iRedMail versies is het poort 2000 (deprecated en luistert niet eens in <code>/etc/services</code> bestand).</td>
+<td>NEE (standaard uitgeschakeld en gebruikers moeten e-mail filters beheren via webmail)</td>
+</tr>
+<tr>
+<td>80</td>
+<td>http</td>
+<td>Apache/Nginx</td>
+<td>Web service. standaard omleiding naar https.</td>
+<td>JA (staat open voor je gebruikers)</td>
+</tr>
+<tr>
+<td>443</td>
+<td>https</td>
+<td>Apache/Nginx</td>
+<td>Web service over SSL, beveiligde verbinding.</td>
+<td>JA (open voor je webmail en ActiveSync gebruikers)</td>
+</tr>
+<tr>
+<td>3306</td>
+<td>mysql</td>
+<td>MySQL/MariaDB</td>
+<td>MySQL/MariaDB database service</td>
+<td>NEE (luistert standaard naar poort <code>127.0.0.1</code>)</td>
+</tr>
+<tr>
+<td>5432</td>
+<td>postgresql</td>
+<td>PostgreSQL</td>
+<td>PostgreSQL database service</td>
+<td>NEE (luistert standaard naar poort <code>127.0.0.1</code>)</td>
+</tr>
+<tr>
+<td>389</td>
+<td>ldap</td>
+<td>OpenLDAP (of OpenBSD ldapd)</td>
+<td>LDAP service, STARTTLS is beschikbaar voor beveiligde verbinding.</td>
+<td>NEE (luistert standaard naar poort <code>127.0.0.1</code>)</td>
+</tr>
+<tr>
+<td>636</td>
+<td>ldaps</td>
+<td>OpenLDAP (of OpenBSD ldapd)</td>
+<td>LDAP service over SSL. Deprecated, poort 389 met STARTTLS aangeraden.</td>
+<td>NEE (Staat standaard niet aan)</td>
+</tr>
+<tr>
+<td>10024</td>
+<td></td>
+<td>Amavisd-new</td>
+<td>Gebruikt om binnenkomende berichten te scannen, bevat spam/virus scanner DKIM verificatie, toegepast spam beleid.</td>
+<td>NEE (luistert standaard naar poort <code>127.0.0.1</code>)</td>
+</tr>
+<tr>
+<td>10025</td>
+<td>smtp</td>
+<td>Postfix</td>
+<td>Gebruikt door Amavisd om gescande e-mails terug in de Postfix wachtrij te injecteren.</td>
+<td>NEE (luistert standaard naar poort <code>127.0.0.1</code>)</td>
+</tr>
+<tr>
+<td>10026</td>
+<td></td>
+<td>Amavisd-new</td>
+<td>Gebruikt om buitengaande berichten te scannen, bevat spam/virus scanner, DKIM signeren, toegepast spam beleid.</td>
+<td>NEE (luistert standaard naar poort <code>127.0.0.1</code>)</td>
+</tr>
+<tr>
+<td>10027</td>
+<td></td>
+<td>Amavisd-new</td>
+<td>Gebruikt door mlmmj mailing lijst beheerder, het slaat standaard de spam/virus/header/banned checks over, maar DKIM signeren staat aan.</td>
+<td>NEE (luistert standaard naar poort <code>127.0.0.1</code>)</td>
+</tr>
+<tr>
+<td>10028</td>
+<td></td>
+<td>Postfix</td>
+<td>Gebruikt door Amavisd-new om e-mails te regelen die gestuurd worden door mlmmj mailing lijst beheerder. Geïntroduceerd in iRedMail-0.9.9.</td>
+<td>NEE (luistert standaard naar poort <code>127.0.0.1</code>)</td>
+</tr>
+<tr>
+<td>9998</td>
+<td></td>
+<td>Amavisd-new</td>
+<td>Gebruikt om in quarantaine geplaatste e-mails te beheren.</td>
+<td>NEE (luistert standaard naar poort <code>127.0.0.1</code>)</td>
+</tr>
+<tr>
+<td>7777</td>
+<td></td>
+<td>iRedAPD</td>
+<td>Postfix policy service voor greylisting, whitelisting, blacklists, throttling, etc</td>
+<td>NEE (luistert standaard naar poort <code>127.0.0.1</code>)</td>
+</tr>
+<tr>
+<td>7778</td>
+<td></td>
+<td>iRedAPD</td>
+<td><a href="https://en.wikipedia.org/wiki/Sender_Rewriting_Scheme">SRS</a> sender adress rewritting.</td>
+<td>NEE (luistert standaard naar poort <code>127.0.0.1</code>)</td>
+</tr>
+<tr>
+<td>7779</td>
+<td></td>
+<td>iRedAPD</td>
+<td><a href="https://en.wikipedia.org/wiki/Sender_Rewriting_Scheme">SRS</a> recipient address rewritting.</td>
+<td>NEE (luistert standaard naar poort <code>127.0.0.1</code>)</td>
+</tr>
+<tr>
+<td>7790</td>
+<td>http</td>
+<td>mlmmjadmin</td>
+<td>RESTful API server gebruikt om mlmmj mailing lijsten te beheren. geïntroduceerd in iRedMail-0.9.8.</td>
+<td>NEE (luistert standaard naar poort <code>127.0.0.1</code>)</td>
+</tr>
+<tr>
+<td>7791</td>
+<td>http</td>
+<td>iredadmin</td>
+<td>iRedAdmin (alleenstaand uwsgi instance). geïntroduceerd in iRedMail-0.9.9.</td>
+<td>NEE (luistert standaard naar poort <code>127.0.0.1</code>)</td>
+</tr>
+<tr>
+<td>20000</td>
+<td></td>
+<td>SOGo</td>
+<td>SOGo groupware</td>
+<td>NEE (luistert standaard naar poort <code>127.0.0.1</code>)</td>
+</tr>
+<tr>
+<td>11211</td>
+<td></td>
+<td>Memcached</td>
+<td>Een gedistribueerd, performant memory object caching systeem. Momenteel enkel gebruikt door SOGo Groupware.</td>
+<td>NEE (luistert standaard naar poort <code>127.0.0.1</code>)</td>
+</tr>
+<tr>
+<td>12340</td>
+<td></td>
+<td>Dovecot</td>
+<td>Dovecot quota status. Geïntroduceerd in iRedMail-1.0.</td>
+<td>NEE (luistert standaard naar poort <code>127.0.0.1</code>)</td>
+</tr>
+<tr>
+<td>24242</td>
+<td></td>
+<td>Dovecot</td>
+<td>Dovecot service status. Geïntroduceerd in iRedMail-0.9.8.</td>
+<td>NEE (luistert standaard naar poort <code>127.0.0.1</code>)</td>
+</tr>
+<tr>
+<td>19999</td>
+<td></td>
+<td>Netdata</td>
+<td>Netdata monitor. Geïntroduceerd in iRedMail-0.9.8.</td>
+<td>NEE (luistert standaard naar poort <code>127.0.0.1</code>)</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul>
+<li>
+<p>In iRedMail-0.9.2 en vorige versies luistert Policyd of Cluebringer naar
+  poort 10031. Deze zijn verwijderd sinds iRedMail-0.9.3, en vervangen door
+  iRedAPD.</p>
+</li>
+<li>
+<p>Poort 465, a.k.a. SMTP over SSL, is al jaren deprecated. Gebruik alstublieft
+  poort 587.</p>
+</li>
+</ul>
+</div><div class="footer">
+    <p style="text-align: center; color: grey;">All documents are available in <a href="https://github.com/iredmail/docs/">GitHub repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://github.com/iredmail/docs/archive/master.zip">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
+</div></body></html>
