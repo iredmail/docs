@@ -8,6 +8,23 @@
 
 ## Version: 2023102301 (Oct 23, 2023) {: id=2023102301 }
 
+* Updated packages:
+    - netdata 1.43.1
+    - __SECURITY UPDATE__: Roundcube [v1.6.5 and 1.5.6](https://roundcube.net/news/2023/11/05/security-updates-1.6.5-and-1.5.6). Both fix a new cross-site scripting (XSS) vulnerability.
+
+        > NOTES:
+        >
+        > - __Ubuntu 18.04__ gets Roundcube v1.5.6 instead of v1.6.5 due to old
+        >   php version, v1.5.6 contains the security fix too. Anyway, please
+        >   consider upgrade OS to at least 20.04 LTS as soon as possible.
+        > - __CentOS / Rocky 7__ gets Roundcube v1.5.2 due to old php version, this
+        >   version does __NOT contain the security fix__ which is fixed in
+        >   v1.5.4, v1.5.5, v1.5.6, or v1.6.3, v1.6.4, v1.6.5. Please upgrade
+        >   OS to at least CentOS Stream 8 / Rocky 8 and switch php to v8
+        >   immediately by following [this tutorial](./upgrade.php.v8.0.on.centos.8.html).
+
+## Version: 2023102301 (Oct 23, 2023) {: id=2023102301 }
+
 - Fail2ban: Do not ban client which triggers `lost connection after UNKNOWN` error.
 
 * Updated packages:
