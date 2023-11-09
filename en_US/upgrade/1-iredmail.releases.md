@@ -40,6 +40,7 @@
 
 Release Notes | Date | Upgrade tutorial | Comment
 ---|---|---|---
+[1.6.7](https://forum.iredmail.org/topic20143.html) | Nov 9, 2023 | [Upgrade from iRedMail-1.6.6](./upgrade.iredmail.1.6.6-1.6.7.html) |SECURITY UPDATE of Roundcube webmail (v1.6.5).|
 [1.6.6](https://forum.iredmail.org/topic20106.html) | Oct 23, 2023 | [Upgrade from iRedMail-1.6.5](./upgrade.iredmail.1.6.5-1.6.6.html) |SECURITY UPDATE of Roundcube webmail (v1.6.4).|
 [1.6.5](https://forum.iredmail.org/topic20041.html) | Sep 20, 2023 | [Upgrade from iRedMail-1.6.4](./upgrade.iredmail.1.6.4-1.6.5.html) |SECURITY UPDATE of Roundcube webmail (v1.6.3).|
 [1.6.4](https://forum.iredmail.org/topic19949.html) | Jul 28, 2023 | [Upgrade from iRedMail-1.6.3](./upgrade.iredmail.1.6.3-1.6.4.html) |Supports Debian 12, enables SOGo on CentOS / Rocky / AlmaLinux 9.|
