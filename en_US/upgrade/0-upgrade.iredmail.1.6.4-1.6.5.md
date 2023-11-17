@@ -28,6 +28,11 @@ so that you can know which version of iRedMail you're running. For example:
 1.6.5
 ```
 
+### Upgrade iRedAdmin (open source edition) to the latest stable release (2.5)
+
+Please follow below tutorial to upgrade iRedAdmin to the latest stable release:
+[Upgrade iRedAdmin to the latest stable release](./migrate.or.upgrade.iredadmin.html).
+
 ### Upgrade netdata to the latest stable release (1.42.4)
 
 If you have netdata installed, you can upgrade it by following this tutorial:
