@@ -9,9 +9,9 @@ Sometimes we do need to send email as another user, this tutorial describes
 how to allow certain users to do this with iRedAPD plugin
 `reject_sender_login_mismatch`.
 
-* Remove `reject_sender_login_mismatch` restriction rule in Postfix
-  setting `smtpd_sender_restrictions` (`/etc/postfix/main.cf`). Out iRedAPD
-  plugin will do the same restriction for you.
+* Remove restriction rule `reject_sender_login_mismatch` from Postfix
+  parameter `smtpd_sender_restrictions` in file `/etc/postfix/main.cf`. Our iRedAPD
+  plugin will do same restriction but more flexible.
 
     After removed `reject_sender_login_mismatch`, Postfix setting looks like
     below:

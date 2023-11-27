@@ -29,9 +29,9 @@ how to allow certain users to do this with iRedAPD plugin
 <code>reject_sender_login_mismatch</code>.</p>
 <ul>
 <li>
-<p>Remove <code>reject_sender_login_mismatch</code> restriction rule in Postfix
-  setting <code>smtpd_sender_restrictions</code> (<code>/etc/postfix/main.cf</code>). Out iRedAPD
-  plugin will do the same restriction for you.</p>
+<p>Remove restriction rule <code>reject_sender_login_mismatch</code> from Postfix
+  parameter <code>smtpd_sender_restrictions</code> in file <code>/etc/postfix/main.cf</code>. Our iRedAPD
+  plugin will do same restriction but more flexible.</p>
 <p>After removed <code>reject_sender_login_mismatch</code>, Postfix setting looks like
 below:</p>
 </li>
