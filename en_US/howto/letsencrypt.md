@@ -323,8 +323,8 @@ It will show you all existing certs and expiry date.
 
 ### How to request one cert with multiple host names
 
-If you need to support multiple host names, you can specify multiple `-w`
-and `-d` arguments like below:
+* For servers __NOT__ deployed with iRedMail Easy platform, please specify
+  document root of each web site with `-w`. For example:
 
 ```
 certbot certonly \
@@ -335,6 +335,19 @@ certbot certonly \
     -w /var/www/vhosts/2nd-domain.com \
     -d 2nd-domain.com \
     -w /var/www/vhosts/3rd-domain.com \
+    -d 3rd-domain.com
+```
+
+* For servers deployed with [iRedMail Easy platform](https://www.iredmail.org/easy.html),
+  specify `-w` once for all domains:
+
+```
+certbot certonly \
+    --webroot \
+    --dry-run \
+    -w /opt/www/well-known/ \
+    -d mail.mydomain.com \
+    -d 2nd-domain.com \
     -d 3rd-domain.com
 ```
 

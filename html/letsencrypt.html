@@ -328,8 +328,10 @@ new cert files.</p>
 </code></pre>
 <p>It will show you all existing certs and expiry date.</p>
 <h3 id="how-to-request-one-cert-with-multiple-host-names">How to request one cert with multiple host names</h3>
-<p>If you need to support multiple host names, you can specify multiple <code>-w</code>
-and <code>-d</code> arguments like below:</p>
+<ul>
+<li>For servers <strong>NOT</strong> deployed with iRedMail Easy platform, please specify
+  document root of each web site with <code>-w</code>. For example:</li>
+</ul>
 <pre><code>certbot certonly \
     --webroot \
     --dry-run \
@@ -338,6 +340,18 @@ and <code>-d</code> arguments like below:</p>
     -w /var/www/vhosts/2nd-domain.com \
     -d 2nd-domain.com \
     -w /var/www/vhosts/3rd-domain.com \
+    -d 3rd-domain.com
+</code></pre>
+<ul>
+<li>For servers deployed with <a href="https://www.iredmail.org/easy.html">iRedMail Easy platform</a>,
+  specify <code>-w</code> once for all domains:</li>
+</ul>
+<pre><code>certbot certonly \
+    --webroot \
+    --dry-run \
+    -w /opt/www/well-known/ \
+    -d mail.mydomain.com \
+    -d 2nd-domain.com \
     -d 3rd-domain.com
 </code></pre>
 <h2 id="ssl-cert-relevant-settings-in-postfixdovecotapachenginx">SSL cert relevant settings in Postfix/Dovecot/Apache/Nginx</h2>
