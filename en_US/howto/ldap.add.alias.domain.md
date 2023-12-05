@@ -54,3 +54,7 @@ original email address.
 
 If you have several mail accounts (mail users, lists, aliases), you have to
 add additional email address for them all.
+
+## See also
+
+- [SQL: Add an alias domain](./sql.add.alias.domain.html)

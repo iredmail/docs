@@ -41,3 +41,7 @@ sql> INSERT INTO alias_domain (alias_domain, target_domain) VALUES ('alias-2.com
 ```
 
 That's all.
+
+## See also
+
+- [LDAP: Add an alias domain](./ldap.add.alias.domain.html)
