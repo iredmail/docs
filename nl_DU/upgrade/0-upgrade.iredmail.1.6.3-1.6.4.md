@@ -66,7 +66,7 @@ postconf -e smtputf8_enable=no
 postfix reload
 ```
 
-### Update iRedAPD (Postfix policy server) naar nieuwste stabiele versie (5.3)
+### Update iRedAPD (Postfix policy server) naar nieuwste stabiele versie (5.3.3)
 
 Volg onderstaande tutorial om iRedAPD te updaten naar de nieuwste stabiele versie:
 [Update iRedAPD naar de nieuwste stabiele versie](./upgrade.iredapd.html)

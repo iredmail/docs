@@ -93,7 +93,7 @@ mx.example.com
 * Installeer packages die de iRedMail installer nodig heeft:
 
 ```
-sudo apt-get install gzip dialog
+sudo apt-get install -y gzip dialog
 ```
 
 ### Download de nieuwste versie van iRedMail
