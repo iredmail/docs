@@ -7,11 +7,11 @@
 
 [TOC]
 
-!!! note "Paid Remote Upgrade Support"
+!!! note "Betaalde externe updateservice"
 
-    We offer remote upgrade support if you don't want to get your hands dirty,
-    check [the details](https://www.iredmail.org/support.html) and
-    [contact us](https://www.iredmail.org/contact.html).**
+    We bieden een externe updateservice aan als je je hier niet wilt mee bezig houden,
+    [zie hier voor meer informatie](https://www.iredmail.org/support.html) en
+    [contacteer ons](https://www.iredmail.org/contact.html).
 
 ## ChangeLog
 
@@ -39,12 +39,12 @@ wget -O postfix.iredmail.conf https://raw.githubusercontent.com/iredmail/iRedMai
 
 `fail2ban` service herstarten is verplicht.
 
-### Upgrade netdata to the latest stable release (1.43.0)
+### Update netdata naar de nieuwste stabiele versie (1.43.0)
 
-If you have netdata installed, you can upgrade it by following this tutorial:
-[Upgrade netdata](./upgrade.netdata.html).
+Als je netdata hebt geïnstalleerd, kan je het updaten door deze tutorial te volgen:
+[Update netdata](./upgrade.netdata.html).
 
-### Upgrade Roundcube webmail to the latest stable release (1.6.4)
+### Update Roundcube webmail naar de nieuwste stabiele versie  (1.6.4)
 
 !!! warning "CentOS 7: blijf alstublieft bij Roundcube 1.5.2"
 
