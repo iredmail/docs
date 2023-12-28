@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title>Update iRedMail van versie 1.6.5 naar 1.6.6</title>
+        <title>Update iRedMail van versie 1.6.6 naar 1.6.7</title>
         <link rel="stylesheet" type="text/css" href="./css/markdown.css" />
     </head>
     <body>
@@ -17,9 +17,9 @@
     </a>
     &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><div class="admonition note">
 <p class="admonition-title">This tutorial is available in other languages. <a href="https://github.com/iredmail/docs">Help translate more</a></p>
-<p><a href="./upgrade.iredmail.1.6.5-1.6.6.html">English</a> /</p>
+<p><a href="./upgrade.iredmail.1.6.6-1.6.7.html">English</a> /</p>
 </div>
-<h1 id="update-iredmail-van-versie-165-naar-166">Update iRedMail van versie 1.6.5 naar 1.6.6</h1>
+<h1 id="update-iredmail-van-versie-166-naar-167">Update iRedMail van versie 1.6.6 naar 1.6.7</h1>
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>
 <p>Bekijk onze lichtgewicht on-premise e-mail archiveringsoftware ontwikkeld door 
@@ -27,13 +27,12 @@
 </div>
 <div class="toc">
 <ul>
-<li><a href="#update-iredmail-van-versie-165-naar-166">Update iRedMail van versie 1.6.5 naar 1.6.6</a><ul>
+<li><a href="#update-iredmail-van-versie-166-naar-167">Update iRedMail van versie 1.6.6 naar 1.6.7</a><ul>
 <li><a href="#changelog">ChangeLog</a></li>
 <li><a href="#algemeen-alle-backends-zouden-dit-moeten-aanpassen">Algemeen (Alle backends zouden dit moeten aanpassen)</a><ul>
 <li><a href="#update-etciredmail-release-met-nieuw-iredmail-versienummer">Update /etc/iredmail-release met nieuw iRedMail versienummer</a></li>
-<li><a href="#fail2ban-geen-client-verbannen-die-een-lost-connection-after-unknown-error-veroorzaakt">Fail2ban: geen client verbannen die een lost connection after UNKNOWN error veroorzaakt</a></li>
-<li><a href="#update-netdata-naar-de-nieuwste-stabiele-versie-1430">Update netdata naar de nieuwste stabiele versie (1.43.0)</a></li>
-<li><a href="#update-roundcube-webmail-naar-de-nieuwste-stabiele-versie-164">Update Roundcube webmail naar de nieuwste stabiele versie  (1.6.4)</a></li>
+<li><a href="#update-netdata-naar-de-nieuwste-stabiele-versie-1431">Update netdata naar de nieuwste stabiele versie (1.43.1)</a></li>
+<li><a href="#update-roundcube-webmail-naar-de-nieuwste-stabiele-versie-165">Update Roundcube webmail naar de nieuwste stabiele versie  (1.6.5)</a></li>
 </ul>
 </li>
 </ul>
@@ -48,40 +47,31 @@
 </div>
 <h2 id="changelog">ChangeLog</h2>
 <ul>
-<li>Oct 23, 2023: initiële publicatie.</li>
+<li>Nov 9, 2023: initiële publicatie.</li>
 </ul>
 <h2 id="algemeen-alle-backends-zouden-dit-moeten-aanpassen">Algemeen (Alle backends zouden dit moeten aanpassen)</h2>
 <h3 id="update-etciredmail-release-met-nieuw-iredmail-versienummer">Update <code>/etc/iredmail-release</code> met nieuw iRedMail versienummer</h3>
 <p>iRedMail slaat de huidige versie op in bestand <code>/etc/iredmail-release</code> na installatie, het is aangeraden om dit bestand aan te passen nadat je iRedMail hebt geüpdatet,
 zodat je weet welke versie van  iRedMail je gebruikt. Bijvoorbeeld:</p>
-<pre><code>1.6.6
+<pre><code>1.6.7
 </code></pre>
-<h3 id="fail2ban-geen-client-verbannen-die-een-lost-connection-after-unknown-error-veroorzaakt">Fail2ban: geen client verbannen die een <code>lost connection after UNKNOWN</code> error veroorzaakt</h3>
-<p>Geef onderstaande commando's in als root gebruiker om het nieuwste filterbestand te verkrijgen voor Roundcube:</p>
-<pre><code>cd /etc/fail2ban/filter.d/
-wget -O postfix.iredmail.conf https://raw.githubusercontent.com/iredmail/iRedMail/1.6.6/samples/fail2ban/filter.d/postfix.iredmail.conf
-</code></pre>
-<p><code>fail2ban</code> service herstarten is verplicht.</p>
-<h3 id="update-netdata-naar-de-nieuwste-stabiele-versie-1430">Update netdata naar de nieuwste stabiele versie (1.43.0)</h3>
+<h3 id="update-netdata-naar-de-nieuwste-stabiele-versie-1431">Update netdata naar de nieuwste stabiele versie (1.43.1)</h3>
 <p>Als je netdata hebt geïnstalleerd, kan je het updaten door deze tutorial te volgen:
 <a href="./upgrade.netdata.html">Update netdata</a>.</p>
-<h3 id="update-roundcube-webmail-naar-de-nieuwste-stabiele-versie-164">Update Roundcube webmail naar de nieuwste stabiele versie  (1.6.4)</h3>
+<h3 id="update-roundcube-webmail-naar-de-nieuwste-stabiele-versie-165">Update Roundcube webmail naar de nieuwste stabiele versie  (1.6.5)</h3>
 <div class="admonition warning">
 <p class="admonition-title">CentOS 7: blijf alstublieft bij Roundcube 1.5.2</p>
+<p><strong>Het is tijd om uw comfortzone te verlaten en deze server te updaten naar ten minste CentOS Stream 8 of <a href="https://docs.rockylinux.org/guides/migrate2rocky/">Rocky Linux 8</a>.</strong></p>
 <p>Als je server CentOS 7 draait, update dan naar Roundcube versie 1.5.2.
-Roundcube versie 1.5.3 heeft PHP-7 nodig, maar CentOS 7 komt met PHP-5.4 wat niet wordt ondersteund door Roundcube versie 1.5.3 en nieuwere versies, inclusief 1.6.x.</p>
-<p><strong>Jammer genoeg bevat Roundcube 1.5.2 NIET de beveiligingsupdate die met 1.5.4 en 1.5.5 worden toegevoegd.</strong></p>
-<p>Het is tijd om uw comfortzone te verlaten en deze server te updaten naar ten minste CentOS Stream 8 of <a href="https://docs.rockylinux.org/guides/migrate2rocky/">Rocky Linux 8</a>.</p>
+Roundcube versie 1.5.3 heeft PHP-7 nodig, maar CentOS 7 komt met PHP-5.4 wat niet wordt ondersteund door Roundcube versie 1.5.3 (en de nieuwste 1.6.x).</p>
+<p><strong>Jammer genoeg bevat Roundcube 1.5.2 NIET de beveiligingsupdate die met Roundcube 1.5.6 of 1.6.5 worden toegevoegd.</strong></p>
 </div>
 <div class="admonition warning">
-<p class="admonition-title">Ubuntu 18.04: please stick to Roundcube 1.5.5</p>
-<div class="admonition warning">
-<p class="admonition-title">Ubuntu 18.04: blijf alstublieft bij Roundcube 1.5.5</p>
+<p class="admonition-title">Ubuntu 18.04: blijf alstublieft bij Roundcube 1.5.6</p>
+<p>Ubuntu 18.04 gebruikt een oude php versie, v1.5.6 bevat de beveiligingsupdate ook.  Overweeg alstublieft om het besturingssysteem te updaten naar 20.04 LTS zo snel als mogelijk is.</p>
 </div>
-<p>Ubuntu 18.04 gebruikt een oude php versie, v1.5.5 bevat de beveiligingsupdate ook.  Overweeg alstublieft om het besturingssysteem te updaten naar 20.04 LTS zo snel als mogelijk is.</p>
-</div>
-<p>Roundcube v1.6.4 en 1.5.5 zijn beveiligingsupdates. beide lossen een cross-site
-scripting (XSS) vulnerability op.</p>
+<p>Roundcube v1.6.5 en 1.5.6 zijn beveiligingsupdates. <a href="https://roundcube.net/news/2023/11/05/security-updates-1.6.5-and-1.5.6">beide lossen een cross-site
+scripting (XSS) vulnerability op.</a>.</p>
 <p>Volg alstublieft de officiële Roundcube tutorial om Roundcube webmail te updaten naar de nieuwste stabiele versie:</p>
 <ul>
 <li><a href="https://github.com/roundcube/roundcubemail/wiki/Upgrade">Hoe Roundcube updaten</a>.</li>
