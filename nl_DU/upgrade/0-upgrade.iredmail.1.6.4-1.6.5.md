@@ -28,6 +28,12 @@ zodat je weet welke versie van  iRedMail je gebruikt. Bijvoorbeeld:
 1.6.5
 ```
 
+### Update iRedAdmin (open source versie) naar de nieuwste stabiele versie (2.5)
+
+Volg alstublieft onderstaande tutorial om iRedAdmin naar de nieuwste stabiele versie te updaten:
+[Update iRedAdmin naar de nieuwste stabiele versie](./migrate.or.upgrade.iredadmin.html).
+
+
 ### Update netdata naar de nieuwste stabiele versie (1.42.4)
 
 Als je netdata hebt geïnstalleerd, kan je het updaten door deze tutorial te volgen:
