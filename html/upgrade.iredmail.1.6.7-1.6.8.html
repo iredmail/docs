@@ -16,10 +16,6 @@
         <span>iRedMail</span>
     </a>
     &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><h1 id="upgrade-iredmail-from-167-to-168">Upgrade iRedMail from 1.6.7 to 1.6.8</h1>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>THIS IS A DRAFT DOCUMENT, DO NOT APPLY IT.</p>
-</div>
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>
 <p>Check out the on-premises, lightweight email archiving software developed by iRedMail team: <a href="https://spiderd.io/">Spider Email Archiver</a>.</p>
@@ -30,7 +26,13 @@
 <li><a href="#changelog">ChangeLog</a></li>
 <li><a href="#general-all-backends-should-apply-these-changes">General (All backends should apply these changes)</a><ul>
 <li><a href="#update-etciredmail-release-with-new-iredmail-version-number">Update /etc/iredmail-release with new iRedMail version number</a></li>
-<li><a href="#centos-rocky-fixed-not-enable-daily-cron-job-to-update-spamassassin-rules">CentOS / Rocky: Fixed: not enable daily cron job to update SpamAssassin rules</a></li>
+<li><a href="#mitigate-postfix-smtp-smuggling-attack-short-term-workaround">Mitigate Postfix "SMTP Smuggling" attack (short-term workaround)</a></li>
+<li><a href="#upgrade-netdata-to-the-latest-stable-release-1441">Upgrade netdata to the latest stable release (1.44.1)</a></li>
+<li><a href="#centosrockyalma-enable-daily-cron-job-to-update-spamassassin-rules">CentOS/Rocky/Alma: Enable daily cron job to update SpamAssassin rules</a></li>
+</ul>
+</li>
+<li><a href="#openldap-backend">OpenLDAP backend</a><ul>
+<li><a href="#fix-allow-to-use-mlmmj-mailing-list-as-member-of-another-mailing-list">Fix: allow to use (mlmmj) mailing list as member of another mailing list.</a></li>
 </ul>
 </li>
 </ul>
@@ -44,6 +46,9 @@ check <a href="https://www.iredmail.org/support.html">the details</a> and
 <a href="https://www.iredmail.org/contact.html">contact us</a>.</p>
 </div>
 <h2 id="changelog">ChangeLog</h2>
+<ul>
+<li>Dec 29, 2023: initial publish.</li>
+</ul>
 <h2 id="general-all-backends-should-apply-these-changes">General (All backends should apply these changes)</h2>
 <h3 id="update-etciredmail-release-with-new-iredmail-version-number">Update <code>/etc/iredmail-release</code> with new iRedMail version number</h3>
 <p>iRedMail stores the release version in <code>/etc/iredmail-release</code> after
@@ -51,10 +56,56 @@ installation, it's recommended to update this file after you upgraded iRedMail,
 so that you can know which version of iRedMail you're running. For example:</p>
 <pre><code>1.6.8
 </code></pre>
-<h3 id="centos-rocky-fixed-not-enable-daily-cron-job-to-update-spamassassin-rules">CentOS / Rocky: Fixed: not enable daily cron job to update SpamAssassin rules</h3>
-<p>SpamAssassin package doesn't create a daily cron job to update rules, so we
-have to create one manually. Please run command below to create it:</p>
+<h3 id="mitigate-postfix-smtp-smuggling-attack-short-term-workaround">Mitigate Postfix "SMTP Smuggling" attack (short-term workaround)</h3>
+<p>There's a "SMTP Smuggling" attack found in all Postfix versions, visit Postfix
+website for more details: <a href="https://www.postfix.org/smtp-smuggling.html">SMTP Smuggling</a>.</p>
+<p>Quote from Postfix website:</p>
+<blockquote>
+<p><strong>Details</strong></p>
+<p>The attack involves a COMPOSITION of two email services with specific differences in the way they handle line endings other than <CR><LF>:</p>
+<ul>
+<li>One email service A that does not recognize malformed line endings in SMTP such as in <LF>.<CR><LF> in an email message from an authenticated attacker to a recipient at email service B, and that propagates those malformed line endings verbatim when it forwards that message to:</li>
+<li>One different email service B that does support malformed line endings in SMTP such as in <LF>.<CR><LF>. When this is followed by "smuggled" SMTP MAIL/RCPT/DATA commands and message header plus body text, email service B is tricked into receiving two email messages: one message with the content before the <LF>.<CR><LF>, and one message with the "smuggled" header plus body text after the "smuggled" SMTP commands. All this when email service A sends only one message.</li>
+</ul>
+<p>Postfix is an example of email service B. Microsoft's outlook.com was an example of email service A.</p>
+<p><strong>Impact</strong></p>
+<ul>
+<li>The authenticated attacker can use the "smuggled" SMTP MAIL/RCPT/DATA commands and header plus body text, to spoof an email message from any MAIL FROM address whose domain is also hosted at email service A, to any RCPT TO address whose domain is also hosted at email service B.</li>
+<li>The spoofed email message will pass SPF-based DMARC checks at email service B, because the spoofed message has a MAIL FROM address whose domain is hosted at email service A, and because the message was received from an IP address for email service A.</li>
+</ul>
+</blockquote>
+<p>Please run shell command below to apply the fix:</p>
+<pre><code class="language-shell">postconf -e smtpd_data_restrictions=reject_unauth_pipelining
+postconf -e smtpd_discard_ehlo_keywords=chunking
+</code></pre>
+<p>Note: Since most Linux distribution releases don't offer latest Postfix release
+till today (Dec 29, 2023), we can only apply this "short-term workarounds".
+The "long-term fix" is upgrading Postfix to at least version: 3.8.4, 3.7.9,
+3.6.13 and 3.5.23 to stop all forms of the smuggling attacks on recipients at
+a Postfix server.</p>
+<ul>
+<li>Ubuntu 22.04.3 ships Postfix 3.6.4</li>
+<li>Debian 12 ships Postfix 3.7.6 (packed on 5 Jul 2023)</li>
+<li>CentOS / Rocky 9 ships Postfix 3.5.9</li>
+<li>OpenBSD 7.4 ships Postfix 3.7.3</li>
+</ul>
+<h3 id="upgrade-netdata-to-the-latest-stable-release-1441">Upgrade netdata to the latest stable release (1.44.1)</h3>
+<p>If you have netdata installed, you can upgrade it by following this tutorial:
+<a href="./upgrade.netdata.html">Upgrade netdata</a>.</p>
+<h3 id="centosrockyalma-enable-daily-cron-job-to-update-spamassassin-rules">CentOS/Rocky/Alma: Enable daily cron job to update SpamAssassin rules</h3>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>This is applicable to only CentOS, Rocky Linux, AlmaLinux.</p>
+</div>
+<p>Please run command below to enable daily cron job to update SpamAssassin rules:</p>
 <pre><code>ln -sf /usr/share/spamassassin/sa-update.cron /etc/cron.daily/sa-update
-</code></pre><div class="footer">
+</code></pre>
+<h2 id="openldap-backend">OpenLDAP backend</h2>
+<h3 id="fix-allow-to-use-mlmmj-mailing-list-as-member-of-another-mailing-list">Fix: allow to use (mlmmj) mailing list as member of another mailing list.</h3>
+<p>Please open file <code>/etc/postfix/ldap/virtual_group_maps.cf</code>, replace
+<code>query_filter</code> line by below one:</p>
+<pre><code>query_filter    = (&amp;(accountStatus=active)(!(domainStatus=disabled))(enabledService=mail)(enabledService=deliver)(|(&amp;(|(memberOfGroup=%s)(shadowAddress=%s))(|(objectClass=mailUser)(objectClass=mailExternalUser)))(&amp;(memberOfGroup=%s)(!(shadowAddress=%s))(|(objectClass=mailAlias)(objectClass=mailList)))(&amp;(objectClass=mailList)(enabledService=mlmmj)(|(mail=%s)(shadowAddress=%s)))))
+</code></pre>
+<p>Restarting postfix service is required.</p><div class="footer">
     <p style="text-align: center; color: grey;">All documents are available in <a href="https://github.com/iredmail/docs/">GitHub repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://github.com/iredmail/docs/archive/master.zip">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
 </div></body></html>

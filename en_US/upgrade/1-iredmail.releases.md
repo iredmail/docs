@@ -40,6 +40,7 @@
 
 Release Notes | Date | Upgrade tutorial | Comment
 ---|---|---|---
+[1.6.8](https://forum.iredmail.org/) | Dec 29, 2023 | [Upgrade from iRedMail-1.6.7](./upgrade.iredmail.1.6.7-1.6.8.html) | Mitigate Postfix "SMTP Smuggling" issue. |
 [1.6.7](https://forum.iredmail.org/topic20143.html) | Nov 9, 2023 | [Upgrade from iRedMail-1.6.6](./upgrade.iredmail.1.6.6-1.6.7.html) |SECURITY UPDATE of Roundcube webmail (v1.6.5).|
 [1.6.6](https://forum.iredmail.org/topic20106.html) | Oct 23, 2023 | [Upgrade from iRedMail-1.6.5](./upgrade.iredmail.1.6.5-1.6.6.html) |SECURITY UPDATE of Roundcube webmail (v1.6.4).|
 [1.6.5](https://forum.iredmail.org/topic20041.html) | Sep 20, 2023 | [Upgrade from iRedMail-1.6.4](./upgrade.iredmail.1.6.4-1.6.5.html) |SECURITY UPDATE of Roundcube webmail (v1.6.3).|
