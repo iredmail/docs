@@ -67,11 +67,6 @@ a Postfix server.
 - CentOS / Rocky 9 ships Postfix 3.5.9
 - OpenBSD 7.4 ships Postfix 3.7.3
 
-### Upgrade netdata to the latest stable release (1.44.1)
-
-If you have netdata installed, you can upgrade it by following this tutorial:
-[Upgrade netdata](./upgrade.netdata.html).
-
 ### CentOS/Rocky/Alma: Enable daily cron job to update SpamAssassin rules
 
 !!! attention
@@ -83,6 +78,16 @@ Please run command below to enable daily cron job to update SpamAssassin rules:
 ```
 ln -sf /usr/share/spamassassin/sa-update.cron /etc/cron.daily/sa-update
 ```
+
+### Upgrade mlmmjadmin to the latest stable release (3.1.9)
+
+Please follow below tutorial to upgrade mlmmjadmin to the latest stable release:
+[Upgrade mlmmjadmin to the latest stable release](./upgrade.mlmmjadmin.html)
+
+### Upgrade netdata to the latest stable release (1.44.1)
+
+If you have netdata installed, you can upgrade it by following this tutorial:
+[Upgrade netdata](./upgrade.netdata.html).
 
 ## OpenLDAP backend
 
