@@ -23,6 +23,7 @@
 <div class="toc">
 <ul>
 <li><a href="#iredmail-easy-release-notes">iRedMail Easy: Release Notes</a><ul>
+<li><a href="#2023122901">Version: 2023122901 (Dec 29, 2023)</a></li>
 <li><a href="#2023102301">Version: 2023102301 (Oct 23, 2023)</a></li>
 <li><a href="#2023102301">Version: 2023102301 (Oct 23, 2023)</a></li>
 <li><a href="#2023092001">Version: 2023092001 (Sep 20, 2023)</a></li>
@@ -70,6 +71,31 @@
 </li>
 </ul>
 </div>
+<h2 id="2023122901">Version: 2023122901 (Dec 29, 2023)</h2>
+<ul>
+<li>
+<p>Fixed issues:</p>
+<ul>
+<li>Postfix:<ul>
+<li>Mitigate SMTP smuggling attack.
+  Details: https://www.postfix.org/smtp-smuggling.html</li>
+<li>[LDAP Backend] Can not use (mlmmj) mailing list as member of another
+  mailing list.</li>
+</ul>
+</li>
+<li>CentOS: mlmmjadmin: Incorrect config on CentOS / Rocky / Alma 9.</li>
+<li>CentOS: Not enable daily cron job to update SpamAssassin rules.
+  Thanks to forum user <code>roccoro</code> for the report.</li>
+</ul>
+</li>
+<li>
+<p>Updated packages:</p>
+<ul>
+<li>mlmmjadmin 3.1.9</li>
+<li>netdata 1.44.1</li>
+</ul>
+</li>
+</ul>
 <h2 id="2023102301">Version: 2023102301 (Oct 23, 2023)</h2>
 <ul>
 <li>Updated packages:<ul>

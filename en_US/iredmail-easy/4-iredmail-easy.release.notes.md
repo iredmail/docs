@@ -6,6 +6,22 @@
 
 [TOC]
 
+## Version: 2023122901 (Dec 29, 2023) {: id=2023122901 }
+
+* Fixed issues:
+    - Postfix:
+        - Mitigate SMTP smuggling attack.
+          Details: https://www.postfix.org/smtp-smuggling.html
+        - [LDAP Backend] Can not use (mlmmj) mailing list as member of another
+          mailing list.
+    - CentOS: mlmmjadmin: Incorrect config on CentOS / Rocky / Alma 9.
+    - CentOS: Not enable daily cron job to update SpamAssassin rules.
+      Thanks to forum user `roccoro` for the report.
+
+* Updated packages:
+    - mlmmjadmin 3.1.9
+    - netdata 1.44.1
+
 ## Version: 2023102301 (Oct 23, 2023) {: id=2023102301 }
 
 * Updated packages:
