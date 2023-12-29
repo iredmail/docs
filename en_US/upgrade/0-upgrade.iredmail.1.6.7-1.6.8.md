@@ -49,23 +49,24 @@ Quote from Postfix website:
 > - The authenticated attacker can use the "smuggled" SMTP MAIL/RCPT/DATA commands and header plus body text, to spoof an email message from any MAIL FROM address whose domain is also hosted at email service A, to any RCPT TO address whose domain is also hosted at email service B.
 > - The spoofed email message will pass SPF-based DMARC checks at email service B, because the spoofed message has a MAIL FROM address whose domain is hosted at email service A, and because the message was received from an IP address for email service A.
 
-Please run shell command below to apply the fix:
+Please run shell commands below to apply the fix:
 
 ```shell
 postconf -e smtpd_data_restrictions=reject_unauth_pipelining
 postconf -e smtpd_discard_ehlo_keywords=chunking
 ```
 
-Note: Since most Linux distribution releases don't offer latest Postfix release
+Note: Most Linux/BSD distribution releases don't have latest Postfix release
 till today (Dec 29, 2023), we can only apply this "short-term workarounds".
 The "long-term fix" is upgrading Postfix to at least version: 3.8.4, 3.7.9,
 3.6.13 and 3.5.23 to stop all forms of the smuggling attacks on recipients at
 a Postfix server.
 
-- Ubuntu 22.04.3 ships Postfix 3.6.4
-- Debian 12 ships Postfix 3.7.6 (packed on 5 Jul 2023)
-- CentOS / Rocky 9 ships Postfix 3.5.9
-- OpenBSD 7.4 ships Postfix 3.7.3
+- Ubuntu 22.04.3 ships Postfix 3.6.4 (requires 3.6.13)
+- Debian 12 ships Postfix 3.7.6 (requires 3.7.9)
+- CentOS / Rocky 9 ships Postfix 3.5.9 (requires 3.5.23)
+- OpenBSD 7.4 ships Postfix 3.7.3 (requires 3.7.9)
+- Latest FreeBSD ports tree ships Postfix 3.8.4, please upgrade.
 
 ### CentOS/Rocky/Alma: Enable daily cron job to update SpamAssassin rules
 
