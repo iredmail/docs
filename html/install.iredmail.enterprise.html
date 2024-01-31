@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title>iRedMail Enterprise: Getting started</title>
+        <title>Install iRedMail Enterprise Edition</title>
         <link rel="stylesheet" type="text/css" href="./css/markdown.css" />
     </head>
     <body>
@@ -15,24 +15,21 @@
              />&nbsp;
         <span>iRedMail</span>
     </a>
-    &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><div class="admonition note">
-<p class="admonition-title">This tutorial is available in other languages. <a href="https://github.com/iredmail/docs">Help translate more</a></p>
-<p><a href="./pro-nl_DU.html">Nederlands</a> /</p>
-</div>
-<h1 id="iredmail-enterprise-getting-started">iRedMail Enterprise: Getting started</h1>
+    &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><h1 id="install-iredmail-enterprise-edition">Install iRedMail Enterprise Edition</h1>
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>
 <p>Check out the lightweight on-premises email archiving software developed by iRedMail team: <a href="https://spiderd.io/">Spider Email Archiver</a>.</p>
 </div>
 <div class="toc">
 <ul>
-<li><a href="#iredmail-enterprise-getting-started">iRedMail Enterprise: Getting started</a><ul>
+<li><a href="#install-iredmail-enterprise-edition">Install iRedMail Enterprise Edition</a><ul>
 <li><a href="#summary">Summary</a></li>
 <li><a href="#system-requirements">System Requirements</a><ul>
 <li><a href="#supported-linux-and-bsd-distribution-releases">Supported Linux and BSD distribution releases</a></li>
 <li><a href="#hardware-requirements">Hardware Requirements</a></li>
 </ul>
 </li>
+<li><a href="#request-a-free-trial-license-or-purchase-one">Request a free trial license or purchase one</a></li>
 <li><a href="#download-and-run-the-installer">Download and run the installer</a></li>
 <li><a href="#installation">Installation</a><ul>
 <li><a href="#choose-preferred-backend">Choose preferred backend</a></li>
@@ -55,34 +52,35 @@
 <li>All account passwords are generated randomly during deployment, stored in
   files under <code>/root/.iredmail/kv/</code> on your server, also organized in file
   <code>/root/iRedMail/iRedMail.tips</code>.</li>
-<li>To migrate your existing iRedMail server to <strong>iRedMail Enterprise</strong>,
+<li>To migrate your existing iRedMail server to <strong>iRedMail Enterprise Edition</strong>,
   please check this tutorial:
-  <a href="./migrate.to.iredmail.easy.html">Migrate from iRedMail to iRedMail Easy platform</a>.</li>
+  <a href="./migrate.to.iredmail.enterprise.html">Migrate from iRedMail to iRedMail Enterprise Edition</a>.</li>
 </ul>
 </div>
 <h2 id="summary">Summary</h2>
-<p><strong>iRedMail Enterprise</strong> is a web-based, on-premises iRedMail server installer
-and management admin panel.</p>
-<p>With iRedMail Enterprise, it's easy to deploy (and re-deploy) and keep the
-server up to date with just few clicks on the web console, also manage
-or tune (mail service related) server settings.</p>
+<p><strong>iRedMail Enterprise Edition</strong> is a web-based, on-premises iRedMail server
+installer and management admin panel.</p>
+<p>With iRedMail Enterprise, it's easy to deploy a full-featured email server,
+and keep the server up to date with just few clicks on the web UI, also manage
+or tune server settings.</p>
 <p>We encourage all users to deploy new iRedMail servers with iRedMail Enterprise
-and keep the servers up to date.</p>
+Edition and keep the server up to date.</p>
 <p>If you prefer classic downloadable shell-based iRedMail installer, you can
 find the installation guides here: <a href="./index.html#install">Install iRedMail</a>.</p>
 <h2 id="system-requirements">System Requirements</h2>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
 <ul>
-<li>iRedMail is designed to be deployed on a fresh / clean server, which
-  means you can not have other network services running on the server
-  <strong>BEFORE</strong> iRedMail installation.</li>
-<li>iRedMail will install and configure all required software automatically.</li>
+<li>iRedMail Enterprise Edition is designed to be deployed on a fresh / clean
+  server, which means you should not have other network services running
+  on the server <strong>BEFORE</strong> iRedMail installation.</li>
+<li>iRedMail Enterprise Edition will install and configure all required
+  software automatically.</li>
 <li>
-<p>Many ISPs block port 25 by default, it's used for communication between
-  mail servers, it must be open, otherwise your server may be not able to
-  receive or / and send emails. Please contact your ISP to make sure it's
-  not blocked, or ask them to unblock.</p>
+<p>Many ISPs block network port 25 by default, it's used for communication
+  between mail servers and it must be open, otherwise your server may be
+  not able to receive or / and send emails. Please contact your ISP to make
+  sure it's not blocked, or ask them to unblock.</p>
 <ul>
 <li>Amazon AWS EC2. Request to <a href="https://aws.amazon.com/premiumsupport/knowledge-center/ec2-port-25-throttle/">remove the throttle on port 25</a>.</li>
 <li>Google Cloud Platform.</li>
@@ -95,7 +93,7 @@ find the installation guides here: <a href="./index.html#install">Install iRedMa
 </ul>
 </div>
 <h3 id="supported-linux-and-bsd-distribution-releases">Supported Linux and BSD distribution releases</h3>
-<p>Linux/BSD distribution releases supported by <strong>iRedMail Enterprise</strong>:</p>
+<p>Linux/BSD distribution releases supported by <strong>iRedMail Enterprise Edition</strong>:</p>
 <table>
 <thead>
 <tr>
@@ -122,7 +120,7 @@ find the installation guides here: <a href="./index.html#install">Install iRedMa
 </tr>
 <tr>
 <td>Ubuntu</td>
-<td>20.04, 22.04</td>
+<td>18.04, 20.04, 22.04</td>
 </tr>
 <tr>
 <td>OpenBSD</td>
@@ -140,14 +138,18 @@ installer</a> instead.</p>
   contacts (CardDAV) and ActiveSync), you need a lot more memory. Consider 16
   GB memory to support 500 ActiveSync clients.</li>
 </ul>
+<h2 id="request-a-free-trial-license-or-purchase-one">Request a free trial license or purchase one</h2>
+<p>Please sign up or login to <a href="https://store.iredmail.org/">iRedMail Store</a> to
+either request a free trial license or purchase one.</p>
 <h2 id="download-and-run-the-installer">Download and run the installer</h2>
-<p>Run commands below on the server to download iRedMail Enterprise for Linux (amd64 / x86_64):</p>
+<p>Run commands below on the server to download iRedMail Enterprise for Linux
+(amd64 / x86_64):</p>
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>
 <p>Please download it and save to <code>/usr/local/bin/iredmail</code>. This path is
 hard-coded in systemd service file to start iRedMail Enterprise.</p>
 </div>
-<pre><code class="language-bash">wget -O /usr/local/bin/iredmail https://dl.iredmail.org/iredmail-enterprise-1.0-beta1-linux-amd64
+<pre><code class="language-bash">wget -O /usr/local/bin/iredmail https://dl.iredmail.org/iredmail-enterprise-v1.0-beta2-linux-amd64
 chmod +x /usr/local/bin/iredmail
 </code></pre>
 <p>Launch the installer:</p>

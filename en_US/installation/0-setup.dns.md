@@ -442,6 +442,10 @@ take a look:
 - [Outlook.com Postmaster](https://sendersupport.olc.protection.outlook.com/pm/)
 - [Smart Network Data Service](https://sendersupport.olc.protection.outlook.com/snds/)
 
+## Check Yahoo! Deliverability Best Practises
+
+- [Deliverability](https://senders.yahooinc.com/best-practices/)
+
 ## References
 
 * [wikipedia: Sender Policy Framework](https://en.wikipedia.org/wiki/Sender_Policy_Framework)

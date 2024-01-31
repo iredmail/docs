@@ -1,4 +1,4 @@
-# iRedMail Enterprise: Getting started
+# Install iRedMail Enterprise Edition
 
 !!! attention
 
@@ -11,21 +11,21 @@
     - All account passwords are generated randomly during deployment, stored in
       files under `/root/.iredmail/kv/` on your server, also organized in file
       `/root/iRedMail/iRedMail.tips`.
-    - To migrate your existing iRedMail server to __iRedMail Enterprise__,
+    - To migrate your existing iRedMail server to __iRedMail Enterprise Edition__,
       please check this tutorial:
-      [Migrate from iRedMail to iRedMail Easy platform](./migrate.to.iredmail.easy.html).
+      [Migrate from iRedMail to iRedMail Enterprise Edition](./migrate.to.iredmail.enterprise.html).
 
 ## Summary
 
-__iRedMail Enterprise__ is a web-based, on-premises iRedMail server installer
-and management admin panel.
+__iRedMail Enterprise Edition__ is a web-based, on-premises iRedMail server
+installer and management admin panel.
 
-With iRedMail Enterprise, it's easy to deploy (and re-deploy) and keep the
-server up to date with just few clicks on the web console, also manage
-or tune (mail service related) server settings.
+With iRedMail Enterprise, it's easy to deploy a full-featured email server,
+and keep the server up to date with just few clicks on the web UI, also manage
+or tune server settings.
 
 We encourage all users to deploy new iRedMail servers with iRedMail Enterprise
-and keep the servers up to date.
+Edition and keep the server up to date.
 
 If you prefer classic downloadable shell-based iRedMail installer, you can
 find the installation guides here: [Install iRedMail](./index.html#install).
@@ -34,14 +34,15 @@ find the installation guides here: [Install iRedMail](./index.html#install).
 
 !!! warning
 
-    * iRedMail is designed to be deployed on a fresh / clean server, which
-      means you can not have other network services running on the server
-      __BEFORE__ iRedMail installation.
-    * iRedMail will install and configure all required software automatically.
-    * Many ISPs block port 25 by default, it's used for communication between
-      mail servers, it must be open, otherwise your server may be not able to
-      receive or / and send emails. Please contact your ISP to make sure it's
-      not blocked, or ask them to unblock.
+    * iRedMail Enterprise Edition is designed to be deployed on a fresh / clean
+      server, which means you should not have other network services running
+      on the server __BEFORE__ iRedMail installation.
+    * iRedMail Enterprise Edition will install and configure all required
+      software automatically.
+    * Many ISPs block network port 25 by default, it's used for communication
+      between mail servers and it must be open, otherwise your server may be
+      not able to receive or / and send emails. Please contact your ISP to make
+      sure it's not blocked, or ask them to unblock.
 
           - Amazon AWS EC2. Request to [remove the throttle on port 25](https://aws.amazon.com/premiumsupport/knowledge-center/ec2-port-25-throttle/).
           - Google Cloud Platform.
@@ -52,7 +53,7 @@ find the installation guides here: [Install iRedMail](./index.html#install).
 
 ### Supported Linux and BSD distribution releases
 
-Linux/BSD distribution releases supported by __iRedMail Enterprise__:
+Linux/BSD distribution releases supported by __iRedMail Enterprise Edition__:
 
 Distribution | Release Versions
 --- |---
@@ -60,7 +61,7 @@ CentOS Stream | 8, 9
 Rocky Linux | 8, 9
 AlmaLinux | 8, 9
 Debian | 11, 12
-Ubuntu | 20.04, 22.04
+Ubuntu | 18.04, 20.04, 22.04
 OpenBSD | 7.3
 
 If you need to install iRedMail on FreeBSD, please use the [downloadable
@@ -74,9 +75,15 @@ installer](https://www.iredmail.org/download.html) instead.
   contacts (CardDAV) and ActiveSync), you need a lot more memory. Consider 16
   GB memory to support 500 ActiveSync clients.
 
+## Request a free trial license or purchase one
+
+Please sign up or login to [iRedMail Store](https://store.iredmail.org/) to
+either request a free trial license or purchase one.
+
 ## Download and run the installer
 
-Run commands below on the server to download iRedMail Enterprise for Linux (amd64 / x86_64):
+Run commands below on the server to download iRedMail Enterprise for Linux
+(amd64 / x86_64):
 
 !!! attention
 
@@ -84,7 +91,7 @@ Run commands below on the server to download iRedMail Enterprise for Linux (amd6
     hard-coded in systemd service file to start iRedMail Enterprise.
 
 ```bash
-wget -O /usr/local/bin/iredmail https://dl.iredmail.org/iredmail-enterprise-1.0-beta1-linux-amd64
+wget -O /usr/local/bin/iredmail https://dl.iredmail.org/iredmail-enterprise-v1.0-beta2-linux-amd64
 chmod +x /usr/local/bin/iredmail
 ```
 
