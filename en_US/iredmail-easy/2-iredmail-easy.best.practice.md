@@ -517,6 +517,8 @@ iRedMail Easy platform.
 
 - Store custom settings in `/opt/iredmail/custom/amavisd/amavisd.conf`.
 - Store all DKIM keys under `/opt/iredmail/custom/amavisd/dkim/`.
+    - Note: iRedMail Easy maintains DKIM key for primary domain, please do not
+      add duplicate dkim key for primary domain in `/opt/iredmail/custom/amavisd/amavisd.conf`.
 
 ### SpamAssassin
 

@@ -604,7 +604,11 @@ Easy deployment or upgrade.</p>
 <h3 id="amavisd">Amavisd</h3>
 <ul>
 <li>Store custom settings in <code>/opt/iredmail/custom/amavisd/amavisd.conf</code>.</li>
-<li>Store all DKIM keys under <code>/opt/iredmail/custom/amavisd/dkim/</code>.</li>
+<li>Store all DKIM keys under <code>/opt/iredmail/custom/amavisd/dkim/</code>.<ul>
+<li>Note: iRedMail Easy maintains DKIM key for primary domain, please do not
+  add duplicate dkim key for primary domain in <code>/opt/iredmail/custom/amavisd/amavisd.conf</code>.</li>
+</ul>
+</li>
 </ul>
 <h3 id="spamassassin">SpamAssassin</h3>
 <p>Store custom rules in <code>/opt/iredmail/custom/spamassassin/custom.cf</code>.</p>
