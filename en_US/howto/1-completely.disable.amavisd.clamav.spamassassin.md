@@ -21,7 +21,8 @@ If you want to disable virus and spam scanning, but keep DKIM signing and discla
 
 * Keep `content_filter = smtp-amavis:[127.0.0.1]:10024` in Postfix config file `/etc/postfix/main.cf`.
 
-* Find below lines in Amavisd config file:
+* Find below lines in Amavisd config file, uncomment below lines (by removing
+  the leading `#` char of each line):
     - On RHEL/CentOS, it's `/etc/amavisd/amavisd.conf`
     - On Debian/Ubuntu, it's `/etc/amavis/conf.d/50-user`
     - On FreeBSD, it's `/usr/local/etc/amavisd.conf`
@@ -32,7 +33,16 @@ If you want to disable virus and spam scanning, but keep DKIM signing and discla
 # @bypass_spam_checks_maps  = (1);  # controls running of anti-spam code
 ```
 
-Uncomment above lines (removing "# " at the beginning of each line), and restart Amavisd service.
+* Disable storage used to save breif info of in/out emails by comment out
+  `@storage_sql_dsn` line in Amavisd config file:
+
+    Note: Please copy value of `@storage_sql_dsn` to `@lookup_sql_dsn` to keep
+    spam policy lookup working (it queries SQL db, but not save data related to
+    each processed email).
+
+```perl
+@storage_sql_dsn = ...
+```
 
 You may want to stop and disable ClamAV service, then remove clamav packages
 since it's not called by Amavisd or other programs anymore:
