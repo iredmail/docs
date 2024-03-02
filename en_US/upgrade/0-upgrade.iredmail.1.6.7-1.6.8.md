@@ -54,6 +54,7 @@ Please run shell commands below to apply the fix:
 ```shell
 postconf -e smtpd_data_restrictions=reject_unauth_pipelining
 postconf -e smtpd_discard_ehlo_keywords=chunking
+postfix reload
 ```
 
 Note: Most Linux/BSD distribution releases don't have latest Postfix release

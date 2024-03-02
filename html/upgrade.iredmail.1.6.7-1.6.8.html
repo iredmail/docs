@@ -78,6 +78,7 @@ website for more details: <a href="https://www.postfix.org/smtp-smuggling.html">
 <p>Please run shell commands below to apply the fix:</p>
 <pre><code class="language-shell">postconf -e smtpd_data_restrictions=reject_unauth_pipelining
 postconf -e smtpd_discard_ehlo_keywords=chunking
+postfix reload
 </code></pre>
 <p>Note: Most Linux/BSD distribution releases don't have latest Postfix release
 till today (Dec 29, 2023), we can only apply this "short-term workarounds".

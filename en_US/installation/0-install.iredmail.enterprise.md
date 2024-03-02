@@ -75,9 +75,12 @@ installer](https://www.iredmail.org/download.html) instead.
   contacts (CardDAV) and ActiveSync), you need a lot more memory. Consider 16
   GB memory to support 500 ActiveSync clients.
 
-## Request a free trial license or purchase one
+## Get a License (OPTIONAL)
 
-Please sign up or login to [iRedMail Store](https://store.iredmail.org/) to
+iRedMail Enterprise works without a license, but more features are available
+with a valid license.
+
+You can sign up or login to [iRedMail Store](https://store.iredmail.org/) to
 either request a free trial license or purchase one.
 
 ## Download and run the installer
