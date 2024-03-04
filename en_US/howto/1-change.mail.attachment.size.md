@@ -114,7 +114,7 @@ limit message size, please add or update this parameter in its config file:
 * on RHEL/CentOS, it's `/opt/www/roundcubemail/config/config.inc.php`.
   Old iRedMail releases use `/var/www/roundcubemail/config/config.inc.php`.
 * on Debian/Ubuntu, it's `/opt/www/roundcubemail/config/config.inc.php`.
-  Old iRedMail releases use `/usr/share/apache2/roundcubemail/config.inc.php`.
+  Old iRedMail releases use `/usr/share/apache2/roundcubemail/config/config.inc.php`.
 * on FreeBSD, it's `/usr/local/www/roundcubemail/config/config.inc.php`
 * on OpenBSD, it's `/opt/www/roundcubemail/config/config.inc.php`.
   Old iRedMail releases use `/var/www/roundcubemail/config.inc.php`.

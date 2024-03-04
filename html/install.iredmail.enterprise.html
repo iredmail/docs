@@ -159,11 +159,13 @@ chmod +x /usr/local/bin/iredmail
 </code></pre>
 <ul>
 <li>It runs a web server on port <code>8080</code> for initial deployment, please visit
-  <a href="http://your-server:8080">http://your-server:8080</a> with a web browser and go through the wizard to
-  finish the installation.</li>
+  <code>http://your-server:8080</code> with your favourite web browser and go through the
+  wizard to finish the installation.</li>
 <li>After deployment succeeded, it closes port <code>8080</code> and runs on port
   <code>127.0.0.1:7793</code>. Nginx is configured to proxy requests to it through URI
-  <code>/admin/</code>, please visit <a href="httpS://your-server/admin/">httpS://your-server/admin/</a> to access it.</li>
+  <code>/admin/</code> (this URI can be customized on web UI during installation),
+  please visit <code>httpS://your-server/admin/</code> to access it to manage your
+  iRedMail server.</li>
 </ul>
 <p>Below are screenshots of the installation wizard.</p>
 <h2 id="installation">Installation</h2>

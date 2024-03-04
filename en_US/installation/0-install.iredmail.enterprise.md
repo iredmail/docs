@@ -105,11 +105,13 @@ Launch the installer:
 ```
 
 - It runs a web server on port `8080` for initial deployment, please visit
-  <http://your-server:8080> with a web browser and go through the wizard to
-  finish the installation.
+  `http://your-server:8080` with your favourite web browser and go through the
+  wizard to finish the installation.
 - After deployment succeeded, it closes port `8080` and runs on port
   `127.0.0.1:7793`. Nginx is configured to proxy requests to it through URI
-  `/admin/`, please visit <httpS://your-server/admin/> to access it.
+  `/admin/` (this URI can be customized on web UI during installation),
+  please visit `httpS://your-server/admin/` to access it to manage your
+  iRedMail server.
 
 Below are screenshots of the installation wizard.
 

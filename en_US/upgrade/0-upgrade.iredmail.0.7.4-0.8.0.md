@@ -126,7 +126,7 @@ Please change below setting to `true` in Roundcube webmail config file
 config file should be:
 
     * `/var/www/roundcubemail/config/main.inc.php` on RHEL/CentOS/Scientific Linux
-    * `/usr/share/apache2/roundcubemail/config.inc.php` on Debian/Ubuntu
+    * `/usr/share/apache2/roundcubemail/config/config.inc.php` on Debian/Ubuntu
     * `/srv/www/roundcubemail/config/main.inc.php` on openSUSE
     * `/usr/local/www/roundcubemail/config/main.inc.php` on FreeBSD
 
