@@ -345,7 +345,7 @@ certbot certonly \
 certbot certonly \
     --webroot \
     --dry-run \
-    -w /opt/www/well-known/ \
+    -w /opt/www/well_known/ \
     -d mail.mydomain.com \
     -d 2nd-domain.com \
     -d 3rd-domain.com
