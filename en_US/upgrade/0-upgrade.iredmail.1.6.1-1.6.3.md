@@ -76,6 +76,11 @@ Please follow below tutorial to upgrade iRedAdmin to the latest stable release:
     It's time to leave your comfort zone and upgrade this server to CentOS
     Stream 8 or [Rocky Linux 8](https://docs.rockylinux.org/guides/migrate2rocky/).
 
+!!! warning "Ubuntu 18.04: please stick to Roundcube 1.5.x"
+
+    Ubuntu 18.04 runs old php version, v1.5.x contains the security fix too.
+    Please consider upgrading your OS to 20.04 LTS as soon as possible.
+
 !!! warning "PHP Version"
 
     Roundcube 1.6.x requires PHP 7.3 or later releases.
