@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Upgrade Ubuntu from 22.04 to 24.04</title>
+        <link rel="stylesheet" type="text/css" href="./css/markdown.css" />
+    </head>
+    <body>
+
+    <div id="navigation">
+    <a href="https://www.iredmail.org" target="_blank">
+        <img alt="iRedMail web site"
+             src="./images/logo-iredmail.png"
+             style="vertical-align: middle; height: 30px;"
+             />&nbsp;
+        <span>iRedMail</span>
+    </a>
+    &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><h1 id="upgrade-ubuntu-from-2204-to-2404">Upgrade Ubuntu from 22.04 to 24.04</h1>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>THIS IS A DRAFT DOCUMENT, DO NOT APPLY IT ON PRODUCTION SERVER.</p>
+</div>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>Check out the lightweight on-premises email archiving software developed by iRedMail team: <a href="https://spiderd.io/">Spider Email Archiver</a>.</p>
+</div>
+<div class="toc">
+<ul>
+<li><a href="#upgrade-ubuntu-from-2204-to-2404">Upgrade Ubuntu from 22.04 to 24.04</a><ul>
+<li><a href="#upgrade-iredmail-to-the-latest-stable-release-first">Upgrade iRedMail to the latest stable release first</a></li>
+<li><a href="#upgrade-os">Upgrade OS</a></li>
+<li><a href="#re-upgrade-iredapd-iredadmin-pro-mlmmjadmin-to-the-latest-release">Re-upgrade iRedAPD, iRedAdmin(-Pro), mlmmjadmin to the latest release</a></li>
+<li><a href="#update-php-fpm-related-configurations">Update php-fpm related configurations</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<h3 id="upgrade-iredmail-to-the-latest-stable-release-first">Upgrade iRedMail to the latest stable release first</h3>
+<p>Before upgrading server OS, it's better upgrade iRedMail to the latest stable
+release first. You can find <a href="./iredmail.releases.html">all upgrade tutorials here</a>.</p>
+<h3 id="upgrade-os">Upgrade OS</h3>
+<p>After you have latest iRedMail release running, it's ok to upgrade server OS
+with command <code>do-release-upgrade</code> now.</p>
+<h3 id="re-upgrade-iredapd-iredadmin-pro-mlmmjadmin-to-the-latest-release">Re-upgrade iRedAPD, iRedAdmin(-Pro), mlmmjadmin to the latest release</h3>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>Ubuntu 24.04 ships Python 3.12 which removes module <code>asynchat</code>, but it's
+required by iRedAPD. Please upgrade iRedAPD to at least <code>5.5.0</code> to get it
+working with Python 3.12.</p>
+</div>
+<p>After upgraded server OS, please re-upgrade iRedAPD, iRedAdmin(-Pro) and
+mlmmjadmin even you're already running the latest versions before upgrading
+OS, their upgrade scripts will help fix some issues caused by OS upgrade.</p>
+<ul>
+<li><a href="./upgrade.iredapd.html">Upgrade iRedAPD</a></li>
+<li><a href="./migrate.or.upgrade.iredadmin.html">Upgrade iRedAdmin(-Pro)</a></li>
+<li><a href="./upgrade.mlmmjadmin.html">Upgrade mlmmjadmin</a></li>
+</ul>
+<h2 id="update-php-fpm-related-configurations">Update php-fpm related configurations</h2>
+<ul>
+<li>Create directory used to store log files:</li>
+</ul>
+<pre><code>mkdir /var/log/php-fpm
+</code></pre>
+<ul>
+<li>Override config file <code>/etc/php/8.3/fpm/pool.d/www.conf</code> with content below:</li>
+</ul>
+<pre><code>[inet]
+user = www-data
+group = www-data
+
+listen = 127.0.0.1:9999
+listen.owner = www-data
+listen.group = www-data
+listen.mode = 0660
+
+; IP addresses must be separated by comma, and no space between comma and ip.
+listen.allowed_clients = 127.0.0.1
+
+pm = dynamic
+pm.max_children = 200
+pm.start_servers = 10
+pm.min_spare_servers = 5
+pm.max_spare_servers = 10
+pm.max_requests = 500
+
+pm.status_path = /php-fpm-status
+ping.path = /php-fpm-ping
+
+request_terminate_timeout = 60s
+
+access.log = /var/log/php-fpm/access.log
+slowlog = /var/log/php-fpm/slow.log
+request_slowlog_timeout = 10s
+</code></pre>
+<ul>
+<li>Override file <code>/etc/nginx/conf-available/php-fpm.conf</code> with content below:</li>
+</ul>
+<pre><code>upstream php_workers {
+    server 127.0.0.1:9999;
+}
+</code></pre>
+<ul>
+<li>Restart php8.3-fpm and nginx services:</li>
+</ul>
+<pre><code>service php8.3-fpm restart
+service nginx restart
+</code></pre><div class="footer">
+    <p style="text-align: center; color: grey;">All documents are available in <a href="https://github.com/iredmail/docs/">GitHub repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://github.com/iredmail/docs/archive/master.zip">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
+</div></body></html>
