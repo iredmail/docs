@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title>Request a free cert from Let's Encrypt (for servers deployed with downloadable iRedMail installer)</title>
+        <title>Request a free cert from Let's Encrypt (for servers deployed with iRedMail Easy platform)</title>
         <link rel="stylesheet" type="text/css" href="./css/markdown.css" />
     </head>
     <body>
@@ -15,13 +15,13 @@
              />&nbsp;
         <span>iRedMail</span>
     </a>
-    &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><h1 id="request-a-free-cert-from-lets-encrypt-for-servers-deployed-with-downloadable-iredmail-installer">Request a free cert from Let's Encrypt (for servers deployed with downloadable iRedMail installer)</h1>
+    &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><h1 id="request-a-free-cert-from-lets-encrypt-for-servers-deployed-with-iredmail-easy-platform">Request a free cert from Let's Encrypt (for servers deployed with iRedMail Easy platform)</h1>
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>
-<p>This tutorial is for servers deployed with downloadable iRedMail installer,
-if you're looking for tutorial for servers deployed with 
-<a href="https://www.iredmail.org/easy.html">iRedMail Easy platform</a>,
-plase check <a href="./letsencrypt-easy.html">this one</a> instead.</p>
+<p>This tutorial is for servers deployed with
+<a href="https://www.iredmail.org/easy.html">iRedMail Easy platform</a>, if you're
+looking for tutorial for servers deployed with downloadable iRedMail
+installer, plase check <a href="./letsencrypt.html">this one</a> instead.</p>
 </div>
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>
@@ -29,7 +29,7 @@ plase check <a href="./letsencrypt-easy.html">this one</a> instead.</p>
 </div>
 <div class="toc">
 <ul>
-<li><a href="#request-a-free-cert-from-lets-encrypt-for-servers-deployed-with-downloadable-iredmail-installer">Request a free cert from Let's Encrypt (for servers deployed with downloadable iRedMail installer)</a><ul>
+<li><a href="#request-a-free-cert-from-lets-encrypt-for-servers-deployed-with-iredmail-easy-platform">Request a free cert from Let's Encrypt (for servers deployed with iRedMail Easy platform)</a><ul>
 <li><a href="#before-requesting-a-cert">Before requesting a cert</a><ul>
 <li><a href="#which-host-names-should-be-supported-in-the-ssl-cert">Which host names should be supported in the SSL cert?</a></li>
 <li><a href="#one-cert-for-all-domain-names-or-one-cert-for-each-domain-name">One cert for all domain names, or one cert for each domain name?</a></li>
@@ -54,6 +54,7 @@ plase check <a href="./letsencrypt-easy.html">this one</a> instead.</p>
 <li><a href="#see-also">See Also</a></li>
 </ul>
 </li>
+<li><a href="#request-a-free-cert-from-lets-encrypt-for-servers-deployed-with-downloadable-iredmail-installer">Request a free cert from Let's Encrypt (for servers deployed with downloadable iRedMail installer)</a></li>
 </ul>
 </div>
 <p>iRedMail generates a self-signed SSL certificate during installation, it's
@@ -65,12 +66,6 @@ related configurations in relevant software running on iRedMail server.</p>
 <p>Let's Encrypt supports wildcard host names, but it's not covered in this
 tutorial, please read its <a href="https://certbot.eff.org/docs/using.html">User Guide</a>
 instead.</p>
-<p>We use Let's Encrypt official tool named <code>certbot</code> to request cert, there're
-some other third-party tools you can use. On OpenBSD, you can use command
-<code>acme-client</code> which is in base system (check its manual page here:
-<a href="https://man.openbsd.org/acme-client">acme-client(1)</a>. To get a list of other
-tools, please visit Let's Encrypt website: <a href="https://letsencrypt.org/docs/client-options/">ACME Client
-Implementations</a>.</p>
 <h2 id="before-requesting-a-cert">Before requesting a cert</h2>
 <h3 id="which-host-names-should-be-supported-in-the-ssl-cert">Which host names should be supported in the SSL cert?</h3>
 <p>You must understand which host names you need to support in the SSL cert:</p>
@@ -122,29 +117,18 @@ you actually own or control the domain name.</p>
 <p>Run command below as root user to verify the request process with
 <code>--dry-run</code> argument. It will print some text on console to ask you few
 simple questions, please read carefully and answer them.</p>
+<p><code>certbot certonly --webroot --dry-run -w /opt/www/well_known/ -d mail.mydomain.com</code></p>
+<p>If you need to support multiple domain names in one cert, please append them
+with <code>-d</code> arguments like this:</p>
+<p><code>certbot certonly --webroot --dry-run -w /opt/www/well_known/ -d mail.mydomain.com -d 2nd.com -d 3rd.com -d 4th.com</code></p>
+</li>
+<li>
+<p>If everything went well and no error was reported by <code>certbot</code>, that means we
+  fully match the requirements, and it's ok to actually request the cert by
+  running above command again without <code>--dry-run</code> argument:</p>
 </li>
 </ul>
-<pre><code>certbot certonly --webroot --dry-run -w /var/www/html -d mail.mydomain.com
-</code></pre>
-<pre><code>If you need to support multiple domain names in one cert, please append them
-with `-d` arguments like this:
-
-```
-certbot certonly --webroot --dry-run \
-    -w /var/www/html \
-    -d mail.mydomain.com \
-    -d 2nd-domain.com \
-    -d 3rd-domain.com \
-    -d 4th-domain.com
-```
-</code></pre>
-<ul>
-<li>If everything went well and no error was reported by <code>certbot</code> program on
-  console, that means we fully match the requirements, and it's ok to
-  actually request the cert by running above command again but without
-  <code>--dry-run</code> argument:</li>
-</ul>
-<pre><code>certbot certonly --webroot -w /var/www/html -d mail.mydomain.com
+<pre><code>certbot certonly --webroot -w /opt/www/well_known/ -d mail.mydomain.com
 </code></pre>
 <p>If the command finished successfully, it will create and store cert files under
 <code>/etc/letsencrypt/live/mail.mydomain.com/</code> (You may have different host name
@@ -168,23 +152,27 @@ It's necessary to set the permission to 0755 for other applications to access th
 </code></pre>
 <h2 id="use-lets-encrypt-cert">Use Let's Encrypt cert</h2>
 <p>The easiest and quickest way to use Let's Encrypt cert is creating symbol links
-to the self-signed SSL cert generated by iRedMail installer, then
-restart services to load the cert files.</p>
+to the self-signed SSL cert generated by iRedMail Easy, then
+restart services which use the cert files:</p>
 <ul>
-<li>On RHEL/CentOS:</li>
+<li><code>/opt/iredmail/ssl/key.pem</code>: private key</li>
+<li><code>/opt/iredmail/ssl/cert.pem</code>: certificate</li>
+<li><code>/opt/iredmail/ssl/combined.pem</code>: full chain</li>
 </ul>
-<pre><code>mv /etc/pki/tls/certs/iRedMail.crt{,.bak}       # Backup
-mv /etc/pki/tls/private/iRedMail.key{,.bak}     # Backup
-ln -s /etc/letsencrypt/live/mail.mydomain.com/fullchain.pem /etc/pki/tls/certs/iRedMail.crt
-ln -s /etc/letsencrypt/live/mail.mydomain.com/privkey.pem /etc/pki/tls/private/iRedMail.key
-</code></pre>
-<ul>
-<li>On Debian/Ubuntu, FreeBSD and OpenBSD:</li>
-</ul>
-<pre><code>mv /etc/ssl/certs/iRedMail.crt{,.bak}       # Backup. Rename iRedMail.crt to iRedMail.crt.bak
-mv /etc/ssl/private/iRedMail.key{,.bak}     # Backup. Rename iRedMail.key to iRedMail.key.bak
-ln -s /etc/letsencrypt/live/mail.mydomain.com/fullchain.pem /etc/ssl/certs/iRedMail.crt
-ln -s /etc/letsencrypt/live/mail.mydomain.com/privkey.pem /etc/ssl/private/iRedMail.key
+<p>Run commands below to backup old cert/key files and create symbol links of
+Let's Encrypt cert:</p>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>Please replace <code>&lt;domain&gt;</code> in sample commands below by the real domain name
+on your file system.</p>
+</div>
+<pre><code>cd /opt/iredmail/ssl/
+mv cert.pem cert.pem.bak
+mv key.pem key.pem.bak
+mv combined.pem combined.pem.bak
+ln -s /etc/letsencrypt/live/&lt;domain&gt;/fullchain.pem combined.pem
+ln -s /etc/letsencrypt/live/&lt;domain&gt;/fullchain.pem cert.pem
+ln -s /etc/letsencrypt/live/&lt;domain&gt;/privkey.pem key.pem
 </code></pre>
 <p>Now restart Postfix / Dovecot / Nginx services to use the cert:</p>
 <pre><code>systemctl restart postfix dovecot nginx
@@ -203,47 +191,42 @@ ln -s /etc/letsencrypt/live/mail.mydomain.com/privkey.pem /etc/ssl/private/iRedM
 </ul>
 <h2 id="renew-the-cert-automatically">Renew the cert automatically</h2>
 <p>Cert can be renewed manually with command <code>certbot renew</code>, or run same command
-in a daily or weekly cron job to renew automatically. Only those certs which
+in a daily or weekly cron job to renew it automatically. Only those certs which
 expires in less than 30 days will be renewed. Applications use ssl cert must
-be restarted to load renewed cert files.</p>
+be restarted (or reloaded) to load renewed cert files.</p>
 <p>If cert was renewed, private key <code>/etc/letsencrypt/live/&lt;domain&gt;/privkey.pem</code>
 is re-created and linked to file under <code>/etc/letsencrypt/archive/&lt;domain&gt;/privkey&lt;X&gt;.pem</code>
 (<code>&lt;X&gt;</code> is a digit number), but all files linked to
 <code>/etc/letsencrypt/live/&lt;domain&gt;/privkey.pem</code> were left to the old one,
 so we must update all files linked to <code>/etc/letsencrypt/live/&lt;domain&gt;/privkey.pem</code>
-with argument <code>--post-hook</code> right after renewed to make sure they're linked to
-correct one.</p>
-<p>Here's a sample cron job that runs at 3:01AM everyday, and restart
-postfix/nginx/dovecot after renewed:</p>
+after renewed.</p>
+<p>Here's a sample cron job that runs at 3:01AM everyday, it prints current cert
+info, then tries to renew the cert, and restart postfix/nginx/dovecot services
+if successfully renewed:</p>
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>
 <ul>
 <li>Replace <code>&lt;domain&gt;</code> by the real domain name.</li>
-<li>Replace <code>/etc/ssl/private/key.pem</code> by the real linked private key file path on your server.<ul>
-<li>On CentOS/Rocky, it's <code>/etc/pki/tls/private/iRedMail.key</code>.</li>
-<li>On Debian/Ubuntu, FreeBSD and OpenBSD, it's <code>/etc/ssl/private/iRedMail.key</code>.</li>
-</ul>
-</li>
 </ul>
 </div>
-<pre><code>1 3 * * * certbot certificates; certbot renew --post-hook 'ln -sf /etc/letsencrypt/live/&lt;domain&gt;/privkey.pem /etc/ssl/private/key.pem; /usr/sbin/systemctl restart postfix dovecot nginx'
+<pre><code>1 3 * * * certbot certificates; certbot renew --post-hook 'ln -sf /etc/letsencrypt/live/&lt;domain&gt;/privkey.pem /opt/iredmail/ssl/key.pem; /usr/sbin/systemctl restart postfix dovecot nginx'
 </code></pre>
 <h2 id="cert-configuration-in-different-applications">Cert configuration in different applications</h2>
 <h3 id="postfix">Postfix</h3>
-<p>File <code>/etc/postfix/main.cf</code> (on Linux/OpenBSD) or <code>/usr/local/etc/postfix/main.cf</code> (on FreeBSD):</p>
+<p>File <code>/etc/postfix/main.cf</code>:</p>
 <pre><code>smtpd_tls_cert_file = /etc/ssl/certs/iRedMail.crt
 smtpd_tls_key_file = /etc/ssl/private/iRedMail.key
 smtpd_tls_CAfile = /etc/ssl/certs/iRedMail.crt
 </code></pre>
 <h3 id="dovecot">Dovecot</h3>
-<p>File <code>/etc/dovecot/dovecot.conf</code> (on Linux/OpenBSD) or <code>/usr/local/etc/dovecot/dovecot.conf</code> (on FreeBSD):</p>
+<p>File <code>/etc/dovecot/dovecot.conf</code>:</p>
 <pre><code>ssl = required
 ssl_cert = &lt;/etc/ssl/certs/iRedMail.crt
 ssl_key = &lt;/etc/ssl/private/iRedMail.key
 ssl_ca = &lt;/etc/ssl/certs/iRedMail.crt
 </code></pre>
 <h3 id="nginx">Nginx</h3>
-<p>File <code>/etc/nginx/templates/ssl.tmpl</code> (on Linux/OpenBSD) or <code>/usr/local/etc/nginx/templates/ssl.tmpl</code> (on FreeBSD):</p>
+<p>File <code>/etc/nginx/templates/ssl.tmpl</code>:</p>
 <pre><code>ssl_certificate /etc/ssl/certs/iRedMail.crt;
 ssl_certificate_key /etc/ssl/private/iRedMail.key;
 </code></pre>
@@ -258,8 +241,6 @@ network, this is OPTIONAL.</p>
 <li>Since Ubuntu 15.04, it's defined in <code>/etc/mysql/mariadb.conf.d/mysqld.cnf</code>.</li>
 </ul>
 </li>
-<li>On FreeBSD, it's defined in <code>/usr/local/etc/my.cnf</code>.</li>
-<li>On OpenBSD, it's defined in <code>/etc/my.cnf</code>.</li>
 </ul>
 <pre><code>[mysqld]
 
@@ -275,8 +256,6 @@ network, this is OPTIONAL.</p>
 <ul>
 <li>On Red Hat and CentOS, it's defined in <code>/etc/openldap/slapd.conf</code>.</li>
 <li>On Debian and Ubuntu, it's defined in <code>/etc/ldap/slapd.conf</code>.</li>
-<li>On FreeBSD, it's defined in <code>/usr/local/etc/openldap/slapd.conf</code>.</li>
-<li>On OpenBSD, it's defined in <code>/etc/openldap/slapd.conf</code>.</li>
 </ul>
 <pre><code>TLSCACertificateFile /etc/ssl/certs/iRedMail.crt
 TLSCertificateKeyFile /etc/ssl/private/iRedMail.key
@@ -287,8 +266,8 @@ TLSCertificateFile /etc/ssl/certs/iRedMail.crt
 <li><a href="https://letsencrypt.org/how-it-works/">How it works</a></li>
 </ul>
 <h2 id="see-also">See Also</h2>
+<h1 id="request-a-free-cert-from-lets-encrypt-for-servers-deployed-with-downloadable-iredmail-installer"><a href="./letsencrypt.html">Request a free cert from Let's Encrypt (for servers deployed with downloadable iRedMail installer)</a></h1>
 <ul>
-<li><a href="./letsencrypt-easy.html">Request a free cert from Let's Encrypt (for servers deployed with iRedMail Easy platform)</a></li>
 <li><a href="./use.a.bought.ssl.certificate.html">Use a bought SSL certificate</a></li>
 </ul><div class="footer">
     <p style="text-align: center; color: grey;">All documents are available in <a href="https://github.com/iredmail/docs/">GitHub repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://github.com/iredmail/docs/archive/master.zip">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
