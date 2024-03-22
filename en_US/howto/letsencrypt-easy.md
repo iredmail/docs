@@ -192,7 +192,7 @@ if successfully renewed:
 
 !!! attention
 
-    - Replace `<domain>` by the real domain name.
+    Replace `<domain>` by the real domain name.
 
 ```
 1 3 * * * certbot certificates; certbot renew --post-hook 'ln -sf /etc/letsencrypt/live/<domain>/privkey.pem /opt/iredmail/ssl/key.pem; /usr/sbin/systemctl restart postfix dovecot nginx'

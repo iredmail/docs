@@ -205,9 +205,7 @@ info, then tries to renew the cert, and restart postfix/nginx/dovecot services
 if successfully renewed:</p>
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>
-<ul>
-<li>Replace <code>&lt;domain&gt;</code> by the real domain name.</li>
-</ul>
+<p>Replace <code>&lt;domain&gt;</code> by the real domain name.</p>
 </div>
 <pre><code>1 3 * * * certbot certificates; certbot renew --post-hook 'ln -sf /etc/letsencrypt/live/&lt;domain&gt;/privkey.pem /opt/iredmail/ssl/key.pem; /usr/sbin/systemctl restart postfix dovecot nginx'
 </code></pre>
