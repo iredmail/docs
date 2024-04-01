@@ -161,7 +161,11 @@ Solutions:
   iRedAPD service:
 
 ```
-ALLOWED_LOGIN_MISMATCH_SENDERS = ['user@mydomain.com']
+# Syntax:
+#   - Allow single user: "user@mydomain.com"
+#   - Allow all users under same domain: "mydomain.com"
+#   - Multiple values can be separated by a comma: ["user@mydomain.com", "domain2.com"]
+ALLOWED_LOGIN_MISMATCH_SENDERS = ["user@mydomain.com"]
 ```
 
 Notes: `user@mydomain.com` is the email address you used for smtp authentication.

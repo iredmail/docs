@@ -191,7 +191,11 @@ SMTP authentication, and specify a sender address.</p>
   setting in iRedAPD config file <code>/opt/iredapd/settings.py</code>, then restart
   iRedAPD service:</li>
 </ul>
-<pre><code>ALLOWED_LOGIN_MISMATCH_SENDERS = ['user@mydomain.com']
+<pre><code># Syntax:
+#   - Allow single user: &quot;user@mydomain.com&quot;
+#   - Allow all users under same domain: &quot;mydomain.com&quot;
+#   - Multiple values can be separated by a comma: [&quot;user@mydomain.com&quot;, &quot;domain2.com&quot;]
+ALLOWED_LOGIN_MISMATCH_SENDERS = [&quot;user@mydomain.com&quot;]
 </code></pre>
 <p>Notes: <code>user@mydomain.com</code> is the email address you used for smtp authentication.</p>
 <h4 id="case-2">case #2</h4>
