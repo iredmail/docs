@@ -29,7 +29,7 @@
 <li><a href="#hardware-requirements">Hardware Requirements</a></li>
 </ul>
 </li>
-<li><a href="#request-a-free-trial-license-or-purchase-one">Request a free trial license or purchase one</a></li>
+<li><a href="#get-a-license-optional">Get a License (OPTIONAL)</a></li>
 <li><a href="#download-and-run-the-installer">Download and run the installer</a></li>
 <li><a href="#installation">Installation</a><ul>
 <li><a href="#choose-preferred-backend">Choose preferred backend</a></li>
@@ -138,8 +138,10 @@ installer</a> instead.</p>
   contacts (CardDAV) and ActiveSync), you need a lot more memory. Consider 16
   GB memory to support 500 ActiveSync clients.</li>
 </ul>
-<h2 id="request-a-free-trial-license-or-purchase-one">Request a free trial license or purchase one</h2>
-<p>Please sign up or login to <a href="https://store.iredmail.org/">iRedMail Store</a> to
+<h2 id="get-a-license-optional">Get a License (OPTIONAL)</h2>
+<p>iRedMail Enterprise works without a license, but more features are available
+with a valid license.</p>
+<p>You can sign up or login to <a href="https://store.iredmail.org/">iRedMail Store</a> to
 either request a free trial license or purchase one.</p>
 <h2 id="download-and-run-the-installer">Download and run the installer</h2>
 <p>Run commands below on the server to download iRedMail Enterprise for Linux
@@ -149,7 +151,7 @@ either request a free trial license or purchase one.</p>
 <p>Please download it and save to <code>/usr/local/bin/iredmail</code>. This path is
 hard-coded in systemd service file to start iRedMail Enterprise.</p>
 </div>
-<pre><code class="language-bash">wget -O /usr/local/bin/iredmail https://dl.iredmail.org/iredmail-enterprise-v1.0-beta2-linux-amd64
+<pre><code class="language-bash">wget -O /usr/local/bin/iredmail https://dl.iredmail.org/iredmail-enterprise-v1.0-beta3-linux-amd64
 chmod +x /usr/local/bin/iredmail
 </code></pre>
 <p>Launch the installer:</p>
@@ -157,11 +159,13 @@ chmod +x /usr/local/bin/iredmail
 </code></pre>
 <ul>
 <li>It runs a web server on port <code>8080</code> for initial deployment, please visit
-  <a href="http://your-server:8080">http://your-server:8080</a> with a web browser and go through the wizard to
-  finish the installation.</li>
+  <code>http://your-server:8080</code> with your favourite web browser and go through the
+  wizard to finish the installation.</li>
 <li>After deployment succeeded, it closes port <code>8080</code> and runs on port
   <code>127.0.0.1:7793</code>. Nginx is configured to proxy requests to it through URI
-  <code>/admin/</code>, please visit <a href="httpS://your-server/admin/">httpS://your-server/admin/</a> to access it.</li>
+  <code>/admin/</code> (this URI can be customized on web UI during installation),
+  please visit <code>httpS://your-server/admin/</code> to access it to manage your
+  iRedMail server.</li>
 </ul>
 <p>Below are screenshots of the installation wizard.</p>
 <h2 id="installation">Installation</h2>

@@ -94,7 +94,7 @@ Run commands below on the server to download iRedMail Enterprise for Linux
     hard-coded in systemd service file to start iRedMail Enterprise.
 
 ```bash
-wget -O /usr/local/bin/iredmail https://dl.iredmail.org/iredmail-enterprise-v1.0-beta2-linux-amd64
+wget -O /usr/local/bin/iredmail https://dl.iredmail.org/iredmail-enterprise-v1.0-beta3-linux-amd64
 chmod +x /usr/local/bin/iredmail
 ```
 
