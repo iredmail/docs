@@ -128,7 +128,7 @@ A backend is a SQL or LDAP database used to store mail domains and
 accounts. There're not big differences between them, so we suggest you choose
 the one you're familiar with for easier maintenance.
 
-![](./images/pro/setup-backend.png){: width="700px" }
+![](./images/enterprise/setup-backend.png){: width="700px" }
 
 ### Choose the components you want to deploy
 
@@ -136,7 +136,7 @@ A component is a software (or software group, service) which implements some
 network service(s). On this page you can choose the components you want to
 deploy on your mail server.
 
-![](./images/pro/setup-components.png){: width="700px" }
+![](./images/enterprise/setup-components.png){: width="700px" }
 
 ### Required settings
 
@@ -145,14 +145,14 @@ Few settings are required to deploy a mail server.
 Note: while typing, it will validate the input value, please fill and wait for
 1-3 seconds until it finished the validation.
 
-![](./images/pro/setup-required-settings.png){: width="700px" }
+![](./images/enterprise/setup-required-settings.png){: width="700px" }
 
 ### Optional settings
 
 Depends on the components you chose to install, the settings on this page may
 be different.
 
-![](./images/pro/setup-optional-settings.png){: width="700px" }
+![](./images/enterprise/setup-optional-settings.png){: width="700px" }
 
 ### Review and deploy
 
@@ -164,11 +164,11 @@ be different.
 
 Review the settings:
 
-![](./images/pro/setup-review-and-deploy.png){: width="700px" }
+![](./images/enterprise/setup-review-and-deploy.png){: width="700px" }
 
 Click `Confirm and Deploy` button to deploy immediately:
 
-![](./images/pro/setup-deploy.png){: width="700px" }
+![](./images/enterprise/setup-deploy.png){: width="700px" }
 
 ### Setup complete
 
@@ -177,18 +177,18 @@ Please visit the URL and login with given username and password.
 
 Note: This is a global admin which has all privileges.
 
-![](./images/pro/setup-complete.png){: width="500px" }
+![](./images/enterprise/setup-complete.png){: width="500px" }
 
 ### Login to admin panel
 
 After logged into admin panel, you can manage software components, tune server
 settings, manage mail accounts, etc.
 
-![](./images/pro/components.png){: width="700px" }
+![](./images/enterprise/components.png){: width="700px" }
 <br/>
-![](./images/pro/server-settings.png){: width="700px" }
+![](./images/enterprise/server-settings.png){: width="700px" }
 <br/>
-![](./images/pro/domains.png){: width="700px" }
+![](./images/enterprise/domains.png){: width="700px" }
 
 ## See Also
 
