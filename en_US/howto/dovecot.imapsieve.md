@@ -295,6 +295,8 @@ rm -f ${LOCK_FILE} &>/dev/null
 Run command `crontab -e -u root` to setup cron job for root user, scan emails
 every 10 minutes:
 
+> NOTE: On FreeBSD and OpenBSD, please use `/usr/local/bin/bash` instead of `/bin/bash`.
+
 ```
 # iRedMail: Scan reported mails.
 */10   *   *   *   *   /bin/bash /etc/dovecot/sieve/scan_reported_mails.sh
