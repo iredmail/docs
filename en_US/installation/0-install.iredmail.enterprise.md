@@ -95,11 +95,11 @@ Run commands below on the server to download iRedMail Enterprise for Linux
 
 ```bash
 # For x86_64 / amd64
-wget -O /usr/local/bin/iredmail https://dl.iredmail.org/iredmail-enterprise-v1.0-beta3-linux-amd64
+wget -O /usr/local/bin/iredmail https://dl.iredmail.org/iredmail-enterprise-v1.0-beta4-linux-amd64
 chmod +x /usr/local/bin/iredmail
 
 # For ARM64
-wget -O /usr/local/bin/iredmail https://dl.iredmail.org/iredmail-enterprise-v1.0-beta3-linux-arm64
+wget -O /usr/local/bin/iredmail https://dl.iredmail.org/iredmail-enterprise-v1.0-beta4-linux-arm64
 chmod +x /usr/local/bin/iredmail
 ```
 
