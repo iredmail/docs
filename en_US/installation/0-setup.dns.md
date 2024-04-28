@@ -446,7 +446,8 @@ take a look:
 
 - [Deliverability](https://senders.yahooinc.com/best-practices/)
 
-## References
+## See Also
 
+* [(Gmail) Email sender guidelines](https://support.google.com/a/answer/81126)
 * [wikipedia: Sender Policy Framework](https://en.wikipedia.org/wiki/Sender_Policy_Framework)
 * [http://www.dkim.org/](http://www.dkim.org/)
