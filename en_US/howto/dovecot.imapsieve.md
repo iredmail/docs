@@ -406,7 +406,7 @@ Run `sa-learn` as Amavisd daemon user with `--dump` argument will show the bayes
 
 ## References
 
-* [Dovecot wiki: Antispam with Sieve](https://wiki.dovecot.org/HowTo/AntispamWithSieve)
+* [Dovecot: Antispam with Sieve](https://doc.dovecot.org/configuration_manual/howto/antispam_with_sieve/)
 
     You may notice a difference between current tutorial and Dovecot wiki
     tutorial: our setup saves reported mails and scan it later with `sa-learn`
