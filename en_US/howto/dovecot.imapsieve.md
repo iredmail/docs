@@ -406,6 +406,7 @@ Run `sa-learn` as Amavisd daemon user with `--dump` argument will show the bayes
 
 ## References
 
+* [Dovecot: IMAPSieve Plugin](https://doc.dovecot.org/configuration_manual/sieve/plugins/imapsieve/)
 * [Dovecot: Antispam with Sieve](https://doc.dovecot.org/configuration_manual/howto/antispam_with_sieve/)
 
     You may notice a difference between current tutorial and Dovecot wiki
