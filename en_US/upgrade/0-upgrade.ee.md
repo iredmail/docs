@@ -8,7 +8,7 @@ iRedMail Enterprise Edition is a single binary program, upgrading is simple:
 - Start the service
 
 ```
-wget -O /tmp/iredmail https://dl.iredmail.org/iredmail-enterprise-v1.0-beta4-linux-amd64
+wget -O /tmp/iredmail https://dl.iredmail.org/iredmail-enterprise-v1.0-beta5-linux-amd64
 service iredmail stop
 mv /tmp/iredmail /usr/local/bin/iredmail
 chmod 0700 /usr/local/bin/iredmail
