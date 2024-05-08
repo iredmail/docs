@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Upgrade iRedMail Enterprise Edition</title>
+        <link rel="stylesheet" type="text/css" href="./css/markdown.css" />
+    </head>
+    <body>
+
+    <div id="navigation">
+    <a href="https://www.iredmail.org" target="_blank">
+        <img alt="iRedMail web site"
+             src="./images/logo-iredmail.png"
+             style="vertical-align: middle; height: 30px;"
+             />&nbsp;
+        <span>iRedMail</span>
+    </a>
+    &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><h1 id="upgrade-iredmail-enterprise-edition">Upgrade iRedMail Enterprise Edition</h1>
+<p>iRedMail Enterprise Edition is a single binary program, upgrading is simple:</p>
+<ul>
+<li>Download latest version from <a href="https://www.iredmail.org/ee.html">website</a></li>
+<li>Stop the service</li>
+<li>Replace the program file</li>
+<li>Start the service</li>
+</ul>
+<pre><code>wget -O /tmp/iredmail https://dl.iredmail.org/iredmail-enterprise-v1.0-beta4-linux-amd64
+service iredmail stop
+mv /tmp/iredmail /usr/local/bin/iredmail
+chmod 0700 /usr/local/bin/iredmail
+service iredmail start
+</code></pre>
+<p>After upgraded software, please login to its web UI as global admin and check
+the <code>Software</code> card, if there's some update for deployed software like Postfix,
+Dovecot, Nginx, etc, it will show you a <code>Upgrade Now</code> button, click it to
+finish the upgrade.</p>
+<p><img alt="" src="./images/enterprise/dashboard-upgrade.png" /></p><div class="footer">
+    <p style="text-align: center; color: grey;">All documents are available in <a href="https://github.com/iredmail/docs/">GitHub repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://github.com/iredmail/docs/archive/master.zip">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
+</div></body></html>

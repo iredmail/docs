@@ -1,7 +1,7 @@
 # Change server hostname
 
 To change server hostname after iRedMail installation, please update below
-files to replace old hostname by the new one:
+files to replace old hostname by the new one.
 
 ## System config files
 

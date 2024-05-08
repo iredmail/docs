@@ -1,4 +1,4 @@
-* [Install iRedMail Enterprise Edition](./install.iredmail.enterprise.html)
+* [Install iRedMail Enterprise Edition](./install.ee.html)
 <!--
 * [Getting started with __iRedMail Easy__](./iredmail-easy.getting.start.html) - meet our new deployment and support platform
 -->

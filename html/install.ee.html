@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Install iRedMail Enterprise Edition</title>
+        <link rel="stylesheet" type="text/css" href="./css/markdown.css" />
+    </head>
+    <body>
+
+    <div id="navigation">
+    <a href="https://www.iredmail.org" target="_blank">
+        <img alt="iRedMail web site"
+             src="./images/logo-iredmail.png"
+             style="vertical-align: middle; height: 30px;"
+             />&nbsp;
+        <span>iRedMail</span>
+    </a>
+    &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><h1 id="install-iredmail-enterprise-edition">Install iRedMail Enterprise Edition</h1>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>Check out the lightweight on-premises email archiving software developed by iRedMail team: <a href="https://spiderd.io/">Spider Email Archiver</a>.</p>
+</div>
+<div class="toc">
+<ul>
+<li><a href="#install-iredmail-enterprise-edition">Install iRedMail Enterprise Edition</a><ul>
+<li><a href="#summary">Summary</a></li>
+<li><a href="#system-requirements">System Requirements</a><ul>
+<li><a href="#supported-linux-and-bsd-distribution-releases">Supported Linux and BSD distribution releases</a></li>
+<li><a href="#hardware-requirements">Hardware Requirements</a></li>
+</ul>
+</li>
+<li><a href="#get-a-license">Get a License</a></li>
+<li><a href="#download-and-run-the-installer">Download and run the installer</a></li>
+<li><a href="#installation">Installation</a><ul>
+<li><a href="#choose-preferred-backend">Choose preferred backend</a></li>
+<li><a href="#choose-the-components-you-want-to-deploy">Choose the components you want to deploy</a></li>
+<li><a href="#required-settings">Required settings</a></li>
+<li><a href="#optional-settings">Optional settings</a></li>
+<li><a href="#review-and-deploy">Review and deploy</a></li>
+<li><a href="#setup-complete">Setup complete</a></li>
+<li><a href="#login-to-admin-panel">Login to admin panel</a></li>
+</ul>
+</li>
+<li><a href="#see-also">See Also</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<ul>
+<li>All account passwords are generated randomly during deployment, stored in
+  files under <code>/root/.iredmail/kv/</code> on your server, also organized in file
+  <code>/root/iRedMail/iRedMail.tips</code>.</li>
+<li>To migrate your existing iRedMail server to <strong>iRedMail Enterprise Edition</strong>,
+  please check this tutorial:
+  <a href="./migrate.to.iredmail.enterprise.html">Migrate from iRedMail to iRedMail Enterprise Edition</a>.</li>
+</ul>
+</div>
+<h2 id="summary">Summary</h2>
+<p><strong>iRedMail Enterprise Edition</strong> is a web-based, on-premises iRedMail server
+installer and management admin panel.</p>
+<p>With iRedMail Enterprise, it's easy to deploy a full-featured email server,
+and keep the server up to date with just few clicks on the web UI, also manage
+or tune server settings.</p>
+<p>We encourage all users to deploy new iRedMail servers with iRedMail Enterprise
+Edition and keep the server up to date.</p>
+<p>If you prefer classic downloadable shell-based iRedMail installer, you can
+find the installation guides here: <a href="./index.html#install">Install iRedMail</a>.</p>
+<h2 id="system-requirements">System Requirements</h2>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<ul>
+<li>iRedMail Enterprise Edition is designed to be deployed on a fresh / clean
+  server, which means you should not have other network services running
+  on the server <strong>BEFORE</strong> iRedMail installation.</li>
+<li>iRedMail Enterprise Edition will install and configure all required
+  software automatically.</li>
+<li>
+<p>Many ISPs block network port 25 by default, it's used for communication
+  between mail servers and it must be open, otherwise your server may be
+  not able to receive or / and send emails. Please contact your ISP to make
+  sure it's not blocked, or ask them to unblock.</p>
+<ul>
+<li>Amazon AWS EC2. Request to <a href="https://aws.amazon.com/premiumsupport/knowledge-center/ec2-port-25-throttle/">remove the throttle on port 25</a>.</li>
+<li>Google Cloud Platform.</li>
+<li>Microsoft Azure.</li>
+<li>Linode. Explained in the <a href="https://www.linode.com/blog/linode/a-new-policy-to-help-fight-spam/">blog post</a>,
+    you can open a support ticket to request the Linode team to open it. If you <a href="https://www.linode.com/?r=b4d04083428fb99ce452d84b57253d11692a0850">sign up to Linode with our reference</a>, iRedMail Team's Linode account will receive a credit of $15-20.00. Thanks.</li>
+<li>DigitalOcean. According to <a href="https://www.digitalocean.com/community/questions/port-25-465-is-blocked-how-can-i-enable-it">a post in their community</a>, <strong>SEEMS</strong> impossible to unblock port 25, that means you can <strong>NOT</strong> run mail server on DigitalOcean VPS.</li>
+</ul>
+</li>
+</ul>
+</div>
+<h3 id="supported-linux-and-bsd-distribution-releases">Supported Linux and BSD distribution releases</h3>
+<p>Linux/BSD distribution releases supported by <strong>iRedMail Enterprise Edition</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Distribution</th>
+<th>Release Versions</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>CentOS Stream</td>
+<td>8, 9</td>
+</tr>
+<tr>
+<td>Rocky Linux</td>
+<td>8, 9</td>
+</tr>
+<tr>
+<td>AlmaLinux</td>
+<td>8, 9</td>
+</tr>
+<tr>
+<td>Debian</td>
+<td>11, 12</td>
+</tr>
+<tr>
+<td>Ubuntu</td>
+<td>18.04, 20.04, 22.04</td>
+</tr>
+<tr>
+<td>OpenBSD</td>
+<td>7.3</td>
+</tr>
+</tbody>
+</table>
+<p>If you need to install iRedMail on FreeBSD, please use the <a href="https://www.iredmail.org/download.html">downloadable
+installer</a> instead.</p>
+<h3 id="hardware-requirements">Hardware Requirements</h3>
+<ul>
+<li>iRedMail requires at least <code>4 GB</code> memory for a low traffic production server
+  with spam/virus scanning enabled.</li>
+<li>If you plan to run SOGo Groupware (which offers webmail, calendar (CalDAV),
+  contacts (CardDAV) and ActiveSync), you need a lot more memory. Consider 16
+  GB memory to support 500 ActiveSync clients.</li>
+</ul>
+<h2 id="get-a-license">Get a License</h2>
+<p>iRedMail Enterprise Edition requires a license key, you can request a free
+one-month trial license or purchase one by signing up or login to our
+<a href="https://store.iredmail.org/">iRedMail Store</a>.</p>
+<h2 id="download-and-run-the-installer">Download and run the installer</h2>
+<p>Run commands below on the server to download iRedMail Enterprise Edition on
+Linux or OpenBSD, both x86_64/AMD64 and ARM64 are supported:</p>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>Please download it and save to <code>/usr/local/bin/iredmail</code>. This path is
+hard-coded in systemd service file to start iRedMail Enterprise.</p>
+</div>
+<ul>
+<li>For Linux, x86_64 / amd64:</li>
+</ul>
+<pre><code class="language-bash">wget -O /usr/local/bin/iredmail https://dl.iredmail.org/iredmail-enterprise-v1.0-beta4-linux-amd64
+chmod +x /usr/local/bin/iredmail
+</code></pre>
+<ul>
+<li>For Linux, ARM64 / aarch64:</li>
+</ul>
+<pre><code class="language-bash">wget -O /usr/local/bin/iredmail https://dl.iredmail.org/iredmail-enterprise-v1.0-beta4-linux-arm64
+chmod +x /usr/local/bin/iredmail
+</code></pre>
+<ul>
+<li>For OpenBSD, x86_64 / amd64:</li>
+</ul>
+<pre><code class="language-bash">wget -O /usr/local/bin/iredmail https://dl.iredmail.org/iredmail-enterprise-v1.0-beta4-openbsd-amd64
+chmod +x /usr/local/bin/iredmail
+</code></pre>
+<ul>
+<li>For OpenBSD, arm64 aarch64:</li>
+</ul>
+<pre><code class="language-bash">wget -O /usr/local/bin/iredmail https://dl.iredmail.org/iredmail-enterprise-v1.0-beta4-openbsd-amd64
+chmod +x /usr/local/bin/iredmail
+</code></pre>
+<p>Launch the installer:</p>
+<pre><code class="language-bash">/usr/local/bin/iredmail
+</code></pre>
+<ul>
+<li>It runs a web server on port <code>8080</code> for initial deployment, please visit
+  <code>http://your-server:8080</code> with your favourite web browser and go through the
+  wizard to finish the installation.</li>
+<li>After deployment succeeded, it closes port <code>8080</code> and runs on port
+  <code>127.0.0.1:7793</code>. Nginx is configured to proxy requests to it through URI
+  <code>/admin/</code> (this URI can be customized on web UI during installation),
+  please visit <code>httpS://your-server/admin/</code> to access it to manage your
+  iRedMail server.</li>
+</ul>
+<p>Below are screenshots of the installation wizard.</p>
+<h2 id="installation">Installation</h2>
+<h3 id="choose-preferred-backend">Choose preferred backend</h3>
+<p>A backend is a SQL or LDAP database used to store mail domains and
+accounts. There're not big differences between them, so we suggest you choose
+the one you're familiar with for easier maintenance.</p>
+<p><img alt="" src="./images/enterprise/setup-backend.png" width="700px" /></p>
+<h3 id="choose-the-components-you-want-to-deploy">Choose the components you want to deploy</h3>
+<p>A component is a software (or software group, service) which implements some
+network service(s). On this page you can choose the components you want to
+deploy on your mail server.</p>
+<p><img alt="" src="./images/enterprise/setup-components.png" width="700px" /></p>
+<h3 id="required-settings">Required settings</h3>
+<p>Few settings are required to deploy a mail server.</p>
+<p>Note: while typing, it will validate the input value, please fill and wait for
+1-3 seconds until it finished the validation.</p>
+<p><img alt="" src="./images/enterprise/setup-required-settings.png" width="700px" /></p>
+<h3 id="optional-settings">Optional settings</h3>
+<p>Depends on the components you chose to install, the settings on this page may
+be different.</p>
+<p><img alt="" src="./images/enterprise/setup-optional-settings.png" width="700px" /></p>
+<h3 id="review-and-deploy">Review and deploy</h3>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>All account passwords are generated randomly during deployment, and stored
+in files under <code>/root/.iredmail/kv/</code> on your own server, also organized in
+file <code>/root/iRedMail/iRedMail.tips</code> for your reference.</p>
+</div>
+<p>Review the settings:</p>
+<p><img alt="" src="./images/enterprise/setup-review-and-deploy.png" width="700px" /></p>
+<p>Click <code>Confirm and Deploy</code> button to deploy immediately:</p>
+<p><img alt="" src="./images/enterprise/setup-deploy.png" width="700px" /></p>
+<h3 id="setup-complete">Setup complete</h3>
+<p>Once setup finished successfully, you should see info for login to admin panel.
+Please visit the URL and login with given username and password.</p>
+<p>Note: This is a global admin which has all privileges.</p>
+<p><img alt="" src="./images/enterprise/setup-complete.png" width="500px" /></p>
+<h3 id="login-to-admin-panel">Login to admin panel</h3>
+<p>After logged into admin panel, you can manage software components, tune server
+settings, manage mail accounts, etc.</p>
+<p><img alt="" src="./images/enterprise/components.png" width="700px" />
+<br/>
+<img alt="" src="./images/enterprise/server-settings.png" width="700px" />
+<br/>
+<img alt="" src="./images/enterprise/domains.png" width="700px" /></p>
+<h2 id="see-also">See Also</h2>
+<ul>
+<li><a href="./setup.dns.html">Setup DNS records for your iRedMail server</a></li>
+<li><a href="./letsencrypt.html">Request a free cert from Let's Encrypt</a></li>
+<li><a href="./index.html#mua">Configure mail client applications</a></li>
+</ul><div class="footer">
+    <p style="text-align: center; color: grey;">All documents are available in <a href="https://github.com/iredmail/docs/">GitHub repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://github.com/iredmail/docs/archive/master.zip">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
+</div></body></html>
