@@ -7,7 +7,7 @@
 [TOC]
 
 
-## v1.0-beta5
+## v1.0-beta5, May 8, 2024
 
 - New: iRedAPD integration.
     - Global, per-domain, per-user greylisting management.
@@ -16,7 +16,7 @@
 - Updated packages:
     - netdata v1.45.4
 
-## v1.0-beta4
+## v1.0-beta4, April 26, 2024
 
 - Supports new distribution releases:
     - Ubuntu 24.04 LTS
