@@ -14,7 +14,7 @@ wget -O /tmp/iredmail https://dl.iredmail.org/iredmail-enterprise-v1.0-beta5-lin
 service iredmail stop
 mv /tmp/iredmail /usr/local/bin/iredmail
 chown root /usr/local/bin/iredmail
-chmod 0700 /usr/local/bin/iredmail
+chmod 0500 /usr/local/bin/iredmail
 service iredmail start
 ```
 

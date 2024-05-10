@@ -153,26 +153,30 @@ hard-coded in systemd service file to start iRedMail Enterprise.</p>
 <ul>
 <li>For Linux, x86_64 / amd64:</li>
 </ul>
-<pre><code class="language-bash">wget -O /usr/local/bin/iredmail https://dl.iredmail.org/iredmail-enterprise-v1.0-beta4-linux-amd64
-chmod +x /usr/local/bin/iredmail
+<pre><code class="language-bash">wget -O /usr/local/bin/iredmail https://dl.iredmail.org/iredmail-enterprise-v1.0-beta5-linux-amd64
+chown root:root /usr/local/bin/iredmail
+chmod 0500 /usr/local/bin/iredmail
 </code></pre>
 <ul>
 <li>For Linux, ARM64 / aarch64:</li>
 </ul>
-<pre><code class="language-bash">wget -O /usr/local/bin/iredmail https://dl.iredmail.org/iredmail-enterprise-v1.0-beta4-linux-arm64
-chmod +x /usr/local/bin/iredmail
+<pre><code class="language-bash">wget -O /usr/local/bin/iredmail https://dl.iredmail.org/iredmail-enterprise-v1.0-beta5-linux-arm64
+chown root:root /usr/local/bin/iredmail
+chmod 0500 /usr/local/bin/iredmail
 </code></pre>
 <ul>
 <li>For OpenBSD, x86_64 / amd64:</li>
 </ul>
-<pre><code class="language-bash">wget -O /usr/local/bin/iredmail https://dl.iredmail.org/iredmail-enterprise-v1.0-beta4-openbsd-amd64
-chmod +x /usr/local/bin/iredmail
+<pre><code class="language-bash">wget -O /usr/local/bin/iredmail https://dl.iredmail.org/iredmail-enterprise-v1.0-beta5-openbsd-amd64
+chown root:wheel /usr/local/bin/iredmail
+chmod 0500 /usr/local/bin/iredmail
 </code></pre>
 <ul>
 <li>For OpenBSD, arm64 aarch64:</li>
 </ul>
-<pre><code class="language-bash">wget -O /usr/local/bin/iredmail https://dl.iredmail.org/iredmail-enterprise-v1.0-beta4-openbsd-amd64
-chmod +x /usr/local/bin/iredmail
+<pre><code class="language-bash">wget -O /usr/local/bin/iredmail https://dl.iredmail.org/iredmail-enterprise-v1.0-beta5-openbsd-amd64
+chown root:wheel /usr/local/bin/iredmail
+chmod 0500 /usr/local/bin/iredmail
 </code></pre>
 <p>Launch the installer:</p>
 <pre><code class="language-bash">/usr/local/bin/iredmail
