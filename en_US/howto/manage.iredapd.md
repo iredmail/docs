@@ -224,7 +224,7 @@ python3 wblist_admin.py --account user@mydomain.com --list --blacklist
 
     Greylisting is available in iRedAPD-1.7.0 and later releases.
 
-For technical details about greylisting, please visit <http://greylisting.org/>
+For technical details about greylisting, please visit <http://projects.puremagic.com/greylisting/whitepaper.html>.
 
 #### How to disable greylisting service globally
 
