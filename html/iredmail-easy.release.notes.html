@@ -23,6 +23,9 @@
 <div class="toc">
 <ul>
 <li><a href="#iredmail-easy-release-notes">iRedMail Easy: Release Notes</a><ul>
+<li><a href="#2024052101">Version: 2024052101 (May 21, 2024)</a></li>
+<li><a href="#2024050801">Version: 2024050801 (May 8, 2024)</a></li>
+<li><a href="#2024030401">Version: 2024030401 (March 4, 2024)</a></li>
 <li><a href="#2023122901">Version: 2023122901 (Dec 29, 2023)</a></li>
 <li><a href="#2023102301">Version: 2023102301 (Oct 23, 2023)</a></li>
 <li><a href="#2023102301">Version: 2023102301 (Oct 23, 2023)</a></li>
@@ -71,6 +74,51 @@
 </li>
 </ul>
 </div>
+<h2 id="2024052101">Version: 2024052101 (May 21, 2024)</h2>
+<ul>
+<li>Updated packages:<ul>
+<li>Roundcube 1.6.7 and 1.5.7, both contain fixes for 3 security vulnerabilities.
+  FYI <a href="https://roundcube.net/news/2024/05/19/security-updates-1.6.7-and-1.5.7">https://roundcube.net/news/2024/05/19/security-updates-1.6.7-and-1.5.7</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="2024050801">Version: 2024050801 (May 8, 2024)</h2>
+<ul>
+<li>
+<p>Improvements:</p>
+<ul>
+<li>Disable multi-threaded database reload in ClamAV (with
+  parameter "ConcurrentDatabaseReload no").</li>
+</ul>
+</li>
+<li>
+<p>Updated packages:</p>
+<ul>
+<li>iRedAPD 5.5.0</li>
+<li>mlmmjadmin 3.2.1</li>
+<li>netdata 1.45.4</li>
+</ul>
+</li>
+</ul>
+<h2 id="2024030401">Version: 2024030401 (March 4, 2024)</h2>
+<ul>
+<li>
+<p>Improvements:</p>
+<ul>
+<li>Add new parameter <code>OCSAdminURL</code> in sogo.conf for the new SQL table
+  <code>sogo_admin</code> introduced in SOGo v5.10.0.</li>
+</ul>
+</li>
+<li>
+<p>Fixed issues:</p>
+<ul>
+<li>Tune FTS xapian to reduce the size of index data.</li>
+<li>Not set correct compatibility_level for Postfix. #233</li>
+<li>Not prevent invalid address rewritten in <code>From:</code> header in custom
+  Postfix transports.</li>
+</ul>
+</li>
+</ul>
 <h2 id="2023122901">Version: 2023122901 (Dec 29, 2023)</h2>
 <ul>
 <li>

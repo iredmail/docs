@@ -6,6 +6,35 @@
 
 [TOC]
 
+## Version: 2024052101 (May 21, 2024) {: id=2024052101 }
+
+* Updated packages:
+    - Roundcube 1.6.7 and 1.5.7, both contain fixes for 3 security vulnerabilities.
+      FYI <https://roundcube.net/news/2024/05/19/security-updates-1.6.7-and-1.5.7>
+
+## Version: 2024050801 (May 8, 2024) {: id=2024050801 }
+
+* Improvements:
+    - Disable multi-threaded database reload in ClamAV (with
+      parameter "ConcurrentDatabaseReload no").
+
+* Updated packages:
+    - iRedAPD 5.5.0
+    - mlmmjadmin 3.2.1
+    - netdata 1.45.4
+
+## Version: 2024030401 (March 4, 2024) {: id=2024030401 }
+
+* Improvements:
+    - Add new parameter `OCSAdminURL` in sogo.conf for the new SQL table
+      `sogo_admin` introduced in SOGo v5.10.0.
+
+* Fixed issues:
+    - Tune FTS xapian to reduce the size of index data.
+    - Not set correct compatibility_level for Postfix. #233
+    - Not prevent invalid address rewritten in `From:` header in custom
+      Postfix transports.
+
 ## Version: 2023122901 (Dec 29, 2023) {: id=2023122901 }
 
 * Fixed issues:
