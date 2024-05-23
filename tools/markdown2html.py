@@ -18,8 +18,16 @@ import markdown
 from markdown_checklist.extension import ChecklistExtension
 
 # Markdown extensions
-MD_EXTENSIONS = ['toc', 'meta', 'extra', 'footnotes', 'admonition',
-                 'tables', 'attr_list', ChecklistExtension()]
+MD_EXTENSIONS = [
+    'toc',
+    'meta',
+    'extra',
+    'footnotes',
+    'admonition',
+    'tables',
+    'attr_list',
+    ChecklistExtension(),
+]
 
 # Get file name
 filename = sys.argv[1]

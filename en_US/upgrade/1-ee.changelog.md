@@ -4,10 +4,13 @@
 
 	 Check out the lightweight on-premises email archiving software developed by iRedMail team: [Spider Email Archiver](https://spiderd.io/).
 
-[TOC]
+| Version | Release Date |
+|---|---|
+| [v1.0-beta5](#v1.0-beta5) | 2024-05-08 |
+| [v1.0-beta4](#v1.0-beta4) | 2024-04-26 |
 
 
-## v1.0-beta5, May 8, 2024
+## v1.0-beta5, May 8, 2024 {: #v1.0-beta5 }
 
 - New: iRedAPD integration.
     - Global, per-domain, per-user greylisting management.
@@ -16,7 +19,7 @@
 - Updated packages:
     - netdata v1.45.4
 
-## v1.0-beta4, April 26, 2024
+## v1.0-beta4, April 26, 2024 {: #v1.0-beta4 }
 
 - Supports new distribution releases:
     - Ubuntu 24.04 LTS
