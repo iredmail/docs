@@ -6,6 +6,10 @@
 
 [TOC]
 
+## ChangeLog
+
+- May 24, 2024: Store started jail names in SQL table `fail2ban.jails`.
+
 ## Summary
 
 Since iRedMail-1.2, Fail2ban is configured to store banned IP addresses in
@@ -76,7 +80,7 @@ also a SQL user `fail2ban`.
 
 ```
 cd /tmp
-wget https://github.com/iredmail/iRedMail/raw/1.3.2/samples/fail2ban/sql/fail2ban.mysql
+wget https://github.com/iredmail/iRedMail/raw/master/samples/fail2ban/sql/fail2ban.mysql
 ```
 
 * Run __SQL commands__ below as __MySQL `root` user__:
@@ -114,7 +118,7 @@ also a SQL user `fail2ban`.
 
 ```
 cd /tmp
-wget https://github.com/iredmail/iRedMail/raw/1.3/samples/fail2ban/sql/fail2ban.pgsql
+wget https://github.com/iredmail/iRedMail/raw/master/samples/fail2ban/sql/fail2ban.pgsql
 su - postgres
 psql -d template1
 ```
@@ -147,10 +151,10 @@ ALTER DATABASE fail2ban OWNER TO fail2ban;
 On Linux, run commands below as `root` user:
 
 ```
-wget https://github.com/iredmail/iRedMail/raw/1.3/samples/fail2ban/action.d/banned_db.conf
+wget https://github.com/iredmail/iRedMail/raw/master/samples/fail2ban/action.d/banned_db.conf
 mv banned_db.conf /etc/fail2ban/action.d/
 
-wget https://github.com/iredmail/iRedMail/raw/1.3/samples/fail2ban/bin/fail2ban_banned_db
+wget https://github.com/iredmail/iRedMail/raw/master/samples/fail2ban/bin/fail2ban_banned_db
 mv fail2ban_banned_db /usr/local/bin/
 chmod 0550 /usr/local/bin/fail2ban_banned_db
 ```
@@ -306,7 +310,7 @@ Now run command below to query SQL table `fail2ban.banned` as `root` user:
 mysql fail2ban -e "SELECT * FROM banned"
 ```
 
-You should see the command output like below:
+You should see the output like below:
 
 ```
 +----+---------+-------+----------+---------+------------------+---------------+---------------------+--------+

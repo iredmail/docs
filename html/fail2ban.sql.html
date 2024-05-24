@@ -23,6 +23,7 @@
 <div class="toc">
 <ul>
 <li><a href="#fail2ban-store-banned-ip-addresses-in-sql-database">Fail2ban: Store banned IP addresses in SQL database</a><ul>
+<li><a href="#changelog">ChangeLog</a></li>
 <li><a href="#summary">Summary</a></li>
 <li><a href="#how-it-works">How it works</a></li>
 <li><a href="#create-required-sql-database">Create required SQL database</a><ul>
@@ -41,6 +42,10 @@
 </li>
 </ul>
 </div>
+<h2 id="changelog">ChangeLog</h2>
+<ul>
+<li>May 24, 2024: Store started jail names in SQL table <code>fail2ban.jails</code>.</li>
+</ul>
 <h2 id="summary">Summary</h2>
 <p>Since iRedMail-1.2, Fail2ban is configured to store banned IP addresses in
 SQL database. If you run iRedAdmin-Pro or your own web admin panel, it will be
@@ -95,7 +100,7 @@ also a SQL user <code>fail2ban</code>.</p>
 <li>Run commands below as <code>root</code> user:</li>
 </ul>
 <pre><code>cd /tmp
-wget https://github.com/iredmail/iRedMail/raw/1.3.2/samples/fail2ban/sql/fail2ban.mysql
+wget https://github.com/iredmail/iRedMail/raw/master/samples/fail2ban/sql/fail2ban.mysql
 </code></pre>
 <ul>
 <li>
@@ -130,7 +135,7 @@ also a SQL user <code>fail2ban</code>.</p>
   <code>postgres</code> and connect to SQL server:</li>
 </ul>
 <pre><code>cd /tmp
-wget https://github.com/iredmail/iRedMail/raw/1.3/samples/fail2ban/sql/fail2ban.pgsql
+wget https://github.com/iredmail/iRedMail/raw/master/samples/fail2ban/sql/fail2ban.pgsql
 su - postgres
 psql -d template1
 </code></pre>
@@ -159,10 +164,10 @@ ALTER DATABASE fail2ban OWNER TO fail2ban;
 </code></pre>
 <h2 id="add-required-fail2ban-config-file-and-script">Add required Fail2ban config file and script</h2>
 <p>On Linux, run commands below as <code>root</code> user:</p>
-<pre><code>wget https://github.com/iredmail/iRedMail/raw/1.3/samples/fail2ban/action.d/banned_db.conf
+<pre><code>wget https://github.com/iredmail/iRedMail/raw/master/samples/fail2ban/action.d/banned_db.conf
 mv banned_db.conf /etc/fail2ban/action.d/
 
-wget https://github.com/iredmail/iRedMail/raw/1.3/samples/fail2ban/bin/fail2ban_banned_db
+wget https://github.com/iredmail/iRedMail/raw/master/samples/fail2ban/bin/fail2ban_banned_db
 mv fail2ban_banned_db /usr/local/bin/
 chmod 0550 /usr/local/bin/fail2ban_banned_db
 </code></pre>
@@ -284,7 +289,7 @@ fail2ban-client set dovecot banip 1.1.1.2
 <p>Now run command below to query SQL table <code>fail2ban.banned</code> as <code>root</code> user:</p>
 <pre><code>mysql fail2ban -e &quot;SELECT * FROM banned&quot;
 </code></pre>
-<p>You should see the command output like below:</p>
+<p>You should see the output like below:</p>
 <pre><code>+----+---------+-------+----------+---------+------------------+---------------+---------------------+--------+
 | id | ip      | ports | protocol | jail    | hostname         | country       | timestamp           | remove |
 +----+---------+-------+----------+---------+------------------+---------------+---------------------+--------+
