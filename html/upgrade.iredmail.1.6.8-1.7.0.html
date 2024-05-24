@@ -35,6 +35,18 @@
 <li><a href="#optional-disable-multi-threaded-database-reload-in-clamav">[OPTIONAL] Disable multi-threaded database reload in ClamAV</a></li>
 </ul>
 </li>
+<li><a href="#for-mariadb-backend">For MariaDB backend</a><ul>
+<li><a href="#store-enabeld-jail-names-in-sql-database">Store enabeld jail names in SQL database</a></li>
+</ul>
+</li>
+<li><a href="#for-postgresql-backend">For PostgreSQL backend</a><ul>
+<li><a href="#store-enabeld-jail-names-in-sql-database_1">Store enabeld jail names in SQL database</a></li>
+</ul>
+</li>
+<li><a href="#for-openldap-backend">For OpenLDAP backend</a><ul>
+<li><a href="#store-enabeld-jail-names-in-sql-database_2">Store enabeld jail names in SQL database</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -82,6 +94,82 @@ Please add this new parameter and upgrade SOGo to latest nightly build.</p>
 <p>Add new parameter <code>OCSAdminURL</code> in sogo.conf for the new SQL table <code>sogo_admin</code> introduced in SOGo v5.10.0.</p>
 <h3 id="optional-disable-multi-threaded-database-reload-in-clamav">[OPTIONAL] Disable multi-threaded database reload in ClamAV</h3>
 <pre><code>ConcurrentDatabaseReload no
+</code></pre>
+<h2 id="for-mariadb-backend">For MariaDB backend</h2>
+<h3 id="store-enabeld-jail-names-in-sql-database">Store enabeld jail names in SQL database</h3>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>This step is required if you configured Fail2ban to <a href="./fail2ban.sql.html">store banned IP
+addresses in SQL database</a> for easier management on
+iRedAdmin-Pro.</p>
+</div>
+<p>Copy and run shell commands below to implement this improvement:</p>
+<pre><code># Create new SQL table 'fail2ban.jails' to store jail names:
+wget -O /tmp/f2b.sql https://github.com/iredmail/iRedMail/tree/1.7.0/update/1.7.0/fail2ban.mysql
+mysql fail2ban &lt; /tmp/f2b.sql
+rm -f /tmp/f2b.sql
+
+# Replace action script:
+wget -O /usr/local/bin/fail2ban_banned_db \
+    https://github.com/iredmail/iRedMail/tree/1.7.0/samples/fail2ban/bin/fail2ban_banned_db
+
+# Replace action config file
+wget -O /etc/fail2ban/action.d/banned_db.conf \
+    https://github.com/iredmail/iRedMail/tree/1.7.0/samples/fail2ban/action.d/banned_db.conf
+
+# Restarting fail2ban service is required:
+systemctl restart fail2ban
+</code></pre>
+<h2 id="for-postgresql-backend">For PostgreSQL backend</h2>
+<h3 id="store-enabeld-jail-names-in-sql-database_1">Store enabeld jail names in SQL database</h3>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>This step is required if you configured Fail2ban to <a href="./fail2ban.sql.html">store banned IP
+addresses in SQL database</a> for easier management on
+iRedAdmin-Pro.</p>
+</div>
+<p>Copy and run shell commands below to implement this improvement:</p>
+<pre><code># Create new SQL table 'fail2ban.jails' to store jail names:
+wget -O /tmp/f2b.sql https://github.com/iredmail/iRedMail/tree/1.7.0/update/1.7.0/fail2ban.pgsql
+su - postgres
+psql -d fail2ban -c &quot;\i /tmp/f2b.sql&quot;
+rm -f /tmp/f2b.sql
+
+# Replace action script:
+wget -O /usr/local/bin/fail2ban_banned_db \
+    https://github.com/iredmail/iRedMail/tree/1.7.0/samples/fail2ban/bin/fail2ban_banned_db
+
+# Replace action config file
+wget -O /etc/fail2ban/action.d/banned_db.conf \
+    https://github.com/iredmail/iRedMail/tree/1.7.0/samples/fail2ban/action.d/banned_db.conf
+
+# Restarting fail2ban service is required:
+systemctl restart fail2ban
+</code></pre>
+<h2 id="for-openldap-backend">For OpenLDAP backend</h2>
+<h3 id="store-enabeld-jail-names-in-sql-database_2">Store enabeld jail names in SQL database</h3>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>This step is required if you configured Fail2ban to <a href="./fail2ban.sql.html">store banned IP
+addresses in SQL database</a> for easier management on
+iRedAdmin-Pro.</p>
+</div>
+<p>Copy and run shell commands below to implement this improvement:</p>
+<pre><code># Create new SQL table 'fail2ban.jails' to store jail names:
+wget -O /tmp/f2b.sql https://github.com/iredmail/iRedMail/tree/1.7.0/update/1.7.0/fail2ban.mysql
+mysql fail2ban &lt; /tmp/f2b.sql
+rm -f /tmp/f2b.sql
+
+# Replace action script:
+wget -O /usr/local/bin/fail2ban_banned_db \
+    https://github.com/iredmail/iRedMail/tree/1.7.0/samples/fail2ban/bin/fail2ban_banned_db
+
+# Replace action config file
+wget -O /etc/fail2ban/action.d/banned_db.conf \
+    https://github.com/iredmail/iRedMail/tree/1.7.0/samples/fail2ban/action.d/banned_db.conf
+
+# Restarting fail2ban service is required:
+systemctl restart fail2ban
 </code></pre><div class="footer">
     <p style="text-align: center; color: grey;">All documents are available in <a href="https://github.com/iredmail/docs/">GitHub repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://github.com/iredmail/docs/archive/master.zip">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
 </div></body></html>
