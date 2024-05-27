@@ -417,6 +417,28 @@ Plugins will be linked to `/opt/www/roundcubemail/plugins/` automatically
 during iRedMail Easy deployment, but you need to create the symbol
 link manually if you don't want to run another deployment.
 
+Don't forget to enable the plugin(s) in `/opt/iredmail/custom/roundcube/custom.inc.php`.
+For example:
+
+```
+$config['plugins'] = array('managesieve', 'password', 'markasjunk', 'YOUR-PLUGIN-1', 'YOUR-PLUGIN-2');
+```
+
+#### Third-party or custom skins
+
+All third-party or custom skins should be placed under __`/opt/iredmail/custom/roundcube/skins/`__.
+
+Skins will be linked to `/opt/www/roundcubemail/skins/` automatically
+during iRedMail Easy deployment, but you need to create the symbol link
+manually if you don't want to run another deployment.
+
+To use some third-party skin as the default one for all users, append a line
+in `/opt/iredmail/custom/roundcube/custom.inc.php` like below:
+
+```
+$config['skin'] = 'YOUR-SKIN-NAME';
+```
+
 #### Custom settings for official plugins
 
 iRedMail Easy enables 3 official plugins by default:
@@ -467,14 +489,6 @@ echo 'require_once "/opt/iredmail/custom/roundcube/config_enigma.inc.php";' >> c
 
 Then put all custom settings for plugin `enigma` to
 `/opt/iredmail/custom/roundcube/config_enigma.inc.php`.
-
-#### Custom skins
-
-All third-party or custom skins should be placed under __`/opt/iredmail/custom/roundcube/skins/`__.
-
-Skins will be linked to `/opt/www/roundcubemail/skins/` automatically
-during iRedMail Easy deployment, but you need to create the symbol link
-manually if you don't want to run another deployment.
 
 ### SOGo
 

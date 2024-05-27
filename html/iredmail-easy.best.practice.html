@@ -41,9 +41,9 @@
 <li><a href="#roundcube">Roundcube</a><ul>
 <li><a href="#custom-global-settings">Custom global settings</a></li>
 <li><a href="#third-party-or-custom-plugins">Third-party or custom plugins</a></li>
+<li><a href="#third-party-or-custom-skins">Third-party or custom skins</a></li>
 <li><a href="#custom-settings-for-official-plugins">Custom settings for official plugins</a></li>
 <li><a href="#custom-settings-for-official-plugins-but-not-enabled-by-iredmail">Custom settings for official plugins but not enabled by iRedMail</a></li>
-<li><a href="#custom-skins">Custom skins</a></li>
 </ul>
 </li>
 <li><a href="#sogo">SOGo</a></li>
@@ -516,6 +516,19 @@ touch main config file <code>/opt/www/roundcubemail/config/config.inc.php</code>
 <p>Plugins will be linked to <code>/opt/www/roundcubemail/plugins/</code> automatically
 during iRedMail Easy deployment, but you need to create the symbol
 link manually if you don't want to run another deployment.</p>
+<p>Don't forget to enable the plugin(s) in <code>/opt/iredmail/custom/roundcube/custom.inc.php</code>.
+For example:</p>
+<pre><code>$config['plugins'] = array('managesieve', 'password', 'markasjunk', 'YOUR-PLUGIN-1', 'YOUR-PLUGIN-2');
+</code></pre>
+<h4 id="third-party-or-custom-skins">Third-party or custom skins</h4>
+<p>All third-party or custom skins should be placed under <strong><code>/opt/iredmail/custom/roundcube/skins/</code></strong>.</p>
+<p>Skins will be linked to <code>/opt/www/roundcubemail/skins/</code> automatically
+during iRedMail Easy deployment, but you need to create the symbol link
+manually if you don't want to run another deployment.</p>
+<p>To use some third-party skin as the default one for all users, append a line
+in <code>/opt/iredmail/custom/roundcube/custom.inc.php</code> like below:</p>
+<pre><code>$config['skin'] = 'YOUR-SKIN-NAME';
+</code></pre>
 <h4 id="custom-settings-for-official-plugins">Custom settings for official plugins</h4>
 <p>iRedMail Easy enables 3 official plugins by default:</p>
 <ul>
@@ -558,11 +571,6 @@ echo 'require_once &quot;/opt/iredmail/custom/roundcube/config_enigma.inc.php&qu
 </code></pre>
 <p>Then put all custom settings for plugin <code>enigma</code> to
 <code>/opt/iredmail/custom/roundcube/config_enigma.inc.php</code>.</p>
-<h4 id="custom-skins">Custom skins</h4>
-<p>All third-party or custom skins should be placed under <strong><code>/opt/iredmail/custom/roundcube/skins/</code></strong>.</p>
-<p>Skins will be linked to <code>/opt/www/roundcubemail/skins/</code> automatically
-during iRedMail Easy deployment, but you need to create the symbol link
-manually if you don't want to run another deployment.</p>
 <h3 id="sogo">SOGo</h3>
 <p>SOGo doesn’t support directive like <code>include</code> to load extra settings
 from multiple files, so you have to either maintain your own SOGo config
