@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Fixes you need after upgrading Debian from 11 to 12</title>
+        <link rel="stylesheet" type="text/css" href="./css/markdown.css" />
+    </head>
+    <body>
+
+    <div id="navigation">
+    <a href="https://www.iredmail.org" target="_blank">
+        <img alt="iRedMail web site"
+             src="./images/logo-iredmail.png"
+             style="vertical-align: middle; height: 30px;"
+             />&nbsp;
+        <span>iRedMail</span>
+    </a>
+    &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><h1 id="fixes-you-need-after-upgrading-debian-from-11-to-12">Fixes you need after upgrading Debian from 11 to 12</h1>
+<div class="toc">
+<ul>
+<li><a href="#fixes-you-need-after-upgrading-debian-from-11-to-12">Fixes you need after upgrading Debian from 11 to 12</a><ul>
+<li><a href="#php-fpm">php-fpm</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This is still a DRAFT document, it may miss some other important changes.</p>
+</div>
+<h2 id="php-fpm">php-fpm</h2>
+<p>Debian 12 ships with php 8.2, while Debian 11 ships with php 7.4.
+Although Debian 12 starts the <code>php8.2-fpm</code> service by default after an OS
+upgrade, you still need to copy the old php-fpm config file and restart
+<code>php8.2-fpm</code> service, so that php-fpm listens on same network address
+(<code>127.0.0.1:9999</code>) and Nginx can communicate with php-fpm:</p>
+<pre><code>cp /etc/php/7.4/fpm/pool.d/www.conf /etc/php/8.2/fpm/pool.d/www.conf
+service php8.2-fpm restart
+</code></pre><div class="footer">
+    <p style="text-align: center; color: grey;">All documents are available in <a href="https://github.com/iredmail/docs/">GitHub repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://github.com/iredmail/docs/archive/master.zip">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
+</div></body></html>
