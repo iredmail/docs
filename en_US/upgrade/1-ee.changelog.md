@@ -15,6 +15,9 @@
 
 - A valid license key is now required for installation.
 - Improvements:
+    - [web] New search bar on top-left of all web pages. You can search
+      with domain name, email address, or display name, top 10 results are
+      displayed, click item to visit account profile page.
     - [web] Removed component `iRedAdmin` since iRedMail Enterprise Edition
       offers same features as iRedAdmin and iRedAdmin-Pro.
     - [web] Able to set isolation level of the spam/ham auto-learning data.
