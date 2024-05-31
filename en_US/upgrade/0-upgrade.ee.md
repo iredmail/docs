@@ -26,3 +26,7 @@ software like Postfix, Dovecot, Nginx, etc, it will show the
 That's all.
 
 ![](./images/enterprise/dashboard-upgrade.png)
+
+## See Also
+
+- [ChangeLog of iRedMail Enterprise Edition](./ee.changelog.html)

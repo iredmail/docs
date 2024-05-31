@@ -6,9 +6,33 @@
 
 | Version | Release Date |
 |---|---|
+| [v1.0-beta6](#v1.0-beta6) | 2024-05-31 |
 | [v1.0-beta5](#v1.0-beta5) | 2024-05-08 |
 | [v1.0-beta4](#v1.0-beta4) | 2024-04-26 |
 
+
+## v1.0-beta6, May 31, 2024 {: #v1.0-beta6 }
+
+- A valid license key is now required for installation.
+- Improvements:
+    - [web] Removed component `iRedAdmin` since iRedMail Enterprise Edition
+      offers same features as iRedAdmin and iRedAdmin-Pro.
+    - [web] Able to set isolation level of the spam/ham auto-learning data.
+      Currently 3 options are available: per-user, per-domain or server wide.
+      Defaults to server wide (share learning data between all users).
+    - [server] If component `BIND DNS Server` is enabled, use localhost as
+      DNS server in systemd resolved service.
+    - [server] Not use Google DNS servers as default upstream anymore.
+      Spamhaus blocks queries from public/open DNS servers.
+    - [server] Set default max connections to 1024 for PostgreSQL.
+    - [server] Use systemd-timesyncd as ntp client on Ubuntu 24.04.
+    - [server] Fail2ban now stores banned IP addresses in SQL database by default.
+    - [server] Fail2ban now stores enabled jail names in SQL table `fail2ban.jails`.
+
+- Updated packages:
+    - Roundcube 1.6.7
+    - Roundcube 1.5.7 (Ubuntu 18.04 only)
+    - netdata v1.45.5
 
 ## v1.0-beta5, May 8, 2024 {: #v1.0-beta5 }
 

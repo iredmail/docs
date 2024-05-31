@@ -212,6 +212,8 @@ settings, manage mail accounts, etc.
 
 ## See Also
 
+* [Upgrade iRedMail Enterprise Edition](./upgrade.ee.html)
+* [ChangeLog of iRedMail Enterprise Edition](./ee.changelog.html)
 * [Setup DNS records for your iRedMail server](./setup.dns.html)
 * [Request a free cert from Let's Encrypt](./letsencrypt.html)
 * [Configure mail client applications](./index.html#mua)

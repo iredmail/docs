@@ -29,6 +29,10 @@
 </thead>
 <tbody>
 <tr>
+<td><a href="#v1.0-beta6">v1.0-beta6</a></td>
+<td>2024-05-31</td>
+</tr>
+<tr>
 <td><a href="#v1.0-beta5">v1.0-beta5</a></td>
 <td>2024-05-08</td>
 </tr>
@@ -38,6 +42,36 @@
 </tr>
 </tbody>
 </table>
+<h2 id="v1.0-beta6">v1.0-beta6, May 31, 2024</h2>
+<ul>
+<li>A valid license key is now required for installation.</li>
+<li>
+<p>Improvements:</p>
+<ul>
+<li>[web] Removed component <code>iRedAdmin</code> since iRedMail Enterprise Edition
+  offers same features as iRedAdmin and iRedAdmin-Pro.</li>
+<li>[web] Able to set isolation level of the spam/ham auto-learning data.
+  Currently 3 options are available: per-user, per-domain or server wide.
+  Defaults to server wide (share learning data between all users).</li>
+<li>[server] If component <code>BIND DNS Server</code> is enabled, use localhost as
+  DNS server in systemd resolved service.</li>
+<li>[server] Not use Google DNS servers as default upstream anymore.
+  Spamhaus blocks queries from public/open DNS servers.</li>
+<li>[server] Set default max connections to 1024 for PostgreSQL.</li>
+<li>[server] Use systemd-timesyncd as ntp client on Ubuntu 24.04.</li>
+<li>[server] Fail2ban now stores banned IP addresses in SQL database by default.</li>
+<li>[server] Fail2ban now stores enabled jail names in SQL table <code>fail2ban.jails</code>.</li>
+</ul>
+</li>
+<li>
+<p>Updated packages:</p>
+<ul>
+<li>Roundcube 1.6.7</li>
+<li>Roundcube 1.5.7 (Ubuntu 18.04 only)</li>
+<li>netdata v1.45.5</li>
+</ul>
+</li>
+</ul>
 <h2 id="v1.0-beta5">v1.0-beta5, May 8, 2024</h2>
 <ul>
 <li>
