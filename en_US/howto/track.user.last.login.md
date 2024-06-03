@@ -10,7 +10,7 @@
 
     * This feature is not available for PostgreSQL backend until Dovecot-2.3.16,
       because old Dovecot didn't support updating existing SQL record on
-      conflict primary key (a.k.a. UPSERT). References: [1](https://marc.info/?t=155411531600001&r=1&w=2), [2](https://marc.info/?t=155826327900001&r=1&w=2), [3](https://dovecot.org/mailman3/hyperkitty/list/dovecot-news@dovecot.org/thread/6P7GRJEIFSBXJWEC7UP24O7UQ4OROZLA/).
+      conflict primary key (a.k.a. UPSERT). References: [1](https://marc.info/?t=155411531600001&r=1&w=2), [2](https://marc.info/?t=155826327900001&r=1&w=2), [3](https://dovecot.org/mailman3/hyperkitty/list/dovecot-news@dovecot.org/thread/6P7GRJEIFSBXJWEC7UP24O7UQ4OROZLA/). Earliest distros: Debian 12, Ubuntu 22.04, CentOS / Rocky / AlmaLinux 9, OpenBSD 7.3.
     * This tutorial has been updated to support tracking last login time of
       both IMAP and POP3, which is implemented in iRedMail-1.2, you can find
       the difference in upgrade tutorial for iRedMail-1.2 here: [For LDAP backend](./upgrade.iredmail.1.1-1.2.html#improved-last-login-track), [For SQL backends](./upgrade.iredmail.1.1-1.2.html#improved-last-login-track_1).
