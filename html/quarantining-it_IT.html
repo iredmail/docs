@@ -27,12 +27,11 @@
 <div class="toc">
 <ul>
 <li><a href="#messa-in-quarantena">Messa in quarantena</a><ul>
-<li><a href="#messa-in-quarantena-di-spam-virus-banned-e-messaggi-con-intestazioni-scorrette">Messa in quarantena di spam, virus,  banned e messaggi con intestazioni scorrette.</a></li>
+<li><a href="#messa-in-quarantena-di-spam-virus-banned-e-messaggi-con-intestazioni-scorrette">Messa in quarantena di spam, virus, banned e messaggi con intestazioni scorrette.</a></li>
 <li><a href="#configurare-iredadmin-pro-affinche-gestisca-le-mail-in-quarantena">Configurare iRedAdmin-Pro affinché gestisca le mail in quarantena.</a><ul>
 <li><a href="#notifiche-agli-utenti-riguardo-le-mail-in-quarantena">Notifiche agli utenti riguardo le mail in quarantena.</a></li>
 </ul>
 </li>
-<li><a href="#messa-in-quarantena-di-mail-pulite">Messa in quarantena di mail pulite.</a></li>
 <li><a href="#screenshots">Screenshots</a></li>
 </ul>
 </li>
@@ -133,28 +132,6 @@ amavisd_enable_policy_lookup = True
 <pre><code>cd /var/www/iredadmin/tools/
 python notify_quarantined_recipients.py
 </code></pre>
-<h2 id="messa-in-quarantena-di-mail-pulite">Messa in quarantena di mail pulite.</h2>
-<p>Nota: se volete mettere in quarantena mail invitate da/per certi utenti locali, fate invece  riferimento a questo documento: <a href="./quarantine.clean.mails.per-user.html">Quarantine clean emails sent from/to certain local user</a></p>
-<p>Se volete mettere in quarantena mail pulite in un database SQL per una futura approvazione o qualunque altra ragione, seguite i seguenti passi:</p>
-<ul>
-<li>Modificare i parametri sotto riportati nel file di configurazione di Amavisd <code>amavisd.conf</code>:</li>
-</ul>
-<pre><code class="language-perl">$clean_quarantine_method = 'sql:';
-$clean_quarantine_to = 'clean-quarantine';
-</code></pre>
-<ul>
-<li>Trovate la policy bank <code>ORIGINATING</code>, ed aggiungeteci due linee come mostrato sotto:</li>
-</ul>
-<pre><code class="language-perl">$policy_bank{'ORIGINATING'} = {
-    ...
-    clean_quarantine_method =&gt; 'sql:',
-    final_destiny_by_ccat =&gt; {CC_CLEAN, D_DISCARD},
-}
-</code></pre>
-<ul>
-<li>Riavviate il servizio Amavisd.</li>
-</ul>
-<p>Ora tutte le mail pulite inviate dal vostro utente verranno messe in quarantena in un database SQL.</p>
 <h2 id="screenshots">Screenshots</h2>
 <ul>
 <li>Vedi mail in quarantena:</li>

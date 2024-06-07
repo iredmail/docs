@@ -140,37 +140,6 @@ Argument | Comment
 `--force-all-time` |  Notify users for their all quarantined emails instead of just new ones since last notification.
 `--notify-backupmx` |  Send notification to all recipients under backup mx domain
 
-## Quarantine clean emails
-
-Note: If you just want to quarantine clean emails sent from/to certain local
-user, please refer to this document instead:
-[Quarantine clean emails sent from/to certain local user](./quarantine.clean.mails.per-user.html)
-
-If you want to quarantine clean emails into SQL database for further approval
-or whatever reason, please follow below steps:
-
-* Update below parameters in Amavisd config file `amavisd.conf`:
-
-```perl
-$clean_quarantine_method = 'sql:';
-$clean_quarantine_to = 'clean-quarantine';
-```
-
-* Find policy bank `ORIGINATING`, append two lines in this policy bank:
-
-```perl
-$policy_bank{'ORIGINATING'} = {
-    ...
-    clean_quarantine_method => 'sql:',
-    final_destiny_by_ccat => {CC_CLEAN, D_DISCARD},
-}
-```
-
-* Restart Amavisd service.
-
-Now all clean emails sent by your mail users will be quarantined into SQL
-database.
-
 ## Screenshots
 
 * View quarantined mails:

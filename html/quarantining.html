@@ -32,7 +32,6 @@
 <li><a href="#notify-users-about-quarantined-mails">Notify users about quarantined mails</a></li>
 </ul>
 </li>
-<li><a href="#quarantine-clean-emails">Quarantine clean emails</a></li>
 <li><a href="#screenshots">Screenshots</a></li>
 </ul>
 </li>
@@ -163,32 +162,6 @@ python3 notify_quarantined_recipients.py --force-all
 </tr>
 </tbody>
 </table>
-<h2 id="quarantine-clean-emails">Quarantine clean emails</h2>
-<p>Note: If you just want to quarantine clean emails sent from/to certain local
-user, please refer to this document instead:
-<a href="./quarantine.clean.mails.per-user.html">Quarantine clean emails sent from/to certain local user</a></p>
-<p>If you want to quarantine clean emails into SQL database for further approval
-or whatever reason, please follow below steps:</p>
-<ul>
-<li>Update below parameters in Amavisd config file <code>amavisd.conf</code>:</li>
-</ul>
-<pre><code class="language-perl">$clean_quarantine_method = 'sql:';
-$clean_quarantine_to = 'clean-quarantine';
-</code></pre>
-<ul>
-<li>Find policy bank <code>ORIGINATING</code>, append two lines in this policy bank:</li>
-</ul>
-<pre><code class="language-perl">$policy_bank{'ORIGINATING'} = {
-    ...
-    clean_quarantine_method =&gt; 'sql:',
-    final_destiny_by_ccat =&gt; {CC_CLEAN, D_DISCARD},
-}
-</code></pre>
-<ul>
-<li>Restart Amavisd service.</li>
-</ul>
-<p>Now all clean emails sent by your mail users will be quarantined into SQL
-database.</p>
 <h2 id="screenshots">Screenshots</h2>
 <ul>
 <li>View quarantined mails:</li>

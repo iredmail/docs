@@ -127,33 +127,6 @@ cd /var/www/iredadmin/tools/
 python notify_quarantined_recipients.py
 ```
 
-## Messa in quarantena di mail pulite.
-
-Nota: se volete mettere in quarantena mail invitate da/per certi utenti locali, fate invece  riferimento a questo documento: [Quarantine clean emails sent from/to certain local user](./quarantine.clean.mails.per-user.html)
-
-Se volete mettere in quarantena mail pulite in un database SQL per una futura approvazione o qualunque altra ragione, seguite i seguenti passi:
-
-* Modificare i parametri sotto riportati nel file di configurazione di Amavisd `amavisd.conf`:
-
-```perl
-$clean_quarantine_method = 'sql:';
-$clean_quarantine_to = 'clean-quarantine';
-```
-
-* Trovate la policy bank `ORIGINATING`, ed aggiungeteci due linee come mostrato sotto:
-
-```perl
-$policy_bank{'ORIGINATING'} = {
-    ...
-    clean_quarantine_method => 'sql:',
-    final_destiny_by_ccat => {CC_CLEAN, D_DISCARD},
-}
-```
-
-* Riavviate il servizio Amavisd.
-
-Ora tutte le mail pulite inviate dal vostro utente verranno messe in quarantena in un database SQL.
-
 ## Screenshots
 
 * Vedi mail in quarantena:
