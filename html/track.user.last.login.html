@@ -23,6 +23,8 @@
 <div class="toc">
 <ul>
 <li><a href="#track-user-last-login-time">Track user last login time</a><ul>
+<li><a href="#changelog">ChangeLog</a></li>
+<li><a href="#summary">Summary</a></li>
 <li><a href="#create-required-sql-table-to-store-last-login-info">Create required SQL table to store last login info</a></li>
 <li><a href="#configure-dovecot">Configure Dovecot</a></li>
 <li><a href="#test">Test</a></li>
@@ -42,10 +44,14 @@
   the difference in upgrade tutorial for iRedMail-1.2 here: <a href="./upgrade.iredmail.1.1-1.2.html#improved-last-login-track">For LDAP backend</a>, <a href="./upgrade.iredmail.1.1-1.2.html#improved-last-login-track_1">For SQL backends</a>.</li>
 </ul>
 </div>
+<h2 id="changelog">ChangeLog</h2>
+<ul>
+<li>Jun 13, 2024: Add PostgreSQL support.</li>
+</ul>
+<h2 id="summary">Summary</h2>
 <p>Dovecot ships a <code>last_login</code> plugin since Dovecot-2.2.14, it can be used to
 easily save and update user's last-login timestamp in SQL database.</p>
-<p>Currently this plugin works with MySQL/MariaDB, but <strong>not PostgreSQL</strong>.</p>
-<p>It works on:</p>
+<p>For MySQL/MariaDB backends, this plugin works on:</p>
 <ul>
 <li>CentOS 7 (Dovecot-2.2.36), 8 (Dovecot-2.2.36)</li>
 <li>Debian 9 (Dovecot-2.2.27)</li>
@@ -54,15 +60,22 @@ easily save and update user's last-login timestamp in SQL database.</p>
 <li>OpenBSD 6.4 (Dovecot-2.2.36), 6.5, 6.6</li>
 <li>FreeBSD (Dovecot-2.3.x in ports tree)</li>
 </ul>
+<p>For PostgreSQL backend, this plugin works on:</p>
+<ul>
+<li>Debian 12</li>
+<li>Ubuntu 22.04 and later releases</li>
+<li>CentOS / Rocky / AlmaLinux 9</li>
+<li>OpenBSD 7.3 and later releases</li>
+</ul>
 <h2 id="create-required-sql-table-to-store-last-login-info">Create required SQL table to store last login info</h2>
 <p>We need to create a sql table to store the user last login info.</p>
 <ul>
-<li>For MySQL/MariaDB backends, we create the sql table in database <code>vmail</code>.</li>
+<li>For MySQL/MariaDB/PostgreSQL backends, we create the sql table in database <code>vmail</code>.</li>
 <li>For OpenLDAP backend, since it doesn't have <code>vmail</code> SQL database, so we
   create it in <code>iredadmin</code> instead, it will be easier for iRedAdmin(-Pro) to
   read this info.</li>
 </ul>
-<p>SQL statement:</p>
+<p>SQL statement for MySQL/MariaDB:</p>
 <pre><code>CREATE TABLE IF NOT EXISTS `last_login` (
     `username` VARCHAR(255) NOT NULL DEFAULT '',
     `domain` VARCHAR(255) NOT NULL DEFAULT '',
@@ -75,6 +88,22 @@ easily save and update user's last-login timestamp in SQL database.</p>
     INDEX (`pop3`),
     INDEX (`lda`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+</code></pre>
+<p>SQL statement for PostgreSQL:</p>
+<pre><code>CREATE TABLE last_login (
+    username VARCHAR(255) NOT NULL DEFAULT '',
+    domain VARCHAR(255) NOT NULL DEFAULT '',
+    imap BIGINT DEFAULT NULL,
+    pop3 BIGINT DEFAULT NULL,
+    lda  BIGINT DEFAULT NULL,
+    PRIMARY KEY (username, domain)
+);
+CREATE INDEX idx_last_login_domain ON last_login (domain);
+CREATE INDEX idx_last_login_imap   ON last_login (imap);
+CREATE INDEX idx_last_login_pop3   ON last_login (pop3);
+CREATE INDEX idx_last_login_lda    ON last_login (lda);
+
+ALTER TABLE last_login OWNER TO vmailadmin;
 </code></pre>
 <h2 id="configure-dovecot">Configure Dovecot</h2>
 <p>Open Dovecot config file <code>/etc/dovecot/dovecot.conf</code> (Linux/OpenBSD) or
@@ -127,8 +156,8 @@ plugin {
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>
 <ul>
-<li>For MySQL/MariaDB backends, please replace <code>my_secret_password</code> by the real
-  password of SQL user <code>vmailadmin</code>.</li>
+<li>For MySQL/MariaDB/PostgreSQL backends, please replace <code>my_secret_password</code>
+  by the real password of SQL user <code>vmailadmin</code>.</li>
 <li>For OpenLDAP backend:<ul>
 <li>replace <code>dbname=vmail</code> by <code>dbname=iredadmin</code></li>
 <li>replace <code>user=vmailadmin</code> by <code>user=iredadmin</code></li>

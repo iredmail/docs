@@ -15,12 +15,16 @@
       both IMAP and POP3, which is implemented in iRedMail-1.2, you can find
       the difference in upgrade tutorial for iRedMail-1.2 here: [For LDAP backend](./upgrade.iredmail.1.1-1.2.html#improved-last-login-track), [For SQL backends](./upgrade.iredmail.1.1-1.2.html#improved-last-login-track_1).
 
+## ChangeLog
+
+- Jun 13, 2024: Add PostgreSQL support.
+
+## Summary
+
 Dovecot ships a `last_login` plugin since Dovecot-2.2.14, it can be used to
 easily save and update user's last-login timestamp in SQL database.
 
-Currently this plugin works with MySQL/MariaDB, but __not PostgreSQL__.
-
-It works on:
+For MySQL/MariaDB backends, this plugin works on:
 
 * CentOS 7 (Dovecot-2.2.36), 8 (Dovecot-2.2.36)
 * Debian 9 (Dovecot-2.2.27)
@@ -29,16 +33,23 @@ It works on:
 * OpenBSD 6.4 (Dovecot-2.2.36), 6.5, 6.6
 * FreeBSD (Dovecot-2.3.x in ports tree)
 
+For PostgreSQL backend, this plugin works on:
+
+- Debian 12
+- Ubuntu 22.04 and later releases
+- CentOS / Rocky / AlmaLinux 9
+- OpenBSD 7.3 and later releases
+
 ## Create required SQL table to store last login info
 
 We need to create a sql table to store the user last login info.
 
-* For MySQL/MariaDB backends, we create the sql table in database `vmail`.
+* For MySQL/MariaDB/PostgreSQL backends, we create the sql table in database `vmail`.
 * For OpenLDAP backend, since it doesn't have `vmail` SQL database, so we
   create it in `iredadmin` instead, it will be easier for iRedAdmin(-Pro) to
   read this info.
 
-SQL statement:
+SQL statement for MySQL/MariaDB:
 
 ```
 CREATE TABLE IF NOT EXISTS `last_login` (
@@ -53,6 +64,25 @@ CREATE TABLE IF NOT EXISTS `last_login` (
     INDEX (`pop3`),
     INDEX (`lda`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+```
+
+SQL statement for PostgreSQL:
+
+```
+CREATE TABLE last_login (
+    username VARCHAR(255) NOT NULL DEFAULT '',
+    domain VARCHAR(255) NOT NULL DEFAULT '',
+    imap BIGINT DEFAULT NULL,
+    pop3 BIGINT DEFAULT NULL,
+    lda  BIGINT DEFAULT NULL,
+    PRIMARY KEY (username, domain)
+);
+CREATE INDEX idx_last_login_domain ON last_login (domain);
+CREATE INDEX idx_last_login_imap   ON last_login (imap);
+CREATE INDEX idx_last_login_pop3   ON last_login (pop3);
+CREATE INDEX idx_last_login_lda    ON last_login (lda);
+
+ALTER TABLE last_login OWNER TO vmailadmin;
 ```
 
 ## Configure Dovecot
@@ -110,8 +140,8 @@ Create file `/etc/dovecot/dovecot-last-login.conf` (Linux/OpenBSD) or
 
 !!! attention
 
-    * For MySQL/MariaDB backends, please replace `my_secret_password` by the real
-      password of SQL user `vmailadmin`.
+    * For MySQL/MariaDB/PostgreSQL backends, please replace `my_secret_password`
+      by the real password of SQL user `vmailadmin`.
     * For OpenLDAP backend:
         * replace `dbname=vmail` by `dbname=iredadmin`
         * replace `user=vmailadmin` by `user=iredadmin`
