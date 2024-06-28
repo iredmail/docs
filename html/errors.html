@@ -131,8 +131,11 @@ server, but sender doesn't perform SMTP AUTH to send email.</p>
    <code>/opt/iredapd/settings.py</code>, parameter <code>ALLOWED_FORGED_SENDERS</code> like below:</p>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>With this setting, iRedAPD accepts all emails with this forged address
-from <strong>ANY</strong> mail server.</p>
+<ul>
+<li>With this setting, iRedAPD accepts all emails with this forged address
+  from <strong>ANY</strong> mail server.</li>
+<li>Don't forget to restart <code>iredapd</code> service after modified its config file.</li>
+</ul>
 </div>
 </li>
 </ol>

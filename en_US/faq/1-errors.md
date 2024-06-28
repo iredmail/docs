@@ -93,8 +93,9 @@ server, but sender doesn't perform SMTP AUTH to send email.
 
     !!! warning
 
-        With this setting, iRedAPD accepts all emails with this forged address
-        from __ANY__ mail server.
+        - With this setting, iRedAPD accepts all emails with this forged address
+          from __ANY__ mail server.
+        - Don't forget to restart `iredapd` service after modified its config file.
 
 ```
 # Single address.
