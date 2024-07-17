@@ -6,6 +6,24 @@
 
 [TOC]
 
+## Version: 2024071701 (Jul 17, 2024) {: id=2024071701 }
+
+* Improvements:
+    - SOGo is now available on Debian 12 (bookworm).
+    - Use systemd-timesyncd as ntp client on Ubuntu 24.04.
+    - Fail2ban now stores enabled/started jail names in SQL table `jails`.
+
+* Fixed:
+    - [SOGo] Cannot view mailing lists and aliases in address book.
+    - Since Spamhaus blocks queries from public/open DNS servers, we don't use
+      Google DNS servers as default upstream from now on.
+
+* Updated packages:
+    - netdata v1.46.2
+    - iRedAPD 5.6.0
+    - iRedAdmin 2.6. It addresses 2 possible XSS vulnerabilities.
+    - fail2ban 1.1.0 (OpenBSD only)
+
 ## Version: 2024052101 (May 21, 2024) {: id=2024052101 }
 
 * Updated packages:
