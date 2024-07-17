@@ -18,7 +18,7 @@
 
 ## ChangeLog
 
-- May 17, 2024: initial publish.
+- July 17, 2024: initial publish.
 
 ## General (All backends should apply these changes)
 
@@ -60,6 +60,30 @@ SOGo v5.10.0 introduces a required new parameter `OCSAdminURL` in config file.
 Please add this new parameter and upgrade SOGo to latest nightly build.
 
 Add new parameter `OCSAdminURL` in sogo.conf for the new SQL table `sogo_admin` introduced in SOGo v5.10.0.
+
+### Upgrade mlmmjadmin to the latest stable release (3.2.1)
+
+Please follow below tutorial to upgrade mlmmjadmin to the latest stable release:
+[Upgrade mlmmjadmin to the latest stable release](./upgrade.mlmmjadmin.html)
+
+### Upgrade iRedAPD (Postfix policy server) to the latest stable release (5.6.0)
+
+Please follow below tutorial to upgrade iRedAPD to the latest stable release:
+[Upgrade iRedAPD to the latest stable release](./upgrade.iredapd.html)
+
+### Upgrade iRedAdmin (open source edition) to the latest stable release (2.6)
+
+!!! warning
+
+    It addresses 2 possible XSS vulnerabilities, please upgrade as soon as possible.
+
+Please follow below tutorial to upgrade iRedAdmin to the latest stable release:
+[Upgrade iRedAdmin to the latest stable release](./migrate.or.upgrade.iredadmin.html).
+
+### Upgrade netdata to the latest stable release (1.46.2)
+
+If you have netdata installed, you can upgrade it by following this tutorial:
+[Upgrade netdata](./upgrade.netdata.html).
 
 ### [OPTIONAL] Disable multi-threaded database reload in ClamAV
 
@@ -125,6 +149,23 @@ wget -O /etc/fail2ban/action.d/banned_db.conf \
 # Restarting fail2ban service is required:
 systemctl restart fail2ban
 ```
+
+### [OPTIONAL] Track user last login time
+
+iRedMail supports tracking user last login time for MySQL/MariaDB/OpenLDAP
+backends since iRedMail-1.2, but not PostgreSQL backend. It now finally comes.
+
+This feature is offered by Dovecot, and is available in Dovecot-2.3.16 and
+later version, so it's available on:
+
+- Debian 12
+- Ubuntu 22.04 and later releases
+- CentOS / Rocky / AlmaLinux 9
+- OpenBSD 7.3 and later releases
+
+Please follow this tutorial to implement it:
+
+- [Track user last login time](https://docs.iredmail.org/track.user.last.login.html)
 
 ## For OpenLDAP backend
 

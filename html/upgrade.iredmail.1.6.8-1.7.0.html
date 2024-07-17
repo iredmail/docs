@@ -32,6 +32,10 @@
 <li><a href="#update-etciredmail-release-with-new-iredmail-version-number">Update /etc/iredmail-release with new iRedMail version number</a></li>
 <li><a href="#upgrade-roundcube-webmail-to-the-latest-stable-release-167">Upgrade Roundcube webmail to the latest stable release (1.6.7)</a></li>
 <li><a href="#upgrade-sogo-to-latest-5100-and-add-required-new-parameter">Upgrade SOGo to latest 5.10.0 and add required new parameter</a></li>
+<li><a href="#upgrade-mlmmjadmin-to-the-latest-stable-release-321">Upgrade mlmmjadmin to the latest stable release (3.2.1)</a></li>
+<li><a href="#upgrade-iredapd-postfix-policy-server-to-the-latest-stable-release-560">Upgrade iRedAPD (Postfix policy server) to the latest stable release (5.6.0)</a></li>
+<li><a href="#upgrade-iredadmin-open-source-edition-to-the-latest-stable-release-26">Upgrade iRedAdmin (open source edition) to the latest stable release (2.6)</a></li>
+<li><a href="#upgrade-netdata-to-the-latest-stable-release-1462">Upgrade netdata to the latest stable release (1.46.2)</a></li>
 <li><a href="#optional-disable-multi-threaded-database-reload-in-clamav">[OPTIONAL] Disable multi-threaded database reload in ClamAV</a></li>
 </ul>
 </li>
@@ -41,6 +45,7 @@
 </li>
 <li><a href="#for-postgresql-backend">For PostgreSQL backend</a><ul>
 <li><a href="#store-enabeld-jail-names-in-sql-database_1">Store enabeld jail names in SQL database</a></li>
+<li><a href="#optional-track-user-last-login-time">[OPTIONAL] Track user last login time</a></li>
 </ul>
 </li>
 <li><a href="#for-openldap-backend">For OpenLDAP backend</a><ul>
@@ -59,7 +64,7 @@ check <a href="https://www.iredmail.org/support.html">the details</a> and
 </div>
 <h2 id="changelog">ChangeLog</h2>
 <ul>
-<li>May 17, 2024: initial publish.</li>
+<li>July 17, 2024: initial publish.</li>
 </ul>
 <h2 id="general-all-backends-should-apply-these-changes">General (All backends should apply these changes)</h2>
 <h3 id="update-etciredmail-release-with-new-iredmail-version-number">Update <code>/etc/iredmail-release</code> with new iRedMail version number</h3>
@@ -92,6 +97,22 @@ possible.</p>
 <p>SOGo v5.10.0 introduces a required new parameter <code>OCSAdminURL</code> in config file.
 Please add this new parameter and upgrade SOGo to latest nightly build.</p>
 <p>Add new parameter <code>OCSAdminURL</code> in sogo.conf for the new SQL table <code>sogo_admin</code> introduced in SOGo v5.10.0.</p>
+<h3 id="upgrade-mlmmjadmin-to-the-latest-stable-release-321">Upgrade mlmmjadmin to the latest stable release (3.2.1)</h3>
+<p>Please follow below tutorial to upgrade mlmmjadmin to the latest stable release:
+<a href="./upgrade.mlmmjadmin.html">Upgrade mlmmjadmin to the latest stable release</a></p>
+<h3 id="upgrade-iredapd-postfix-policy-server-to-the-latest-stable-release-560">Upgrade iRedAPD (Postfix policy server) to the latest stable release (5.6.0)</h3>
+<p>Please follow below tutorial to upgrade iRedAPD to the latest stable release:
+<a href="./upgrade.iredapd.html">Upgrade iRedAPD to the latest stable release</a></p>
+<h3 id="upgrade-iredadmin-open-source-edition-to-the-latest-stable-release-26">Upgrade iRedAdmin (open source edition) to the latest stable release (2.6)</h3>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>It addresses 2 possible XSS vulnerabilities, please upgrade as soon as possible.</p>
+</div>
+<p>Please follow below tutorial to upgrade iRedAdmin to the latest stable release:
+<a href="./migrate.or.upgrade.iredadmin.html">Upgrade iRedAdmin to the latest stable release</a>.</p>
+<h3 id="upgrade-netdata-to-the-latest-stable-release-1462">Upgrade netdata to the latest stable release (1.46.2)</h3>
+<p>If you have netdata installed, you can upgrade it by following this tutorial:
+<a href="./upgrade.netdata.html">Upgrade netdata</a>.</p>
 <h3 id="optional-disable-multi-threaded-database-reload-in-clamav">[OPTIONAL] Disable multi-threaded database reload in ClamAV</h3>
 <pre><code>ConcurrentDatabaseReload no
 </code></pre>
@@ -146,6 +167,21 @@ wget -O /etc/fail2ban/action.d/banned_db.conf \
 # Restarting fail2ban service is required:
 systemctl restart fail2ban
 </code></pre>
+<h3 id="optional-track-user-last-login-time">[OPTIONAL] Track user last login time</h3>
+<p>iRedMail supports tracking user last login time for MySQL/MariaDB/OpenLDAP
+backends since iRedMail-1.2, but not PostgreSQL backend. It now finally comes.</p>
+<p>This feature is offered by Dovecot, and is available in Dovecot-2.3.16 and
+later version, so it's available on:</p>
+<ul>
+<li>Debian 12</li>
+<li>Ubuntu 22.04 and later releases</li>
+<li>CentOS / Rocky / AlmaLinux 9</li>
+<li>OpenBSD 7.3 and later releases</li>
+</ul>
+<p>Please follow this tutorial to implement it:</p>
+<ul>
+<li><a href="https://docs.iredmail.org/track.user.last.login.html">Track user last login time</a></li>
+</ul>
 <h2 id="for-openldap-backend">For OpenLDAP backend</h2>
 <h3 id="store-enabeld-jail-names-in-sql-database_2">Store enabeld jail names in SQL database</h3>
 <div class="admonition attention">
