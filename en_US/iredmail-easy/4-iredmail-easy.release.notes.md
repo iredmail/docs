@@ -8,6 +8,7 @@
 
 ## Version: 2024071701 (Jul 17, 2024) {: id=2024071701 }
 
+* Ubuntu 24.04 LTS is now supported.
 * Improvements:
     - SOGo is now available on Debian 12 (bookworm).
     - Use systemd-timesyncd as ntp client on Ubuntu 24.04.
