@@ -4,10 +4,6 @@
 
 	 Check out the on-premises, lightweight email archiving software developed by iRedMail team: [Spider Email Archiver](https://spiderd.io/).
 
-!!! warning
-
-    This is still a DRAFT document, it may miss some other important changes.
-
 [TOC]
 
 !!! note "Paid Remote Upgrade Support"
