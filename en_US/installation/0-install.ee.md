@@ -13,7 +13,7 @@
       `/root/iRedMail/iRedMail.tips`.
     - To migrate your existing iRedMail server to __iRedMail Enterprise Edition__,
       please check this tutorial:
-      [Migrate from iRedMail to iRedMail Enterprise Edition](./migrate.to.iredmail.enterprise.html).
+      [Migrate from iRedMail to iRedMail Enterprise Edition](./iredmail.to.ee.html).
 
 ## Summary
 
@@ -148,7 +148,7 @@ A backend is a SQL or LDAP database used to store mail domains and
 accounts. There're not big differences between them, so we suggest you choose
 the one you're familiar with for easier maintenance.
 
-![](./images/enterprise/setup-backend.png){: width="700px" }
+![](./images/ee/setup-backend.png){: width="700px" }
 
 ### Choose the components you want to deploy
 
@@ -156,7 +156,7 @@ A component is a software (or software group, service) which implements some
 network service(s). On this page you can choose the components you want to
 deploy on your mail server.
 
-![](./images/enterprise/setup-components.png){: width="700px" }
+![](./images/ee/setup-components.png){: width="700px" }
 
 ### Required settings
 
@@ -165,14 +165,14 @@ Few settings are required to deploy a mail server.
 Note: while typing, it will validate the input value, please fill and wait for
 1-3 seconds until it finished the validation.
 
-![](./images/enterprise/setup-required-settings.png){: width="700px" }
+![](./images/ee/setup-required-settings.png){: width="700px" }
 
 ### Optional settings
 
 Depends on the components you chose to install, the settings on this page may
 be different.
 
-![](./images/enterprise/setup-optional-settings.png){: width="700px" }
+![](./images/ee/setup-optional-settings.png){: width="700px" }
 
 ### Review and deploy
 
@@ -184,11 +184,11 @@ be different.
 
 Review the settings:
 
-![](./images/enterprise/setup-review-and-deploy.png){: width="700px" }
+![](./images/ee/setup-review-and-deploy.png){: width="700px" }
 
 Click `Confirm and Deploy` button to deploy immediately:
 
-![](./images/enterprise/setup-deploy.png){: width="700px" }
+![](./images/ee/setup-deploy.png){: width="700px" }
 
 ### Setup complete
 
@@ -197,18 +197,18 @@ Please visit the URL and login with given username and password.
 
 Note: This is a global admin which has all privileges.
 
-![](./images/enterprise/setup-complete.png){: width="500px" }
+![](./images/ee/setup-complete.png){: width="500px" }
 
 ### Login to admin panel
 
 After logged into admin panel, you can manage software components, tune server
 settings, manage mail accounts, etc.
 
-![](./images/enterprise/components.png){: width="700px" }
+![](./images/ee/components.png){: width="700px" }
 <br/>
-![](./images/enterprise/server-settings.png){: width="700px" }
+![](./images/ee/server-settings.png){: width="700px" }
 <br/>
-![](./images/enterprise/domains.png){: width="700px" }
+![](./images/ee/domains.png){: width="700px" }
 
 ## See Also
 

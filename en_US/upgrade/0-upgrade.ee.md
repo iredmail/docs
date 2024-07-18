@@ -25,7 +25,7 @@ software like Postfix, Dovecot, Nginx, etc, it will show the
 
 That's all.
 
-![](./images/enterprise/dashboard-upgrade.png)
+![](./images/ee/dashboard-upgrade.png)
 
 ## See Also
 
