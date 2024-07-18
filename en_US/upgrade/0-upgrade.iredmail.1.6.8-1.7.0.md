@@ -55,7 +55,21 @@ so that you can know which version of iRedMail you're running. For example:
 SOGo v5.10.0 introduces a required new parameter `OCSAdminURL` in config file.
 Please add this new parameter and upgrade SOGo to latest nightly build.
 
-Add new parameter `OCSAdminURL` in sogo.conf for the new SQL table `sogo_admin` introduced in SOGo v5.10.0.
+- Find parameter `OCSAclURL` in SOGo config file `/etc/sogo/sogo.conf` like below:
+
+```
+    OCSAclURL = "mysql://sogo:SOVtHQXsnYOb3CqnYe5sH52fiYTvaYZT@127.0.0.1:3306/sogo/sogo_acl";
+```
+
+- Add new parameter `OCSAdminURL` right after `OCSAclURL` with same value, but
+  replace the sql table name `sogo_acl` by `sogo_admin`:
+
+```
+    OCSAclURL = "mysql://sogo:SOVtHQXsnYOb3CqnYe5sH52fiYTvaYZT@127.0.0.1:3306/sogo/sogo_acl";
+    OCSAdminURL = "mysql://sogo:SOVtHQXsnYOb3CqnYe5sH52fiYTvaYZT@127.0.0.1:3306/sogo/sogo_admin";
+```
+
+- Save your change and restart SOGo service.
 
 ### Upgrade mlmmjadmin to the latest stable release (3.2.1)
 

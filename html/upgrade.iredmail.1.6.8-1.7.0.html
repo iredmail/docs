@@ -92,7 +92,21 @@ possible.</p>
 <h3 id="upgrade-sogo-to-latest-5100-and-add-required-new-parameter">Upgrade SOGo to latest 5.10.0 and add required new parameter</h3>
 <p>SOGo v5.10.0 introduces a required new parameter <code>OCSAdminURL</code> in config file.
 Please add this new parameter and upgrade SOGo to latest nightly build.</p>
-<p>Add new parameter <code>OCSAdminURL</code> in sogo.conf for the new SQL table <code>sogo_admin</code> introduced in SOGo v5.10.0.</p>
+<ul>
+<li>Find parameter <code>OCSAclURL</code> in SOGo config file <code>/etc/sogo/sogo.conf</code> like below:</li>
+</ul>
+<pre><code>    OCSAclURL = &quot;mysql://sogo:SOVtHQXsnYOb3CqnYe5sH52fiYTvaYZT@127.0.0.1:3306/sogo/sogo_acl&quot;;
+</code></pre>
+<ul>
+<li>Add new parameter <code>OCSAdminURL</code> right after <code>OCSAclURL</code> with same value, but
+  replace the sql table name <code>sogo_acl</code> by <code>sogo_admin</code>:</li>
+</ul>
+<pre><code>    OCSAclURL = &quot;mysql://sogo:SOVtHQXsnYOb3CqnYe5sH52fiYTvaYZT@127.0.0.1:3306/sogo/sogo_acl&quot;;
+    OCSAdminURL = &quot;mysql://sogo:SOVtHQXsnYOb3CqnYe5sH52fiYTvaYZT@127.0.0.1:3306/sogo/sogo_admin&quot;;
+</code></pre>
+<ul>
+<li>Save your change and restart SOGo service.</li>
+</ul>
 <h3 id="upgrade-mlmmjadmin-to-the-latest-stable-release-321">Upgrade mlmmjadmin to the latest stable release (3.2.1)</h3>
 <p>Please follow below tutorial to upgrade mlmmjadmin to the latest stable release:
 <a href="./upgrade.mlmmjadmin.html">Upgrade mlmmjadmin to the latest stable release</a></p>
