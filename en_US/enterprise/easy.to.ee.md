@@ -46,3 +46,9 @@ Login with same accounts you used to login to iRedAdmin or iRedAdmin-Pro.
 If you experienced any issue, please report via the [Ticket system](https://store.iredmail.org/tickets).
 
 ![](./images/ee/easy.to.ee.png){: width="700px" }
+
+## Known Issues
+
+- iRedAdmin and iRedAdmin-Pro are not available after migrated to iRedMail EE,
+  because iRedMail EE admin UI offers same features as iRedAdmin-Pro, hence
+  no need to install iRedAdmin(-Pro) anymore.
