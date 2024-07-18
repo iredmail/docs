@@ -36,6 +36,7 @@ export all_chapter_dirs="overview \
                          installation \
                          mua \
                          upgrade \
+                         enterprise \
                          iredmail-easy \
                          migrations \
                          howto \
