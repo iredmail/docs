@@ -26,8 +26,8 @@ from iRedMail Easy is breeze.
 
 ## Migrate
 
-- Download the latest iRedMail Enterprise Edition and run it on your server
-  which was deployed with iRedMail Easy platform.
+- Follow the tutorial to [install and run iRedMail Enterprise Edition](./install.ee.html),
+  on your server which was deployed with iRedMail Easy platform.
 
     EE will check server environment and find it's deployed with iRedMail Easy
     platform, then runs http service on port `8080`, please make sure it's
