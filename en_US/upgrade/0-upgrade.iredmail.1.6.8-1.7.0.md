@@ -100,17 +100,17 @@ ConcurrentDatabaseReload no
 Copy and run shell commands below to implement this improvement:
 ```
 # Create new SQL table 'fail2ban.jails' to store jail names:
-wget -O /tmp/f2b.sql https://github.com/iredmail/iRedMail/tree/1.7.0/update/1.7.0/fail2ban.mysql
+wget -O /tmp/f2b.sql https://raw.githubusercontent.com/iredmail/iRedMail/1.7.0/update/1.7.0/fail2ban.mysql
 mysql fail2ban < /tmp/f2b.sql
 rm -f /tmp/f2b.sql
 
 # Replace action script:
 wget -O /usr/local/bin/fail2ban_banned_db \
-    https://github.com/iredmail/iRedMail/tree/1.7.0/samples/fail2ban/bin/fail2ban_banned_db
+    https://raw.githubusercontent.com/iredmail/iRedMail/1.7.0/samples/fail2ban/bin/fail2ban_banned_db
 
 # Replace action config file
 wget -O /etc/fail2ban/action.d/banned_db.conf \
-    https://github.com/iredmail/iRedMail/tree/1.7.0/samples/fail2ban/action.d/banned_db.conf
+    https://raw.githubusercontent.com/iredmail/iRedMail/1.7.0/samples/fail2ban/action.d/banned_db.conf
 
 # Restarting fail2ban service is required:
 systemctl restart fail2ban
@@ -129,18 +129,18 @@ systemctl restart fail2ban
 Copy and run shell commands below to implement this improvement:
 ```
 # Create new SQL table 'fail2ban.jails' to store jail names:
-wget -O /tmp/f2b.sql https://github.com/iredmail/iRedMail/tree/1.7.0/update/1.7.0/fail2ban.pgsql
+wget -O /tmp/f2b.sql https://raw.githubusercontent.com/iredmail/iRedMail/1.7.0/update/1.7.0/fail2ban.pgsql
 su - postgres
 psql -d fail2ban -c "\i /tmp/f2b.sql"
 rm -f /tmp/f2b.sql
 
 # Replace action script:
 wget -O /usr/local/bin/fail2ban_banned_db \
-    https://github.com/iredmail/iRedMail/tree/1.7.0/samples/fail2ban/bin/fail2ban_banned_db
+    https://raw.githubusercontent.com/iredmail/iRedMail/1.7.0/samples/fail2ban/bin/fail2ban_banned_db
 
 # Replace action config file
 wget -O /etc/fail2ban/action.d/banned_db.conf \
-    https://github.com/iredmail/iRedMail/tree/1.7.0/samples/fail2ban/action.d/banned_db.conf
+    https://raw.githubusercontent.com/iredmail/iRedMail/1.7.0/samples/fail2ban/action.d/banned_db.conf
 
 # Restarting fail2ban service is required:
 systemctl restart fail2ban
@@ -176,17 +176,17 @@ Please follow this tutorial to implement it:
 Copy and run shell commands below to implement this improvement:
 ```
 # Create new SQL table 'fail2ban.jails' to store jail names:
-wget -O /tmp/f2b.sql https://github.com/iredmail/iRedMail/tree/1.7.0/update/1.7.0/fail2ban.mysql
+wget -O /tmp/f2b.sql https://raw.githubusercontent.com/iredmail/iRedMail/1.7.0/update/1.7.0/fail2ban.mysql
 mysql fail2ban < /tmp/f2b.sql
 rm -f /tmp/f2b.sql
 
 # Replace action script:
 wget -O /usr/local/bin/fail2ban_banned_db \
-    https://github.com/iredmail/iRedMail/tree/1.7.0/samples/fail2ban/bin/fail2ban_banned_db
+    https://raw.githubusercontent.com/iredmail/iRedMail/1.7.0/samples/fail2ban/bin/fail2ban_banned_db
 
 # Replace action config file
 wget -O /etc/fail2ban/action.d/banned_db.conf \
-    https://github.com/iredmail/iRedMail/tree/1.7.0/samples/fail2ban/action.d/banned_db.conf
+    https://raw.githubusercontent.com/iredmail/iRedMail/1.7.0/samples/fail2ban/action.d/banned_db.conf
 
 # Restarting fail2ban service is required:
 systemctl restart fail2ban
