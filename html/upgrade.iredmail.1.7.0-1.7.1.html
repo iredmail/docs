@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Upgrade iRedMail from 1.7.0 to 1.7.1</title>
+        <link rel="stylesheet" type="text/css" href="./css/markdown.css" />
+    </head>
+    <body>
+
+    <div id="navigation">
+    <a href="https://www.iredmail.org" target="_blank">
+        <img alt="iRedMail web site"
+             src="./images/logo-iredmail.png"
+             style="vertical-align: middle; height: 30px;"
+             />&nbsp;
+        <span>iRedMail</span>
+    </a>
+    &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><h1 id="upgrade-iredmail-from-170-to-171">Upgrade iRedMail from 1.7.0 to 1.7.1</h1>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>Check out the on-premises, lightweight email archiving software developed by iRedMail team: <a href="https://spiderd.io/">Spider Email Archiver</a>.</p>
+</div>
+<div class="toc">
+<ul>
+<li><a href="#upgrade-iredmail-from-170-to-171">Upgrade iRedMail from 1.7.0 to 1.7.1</a><ul>
+<li><a href="#changelog">ChangeLog</a></li>
+<li><a href="#general-all-backends-should-apply-these-changes">General (All backends should apply these changes)</a><ul>
+<li><a href="#update-etciredmail-release-with-new-iredmail-version-number">Update /etc/iredmail-release with new iRedMail version number</a></li>
+</ul>
+</li>
+<li><a href="#for-mariadb-backend">For MariaDB backend</a><ul>
+<li><a href="#fixed-amavisd-cannot-save-mail-subject-longer-than-255-characters">Fixed: Amavisd cannot save mail subject longer than 255 characters.</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Paid Remote Upgrade Support</p>
+<p>We offer remote upgrade support if you don't want to get your hands dirty,
+check <a href="https://www.iredmail.org/support.html">the details</a> and
+<a href="https://www.iredmail.org/contact.html">contact us</a>.</p>
+</div>
+<h2 id="changelog">ChangeLog</h2>
+<ul>
+<li>XX YY, 2024: initial publish.</li>
+</ul>
+<h2 id="general-all-backends-should-apply-these-changes">General (All backends should apply these changes)</h2>
+<h3 id="update-etciredmail-release-with-new-iredmail-version-number">Update <code>/etc/iredmail-release</code> with new iRedMail version number</h3>
+<p>iRedMail stores the release version in <code>/etc/iredmail-release</code> after
+installation, it's recommended to update this file after you upgraded iRedMail,
+so that you can know which version of iRedMail you're running. For example:</p>
+<pre><code>1.7.1
+</code></pre>
+<h2 id="for-mariadb-backend">For MariaDB backend</h2>
+<h3 id="fixed-amavisd-cannot-save-mail-subject-longer-than-255-characters">Fixed: Amavisd cannot save mail subject longer than 255 characters.</h3>
+<p>iRedMail uses <code>VARBINARY(255)</code> to store mail subject in Amavisd database,
+it fails if subject is longer.</p>
+<pre><code>wget -O /tmp/amavisd.sql https://raw.githubusercontent.com/iredmail/iRedMail/1.7.1/update/1.7.1/amavisd.mysql
+mysql amavisd &lt; /tmp/amavisd.sql
+rm -f /tmp/amavisd.sql
+</code></pre><div class="footer">
+    <p style="text-align: center; color: grey;">All documents are available in <a href="https://github.com/iredmail/docs/">GitHub repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://github.com/iredmail/docs/archive/master.zip">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
+</div></body></html>
