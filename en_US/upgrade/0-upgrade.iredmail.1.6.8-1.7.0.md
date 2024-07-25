@@ -98,6 +98,7 @@ If you have netdata installed, you can upgrade it by following this tutorial:
 ### [OPTIONAL] Disable multi-threaded database reload in ClamAV
 
 Add this parameter in ClamAV daemon config file, then restart ClamAV daemon service.
+
 - On RHEL/CentOS, it's `/etc/clamd.d/amavisd.conf`.
 - On Debian/Ubuntu, it's `/etc/clamav/clamd.conf`.
 - On FreeBSD, it's `/usr/local/etc/clamd.conf`.
