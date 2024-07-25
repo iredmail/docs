@@ -124,6 +124,11 @@ Please add this new parameter and upgrade SOGo to latest nightly build.</p>
 <p>If you have netdata installed, you can upgrade it by following this tutorial:
 <a href="./upgrade.netdata.html">Upgrade netdata</a>.</p>
 <h3 id="optional-disable-multi-threaded-database-reload-in-clamav">[OPTIONAL] Disable multi-threaded database reload in ClamAV</h3>
+<p>Add this parameter in ClamAV daemon config file, then restart ClamAV daemon service.
+- On RHEL/CentOS, it's <code>/etc/clamd.d/amavisd.conf</code>.
+- On Debian/Ubuntu, it's <code>/etc/clamav/clamd.conf</code>.
+- On FreeBSD, it's <code>/usr/local/etc/clamd.conf</code>.
+- On OpenBSD, it's <code>/etc/clamd.conf</code>.</p>
 <pre><code>ConcurrentDatabaseReload no
 </code></pre>
 <h2 id="for-mariadb-backend">For MariaDB backend</h2>
