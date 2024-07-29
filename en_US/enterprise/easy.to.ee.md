@@ -34,6 +34,10 @@ from iRedMail Easy is breeze.
     open in your firewall, then visit it with a web browser. You should see a
     web page like below.
 
+    Since HSTS is enabled by default in iRedMail, web browser may refuse to
+    access port `8080` due to missing SSL connection, please visit with server
+    IP address instead in this case.
+
 - Login to iRedMail Easy platform: <https://easy.iredmail.org/>
 - Click `Mail Servers` on left sidebar.
 - Click `Export` to export the server settings.
