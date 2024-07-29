@@ -35,8 +35,9 @@ from iRedMail Easy is breeze.
     web page like below.
 
     Since HSTS is enabled by default in iRedMail, web browser may refuse to
-    access port `8080` due to missing SSL connection, please visit with server
-    IP address instead in this case.
+    access port `8080` with server hostname and `http` protocol, for example,
+    `http://mail.domain.com:8080`, please visit server IP address instead in
+    this case: `http://x.x.x.x:8080`.
 
 - Login to iRedMail Easy platform: <https://easy.iredmail.org/>
 - Click `Mail Servers` on left sidebar.
