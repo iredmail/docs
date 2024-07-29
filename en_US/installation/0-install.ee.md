@@ -35,8 +35,10 @@ find the installation guides here: [Install iRedMail](./index.html#install).
 !!! warning
 
     * iRedMail Enterprise Edition is designed to be deployed on a fresh / clean
-      server, which means you should not have other network services running
-      on the server __BEFORE__ iRedMail installation.
+      server, or migrate from an iRedMail server deployed with iRedMail Easy
+      platform. For new installation, it will install and configure required
+      components, so you should not have other network services installed or
+      running on the server __BEFORE__ installation.
     * iRedMail Enterprise Edition will install and configure all required
       software automatically.
     * Many ISPs block network port 25 by default, it's used for communication
