@@ -29,6 +29,10 @@
 </thead>
 <tbody>
 <tr>
+<td><a href="#v1.0-beta7">v1.0-beta7</a></td>
+<td>2024-08-02</td>
+</tr>
+<tr>
 <td><a href="#v1.0-beta6">v1.0-beta6</a></td>
 <td>2024-05-31</td>
 </tr>
@@ -42,6 +46,58 @@
 </tr>
 </tbody>
 </table>
+<h2 id="v1.0-beta7">v1.0-beta7, Aug 2, 2024</h2>
+<ul>
+<li>[NEW] API document is now embedded and accessible by clicking <code>API Doc</code> link on
+  page foot after logged in as global admin.</li>
+<li>
+<p>[NEW] Amavisd integration:</p>
+<ul>
+<li>View basic info of incoming and outgoing emails.</li>
+<li>Manage global, per-domain and per-user spam policy.</li>
+<li>View, release, delete quarantined emails.</li>
+<li>Add sender or recipient to whitelist or blacklist on different mail list pages.</li>
+<li>Show statistics of latest 24 hours on Dashboard page.</li>
+</ul>
+</li>
+<li>
+<p>Improvements:</p>
+<ul>
+<li>[server] User password is forced to be at least 8 characters for security concern.</li>
+<li>[server] Improve SQL table <code>amavisd.msgs</code> for better performance by
+  adding 5 columns: sender_domain, sender_mail, rid, rcpt_domain, rcpt_mail.</li>
+<li>[server] FTS is now available on CentOS / Rocky / AlmaLinux 9.
+  Defaults to disabled.</li>
+<li>[server] Track user last login date:<ul>
+<li>Store user last login time in PostgreSQL backend on Debian 12,
+  Ubuntu 22.04 and 24.04, CentOS / Rocky / AlmaLinux 9, OpenBSD 7.3 and later.
+  Note: MariaDB / OpenLDAP backends already have this feature.</li>
+<li>It's now enabled all backends by default if it's supported by Dovecot.</li>
+</ul>
+</li>
+<li>[web] Remove duplicate Enable / Disable options in user / list / alias
+  account list page.</li>
+<li>[web] Able to enable / disable account on mailing list and mail alias list
+  pages by clicking the account status icon.</li>
+<li>[web] Many minor UI improvements.</li>
+</ul>
+</li>
+<li>
+<p>Fixed issues:</p>
+<ul>
+<li>[playbook] Postfix config is messed and not enable SMTP smuggling fix.
+  Thanks to Ian for the feedback.</li>
+<li>[web] Cannot update user's employee ID.</li>
+<li>[web] Cannot view mail alias accounts and mailing lists in SOGo address book.</li>
+</ul>
+</li>
+<li>
+<p>Updated packages:</p>
+<ul>
+<li>netdata v1.46.3</li>
+</ul>
+</li>
+</ul>
 <h2 id="v1.0-beta6">v1.0-beta6, May 31, 2024</h2>
 <ul>
 <li>A valid license key is now required for installation.</li>

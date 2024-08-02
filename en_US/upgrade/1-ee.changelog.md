@@ -6,11 +6,47 @@
 
 | Version | Release Date |
 |---|---|
+| [v1.0-beta7](#v1.0-beta7) | 2024-08-02 |
 | [v1.0-beta6](#v1.0-beta6) | 2024-05-31 |
 | [v1.0-beta5](#v1.0-beta5) | 2024-05-08 |
 | [v1.0-beta4](#v1.0-beta4) | 2024-04-26 |
 
+## v1.0-beta7, Aug 2, 2024 {: #v1.0-beta7 }
 
+- [NEW] API document is now embedded and accessible by clicking `API Doc` link on
+  page foot after logged in as global admin.
+- [NEW] Amavisd integration:
+    - View basic info of incoming and outgoing emails.
+    - Manage global, per-domain and per-user spam policy.
+    - View, release, delete quarantined emails.
+    - Add sender or recipient to whitelist or blacklist on different mail list pages.
+    - Show statistics of latest 24 hours on Dashboard page.
+
+- Improvements:
+    - [server] User password is forced to be at least 8 characters for security concern.
+    - [server] Improve SQL table `amavisd.msgs` for better performance by
+      adding 5 columns: sender_domain, sender_mail, rid, rcpt_domain, rcpt_mail.
+    - [server] FTS is now available on CentOS / Rocky / AlmaLinux 9.
+      Defaults to disabled.
+    - [server] Track user last login date:
+        - Store user last login time in PostgreSQL backend on Debian 12,
+          Ubuntu 22.04 and 24.04, CentOS / Rocky / AlmaLinux 9, OpenBSD 7.3 and later.
+          Note: MariaDB / OpenLDAP backends already have this feature.
+        - It's now enabled all backends by default if it's supported by Dovecot.
+    - [web] Remove duplicate Enable / Disable options in user / list / alias
+      account list page.
+    - [web] Able to enable / disable account on mailing list and mail alias list
+      pages by clicking the account status icon.
+    - [web] Many minor UI improvements.
+
+- Fixed issues:
+    - [playbook] Postfix config is messed and not enable SMTP smuggling fix.
+      Thanks to Ian for the feedback.
+    - [web] Cannot update user's employee ID.
+    - [web] Cannot view mail alias accounts and mailing lists in SOGo address book.
+
+- Updated packages:
+    - netdata v1.46.3
 ## v1.0-beta6, May 31, 2024 {: #v1.0-beta6 }
 
 - A valid license key is now required for installation.
