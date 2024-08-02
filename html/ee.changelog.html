@@ -48,8 +48,9 @@
 </table>
 <h2 id="v1.0-beta7">v1.0-beta7, Aug 2, 2024</h2>
 <ul>
-<li>[NEW] API document is now embedded and accessible by clicking <code>API Doc</code> link on
-  page foot after logged in as global admin.</li>
+<li>[NEW] Full documentation of the RESTful API interface is now embedded and
+  accessible by clicking <code>API Doc</code> link on page foot after logged in as global
+  admin. It's also accessible online: https://www.iredmail.org/ee/api/index.html.</li>
 <li>
 <p>[NEW] Amavisd integration:</p>
 <ul>
@@ -64,8 +65,9 @@
 <p>Improvements:</p>
 <ul>
 <li>[server] User password is forced to be at least 8 characters for security concern.</li>
-<li>[server] Improve SQL table <code>amavisd.msgs</code> for better performance by
-  adding 5 columns: sender_domain, sender_mail, rid, rcpt_domain, rcpt_mail.</li>
+<li>[server] Add 5 new columns in SQL table <code>amavisd.msgs</code> to simplify SQL
+  queries and better performance: <code>sender_domain</code>, <code>sender_mail</code>, <code>rid</code>,
+  <code>rcpt_domain</code>, <code>rcpt_mail</code>.</li>
 <li>[server] FTS is now available on CentOS / Rocky / AlmaLinux 9.
   Defaults to disabled.</li>
 <li>[server] Track user last login date:<ul>

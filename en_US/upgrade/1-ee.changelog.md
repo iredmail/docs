@@ -13,8 +13,9 @@
 
 ## v1.0-beta7, Aug 2, 2024 {: #v1.0-beta7 }
 
-- [NEW] API document is now embedded and accessible by clicking `API Doc` link on
-  page foot after logged in as global admin.
+- [NEW] Full documentation of the RESTful API interface is now embedded and
+  accessible by clicking `API Doc` link on page foot after logged in as global
+  admin. It's also accessible online: https://www.iredmail.org/ee/api/index.html.
 - [NEW] Amavisd integration:
     - View basic info of incoming and outgoing emails.
     - Manage global, per-domain and per-user spam policy.
@@ -24,8 +25,9 @@
 
 - Improvements:
     - [server] User password is forced to be at least 8 characters for security concern.
-    - [server] Improve SQL table `amavisd.msgs` for better performance by
-      adding 5 columns: sender_domain, sender_mail, rid, rcpt_domain, rcpt_mail.
+    - [server] Add 5 new columns in SQL table `amavisd.msgs` to simplify SQL
+      queries and better performance: `sender_domain`, `sender_mail`, `rid`,
+      `rcpt_domain`, `rcpt_mail`.
     - [server] FTS is now available on CentOS / Rocky / AlmaLinux 9.
       Defaults to disabled.
     - [server] Track user last login date:
