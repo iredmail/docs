@@ -12,10 +12,6 @@
     check [the details](https://www.iredmail.org/support.html) and
     [contact us](https://www.iredmail.org/contact.html).
 
-!!! warning
-
-    THIS IS A DRAFT DOCUMENT, DO NOT APPLY IT ON PRODUCTION SERVER.
-
 ## ChangeLog
 
 - Aug 05, 2024: initial publish.

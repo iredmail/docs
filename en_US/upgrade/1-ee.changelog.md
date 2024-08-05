@@ -48,7 +48,10 @@
     - [web] Cannot view mail alias accounts and mailing lists in SOGo address book.
 
 - Updated packages:
-    - netdata v1.46.3
+    + netdata v1.46.3
+    + Roundcube webmail -> 1.6.8. It fixes 3 security vulnerabilities.
+      FYI https://roundcube.net/news/2024/08/04/security-updates-1.6.8-and-1.5.8
+
 ## v1.0-beta6, May 31, 2024 {: #v1.0-beta6 }
 
 - A valid license key is now required for installation.
