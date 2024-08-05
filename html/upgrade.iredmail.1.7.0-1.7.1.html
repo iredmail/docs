@@ -28,6 +28,11 @@
 <li><a href="#update-etciredmail-release-with-new-iredmail-version-number">Update /etc/iredmail-release with new iRedMail version number</a></li>
 </ul>
 </li>
+<li><a href="#general-all-backends-should-apply-these-changes_1">General (All backends should apply these changes)</a><ul>
+<li><a href="#upgrade-roundcube-webmail-to-the-latest-stable-release-168-or-158">Upgrade Roundcube webmail to the latest stable release (1.6.8 or 1.5.8)</a></li>
+<li><a href="#upgrade-netdata-to-the-latest-stable-release-1463">Upgrade netdata to the latest stable release (1.46.3)</a></li>
+</ul>
+</li>
 <li><a href="#for-mariadb-backend">For MariaDB backend</a><ul>
 <li><a href="#fixed-amavisd-cannot-save-mail-subject-longer-than-255-characters">Fixed: Amavisd cannot save mail subject longer than 255 characters.</a></li>
 </ul>
@@ -48,7 +53,7 @@ check <a href="https://www.iredmail.org/support.html">the details</a> and
 </div>
 <h2 id="changelog">ChangeLog</h2>
 <ul>
-<li>XX YY, 2024: initial publish.</li>
+<li>Aug 05, 2024: initial publish.</li>
 </ul>
 <h2 id="general-all-backends-should-apply-these-changes">General (All backends should apply these changes)</h2>
 <h3 id="update-etciredmail-release-with-new-iredmail-version-number">Update <code>/etc/iredmail-release</code> with new iRedMail version number</h3>
@@ -57,6 +62,32 @@ installation, it's recommended to update this file after you upgraded iRedMail,
 so that you can know which version of iRedMail you're running. For example:</p>
 <pre><code>1.7.1
 </code></pre>
+<h2 id="general-all-backends-should-apply-these-changes_1">General (All backends should apply these changes)</h2>
+<h3 id="upgrade-roundcube-webmail-to-the-latest-stable-release-168-or-158">Upgrade Roundcube webmail to the latest stable release (1.6.8 or 1.5.8)</h3>
+<div class="admonition warning">
+<p class="admonition-title">CentOS 7: please stick to Roundcube 1.5.2</p>
+<p><strong>It's time to leave your comfort zone and upgrade this server to at least
+CentOS Stream 8 or <a href="https://docs.rockylinux.org/guides/migrate2rocky/">Rocky Linux 8</a>.</strong></p>
+<p>If you're running CentOS 7, please upgrade to Roundcube 1.5.2 instead.
+Roundcube 1.5.3 requires PHP-7, but CentOS 7 ships PHP-5.4 which is not
+supported by Roundcube 1.5.3 and later releases, including 1.6.x.</p>
+<p><strong>Unfortunately, Roundcube 1.5.2 does NOT contains multiple security fixes
+which shipped in Roundcube 1.5.6 and 1.6.5.</strong></p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Ubuntu 18.04: please stick to Roundcube 1.5.8</p>
+<p>Ubuntu 18.04 runs old php version, v1.5.6 contains the security fix too.
+Anyway, please consider upgrading your OS to at least 20.04 LTS as soon as
+possible.</p>
+</div>
+<p>Both Roundcube 1.6.8 and 1.5.8 contain fixes to 3 security vulnerabilities,
+please upgrade as soon as possible.</p>
+<ul>
+<li><a href="https://github.com/roundcube/roundcubemail/wiki/Upgrade">Upgrade Roundcube</a>.</li>
+</ul>
+<h3 id="upgrade-netdata-to-the-latest-stable-release-1463">Upgrade netdata to the latest stable release (1.46.3)</h3>
+<p>If you have netdata installed, you can upgrade it by following this tutorial:
+<a href="./upgrade.netdata.html">Upgrade netdata</a>.</p>
 <h2 id="for-mariadb-backend">For MariaDB backend</h2>
 <h3 id="fixed-amavisd-cannot-save-mail-subject-longer-than-255-characters">Fixed: Amavisd cannot save mail subject longer than 255 characters.</h3>
 <p>iRedMail uses <code>VARBINARY(255)</code> to store mail subject in Amavisd database,
