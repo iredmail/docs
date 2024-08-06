@@ -6,6 +6,13 @@
 
 [TOC]
 
+## Version: 2024080501 (Aug 5, 2024) {: id=2024080501 }
+
+* Updated packages:
+    - Roundcube 1.6.8 and 1.5.8, both contain fixes for 3 security vulnerabilities.
+      FYI https://roundcube.net/news/2024/08/04/security-updates-1.6.8-and-1.5.8
+    - netdata v1.46.3
+
 ## Version: 2024071701 (Jul 17, 2024) {: id=2024071701 }
 
 * Ubuntu 24.04 LTS is now supported.
