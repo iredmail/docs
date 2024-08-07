@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Migrate from iRedMail to iRedMail Enterprise Edition</title>
+        <link rel="stylesheet" type="text/css" href="./css/markdown.css" />
+    </head>
+    <body>
+
+    <div id="navigation">
+    <a href="https://www.iredmail.org" target="_blank">
+        <img alt="iRedMail web site"
+             src="./images/logo-iredmail.png"
+             style="vertical-align: middle; height: 30px;"
+             />&nbsp;
+        <span>iRedMail</span>
+    </a>
+    &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><h1 id="migrate-from-iredmail-to-iredmail-enterprise-edition">Migrate from iRedMail to iRedMail Enterprise Edition</h1>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>Check out the lightweight on-premises email archiving software developed by iRedMail team: <a href="https://spiderd.io/">Spider Email Archiver</a>.</p>
+</div>
+<div class="toc">
+<ul>
+<li><a href="#migrate-from-iredmail-to-iredmail-enterprise-edition">Migrate from iRedMail to iRedMail Enterprise Edition</a><ul>
+<li><a href="#summary">Summary</a></li>
+<li><a href="#requirements">Requirements</a></li>
+<li><a href="#backup-first">Backup first</a></li>
+<li><a href="#mysql-backend-remove-mysql-not-mariadb-packages">MySQL backend: Remove MySQL (not MariaDB) packages</a></li>
+<li><a href="#create-required-files-used-by-iredmail-easy">Create required files used by iRedMail Easy</a></li>
+<li><a href="#copy-files-to-new-locations">Copy files to new locations</a></li>
+<li><a href="#split-custom-settings">Split custom settings</a><ul>
+<li><a href="#postfix">Postfix</a></li>
+<li><a href="#amavisd">Amavisd</a></li>
+<li><a href="#spamassassin">SpamAssassin</a></li>
+<li><a href="#roundcube-webmail">Roundcube Webmail</a></li>
+<li><a href="#iredapd">iRedAPD</a></li>
+<li><a href="#iredadmin-pro">iRedAdmin(-Pro)</a></li>
+</ul>
+</li>
+<li><a href="#run-the-full-deployment-with-iredmail-easy-platform">Run the full deployment with iRedMail Easy platform</a></li>
+<li><a href="#post-deployment-tasks">Post-deployment tasks</a><ul>
+<li><a href="#remove-duplicate-cron-jobs">Remove duplicate cron jobs</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>iRedMail Team can help migrate your iRedMail server, feel free to
+<a href="https://www.iredmail.org/contact.html">Contact Us</a>.</p>
+</div>
+<h2 id="summary">Summary</h2>
+<p>iRedMail Enterprise Edition offers easy deployment, one-click upgrade support and
+technical support for your iRedMail servers, it's very easy to keep your
+server up to date with the ease to use web UI, and get issues solved by
+iRedMail Team quickly.</p>
+<p>For more details about iRedMail Enterprise Edition, please
+<a href="https://www.iredmail.org/enterprise.html">check our website</a>.</p>
+<h2 id="requirements">Requirements</h2>
+<ul>
+<li>A working iRedMail server which was deployed with or upgraded to the latest
+  iRedMail release.</li>
+<li>Your iRedMail server must be running one of supported Linux/OpenBSD
+  distribution releases:<ul>
+<li>Ubuntu 18.04 LTS, 20.04 LTS, 22.04 LTS</li>
+<li>Debian 10, 11, 12</li>
+<li>CentOS 7, 8 (NOT RECOMMENDED FOR NEW SERVER)</li>
+<li>CentOS Stream 8, 9</li>
+<li>Rocky Linux 8, 9</li>
+<li>AlmaLinux 8, 9</li>
+<li>OpenBSD 7.x</li>
+</ul>
+</li>
+</ul>
+<p>Unfortunately, FreeBSD is not supported by iRedMail Enterprise Edition.</p>
+<h2 id="backup-first">Backup first</h2>
+<p>Please backup all important data before preparing the migration, including but not limtied to:</p>
+<ul>
+<li>
+<p>All SQL/LDAP databases.</p>
+<p>iRedMail Easy will use existing SQL/LDAP databases, no data corruption is expected.</p>
+</li>
+<li>
+<p>All config files under <code>/etc</code> directory.</p>
+<p>After moved to iRedMail Easy, you should place all your custom settings in files
+under <code>/opt/iredmail/custom/&lt;software&gt;/</code>.</p>
+</li>
+</ul>
+<h2 id="mysql-backend-remove-mysql-not-mariadb-packages">MySQL backend: Remove MySQL (not MariaDB) packages</h2>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<ul>
+<li>This is not necessary if you're running MariaDB backend.</li>
+<li>If you're replacing MySQL by MariaDB on Ubuntu 18.04, please disable
+  <code>apparmor</code> service before removing MySQL packages. Check
+  <a href="https://mariadb.com/kb/en/the-community-mariadb-troubles-only-running-after-reboot-times-out-when-try/">this tutorial</a> for known issue and solutions. Also related bug report in
+  <a href="https://bugs.launchpad.net/ubuntu/+source/mariadb-10.1/+bug/1806263">Ubuntu LaunchPad</a>.</li>
+</ul>
+</div>
+<p>iRedMail Easy installs MariaDB instead of MySQL, if you're running MySQL
+backend, you need to:</p>
+<ul>
+<li>Backup all databases</li>
+<li>Remove mysql packages</li>
+<li>Restore backup SQL files after iRedMail Easy installation</li>
+</ul>
+<h2 id="create-required-files-used-by-iredmail-easy">Create required files used by iRedMail Easy</h2>
+<p>iRedMail Easy doesn't store any SQL/LDAP passwords on its deployment servers,
+instead it reads from files under <code>/root/.iredmail/kv/</code> on your server to get
+the passwords.</p>
+<p>Please create these files under <code>/root/.iredmail/kv/</code> with correct passwords
+manually, each file should contain only one line, passwords must be in plain
+text, not the hashed one.</p>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>You can find all info in the <code>iRedMail.tips</code> file under iRedMail
+installation directory, for example, <code>/root/iRedMail-0.9.9/iRedMail.tips</code>.
+If you don't have this file anymore, you can still find them in other
+config files.</p>
+</div>
+<table>
+<thead>
+<tr>
+<th>Backend</th>
+<th>File Name</th>
+<th>Comment</th>
+<th>Value could be found in file</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>LDAP, MySQL</td>
+<td><code>sql_user_root</code></td>
+<td>MySQL root password.</td>
+<td><code>/root/.my.cnf</code></td>
+</tr>
+<tr>
+<td>PostgreSQL</td>
+<td><code>sql_user_postgres</code> (Linux)<br/><code>sql_user__postgresql</code> (OpenBSD)</td>
+<td>PostgreSQL root password.</td>
+<td><code>/var/lib/pgsql/.pgpass</code> (CentOS), or <code>/var/lib/postgresql/.pgpass</code> (Debian/Ubuntu), <code>/var/postgresql/.pgpass</code> (OpenBSD)</td>
+</tr>
+<tr>
+<td>LDAP</td>
+<td><code>ldap_root_password</code></td>
+<td>Password of LDAP root dn (cn=Manager,dc=xx,dc=xx)</td>
+<td></td>
+</tr>
+<tr>
+<td>LDAP</td>
+<td><code>ldap_vmail_password</code></td>
+<td>Password of LDAP dn <code>cn=vmail,dc=xx,dc=xx</code></td>
+<td><code>/etc/postfix/ldap/*.cf</code></td>
+</tr>
+<tr>
+<td>LDAP</td>
+<td><code>ldap_vmailadmin_password</code></td>
+<td>Password of LDAP dn <code>cn=vmailadmin,dc=xx,dc=xx</code></td>
+<td><code>/opt/www/iredadmin/settings.py</code></td>
+</tr>
+<tr>
+<td>MySQL, PostgreSQL</td>
+<td><code>sql_user_vmail</code></td>
+<td>Password of SQL user <code>vmail</code></td>
+<td><code>/etc/postfix/mysql/*.cf</code> or <code>/etc/postfix/pgsql/*.cf</code></td>
+</tr>
+<tr>
+<td>MySQL, PostgreSQL</td>
+<td><code>sql_user_vmailadmin</code></td>
+<td>Password of SQL user <code>vmailadmin</code></td>
+<td><code>/opt/www/iredadmin/settings.py</code></td>
+</tr>
+<tr>
+<td>ALL</td>
+<td><code>sql_user_amavisd</code></td>
+<td>Password of SQL user <code>amavisd</code></td>
+<td><code>/etc/amavisd/amavisd.conf</code> (Linux/OpenBSD)<br><code>/etc/amavis/conf.d/50-user</code> (Debian/Ubuntu)</td>
+</tr>
+<tr>
+<td>ALL</td>
+<td><code>sql_user_sa_bayes</code></td>
+<td>Password of SQL user <code>sa_bayes</code>. If you didn't integrate SpamAssassin with SQL database, it's ok to not create this file.</td>
+<td><code>/etc/mail/spamassassin/local.cf</code></td>
+</tr>
+<tr>
+<td>ALL</td>
+<td><code>sql_user_iredadmin</code></td>
+<td>Password of SQL user <code>iredadmin</code></td>
+<td><code>/opt/www/iredadmin/settings.py</code></td>
+</tr>
+<tr>
+<td>ALL</td>
+<td><code>sql_user_iredapd</code></td>
+<td>Password of SQL user <code>iredapd</code></td>
+<td><code>/opt/iredapd/settings.py</code></td>
+</tr>
+<tr>
+<td>ALL</td>
+<td><code>sql_user_roundcube</code></td>
+<td>Password of SQL user <code>roundcube</code></td>
+<td><code>/root/.my.cnf-roundcube</code> or <code>/opt/www/roundcubemail/config/config.inc.php</code></td>
+</tr>
+<tr>
+<td>ALL</td>
+<td><code>sql_user_sogo</code></td>
+<td>Password of SQL user <code>sogo</code>. If you didn't install SOGo, it's ok to not create this file.</td>
+<td><code>/etc/sogo/sogo.conf</code></td>
+</tr>
+<tr>
+<td>ALL</td>
+<td><code>sql_user_netdata</code></td>
+<td>Password of SQL user <code>netdata</code>. If you didn't install netdata, it's ok to not create this file.</td>
+<td><code>/root/.my.cnf-netdata</code> or <code>/opt/netdata/etc/netdata/my.cnf</code></td>
+</tr>
+<tr>
+<td>ALL</td>
+<td><code>sql_user_fail2ban</code></td>
+<td>Password of SQL user <code>fail2ban</code>. If you didn't integrate Fail2ban with SQL server, it's ok to not create this file.</td>
+<td><code>/root/.my.cnf-fail2ban</code> (OpenLDAP or MariaDB backends), or <code>/var/lib/pgsql/.pgpass</code> (CentOS), or <code>/var/lib/postgresql/.pgpass</code> (Debian/Ubuntu), <code>/var/postgresql/.pgpass</code> (OpenBSD)</td>
+</tr>
+<tr>
+<td>ALL</td>
+<td><code>iredapd_srs_secret</code></td>
+<td>The secret string used to sign SRS. It's ok if not present.</td>
+<td><code>/opt/iredapd/settings.py</code>, parameter <code>srs_secrets =</code>.</td>
+</tr>
+<tr>
+<td>ALL</td>
+<td><code>sogo_sieve_master_password</code></td>
+<td>The Dovecot master user used by SOGo. It's ok if not present.</td>
+<td><code>/etc/sogo/sieve.cred</code>.</td>
+</tr>
+<tr>
+<td>ALL</td>
+<td><code>roundcube_des_key</code></td>
+<td>The DES key used by Roundcube to encrypt the session.</td>
+<td><code>/opt/www/roundcubemail/config/config.inc.php</code>, parameter <code>$config['des_key'] =</code>.</td>
+</tr>
+<tr>
+<td>ALL</td>
+<td><code>mlmmjadmin_api_token</code></td>
+<td>API token for authentication.</td>
+<td><code>/opt/mlmmjadmin/settings.py</code>, parameter <code>api_auth_tokens =</code>.</td>
+</tr>
+<tr>
+<td>ALL</td>
+<td><code>first_domain_admin_password</code></td>
+<td>Password of the mail user <code>postmaster@&lt;your-domain.com&gt;</code>.</td>
+<td><code>your-domain.com</code> is the first mail domain name you (are going to) set in mail server profile page on iRedMail Easy platform, you can find it in mail server profile page, under tab <code>Settings</code>.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="copy-files-to-new-locations">Copy files to new locations</h2>
+<p>iRedMail Easy stores SSL cert/key files under <code>/opt/iredmail/ssl/</code>, you need to
+either copy or (symbol) link existing ssl cert/key to this directory with
+correct files names,</p>
+<ul>
+<li><code>/opt/iredmail/ssl/key.pem</code>: private key</li>
+<li><code>/opt/iredmail/ssl/cert.pem</code>: certificate</li>
+<li><code>/opt/iredmail/ssl/combined.pem</code>: full chain</li>
+</ul>
+<h2 id="split-custom-settings">Split custom settings</h2>
+<p>iRedMail Easy maintains the core config files, and each time you perform
+full deployment or upgrade, these core config files will be re-generated, all
+your custom config files will be lost. So it's very important to not touch
+these core config files and just store your custom settings in pre-defined
+files under <code>/opt/iredmail/custom/&lt;software&gt;/</code>.</p>
+<h3 id="postfix">Postfix</h3>
+<ul>
+<li>
+<p>Files under <code>/etc/postfix/</code>:</p>
+<ul>
+<li><code>aliases</code></li>
+<li><code>body_checks.pcre</code></li>
+<li><code>command_filter.pcre</code></li>
+<li><code>header_checks.pcre</code></li>
+<li><code>helo_access.pcre</code></li>
+<li><code>postscreen_access.cidr</code></li>
+<li><code>postscreen_dnsbl_reply.texthash</code></li>
+<li><code>rdns_access.pcre</code></li>
+<li><code>sender_access.pcre</code></li>
+<li><code>smtp_tls_policy</code></li>
+<li><code>transport</code></li>
+</ul>
+<p>Please copy your custom settings from above files to the files with same
+names under <code>/opt/iredmail/custom/postfix/</code>. For example:</p>
+<ul>
+<li>From <code>/etc/postfix/aliases</code> to <code>/opt/iredmail/custom/postfix/aliases</code>.</li>
+<li>From <code>/etc/postfix/body_checks.pcre</code> to <code>/opt/iredmail/custom/postfix/body_checks.pcre</code>.</li>
+<li>From <code>/etc/postfix/command_filter.pcre</code> to <code>/opt/iredmail/custom/postfix/command_filter.pcre</code>.</li>
+</ul>
+<p>You need to create directory <code>/opt/iredmail/custom/postfix/</code> and the files
+if they don't exist, iRedMail Easy will set correct owner/group and
+permission for them during deployment.</p>
+<p>If you're lazy and don't want to check files one by one, it's ok to simply
+copy these files from <code>/etc/postfix/</code> to <code>/opt/iredmail/custom/postfix/</code>
+directly, and (optionally) remove non-custom settings later.</p>
+</li>
+<li>
+<p><code>/etc/postfix/main.cf</code> and <code>/etc/postfix/master.cf</code></p>
+<p>Postfix doesn't support <code>include</code> directive to load extra config files,
+so if you have custom settings in these 2 files, you have to create shell
+script file <code>/opt/iredmail/custom/postfix/custom.sh</code> to update them with
+<code>postconf</code> command during iRedMail Easy deployment or upgrade. For more
+details, please check our
+<a href="./iredmail-easy.best.practice.html#postfix">Best Practice</a> tutorial.</p>
+</li>
+</ul>
+<h3 id="amavisd">Amavisd</h3>
+<ul>
+<li>Copy DKIM keys from <code>/var/lib/dkim/</code> to <code>/opt/iredmail/custom/amavisd/dkim/</code>.</li>
+<li>
+<p>Move all <code>dkim_key(...)</code> parameters from Amavisd config file to
+  <code>/opt/iredmail/custom/amavisd/amavisd.conf</code>:</p>
+<ul>
+<li>RHEL/CentOS: <code>/etc/amavisd/amavisd.conf</code></li>
+<li>Debian/Ubuntu: <code>/etc/amavis/conf.d/50-user</code></li>
+<li>OpenBSD: <code>/etc/amavisd.conf</code></li>
+<li>FreeBSD: <code>/usr/local/etc/amavisd.conf</code></li>
+</ul>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>Please make sure no duplicate <code>dkim_key(...)</code> parameters, otherwise
+Amavisd will fail to start.</p>
+</div>
+</li>
+</ul>
+<h3 id="spamassassin">SpamAssassin</h3>
+<p>Split custom settings from <code>/etc/mail/spamassassin/local.cf</code> to
+<code>/opt/iredmail/custom/spamassassin/custom.cf</code>.</p>
+<p>If you have whitelisted IP addresses/networks listed in Postfix config file
+<code>/etc/postfix/main.cf</code>, parameter <code>mynetworks =</code>, you may want to whitelist
+them to avoid spam/virus scanning in <code>/opt/iredmail/custom/spamassassin/custom.cf</code>
+too. For example:</p>
+<pre><code>trusted_networks 192.168.0.1 172.16.0.0/8
+</code></pre>
+<h3 id="roundcube-webmail">Roundcube Webmail</h3>
+<ul>
+<li>Copy custom settings from <code>/opt/www/roundcubemail/config/config.inc.php</code> to <code>/opt/iredmail/custom/roundcube/config/custom.inc.php</code>.</li>
+<li>Copy third-party plugins from <code>/opt/www/roundcubemail/plugins/</code> to <code>/opt/iredmail/custom/roundcube/plugins/</code>. iRedMail Easy will create symbol link for them automatically.</li>
+<li>Copy third-party or custom skins from <code>/opt/www/roundcubemail/skins/</code> to <code>/opt/iredmail/custom/roundcube/skins/</code>. iRedMail Easy will create symbol link for them automatically.</li>
+</ul>
+<h3 id="iredapd">iRedAPD</h3>
+<p>Copy custom settings from <code>/opt/iredapd/settings.py</code> to
+<code>/opt/iredmail/custom/iredapd/settings.py</code> (this file will be linked back to
+<code>/opt/iredapd/custom_settings.py</code>).</p>
+<p>If you have whitelisted IP addresses/networks listed in Postfix config file
+<code>/etc/postfix/main.cf</code>, parameter <code>mynetworks =</code>, you may want to whitelist
+them to avoid greylisting or other access control in
+<code>/opt/iredmail/custom/iredapd/settings.py</code> too. For example:</p>
+<pre><code>MYNEWTORKS = ['192.168.0.1', '172.16.0.0/8']
+</code></pre>
+<h3 id="iredadmin-pro">iRedAdmin(-Pro)</h3>
+<p>Copy custom settings from <code>/opt/www/iredadmin/settings.py</code> to <code>/opt/iredmail/custom/iredadmin/settings.py</code>.</p>
+<h2 id="run-the-full-deployment-with-iredmail-easy-platform">Run the full deployment with iRedMail Easy platform</h2>
+<p>Please follow our tutorial <a href="./iredmail-easy.getting.start.html">Getting started with iRedMail Easy</a>
+to sign up, and add your mail server info, then perform the full deployment.</p>
+<h2 id="post-deployment-tasks">Post-deployment tasks</h2>
+<h3 id="remove-duplicate-cron-jobs">Remove duplicate cron jobs</h3>
+<p>iRedMail Easy will add required cron jobs for <code>root</code> and <code>sogo</code> users, but it
+can not detect and remove old duplicate jobs, so you have to check cron jobs
+manually and remove duplicate old ones and keep the ones added by iRedMail Easy.</p><div class="footer">
+    <p style="text-align: center; color: grey;">All documents are available in <a href="https://github.com/iredmail/docs/">GitHub repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://github.com/iredmail/docs/archive/master.zip">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
+</div></body></html>
