@@ -202,12 +202,12 @@ postfix/nginx/dovecot after renewed:
 !!! attention
 
     - Replace `<domain>` by the real domain name.
-    - Replace `/etc/ssl/private/key.pem` by the real linked private key file path on your server.
+    - Replace `/etc/ssl/private/iRedMail.key` by the real linked private key file path on your server.
         - On CentOS/Rocky, it's `/etc/pki/tls/private/iRedMail.key`.
         - On Debian/Ubuntu, FreeBSD and OpenBSD, it's `/etc/ssl/private/iRedMail.key`.
 
 ```
-1 3 * * * certbot certificates; certbot renew --post-hook 'ln -sf /etc/letsencrypt/live/<domain>/privkey.pem /etc/ssl/private/key.pem; /usr/sbin/systemctl restart postfix dovecot nginx'
+1 3 * * * certbot certificates; certbot renew --post-hook 'ln -sf /etc/letsencrypt/live/<domain>/privkey.pem /etc/ssl/private/iRedMail.key; /usr/sbin/systemctl restart postfix dovecot nginx'
 ```
 
 ## Cert configuration in different applications
