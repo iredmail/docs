@@ -19,7 +19,7 @@ your server up to date with the ease to use web UI, and get issues solved by
 iRedMail Team quickly.
 
 For more details about iRedMail EE, please
-[check our website](https://www.iredmail.org/enterprise.html).
+[check our website](https://www.iredmail.org/ee.html).
 
 iRedMail EE uses almost same deployment code as iRedMail Easy, so migrating
 from iRedMail Easy is breeze.
