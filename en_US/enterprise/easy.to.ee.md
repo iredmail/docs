@@ -30,9 +30,9 @@ from iRedMail Easy is a breeze.
   on your server which was deployed with iRedMail Easy platform.
 
     EE will check server environment and find it's deployed with iRedMail Easy
-    platform, then runs http service on port `8080`, please make sure it's
-    open in your firewall, then visit it with a web browser. You should see a
-    web page like below.
+    platform, then runs http service on port `8080`, please make sure this port
+    is open in your firewall, then visit it with a web browser and you should
+    see web page like below.
 
     Since HSTS is enabled by default in iRedMail, web browser may refuse to
     access port `8080` with server hostname and `http` protocol, for example,
