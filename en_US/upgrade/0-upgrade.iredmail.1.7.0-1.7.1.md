@@ -28,8 +28,6 @@ so that you can know which version of iRedMail you're running. For example:
 1.7.1
 ```
 
-## General (All backends should apply these changes)
-
 ### Upgrade Roundcube webmail to the latest stable release (1.6.8 or 1.5.8)
 
 !!! warning "CentOS 7: please stick to Roundcube 1.5.2"
