@@ -50,9 +50,12 @@ from iRedMail Easy is a breeze.
 - Click `Export` to export the server settings.
 - Copy the server settings (in JSON format) and paste below, then click
 `Migrate` button to import settings and start migration immediately. It should finish in seconds.
-
-After migrated, you can access new admin UI: `https://your-server/admin/`.
-Login with same accounts you used to login to iRedAdmin or iRedAdmin-Pro.
+- After migrated, access the new web UI `https://your-server/admin/`,
+  login with same admin accounts you used to login to iRedAdmin or iRedAdmin-Pro.
+- After logged in, click `Deployments` on left sidebar, then click
+  `Re-perform full deployment` to apply config file changes to fully migrated
+  to iRedMail EE. Usually it finishes in just seconds.
+- That's all.
 
 If you experienced any issue, please report via the [Ticket system](https://store.iredmail.org/tickets).
 
