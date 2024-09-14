@@ -14,6 +14,8 @@
 
 ## v1.0-beta8, Sep 14, 2024 {: #v1.0-beta8 }
 
+> We're working hard to finish OpenLDAP support in next beta release, v1.0-beta9.
+
 - [NEW] Able to manage global, per-domain and per-user whitelists and
   blacklists on web UI or API interface.
 - [NEW] __Two-factor authentication (2FA)__ with TOTP.
