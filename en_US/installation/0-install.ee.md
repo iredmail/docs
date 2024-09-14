@@ -96,7 +96,7 @@ Linux or OpenBSD, both x86_64/AMD64 and ARM64 are supported:
 * For Linux, x86_64 / amd64:
 
 ```bash
-wget -O /usr/local/bin/iredmail https://dl.iredmail.org/ee/iredmail-enterprise-v1.0-beta7-linux-amd64
+wget -O /usr/local/bin/iredmail https://dl.iredmail.org/ee/iredmail-enterprise-v1.0-beta8-linux-amd64
 chown root:root /usr/local/bin/iredmail
 chmod 0500 /usr/local/bin/iredmail
 ```
@@ -104,7 +104,7 @@ chmod 0500 /usr/local/bin/iredmail
 * For Linux, ARM64 / aarch64:
 
 ```bash
-wget -O /usr/local/bin/iredmail https://dl.iredmail.org/ee/iredmail-enterprise-v1.0-beta7-linux-arm64
+wget -O /usr/local/bin/iredmail https://dl.iredmail.org/ee/iredmail-enterprise-v1.0-beta8-linux-arm64
 chown root:root /usr/local/bin/iredmail
 chmod 0500 /usr/local/bin/iredmail
 ```
@@ -112,7 +112,7 @@ chmod 0500 /usr/local/bin/iredmail
 * For OpenBSD, x86_64 / amd64:
 
 ```bash
-wget -O /usr/local/bin/iredmail https://dl.iredmail.org/ee/iredmail-enterprise-v1.0-beta7-openbsd-amd64
+wget -O /usr/local/bin/iredmail https://dl.iredmail.org/ee/iredmail-enterprise-v1.0-beta8-openbsd-amd64
 chown root:wheel /usr/local/bin/iredmail
 chmod 0500 /usr/local/bin/iredmail
 ```
@@ -120,7 +120,7 @@ chmod 0500 /usr/local/bin/iredmail
 * For OpenBSD, arm64 aarch64:
 
 ```bash
-wget -O /usr/local/bin/iredmail https://dl.iredmail.org/ee/iredmail-enterprise-v1.0-beta7-openbsd-amd64
+wget -O /usr/local/bin/iredmail https://dl.iredmail.org/ee/iredmail-enterprise-v1.0-beta8-openbsd-amd64
 chown root:wheel /usr/local/bin/iredmail
 chmod 0500 /usr/local/bin/iredmail
 ```
