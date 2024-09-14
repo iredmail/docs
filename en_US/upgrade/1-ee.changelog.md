@@ -6,10 +6,63 @@
 
 | Version | Release Date |
 |---|---|
+| [v1.0-beta8](#v1.0-beta8) | 2024-09-14 |
 | [v1.0-beta7](#v1.0-beta7) | 2024-08-02 |
 | [v1.0-beta6](#v1.0-beta6) | 2024-05-31 |
 | [v1.0-beta5](#v1.0-beta5) | 2024-05-08 |
 | [v1.0-beta4](#v1.0-beta4) | 2024-04-26 |
+
+## v1.0-beta8, Sep 14, 2024 {: #v1.0-beta8 }
+
+- [NEW] Able to manage global, per-domain and per-user whitelists and
+  blacklists on web UI or API interface.
+- [NEW] __Two-factor authentication (2FA)__ with TOTP.
+    - [web] Global admin can enforce all domain admins to enable 2FA.
+- [NEW] New translation: es_ES (Español). Thanks to Leslie León Sinclair [leslie84 _at_ nauta _dot_ cub].
+- Improvements:
+    - [api] New parameter `maildir` used to customize mailbox path while
+      creating new user or updating user profile.
+    - [api][web] Optional: Remove data from other applications while removing
+      mailbox or domain. Defaults to keep the data.
+    - [api][web] No more max password length.
+    - [web] Able to disable 2FA for SOGo user.
+    - [web] Able to download deployment log.
+    - [web] 2 new cards on Dashboard page: `Top Senders`, `Top Recipients`.
+    - [web] Display 3 cards on top of domain profile page: `Statistics of
+      latest 24 hours`, `Top Senders`, `Top Recipients`.
+    - [web] Able to configure the notification of quarantined emails:
+      `Quarantined Mails` -> `Quarantine Notify` (the small bell icon).
+    - [web] Able to abort the running deployment.
+    - [web] Able to subscribe to or unsubscribe from newsletter-style
+      mailing list on web UI.
+    - [web] Removed all optional settings in setup wizard. Please tune the
+      server after initial deployment.
+    - [web] Component `Firewall` is disabled during initial setup.
+      Setup will restart firewall at the end of deployment, it blocks the
+      network port used by setup and causes deployment failure. Feel free
+      to enable it after initial setup.
+    - [web] Able to filter user accounts by first character of email address.
+    - [web] Able to filter disabled user accounts.
+    - [server] Disable SpamAssassin rule `RCVD_IN_DNSWL_HI` (Sender listed at
+      http://www.dnswl.org/ with high trust) due to too many false positives.
+- Fixed issues:
+    - [server] Not correctly wrap IPv6 addresses (saved in `Server Settings` ->
+      `Trusted Clients`) in Postfix config file.
+      Thanks to Peter Radig for the feedback.
+    - [server] ClamAV can not scan emails due to permission issue.
+      Thanks to Peter Radig for the feedback.
+    - [api] Normal domain admin may be able to delete any domain via API calls.
+    - [web] Incorrect count while displaying disabled domains.
+    - Rotated log files (/opt/iredmail/log/*.log) were not compressed.
+- Updated packages:
+    - Roundcube 1.6.9, 1.5.9
+    - netdata v1.47.1
+    - Fail2ban 1.1.0 (OpenBSD only)
+    - Adminer has been replaced by AdminerEvo and upgraded to v4.8.4.
+      Original Adminer project was abandoned, AdminerEvo is the successor.
+      https://github.com/adminerevo/adminerevo
+- Known issues:
+    - Fail2ban cannot start on OpenBSD after system reboot.
 
 ## v1.0-beta7, Aug 2, 2024 {: #v1.0-beta7 }
 
