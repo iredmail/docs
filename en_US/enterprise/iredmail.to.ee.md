@@ -27,13 +27,20 @@ For more details about iRedMail Enterprise Edition, please
   iRedMail release.
 - Your iRedMail server must be running one of supported Linux/OpenBSD
   distribution releases:
-    - Ubuntu 18.04 LTS, 20.04 LTS, 22.04 LTS
-    - Debian 10, 11, 12
-    - CentOS 7, 8 (NOT RECOMMENDED FOR NEW SERVER)
-    - CentOS Stream 8, 9
-    - Rocky Linux 8, 9
-    - AlmaLinux 8, 9
-    - OpenBSD 7.x
+
+    !!! warning
+
+        WARNING: Old Linux/BSD distribution releases are still supported but will be
+        dropped shortly, it's __NOT__ recommended to deploy new iRedMail server
+        with old Linux/BSD distribution releases.
+
+    - Ubuntu 18.04 LTS, 20.04 LTS, 22.04 LTS, 24.04 LTS
+    - Debian 10, 11, 12 (recommended)
+    - CentOS 7, 8 (NOT RECOMMENDED FOR NEW SERVER), 9 (recommended)
+    - CentOS Stream 8, 9 (recommended)
+    - Rocky Linux 8, 9 (recommended)
+    - AlmaLinux 8, 9 (recommended)
+    - OpenBSD 7.5
 
 Unfortunately, FreeBSD is not supported by iRedMail Enterprise Edition.
 
