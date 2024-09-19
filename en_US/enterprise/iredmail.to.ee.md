@@ -13,7 +13,7 @@
 
 ## Summary
 
-iRedMail Enterprise Edition offers easy deployment, one-click upgrade support and
+iRedMail Enterprise Edition offers deployment, one-click upgrade and
 technical support for your iRedMail servers, it's very easy to keep your
 server up to date with the ease to use web UI, and get issues solved by
 iRedMail Team quickly.
@@ -39,16 +39,18 @@ Unfortunately, FreeBSD is not supported by iRedMail Enterprise Edition.
 
 ## Backup first
 
-Please backup all important data before preparing the migration, including but not limtied to:
+Please backup all important data before preparing the migration, including
+but not limtied to:
 
 - All SQL/LDAP databases.
 
-    iRedMail Easy will use existing SQL/LDAP databases, no data corruption is expected.
+    iRedMail Enterprise Edition will use existing SQL/LDAP databases, no data
+    corruption is expected.
 
 - All config files under `/etc` directory.
 
-    After moved to iRedMail Easy, you should place all your custom settings in files
-    under `/opt/iredmail/custom/<software>/`.
+    After moved to iRedMail Enterprise Edition, you should place all your
+    custom settings in files under `/opt/iredmail/custom/<software>/`.
 
 ## MySQL backend: Remove MySQL (not MariaDB) packages
 
@@ -60,22 +62,19 @@ Please backup all important data before preparing the migration, including but n
       [this tutorial](https://mariadb.com/kb/en/the-community-mariadb-troubles-only-running-after-reboot-times-out-when-try/) for known issue and solutions. Also related bug report in
       [Ubuntu LaunchPad](https://bugs.launchpad.net/ubuntu/+source/mariadb-10.1/+bug/1806263).
 
-iRedMail Easy installs MariaDB instead of MySQL, if you're running MySQL
-backend, you need to:
+iRedMail Enterprise Edition installs MariaDB instead of MySQL, if you're
+running MySQL instead of MariaDB, you need to:
 
 - Backup all databases
 - Remove mysql packages
-- Restore backup SQL files after iRedMail Easy installation
+- Restore backup SQL files after iRedMail Enterprise Edition installation
 
-## Create required files used by iRedMail Easy
+## Create required files used by iRedMail Enterprise Edition
 
-iRedMail Easy doesn't store any SQL/LDAP passwords on its deployment servers,
-instead it reads from files under `/root/.iredmail/kv/` on your server to get
-the passwords.
-
-Please create these files under `/root/.iredmail/kv/` with correct passwords
-manually, each file should contain only one line, passwords must be in plain
-text, not the hashed one.
+iRedMail Enterprise Edition store SQL/LDAP passwords under `/root/.iredmail/kv/`
+on your server. Please create required files under `/root/.iredmail/kv/` with
+correct passwords manually, each file should contain only one line, passwords
+must be in plain text, not the hashed one.
 
 !!! attention
 
@@ -105,13 +104,13 @@ ALL | `iredapd_srs_secret` | The secret string used to sign SRS. It's ok if not 
 ALL | `sogo_sieve_master_password` | The Dovecot master user used by SOGo. It's ok if not present. | `/etc/sogo/sieve.cred`.
 ALL | `roundcube_des_key` | The DES key used by Roundcube to encrypt the session. | `/opt/www/roundcubemail/config/config.inc.php`, parameter `$config['des_key'] =`.
 ALL | `mlmmjadmin_api_token` | API token for authentication. | `/opt/mlmmjadmin/settings.py`, parameter `api_auth_tokens =`.
-ALL | `first_domain_admin_password` | Password of the mail user `postmaster@<your-domain.com>`. | `your-domain.com` is the first mail domain name you (are going to) set in mail server profile page on iRedMail Easy platform, you can find it in mail server profile page, under tab `Settings`.
+ALL | `first_domain_admin_password` | Password of the mail user `postmaster@<your-domain.com>`. | `your-domain.com` is the first mail domain name you (are going to) set in mail server profile page on iRedMail Enterprise Edition, you can find it in mail server profile page, under tab `Settings`.
 
 ## Copy files to new locations
 
-iRedMail Easy stores SSL cert/key files under `/opt/iredmail/ssl/`, you need to
-either copy or (symbol) link existing ssl cert/key to this directory with
-correct files names,
+iRedMail Enterprise Edition stores SSL cert/key files under `/opt/iredmail/ssl/`,
+you need to either copy or (symbol) link existing ssl cert/key to this
+directory with correct files names,
 
 * `/opt/iredmail/ssl/key.pem`: private key
 * `/opt/iredmail/ssl/cert.pem`: certificate
@@ -119,11 +118,11 @@ correct files names,
 
 ## Split custom settings
 
-iRedMail Easy maintains the core config files, and each time you perform
-full deployment or upgrade, these core config files will be re-generated, all
-your custom config files will be lost. So it's very important to not touch
-these core config files and just store your custom settings in pre-defined
-files under `/opt/iredmail/custom/<software>/`.
+iRedMail Enterprise Edition maintains the core config files, and each time you
+perform full deployment or upgrade, these core config files will be
+re-generated, all your custom config files will be lost. So it's very important
+to not touch these core config files and just store your custom settings in
+pre-defined files under `/opt/iredmail/custom/<software>/`.
 
 ### Postfix
 
@@ -148,8 +147,8 @@ files under `/opt/iredmail/custom/<software>/`.
     - From `/etc/postfix/command_filter.pcre` to `/opt/iredmail/custom/postfix/command_filter.pcre`.
 
     You need to create directory `/opt/iredmail/custom/postfix/` and the files
-    if they don't exist, iRedMail Easy will set correct owner/group and
-    permission for them during deployment.
+    if they don't exist, iRedMail Enterprise Edition will set correct
+    owner/group and permission for them during deployment.
 
     If you're lazy and don't want to check files one by one, it's ok to simply
     copy these files from `/etc/postfix/` to `/opt/iredmail/custom/postfix/`
@@ -160,8 +159,8 @@ files under `/opt/iredmail/custom/<software>/`.
     Postfix doesn't support `include` directive to load extra config files,
     so if you have custom settings in these 2 files, you have to create shell
     script file `/opt/iredmail/custom/postfix/custom.sh` to update them with
-    `postconf` command during iRedMail Easy deployment or upgrade. For more
-    details, please check our
+    `postconf` command during iRedMail Enterprise Edition deployment or
+    upgrade. For more details, please check our
     [Best Practice](./iredmail-easy.best.practice.html#postfix) tutorial.
 
 ### Amavisd
@@ -196,8 +195,8 @@ trusted_networks 192.168.0.1 172.16.0.0/8
 ### Roundcube Webmail
 
 * Copy custom settings from `/opt/www/roundcubemail/config/config.inc.php` to `/opt/iredmail/custom/roundcube/config/custom.inc.php`.
-* Copy third-party plugins from `/opt/www/roundcubemail/plugins/` to `/opt/iredmail/custom/roundcube/plugins/`. iRedMail Easy will create symbol link for them automatically.
-* Copy third-party or custom skins from `/opt/www/roundcubemail/skins/` to `/opt/iredmail/custom/roundcube/skins/`. iRedMail Easy will create symbol link for them automatically.
+* Copy third-party plugins from `/opt/www/roundcubemail/plugins/` to `/opt/iredmail/custom/roundcube/plugins/`. iRedMail Enterprise Edition will create symbol link for them automatically.
+* Copy third-party or custom skins from `/opt/www/roundcubemail/skins/` to `/opt/iredmail/custom/roundcube/skins/`. iRedMail Enterprise Edition will create symbol link for them automatically.
 
 ### iRedAPD
 
@@ -216,17 +215,18 @@ MYNEWTORKS = ['192.168.0.1', '172.16.0.0/8']
 
 ### iRedAdmin(-Pro)
 
-Copy custom settings from `/opt/www/iredadmin/settings.py` to `/opt/iredmail/custom/iredadmin/settings.py`.
+There's no iRedAdmin(-Pro) with iRedMail Enterprise Edition since it offers
+same (actually, more) features as iRedAdmin(-Pro).
 
-## Run the full deployment with iRedMail Easy platform
+## Run the full deployment with iRedMail Enterprise Edition
 
-Please follow our tutorial [Getting started with iRedMail Easy](./iredmail-easy.getting.start.html)
-to sign up, and add your mail server info, then perform the full deployment.
+Please follow our tutorial [Install iRedMail Enterprise Edition](./install.ee.html)
+to install it.
 
 ## Post-deployment tasks
 
 ### Remove duplicate cron jobs
 
-iRedMail Easy will add required cron jobs for `root` and `sogo` users, but it
-can not detect and remove old duplicate jobs, so you have to check cron jobs
-manually and remove duplicate old ones and keep the ones added by iRedMail Easy.
+iRedMail Enterprise Edition adds required cron jobs for `root` and `sogo`
+users, but it cannot detect and remove old duplicate jobs, please check cron jobs
+manually and remove duplicate old ones.

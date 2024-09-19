@@ -1,8 +1,9 @@
 # Upgrade Ubuntu from 22.04 to 24.04
 
-!!! warning
+!!! attention
 
-    THIS IS A DRAFT DOCUMENT, DO NOT APPLY IT ON PRODUCTION SERVER.
+    If you found some changes are required by uncovered in this tutorial,
+    please do [contact us](https://www.iredmail.org/contact.html) to update.
 
 !!! attention
 

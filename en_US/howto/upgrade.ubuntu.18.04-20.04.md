@@ -2,6 +2,11 @@
 
 !!! attention
 
+    If you found some changes are required by uncovered in this tutorial,
+    please do [contact us](https://www.iredmail.org/contact.html) to update.
+
+!!! attention
+
 	 Check out the lightweight on-premises email archiving software developed by iRedMail team: [Spider Email Archiver](https://spiderd.io/).
 
 [TOC]
