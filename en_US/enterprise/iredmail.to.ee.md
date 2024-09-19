@@ -218,12 +218,12 @@ MYNEWTORKS = ['192.168.0.1', '172.16.0.0/8']
 There's no iRedAdmin(-Pro) with iRedMail Enterprise Edition since it offers
 same (actually, more) features as iRedAdmin(-Pro).
 
-## Run the full deployment with iRedMail Enterprise Edition
+## Run the full deployment as migration
 
 Please follow our tutorial [Install iRedMail Enterprise Edition](./install.ee.html)
 to install it.
 
-## Post-deployment tasks
+## Post-migration tasks
 
 ### Remove duplicate cron jobs
 
