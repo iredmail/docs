@@ -96,33 +96,37 @@ Linux or OpenBSD, both x86_64/AMD64 and ARM64 are supported:
 * For Linux, x86_64 / amd64:
 
 ```bash
-wget -O /usr/local/bin/iredmail https://dl.iredmail.org/ee/iredmail-enterprise-v1.0-beta8-linux-amd64
-chown root:root /usr/local/bin/iredmail
-chmod 0500 /usr/local/bin/iredmail
+cd /usr/local/bin/
+wget -O iredmail https://dl.iredmail.org/ee/iredmail-enterprise-v1.0-beta8-linux-amd64
+chown root:root iredmail
+chmod 0500 iredmail
 ```
 
 * For Linux, ARM64 / aarch64:
 
 ```bash
-wget -O /usr/local/bin/iredmail https://dl.iredmail.org/ee/iredmail-enterprise-v1.0-beta8-linux-arm64
-chown root:root /usr/local/bin/iredmail
-chmod 0500 /usr/local/bin/iredmail
+cd /usr/local/bin/
+wget -O iredmail https://dl.iredmail.org/ee/iredmail-enterprise-v1.0-beta8-linux-arm64
+chown root:root iredmail
+chmod 0500 iredmail
 ```
 
 * For OpenBSD, x86_64 / amd64:
 
 ```bash
-wget -O /usr/local/bin/iredmail https://dl.iredmail.org/ee/iredmail-enterprise-v1.0-beta8-openbsd-amd64
-chown root:wheel /usr/local/bin/iredmail
-chmod 0500 /usr/local/bin/iredmail
+cd /usr/local/bin/
+wget -O iredmail https://dl.iredmail.org/ee/iredmail-enterprise-v1.0-beta8-openbsd-amd64
+chown root:wheel iredmail
+chmod 0500 iredmail
 ```
 
 * For OpenBSD, arm64 aarch64:
 
 ```bash
-wget -O /usr/local/bin/iredmail https://dl.iredmail.org/ee/iredmail-enterprise-v1.0-beta8-openbsd-amd64
-chown root:wheel /usr/local/bin/iredmail
-chmod 0500 /usr/local/bin/iredmail
+cd /usr/local/bin/
+wget -O iredmail https://dl.iredmail.org/ee/iredmail-enterprise-v1.0-beta8-openbsd-amd64
+chown root:wheel iredmail
+chmod 0500 iredmail
 ```
 
 Launch the installer:
