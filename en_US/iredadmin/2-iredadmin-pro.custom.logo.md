@@ -6,9 +6,8 @@
     after updated iRedAdmin config file.
 
 You can easily change default iRedAdmin-Pro logo image to your company logo,
-and set a brand name, and short product description by adding parameters listed
-below in iRedAdmin-Pro config file. If you don't know the config file location,
-please check our tutorial: [Locations of configuration and log files of major components](./file.locations.html)
+set a brand name and short product description by adding parameters listed
+below in iRedAdmin-Pro config file `/opt/www/iredadmin/settings.py`.
 
 ```
 # Path to the logo image.

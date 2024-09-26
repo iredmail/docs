@@ -261,36 +261,18 @@ Log file: Fail2ban logs to default syslog log file.
 
 ## iRedAdmin {: #iredadmin }
 
-Main config file:
-
-* on RHEL/CentOS, it's `/opt/www/iredadmin/settings.py`.
-
-    Note: on old iRedMail releases, it's `/var/www/iredadmin/settings.py`.
-
-* on Debian/Ubuntu, it's `/opt/www/iredadmin/settings.py`.
-
-    Note: on old iRedMail releases, it's `/usr/share/apache2/iredadmin/settings.py`.
-
-* on FreeBSD, it's `/opt/www/iredadmin/settings.py`.
-
-    Note: on old iRedMail releases, it's `/usr/local/www/iredadmin/settings.py`.
-
-* on OpenBSD, it's `/opt/www/iredadmin/settings.py`.
-
-    Note: on old iRedMail releases, it's `/var/www/iredadmin/settings.py`.
+Main config file: `/opt/www/iredadmin/settings.py`.
 
 iRedAdmin is a web application, when debug mode is turned on, it will log error
 message to:
 
-* If you're running Apache, it logs to [Apache ssl error log file](#apache).
-* If you're running Nginx with uwsgi:
-    * on Debian/Ubuntu, it logs to `/var/log/uwsgi/app/iredadmin.log`.
-    * on RHEL/CentOS, it logs to `/var/log/messages`.
-    * on OpenBSD, it logs to `/var/www/logs/uwsgi.log`.
-    * on FreeBSD, it logs to `/var/log/uwsgi-iredadmin.log`.
+* Debian/Ubuntu: `/var/log/uwsgi/app/iredadmin.log`.
+* RHEL/CentOS: `/var/log/messages`.
+* OpenBSD: `/var/www/logs/uwsgi.log`.
+* FreeBSD: `/var/log/uwsgi-iredadmin.log`.
 
-Note: If you modified any iRedAdmin files (not just config file), please restart
-Apache or uwsgi service (if you're running Nginx) to reload modified files.
+Note: If you modified any iRedAdmin source files (not just config file),
+don't forget to restart `iredadmin` service to load modified files.
 
 ## <strike>Apache</strike> {: #apache }
 

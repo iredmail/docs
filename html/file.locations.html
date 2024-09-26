@@ -333,39 +333,17 @@ your custom settings.</p>
 </li>
 </ul>
 <h2 id="iredadmin">iRedAdmin</h2>
-<p>Main config file:</p>
-<ul>
-<li>
-<p>on RHEL/CentOS, it's <code>/opt/www/iredadmin/settings.py</code>.</p>
-<p>Note: on old iRedMail releases, it's <code>/var/www/iredadmin/settings.py</code>.</p>
-</li>
-<li>
-<p>on Debian/Ubuntu, it's <code>/opt/www/iredadmin/settings.py</code>.</p>
-<p>Note: on old iRedMail releases, it's <code>/usr/share/apache2/iredadmin/settings.py</code>.</p>
-</li>
-<li>
-<p>on FreeBSD, it's <code>/opt/www/iredadmin/settings.py</code>.</p>
-<p>Note: on old iRedMail releases, it's <code>/usr/local/www/iredadmin/settings.py</code>.</p>
-</li>
-<li>
-<p>on OpenBSD, it's <code>/opt/www/iredadmin/settings.py</code>.</p>
-<p>Note: on old iRedMail releases, it's <code>/var/www/iredadmin/settings.py</code>.</p>
-</li>
-</ul>
+<p>Main config file: <code>/opt/www/iredadmin/settings.py</code>.</p>
 <p>iRedAdmin is a web application, when debug mode is turned on, it will log error
 message to:</p>
 <ul>
-<li>If you're running Apache, it logs to <a href="#apache">Apache ssl error log file</a>.</li>
-<li>If you're running Nginx with uwsgi:<ul>
-<li>on Debian/Ubuntu, it logs to <code>/var/log/uwsgi/app/iredadmin.log</code>.</li>
-<li>on RHEL/CentOS, it logs to <code>/var/log/messages</code>.</li>
-<li>on OpenBSD, it logs to <code>/var/www/logs/uwsgi.log</code>.</li>
-<li>on FreeBSD, it logs to <code>/var/log/uwsgi-iredadmin.log</code>.</li>
+<li>Debian/Ubuntu: <code>/var/log/uwsgi/app/iredadmin.log</code>.</li>
+<li>RHEL/CentOS: <code>/var/log/messages</code>.</li>
+<li>OpenBSD: <code>/var/www/logs/uwsgi.log</code>.</li>
+<li>FreeBSD: <code>/var/log/uwsgi-iredadmin.log</code>.</li>
 </ul>
-</li>
-</ul>
-<p>Note: If you modified any iRedAdmin files (not just config file), please restart
-Apache or uwsgi service (if you're running Nginx) to reload modified files.</p>
+<p>Note: If you modified any iRedAdmin source files (not just config file),
+don't forget to restart <code>iredadmin</code> service to load modified files.</p>
 <h2 id="apache"><strike>Apache</strike></h2>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
