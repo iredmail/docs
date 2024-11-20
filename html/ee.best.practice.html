@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>iRedMail Enterprise Edition (EE): Best Practice</title>
+        <link rel="stylesheet" type="text/css" href="./css/markdown.css" />
+    </head>
+    <body>
+
+    <div id="navigation">
+    <a href="https://www.iredmail.org" target="_blank">
+        <img alt="iRedMail web site"
+             src="./images/logo-iredmail.png"
+             style="vertical-align: middle; height: 30px;"
+             />&nbsp;
+        <span>iRedMail</span>
+    </a>
+    &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><h1 id="iredmail-enterprise-edition-ee-best-practice">iRedMail Enterprise Edition (EE): Best Practice</h1>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>Check out the lightweight on-premises email archiving software developed by iRedMail team: <a href="https://spiderd.io/">Spider Email Archiver</a>.</p>
+</div>
+<div class="toc">
+<ul>
+<li><a href="#iredmail-enterprise-edition-ee-best-practice">iRedMail Enterprise Edition (EE): Best Practice</a><ul>
+<li><a href="#how-the-fearless-upgrade-works">How the fearless upgrade works</a><ul>
+<li><a href="#including-config-files">Including config files</a></li>
+<li><a href="#modify-config-files-in-place">Modify config files in-place</a></li>
+<li><a href="#remove-existing-file-and-create-a-new-one">Remove existing file and create a new one</a></li>
+<li><a href="#the-rest">The rest</a></li>
+</ul>
+</li>
+<li><a href="#ssl-cert">SSL cert</a></li>
+<li><a href="#passwords">Passwords</a></li>
+<li><a href="#custom-settings-used-by-software">Custom settings used by software</a><ul>
+<li><a href="#mariadb">MariaDB</a></li>
+<li><a href="#openldap">OpenLDAP</a></li>
+<li><a href="#nginx">Nginx</a></li>
+<li><a href="#postfix">Postfix</a></li>
+<li><a href="#dovecot">Dovecot</a></li>
+<li><a href="#roundcube">Roundcube</a><ul>
+<li><a href="#custom-global-settings">Custom global settings</a></li>
+<li><a href="#third-party-or-custom-plugins">Third-party or custom plugins</a></li>
+<li><a href="#third-party-or-custom-skins">Third-party or custom skins</a></li>
+<li><a href="#custom-settings-for-official-plugins">Custom settings for official plugins</a></li>
+<li><a href="#custom-settings-for-official-plugins-but-not-enabled-by-iredmail">Custom settings for official plugins but not enabled by iRedMail</a></li>
+</ul>
+</li>
+<li><a href="#sogo">SOGo</a></li>
+<li><a href="#iredapd">iRedAPD</a></li>
+<li><a href="#amavisd">Amavisd</a></li>
+<li><a href="#spamassassin">SpamAssassin</a></li>
+<li><a href="#fail2ban">Fail2ban</a></li>
+</ul>
+</li>
+<li><a href="#backup">Backup</a></li>
+<li><a href="#references">References</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<h2 id="how-the-fearless-upgrade-works">How the fearless upgrade works</h2>
+<p>iRedMail Enterprise Edition ("EE" for short) splits config files of software to 2 parts: Core and Custom,
+this is the magic of fearless one-click upgrade.</p>
+<p>iRedMail EE maintains core config files to make sure everything works as
+expected, but we understand that you may need to change some settings
+configured by iRedMail EE.</p>
+<p>Please follow some simple rules to store your custom settings, and do not
+modify the core config files (manually) managed by iRedMail EE.</p>
+<h3 id="including-config-files">Including config files</h3>
+<p>A lot of software supports loading settings from extra config files with directives
+like <code>include</code> (Nginx, Dovecot), <code>include_try</code> (Dovecot), <code>require_once</code> (PHP
+applications). In this case, it will be configured to load extra config files
+under <code>/opt/iredmail/custom/&lt;software-name&gt;/</code>. We use Dovecot for example to
+explain the details.</p>
+<p>Dovecot's main config file is <code>/etc/dovecot/dovecot.conf</code>, we have directives
+at the bottom of <code>dovecot.conf</code> like this:</p>
+<pre><code>!include_try /etc/dovecot/conf-enabled/*.conf
+!include_try /opt/iredmail/custom/dovecot/conf-enabled/*.conf
+</code></pre>
+<p>It will try to load all files ends with <code>.conf</code> under
+<code>/etc/dovecot/conf-enabled/</code> first, then
+<code>/opt/iredmail/custom/dovecot/conf-enabled/</code>.</p>
+<p>Files under <code>/etc/dovecot/conf-enabled/</code> are maintained by iRedMail EE, if
+you want to override some settings, please create a file which ends with
+<code>.conf</code> under <code>/opt/iredmail/custom/dovecot/conf-enabled/</code> with your custom
+settings. for example, Dovecot is configured to enable services like below by
+iRedMail EE:</p>
+<pre><code>protocols = pop3 imap sieve lmtp
+</code></pre>
+<p>What can you do to disable <code>pop3</code> service without modify files under
+<code>/etc/dovecot/</code>? Easy, just create a file, e.g. <code>custom.conf</code> under
+<code>/opt/iredmail/custom/dovecot/conf-enabled/</code> with content below (note: service
+name <code>pop3</code> is removed in this setting), then restart Dovecot service:</p>
+<pre><code>protocols = imap sieve lmtp
+</code></pre>
+<h3 id="modify-config-files-in-place">Modify config files in-place</h3>
+<p>If software does not support loading settings from extra config files,
+you may need to apply your own settings by running commands to modify its
+config files under <code>/etc/</code>. For example, Postfix.</p>
+<p>Postfix doesn't support directive like <code>include</code> to load extra config files,
+you can change some settings by modifying its config files (e.g.
+<code>/etc/postfix/main.cf</code>) directly, but next time you upgrade your iRedMail
+server with iRedMail EE, the config file will be rewritten by iRedMail EE,
+then you lose all custom settings.</p>
+<p>Fortunately, iRedMail EE supports executing a shell script each time it
+deploying or upgrading a software. For Postfix, it's
+<code>/opt/iredmail/custom/postfix/custom.sh</code>.</p>
+<p>Let's say you want to add IP address <code>192.168.1.1</code> to Postfix parameter
+<code>mynetworks</code>, instead of modifying <code>/etc/postfix/main.cf</code> directly, you can
+write shell commands in <code>/opt/iredmail/custom/postfix/custom.sh</code> like below:</p>
+<pre><code>postconf -e mynetworks='127.0.0.1 192.168.1.1'
+</code></pre>
+<p>Then run it manually:</p>
+<pre><code>cd /opt/iredmail/custom/postfix/
+bash custom.sh
+</code></pre>
+<p>When iRedMail EE deploys or upgrades Postfix, it will run this script the
+same way.</p>
+<h3 id="remove-existing-file-and-create-a-new-one">Remove existing file and create a new one</h3>
+<p>Nginx supports loading extra config file with <code>include</code> directive, but it
+doesn't support overriding existing parameters.  for example, if parameter
+<code>client_max_body_size</code> is defined in one file, but you have <code>include</code> directive
+to load same parameter in another file, Nginx will report duplicate parameter
+and refuse to start. In this case, you have to remove existing config files
+(which contains the parameter you want to customize) generated by iRedMail EE 
+and create a new one. Let's use parameter <code>client_max_body_size</code> for example.</p>
+<p>iRedMail EE generates files under <code>/etc/nginx/conf-enabled/</code> for different
+parameters, and parameter <code>client_max_body_size</code> is defined in
+<code>/etc/nginx/conf-enabled/client_max_body_size.conf</code> like this:</p>
+<pre><code>client_max_body_size 15m;
+</code></pre>
+<p>You need to add a new file under <code>/opt/iredmail/custom/nginx/conf-enabled/</code>
+first, then add shell command in <code>/opt/iredmail/custom/nginx/custom.sh</code> to
+remove <code>/etc/nginx/conf-enabled/client_max_body_size.conf</code> like below:</p>
+<pre><code>rm -f /etc/nginx/conf-enabled/client_max_body_size.conf
+</code></pre>
+<p>Now run this script:</p>
+<pre><code>cd /opt/iredmail/custom/nginx/
+bash custom.sh
+</code></pre>
+<p>When iRedMail EE deploys or upgrades Nginx, it will run this script the
+same way.</p>
+<h3 id="the-rest">The rest</h3>
+<ul>
+<li>SOGo doesn't support any of the ways mentioned above, if you need to modify any settings, please either use <code>/opt/iredmail/custom/sogo/custom.sh</code> to modify please read <a href="#sogo">details below</a>.</li>
+</ul>
+<h2 id="ssl-cert">SSL cert</h2>
+<p>iRedMail EE generates self-signed ssl cert by default, cert files are stored
+under <code>/opt/iredmail/ssl/</code>:</p>
+<ul>
+<li><code>key.pem</code>: private key</li>
+<li><code>cert.pem</code>: certificate</li>
+<li><code>combined.pem</code>: full chain</li>
+</ul>
+<p>To get rid of self-signed cert, you can either:</p>
+<ul>
+<li><a href="./letsencrypt.html">Request a free cert from Let's Encrypt</a>, or</li>
+<li><a href="./use.a.bought.ssl.certificate.html">Use a bought SSL certificate</a>.</li>
+</ul>
+<h2 id="passwords">Passwords</h2>
+<ul>
+<li>iRedMail EE generates and reads from files under <code>/root/.iredmail/kv/</code>.</li>
+<li>Files under <code>/root/.iredmail/kv/</code> contain only one line.</li>
+<li>If you changed any of them, please update files under <code>/root/.iredmail/kv/</code>
+  also, so that iRedMail EE can get correct password when you perform upgrade.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Backend</th>
+<th>File Name</th>
+<th>Comment</th>
+<th>Value could be found in file</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>LDAP, MySQL</td>
+<td><code>sql_user_root</code></td>
+<td>MySQL root password.</td>
+<td><code>/root/.my.cnf</code></td>
+</tr>
+<tr>
+<td>PostgreSQL</td>
+<td><code>sql_user_postgres</code> (Linux)<br/><code>sql_user__postgresql</code> (OpenBSD)</td>
+<td>PostgreSQL root password.</td>
+<td><code>/var/lib/pgsql/.pgpass</code> (CentOS), or <code>/var/lib/postgresql/.pgpass</code> (Debian/Ubuntu), <code>/var/postgresql/.pgpass</code> (OpenBSD)</td>
+</tr>
+<tr>
+<td>LDAP</td>
+<td><code>ldap_root_password</code></td>
+<td>Password of LDAP root dn (cn=Manager,dc=xx,dc=xx)</td>
+<td></td>
+</tr>
+<tr>
+<td>LDAP</td>
+<td><code>ldap_vmail_password</code></td>
+<td>Password of LDAP dn <code>cn=vmail,dc=xx,dc=xx</code></td>
+<td><code>/etc/postfix/ldap/*.cf</code></td>
+</tr>
+<tr>
+<td>LDAP</td>
+<td><code>ldap_vmailadmin_password</code></td>
+<td>Password of LDAP dn <code>cn=vmailadmin,dc=xx,dc=xx</code></td>
+<td><code>/opt/www/iredadmin/settings.py</code></td>
+</tr>
+<tr>
+<td>ALL</td>
+<td><code>sql_user_vmail</code></td>
+<td>Password of SQL user <code>vmail</code></td>
+<td><code>/etc/postfix/mysql/*.cf</code> or <code>/etc/postfix/pgsql/*.cf</code></td>
+</tr>
+<tr>
+<td>ALL</td>
+<td><code>sql_user_vmailadmin</code></td>
+<td>Password of SQL user <code>vmailadmin</code></td>
+<td><code>/opt/www/iredadmin/settings.py</code></td>
+</tr>
+<tr>
+<td>ALL</td>
+<td><code>sql_user_amavisd</code></td>
+<td>Password of SQL user <code>amavisd</code></td>
+<td><code>/etc/amavisd/amavisd.conf</code> (Linux/OpenBSD)<br><code>/etc/amavis/conf.d/50-user</code> (Debian/Ubuntu)</td>
+</tr>
+<tr>
+<td>ALL</td>
+<td><code>sql_user_sa_bayes</code></td>
+<td>Password of SQL user <code>sa_bayes</code></td>
+<td><code>/etc/mail/spamassassin/local.cf</code></td>
+</tr>
+<tr>
+<td>ALL</td>
+<td><code>sql_user_iredadmin</code></td>
+<td>Password of SQL user <code>iredadmin</code></td>
+<td><code>/opt/www/iredadmin/settings.py</code></td>
+</tr>
+<tr>
+<td>ALL</td>
+<td><code>sql_user_iredapd</code></td>
+<td>Password of SQL user <code>iredapd</code></td>
+<td><code>/opt/iredapd/settings.py</code></td>
+</tr>
+<tr>
+<td>ALL</td>
+<td><code>sql_user_roundcube</code></td>
+<td>Password of SQL user <code>roundcube</code></td>
+<td><code>/root/.my.cnf-roundcube</code> or <code>/opt/www/roundcubemail/config/config.inc.php</code></td>
+</tr>
+<tr>
+<td>ALL</td>
+<td><code>sql_user_sogo</code></td>
+<td>Password of SQL user <code>sogo</code></td>
+<td><code>/etc/sogo/sogo.conf</code></td>
+</tr>
+<tr>
+<td>ALL</td>
+<td><code>sql_user_netdata</code></td>
+<td>Password of SQL user <code>netdata</code></td>
+<td><code>/root/.my.cnf-netdata</code> or <code>/opt/netdata/etc/netdata/my.cnf</code></td>
+</tr>
+<tr>
+<td>ALL</td>
+<td><code>iredapd_srs_secret</code></td>
+<td>The secret string used to sign SRS.</td>
+<td><code>/opt/iredapd/settings.py</code>, parameter <code>srs_secrets =</code>.</td>
+</tr>
+<tr>
+<td>ALL</td>
+<td><code>sogo_sieve_master_password</code></td>
+<td>The Dovecot master user used by SOGo.</td>
+<td><code>/etc/sogo/sieve.cred</code>.</td>
+</tr>
+<tr>
+<td>ALL</td>
+<td><code>roundcube_des_key</code></td>
+<td>The DES key used by Roundcube to encrypt the session.</td>
+<td><code>/opt/www/roundcubemail/config/config.inc.php</code>, parameter <code>$config['des_key'] =</code>.</td>
+</tr>
+<tr>
+<td>ALL</td>
+<td><code>mlmmjadmin_api_token</code></td>
+<td>API token for authentication.</td>
+<td><code>/opt/mlmmjadmin/settings.py</code>, parameter <code>api_auth_tokens =</code>.</td>
+</tr>
+<tr>
+<td>ALL</td>
+<td><code>first_domain_admin_password</code></td>
+<td>Password of the mail user <code>postmaster@&lt;your-domain.com&gt;</code>.</td>
+<td><code>your-domain.com</code> is the first mail domain name you (are going to) set during iRedMail installation.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="custom-settings-used-by-software">Custom settings used by software</h2>
+<h3 id="mariadb">MariaDB</h3>
+<ul>
+<li><code>/opt/iredmail/custom/mysql/</code>:<ul>
+<li>All files end with <code>.cnf</code> will be loaded by Mariadb.</li>
+<li>
+<p>It will override existing settings defined in files under <code>/etc/mysql/</code> (Linux)
+  or <code>/usr/local/etc/mysql/</code> (FreeBSD).</p>
+<p>Sample config file, <code>/opt/iredmail/custom/mysql/custom.conf</code>:</p>
+</li>
+</ul>
+</li>
+</ul>
+<pre><code>[mysqld]
+max_connections     = 1024
+</code></pre>
+<h3 id="openldap">OpenLDAP</h3>
+<ul>
+<li>
+<p><code>/opt/iredmail/custom/openldap/schema/</code></p>
+<p>Extra LDAP schema files must be stored in this directory, owned by OpenLDAP
+daemon user and group with permission 0640.</p>
+</li>
+<li>
+<p><code>/opt/iredmail/custom/openldap/conf.d/global.conf</code></p>
+<p>Extra global settings should be stored in this file. For example, you can
+load extra LDAP schema file by adding line below:</p>
+<p><code>include /opt/iredmail/custom/openldap/schema/custom.schema</code></p>
+</li>
+<li>
+<p><code>/opt/iredmail/custom/openldap/conf.d/databases.conf</code></p>
+<p>OpenLDAP is configured to run one database for mail domains and accounts
+by iRedMail EE, if you want to run extra databases, you can add database
+related settings in this file. for example:</p>
+</li>
+</ul>
+<pre><code>database    mdb
+suffix      dc=my-ldap-suffix,dc=com
+directory   /var/lib/ldap/my-ldap-suffix.com
+
+rootdn      cn=Manager,dc=my-ldap-suffix,dc=com
+rootpw      {SSHA}...
+
+sizelimit   unlimited
+maxsize     2147483648
+checkpoint  128 3
+mode        0700
+
+index attr_1,attr_2,attr_3  eq,pres
+index attr_4,attr_5,attr_6  eq,pres
+</code></pre>
+<h3 id="nginx">Nginx</h3>
+<ul>
+<li>
+<p><code>/opt/iredmail/custom/nginx/custom.sh</code>: a bash shell script for advanced
+  customization. This file will be executed every time iRedMail EE deploys /
+  upgrades the Nginx.</p>
+<p>For example, Nginx doesn't support override existing settings by loading
+  same parameter from another config file, in this case you should run <code>rm</code>
+  command in this file (<code>custom.sh</code>) to remove existing config file
+  generated by iRedMail EE and store custom settings in another file.</p>
+</li>
+<li>
+<p><code>/opt/iredmail/custom/nginx/conf-enabled/</code>: additional Nginx global settings
+  used inside <code>http {}</code> block.</p>
+<ul>
+<li>If you want to override a parameter which is already defined in
+  <code>/etc/nginx/conf-enabled/</code>, please update <code>/opt/iredmail/custom/nginx/custom.sh</code>
+  to remove file under <code>/etc/nginx/conf-enabled/</code> first, then write your
+  own config file under <code>/opt/iredmail/custom/nginx/conf-enabled/</code> to set
+  a proper value.</li>
+</ul>
+</li>
+<li>
+<p><code>/opt/iredmail/custom/nginx/sites-conf.d/default-ssl/</code>: additional settings
+  for default https website (inside the <code>server {}</code> block).</p>
+</li>
+<li><code>/opt/iredmail/custom/nginx/sites-enabled/</code>: additional virtual web hosts.</li>
+<li>
+<p><code>/opt/iredmail/custom/nginx/webapps/</code>: additional settings for certain web
+  applications, usually used to add ACL for the web applications. Including:</p>
+<ul>
+<li><code>adminer.conf</code>: loaded in file <code>/etc/nginx/template/adminer.tmpl</code>.</li>
+<li><code>iredadmin.conf</code>: loaded in file <code>/etc/nginx/template/iredadmin.tmpl</code>.</li>
+<li><code>netdata.conf</code>: loaded in file <code>/etc/nginx/template/netdata.tmpl</code>.</li>
+<li><code>roundcube.conf</code>: it will be loaded in file <code>/etc/nginx/templates/roundcube*.tmpl</code>.</li>
+<li><code>sogo.conf</code>: loaded in file <code>/etc/nginx/template/sogo.tmpl</code>.</li>
+<li><code>php_fpm_status.conf</code>: loaded in file <code>/etc/nginx/template/php_fpm_status.tmpl</code>.</li>
+<li><code>stub_status.conf</code>: loaded in file <code>/etc/nginx/template/stub_status.tmpl</code>.</li>
+</ul>
+</li>
+</ul>
+<p>iRedMail uses the directory structure recommended by Debian/Ubuntu:</p>
+<pre><code>/etc/nginx/                         # all config files
+
+        |- conf-available/          # store settings used inside Nginx `http {}` block.
+                                    # Note: files under this directory are NOT
+                                    #       loaded by Nginx directly.
+
+        |- conf-enabled/            # symbol links to files under `conf-available/`.
+                                    # Note: files under this directory are
+                                    #       loaded by Nginx directly.
+
+        |- sites-available/         # store virtual web host config files.
+                                    # Note: files under this directory are NOT
+                                    #       loaded by Nginx directly.
+
+        |- sites-enabled/           # symbol links to files under `sites-available/`.
+                                    # Note: files under this directory are
+                                    #       loaded by Nginx directly.
+
+        |- sites-conf.d/
+                |- default-ssl/     # modular config files used by default
+                                    # virtual web host.
+
+/opt/iredmail/custom/nginx/         # all custom config files.
+                        |- conf-available/
+                        |- conf-enabled/
+                        |- sites-available/
+                        |- sites-enabled/
+                        |- webapps/         # config snippets for certain web applications.
+                        |- custom.sh        # shell script used for advanced customization
+</code></pre>
+<h3 id="postfix">Postfix</h3>
+<p>Postfix doesn't support loading main settings (<code>/etc/postfix/main.cf</code> and
+<code>/etc/postfix/master.cf</code>) from multiple files, so iRedMail EE uses alternative
+solution to split core and custom settings.</p>
+<ul>
+<li>The recommended way is using script <code>/opt/iredmail/custom/postfix/custom.sh</code>,
+  modifying settings in <code>main.cf</code> and <code>master.cf</code> with command <code>postconf -e</code>.
+  Details will be explained later in this section.</li>
+<li>If you have many custom settings, you can maintain your own copy of <code>main.cf</code>
+  and <code>master.cf</code> under <code>/opt/iredmail/custom/postfix/</code> directory.<ul>
+<li>If file <code>/opt/iredmail/custom/postfix/main.cf</code> exists, iRedMail EE will
+  create <code>/etc/postfix/main.cf</code> as symbol link to this file.</li>
+<li>If file <code>/opt/iredmail/custom/postfix/master.cf</code> exists, iRedMail EE
+  will create <code>/etc/postfix/master.cf</code> as symbol link to this file.</li>
+</ul>
+</li>
+</ul>
+<p>For other settings, Postfix is configured to load files under
+<code>/opt/iredmail/custom/postfix/</code> first (they store custom settings and
+maintained by you), then another one from <code>/etc/postfix/</code> (maintained by
+iRedMail EE and you should <strong>NOT</strong> modify them). If rule defined in first one
+matches, Postfix will skip the second file.</p>
+<p>For example, Postfix is configured to load 2 files for HELO access check:</p>
+<pre><code>smtpd_helo_restrictions =
+    ...
+    check_helo_access pcre:/opt/iredmail/custom/postfix/helo_access.pcre
+    check_helo_access pcre:/etc/postfix/helo_access.pcre
+    ...
+</code></pre>
+<ul>
+<li>The first one, <code>/opt/iredmail/custom/postfix/helo_access.pcre</code>, is used to
+  store your cusotm HELO access rules. If rule in this file matched,
+  Postfix will ignore other rules defined later in same file, also the second
+  file <code>/etc/postfix/helo_access.pcre</code>. So you can write rule in first file
+  for new HELO access, or write same rule with different action to override the
+  one defined in <code>/etc/postfix/helo_access.pcre</code>.</li>
+<li><code>/etc/postfix/helo_access.pcre</code>: This file is maintained by iRedMail EE,
+  please do NOT modify it.</li>
+</ul>
+<p>You can find some other files for customization under
+<code>/opt/iredmail/custom/postfix/</code>. For example:</p>
+<ul>
+<li><code>body_checks.pcre</code></li>
+<li><code>header_checks.pcre</code></li>
+<li><code>command_filter.pcre</code></li>
+<li><code>postscreen_access.cidr</code></li>
+<li>...</li>
+</ul>
+<p>There's also a (Bash) shell scripting for flexible customization:
+<code>/opt/iredmail/custom/postfix/custom.sh</code>. It will be ran each time you perform
+deployment or upgrade.</p>
+<p>For example, to set value of parameter <code>enable_original_recipient</code> to <code>yes</code>
+(defaults to <code>no</code> set in <code>/etc/postfix/main.cf</code>), you can write  command in
+<code>/opt/iredmail/custom/postfix/custom.sh</code> like below:</p>
+<pre><code>postconf -e enable_original_recipient=yes
+</code></pre>
+<p>To add new or update existing transport settings in <code>/etc/postfix/master.cf</code>,
+you can run <code>postconf -M</code> and <code>postconf -P</code> (requires Postfix-2.11 or later
+releases). For example, create new transport <code>465</code> for
+<a href="./enable.smtps.html">SMTPS (SMTP over SSL)</a>:</p>
+<pre><code>postconf -M 465/inet=&quot;465 inet n - n - - smtpd&quot;
+postconf -P &quot;465/inet/syslog_name=postfix/smtps&quot;
+postconf -P &quot;465/inet/smtpd_tls_wrappermode=yes&quot;
+postconf -P &quot;465/inet/smtpd_sasl_auth_enable=yes&quot;
+postconf -P &quot;465/inet/smtpd_client_restrictions=permit_sasl_authenticated,reject&quot;
+postconf -P &quot;465/inet/content_filter=smtp-amavis:[127.0.0.1]:10026&quot;
+</code></pre>
+<p>It will generate new lines in <code>/etc/postfix/master.cf</code> like below:</p>
+<pre><code>465 inet n - n - - smtpd
+  -o syslog_name=postfix/smtps
+  -o smtpd_tls_wrappermode=yes
+  -o smtpd_sasl_auth_enable=yes
+  -o smtpd_client_restrictions=permit_sasl_authenticated,reject
+  -o content_filter=smtp-amavis:[127.0.0.1]:10026
+</code></pre>
+<p>For more details about <code>postconf</code> command, please check its manual page:
+<a href="http://www.postfix.org/postconf.1.html">postconf(1)</a>.</p>
+<h3 id="dovecot">Dovecot</h3>
+<p>Dovecot supports loading from mulitple config files, and settings will be
+overrode by the last one.</p>
+<ul>
+<li><code>/opt/iredmail/custom/dovecot/conf-enabled/</code>: store custom Dovecot settings.</li>
+<li><code>/opt/iredmail/custom/dovecot/custom.sh</code>: a bash shell script used for advanced customization</li>
+<li>
+<p><code>/opt/iredmail/custom/dovecot/dovecot.sieve</code>: custom global sieve rule file.</p>
+<p>If this file exists, iRedMail EE will link it to
+<code>/var/vmail/sieve/dovecot.sieve</code> as global sieve rule file.</p>
+</li>
+</ul>
+<h3 id="roundcube">Roundcube</h3>
+<h4 id="custom-global-settings">Custom global settings</h4>
+<p>All your custom settings should be placed in
+<strong><code>/opt/iredmail/custom/roundcube/custom.inc.php</code></strong>, and do <strong>NOT</strong>
+touch main config file <code>/opt/www/roundcubemail/config/config.inc.php</code>.</p>
+<h4 id="third-party-or-custom-plugins">Third-party or custom plugins</h4>
+<p>All third-party or custom plugins should be placed under <strong><code>/opt/iredmail/custom/roundcube/plugins/</code></strong>.</p>
+<p>Plugins will be linked to <code>/opt/www/roundcubemail/plugins/</code> automatically
+during iRedMail EE deployment, but you need to create the symbol
+link manually if you don't want to run another deployment.</p>
+<p>Don't forget to enable the plugin(s) in <code>/opt/iredmail/custom/roundcube/custom.inc.php</code>.
+For example:</p>
+<pre><code>$config['plugins'] = array('managesieve', 'password', 'markasjunk', 'YOUR-PLUGIN-1', 'YOUR-PLUGIN-2');
+</code></pre>
+<h4 id="third-party-or-custom-skins">Third-party or custom skins</h4>
+<p>All third-party or custom skins should be placed under <strong><code>/opt/iredmail/custom/roundcube/skins/</code></strong>.</p>
+<p>Skins will be linked to <code>/opt/www/roundcubemail/skins/</code> automatically
+during iRedMail EE deployment, but you need to create the symbol link
+manually if you don't want to run another deployment.</p>
+<p>To use some third-party skin as the default one for all users, append a line
+in <code>/opt/iredmail/custom/roundcube/custom.inc.php</code> like below:</p>
+<pre><code>$config['skin'] = 'YOUR-SKIN-NAME';
+</code></pre>
+<h4 id="custom-settings-for-official-plugins">Custom settings for official plugins</h4>
+<p>iRedMail EE enables 3 official plugins by default:</p>
+<ul>
+<li><code>password</code>: used by end users to change their own passwords.</li>
+<li><code>managesieve</code>: used by end users to custom mail filter rules.</li>
+<li><code>markasjunk</code>: used by end users to report spam or ham.</li>
+</ul>
+<p>If you have custom settings for plugins enabled by iRedMail EE, please
+put the custom settings in file
+<code>/opt/iredmail/custom/roundcube/config_&lt;plugin_name&gt;.inc.php</code>.</p>
+<p>For example:</p>
+<ul>
+<li>For <code>password</code> plugin: <code>/opt/iredmail/custom/roundcube/config_password.inc.php</code></li>
+<li>For <code>managesieve</code> plugin: <code>/opt/iredmail/custom/roundcube/config_managesieve.inc.php</code></li>
+<li>For <code>markasjunk</code> plugin: <code>/opt/iredmail/custom/roundcube/config_markasjunk.inc.php</code></li>
+</ul>
+<h4 id="custom-settings-for-official-plugins-but-not-enabled-by-iredmail">Custom settings for official plugins but not enabled by iRedMail</h4>
+<p>If you need to enable some Roundcube official plugin which is not enabled by
+iRedMail EE:</p>
+<ul>
+<li>Add shell commands like below in <code>/opt/iredmail/custom/roundcube/custom.sh</code>
+(Note: replace <code>&lt;plugin&gt;</code> by the real plugin name):</li>
+</ul>
+<pre><code>cd /opt/www/roundcubemail/plugins/&lt;plugin&gt;/
+cp config.inc.php.dist config.inc.php
+echo 'require_once &quot;/opt/iredmail/custom/roundcube/config_&lt;plugin&gt;.inc.php&quot;;' &gt;&gt; config.inc.php
+</code></pre>
+<ul>
+<li>Create file <code>/opt/iredmail/custom/roundcube/config_&lt;plugin&gt;.inc.php</code> and
+  store all your custom settings in this file. <strong>WARNING</strong>: this file must be a
+  valid php file.</li>
+</ul>
+<p>This way if iRedMail EE enables this plugin in the future, it will
+successfully load your own custom settings and not mess it up.</p>
+<p>For example, if you have custom settings for official plugin <code>enigma</code>, you
+should add shell commands like below in <code>/opt/iredmail/custom/roundcube/custom.sh</code></p>
+<pre><code>cd /opt/www/roundcubemail/plugins/engima/
+cp config.inc.php.dist config.inc.php
+echo 'require_once &quot;/opt/iredmail/custom/roundcube/config_enigma.inc.php&quot;;' &gt;&gt; config.inc.php
+</code></pre>
+<p>Then put all custom settings for plugin <code>enigma</code> to
+<code>/opt/iredmail/custom/roundcube/config_enigma.inc.php</code>.</p>
+<h3 id="sogo">SOGo</h3>
+<p>SOGo doesn’t support directive like <code>include</code> to load extra settings
+from multiple files, so you have to either maintain your own SOGo config
+file (<code>/opt/iredmail/custom/sogo/sogo.conf</code>) or use the <code>custom.sh</code>
+shell script to do some customization based on the config file generated by
+iRedMail EE.</p>
+<ul>
+<li>
+<p>File <code>/opt/iredmail/custom/sogo/sogo.conf</code></p>
+<p>If this file exists, <code>/etc/sogo/sogo.conf</code> will be created as a symbol link
+to this file during iRedMail EE deployment.</p>
+</li>
+<li>
+<p>Shell script <code>/opt/iredmail/custom/sogo/custom.sh</code></p>
+<p>A bash shell script for advanced customization, you can customize SOGo
+config file with shell commands organized in this file.</p>
+<p>This file will be ran by iRedMail EE deployment each time it deploys
+or upgrade SOGo component.</p>
+</li>
+</ul>
+<h3 id="iredapd">iRedAPD</h3>
+<ul>
+<li>
+<p>File <code>/opt/iredmail/custom/iredapd/settings.py</code></p>
+<p>All custom settings must be stored in this file.
+It will be linked to <code>/opt/www/iredapd/custom_settings.py</code> during iRedMail
+EE deployment or upgrade.</p>
+</li>
+</ul>
+<h3 id="amavisd">Amavisd</h3>
+<ul>
+<li>Store custom settings in <code>/opt/iredmail/custom/amavisd/amavisd.conf</code>.</li>
+<li>Store all DKIM keys under <code>/opt/iredmail/custom/amavisd/dkim/</code>.<ul>
+<li>Note: iRedMail EE maintains DKIM key for primary domain, please do not
+  add duplicate dkim key for primary domain in <code>/opt/iredmail/custom/amavisd/amavisd.conf</code>.</li>
+</ul>
+</li>
+</ul>
+<h3 id="spamassassin">SpamAssassin</h3>
+<p>Store custom rules in <code>/opt/iredmail/custom/spamassassin/custom.cf</code>.</p>
+<h3 id="fail2ban">Fail2ban</h3>
+<ul>
+<li><code>/opt/iredmail/custom/fail2ban/jail.local</code>: used to override settings in
+  <code>[DEFAULT]</code> section of main fail2ban config file. For example, <code>maxretry</code>, <code>findtime</code>, <code>bantime</code>,
+  <code>ignoreip</code>.</li>
+<li><code>/opt/iredmail/custom/fail2ban/custom.sh</code>: used for advanced customization.
+  for example, if you have some new jails, you can write jail config files under
+  <code>/opt/iredmail/custom/fail2ban/</code> too (you're free to create sub-folder to
+  store the jail config files), then use <code>custom.sh</code> to create symbol link
+  of jails you want to enable under <code>/etc/fail2ban/jail.d/</code>.</li>
+</ul>
+<h2 id="backup">Backup</h2>
+<ul>
+<li>iRedMail EE generates daily cron jobs to backup mail accounts and SQL/LDAP
+  databases (stored under <code>/var/vmail/backup/</code> by default), but not mailboxes, you
+  need to backup mailboxes yourself.</li>
+<li>Files under <code>/opt/iredmail/custom/</code> contain all your custom settings.
+  If you need to restore an iRedMail EE server to another one, please copy
+  <code>/opt/iredmail/custom/</code> to new server first, then perform the iRedMail EE
+  deployment, EE will set correct owner/group/permission for them during deployment.</li>
+</ul>
+<h2 id="references">References</h2>
+<ul>
+<li><a href="https://wiki.dovecot.org/ConfigFile#Including_config_files">Dovecot: Including config files</a></li>
+</ul><div class="footer">
+    <p style="text-align: center; color: grey;">All documents are available in <a href="https://github.com/iredmail/docs/">GitHub repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://github.com/iredmail/docs/archive/master.zip">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
+</div></body></html>
