@@ -2,12 +2,16 @@
 
 iRedMail Enterprise Edition is a single binary program, upgrading is simple:
 
-- Download latest version from [website](https://www.iredmail.org/ee.html).
+- Download the latest version from our [website](https://www.iredmail.org/ee.html).
 - Stop the service.
 - Replace the program file and set correct owner / group / permission.
 - Start the service.
+- Login as global admin and click the `Upgrade` button. It updates config files,
+  SQL structure changes, etc.
 
-Use `v1.0-beta8` as new version, Linux OS and amd64 architecture for example:
+That's all.
+
+Let's take `v1.0-beta8` as new version, Linux OS and amd64 architecture for example:
 
 ```
 wget -O /tmp/iredmail https://dl.iredmail.org/ee/iredmail-enterprise-v1.0-beta8-linux-amd64
