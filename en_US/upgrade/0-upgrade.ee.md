@@ -6,8 +6,8 @@ iRedMail Enterprise Edition is a single binary program, upgrading is simple:
 - Stop the service.
 - Replace the program file and set correct owner / group / permission.
 - Start the service.
-- Login as global admin and click the `Upgrade` button. It updates config files,
-  SQL structure changes, etc.
+- Login as global admin and click the `Upgrade` button. It handles all required
+  changes like updating config files, applying SQL structure changes, etc.
 
 That's all.
 
