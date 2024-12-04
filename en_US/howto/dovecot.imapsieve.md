@@ -318,6 +318,11 @@ In Dovecot log file `/var/log/dovecot/imap.log` (or `dovecot.log` if you didn't
 configure syslog daemon to separate log content), you should see log lines like
 below:
 
+!!! attention
+
+    You may need to [turn on debug mode in Dovecot](./debug.dovecot.html) to get these
+    lines logged in `/var/log/dovecot/dovecot.log`:
+
 ```
 Jan 31 21:10:42 c7 dovecot: imap(<email>): sieve: pipe action: piped message to program `imapsieve_copy'
 Jan 31 21:10:42 c7 dovecot: imap(<email>): sieve: left message in mailbox 'Junk'

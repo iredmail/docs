@@ -327,6 +327,11 @@ to help move spam to Junk folder with one click.</p>
 <p>In Dovecot log file <code>/var/log/dovecot/imap.log</code> (or <code>dovecot.log</code> if you didn't
 configure syslog daemon to separate log content), you should see log lines like
 below:</p>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>You may need to <a href="./debug.dovecot.html">turn on debug mode in Dovecot</a> to get these
+lines logged in <code>/var/log/dovecot/dovecot.log</code>:</p>
+</div>
 <pre><code>Jan 31 21:10:42 c7 dovecot: imap(&lt;email&gt;): sieve: pipe action: piped message to program `imapsieve_copy'
 Jan 31 21:10:42 c7 dovecot: imap(&lt;email&gt;): sieve: left message in mailbox 'Junk'
 Jan 31 21:10:42 c7 dovecot: imap(&lt;email&gt;): expunge: box=INBOX, uid=7, msgid=, size=7805, from=&lt;email&gt;, subject=&lt;subject&gt;
