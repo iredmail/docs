@@ -13,37 +13,26 @@
 
 ## Summary
 
-iRedMail Enterprise Edition (EE) offers easy deployment, one-click upgrade
-support and technical support for your iRedMail server. It's very easy to keep
-your server up to date with the ease to use web UI, and get issues solved by
-iRedMail Team quickly.
-
-For more details about iRedMail EE, please
-[check our website](https://www.iredmail.org/ee.html).
-
-iRedMail EE uses almost same deployment code as iRedMail Easy, so migrating
-from iRedMail Easy is a breeze.
+iRedMail Enterprise Edition (`EE` for short) uses almost same deployment code
+as iRedMail Easy, migrating from iRedMail Easy to EE is a breeze.
 
 ## Notes before getting started
 
 - iRedAdmin and iRedAdmin-Pro are not available after migrated to iRedMail EE,
   because iRedMail EE offers same features as iRedAdmin-Pro, hence
   no need to run iRedAdmin(-Pro) after migrated.
+- An EE license is required. Please login or sign up to our website to get
+  a trial license or purchase one: <https://store.iredmail.org/>.
 
 ## Migrate
 
-- Follow the tutorial to [install and run iRedMail Enterprise Edition](./install.ee.html),
+- Follow the tutorial to [download and launch the installer of iRedMail Enterprise Edition](./install.ee.html),
   on your server which was deployed with iRedMail Easy platform.
 
     EE will check server environment and find it's deployed with iRedMail Easy
     platform, then runs http service on port `8080`, please make sure this port
     is open in your firewall, then visit it with a web browser and you should
     see web page like below.
-
-    Since HSTS is enabled by default in iRedMail, web browser may refuse to
-    access port `8080` with server hostname and `http` protocol, for example,
-    `http://mail.domain.com:8080`, please visit server IP address instead in
-    this case: `http://x.x.x.x:8080`.
 
 - Login to iRedMail Easy platform: <https://easy.iredmail.org/>
 - Click `Mail Servers` on left sidebar.
