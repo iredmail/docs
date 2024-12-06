@@ -26,25 +26,26 @@ as iRedMail Easy, migrating from iRedMail Easy to EE is a breeze.
 
 ## Migrate
 
-- Follow the tutorial to [download and launch the installer of iRedMail Enterprise Edition](./install.ee.html),
+- Follow the tutorial to [download and launch the installer of iRedMail Enterprise Edition](./install.ee.html)
   on your server which was deployed with iRedMail Easy platform.
 
-    EE will check server environment and find it's deployed with iRedMail Easy
-    platform, then runs http service on port `8080`, please make sure this port
-    is open in your firewall, then visit it with a web browser and you should
-    see web page like below.
+    EE will launch http service on port `8080`, please make sure this port
+    is open in your firewall, then visit it with a web browser.
 
 - Login to iRedMail Easy platform: <https://easy.iredmail.org/>
 - Click `Mail Servers` on left sidebar.
 - Click `Export` to export the server settings.
 - Copy the server settings (in JSON format) and paste below, then click
-`Migrate` button to import settings and start migration immediately. It should finish in seconds.
+  `Migrate` button to import settings.
+- Click `Next` to review the settings.
+- Click `Migrate` to start the migration immediately. It should finish in seconds.
 - After migrated, access the new web UI `https://your-server/admin/`,
   login with same admin accounts you used to login to iRedAdmin or iRedAdmin-Pro.
 - After logged in, click `Deployments` on left sidebar, then click
   `Re-perform full deployment` to apply config file changes to fully migrated
   to iRedMail EE. Usually it finishes in just seconds.
-- That's all.
+
+That's all.
 
 If you experienced any issue, please report via the [Ticket system](https://store.iredmail.org/tickets).
 
