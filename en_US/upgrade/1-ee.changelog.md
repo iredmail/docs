@@ -6,11 +6,59 @@
 
 | Version | Release Date |
 |---|---|
+| [v1.0-beta9](#v1.0-beta9) | 2024-12-12 |
 | [v1.0-beta8](#v1.0-beta8) | 2024-09-14 |
 | [v1.0-beta7](#v1.0-beta7) | 2024-08-02 |
 | [v1.0-beta6](#v1.0-beta6) | 2024-05-31 |
 | [v1.0-beta5](#v1.0-beta5) | 2024-05-08 |
 | [v1.0-beta4](#v1.0-beta4) | 2024-04-26 |
+
+## v1.0-beta9, Dec 12, 2024 {: #v1.0-beta9 }
+
+- Dropped distribution releases:
+    - Debian 10 (buster). Debian 12 is recommended.
+    - Ubuntu 18.04 (bionic). Ubuntu 24.04 LTS is recommended.
+
+- New translation: de_DE (German).
+  Thanks to Leslie León Sinclair <leslie84@nauta.cu>.
+
+- New features:
+    - Full OpenLDAP backend support.
+    - [web] Manage firewall rules on web UI.
+    - [web] Manage default MTA transport.
+    - [web] Email archiving software integration. Currently only Spider Email
+      Archiver <https://spiderd.io> is supported. Spider is developed by
+      iRedMail team.
+    - [server] Add cron job to remove mailboxes from disk after account was
+      deleted.
+
+- Improvements:
+    - [server] Set SOGoDisableOrganizerEventCheck=YES in SOGo by default.
+    - [server] SOGo Groupware is now available on arm64 platform.
+    - [server] Increase Amavisd log line length to 2048 characters.
+    - [server] Improve SQL performance by extending `amavisd.msgs` table.
+    - [server] Block `.F`, `.melt`, `.fcat`, `.zoo` file extensions by default
+      in Amavisd due to no decode program available.
+    - [web] Able to filter mail alias and mailing lists accounts by first
+      char of email address.
+    - [web] Display banner on all pages when new version is available for upgrade.
+    - [migration] Migrating from iRedMail Easy is even easier now.
+
+- Fixed issues:
+    - [server] Not correctly save spam policy.
+    - [server] Do not set default mailbox quota in Dovecot config file.
+    - [server] SSL cert/key files have loose file permission. Set to 0400 now.
+    - [server] Not update iRedAPD config file to whitelist trusted clients.
+      Thanks to Peter Radig for the feedback.
+    - [server] Not correctly enable / disable per-domain greylisting service.
+    - [server] Not preserve display name and managed domains while renaming mail user.
+    - [api] Incorrect parameter value types while creating domain.
+
+- Updated packages:
+    - mlmmjadmin 3.3.0
+    - netdata 2.0.3
+    - iRedAPD 5.8.1
+    - uwsgi 2.0.28 (OpenBSD only)
 
 ## v1.0-beta8, Sep 14, 2024 {: #v1.0-beta8 }
 

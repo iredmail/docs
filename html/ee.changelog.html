@@ -29,6 +29,10 @@
 </thead>
 <tbody>
 <tr>
+<td><a href="#v1.0-beta9">v1.0-beta9</a></td>
+<td>2024-12-12</td>
+</tr>
+<tr>
 <td><a href="#v1.0-beta8">v1.0-beta8</a></td>
 <td>2024-09-14</td>
 </tr>
@@ -50,6 +54,70 @@
 </tr>
 </tbody>
 </table>
+<h2 id="v1.0-beta9">v1.0-beta9, Dec 12, 2024</h2>
+<ul>
+<li>
+<p>Dropped distribution releases:</p>
+<ul>
+<li>Debian 10 (buster). Debian 12 is recommended.</li>
+<li>Ubuntu 18.04 (bionic). Ubuntu 24.04 LTS is recommended.</li>
+</ul>
+</li>
+<li>
+<p>New translation: de_DE (German).
+  Thanks to Leslie León Sinclair <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#108;&#101;&#115;&#108;&#105;&#101;&#56;&#52;&#64;&#110;&#97;&#117;&#116;&#97;&#46;&#99;&#117;">&#108;&#101;&#115;&#108;&#105;&#101;&#56;&#52;&#64;&#110;&#97;&#117;&#116;&#97;&#46;&#99;&#117;</a>.</p>
+</li>
+<li>
+<p>New features:</p>
+<ul>
+<li>Full OpenLDAP backend support.</li>
+<li>[web] Manage firewall rules on web UI.</li>
+<li>[web] Manage default MTA transport.</li>
+<li>[web] Email archiving software integration. Currently only Spider Email
+  Archiver <a href="https://spiderd.io">https://spiderd.io</a> is supported. Spider is developed by
+  iRedMail team.</li>
+<li>[server] Add cron job to remove mailboxes from disk after account was
+  deleted.</li>
+</ul>
+</li>
+<li>
+<p>Improvements:</p>
+<ul>
+<li>[server] Set SOGoDisableOrganizerEventCheck=YES in SOGo by default.</li>
+<li>[server] SOGo Groupware is now available on arm64 platform.</li>
+<li>[server] Increase Amavisd log line length to 2048 characters.</li>
+<li>[server] Improve SQL performance by extending <code>amavisd.msgs</code> table.</li>
+<li>[server] Block <code>.F</code>, <code>.melt</code>, <code>.fcat</code>, <code>.zoo</code> file extensions by default
+  in Amavisd due to no decode program available.</li>
+<li>[web] Able to filter mail alias and mailing lists accounts by first
+  char of email address.</li>
+<li>[web] Display banner on all pages when new version is available for upgrade.</li>
+<li>[migration] Migrating from iRedMail Easy is even easier now.</li>
+</ul>
+</li>
+<li>
+<p>Fixed issues:</p>
+<ul>
+<li>[server] Not correctly save spam policy.</li>
+<li>[server] Do not set default mailbox quota in Dovecot config file.</li>
+<li>[server] SSL cert/key files have loose file permission. Set to 0400 now.</li>
+<li>[server] Not update iRedAPD config file to whitelist trusted clients.
+  Thanks to Peter Radig for the feedback.</li>
+<li>[server] Not correctly enable / disable per-domain greylisting service.</li>
+<li>[server] Not preserve display name and managed domains while renaming mail user.</li>
+<li>[api] Incorrect parameter value types while creating domain.</li>
+</ul>
+</li>
+<li>
+<p>Updated packages:</p>
+<ul>
+<li>mlmmjadmin 3.3.0</li>
+<li>netdata 2.0.3</li>
+<li>iRedAPD 5.8.1</li>
+<li>uwsgi 2.0.28 (OpenBSD only)</li>
+</ul>
+</li>
+</ul>
 <h2 id="v1.0-beta8">v1.0-beta8, Sep 14, 2024</h2>
 <blockquote>
 <p>We're working hard to finish OpenLDAP support in next beta release, v1.0-beta9.</p>
