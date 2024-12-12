@@ -20,7 +20,7 @@
     - Ubuntu 18.04 (bionic). Ubuntu 24.04 LTS is recommended.
 
 - New translation: de_DE (German).
-  Thanks to Leslie León Sinclair <leslie84@nauta.cu>.
+  Thanks to Leslie León Sinclair (leslie84 _at_ nauta.cu).
 
 - New features:
     - Full OpenLDAP backend support.
