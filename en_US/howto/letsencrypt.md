@@ -97,14 +97,14 @@ certbot certonly --webroot --dry-run -w /var/www/html -d mail.mydomain.com
     If you need to support multiple domain names in one cert, please append them
     with `-d` arguments like this:
 
-    ```
-    certbot certonly --webroot --dry-run \
-        -w /var/www/html \
-        -d mail.mydomain.com \
-        -d 2nd-domain.com \
-        -d 3rd-domain.com \
-        -d 4th-domain.com
-    ```
+```
+certbot certonly --webroot --dry-run \
+    -w /var/www/html \
+    -d mail.mydomain.com \
+    -d 2nd-domain.com \
+    -d 3rd-domain.com \
+    -d 4th-domain.com
+```
 
 * If everything went well and no error was reported by `certbot` program on
   console, that means we fully match the requirements, and it's ok to

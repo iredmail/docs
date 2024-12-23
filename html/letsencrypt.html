@@ -128,15 +128,13 @@ simple questions, please read carefully and answer them.</p>
 </code></pre>
 <pre><code>If you need to support multiple domain names in one cert, please append them
 with `-d` arguments like this:
-
-```
-certbot certonly --webroot --dry-run \
+</code></pre>
+<pre><code>certbot certonly --webroot --dry-run \
     -w /var/www/html \
     -d mail.mydomain.com \
     -d 2nd-domain.com \
     -d 3rd-domain.com \
     -d 4th-domain.com
-```
 </code></pre>
 <ul>
 <li>If everything went well and no error was reported by <code>certbot</code> program on
