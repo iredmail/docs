@@ -48,20 +48,20 @@ as iRedMail Easy, migrating from iRedMail Easy to EE is a breeze.</p>
 </ul>
 <h2 id="migrate">Migrate</h2>
 <ul>
+<li>Login to iRedMail Easy platform: <a href="https://easy.iredmail.org/">https://easy.iredmail.org/</a></li>
+<li>Click <code>Mail Servers</code> on left sidebar.</li>
+<li>Click <code>Export</code>. It will display a modal window to show you the server settings.</li>
+<li>Click <code>Copy</code> on the modal window to copy server settings in JSON format.</li>
 <li>
-<p>Follow <a href="./install.ee.html">the tutorial</a> to download and launch the installer
-  of iRedMail EE on your server which was deployed with
-  iRedMail Easy platform.</p>
+<p>Follow <a href="./install.ee.html">the iRedMail EE installation tutorial</a> to download
+  and launch the installer on the server which was deployed with iRedMail Easy platform.</p>
 <p>EE launches the http service on port <code>8080</code>, please make sure this port
 is open in your firewall, then visit it with a web browser.</p>
 </li>
 <li>
-<p>Login to iRedMail Easy platform: <a href="https://easy.iredmail.org/">https://easy.iredmail.org/</a></p>
+<p>Paste the copied server settings and paste below, then click <code>Migrate</code> button
+  to import settings.</p>
 </li>
-<li>Click <code>Mail Servers</code> on left sidebar.</li>
-<li>Click <code>Export</code> to export the server settings.</li>
-<li>Copy the server settings (in JSON format) and paste below, then click
-  <code>Migrate</code> button to import settings.</li>
 <li>Click <code>Next</code> to review the settings.</li>
 <li>Click <code>Migrate</code> to start the migration immediately. It should finish in seconds.</li>
 <li>After migrated, access the new web UI <code>https://your-server/admin/</code>,
@@ -72,6 +72,8 @@ is open in your firewall, then visit it with a web browser.</p>
 </ul>
 <p>That's all.</p>
 <p>If you experienced any issue, please report via the <a href="https://store.iredmail.org/tickets">Ticket system</a>.</p>
-<p><img alt="" src="./images/ee/easy.to.ee.png" width="700px" /></p><div class="footer">
+<p><img alt="" src="./images/ee/easy.to.ee-1.png" width="700px" />
+<img alt="" src="./images/ee/easy.to.ee-2.png" width="700px" />
+<img alt="" src="./images/ee/easy.to.ee-3.png" width="700px" /></p><div class="footer">
     <p style="text-align: center; color: grey;">All documents are available in <a href="https://github.com/iredmail/docs/">GitHub repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://github.com/iredmail/docs/archive/master.zip">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
 </div></body></html>

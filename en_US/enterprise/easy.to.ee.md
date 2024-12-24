@@ -26,18 +26,18 @@ as iRedMail Easy, migrating from iRedMail Easy to EE is a breeze.
 
 ## Migrate
 
-- Follow [the tutorial](./install.ee.html) to download and launch the installer
-  of iRedMail EE on your server which was deployed with
-  iRedMail Easy platform.
+- Login to iRedMail Easy platform: <https://easy.iredmail.org/>
+- Click `Mail Servers` on left sidebar.
+- Click `Export`. It will display a modal window to show you the server settings.
+- Click `Copy` on the modal window to copy server settings in JSON format.
+- Follow [the iRedMail EE installation tutorial](./install.ee.html) to download
+  and launch the installer on the server which was deployed with iRedMail Easy platform.
 
     EE launches the http service on port `8080`, please make sure this port
     is open in your firewall, then visit it with a web browser.
 
-- Login to iRedMail Easy platform: <https://easy.iredmail.org/>
-- Click `Mail Servers` on left sidebar.
-- Click `Export` to export the server settings.
-- Copy the server settings (in JSON format) and paste below, then click
-  `Migrate` button to import settings.
+- Paste the copied server settings and paste below, then click `Migrate` button
+  to import settings.
 - Click `Next` to review the settings.
 - Click `Migrate` to start the migration immediately. It should finish in seconds.
 - After migrated, access the new web UI `https://your-server/admin/`,
@@ -50,4 +50,7 @@ That's all.
 
 If you experienced any issue, please report via the [Ticket system](https://store.iredmail.org/tickets).
 
-![](./images/ee/easy.to.ee.png){: width="700px" }
+![](./images/ee/easy.to.ee-1.png){: width="700px" }
+![](./images/ee/easy.to.ee-2.png){: width="700px" }
+![](./images/ee/easy.to.ee-3.png){: width="700px" }
+
