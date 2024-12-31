@@ -171,6 +171,10 @@ Main config file:
     `config/defaults.inc.php` to `config/config.inc.php`, then modify the one in
     `config/config.inc.php`.
 
+* Nginx config snippet:
+    * `/etc/nginx/templates/roundcube.tmpl`
+    * `/etc/nginx/templates/roundcube-subdomain.tmpl`
+
 ## Amavisd {: #amavisd }
 
 ### Main config files {: #amavisd-config }
