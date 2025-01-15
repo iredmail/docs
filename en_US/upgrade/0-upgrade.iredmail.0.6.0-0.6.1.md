@@ -6,11 +6,9 @@
 
 [TOC]
 
-!!! note "Paid Remote Upgrade Support"
+!!! note "Remote Upgrade Assistance"
 
-    We offer remote upgrade support if you don't want to get your hands dirty,
-    check [the details](https://www.iredmail.org/support.html) and
-    [contact us](https://www.iredmail.org/contact.html).
+    Check out our [remote upgrade support](https://www.iredmail.org/support.html) if you need assistance.
 
 ## General (All backends should apply these steps)
 

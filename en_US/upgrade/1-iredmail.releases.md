@@ -32,14 +32,13 @@
 
 ### Release notes and upgrade tutorials
 
-!!! note "Paid Remote Upgrade Support"
+!!! note "Remote Upgrade Assistance"
 
-    We offer remote upgrade support if you don't want to get your hands dirty,
-    check [the details](https://www.iredmail.org/support.html) and
-    [contact us](https://www.iredmail.org/contact.html).
+    Check out our [remote upgrade support](https://www.iredmail.org/support.html) if you need assistance.
 
 Release Notes | Date | Upgrade tutorial | Comment
 ---|---|---|---
+[1.7.2](https://forum.iredmail.org/) | Jan 15, 2025 | [Upgrade from iRedMail-1.7.1](./upgrade.iredmail.1.7.1-1.7.2.html) |LDAP schema change.|
 [1.7.1](https://forum.iredmail.org/topic20547.html) | Aug 5, 2024 | [Upgrade from iRedMail-1.7.0](./upgrade.iredmail.1.7.0-1.7.1.html) ||
 [1.7.0](https://forum.iredmail.org/topic20501.html) | Jul 17, 2024 | [Upgrade from iRedMail-1.6.8](./upgrade.iredmail.1.6.8-1.7.0.html) ||
 [1.6.8](https://forum.iredmail.org/topic20243.html) | Dec 29, 2023 | [Upgrade from iRedMail-1.6.7](./upgrade.iredmail.1.6.7-1.6.8.html) | Mitigate Postfix "SMTP Smuggling" issue. |

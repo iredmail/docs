@@ -1,24 +1,18 @@
 # Upgrade iRedMail from 1.7.1 to 1.7.2
 
-!!! warning
-
-    THIS IS A DRAFT DOCUMENT, DO NOT APPLY IT ON PRODUCTION SERVER.
-
 !!! attention
 
 	 Check out the on-premises, lightweight email archiving software developed by iRedMail team: [Spider Email Archiver](https://spiderd.io/).
 
 [TOC]
 
-!!! note "Paid Remote Upgrade Support"
+!!! note "Remote Upgrade Assistance"
 
-    We offer remote upgrade support if you don't want to get your hands dirty,
-    check [the details](https://www.iredmail.org/support.html) and
-    [contact us](https://www.iredmail.org/contact.html).
+    Check out our [remote upgrade support](https://www.iredmail.org/support.html) if you need assistance.
 
 ## ChangeLog
 
-- Nov XX, 2024: initial publish.
+- Jan 15, 2025: initial publish.
 
 ## General (All backends should apply these changes)
 
@@ -31,6 +25,16 @@ so that you can know which version of iRedMail you're running. For example:
 ```
 1.7.2
 ```
+
+### Upgrade iRedAPD (Postfix policy server) to the latest stable release (5.8.1)
+
+Please follow below tutorial to upgrade iRedAPD to the latest stable release:
+[Upgrade iRedAPD to the latest stable release](./upgrade.iredapd.html)
+
+### Upgrade mlmmjadmin to the latest stable release (3.3.0)
+
+Please follow below tutorial to upgrade mlmmjadmin to the latest stable release:
+[Upgrade mlmmjadmin to the latest stable release](./upgrade.mlmmjadmin.html)
 
 ### Upgrade Roundcube webmail to the latest stable release (1.6.9 or 1.5.9)
 
@@ -52,14 +56,14 @@ so that you can know which version of iRedMail you're running. For example:
 
 * [Upgrade Roundcube](https://github.com/roundcube/roundcubemail/wiki/Upgrade).
 
-### Upgrade netdata to the latest stable release (1.47.5)
+### Upgrade netdata to the latest stable release (v2.1.1)
 
 If you have netdata installed, you can upgrade it by following this tutorial:
 [Upgrade netdata](./upgrade.netdata.html).
 
 ### Fixed: incorrect sql column name in Fail2ban script
 
-Run command below to override existing one. That's all.
+Run command below to download patched file.
 
 ```
 wget -O /usr/local/bin/fail2ban_banned_db \
@@ -70,8 +74,9 @@ wget -O /usr/local/bin/fail2ban_banned_db \
 
 ### Update LDAP schema file
 
-New schema allows mail alias account to use 2 more attributes: `accessPolicy`,
-`listModerator`.
+New schema allows mail alias account to use 2 more attributes:
+- `accessPolicy`,
+- `listModerator`.
 
 Download the latest iRedMail LDAP schema file:
 
@@ -103,14 +108,27 @@ service slapd restart
 
 * On OpenBSD:
 
-    > Note: if you're running ldapd as LDAP server, the schema directory is
-    > `/etc/ldap`, and service name is `ldapd`.
-
 ```
 ftp -o /tmp/iredmail.schema https://github.com/iredmail/iRedMail/raw/1.7.2/samples/iredmail/iredmail.schema
 mv /etc/openldap/schema/iredmail.schema{,.bak}
 cp -f /tmp/iredmail.schema /etc/openldap/schema/
 rcctl restart slapd
+```
+
+### Fixed: incorrect sql table name in SOGo config file
+
+!!! attention
+
+    This's a bug introduced in iRedMail-1.7.1, this fix is applicable if your
+    server was deployed with iRedMail-1.7.1.
+
+Fix incorrect sql table name in SOGo config file, rename the table in SQL
+database, and restart SOGO service:
+
+```
+perl -pi -e 's#PH_SOGO_DB_TABLE_ADMIN#sogo_admin#g' /etc/sogo/sogo.conf
+mysql sogo -e "RENAME TABLE PH_SOGO_DB_TABLE_ADMIN TO sogo_admin;"
+service sogo restart
 ```
 
 ## For MariaDB backend
@@ -129,6 +147,22 @@ query       = SELECT recipient_bcc_domain.bcc_address FROM recipient_bcc_domain,
 query       = SELECT sender_bcc_domain.bcc_address FROM sender_bcc_domain, domain WHERE sender_bcc_domain.domain='%d' AND sender_bcc_domain.domain=domain.domain AND domain.active=1
 ```
 
+### Fixed: incorrect sql table name in SOGo config file
+
+!!! attention
+
+    This's a bug introduced in iRedMail-1.7.1, this fix is applicable if your
+    server was deployed with iRedMail-1.7.1.
+
+Fix incorrect sql table name in SOGo config file, rename the table in SQL
+database, and restart SOGO service:
+
+```
+perl -pi -e 's#PH_SOGO_DB_TABLE_ADMIN#sogo_admin#g' /etc/sogo/sogo.conf
+mysql sogo -e "RENAME TABLE PH_SOGO_DB_TABLE_ADMIN TO sogo_admin;"
+service sogo restart
+```
+
 ## For PostgreSQL backend
 
 ### Fixed: Not detect domain status while querying per-domain BCC
@@ -143,4 +177,25 @@ query       = SELECT recipient_bcc_domain.bcc_address FROM recipient_bcc_domain,
 
 ```
 query       = SELECT sender_bcc_domain.bcc_address FROM sender_bcc_domain, domain WHERE sender_bcc_domain.domain='%d' AND sender_bcc_domain.domain=domain.domain AND domain.active=1
+```
+
+### Fixed: incorrect sql table name in SOGo config file
+
+!!! attention
+
+    This's a bug introduced in iRedMail-1.7.1, this fix is applicable if your
+    server was deployed with iRedMail-1.7.1.
+
+Fix incorrect sql table name in SOGo config file:
+
+```
+perl -pi -e 's#PH_SOGO_DB_TABLE_ADMIN#sogo_admin#g' /etc/sogo/sogo.conf
+```
+
+Switch to PostgreSQL daemon user, rename the table in SQL database, and restart SOGO service:
+
+```
+su - postgres
+psql -d sogo -c "ALTER TABLE PH_SOGO_DB_TABLE_ADMIN RENAME TO sogo_admin;"
+service sogo restart
 ```

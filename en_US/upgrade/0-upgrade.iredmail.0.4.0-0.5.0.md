@@ -6,6 +6,10 @@
 
 [TOC]
 
+!!! note "Remote Upgrade Assistance"
+
+    Check out our [remote upgrade support](https://www.iredmail.org/support.html) if you need assistance.
+
 > We provide remote upgrade service, check
 > [the price](https://www.iredmail.org/support.html) and
 > [contact us](https://www.iredmail.org/contact.html).
