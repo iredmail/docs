@@ -31,6 +31,7 @@
 <li><a href="#upgrade-roundcube-webmail-to-the-latest-stable-release-169-or-159">Upgrade Roundcube webmail to the latest stable release (1.6.9 or 1.5.9)</a></li>
 <li><a href="#upgrade-netdata-to-the-latest-stable-release-v211">Upgrade netdata to the latest stable release (v2.1.1)</a></li>
 <li><a href="#fixed-incorrect-sql-column-name-in-fail2ban-script">Fixed: incorrect sql column name in Fail2ban script</a></li>
+<li><a href="#fixed-not-serve-acme-challenge-over-http-directly">Fixed: Not serve ACME challenge over HTTP directly</a></li>
 </ul>
 </li>
 <li><a href="#for-openldap-backend">For OpenLDAP backend</a><ul>
@@ -99,6 +100,48 @@ which shipped in Roundcube 1.5.6 and 1.6.5.</strong></p>
 <pre><code>wget -O /usr/local/bin/fail2ban_banned_db \
     https://raw.githubusercontent.com/iredmail/iRedMail/1.7.2/samples/fail2ban/bin/fail2ban_banned_db
 </code></pre>
+<h3 id="fixed-not-serve-acme-challenge-over-http-directly">Fixed: Not serve ACME challenge over HTTP directly</h3>
+<p>Let's Encrypt cert renewal may fail with error <code>Connection refused</code> if the
+HTTP request is redirected to HTTPS.</p>
+<ul>
+<li>Replace <code>/etc/nginx/sites-available/00-default.conf</code> by content below:</li>
+</ul>
+<pre><code>#
+# Note: This file must be loaded before other virtual host config files,
+#
+# HTTP
+server {
+    # Listen on ipv4
+    listen PH_PORT_HTTP;
+    #listen [::]:PH_PORT_HTTP;
+
+    server_name _;
+
+    # Allow ACME challenge to be served over HTTP (don't redirect to HTTPS).
+    location ~* ^/.well-known/acme-challenge/ {
+        root /opt/www/well_known;
+        try_files $uri =404;
+        allow all;
+    }
+
+    # Redirect all insecure http requests to https.
+    location / {
+        return 301 https://$host$request_uri;
+    }
+}
+</code></pre>
+<ul>
+<li>Create new directory <code>/opt/www/well_known</code>, set correct owner, group and
+  permission, then restart Nginx service:</li>
+</ul>
+<pre><code>mkdir -p /opt/www/well_known
+chown root:root /opt/www/well_known
+chmod 0755 /opt/www/well_known
+service nginx restart
+</code></pre>
+<p>Note: If you renew cert with <code>certbot</code> program and <code>--webroot</code> argument,
+you may need to specify <code>-w /opt/www/well_known</code> (or
+<code>--webroot-path /opt/www/well_known</code>) each time from now on.</p>
 <h2 id="for-openldap-backend">For OpenLDAP backend</h2>
 <h3 id="update-ldap-schema-file">Update LDAP schema file</h3>
 <p>New schema allows mail alias account to use 2 more attributes:

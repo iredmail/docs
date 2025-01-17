@@ -70,6 +70,53 @@ wget -O /usr/local/bin/fail2ban_banned_db \
     https://raw.githubusercontent.com/iredmail/iRedMail/1.7.2/samples/fail2ban/bin/fail2ban_banned_db
 ```
 
+### Fixed: Not serve ACME challenge over HTTP directly
+
+Let's Encrypt cert renewal may fail with error `Connection refused` if the
+HTTP request is redirected to HTTPS.
+
+- Replace `/etc/nginx/sites-available/00-default.conf` by content below:
+
+```
+#
+# Note: This file must be loaded before other virtual host config files,
+#
+# HTTP
+server {
+    # Listen on ipv4
+    listen PH_PORT_HTTP;
+    #listen [::]:PH_PORT_HTTP;
+
+    server_name _;
+
+    # Allow ACME challenge to be served over HTTP (don't redirect to HTTPS).
+    location ~* ^/.well-known/acme-challenge/ {
+        root /opt/www/well_known;
+        try_files $uri =404;
+        allow all;
+    }
+
+    # Redirect all insecure http requests to https.
+    location / {
+        return 301 https://$host$request_uri;
+    }
+}
+```
+
+- Create new directory `/opt/www/well_known`, set correct owner, group and
+  permission, then restart Nginx service:
+
+```
+mkdir -p /opt/www/well_known
+chown root:root /opt/www/well_known
+chmod 0755 /opt/www/well_known
+service nginx restart
+```
+
+Note: If you renew cert with `certbot` program and `--webroot` argument,
+you may need to specify `-w /opt/www/well_known` (or
+`--webroot-path /opt/www/well_known`) each time from now on.
+
 ## For OpenLDAP backend
 
 ### Update LDAP schema file
