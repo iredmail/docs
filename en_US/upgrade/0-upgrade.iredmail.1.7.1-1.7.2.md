@@ -84,8 +84,8 @@ HTTP request is redirected to HTTPS.
 # HTTP
 server {
     # Listen on ipv4
-    listen PH_PORT_HTTP;
-    #listen [::]:PH_PORT_HTTP;
+    listen 80;
+    #listen [::]:80;
 
     server_name _;
 
