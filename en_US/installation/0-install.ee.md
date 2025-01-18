@@ -11,9 +11,9 @@
     - All account passwords are generated randomly during deployment, stored in
       files under `/root/.iredmail/kv/` on your server, also organized in file
       `/root/iRedMail/iRedMail.tips`.
-    - To migrate your existing iRedMail server to __iRedMail Enterprise Edition__,
-      please check this tutorial:
-      [Migrate from iRedMail to iRedMail Enterprise Edition](./iredmail.to.ee.html).
+    - Need to migrate from existing iRedMail server? We have tutorials for you:
+        - [Migrate from iRedMail](./iredmail.to.ee.html)
+        - [Migrate from iRedMail Easy](./easy.to.ee.html)
 
 ## Summary
 
