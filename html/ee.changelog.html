@@ -29,6 +29,10 @@
 </thead>
 <tbody>
 <tr>
+<td><a href="#v1.0.0">v1.0.0</a></td>
+<td>2025-01-24</td>
+</tr>
+<tr>
 <td><a href="#v1.0-beta9">v1.0-beta9</a></td>
 <td>2024-12-12</td>
 </tr>
@@ -54,6 +58,71 @@
 </tr>
 </tbody>
 </table>
+<p><br/></p>
+<ul>
+<li><a href="./install.ee.html">Install iRedMail Enterprise Edition</a></li>
+<li><a href="./upgrade.ee.html">Upgrade iRedMail Enterprise Edition</a></li>
+</ul>
+<h2 id="v1.0.0">v1.0.0, Jan 24, 2025</h2>
+<ul>
+<li>
+<p>New features:</p>
+<ul>
+<li>HTTP Push notification. Send basic info of newly received email message
+  to your http endpoint. Note: it does not send full mail headers or body.
+  FYI <a href="https://doc.dovecot.org/main/core/plugins/push_notification.html">https://doc.dovecot.org/main/core/plugins/push_notification.html</a></li>
+<li>Enable doveadm http api. FYI
+  <a href="https://doc.dovecot.org/main/core/admin/doveadm.html">https://doc.dovecot.org/main/core/admin/doveadm.html</a></li>
+</ul>
+</li>
+<li>
+<p>Improvements:</p>
+<ul>
+<li>[LDAP backend] Able to add and manage (old-style) mailing list account.</li>
+<li>Able to accept connections from certain source address to any port
+  while adding new firewall rule.
+  Thanks Ian for the feedback.</li>
+<li>Supports autoconfig, autodiscover and mobileconfig out of box. Component
+  <code>Autoconfig and Autodiscover</code> has been removed.</li>
+<li>[web] Able to filter events on Activities page.</li>
+<li>[web] Able to redirect to mail alias profile page from user profile page,
+  Membership tab.</li>
+</ul>
+</li>
+<li>
+<p>Fixed:</p>
+<ul>
+<li>[server] Not serve ACME challenge over HTTP directly.
+  Let's Encrypt cert renewal may fail with error <code>Connection refused</code> if
+  the HTTP request is redirected to HTTPS.</li>
+<li>[server] Incorrectly prefix <code>[Spam]</code> text in mail subject when option
+  <code>Always insert X-Spam-* headers</code> is enabled.</li>
+<li>[server] Not apply default firewall rules while upgrading from v1.0-beta8
+  when Firewall component is enabled.
+  Thanks Ian for the report.</li>
+<li>[server] Not install required package for FTS on Ubuntu 24.04.</li>
+<li>[server] Disable slow query log in mariadb to prevent large log file. 
+  Thanks Günther Pfannhauser for the report.</li>
+<li>[server] Upgrading from v1.0-beta7 or earlier releases fails.</li>
+<li>[server] Not restart cron job to load newly added tasks.</li>
+<li>[api] Cannot reset user password with a hashed password.
+  Thanks Michael Stamouli for the report.</li>
+<li>[api] Cannot use "-" (dash) in password.</li>
+<li>[web] <code>Statistics</code> on Dashboard does not reflect the log retention days.</li>
+<li>[web] <code>Delete All</code> button doesn't work on <code>Sent Mails</code> page.
+  Thanks Justin for the report.</li>
+<li>[web] OTP doesn't work. (#1037)
+  Thanks Sascha Linke for the report.</li>
+<li>[web] Several web UI minor fixes and tweaks.</li>
+</ul>
+</li>
+<li>
+<p>Updated packages:</p>
+<ul>
+<li>netdata 2.2.0</li>
+</ul>
+</li>
+</ul>
 <h2 id="v1.0-beta9">v1.0-beta9, Dec 12, 2024</h2>
 <ul>
 <li>

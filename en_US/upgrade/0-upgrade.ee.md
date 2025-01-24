@@ -11,10 +11,10 @@ iRedMail Enterprise Edition is a single binary program, upgrading is simple:
 
 That's all.
 
-Let's take `v1.0-beta9` as new version, Linux OS and amd64 architecture for example:
+Let's take `v1.0.0` as new version, Linux OS and amd64 architecture for example:
 
 ```
-wget -O /tmp/iredmail https://dl.iredmail.org/ee/iredmail-enterprise-v1.0-beta9-linux-amd64
+wget -O /tmp/iredmail https://dl.iredmail.org/ee/iredmail-enterprise-v1.0.0-linux-amd64
 service iredmail stop
 mv /tmp/iredmail /usr/local/bin/iredmail
 chown root /usr/local/bin/iredmail
@@ -22,15 +22,13 @@ chmod 0500 /usr/local/bin/iredmail
 service iredmail start
 ```
 
-After upgraded software, please login to its web UI as global admin and check
-the `Software` card on Dashboard page, if there's some update for deployed
-software like Postfix, Dovecot, Nginx, etc, it will show the
-`Apply iRedMail Changes` button, click it to finish the upgrade.
-
-That's all.
+After upgraded binary, login to the web UI as global admin. If there's some
+update for deployed software like Postfix, Dovecot, Nginx, etc, it will show
+a banner with `Upgrade` button, please click it to finish the upgrade.
 
 ![](./images/ee/dashboard-upgrade.png)
 
 ## See Also
 
+- [Install iRedMail Enterprise Edition](./install.ee.html)
 - [ChangeLog of iRedMail Enterprise Edition](./ee.changelog.html)

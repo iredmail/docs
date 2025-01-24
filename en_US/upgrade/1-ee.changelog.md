@@ -6,12 +6,65 @@
 
 | Version | Release Date |
 |---|---|
+| [v1.0.0](#v1.0.0) | 2025-01-24 |
 | [v1.0-beta9](#v1.0-beta9) | 2024-12-12 |
 | [v1.0-beta8](#v1.0-beta8) | 2024-09-14 |
 | [v1.0-beta7](#v1.0-beta7) | 2024-08-02 |
 | [v1.0-beta6](#v1.0-beta6) | 2024-05-31 |
 | [v1.0-beta5](#v1.0-beta5) | 2024-05-08 |
 | [v1.0-beta4](#v1.0-beta4) | 2024-04-26 |
+
+<br/>
+
+- [Install iRedMail Enterprise Edition](./install.ee.html)
+- [Upgrade iRedMail Enterprise Edition](./upgrade.ee.html)
+
+## v1.0.0, Jan 24, 2025 {: #v1.0.0 }
+
+- New features:
+    - HTTP Push notification. Send basic info of newly received email message
+      to your http endpoint. Note: it does not send full mail headers or body.
+      FYI <https://doc.dovecot.org/main/core/plugins/push_notification.html>
+    - Enable doveadm http api. FYI
+      <https://doc.dovecot.org/main/core/admin/doveadm.html>
+
+- Improvements:
+    - [LDAP backend] Able to add and manage (old-style) mailing list account.
+    - Able to accept connections from certain source address to any port
+      while adding new firewall rule.
+      Thanks Ian for the feedback.
+    - Supports autoconfig, autodiscover and mobileconfig out of box. Component
+      `Autoconfig and Autodiscover` has been removed.
+    - [web] Able to filter events on Activities page.
+    - [web] Able to redirect to mail alias profile page from user profile page,
+      Membership tab.
+
+- Fixed:
+    - [server] Not serve ACME challenge over HTTP directly.
+      Let's Encrypt cert renewal may fail with error `Connection refused` if
+      the HTTP request is redirected to HTTPS.
+    - [server] Incorrectly prefix `[Spam]` text in mail subject when option
+      `Always insert X-Spam-* headers` is enabled.
+    - [server] Not apply default firewall rules while upgrading from v1.0-beta8
+      when Firewall component is enabled.
+      Thanks Ian for the report.
+    - [server] Not install required package for FTS on Ubuntu 24.04.
+    - [server] Disable slow query log in mariadb to prevent large log file. 
+      Thanks Günther Pfannhauser for the report.
+    - [server] Upgrading from v1.0-beta7 or earlier releases fails.
+    - [server] Not restart cron job to load newly added tasks.
+    - [api] Cannot reset user password with a hashed password.
+      Thanks Michael Stamouli for the report.
+    - [api] Cannot use "-" (dash) in password.
+    - [web] `Statistics` on Dashboard does not reflect the log retention days.
+    - [web] `Delete All` button doesn't work on `Sent Mails` page.
+      Thanks Justin for the report.
+    - [web] OTP doesn't work. (#1037)
+      Thanks Sascha Linke for the report.
+    - [web] Several web UI minor fixes and tweaks.
+
+- Updated packages:
+    - netdata 2.2.0
 
 ## v1.0-beta9, Dec 12, 2024 {: #v1.0-beta9 }
 
