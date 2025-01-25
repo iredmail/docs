@@ -36,11 +36,9 @@
 
     Check out our [remote upgrade support](https://www.iredmail.org/support.html) if you need assistance.
 
-<!--
-[1.7.2](https://forum.iredmail.org/) | Jan 15, 2025 | [Upgrade from iRedMail-1.7.1](./upgrade.iredmail.1.7.1-1.7.2.html) |LDAP schema change.|
--->
 Release Notes | Date | Upgrade tutorial | Comment
 ---|---|---|---
+[1.7.2](https://forum.iredmail.org/topic20760.html) | Jan 24, 2025 | [Upgrade from iRedMail-1.7.1](./upgrade.iredmail.1.7.1-1.7.2.html) |LDAP schema change.|
 [1.7.1](https://forum.iredmail.org/topic20547.html) | Aug 5, 2024 | [Upgrade from iRedMail-1.7.0](./upgrade.iredmail.1.7.0-1.7.1.html) ||
 [1.7.0](https://forum.iredmail.org/topic20501.html) | Jul 17, 2024 | [Upgrade from iRedMail-1.6.8](./upgrade.iredmail.1.6.8-1.7.0.html) ||
 [1.6.8](https://forum.iredmail.org/topic20243.html) | Dec 29, 2023 | [Upgrade from iRedMail-1.6.7](./upgrade.iredmail.1.6.7-1.6.8.html) | Mitigate Postfix "SMTP Smuggling" issue. |
@@ -49,7 +47,7 @@ Release Notes | Date | Upgrade tutorial | Comment
 [1.6.5](https://forum.iredmail.org/topic20041.html) | Sep 20, 2023 | [Upgrade from iRedMail-1.6.4](./upgrade.iredmail.1.6.4-1.6.5.html) |SECURITY UPDATE of Roundcube webmail (v1.6.3).|
 [1.6.4](https://forum.iredmail.org/topic19949.html) | Jul 28, 2023 | [Upgrade from iRedMail-1.6.3](./upgrade.iredmail.1.6.3-1.6.4.html) |Supports Debian 12, enables SOGo on CentOS / Rocky / AlmaLinux 9.|
 [1.6.3](https://forum.iredmail.org/topic19786.html) | May 23, 2023 | [Upgrade from iRedMail-1.6.1 or 1.6.2](./upgrade.iredmail.1.6.1-1.6.3.html) |Supports new OpenBSD release (7.3), also contains MySQL structure change.|
-[1.6.2](https://forum.iredmail.org/topic19336.html) | Sep 30, 2022 | | Supports new linux distribution releases, no other new features, improvements or bug fixes, hence no upgrade required for iRedMail-1.6.1 servers. |
+[1.6.2](https://forum.iredmail.org/topic19336.html) | Sep 30, 2022 | | No upgrade required for iRedMail-1.6.1. |
 [1.6.1](https://forum.iredmail.org/topic19232.html) | Aug 22, 2022 | [Upgrade from iRedMail-1.6.0](./upgrade.iredmail.1.6.0-1.6.1.html) ||
 [1.6.0](https://forum.iredmail.org/topic19008.html) | May 20, 2022 | [Upgrade from iRedMail-1.5.2](./upgrade.iredmail.1.5.2-1.6.0.html) |
 [1.5.2](https://forum.iredmail.org/topic18820.html) | Mar 16, 2022 | [Upgrade from iRedMail-1.5.1](./upgrade.iredmail.1.5.1-1.5.2.html) |

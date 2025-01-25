@@ -12,7 +12,7 @@
 
 ## ChangeLog
 
-- Jan 15, 2025: initial publish.
+- Jan 24, 2025: initial publish.
 
 ## General (All backends should apply these changes)
 
