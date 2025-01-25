@@ -23,6 +23,7 @@
 <div class="toc">
 <ul>
 <li><a href="#iredmail-easy-release-notes">iRedMail Easy: Release Notes</a><ul>
+<li><a href="#2025012401">Version: 2025012401 (Jan 24, 2025)</a></li>
 <li><a href="#2024080501">Version: 2024080501 (Aug 5, 2024)</a></li>
 <li><a href="#2024071701">Version: 2024071701 (Jul 17, 2024)</a></li>
 <li><a href="#2024052101">Version: 2024052101 (May 21, 2024)</a></li>
@@ -76,6 +77,39 @@
 </li>
 </ul>
 </div>
+<h2 id="2025012401">Version: 2025012401 (Jan 24, 2025)</h2>
+<ul>
+<li>
+<p>Improvements:</p>
+<ul>
+<li>Set <code>SOGoDisableOrganizerEventCheck</code> to <code>YES</code> in sogo.conf by default.</li>
+<li>Block <code>.F</code>, <code>.melt</code>, <code>.fcat</code>, <code>.zoo</code> file extensions by default in
+  amavisd due to no decode program available.</li>
+<li>Increase Amavisd log line length to 2048 characters.</li>
+<li>Don't use deprecated LDAP attributes: storageBaseDirectory,
+  mailMessageStore.</li>
+<li>Disable SpamAssassin rule <code>RCVD_IN_DNSWL_HI</code> (Sender listed at
+  http://www.dnswl.org/, high trust).</li>
+</ul>
+</li>
+<li>
+<p>Fixed issues:</p>
+<ul>
+<li>Not serve ACME challenge over HTTP directly.
+  Let's Encrypt cert renewal may fail with error <code>Connection refused</code> if
+  the HTTP request is redirected to HTTPS.</li>
+</ul>
+</li>
+<li>
+<p>Updated packages:</p>
+<ul>
+<li>Roundcube 1.6.9 and 1.5.9.</li>
+<li>netdata v2.2.0</li>
+<li>iRedAPD 5.8.1</li>
+<li>uwsgi 2.0.28 (OpenBSD only)</li>
+</ul>
+</li>
+</ul>
 <h2 id="2024080501">Version: 2024080501 (Aug 5, 2024)</h2>
 <ul>
 <li>Updated packages:<ul>

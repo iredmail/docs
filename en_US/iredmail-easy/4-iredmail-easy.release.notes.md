@@ -6,6 +6,29 @@
 
 [TOC]
 
+## Version: 2025012401 (Jan 24, 2025) {: id=2025012401 }
+
+- Improvements:
+    - Set `SOGoDisableOrganizerEventCheck` to `YES` in sogo.conf by default.
+    - Block `.F`, `.melt`, `.fcat`, `.zoo` file extensions by default in
+      amavisd due to no decode program available.
+    - Increase Amavisd log line length to 2048 characters.
+    - Don't use deprecated LDAP attributes: storageBaseDirectory,
+      mailMessageStore.
+    - Disable SpamAssassin rule `RCVD_IN_DNSWL_HI` (Sender listed at
+      http://www.dnswl.org/, high trust).
+
+- Fixed issues:
+    - Not serve ACME challenge over HTTP directly.
+      Let's Encrypt cert renewal may fail with error `Connection refused` if
+      the HTTP request is redirected to HTTPS.
+
+- Updated packages:
+    - Roundcube 1.6.9 and 1.5.9.
+    - netdata v2.2.0
+    - iRedAPD 5.8.1
+    - uwsgi 2.0.28 (OpenBSD only)
+
 ## Version: 2024080501 (Aug 5, 2024) {: id=2024080501 }
 
 * Updated packages:
