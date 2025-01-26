@@ -196,6 +196,12 @@ query       = SELECT recipient_bcc_domain.bcc_address FROM recipient_bcc_domain,
 query       = SELECT sender_bcc_domain.bcc_address FROM sender_bcc_domain, domain WHERE sender_bcc_domain.domain='%d' AND sender_bcc_domain.domain=domain.domain AND domain.active=1
 ```
 
+- Restart `postfix` service:
+
+```
+systemctl restart postfix
+```
+
 ### Fixed: incorrect sql table name in SOGo config file
 
 !!! attention
@@ -226,6 +232,12 @@ query       = SELECT recipient_bcc_domain.bcc_address FROM recipient_bcc_domain,
 
 ```
 query       = SELECT sender_bcc_domain.bcc_address FROM sender_bcc_domain, domain WHERE sender_bcc_domain.domain='%d' AND sender_bcc_domain.domain=domain.domain AND domain.active=1
+```
+
+- Restart `postfix` service:
+
+```
+systemctl restart postfix
 ```
 
 ### Fixed: incorrect sql table name in SOGo config file

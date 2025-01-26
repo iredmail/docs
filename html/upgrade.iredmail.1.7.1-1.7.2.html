@@ -206,6 +206,11 @@ service sogo restart
 </ul>
 <pre><code>query       = SELECT sender_bcc_domain.bcc_address FROM sender_bcc_domain, domain WHERE sender_bcc_domain.domain='%d' AND sender_bcc_domain.domain=domain.domain AND domain.active=1
 </code></pre>
+<ul>
+<li>Restart <code>postfix</code> service:</li>
+</ul>
+<pre><code>systemctl restart postfix
+</code></pre>
 <h3 id="fixed-incorrect-sql-table-name-in-sogo-config-file_1">Fixed: incorrect sql table name in SOGo config file</h3>
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>
@@ -229,6 +234,11 @@ service sogo restart
 <li>Open file <code>/etc/postfix/pgsql/sender_bcc_maps_domain.cf</code>, replace the <code>query =</code> line by below one:</li>
 </ul>
 <pre><code>query       = SELECT sender_bcc_domain.bcc_address FROM sender_bcc_domain, domain WHERE sender_bcc_domain.domain='%d' AND sender_bcc_domain.domain=domain.domain AND domain.active=1
+</code></pre>
+<ul>
+<li>Restart <code>postfix</code> service:</li>
+</ul>
+<pre><code>systemctl restart postfix
 </code></pre>
 <h3 id="fixed-incorrect-sql-table-name-in-sogo-config-file_2">Fixed: incorrect sql table name in SOGo config file</h3>
 <div class="admonition attention">
