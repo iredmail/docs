@@ -12,6 +12,7 @@
 
 ## ChangeLog
 
+- Jan 26, 2025: Mention updating `/etc/letsencrypt/renewal/*.conf`.
 - Jan 24, 2025: initial publish.
 
 ## General (All backends should apply these changes)
@@ -114,8 +115,9 @@ service nginx restart
 ```
 
 Note: If you renew cert with `certbot` program and `--webroot` argument,
-you may need to specify `-w /opt/www/well_known` (or
-`--webroot-path /opt/www/well_known`) each time from now on.
+you must replace old directory in `/etc/letsencrypt/renewal/*.conf` by
+`/opt/www/well_known` manaully. Also, to request new ssl cert with `--webroot`
+argument, please specify `-w /opt/www/well_known` each time.
 
 ## For OpenLDAP backend
 

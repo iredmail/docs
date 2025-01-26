@@ -59,6 +59,7 @@
 </div>
 <h2 id="changelog">ChangeLog</h2>
 <ul>
+<li>Jan 26, 2025: Mention updating <code>/etc/letsencrypt/renewal/*.conf</code>.</li>
 <li>Jan 24, 2025: initial publish.</li>
 </ul>
 <h2 id="general-all-backends-should-apply-these-changes">General (All backends should apply these changes)</h2>
@@ -140,8 +141,9 @@ chmod 0755 /opt/www/well_known
 service nginx restart
 </code></pre>
 <p>Note: If you renew cert with <code>certbot</code> program and <code>--webroot</code> argument,
-you may need to specify <code>-w /opt/www/well_known</code> (or
-<code>--webroot-path /opt/www/well_known</code>) each time from now on.</p>
+you must replace old directory in <code>/etc/letsencrypt/renewal/*.conf</code> by
+<code>/opt/www/well_known</code> manaully. Also, to request new ssl cert with <code>--webroot</code>
+argument, please specify <code>-w /opt/www/well_known</code> each time.</p>
 <h2 id="for-openldap-backend">For OpenLDAP backend</h2>
 <h3 id="update-ldap-schema-file">Update LDAP schema file</h3>
 <p>New schema allows mail alias account to use 2 more attributes:
