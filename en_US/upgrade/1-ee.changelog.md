@@ -6,6 +6,7 @@
 
 | Version | Release Date |
 |---|---|
+| [v1.0.1](#v1.0.1) | 2025-01-26 |
 | [v1.0.0](#v1.0.0) | 2025-01-24 |
 | [v1.0-beta9](#v1.0-beta9) | 2024-12-12 |
 | [v1.0-beta8](#v1.0-beta8) | 2024-09-14 |
@@ -18,6 +19,14 @@
 
 - [Install iRedMail Enterprise Edition](./install.ee.html)
 - [Upgrade iRedMail Enterprise Edition](./upgrade.ee.html)
+
+## v1.0.1, Jan 26, 2025 {: #v1.0.1 }
+
+- Improvements:
+    - [web] Able to allow users to add auxiliary IMAP accounts.
+
+- Fixed:
+    - [web] Cannot save some checkbox status on `Server Settings` page.
 
 ## v1.0.0, Jan 24, 2025 {: #v1.0.0 }
 
