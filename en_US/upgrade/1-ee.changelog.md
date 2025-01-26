@@ -23,7 +23,8 @@
 ## v1.0.1, Jan 26, 2025 {: #v1.0.1 }
 
 - Improvements:
-    - [web] Able to allow users to add auxiliary IMAP accounts.
+    - [web] Able to allow users to add auxiliary IMAP accounts
+      (`SOGoMailAuxiliaryUserAccountsEnabled=YES`).
 
 - Fixed:
     - [web] Cannot save some checkbox status on `Server Settings` page.
