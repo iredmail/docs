@@ -6,6 +6,10 @@
 
 [TOC]
 
+!!! warning
+
+    iRedMail Easy platform will be discontinued on Jan 25, 2026. [Get a FREE iRedMail Enterprise Edition license and migrate.](https://forum.iredmail.org/topic20762.html)
+
 !!! attention
 
     - All accounts and passwords generated during deployment are stored in

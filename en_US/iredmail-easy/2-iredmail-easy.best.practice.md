@@ -4,6 +4,10 @@
 
 	 Check out the lightweight on-premises email archiving software developed by iRedMail team: [Spider Email Archiver](https://spiderd.io/).
 
+!!! warning
+
+    iRedMail Easy platform will be discontinued on Jan 25, 2026. [Get a FREE iRedMail Enterprise Edition license and migrate.](https://forum.iredmail.org/topic20762.html)
+
 [TOC]
 
 ## How the fearless upgrade works
