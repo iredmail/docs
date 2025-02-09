@@ -173,13 +173,6 @@ Note: while typing, it will validate the input value, please fill and wait for
 
 ![](./images/ee/setup-required-settings.png){: width="700px" }
 
-### Optional settings
-
-Depends on the components you chose to install, the settings on this page may
-be different.
-
-![](./images/ee/setup-optional-settings.png){: width="700px" }
-
 ### Review and deploy
 
 !!! attention
