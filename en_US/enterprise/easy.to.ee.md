@@ -28,7 +28,7 @@ as iRedMail Easy, migrating from iRedMail Easy to EE is a breeze.
 
 - Login to iRedMail Easy platform: <https://easy.iredmail.org/>
 - Click `Mail Servers` on left sidebar.
-- Click `Export`. It will display a modal window to show you the server settings.
+- Click `Export` button right beside the server hostname you want to migrate. It will display a modal window to show you the server settings.
 - Click `Copy` on the modal window to copy server settings in JSON format.
 - Follow [the iRedMail EE installation tutorial](./install.ee.html) to download
   and launch the installer on the server which was deployed with iRedMail Easy platform.
