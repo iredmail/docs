@@ -124,13 +124,13 @@ you actually own or control the domain name.</p>
 simple questions, please read carefully and answer them.</p>
 </li>
 </ul>
-<pre><code>certbot certonly --webroot --dry-run -w /var/www/html -d mail.mydomain.com
+<pre><code>certbot certonly --webroot --dry-run -w /opt/www/well_known -d mail.mydomain.com
 </code></pre>
 <pre><code>If you need to support multiple domain names in one cert, please append them
 with `-d` arguments like this:
 </code></pre>
 <pre><code>certbot certonly --webroot --dry-run \
-    -w /var/www/html \
+    -w /opt/www/well_known \
     -d mail.mydomain.com \
     -d 2nd-domain.com \
     -d 3rd-domain.com \
@@ -142,7 +142,7 @@ with `-d` arguments like this:
   actually request the cert by running above command again but without
   <code>--dry-run</code> argument:</li>
 </ul>
-<pre><code>certbot certonly --webroot -w /var/www/html -d mail.mydomain.com
+<pre><code>certbot certonly --webroot -w /opt/www/well_known -d mail.mydomain.com
 </code></pre>
 <p>If the command finished successfully, it will create and store cert files under
 <code>/etc/letsencrypt/live/mail.mydomain.com/</code> (You may have different host name

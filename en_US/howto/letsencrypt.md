@@ -91,7 +91,7 @@ It should return the (public) IP address of your server.
     simple questions, please read carefully and answer them.
 
 ```
-certbot certonly --webroot --dry-run -w /var/www/html -d mail.mydomain.com
+certbot certonly --webroot --dry-run -w /opt/www/well_known -d mail.mydomain.com
 ```
 
     If you need to support multiple domain names in one cert, please append them
@@ -99,7 +99,7 @@ certbot certonly --webroot --dry-run -w /var/www/html -d mail.mydomain.com
 
 ```
 certbot certonly --webroot --dry-run \
-    -w /var/www/html \
+    -w /opt/www/well_known \
     -d mail.mydomain.com \
     -d 2nd-domain.com \
     -d 3rd-domain.com \
@@ -112,7 +112,7 @@ certbot certonly --webroot --dry-run \
   `--dry-run` argument:
 
 ```
-certbot certonly --webroot -w /var/www/html -d mail.mydomain.com
+certbot certonly --webroot -w /opt/www/well_known -d mail.mydomain.com
 ```
 
 If the command finished successfully, it will create and store cert files under
