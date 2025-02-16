@@ -101,7 +101,6 @@ MySQL, PostgreSQL | `sql_user_vmail` | Password of SQL user `vmail` | `/etc/post
 MySQL, PostgreSQL | `sql_user_vmailadmin` | Password of SQL user `vmailadmin` | `/opt/www/iredadmin/settings.py`
 ALL | `sql_user_amavisd` | Password of SQL user `amavisd` | `/etc/amavisd/amavisd.conf` (Linux/OpenBSD)<br>`/etc/amavis/conf.d/50-user` (Debian/Ubuntu)
 ALL | `sql_user_sa_bayes` | Password of SQL user `sa_bayes`. If you didn't integrate SpamAssassin with SQL database, it's ok to not create this file. | `/etc/mail/spamassassin/local.cf`
-ALL | `sql_user_iredadmin` | Password of SQL user `iredadmin` | `/opt/www/iredadmin/settings.py`
 ALL | `sql_user_iredapd` | Password of SQL user `iredapd` | `/opt/iredapd/settings.py`
 ALL | `sql_user_roundcube` | Password of SQL user `roundcube` | `/root/.my.cnf-roundcube` or `/opt/www/roundcubemail/config/config.inc.php`
 ALL | `sql_user_sogo` | Password of SQL user `sogo`. If you didn't install SOGo, it's ok to not create this file. | `/etc/sogo/sogo.conf`
@@ -174,7 +173,8 @@ pre-defined files under `/opt/iredmail/custom/<software>/`.
 
 - Copy DKIM keys from `/var/lib/dkim/` to `/opt/iredmail/custom/amavisd/dkim/`.
 - Move all `dkim_key(...)` parameters from Amavisd config file to
-  `/opt/iredmail/custom/amavisd/amavisd.conf`:
+  `/opt/iredmail/custom/amavisd/amavisd.conf`, __EXCEPT__ the one for your first
+  email domain name which was created during initial iRedMail installation.
     - RHEL/CentOS: `/etc/amavisd/amavisd.conf`
     - Debian/Ubuntu: `/etc/amavis/conf.d/50-user`
     - OpenBSD: `/etc/amavisd.conf`

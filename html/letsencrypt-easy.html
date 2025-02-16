@@ -207,7 +207,7 @@ if successfully renewed:</p>
 <p class="admonition-title">Attention</p>
 <p>Replace <code>&lt;domain&gt;</code> by the real domain name.</p>
 </div>
-<pre><code>1 3 * * * certbot certificates; certbot renew --post-hook 'ln -sf /etc/letsencrypt/live/&lt;domain&gt;/privkey.pem /opt/iredmail/ssl/key.pem; /usr/sbin/systemctl restart postfix dovecot nginx'
+<pre><code>1 3 * * * certbot certificates; certbot renew --post-hook 'ln -sf /etc/letsencrypt/live/&lt;domain&gt;/privkey.pem /opt/iredmail/ssl/key.pem; /usr/bin/systemctl restart postfix dovecot nginx'
 </code></pre>
 <h2 id="cert-configuration-in-different-applications">Cert configuration in different applications</h2>
 <h3 id="postfix">Postfix</h3>

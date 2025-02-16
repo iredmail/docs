@@ -195,12 +195,6 @@ config files.</p>
 </tr>
 <tr>
 <td>ALL</td>
-<td><code>sql_user_iredadmin</code></td>
-<td>Password of SQL user <code>iredadmin</code></td>
-<td><code>/opt/www/iredadmin/settings.py</code></td>
-</tr>
-<tr>
-<td>ALL</td>
 <td><code>sql_user_iredapd</code></td>
 <td>Password of SQL user <code>iredapd</code></td>
 <td><code>/opt/iredapd/settings.py</code></td>
@@ -322,7 +316,8 @@ upgrade. For more details, please check our
 <li>Copy DKIM keys from <code>/var/lib/dkim/</code> to <code>/opt/iredmail/custom/amavisd/dkim/</code>.</li>
 <li>
 <p>Move all <code>dkim_key(...)</code> parameters from Amavisd config file to
-  <code>/opt/iredmail/custom/amavisd/amavisd.conf</code>:</p>
+  <code>/opt/iredmail/custom/amavisd/amavisd.conf</code>, <strong>EXCEPT</strong> the one for your first
+  email domain name which was created during initial iRedMail installation.</p>
 <ul>
 <li>RHEL/CentOS: <code>/etc/amavisd/amavisd.conf</code></li>
 <li>Debian/Ubuntu: <code>/etc/amavis/conf.d/50-user</code></li>

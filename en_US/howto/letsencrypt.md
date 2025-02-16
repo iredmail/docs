@@ -207,7 +207,7 @@ postfix/nginx/dovecot after renewed:
         - On Debian/Ubuntu, FreeBSD and OpenBSD, it's `/etc/ssl/private/iRedMail.key`.
 
 ```
-1 3 * * * certbot certificates; certbot renew --post-hook 'ln -sf /etc/letsencrypt/live/<domain>/privkey.pem /etc/ssl/private/iRedMail.key; /usr/sbin/systemctl restart postfix dovecot nginx'
+1 3 * * * certbot certificates; certbot renew --post-hook 'ln -sf /etc/letsencrypt/live/<domain>/privkey.pem /etc/ssl/private/iRedMail.key; /usr/bin/systemctl restart postfix dovecot nginx'
 ```
 
 ## Cert configuration in different applications
