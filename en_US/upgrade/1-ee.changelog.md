@@ -6,6 +6,7 @@
 
 | Version | Release Date |
 |---|---|
+| [v1.0.2](#v1.0.2) | 2025-02-20 |
 | [v1.0.1](#v1.0.1) | 2025-01-26 |
 | [v1.0.0](#v1.0.0) | 2025-01-24 |
 | [v1.0-beta9](#v1.0-beta9) | 2024-12-12 |
@@ -19,6 +20,41 @@
 
 - [Install iRedMail Enterprise Edition](./install.ee.html)
 - [Upgrade iRedMail Enterprise Edition](./upgrade.ee.html)
+
+## v1.0.2, Feb 20, 2025 {: #v1.0.2 }
+
+- New features:
+    - You can now customize branding on web UI directly (Server Settings ->
+      Custom Branding), including short and full brand name, website link,
+      logo image and favicon icon.
+
+- Improvements:
+    - [web] Able to enable LDAP over TLS and SSL.
+    - [web] Able to display more accounts on user list page. Defaults to 50.
+    - [web] On user list page, it's now able to sort by quota usage pacentage
+      or stored size.
+    - [web] On `Last Logins` page, it's now able to sort by either IMAP, POP3
+      or delivery.
+    - Improve performance while deleting multiple mailboxes at the same time.
+    - dovecot: Switch to old stats plugin so that netdata can collect metrics.
+    - netdata: Switch all Python plugins to Go for better performance.
+
+- Fixed:
+    - [web] Filter of disabled domains is incorrect.
+    - [web] Normal admin was able to update domain quota and account limits.
+    - [web] Cannot save max retries and timeout while updating Push Notification
+      settings.
+    - [server] Amavisd cannot save mail subject longer than 255 characters.
+    - [server] Amavisd requires at least 2 child processes (was set to 1).
+    - [server] Netdata doesn't collect data for OpenLDAP server.
+    - Migrating from non-EE server may take too much time to update existing
+      Amavisd SQL tables.
+    - Succeeded deployment may be displayed as Aborted in some case.
+
+- Updated packages:
+    - mlmmjadmin 3.3.1
+    - netdata 2.2.5
+    - roundcube 1.6.10
 
 ## v1.0.1, Jan 26, 2025 {: #v1.0.1 }
 
