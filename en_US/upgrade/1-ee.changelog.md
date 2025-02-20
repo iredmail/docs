@@ -40,6 +40,8 @@
     - netdata: Switch all Python plugins to Go for better performance.
 
 - Fixed:
+    - [web] Not preserve address extension in forwarding address.
+      Thanks Jean-lou Schmidt for the feedback.
     - [web] Filter of disabled domains is incorrect.
     - [web] Normal admin was able to update domain quota and account limits.
     - [web] Cannot save max retries and timeout while updating Push Notification
