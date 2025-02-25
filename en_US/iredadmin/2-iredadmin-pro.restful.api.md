@@ -316,7 +316,6 @@ Notes:
 !!! api "`GET`{: .get } `/api/user/<mail>`{: .url } `Get profile of an existing mail user`{: .comment } `Parameters`{: .has_params }"
 
     <div class="params params_user">
-
     Encrypted account password is not exposed in API request by default, if you
     want to expose it for some reason, please add a new line in iRedAdmin-Pro config
     file `/opt/www/iredadmin/settings.py` like below, then restart `iredadmin`
