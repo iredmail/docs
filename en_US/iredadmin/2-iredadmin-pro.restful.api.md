@@ -230,6 +230,7 @@ Notes:
 !!! api "`GET`{: .get } `/api/admin/<mail>`{: .url } `Get profile of an existing domain admin`{: .comment } `Parameters`{: .has_params }"
 
     <div class="params params_user">
+
     Encrypted account password is not exposed in API request by default, if you
     want to expose it for some reason, please add a new line in iRedAdmin-Pro config
     file `/opt/www/iredadmin/settings.py` like below, then restart `iredadmin`
@@ -315,6 +316,7 @@ Notes:
 !!! api "`GET`{: .get } `/api/user/<mail>`{: .url } `Get profile of an existing mail user`{: .comment } `Parameters`{: .has_params }"
 
     <div class="params params_user">
+
     Encrypted account password is not exposed in API request by default, if you
     want to expose it for some reason, please add a new line in iRedAdmin-Pro config
     file `/opt/www/iredadmin/settings.py` like below, then restart `iredadmin`
@@ -781,7 +783,6 @@ Catch-all address | `@.`
 !!! api "`GET`{: .get } `/api/wblist/inbound/blacklist/<mail>`{: .url } `Get per-user blacklists for inbound.`{: .comment }"
 !!! api "`GET`{: .get } `/api/wblist/outbound/whitelist/<mail>`{: .url } `Get per-user whitelists for outbound.`{: .comment }"
 !!! api "`GET`{: .get } `/api/wblist/outbound/blacklist/<mail>`{: .url } `Get per-user whitelists for outbound.`{: .comment }"
-
 !!! api "`POST`{: .post } `/api/wblist/inbound/whitelist/global`{: .url } `Add new global whitelists for inbound.`{: .comment } `Parameters`{: .has_params_wblist_put }"
 !!! api "`POST`{: .post } `/api/wblist/inbound/blacklist/global`{: .url } `Add new global blacklists for inbound.`{: .comment } `Parameters`{: .has_params_wblist_put }"
 !!! api "`POST`{: .post } `/api/wblist/outbound/whitelist/global`{: .url } `Add new global whitelists for outbound.`{: .comment } `Parameters`{: .has_params_wblist_put }"
