@@ -234,6 +234,22 @@ to install it.
 
 ### Remove duplicate cron jobs
 
-iRedMail Enterprise Edition adds required cron jobs for `root` and `sogo`
-users, but it cannot detect and remove old duplicate jobs, please check cron jobs
-manually and remove duplicate old ones.
+There might be duplicate cron jobs for `root` and `sogo` users, please check
+cron jobs manually and remove old duplicate ones.
+
+### Clean up SQL records
+
+Old iRedAdmin(-Pro) doesn't clean up SQL records from `used_quota` and
+`last_login` tables while removing mail user accounts.
+
+For MariaDB backend, please run shell commands below as root user:
+```shell
+mysql vmail -e "DELETE FROM used_quota WHERE username NOT IN (SELECT username FROM mailbox);"
+mysql vmail -e "DELETE FROM last_login WHERE username NOT IN (SELECT username FROM mailbox);"
+```
+
+For PostgreSQL backend, please run shell commands below as root user:
+```shell
+su - postgres -c "psql -d vmail -c 'DELETE FROM used_quota WHERE username NOT IN (SELECT username FROM mailbox);'"
+su - postgres -c "psql -d vmail -c 'DELETE FROM last_login WHERE username NOT IN (SELECT username FROM mailbox);'"
+```

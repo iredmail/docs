@@ -53,4 +53,3 @@ If you experienced any issue, please report via the [Ticket system](https://stor
 ![](./images/ee/easy.to.ee-1.png){: width="700px" }
 ![](./images/ee/easy.to.ee-2.png){: width="700px" }
 ![](./images/ee/easy.to.ee-3.png){: width="700px" }
-
