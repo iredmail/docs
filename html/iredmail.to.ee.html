@@ -41,7 +41,6 @@
 <li><a href="#run-the-full-deployment-as-migration">Run the full deployment as migration</a></li>
 <li><a href="#post-migration-tasks">Post-migration tasks</a><ul>
 <li><a href="#remove-duplicate-cron-jobs">Remove duplicate cron jobs</a></li>
-<li><a href="#clean-up-sql-records">Clean up SQL records</a></li>
 </ul>
 </li>
 </ul>
@@ -366,17 +365,6 @@ to install it.</p>
 <h2 id="post-migration-tasks">Post-migration tasks</h2>
 <h3 id="remove-duplicate-cron-jobs">Remove duplicate cron jobs</h3>
 <p>There might be duplicate cron jobs for <code>root</code> and <code>sogo</code> users, please check
-cron jobs manually and remove old duplicate ones.</p>
-<h3 id="clean-up-sql-records">Clean up SQL records</h3>
-<p>Old iRedAdmin(-Pro) doesn't clean up SQL records from <code>used_quota</code> and
-<code>last_login</code> tables while removing mail user accounts.</p>
-<p>For MariaDB backend, please run shell commands below as root user:</p>
-<pre><code class="language-shell">mysql vmail -e &quot;DELETE FROM used_quota WHERE username NOT IN (SELECT username FROM mailbox);&quot;
-mysql vmail -e &quot;DELETE FROM last_login WHERE username NOT IN (SELECT username FROM mailbox);&quot;
-</code></pre>
-<p>For PostgreSQL backend, please run shell commands below as root user:</p>
-<pre><code class="language-shell">su - postgres -c &quot;psql -d vmail -c 'DELETE FROM used_quota WHERE username NOT IN (SELECT username FROM mailbox);'&quot;
-su - postgres -c &quot;psql -d vmail -c 'DELETE FROM last_login WHERE username NOT IN (SELECT username FROM mailbox);'&quot;
-</code></pre><div class="footer">
+cron jobs manually and remove old duplicate ones.</p><div class="footer">
     <p style="text-align: center; color: grey;">All documents are available in <a href="https://github.com/iredmail/docs/">GitHub repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://github.com/iredmail/docs/archive/master.zip">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
 </div></body></html>
