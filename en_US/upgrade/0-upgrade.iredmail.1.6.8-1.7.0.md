@@ -149,8 +149,7 @@ Copy and run shell commands below to implement this improvement:
 ```
 # Create new SQL table 'fail2ban.jails' to store jail names:
 wget -O /tmp/f2b.sql https://raw.githubusercontent.com/iredmail/iRedMail/master/update/1.7.0/fail2ban.pgsql
-su - postgres
-psql -d fail2ban -c "\i /tmp/f2b.sql"
+su - postgres -c "psql -d fail2ban -c '\i /tmp/f2b.sql'"
 rm -f /tmp/f2b.sql
 
 # Replace action script:
