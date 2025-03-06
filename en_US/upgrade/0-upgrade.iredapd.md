@@ -20,16 +20,16 @@
       2. if you need to upgrade to iRedAPD-3.6, please follow this upgrade
       tutorial instead: [Upgrade iRedAPD from v1.4.0 or later releases to v3.6](./upgrade.iredapd.py2.html).
 
-This tutorial describes how to upgrade iRedAPD from `1.4.0` or later releases
-to the latest stable release on listed distribution releases listed above.
+This tutorial describes how to upgrade iRedAPD to the latest stable release on
+listed distribution releases listed above.
 
 Run commands below on your iRedMail server:
 
 ```
 cd /root
-wget -O iRedAPD-5.6.0.tar.gz https://github.com/iredmail/iRedAPD/archive/5.6.0.tar.gz
-tar zxf iRedAPD-5.6.0.tar.gz
-cd iRedAPD-5.6.0/tools/
+wget -O iRedAPD-5.8.1.tar.gz https://github.com/iredmail/iRedAPD/archive/5.8.1.tar.gz
+tar zxf iRedAPD-5.8.1.tar.gz
+cd iRedAPD-5.8.1/tools/
 bash upgrade_iredapd.sh
 ```
 
