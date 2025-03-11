@@ -1,8 +1,8 @@
 __iRedMail Enterprise Edition (EE)__ {: #ee }
 
 - [Install iRedMail Enterprise Edition](./install.ee.html)
-- [ChangeLog](./ee.changelog.html)
 - [Best Practice](./ee.best.practice.html)
+- [ChangeLog](./ee.changelog.html)
 - [Request a free cert from Let's Encrypt](./letsencrypt-ee.html)
 - Migration:
     - [Migrate from iRedMail Easy](./easy.to.ee.html)

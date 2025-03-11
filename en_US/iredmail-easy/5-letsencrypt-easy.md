@@ -1,4 +1,4 @@
-# Request a free cert from Let's Encrypt (for servers deployed with iRedMail Easy platform)
+# iRedMail Easy: Request a free cert from Let's Encrypt
 
 !!! attention
 
