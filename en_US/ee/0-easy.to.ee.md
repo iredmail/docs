@@ -31,10 +31,13 @@ as iRedMail Easy, migrating from iRedMail Easy to EE is a breeze.
 - Click `Export` button right beside the server hostname you want to migrate. It will display a modal window to show you the server settings.
 - Click `Copy` on the modal window to copy server settings in JSON format.
 - Follow [the iRedMail EE installation tutorial](./install.ee.html) to download
-  and launch the installer on the server which was deployed with iRedMail Easy platform.
+  and launch the installer on the server you're going to migrate.
 
-    EE launches the http service on port `8080`, please make sure this port
-    is open in your firewall, then visit it with a web browser.
+    EE launches the http service on port `8080`, please stop the firewall temporarily:
+
+    - on RHEL/CentOS/Rocky/Alma, run: `service firewalld stop`
+    - on Debian/Ubuntu, run: `service nftables stop`
+    - on OpenBSD, run: `pfctl -d`
 
 - Paste the copied server settings and paste below, then click `Migrate` button
   to import settings.
