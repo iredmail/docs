@@ -1,7 +1,7 @@
-* [Install iRedMail Enterprise Edition](./install.ee.html)
-<!--
-* [Getting started with __iRedMail Easy__](./iredmail-easy.getting.start.html) - meet our new deployment and support platform
--->
+!!! attention
+
+    We recommend [iRedMail Enterprise Edition](#ee) instead of iRedMail open source edition.
+
 * Install iRedMail (with downloadable installer) on:
     * [Red Hat Enterprise Linux, CentOS](./install.iredmail.on.rhel.html)
     * [Debian, Ubuntu](./install.iredmail.on.debian.ubuntu.html)

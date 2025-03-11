@@ -34,9 +34,9 @@ export all_languages='en_US it_IT lv_LV nl_DU zh_CN'
 # Chapter directories in specified order
 export all_chapter_dirs="overview \
                          installation \
+                         enterprise \
                          mua \
                          upgrade \
-                         enterprise \
                          iredmail-easy \
                          migrations \
                          howto \

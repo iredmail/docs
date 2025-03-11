@@ -1,1 +1,1 @@
-Install iRedMail {: #install }
+iRedMail (Open Source Edition) {: #install }
