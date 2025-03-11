@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title>Request a free cert from Let's Encrypt (for servers deployed with iRedMail Easy platform)</title>
+        <title>Request a free cert from Let's Encrypt (for iRedMail Enterprise Edition)</title>
         <link rel="stylesheet" type="text/css" href="./css/markdown.css" />
     </head>
     <body>
@@ -15,12 +15,12 @@
              />&nbsp;
         <span>iRedMail</span>
     </a>
-    &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><h1 id="request-a-free-cert-from-lets-encrypt-for-servers-deployed-with-iredmail-easy-platform">Request a free cert from Let's Encrypt (for servers deployed with iRedMail Easy platform)</h1>
+    &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><h1 id="request-a-free-cert-from-lets-encrypt-for-iredmail-enterprise-edition">Request a free cert from Let's Encrypt (for iRedMail Enterprise Edition)</h1>
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>
 <p>This tutorial is for servers deployed with
-<a href="https://www.iredmail.org/easy.html">iRedMail Easy platform</a>, if you're
-looking for tutorial for servers deployed with downloadable iRedMail
+<a href="https://www.iredmail.org/ee.html">iRedMail Enterprise Edition</a> (<code>EE</code> for short),
+if you're looking for tutorial for servers deployed with downloadable iRedMail
 installer, plase check <a href="./letsencrypt.html">this one</a> instead.</p>
 </div>
 <div class="admonition attention">
@@ -29,7 +29,7 @@ installer, plase check <a href="./letsencrypt.html">this one</a> instead.</p>
 </div>
 <div class="toc">
 <ul>
-<li><a href="#request-a-free-cert-from-lets-encrypt-for-servers-deployed-with-iredmail-easy-platform">Request a free cert from Let's Encrypt (for servers deployed with iRedMail Easy platform)</a><ul>
+<li><a href="#request-a-free-cert-from-lets-encrypt-for-iredmail-enterprise-edition">Request a free cert from Let's Encrypt (for iRedMail Enterprise Edition)</a><ul>
 <li><a href="#before-requesting-a-cert">Before requesting a cert</a><ul>
 <li><a href="#which-host-names-should-be-supported-in-the-ssl-cert">Which host names should be supported in the SSL cert?</a></li>
 <li><a href="#one-cert-for-all-domain-names-or-one-cert-for-each-domain-name">One cert for all domain names, or one cert for each domain name?</a></li>
@@ -48,12 +48,13 @@ installer, plase check <a href="./letsencrypt.html">this one</a> instead.</p>
 </li>
 </ul>
 </div>
-<p>iRedMail generates a self-signed SSL certificate during installation, it's
-strongly recommended to use a valid ssl cert.</p>
-<p>You can either request free cert, or buy one from ssl cert vendors. In this
-tutorial, we will show you how to request a free cert for host name
-<code>mail.mydomain.com</code> from <strong><a href="https://letsencrypt.org">Let's Encrypt</a></strong>, and ssl
-related configurations in relevant software running on iRedMail server.</p>
+<p>iRedMail EE generates a self-signed SSL certificate during installation, it's
+strongly recommended to use a valid one.</p>
+<p>You can either request free cert from vendors like
+<a href="https://letsencrypt.org">Let's Encrypt</a>, or buy one from other vendors.
+In this tutorial, we show you how to request a free cert for hostname
+<code>mail.mydomain.com</code> from Let's Encrypt, and update related configurations to
+use the cert/key files.</p>
 <p>Let's Encrypt supports wildcard host names, but it's not covered in this
 tutorial, please read its <a href="https://certbot.eff.org/docs/using.html">User Guide</a>
 instead.</p>
@@ -66,13 +67,12 @@ instead.</p>
 <p>Server hostname is usually used as SMTP/IMAP/POP3 server address in user's
 mail client application like Outlook, Thunderbird.</p>
 <p>You can get full hostname with command <code>hostname -f</code> on Linux, or
-<code>hostname</code> on OpenBSD.</p>
+<code>hostname</code> on OpenBSD. We use <code>mail.mydomain.com</code> for example in this tutorial.</p>
 </li>
 <li>
 <p><strong>The web host names you need to access via https.</strong></p>
 <p>For example, <code>https://mydomain.com</code>, <code>https://support.mydomain.com</code>, then
-you need to support both <code>mydomain.com</code> and <code>support.mydomain.com</code> in ssl
-cert.</p>
+you need to support <code>mydomain.com</code> and <code>support.mydomain.com</code> in the cert.</p>
 </li>
 <li>
 <p>No need to support mail domain name in SSL cert, <strong>unless</strong> it's also a web
@@ -82,7 +82,7 @@ cert.</p>
 <h3 id="one-cert-for-all-domain-names-or-one-cert-for-each-domain-name">One cert for all domain names, or one cert for each domain name?</h3>
 <p>Dovecot and Nginx support reading/loading multiple ssl certs (for different
 host names), but old Postfix software doesn't, so we recommend to use one cert
-for all host names which are used by SMTP and IMAP/POP3 services.</p>
+for all host names for easier management.</p>
 <h3 id="make-sure-you-have-correct-dns-record-for-the-host-names">Make sure you have correct DNS record for the host names</h3>
 <p>The way we request free Let's Encrypt cert requires correct A type DNS record
 for the host name, because Let's Encrypt organization needs to make sure
@@ -103,28 +103,27 @@ you actually own or control the domain name.</p>
 <li>
 <p>Let's Encrypt has request rate limit control, you can request limited times
   for same domain in one day, but the verification process doesn't have such
-  limit. We suggest run verification process first to make sure we fully match
-  its requirements.</p>
-<p>Run command below as root user to verify the request process with
-<code>--dry-run</code> argument. It will print some text on console to ask you few
-simple questions, please read carefully and answer them.</p>
+  limit. We suggest run verification process first to make sure it fully matches
+  the requirements.</p>
+<p>Run command below as root user to start the verification (Note: <code>--dry-run</code>
+argument is important here). It will ask few simple questions on console,
+please read carefully and answer them.</p>
 <p><code>certbot certonly --webroot --dry-run -w /opt/www/well_known/ -d mail.mydomain.com</code></p>
 <p>If you need to support multiple domain names in one cert, please append them
-with <code>-d</code> arguments like this:</p>
+with additional <code>-d</code> arguments like this:</p>
 <p><code>certbot certonly --webroot --dry-run -w /opt/www/well_known/ -d mail.mydomain.com -d 2nd.com -d 3rd.com -d 4th.com</code></p>
 </li>
 <li>
-<p>If everything went well and no error was reported by <code>certbot</code>, that means we
-  fully match the requirements, and it's ok to actually request the cert by
-  running above command again without <code>--dry-run</code> argument:</p>
+<p>If everything went well and no error was reported by <code>certbot</code>, that means
+  verification succeeds, it's ok to actually request the cert by running above
+  command again without <code>--dry-run</code> argument:</p>
 </li>
 </ul>
 <pre><code>certbot certonly --webroot -w /opt/www/well_known/ -d mail.mydomain.com
 </code></pre>
-<p>If the command finished successfully, it will create and store cert files under
+<p>If succeeds, it stores the cert and key files under
 <code>/etc/letsencrypt/live/mail.mydomain.com/</code> (You may have different host name
 instead of <code>mail.mydomain.com</code> in this sample path).</p>
-<p>Created cert files:</p>
 <ul>
 <li><code>cert.pem</code>: Server certificate.</li>
 <li><code>chain.pem</code>: Additional intermediate certificate or certificates that web
@@ -154,8 +153,11 @@ restart services which use the cert files:</p>
 Let's Encrypt cert:</p>
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>
-<p>Please replace <code>&lt;domain&gt;</code> in sample commands below by the real domain name
-on your file system.</p>
+<ul>
+<li>You must replace <code>&lt;domain&gt;</code> in sample commands below by the real domain name
+  on your file system.</li>
+<li>We use just <code>fullchain.pem</code>, not <code>cert.pem</code>.</li>
+</ul>
 </div>
 <pre><code>cd /opt/iredmail/ssl/
 mv cert.pem cert.pem.bak
@@ -173,30 +175,28 @@ ln -s /etc/letsencrypt/live/&lt;domain&gt;/privkey.pem key.pem
 <li>To verify ssl cert used in Postfix (SMTP server) and Dovecot, please launch a
   mail client application (MUA, e.g. Outlook, Thunderbird) and create an email
   account, make sure you correctly configured the MUA to connect to mail
-  server. If SSL cert is not valid, MUA will warn you.</li>
-<li>For Apache / Nginx web server, you can access your website with favourite web
-  browser, the browser should show you the ssl cert status. Or, use other
-  website to help test it, for example:
-  <a href="https://www.ssllabs.com/ssltest/index.html">https://www.ssllabs.com/ssltest/index.html</a> (input your web host name, then
-  submit and wait for a result).</li>
+  server. If SSL cert is not valid, MUA will show you a warning or error message.</li>
+<li>For web service, please visit your website with a web browser, the browser
+  should show you the ssl cert status.</li>
 </ul>
 <h2 id="renew-the-cert-automatically">Renew the cert automatically</h2>
-<p>Cert can be renewed manually with command <code>certbot renew</code>, or run same command
-in a daily or weekly cron job to renew it automatically. Only those certs which
-expires in less than 30 days will be renewed. Applications use ssl cert must
-be restarted (or reloaded) to load renewed cert files.</p>
+<p>Cert offered by Let's Encrypt will expire in 90 days, you can renew it manually
+with command <code>certbot renew</code>, or run same command in a daily or weekly cron
+job to renew it automatically. Only those certs which expires in less than
+30 days will be renewed. Background services which use the cert must be
+restarted or reloaded to load renewed cert files.</p>
 <p>If cert was renewed, private key <code>/etc/letsencrypt/live/&lt;domain&gt;/privkey.pem</code>
-is re-created and linked to file under <code>/etc/letsencrypt/archive/&lt;domain&gt;/privkey&lt;X&gt;.pem</code>
+is re-created and linked to new file under <code>/etc/letsencrypt/archive/&lt;domain&gt;/privkey&lt;X&gt;.pem</code>
 (<code>&lt;X&gt;</code> is a digit number), but all files linked to
 <code>/etc/letsencrypt/live/&lt;domain&gt;/privkey.pem</code> were left to the old one,
 so we must update all files linked to <code>/etc/letsencrypt/live/&lt;domain&gt;/privkey.pem</code>
 after renewed.</p>
-<p>Here's a sample cron job that runs at 3:01AM everyday, it prints current cert
-info, then tries to renew the cert, and restart postfix/nginx/dovecot services
-if successfully renewed:</p>
+<p>Here's a sample cron job that runs at 3:01AM everyday, it runs <code>certbot certificates</code>
+command to print current cert info, then tries to renew the cert, and restart postfix/nginx/dovecot services
+after succeeded:</p>
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>
-<p>Replace <code>&lt;domain&gt;</code> by the real domain name.</p>
+<p>Again, replace <code>&lt;domain&gt;</code> in sample command below by your real domain name.</p>
 </div>
 <pre><code>1 3 * * * certbot certificates; certbot renew --post-hook 'ln -sf /etc/letsencrypt/live/&lt;domain&gt;/privkey.pem /opt/iredmail/ssl/key.pem; /usr/bin/systemctl restart postfix dovecot nginx'
 </code></pre>

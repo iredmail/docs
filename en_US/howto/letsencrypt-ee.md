@@ -1,10 +1,10 @@
-# Request a free cert from Let's Encrypt (for servers deployed with iRedMail Easy platform)
+# Request a free cert from Let's Encrypt (for iRedMail Enterprise Edition)
 
 !!! attention
 
     This tutorial is for servers deployed with
-    [iRedMail Easy platform](https://www.iredmail.org/easy.html), if you're
-    looking for tutorial for servers deployed with downloadable iRedMail
+    [iRedMail Enterprise Edition](https://www.iredmail.org/ee.html) (`EE` for short),
+    if you're looking for tutorial for servers deployed with downloadable iRedMail
     installer, plase check [this one](./letsencrypt.html) instead.
 
 !!! attention
@@ -13,13 +13,14 @@
 
 [TOC]
 
-iRedMail generates a self-signed SSL certificate during installation, it's
-strongly recommended to use a valid ssl cert.
+iRedMail EE generates a self-signed SSL certificate during installation, it's
+strongly recommended to use a valid one.
 
-You can either request free cert, or buy one from ssl cert vendors. In this
-tutorial, we will show you how to request a free cert for host name
-`mail.mydomain.com` from __[Let's Encrypt](https://letsencrypt.org)__, and ssl
-related configurations in relevant software running on iRedMail server.
+You can either request free cert from vendors like
+[Let's Encrypt](https://letsencrypt.org), or buy one from other vendors.
+In this tutorial, we show you how to request a free cert for hostname
+`mail.mydomain.com` from Let's Encrypt, and update related configurations to
+use the cert/key files.
 
 Let's Encrypt supports wildcard host names, but it's not covered in this
 tutorial, please read its [User Guide](https://certbot.eff.org/docs/using.html)
@@ -37,13 +38,12 @@ You must understand which host names you need to support in the SSL cert:
     mail client application like Outlook, Thunderbird.
 
     You can get full hostname with command `hostname -f` on Linux, or
-    `hostname` on OpenBSD.
+    `hostname` on OpenBSD. We use `mail.mydomain.com` for example in this tutorial.
 
 1. __The web host names you need to access via https.__
 
     For example, `https://mydomain.com`, `https://support.mydomain.com`, then
-    you need to support both `mydomain.com` and `support.mydomain.com` in ssl
-    cert.
+    you need to support `mydomain.com` and `support.mydomain.com` in the cert.
 
 1. No need to support mail domain name in SSL cert, __unless__ it's also a web
    host name.
@@ -52,7 +52,7 @@ You must understand which host names you need to support in the SSL cert:
 
 Dovecot and Nginx support reading/loading multiple ssl certs (for different
 host names), but old Postfix software doesn't, so we recommend to use one cert
-for all host names which are used by SMTP and IMAP/POP3 services.
+for all host names for easier management.
 
 ### Make sure you have correct DNS record for the host names
 
@@ -76,37 +76,35 @@ It should return the (public) IP address of your server.
 
 * Let's Encrypt has request rate limit control, you can request limited times
   for same domain in one day, but the verification process doesn't have such
-  limit. We suggest run verification process first to make sure we fully match
-  its requirements.
+  limit. We suggest run verification process first to make sure it fully matches
+  the requirements.
 
-    Run command below as root user to verify the request process with
-    `--dry-run` argument. It will print some text on console to ask you few
-    simple questions, please read carefully and answer them.
+    Run command below as root user to start the verification (Note: `--dry-run`
+    argument is important here). It will ask few simple questions on console,
+    please read carefully and answer them.
 
     ```
     certbot certonly --webroot --dry-run -w /opt/www/well_known/ -d mail.mydomain.com
     ```
 
     If you need to support multiple domain names in one cert, please append them
-    with `-d` arguments like this:
+    with additional `-d` arguments like this:
 
     ```
     certbot certonly --webroot --dry-run -w /opt/www/well_known/ -d mail.mydomain.com -d 2nd.com -d 3rd.com -d 4th.com
     ```
 
-* If everything went well and no error was reported by `certbot`, that means we
-  fully match the requirements, and it's ok to actually request the cert by
-  running above command again without `--dry-run` argument:
+* If everything went well and no error was reported by `certbot`, that means
+  verification succeeds, it's ok to actually request the cert by running above
+  command again without `--dry-run` argument:
 
 ```
 certbot certonly --webroot -w /opt/www/well_known/ -d mail.mydomain.com
 ```
 
-If the command finished successfully, it will create and store cert files under
+If succeeds, it stores the cert and key files under
 `/etc/letsencrypt/live/mail.mydomain.com/` (You may have different host name
 instead of `mail.mydomain.com` in this sample path).
-
-Created cert files:
 
 * `cert.pem`: Server certificate.
 * `chain.pem`: Additional intermediate certificate or certificates that web
@@ -141,8 +139,9 @@ Let's Encrypt cert:
 
 !!! attention
 
-    Please replace `<domain>` in sample commands below by the real domain name
-    on your file system.
+    - You must replace `<domain>` in sample commands below by the real domain name
+      on your file system.
+    - We use just `fullchain.pem`, not `cert.pem`.
 
 ```
 cd /opt/iredmail/ssl/
@@ -165,34 +164,32 @@ systemctl restart postfix dovecot nginx
 * To verify ssl cert used in Postfix (SMTP server) and Dovecot, please launch a
   mail client application (MUA, e.g. Outlook, Thunderbird) and create an email
   account, make sure you correctly configured the MUA to connect to mail
-  server. If SSL cert is not valid, MUA will warn you.
-* For Apache / Nginx web server, you can access your website with favourite web
-  browser, the browser should show you the ssl cert status. Or, use other
-  website to help test it, for example:
-  <https://www.ssllabs.com/ssltest/index.html> (input your web host name, then
-  submit and wait for a result).
+  server. If SSL cert is not valid, MUA will show you a warning or error message.
+* For web service, please visit your website with a web browser, the browser
+  should show you the ssl cert status.
 
 ## Renew the cert automatically
 
-Cert can be renewed manually with command `certbot renew`, or run same command
-in a daily or weekly cron job to renew it automatically. Only those certs which
-expires in less than 30 days will be renewed. Applications use ssl cert must
-be restarted (or reloaded) to load renewed cert files.
+Cert offered by Let's Encrypt will expire in 90 days, you can renew it manually
+with command `certbot renew`, or run same command in a daily or weekly cron
+job to renew it automatically. Only those certs which expires in less than
+30 days will be renewed. Background services which use the cert must be
+restarted or reloaded to load renewed cert files.
 
 If cert was renewed, private key `/etc/letsencrypt/live/<domain>/privkey.pem`
-is re-created and linked to file under `/etc/letsencrypt/archive/<domain>/privkey<X>.pem`
+is re-created and linked to new file under `/etc/letsencrypt/archive/<domain>/privkey<X>.pem`
 (`<X>` is a digit number), but all files linked to
 `/etc/letsencrypt/live/<domain>/privkey.pem` were left to the old one,
 so we must update all files linked to `/etc/letsencrypt/live/<domain>/privkey.pem`
 after renewed.
 
-Here's a sample cron job that runs at 3:01AM everyday, it prints current cert
-info, then tries to renew the cert, and restart postfix/nginx/dovecot services
-if successfully renewed:
+Here's a sample cron job that runs at 3:01AM everyday, it runs `certbot certificates`
+command to print current cert info, then tries to renew the cert, and restart postfix/nginx/dovecot services
+after succeeded:
 
 !!! attention
 
-    Replace `<domain>` by the real domain name.
+    Again, replace `<domain>` in sample command below by your real domain name.
 
 ```
 1 3 * * * certbot certificates; certbot renew --post-hook 'ln -sf /etc/letsencrypt/live/<domain>/privkey.pem /opt/iredmail/ssl/key.pem; /usr/bin/systemctl restart postfix dovecot nginx'
