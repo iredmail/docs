@@ -29,6 +29,10 @@
 </thead>
 <tbody>
 <tr>
+<td><a href="#v1.1.0">v1.1.0</a></td>
+<td>2025-03-11</td>
+</tr>
+<tr>
 <td><a href="#v1.0.2">v1.0.2</a></td>
 <td>2025-02-20</td>
 </tr>
@@ -70,6 +74,57 @@
 <ul>
 <li><a href="./install.ee.html">Install iRedMail Enterprise Edition</a></li>
 <li><a href="./upgrade.ee.html">Upgrade iRedMail Enterprise Edition</a></li>
+</ul>
+<h2 id="v1.1.0">v1.1.1, Mar 11, 2025</h2>
+<ul>
+<li>
+<p>API:</p>
+<ul>
+<li>Parameter name changed:<ul>
+<li>User profile (<code>/api/user/{email}</code>): <code>employeeid</code> -&gt; <code>employee_id</code>.</li>
+</ul>
+</li>
+<li>URI changed:<ul>
+<li>Release quarantined mails: <code>/api/activities/msg/{mail_id}</code> -&gt;
+  <code>/api/activities/msg/{mail_id}</code>.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>New features:</p>
+<ul>
+<li>Self service. End users can login to EE to manage personal information,
+  whitelists / blacklists, spam policy and more. Defaults to URL
+  <code>https://&lt;your-server&gt;/self-service/</code>.</li>
+</ul>
+</li>
+<li>
+<p>Improvements:</p>
+<ul>
+<li>Amavisd: Create symbol link <code>/etc/amavisd.conf</code> on RHEL-family.</li>
+<li>netdata: Avoid the login page and splash screen, also disable cloud.</li>
+</ul>
+</li>
+<li>
+<p>Fixed issues:</p>
+<ul>
+<li>[web] Failed in adding whitelisting or blacklisting addresses with leading
+  or ending whitespace.</li>
+<li>[web] Last Logins page may contain non-existing users.</li>
+<li>[server] Missing required Dovecot (sub-)package on Debian/Ubuntu. fixes #1153</li>
+<li>[server] Dovecot: Not eanble stats-writer. fixes #1154</li>
+<li>[server] SOGo: Add missing GroupObjectClasses for OpenLDAP backend. fixes #1155</li>
+<li>[server] netdata cannot load cloud config '/opt/netdata/var/lib/netdata/cloud.d/cloud.conf'.</li>
+</ul>
+</li>
+<li>
+<p>Updated packages:</p>
+<ul>
+<li>Adminer v5.0.2</li>
+<li>netdata v2.2.6</li>
+</ul>
+</li>
 </ul>
 <h2 id="v1.0.2">v1.0.2, Feb 20, 2025</h2>
 <ul>
