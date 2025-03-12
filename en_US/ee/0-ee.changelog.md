@@ -22,7 +22,7 @@
 - [Install iRedMail Enterprise Edition](./install.ee.html)
 - [Upgrade iRedMail Enterprise Edition](./upgrade.ee.html)
 
-## v1.1.1, Mar 11, 2025 {: #v1.1.0 }
+## v1.1.0, Mar 11, 2025 {: #v1.1.0 }
 
 - API:
     - Parameter name changed:
