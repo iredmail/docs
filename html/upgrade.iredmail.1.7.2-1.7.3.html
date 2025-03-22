@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Upgrade iRedMail from 1.7.2 to 1.7.3</title>
+        <link rel="stylesheet" type="text/css" href="./css/markdown.css" />
+    </head>
+    <body>
+
+    <div id="navigation">
+    <a href="https://www.iredmail.org" target="_blank">
+        <img alt="iRedMail web site"
+             src="./images/logo-iredmail.png"
+             style="vertical-align: middle; height: 30px;"
+             />&nbsp;
+        <span>iRedMail</span>
+    </a>
+    &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><h1 id="upgrade-iredmail-from-172-to-173">Upgrade iRedMail from 1.7.2 to 1.7.3</h1>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>Check out the on-premises, lightweight email archiving software developed by iRedMail team: <a href="https://spiderd.io/">Spider Email Archiver</a>.</p>
+</div>
+<div class="toc">
+<ul>
+<li><a href="#upgrade-iredmail-from-172-to-173">Upgrade iRedMail from 1.7.2 to 1.7.3</a><ul>
+<li><a href="#changelog">ChangeLog</a></li>
+<li><a href="#general-all-backends-should-apply-these-changes">General (All backends should apply these changes)</a><ul>
+<li><a href="#update-etciredmail-release-with-new-iredmail-version-number">Update /etc/iredmail-release with new iRedMail version number</a></li>
+<li><a href="#upgrade-iredapd-postfix-policy-server-to-the-latest-stable-release-590">Upgrade iRedAPD (Postfix policy server) to the latest stable release (5.9.0)</a></li>
+<li><a href="#upgrade-mlmmjadmin-to-the-latest-stable-release-331">Upgrade mlmmjadmin to the latest stable release (3.3.1)</a></li>
+<li><a href="#upgrade-roundcube-webmail-to-the-latest-stable-release-1610-or-159">Upgrade Roundcube webmail to the latest stable release (1.6.10 or 1.5.9)</a></li>
+<li><a href="#upgrade-netdata-to-the-latest-stable-release-v230">Upgrade netdata to the latest stable release (v2.3.0)</a></li>
+</ul>
+</li>
+<li><a href="#for-openldap-backend">For OpenLDAP backend</a><ul>
+<li><a href="#update-ldap-schema-file">Update LDAP schema file</a></li>
+<li><a href="#add-new-columns-in-sql-table-iredadmindeleted_mailboxes">Add new columns in SQL table iredadmin.deleted_mailboxes</a></li>
+</ul>
+</li>
+<li><a href="#for-mariadb-backend">For MariaDB backend</a><ul>
+<li><a href="#add-new-columns-in-vmail-database">Add new columns in vmail database</a></li>
+</ul>
+</li>
+<li><a href="#for-postgresql-backend">For PostgreSQL backend</a><ul>
+<li><a href="#add-new-columns-in-vmail-database_1">Add new columns in vmail database</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Remote Upgrade Assistance</p>
+<p>Check out our <a href="https://www.iredmail.org/support.html">remote upgrade support</a> if you need assistance.</p>
+</div>
+<h2 id="changelog">ChangeLog</h2>
+<ul>
+<li>XXX XX, 2025: initial publish.</li>
+</ul>
+<h2 id="general-all-backends-should-apply-these-changes">General (All backends should apply these changes)</h2>
+<h3 id="update-etciredmail-release-with-new-iredmail-version-number">Update <code>/etc/iredmail-release</code> with new iRedMail version number</h3>
+<p>iRedMail stores the release version in <code>/etc/iredmail-release</code> after
+installation, it's recommended to update this file after you upgraded iRedMail,
+so that you can know which version of iRedMail you're running. For example:</p>
+<pre><code>1.7.3
+</code></pre>
+<h3 id="upgrade-iredapd-postfix-policy-server-to-the-latest-stable-release-590">Upgrade iRedAPD (Postfix policy server) to the latest stable release (5.9.0)</h3>
+<p>Please follow below tutorial to upgrade iRedAPD to the latest stable release:
+<a href="./upgrade.iredapd.html">Upgrade iRedAPD to the latest stable release</a></p>
+<h3 id="upgrade-mlmmjadmin-to-the-latest-stable-release-331">Upgrade mlmmjadmin to the latest stable release (3.3.1)</h3>
+<p>Please follow below tutorial to upgrade mlmmjadmin to the latest stable release:
+<a href="./upgrade.mlmmjadmin.html">Upgrade mlmmjadmin to the latest stable release</a></p>
+<h3 id="upgrade-roundcube-webmail-to-the-latest-stable-release-1610-or-159">Upgrade Roundcube webmail to the latest stable release (1.6.10 or 1.5.9)</h3>
+<div class="admonition warning">
+<p class="admonition-title">CentOS 7: please stick to Roundcube 1.5.2</p>
+<p><strong>It's time to leave your comfort zone and upgrade this server to at least
+CentOS Stream 8 or <a href="https://docs.rockylinux.org/guides/migrate2rocky/">Rocky Linux 8</a>.</strong></p>
+<p>If you're running CentOS 7, please upgrade to Roundcube 1.5.2 instead.
+Roundcube 1.5.3 requires PHP-7, but CentOS 7 ships PHP-5.4 which is not
+supported by Roundcube 1.5.3 and later releases, including 1.6.x.</p>
+<p><strong>Unfortunately, Roundcube 1.5.2 does NOT contains multiple security fixes
+which shipped in Roundcube 1.5.6 and 1.6.5.</strong></p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Ubuntu 18.04: please stick to Roundcube 1.5.9</p>
+<p>Ubuntu 18.04 runs old php version which is not supported by Roundcube 1.6.</p>
+</div>
+<ul>
+<li><a href="https://github.com/roundcube/roundcubemail/wiki/Upgrade">Upgrade Roundcube</a>.</li>
+</ul>
+<h3 id="upgrade-netdata-to-the-latest-stable-release-v230">Upgrade netdata to the latest stable release (v2.3.0)</h3>
+<p>If you have netdata installed, you can upgrade it by following this tutorial:
+<a href="./upgrade.netdata.html">Upgrade netdata</a>.</p>
+<h2 id="for-openldap-backend">For OpenLDAP backend</h2>
+<h3 id="update-ldap-schema-file">Update LDAP schema file</h3>
+<p>New schema allows mail user account to use 2 more attributes:
+- <code>recoveryEmail</code>,
+- <code>birthday</code>.</p>
+<p>Download the latest iRedMail LDAP schema file:</p>
+<ul>
+<li>On RHEL/CentOS:</li>
+</ul>
+<pre><code>wget -O /tmp/iredmail.schema https://github.com/iredmail/iRedMail/raw/1.7.3/samples/iredmail/iredmail.schema
+mv /etc/openldap/schema/iredmail.schema{,.bak}
+cp -f /tmp/iredmail.schema /etc/openldap/schema/
+service slapd restart
+</code></pre>
+<ul>
+<li>On Debian/Ubuntu:</li>
+</ul>
+<pre><code>wget -O /tmp/iredmail.schema https://github.com/iredmail/iRedMail/raw/1.7.3/samples/iredmail/iredmail.schema
+mv /etc/ldap/schema/iredmail.schema{,.bak}
+cp -f /tmp/iredmail.schema /etc/ldap/schema/
+service slapd restart
+</code></pre>
+<ul>
+<li>On FreeBSD:</li>
+</ul>
+<pre><code>wget -O /tmp/iredmail.schema https://github.com/iredmail/iRedMail/raw/1.7.3/samples/iredmail/iredmail.schema
+mv /usr/local/etc/openldap/schema/iredmail.schema{,.bak}
+cp -f /tmp/iredmail.schema /usr/local/etc/openldap/schema/
+service slapd restart
+</code></pre>
+<ul>
+<li>On OpenBSD:</li>
+</ul>
+<pre><code>ftp -o /tmp/iredmail.schema https://github.com/iredmail/iRedMail/raw/1.7.3/samples/iredmail/iredmail.schema
+mv /etc/openldap/schema/iredmail.schema{,.bak}
+cp -f /tmp/iredmail.schema /etc/openldap/schema/
+rcctl restart slapd
+</code></pre>
+<h3 id="add-new-columns-in-sql-table-iredadmindeleted_mailboxes">Add new columns in SQL table <code>iredadmin.deleted_mailboxes</code></h3>
+<p>Two new SQL columns are introduced in <code>iredadmin.deleted_mailboxes</code> table: <code>bytes</code>, <code>messages</code>.</p>
+<p>Please run shell commands below to add them:</p>
+<pre><code>wget -O /tmp/iredadmin.mysql https://github.com/iredmail/iRedMail/raw/1.7.3/update/1.7.3/iredadmin.mysql
+mysql iredadmin &lt; /tmp/iredadmin.mysql
+rm -f /tmp/iredadmin.mysql
+</code></pre>
+<h2 id="for-mariadb-backend">For MariaDB backend</h2>
+<h3 id="add-new-columns-in-vmail-database">Add new columns in <code>vmail</code> database</h3>
+<p>Add 6 columns in <code>vmail.mailbox</code>:</p>
+<ul>
+<li><code>first_name</code></li>
+<li><code>last_name</code></li>
+<li><code>mobile</code></li>
+<li><code>telephone</code></li>
+<li><code>birthday</code></li>
+<li><code>recovery_email</code></li>
+</ul>
+<p>Add 2 columns in <code>vmail.deleted_mailboxes</code>:</p>
+<ul>
+<li><code>bytes</code></li>
+<li><code>messages</code></li>
+</ul>
+<p>Please run shell commands below to add them:</p>
+<pre><code>wget -O /tmp/vmail.mysql https://github.com/iredmail/iRedMail/raw/1.7.3/update/1.7.3/vmail.mysql
+mysql vmail &lt; /tmp/vmail.mysql
+rm -f /tmp/vmail.mysql
+</code></pre>
+<h2 id="for-postgresql-backend">For PostgreSQL backend</h2>
+<h3 id="add-new-columns-in-vmail-database_1">Add new columns in <code>vmail</code> database</h3>
+<p>Add 6 columns in <code>vmail.mailbox</code>:</p>
+<ul>
+<li><code>first_name</code></li>
+<li><code>last_name</code></li>
+<li><code>mobile</code></li>
+<li><code>telephone</code></li>
+<li><code>birthday</code></li>
+<li><code>recovery_email</code></li>
+</ul>
+<p>Add 2 columns in <code>vmail.deleted_mailboxes</code>:</p>
+<ul>
+<li><code>bytes</code></li>
+<li><code>messages</code></li>
+</ul>
+<p>Please run shell commands below to add them:</p>
+<pre><code>wget -O /tmp/vmail.pgsql https://github.com/iredmail/iRedMail/raw/1.7.3/update/1.7.3/vmail.pgsql
+su - postgres
+psql -d vmail &lt; /tmp/vmail.pgsql
+</code></pre><div class="footer">
+    <p style="text-align: center; color: grey;">All documents are available in <a href="https://github.com/iredmail/docs/">GitHub repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://github.com/iredmail/docs/archive/master.zip">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
+</div></body></html>
