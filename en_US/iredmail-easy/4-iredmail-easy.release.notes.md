@@ -41,7 +41,7 @@
     - Don't use deprecated LDAP attributes: storageBaseDirectory,
       mailMessageStore.
     - Disable SpamAssassin rule `RCVD_IN_DNSWL_HI` (Sender listed at
-      http://www.dnswl.org/, high trust).
+      http://www.dnswl.org/, high trust) due to too many false positivies.
 
 - Fixed issues:
     - Not serve ACME challenge over HTTP directly.
