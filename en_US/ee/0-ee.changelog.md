@@ -72,6 +72,9 @@
     - [server] Error while setting owner/permission of a lot DKIM keys.
       Thanks subarticThrone@forum for the feedback.
 
+- Updated translations:
+    - de_DE (German). Thanks to Jochen Häberle <jh _at_ networkerz.de>.
+
 - Updated packages:
     - adminer v5.1.1
     - iRedAPD 5.9.0
