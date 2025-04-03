@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Translate EE to your local language</title>
+        <link rel="stylesheet" type="text/css" href="./css/markdown.css" />
+    </head>
+    <body>
+
+    <div id="navigation">
+    <a href="https://www.iredmail.org" target="_blank">
+        <img alt="iRedMail web site"
+             src="./images/logo-iredmail.png"
+             style="vertical-align: middle; height: 30px;"
+             />&nbsp;
+        <span>iRedMail</span>
+    </a>
+    &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><h1 id="translate-ee-to-your-local-language">Translate EE to your local language</h1>
+<div class="toc">
+<ul>
+<li><a href="#translate-ee-to-your-local-language">Translate EE to your local language</a><ul>
+<li><a href="#download-language-files">Download language files</a></li>
+<li><a href="#how-to-translate">How to translate:</a></li>
+<li><a href="#how-to-test-your-translation">How to test your translation</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<h2 id="download-language-files">Download language files</h2>
+<p>You can download EE language files after login as global admin:</p>
+<ol>
+<li>Click the language icon on top-left page</li>
+<li>Click the small cloud icon to download all translation files in a zip package.</li>
+</ol>
+<p><img alt="" src="./images/ee/download-translations.png" width="600px" /></p>
+<h2 id="how-to-translate">How to translate:</h2>
+<ul>
+<li>Unzip the downloaded zip file.</li>
+<li>Copy <code>en_US.json</code> to a new file named in your local language code. e.g. <code>de_DE.json</code>.</li>
+<li>Translate the copied <code>de_DE.json</code> file.</li>
+</ul>
+<h2 id="how-to-test-your-translation">How to test your translation</h2>
+<ul>
+<li>Upload translated JSON file to directory <code>/opt/iredmail/conf/locales/</code> on iRedMail server.</li>
+<li>Make sure it's owned by correct user/group, then restart <code>iredmail</code> service to load it:</li>
+</ul>
+<pre><code class="language-shell">chown iredweb:iredweb /opt/iredmail/conf/locales/*.json
+chmod 0555 /opt/iredmail/conf/locales/*.json
+systemctl restart iredmail
+</code></pre>
+<ul>
+<li>Login to EE web ui as global admin, domain admin, and end user, check around
+  and verify your translation.</li>
+</ul>
+<p>Do not forget to send your translation to <a href="https://www.iredmail.org/contact.html">iRedMail team</a>,
+so that others can benefit from it. :)</p><div class="footer">
+    <p style="text-align: center; color: grey;">All documents are available in <a href="https://github.com/iredmail/docs/">GitHub repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://github.com/iredmail/docs/archive/master.zip">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
+</div></body></html>
