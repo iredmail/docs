@@ -33,7 +33,7 @@
 
 - New features:
     - [Z-Push](https://z-push.org) is now available as alternative ActiveSync server.
-      - Fail2ban integration for activesync auth failure is enabled by default.
+        - Fail2ban integration for activesync auth failure is enabled by default.
     - Allow end user to reset password with a recovery email. Notes:
         - User must login to self-service and add recovery email first, so
           that user can reset password with this recovery email.
