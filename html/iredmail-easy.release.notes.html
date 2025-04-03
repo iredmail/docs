@@ -27,6 +27,7 @@
 <div class="toc">
 <ul>
 <li><a href="#iredmail-easy-release-notes">iRedMail Easy: Release Notes</a><ul>
+<li><a href="#2025040201">Version: 2025040201 (Apr 2, 2025)</a></li>
 <li><a href="#2025012401">Version: 2025012401 (Jan 24, 2025)</a></li>
 <li><a href="#2024080501">Version: 2024080501 (Aug 5, 2024)</a></li>
 <li><a href="#2024071701">Version: 2024071701 (Jul 17, 2024)</a></li>
@@ -81,6 +82,31 @@
 </li>
 </ul>
 </div>
+<h2 id="2025040201">Version: 2025040201 (Apr 2, 2025)</h2>
+<ul>
+<li>Improvements:<ul>
+<li>Amavisd: Create symbol link <code>/etc/amavisd.conf</code> on RHEL-family.</li>
+<li>dovecot: Switch to old stats plugin so that netdata can collect metrics.</li>
+<li>netdata: Switch all Python plugins to Go for better performance.</li>
+<li>netdata: Avoid the login page and splash screen, also disable cloud.</li>
+</ul>
+</li>
+</ul>
+<p>Fixed issues:
+    - SOGo doesn't have correct GroupObjectClasses setting for OpenLDAP backend.
+    - Netdata doesn't collect data for OpenLDAP server.
+    - Amavisd requires at least 2 child processes (was set to 1).
+    - Amavisd cannot save mail subject longer than 255 characters.</p>
+<ul>
+<li>Updated packages:<ul>
+<li>adminer v5.1.1</li>
+<li>mlmmjadmin 3.3.1</li>
+<li>netdata v2.3.2</li>
+<li>roundcube 1.6.10</li>
+<li>iRedAPD 5.9.0</li>
+</ul>
+</li>
+</ul>
 <h2 id="2025012401">Version: 2025012401 (Jan 24, 2025)</h2>
 <ul>
 <li>
