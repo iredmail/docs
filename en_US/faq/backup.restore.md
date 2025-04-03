@@ -295,6 +295,11 @@ except `/var/lib/ldap/iredmail.org/DB_CONFIG`.
 # slapadd -f /etc/openldap/slapd.conf -l /var/vmail/backup/ldap/2015/05/2015-05-10-03:01:01.ldif
 ```
 
+    You may see a message like `The first database does not allow slapadd;
+    using the first available one (2)`, it's safe to ignore it since the
+    first one is database `monitor` which is created and maintained by
+    OpenLDAP internally.
+
 * It's OK to start OpenLDAP server now. It may report errors like below:
 
 ```
