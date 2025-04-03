@@ -18,7 +18,7 @@
     - netdata: Switch all Python plugins to Go for better performance.
     - netdata: Avoid the login page and splash screen, also disable cloud.
 
-Fixed issues:
+- Fixed issues:
     - SOGo doesn't have correct GroupObjectClasses setting for OpenLDAP backend.
     - Netdata doesn't collect data for OpenLDAP server.
     - Amavisd requires at least 2 child processes (was set to 1).
