@@ -29,7 +29,7 @@
 <li><a href="#upgrade-iredapd-postfix-policy-server-to-the-latest-stable-release-590">Upgrade iRedAPD (Postfix policy server) to the latest stable release (5.9.0)</a></li>
 <li><a href="#upgrade-mlmmjadmin-to-the-latest-stable-release-331">Upgrade mlmmjadmin to the latest stable release (3.3.1)</a></li>
 <li><a href="#upgrade-roundcube-webmail-to-the-latest-stable-release-1610-or-159">Upgrade Roundcube webmail to the latest stable release (1.6.10 or 1.5.9)</a></li>
-<li><a href="#upgrade-netdata-to-the-latest-stable-release-v230">Upgrade netdata to the latest stable release (v2.3.0)</a></li>
+<li><a href="#upgrade-netdata-to-the-latest-stable-release-v232">Upgrade netdata to the latest stable release (v2.3.2)</a></li>
 </ul>
 </li>
 <li><a href="#for-openldap-backend">For OpenLDAP backend</a><ul>
@@ -55,7 +55,7 @@
 </div>
 <h2 id="changelog">ChangeLog</h2>
 <ul>
-<li>XXX XX, 2025: initial publish.</li>
+<li>Apr 4, 2025: initial publish.</li>
 </ul>
 <h2 id="general-all-backends-should-apply-these-changes">General (All backends should apply these changes)</h2>
 <h3 id="update-etciredmail-release-with-new-iredmail-version-number">Update <code>/etc/iredmail-release</code> with new iRedMail version number</h3>
@@ -88,14 +88,12 @@ which shipped in Roundcube 1.5.6 and 1.6.5.</strong></p>
 <ul>
 <li><a href="https://github.com/roundcube/roundcubemail/wiki/Upgrade">Upgrade Roundcube</a>.</li>
 </ul>
-<h3 id="upgrade-netdata-to-the-latest-stable-release-v230">Upgrade netdata to the latest stable release (v2.3.0)</h3>
+<h3 id="upgrade-netdata-to-the-latest-stable-release-v232">Upgrade netdata to the latest stable release (v2.3.2)</h3>
 <p>If you have netdata installed, you can upgrade it by following this tutorial:
 <a href="./upgrade.netdata.html">Upgrade netdata</a>.</p>
 <h2 id="for-openldap-backend">For OpenLDAP backend</h2>
 <h3 id="update-ldap-schema-file">Update LDAP schema file</h3>
-<p>New schema allows mail user account to use 2 more attributes:
-- <code>recoveryEmail</code>,
-- <code>birthday</code>.</p>
+<p>New schema allows mail user account to use 2 more attributes: <code>recoveryEmail</code>, <code>birthday</code>.</p>
 <p>Download the latest iRedMail LDAP schema file:</p>
 <ul>
 <li>On RHEL/CentOS:</li>

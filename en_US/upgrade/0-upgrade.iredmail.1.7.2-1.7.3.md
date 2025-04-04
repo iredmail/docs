@@ -12,7 +12,7 @@
 
 ## ChangeLog
 
-- XXX XX, 2025: initial publish.
+- Apr 4, 2025: initial publish.
 
 ## General (All backends should apply these changes)
 
@@ -56,7 +56,7 @@ Please follow below tutorial to upgrade mlmmjadmin to the latest stable release:
 
 * [Upgrade Roundcube](https://github.com/roundcube/roundcubemail/wiki/Upgrade).
 
-### Upgrade netdata to the latest stable release (v2.3.0)
+### Upgrade netdata to the latest stable release (v2.3.2)
 
 If you have netdata installed, you can upgrade it by following this tutorial:
 [Upgrade netdata](./upgrade.netdata.html).
@@ -65,9 +65,7 @@ If you have netdata installed, you can upgrade it by following this tutorial:
 
 ### Update LDAP schema file
 
-New schema allows mail user account to use 2 more attributes:
-- `recoveryEmail`,
-- `birthday`.
+New schema allows mail user account to use 2 more attributes: `recoveryEmail`, `birthday`.
 
 Download the latest iRedMail LDAP schema file:
 

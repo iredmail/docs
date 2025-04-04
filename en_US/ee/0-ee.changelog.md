@@ -24,6 +24,11 @@
 - [Install iRedMail Enterprise Edition](./install.ee.html)
 - [Upgrade iRedMail Enterprise Edition](./upgrade.ee.html)
 
+## v1.2.1, Apr 4, 2025 {: #v1.2.1 }
+
+- Fixed issues:
+    - [SQL backends] Not apply required SQL changes to `vmail.mailbox` table.
+
 ## v1.2.0, Apr 2, 2025 {: #v1.2.0 }
 
 - Breaking changes:
