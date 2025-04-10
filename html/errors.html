@@ -49,6 +49,10 @@
 <li><a href="#connect-to-12700112700110024-connection-refused">connect to 127.0.0.1[127.0.0.1]:10024: Connection refused</a></li>
 </ul>
 </li>
+<li><a href="#sogo-groupware">SOGo Groupware</a><ul>
+<li><a href="#no-child-available-to-handle-incoming-request">No child available to handle incoming request</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -320,6 +324,25 @@ to enable insecure connections, please check <a href="./allow.insecure.pop3.imap
   a testing server, you can follow
   <a href="./completely.disable.amavisd.clamav.spamassassin.html">our tutorial</a> to
   disable some features of Amavisd to keep it running, or disable it completely.</li>
-</ul><div class="footer">
+</ul>
+<h2 id="sogo-groupware">SOGo Groupware</h2>
+<h3 id="no-child-available-to-handle-incoming-request">No child available to handle incoming request</h3>
+<p>Sample log lines:</p>
+<blockquote>
+<p>Jul 02 00:41:15 sogod [2156]: [ERROR] &lt;0x0x555dee9f6a20[WOWatchDog]&gt; <em>No child available to handle incoming request!</em></p>
+</blockquote>
+<p>If means SOGo doesn't have enough child processes to handle new requests.
+Please increase the processes defined in <code>PREFORK=</code> line in</p>
+<ul>
+<li>RedHat-family OS: <code>/etc/sysconfig/sogo</code></li>
+<li>Debian / Ubuntu: <code>/etc/default/sogo</code></li>
+</ul>
+<p>On FreeBSD and OpenBSD, please increase the value of <code>WOWorkersCount</code> parameter
+in SOGo config file instead:</p>
+<ul>
+<li>FreeBSD: <code>/usr/local/etc/sogo/sogo.conf</code></li>
+<li>OpenBSD: <code>/etc/sogo/sogo.conf</code></li>
+</ul>
+<p>Restarting SOGo service is required after you made this change.</p><div class="footer">
     <p style="text-align: center; color: grey;">All documents are available in <a href="https://github.com/iredmail/docs/">GitHub repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://github.com/iredmail/docs/archive/master.zip">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
 </div></body></html>

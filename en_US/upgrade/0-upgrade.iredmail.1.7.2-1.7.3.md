@@ -12,6 +12,7 @@
 
 ## ChangeLog
 
+- Apr 10, 2025: fix incorrect ldap schema file.
 - Apr 4, 2025: initial publish.
 
 ## General (All backends should apply these changes)
