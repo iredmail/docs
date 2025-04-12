@@ -10,6 +10,27 @@
 
 [TOC]
 
+## Version: 2025040201 (Apr 2, 2025) {: id=2025040201 }
+
+- Improvements:
+    - Amavisd: Create symbol link `/etc/amavisd.conf` on RHEL-family.
+    - dovecot: Switch to old stats plugin so that netdata can collect metrics.
+    - netdata: Switch all Python plugins to Go for better performance.
+    - netdata: Avoid the login page and splash screen, also disable cloud.
+
+- Fixed issues:
+    - SOGo doesn't have correct GroupObjectClasses setting for OpenLDAP backend.
+    - Netdata doesn't collect data for OpenLDAP server.
+    - Amavisd requires at least 2 child processes (was set to 1).
+    - Amavisd cannot save mail subject longer than 255 characters.
+
+* Updated packages:
+    - adminer v5.1.1
+    - mlmmjadmin 3.3.1
+    - netdata v2.3.2
+    - roundcube 1.6.10
+    - iRedAPD 5.9.0
+
 ## Version: 2025012401 (Jan 24, 2025) {: id=2025012401 }
 
 - Improvements:
@@ -20,7 +41,7 @@
     - Don't use deprecated LDAP attributes: storageBaseDirectory,
       mailMessageStore.
     - Disable SpamAssassin rule `RCVD_IN_DNSWL_HI` (Sender listed at
-      http://www.dnswl.org/, high trust).
+      http://www.dnswl.org/, high trust) due to too many false positivies.
 
 - Fixed issues:
     - Not serve ACME challenge over HTTP directly.

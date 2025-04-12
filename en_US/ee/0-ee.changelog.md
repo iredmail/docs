@@ -6,6 +6,8 @@
 
 | Version | Release Date |
 |---|---|
+| [v1.2.1](#v1.2.1) | 2025-04-04 |
+| [v1.2.0](#v1.2.0) | 2025-04-03 |
 | [v1.1.0](#v1.1.0) | 2025-03-11 |
 | [v1.0.2](#v1.0.2) | 2025-02-20 |
 | [v1.0.1](#v1.0.1) | 2025-01-26 |
@@ -19,8 +21,70 @@
 
 <br/>
 
+- [iRedMail Enterprise Edition (EE)](https://www.iredmail.org/ee.html)
 - [Install iRedMail Enterprise Edition](./install.ee.html)
 - [Upgrade iRedMail Enterprise Edition](./upgrade.ee.html)
+
+## v1.2.1, Apr 4, 2025 {: #v1.2.1 }
+
+- Fixed issues:
+    - [SQL backends] Not apply required SQL changes to `vmail.mailbox` table.
+
+## v1.2.0, Apr 2, 2025 {: #v1.2.0 }
+
+- Breaking changes:
+    - Storing IMAP metadata in file inside mailboxes instead of SQL database.
+
+        If you have shared folders, or enabled http push notification, you
+        have to reset ACL or re-enable http push notification.
+
+- New features:
+    - [Z-Push](https://z-push.org) is now available as alternative ActiveSync server.
+        - Fail2ban integration for activesync auth failure is enabled by default.
+    - __Password recovery__. Allow end user to reset password with a recovery email. Notes:
+        - User must login to self-service and add recovery email first, so
+          that user can reset password with this recovery email.
+        - A SMTP Account is required to send emails while user requests to
+          reset password.
+
+- Improvements:
+    - [web] Add links to view per-domain, per-user mail activities.
+    - [web] Able to disable creating IMAP folder for email address extension.
+      When local user `user@domain.com` receives an email sent to
+      `user+ExT@domain.com`, do not create mailbox folder `ExT` and deliver
+      email to the folder.
+    - [web] Able to re-deploy backend database (MariaDB, PostgreSQL, OpenLDAP0.
+    - [server] Discard duplicate emails by default in global sieve rule.
+    - [server] Supports storing custom Postfix config snippets in
+      `/opt/iredmail/custom/postfix/append_main.cf` and `append_master.cf`.
+      Full content of these 2 files will be appended to the end of
+      `/etc/postfix/main.cf` and `master.cf`.
+    - [Fail2ban] Monitoring EE log file for login failures.
+    - [SOGo] Re-create SQL VIEW to display more contact info stored in
+      newly added SQL columns in `vmail.mailbox`.
+    - [SQL backends] Able to manage more info of a mail user: first name, last
+      name, mobile numbers, telphone numbers, birthday.
+
+- Fixed issues:
+    - [web] Updating `Server Settings` may lose some other settings.
+    - [web] Cannot re-upload custom logo image.
+    - [web] Typing 2FA security code doesn't work well with numeric keypad.
+    - [server] Incorrect firewall rules in some cases.
+    - [server] Incorrect sql column in SQL VIEW `sogo.users`.
+    - [server] Storing IMAP metadata in SQL is not working well, fallback to
+      store in file inside user mailbox instead.
+    - [server] Not sync mail attachment size with web upload file size.
+    - [server] Incorrect SQL column definitions in table `amavisd.msgs`.
+    - [server] Error while setting owner/permission of a lot DKIM keys.
+      Thanks subarticThrone@forum for the feedback.
+
+- Updated translations:
+    - de_DE (German). Thanks to Jochen Häberle <jh _at_ networkerz.de>.
+
+- Updated packages:
+    - adminer v5.1.1
+    - iRedAPD 5.9.0
+    - netdata 2.3.2
 
 ## v1.1.0, Mar 11, 2025 {: #v1.1.0 }
 

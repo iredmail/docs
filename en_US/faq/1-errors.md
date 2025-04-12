@@ -323,3 +323,25 @@ Notes:
   a testing server, you can follow
   [our tutorial](./completely.disable.amavisd.clamav.spamassassin.html) to
   disable some features of Amavisd to keep it running, or disable it completely.
+
+## SOGo Groupware
+
+### No child available to handle incoming request
+
+Sample log lines:
+
+> Jul 02 00:41:15 sogod [2156]: [ERROR] <0x0x555dee9f6a20[WOWatchDog]> _No child available to handle incoming request!_
+
+If means SOGo doesn't have enough child processes to handle new requests.
+Please increase the processes defined in `PREFORK=` line in
+
+- RedHat-family OS: `/etc/sysconfig/sogo`
+- Debian / Ubuntu: `/etc/default/sogo`
+
+On FreeBSD and OpenBSD, please increase the value of `WOWorkersCount` parameter
+in SOGo config file instead:
+
+- FreeBSD: `/usr/local/etc/sogo/sogo.conf`
+- OpenBSD: `/etc/sogo/sogo.conf`
+
+Restarting SOGo service is required after you made this change.

@@ -53,12 +53,33 @@ $config['skin_logo'] = '...';   // Please read the comment lines in
 <p><a href="https://sogo.nu/support/faq/how-to-customize-the-html.html">How to customize the HTML</a></p>
 <h3 id="logo-image">Logo image</h3>
 <p>You can set custom logo image displayed on the login page of SOGo by replacing
-file <code>sogo-full.svg</code>:</p>
+file <code>sogo-full.svg</code>, but it will be overridden each time you upgrade SOGo
+packages:</p>
 <ul>
 <li>On RHEL/CentOS: <code>/usr/lib64/GNUstep/SOGo/WebServerResources/img/sogo-full.svg</code></li>
 <li>On Debian/Ubuntu, it's <code>/usr/lib/GNUstep/SOGo/WebServerResources/img/sogo-full.svg</code></li>
 <li>On FreeBSD, it's <code>/usr/local/GNUstep/Local/Library/SOGo/WebServerResources/img/sogo-full.svg</code>.</li>
 <li>On OpenBSD, it's <code>/usr/local/lib/GNUstep/SOGo/WebServerResources/img/sogo-full.svg</code>.</li>
-</ul><div class="footer">
+</ul>
+<p>Another way to customize Nginx config file to handle http request to this
+logo image.</p>
+<p>Edit file <code>/etc/nginx/templates/sogo.tmpl</code>, add these lines at the beginning:</p>
+<pre><code>location = /SOGo.woa/WebServerResources/img/sogo-full.svg {
+    return 301 https://myhost.com/sogo-full.svg;
+}
+</code></pre>
+<p>You can even use different logo images for each web domain:</p>
+<pre><code>location = /SOGo.woa/WebServerResources/img/sogo-full.svg {
+    if ($host = &quot;domain1.com&quot;) {
+        return 301 https://myhost.com/sogo-full-domain1.com.svg;
+    }
+
+    if ($host = &quot;domain2.com&quot;) {
+        return 301 https://myhost.com/sogo-full-domain2.com.svg;
+    }
+
+    return 404;
+}
+</code></pre><div class="footer">
     <p style="text-align: center; color: grey;">All documents are available in <a href="https://github.com/iredmail/docs/">GitHub repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://github.com/iredmail/docs/archive/master.zip">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
 </div></body></html>

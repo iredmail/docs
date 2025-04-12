@@ -29,6 +29,14 @@
 </thead>
 <tbody>
 <tr>
+<td><a href="#v1.2.1">v1.2.1</a></td>
+<td>2025-04-04</td>
+</tr>
+<tr>
+<td><a href="#v1.2.0">v1.2.0</a></td>
+<td>2025-04-03</td>
+</tr>
+<tr>
 <td><a href="#v1.1.0">v1.1.0</a></td>
 <td>2025-03-11</td>
 </tr>
@@ -72,8 +80,96 @@
 </table>
 <p><br/></p>
 <ul>
+<li><a href="https://www.iredmail.org/ee.html">iRedMail Enterprise Edition (EE)</a></li>
 <li><a href="./install.ee.html">Install iRedMail Enterprise Edition</a></li>
 <li><a href="./upgrade.ee.html">Upgrade iRedMail Enterprise Edition</a></li>
+</ul>
+<h2 id="v1.2.1">v1.2.1, Apr 4, 2025</h2>
+<ul>
+<li>Fixed issues:<ul>
+<li>[SQL backends] Not apply required SQL changes to <code>vmail.mailbox</code> table.</li>
+</ul>
+</li>
+</ul>
+<h2 id="v1.2.0">v1.2.0, Apr 2, 2025</h2>
+<ul>
+<li>
+<p>Breaking changes:</p>
+<ul>
+<li>
+<p>Storing IMAP metadata in file inside mailboxes instead of SQL database.</p>
+<p>If you have shared folders, or enabled http push notification, you
+have to reset ACL or re-enable http push notification.</p>
+</li>
+</ul>
+</li>
+<li>
+<p>New features:</p>
+<ul>
+<li><a href="https://z-push.org">Z-Push</a> is now available as alternative ActiveSync server.<ul>
+<li>Fail2ban integration for activesync auth failure is enabled by default.</li>
+</ul>
+</li>
+<li><strong>Password recovery</strong>. Allow end user to reset password with a recovery email. Notes:<ul>
+<li>User must login to self-service and add recovery email first, so
+  that user can reset password with this recovery email.</li>
+<li>A SMTP Account is required to send emails while user requests to
+  reset password.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>Improvements:</p>
+<ul>
+<li>[web] Add links to view per-domain, per-user mail activities.</li>
+<li>[web] Able to disable creating IMAP folder for email address extension.
+  When local user <code>user@domain.com</code> receives an email sent to
+  <code>user+ExT@domain.com</code>, do not create mailbox folder <code>ExT</code> and deliver
+  email to the folder.</li>
+<li>[web] Able to re-deploy backend database (MariaDB, PostgreSQL, OpenLDAP0.</li>
+<li>[server] Discard duplicate emails by default in global sieve rule.</li>
+<li>[server] Supports storing custom Postfix config snippets in
+  <code>/opt/iredmail/custom/postfix/append_main.cf</code> and <code>append_master.cf</code>.
+  Full content of these 2 files will be appended to the end of
+  <code>/etc/postfix/main.cf</code> and <code>master.cf</code>.</li>
+<li>[Fail2ban] Monitoring EE log file for login failures.</li>
+<li>[SOGo] Re-create SQL VIEW to display more contact info stored in
+  newly added SQL columns in <code>vmail.mailbox</code>.</li>
+<li>[SQL backends] Able to manage more info of a mail user: first name, last
+  name, mobile numbers, telphone numbers, birthday.</li>
+</ul>
+</li>
+<li>
+<p>Fixed issues:</p>
+<ul>
+<li>[web] Updating <code>Server Settings</code> may lose some other settings.</li>
+<li>[web] Cannot re-upload custom logo image.</li>
+<li>[web] Typing 2FA security code doesn't work well with numeric keypad.</li>
+<li>[server] Incorrect firewall rules in some cases.</li>
+<li>[server] Incorrect sql column in SQL VIEW <code>sogo.users</code>.</li>
+<li>[server] Storing IMAP metadata in SQL is not working well, fallback to
+  store in file inside user mailbox instead.</li>
+<li>[server] Not sync mail attachment size with web upload file size.</li>
+<li>[server] Incorrect SQL column definitions in table <code>amavisd.msgs</code>.</li>
+<li>[server] Error while setting owner/permission of a lot DKIM keys.
+  Thanks subarticThrone@forum for the feedback.</li>
+</ul>
+</li>
+<li>
+<p>Updated translations:</p>
+<ul>
+<li>de_DE (German). Thanks to Jochen Häberle <jh _at_ networkerz.de>.</li>
+</ul>
+</li>
+<li>
+<p>Updated packages:</p>
+<ul>
+<li>adminer v5.1.1</li>
+<li>iRedAPD 5.9.0</li>
+<li>netdata 2.3.2</li>
+</ul>
+</li>
 </ul>
 <h2 id="v1.1.0">v1.1.0, Mar 11, 2025</h2>
 <ul>

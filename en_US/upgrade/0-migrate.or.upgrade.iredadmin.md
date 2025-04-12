@@ -29,6 +29,8 @@ either open source edition or iRedAdmin-Pro).
    so you __MUST__ upgrade iRedMail to the latest stable release before
    upgrading iRedAdmin-Pro.
 
+    * [iRedMail Upgrade Tutorials](./iredmail.releases.html)
+
     * If you run the latest iRedAdmin-Pro with old iRedMail release, you may
       get error due to missing some required ldap attribute/value pairs
       (OpenLDAP backend), or missing some required SQL columns.
