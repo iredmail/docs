@@ -303,11 +303,11 @@ Postfix doesn't support loading main settings (`/etc/postfix/main.cf` and
 `/etc/postfix/master.cf`) from multiple files, so iRedMail EE uses alternative
 solution to split core and custom settings.
 
-- [Require EE v1.2.0] Write your new custom settings for `/etc/postfix/main.cf`
+- Write your new custom settings for `/etc/postfix/main.cf`
   in file `/opt/iredmail/custom/postfix/append_main.cf`. EE will append all
   content in this file to the end of `/etc/postfix/main.cf` each time you
   perform upgrade, re-perform full deployment, or re-deploy Postfix.
-- [Require EE v1.2.0] Write your new custom settings for `/etc/postfix/master.cf`
+- Write your new custom settings for `/etc/postfix/master.cf`
   in file `/opt/iredmail/custom/postfix/append_master.cf`. EE will append all
   content in this file to the end of `/etc/postfix/master.cf` each time you
   perform upgrade, re-perform full deployment, or re-deploy Postfix.
@@ -352,7 +352,7 @@ You can find some other files for customization under
 - `postscreen_access.cidr`
 - ...
 
-There's also a (Bash) shell scripting for flexible customization:
+There's also a (Bash) shell script for flexible customization:
 `/opt/iredmail/custom/postfix/custom.sh`. It will be ran each time you perform
 deployment or upgrade.
 

@@ -419,11 +419,11 @@ index attr_4,attr_5,attr_6  eq,pres
 <code>/etc/postfix/master.cf</code>) from multiple files, so iRedMail EE uses alternative
 solution to split core and custom settings.</p>
 <ul>
-<li>[Require EE v1.2.0] Write your new custom settings for <code>/etc/postfix/main.cf</code>
+<li>Write your new custom settings for <code>/etc/postfix/main.cf</code>
   in file <code>/opt/iredmail/custom/postfix/append_main.cf</code>. EE will append all
   content in this file to the end of <code>/etc/postfix/main.cf</code> each time you
   perform upgrade, re-perform full deployment, or re-deploy Postfix.</li>
-<li>[Require EE v1.2.0] Write your new custom settings for <code>/etc/postfix/master.cf</code>
+<li>Write your new custom settings for <code>/etc/postfix/master.cf</code>
   in file <code>/opt/iredmail/custom/postfix/append_master.cf</code>. EE will append all
   content in this file to the end of <code>/etc/postfix/master.cf</code> each time you
   perform upgrade, re-perform full deployment, or re-deploy Postfix.</li>
@@ -467,7 +467,7 @@ matches, Postfix will skip the second file.</p>
 <li><code>postscreen_access.cidr</code></li>
 <li>...</li>
 </ul>
-<p>There's also a (Bash) shell scripting for flexible customization:
+<p>There's also a (Bash) shell script for flexible customization:
 <code>/opt/iredmail/custom/postfix/custom.sh</code>. It will be ran each time you perform
 deployment or upgrade.</p>
 <p>For example, to set value of parameter <code>enable_original_recipient</code> to <code>yes</code>
