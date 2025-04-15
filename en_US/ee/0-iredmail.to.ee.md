@@ -195,18 +195,17 @@ solution to split core and custom settings.
           create `/etc/postfix/main.cf` as symbol link to this file.
         - If file `/opt/iredmail/custom/postfix/master.cf` exists, EE
           will create `/etc/postfix/master.cf` as symbol link to this file.
+    - There's also a (Bash) shell script for flexible customization:
+      `/opt/iredmail/custom/postfix/custom.sh`. It will be ran each time you perform
+      deployment or upgrade.
 
-    There's also a (Bash) shell script for flexible customization:
-    `/opt/iredmail/custom/postfix/custom.sh`. It will be ran each time you perform
-    deployment or upgrade.
+        For example, to set value of parameter `enable_original_recipient` to `yes`
+        (defaults to `no` set in `/etc/postfix/main.cf`), you can write command in
+        `/opt/iredmail/custom/postfix/custom.sh` like below:
 
-    For example, to set value of parameter `enable_original_recipient` to `yes`
-    (defaults to `no` set in `/etc/postfix/main.cf`), you can write command in
-    `/opt/iredmail/custom/postfix/custom.sh` like below:
-
-    ```
-    postconf -e enable_original_recipient=yes
-    ```
+        ```
+        postconf -e enable_original_recipient=yes
+        ```
 
 ### Amavisd
 

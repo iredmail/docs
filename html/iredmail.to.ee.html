@@ -336,14 +336,16 @@ directly, and (optionally) remove non-custom settings later.</p>
   will create <code>/etc/postfix/master.cf</code> as symbol link to this file.</li>
 </ul>
 </li>
-</ul>
+<li>
 <p>There's also a (Bash) shell script for flexible customization:
-<code>/opt/iredmail/custom/postfix/custom.sh</code>. It will be ran each time you perform
-deployment or upgrade.</p>
+  <code>/opt/iredmail/custom/postfix/custom.sh</code>. It will be ran each time you perform
+  deployment or upgrade.</p>
 <p>For example, to set value of parameter <code>enable_original_recipient</code> to <code>yes</code>
 (defaults to <code>no</code> set in <code>/etc/postfix/main.cf</code>), you can write command in
 <code>/opt/iredmail/custom/postfix/custom.sh</code> like below:</p>
 <p><code>postconf -e enable_original_recipient=yes</code></p>
+</li>
+</ul>
 </li>
 </ul>
 <h3 id="amavisd">Amavisd</h3>
