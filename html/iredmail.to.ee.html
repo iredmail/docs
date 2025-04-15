@@ -23,6 +23,7 @@
 <div class="toc">
 <ul>
 <li><a href="#migrate-from-iredmail-to-iredmail-enterprise-edition">Migrate from iRedMail to iRedMail Enterprise Edition</a><ul>
+<li><a href="#introduction">Introduction</a></li>
 <li><a href="#summary">Summary</a></li>
 <li><a href="#requirements">Requirements</a></li>
 <li><a href="#backup-first">Backup first</a></li>
@@ -52,13 +53,21 @@
 <p>iRedMail Team can help migrate your iRedMail server, feel free to
 <a href="https://www.iredmail.org/contact.html">Contact Us</a>.</p>
 </div>
-<h2 id="summary">Summary</h2>
+<h2 id="introduction">Introduction</h2>
 <p>iRedMail Enterprise Edition ("EE" for short) offers deployment, one-click upgrade and
 technical support for your iRedMail servers, it's very easy to keep your
 server up to date with the ease to use web UI, and get issues solved by
 iRedMail Team quickly.</p>
 <p>For more details about EE, please
 <a href="https://www.iredmail.org/ee.html">check our website</a>.</p>
+<h2 id="summary">Summary</h2>
+<p>Migrating from iRedMail to EE is like a fresh installation. EE detects
+SQL/LDAP credentials from files under <code>/root/.iredmail/kv/</code>, then use them
+directly, so all SQL/LDAP databases will be well kept.</p>
+<p>It also generates config files for all involved software, so it's very
+important to split the customizations you made in software config files to
+files under <code>/opt/iredmail/custom/</code> manually. EE maintains the core config
+files, and you override them.</p>
 <h2 id="requirements">Requirements</h2>
 <ul>
 <li>

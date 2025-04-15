@@ -11,7 +11,7 @@
     iRedMail Team can help migrate your iRedMail server, feel free to
     [Contact Us](https://www.iredmail.org/contact.html).
 
-## Summary
+## Introduction
 
 iRedMail Enterprise Edition ("EE" for short) offers deployment, one-click upgrade and
 technical support for your iRedMail servers, it's very easy to keep your
@@ -20,6 +20,17 @@ iRedMail Team quickly.
 
 For more details about EE, please
 [check our website](https://www.iredmail.org/ee.html).
+
+## Summary
+
+Migrating from iRedMail to EE is like a fresh installation. EE detects
+SQL/LDAP credentials from files under `/root/.iredmail/kv/`, then use them
+directly, so all SQL/LDAP databases will be well kept.
+
+It also generates config files for all involved software, so it's very
+important to split the customizations you made in software config files to
+files under `/opt/iredmail/custom/` manually. EE maintains the core config
+files, and you override them.
 
 ## Requirements
 
