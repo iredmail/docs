@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Disabling TOTP (2FA) for an Account</title>
+        <link rel="stylesheet" type="text/css" href="./css/markdown.css" />
+    </head>
+    <body>
+
+    <div id="navigation">
+    <a href="https://www.iredmail.org" target="_blank">
+        <img alt="iRedMail web site"
+             src="./images/logo-iredmail.png"
+             style="vertical-align: middle; height: 30px;"
+             />&nbsp;
+        <span>iRedMail</span>
+    </a>
+    &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><h1 id="disabling-totp-2fa-for-an-account">Disabling TOTP (2FA) for an Account</h1>
+<p>iRedMail Enterprise Edition (EE) stores all configurations, including 2FA
+settings, in the SQLite database located at:</p>
+<pre><code>/opt/iredmail/conf/settings.db
+</code></pre>
+<p>To disable TOTP-based two-factor authentication (2FA) for a specific account,
+follow these steps:</p>
+<ul>
+<li>
+<p>Install the SQLite3 Command-Line Tool:</p>
+<div class="admonition warning">
+<p class="admonition-title">⚠️  Version Requirement</p>
+<p>Ensure SQLite version 3.37.0 or later is installed.</p>
+</div>
+<ul>
+<li>
+<p>RHEL-based (CentOS/Rocky/AlmaLinux):
+  <code>yum install -y sqlite</code></p>
+</li>
+<li>
+<p>Debian/Ubuntu:
+  <code>apt -y install sqlite3</code></p>
+</li>
+<li>
+<p>OpenBSD:
+  <code>pkg_add sqlite3</code></p>
+</li>
+</ul>
+</li>
+<li>
+<p>Connect to the database by run the following command:</p>
+<p><code>sqlite3 /opt/iredmail/conf/settings.db</code></p>
+<p>You should now see the <code>sqlite&gt;</code> prompt.</p>
+</li>
+<li>
+<p>Remove the TOTP entry by executing the following SQL command (replace <code>your-email@example.com</code> with the actual email address):</p>
+<p><code>DELETE FROM totp WHERE mail="your-email@example.com";</code></p>
+</li>
+<li>
+<p>Disconnect the database:</p>
+<p><code>.quit</code></p>
+<p>Note: The <code>.quit</code> command has a leading dot and no semicolon (<code>;</code>).</p>
+</li>
+</ul>
+<p>After completing these steps, the user will no longer be prompted for a TOTP code upon login.</p><div class="footer">
+    <p style="text-align: center; color: grey;">All documents are available in <a href="https://github.com/iredmail/docs/">GitHub repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://github.com/iredmail/docs/archive/master.zip">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
+</div></body></html>
