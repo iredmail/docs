@@ -137,42 +137,22 @@ rm -f /tmp/iredadmin.mysql
 </code></pre>
 <h2 id="for-mariadb-backend">For MariaDB backend</h2>
 <h3 id="add-new-columns-in-vmail-database">Add new columns in <code>vmail</code> database</h3>
-<p>Add 6 columns in <code>vmail.mailbox</code>:</p>
+<p>Please run shell commands below to add new SQL columns:</p>
 <ul>
-<li><code>first_name</code></li>
-<li><code>last_name</code></li>
-<li><code>mobile</code></li>
-<li><code>telephone</code></li>
-<li><code>birthday</code></li>
-<li><code>recovery_email</code></li>
+<li>6 columns in <code>vmail.mailbox</code> table: <code>first_name</code>, <code>last_name</code>, <code>mobile</code>, <code>telephone</code>, <code>birthday</code>, <code>recovery_email</code>.</li>
+<li>2 columns in <code>vmail.deleted_mailboxes</code> table: <code>bytes</code>, <code>messages</code>.</li>
 </ul>
-<p>Add 2 columns in <code>vmail.deleted_mailboxes</code>:</p>
-<ul>
-<li><code>bytes</code></li>
-<li><code>messages</code></li>
-</ul>
-<p>Please run shell commands below to add them:</p>
 <pre><code>wget -O /tmp/vmail.mysql https://github.com/iredmail/iRedMail/raw/1.7.3/update/1.7.3/vmail.mysql
 mysql vmail &lt; /tmp/vmail.mysql
 rm -f /tmp/vmail.mysql
 </code></pre>
 <h2 id="for-postgresql-backend">For PostgreSQL backend</h2>
 <h3 id="add-new-columns-in-vmail-database_1">Add new columns in <code>vmail</code> database</h3>
-<p>Add 6 columns in <code>vmail.mailbox</code>:</p>
+<p>Please run shell commands below to add new SQL columns:</p>
 <ul>
-<li><code>first_name</code></li>
-<li><code>last_name</code></li>
-<li><code>mobile</code></li>
-<li><code>telephone</code></li>
-<li><code>birthday</code></li>
-<li><code>recovery_email</code></li>
+<li>6 columns in <code>vmail.mailbox</code> table: <code>first_name</code>, <code>last_name</code>, <code>mobile</code>, <code>telephone</code>, <code>birthday</code>, <code>recovery_email</code>.</li>
+<li>2 columns in <code>vmail.deleted_mailboxes</code> table: <code>bytes</code>, <code>messages</code>.</li>
 </ul>
-<p>Add 2 columns in <code>vmail.deleted_mailboxes</code>:</p>
-<ul>
-<li><code>bytes</code></li>
-<li><code>messages</code></li>
-</ul>
-<p>Please run shell commands below to add them:</p>
 <pre><code>wget -O /tmp/vmail.pgsql https://github.com/iredmail/iRedMail/raw/1.7.3/update/1.7.3/vmail.pgsql
 su - postgres
 psql -d vmail &lt; /tmp/vmail.pgsql

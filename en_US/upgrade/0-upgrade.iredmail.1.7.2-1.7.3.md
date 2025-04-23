@@ -121,21 +121,10 @@ rm -f /tmp/iredadmin.mysql
 
 ### Add new columns in `vmail` database
 
-Add 6 columns in `vmail.mailbox`:
+Please run shell commands below to add new SQL columns:
 
-- `first_name`
-- `last_name`
-- `mobile`
-- `telephone`
-- `birthday`
-- `recovery_email`
-
-Add 2 columns in `vmail.deleted_mailboxes`:
-
-- `bytes`
-- `messages`
-
-Please run shell commands below to add them:
+- 6 columns in `vmail.mailbox` table: `first_name`, `last_name`, `mobile`, `telephone`, `birthday`, `recovery_email`.
+- 2 columns in `vmail.deleted_mailboxes` table: `bytes`, `messages`.
 
 ```
 wget -O /tmp/vmail.mysql https://github.com/iredmail/iRedMail/raw/1.7.3/update/1.7.3/vmail.mysql
@@ -147,21 +136,10 @@ rm -f /tmp/vmail.mysql
 
 ### Add new columns in `vmail` database
 
-Add 6 columns in `vmail.mailbox`:
+Please run shell commands below to add new SQL columns:
 
-- `first_name`
-- `last_name`
-- `mobile`
-- `telephone`
-- `birthday`
-- `recovery_email`
-
-Add 2 columns in `vmail.deleted_mailboxes`:
-
-- `bytes`
-- `messages`
-
-Please run shell commands below to add them:
+- 6 columns in `vmail.mailbox` table: `first_name`, `last_name`, `mobile`, `telephone`, `birthday`, `recovery_email`.
+- 2 columns in `vmail.deleted_mailboxes` table: `bytes`, `messages`.
 
 ```
 wget -O /tmp/vmail.pgsql https://github.com/iredmail/iRedMail/raw/1.7.3/update/1.7.3/vmail.pgsql
