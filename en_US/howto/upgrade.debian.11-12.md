@@ -19,3 +19,12 @@ cp /etc/php/7.4/fpm/pool.d/www.conf /etc/php/8.2/fpm/pool.d/www.conf
 service php8.2-fpm restart
 ```
 
+## Re-upgrade iRedAPD, mlmmjadmin and iRedAdmin(-Pro)
+
+If you already have latest iRedAPD, mlmmjadmin and iRedAdmin(-Pro) running,
+you still need to re-download them and upgrade after you upgraded Debian OS,
+because the Python environment changed after OS upgrade.
+
+- [Upgrade iRedAPD](./upgrade.iredapd.html)
+- [Upgrade mlmmjadmin](./upgrade.mlmmjadmin.html)
+- [Upgrade iRedAdmin(-Pro)](./migrate.or.upgrade.iredadmin.html)

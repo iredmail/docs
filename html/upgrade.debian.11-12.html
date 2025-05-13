@@ -20,6 +20,7 @@
 <ul>
 <li><a href="#fixes-you-need-after-upgrading-debian-from-11-to-12">Fixes you need after upgrading Debian from 11 to 12</a><ul>
 <li><a href="#php-fpm">php-fpm</a></li>
+<li><a href="#re-upgrade-iredapd-mlmmjadmin-and-iredadmin-pro">Re-upgrade iRedAPD, mlmmjadmin and iRedAdmin(-Pro)</a></li>
 </ul>
 </li>
 </ul>
@@ -36,6 +37,15 @@ upgrade, you still need to copy the old php-fpm config file and restart
 (<code>127.0.0.1:9999</code>) and Nginx can communicate with php-fpm:</p>
 <pre><code>cp /etc/php/7.4/fpm/pool.d/www.conf /etc/php/8.2/fpm/pool.d/www.conf
 service php8.2-fpm restart
-</code></pre><div class="footer">
+</code></pre>
+<h2 id="re-upgrade-iredapd-mlmmjadmin-and-iredadmin-pro">Re-upgrade iRedAPD, mlmmjadmin and iRedAdmin(-Pro)</h2>
+<p>If you already have latest iRedAPD, mlmmjadmin and iRedAdmin(-Pro) running,
+you still need to re-download them and upgrade after you upgraded Debian OS,
+because the Python environment changed after OS upgrade.</p>
+<ul>
+<li><a href="./upgrade.iredapd.html">Upgrade iRedAPD</a></li>
+<li><a href="./upgrade.mlmmjadmin.html">Upgrade mlmmjadmin</a></li>
+<li><a href="./migrate.or.upgrade.iredadmin.html">Upgrade iRedAdmin(-Pro)</a></li>
+</ul><div class="footer">
     <p style="text-align: center; color: grey;">All documents are available in <a href="https://github.com/iredmail/docs/">GitHub repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://github.com/iredmail/docs/archive/master.zip">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
 </div></body></html>
