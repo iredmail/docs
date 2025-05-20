@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>SSL Certificate Management</title>
+        <link rel="stylesheet" type="text/css" href="./css/markdown.css" />
+    </head>
+    <body>
+
+    <div id="navigation">
+    <a href="https://www.iredmail.org" target="_blank">
+        <img alt="iRedMail web site"
+             src="./images/logo-iredmail.png"
+             style="vertical-align: middle; height: 30px;"
+             />&nbsp;
+        <span>iRedMail</span>
+    </a>
+    &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><h1 id="ssl-certificate-management">SSL Certificate Management</h1>
+<div class="toc">
+<ul>
+<li><a href="#ssl-certificate-management">SSL Certificate Management</a><ul>
+<li><a href="#request-a-free-cert">Request a free cert</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<p>Since version v1.3.0, EE supports requesting free ssl certificate from
+Let's Encrypt and renew it automatically.</p>
+<h2 id="request-a-free-cert">Request a free cert</h2>
+<p>Login to EE web ui as global admin, click <code>SSL Certificate</code> on left sidebar.</p>
+<p><img alt="" src="./images/ee/cert-1.png" width="800px" /></p>
+<p>Input the domain names you want to support in the ssl cert under the <code>Domains Names</code> card.</p>
+<ul>
+<li>It could be the server hostname used by end users in MUAs, or web domain
+  names accessed via https protocol.<ul>
+<li>NOTE: All domain names must be pointed to this EE server in A/CNAME type DNS record.</li>
+</ul>
+</li>
+<li>EE requests only one ssl cert with multiple domain names instead of one cert
+  per domain, you can add up to 100 domain names in this cert.</li>
+</ul>
+<p>After you input the domain names, EE queries DNS and displays all IP addresses,
+so that you can quickly verify whether they are pointed to this EE server.</p>
+<p><img alt="" src="./images/ee/cert-2.png" width="800px" /></p>
+<p>Once you have all domain names, click the <code>Request a new cert</code> button to
+request the cert.</p>
+<ul>
+<li>EE requests the cert in dry run mode first to make sure everything is ok and
+  not exceed <a href="https://letsencrypt.org/docs/rate-limits/">Let's Encrypt rate limit</a>,
+  then request the valid one immediately.</li>
+<li>EE reloads network services immediately after successfully requested the cert,
+  including Postfix, Dovecot and Nginx, so that they can use the new cert.
+  If you're running OpenLDAP backend and allows external access to LDAP
+  service, EE restarts OpenLDAP service too.</li>
+</ul>
+<p><img alt="" src="./images/ee/cert-modal.png" width="700px" /></p>
+<p>After successfully requested, EE displays the valid date and renewal date on web UI.</p>
+<p><img alt="" src="./images/ee/cert-requested.png" width="800px" /></p>
+<p>If you add or remove some domain names after requested, please click the
+<code>Request a new cert</code> button again to get a new cert.</p>
+<p>If you prefer a purchased cert or whatever, you can remove this free cert by
+click the <code>Delete</code> button. Be careful, EE does not remove the cert files on
+disk, also not restart or reload network services, you must replace the cert
+files manually, then restart services.</p>
+<p>Certificate files:</p>
+<ul>
+<li>Private key: <code>/opt/iredmail/ssl/key.pem</code></li>
+<li>Full chain: <code>/opt/iredmail/ssl/combined.pem</code></li>
+</ul><div class="footer">
+    <p style="text-align: center; color: grey;">All documents are available in <a href="https://github.com/iredmail/docs/">GitHub repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://github.com/iredmail/docs/archive/master.zip">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
+</div></body></html>

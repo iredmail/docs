@@ -4,7 +4,7 @@ __iRedMail Enterprise Edition (EE)__ {: #ee }
 - [Best Practice](./ee.best.practice.html)
 - [ChangeLog](./ee.changelog.html)
 - [Translate EE to your local language](./ee.translation.html)
-- [Request a free cert from Let's Encrypt](./letsencrypt-ee.html)
+- [SSL certificate management](./ee.cert.html)
 - [Disable 2FA (TOTP) for account](./ee.disable.2fa.html)
 - Migration:
     - [Migrate from iRedMail Easy](./easy.to.ee.html)
