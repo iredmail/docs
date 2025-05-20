@@ -38,8 +38,8 @@ request the cert.
 ![](./images/ee/cert-modal.png){: width="700px" }
 
 After successfully requested, EE displays the valid date and renewal date on
-web UI. It will renew the cert right on time and send email notification
-to administrator.
+web UI. It will renew the cert right on time automatically and send email
+notification to administrator.
 
 ![](./images/ee/cert-requested.png){: width="800px" }
 
