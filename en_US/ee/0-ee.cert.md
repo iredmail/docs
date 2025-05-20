@@ -53,3 +53,8 @@ Certificate files:
 
 - Private key: `/opt/iredmail/ssl/key.pem`
 - Full chain: `/opt/iredmail/ssl/combined.pem`
+
+If you use tool like `certbot` on this EE server before, you should remove
+the cron job used to renew the cert, also remove script `/etc/cron.d/certbot`
+added by `certbot` package. It's better remove package `certbot` completely
+since you don't need it anymore and avoid possible conflict.
