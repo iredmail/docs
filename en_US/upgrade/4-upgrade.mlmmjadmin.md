@@ -31,9 +31,9 @@
 
 ```
 cd /root/
-wget https://github.com/iredmail/mlmmjadmin/archive/3.3.1.tar.gz
-tar zxf 3.3.1.tar.gz
-cd mlmmjadmin-3.3.1/tools/
+wget https://github.com/iredmail/mlmmjadmin/archive/3.4.0.tar.gz
+tar zxf 3.4.0.tar.gz
+cd mlmmjadmin-3.4.0/tools/
 bash upgrade_mlmmjadmin.sh
 ```
 
