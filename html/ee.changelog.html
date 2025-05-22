@@ -29,6 +29,10 @@
 </thead>
 <tbody>
 <tr>
+<td><a href="#v1.3.0">v1.3.0</a></td>
+<td>2025-05-22</td>
+</tr>
+<tr>
 <td><a href="#v1.2.1">v1.2.1</a></td>
 <td>2025-04-04</td>
 </tr>
@@ -83,6 +87,84 @@
 <li><a href="https://www.iredmail.org/ee.html">iRedMail Enterprise Edition (EE)</a></li>
 <li><a href="./install.ee.html">Install iRedMail Enterprise Edition</a></li>
 <li><a href="./upgrade.ee.html">Upgrade iRedMail Enterprise Edition</a></li>
+</ul>
+<h2 id="v1.3.0">v1.3.0, May 22, 2025</h2>
+<ul>
+<li>
+<p>Supports new distribution releases:</p>
+<ul>
+<li>OpenBSD 7.7. Drops 7.5.</li>
+<li>CentOS Stream 10. Note: SOGo Groupware is not available on CentOS 10 yet.</li>
+</ul>
+</li>
+<li>
+<p>New features:</p>
+<ul>
+<li><a href="./ee.cert.html">SSL certificate management</a>: Request free cert from Let's Encrypt with
+  multiple domain names support, renew the cert automatically.</li>
+<li>View all DNS records of an email domain. Click the "DNS" badge on domain
+  list page, or domain profile page.</li>
+</ul>
+</li>
+<li>
+<p>Improvements:</p>
+<ul>
+<li>Show a modal window to select ActiveSync server when enabling or
+  disabling SOGo and Z-Push component.</li>
+<li>Store Z-Push state in SQL db instead of plain files.</li>
+<li>Rotate Z-Push log file daily and keep for 90 copies (was weekly and 20 copies).</li>
+<li>Log enabled / disabled components.</li>
+<li>Able to delete all whitelists or blacklists.</li>
+<li>Display disk usage on Dashboard page.</li>
+<li>Always display login username on left sidebar.</li>
+<li>Cache static files (image / css / js files) for one day by default.</li>
+<li>Report error if custom locale (JSON) file has invalid format.</li>
+</ul>
+</li>
+<li>
+<p>Fixed issues:</p>
+<ul>
+<li>Not set <code>Reply-To:</code> to mailing list address by default.</li>
+<li>Generate content in wrong format in <code>/etc/postfix/sasl_passwords</code>.
+  Thanks Fabian Santiago for the report.</li>
+<li>Not enable IPv6 support in Postfix, Dovecot and Nginx.
+  Thanks Fabian Santiago for the report.</li>
+<li>MariaDB may have improper row format on server upgraded from old OS release.</li>
+<li>[Amavisd] Do not quarantine detected spam by default.
+  If admin chooses to not quarantine detected spams, the setting in Amavisd
+  config file will overrides admin's spam policy stored in SQL db, which
+  causes improper result.
+  Thanks Fabian Santiago for the report.</li>
+<li>Query parameter <code>limit</code> was ignored in several API endpoints.</li>
+<li>Not correctly activate Z-Push as activesync server.
+  Thanks Fabian Santiago for the report.</li>
+<li>[self-service] Cannot whitelist sender on Quarantined Mails page.
+  Thanks Fabian Santiago for the report.</li>
+<li>Not redirect to correct URL while subscribing to or unsubscribing from
+  newsletter.</li>
+<li>[OpenLDAP] Not correctly update allocated quota size on domain list page.</li>
+<li>Whitelisted IPs are not written into Fail2ban config file.</li>
+<li>Not use correct password algorithm for OpenLDAP backend on RHEL-family OS.
+  Thanks Laurent DUPIRE for the report.</li>
+<li>Standalone admin was not recognized as global admin.
+  Thanks Stéphane for the feedback.</li>
+<li>Updating user and admin profiles with invalid password returns unexpected error.</li>
+</ul>
+</li>
+<li>
+<p>Updated translations:</p>
+<ul>
+<li>de_DE (German). Thanks to Jochen Häberle <jh _at_ networkerz.de>.</li>
+</ul>
+</li>
+<li>
+<p>Updated packages:</p>
+<ul>
+<li>adminer v5.3.0</li>
+<li>netdata v2.5.1</li>
+<li>mlmmjadmin v3.4.0</li>
+</ul>
+</li>
 </ul>
 <h2 id="v1.2.1">v1.2.1, Apr 4, 2025</h2>
 <ul>
