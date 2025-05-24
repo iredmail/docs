@@ -51,12 +51,19 @@ click the `Delete` button. Be careful, EE does not remove the cert files on
 disk, also not restart or reload network services, you must replace the cert
 files manually, then restart services.
 
-Certificate files:
+## Certificate files
 
 - Private key: `/opt/iredmail/ssl/key.pem`
 - Full chain: `/opt/iredmail/ssl/combined.pem`
+- Cert file: `/opt/iredmail/ssl/cert.pem`. It has same content as full chain file.
 
-If you use tool like `certbot` on this EE server before, you should remove
-the cron job used to renew the cert, also remove script `/etc/cron.d/certbot`
-added by `certbot` package. It's better remove package `certbot` completely
-since you don't need it anymore and avoid possible conflict.
+## Notes
+
+EE doesn't rely on external tool like `certbot` or `acme.sh` to request or
+renew the cert, if you use any of them on this EE server before v1.3.0,
+you should at least remove the cron job used to renew the cert (including the
+one added by certbot package automatically, `/etc/cron.d/certbot`) to avoid
+conflict.
+
+Better remove `certbot` package and its data directory `/etc/letsencrypt/`
+completely since you don't need it anymore.

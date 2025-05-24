@@ -20,6 +20,8 @@
 <ul>
 <li><a href="#ssl-certificate-management">SSL Certificate Management</a><ul>
 <li><a href="#request-a-free-cert">Request a free cert</a></li>
+<li><a href="#certificate-files">Certificate files</a></li>
+<li><a href="#notes">Notes</a></li>
 </ul>
 </li>
 </ul>
@@ -64,14 +66,19 @@ notification to administrator.</p>
 click the <code>Delete</code> button. Be careful, EE does not remove the cert files on
 disk, also not restart or reload network services, you must replace the cert
 files manually, then restart services.</p>
-<p>Certificate files:</p>
+<h2 id="certificate-files">Certificate files</h2>
 <ul>
 <li>Private key: <code>/opt/iredmail/ssl/key.pem</code></li>
 <li>Full chain: <code>/opt/iredmail/ssl/combined.pem</code></li>
+<li>Cert file: <code>/opt/iredmail/ssl/cert.pem</code>. It has same content as full chain file.</li>
 </ul>
-<p>If you use tool like <code>certbot</code> on this EE server before, you should remove
-the cron job used to renew the cert, also remove script <code>/etc/cron.d/certbot</code>
-added by <code>certbot</code> package. It's better remove package <code>certbot</code> completely
-since you don't need it anymore and avoid possible conflict.</p><div class="footer">
+<h2 id="notes">Notes</h2>
+<p>EE doesn't rely on external tool like <code>certbot</code> or <code>acme.sh</code> to request or
+renew the cert, if you use any of them on this EE server before v1.3.0,
+you should at least remove the cron job used to renew the cert (including the
+one added by certbot package automatically, <code>/etc/cron.d/certbot</code>) to avoid
+conflict.</p>
+<p>Better remove <code>certbot</code> package and its data directory <code>/etc/letsencrypt/</code>
+completely since you don't need it anymore.</p><div class="footer">
     <p style="text-align: center; color: grey;">All documents are available in <a href="https://github.com/iredmail/docs/">GitHub repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://github.com/iredmail/docs/archive/master.zip">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
 </div></body></html>
