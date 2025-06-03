@@ -38,6 +38,7 @@
 
 Release Notes | Date | Upgrade tutorial | Comment
 ---|---|---|---
+[1.7.4](https://forum.iredmail.org/topic20900.html) | Jun 3, 2025 | [Upgrade from iRedMail-1.7.3](./upgrade.iredmail.1.7.3-1.7.4.html) |Roundcube security fix.|
 [1.7.3](https://forum.iredmail.org/topic20846.html) | Apr 4, 2025 | [Upgrade from iRedMail-1.7.2](./upgrade.iredmail.1.7.2-1.7.3.html) |LDAP schema change.|
 [1.7.2](https://forum.iredmail.org/topic20760.html) | Jan 24, 2025 | [Upgrade from iRedMail-1.7.1](./upgrade.iredmail.1.7.1-1.7.2.html) |LDAP schema change.|
 [1.7.1](https://forum.iredmail.org/topic20547.html) | Aug 5, 2024 | [Upgrade from iRedMail-1.7.0](./upgrade.iredmail.1.7.0-1.7.1.html) ||
