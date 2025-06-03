@@ -6,6 +6,7 @@
 
 | Version | Release Date |
 |---|---|
+| [v1.3.1](#v1.3.1) | 2025-06-03 |
 | [v1.3.0](#v1.3.0) | 2025-05-22 |
 | [v1.2.1](#v1.2.1) | 2025-04-04 |
 | [v1.2.0](#v1.2.0) | 2025-04-03 |
@@ -25,6 +26,22 @@
 - [iRedMail Enterprise Edition (EE)](https://www.iredmail.org/ee.html)
 - [Install iRedMail Enterprise Edition](./install.ee.html)
 - [Upgrade iRedMail Enterprise Edition](./upgrade.ee.html)
+
+## v1.3.1, Jun 3, 2025 {: #v1.3.1 }
+
+- Fixed issues:
+    - [PostgreSQL] Not set `NOT NULL` for SQL table `vmail.mailbox.employeeid`.
+    - Not remove Nginx config snippet files after disabled SOGo.
+    - Not properly expire cache of static files (js/css).
+    - Not generate file `/opt/iredmail/ssl/cert.pem` after successfully
+      requested ssl cert from Let's Encrypt.
+    - Not handle error if SOGo user profile is empty.
+    - Not upgrade required components while after upgraded EE binary.
+
+- Updated packages:
+    - roundcube 1.6.11 (security fix)
+    - netdata v2.5.2
+    - iRedAPD 5.9.1
 
 ## v1.3.0, May 22, 2025 {: #v1.3.0 }
 

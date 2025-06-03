@@ -29,6 +29,10 @@
 </thead>
 <tbody>
 <tr>
+<td><a href="#v1.3.1">v1.3.1</a></td>
+<td>2025-06-03</td>
+</tr>
+<tr>
 <td><a href="#v1.3.0">v1.3.0</a></td>
 <td>2025-05-22</td>
 </tr>
@@ -87,6 +91,29 @@
 <li><a href="https://www.iredmail.org/ee.html">iRedMail Enterprise Edition (EE)</a></li>
 <li><a href="./install.ee.html">Install iRedMail Enterprise Edition</a></li>
 <li><a href="./upgrade.ee.html">Upgrade iRedMail Enterprise Edition</a></li>
+</ul>
+<h2 id="v1.3.1">v1.3.1, Jun 3, 2025</h2>
+<ul>
+<li>
+<p>Fixed issues:</p>
+<ul>
+<li>[PostgreSQL] Not set <code>NOT NULL</code> for SQL table <code>vmail.mailbox.employeeid</code>.</li>
+<li>Not remove Nginx config snippet files after disabled SOGo.</li>
+<li>Not properly expire cache of static files (js/css).</li>
+<li>Not generate file <code>/opt/iredmail/ssl/cert.pem</code> after successfully
+  requested ssl cert from Let's Encrypt.</li>
+<li>Not handle error if SOGo user profile is empty.</li>
+<li>Not upgrade required components while after upgraded EE binary.</li>
+</ul>
+</li>
+<li>
+<p>Updated packages:</p>
+<ul>
+<li>roundcube 1.6.11 (security fix)</li>
+<li>netdata v2.5.2</li>
+<li>iRedAPD 5.9.1</li>
+</ul>
+</li>
 </ul>
 <h2 id="v1.3.0">v1.3.0, May 22, 2025</h2>
 <ul>
