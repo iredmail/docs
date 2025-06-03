@@ -10,6 +10,14 @@
 
 [TOC]
 
+## Version: 2025060301 (Jun 3, 2025) {: id=2025060301 }
+
+* Updated packages:
+    - Roundcube 1.6.11 (security fix)
+    - iRedAPD v5.9.1
+    - adminer v5.3.0
+    - netdata v2.5.2
+
 ## Version: 2025040201 (Apr 2, 2025) {: id=2025040201 }
 
 - Improvements:
