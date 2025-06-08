@@ -2,7 +2,7 @@
 
 !!! warning
 
-    This tutorial is deprecated, please read [SSL Cert Management](./ee.cert.html) instead.
+    This tutorial is deprecated, please use the bulitin [SSL Cert Management](./ee.cert.html) instead.
 
     iRedMail Enterprise Edition supports SSL cert management since v1.3.0,
     no need to request cert manually and setup cron job to renew the cert.
