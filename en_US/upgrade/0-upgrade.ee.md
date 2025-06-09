@@ -27,7 +27,7 @@ the web UI as global admin. If there's some update for deployed software like
 Postfix, Dovecot, Nginx, etc, it will show a banner with `Upgrade` button,
 click it to finish the upgrade.
 
-![](./images/ee/dashboard-upgrade.png)
+![](./images/ee/dashboard-upgrade.png){: width="400px" }
 
 ## See Also
 

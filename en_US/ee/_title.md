@@ -1,6 +1,7 @@
 __iRedMail Enterprise Edition (EE)__ {: #ee }
 
-- [Install iRedMail Enterprise Edition](./install.ee.html)
+- [Install EE](./install.ee.html)
+- [Upgrade EE](./upgrade.ee.html)
 - [Best Practice](./ee.best.practice.html)
 - [ChangeLog](./ee.changelog.html)
 - [Translate EE to your local language](./ee.translation.html)
