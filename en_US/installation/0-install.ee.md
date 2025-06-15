@@ -57,14 +57,14 @@ find the installation guides here: [Install iRedMail](./index.html#install).
 
 Linux/BSD distribution releases supported by __iRedMail Enterprise Edition__:
 
-Distribution | Release Versions
---- |---
-CentOS Stream | 8, 9 (recommended)
-Rocky Linux | 8, 9 (recommended)
-AlmaLinux | 8, 9 (recommended)
-Debian | 11, 12 (recommended)
-Ubuntu | 20.04, 22.04, 24.04 (recommended)
-OpenBSD | 7.6
+Distribution | Release Versions | Notes
+--- |--- |---
+CentOS Stream | 8, 9, 10 | [SOGo is not available on CentOS 10 yet](https://bugs.sogo.nu/view.php?id=6118)
+Rocky Linux | 8, 9, 10 | [SOGo is not available on Rocky 10 yet](https://bugs.sogo.nu/view.php?id=6118)
+AlmaLinux | 8, 9, 10 | [SOGo is not available on Alma 10 yet](https://bugs.sogo.nu/view.php?id=6118)
+Debian | 11, 12 | 12 is recommended.
+Ubuntu | 20.04, 22.04, 24.04 | 24.04 is recommended.
+OpenBSD | 7.7 |
 
 If you need to install iRedMail on FreeBSD, please use the [downloadable
 installer](https://www.iredmail.org/download.html) instead.
