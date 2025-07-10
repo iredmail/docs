@@ -263,6 +263,21 @@ MYNEWTORKS = ['192.168.0.1', '172.16.0.0/8']
 There's no iRedAdmin(-Pro) with EE since it offers
 same (actually, more) features as iRedAdmin(-Pro).
 
+### SOGo Groupware
+
+- SOGo doesn't support loading config from multiple files, so if file
+  `/opt/iredmail/custom/sogo/sogo.conf` exists, EE will create `/etc/sogo/sogo.conf`
+  as symbol link to this file.
+
+    It's strongly recommended to customize SOGo settings on EE web UI, so
+    you'd better check the features offered on EE web UI, then tune SOGo on
+    web UI and remove `/opt/iredmail/custom/sogo/sogo.conf`.
+
+- EE rewrites prefork child processes in `/etc/sysconfig/sogo` (RedHat-family OS)
+  and `/etc/default/sogo` (Debian-family OS), please tune it on EE web UI
+  (`Server Settings` -> `SOGo Groupware` -> `Max prefork processes`) after
+  migrated to EE.
+
 ## Run the full deployment as migration
 
 Please follow our tutorial [Install iRedMail Enterprise Edition](./install.ee.html)
