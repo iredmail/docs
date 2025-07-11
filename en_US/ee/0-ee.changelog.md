@@ -57,10 +57,10 @@
 
 - Fixed issues:
     - SOGo password policy is not accessible.
-    - [openldap] Not set password last change date for postmaster@ user.
     - autoconfig and autodiscover didn't work in some cases.
       Thanks Lance for the report.
-    - Not convert ldap suffix to lower cases.
+    - [LDAP] Not set password last change date for postmaster@ user.
+    - [LDAP] Not convert ldap suffix to lower cases.
       Thanks Michael for the feedback.
     - Display `weight` attribute in autoconfig and autodiscover DNS record.
     - Not display user last login date while filtering by first character
