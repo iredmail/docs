@@ -6,6 +6,7 @@
 
 | Version | Release Date |
 |---|---|
+| [v1.4.0](#v1.4.0) | 2025-07-11 |
 | [v1.3.1](#v1.3.1) | 2025-06-03 |
 | [v1.3.0](#v1.3.0) | 2025-05-22 |
 | [v1.2.1](#v1.2.1) | 2025-04-04 |
@@ -26,6 +27,59 @@
 - [iRedMail Enterprise Edition (EE)](https://www.iredmail.org/ee.html)
 - [Install iRedMail Enterprise Edition](./install.ee.html)
 - [Upgrade iRedMail Enterprise Edition](./upgrade.ee.html)
+
+## v1.4.0, Jul 11, 2025 {: #v1.4.0 }
+
+- New milter program.
+    - Currently only one plugin (`dkim`) is available.
+    - Plugin `dkim`: signing DKIM key on outbound messages. It stores DKIM
+      keys in SQL table `vmail.dkim`, admins can generate per-domain
+      key on EE web UI (the DNS modal window).
+    - Existing DKIM keys used by Amavisd will be migrated to SQL table
+      `vmail.dkim` automatically during upgrade.
+    - Admins can manage milter plugins on web UI (`Server Settings` -> `Milter`).
+
+- New features:
+    - Export managed domains and accounts (in Excel file format `.xlsx`).
+
+- Improvements:
+    - More spam policy options (bypass, quarantine, discard).
+    - Improved layout of quarantined notification email.
+    - [LDAP] Disallow changing LDAP suffix.
+    - [LDAP] Add a checkbox to enable / disable mail forwarding on user profile
+      page.
+    - Add labels on user list page to indicate user has forwarding addresses
+      and member of certain mailing lists.
+    - Simplify error message of DNS query result.
+    - New option to keep software up to date during deployment.
+    - Simplify deployment modal window.
+    - EE now logs to `/var/log/iredmail/` instead of `/opt/iredmail/log/`.
+
+- Fixed issues:
+    - SOGo password policy is not accessible.
+    - [openldap] Not set password last change date for postmaster@ user.
+    - autoconfig and autodiscover didn't work in some cases.
+      Thanks Lance for the report.
+    - Not convert ldap suffix to lower cases.
+      Thanks Michael for the feedback.
+    - Display `weight` attribute in autoconfig and autodiscover DNS record.
+    - Not display user last login date while filtering by first character
+      of email address on user list page.
+      Thanks Robert for the feedback.
+    - Server uptime was not updated on Dashboard page.
+      Thanks Robert for the feedback.
+    - Not preserve Fail2ban whitelists while migrating from iRedMail Easy.
+      Thanks Robert for the feedback.
+    - User cannot login due to not removing deprecated sql columns in
+      `vmail.mailbox`.
+    - Fix endless loop while cleaning up deleted mailboxes.
+    - Not correctly enable IPv6 support in Postfix and Nginx.
+
+- Updated packages:
+    - netdata v2.5.4
+
+- New translation: th_TH (Thai).
+  Thanks to Anucha <achn.syps _at_ gmail.com>.
 
 ## v1.3.1, Jun 3, 2025 {: #v1.3.1 }
 
