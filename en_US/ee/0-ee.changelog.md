@@ -56,7 +56,6 @@
     - EE now logs to `/var/log/iredmail/` instead of `/opt/iredmail/log/`.
 
 - Fixed issues:
-    - SOGo password policy is not accessible.
     - autoconfig and autodiscover didn't work in some cases.
       Thanks Lance for the report.
     - [LDAP] Not set password last change date for postmaster@ user.
