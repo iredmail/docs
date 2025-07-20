@@ -177,20 +177,22 @@ chown root:root iredmail
 chmod 0500 iredmail
 </code></pre>
 <ul>
-<li>For OpenBSD, x86_64 / amd64:</li>
+<li>For OpenBSD, x86_64 / amd64 (also install required <code>bash</code> shell):</li>
 </ul>
 <pre><code class="language-bash">cd /usr/local/bin/
 wget -O iredmail https://dl.iredmail.org/ee/iredmail-enterprise-latest-openbsd-amd64
 chown root:wheel iredmail
 chmod 0500 iredmail
+pkg_add bash
 </code></pre>
 <ul>
-<li>For OpenBSD, arm64 aarch64:</li>
+<li>For OpenBSD, arm64 aarch64 (also install required <code>bash</code> shell too):</li>
 </ul>
 <pre><code class="language-bash">cd /usr/local/bin/
 wget -O iredmail https://dl.iredmail.org/ee/iredmail-enterprise-latest-openbsd-amd64
 chown root:wheel iredmail
 chmod 0500 iredmail
+pkg_add bash
 </code></pre>
 <p>Launch the installer:</p>
 <pre><code class="language-bash">/usr/local/bin/iredmail

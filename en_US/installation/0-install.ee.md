@@ -111,22 +111,24 @@ chown root:root iredmail
 chmod 0500 iredmail
 ```
 
-* For OpenBSD, x86_64 / amd64:
+* For OpenBSD, x86_64 / amd64 (also install required `bash` shell):
 
 ```bash
 cd /usr/local/bin/
 wget -O iredmail https://dl.iredmail.org/ee/iredmail-enterprise-latest-openbsd-amd64
 chown root:wheel iredmail
 chmod 0500 iredmail
+pkg_add bash
 ```
 
-* For OpenBSD, arm64 aarch64:
+* For OpenBSD, arm64 aarch64 (also install required `bash` shell too):
 
 ```bash
 cd /usr/local/bin/
 wget -O iredmail https://dl.iredmail.org/ee/iredmail-enterprise-latest-openbsd-amd64
 chown root:wheel iredmail
 chmod 0500 iredmail
+pkg_add bash
 ```
 
 Launch the installer:
