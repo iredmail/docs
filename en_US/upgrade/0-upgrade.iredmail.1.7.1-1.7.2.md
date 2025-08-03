@@ -124,6 +124,7 @@ argument, please specify `-w /opt/www/well_known` each time.
 ### Update LDAP schema file
 
 New schema allows mail alias account to use 2 more attributes:
+
 - `accessPolicy`,
 - `listModerator`.
 
