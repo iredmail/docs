@@ -168,6 +168,7 @@ ALL | `sql_user_iredapd` | Password of SQL user `iredapd` | `/opt/iredapd/settin
 ALL | `sql_user_roundcube` | Password of SQL user `roundcube` | `/root/.my.cnf-roundcube` or `/opt/www/roundcubemail/config/config.inc.php`
 ALL | `sql_user_sogo` | Password of SQL user `sogo` | `/etc/sogo/sogo.conf`
 ALL | `sql_user_netdata` | Password of SQL user `netdata` | `/root/.my.cnf-netdata` or `/opt/netdata/etc/netdata/my.cnf`
+ALL | `sql_user_fail2ban` | Password of SQL user `fail2ban` | `/root/.my.cnf-fail2ban`
 ALL | `iredapd_srs_secret` | The secret string used to sign SRS. | `/opt/iredapd/settings.py`, parameter `srs_secrets =`.
 ALL | `sogo_sieve_master_password` | The Dovecot master user used by SOGo. | `/etc/sogo/sieve.cred`.
 ALL | `roundcube_des_key` | The DES key used by Roundcube to encrypt the session. | `/opt/www/roundcubemail/config/config.inc.php`, parameter `$config['des_key'] =`.
