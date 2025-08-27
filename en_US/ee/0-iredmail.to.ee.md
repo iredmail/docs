@@ -239,7 +239,7 @@ trusted_networks 192.168.0.1 172.16.0.0/8
 
 ### Roundcube Webmail
 
-* Copy custom settings from `/opt/www/roundcubemail/config/config.inc.php` to `/opt/iredmail/custom/roundcube/config/custom.inc.php`.
+* Copy custom settings from `/opt/www/roundcubemail/config/config.inc.php` to `/opt/iredmail/custom/roundcube/custom.inc.php`.
 * Copy third-party plugins from `/opt/www/roundcubemail/plugins/` to `/opt/iredmail/custom/roundcube/plugins/`. EE will create symbol link for them automatically.
 * Copy third-party or custom skins from `/opt/www/roundcubemail/skins/` to `/opt/iredmail/custom/roundcube/skins/`. EE will create symbol link for them automatically.
 
