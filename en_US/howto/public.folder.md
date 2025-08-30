@@ -4,6 +4,11 @@
 
 	 Check out the lightweight on-premises email archiving software developed by iRedMail team: [Spider Email Archiver](https://spiderd.io/).
 
+!!! warning
+
+    This tutorial is applicable for Dovecot 2.3. [Dovecot 2.4 uses slightly
+    different config syntax](https://doc.dovecot.org/2.4.1/core/config/shared_mailboxes.html#public-shared-mailboxes).
+
 [TOC]
 
 iRedMail has setting for public folder in `/etc/dovecot/dovecot.conf`,
