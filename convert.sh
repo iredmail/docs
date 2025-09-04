@@ -12,7 +12,7 @@ export TMP_DIR="${OUTPUT_DIR}/tmp"
 
 export CMD_CONVERT="python3 ${ROOTDIR}/tools/markdown2html.py"
 export CMD_CHECK_CHANGE="git status"
-export CHANGED_FILES="$(git status | grep -E '(modified:|new file:)' | grep '\.md$' | awk -F':' '{print $2}')"
+export CHANGED_FILES="$(git status | grep -E '(modified:|new file:|renamed:)' | grep '\.md$' | awk -F':' '{print $2}')"
 export TODAY="$(date +%Y-%m-%d)"
 
 [ -d ${OUTPUT_DIR} ] || mkdir -p ${OUTPUT_DIR}

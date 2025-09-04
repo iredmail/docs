@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Upgrade Debian from 12 (bookworm) to 13 (trixie), for iRedMail Enterprise Edition.</title>
+        <link rel="stylesheet" type="text/css" href="./css/markdown.css" />
+    </head>
+    <body>
+
+    <div id="navigation">
+    <a href="https://www.iredmail.org" target="_blank">
+        <img alt="iRedMail web site"
+             src="./images/logo-iredmail.png"
+             style="vertical-align: middle; height: 30px;"
+             />&nbsp;
+        <span>iRedMail</span>
+    </a>
+    &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><h1 id="upgrade-debian-from-12-bookworm-to-13-trixie-for-iredmail-enterprise-edition">Upgrade Debian from 12 (bookworm) to 13 (trixie), for iRedMail Enterprise Edition.</h1>
+<div class="toc">
+<ul>
+<li><a href="#upgrade-debian-from-12-bookworm-to-13-trixie-for-iredmail-enterprise-edition">Upgrade Debian from 12 (bookworm) to 13 (trixie), for iRedMail Enterprise Edition.</a><ul>
+<li><a href="#before-os-upgrade">BEFORE OS upgrade</a></li>
+<li><a href="#upgrade-os">Upgrade OS</a></li>
+<li><a href="#after-os-upgrade">After OS upgrade</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This is still a DRAFT document, do <strong>NOT</strong> apply it now.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">SOGo Groupware</p>
+<p>SOGo team doesn't offer binary packages for Debian 13 (and
+<a href="https://bugs.sogo.nu/view.php?id=6118">CentOS Stream 10</a> too) yet, so if
+you're running SOGo on Debian 12, please wait for some more time and
+<a href="https://bugs.sogo.nu/view.php?id=6145">leave a reply in SOGo bug tracker</a>
+to let them know you need it.</p>
+</div>
+<h2 id="before-os-upgrade">BEFORE OS upgrade</h2>
+<ul>
+<li><strong>PostgreSQL backend</strong>: Run commands below to comment out <code>log_timezone</code> and
+  <code>timezone</code> parameters, they are not used by PostgreSQL version 17, and causes
+  PostgreSQL fail to start.</li>
+</ul>
+<pre><code>perl -pi -e 's/^(log_timezone.*)/#${1}/g' /etc/postgresql/15/main/postgresql.conf
+perl -pi -e 's/^(timezone.*)/#${1}/g' /etc/postgresql/15/main/postgresql.conf
+</code></pre>
+<ul>
+<li>Set locale before upgrading OS:</li>
+</ul>
+<pre><code>export LANG=C
+export LC_ALL=C
+export LC_CTYPE=C
+</code></pre>
+<h2 id="upgrade-os">Upgrade OS</h2>
+<p>Follow the <a href="https://www.debian.org/releases/trixie/release-notes/upgrading.en.html">Debian official upgrade tutorial</a> to upgrade Debian from version 12 to 13.</p>
+<p>During OS upgrade, please pay close attention to few steps:</p>
+<ul>
+<li><strong>PostgreSQL backend</strong>: Choose <code>yes</code> to migrate PostgreSQL databases (15 -&gt; 17).</li>
+<li>
+<p>Choose <code>install the package maintainer's version</code> while upgrading Dovecot package.</p>
+<p>With current <code>/etc/dovecot/dovecot.conf</code>, Dovecot (version 2.4) fails to
+start and aborts the whole OS upgrade procedure. So you must choose
+<code>install the package maintainer's version</code> to prevent the abort.
+We will generate a working config file later with EE.</p>
+</li>
+</ul>
+<p>Here's a <a href="https://fullmetalbrackets.com/blog/upgrade-debian-12-bookworm-debian-13-trixie/">third-party tutorial</a>, short, simple, and it works. Below are the commands you need to run:</p>
+<pre><code>apt update
+apt full-upgrade -y
+perl -pi -e 's#bookworm#trixie#g' /etc/apt/sources.list
+perl -pi -e 's#bookworm#trixie#g' /etc/apt/sources.list.d/sogo.list
+apt update
+apt upgrade --without-new-pkgs -y
+apt full-upgrade --autoremove -y
+apt --purge autoremove -y
+apt autoclean
+</code></pre>
+<ul>
+<li>After upgraded, Apache web server is running by default, we need to disable
+  Apache and enable Nginx:</li>
+</ul>
+<pre><code>systemctl disable apache2
+systemctl enable nginx
+</code></pre>
+<ul>
+<li>Reboot the machine to complete the upgrade:</li>
+</ul>
+<pre><code>reboot
+</code></pre>
+<h2 id="after-os-upgrade">After OS upgrade</h2>
+<ul>
+<li>
+<p><strong>PostgreSQL backend</strong>: If it failed to migrate to PostgreSQL version 17
+  automatically during OS upgrade, please run command as root user manually
+  to finish the migration:</p>
+<p><code>pg_upgradecluster 15 main -v 17</code></p>
+</li>
+<li>
+<p>Upgrade EE to latest version if you're running an old version (at least EE
+  v1.5.0 is required): <a href="https://docs.iredmail.org/upgrade.ee.html">https://docs.iredmail.org/upgrade.ee.html</a></p>
+</li>
+<li>
+<p>Login to EE admin panel as global admin, click <code>Deployments</code> -&gt;
+  <code>Re-perform full deployment</code> to generate config files for new software
+  offered by Debian 13.</p>
+<p>Note: After logged in to EE admin panel, it may display error messages like
+<code>Internal server error</code>, it's safe to ignore them since we didn't
+re-perform full deployment yet, the error messages will be gone after the deployment.</p>
+</li>
+</ul>
+<p>That's all.</p><div class="footer">
+    <p style="text-align: center; color: grey;">All documents are available in <a href="https://github.com/iredmail/docs/">GitHub repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://github.com/iredmail/docs/archive/master.zip">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
+</div></body></html>
