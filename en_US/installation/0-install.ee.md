@@ -59,9 +59,9 @@ Linux/BSD distribution releases supported by __iRedMail Enterprise Edition__:
 
 Distribution | Release Versions | Notes
 --- |--- |---
-CentOS Stream | 8, 9, 10 | [SOGo is not available on CentOS 10 yet](https://bugs.sogo.nu/view.php?id=6118)
-Rocky Linux | 8, 9, 10 | [SOGo is not available on Rocky 10 yet](https://bugs.sogo.nu/view.php?id=6118)
-AlmaLinux | 8, 9, 10 | [SOGo is not available on Alma 10 yet](https://bugs.sogo.nu/view.php?id=6118)
+CentOS Stream | 9, 10 | [SOGo is not available on CentOS 10 yet](https://bugs.sogo.nu/view.php?id=6118)
+Rocky Linux | 9, 10 | [SOGo is not available on Rocky 10 yet](https://bugs.sogo.nu/view.php?id=6118)
+AlmaLinux | 9, 10 | [SOGo is not available on Alma 10 yet](https://bugs.sogo.nu/view.php?id=6118)
 Debian | 11, 12 | 12 is recommended.
 Ubuntu | 20.04, 22.04, 24.04 | 24.04 is recommended.
 OpenBSD | 7.7 |
