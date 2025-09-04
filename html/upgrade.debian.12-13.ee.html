@@ -59,6 +59,9 @@ export LC_CTYPE=C
 <p>During OS upgrade, please pay close attention to few steps:</p>
 <ul>
 <li><strong>PostgreSQL backend</strong>: Choose <code>yes</code> to migrate PostgreSQL databases (15 -&gt; 17).</li>
+</ul>
+<p><img alt="" src="./images/upgrade/debian/trixie-upgrade-postgresql.png" width="700px" /></p>
+<ul>
 <li>
 <p>Choose <code>install the package maintainer's version</code> while upgrading Dovecot package.</p>
 <p>With current <code>/etc/dovecot/dovecot.conf</code>, Dovecot (version 2.4) fails to
@@ -67,6 +70,7 @@ start and aborts the whole OS upgrade procedure. So you must choose
 We will generate a working config file later with EE.</p>
 </li>
 </ul>
+<p><img alt="" src="./images/upgrade/debian/trixie-upgrade-dovecot.png" width="700px" /></p>
 <p>Here's a <a href="https://fullmetalbrackets.com/blog/upgrade-debian-12-bookworm-debian-13-trixie/">third-party tutorial</a>, short, simple, and it works. Below are the commands you need to run:</p>
 <pre><code>apt update
 apt full-upgrade -y
@@ -79,11 +83,15 @@ apt --purge autoremove -y
 apt autoclean
 </code></pre>
 <ul>
-<li>After upgraded, Apache web server is running by default, we need to disable
-  Apache and enable Nginx:</li>
+<li>After upgraded:<ul>
+<li>Apache web server is running by default, we need to disable Apache and enable Nginx:</li>
+<li>Remove old PHP version 8.2. Debian 13 offers PHP 8.4.</li>
+</ul>
+</li>
 </ul>
 <pre><code>systemctl disable apache2
 systemctl enable nginx
+apt remove --purge -y 'php8.2*'
 </code></pre>
 <ul>
 <li>Reboot the machine to complete the upgrade:</li>

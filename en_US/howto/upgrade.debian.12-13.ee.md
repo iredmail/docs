@@ -39,12 +39,17 @@ Follow the [Debian official upgrade tutorial](https://www.debian.org/releases/tr
 During OS upgrade, please pay close attention to few steps:
 
 - __PostgreSQL backend__: Choose `yes` to migrate PostgreSQL databases (15 -> 17).
+
+![](./images/upgrade/debian/trixie-upgrade-postgresql.png){: width="700px" }
+
 - Choose `install the package maintainer's version` while upgrading Dovecot package.
 
     With current `/etc/dovecot/dovecot.conf`, Dovecot (version 2.4) fails to
     start and aborts the whole OS upgrade procedure. So you must choose
     `install the package maintainer's version` to prevent the abort.
     We will generate a working config file later with EE.
+
+![](./images/upgrade/debian/trixie-upgrade-dovecot.png){: width="700px" }
 
 Here's a [third-party tutorial](https://fullmetalbrackets.com/blog/upgrade-debian-12-bookworm-debian-13-trixie/), short, simple, and it works. Below are the commands you need to run:
 
@@ -60,12 +65,14 @@ apt --purge autoremove -y
 apt autoclean
 ```
 
-- After upgraded, Apache web server is running by default, we need to disable
-  Apache and enable Nginx:
+- After upgraded:
+    - Apache web server is running by default, we need to disable Apache and enable Nginx:
+    - Remove old PHP version 8.2. Debian 13 offers PHP 8.4.
 
 ```
 systemctl disable apache2
 systemctl enable nginx
+apt remove --purge -y 'php8.2*'
 ```
 
 - Reboot the machine to complete the upgrade:
