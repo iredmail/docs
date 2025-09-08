@@ -33,10 +33,12 @@
 
 - Supports new distribution release:
     - Debian 13.
-        - WARNING: Debian 13 offers Dovecot 2.4 which uses different config
+        - __WARNING__: Debian 13 offers Dovecot 2.4 which uses different config
           syntax than Dovecot 2.3. If you have custom config files for Dovecot
           2.3, Dovecot may fail to start. In this case, you must fix config
           syntax manually in your custom config files.
+        - __WARNING__: SOGo team doesn't offer binary packages for Debian 13 yet,
+          so if you're running SOGo on Debian, do __NOT__ upgrade OS right now.
         - Driver of full-text search has been switched from `fts-xapian`
           (third-party driver) to `fts-flatcurve` (Dovecot builtin driver).
             - Dovecot will re-index all mails after upgraded to Debian 13 when
