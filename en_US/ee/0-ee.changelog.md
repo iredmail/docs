@@ -35,7 +35,8 @@
     - Debian 13.
         - WARNING: Debian 13 offers Dovecot 2.4 which uses different config
           syntax than Dovecot 2.3. If you have custom config files for Dovecot
-          2.3, Dovecot may fail to start due to unsupported config syntax.
+          2.3, Dovecot may fail to start. In this case, you must fix config
+          syntax manually in your custom config files.
         - Driver of full-text search has been switched from `fts-xapian`
           (third-party driver) to `fts-flatcurve` (Dovecot builtin driver).
             - Dovecot will re-index all mails after upgraded to Debian 13 when
@@ -51,22 +52,21 @@
 
 - New features:
     - Able to view / manage smtp sessions saved by milter. Old sessions will
-      be automatically removed everyday. Defaults to keep for 30 days.
-    - Able to discard saved changes.
+      be cleaned up everyday. Defaults to keep for 30 days.
+    - Able to discard saved changes of server settings.
     - While disabling a component, you can now choose to uninstall software,
-      remove its config files, SQL database and SQL user.
+      remove its config files and data, SQL database and SQL user.
 
 - Improvements:
     - Sort mail users by display name.
     - Install netdata from yum/apt repositories offered by upstream (netdata).
-
-        WARNING: Directory `/opt/netdata/` will be removed automatically during
-        upgrading to EE v1.5.0.
-
+      __WARNING__: Directory `/opt/netdata/` will be removed automatically.
     - Show commands used to query DNS records manually.
-    - Able to manage per-user mailbox path in user profile page.
-    - Disabled Dovecot quota status service.
+    - Able to manage per-user mailbox path on user profile page.
+    - Disabled Dovecot quota status service (not much useful but takes up dict
+      processes).
     - Set `vsz_limit=0` (unlimited) in Dovecot by default.
+    - Able to download quarantined mail.
     - Able to release or delete multiple quarantined mails.
     - Able to release or delete quarantined mail while adding whitelist or
       blacklist.
@@ -74,6 +74,7 @@
     - Show allowed special characters while updating Password Policy.
 
 - Fixed issues:
+    - Data was not loaded on Sent Mails and Received Mails pages.
     - Email sent by mlmmj was not signed with DKIM signature.
     - Not generate mailbox path if mailbox format is not "maildir".
     - Cannot add firewall rule in some cases.

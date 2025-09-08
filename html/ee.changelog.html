@@ -108,7 +108,8 @@
 <li>Debian 13.<ul>
 <li>WARNING: Debian 13 offers Dovecot 2.4 which uses different config
   syntax than Dovecot 2.3. If you have custom config files for Dovecot
-  2.3, Dovecot may fail to start due to unsupported config syntax.</li>
+  2.3, Dovecot may fail to start. In this case, you must fix config
+  syntax manually in your custom config files.</li>
 <li>Driver of full-text search has been switched from <code>fts-xapian</code>
   (third-party driver) to <code>fts-flatcurve</code> (Dovecot builtin driver).<ul>
 <li>Dovecot will re-index all mails after upgraded to Debian 13 when
@@ -132,27 +133,24 @@
 <p>New features:</p>
 <ul>
 <li>Able to view / manage smtp sessions saved by milter. Old sessions will
-  be automatically removed everyday. Defaults to keep for 30 days.</li>
-<li>Able to discard saved changes.</li>
+  be cleaned up everyday. Defaults to keep for 30 days.</li>
+<li>Able to discard saved changes of server settings.</li>
 <li>While disabling a component, you can now choose to uninstall software,
-  remove its config files, SQL database and SQL user.</li>
+  remove its config files and data, SQL database and SQL user.</li>
 </ul>
 </li>
 <li>
 <p>Improvements:</p>
 <ul>
 <li>Sort mail users by display name.</li>
-<li>
-<p>Install netdata from yum/apt repositories offered by upstream (netdata).</p>
-<p>WARNING: Directory <code>/opt/netdata/</code> will be removed automatically during
-upgrading to EE v1.5.0.</p>
-</li>
-<li>
-<p>Show commands used to query DNS records manually.</p>
-</li>
-<li>Able to manage per-user mailbox path in user profile page.</li>
-<li>Disabled Dovecot quota status service.</li>
+<li>Install netdata from yum/apt repositories offered by upstream (netdata).
+  <strong>WARNING</strong>: Directory <code>/opt/netdata/</code> will be removed automatically.</li>
+<li>Show commands used to query DNS records manually.</li>
+<li>Able to manage per-user mailbox path on user profile page.</li>
+<li>Disabled Dovecot quota status service (not much useful but takes up dict
+  processes).</li>
 <li>Set <code>vsz_limit=0</code> (unlimited) in Dovecot by default.</li>
+<li>Able to download quarantined mail.</li>
 <li>Able to release or delete multiple quarantined mails.</li>
 <li>Able to release or delete quarantined mail while adding whitelist or
   blacklist.</li>
@@ -163,6 +161,7 @@ upgrading to EE v1.5.0.</p>
 <li>
 <p>Fixed issues:</p>
 <ul>
+<li>Data was not loaded on Sent Mails and Received Mails pages.</li>
 <li>Email sent by mlmmj was not signed with DKIM signature.</li>
 <li>Not generate mailbox path if mailbox format is not "maildir".</li>
 <li>Cannot add firewall rule in some cases.</li>
