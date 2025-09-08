@@ -85,6 +85,7 @@
       milter signs DKIM signature. Disclaimer is disabled by default now.
 
 - Updated packages:
+    - adminer v5.4.0
     - mlmmjadmin 3.5.0
     - Z-Push v2.7.6 (security fix)
     - milter v1.1.0
