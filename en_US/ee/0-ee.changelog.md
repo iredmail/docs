@@ -50,7 +50,7 @@
 
 - Docker edition is now available, based on Debian 12 and Ubuntu 24.04,
   available for amd64 and arm64 platform:
-  https://hub.docker.com/r/iredmail/ee
+  <https://hub.docker.com/r/iredmail/ee>
 
 - New features:
     - Able to view / manage smtp sessions saved by milter. Old sessions will
