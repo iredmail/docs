@@ -61,4 +61,4 @@ topic in our forum and paste related log:
 
 ## References
 
-* Dovecot document: [Master users/passwords](https://doc.dovecot.org/configuration_manual/authentication/master_users/)
+* Dovecot document: [Master users/passwords](https://doc.dovecot.org/2.3/configuration_manual/authentication/master_users/)
