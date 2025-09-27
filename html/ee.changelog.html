@@ -101,6 +101,20 @@
 <li><a href="./upgrade.ee.html">Upgrade iRedMail Enterprise Edition</a></li>
 </ul>
 <h2 id="v1.5.0">v1.5.0, Sep 8, 2025</h2>
+<blockquote>
+<p><strong>BREAKING CHANGES</strong></p>
+<ul>
+<li>Dovecot quota status service has been removed. If you have custom Postfix
+  config file <code>/opt/iredmail/custom/postfix/main.cf</code>, please remove line
+  <code>check_policy_service inet:127.0.0.1:12340</code> and restart Postfix service.<ul>
+<li>It's not recommended to maintain custom Postfix settings with
+    <code>/opt/iredmail/custom/postfix/main.cf</code> and <code>/opt/iredmail/custom/postfix/master.cf</code>.
+    Read our <a href="./ee.best.practice.html#postfix"><code>Best Practice</code></a> tutorial
+    for customization.</li>
+</ul>
+</li>
+</ul>
+</blockquote>
 <ul>
 <li>
 <p>Supports new distribution release:</p>

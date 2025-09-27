@@ -31,6 +31,16 @@
 
 ## v1.5.0, Sep 8, 2025 {: #v1.5.0 }
 
+> __BREAKING CHANGES__
+>
+> - Dovecot quota status service has been removed. If you have custom Postfix
+>   config file `/opt/iredmail/custom/postfix/main.cf`, please remove line
+>   `check_policy_service inet:127.0.0.1:12340` and restart Postfix service.
+>       - It's not recommended to maintain custom Postfix settings with
+>         `/opt/iredmail/custom/postfix/main.cf` and `/opt/iredmail/custom/postfix/master.cf`.
+>         Read our [`Best Practice`](./ee.best.practice.html#postfix) tutorial
+>         for customization.
+
 - Supports new distribution release:
     - Debian 13.
         - __WARNING__: Debian 13 offers Dovecot 2.4 which uses different config
