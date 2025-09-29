@@ -29,6 +29,10 @@
 </thead>
 <tbody>
 <tr>
+<td><a href="#v1.5.1">v1.5.1</a></td>
+<td>2025-09-29</td>
+</tr>
+<tr>
 <td><a href="#v1.5.0">v1.5.0</a></td>
 <td>2025-09-08</td>
 </tr>
@@ -99,6 +103,82 @@
 <li><a href="https://www.iredmail.org/ee.html">iRedMail Enterprise Edition (EE)</a></li>
 <li><a href="./install.ee.html">Install iRedMail Enterprise Edition</a></li>
 <li><a href="./upgrade.ee.html">Upgrade iRedMail Enterprise Edition</a></li>
+</ul>
+<h2 id="v1.5.1">v1.5.1, Sep 29, 2025</h2>
+<ul>
+<li>API:<ul>
+<li>NEW: Export mailbox quota usage while getting full user profile
+  (<code>GET /api/user/&lt;email&gt;</code>):</li>
+<li><strong>BREAKING CHANGE</strong>: last login date has been moved to same level of user profile:</li>
+</ul>
+</li>
+</ul>
+<pre><code># GET /api/user/&lt;email&gt;
+{
+    &quot;_msg&quot;: ...,
+    &quot;_success&quot;: ...,
+    &quot;data&quot;: {
+        &quot;profile&quot;: {
+            ...
+            &quot;last_login&quot;: {...}         // OLD. REMOVED.
+        },
+        &quot;last_login&quot;: {...},            // NEW
+        &quot;used_quota&quot;: {                 // NEW
+            &quot;size&quot;: ...,                // Size (in bytes) of stored messages
+            &quot;messages&quot;: ...             // Number of stored messages
+        }
+    }
+}
+</code></pre>
+<ul>
+<li>
+<p>Improvements:</p>
+<ul>
+<li>Remove data in SpamAssassin SQL database while removing user or domain.</li>
+<li>Update SQL databases used by other applications while renaming user's
+  email address.</li>
+<li>Able to abort disabling component.</li>
+<li>Always allow deleting SQL database and user while disabling component.</li>
+<li>PostgreSQL now loads additional config files under <code>/opt/iredmail/custom/postgresql/conf.d/</code>.</li>
+<li>Able to check all search result with the new <code>Previous Page</code> and <code>Next
+  Page</code> buttons.</li>
+<li>Display password last change date on user list and profile page.</li>
+<li>Allow to customize base URI of SOGo Groupware. Defaults to <code>/SOGo/</code>.
+  Note: SOGo hard-codes this URI internally, it will be redirected to
+  <code>/SOGo/</code> after login.</li>
+</ul>
+</li>
+<li>
+<p>Fixed issues:</p>
+<ul>
+<li>Email sent by mlmmj was not signed with DKIM signature. Thanks to Peter.</li>
+<li>Incorrect URLs of newsletter subscription and unsubscription.</li>
+<li>Resetting password always reports error INVALID_LINK.
+  Thanks to Leon Koster.</li>
+<li>Not correctly create symbol link of Roundcube third-party plugins.</li>
+<li>Not save password last change time in UTC timezone in Roundcube.</li>
+<li>Not backup milter SQL database (introduced in EE v1.5.0).</li>
+<li>Incorrect path to mysql client on RedHat family OS version 8.</li>
+<li>Upgrade from EE v1.3.0 failed due to missing milter related file
+  introduced in v1.4.0.</li>
+<li>Cannot start netdata in Docker container.</li>
+<li>Mistakenly hard-coded hostname in DNS result page. Thanks to Ian Little.</li>
+<li>Missing python module on Rocky 8. Thanks to Justin.</li>
+<li>Incorrect permission on PostgreSQL data directory. Thanks to Swarn Sandhu.</li>
+</ul>
+</li>
+<li>
+<p>Updated packages:</p>
+<ul>
+<li>milter v1.2.0<ul>
+<li>Fixed: Not correctly count sent / received mails.</li>
+<li>Fixed: Not correctly recognize emails sent with <code>sendmail</code> or <code>mail</code>
+  commands from localhost.</li>
+</ul>
+</li>
+<li>adminer 5.4.1</li>
+</ul>
+</li>
 </ul>
 <h2 id="v1.5.0">v1.5.0, Sep 8, 2025</h2>
 <blockquote>

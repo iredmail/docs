@@ -6,6 +6,7 @@
 
 | Version | Release Date |
 |---|---|
+| [v1.5.1](#v1.5.1) | 2025-09-29 |
 | [v1.5.0](#v1.5.0) | 2025-09-08 |
 | [v1.4.0](#v1.4.0) | 2025-07-11 |
 | [v1.3.1](#v1.3.1) | 2025-06-03 |
@@ -28,6 +29,69 @@
 - [iRedMail Enterprise Edition (EE)](https://www.iredmail.org/ee.html)
 - [Install iRedMail Enterprise Edition](./install.ee.html)
 - [Upgrade iRedMail Enterprise Edition](./upgrade.ee.html)
+
+## v1.5.1, Sep 29, 2025 {: #v1.5.1 }
+
+- API:
+    - NEW: Export mailbox quota usage while getting full user profile
+      (`GET /api/user/<email>`):
+    - __BREAKING CHANGE__: last login date has been moved to same level of user profile:
+
+```
+# GET /api/user/<email>
+{
+    "_msg": ...,
+    "_success": ...,
+    "data": {
+        "profile": {
+            ...
+            "last_login": {...}         // OLD. REMOVED.
+        },
+        "last_login": {...},            // NEW
+        "used_quota": {                 // NEW
+            "size": ...,                // Size (in bytes) of stored messages
+            "messages": ...             // Number of stored messages
+        }
+    }
+}
+```
+
+- Improvements:
+    - Remove data in SpamAssassin SQL database while removing user or domain.
+    - Update SQL databases used by other applications while renaming user's
+      email address.
+    - Able to abort disabling component.
+    - Always allow deleting SQL database and user while disabling component.
+    - PostgreSQL now loads additional config files under `/opt/iredmail/custom/postgresql/conf.d/`.
+    - Able to check all search result with the new `Previous Page` and `Next
+      Page` buttons.
+    - Display password last change date on user list and profile page.
+    - Allow to customize base URI of SOGo Groupware. Defaults to `/SOGo/`.
+      Note: SOGo hard-codes this URI internally, it will be redirected to
+      `/SOGo/` after login.
+
+- Fixed issues:
+    - Email sent by mlmmj was not signed with DKIM signature. Thanks to Peter.
+    - Incorrect URLs of newsletter subscription and unsubscription.
+    - Resetting password always reports error INVALID_LINK.
+      Thanks to Leon Koster.
+    - Not correctly create symbol link of Roundcube third-party plugins.
+    - Not save password last change time in UTC timezone in Roundcube.
+    - Not backup milter SQL database (introduced in EE v1.5.0).
+    - Incorrect path to mysql client on RedHat family OS version 8.
+    - Upgrade from EE v1.3.0 failed due to missing milter related file
+      introduced in v1.4.0.
+    - Cannot start netdata in Docker container.
+    - Mistakenly hard-coded hostname in DNS result page. Thanks to Ian Little.
+    - Missing python module on Rocky 8. Thanks to Justin.
+    - Incorrect permission on PostgreSQL data directory. Thanks to Swarn Sandhu.
+
+- Updated packages:
+    - milter v1.2.0
+        - Fixed: Not correctly count sent / received mails.
+        - Fixed: Not correctly recognize emails sent with `sendmail` or `mail`
+          commands from localhost.
+    - adminer 5.4.1
 
 ## v1.5.0, Sep 8, 2025 {: #v1.5.0 }
 
