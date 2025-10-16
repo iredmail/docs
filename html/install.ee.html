@@ -102,28 +102,28 @@ find the installation guides here: <a href="./index.html#install">Install iRedMa
 <tr>
 <th>Distribution</th>
 <th>Release Versions</th>
-<th>Notes</th>
+<th>Note</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>CentOS Stream</td>
 <td>9, 10</td>
-<td><a href="https://bugs.sogo.nu/view.php?id=6118">SOGo is not available on CentOS 10 yet</a></td>
+<td>10 is recommended.</td>
 </tr>
 <tr>
 <td>Rocky Linux</td>
 <td>9, 10</td>
-<td><a href="https://bugs.sogo.nu/view.php?id=6118">SOGo is not available on Rocky 10 yet</a></td>
+<td>10 is recommended.</td>
 </tr>
 <tr>
 <td>AlmaLinux</td>
 <td>9, 10</td>
-<td><a href="https://bugs.sogo.nu/view.php?id=6118">SOGo is not available on Alma 10 yet</a></td>
+<td>10 is recommended.</td>
 </tr>
 <tr>
 <td>Debian</td>
-<td>11, 12</td>
+<td>11, 12, 13</td>
 <td>12 is recommended.</td>
 </tr>
 <tr>
@@ -140,6 +140,14 @@ find the installation guides here: <a href="./index.html#install">Install iRedMa
 </table>
 <p>If you need to install iRedMail on FreeBSD, please use the <a href="https://www.iredmail.org/download.html">downloadable
 installer</a> instead.</p>
+<p>Notes:</p>
+<ul>
+<li><a href="https://bugs.sogo.nu/view.php?id=6118">SOGo Groupware is not available on CentOS/Rocky/AlmaLinux 10 yet</a></li>
+<li><a href="https://bugs.sogo.nu/view.php?id=6145">SOGo Groupware is not available on Debian 13 (trixie) yet</a></li>
+<li>Z-Push (open source ActiveSync server) is not available on
+  all CentOS/Rocky/AlmaLinux releases and Debian 13 (trixie) due to missing
+  required <code>php-imap</code> package.</li>
+</ul>
 <h3 id="hardware-requirements">Hardware Requirements</h3>
 <ul>
 <li>iRedMail requires at least <code>4 GB</code> memory for a low traffic production server

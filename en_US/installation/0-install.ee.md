@@ -57,17 +57,25 @@ find the installation guides here: [Install iRedMail](./index.html#install).
 
 Linux/BSD distribution releases supported by __iRedMail Enterprise Edition__:
 
-Distribution | Release Versions | Notes
+Distribution | Release Versions | Note
 --- |--- |---
-CentOS Stream | 9, 10 | [SOGo is not available on CentOS 10 yet](https://bugs.sogo.nu/view.php?id=6118)
-Rocky Linux | 9, 10 | [SOGo is not available on Rocky 10 yet](https://bugs.sogo.nu/view.php?id=6118)
-AlmaLinux | 9, 10 | [SOGo is not available on Alma 10 yet](https://bugs.sogo.nu/view.php?id=6118)
-Debian | 11, 12 | 12 is recommended.
+CentOS Stream | 9, 10 | 10 is recommended.
+Rocky Linux | 9, 10 | 10 is recommended.
+AlmaLinux | 9, 10 | 10 is recommended.
+Debian | 11, 12, 13 | 12 is recommended.
 Ubuntu | 20.04, 22.04, 24.04 | 24.04 is recommended.
 OpenBSD | 7.7 |
 
 If you need to install iRedMail on FreeBSD, please use the [downloadable
 installer](https://www.iredmail.org/download.html) instead.
+
+Notes:
+
+- [SOGo Groupware is not available on CentOS/Rocky/AlmaLinux 10 yet](https://bugs.sogo.nu/view.php?id=6118)
+- [SOGo Groupware is not available on Debian 13 (trixie) yet](https://bugs.sogo.nu/view.php?id=6145)
+- Z-Push (open source ActiveSync server) is not available on
+  all CentOS/Rocky/AlmaLinux releases and Debian 13 (trixie) due to missing
+  required `php-imap` package.
 
 ### Hardware Requirements
 
