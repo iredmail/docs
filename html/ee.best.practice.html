@@ -593,9 +593,12 @@ file (<code>/opt/iredmail/custom/sogo/sogo.conf</code>) or use the <code>custom.
 iRedMail EE.</p>
 <ul>
 <li>
-<p>File <code>/opt/iredmail/custom/sogo/sogo.conf</code></p>
+<p>[<strong>NOT RECOMMENDED</strong>] File <code>/opt/iredmail/custom/sogo/sogo.conf</code></p>
 <p>If this file exists, <code>/etc/sogo/sogo.conf</code> will be created as a symbol link
 to this file during iRedMail EE deployment.</p>
+<p>WARNING: SOGo may introduce new parameters in future release, or EE may
+add new parameters too, if you didn't update your own copy of <code>sogo.conf</code>
+at the same time, SOGo may not work as expected.</p>
 </li>
 <li>
 <p>Shell script <code>/opt/iredmail/custom/sogo/custom.sh</code></p>
