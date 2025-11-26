@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Upgrade milter manually</title>
+        <link rel="stylesheet" type="text/css" href="./css/markdown.css" />
+    </head>
+    <body>
+
+    <div id="navigation">
+    <a href="https://www.iredmail.org" target="_blank">
+        <img alt="iRedMail web site"
+             src="./images/logo-iredmail.png"
+             style="vertical-align: middle; height: 30px;"
+             />&nbsp;
+        <span>iRedMail</span>
+    </a>
+    &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><h1 id="upgrade-milter-manually">Upgrade milter manually</h1>
+<p>This tutorial describes how to upgrade milter program to the latest stable
+release manually, usually you should upgrade it with one click with iRedMail
+Enterprise Edition ("EE" for short).</p>
+<ul>
+<li>Find the latest release here: <a href="https://dl.iredmail.org/milter/">https://dl.iredmail.org/milter/</a>. We use
+  release <code>milter-v1.3.0-linux-amd64</code> for example here.</li>
+<li>Run commands below on EE server to upgrade and restart milter service:</li>
+</ul>
+<pre><code>cd /usr/local/bin/
+wget https://dl.iredmail.org/milter/milter-v1.3.0-linux-amd64
+chown milter:milter milter-v1.3.0-linux-amd64
+chmod 0500 milter-v1.3.0-linux-amd64
+ln -sf milter-v1.3.0-linux-amd64 milter
+systemctl restart milter
+</code></pre>
+<p>That's all.</p><div class="footer">
+    <p style="text-align: center; color: grey;">All documents are available in <a href="https://github.com/iredmail/docs/">GitHub repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://github.com/iredmail/docs/archive/master.zip">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
+</div></body></html>
