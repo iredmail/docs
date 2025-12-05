@@ -4,6 +4,20 @@
 
     This is still a DRAFT document, it may miss some other important changes.
 
+!!! warning "SOGo Groupware"
+
+    SOGo team doesn't offer binary packages for Debian 13 (and
+    [CentOS Stream 10](https://bugs.sogo.nu/view.php?id=6118) too) yet, so if
+    you're running SOGo on Debian 12, please wait for some more time and
+    [leave a reply in SOGo bug tracker](https://bugs.sogo.nu/view.php?id=6145)
+    to let them know you need it.
+
+!!! attention
+
+    This tutorial is applicable for iRedMail open source edition, if you're
+    looking for tutorial for iRedMail Enterprise Edition, please check
+    [this tutorial](./upgrade.debian.12-13.ee.html) instead.
+
 [TOC]
 
 ## Postfix
@@ -46,6 +60,12 @@ systemctl restart php8.4-fpm
 !!! attention
 
     Backup your `/etc/dovecot/dovecot.conf` first.
+
+Debian 13 offers Dovecot 2.4, it's not backward-compatible with Dovecot 2.3.
+We generate sample Dovecot config files with
+[iRedMail Enterprise Edition](https://www.iredmail.org/ee.html) ("EE" for short), you
+just need to replace `/etc/dovecot/dovecot.conf` by the sample one and update
+few parameters.
 
 ### For MariaDB backend
 
@@ -116,3 +136,11 @@ because the Python environment changed after OS upgrade.
 - [Upgrade iRedAPD](./upgrade.iredapd.html)
 - [Upgrade mlmmjadmin](./upgrade.mlmmjadmin.html)
 - [Upgrade iRedAdmin(-Pro)](./migrate.or.upgrade.iredadmin.html)
+
+## SOGo Groupware
+
+SOGo team doesn't offer binary packages for Debian 13 (and
+[CentOS Stream 10](https://bugs.sogo.nu/view.php?id=6118) too) yet, so if
+you're running SOGo on Debian 12, please wait for some more time and
+[leave a reply in SOGo bug tracker](https://bugs.sogo.nu/view.php?id=6145)
+to let them know you need it.

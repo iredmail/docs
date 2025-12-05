@@ -20,6 +20,20 @@
 <p class="admonition-title">Warning</p>
 <p>This is still a DRAFT document, it may miss some other important changes.</p>
 </div>
+<div class="admonition warning">
+<p class="admonition-title">SOGo Groupware</p>
+<p>SOGo team doesn't offer binary packages for Debian 13 (and
+<a href="https://bugs.sogo.nu/view.php?id=6118">CentOS Stream 10</a> too) yet, so if
+you're running SOGo on Debian 12, please wait for some more time and
+<a href="https://bugs.sogo.nu/view.php?id=6145">leave a reply in SOGo bug tracker</a>
+to let them know you need it.</p>
+</div>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>This tutorial is applicable for iRedMail open source edition, if you're
+looking for tutorial for iRedMail Enterprise Edition, please check
+<a href="./upgrade.debian.12-13.ee.html">this tutorial</a> instead.</p>
+</div>
 <div class="toc">
 <ul>
 <li><a href="#fixes-you-need-after-upgrading-debian-from-12-to-13-trixie">Fixes you need after upgrading Debian from 12 to 13 (trixie)</a><ul>
@@ -33,6 +47,7 @@
 </ul>
 </li>
 <li><a href="#re-upgrade-iredapd-mlmmjadmin-and-iredadmin-pro">Re-upgrade iRedAPD, mlmmjadmin and iRedAdmin(-Pro)</a></li>
+<li><a href="#sogo-groupware">SOGo Groupware</a></li>
 </ul>
 </li>
 </ul>
@@ -71,6 +86,11 @@ systemctl restart php8.4-fpm
 <p class="admonition-title">Attention</p>
 <p>Backup your <code>/etc/dovecot/dovecot.conf</code> first.</p>
 </div>
+<p>Debian 13 offers Dovecot 2.4, it's not backward-compatible with Dovecot 2.3.
+We generate sample Dovecot config files with
+<a href="https://www.iredmail.org/ee.html">iRedMail Enterprise Edition</a> ("EE" for short), you
+just need to replace <code>/etc/dovecot/dovecot.conf</code> by the sample one and update
+few parameters.</p>
 <h3 id="for-mariadb-backend">For MariaDB backend</h3>
 <ul>
 <li>Replace <code>/etc/dovecot/dovecot.conf</code> by <a href="./files/dovecot/dovecot-2.4-mariadb.conf">this one</a>.</li>
@@ -82,9 +102,13 @@ systemctl restart php8.4-fpm
     port = 3306
     dbname = vmail
     user = vmailadmin
-    password = HdDDrA8a6Fwxc69z9CFB0TSryzxxR0Aw
+    password = AQjaT42HjU3sZfSHSC5h2og5iJEu22aT     # &lt;- Replace this one
 }
 </code></pre>
+<ul>
+<li>Replace ssl cert and key files in parameters <code>ssl_server_cert_file</code> and <code>ssl_server_key_file</code>.</li>
+<li>Replace DH parameters file in parameter <code>ssl_server_dh_file</code>. To generate new parameters file, you can use command <code>openssl dhparam 4096 &gt; /etc/dovecot/dh.pem</code>.</li>
+</ul>
 <h3 id="for-postgresql-backend">For PostgreSQL backend</h3>
 <ul>
 <li>Replace <code>/etc/dovecot/dovecot.conf</code> by <a href="./files/dovecot/dovecot-2.4-pgsql.conf">this one</a>.</li>
@@ -92,13 +116,22 @@ systemctl restart php8.4-fpm
   of <code>vmailadmin</code> user by the real one (you can find it in old config file
   <code>/etc/dovecot/dovecot-used-quota.conf</code> or other files under <code>/etc/dovecot/</code>):</li>
 </ul>
-<pre><code>mysql 127.0.0.1 {
-    port = 3306
-    dbname = vmail
-    user = vmailadmin
-    password = HdDDrA8a6Fwxc69z9CFB0TSryzxxR0Aw
+<pre><code>pgsql 127.0.0.1 {
+    # Maximum number of parallel connections. Default is 5.
+    connection_limit = 20
+    host = 127.0.0.1
+    parameters {
+        port = 5432
+        dbname = vmail
+        user = vmailadmin
+        password = AQjaT42HjU3sZfSHSC5h2og5iJEu22aT     # &lt;- Replace this one
+    }
 }
 </code></pre>
+<ul>
+<li>Replace ssl cert and key files in parameters <code>ssl_server_cert_file</code> and <code>ssl_server_key_file</code>.</li>
+<li>Replace DH parameters file in parameter <code>ssl_server_dh_file</code>. To generate new parameters file, you can use command <code>openssl dhparam 4096 &gt; /etc/dovecot/dh.pem</code>.</li>
+</ul>
 <h3 id="for-openldap-backend">For OpenLDAP backend</h3>
 <ul>
 <li>Replace <code>/etc/dovecot/dovecot.conf</code> by <a href="./files/dovecot/dovecot-2.4-openldap.conf">this one</a>.</li>
@@ -113,6 +146,10 @@ systemctl restart php8.4-fpm
     password = HdDDrA8a6Fwxc69z9CFB0TSryzxxR0Aw
 }
 </code></pre>
+<ul>
+<li>Replace ssl cert and key files in parameters <code>ssl_server_cert_file</code> and <code>ssl_server_key_file</code>.</li>
+<li>Replace DH parameters file in parameter <code>ssl_server_dh_file</code>. To generate new parameters file, you can use command <code>openssl dhparam 4096 &gt; /etc/dovecot/dh.pem</code>.</li>
+</ul>
 <h2 id="re-upgrade-iredapd-mlmmjadmin-and-iredadmin-pro">Re-upgrade iRedAPD, mlmmjadmin and iRedAdmin(-Pro)</h2>
 <p>If you already have latest iRedAPD, mlmmjadmin and iRedAdmin(-Pro) running,
 you still need to re-download them and upgrade after you upgraded Debian OS,
@@ -121,6 +158,12 @@ because the Python environment changed after OS upgrade.</p>
 <li><a href="./upgrade.iredapd.html">Upgrade iRedAPD</a></li>
 <li><a href="./upgrade.mlmmjadmin.html">Upgrade mlmmjadmin</a></li>
 <li><a href="./migrate.or.upgrade.iredadmin.html">Upgrade iRedAdmin(-Pro)</a></li>
-</ul><div class="footer">
+</ul>
+<h2 id="sogo-groupware">SOGo Groupware</h2>
+<p>SOGo team doesn't offer binary packages for Debian 13 (and
+<a href="https://bugs.sogo.nu/view.php?id=6118">CentOS Stream 10</a> too) yet, so if
+you're running SOGo on Debian 12, please wait for some more time and
+<a href="https://bugs.sogo.nu/view.php?id=6145">leave a reply in SOGo bug tracker</a>
+to let them know you need it.</p><div class="footer">
     <p style="text-align: center; color: grey;">All documents are available in <a href="https://github.com/iredmail/docs/">GitHub repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://github.com/iredmail/docs/archive/master.zip">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
 </div></body></html>

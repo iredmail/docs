@@ -14,6 +14,12 @@
     [leave a reply in SOGo bug tracker](https://bugs.sogo.nu/view.php?id=6145)
     to let them know you need it.
 
+!!! attention
+
+    This tutorial is applicable for iRedMail Enterprise Edition, if you're
+    looking for tutorial for iRedMail open source edition, please check
+    [this tutorial](./upgrade.debian.12-13.html) instead.
+
 ## BEFORE OS upgrade
 
 - __PostgreSQL backend__: Run commands below to comment out `log_timezone` and
