@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Fixes you need after upgrading Debian from 12 to 13 (trixie)</title>
+        <link rel="stylesheet" type="text/css" href="./css/markdown.css" />
+    </head>
+    <body>
+
+    <div id="navigation">
+    <a href="https://www.iredmail.org" target="_blank">
+        <img alt="iRedMail web site"
+             src="./images/logo-iredmail.png"
+             style="vertical-align: middle; height: 30px;"
+             />&nbsp;
+        <span>iRedMail</span>
+    </a>
+    &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><h1 id="fixes-you-need-after-upgrading-debian-from-12-to-13-trixie">Fixes you need after upgrading Debian from 12 to 13 (trixie)</h1>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>This is still a DRAFT document, it may miss some other important changes.</p>
+</div>
+<h2 id="postfix">Postfix</h2>
+<ul>
+<li>Make sure you do not have line <code>check_policy_service inet:127.0.0.1:12340</code>
+  in <code>/etc/postfix/main.cf</code>, because Dovecot is configured to not offer this
+  service. Restart postfix after removed the line.</li>
+</ul>
+<h2 id="nginx">Nginx</h2>
+<ul>
+<li>Open file <code>/etc/nginx/sites-available/00-default-ssl.conf</code>, remove <code>http2</code> in
+  <code>listen</code> directivies:</li>
+</ul>
+<pre><code>    listen 443 ssl http2;           # Remove `http2`
+    listen [::]:443 ssl http2;      # Remove `http2`
+</code></pre>
+<pre><code> Add new line `http2 on;` right after last `listen` directive:
+</code></pre>
+<pre><code>    http2 on;
+</code></pre>
+<h3 id="php-fpm">php-fpm</h3>
+<ul>
+<li>Copy fpm pool config file, then restart php8.4-fpm service:</li>
+</ul>
+<pre><code class="language-shell">cp /etc/php/8.2/fpm/pool.d/www.conf /etc/php/8.4/fpm/pool.d/
+systemctl restart php8.4-fpm
+</code></pre>
+<h2 id="dovecot">Dovecot</h2>
+<ul>
+<li>Backup your <code>/etc/dovecot/dovecot.conf</code> first.</li>
+<li>Replace <code>/etc/dovecot/dovecot.conf</code> by <a href="./files/dovecot/dovecot-2.4.conf">this one</a>.</li>
+<li>Open <code>/etc/dovecot/dovecot.conf</code>, find lines below, replace sample password
+  of <code>vmailadmin</code> user by the real one (you can find it in old config file
+  <code>/etc/dovecot/dovecot-used-quota.conf</code> or other files under <code>/etc/dovecot/</code>):</li>
+</ul>
+<pre><code>mysql 127.0.0.1 { 
+    port = 3306
+    dbname = vmail
+    user = vmailadmin
+    password = HdDDrA8a6Fwxc69z9CFB0TSryzxxR0Aw
+}
+</code></pre>
+<h2 id="re-upgrade-iredapd-mlmmjadmin-and-iredadmin-pro">Re-upgrade iRedAPD, mlmmjadmin and iRedAdmin(-Pro)</h2>
+<p>If you already have latest iRedAPD, mlmmjadmin and iRedAdmin(-Pro) running,
+you still need to re-download them and upgrade after you upgraded Debian OS,
+because the Python environment changed after OS upgrade.</p>
+<ul>
+<li><a href="./upgrade.iredapd.html">Upgrade iRedAPD</a></li>
+<li><a href="./upgrade.mlmmjadmin.html">Upgrade mlmmjadmin</a></li>
+<li><a href="./migrate.or.upgrade.iredadmin.html">Upgrade iRedAdmin(-Pro)</a></li>
+</ul><div class="footer">
+    <p style="text-align: center; color: grey;">All documents are available in <a href="https://github.com/iredmail/docs/">GitHub repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://github.com/iredmail/docs/archive/master.zip">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
+</div></body></html>
