@@ -4,6 +4,7 @@
 
     This is still a DRAFT document, it may miss some other important changes.
 
+[TOC]
 
 ## Postfix
 
@@ -31,7 +32,7 @@
 systemctl restart nginx
 ```
 
-### php-fpm
+## php-fpm
 
 Copy fpm pool config file, then restart php8.4-fpm service:
 
@@ -42,19 +43,69 @@ systemctl restart php8.4-fpm
 
 ## Dovecot
 
-- Backup your `/etc/dovecot/dovecot.conf` first.
-- Replace `/etc/dovecot/dovecot.conf` by [this one](./files/dovecot/dovecot-2.4.conf).
+!!! attention
+
+    Backup your `/etc/dovecot/dovecot.conf` first.
+
+### For MariaDB backend
+
+- Replace `/etc/dovecot/dovecot.conf` by [this one](./files/dovecot/dovecot-2.4-mariadb.conf).
 - Open `/etc/dovecot/dovecot.conf`, find lines below, replace sample password
   of `vmailadmin` user by the real one (you can find it in old config file
   `/etc/dovecot/dovecot-used-quota.conf` or other files under `/etc/dovecot/`):
 ```
-mysql 127.0.0.1 { 
+mysql 127.0.0.1 {
+    port = 3306
+    dbname = vmail
+    user = vmailadmin
+    password = AQjaT42HjU3sZfSHSC5h2og5iJEu22aT     # <- Replace this one
+}
+```
+- Replace ssl cert and key files in parameters `ssl_server_cert_file` and `ssl_server_key_file`.
+- Replace DH parameters file in parameter `ssl_server_dh_file`. To generate new parameters file, you can use command `openssl dhparam 4096 > /etc/dovecot/dh.pem`.
+
+### For PostgreSQL backend
+
+- Replace `/etc/dovecot/dovecot.conf` by [this one](./files/dovecot/dovecot-2.4-pgsql.conf).
+- Open `/etc/dovecot/dovecot.conf`, find lines below, replace sample password
+  of `vmailadmin` user by the real one (you can find it in old config file
+  `/etc/dovecot/dovecot-used-quota.conf` or other files under `/etc/dovecot/`):
+
+```
+pgsql 127.0.0.1 {
+    # Maximum number of parallel connections. Default is 5.
+    connection_limit = 20
+    host = 127.0.0.1
+    parameters {
+        port = 5432
+        dbname = vmail
+        user = vmailadmin
+        password = AQjaT42HjU3sZfSHSC5h2og5iJEu22aT     # <- Replace this one
+    }
+}
+```
+- Replace ssl cert and key files in parameters `ssl_server_cert_file` and `ssl_server_key_file`.
+- Replace DH parameters file in parameter `ssl_server_dh_file`. To generate new parameters file, you can use command `openssl dhparam 4096 > /etc/dovecot/dh.pem`.
+
+
+### For OpenLDAP backend
+
+- Replace `/etc/dovecot/dovecot.conf` by [this one](./files/dovecot/dovecot-2.4-openldap.conf).
+- Open `/etc/dovecot/dovecot.conf`, find lines below, replace sample password
+  of `vmailadmin` user by the real one (you can find it in old config file
+  `/etc/dovecot/dovecot-used-quota.conf` or other files under `/etc/dovecot/`):
+
+```
+mysql 127.0.0.1 {
     port = 3306
     dbname = vmail
     user = vmailadmin
     password = HdDDrA8a6Fwxc69z9CFB0TSryzxxR0Aw
 }
 ```
+- Replace ssl cert and key files in parameters `ssl_server_cert_file` and `ssl_server_key_file`.
+- Replace DH parameters file in parameter `ssl_server_dh_file`. To generate new parameters file, you can use command `openssl dhparam 4096 > /etc/dovecot/dh.pem`.
+
 
 ## Re-upgrade iRedAPD, mlmmjadmin and iRedAdmin(-Pro)
 
