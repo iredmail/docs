@@ -20,14 +20,20 @@
     listen [::]:443 ssl http2;      # Remove `http2`
 ```
 
-     Add new line `http2 on;` right after last `listen` directive:
+- Add new line `http2 on;` right after last `listen` directive:
 ```
     http2 on;
 ```
 
+- Restart `nginx` service:
+
+```
+systemctl restart nginx
+```
+
 ### php-fpm
 
-- Copy fpm pool config file, then restart php8.4-fpm service:
+Copy fpm pool config file, then restart php8.4-fpm service:
 
 ```shell
 cp /etc/php/8.2/fpm/pool.d/www.conf /etc/php/8.4/fpm/pool.d/

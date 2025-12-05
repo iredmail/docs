@@ -34,14 +34,18 @@
 <pre><code>    listen 443 ssl http2;           # Remove `http2`
     listen [::]:443 ssl http2;      # Remove `http2`
 </code></pre>
-<pre><code> Add new line `http2 on;` right after last `listen` directive:
-</code></pre>
+<ul>
+<li>Add new line <code>http2 on;</code> right after last <code>listen</code> directive:</li>
+</ul>
 <pre><code>    http2 on;
 </code></pre>
-<h3 id="php-fpm">php-fpm</h3>
 <ul>
-<li>Copy fpm pool config file, then restart php8.4-fpm service:</li>
+<li>Restart <code>nginx</code> service:</li>
 </ul>
+<pre><code>systemctl restart nginx
+</code></pre>
+<h3 id="php-fpm">php-fpm</h3>
+<p>Copy fpm pool config file, then restart php8.4-fpm service:</p>
 <pre><code class="language-shell">cp /etc/php/8.2/fpm/pool.d/www.conf /etc/php/8.4/fpm/pool.d/
 systemctl restart php8.4-fpm
 </code></pre>
