@@ -57,10 +57,6 @@ systemctl restart php8.4-fpm
 
 ## Dovecot
 
-!!! attention
-
-    Backup your `/etc/dovecot/dovecot.conf` first.
-
 Debian 13 offers Dovecot 2.4, it's not backward-compatible with Dovecot 2.3.
 We generate sample Dovecot config files with
 [iRedMail Enterprise Edition](https://www.iredmail.org/ee.html) ("EE" for short), you
@@ -68,6 +64,10 @@ just need to replace `/etc/dovecot/dovecot.conf` by the sample one and update
 few parameters.
 
 ### For MariaDB backend
+
+!!! attention
+
+    Backup file `/etc/dovecot/dovecot.conf` first.
 
 - Replace `/etc/dovecot/dovecot.conf` by [this one](./files/dovecot/dovecot-2.4-mariadb.conf).
 - Open `/etc/dovecot/dovecot.conf`, find lines below, replace sample password
@@ -85,6 +85,10 @@ mysql 127.0.0.1 {
 - Replace DH parameters file in parameter `ssl_server_dh_file`. To generate new parameters file, you can use command `openssl dhparam 4096 > /etc/dovecot/dh.pem`.
 
 ### For PostgreSQL backend
+
+!!! attention
+
+    Backup file `/etc/dovecot/dovecot.conf` first.
 
 - Replace `/etc/dovecot/dovecot.conf` by [this one](./files/dovecot/dovecot-2.4-pgsql.conf).
 - Open `/etc/dovecot/dovecot.conf`, find lines below, replace sample password
@@ -110,18 +114,34 @@ pgsql 127.0.0.1 {
 
 ### For OpenLDAP backend
 
+!!! attention
+
+    Backup file `/etc/dovecot/dovecot.conf` first.
+
 - Replace `/etc/dovecot/dovecot.conf` by [this one](./files/dovecot/dovecot-2.4-openldap.conf).
 - Open `/etc/dovecot/dovecot.conf`, find lines below, replace sample password
-  of `vmailadmin` user by the real one (you can find it in old config file
+  of `iredadmin` user by the real one (you can find it in old config file
   `/etc/dovecot/dovecot-used-quota.conf` or other files under `/etc/dovecot/`):
 
 ```
 mysql 127.0.0.1 {
     port = 3306
-    dbname = vmail
-    user = vmailadmin
-    password = HdDDrA8a6Fwxc69z9CFB0TSryzxxR0Aw
+    dbname = iredadmin
+    user = iredadmin
+    password = BowvEHisnXQtoTEewZ92oh35A4xzq7zb
 }
+```
+- Replace LDAP related settings, especially `ldap_base`, `ldap_auth_dn`, `ldap_auth_dn_password`:
+```
+ldap_uris = ldap://127.0.0.1:389
+ldap_version = 3
+ldap_debug_level = 0
+ldap_deref = never
+ldap_base = o=domains,dc=iredmail,dc=org
+ldap_scope = subtree
+ldap_starttls = no
+ldap_auth_dn = cn=vmail,dc=iredmail,dc=org
+ldap_auth_dn_password = sxU9ufqDPOSLOo1j7sp2UPvEJif5ULyY
 ```
 - Replace ssl cert and key files in parameters `ssl_server_cert_file` and `ssl_server_key_file`.
 - Replace DH parameters file in parameter `ssl_server_dh_file`. To generate new parameters file, you can use command `openssl dhparam 4096 > /etc/dovecot/dh.pem`.

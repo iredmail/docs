@@ -82,16 +82,16 @@ looking for tutorial for iRedMail Enterprise Edition, please check
 systemctl restart php8.4-fpm
 </code></pre>
 <h2 id="dovecot">Dovecot</h2>
-<div class="admonition attention">
-<p class="admonition-title">Attention</p>
-<p>Backup your <code>/etc/dovecot/dovecot.conf</code> first.</p>
-</div>
 <p>Debian 13 offers Dovecot 2.4, it's not backward-compatible with Dovecot 2.3.
 We generate sample Dovecot config files with
 <a href="https://www.iredmail.org/ee.html">iRedMail Enterprise Edition</a> ("EE" for short), you
 just need to replace <code>/etc/dovecot/dovecot.conf</code> by the sample one and update
 few parameters.</p>
 <h3 id="for-mariadb-backend">For MariaDB backend</h3>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>Backup file <code>/etc/dovecot/dovecot.conf</code> first.</p>
+</div>
 <ul>
 <li>Replace <code>/etc/dovecot/dovecot.conf</code> by <a href="./files/dovecot/dovecot-2.4-mariadb.conf">this one</a>.</li>
 <li>Open <code>/etc/dovecot/dovecot.conf</code>, find lines below, replace sample password
@@ -110,6 +110,10 @@ few parameters.</p>
 <li>Replace DH parameters file in parameter <code>ssl_server_dh_file</code>. To generate new parameters file, you can use command <code>openssl dhparam 4096 &gt; /etc/dovecot/dh.pem</code>.</li>
 </ul>
 <h3 id="for-postgresql-backend">For PostgreSQL backend</h3>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>Backup file <code>/etc/dovecot/dovecot.conf</code> first.</p>
+</div>
 <ul>
 <li>Replace <code>/etc/dovecot/dovecot.conf</code> by <a href="./files/dovecot/dovecot-2.4-pgsql.conf">this one</a>.</li>
 <li>Open <code>/etc/dovecot/dovecot.conf</code>, find lines below, replace sample password
@@ -133,18 +137,35 @@ few parameters.</p>
 <li>Replace DH parameters file in parameter <code>ssl_server_dh_file</code>. To generate new parameters file, you can use command <code>openssl dhparam 4096 &gt; /etc/dovecot/dh.pem</code>.</li>
 </ul>
 <h3 id="for-openldap-backend">For OpenLDAP backend</h3>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>Backup file <code>/etc/dovecot/dovecot.conf</code> first.</p>
+</div>
 <ul>
 <li>Replace <code>/etc/dovecot/dovecot.conf</code> by <a href="./files/dovecot/dovecot-2.4-openldap.conf">this one</a>.</li>
 <li>Open <code>/etc/dovecot/dovecot.conf</code>, find lines below, replace sample password
-  of <code>vmailadmin</code> user by the real one (you can find it in old config file
+  of <code>iredadmin</code> user by the real one (you can find it in old config file
   <code>/etc/dovecot/dovecot-used-quota.conf</code> or other files under <code>/etc/dovecot/</code>):</li>
 </ul>
 <pre><code>mysql 127.0.0.1 {
     port = 3306
-    dbname = vmail
-    user = vmailadmin
-    password = HdDDrA8a6Fwxc69z9CFB0TSryzxxR0Aw
+    dbname = iredadmin
+    user = iredadmin
+    password = BowvEHisnXQtoTEewZ92oh35A4xzq7zb
 }
+</code></pre>
+<ul>
+<li>Replace LDAP related settings, especially <code>ldap_base</code>, <code>ldap_auth_dn</code>, <code>ldap_auth_dn_password</code>:</li>
+</ul>
+<pre><code>ldap_uris = ldap://127.0.0.1:389
+ldap_version = 3
+ldap_debug_level = 0
+ldap_deref = never
+ldap_base = o=domains,dc=iredmail,dc=org
+ldap_scope = subtree
+ldap_starttls = no
+ldap_auth_dn = cn=vmail,dc=iredmail,dc=org
+ldap_auth_dn_password = sxU9ufqDPOSLOo1j7sp2UPvEJif5ULyY
 </code></pre>
 <ul>
 <li>Replace ssl cert and key files in parameters <code>ssl_server_cert_file</code> and <code>ssl_server_key_file</code>.</li>
