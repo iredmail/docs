@@ -292,3 +292,14 @@ to install it.
 
 There might be duplicate cron jobs for `root` and `sogo` users, please check
 cron jobs manually and remove old duplicate ones.
+
+## FAQ
+
+### DKIM signature is now signed by the new milter program
+
+- Existing DKIM keys were migrated by EE automatically during migration.
+- DKIM signature is now signed by the new milter program (`/usr/local/bin/milter*`), it's developed by iRedMail team.
+- DKIM keys are stored in SQL table `vmail.dkim`.
+- After login to EE as global admin, you can click the `DNS` badge on domain
+  list page to check DNS records of the email domain, including DKIM key.
+- Feel free to generate DKIM key for each domain, then publish the public key on DNS.

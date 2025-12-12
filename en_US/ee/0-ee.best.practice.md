@@ -566,6 +566,17 @@ Store custom rules in `/opt/iredmail/custom/spamassassin/custom.cf`.
   `/opt/iredmail/custom/` to new server first, then perform the iRedMail EE
   deployment, EE will set correct owner/group/permission for them during deployment.
 
-## References
+## FAQ
 
-* [Dovecot: Including config files](https://wiki.dovecot.org/ConfigFile#Including_config_files)
+### DKIM signature is now signed by the new milter program
+
+!!! attention
+
+    If you migrated from iRedMail open source edition or iRedMail Easy,
+    existing DKIM keys were migrated by EE automatically during migration.
+
+- DKIM signature is signed by the milter program (`/usr/local/bin/milter*`) developed by iRedMail team.
+- DKIM keys are stored in SQL table `vmail.dkim`.
+- After login to EE as global admin, you can click the `DNS` badge on domain
+  list page to check DNS records of the email domain, including DKIM key.
+- Feel free to generate DKIM key for each domain, then publish the public key on DNS.

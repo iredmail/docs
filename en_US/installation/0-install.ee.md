@@ -221,6 +221,7 @@ settings, manage mail accounts, etc.
 
 ## See Also
 
+* [Best Practice](./ee.best.practice.html)
 * [Upgrade iRedMail Enterprise Edition](./upgrade.ee.html)
 * [ChangeLog of iRedMail Enterprise Edition](./ee.changelog.html)
 * [Setup DNS records for your iRedMail server](./setup.dns.html)

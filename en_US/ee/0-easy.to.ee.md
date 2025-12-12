@@ -57,3 +57,14 @@ If you experienced any issue, please report via the [Ticket system](https://stor
 ![](./images/ee/easy.to.ee-1.png){: width="700px" }
 ![](./images/ee/easy.to.ee-2.png){: width="700px" }
 ![](./images/ee/easy.to.ee-3.png){: width="700px" }
+
+## FAQ
+
+### DKIM signature is now signed by the new milter program
+
+- Existing DKIM keys were migrated by EE automatically during migration.
+- DKIM signature is now signed by the new milter program (`/usr/local/bin/milter*`), it's developed by iRedMail team.
+- DKIM keys are stored in SQL table `vmail.dkim`.
+- After login to EE as global admin, you can click the `DNS` badge on domain
+  list page to check DNS records of the email domain, including DKIM key.
+- Feel free to generate DKIM key for each domain, then publish the public key on DNS.

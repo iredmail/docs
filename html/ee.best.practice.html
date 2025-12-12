@@ -54,7 +54,10 @@
 </ul>
 </li>
 <li><a href="#backup">Backup</a></li>
-<li><a href="#references">References</a></li>
+<li><a href="#faq">FAQ</a><ul>
+<li><a href="#dkim-signature-is-now-signed-by-the-new-milter-program">DKIM signature is now signed by the new milter program</a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -649,9 +652,19 @@ EE deployment or upgrade.</p>
   <code>/opt/iredmail/custom/</code> to new server first, then perform the iRedMail EE
   deployment, EE will set correct owner/group/permission for them during deployment.</li>
 </ul>
-<h2 id="references">References</h2>
+<h2 id="faq">FAQ</h2>
+<h3 id="dkim-signature-is-now-signed-by-the-new-milter-program">DKIM signature is now signed by the new milter program</h3>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>If you migrated from iRedMail open source edition or iRedMail Easy,
+existing DKIM keys were migrated by EE automatically during migration.</p>
+</div>
 <ul>
-<li><a href="https://wiki.dovecot.org/ConfigFile#Including_config_files">Dovecot: Including config files</a></li>
+<li>DKIM signature is signed by the milter program (<code>/usr/local/bin/milter*</code>) developed by iRedMail team.</li>
+<li>DKIM keys are stored in SQL table <code>vmail.dkim</code>.</li>
+<li>After login to EE as global admin, you can click the <code>DNS</code> badge on domain
+  list page to check DNS records of the email domain, including DKIM key.</li>
+<li>Feel free to generate DKIM key for each domain, then publish the public key on DNS.</li>
 </ul><div class="footer">
     <p style="text-align: center; color: grey;">All documents are available in <a href="https://github.com/iredmail/docs/">GitHub repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://github.com/iredmail/docs/archive/master.zip">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
 </div></body></html>
