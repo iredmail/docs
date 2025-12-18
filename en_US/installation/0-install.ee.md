@@ -164,6 +164,16 @@ A backend is a SQL or LDAP database used to store mail domains and
 accounts. There're not big differences between them, so we suggest you choose
 the one you're familiar with for easier maintenance.
 
+Since EE v1.6.0, using a remote MySQL or MariaDB server as backend is supported
+on below distribution releases (secure SSL connection requires Dovecot 2.3.21 or 2.4):
+
+- CentOS Stream 10 and later
+- Rocky 10 and later
+- AlmaLinux 10 and later
+- Debian 13 and later
+- Ubuntu 24.04 and later
+- OpenBSD 7.7 and later
+
 ![](./images/ee/setup-backend.png){: width="700px" }
 
 ### Choose the components you want to deploy

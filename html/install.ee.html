@@ -221,6 +221,16 @@ pkg_add bash
 <p>A backend is a SQL or LDAP database used to store mail domains and
 accounts. There're not big differences between them, so we suggest you choose
 the one you're familiar with for easier maintenance.</p>
+<p>Since EE v1.6.0, using a remote MySQL or MariaDB server as backend is supported
+on below distribution releases (secure SSL connection requires Dovecot 2.3.21 or 2.4):</p>
+<ul>
+<li>CentOS Stream 10 and later</li>
+<li>Rocky 10 and later</li>
+<li>AlmaLinux 10 and later</li>
+<li>Debian 13 and later</li>
+<li>Ubuntu 24.04 and later</li>
+<li>OpenBSD 7.7 and later</li>
+</ul>
 <p><img alt="" src="./images/ee/setup-backend.png" width="700px" /></p>
 <h3 id="choose-the-components-you-want-to-deploy">Choose the components you want to deploy</h3>
 <p>A component is a software (or software group, service) which implements some
