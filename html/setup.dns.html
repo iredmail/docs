@@ -72,6 +72,12 @@
 </li>
 </ul>
 </div>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>If you're running iRedMail Enterprise Edition ("EE" for short), you can
+login to EE as global admin, click the <code>DNS</code> badge on domain list page to
+check the DNS records of email domain.</p>
+</div>
 <p><strong>IMPORTANT NOTE</strong>: <code>A</code>, <code>MX</code> records are required, <code>Reverse PTR</code>, <code>SPF</code>,
 <code>DKIM</code> and <code>DMARC</code> are optional but <strong>HIGHLY</strong> recommended.</p>
 <h2 id="a"><code>A</code> record for server hostname</h2>
@@ -235,6 +241,13 @@ person or organization. In DKIM, this identifier is called the Signing Domain
 IDentifier (SDID) and is contained in the DKIM-Signature header fields <code>d=</code>
 tag. Note that the same identity can have multiple identifiers.</p>
 <h3 id="how-to-setup-the-dkim-record">How to setup the DKIM record</h3>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>If you're running iRedMail Enterprise Edition ("EE" for short), you can
+manage DKIM keys on EE web ui. Please login to EE as global admin, click
+the <code>DNS</code> badge on domain list page to check the DNS records of email
+domain, including DKIM key.</p>
+</div>
 <ul>
 <li>
 <p>Run command in terminal to show your DKIM keys:</p>

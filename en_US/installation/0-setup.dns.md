@@ -6,6 +6,12 @@
 
 [TOC]
 
+!!! attention
+
+    If you're running iRedMail Enterprise Edition ("EE" for short), you can
+    login to EE as global admin, click the `DNS` badge on domain list page to
+    check the DNS records of email domain.
+
 __IMPORTANT NOTE__: `A`, `MX` records are required, `Reverse PTR`, `SPF`,
 `DKIM` and `DMARC` are optional but __HIGHLY__ recommended.
 
@@ -224,6 +230,13 @@ IDentifier (SDID) and is contained in the DKIM-Signature header fields `d=`
 tag. Note that the same identity can have multiple identifiers.
 
 ### How to setup the DKIM record
+
+!!! warning
+
+    If you're running iRedMail Enterprise Edition ("EE" for short), you can
+    manage DKIM keys on EE web ui. Please login to EE as global admin, click
+    the `DNS` badge on domain list page to check the DNS records of email
+    domain, including DKIM key.
 
 * Run command in terminal to show your DKIM keys:
 
