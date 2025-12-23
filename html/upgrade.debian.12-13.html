@@ -37,6 +37,7 @@ looking for tutorial for iRedMail Enterprise Edition, please check
 <div class="toc">
 <ul>
 <li><a href="#fixes-you-need-after-upgrading-debian-from-12-to-13-trixie">Fixes you need after upgrading Debian from 12 to 13 (trixie)</a><ul>
+<li><a href="#change-log">Change Log</a></li>
 <li><a href="#postfix">Postfix</a></li>
 <li><a href="#nginx">Nginx</a></li>
 <li><a href="#php-fpm">php-fpm</a></li>
@@ -52,6 +53,10 @@ looking for tutorial for iRedMail Enterprise Edition, please check
 </li>
 </ul>
 </div>
+<h2 id="change-log">Change Log</h2>
+<ul>
+<li>Dec 23, 2025: Fix incorrect sieve settings in 3 <code>sieve_script XXX {}</code> sections.</li>
+</ul>
 <h2 id="postfix">Postfix</h2>
 <ul>
 <li>Make sure you do not have line <code>check_policy_service inet:127.0.0.1:12340</code>
@@ -108,7 +113,12 @@ few parameters.</p>
 <ul>
 <li>Replace ssl cert and key files in parameters <code>ssl_server_cert_file</code> and <code>ssl_server_key_file</code>.</li>
 <li>Replace DH parameters file in parameter <code>ssl_server_dh_file</code>. To generate new parameters file, you can use command <code>openssl dhparam 4096 &gt; /etc/dovecot/dh.pem</code>.</li>
+<li>In our sample config file, we store mailboxes under <code>/var/vmail</code> directory,
+  you may need to replace path prefix <code>/var/vmail</code> by the real path on your server.</li>
+<li>Restart Dovecot service.</li>
 </ul>
+<p>Please pay close attention to its log files under <code>/var/log/dovecot/</code>, report
+issues in <a href="https://forum.iredmail.org/">our forum</a> if there's any error.</p>
 <h3 id="for-postgresql-backend">For PostgreSQL backend</h3>
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>
@@ -135,7 +145,11 @@ few parameters.</p>
 <ul>
 <li>Replace ssl cert and key files in parameters <code>ssl_server_cert_file</code> and <code>ssl_server_key_file</code>.</li>
 <li>Replace DH parameters file in parameter <code>ssl_server_dh_file</code>. To generate new parameters file, you can use command <code>openssl dhparam 4096 &gt; /etc/dovecot/dh.pem</code>.</li>
+<li>In our sample config file, we store mailboxes under <code>/var/vmail</code> directory,
+  you may need to replace path prefix <code>/var/vmail</code> by the real path on your server.</li>
 </ul>
+<p>Please pay close attention to its log files under <code>/var/log/dovecot/</code>, report
+issues in <a href="https://forum.iredmail.org/">our forum</a> if there's any error.</p>
 <h3 id="for-openldap-backend">For OpenLDAP backend</h3>
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>
@@ -170,7 +184,11 @@ ldap_auth_dn_password = sxU9ufqDPOSLOo1j7sp2UPvEJif5ULyY
 <ul>
 <li>Replace ssl cert and key files in parameters <code>ssl_server_cert_file</code> and <code>ssl_server_key_file</code>.</li>
 <li>Replace DH parameters file in parameter <code>ssl_server_dh_file</code>. To generate new parameters file, you can use command <code>openssl dhparam 4096 &gt; /etc/dovecot/dh.pem</code>.</li>
+<li>In our sample config file, we store mailboxes under <code>/var/vmail</code> directory,
+  you may need to replace path prefix <code>/var/vmail</code> by the real path on your server.</li>
 </ul>
+<p>Please pay close attention to its log files under <code>/var/log/dovecot/</code>, report
+issues in <a href="https://forum.iredmail.org/">our forum</a> if there's any error.</p>
 <h2 id="re-upgrade-iredapd-mlmmjadmin-and-iredadmin-pro">Re-upgrade iRedAPD, mlmmjadmin and iRedAdmin(-Pro)</h2>
 <p>If you already have latest iRedAPD, mlmmjadmin and iRedAdmin(-Pro) running,
 you still need to re-download them and upgrade after you upgraded Debian OS,

@@ -20,6 +20,10 @@
 
 [TOC]
 
+## Change Log
+
+- Dec 23, 2025: Fix incorrect sieve settings in 3 `sieve_script XXX {}` sections.
+
 ## Postfix
 
 - Make sure you do not have line `check_policy_service inet:127.0.0.1:12340`
@@ -83,6 +87,12 @@ mysql 127.0.0.1 {
 ```
 - Replace ssl cert and key files in parameters `ssl_server_cert_file` and `ssl_server_key_file`.
 - Replace DH parameters file in parameter `ssl_server_dh_file`. To generate new parameters file, you can use command `openssl dhparam 4096 > /etc/dovecot/dh.pem`.
+- In our sample config file, we store mailboxes under `/var/vmail` directory,
+  you may need to replace path prefix `/var/vmail` by the real path on your server.
+- Restart Dovecot service.
+
+Please pay close attention to its log files under `/var/log/dovecot/`, report
+issues in [our forum](https://forum.iredmail.org/) if there's any error.
 
 ### For PostgreSQL backend
 
@@ -110,7 +120,11 @@ pgsql 127.0.0.1 {
 ```
 - Replace ssl cert and key files in parameters `ssl_server_cert_file` and `ssl_server_key_file`.
 - Replace DH parameters file in parameter `ssl_server_dh_file`. To generate new parameters file, you can use command `openssl dhparam 4096 > /etc/dovecot/dh.pem`.
+- In our sample config file, we store mailboxes under `/var/vmail` directory,
+  you may need to replace path prefix `/var/vmail` by the real path on your server.
 
+Please pay close attention to its log files under `/var/log/dovecot/`, report
+issues in [our forum](https://forum.iredmail.org/) if there's any error.
 
 ### For OpenLDAP backend
 
@@ -145,7 +159,11 @@ ldap_auth_dn_password = sxU9ufqDPOSLOo1j7sp2UPvEJif5ULyY
 ```
 - Replace ssl cert and key files in parameters `ssl_server_cert_file` and `ssl_server_key_file`.
 - Replace DH parameters file in parameter `ssl_server_dh_file`. To generate new parameters file, you can use command `openssl dhparam 4096 > /etc/dovecot/dh.pem`.
+- In our sample config file, we store mailboxes under `/var/vmail` directory,
+  you may need to replace path prefix `/var/vmail` by the real path on your server.
 
+Please pay close attention to its log files under `/var/log/dovecot/`, report
+issues in [our forum](https://forum.iredmail.org/) if there's any error.
 
 ## Re-upgrade iRedAPD, mlmmjadmin and iRedAdmin(-Pro)
 
