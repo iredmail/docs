@@ -31,7 +31,11 @@
 backend database. This can be done during initial setup, not after.</p>
 <h2 id="requirements">Requirements</h2>
 <ul>
-<li>A working remote MySQL or MariaDB server.</li>
+<li>A working remote MySQL or MariaDB server.<ul>
+<li>A valid ssl cert for secure connection on server side is highly
+  recommended for security concern.</li>
+</ul>
+</li>
 <li><strong>Network latency</strong> of SQL connection between your server and this remote
   SQL server should be <strong>no longer than 50 ms</strong>. Long latency causes
   bad performance and user experience.</li>
