@@ -231,8 +231,9 @@ settings, manage mail accounts, etc.
 
 ## See Also
 
-* [Best Practice](./ee.best.practice.html)
+* [EE: Use a Remote MySQL/MariaDB server as backend database](./ee.remote.mysql.html)
 * [Upgrade iRedMail Enterprise Edition](./upgrade.ee.html)
+* [Best Practice](./ee.best.practice.html)
 * [ChangeLog of iRedMail Enterprise Edition](./ee.changelog.html)
 * [Setup DNS records for your iRedMail server](./setup.dns.html)
 * [Request a free cert from Let's Encrypt](./letsencrypt.html)

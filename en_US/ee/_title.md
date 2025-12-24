@@ -1,6 +1,7 @@
 __iRedMail Enterprise Edition (EE)__ {: #ee }
 
 - [Install EE](./install.ee.html)
+    - [Use a Remote MySQL/MariaDB server as backend database](./ee.remote.mysql.html)
 - [Upgrade EE](./upgrade.ee.html)
 - [Best Practice](./ee.best.practice.html)
 - [ChangeLog](./ee.changelog.html)

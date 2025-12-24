@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>EE: Use a Remote MySQL/MariaDB server as backend database</title>
+        <link rel="stylesheet" type="text/css" href="./css/markdown.css" />
+    </head>
+    <body>
+
+    <div id="navigation">
+    <a href="https://www.iredmail.org" target="_blank">
+        <img alt="iRedMail web site"
+             src="./images/logo-iredmail.png"
+             style="vertical-align: middle; height: 30px;"
+             />&nbsp;
+        <span>iRedMail</span>
+    </a>
+    &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><h1 id="ee-use-a-remote-mysqlmariadb-server-as-backend-database">EE: Use a Remote MySQL/MariaDB server as backend database</h1>
+<div class="toc">
+<ul>
+<li><a href="#ee-use-a-remote-mysqlmariadb-server-as-backend-database">EE: Use a Remote MySQL/MariaDB server as backend database</a><ul>
+<li><a href="#requirements">Requirements</a></li>
+<li><a href="#initial-setup">Initial Setup</a></li>
+<li><a href="#post-install-management">Post-install management</a></li>
+<li><a href="#see-also">See Also</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<p>Since version <strong>v1.6.0</strong>, EE supports using a remote MySQL or MariaDB server as
+backend database. This can be done during initial setup, not after.</p>
+<h2 id="requirements">Requirements</h2>
+<ul>
+<li>A working remote MySQL or MariaDB server.</li>
+<li><strong>Network latency</strong> of SQL connection between your server and this remote
+  SQL server should be <strong>no longer than 50 ms</strong>. Long latency causes
+  bad performance and user experience.</li>
+</ul>
+<h2 id="initial-setup">Initial Setup</h2>
+<p>During initial setup, you can choose to use a remote MySQL or MariaDB server
+as backend database to store mail accounts and application data.</p>
+<p><img alt="" src="./images/ee/remote-mysql/setup-1.png" width="800px" />
+<img alt="" src="./images/ee/remote-mysql/setup-2.png" width="800px" /></p>
+<h2 id="post-install-management">Post-install management</h2>
+<p>After initial setup, you can manage parameters of remote MySQL/MariaDB server.</p>
+<ul>
+<li>Login to EE as global admin</li>
+<li>Click <code>Server Settings</code> -&gt; <code>Remote MySQL Server</code></li>
+</ul>
+<p>Notes:</p>
+<ul>
+<li>SQL root password is hidden and not transferred on network due to security concern.</li>
+<li>You can still click button <code>Test Connection</code> to test connection to remote SQL server.</li>
+<li>If you need to update SQL root password, please click the <code>Update</code> button,
+  it will show you an input box, input the new password and click
+  <code>Save Changes</code> to update it.</li>
+</ul>
+<p><img alt="" src="./images/ee/remote-mysql/server-settings.png" width="800px" /></p>
+<h2 id="see-also">See Also</h2>
+<ul>
+<li><a href="./ee.best.practice.html">Best Practice</a></li>
+<li><a href="./ee.changelog.html">ChangeLog of iRedMail Enterprise Edition</a></li>
+</ul><div class="footer">
+    <p style="text-align: center; color: grey;">All documents are available in <a href="https://github.com/iredmail/docs/">GitHub repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://github.com/iredmail/docs/archive/master.zip">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
+</div></body></html>
