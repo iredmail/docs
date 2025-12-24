@@ -36,9 +36,12 @@ backend database (MariaDB, PostgreSQL or OpenLDAP).
 Please login to EE as global admin, then click `Account Resource` on left
 sidebar, it shows you supported server types.
 
+Currently only AD is supported, [contact us](https://www.iredmail.org/contact.html)
+if you need to support other servers.
+
 ![](./images/ee/account-resource/account-resource.png){: width="800px" }
 
-Click the Active Directory icon to add AD as account resource.
+Click the Active Directory icon to add AD for account replication.
 
 ![](./images/ee/account-resource/ad-connection.png){: width="800px" }
 ![](./images/ee/account-resource/ad-replication.png){: width="800px" }
