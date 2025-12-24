@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>EE: Replicate mail accounts from Microsoft Active Directory</title>
+        <link rel="stylesheet" type="text/css" href="./css/markdown.css" />
+    </head>
+    <body>
+
+    <div id="navigation">
+    <a href="https://www.iredmail.org" target="_blank">
+        <img alt="iRedMail web site"
+             src="./images/logo-iredmail.png"
+             style="vertical-align: middle; height: 30px;"
+             />&nbsp;
+        <span>iRedMail</span>
+    </a>
+    &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><h1 id="ee-replicate-mail-accounts-from-microsoft-active-directory">EE: Replicate mail accounts from Microsoft Active Directory</h1>
+<div class="toc">
+<ul>
+<li><a href="#ee-replicate-mail-accounts-from-microsoft-active-directory">EE: Replicate mail accounts from Microsoft Active Directory</a><ul>
+<li><a href="#requirements">Requirements</a></li>
+<li><a href="#replicate-mail-accounts-from-microsoft-active-directory">Replicate mail accounts from Microsoft Active Directory</a><ul>
+<li><a href="#add-active-directory-as-an-account-resource">Add Active Directory as an account resource</a></li>
+</ul>
+</li>
+<li><a href="#see-also">See Also</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<p>Since iRedMail Enterprise Edition <strong>v1.6.0</strong> ("EE" for short), EE supports
+replicating mail accounts from a Microsoft Active Directory ("AD" for short) server.</p>
+<p>You can setup such replication anytime after iRedMail initial setup, with any
+backend database (MariaDB, PostgreSQL or OpenLDAP).</p>
+<h2 id="requirements">Requirements</h2>
+<ul>
+<li>A working iRedMail server which runs iRedMail Enterprise Edition version v1.6.0 or later.</li>
+<li>A working Active Directory server which allows connection from iRedMail server.<ul>
+<li>iRedMail server connects to the AD server via port 389 or 636 (secure
+  connection) using the LDAP protocol. Please make sure those ports are
+  open to iRedMail server in your network firewall.</li>
+<li>Port 636 (a.k.a. LDAP over SSL) is recommended for security concern,
+  otherwise the network between iRedMail and AD servers must be trustable.</li>
+</ul>
+</li>
+<li>You must specify a hosted email domain as target for such replication,
+  accounts replicated from AD will be hosted under this target domain.</li>
+<li>
+<p>iRedMail retrieves full email addresses of mail accounts from specified LDAP
+  attributes on AD server, the email address must end with target domain,
+  otherwise these accounts will not be replicated to iRedMail server.</p>
+<p>For example, you choose to replicate mail accounts from AD to email domain
+<code>example.com</code> which is hosted on iRedMail server, and retrieve full email
+addresses of AD user accounts from LDAP attribute <code>userPrincipalName</code>, then
+the value of <code>userPrincipalName</code> must be a valid email address ends with
+<code>@example.com</code>.</p>
+</li>
+</ul>
+<h2 id="replicate-mail-accounts-from-microsoft-active-directory">Replicate mail accounts from Microsoft Active Directory</h2>
+<h3 id="add-active-directory-as-an-account-resource">Add Active Directory as an account resource</h3>
+<p>Please login to EE as global admin, then click <code>Account Resource</code> on left
+sidebar, it shows you supported server types.</p>
+<p><img alt="" src="./images/ee/account-resource/account-resource.png" width="800px" /></p>
+<p>Click the Active Directory icon to add AD as account resource.</p>
+<p><img alt="" src="./images/ee/account-resource/ad-connection.png" width="800px" />
+<img alt="" src="./images/ee/account-resource/ad-replication.png" width="800px" />
+<img alt="" src="./images/ee/account-resource/ad-users.png" width="800px" />
+<img alt="" src="./images/ee/account-resource/ad-groups.png" width="800px" />
+<img alt="" src="./images/ee/account-resource/ad-list.png" width="800px" /></p>
+<h2 id="see-also">See Also</h2>
+<ul>
+<li><a href="./install.ee.html">Install iRedMail Enterprise Edition</a></li>
+<li><a href="./ee.remote.mysql.html">Use a remote MySQL or MariaDB server as backend database</a></li>
+<li><a href="./ee.best.practice.html">Best Practice</a></li>
+<li><a href="./ee.changelog.html">ChangeLog of iRedMail Enterprise Edition</a></li>
+</ul><div class="footer">
+    <p style="text-align: center; color: grey;">All documents are available in <a href="https://github.com/iredmail/docs/">GitHub repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://github.com/iredmail/docs/archive/master.zip">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
+</div></body></html>

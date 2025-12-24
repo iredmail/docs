@@ -2,8 +2,10 @@
 
 [TOC]
 
-Since version __v1.6.0__, EE supports using a remote MySQL or MariaDB server as
-backend database. This can be done during initial setup, not after.
+Since iRedMail Enterprise Edition __v1.6.0__ ("EE" for short), EE supports
+using a remote MySQL or MariaDB server as backend database.
+
+This can be done during initial setup, not after.
 
 ## Requirements
 
@@ -18,7 +20,7 @@ backend database. This can be done during initial setup, not after.
     - Ubuntu 24.04 or later
     - OpenBSD 7.8 or later
 - __Network latency__ of SQL connection between iRedMail server and remote
-  SQL server should be __no longer than 50 ms__. Long latency causes
+  SQL server __should NOT be longer than 20 ms__. Long latency causes
   bad performance and user experience.
 
 ## Initial Setup
@@ -48,5 +50,6 @@ Notes:
 
 ## See Also
 
+* [Install iRedMail Enterprise Edition](./install.ee.html)
 * [Best Practice](./ee.best.practice.html)
 * [ChangeLog of iRedMail Enterprise Edition](./ee.changelog.html)

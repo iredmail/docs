@@ -27,8 +27,9 @@
 </li>
 </ul>
 </div>
-<p>Since version <strong>v1.6.0</strong>, EE supports using a remote MySQL or MariaDB server as
-backend database. This can be done during initial setup, not after.</p>
+<p>Since iRedMail Enterprise Edition <strong>v1.6.0</strong> ("EE" for short), EE supports
+using a remote MySQL or MariaDB server as backend database.</p>
+<p>This can be done during initial setup, not after.</p>
 <h2 id="requirements">Requirements</h2>
 <ul>
 <li>A working remote MySQL or MariaDB server.<ul>
@@ -46,7 +47,7 @@ backend database. This can be done during initial setup, not after.</p>
 </ul>
 </li>
 <li><strong>Network latency</strong> of SQL connection between iRedMail server and remote
-  SQL server should be <strong>no longer than 50 ms</strong>. Long latency causes
+  SQL server <strong>should NOT be longer than 20 ms</strong>. Long latency causes
   bad performance and user experience.</li>
 </ul>
 <h2 id="initial-setup">Initial Setup</h2>
@@ -71,6 +72,7 @@ as backend database to store mail accounts and application data.</p>
 <p><img alt="" src="./images/ee/remote-mysql/server-settings.png" width="800px" /></p>
 <h2 id="see-also">See Also</h2>
 <ul>
+<li><a href="./install.ee.html">Install iRedMail Enterprise Edition</a></li>
 <li><a href="./ee.best.practice.html">Best Practice</a></li>
 <li><a href="./ee.changelog.html">ChangeLog of iRedMail Enterprise Edition</a></li>
 </ul><div class="footer">

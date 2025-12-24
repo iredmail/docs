@@ -1,5 +1,9 @@
 __iRedMail Enterprise Edition (EE)__ {: #ee }
 
+!!! attention
+
+    [Features and comparison](https://www.iredmail.org/ee.html)
+
 - [Install EE](./install.ee.html)
     - [Use a Remote MySQL/MariaDB server as backend database](./ee.remote.mysql.html)
 - [Upgrade EE](./upgrade.ee.html)
@@ -7,6 +11,7 @@ __iRedMail Enterprise Edition (EE)__ {: #ee }
 - [ChangeLog](./ee.changelog.html)
 - [Translate EE to your local language](./ee.translation.html)
 - [SSL certificate management](./ee.cert.html)
+- [Replicate mail accounts from Microsoft Active Directory](./ee.ad.html)
 - [Disable 2FA (TOTP) for account](./ee.disable.2fa.html)
 - Migration:
     - [Migrate from iRedMail Easy](./easy.to.ee.html)

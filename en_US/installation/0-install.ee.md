@@ -17,8 +17,8 @@
 
 ## Summary
 
-__iRedMail Enterprise Edition__ is a web-based, on-premises iRedMail server
-installer and management admin panel.
+[__iRedMail Enterprise Edition__](https://www.iredmail.org/ee.html)
+is a web-based, on-premises iRedMail server installer and admin panel.
 
 With iRedMail Enterprise, it's easy to deploy a full-featured email server,
 and keep the server up to date with just few clicks on the web UI, also manage
