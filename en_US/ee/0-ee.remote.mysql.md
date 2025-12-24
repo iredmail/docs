@@ -10,7 +10,14 @@ backend database. This can be done during initial setup, not after.
 - A working remote MySQL or MariaDB server.
     - A valid ssl cert for secure connection on server side is highly
       recommended for security concern.
-- __Network latency__ of SQL connection between your server and this remote
+- iRedMail server must be running one of below Linux/BSD distributions and releases:
+    - CentOS Stream 10 or later
+    - Rocky 10 or later
+    - AlmaLinux 10 or later
+    - Debian 13 or later
+    - Ubuntu 24.04 or later
+    - OpenBSD 7.8 or later
+- __Network latency__ of SQL connection between iRedMail server and remote
   SQL server should be __no longer than 50 ms__. Long latency causes
   bad performance and user experience.
 
