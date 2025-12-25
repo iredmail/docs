@@ -44,12 +44,12 @@ backend database (MariaDB, PostgreSQL or OpenLDAP).</p>
   otherwise the network between iRedMail and AD servers must be trustable.</li>
 </ul>
 </li>
-<li>You must specify a hosted email domain as target for such replication,
-  accounts replicated from AD will be hosted under this target domain.</li>
 <li>
-<p>iRedMail retrieves full email addresses of mail accounts from specified LDAP
-  attributes on AD server, the email address must end with target domain,
-  otherwise these accounts will not be replicated to iRedMail server.</p>
+<p>You must specify a hosted email domain as target for such replication,
+  accounts replicated from AD will be hosted under this target domain.</p>
+<p>EE retrieves the full email addresses of accounts from specified LDAP
+attributes on AD server, the domain part of email address must be same as
+the target domain, otherwise these accounts will be ignored and not replicated.</p>
 <p>For example, you choose to replicate mail accounts from AD to email domain
 <code>example.com</code> which is hosted on iRedMail server, and retrieve full email
 addresses of AD user accounts from LDAP attribute <code>userPrincipalName</code>, then
@@ -60,16 +60,109 @@ the value of <code>userPrincipalName</code> must be a valid email address ends w
 <h2 id="replicate-mail-accounts-from-microsoft-active-directory">Replicate mail accounts from Microsoft Active Directory</h2>
 <h3 id="add-active-directory-as-an-account-resource">Add Active Directory as an account resource</h3>
 <p>Please login to EE as global admin, then click <code>Account Resource</code> on left
-sidebar, it shows you supported server types.</p>
+sidebar. It shows you supported server types for account replication.</p>
+<blockquote>
 <p>Currently only AD is supported, <a href="https://www.iredmail.org/contact.html">contact us</a>
 if you need to support other servers.</p>
+</blockquote>
 <p><img alt="" src="./images/ee/account-resource/account-resource.png" width="800px" /></p>
-<p>Click the Active Directory icon to add AD for account replication.</p>
-<p><img alt="" src="./images/ee/account-resource/ad-connection.png" width="800px" />
-<img alt="" src="./images/ee/account-resource/ad-replication.png" width="800px" />
-<img alt="" src="./images/ee/account-resource/ad-users.png" width="800px" />
-<img alt="" src="./images/ee/account-resource/ad-groups.png" width="800px" />
-<img alt="" src="./images/ee/account-resource/ad-list.png" width="800px" /></p>
+<p>Click the <strong><code>Active Directory</code></strong> icon to add AD for account replication, it
+will redirect to replication management page.</p>
+<ul>
+<li>It saves default values under <strong><code>Replication</code></strong>, <strong><code>Users</code></strong> and <strong><code>Groups</code></strong>
+  tabs, but you may want to tune it to work with your AD server.</li>
+</ul>
+<p>Fill AD server related settings under <strong><code>Connection</code></strong> tab.</p>
+<ul>
+<li><strong><code>Replicate accounts for domain</code></strong>: The email domain name you'd like to
+  replicate for. It will search existing domains when you start typing, click
+  the domain name you want to replicate.</li>
+<li><strong><code>Server address and port</code></strong>: The hostname of IP address of the AD server.<ul>
+<li>Port 389 is plain/insecure connection by default. A valid ssl cert is
+  required on server side to enable TLS secure connection support on this port.</li>
+<li>Port 636 is SSL secure connection. A valid ssl cert is required on
+  server side.</li>
+</ul>
+</li>
+<li><strong><code>Secure connection (TLS/SSL) is required</code></strong>: Toggle on this option if AD server
+  has valid ssl cert and requires secure TLS/SSL connection.</li>
+<li><strong><code>Connection timeout</code></strong>: Timeout (in seconds) for connection to AD server.</li>
+<li><strong><code>Base DN</code></strong>: The container which contains all user / group accounts. For example,
+  <code>cn=Users,dc=xx,dc=xx</code>.</li>
+<li><strong><code>Bind DN</code></strong>: The full LDAP dn used to login to AD. This bind dn is used to
+  search all user / group accounts under base dn.</li>
+<li><strong><code>Bind Password</code></strong>: Password of the bind dn.</li>
+</ul>
+<p><img alt="" src="./images/ee/account-resource/ad-connection.png" width="800px" /></p>
+<p>After inputed all values, please click the <strong><code>Test connection</code></strong> link to
+verify those parameters. If all values are correct, it will show you message
+<strong><code>Connection succeeded</code></strong>, and retrieve up to 10 users and groups under the
+message. You can verify the retrieved attributes.</p>
+<p>Click <code>Save Changes</code> after test succeeded.</p>
+<p><img alt="" src="./images/ee/account-resource/ad-test-connection.png" width="800px" /></p>
+<p>Click <strong><code>Replication</code></strong> tab:</p>
+<ul>
+<li><strong><code>Replication Interval</code></strong>: Set how often to replicate incrementally.<ul>
+<li>Changes made on AD server will be replicated during next replication.</li>
+</ul>
+</li>
+<li><strong><code>Replicate AD groups as mail alias accounts</code></strong>: Replicate AD group accounts,
+  and create them as mail alias accounts locally.<ul>
+<li>Group members will be replicated too. You can manage members on AD, and view
+  the members on mail alias profile page on iRedMail server.</li>
+<li>If this option is not toggled on, the tab <code>Groups</code> will be hidden and invisible.</li>
+</ul>
+</li>
+<li><strong><code>Delete accounts locally when they were removed from Active Directory</code></strong>:
+  delete mail accounts and their application data (e.g. webmail preferences,
+  calendar, contacts, per-user whitelists / blacklists, etc) on iRedMail server
+  when they were removed from Active Directory.</li>
+</ul>
+<p>Click <code>Save Changes</code> if you made some changes.</p>
+<p><img alt="" src="./images/ee/account-resource/ad-replication.png" width="800px" /></p>
+<p>Click <strong><code>Users</code></strong> tab:</p>
+<ul>
+<li><strong><code>LDAP Filter</code></strong>: The LDAP filter used to query against AD to find mail users.
+  Default is <code>(|(objectClass=user)(objectClass=person))</code>.</li>
+<li><strong><code>Get full email address from attribute</code></strong>: Set the LDAP attribute name which
+  stores account's full email address on AD.<ul>
+<li>You can select from pre-defined attributes, or input your own one if the
+  name is not listed on drop-down menu.</li>
+</ul>
+</li>
+<li><strong><code>Replicate additional user profile</code></strong>: Besides email address, EE
+  supports replicating additional user profiles from AD.<ul>
+<li>Again, you can select from pre-defined attributes, or input your own one
+  if the name is not listed on drop-down menu.</li>
+<li>Leave it empty to not replicate certain profiles.</li>
+</ul>
+</li>
+</ul>
+<p>Click <code>Save Changes</code> if you made some changes.</p>
+<p>You may want to go back to <code>Connection</code> tab and click <code>Test connection</code> to
+check the replicated user profiles.</p>
+<p><img alt="" src="./images/ee/account-resource/ad-users.png" width="800px" /></p>
+<p>If you enables option <strong><code>Replicate AD groups as mail alias accounts</code></strong> under
+<strong><code>Replication</code></strong> tab, the <code>Groups</code> tab becomes visible. Click it to manage
+group replication related settings.</p>
+<p>AD group will be replicated and created as mail alias account locally, you
+can set default access policy.</p>
+<p>Click <code>Save Changes</code> if you made some changes.</p>
+<p>Again, you may want to go back to <code>Connection</code> tab and click <code>Test connection</code>
+to check the replicated group profiles.</p>
+<p><img alt="" src="./images/ee/account-resource/ad-groups.png" width="800px" /></p>
+<p>You can now click <strong><code>Account Resources</code></strong> on left
+sidebar, it will show you all created account resources.</p>
+<ul>
+<li>It displays brief info of the account resource, including server address and
+  port, target domain, replication interval, and time of last replication.</li>
+<li>Click <code>Edit</code> button to manage account resource.</li>
+<li>Click <code>Replicate Now</code> to replicate immediately.</li>
+<li>Click <code>Log</code> to check replication history.</li>
+<li>Click <code>Delete</code> to delete this account resource.</li>
+<li>Click the small status icon to enable or disable this account resource.</li>
+</ul>
+<p><img alt="" src="./images/ee/account-resource/ad-list.png" width="800px" /></p>
 <h2 id="see-also">See Also</h2>
 <ul>
 <li><a href="./install.ee.html">Install iRedMail Enterprise Edition</a></li>
