@@ -5,7 +5,7 @@
 Since iRedMail Enterprise Edition __v1.6.0__ ("EE" for short), EE supports
 using a remote MySQL or MariaDB server as backend database.
 
-This can be done during initial setup, not after.
+__This can be done during initial setup, not after.__
 
 ## Requirements
 
