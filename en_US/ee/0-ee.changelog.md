@@ -6,6 +6,7 @@
 
 | Version | Release Date |
 |---|---|
+| [v1.6.0](#v1.6.0) | 2025-12-29 |
 | [v1.5.1](#v1.5.1) | 2025-09-29 |
 | [v1.5.0](#v1.5.0) | 2025-09-08 |
 | [v1.4.0](#v1.4.0) | 2025-07-11 |
@@ -29,6 +30,64 @@
 - [iRedMail Enterprise Edition (EE)](https://www.iredmail.org/ee.html)
 - [Install iRedMail Enterprise Edition](./install.ee.html)
 - [Upgrade iRedMail Enterprise Edition](./upgrade.ee.html)
+
+## [UPCOMING] v1.6.0, Dec 29, 2025 {: #v1.6.0 }
+
+- Supports new distribution release:
+    - OpenBSD 7.8. Support for 7.6 will be dropped in 6 months.
+- Z-Push is now disabled on RedHat family OSes and Debian 13 (trixie) due
+  to missing required php-imap package.
+- Last login tracking is now disabled on RedHat family OSes release 9 for
+  PostgreSQL backend, due to buggy Dovecot-2.3.16.
+- New features:
+    - Replicate users and groups from Microsoft Active Directory to iRedMail
+      server as mail users and mail aliases. Click "Account Resources" on left
+      sidebar to add such replication. [Tutorial](./ee.ad.html)
+    - Supports using a remote MySQL or MariaDB server as backend to store
+      mail accounts and application data. [Tutorial](./ee.remote.mysql.html)
+- Improvements:
+    - Remove data from Z-Push database while removing user or domain.
+    - Sign mobileconfig file with ssl cert (requested with the builtin SSL
+      cert manager).
+    - Display custom short branding name as issuer in 2FA authorizator app.
+    - Do not require email address in http query for Mozilla autoconfig.
+    - Able to filter activities by admin, account, client IP and event name.
+- Fixed issues:
+    - Incorrect sieve config on Debian 13 (trixie).
+    - Incorrect setting in Apple mobileconfig file for SMTP connection.
+      Thanks to Samet Yilmaz.
+    - Not update email address after renamed user in Roundcube SQL table
+      `identities`.
+      Thanks to noc@.
+    - Domain admin cannot search accounts under managed domains.
+      Thanks to Leon Koster.
+    - Duplicate UUID in generated mobileconfig file.
+      Thanks to dmytro.storozhuk@.
+    - Not set correct account priority for throttle settings.
+      Thanks to noc@.
+    - Fail to re-issue ssl cert after added new domain name in cert.
+    - Not update zpush config file to disable caldav/carddav service after
+      removed SOGo component.
+      Thanks to Daniel Neculai.
+    - Not correctly apply default quota for new user.
+      Thanks to Daniel Neculai.
+    - Not apply default timezone for new user.
+      Thanks to Daniel Neculai.
+    - Incorrect comment lines of sample relay settings on user profile page.
+      Thanks to Daniel Neculai.
+    - Not remove commands `/usr/local/bin/z-push-*` while uninstall Z-Push
+      component.
+      Thanks to Daniel Neculai.
+    - Several incorrect parameter value types in API doc.
+    - Few minor web UI issues.
+- Updated packages:
+    - roundcube 1.6.12 (security fix)
+    - milter v1.4.0
+        - Not correctly mark message as received for local recipients.
+        - Fixed: Not reject email with invalid address in `From:` header.
+        - Fixed: Not reject email which not contain `From:` header.
+    - iRedAPD 6.0, supports secure (ssl) sql connection.
+    - mlmmjadmin 3.6.0, supports secure (ssl) sql connection.
 
 ## v1.5.1, Sep 29, 2025 {: #v1.5.1 }
 
