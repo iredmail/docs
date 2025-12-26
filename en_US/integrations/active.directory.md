@@ -6,6 +6,11 @@
 
 [TOC]
 
+!!! attention
+
+    iRedMail Enterprise Edition supports replicating user and group accounts
+    from Active Directory. [Tutorial](./ee.ad.html)
+
 __NOTES__:
 
 * iRedAdmin-Pro doesn't work with Active Directory, so if you choose to
