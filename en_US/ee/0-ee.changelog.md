@@ -31,7 +31,7 @@
 - [Install iRedMail Enterprise Edition](./install.ee.html)
 - [Upgrade iRedMail Enterprise Edition](./upgrade.ee.html)
 
-## [UPCOMING] v1.6.0, Dec 29, 2025 {: #v1.6.0 }
+## v1.6.0, Dec 29, 2025 {: #v1.6.0 }
 
 - Supports new distribution release:
     - OpenBSD 7.8. Support for 7.6 will be dropped in 6 months.
