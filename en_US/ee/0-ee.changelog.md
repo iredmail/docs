@@ -81,7 +81,7 @@
     - Several incorrect parameter value types in API doc.
     - Few minor web UI issues.
 - Updated packages:
-    - roundcube 1.6.12 (security fix)
+    - roundcube 1.6.12 ([fixes 2 security vulnerabilities](https://roundcube.net/news/2025/12/13/security-updates-1.6.12-and-1.5.12))
     - milter v1.4.0
         - Not correctly mark message as received for local recipients.
         - Fixed: Not reject email with invalid address in `From:` header.
