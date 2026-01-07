@@ -35,11 +35,11 @@ Let's Encrypt and renew it automatically.</p>
 <ul>
 <li>It could be the server hostname used by end users in MUAs, or web domain
   names accessed via https protocol.<ul>
-<li>NOTE: All domain names must be pointed to this EE server in A/CNAME type DNS record.</li>
+<li>NOTE: All domain names must be pointed to this EE server in A/AAAA/CNAME type DNS record.</li>
 </ul>
 </li>
-<li>EE requests only one ssl cert with multiple domain names instead of one cert
-  per domain, you can add up to 100 domain names in this cert.</li>
+<li>EE requests only one cert with multiple domain names instead of one cert
+  per domain. You can add up to 100 domain names.</li>
 </ul>
 <p>After you input the domain names, EE queries DNS and displays all IP addresses,
 so that you can quickly verify whether they are pointed to this EE server.</p>

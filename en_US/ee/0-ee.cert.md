@@ -15,9 +15,9 @@ Input the domain names you want to support in the ssl cert under the `Domains Na
 
 - It could be the server hostname used by end users in MUAs, or web domain
   names accessed via https protocol.
-    - NOTE: All domain names must be pointed to this EE server in A/CNAME type DNS record.
-- EE requests only one ssl cert with multiple domain names instead of one cert
-  per domain, you can add up to 100 domain names in this cert.
+    - NOTE: All domain names must be pointed to this EE server in A/AAAA/CNAME type DNS record.
+- EE requests only one cert with multiple domain names instead of one cert
+  per domain. You can add up to 100 domain names.
 
 After you input the domain names, EE queries DNS and displays all IP addresses,
 so that you can quickly verify whether they are pointed to this EE server.
