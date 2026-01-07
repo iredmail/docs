@@ -38,6 +38,7 @@
 <li><a href="#iredapd">iRedAPD</a></li>
 <li><a href="#iredadmin-pro">iRedAdmin(-Pro)</a></li>
 <li><a href="#sogo-groupware">SOGo Groupware</a></li>
+<li><a href="#nginx">Nginx</a></li>
 </ul>
 </li>
 <li><a href="#run-the-full-deployment-as-migration">Run the full deployment as migration</a></li>
@@ -421,6 +422,17 @@ web UI and remove <code>/opt/iredmail/custom/sogo/sogo.conf</code>.</p>
   migrated to EE.</p>
 </li>
 </ul>
+<h3 id="nginx">Nginx</h3>
+<p>iRedAdmin and iRedAdmin-Pro are not available after migrated to iRedMail EE,
+because iRedMail EE offers same features as iRedAdmin-Pro, hence
+no need to run iRedAdmin(-Pro) after migrated.</p>
+<p>Please login to server via ssh, make sure Nginx config snippet file
+<code>/etc/nginx/templates/iredadmin.tmpl</code> is not included in other files:</p>
+<pre><code class="language-shell">cd /etc/nginx/
+grep -r 'iredadmin.tmpl' *
+</code></pre>
+<p>If <code>grep</code> command matches some files, please open them and remove the line
+like <code>include /etc/nginx/templates/iredadmin.tmpl;</code>, then restart Nginx service.</p>
 <h2 id="run-the-full-deployment-as-migration">Run the full deployment as migration</h2>
 <p>Please follow our tutorial <a href="./install.ee.html">Install iRedMail Enterprise Edition</a>
 to install it.</p>

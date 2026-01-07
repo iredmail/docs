@@ -281,6 +281,23 @@ same (actually, more) features as iRedAdmin(-Pro).
   (`Server Settings` -> `SOGo Groupware` -> `Max prefork processes`) after
   migrated to EE.
 
+### Nginx
+
+iRedAdmin and iRedAdmin-Pro are not available after migrated to iRedMail EE,
+because iRedMail EE offers same features as iRedAdmin-Pro, hence
+no need to run iRedAdmin(-Pro) after migrated.
+
+Please login to server via ssh, make sure Nginx config snippet file
+`/etc/nginx/templates/iredadmin.tmpl` is not included in other files:
+
+```shell
+cd /etc/nginx/
+grep -r 'iredadmin.tmpl' *
+```
+
+If `grep` command matches some files, please open them and remove the line
+like `include /etc/nginx/templates/iredadmin.tmpl;`, then restart Nginx service.
+
 ## Run the full deployment as migration
 
 Please follow our tutorial [Install iRedMail Enterprise Edition](./install.ee.html)
