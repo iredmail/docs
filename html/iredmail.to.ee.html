@@ -29,7 +29,7 @@
 <li><a href="#backup-first">Backup first</a></li>
 <li><a href="#mysql-backend-remove-mysql-not-mariadb-packages">MySQL backend: Remove MySQL (not MariaDB) packages</a></li>
 <li><a href="#create-required-files-used-by-ee">Create required files used by EE</a></li>
-<li><a href="#copy-files-to-new-locations">Copy files to new locations</a></li>
+<li><a href="#copy-ssl-cert-files-to-new-locations">Copy ssl cert files to new locations</a></li>
 <li><a href="#split-custom-settings">Split custom settings</a><ul>
 <li><a href="#postfix">Postfix</a></li>
 <li><a href="#amavisd">Amavisd</a></li>
@@ -273,7 +273,12 @@ config files.</p>
 </tr>
 </tbody>
 </table>
-<h2 id="copy-files-to-new-locations">Copy files to new locations</h2>
+<h2 id="copy-ssl-cert-files-to-new-locations">Copy ssl cert files to new locations</h2>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>We recommend to <a href="./ee.cert.html">manage ssl cert with the builtin certificate manager</a>
+offered by EE after migration.</p>
+</div>
 <p>EE stores SSL cert/key files under <code>/opt/iredmail/ssl/</code>,
 you need to either copy or (symbol) link existing ssl cert/key to this
 directory with correct file names:</p>

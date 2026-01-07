@@ -127,7 +127,12 @@ ALL | `roundcube_des_key` | The DES key used by Roundcube to encrypt the session
 ALL | `mlmmjadmin_api_token` | API token for authentication. | `/opt/mlmmjadmin/settings.py`, parameter `api_auth_tokens =`.
 ALL | `first_domain_admin_password` | Password of the mail user `postmaster@<your-domain.com>`. | `your-domain.com` is the first mail domain name you (are going to) set in mail server profile page on EE, you can find it in mail server profile page, under tab `Settings`.
 
-## Copy files to new locations
+## Copy ssl cert files to new locations
+
+!!! attention
+
+    We recommend to [manage ssl cert with the builtin certificate manager](./ee.cert.html)
+    offered by EE after migration.
 
 EE stores SSL cert/key files under `/opt/iredmail/ssl/`,
 you need to either copy or (symbol) link existing ssl cert/key to this
