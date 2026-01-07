@@ -28,12 +28,12 @@ Once you have all domain names, click the `Request a new cert` button to
 request the cert.
 
 - EE requests the cert in dry run mode first to make sure everything is ok and
-  not exceed [Let's Encrypt rate limit](https://letsencrypt.org/docs/rate-limits/),
-  then request the valid one immediately.
-- EE reloads network services immediately after successfully requested the cert,
-  including Postfix, Dovecot and Nginx, so that they can use the new cert.
-  If you're running OpenLDAP backend and allows external access to LDAP
-  service, EE restarts OpenLDAP service too.
+  avoid [Let's Encrypt rate limit](https://letsencrypt.org/docs/rate-limits/).
+  After dry run succeeds, it requests the valid one immediately.
+- EE restarts or reloads network services immediately after successfully
+  requested the cert, so that they can use the new cert.
+  Depends on the backend database you're running and installed components, it
+  may restart or reload Postfix, Dovecot, Nginx, OpenLDAP and Prosody services.
 
 ![](./images/ee/cert-modal.png){: width="700px" }
 

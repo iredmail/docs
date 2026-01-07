@@ -48,12 +48,12 @@ so that you can quickly verify whether they are pointed to this EE server.</p>
 request the cert.</p>
 <ul>
 <li>EE requests the cert in dry run mode first to make sure everything is ok and
-  not exceed <a href="https://letsencrypt.org/docs/rate-limits/">Let's Encrypt rate limit</a>,
-  then request the valid one immediately.</li>
-<li>EE reloads network services immediately after successfully requested the cert,
-  including Postfix, Dovecot and Nginx, so that they can use the new cert.
-  If you're running OpenLDAP backend and allows external access to LDAP
-  service, EE restarts OpenLDAP service too.</li>
+  avoid <a href="https://letsencrypt.org/docs/rate-limits/">Let's Encrypt rate limit</a>.
+  After dry run succeeds, it requests the valid one immediately.</li>
+<li>EE restarts or reloads network services immediately after successfully
+  requested the cert, so that they can use the new cert.
+  Depends on the backend database you're running and installed components, it
+  may restart or reload Postfix, Dovecot, Nginx, OpenLDAP and Prosody services.</li>
 </ul>
 <p><img alt="" src="./images/ee/cert-modal.png" width="700px" /></p>
 <p>After successfully requested, EE displays the valid date and renewal date on
