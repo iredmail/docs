@@ -18,25 +18,11 @@ as iRedMail Easy, migrating from iRedMail Easy to EE is a breeze.
 
 ## Notes before getting started
 
+- iRedAdmin and iRedAdmin-Pro are not available after migrated to iRedMail EE,
+  because iRedMail EE offers same features as iRedAdmin-Pro, hence
+  no need to run iRedAdmin(-Pro) after migrated.
 - An EE license is required. Please login or sign up to our website to get
   a trial license or purchase one: <https://store.iredmail.org/>.
-
-## Preparations
-
-iRedAdmin and iRedAdmin-Pro are not available after migrated to iRedMail EE,
-because iRedMail EE offers same features as iRedAdmin-Pro, hence
-no need to run iRedAdmin(-Pro) after migrated.
-
-Please login to server via ssh, make sure Nginx config snippet file
-`/etc/nginx/templates/iredadmin.tmpl` is not included in other files:
-
-```shell
-cd /etc/nginx/
-grep -r 'iredadmin.tmpl' *
-```
-
-If `grep` command matches some files, please open them and remove the line
-like `include /etc/nginx/templates/iredadmin.tmpl;`, then restart Nginx service.
 
 ## Migrate
 
