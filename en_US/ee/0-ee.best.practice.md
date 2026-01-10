@@ -8,23 +8,24 @@
 
 ## How the fearless upgrade works
 
-iRedMail Enterprise Edition ("EE" for short) splits config files of software to 2 parts: Core and Custom,
-this is the magic of fearless one-click upgrade.
+iRedMail Enterprise Edition ("EE" for short) splits software config files
+to 2 parts: core configuration and custom settings.
 
-iRedMail EE maintains core config files to make sure everything works as
-expected, but we understand that you may need to change some settings
-configured by iRedMail EE.
+EE generates and maintains core config files to make sure everything works by
+default with our best practice, but we understand that you may need to tune
+some settings to match your own requirements, so EE offers several ways to
+allow you to archive this goal.
 
 Please follow some simple rules to store your custom settings, and do not
-modify the core config files (manually) managed by iRedMail EE.
+modify the core config files manually maintained by EE.
 
 ### Including config files
 
-A lot of software supports loading settings from extra config files with directives
-like `include` (Nginx, Dovecot), `include_try` (Dovecot), `require_once` (PHP
-applications). In this case, it will be configured to load extra config files
-under `/opt/iredmail/custom/<software-name>/`. We use Dovecot for example to
-explain the details.
+Many software supports loading settings from extra config files with directives
+like `include` (Nginx, Dovecot), `include_try` (Dovecot), `require_once`
+(PHP applications). In this case, it will be configured to load extra config
+files under `/opt/iredmail/custom/<software-name>/`. We use Dovecot for
+example to explain the details.
 
 Dovecot's main config file is `/etc/dovecot/dovecot.conf`, we have directives
 at the bottom of `dovecot.conf` like this:
@@ -36,10 +37,13 @@ at the bottom of `dovecot.conf` like this:
 
 It will try to load all files ends with `.conf` under
 `/etc/dovecot/conf-enabled/` first, then
-`/opt/iredmail/custom/dovecot/conf-enabled/`.
+`/opt/iredmail/custom/dovecot/conf-enabled/`. Earlier settings with same
+parameter name will be overridden by the latter one.
 
-Files under `/etc/dovecot/conf-enabled/` are maintained by iRedMail EE, if
-you want to override some settings, please create a file which ends with
+`/etc/dovecot/dovecot.conf` and all files under `/etc/dovecot/conf-enabled/`
+are generated and maintained by EE based on the settings you done on EE web UI
+(especially the `Server Settings` page). If
+you want to override some settings, please create a file ends with
 `.conf` under `/opt/iredmail/custom/dovecot/conf-enabled/` with your custom
 settings. for example, Dovecot is configured to enable services like below by
 iRedMail EE:
@@ -49,7 +53,7 @@ protocols = pop3 imap sieve lmtp
 ```
 
 What can you do to disable `pop3` service without modify files under
-`/etc/dovecot/`? Easy, just create a file, e.g. `custom.conf` under
+`/etc/dovecot/`? Easy, just create a file, e.g. `custom.conf`, under
 `/opt/iredmail/custom/dovecot/conf-enabled/` with content below (note: service
 name `pop3` is removed in this setting), then restart Dovecot service:
 
@@ -64,13 +68,13 @@ you may need to apply your own settings by running commands to modify its
 config files under `/etc/`. For example, Postfix.
 
 Postfix doesn't support directive like `include` to load extra config files,
-you can change some settings by modifying its config files (e.g.
-`/etc/postfix/main.cf`) directly, but next time you upgrade your iRedMail
-server with iRedMail EE, the config file will be rewritten by iRedMail EE,
-then you lose all custom settings.
+so if you modifying Postfix config files (e.g. `/etc/postfix/main.cf`) manually,
+your modifications will be lost after next time you perform deployment (update,
+upgrade, etc) on EE web UI, because EE always re-generates the files it maintains
+during deployment.
 
-Fortunately, iRedMail EE supports executing a (bash) shell script each time it
-deploying or upgrading a software. For Postfix, it's
+Fortunately, EE supports executing a (bash) shell script during each deployment,
+the script is `/opt/iredmail/custom/<COMPONENT>/custom.sh`. For Postfix, it's
 `/opt/iredmail/custom/postfix/custom.sh`.
 
 Let's say you want to add IP address `192.168.1.1` to Postfix parameter
@@ -81,76 +85,36 @@ write shell commands in `/opt/iredmail/custom/postfix/custom.sh` like below:
 postconf -e mynetworks='127.0.0.1 192.168.1.1'
 ```
 
-Then run it manually:
+Again, this `custom.sh` will be executed by EE during deployment, if you
+want to apply the changes immediately, please execute it manually:
 
 ```
 cd /opt/iredmail/custom/postfix/
 bash custom.sh
 ```
 
-When iRedMail EE deploys or upgrades Postfix, it will run this script the
-same way.
-
-### Remove existing file and create a new one
-
-Nginx supports loading extra config file with `include` directive, but it
-doesn't support overriding existing parameters.  for example, if parameter
-`client_max_body_size` is defined in one file, but you have `include` directive
-to load same parameter in another file, Nginx will report duplicate parameter
-and refuse to start. In this case, you have to remove existing config files
-(which contains the parameter you want to customize) generated by iRedMail EE 
-and create a new one. Let's use parameter `client_max_body_size` for example.
-
-iRedMail EE generates files under `/etc/nginx/conf-enabled/` for different
-parameters, and parameter `client_max_body_size` is defined in
-`/etc/nginx/conf-enabled/client_max_body_size.conf` like this:
-
-```
-client_max_body_size 15m;
-```
-
-You need to add a new file under `/opt/iredmail/custom/nginx/conf-enabled/`
-first, then add shell command in `/opt/iredmail/custom/nginx/custom.sh` to
-remove `/etc/nginx/conf-enabled/client_max_body_size.conf` like below:
-
-```
-rm -f /etc/nginx/conf-enabled/client_max_body_size.conf
-```
-
-Now run this script:
-
-```
-cd /opt/iredmail/custom/nginx/
-bash custom.sh
-```
-
-When iRedMail EE deploys or upgrades Nginx, it will run this script the
-same way.
-
-### The rest
-
-* SOGo doesn't support any of the ways mentioned above, if you need to modify any settings, please either use `/opt/iredmail/custom/sogo/custom.sh` to modify please read [details below](#sogo).
-
 ## SSL cert
 
-iRedMail EE generates self-signed ssl cert by default, cert files are stored
-under `/opt/iredmail/ssl/`:
+EE generates self-signed ssl cert during initial setup, but you can [request
+free cert from Let's Encrypt](./ee.cert.html) after initial setup.
+
+Cert files are stored under `/opt/iredmail/ssl/`:
 
 * `key.pem`: private key
 * `cert.pem`: certificate
 * `combined.pem`: full chain
 
-To get rid of self-signed cert, you can either:
-
-* [Request a free cert from Let's Encrypt](./letsencrypt.html), or
-* [Use a bought SSL certificate](./use.a.bought.ssl.certificate.html).
-
 ## Passwords
 
-* iRedMail EE generates and reads from files under `/root/.iredmail/kv/`.
-* Files under `/root/.iredmail/kv/` contain only one line.
-* If you changed any of them, please update files under `/root/.iredmail/kv/`
-  also, so that iRedMail EE can get correct password when you perform upgrade.
+* EE generates random and strong passwords and stores them under
+  `/root/.iredmail/kv/` during initial setup, but if files exist before or
+  after initial setup, EE reads from these files directly instead of generating
+  new ones.
+* All files under `/root/.iredmail/kv/` should contain only one line.
+* If you changed some password manually, e.g. change mysql root password, please
+  update file under `/root/.iredmail/kv/` immediately, so that EE can get
+  correct password and updating config files to use it when you perform a deployment.
+
 
 Backend | File Name | Comment | Value could be found in file
 ---|---|---|---
@@ -180,11 +144,10 @@ ALL | `first_domain_admin_password` | Password of the mail user `postmaster@<you
 ### MariaDB
 
 - `/opt/iredmail/custom/mysql/`:
-    - All files end with `.cnf` will be loaded by Mariadb.
-    - It will override existing settings defined in files under `/etc/mysql/` (Linux)
-      or `/usr/local/etc/mysql/` (FreeBSD).
-
-        Sample config file, `/opt/iredmail/custom/mysql/custom.conf`:
+    - All files end with `.cnf` will be loaded by MariaDB.
+    - It will override existing settings defined in files under `/etc/mysql/`.
+      For example, add file `/opt/iredmail/custom/mysql/custom.conf` with
+      content below, it will set value of parameter `max_connections` to `1024`:
 
 ```
 [mysqld]
@@ -196,7 +159,9 @@ max_connections     = 1024
 - `/opt/iredmail/custom/openldap/schema/`
 
     Extra LDAP schema files must be stored in this directory, owned by OpenLDAP
-    daemon user and group with permission 0640.
+    daemon user and group with permission 0640. Note: schema files will __NOT__
+    be loaded by OpenLDAP automatically, you must update `global.conf` mentioned
+    below to load them.
 
 - `/opt/iredmail/custom/openldap/conf.d/global.conf`
 
@@ -209,9 +174,9 @@ max_connections     = 1024
 
 - `/opt/iredmail/custom/openldap/conf.d/databases.conf`
 
-    OpenLDAP is configured to run one database for mail domains and accounts
-    by iRedMail EE, if you want to run extra databases, you can add database
-    related settings in this file. for example:
+    OpenLDAP is configured to run one database for mail domains and accounts,
+    if you want to run extra databases, please add [database related settings](https://openldap.org/doc/admin26/slapdconfig.html#General%20Database%20Directives)
+    in this file. For example:
 
 ```
 database    mdb
@@ -237,18 +202,17 @@ index attr_4,attr_5,attr_6  eq,pres
   upgrades the Nginx.
 
       For example, Nginx doesn't support override existing settings by loading
-      same parameter from another config file, in this case you should run `rm`
-      command in this file (`custom.sh`) to remove existing config file
-      generated by iRedMail EE and store custom settings in another file.
+      same parameter from another config file, in this case you can run command
+      like `sed`, `perl` to modify the config file generated by EE in place.
 
-- `/opt/iredmail/custom/nginx/conf-enabled/`: additional Nginx global settings
-  used inside `http {}` block.
+- `/opt/iredmail/custom/nginx/conf-enabled/`
 
-    - If you want to override a parameter which is already defined in
-      `/etc/nginx/conf-enabled/`, please update `/opt/iredmail/custom/nginx/custom.sh`
-      to remove file under `/etc/nginx/conf-enabled/` first, then write your
-      own config file under `/opt/iredmail/custom/nginx/conf-enabled/` to set
-      a proper value.
+    All files ends with `.conf` under this directory will be loaded by Nginx
+    inside the `http {}` block (check `/etc/nginx/nginx.conf` for more details).
+
+    If you want to override a parameter which is already defined in files under
+    `/etc/nginx/conf-enabled/`, please update the value with command like
+    `sed`, `perl` in `/opt/iredmail/custom/nginx/custom.sh`.
 
 - `/opt/iredmail/custom/nginx/sites-conf.d/default-ssl/`: additional settings
   for default https website (inside the `server {}` block).
