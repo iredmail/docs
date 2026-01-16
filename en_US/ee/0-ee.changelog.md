@@ -28,9 +28,9 @@
 
 <br/>
 
-- [Introduce iRedMail Enterprise Edition (EE)](https://www.iredmail.org/ee.html)
-- [Install iRedMail Enterprise Edition](./install.ee.html)
-- [Upgrade iRedMail Enterprise Edition](./upgrade.ee.html)
+- [Introduce EE](https://www.iredmail.org/ee.html)
+- [Install EE](./install.ee.html)
+- [Upgrade EE](./upgrade.ee.html)
 - [Best Practice](https://docs.iredmail.org/ee.best.practice.html)
 - [Replicate mail accounts from Microsoft Active Directory](./ee.ad.html)
 - [Use a Remote MySQL/MariaDB server as backend database](./ee.remote.mysql.html)
