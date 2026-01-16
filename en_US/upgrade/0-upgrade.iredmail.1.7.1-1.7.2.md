@@ -178,7 +178,7 @@ database, and restart SOGO service:
 ```
 perl -pi -e 's#PH_SOGO_DB_TABLE_ADMIN#sogo_admin#g' /etc/sogo/sogo.conf
 mysql sogo -e "RENAME TABLE PH_SOGO_DB_TABLE_ADMIN TO sogo_admin;"
-service sogo restart
+service sogod restart
 ```
 
 ## For MariaDB backend
@@ -216,7 +216,7 @@ database, and restart SOGO service:
 ```
 perl -pi -e 's#PH_SOGO_DB_TABLE_ADMIN#sogo_admin#g' /etc/sogo/sogo.conf
 mysql sogo -e "RENAME TABLE PH_SOGO_DB_TABLE_ADMIN TO sogo_admin;"
-service sogo restart
+service sogod restart
 ```
 
 ## For PostgreSQL backend
@@ -259,5 +259,5 @@ Switch to PostgreSQL daemon user, rename the table in SQL database, and restart 
 ```
 su - postgres
 psql -d sogo -c "ALTER TABLE PH_SOGO_DB_TABLE_ADMIN RENAME TO sogo_admin;"
-service sogo restart
+service sogod restart
 ```
