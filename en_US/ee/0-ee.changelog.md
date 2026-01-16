@@ -6,6 +6,7 @@
 
 | Version | Release Date |
 |---|---|
+| [v1.6.1](#v1.6.1) | 2026-01-16 |
 | [v1.6.0](#v1.6.0) | 2025-12-29 |
 | [v1.5.1](#v1.5.1) | 2025-09-29 |
 | [v1.5.0](#v1.5.0) | 2025-09-08 |
@@ -33,6 +34,40 @@
 - [Best Practice](https://docs.iredmail.org/ee.best.practice.html)
 - [Replicate mail accounts from Microsoft Active Directory](./ee.ad.html)
 - [Use a Remote MySQL/MariaDB server as backend database](./ee.remote.mysql.html)
+
+## v1.6.1, Jan 16, 2026 {: #v1.6.1 }
+
+- API changes:
+    - Query parameter `jails` has been removed for below 2 URIs, introduces 3
+      new parameters: `jail`, `ip`, `country`.
+        - `GET /api/f2b/banned`
+        - `DELETE /api/f2b/unban_all`
+- New features:
+    - Able to set global relay host and login username/password
+      (`Server Settings` -> `SMTP Service`).
+    - Able to set access control for 3 web applications (`Server Settings` ->
+      `Web Applications`): EE, Adminer, Netdata. If you have custom access
+      controls in config files under `/opt/iredmail/custom/nginx/webapps/`,
+      better remove the custom ones and manage them on EE web UI instead.
+- Improvements:
+    - Refacter deployment code base with grpc.
+    - Abort to sort banned IP addresses by IP, country, hostname, jail, time stamp.
+    - Able to filter banned IP addresses by IP, country, jail.
+    - Add link on `Banned IP Addresses` page, jump to manage whitelisted
+      Fail2ban clients (`Server Settings` -> `Fail2ban`).
+- Fixed issues:
+    - Unable to create new DKIM key after removed catch-all key.
+      Thanks to Monel.
+    - Prosody daemon cannot read ssl cert/key files.
+      Thanks to Brian D. Lisle.
+    - Incorrect file permission of logrotate config files (/etc/logrotate.d/*).
+      Thanks to Pam.
+    - Incorrect link to (mlmmj) mailing list profile page in `Top Recipients`
+      section on `Dashboard` page,
+    - Incorrect sample settings for local delivery agent on domain profile page.
+- Updated packages:
+    - iRedAPD 6.1
+    - mlmmjadmin 3.6.2
 
 ## v1.6.0, Dec 29, 2025 {: #v1.6.0 }
 

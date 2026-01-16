@@ -29,6 +29,10 @@
 </thead>
 <tbody>
 <tr>
+<td><a href="#v1.6.1">v1.6.1</a></td>
+<td>2026-01-16</td>
+</tr>
+<tr>
 <td><a href="#v1.6.0">v1.6.0</a></td>
 <td>2025-12-29</td>
 </tr>
@@ -110,6 +114,52 @@
 <li><a href="https://docs.iredmail.org/ee.best.practice.html">Best Practice</a></li>
 <li><a href="./ee.ad.html">Replicate mail accounts from Microsoft Active Directory</a></li>
 <li><a href="./ee.remote.mysql.html">Use a Remote MySQL/MariaDB server as backend database</a></li>
+</ul>
+<h2 id="v1.6.1">v1.6.1, Jan 16, 2026</h2>
+<ul>
+<li>API changes:<ul>
+<li>Query parameter <code>jails</code> has been removed for below 2 URIs, introduces 3
+  new parameters: <code>jail</code>, <code>ip</code>, <code>country</code>.<ul>
+<li><code>GET /api/f2b/banned</code></li>
+<li><code>DELETE /api/f2b/unban_all</code></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>New features:<ul>
+<li>Able to set global relay host and login username/password
+  (<code>Server Settings</code> -&gt; <code>SMTP Service</code>).</li>
+<li>Able to set access control for 3 web applications (<code>Server Settings</code> -&gt;
+  <code>Web Applications</code>): EE, Adminer, Netdata. If you have custom access
+  controls in config files under <code>/opt/iredmail/custom/nginx/webapps/</code>,
+  better remove the custom ones and manage them on EE web UI instead.</li>
+</ul>
+</li>
+<li>Improvements:<ul>
+<li>Refacter deployment code base with grpc.</li>
+<li>Abort to sort banned IP addresses by IP, country, hostname, jail, time stamp.</li>
+<li>Able to filter banned IP addresses by IP, country, jail.</li>
+<li>Add link on <code>Banned IP Addresses</code> page, jump to manage whitelisted
+  Fail2ban clients (<code>Server Settings</code> -&gt; <code>Fail2ban</code>).</li>
+</ul>
+</li>
+<li>Fixed issues:<ul>
+<li>Unable to create new DKIM key after removed catch-all key.
+  Thanks to Monel.</li>
+<li>Prosody daemon cannot read ssl cert/key files.
+  Thanks to Brian D. Lisle.</li>
+<li>Incorrect file permission of logrotate config files (/etc/logrotate.d/*).
+  Thanks to Pam.</li>
+<li>Incorrect link to (mlmmj) mailing list profile page on Dashboard page,
+  Top Recipients.</li>
+<li>Incorrect sample settings for local delivery agent on domain profile page.</li>
+</ul>
+</li>
+<li>Updated packages:<ul>
+<li>iRedAPD 6.1</li>
+<li>mlmmjadmin 3.6.2</li>
+</ul>
+</li>
 </ul>
 <h2 id="v1.6.0">v1.6.0, Dec 29, 2025</h2>
 <ul>
