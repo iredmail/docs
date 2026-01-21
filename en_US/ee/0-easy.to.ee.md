@@ -19,10 +19,10 @@ as iRedMail Easy, migrating from iRedMail Easy to EE is a breeze.
 ## Notes before getting started
 
 - iRedAdmin and iRedAdmin-Pro are not available after migrated to iRedMail EE,
-  because iRedMail EE offers same features as iRedAdmin-Pro, hence
+  because iRedMail EE offers same (and more) features as iRedAdmin-Pro, hence
   no need to run iRedAdmin(-Pro) after migrated.
-- An EE license is required. Please login or sign up to our website to get
-  a trial license or purchase one: <https://store.iredmail.org/>.
+- An EE license is required. Please login or sign up to our iRedMail Store
+  website to get a free trial license or purchase one: <https://store.iredmail.org/>.
 - We recommend to [manage ssl cert with the builtin certificate manager](./ee.cert.html)
   offered by EE after migration.
 
