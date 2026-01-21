@@ -58,6 +58,10 @@ as iRedMail Easy, migrating from iRedMail Easy to EE is a breeze.</p>
 <li>Click <code>Mail Servers</code> on left sidebar.</li>
 <li>Click <code>Export</code> button right beside the server hostname you want to migrate. It will display a modal window to show you the server settings.</li>
 <li>Click <code>Copy</code> on the modal window to copy server settings in JSON format.</li>
+</ul>
+<p><img alt="" src="./images/ee/easy.to.ee-1.png" width="700px" />
+<img alt="" src="./images/ee/easy.to.ee-2.png" width="700px" /></p>
+<ul>
 <li>
 <p>Follow <a href="./install.ee.html">the iRedMail EE installation tutorial</a> to download
   and launch EE on the server you deployed with iRedMail Easy platform.</p>
@@ -70,22 +74,23 @@ temporarily so that you can access this port:</p>
 </ul>
 </li>
 <li>
-<p>Paste the copied server settings and paste below, then click <code>Migrate</code> button
-  to import settings.</p>
+<p>Visit http port 8080 with a web browser which supports JavaScript, you should
+  see page like below:</p>
 </li>
+</ul>
+<p><img alt="" src="./images/ee/easy.to.ee-3.png" width="700px" /></p>
+<ul>
+<li>Paste the copied server settings, then click <code>Migrate</code> button to import settings.</li>
 <li>Click <code>Next</code> to review the settings.</li>
 <li>Click <code>Migrate</code> to start the migration immediately. It should finish in seconds.</li>
-<li>After migrated, access the new web UI <code>https://your-server/admin/</code>,
+<li>After migrated, access the new web UI <code>https://&lt;your-server&gt;/admin/</code>,
   login with same admin accounts you used to login to iRedAdmin or iRedAdmin-Pro.</li>
 <li>After logged in, click <code>Deployments</code> on left sidebar, then click
-  <code>Re-perform full deployment</code> to apply config file changes to fully migrated
-  to iRedMail EE. Usually it finishes in just seconds.</li>
+  <code>Re-perform full deployment</code> to apply configuration changes to fully migrated
+  to EE.</li>
 </ul>
-<p>That's all.</p>
-<p>If you experienced any issue, please report via the <a href="https://store.iredmail.org/tickets">Ticket system</a>.</p>
-<p><img alt="" src="./images/ee/easy.to.ee-1.png" width="700px" />
-<img alt="" src="./images/ee/easy.to.ee-2.png" width="700px" />
-<img alt="" src="./images/ee/easy.to.ee-3.png" width="700px" /></p>
+<p>That's all. If you experienced any issue, please report via the
+ticket system on the <a href="https://store.iredmail.org/tickets">iRedMail Store</a> website.</p>
 <h2 id="faq">FAQ</h2>
 <h3 id="dkim-signature-is-now-signed-by-the-new-milter-program">DKIM signature is now signed by the new milter program</h3>
 <ul>

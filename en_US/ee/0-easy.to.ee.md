@@ -32,6 +32,10 @@ as iRedMail Easy, migrating from iRedMail Easy to EE is a breeze.
 - Click `Mail Servers` on left sidebar.
 - Click `Export` button right beside the server hostname you want to migrate. It will display a modal window to show you the server settings.
 - Click `Copy` on the modal window to copy server settings in JSON format.
+
+![](./images/ee/easy.to.ee-1.png){: width="700px" }
+![](./images/ee/easy.to.ee-2.png){: width="700px" }
+
 - Follow [the iRedMail EE installation tutorial](./install.ee.html) to download
   and launch EE on the server you deployed with iRedMail Easy platform.
 
@@ -42,23 +46,22 @@ as iRedMail Easy, migrating from iRedMail Easy to EE is a breeze.
     - on Debian/Ubuntu, run: `service nftables stop`
     - on OpenBSD, run: `pfctl -d`
 
-- Paste the copied server settings and paste below, then click `Migrate` button
-  to import settings.
+- Visit http port 8080 with a web browser which supports JavaScript, you should
+  see page like below:
+
+![](./images/ee/easy.to.ee-3.png){: width="700px" }
+
+- Paste the copied server settings, then click `Migrate` button to import settings.
 - Click `Next` to review the settings.
 - Click `Migrate` to start the migration immediately. It should finish in seconds.
-- After migrated, access the new web UI `https://your-server/admin/`,
+- After migrated, access the new web UI `https://<your-server>/admin/`,
   login with same admin accounts you used to login to iRedAdmin or iRedAdmin-Pro.
 - After logged in, click `Deployments` on left sidebar, then click
-  `Re-perform full deployment` to apply config file changes to fully migrated
-  to iRedMail EE. Usually it finishes in just seconds.
+  `Re-perform full deployment` to apply configuration changes to fully migrated
+  to EE.
 
-That's all.
-
-If you experienced any issue, please report via the [Ticket system](https://store.iredmail.org/tickets).
-
-![](./images/ee/easy.to.ee-1.png){: width="700px" }
-![](./images/ee/easy.to.ee-2.png){: width="700px" }
-![](./images/ee/easy.to.ee-3.png){: width="700px" }
+That's all. If you experienced any issue, please report via the
+ticket system on the [iRedMail Store](https://store.iredmail.org/tickets) website.
 
 ## FAQ
 
