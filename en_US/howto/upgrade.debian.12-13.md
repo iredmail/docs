@@ -22,7 +22,8 @@
 
 ## Change Log
 
-- Dec 23, 2025: Fix incorrect sieve settings in 3 `sieve_script XXX {}` sections.
+- Feb 4, 2025: [Fixed: Mailbox quota limit didn't work](https://github.com/iredmail/docs/commit/4ce2e266de5291c89da3a3c1633cd79f0f116837). Thanks to pamartin64@forum.
+- Dec 23, 2025: Fixed: incorrect sieve settings in 3 `sieve_script XXX {}` sections.
 
 ## Postfix
 
