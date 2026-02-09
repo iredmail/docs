@@ -6,6 +6,7 @@
 
 | Version | Release Date |
 |---|---|
+| [v1.6.2](#v1.6.2) | 2026-02-09 |
 | [v1.6.1](#v1.6.1) | 2026-01-16 |
 | [v1.6.0](#v1.6.0) | 2025-12-29 |
 | [v1.5.1](#v1.5.1) | 2025-09-29 |
@@ -34,6 +35,12 @@
 - [Best Practice](https://docs.iredmail.org/ee.best.practice.html)
 - [Replicate mail accounts from Microsoft Active Directory](./ee.ad.html)
 - [Use a Remote MySQL/MariaDB server as backend database](./ee.remote.mysql.html)
+
+## v1.6.2, Feb 9, 2026 {: #v1.6.2 }
+
+- Updated packages:
+    - [Roundcube 1.6.13, addresses security issues.](https://github.com/roundcube/roundcubemail/releases/tag/1.6.13).
+    - [Adminer 5.4.2, addresses security issues.](https://github.com/vrana/adminer/releases/tag/v5.4.2)
 
 ## v1.6.1, Jan 16, 2026 {: #v1.6.1 }
 
