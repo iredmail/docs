@@ -44,15 +44,15 @@ sender_dependent_default_transport_maps = pcre:/etc/postfix/sdd_transport.pcre
 sample-smtp     unix -       -       n       -       -       smtp
     -o smtp_bind_address=172.16.244.159
 #    -o smtp_helo_name=example.com
-#    -o syslog_name=postfix-example-com
+#    -o syslog_name=postfix/sample-smtp
 ```
 
-Option `smtp_helo_name` and `syslog_name` are optional.
+Arguments `smtp_helo_name` and `syslog_name` are optional.
 
 After this restart the Postfix service to apply your changes:
 
-```
-# /etc/init.d/postfix restart
+```shell
+/etc/init.d/postfix restart
 ```
 
 Note: any unmatched domains will continue using the server's primary IP address
