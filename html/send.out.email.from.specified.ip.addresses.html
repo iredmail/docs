@@ -50,11 +50,11 @@ later releases.</p>
 <pre><code>sample-smtp     unix -       -       n       -       -       smtp
     -o smtp_bind_address=172.16.244.159
 #    -o smtp_helo_name=example.com
-#    -o syslog_name=postfix-example-com
+#    -o syslog_name=postfix/sample-smtp
 </code></pre>
-<p>Option <code>smtp_helo_name</code> and <code>syslog_name</code> are optional.</p>
+<p>Arguments <code>smtp_helo_name</code> and <code>syslog_name</code> are optional.</p>
 <p>After this restart the Postfix service to apply your changes:</p>
-<pre><code># /etc/init.d/postfix restart
+<pre><code class="language-shell">/etc/init.d/postfix restart
 </code></pre>
 <p>Note: any unmatched domains will continue using the server's primary IP address
 just as before.</p><div class="footer">
