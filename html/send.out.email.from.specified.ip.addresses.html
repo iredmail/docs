@@ -16,18 +16,30 @@
         <span>iRedMail</span>
     </a>
     &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><h1 id="send-out-email-from-specified-ip-address">Send out email from specified IP address</h1>
+<div class="toc">
+<ul>
+<li><a href="#send-out-email-from-specified-ip-address">Send out email from specified IP address</a><ul>
+<li><a href="#requirements">Requirements</a></li>
+<li><a href="#configuration">Configuration</a><ul>
+<li><a href="#use-case-1-force-all-users-under-local-domain-to-send-out-from-specified-ip-address">Use case 1: Force all users under local domain to send out from specified IP address</a></li>
+<li><a href="#use-case-2-sent-to-certain-recipient-domains-from-specified-ip-address">Use case 2: Sent to certain recipient domains from specified IP address</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
 <p>If you have multiple IP addresses available on your iRedMail server, and would
 like to send from different IP Addresses for different domains, follow the
 steps below.</p>
-<h3 id="requirements">Requirements</h3>
+<h2 id="requirements">Requirements</h2>
 <ul>
 <li>Postfix version 2.7.x or later releases are required.</li>
 </ul>
-<h3 id="steps">Steps</h3>
+<h2 id="configuration">Configuration</h2>
 <ul>
 <li>
 <p>Create new transport in <code>/etc/postfix/master.cf</code> like below:</p>
-<p>Notes:</p>
 <ul>
 <li>Replace IP address <code>172.16.244.159</code> by your real IP address.</li>
 <li>For IPv6 address, use <code>smtp_bind_address6</code> instead of <code>smtp_bind_address</code>.</li>
@@ -40,22 +52,47 @@ steps below.</p>
 #    -o smtp_helo_name=example.com
 #    -o syslog_name=postfix/sample-smtp
 </code></pre>
+<h3 id="use-case-1-force-all-users-under-local-domain-to-send-out-from-specified-ip-address">Use case 1: Force all users under local domain to send out from specified IP address</h3>
+<p>You have email domain name <code>example.com</code> hosted on iRedMail server, and you
+want to force all emails sent by users under <code>example.com</code> to be sent from
+specified IP address.</p>
 <ul>
 <li>Add Postfix setting <code>sender_dependent_default_transport_maps</code> to the end of
   <code>/etc/postfix/main.cf</code> like below:</li>
 </ul>
-<pre><code>sender_dependent_default_transport_maps = pcre:/etc/postfix/sdd_transport.pcre
+<pre><code>sender_dependent_default_transport_maps = hash:/etc/postfix/sdd_transport
 </code></pre>
 <ul>
-<li>Create file <code>/etc/postfix/sdd_transport.pcre</code> with content below (Replace
- <code>example.com</code> by your real domain name):</li>
+<li>Create file <code>/etc/postfix/sdd_transport</code> with content below (Replace
+ <code>example.com</code> by your real local domain name):</li>
 </ul>
-<pre><code>/@example\.com$/   sample-smtp:
+<pre><code>@example.com   sample-smtp:
 </code></pre>
-<p>Reload Posfix service to load changed settings:</p>
-<pre><code class="language-shell">postfix reload
+<ul>
+<li>Run <code>postmap</code> and reload Posfix service to load changed settings:</li>
+</ul>
+<pre><code class="language-shell">postmap /etc/postfix/sdd_transport
+postfix reload
 </code></pre>
 <p>Note: any unmatched domains will continue using the server's primary IP address
-just as before.</p><div class="footer">
+just as before.</p>
+<h3 id="use-case-2-sent-to-certain-recipient-domains-from-specified-ip-address">Use case 2: Sent to certain recipient domains from specified IP address</h3>
+<p>You want to force all emails sent from iRedMail server to Gmail (<code>gmail.com</code>)
+to be sent from specified IP address.</p>
+<ul>
+<li>Add recipient domain name (<code>gmail.com</code>) and transport name in
+<code>/etc/postfix/transport</code> like below:</li>
+</ul>
+<pre><code>gmail.com sample-smtp:
+</code></pre>
+<p>You may want to force for all sub-domain names (e.g. <code>x.gmail.com</code>, <code>y.gmail.com</code>) too:</p>
+<pre><code>.gmail.com sample-smtp:
+</code></pre>
+<ul>
+<li>Run <code>postmap</code> and reload Posfix service to load changed settings:</li>
+</ul>
+<pre><code class="language-shell">postmap /etc/postfix/transport
+postfix reload
+</code></pre><div class="footer">
     <p style="text-align: center; color: grey;">All documents are available in <a href="https://github.com/iredmail/docs/">GitHub repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://github.com/iredmail/docs/archive/master.zip">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
 </div></body></html>
