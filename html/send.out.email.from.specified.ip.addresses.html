@@ -25,32 +25,35 @@ steps below.</p>
 </ul>
 <h3 id="steps">Steps</h3>
 <ul>
-<li>Add Postfix setting <code>sender_dependent_default_transport_maps</code> to the end of
-  <code>/etc/postfix/main.cf</code> like below:</li>
-</ul>
-<pre><code>sender_dependent_default_transport_maps = pcre:/etc/postfix/sdd_transport.pcre
-</code></pre>
+<li>
+<p>Create new transport in <code>/etc/postfix/master.cf</code> like below:</p>
+<p>Notes:</p>
 <ul>
-<li>Add file <code>/etc/postfix/sdd_transport.pcre</code> with below content. NOTE: we use
-  domain <code>example.com</code> for example, it will use transport <code>sample-smtp</code> - see
-  examples.</li>
+<li>Replace IP address <code>172.16.244.159</code> by your real IP address.</li>
+<li>For IPv6 address, use <code>smtp_bind_address6</code> instead of <code>smtp_bind_address</code>.</li>
+<li>Arguments <code>smtp_helo_name</code> and <code>syslog_name</code> are optional.</li>
 </ul>
-<pre><code>/@example\.com$/   sample-smtp:
-</code></pre>
-<ul>
-<li>Create new outgoing SMTP transports in <code>/etc/postfix/master.cf</code> like below.
-  Note: you must replace our sample IP address <code>172.16.244.159</code> with your IP
-  address. If you want to use IPv6 address, please use <code>smtp_bind_address6</code>
-  instead of <code>smtp_bind_address</code> below.</li>
+</li>
 </ul>
 <pre><code>sample-smtp     unix -       -       n       -       -       smtp
     -o smtp_bind_address=172.16.244.159
 #    -o smtp_helo_name=example.com
 #    -o syslog_name=postfix/sample-smtp
 </code></pre>
-<p>Arguments <code>smtp_helo_name</code> and <code>syslog_name</code> are optional.</p>
-<p>After this restart the Postfix service to apply your changes:</p>
-<pre><code class="language-shell">/etc/init.d/postfix restart
+<ul>
+<li>Add Postfix setting <code>sender_dependent_default_transport_maps</code> to the end of
+  <code>/etc/postfix/main.cf</code> like below:</li>
+</ul>
+<pre><code>sender_dependent_default_transport_maps = pcre:/etc/postfix/sdd_transport.pcre
+</code></pre>
+<ul>
+<li>Create file <code>/etc/postfix/sdd_transport.pcre</code> with content below (Replace
+ <code>example.com</code> by your real domain name):</li>
+</ul>
+<pre><code>/@example\.com$/   sample-smtp:
+</code></pre>
+<p>Reload Posfix service to load changed settings:</p>
+<pre><code class="language-shell">postfix reload
 </code></pre>
 <p>Note: any unmatched domains will continue using the server's primary IP address
 just as before.</p><div class="footer">

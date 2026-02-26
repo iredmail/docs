@@ -10,25 +10,13 @@ steps below.
 
 ### Steps
 
-* Add Postfix setting `sender_dependent_default_transport_maps` to the end of
-  `/etc/postfix/main.cf` like below:
+* Create new transport in `/etc/postfix/master.cf` like below:
 
-```
-sender_dependent_default_transport_maps = pcre:/etc/postfix/sdd_transport.pcre
-```
+    Notes:
 
-* Add file `/etc/postfix/sdd_transport.pcre` with below content. NOTE: we use
-  domain `example.com` for example, it will use transport `sample-smtp` - see
-  examples.
-
-```
-/@example\.com$/   sample-smtp:
-```
-
-* Create new outgoing SMTP transports in `/etc/postfix/master.cf` like below.
-  Note: you must replace our sample IP address `172.16.244.159 ` with your IP
-  address. If you want to use IPv6 address, please use `smtp_bind_address6`
-  instead of `smtp_bind_address` below.
+    - Replace IP address `172.16.244.159 ` by your real IP address.
+    - For IPv6 address, use `smtp_bind_address6` instead of `smtp_bind_address`.
+    - Arguments `smtp_helo_name` and `syslog_name` are optional.
 
 ```
 sample-smtp     unix -       -       n       -       -       smtp
@@ -37,12 +25,24 @@ sample-smtp     unix -       -       n       -       -       smtp
 #    -o syslog_name=postfix/sample-smtp
 ```
 
-Arguments `smtp_helo_name` and `syslog_name` are optional.
+* Add Postfix setting `sender_dependent_default_transport_maps` to the end of
+  `/etc/postfix/main.cf` like below:
 
-After this restart the Postfix service to apply your changes:
+```
+sender_dependent_default_transport_maps = pcre:/etc/postfix/sdd_transport.pcre
+```
+
+* Create file `/etc/postfix/sdd_transport.pcre` with content below (Replace
+ `example.com` by your real domain name):
+
+```
+/@example\.com$/   sample-smtp:
+```
+
+Reload Posfix service to load changed settings:
 
 ```shell
-/etc/init.d/postfix restart
+postfix reload
 ```
 
 Note: any unmatched domains will continue using the server's primary IP address
