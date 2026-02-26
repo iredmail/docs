@@ -52,9 +52,6 @@ postmap /etc/postfix/sdd_transport
 postfix reload
 ```
 
-Note: any unmatched domains will continue using the server's primary IP address
-just as before.
-
 ### Use case 2: Sent to certain recipient domains from specified IP address
 
 You want to force all emails sent from iRedMail server to Gmail (`gmail.com`)
