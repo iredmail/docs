@@ -19,14 +19,10 @@
 <p>If you have multiple IP addresses available on your iRedMail server, and would
 like to send from different IP Addresses for different domains, follow the
 steps below.</p>
-<h3 id="requirement">Requirement</h3>
-<p>This can only be set up on Postfix version <code>&gt;=2.7.x</code>, because the parameter we
-need <code>sender_dependent_default_transport_maps</code> is available in Postfix-2.7 and
-later releases.</p>
-<p>To check your Postfix version run:</p>
-<pre><code># postconf mail_version
-</code></pre>
-<p>Which would return something like: <code>mail_version = 2.10.3</code></p>
+<h3 id="requirements">Requirements</h3>
+<ul>
+<li>Postfix version 2.7.x or later releases are required.</li>
+</ul>
 <h3 id="steps">Steps</h3>
 <ul>
 <li>
