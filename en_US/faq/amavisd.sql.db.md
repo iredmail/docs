@@ -79,6 +79,32 @@ Amavisd has two settings to use its SQL tables:
 * `msgrcpt`
 * `quarantine`
 
+Amavisd is configured to stores quarantined emails in SQL db, you can get
+raw email from table `quarantine`.
+
+Structure of `quarantine`:
+```
+MariaDB [amavisd]> desc quarantine;
++---------------+------------------+------+-----+---------+-------+
+| Field         | Type             | Null | Key | Default | Extra |
++---------------+------------------+------+-----+---------+-------+
+| partition_tag | int(11)          | NO   | PRI | 0       |       |
+| mail_id       | varbinary(16)    | NO   | PRI | NULL    |       |
+| chunk_ind     | int(10) unsigned | NO   | PRI | NULL    |       |
+| mail_text     | blob             | NO   |     | NULL    |       |
++---------------+------------------+------+-----+---------+-------+
+```
+
+Large email will be splited to multiple sql records, ordered by `chunk_ind`,
+and `mail_text` is the mail message.
+
+You can query it like below, then concat value of `mail_text` column one by
+one to get full email message with all headers and body:
+
+```
+SELECT mail_text FROM quarantine WHERE mail_id='<mail-id>' ORDER BY chunk_ind ASC;
+```
+
 Since Amavisd will store basic info of every inbound/outbound email, the SQL
 database will grow bigger and bigger, iRedMail setups a daily cron job to
 clean up old records with script shipped in iRedAdmin (available in both

@@ -112,6 +112,25 @@ white/blacklists for outbound emails, but it's used by iRedAPD (plugin
 <li><code>msgrcpt</code></li>
 <li><code>quarantine</code></li>
 </ul>
+<p>Amavisd is configured to stores quarantined emails in SQL db, you can get
+raw email from table <code>quarantine</code>.</p>
+<p>Structure of <code>quarantine</code>:</p>
+<pre><code>MariaDB [amavisd]&gt; desc quarantine;
++---------------+------------------+------+-----+---------+-------+
+| Field         | Type             | Null | Key | Default | Extra |
++---------------+------------------+------+-----+---------+-------+
+| partition_tag | int(11)          | NO   | PRI | 0       |       |
+| mail_id       | varbinary(16)    | NO   | PRI | NULL    |       |
+| chunk_ind     | int(10) unsigned | NO   | PRI | NULL    |       |
+| mail_text     | blob             | NO   |     | NULL    |       |
++---------------+------------------+------+-----+---------+-------+
+</code></pre>
+<p>Large email will be splited to multiple sql records, ordered by <code>chunk_ind</code>,
+and <code>mail_text</code> is the mail message.</p>
+<p>You can query it like below, then concat value of <code>mail_text</code> column one by
+one to get full email message with all headers and body:</p>
+<pre><code>SELECT mail_text FROM quarantine WHERE mail_id='&lt;mail-id&gt;' ORDER BY chunk_ind ASC;
+</code></pre>
 <p>Since Amavisd will store basic info of every inbound/outbound email, the SQL
 database will grow bigger and bigger, iRedMail setups a daily cron job to
 clean up old records with script shipped in iRedAdmin (available in both
