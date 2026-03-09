@@ -363,22 +363,10 @@ directly, and (optionally) remove non-custom settings later.</p>
 </ul>
 <h3 id="amavisd">Amavisd</h3>
 <ul>
-<li>Copy DKIM keys from <code>/var/lib/dkim/</code> to <code>/opt/iredmail/custom/amavisd/dkim/</code>.</li>
 <li>
-<p>Move all <code>dkim_key(...)</code> parameters from Amavisd config file to
-  <code>/opt/iredmail/custom/amavisd/amavisd.conf</code>, <strong>EXCEPT</strong> the one for your first
-  email domain name which was created during initial iRedMail installation.</p>
-<ul>
-<li>RHEL/CentOS: <code>/etc/amavisd/amavisd.conf</code></li>
-<li>Debian/Ubuntu: <code>/etc/amavis/conf.d/50-user</code></li>
-<li>OpenBSD: <code>/etc/amavisd.conf</code></li>
-<li>FreeBSD: <code>/usr/local/etc/amavisd.conf</code></li>
-</ul>
-<div class="admonition attention">
-<p class="admonition-title">Attention</p>
-<p>Please make sure no duplicate <code>dkim_key(...)</code> parameters, otherwise
-Amavisd will fail to start.</p>
-</div>
+<p>Copy DKIM keys from <code>/var/lib/dkim/</code> to <code>/opt/iredmail/custom/amavisd/dkim/</code>.</p>
+<p>DKIM signature is now signed by the new milter program, DKIM keys will be
+migrated and stored in SQL table <code>vmail.dkim</code>.</p>
 </li>
 </ul>
 <h3 id="spamassassin">SpamAssassin</h3>
@@ -392,7 +380,16 @@ too. For example:</p>
 </code></pre>
 <h3 id="roundcube-webmail">Roundcube Webmail</h3>
 <ul>
-<li>Copy custom settings from <code>/opt/www/roundcubemail/config/config.inc.php</code> to <code>/opt/iredmail/custom/roundcube/custom.inc.php</code>.</li>
+<li>
+<p>Copy custom settings from <code>/opt/www/roundcubemail/config/config.inc.php</code> to <code>/opt/iredmail/custom/roundcube/custom.inc.php</code>.</p>
+<p>First line of file <code>/opt/iredmail/custom/roundcube/custom.inc.php</code> must be <code>&lt;?php</code>.
+For example:</p>
+</li>
+</ul>
+<pre><code>&lt;?php
+$config['session_lifetime'] = 30;
+</code></pre>
+<ul>
 <li>Copy third-party plugins from <code>/opt/www/roundcubemail/plugins/</code> to <code>/opt/iredmail/custom/roundcube/plugins/</code>. EE will create symbol link for them automatically.</li>
 <li>Copy third-party or custom skins from <code>/opt/www/roundcubemail/skins/</code> to <code>/opt/iredmail/custom/roundcube/skins/</code>. EE will create symbol link for them automatically.</li>
 </ul>

@@ -218,18 +218,9 @@ solution to split core and custom settings.
 ### Amavisd
 
 - Copy DKIM keys from `/var/lib/dkim/` to `/opt/iredmail/custom/amavisd/dkim/`.
-- Move all `dkim_key(...)` parameters from Amavisd config file to
-  `/opt/iredmail/custom/amavisd/amavisd.conf`, __EXCEPT__ the one for your first
-  email domain name which was created during initial iRedMail installation.
-    - RHEL/CentOS: `/etc/amavisd/amavisd.conf`
-    - Debian/Ubuntu: `/etc/amavis/conf.d/50-user`
-    - OpenBSD: `/etc/amavisd.conf`
-    - FreeBSD: `/usr/local/etc/amavisd.conf`
 
-    !!! attention
-
-        Please make sure no duplicate `dkim_key(...)` parameters, otherwise
-        Amavisd will fail to start.
+    DKIM signature is now signed by the new milter program, DKIM keys will be
+    migrated and stored in SQL table `vmail.dkim`.
 
 ### SpamAssassin
 
@@ -248,6 +239,15 @@ trusted_networks 192.168.0.1 172.16.0.0/8
 ### Roundcube Webmail
 
 * Copy custom settings from `/opt/www/roundcubemail/config/config.inc.php` to `/opt/iredmail/custom/roundcube/custom.inc.php`.
+
+    First line of file `/opt/iredmail/custom/roundcube/custom.inc.php` must be `<?php`.
+    For example:
+
+```
+<?php
+$config['session_lifetime'] = 30;
+```
+
 * Copy third-party plugins from `/opt/www/roundcubemail/plugins/` to `/opt/iredmail/custom/roundcube/plugins/`. EE will create symbol link for them automatically.
 * Copy third-party or custom skins from `/opt/www/roundcubemail/skins/` to `/opt/iredmail/custom/roundcube/skins/`. EE will create symbol link for them automatically.
 
