@@ -73,7 +73,6 @@ installer](https://www.iredmail.org/download.html) instead.
 Notes:
 
 - [SOGo Groupware is not available on CentOS/Rocky/AlmaLinux 10 yet](https://bugs.sogo.nu/view.php?id=6118)
-- [SOGo Groupware is not available on Debian 13 (trixie) yet](https://bugs.sogo.nu/view.php?id=6145)
 - Z-Push (open source ActiveSync server) is not available on
   all CentOS/Rocky/AlmaLinux releases and Debian 13 (trixie) due to missing
   required `php-imap` package.
