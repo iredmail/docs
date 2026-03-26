@@ -6,6 +6,7 @@
 
 | Version | Release Date |
 |---|---|
+| [v1.7.0](#v1.7.0) | 2026-03-26 |
 | [v1.6.2](#v1.6.2) | 2026-02-09 |
 | [v1.6.1](#v1.6.1) | 2026-01-16 |
 | [v1.6.0](#v1.6.0) | 2025-12-29 |
@@ -35,6 +36,59 @@
 - [Best Practice](https://docs.iredmail.org/ee.best.practice.html)
 - [Replicate mail accounts from Microsoft Active Directory](./ee.ad.html)
 - [Use a Remote MySQL/MariaDB server as backend database](./ee.remote.mysql.html)
+
+## v1.7.0, Mar 26, 2026 {: #v1.7.0 }
+
+- Supports new distribution release:
+    - Ubuntu 26.04 LTS (tested with nightly build, will re-test with stable
+      release later)
+- Removed component `mlmmjadmin`, all features have been implemented in EE
+  internally.
+    - EE will migrate data of existing (mlmmj) mailing list accounts at the end
+      of EE upgrade automatically.
+    - Mailing list settings are stored in SQL table `vmail.maillist_settings`.
+    - Subscribers are stored in `vmail.maillist_subscribers`.
+    - Mailing list may have a lot subscribers, adding many subscribers in
+      LDAP or removing many from LDAP could take long time (e.g. 10 seconds,
+      or even minutes), so we decide to store subscribers in SQL db too for
+      OpenLDAP backend.
+- Improvements:
+    - Able to sort by Display Name on mailing list and mail alias list page.
+    - Able to sort by Employee ID on user list page.
+    - [fail2ban] No more delay while unbanning IP address(es).
+    - Smoothly switch to new URI of admin panel (default is `/admin/`).
+    - Able to archive mailing list data while deleting domain.
+    - If no access policy is given while creating mail alias account, it will
+      be set to "moderators only" by default.
+    - [ldap] Display full dn while viewing LDIF data of account.
+    - Display quota usage on user profile page.
+    - Do not send quarantine notification to end user if domain doesn't enable
+      self service. Thanks to Espen.
+    - Re-enable Dovecot quota status service (was disabled in v1.5.0).
+- Fixed issues:
+    - [postfix] DKIM signature may be broken due to mime conversion handled by
+      Postfix internally.
+    - [nginx] Not block access to `composer.lock` under Roundcube root directory.
+    - [ldap] Cannot filter accounts based on first char of email address.
+    - [self-service] End user cannot see all received mails.
+      Thanks to Lance Reynolds.
+    - [self-service] Pagination doesn't work on Sent Mails / Received Mails pages.
+      Thanks to Lance Reynolds.
+    - [dovecot] Mailbox current quota usage didn't work on Debian 13 (trixie).
+      Thanks to pamartin64@forum.
+    - [dovecot] Mailbox quota limit didn't work on Debian 13 (trixie).
+      Thanks to pamartin64@forum.
+    - [nginx] Incorrect XML tag in autoconfig xml file.
+    - ACL for admin panel (`/admin/` by default) was (incorrectly) applied for
+      self-service endpoint (`/self-service/` by default).
+    - Per-domain password policy was not enforced while resetting password.
+      Thanks to Leon Koster.
+    - Pagination doesn't work on Activities page.
+    - Minor web UI tweaks.
+- Updated packages:
+    - Roundcube webmail 1.6.14 (security fixes)
+    - milter v1.5.0.
+        - fixed: Not correctly handle SMTP session which sends multiple emails in same session.
 
 ## v1.6.2, Feb 9, 2026 {: #v1.6.2 }
 
