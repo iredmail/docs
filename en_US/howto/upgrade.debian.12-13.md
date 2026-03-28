@@ -22,6 +22,7 @@
 
 ## Change Log
 
+- Mar 28, 2026: Fixed: incorrect mailbox usage info stored in `vmail.used_quota`.
 - Mar 6, 2026: [Fixed: not enable Dovecot plugin quota_clone](https://github.com/iredmail/iRedMail/commit/c5f33461f0cdece26f1b191af3a97d24b386ad07)
 - Feb 4, 2026: [Fixed: Mailbox quota limit didn't work](https://github.com/iredmail/docs/commit/4ce2e266de5291c89da3a3c1633cd79f0f116837). Thanks to pamartin64@forum.
 - Dec 23, 2025: Fixed: incorrect sieve settings in 3 `sieve_script XXX {}` sections.
@@ -125,8 +126,22 @@ pgsql 127.0.0.1 {
 - In our sample config file, we store mailboxes under `/var/vmail` directory,
   you may need to replace path prefix `/var/vmail` by the real path on your server.
 
-Please pay close attention to its log files under `/var/log/dovecot/`, report
-issues in [our forum](https://forum.iredmail.org/) if there's any error.
+Dovecot 2.4 uses different plugin to store mailbox usage info in SQL db,
+the SQL trigger used by Dovecot 2.3 doesn't work anymore and it causes wrong
+info stored in SQL, hence we need to create a new trigger for 2.4.
+
+Run commands below as root user to download and import prepared SQL file to
+apply SQL changes, and restart Dovecot service:
+
+```
+wget -O /tmp/trigger.pgsql \
+    https://raw.githubusercontent.com/iredmail/iRedMail/refs/heads/master/samples/iredmail/used_quota_triggers_dovecot_2.4.pgsql
+su - postgres -c "psql -d vmail -f /tmp/trigger.pgsql"
+systemctl restart dovecot
+```
+
+Please pay close attention to Dovecot log files under `/var/log/dovecot/`,
+report issues in [our forum](https://forum.iredmail.org/) if there's any error.
 
 ### For OpenLDAP backend
 

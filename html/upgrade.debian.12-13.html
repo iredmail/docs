@@ -150,8 +150,18 @@ issues in <a href="https://forum.iredmail.org/">our forum</a> if there's any err
 <li>In our sample config file, we store mailboxes under <code>/var/vmail</code> directory,
   you may need to replace path prefix <code>/var/vmail</code> by the real path on your server.</li>
 </ul>
-<p>Please pay close attention to its log files under <code>/var/log/dovecot/</code>, report
-issues in <a href="https://forum.iredmail.org/">our forum</a> if there's any error.</p>
+<p>Dovecot 2.4 uses different plugin to store mailbox usage info in SQL db,
+the SQL trigger used by Dovecot 2.3 doesn't work anymore and it causes wrong
+info stored in SQL, hence we need to create a new trigger for 2.4.</p>
+<p>Run commands below as root user to download and import prepared SQL file to
+apply SQL changes, and restart Dovecot service:</p>
+<pre><code>wget -O /tmp/trigger.pgsql \
+    https://raw.githubusercontent.com/iredmail/iRedMail/refs/heads/master/samples/iredmail/used_quota_triggers_dovecot_2.4.pgsql
+su - postgres -c &quot;psql -d vmail -f /tmp/trigger.pgsql&quot;
+systemctl restart dovecot
+</code></pre>
+<p>Please pay close attention to Dovecot log files under <code>/var/log/dovecot/</code>,
+report issues in <a href="https://forum.iredmail.org/">our forum</a> if there's any error.</p>
 <h3 id="for-openldap-backend">For OpenLDAP backend</h3>
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>
