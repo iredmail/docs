@@ -25,92 +25,119 @@
 <tr>
 <th>Version</th>
 <th>Release Date</th>
+<th></th>
 </tr>
 </thead>
 <tbody>
 <tr>
+<td><a href="#v1.7.1">v1.7.1</a></td>
+<td>2026-03-30</td>
+<td>Roundcube security fix</td>
+</tr>
+<tr>
 <td><a href="#v1.7.0">v1.7.0</a></td>
 <td>2026-03-26</td>
+<td>Roundcube security fix</td>
 </tr>
 <tr>
 <td><a href="#v1.6.2">v1.6.2</a></td>
 <td>2026-02-09</td>
+<td>Roundcube security fix</td>
 </tr>
 <tr>
 <td><a href="#v1.6.1">v1.6.1</a></td>
 <td>2026-01-16</td>
+<td></td>
 </tr>
 <tr>
 <td><a href="#v1.6.0">v1.6.0</a></td>
 <td>2025-12-29</td>
+<td>Roundcube security fix</td>
 </tr>
 <tr>
 <td><a href="#v1.5.1">v1.5.1</a></td>
 <td>2025-09-29</td>
+<td></td>
 </tr>
 <tr>
 <td><a href="#v1.5.0">v1.5.0</a></td>
 <td>2025-09-08</td>
+<td>Z-Push security fix</td>
 </tr>
 <tr>
 <td><a href="#v1.4.0">v1.4.0</a></td>
 <td>2025-07-11</td>
+<td></td>
 </tr>
 <tr>
 <td><a href="#v1.3.1">v1.3.1</a></td>
 <td>2025-06-03</td>
+<td>Roundcube security fix</td>
 </tr>
 <tr>
 <td><a href="#v1.3.0">v1.3.0</a></td>
 <td>2025-05-22</td>
+<td></td>
 </tr>
 <tr>
 <td><a href="#v1.2.1">v1.2.1</a></td>
 <td>2025-04-04</td>
+<td></td>
 </tr>
 <tr>
 <td><a href="#v1.2.0">v1.2.0</a></td>
 <td>2025-04-03</td>
+<td></td>
 </tr>
 <tr>
 <td><a href="#v1.1.0">v1.1.0</a></td>
 <td>2025-03-11</td>
+<td></td>
 </tr>
 <tr>
 <td><a href="#v1.0.2">v1.0.2</a></td>
 <td>2025-02-20</td>
+<td></td>
 </tr>
 <tr>
 <td><a href="#v1.0.1">v1.0.1</a></td>
 <td>2025-01-26</td>
+<td></td>
 </tr>
 <tr>
 <td><a href="#v1.0.0">v1.0.0</a></td>
 <td>2025-01-24</td>
+<td></td>
 </tr>
 <tr>
 <td><a href="#v1.0-beta9">v1.0-beta9</a></td>
 <td>2024-12-12</td>
+<td></td>
 </tr>
 <tr>
 <td><a href="#v1.0-beta8">v1.0-beta8</a></td>
 <td>2024-09-14</td>
+<td></td>
 </tr>
 <tr>
 <td><a href="#v1.0-beta7">v1.0-beta7</a></td>
 <td>2024-08-02</td>
+<td></td>
 </tr>
 <tr>
 <td><a href="#v1.0-beta6">v1.0-beta6</a></td>
 <td>2024-05-31</td>
+<td></td>
 </tr>
 <tr>
 <td><a href="#v1.0-beta5">v1.0-beta5</a></td>
 <td>2024-05-08</td>
+<td></td>
 </tr>
 <tr>
 <td><a href="#v1.0-beta4">v1.0-beta4</a></td>
 <td>2024-04-26</td>
+<td></td>
 </tr>
 </tbody>
 </table>
@@ -122,6 +149,26 @@
 <li><a href="https://docs.iredmail.org/ee.best.practice.html">Best Practice</a></li>
 <li><a href="./ee.ad.html">Replicate mail accounts from Microsoft Active Directory</a></li>
 <li><a href="./ee.remote.mysql.html">Use a Remote MySQL/MariaDB server as backend database</a></li>
+</ul>
+<h2 id="v1.7.1">v1.7.1, Mar 30, 2026</h2>
+<ul>
+<li>Improvements:<ul>
+<li>Able to update DKIM selector.</li>
+</ul>
+</li>
+<li>Fixed issues:<ul>
+<li>Not stop mlmmjadmin service before removing its systemd service file.
+  Thanks to Fabian Santiago.</li>
+<li>Domain admin cannot manage mailing list subscribers.</li>
+<li>Setting access policy for mailing list may fail.</li>
+<li>[dovecot] Incorrect quota usage info on user profile page.
+  Thanks to Serhii Zahuba.</li>
+</ul>
+</li>
+<li>Updated packages:<ul>
+<li>Roundcube webmail 1.6.15 (security fixes)</li>
+</ul>
+</li>
 </ul>
 <h2 id="v1.7.0">v1.7.0, Mar 26, 2026</h2>
 <ul>

@@ -4,29 +4,30 @@
 
 	 Check out the lightweight on-premises email archiving software developed by iRedMail team: [Spider Email Archiver](https://spiderd.io/).
 
-| Version | Release Date |
-|---|---|
-| [v1.7.0](#v1.7.0) | 2026-03-26 |
-| [v1.6.2](#v1.6.2) | 2026-02-09 |
-| [v1.6.1](#v1.6.1) | 2026-01-16 |
-| [v1.6.0](#v1.6.0) | 2025-12-29 |
-| [v1.5.1](#v1.5.1) | 2025-09-29 |
-| [v1.5.0](#v1.5.0) | 2025-09-08 |
-| [v1.4.0](#v1.4.0) | 2025-07-11 |
-| [v1.3.1](#v1.3.1) | 2025-06-03 |
-| [v1.3.0](#v1.3.0) | 2025-05-22 |
-| [v1.2.1](#v1.2.1) | 2025-04-04 |
-| [v1.2.0](#v1.2.0) | 2025-04-03 |
-| [v1.1.0](#v1.1.0) | 2025-03-11 |
-| [v1.0.2](#v1.0.2) | 2025-02-20 |
-| [v1.0.1](#v1.0.1) | 2025-01-26 |
-| [v1.0.0](#v1.0.0) | 2025-01-24 |
-| [v1.0-beta9](#v1.0-beta9) | 2024-12-12 |
-| [v1.0-beta8](#v1.0-beta8) | 2024-09-14 |
-| [v1.0-beta7](#v1.0-beta7) | 2024-08-02 |
-| [v1.0-beta6](#v1.0-beta6) | 2024-05-31 |
-| [v1.0-beta5](#v1.0-beta5) | 2024-05-08 |
-| [v1.0-beta4](#v1.0-beta4) | 2024-04-26 |
+| Version | Release Date ||
+|---|---|---|
+| [v1.7.1](#v1.7.1) | 2026-03-30 | Roundcube security fix |
+| [v1.7.0](#v1.7.0) | 2026-03-26 | Roundcube security fix |
+| [v1.6.2](#v1.6.2) | 2026-02-09 | Roundcube security fix |
+| [v1.6.1](#v1.6.1) | 2026-01-16 ||
+| [v1.6.0](#v1.6.0) | 2025-12-29 | Roundcube security fix |
+| [v1.5.1](#v1.5.1) | 2025-09-29 ||
+| [v1.5.0](#v1.5.0) | 2025-09-08 | Z-Push security fix |
+| [v1.4.0](#v1.4.0) | 2025-07-11 ||
+| [v1.3.1](#v1.3.1) | 2025-06-03 | Roundcube security fix |
+| [v1.3.0](#v1.3.0) | 2025-05-22 ||
+| [v1.2.1](#v1.2.1) | 2025-04-04 ||
+| [v1.2.0](#v1.2.0) | 2025-04-03 ||
+| [v1.1.0](#v1.1.0) | 2025-03-11 ||
+| [v1.0.2](#v1.0.2) | 2025-02-20 ||
+| [v1.0.1](#v1.0.1) | 2025-01-26 ||
+| [v1.0.0](#v1.0.0) | 2025-01-24 ||
+| [v1.0-beta9](#v1.0-beta9) | 2024-12-12 ||
+| [v1.0-beta8](#v1.0-beta8) | 2024-09-14 ||
+| [v1.0-beta7](#v1.0-beta7) | 2024-08-02 ||
+| [v1.0-beta6](#v1.0-beta6) | 2024-05-31 ||
+| [v1.0-beta5](#v1.0-beta5) | 2024-05-08 ||
+| [v1.0-beta4](#v1.0-beta4) | 2024-04-26 ||
 
 <br/>
 
@@ -36,6 +37,20 @@
 - [Best Practice](https://docs.iredmail.org/ee.best.practice.html)
 - [Replicate mail accounts from Microsoft Active Directory](./ee.ad.html)
 - [Use a Remote MySQL/MariaDB server as backend database](./ee.remote.mysql.html)
+
+## v1.7.1, Mar 30, 2026 {: #v1.7.1 }
+
+- Improvements:
+    - Able to update DKIM selector.
+- Fixed issues:
+    - Not stop mlmmjadmin service before removing its systemd service file.
+      Thanks to Fabian Santiago.
+    - Domain admin cannot manage mailing list subscribers.
+    - Setting access policy for mailing list may fail.
+    - [dovecot] Incorrect quota usage info on user profile page.
+      Thanks to Serhii Zahuba.
+- Updated packages:
+    - Roundcube webmail 1.6.15 (security fixes)
 
 ## v1.7.0, Mar 26, 2026 {: #v1.7.0 }
 
