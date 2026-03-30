@@ -50,7 +50,7 @@
     - [dovecot] Incorrect quota usage info on user profile page.
       Thanks to Serhii Zahuba.
 - Updated packages:
-    - Roundcube webmail 1.6.15 (security fixes)
+    - [Roundcube webmail 1.6.15 (security fix)](https://github.com/roundcube/roundcubemail/releases/tag/1.6.15)
 
 ## v1.7.0, Mar 26, 2026 {: #v1.7.0 }
 
@@ -101,7 +101,7 @@
     - Pagination doesn't work on Activities page.
     - Minor web UI tweaks.
 - Updated packages:
-    - Roundcube webmail 1.6.14 (security fixes)
+    - [Roundcube webmail 1.6.14 (security fixes)](https://github.com/roundcube/roundcubemail/releases/tag/1.6.14)
     - milter v1.5.0.
         - fixed: Not correctly handle SMTP session which sends multiple emails in same session.
 
