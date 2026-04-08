@@ -22,6 +22,7 @@
 
 ## Change Log
 
+- Apr 8, 2026: Fixed: missing `quota_status_*` parameters.
 - Mar 31, 2026: Fixed: not enable quota status service (port 12340).
 - Mar 28, 2026: Fixed: incorrect mailbox usage info stored in `vmail.used_quota`.
 - Mar 6, 2026: [Fixed: not enable Dovecot plugin quota_clone](https://github.com/iredmail/iRedMail/commit/c5f33461f0cdece26f1b191af3a97d24b386ad07)
