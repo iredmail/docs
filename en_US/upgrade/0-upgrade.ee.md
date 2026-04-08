@@ -29,7 +29,13 @@ click it to finish the upgrade.
 
 ![](./images/ee/dashboard-upgrade.png){: width="400px" }
 
+Since EE v1.7.2, if a later version contains security fixes, it will show you
+additional warning message like below:
+
+![](./images/ee/dashboard-upgrade-with-security-fixes.png){: width="600px" }
+
 ## See Also
 
-- [Install iRedMail Enterprise Edition](./install.ee.html)
+- [Best Practice](./ee.best.practice.html)
 - [ChangeLog of iRedMail Enterprise Edition](./ee.changelog.html)
+- [Install iRedMail Enterprise Edition](./install.ee.html)
