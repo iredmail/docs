@@ -6,6 +6,7 @@
 
 | Version | Release Date ||
 |---|---|---|
+| [v1.7.2](#v1.7.2) | 2026-04-10 | Golang v1.26.2 security fix |
 | [v1.7.1](#v1.7.1) | 2026-03-30 | Roundcube security fix |
 | [v1.7.0](#v1.7.0) | 2026-03-26 | Roundcube security fix |
 | [v1.6.2](#v1.6.2) | 2026-02-09 | Roundcube security fix |
@@ -37,6 +38,30 @@
 - [Best Practice](https://docs.iredmail.org/ee.best.practice.html)
 - [Replicate mail accounts from Microsoft Active Directory](./ee.ad.html)
 - [Use a Remote MySQL/MariaDB server as backend database](./ee.remote.mysql.html)
+
+## v1.7.2, April 10, 2026 {: #v1.7.2 }
+
+- Built with Golang v1.26.2 which addresses security vulnerabilities in
+  several standard packages. <https://go.dev/doc/devel/release#go1.26.2>
+- Improvements:
+    - Able to set selector and key length while creating DKIM key.
+    - [firewall] Able to add firewall rule with network port range (e.g. 1000-1005).
+    - [fail2ban] Replace action `iptables-multiport` by `firewallcmd-multiport`
+      on RedHat family OSes.
+    - [ad] Support renaming email address.
+    - [ad] Log all added/updated/removed accounts.
+    - [ad] Mention Bind DN requires domain admin privilege to query deleted
+      accounts for removing deleted account locally.
+    - Allow domain admin to create and delete DKIM keys.
+- Fixed issues:
+    - Not show all email headers while viewing full header of quarantined email.
+    - [postfix] Incorrect SQL lookup file for virtual mailboxes.
+      Thanks to TUCAN IT.
+    - [ad] Account was not removed locally after removed from Active Directory.
+      Thanks to Serhii Zahuba.
+    - [dovecot] Not enable quota-status service for Dovecot 2.4 (Debian 13).
+    - [dovecot] Missing quota_status_* parameters for Dovecot 2.4 (Debian 13).
+      Thanks to TUCAN IT.
 
 ## v1.7.1, Mar 30, 2026 {: #v1.7.1 }
 

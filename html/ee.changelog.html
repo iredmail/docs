@@ -30,6 +30,11 @@
 </thead>
 <tbody>
 <tr>
+<td><a href="#v1.7.2">v1.7.2</a></td>
+<td>2026-04-10</td>
+<td>Golang v1.26.2 security fix</td>
+</tr>
+<tr>
 <td><a href="#v1.7.1">v1.7.1</a></td>
 <td>2026-03-30</td>
 <td>Roundcube security fix</td>
@@ -149,6 +154,34 @@
 <li><a href="https://docs.iredmail.org/ee.best.practice.html">Best Practice</a></li>
 <li><a href="./ee.ad.html">Replicate mail accounts from Microsoft Active Directory</a></li>
 <li><a href="./ee.remote.mysql.html">Use a Remote MySQL/MariaDB server as backend database</a></li>
+</ul>
+<h2 id="v1.7.2">v1.7.2, April 10, 2026</h2>
+<ul>
+<li>Built with Golang v1.26.2 which addresses security vulnerabilities in
+  several standard packages. <a href="https://go.dev/doc/devel/release#go1.26.2">https://go.dev/doc/devel/release#go1.26.2</a></li>
+<li>Improvements:<ul>
+<li>Able to set selector and key length while creating DKIM key.</li>
+<li>[firewall] Able to add firewall rule with network port range (e.g. 1000-1005).</li>
+<li>[fail2ban] Replace action <code>iptables-multiport</code> by <code>firewallcmd-multiport</code>
+  on RedHat family OSes.</li>
+<li>[ad] Support renaming email address.</li>
+<li>[ad] Log all added/updated/removed accounts.</li>
+<li>[ad] Mention Bind DN requires domain admin privilege to query deleted
+  accounts for removing deleted account locally.</li>
+<li>Allow domain admin to create and delete DKIM keys.</li>
+</ul>
+</li>
+<li>Fixed issues:<ul>
+<li>Not show all email headers while viewing full header of quarantined email.</li>
+<li>[postfix] Incorrect SQL lookup file for virtual mailboxes.
+  Thanks to TUCAN IT.</li>
+<li>[ad] Account was not removed locally after removed from Active Directory.
+  Thanks to Serhii Zahuba.</li>
+<li>[dovecot] Not enable quota-status service for Dovecot 2.4 (Debian 13).</li>
+<li>[dovecot] Missing quota_status_* parameters for Dovecot 2.4 (Debian 13).
+  Thanks to TUCAN IT.</li>
+</ul>
+</li>
 </ul>
 <h2 id="v1.7.1">v1.7.1, Mar 30, 2026</h2>
 <ul>
