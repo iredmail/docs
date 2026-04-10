@@ -44,6 +44,8 @@
 - Built with Golang v1.26.2 which addresses security vulnerabilities in
   several standard packages. <https://go.dev/doc/devel/release#go1.26.2>
 - Improvements:
+    - Display additional warning message if a later version contains security
+      fixes.
     - Able to set selector and key length while creating DKIM key.
     - [firewall] Able to add firewall rule with network port range (e.g. 1000-1005).
     - [fail2ban] Replace action `iptables-multiport` by `firewallcmd-multiport`
