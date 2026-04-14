@@ -6,14 +6,6 @@
 
     This is still a DRAFT document, do __NOT__ apply it now.
 
-!!! warning "SOGo Groupware"
-
-    SOGo team doesn't offer binary packages for Debian 13 (and
-    [CentOS Stream 10](https://bugs.sogo.nu/view.php?id=6118) too) yet, so if
-    you're running SOGo on Debian 12, please wait for some more time and
-    [leave a reply in SOGo bug tracker](https://bugs.sogo.nu/view.php?id=6145)
-    to let them know you need it.
-
 !!! attention
 
     This tutorial is applicable for iRedMail Enterprise Edition, if you're
