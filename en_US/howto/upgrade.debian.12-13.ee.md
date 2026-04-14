@@ -12,6 +12,8 @@
     looking for tutorial for iRedMail open source edition, please check
     [this tutorial](./upgrade.debian.12-13.html) instead.
 
+[TOC]
+
 ## BEFORE OS upgrade
 
 - __PostgreSQL backend__: Run commands below to comment out `log_timezone` and
