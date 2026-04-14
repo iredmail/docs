@@ -14,8 +14,10 @@
 
 !!! warning
 
-    The bayesian classifier can only score new messages after it already learn
-    200 known spams and 200 known hams.
+    - This tutorial is NOT applicable for Dovecot 2.4 due to incompatible
+      config syntax.
+    - The bayesian classifier can only score new messages after it already learn
+      200 known spams and 200 known hams.
 
 ## Summary
 
@@ -35,8 +37,10 @@ server can precisely catch more spams.
 ## Requirements
 
 - A working iRedMail server.
-- Dovecot version 2.2.24 or later. `imap_sieve` plugin is available in version
-  2.2.24 and later releases.
+- Dovecot version 2.2.24 or later, 2.3.x.
+
+    `imap_sieve` plugin is available in Dovecot 2.2.24 and later releases.
+
     - CentOS 7 ships Dovecot-2.2.36
     - Debian 9 ships Dovecot-2.2.27
     - Ubuntu 16.04 ships Dovecot-2.2.22 (__WARNING: Not qualified__)

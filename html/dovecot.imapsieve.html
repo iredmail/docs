@@ -52,8 +52,12 @@ with our <a href="https://www.iredmail.org/easy.html">iRedMail Easy platform</a>
 </div>
 <div class="admonition warning">
 <p class="admonition-title">Warning</p>
-<p>The bayesian classifier can only score new messages after it already learn
-200 known spams and 200 known hams.</p>
+<ul>
+<li>This tutorial is NOT applicable for Dovecot 2.4 due to incompatible
+  config syntax.</li>
+<li>The bayesian classifier can only score new messages after it already learn
+  200 known spams and 200 known hams.</li>
+</ul>
 </div>
 <h2 id="summary">Summary</h2>
 <p>Dovecot offers plugin <code>imap_sieve</code> to run sieve script for spam/virus scanning,
@@ -69,8 +73,10 @@ server can precisely catch more spams.</p>
 <h2 id="requirements">Requirements</h2>
 <ul>
 <li>A working iRedMail server.</li>
-<li>Dovecot version 2.2.24 or later. <code>imap_sieve</code> plugin is available in version
-  2.2.24 and later releases.<ul>
+<li>
+<p>Dovecot version 2.2.24 or later, 2.3.x.</p>
+<p><code>imap_sieve</code> plugin is available in Dovecot 2.2.24 and later releases.</p>
+<ul>
 <li>CentOS 7 ships Dovecot-2.2.36</li>
 <li>Debian 9 ships Dovecot-2.2.27</li>
 <li>Ubuntu 16.04 ships Dovecot-2.2.22 (<strong>WARNING: Not qualified</strong>)</li>
