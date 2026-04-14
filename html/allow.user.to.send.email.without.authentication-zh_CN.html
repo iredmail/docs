@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title>允许用户无需身份验证发送邮件</title>
+        <title>允许用户在不使用 smtp 验证的情况下发送邮件</title>
         <link rel="stylesheet" type="text/css" href="./css/markdown.css" />
     </head>
     <body>
@@ -17,43 +17,84 @@
     </a>
     &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><div class="admonition note">
 <p class="admonition-title">This tutorial is available in other languages. <a href="https://github.com/iredmail/docs">Help translate more</a></p>
-<p><a href="./allow.user.to.send.email.without.authentication-it_IT.html">Italiano</a> /</p>
+<p><a href="./allow.user.to.send.email.without.authentication.html">English</a> /</p>
 </div>
-<h1 id="_1">允许用户无需身份验证发送邮件</h1>
+<h1 id="smtp">允许用户在不使用 smtp 验证的情况下发送邮件</h1>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<ul>
+<li>iRedMail team recommends <a href="https://www.iredmail.org/ee.html">iRedMail Enterprise Edition</a> for deploying new email server.</li>
+<li>Check out the lightweight on-premises email archiving software developed by iRedMail team: <a href="https://spiderd.io/">Spider Email Archiver</a>.</li>
+</ul>
+</div>
+<div class="toc">
+<ul>
+<li><a href="#smtp">允许用户在不使用 smtp 验证的情况下发送邮件</a><ul>
+<li><a href="#postfix">Postfix</a></li>
+</ul>
+</li>
+<li><a href="#iredapd">iRedAPD</a><ul>
+<li><a href="#_1">参考文献</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>此教程只适用于 iRedMail-0.9.9 以及更早的发行版。如果
+你正在使用一个更新的版本，请参照
+<a href="./allow.send.without.smtp.auth.html">这个教程</a>。</p>
+</div>
 <h2 id="postfix">Postfix</h2>
-<p>创建文本文件 <code>/etc/postfix/accepted_unauth_senders</code>，列出无需身份验证就可以
-发送邮件的用户邮件地址。下面以用户 <code>user@example.com</code> 为例：</p>
-<pre><code>user@example.com OK
+<p>创建一个纯文本文件： <code>/etc/postfix/sender_access.pcre</code> ，并在此文件中列出
+所有允许不使用 smtp 验证发送邮件的用户邮箱地址。
+在这里我们使用用户邮件地址 <code>user@example.com</code> 作为范例：</p>
+<pre><code>\^user@example\.com$/ OK
 </code></pre>
-<p>使用 <code>postmap</code> 命令建立哈希数据库文件：</p>
-<pre><code># postmap hash:/etc/postfix/accepted_unauth_senders
+<p>另外也可以使用 IP 地址</p>
+<blockquote>
+<p>关于更多接受的的发件人地址格式，请参照 Postfix 使用手册网站： <a href="http://www.postfix.org/access.5.html">access(5)</a> 。</p>
+</blockquote>
+<pre><code>/^192\.168\.1\.1$/ OK
+/^192\.168\.2\./   OK
+/^172\.16\./       OK
 </code></pre>
-<p>修改 Postfix 配置文件 <code>/etc/postfix/main.cf</code> 以使用该文件：</p>
-<pre><code>smtpd_sender_restrictions =
-    check_sender_access hash:/etc/postfix/accepted_unauth_senders,
+<p>更新 Postfix 配置文件 <code>/etc/postfix/main.cf</code> 来使用此 pcre 文件。</p>
+<pre><code>smtp_sender_restrictions = 
+    check_sender_access pcre:/etc/postfix/sender_access.pcre,
     [...OTHER RESTRICTIONS HERE...]
 </code></pre>
-<p>重启 postfix 服务以使设置生效：</p>
+<p>重启或重新加载 postfix 来应用此更改：</p>
 <pre><code># /etc/init.d/postfix restart
 </code></pre>
-<h2 id="iredapd">iRedAPD</h2>
-<p>iRedAPD 插件 <code>reject_sender_login_mismatch</code> 会检测伪造的发件人地址。如果发件人
-的域名在你的服务器托管，并且邮件不是经由 SMTP 验证发送的，就会被认为是伪造的
-发件人。这种情况下 iRedAPD 会直接拒收邮件（拒收提示信息为：<code>Policy rejection
-not logged in</code>），因此需要在 iRedAPD 里放行将该收件人邮件地址。如果邮件是由
-固定的内部网络设备发送（例如，打印机、传真机），可以直接放行 IP 地址。</p>
+<h1 id="iredapd">iRedAPD</h1>
+<p>iRedAPD 插件 <code>reject_sender_login_mismatch</code> 会检查伪造的发件人地址。
+如果说某发件人地址的域名是你的服务器上，但又没有 smtp 验证，任何携带此地址的邮件
+将会被认为是一个伪造的邮件。在此情况下，iRedAPD 会拦截此邮件
+（并输出拦截消息： <code>Policy rejection not logged in</code> )，所以说我们需要
+使其插件忽略某些发信人邮件地址。如果说某邮件是从一个类似于打印机或传真机的内网
+设备发出，我们则可以直接使用其 IP 地址来进行忽略。</p>
 <ul>
-<li>放行发件人邮件地址 <code>user@example.com</code>，请在  <code>/opt/iredapd/settings.py</code> 里
-  加以下参数：</li>
+<li>要忽略发信人地址 <code>user@example.com</code> ，请在 
+  <code>/opt/iredapd/settings.py</code> 中添加以下配置：</li>
 </ul>
 <pre><code>ALLOWED_FORGED_SENDERS = ['user@example.com']
 </code></pre>
 <ul>
-<li>放行发件人 IP 地址或网段，例如, <code>192.168.0.1</code> 和 <code>192.168.1.0/24</code>，请在
-  <code>/opt/iredapd/settings.py</code> 里加以下参数：</li>
+<li>要忽略某发信人的 IP 地址或网域，比如说 <code>192.168.0.1</code> 或 
+  <code>192.168.1.0/24</code> ，请在 <code>/opt/iredapd/settings.py</code> 中添加以下配置：</li>
 </ul>
 <pre><code>MYNETWORKS = ['192.168.0.1', '192.168.1.0/24']
 </code></pre>
-<p>修改后需要重启 iRedAPD 服务。</p><div class="footer">
+<p>更改 <code>/opt/iredapd/settings.py</code> 了以后，你必须重新启动 iRedAPD 服务。</p>
+<h2 id="_1">参考文献</h2>
+<ul>
+<li>Postfix 文档:<ul>
+<li><a href="http://www.postfix.org/postconf.5.html#check_sender_access">check_sender_access</a></li>
+<li>Manual page: <a href="http://www.postfix.org/access.5.html">access(5)</a></li>
+<li>Manual page: <a href="http://www.postfix.org/pcre_table.5.html">pcre_table(5)</a></li>
+</ul>
+</li>
+</ul><div class="footer">
     <p style="text-align: center; color: grey;">All documents are available in <a href="https://github.com/iredmail/docs/">GitHub repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://github.com/iredmail/docs/archive/master.zip">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
 </div></body></html>

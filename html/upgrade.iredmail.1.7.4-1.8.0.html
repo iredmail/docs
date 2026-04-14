@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title>Upgrade iRedMail from 1.6.6 to 1.6.7</title>
+        <title>Upgrade iRedMail from 1.7.4 to 1.8.0</title>
         <link rel="stylesheet" type="text/css" href="./css/markdown.css" />
     </head>
     <body>
@@ -15,11 +15,7 @@
              />&nbsp;
         <span>iRedMail</span>
     </a>
-    &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><div class="admonition note">
-<p class="admonition-title">This tutorial is available in other languages. <a href="https://github.com/iredmail/docs">Help translate more</a></p>
-<p><a href="./upgrade.iredmail.1.6.6-1.6.7-nl_DU.html">Nederlands</a> /</p>
-</div>
-<h1 id="upgrade-iredmail-from-166-to-167">Upgrade iRedMail from 1.6.6 to 1.6.7</h1>
+    &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><h1 id="upgrade-iredmail-from-174-to-180">Upgrade iRedMail from 1.7.4 to 1.8.0</h1>
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>
 <ul>
@@ -29,12 +25,14 @@
 </div>
 <div class="toc">
 <ul>
-<li><a href="#upgrade-iredmail-from-166-to-167">Upgrade iRedMail from 1.6.6 to 1.6.7</a><ul>
+<li><a href="#upgrade-iredmail-from-174-to-180">Upgrade iRedMail from 1.7.4 to 1.8.0</a><ul>
 <li><a href="#changelog">ChangeLog</a></li>
 <li><a href="#general-all-backends-should-apply-these-changes">General (All backends should apply these changes)</a><ul>
 <li><a href="#update-etciredmail-release-with-new-iredmail-version-number">Update /etc/iredmail-release with new iRedMail version number</a></li>
-<li><a href="#upgrade-netdata-to-the-latest-stable-release-1431">Upgrade netdata to the latest stable release (1.43.1)</a></li>
-<li><a href="#upgrade-roundcube-webmail-to-the-latest-stable-release-165">Upgrade Roundcube webmail to the latest stable release (1.6.5)</a></li>
+<li><a href="#upgrade-iredapd-postfix-policy-server-to-the-latest-stable-release-61">Upgrade iRedAPD (Postfix policy server) to the latest stable release (6.1)</a></li>
+<li><a href="#upgrade-mlmmjadmin-to-the-latest-stable-release-362">Upgrade mlmmjadmin to the latest stable release (3.6.2)</a></li>
+<li><a href="#upgrade-roundcube-webmail-to-the-latest-release-1615-or-1515">Upgrade Roundcube webmail to the latest release (1.6.15 or 1.5.15)</a></li>
+<li><a href="#upgrade-netdata-to-the-latest-stable-release-v2101">Upgrade netdata to the latest stable release (v2.10.1)</a></li>
 </ul>
 </li>
 </ul>
@@ -47,19 +45,31 @@
 </div>
 <h2 id="changelog">ChangeLog</h2>
 <ul>
-<li>Nov 9, 2023: initial publish.</li>
+<li>Apr 14, 2026: initial publish.</li>
 </ul>
 <h2 id="general-all-backends-should-apply-these-changes">General (All backends should apply these changes)</h2>
 <h3 id="update-etciredmail-release-with-new-iredmail-version-number">Update <code>/etc/iredmail-release</code> with new iRedMail version number</h3>
 <p>iRedMail stores the release version in <code>/etc/iredmail-release</code> after
 installation, it's recommended to update this file after you upgraded iRedMail,
 so that you can know which version of iRedMail you're running. For example:</p>
-<pre><code>1.6.7
+<pre><code>1.8.0
 </code></pre>
-<h3 id="upgrade-netdata-to-the-latest-stable-release-1431">Upgrade netdata to the latest stable release (1.43.1)</h3>
-<p>If you have netdata installed, you can upgrade it by following this tutorial:
-<a href="./upgrade.netdata.html">Upgrade netdata</a>.</p>
-<h3 id="upgrade-roundcube-webmail-to-the-latest-stable-release-165">Upgrade Roundcube webmail to the latest stable release (1.6.5)</h3>
+<h3 id="upgrade-iredapd-postfix-policy-server-to-the-latest-stable-release-61">Upgrade iRedAPD (Postfix policy server) to the latest stable release (6.1)</h3>
+<p>Please follow below tutorial to upgrade iRedAPD to the latest stable release:
+<a href="./upgrade.iredapd.html">Upgrade iRedAPD to the latest stable release</a></p>
+<h3 id="upgrade-mlmmjadmin-to-the-latest-stable-release-362">Upgrade mlmmjadmin to the latest stable release (3.6.2)</h3>
+<p>Please follow below tutorial to upgrade mlmmjadmin to the latest stable release:
+<a href="./upgrade.mlmmjadmin.html">Upgrade mlmmjadmin to the latest stable release</a></p>
+<h3 id="upgrade-roundcube-webmail-to-the-latest-release-1615-or-1515">Upgrade Roundcube webmail to the latest release (1.6.15 or 1.5.15)</h3>
+<div class="admonition warning">
+<p class="admonition-title">Roundcube Security Fixes</p>
+<ul>
+<li><a href="https://roundcube.net/news/2025/12/13/security-updates-1.6.12-and-1.5.12">Roundcube 1.6.12 addressed 2 security vulnerabilities.</a></li>
+<li><a href="https://roundcube.net/news/2026/02/08/security-updates-1.6.13-and-1.5.13">Roundcube 1.6.13 addressed 2 security vulnerabilities.</a></li>
+<li><a href="https://roundcube.net/news/2026/03/18/security-updates-1.7-rc5-1.6.14-1.5.14">Roundcube 1.6.14 addressed 3 security vulnerabilities.</a></li>
+<li><a href="https://roundcube.net/news/2026/03/29/security-updates-1.7-rc6-1.6.15-1.5.15">Roundcube 1.6.15 addressed 1 security vulnerability.</a></li>
+</ul>
+</div>
 <div class="admonition warning">
 <p class="admonition-title">CentOS 7: please stick to Roundcube 1.5.2</p>
 <p><strong>It's time to leave your comfort zone and upgrade this server to at least
@@ -71,17 +81,14 @@ supported by Roundcube 1.5.3 and later releases, including 1.6.x.</p>
 which shipped in Roundcube 1.5.6 and 1.6.5.</strong></p>
 </div>
 <div class="admonition warning">
-<p class="admonition-title">Ubuntu 18.04: please stick to Roundcube 1.5.6</p>
-<p>Ubuntu 18.04 runs old php version, v1.5.6 contains the security fix too.
-Anyway, please consider upgrading your OS to at least 20.04 LTS as soon as
-possible.</p>
+<p class="admonition-title">Ubuntu 18.04: please stick to Roundcube 1.5.9</p>
+<p>Ubuntu 18.04 runs old php version which is not supported by Roundcube 1.6.</p>
 </div>
-<p>Roundcube v1.6.5 and 1.5.6 are security updates. <a href="https://roundcube.net/news/2023/11/05/security-updates-1.6.5-and-1.5.6">Both fix a cross-site
-scripting (XSS) vulnerability</a>.</p>
-<p>Please follow Roundcube official tutorial to upgrade Roundcube webmail to the
-latest stable release:</p>
 <ul>
-<li><a href="https://github.com/roundcube/roundcubemail/wiki/Upgrade">How to upgrade Roundcube</a>.</li>
-</ul><div class="footer">
+<li><a href="https://github.com/roundcube/roundcubemail/wiki/Upgrade">Upgrade Roundcube</a>.</li>
+</ul>
+<h3 id="upgrade-netdata-to-the-latest-stable-release-v2101">Upgrade netdata to the latest stable release (v2.10.1)</h3>
+<p>If you have netdata installed, you can upgrade it by following this tutorial:
+<a href="./upgrade.netdata.html">Upgrade netdata</a>.</p><div class="footer">
     <p style="text-align: center; color: grey;">All documents are available in <a href="https://github.com/iredmail/docs/">GitHub repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://github.com/iredmail/docs/archive/master.zip">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
 </div></body></html>

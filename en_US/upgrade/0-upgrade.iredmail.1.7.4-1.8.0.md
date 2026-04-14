@@ -1,4 +1,4 @@
-# Upgrade iRedMail from 1.7.3 to 1.7.4
+# Upgrade iRedMail from 1.7.4 to 1.8.0
 
 !!! attention
 
@@ -13,7 +13,7 @@
 
 ## ChangeLog
 
-- Jun 3, 2025: initial publish.
+- Apr 14, 2026: initial publish.
 
 ## General (All backends should apply these changes)
 
@@ -24,20 +24,27 @@ installation, it's recommended to update this file after you upgraded iRedMail,
 so that you can know which version of iRedMail you're running. For example:
 
 ```
-1.7.4
+1.8.0
 ```
 
-### Upgrade iRedAPD (Postfix policy server) to the latest stable release (5.9.1)
+### Upgrade iRedAPD (Postfix policy server) to the latest stable release (6.1)
 
 Please follow below tutorial to upgrade iRedAPD to the latest stable release:
 [Upgrade iRedAPD to the latest stable release](./upgrade.iredapd.html)
 
-### Upgrade mlmmjadmin to the latest stable release (3.4.0)
+### Upgrade mlmmjadmin to the latest stable release (3.6.2)
 
 Please follow below tutorial to upgrade mlmmjadmin to the latest stable release:
 [Upgrade mlmmjadmin to the latest stable release](./upgrade.mlmmjadmin.html)
 
-### Upgrade Roundcube webmail to the latest stable release (1.6.11 or 1.5.10)
+### Upgrade Roundcube webmail to the latest release (1.6.15 or 1.5.15)
+
+!!! warning "Roundcube Security Fixes"
+
+    - [Roundcube 1.6.12 addressed 2 security vulnerabilities.](https://roundcube.net/news/2025/12/13/security-updates-1.6.12-and-1.5.12)
+    - [Roundcube 1.6.13 addressed 2 security vulnerabilities.](https://roundcube.net/news/2026/02/08/security-updates-1.6.13-and-1.5.13)
+    - [Roundcube 1.6.14 addressed 3 security vulnerabilities.](https://roundcube.net/news/2026/03/18/security-updates-1.7-rc5-1.6.14-1.5.14)
+    - [Roundcube 1.6.15 addressed 1 security vulnerability.](https://roundcube.net/news/2026/03/29/security-updates-1.7-rc6-1.6.15-1.5.15)
 
 !!! warning "CentOS 7: please stick to Roundcube 1.5.2"
 
@@ -57,7 +64,7 @@ Please follow below tutorial to upgrade mlmmjadmin to the latest stable release:
 
 * [Upgrade Roundcube](https://github.com/roundcube/roundcubemail/wiki/Upgrade).
 
-### Upgrade netdata to the latest stable release (v2.5.2)
+### Upgrade netdata to the latest stable release (v2.10.1)
 
 If you have netdata installed, you can upgrade it by following this tutorial:
 [Upgrade netdata](./upgrade.netdata.html).
