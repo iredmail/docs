@@ -37,6 +37,11 @@ Please follow below tutorial to upgrade iRedAPD to the latest stable release:
 Please follow below tutorial to upgrade mlmmjadmin to the latest stable release:
 [Upgrade mlmmjadmin to the latest stable release](./upgrade.mlmmjadmin.html)
 
+### Upgrade iRedAdmin (open source edition) to the latest stable release (2.8.1)
+
+Please follow below tutorial to upgrade iRedAdmin to the latest stable release:
+[Upgrade iRedAdmin to the latest stable release](./migrate.or.upgrade.iredadmin.html).
+
 ### Upgrade Roundcube webmail to the latest release (1.6.15 or 1.5.15)
 
 !!! warning "Roundcube Security Fixes"
