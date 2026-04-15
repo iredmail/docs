@@ -24,7 +24,7 @@
 ## Nginx
 
 - Open file `/etc/nginx/sites-available/00-default-ssl.conf`, remove `http2` in
-  `listen` directivies:
+  `listen` directives:
 ```
     listen 443 ssl http2;           # Remove `http2`
     listen [::]:443 ssl http2;      # Remove `http2`
