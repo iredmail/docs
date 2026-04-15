@@ -81,16 +81,10 @@ Verify the FQDN hostname. If it wasn't changed, please reboot server to make it 
 mx.example.com
 ```
 
-### Update ports tree via portsnap
-
-```
-# portsnap fetch extract update
-```
-
-### Install package `bash-static`, it's required by iRedMail
+### Install packages required by iRedMail installer
 
 ```bash
-# pkg install bash-static
+pkg install bash cdialog
 ```
 
 ### Download the latest release of iRedMail
@@ -105,8 +99,8 @@ mx.example.com
 * Uncompress iRedMail tarball:
 
 ```
-# cd /root/
-# tar zxf iRedMail-x.y.z.tar.gz
+cd /root/
+tar zxf iRedMail-x.y.z.tar.gz
 ```
 
 ## Start iRedMail installer
@@ -114,9 +108,9 @@ mx.example.com
 It's now ready to start iRedMail installer, it will ask you several simple
 questions, that's all required to setup a full-featured mail server.
 
-```
-# cd /root/iRedMail-x.y.z/
-# bash iRedMail.sh
+```shell
+cd /root/iRedMail-x.y.z/
+bash iRedMail.sh
 ```
 
 ## Screenshots of installation:

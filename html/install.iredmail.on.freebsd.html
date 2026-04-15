@@ -33,8 +33,7 @@
 <li><a href="#system-requirements">System Requirements</a></li>
 <li><a href="#preparations">Preparations</a><ul>
 <li><a href="#set-a-fully-qualified-domain-name-fqdn-hostname-on-your-server">Set a fully qualified domain name (FQDN) hostname on your server</a></li>
-<li><a href="#update-ports-tree-via-portsnap">Update ports tree via portsnap</a></li>
-<li><a href="#install-package-bash-static-its-required-by-iredmail">Install package bash-static, it's required by iRedMail</a></li>
+<li><a href="#install-packages-required-by-iredmail-installer">Install packages required by iRedMail installer</a></li>
 <li><a href="#download-the-latest-release-of-iredmail">Download the latest release of iRedMail</a></li>
 </ul>
 </li>
@@ -113,11 +112,8 @@ hostname=&quot;mx.example.com&quot;
 <pre><code># hostname -f
 mx.example.com
 </code></pre>
-<h3 id="update-ports-tree-via-portsnap">Update ports tree via portsnap</h3>
-<pre><code># portsnap fetch extract update
-</code></pre>
-<h3 id="install-package-bash-static-its-required-by-iredmail">Install package <code>bash-static</code>, it's required by iRedMail</h3>
-<pre><code class="language-bash"># pkg install bash-static
+<h3 id="install-packages-required-by-iredmail-installer">Install packages required by iRedMail installer</h3>
+<pre><code class="language-bash">pkg install bash cdialog
 </code></pre>
 <h3 id="download-the-latest-release-of-iredmail">Download the latest release of iRedMail</h3>
 <ul>
@@ -134,14 +130,14 @@ mx.example.com
 <p>Uncompress iRedMail tarball:</p>
 </li>
 </ul>
-<pre><code># cd /root/
-# tar zxf iRedMail-x.y.z.tar.gz
+<pre><code>cd /root/
+tar zxf iRedMail-x.y.z.tar.gz
 </code></pre>
 <h2 id="start-iredmail-installer">Start iRedMail installer</h2>
 <p>It's now ready to start iRedMail installer, it will ask you several simple
 questions, that's all required to setup a full-featured mail server.</p>
-<pre><code># cd /root/iRedMail-x.y.z/
-# bash iRedMail.sh
+<pre><code class="language-shell">cd /root/iRedMail-x.y.z/
+bash iRedMail.sh
 </code></pre>
 <h2 id="screenshots-of-installation">Screenshots of installation:</h2>
 <ul>

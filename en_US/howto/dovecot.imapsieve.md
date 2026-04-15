@@ -7,11 +7,6 @@
 
 [TOC]
 
-!!! attention
-
-    This feature is enabled by default if your iRedMail server was deployed
-    with our [iRedMail Easy platform](https://www.iredmail.org/easy.html).
-
 !!! warning
 
     - This tutorial is NOT applicable for Dovecot 2.4 due to incompatible
