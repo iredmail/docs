@@ -21,12 +21,6 @@
 - Feb 4, 2026: [Fixed: Mailbox quota limit didn't work](https://github.com/iredmail/docs/commit/4ce2e266de5291c89da3a3c1633cd79f0f116837). Thanks to pamartin64@forum.
 - Dec 23, 2025: Fixed: incorrect sieve settings in 3 `sieve_script XXX {}` sections.
 
-## Postfix
-
-- Make sure you do not have line `check_policy_service inet:127.0.0.1:12340`
-  in `/etc/postfix/main.cf`, because Dovecot is configured to not offer this
-  service. Restart postfix after removed the line.
-
 ## Nginx
 
 - Open file `/etc/nginx/sites-available/00-default-ssl.conf`, remove `http2` in

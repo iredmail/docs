@@ -30,7 +30,6 @@ looking for tutorial for iRedMail Enterprise Edition, please check
 <ul>
 <li><a href="#fixes-you-need-after-upgrading-debian-from-12-to-13-trixie">Fixes you need after upgrading Debian from 12 to 13 (trixie)</a><ul>
 <li><a href="#change-log">Change Log</a></li>
-<li><a href="#postfix">Postfix</a></li>
 <li><a href="#nginx">Nginx</a></li>
 <li><a href="#php-fpm">php-fpm</a></li>
 <li><a href="#dovecot">Dovecot</a><ul>
@@ -53,12 +52,6 @@ looking for tutorial for iRedMail Enterprise Edition, please check
 <li>Mar 6, 2026: <a href="https://github.com/iredmail/iRedMail/commit/c5f33461f0cdece26f1b191af3a97d24b386ad07">Fixed: not enable Dovecot plugin quota_clone</a></li>
 <li>Feb 4, 2026: <a href="https://github.com/iredmail/docs/commit/4ce2e266de5291c89da3a3c1633cd79f0f116837">Fixed: Mailbox quota limit didn't work</a>. Thanks to pamartin64@forum.</li>
 <li>Dec 23, 2025: Fixed: incorrect sieve settings in 3 <code>sieve_script XXX {}</code> sections.</li>
-</ul>
-<h2 id="postfix">Postfix</h2>
-<ul>
-<li>Make sure you do not have line <code>check_policy_service inet:127.0.0.1:12340</code>
-  in <code>/etc/postfix/main.cf</code>, because Dovecot is configured to not offer this
-  service. Restart postfix after removed the line.</li>
 </ul>
 <h2 id="nginx">Nginx</h2>
 <ul>
