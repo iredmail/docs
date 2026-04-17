@@ -97,7 +97,6 @@ We will create few directories and files used by `imap_sieve` plugin:
 * Directories:
     - `/etc/dovecot/sieve/pipe`: used to store script called by `imap_sieve` plugin.
     - `/var/vmail/imapsieve_copy`: used to store reported spam/ham emails.
-    - `/var/vmail/imapsieve_copy`: used to store reported spam/ham emails.
     - `/var/vmail/sieve/global`: used for global sieve scripts.
     - `/var/vmail/sieve/imap-spam`: used for global scripts, but in the **imap context**.
 
