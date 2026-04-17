@@ -76,7 +76,7 @@ mailbox Junk {
     sieve_script report_spam {
         type = before
         cause = copy append
-        path = /var/vmail/sieve/report_spam.sieve
+        path = /var/vmail/sieve/imap-spam/report_spam.sieve
     }
 }
 
@@ -85,13 +85,10 @@ imapsieve_from Junk {
     sieve_script report_ham {
         type = before
         cause = copy
-        path = /var/vmail/sieve/report_ham.sieve
+        path = /var/vmail/sieve/imap-spam/report_ham.sieve
     }
 }
 ```
-!!! attention
-
-    The entire text below was copied from the [dovecot 2.3 variant](./dovecot.imapsieve.html) version. So **if** you comes from `doveot 2.3`, you can skip it. But maybe you want recheck everything!
 
 ## Create required directories and files
 
@@ -100,9 +97,16 @@ We will create few directories and files used by `imap_sieve` plugin:
 * Directories:
     - `/etc/dovecot/sieve/pipe`: used to store script called by `imap_sieve` plugin.
     - `/var/vmail/imapsieve_copy`: used to store reported spam/ham emails.
+    - `/var/vmail/imapsieve_copy`: used to store reported spam/ham emails.
+    - `/var/vmail/sieve/global`: used for global sieve scripts.
+    - `/var/vmail/sieve/imap-spam`: used for global scripts, but in the **imap context**.
+
+!!! attention
+    The last two dirs are new for dovecot 2.4.
+
 * Files:
-    - `/var/vmail/sieve/report_spam.sieve`: used to save a copy of reported spam.
-    - `/var/vmail/sieve/report_ham.sieve`: used to save a copy of reported ham.
+    - `/var/vmail/sieve/imap-spam/report_spam.sieve`: used to save a copy of reported spam.
+    - `/var/vmail/sieve/imap-spam/report_ham.sieve`: used to save a copy of reported ham.
 * Shell script:
     - `/etc/dovecot/sieve/pipe/imapsieve_copy`
 
@@ -110,12 +114,14 @@ Create directories:
 
 ```
 mkdir -p /etc/dovecot/sieve/pipe
+mkdir -p /var/vmail/sieve/global
+mkdir -p /var/vmail/sieve/imap-spam
 mkdir -p /var/vmail/imapsieve_copy
 chown vmail:vmail /var/vmail/imapsieve_copy
 chmod 0700 /var/vmail/imapsieve_copy
 ```
 
-Create file `/var/vmail/sieve/report_spam.sieve` with content below:
+Create file `/var/vmail/sieve/imap-spam/report_spam.sieve` with content below:
 
 ```
 require ["vnd.dovecot.pipe", "copy", "imapsieve", "environment", "variables"];
@@ -127,7 +133,7 @@ if environment :matches "imap.user" "*" {
 pipe :copy "imapsieve_copy" [ "${username}", "spam" ];
 ```
 
-Create file `/var/vmail/sieve/report_ham.sieve` with content below:
+Create file `/var/vmail/sieve/imap-spam/report_ham.sieve` with content below:
 
 ```
 require ["vnd.dovecot.pipe", "copy", "imapsieve", "environment", "variables"];
@@ -184,11 +190,11 @@ cat > ${FILE} < /dev/stdin
 Set correct file owner and permissions:
 
 ```
-chown vmail:vmail /var/vmail/sieve/report_spam.sieve \
+chown vmail:vmail /var/vmail/sieve/imap-spam/report_spam.sieve \
     /var/vmail/sieve/report_ham.sieve \
     /etc/dovecot/sieve/pipe/imapsieve_copy
 
-chmod 0700 /var/vmail/sieve/report_spam.sieve \
+chmod 0700 /var/vmail/sieve/imap-spam/report_spam.sieve \
     /var/vmail/sieve/report_ham.sieve \
     /etc/dovecot/sieve/pipe/imapsieve_copy
 ```
