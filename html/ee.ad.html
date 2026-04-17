@@ -92,6 +92,10 @@ will redirect to replication management page.</p>
 <li><strong><code>Bind DN</code></strong>: The full LDAP dn used to login to AD. This bind dn is used to
   search all user / group accounts under base dn.</li>
 <li><strong><code>Bind Password</code></strong>: Password of the bind dn.</li>
+<li><strong><code>User Filter</code></strong>: The LDAP filter used to query against AD to find mail users.
+  Default is <code>(|(objectClass=user)(objectClass=person))</code>.</li>
+<li><strong><code>Group Filter</code></strong>: The LDAP filter used to query against AD to find mail groups.
+  Default is <code>(objectClass=group)</code>.</li>
 </ul>
 <p><img alt="" src="./images/ee/account-resource/ad-connection.png" width="800px" /></p>
 <p>After inputed all values, please click the <strong><code>Test connection</code></strong> link to
@@ -122,8 +126,6 @@ message. You can verify the retrieved attributes.</p>
 <p><img alt="" src="./images/ee/account-resource/ad-replication.png" width="800px" /></p>
 <p>Click <strong><code>Users</code></strong> tab:</p>
 <ul>
-<li><strong><code>LDAP Filter</code></strong>: The LDAP filter used to query against AD to find mail users.
-  Default is <code>(|(objectClass=user)(objectClass=person))</code>.</li>
 <li><strong><code>Get full email address from attribute</code></strong>: Set the LDAP attribute name which
   stores account's full email address on AD.<ul>
 <li>You can select from pre-defined attributes, or input your own one if the

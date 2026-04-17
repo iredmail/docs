@@ -66,6 +66,10 @@ Fill AD server related settings under __`Connection`__ tab.
 - __`Bind DN`__: The full LDAP dn used to login to AD. This bind dn is used to
   search all user / group accounts under base dn.
 - __`Bind Password`__: Password of the bind dn.
+- __`User Filter`__: The LDAP filter used to query against AD to find mail users.
+  Default is `(|(objectClass=user)(objectClass=person))`.
+- __`Group Filter`__: The LDAP filter used to query against AD to find mail groups.
+  Default is `(objectClass=group)`.
 
 ![](./images/ee/account-resource/ad-connection.png){: width="800px" }
 
@@ -98,8 +102,6 @@ Click `Save Changes` if you made some changes.
 
 Click __`Users`__ tab:
 
-- __`LDAP Filter`__: The LDAP filter used to query against AD to find mail users.
-  Default is `(|(objectClass=user)(objectClass=person))`.
 - __`Get full email address from attribute`__: Set the LDAP attribute name which
   stores account's full email address on AD.
     - You can select from pre-defined attributes, or input your own one if the
