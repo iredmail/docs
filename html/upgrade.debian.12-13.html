@@ -46,6 +46,7 @@ looking for tutorial for iRedMail Enterprise Edition, please check
 </div>
 <h2 id="change-log">Change Log</h2>
 <ul>
+<li>Apr 22, 2026: Update SOGo section.</li>
 <li>Apr 8, 2026: Fixed: missing <code>quota_status_*</code> parameters.</li>
 <li>Mar 31, 2026: Fixed: not enable quota status service (port 12340).</li>
 <li>Mar 28, 2026: Fixed: incorrect mailbox usage info stored in <code>vmail.used_quota</code>.</li>
@@ -199,10 +200,18 @@ because the Python environment changed after OS upgrade.</p>
 <li><a href="./migrate.or.upgrade.iredadmin.html">Upgrade iRedAdmin(-Pro)</a></li>
 </ul>
 <h2 id="sogo-groupware">SOGo Groupware</h2>
-<p>SOGo team doesn't offer binary packages for Debian 13 (and
-<a href="https://bugs.sogo.nu/view.php?id=6118">CentOS Stream 10</a> too) yet, so if
-you're running SOGo on Debian 12, please wait for some more time and
-<a href="https://bugs.sogo.nu/view.php?id=6145">leave a reply in SOGo bug tracker</a>
-to let them know you need it.</p><div class="footer">
+<p>SOGo uses a new apt repo for Debian 13, please replace full content in file
+<code>/etc/apt/sources.list.d/sogo-nightly.list</code> by below line:</p>
+<pre><code>deb https://packagingv2.sogo.nu/sogo-nightly-debian trixie main
+</code></pre>
+<p>Then run commands to upgrade SOGo packages:</p>
+<pre><code class="language-shell">apt update
+apt upgrade
+</code></pre>
+<p>One directory has been changed too, please open file <code>/etc/nginx/templates/sogo.tmpl</code>,
+replace all <code>/usr/lib/GNUstep/SOGo</code> by <code>/usr/lib/x86_64-linux-gnu/GNUstep/SOGo</code>,
+then restart <code>nginx</code> service:</p>
+<pre><code class="language-shell">systemctl restart nginx
+</code></pre><div class="footer">
     <p style="text-align: center; color: grey;">All documents are available in <a href="https://github.com/iredmail/docs/">GitHub repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://github.com/iredmail/docs/archive/master.zip">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
 </div></body></html>

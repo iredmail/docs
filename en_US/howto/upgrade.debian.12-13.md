@@ -14,6 +14,7 @@
 
 ## Change Log
 
+- Apr 22, 2026: Update SOGo section.
 - Apr 8, 2026: Fixed: missing `quota_status_*` parameters.
 - Mar 31, 2026: Fixed: not enable quota status service (port 12340).
 - Mar 28, 2026: Fixed: incorrect mailbox usage info stored in `vmail.used_quota`.
@@ -182,8 +183,23 @@ because the Python environment changed after OS upgrade.
 
 ## SOGo Groupware
 
-SOGo team doesn't offer binary packages for Debian 13 (and
-[CentOS Stream 10](https://bugs.sogo.nu/view.php?id=6118) too) yet, so if
-you're running SOGo on Debian 12, please wait for some more time and
-[leave a reply in SOGo bug tracker](https://bugs.sogo.nu/view.php?id=6145)
-to let them know you need it.
+SOGo uses a new apt repo for Debian 13, please replace full content in file
+`/etc/apt/sources.list.d/sogo-nightly.list` by below line:
+
+```
+deb https://packagingv2.sogo.nu/sogo-nightly-debian trixie main
+```
+
+Then run commands to upgrade SOGo packages:
+```shell
+apt update
+apt upgrade
+```
+
+One directory has been changed too, please open file `/etc/nginx/templates/sogo.tmpl`,
+replace all `/usr/lib/GNUstep/SOGo` by `/usr/lib/x86_64-linux-gnu/GNUstep/SOGo`,
+then restart `nginx` service:
+
+```shell
+systemctl restart nginx
+```
