@@ -385,6 +385,25 @@ All your custom settings should be placed in
 __`/opt/iredmail/custom/roundcube/custom.inc.php`__, and do __NOT__
 touch main config file `/opt/www/roundcubemail/config/config.inc.php`.
 
+#### Custom logo image
+
+- Upload your logo image to `/opt/iredmail/custom/roundcube/images/logo.png`.
+
+    - You're free to use different image format and file name, we use `logo.png`
+      for example here.
+    - This directory is linked to `/opt/www/roundcubemail/images/`.
+
+- Add config in `/opt/iredmail/custom/roundcube/custom.inc.php`:
+
+```
+$config["skin_logo"] = "images/logo.png";
+```
+
+Refresh the webmail page and you will see new logo image.
+
+Roundcube supports advanced customization, please check sample settings in
+file `/opt/www/roundcubemail/config/defaults.inc.php` for more details.
+
 #### Third-party or custom plugins
 
 All third-party or custom plugins should be placed under __`/opt/iredmail/custom/roundcube/plugins/`__.

@@ -41,6 +41,7 @@
 <li><a href="#dovecot">Dovecot</a></li>
 <li><a href="#roundcube">Roundcube</a><ul>
 <li><a href="#custom-global-settings">Custom global settings</a></li>
+<li><a href="#custom-logo-image">Custom logo image</a></li>
 <li><a href="#third-party-or-custom-plugins">Third-party or custom plugins</a></li>
 <li><a href="#third-party-or-custom-skins">Third-party or custom skins</a></li>
 <li><a href="#custom-settings-for-official-plugins">Custom settings for official plugins</a></li>
@@ -500,6 +501,25 @@ overrode by the last one.</p>
 <p>All your custom settings should be placed in
 <strong><code>/opt/iredmail/custom/roundcube/custom.inc.php</code></strong>, and do <strong>NOT</strong>
 touch main config file <code>/opt/www/roundcubemail/config/config.inc.php</code>.</p>
+<h4 id="custom-logo-image">Custom logo image</h4>
+<ul>
+<li>
+<p>Upload your logo image to <code>/opt/iredmail/custom/roundcube/images/logo.png</code>.</p>
+<ul>
+<li>You're free to use different image format and file name, we use <code>logo.png</code>
+  for example here.</li>
+<li>This directory is linked to <code>/opt/www/roundcubemail/images/</code>.</li>
+</ul>
+</li>
+<li>
+<p>Add config in <code>/opt/iredmail/custom/roundcube/custom.inc.php</code>:</p>
+</li>
+</ul>
+<pre><code>$config[&quot;skin_logo&quot;] = &quot;images/logo.png&quot;;
+</code></pre>
+<p>Refresh the webmail page and you will see new logo image.</p>
+<p>Roundcube supports advanced customization, please check sample settings in
+file <code>/opt/www/roundcubemail/config/defaults.inc.php</code> for more details.</p>
 <h4 id="third-party-or-custom-plugins">Third-party or custom plugins</h4>
 <p>All third-party or custom plugins should be placed under <strong><code>/opt/iredmail/custom/roundcube/plugins/</code></strong>.</p>
 <p>Plugins will be linked to <code>/opt/www/roundcubemail/plugins/</code> automatically
