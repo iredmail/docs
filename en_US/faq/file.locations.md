@@ -130,6 +130,15 @@ Main config file:
 * on FreeBSD: `/var/db/mysql/my.cnf`.
 * on OpenBSD: `/etc/my.cnf`.
 
+## PostgreSQL {: #pgsql }
+
+Main config file:
+
+* on RHEL/CentOS: `/var/lib/pgsql/postgresql.conf`
+* on Debian/Ubuntu: `/etc/postgresql/<VERSION>/main/postgresql.conf`
+* on FreeBSD: `/var/db/postgres/postgresql.conf`
+* on OpenBSD: `/var/postgresql/data/postgresql.conf`
+
 ## Roundcube webmail {: #roundcube }
 
 * Root Directory. Roundcube webmail is installed under below directory by default:

@@ -262,6 +262,29 @@ ssl-cert = /etc/ssl/certs/iRedMail.crt
 ssl-key = /etc/ssl/private/iRedMail.key
 ```
 
+### PostgreSQL
+
+Update parameters in `postgresql.conf`:
+
+* on RHEL/CentOS: `/var/lib/pgsql/postgresql.conf`
+* on Debian/Ubuntu: `/etc/postgresql/<VERSION>/main/postgresql.conf`
+* on FreeBSD: `/var/db/postgres/postgresql.conf`
+* on OpenBSD: `/var/postgresql/data/postgresql.conf`
+
+```
+ssl = on
+ssl_cert_file = '/etc/ssl/certs/iRedMail.crt'
+ssl_key_file = '/etc/ssl/private/iRedMail.key'
+```
+
+On Linux machines, PostgreSQL daemon user may not have permission to read
+cert/key files, please grant permission with `setfacl`:
+
+```
+setfacl -m u:postgres:r /etc/ssl/certs/iRedMail.crt
+setfacl -m u:postgres:r /etc/ssl/private/iRedMail.key
+```
+
 ### OpenLDAP
 
 > If OpenLDAP is listening on localhost and not accessible from external

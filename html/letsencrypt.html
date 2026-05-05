@@ -50,6 +50,7 @@ plase check <a href="./letsencrypt-easy.html">this one</a> instead.</p>
 <li><a href="#dovecot">Dovecot</a></li>
 <li><a href="#nginx">Nginx</a></li>
 <li><a href="#mysql-mariadb">MySQL, MariaDB</a></li>
+<li><a href="#postgresql">PostgreSQL</a></li>
 <li><a href="#openldap">OpenLDAP</a></li>
 </ul>
 </li>
@@ -267,6 +268,23 @@ network, this is OPTIONAL.</p>
 ssl-ca = /etc/ssl/certs/iRedMail.crt
 ssl-cert = /etc/ssl/certs/iRedMail.crt
 ssl-key = /etc/ssl/private/iRedMail.key
+</code></pre>
+<h3 id="postgresql">PostgreSQL</h3>
+<p>Update parameters in <code>postgresql.conf</code>:</p>
+<ul>
+<li>on RHEL/CentOS: <code>/var/lib/pgsql/postgresql.conf</code></li>
+<li>on Debian/Ubuntu: <code>/etc/postgresql/&lt;VERSION&gt;/main/postgresql.conf</code></li>
+<li>on FreeBSD: <code>/var/db/postgres/postgresql.conf</code></li>
+<li>on OpenBSD: <code>/var/postgresql/data/postgresql.conf</code></li>
+</ul>
+<pre><code>ssl = on
+ssl_cert_file = '/etc/ssl/certs/iRedMail.crt'
+ssl_key_file = '/etc/ssl/private/iRedMail.key'
+</code></pre>
+<p>On Linux machines, PostgreSQL daemon user may not have permission to read
+cert/key files, please grant permission with <code>setfacl</code>:</p>
+<pre><code>setfacl -m u:postgres:r /etc/ssl/certs/iRedMail.crt
+setfacl -m u:postgres:r /etc/ssl/private/iRedMail.key
 </code></pre>
 <h3 id="openldap">OpenLDAP</h3>
 <blockquote>
