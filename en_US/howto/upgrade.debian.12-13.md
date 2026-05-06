@@ -14,6 +14,7 @@
 
 ## Change Log
 
+- May 6, 2026: Fixed: not generate file `/etc/ssl/dhparam2048.pem`.
 - Apr 22, 2026: Update SOGo section.
 - Apr 8, 2026: Fixed: missing `quota_status_*` parameters.
 - Mar 31, 2026: Fixed: not enable quota status service (port 12340).
@@ -58,6 +59,12 @@ We generate sample Dovecot config files with
 [iRedMail Enterprise Edition](https://www.iredmail.org/ee.html) ("EE" for short), you
 just need to replace `/etc/dovecot/dovecot.conf` by the sample one and update
 few parameters.
+
+Generate a dh param file first:
+
+```
+openssl dhparam -out /etc/ssl/dhparam2048.pem 2048
+```
 
 ### For MariaDB backend
 

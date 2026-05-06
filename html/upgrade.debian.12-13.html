@@ -46,6 +46,7 @@ looking for tutorial for iRedMail Enterprise Edition, please check
 </div>
 <h2 id="change-log">Change Log</h2>
 <ul>
+<li>May 6, 2026: Fixed: not generate file <code>/etc/ssl/dhparam2048.pem</code>.</li>
 <li>Apr 22, 2026: Update SOGo section.</li>
 <li>Apr 8, 2026: Fixed: missing <code>quota_status_*</code> parameters.</li>
 <li>Mar 31, 2026: Fixed: not enable quota status service (port 12340).</li>
@@ -83,6 +84,9 @@ We generate sample Dovecot config files with
 <a href="https://www.iredmail.org/ee.html">iRedMail Enterprise Edition</a> ("EE" for short), you
 just need to replace <code>/etc/dovecot/dovecot.conf</code> by the sample one and update
 few parameters.</p>
+<p>Generate a dh param file first:</p>
+<pre><code>openssl dhparam -out /etc/ssl/dhparam2048.pem 2048
+</code></pre>
 <h3 id="for-mariadb-backend">For MariaDB backend</h3>
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>
