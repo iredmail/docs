@@ -120,7 +120,12 @@ message. You can verify the retrieved attributes.</p>
 <li><strong><code>Delete accounts locally when they were removed from Active Directory</code></strong>:
   delete mail accounts and their application data (e.g. webmail preferences,
   calendar, contacts, per-user whitelists / blacklists, etc) on iRedMail server
-  when they were removed from Active Directory.</li>
+  when they were removed from Active Directory.<ul>
+<li><code>NOTE</code>: Bind DN must have domain admin privilege, otherwise it cannot
+  find deleted accounts, hence EE cannot delete accounts locally when they
+  were removed from AD.</li>
+</ul>
+</li>
 </ul>
 <p>Click <code>Save Changes</code> if you made some changes.</p>
 <p><img alt="" src="./images/ee/account-resource/ad-replication.png" width="800px" /></p>

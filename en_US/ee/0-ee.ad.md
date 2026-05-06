@@ -95,6 +95,9 @@ Click __`Replication`__ tab:
   delete mail accounts and their application data (e.g. webmail preferences,
   calendar, contacts, per-user whitelists / blacklists, etc) on iRedMail server
   when they were removed from Active Directory.
+    - `NOTE`: Bind DN must have domain admin privilege, otherwise it cannot
+      find deleted accounts, hence EE cannot delete accounts locally when they
+      were removed from AD.
 
 Click `Save Changes` if you made some changes.
 
