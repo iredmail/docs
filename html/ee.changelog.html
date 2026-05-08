@@ -33,6 +33,11 @@
 </thead>
 <tbody>
 <tr>
+<td><a href="#v1.7.3">v1.7.3</a></td>
+<td>2026-05-08</td>
+<td>Golang v1.26.3 security fix</td>
+</tr>
+<tr>
 <td><a href="#v1.7.2">v1.7.2</a></td>
 <td>2026-04-10</td>
 <td>Golang v1.26.2 security fix</td>
@@ -157,6 +162,32 @@
 <li><a href="https://docs.iredmail.org/ee.best.practice.html">Best Practice</a></li>
 <li><a href="./ee.ad.html">Replicate mail accounts from Microsoft Active Directory</a></li>
 <li><a href="./ee.remote.mysql.html">Use a Remote MySQL/MariaDB server as backend database</a></li>
+</ul>
+<h2 id="v1.7.3">v1.7.3, May 08, 2026</h2>
+<ul>
+<li>Built with Golang v1.26.3 which addresses security vulnerabilities in several standard packages. <a href="https://go.dev/doc/devel/release#go1.26.3">https://go.dev/doc/devel/release#go1.26.3</a></li>
+<li>Removed OpenBSD support due to no one run EE on it.</li>
+<li>Drop push notification support and disable doveadm http api. It didn't work
+  due to a <a href="https://dovecot.org/mailman3/archives/list/dovecot@dovecot.org/thread/M7ZICN7IXLMF6IRHVNP7PAQZSAWI6GW4/">Dovecot "bug"</a>.</li>
+<li>Fixed issues:<ul>
+<li>[dovecot] Not disable quota-status service when using NFS storage. FYI <a href="https://doc.dovecot.org/2.3/configuration_manual/nfs/">"Do not use the quota-status service (with NFS)."</a></li>
+<li>[dovecot] Add missing email headers in quota warning notification email.</li>
+<li>[dovecot] Not send quota warning to end user and postmaster.
+  Thanks to v.gritsch.</li>
+<li>[dovecot] Cron job <code>doveadm fts optimize -A</code> generates file with incorrect
+  file owner (<code>root</code>), which causes error <code>Failed to open glass revision
+  file for reading</code>.</li>
+<li>[mlmmj] Not actually sync mailing list subscribers from disk to SQL db.</li>
+<li>[ad] User cannot login for self service.
+  Thanks to v.gritsch.</li>
+<li>[ad] Cannot update user filter and group filter.
+  Thanks to Serhii Zahuba.</li>
+<li>[ad] Not sync group members after initial replication.
+  Thanks to Serhii Zahuba.</li>
+<li>Not send quarantine notifications.</li>
+<li>Minor web UI tweaks and fixes.</li>
+</ul>
+</li>
 </ul>
 <h2 id="v1.7.2">v1.7.2, April 10, 2026</h2>
 <ul>

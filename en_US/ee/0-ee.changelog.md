@@ -7,6 +7,7 @@
 
 | Version | Release Date ||
 |---|---|---|
+| [v1.7.3](#v1.7.3) | 2026-05-08 | Golang v1.26.3 security fix |
 | [v1.7.2](#v1.7.2) | 2026-04-10 | Golang v1.26.2 security fix |
 | [v1.7.1](#v1.7.1) | 2026-03-30 | Roundcube security fix |
 | [v1.7.0](#v1.7.0) | 2026-03-26 | Roundcube security fix |
@@ -39,6 +40,30 @@
 - [Best Practice](https://docs.iredmail.org/ee.best.practice.html)
 - [Replicate mail accounts from Microsoft Active Directory](./ee.ad.html)
 - [Use a Remote MySQL/MariaDB server as backend database](./ee.remote.mysql.html)
+
+## v1.7.3, May 08, 2026 {: #v1.7.3 }
+
+- Built with Golang v1.26.3 which addresses security vulnerabilities in several standard packages. <https://go.dev/doc/devel/release#go1.26.3>
+- Removed OpenBSD support due to no one run EE on it.
+- Drop push notification support and disable doveadm http api. It didn't work
+  due to a [Dovecot "bug"](https://dovecot.org/mailman3/archives/list/dovecot@dovecot.org/thread/M7ZICN7IXLMF6IRHVNP7PAQZSAWI6GW4/).
+- Fixed issues:
+    - [dovecot] Not disable quota-status service when using NFS storage. FYI ["Do not use the quota-status service (with NFS)."](https://doc.dovecot.org/2.3/configuration_manual/nfs/)
+    - [dovecot] Add missing email headers in quota warning notification email.
+    - [dovecot] Not send quota warning to end user and postmaster.
+      Thanks to v.gritsch.
+    - [dovecot] Cron job `doveadm fts optimize -A` generates file with incorrect
+      file owner (`root`), which causes error `Failed to open glass revision
+      file for reading`.
+    - [mlmmj] Not actually sync mailing list subscribers from disk to SQL db.
+    - [ad] User cannot login for self service.
+      Thanks to v.gritsch.
+    - [ad] Cannot update user filter and group filter.
+      Thanks to Serhii Zahuba.
+    - [ad] Not sync group members after initial replication.
+      Thanks to Serhii Zahuba.
+    - Not send quarantine notifications.
+    - Minor web UI tweaks and fixes.
 
 ## v1.7.2, April 10, 2026 {: #v1.7.2 }
 
