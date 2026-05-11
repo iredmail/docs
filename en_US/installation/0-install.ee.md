@@ -147,7 +147,7 @@ you visit the web-based installer:
 /usr/local/bin/iredmail
 Create required system account and directories.
 Seems server doesn't have iRedMail Enterprise Edition installed, launch installer on port 8080.
-Authentication:
+HTTP Basic Authentication:
 - Username: RxjvWqslxi4pB8JJ
 - Password: RxjvWqslxi4pB8JJ
 ```
@@ -204,7 +204,8 @@ Review the settings:
 
 ![](./images/ee/setup-review-and-deploy.png){: width="700px" }
 
-Click `Confirm and Deploy` button to deploy immediately:
+Click `Confirm and Deploy` button to deploy immediately. Note: It will ask
+you to input username and password for http basic authentication again.
 
 ![](./images/ee/setup-deploy.png){: width="700px" }
 
