@@ -132,13 +132,8 @@ find the installation guides here: <a href="./index.html#install">Install iRedMa
 </tr>
 <tr>
 <td>Ubuntu</td>
-<td>20.04, 22.04, 24.04</td>
-<td>24.04 is recommended.</td>
-</tr>
-<tr>
-<td>OpenBSD</td>
-<td>7.7</td>
-<td></td>
+<td>20.04, 22.04, 24.04, 26.04</td>
+<td>24.04 is recommended. SOGo is missing on 26.04.</td>
 </tr>
 </tbody>
 </table>
@@ -146,7 +141,7 @@ find the installation guides here: <a href="./index.html#install">Install iRedMa
 installer</a> instead.</p>
 <p>Notes:</p>
 <ul>
-<li><a href="https://bugs.sogo.nu/view.php?id=6118">SOGo Groupware is not available on CentOS/Rocky/AlmaLinux 10 yet</a></li>
+<li><a href="https://bugs.sogo.nu/view.php?id=6118">SOGo Groupware is not available on CentOS/Rocky/AlmaLinux 10</a> and Ubuntu 26.04 yet.</li>
 <li>Z-Push (open source ActiveSync server) is not available on
   all CentOS/Rocky/AlmaLinux releases and Debian 13 (trixie) due to missing
   required <code>php-imap</code> package.</li>
@@ -205,8 +200,15 @@ chown root:wheel iredmail
 chmod 0500 iredmail
 pkg_add bash
 </code></pre>
-<p>Launch the installer:</p>
+<p>Launch the installer by running command <code>iredmail</code> or <code>/usr/local/bin/iredmail</code>,
+it will print username and password used for http basic authentication when
+you visit the web-based installer:</p>
 <pre><code class="language-bash">/usr/local/bin/iredmail
+Create required system account and directories.
+Seems server doesn't have iRedMail Enterprise Edition installed, launch installer on port 8080.
+Authentication:
+- Username: RxjvWqslxi4pB8JJ
+- Password: RxjvWqslxi4pB8JJ
 </code></pre>
 <ul>
 <li>It runs a web server on port <code>8080</code> for initial deployment, please visit
@@ -215,8 +217,7 @@ pkg_add bash
 <li>After deployment succeeded, it closes port <code>8080</code> and runs on port
   <code>127.0.0.1:7793</code>. Nginx is configured to proxy requests to it through URI
   <code>/admin/</code> (this URI can be customized on web UI during installation),
-  please visit <code>httpS://your-server/admin/</code> to access it to manage your
-  iRedMail server.</li>
+  please visit <code>httpS://your-server/admin/</code> to manage your iRedMail server.</li>
 </ul>
 <p>Below are screenshots of the installation wizard.</p>
 <h2 id="installation">Installation</h2>

@@ -65,15 +65,14 @@ CentOS Stream | 9, 10 | 10 is recommended.
 Rocky Linux | 9, 10 | 10 is recommended.
 AlmaLinux | 9, 10 | 10 is recommended.
 Debian | 11, 12, 13 | 12 is recommended.
-Ubuntu | 20.04, 22.04, 24.04 | 24.04 is recommended.
-OpenBSD | 7.7 |
+Ubuntu | 20.04, 22.04, 24.04, 26.04 | 24.04 is recommended. SOGo is missing on 26.04.
 
 If you need to install iRedMail on FreeBSD, please use the [downloadable
 installer](https://www.iredmail.org/download.html) instead.
 
 Notes:
 
-- [SOGo Groupware is not available on CentOS/Rocky/AlmaLinux 10 yet](https://bugs.sogo.nu/view.php?id=6118)
+- [SOGo Groupware is not available on CentOS/Rocky/AlmaLinux 10](https://bugs.sogo.nu/view.php?id=6118) and Ubuntu 26.04 yet.
 - Z-Push (open source ActiveSync server) is not available on
   all CentOS/Rocky/AlmaLinux releases and Debian 13 (trixie) due to missing
   required `php-imap` package.
@@ -140,10 +139,17 @@ chmod 0500 iredmail
 pkg_add bash
 ```
 
-Launch the installer:
+Launch the installer by running command `iredmail` or `/usr/local/bin/iredmail`,
+it will print username and password used for http basic authentication when
+you visit the web-based installer:
 
 ```bash
 /usr/local/bin/iredmail
+Create required system account and directories.
+Seems server doesn't have iRedMail Enterprise Edition installed, launch installer on port 8080.
+Authentication:
+- Username: RxjvWqslxi4pB8JJ
+- Password: RxjvWqslxi4pB8JJ
 ```
 
 - It runs a web server on port `8080` for initial deployment, please visit
@@ -152,8 +158,7 @@ Launch the installer:
 - After deployment succeeded, it closes port `8080` and runs on port
   `127.0.0.1:7793`. Nginx is configured to proxy requests to it through URI
   `/admin/` (this URI can be customized on web UI during installation),
-  please visit `httpS://your-server/admin/` to access it to manage your
-  iRedMail server.
+  please visit `httpS://your-server/admin/` to manage your iRedMail server.
 
 Below are screenshots of the installation wizard.
 
