@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Upgrade iRedMail from 1.8.0 to 1.8.1</title>
+        <link rel="stylesheet" type="text/css" href="./css/markdown.css" />
+    </head>
+    <body>
+
+    <div id="navigation">
+    <a href="https://www.iredmail.org" target="_blank">
+        <img alt="iRedMail web site"
+             src="./images/logo-iredmail.png"
+             style="vertical-align: middle; height: 30px;"
+             />&nbsp;
+        <span>iRedMail</span>
+    </a>
+    &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><h1 id="upgrade-iredmail-from-180-to-181">Upgrade iRedMail from 1.8.0 to 1.8.1</h1>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<ul>
+<li>iRedMail team recommends <a href="https://www.iredmail.org/ee.html">iRedMail Enterprise Edition</a> for deploying new email server.</li>
+<li>Check out the lightweight on-premises email archiving software developed by iRedMail team: <a href="https://spiderd.io/">Spider Email Archiver</a>.</li>
+</ul>
+</div>
+<div class="toc">
+<ul>
+<li><a href="#upgrade-iredmail-from-180-to-181">Upgrade iRedMail from 1.8.0 to 1.8.1</a><ul>
+<li><a href="#changelog">ChangeLog</a></li>
+<li><a href="#general-all-backends-should-apply-these-changes">General (All backends should apply these changes)</a><ul>
+<li><a href="#update-etciredmail-release-with-new-iredmail-version-number">Update /etc/iredmail-release with new iRedMail version number</a></li>
+<li><a href="#upgrade-roundcube-webmail-to-the-latest-release-170">Upgrade Roundcube webmail to the latest release (1.7.0)</a></li>
+<li><a href="#upgrade-netdata-to-the-latest-stable-release-v2103">Upgrade netdata to the latest stable release (v2.10.3)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Remote Upgrade Assistance</p>
+<p>Check out our <a href="https://www.iredmail.org/support.html">remote upgrade support</a> if you need assistance.</p>
+</div>
+<h2 id="changelog">ChangeLog</h2>
+<ul>
+<li>May 12, 2026: initial publish.</li>
+</ul>
+<h2 id="general-all-backends-should-apply-these-changes">General (All backends should apply these changes)</h2>
+<h3 id="update-etciredmail-release-with-new-iredmail-version-number">Update <code>/etc/iredmail-release</code> with new iRedMail version number</h3>
+<p>iRedMail stores the release version in <code>/etc/iredmail-release</code> after
+installation, it's recommended to update this file after you upgraded iRedMail,
+so that you can know which version of iRedMail you're running. For example:</p>
+<pre><code>1.8.1
+</code></pre>
+<h3 id="upgrade-roundcube-webmail-to-the-latest-release-170">Upgrade Roundcube webmail to the latest release (1.7.0)</h3>
+<div class="admonition warning">
+<p class="admonition-title">Roundcube Security Fixes</p>
+<ul>
+<li><a href="https://roundcube.net/news/2025/12/13/security-updates-1.6.12-and-1.5.12">Roundcube 1.6.12 addressed 2 security vulnerabilities.</a></li>
+<li><a href="https://roundcube.net/news/2026/02/08/security-updates-1.6.13-and-1.5.13">Roundcube 1.6.13 addressed 2 security vulnerabilities.</a></li>
+<li><a href="https://roundcube.net/news/2026/03/18/security-updates-1.7-rc5-1.6.14-1.5.14">Roundcube 1.6.14 addressed 3 security vulnerabilities.</a></li>
+<li><a href="https://roundcube.net/news/2026/03/29/security-updates-1.7-rc6-1.6.15-1.5.15">Roundcube 1.6.15 addressed 1 security vulnerability.</a></li>
+</ul>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">CentOS 7: please stick to Roundcube 1.5.2</p>
+<p><strong>It's time to leave your comfort zone and upgrade this server to at least
+CentOS Stream 8 or <a href="https://docs.rockylinux.org/guides/migrate2rocky/">Rocky Linux 8</a>.</strong></p>
+<p>If you're running CentOS 7, please upgrade to Roundcube 1.5.2 instead.
+Roundcube 1.5.3 requires PHP-7, but CentOS 7 ships PHP-5.4 which is not
+supported by Roundcube 1.5.3 and later releases, including 1.6.x.</p>
+<p><strong>Unfortunately, Roundcube 1.5.2 does NOT contains multiple security fixes
+which shipped in Roundcube 1.5.6 and 1.6.5.</strong></p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Ubuntu 18.04: please stick to Roundcube 1.5.9</p>
+<p>Ubuntu 18.04 runs old php version which is not supported by Roundcube 1.6 and 1.7.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">CentOS Stream / Rocky / AlmaLinux 8 and 9</p>
+<p>Roundcube 1.7.0 requires PHP 8.1 or later, please switch to PHP 8.2 with
+commands below <strong>BEFORE</strong> upgrading Roundcube:</p>
+<p><code>dnf module enable -y php:8.2 &amp;&amp; dnf module switch-to -y php:8.2</code></p>
+</div>
+<p>Roundcube 1.7 introduces "mandatory <code>public_html/</code> entry-point for HTTP
+servers, protecting all installations better", it requires changes in Nginx
+config file.</p>
+<ul>
+<li>Backup Nginx config file first:</li>
+</ul>
+<pre><code>cp /etc/nginx/templates/roundcube.tmpl{,.bak}
+cp /etc/nginx/templates/roundcube-subdomain.tmpl{,.bak}
+</code></pre>
+<ul>
+<li>Replace full content of file <code>/etc/nginx/templates/roundcube.tmpl</code> by
+  below text. Be careful, we use base URI <code>/mail/</code>, if you use a different one,
+  please replace it manually.</li>
+</ul>
+<pre><code># Block direct access to directories and files.
+location ~ ^/mail/(SQL|bin|config|installer|logs|temp|vendor)/ { deny all; }
+location ~ ^/mail/(.*\.md|composer\.*|INSTALL|LICENSE|Makefile|UPGRADING)$ { deny all; }
+location ~ ^/mail/plugins/.*/config.inc.php.* { deny all; }
+location ~ ^/mail/plugins/enigma/home($|/.*) { deny all; }
+
+# Block access to directories and files via `public_html/static.php`.
+location ~ ^/mail/static.php/(SQL|bin|config|installer|logs|temp|vendor)/ { deny all; }
+location ~ ^/mail/static.php/(.*\.md|composer\.*|INSTALL|LICENSE|Makefile|UPGRADING)$ { deny all; }
+location ~ ^/mail/static.php/plugins/.*/config.inc.php.* { deny all; }
+location ~ ^/mail/static.php/plugins/enigma/home($|/.*) { deny all; }
+
+# Redirect URI `/mail` to `/mail/`.
+location = /mail {
+    return 301 /mail/;
+}
+
+location = /mail/ {
+    alias /opt/www/roundcubemail/public_html/;
+    index index.php;
+}
+
+location ~ ^/mail/static.php/(.*) {
+    include /etc/nginx/templates/hsts.tmpl;
+    alias /opt/www/roundcubemail/$1;
+}
+
+location ~ ^/mail/(.*\.php)$ {
+    include /etc/nginx/templates/hsts.tmpl;
+    include /etc/nginx/templates/fastcgi_php.tmpl;
+    fastcgi_param SCRIPT_FILENAME /opt/www/roundcubemail/public_html/$1;
+}
+</code></pre>
+<ul>
+<li>Replace full content of file <code>/etc/nginx/templates/roundcube-subdomain.tmpl</code> by
+  below text.</li>
+</ul>
+<pre><code># Block direct access to directories and files.
+location ~ ^/(SQL|bin|config|installer|logs|temp|vendor)/ { deny all; }
+location ~ ^/(.*\.md|composer\.*|INSTALL|LICENSE|Makefile|UPGRADING)$ { deny all; }
+location ~ ^/plugins/.*/config.inc.php.* { deny all; }
+location ~ ^/plugins/enigma/home($|/.*) { deny all; }
+
+# Block access to directories and files via `public_html/static.php`.
+location ~ ^/static.php/(SQL|bin|config|installer|logs|temp|vendor)/ { deny all; }
+location ~ ^/static.php/(.*\.md|composer\.*|INSTALL|LICENSE|Makefile|UPGRADING)$ { deny all; }
+location ~ ^/static.php/plugins/.*/config.inc.php.* { deny all; }
+location ~ ^/static.php/plugins/enigma/home($|/.*) { deny all; }
+
+location / {
+    root    /opt/www/roundcubemail/public_html;
+    index   index.php index.html;
+    include /etc/nginx/templates/hsts.tmpl;
+}
+
+location ~ ^/static.php/(.*) {
+    include /etc/nginx/templates/hsts.tmpl;
+    alias /opt/www/roundcubemail/$1;
+}
+
+location ~ ^/(.*\.php)$ {
+    include /etc/nginx/templates/hsts.tmpl;
+    include /etc/nginx/templates/fastcgi_php.tmpl;
+    fastcgi_param SCRIPT_FILENAME /opt/www/roundcubemail/public_html/$1;
+}
+</code></pre>
+<ul>
+<li>Download the Roundcube 1.7 and upgrade, then restart Nginx service:</li>
+</ul>
+<pre><code>wget https://github.com/roundcube/roundcubemail/releases/download/1.7.0/roundcubemail-1.7.0-complete.tar.gz
+tar zxf roundcubemail-1.7.0-complete.tar.gz
+cd roundcubemail-1.7.0
+./bin/installto.sh /opt/www/roundcubemail
+systemctl restart nginx
+</code></pre>
+<p>That's all.</p>
+<h3 id="upgrade-netdata-to-the-latest-stable-release-v2103">Upgrade netdata to the latest stable release (v2.10.3)</h3>
+<p>If you have netdata installed, you can upgrade it by following this tutorial:
+<a href="./upgrade.netdata.html">Upgrade netdata</a>.</p><div class="footer">
+    <p style="text-align: center; color: grey;">All documents are available in <a href="https://github.com/iredmail/docs/">GitHub repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://github.com/iredmail/docs/archive/master.zip">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
+</div></body></html>
