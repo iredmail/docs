@@ -119,12 +119,19 @@ chown root:root iredmail
 chmod 0500 iredmail
 ```
 
-Launch the installer by running command `iredmail` or `/usr/local/bin/iredmail`,
-it will print username and password used for http basic authentication when
-you visit the web-based installer:
+Launch the installer by running command `iredmail` or `/usr/local/bin/iredmail`:
+
+!!! attention
+
+    Since EE v1.7.4, it will print username and password used for http basic
+    authentication to protect the installation:
 
 ```bash
 /usr/local/bin/iredmail
+```
+
+Sample console output:
+```
 Create required system account and directories.
 Seems server doesn't have iRedMail Enterprise Edition installed, launch installer on port 8080.
 HTTP Basic Authentication:

@@ -182,11 +182,16 @@ wget -O iredmail https://dl.iredmail.org/ee/iredmail-enterprise-latest-linux-arm
 chown root:root iredmail
 chmod 0500 iredmail
 </code></pre>
-<p>Launch the installer by running command <code>iredmail</code> or <code>/usr/local/bin/iredmail</code>,
-it will print username and password used for http basic authentication when
-you visit the web-based installer:</p>
+<p>Launch the installer by running command <code>iredmail</code> or <code>/usr/local/bin/iredmail</code>:</p>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>Since EE v1.7.4, it will print username and password used for http basic
+authentication to protect the installation:</p>
+</div>
 <pre><code class="language-bash">/usr/local/bin/iredmail
-Create required system account and directories.
+</code></pre>
+<p>Sample console output:</p>
+<pre><code>Create required system account and directories.
 Seems server doesn't have iRedMail Enterprise Edition installed, launch installer on port 8080.
 HTTP Basic Authentication:
 - Username: RxjvWqslxi4pB8JJ
