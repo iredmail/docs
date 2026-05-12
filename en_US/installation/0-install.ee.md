@@ -94,7 +94,7 @@ one-month trial license or purchase one by signing up or login to our
 ## Download and run the installer
 
 Run commands below on the server to download iRedMail Enterprise Edition on
-Linux or OpenBSD, both x86_64/AMD64 and ARM64 are supported:
+Linux, both x86_64/AMD64 and ARM64 are supported:
 
 !!! attention
 
@@ -117,26 +117,6 @@ cd /usr/local/bin/
 wget -O iredmail https://dl.iredmail.org/ee/iredmail-enterprise-latest-linux-arm64
 chown root:root iredmail
 chmod 0500 iredmail
-```
-
-* For OpenBSD, x86_64 / amd64 (also install required `bash` shell):
-
-```bash
-cd /usr/local/bin/
-wget -O iredmail https://dl.iredmail.org/ee/iredmail-enterprise-latest-openbsd-amd64
-chown root:wheel iredmail
-chmod 0500 iredmail
-pkg_add bash
-```
-
-* For OpenBSD, arm64 aarch64 (also install required `bash` shell too):
-
-```bash
-cd /usr/local/bin/
-wget -O iredmail https://dl.iredmail.org/ee/iredmail-enterprise-latest-openbsd-amd64
-chown root:wheel iredmail
-chmod 0500 iredmail
-pkg_add bash
 ```
 
 Launch the installer by running command `iredmail` or `/usr/local/bin/iredmail`,

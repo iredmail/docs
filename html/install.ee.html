@@ -160,7 +160,7 @@ one-month trial license or purchase one by signing up or login to our
 <a href="https://store.iredmail.org/">iRedMail Store</a>.</p>
 <h2 id="download-and-run-the-installer">Download and run the installer</h2>
 <p>Run commands below on the server to download iRedMail Enterprise Edition on
-Linux or OpenBSD, both x86_64/AMD64 and ARM64 are supported:</p>
+Linux, both x86_64/AMD64 and ARM64 are supported:</p>
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>
 <p>Please download it and save to <code>/usr/local/bin/iredmail</code>. This path is
@@ -181,24 +181,6 @@ chmod 0500 iredmail
 wget -O iredmail https://dl.iredmail.org/ee/iredmail-enterprise-latest-linux-arm64
 chown root:root iredmail
 chmod 0500 iredmail
-</code></pre>
-<ul>
-<li>For OpenBSD, x86_64 / amd64 (also install required <code>bash</code> shell):</li>
-</ul>
-<pre><code class="language-bash">cd /usr/local/bin/
-wget -O iredmail https://dl.iredmail.org/ee/iredmail-enterprise-latest-openbsd-amd64
-chown root:wheel iredmail
-chmod 0500 iredmail
-pkg_add bash
-</code></pre>
-<ul>
-<li>For OpenBSD, arm64 aarch64 (also install required <code>bash</code> shell too):</li>
-</ul>
-<pre><code class="language-bash">cd /usr/local/bin/
-wget -O iredmail https://dl.iredmail.org/ee/iredmail-enterprise-latest-openbsd-amd64
-chown root:wheel iredmail
-chmod 0500 iredmail
-pkg_add bash
 </code></pre>
 <p>Launch the installer by running command <code>iredmail</code> or <code>/usr/local/bin/iredmail</code>,
 it will print username and password used for http basic authentication when
