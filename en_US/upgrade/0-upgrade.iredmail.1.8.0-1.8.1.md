@@ -7,6 +7,10 @@
 
 [TOC]
 
+!!! warning
+
+    This is still a DRAFT document, it may miss some other important changes.
+
 !!! note "Remote Upgrade Assistance"
 
     Check out our [remote upgrade support](https://www.iredmail.org/support.html) if you need assistance.
