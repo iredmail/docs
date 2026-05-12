@@ -48,10 +48,6 @@ so that you can know which version of iRedMail you're running. For example:
     __Unfortunately, Roundcube 1.5.2 does NOT contains multiple security fixes
     which shipped in Roundcube 1.5.6 and 1.6.5.__
 
-!!! warning "Ubuntu 18.04: please stick to Roundcube 1.5.9"
-
-    Ubuntu 18.04 runs old php version which is not supported by Roundcube 1.6 and 1.7.
-
 !!! warning "CentOS Stream / Rocky / AlmaLinux 8 and 9"
 
     Roundcube 1.7.0 requires PHP 8.1 or later, please switch to PHP 8.2 with
@@ -60,6 +56,10 @@ so that you can know which version of iRedMail you're running. For example:
     ```
     dnf module enable -y php:8.2 && dnf module switch-to -y php:8.2
     ```
+
+!!! warning "Ubuntu 18.04: please stick to Roundcube 1.5.9"
+
+    Ubuntu 18.04 runs old php version which is not supported by Roundcube 1.6 and 1.7.
 
 Roundcube 1.7 introduces "mandatory `public_html/` entry-point for HTTP
 servers, protecting all installations better", it requires changes in Nginx

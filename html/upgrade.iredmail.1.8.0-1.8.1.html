@@ -73,14 +73,14 @@ supported by Roundcube 1.5.3 and later releases, including 1.6.x.</p>
 which shipped in Roundcube 1.5.6 and 1.6.5.</strong></p>
 </div>
 <div class="admonition warning">
-<p class="admonition-title">Ubuntu 18.04: please stick to Roundcube 1.5.9</p>
-<p>Ubuntu 18.04 runs old php version which is not supported by Roundcube 1.6 and 1.7.</p>
-</div>
-<div class="admonition warning">
 <p class="admonition-title">CentOS Stream / Rocky / AlmaLinux 8 and 9</p>
 <p>Roundcube 1.7.0 requires PHP 8.1 or later, please switch to PHP 8.2 with
 commands below <strong>BEFORE</strong> upgrading Roundcube:</p>
 <p><code>dnf module enable -y php:8.2 &amp;&amp; dnf module switch-to -y php:8.2</code></p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Ubuntu 18.04: please stick to Roundcube 1.5.9</p>
+<p>Ubuntu 18.04 runs old php version which is not supported by Roundcube 1.6 and 1.7.</p>
 </div>
 <p>Roundcube 1.7 introduces "mandatory <code>public_html/</code> entry-point for HTTP
 servers, protecting all installations better", it requires changes in Nginx
