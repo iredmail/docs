@@ -173,7 +173,7 @@ systemctl restart sogo
 - For Debian/Ubuntu:
 ```
 apt update
-apt-get install --only-upgrade -y "sogo*" "*sope*"
+apt install --only-upgrade -y "sogo*" "*sope*"
 systemctl restart sogod
 ```
 
