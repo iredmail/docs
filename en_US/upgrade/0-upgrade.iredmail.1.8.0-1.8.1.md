@@ -161,7 +161,9 @@ That's all.
 
 [SOGo team released 5.12.8 on May 12](https://www.sogo.nu/news/2026/sogo-v5128-released.html), "Four major vulnerabilities have been reported and fixed in this version 5.12.8 or since the nightly of the 8th of May 2026: sogo_5.12.7.20260508."
 
-Please upgrade it with commands below:
+__"Those vulnerabilities affect any previous SOGO version. Please update as soon as possible."__
+
+General way to upgrade it is running commands below:
 
 - For CentOS / Rocky / AlmaLinux:
 ```
