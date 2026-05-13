@@ -30,6 +30,7 @@
 <li><a href="#general-all-backends-should-apply-these-changes">General (All backends should apply these changes)</a><ul>
 <li><a href="#update-etciredmail-release-with-new-iredmail-version-number">Update /etc/iredmail-release with new iRedMail version number</a></li>
 <li><a href="#upgrade-roundcube-webmail-to-the-latest-release-170">Upgrade Roundcube webmail to the latest release (1.7.0)</a></li>
+<li><a href="#upgrade-sogo-to-latest-release-5128-security-fixes">Upgrade SOGo to latest release (5.12.8), security fixes</a></li>
 <li><a href="#upgrade-netdata-to-the-latest-stable-release-v2103">Upgrade netdata to the latest stable release (v2.10.3)</a></li>
 </ul>
 </li>
@@ -176,6 +177,23 @@ cd roundcubemail-1.7.0
 systemctl restart nginx
 </code></pre>
 <p>That's all.</p>
+<h3 id="upgrade-sogo-to-latest-release-5128-security-fixes">Upgrade SOGo to latest release (5.12.8), security fixes</h3>
+<p><a href="https://www.sogo.nu/news/2026/sogo-v5128-released.html">SOGo team released 5.12.8 on May 12</a>, "Four major vulnerabilities have been reported and fixed in this version 5.12.8 or since the nightly of the 8th of May 2026: sogo_5.12.7.20260508."</p>
+<p>Please upgrade it with commands below:</p>
+<ul>
+<li>For CentOS / Rocky / AlmaLinux:</li>
+</ul>
+<pre><code>yum clean all
+yum update -y &quot;sogo*&quot; &quot;*sope*&quot;
+systemctl restart sogo
+</code></pre>
+<ul>
+<li>For Debian/Ubuntu:</li>
+</ul>
+<pre><code>apt update
+apt-get install --only-upgrade -y &quot;sogo*&quot; &quot;*sope*&quot;
+systemctl restart sogod
+</code></pre>
 <h3 id="upgrade-netdata-to-the-latest-stable-release-v2103">Upgrade netdata to the latest stable release (v2.10.3)</h3>
 <p>If you have netdata installed, you can upgrade it by following this tutorial:
 <a href="./upgrade.netdata.html">Upgrade netdata</a>.</p><div class="footer">

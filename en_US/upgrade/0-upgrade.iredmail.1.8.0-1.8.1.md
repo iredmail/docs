@@ -157,6 +157,26 @@ systemctl restart nginx
 
 That's all.
 
+### Upgrade SOGo to latest release (5.12.8), security fixes
+
+[SOGo team released 5.12.8 on May 12](https://www.sogo.nu/news/2026/sogo-v5128-released.html), "Four major vulnerabilities have been reported and fixed in this version 5.12.8 or since the nightly of the 8th of May 2026: sogo_5.12.7.20260508."
+
+Please upgrade it with commands below:
+
+- For CentOS / Rocky / AlmaLinux:
+```
+yum clean all
+yum update -y "sogo*" "*sope*"
+systemctl restart sogo
+```
+
+- For Debian/Ubuntu:
+```
+apt update
+apt-get install --only-upgrade -y "sogo*" "*sope*"
+systemctl restart sogod
+```
+
 ### Upgrade netdata to the latest stable release (v2.10.3)
 
 If you have netdata installed, you can upgrade it by following this tutorial:
