@@ -63,6 +63,8 @@
       Thanks to dansenie.
 
 - Updated packages:
+    - [SOGo Groupware v5.12.8](https://www.sogo.nu/news/2026/sogo-v5128-released.html).
+      Addressed 4 security vulnerabilities.
     - [Roundcube webmail 1.7.0](https://roundcube.net/news/2026/05/10/roundcube-1.7.0-released).
 
         Roundcube 1.7.0 drops support for PHP<8.1, hence PHP packages on
