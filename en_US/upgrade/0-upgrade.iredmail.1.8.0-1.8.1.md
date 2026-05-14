@@ -179,3 +179,8 @@ systemctl restart sogod
 
 If you have netdata installed, you can upgrade it by following this tutorial:
 [Upgrade netdata](./upgrade.netdata.html).
+
+### Upgrade mlmmjadmin to the latest stable release (3.6.3)
+
+Please follow below tutorial to upgrade mlmmjadmin to the latest stable release:
+[Upgrade mlmmjadmin to the latest stable release](./upgrade.mlmmjadmin.html)
