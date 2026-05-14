@@ -55,6 +55,7 @@
       it with Postfix parameter `content_filter` anymore.
 
 - Fixed issues:
+    - Not generate apparmor config file for php-fpm on Ubuntu.
     - Incorrectly ce-create DKIM key when using non-default dkim selector.
       Thanks to Davesworld@forum.
     - Blacklist sender email address instead of sender domain by default.
