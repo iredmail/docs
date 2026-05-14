@@ -7,6 +7,7 @@
 
 | Version | Release Date ||
 |---|---|---|
+| [v1.7.4](#v1.7.4) | NOT RELEASED YET | SOGo security fix |
 | [v1.7.3](#v1.7.3) | 2026-05-08 | Golang v1.26.3 security fix |
 | [v1.7.2](#v1.7.2) | 2026-04-10 | Golang v1.26.2 security fix |
 | [v1.7.1](#v1.7.1) | 2026-03-30 | Roundcube security fix |
@@ -40,6 +41,34 @@
 - [Best Practice](https://docs.iredmail.org/ee.best.practice.html)
 - [Replicate mail accounts from Microsoft Active Directory](./ee.ad.html)
 - [Use a Remote MySQL/MariaDB server as backend database](./ee.remote.mysql.html)
+
+## v1.7.4, -/-, 2026 {: #v1.7.4 }
+
+> This is upcoming release, not released yet.
+
+- Improvements:
+    - Remove `Unsubscribe ALL subscribers` option to prevent accidental operation.
+      Thanks to Brian.
+    - Update packages to latest version if available when upgrading EE.
+    - Protect web-based installation with http basic auth.
+    - Amavisd is now called as a milter (via `amavisd-milter`). We don't call
+      it with Postfix parameter `content_filter` anymore.
+
+- Fixed issues:
+    - Incorrectly ce-create DKIM key when using non-default dkim selector.
+      Thanks to Davesworld@forum.
+    - Blacklist sender email address instead of sender domain by default.
+      Thanks to dansenie.
+    - Cannot view full headers of quarantined emails in some case.
+      Thanks to dansenie.
+
+- Updated packages:
+    - [Roundcube webmail 1.7.0](https://roundcube.net/news/2026/05/10/roundcube-1.7.0-released).
+
+        Roundcube 1.7.0 drops support for PHP<8.1, hence PHP packages on
+        CentOS / Rocky / AlmaLinux 8 and 9 will be upgraded to version 8.2
+        automatically (via command
+        `dnf module enable -y php:8.2 && dnf module switch-to -y php:8.2`).
 
 ## v1.7.3, May 08, 2026 {: #v1.7.3 }
 

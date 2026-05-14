@@ -33,6 +33,11 @@
 </thead>
 <tbody>
 <tr>
+<td><a href="#v1.7.4">v1.7.4</a></td>
+<td>NOT RELEASED YET</td>
+<td>SOGo security fix</td>
+</tr>
+<tr>
 <td><a href="#v1.7.3">v1.7.3</a></td>
 <td>2026-05-08</td>
 <td>Golang v1.26.3 security fix</td>
@@ -162,6 +167,46 @@
 <li><a href="https://docs.iredmail.org/ee.best.practice.html">Best Practice</a></li>
 <li><a href="./ee.ad.html">Replicate mail accounts from Microsoft Active Directory</a></li>
 <li><a href="./ee.remote.mysql.html">Use a Remote MySQL/MariaDB server as backend database</a></li>
+</ul>
+<h2 id="v1.7.4">v1.7.4, -/-, 2026</h2>
+<blockquote>
+<p>This is upcoming release, not released yet.</p>
+</blockquote>
+<ul>
+<li>
+<p>Improvements:</p>
+<ul>
+<li>Remove <code>Unsubscribe ALL subscribers</code> option to prevent accidental operation.
+  Thanks to Brian.</li>
+<li>Update packages to latest version if available when upgrading EE.</li>
+<li>Protect web-based installation with http basic auth.</li>
+<li>Amavisd is now called as a milter (via <code>amavisd-milter</code>). We don't call
+  it with Postfix parameter <code>content_filter</code> anymore.</li>
+</ul>
+</li>
+<li>
+<p>Fixed issues:</p>
+<ul>
+<li>Incorrectly ce-create DKIM key when using non-default dkim selector.
+  Thanks to Davesworld@forum.</li>
+<li>Blacklist sender email address instead of sender domain by default.
+  Thanks to dansenie.</li>
+<li>Cannot view full headers of quarantined emails in some case.
+  Thanks to dansenie.</li>
+</ul>
+</li>
+<li>
+<p>Updated packages:</p>
+<ul>
+<li>
+<p><a href="https://roundcube.net/news/2026/05/10/roundcube-1.7.0-released">Roundcube webmail 1.7.0</a>.</p>
+<p>Roundcube 1.7.0 drops support for PHP&lt;8.1, hence PHP packages on
+CentOS / Rocky / AlmaLinux 8 and 9 will be upgraded to version 8.2
+automatically (via command
+<code>dnf module enable -y php:8.2 &amp;&amp; dnf module switch-to -y php:8.2</code>).</p>
+</li>
+</ul>
+</li>
 </ul>
 <h2 id="v1.7.3">v1.7.3, May 08, 2026</h2>
 <ul>
