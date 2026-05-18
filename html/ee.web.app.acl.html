@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Access control for web applications</title>
+        <link rel="stylesheet" type="text/css" href="./css/markdown.css" />
+    </head>
+    <body>
+
+    <div id="navigation">
+    <a href="https://www.iredmail.org" target="_blank">
+        <img alt="iRedMail web site"
+             src="./images/logo-iredmail.png"
+             style="vertical-align: middle; height: 30px;"
+             />&nbsp;
+        <span>iRedMail</span>
+    </a>
+    &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><h1 id="access-control-for-web-applications">Access control for web applications</h1>
+<p>To limit access from certain IP addresses/networks, please login to EE as
+global admin, click <code>Server Settings</code> -&gt; <code>Web Applications</code>, then click the
+link <code>Access Control</code> right beside the web application name:</p>
+<p><img alt="" src="./images/ee/web-app-acl-1.png" width="800px" /></p>
+<p>Input the allowed IP addresses or CIDR networks, click <code>Save Changes</code>:
+<img alt="" src="./images/ee/web-app-acl-2.png" width="800px" /></p>
+<p>After saved, it will show you <code>Allow access from X IP addresses or networks</code>:
+<img alt="" src="./images/ee/web-app-acl-3.png" width="800px" /></p>
+<p>Click <code>Apply Now</code> on bottom-right corner to actually apply saved changes, it
+will add ACL in Nginx config files for access control.</p><div class="footer">
+    <p style="text-align: center; color: grey;">All documents are available in <a href="https://github.com/iredmail/docs/">GitHub repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://github.com/iredmail/docs/archive/master.zip">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
+</div></body></html>
