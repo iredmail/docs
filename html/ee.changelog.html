@@ -34,8 +34,8 @@
 <tbody>
 <tr>
 <td><a href="#v1.7.4">v1.7.4</a></td>
-<td>NOT RELEASED YET</td>
-<td>SOGo security fix</td>
+<td>2026-05-25</td>
+<td>Roundcube / SOGo security fix</td>
 </tr>
 <tr>
 <td><a href="#v1.7.3">v1.7.3</a></td>
@@ -168,14 +168,16 @@
 <li><a href="./ee.ad.html">Replicate mail accounts from Microsoft Active Directory</a></li>
 <li><a href="./ee.remote.mysql.html">Use a Remote MySQL/MariaDB server as backend database</a></li>
 </ul>
-<h2 id="v1.7.4">v1.7.4, -/-, 2026</h2>
-<blockquote>
-<p>This is upcoming release, not released yet.</p>
-</blockquote>
+<h2 id="v1.7.4">v1.7.4, May 25, 2026</h2>
 <ul>
 <li>
 <p>Improvements:</p>
 <ul>
+<li>Able to delete account on search result page and account profile page.</li>
+<li>Display header <code>X-Spam-Status</code> and its value while viewing quarantined
+  mail.</li>
+<li>Save removed and remained SQL records after cleaned up milter database.
+  Numbers will be displayed on Activities page too.</li>
 <li>Remove <code>Unsubscribe ALL subscribers</code> option to prevent accidental operation.
   Thanks to Brian.</li>
 <li>Update packages to latest version if available when upgrading EE.</li>
@@ -202,11 +204,15 @@
 <li><a href="https://www.sogo.nu/news/2026/sogo-v5128-released.html">SOGo Groupware v5.12.8</a>.
   Addressed 4 security vulnerabilities.</li>
 <li>
-<p><a href="https://roundcube.net/news/2026/05/10/roundcube-1.7.0-released">Roundcube webmail 1.7.0</a>.</p>
+<p>Roundcube webmail 1.7.1 (release notes: <a href="https://roundcube.net/news/2026/05/10/roundcube-1.7.0-released">v1.7.0</a>, <a href="https://roundcube.net/news/2026/05/24/security-updates-1.6.16-and-1.7.1">v1.7.1</a></p>
 <p>Roundcube 1.7.0 drops support for PHP&lt;8.1, hence PHP packages on
 CentOS / Rocky / AlmaLinux 8 and 9 will be upgraded to version 8.2
 automatically (via command
 <code>dnf module enable -y php:8.2 &amp;&amp; dnf module switch-to -y php:8.2</code>).</p>
+</li>
+<li>
+<p>milter v1.5.1. Update dependent packages and rebuild with Golang v1.26.3
+  (includes security fixes).</p>
 </li>
 </ul>
 </li>

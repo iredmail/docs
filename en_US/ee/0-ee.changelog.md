@@ -7,7 +7,7 @@
 
 | Version | Release Date ||
 |---|---|---|
-| [v1.7.4](#v1.7.4) | NOT RELEASED YET | SOGo security fix |
+| [v1.7.4](#v1.7.4) | 2026-05-25 | Roundcube / SOGo security fix |
 | [v1.7.3](#v1.7.3) | 2026-05-08 | Golang v1.26.3 security fix |
 | [v1.7.2](#v1.7.2) | 2026-04-10 | Golang v1.26.2 security fix |
 | [v1.7.1](#v1.7.1) | 2026-03-30 | Roundcube security fix |
@@ -42,11 +42,14 @@
 - [Replicate mail accounts from Microsoft Active Directory](./ee.ad.html)
 - [Use a Remote MySQL/MariaDB server as backend database](./ee.remote.mysql.html)
 
-## v1.7.4, -/-, 2026 {: #v1.7.4 }
-
-> This is upcoming release, not released yet.
+## v1.7.4, May 25, 2026 {: #v1.7.4 }
 
 - Improvements:
+    - Able to delete account on search result page and account profile page.
+    - Display header `X-Spam-Status` and its value while viewing quarantined
+      mail.
+    - Save removed and remained SQL records after cleaned up milter database.
+      Numbers will be displayed on Activities page too.
     - Remove `Unsubscribe ALL subscribers` option to prevent accidental operation.
       Thanks to Brian.
     - Update packages to latest version if available when upgrading EE.
@@ -66,12 +69,15 @@
 - Updated packages:
     - [SOGo Groupware v5.12.8](https://www.sogo.nu/news/2026/sogo-v5128-released.html).
       Addressed 4 security vulnerabilities.
-    - [Roundcube webmail 1.7.0](https://roundcube.net/news/2026/05/10/roundcube-1.7.0-released).
+    - Roundcube webmail 1.7.1 (release notes: [v1.7.0](https://roundcube.net/news/2026/05/10/roundcube-1.7.0-released), [v1.7.1](https://roundcube.net/news/2026/05/24/security-updates-1.6.16-and-1.7.1)
 
         Roundcube 1.7.0 drops support for PHP<8.1, hence PHP packages on
         CentOS / Rocky / AlmaLinux 8 and 9 will be upgraded to version 8.2
         automatically (via command
         `dnf module enable -y php:8.2 && dnf module switch-to -y php:8.2`).
+
+    - milter v1.5.1. Update dependent packages and rebuild with Golang v1.26.3
+      (includes security fixes).
 
 ## v1.7.3, May 08, 2026 {: #v1.7.3 }
 
