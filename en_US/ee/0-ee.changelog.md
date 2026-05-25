@@ -69,7 +69,7 @@
 - Updated packages:
     - [SOGo Groupware v5.12.8](https://www.sogo.nu/news/2026/sogo-v5128-released.html).
       Addressed 4 security vulnerabilities.
-    - Roundcube webmail 1.7.1 (release notes: [v1.7.0](https://roundcube.net/news/2026/05/10/roundcube-1.7.0-released), [v1.7.1](https://roundcube.net/news/2026/05/24/security-updates-1.6.16-and-1.7.1)
+    - Roundcube webmail 1.7.1, addressed 8 security vulnerabilities. Release notes: [v1.7.0](https://roundcube.net/news/2026/05/10/roundcube-1.7.0-released), [v1.7.1](https://roundcube.net/news/2026/05/24/security-updates-1.6.16-and-1.7.1).
 
         Roundcube 1.7.0 drops support for PHP<8.1, hence PHP packages on
         CentOS / Rocky / AlmaLinux 8 and 9 will be upgraded to version 8.2
