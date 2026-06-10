@@ -2,11 +2,20 @@
 
 [TOC]
 
-Since iRedMail Enterprise Edition __v1.6.0__ ("EE" for short), EE supports
-replicating mail accounts from a Microsoft Active Directory ("AD" for short) server.
+## Summary
+
+iRedMail Enterprise Edition ("EE" for short) supports replicating mail accounts
+from other servers.
 
 You can setup such replication anytime after iRedMail initial setup, with any
 backend database (MariaDB, PostgreSQL or OpenLDAP).
+
+Currently 3 account resources are supported ([contact us](https://www.iredmail.org/contact.html)
+if you need to support other account resources):
+
+- Windows Active Directory
+- Samba (Active Directory Domain Controller)
+- OpenLDAP
 
 ## Requirements
 
@@ -36,9 +45,6 @@ backend database (MariaDB, PostgreSQL or OpenLDAP).
 
 Please login to EE as global admin, then click `Account Resource` on left
 sidebar. It shows you supported server types for account replication.
-
-> Currently only AD is supported, [contact us](https://www.iredmail.org/contact.html)
-> if you need to support other servers.
 
 ![](./images/ee/account-resource/account-resource.png){: width="800px" }
 

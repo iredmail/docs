@@ -19,6 +19,7 @@
 <div class="toc">
 <ul>
 <li><a href="#ee-replicate-mail-accounts-from-microsoft-active-directory">EE: Replicate mail accounts from Microsoft Active Directory</a><ul>
+<li><a href="#summary">Summary</a></li>
 <li><a href="#requirements">Requirements</a></li>
 <li><a href="#replicate-mail-accounts-from-microsoft-active-directory">Replicate mail accounts from Microsoft Active Directory</a><ul>
 <li><a href="#add-active-directory-as-an-account-resource">Add Active Directory as an account resource</a></li>
@@ -29,10 +30,18 @@
 </li>
 </ul>
 </div>
-<p>Since iRedMail Enterprise Edition <strong>v1.6.0</strong> ("EE" for short), EE supports
-replicating mail accounts from a Microsoft Active Directory ("AD" for short) server.</p>
+<h2 id="summary">Summary</h2>
+<p>iRedMail Enterprise Edition ("EE" for short) supports replicating mail accounts
+from other servers.</p>
 <p>You can setup such replication anytime after iRedMail initial setup, with any
 backend database (MariaDB, PostgreSQL or OpenLDAP).</p>
+<p>Currently 3 account resources are supported (<a href="https://www.iredmail.org/contact.html">contact us</a>
+if you need to support other account resources):</p>
+<ul>
+<li>Windows Active Directory</li>
+<li>Samba (Active Directory Domain Controller)</li>
+<li>OpenLDAP</li>
+</ul>
 <h2 id="requirements">Requirements</h2>
 <ul>
 <li>A working iRedMail server which runs iRedMail Enterprise Edition version v1.6.0 or later.</li>
@@ -61,10 +70,6 @@ the value of <code>userPrincipalName</code> must be a valid email address ends w
 <h3 id="add-active-directory-as-an-account-resource">Add Active Directory as an account resource</h3>
 <p>Please login to EE as global admin, then click <code>Account Resource</code> on left
 sidebar. It shows you supported server types for account replication.</p>
-<blockquote>
-<p>Currently only AD is supported, <a href="https://www.iredmail.org/contact.html">contact us</a>
-if you need to support other servers.</p>
-</blockquote>
 <p><img alt="" src="./images/ee/account-resource/account-resource.png" width="800px" /></p>
 <p>Click the <strong><code>Active Directory</code></strong> icon to add AD for account replication, it
 will redirect to replication management page.</p>
