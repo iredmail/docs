@@ -5,20 +5,23 @@
 Since iRedMail Enterprise Edition __v1.6.0__ ("EE" for short), EE supports
 using a remote MySQL or MariaDB server as backend database.
 
-__This can be done during initial setup, not after.__
+__Remote MySQL/MariaDB must be involved during initial iRedMail setup,
+you cannot switch from local MariaDB server to a remote MySQL/MariaDB
+server after initial setup.__
 
 ## Requirements
 
 - A working remote MySQL or MariaDB server.
     - A valid ssl cert for secure connection on server side is highly
       recommended for security concern.
-- iRedMail server must be running one of below Linux/BSD distributions and releases:
+- Dovecot 2.3.21 and later releases support secure MySQL connection, so iRedMail
+  server must be running one of below Linux distribution releases
+  which offers Dovecot 2.3.21 or later release:
     - CentOS Stream 10 or later
     - Rocky 10 or later
     - AlmaLinux 10 or later
     - Debian 13 or later
     - Ubuntu 24.04 or later
-    - OpenBSD 7.8 or later
 - __Network latency__ of SQL connection between iRedMail server and remote
   SQL server __should NOT be longer than 20 ms__. Long latency causes
   bad performance and user experience.
