@@ -12,7 +12,7 @@
 iRedMail configures Postfix to use Dovecot as SASL authenticate server, so all
 password schemes supported by Dovecot can be used in Postfix. Please refer to
 Dovecot wiki page
-[`Password Schemes`](https://doc.dovecot.org/configuration_manual/authentication/password_schemes/)
+[`Password Schemes`](https://doc.dovecot.org/2.3/configuration_manual/authentication/password_schemes/)
 for more details.
 
 Below password schemes are supported in iRedAdmin-Pro (which means you can add new mail user with either one):

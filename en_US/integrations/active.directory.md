@@ -324,7 +324,7 @@ To query AD instead of local LDAP server, we have to modify Dovecot config file
 
     If you use LDAPS and `hosts =` doesn't work, please replace it by `uris =`
     instead. Check
-    [Dovecot tutorial](https://doc.dovecot.org/configuration_manual/authentication/ldap/)
+    [Dovecot tutorial](https://doc.dovecot.org/2.3/configuration_manual/authentication/ldap/)
     for more details.
 
 ```

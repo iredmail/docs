@@ -92,8 +92,8 @@ mysql> SELECT * FROM share_folder;
 
 ## References
 
-* [Mailbox sharing between users](https://doc.dovecot.org/configuration_manual/shared_mailboxes/shared_mailboxes/)
-* [Access Control Lists](https://doc.dovecot.org/configuration_manual/acl/)
+* [Mailbox sharing between users](https://doc.dovecot.org/2.3/configuration_manual/shared_mailboxes/shared_mailboxes/)
+* [Access Control Lists](https://doc.dovecot.org/2.3/configuration_manual/acl/)
 * Roundcubemail has official plugin `acl` to manage mailbox sharing.
 * SOGo groupware supports mailbox sharing by default: right-click IMAP folder, choose `Sharing`.
 * [Imap-ACL-Extension for Thunderbird](https://addons.mozilla.org/en-US/thunderbird/addon/imap-acl-extension/), manage acls/permissions for shared mailboxes/folders on imap servers.
