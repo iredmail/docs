@@ -41,24 +41,23 @@ files, and you override them.
     If you're not running the latest iRedMail release, please follow our
     tutorials to [upgrade iRedMail](./iredmail.releases.html).
 
-- Your iRedMail server must be running one of supported Linux/OpenBSD
+- Your iRedMail server must be running one of supported Linux
   distribution releases:
 
     !!! warning
 
-        WARNING: Old Linux/BSD distribution releases are still supported but will be
+        WARNING: Old Linux distribution releases are still supported but will be
         dropped shortly, it's __NOT__ recommended to deploy new iRedMail server
         with old Linux/BSD distribution releases.
 
-    - Ubuntu 20.04 LTS, 22.04 LTS, 24.04 LTS
-    - Debian 10, 11, 12 (recommended)
-    - CentOS 7, 8 (NOT RECOMMENDED FOR NEW SERVER), 9 (recommended)
-    - CentOS Stream 8, 9 (recommended)
-    - Rocky Linux 8, 9 (recommended)
-    - AlmaLinux 8, 9 (recommended)
-    - OpenBSD 7.5, 7.6
+    - Ubuntu 20.04, 22.04, 24.04, 26.04 (SOGo is unavailable)
+    - Debian 11, 12, 13
+    - CentOS 8, 9, 10
+    - CentOS Stream 8, 9, 10
+    - Rocky Linux 8, 9, 10
+    - AlmaLinux 8, 9, 10
 
-Unfortunately, FreeBSD is not supported by EE.
+Unfortunately, OpenBSD and FreeBSD are not supported by EE.
 
 ## Backup first
 
