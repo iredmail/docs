@@ -50,12 +50,12 @@ files, and you override them.
         dropped shortly, it's __NOT__ recommended to deploy new iRedMail server
         with old Linux/BSD distribution releases.
 
-    - Ubuntu 20.04, 22.04, 24.04, 26.04 (SOGo is unavailable)
+    - Ubuntu 20.04, 22.04, 24.04, 26.04. Note: SOGo is unavailable on 26.04.
     - Debian 11, 12, 13
-    - CentOS 8, 9, 10
-    - CentOS Stream 8, 9, 10
-    - Rocky Linux 8, 9, 10
-    - AlmaLinux 8, 9, 10
+    - CentOS 8, 9, 10. Note: SOGo is unavailable on 10.
+    - CentOS Stream 8, 9, 10. Note: SOGo is unavailable on 10.
+    - Rocky Linux 8, 9, 10. Note: SOGo is unavailable on 10.
+    - AlmaLinux 8, 9, 10. Note: SOGo is unavailable on 10.
 
 Unfortunately, OpenBSD and FreeBSD are not supported by EE.
 
