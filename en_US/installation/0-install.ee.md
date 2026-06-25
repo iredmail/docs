@@ -61,21 +61,20 @@ Linux/BSD distribution releases supported by __iRedMail Enterprise Edition__:
 
 Distribution | Release Versions | Note
 --- |--- |---
-CentOS Stream | 9, 10 | 10 is recommended.
-Rocky Linux | 9, 10 | 10 is recommended.
-AlmaLinux | 9, 10 | 10 is recommended.
-Debian | 11, 12, 13 | 12 is recommended.
-Ubuntu | 20.04, 22.04, 24.04, 26.04 | 24.04 is recommended. SOGo is missing on 26.04.
+CentOS Stream | 9, 10 | SOGo is [unavailable on 10](https://bugs.sogo.nu/view.php?id=6118). Z-Push is unavailable.
+Rocky Linux | 9, 10 | SOGo is [unavailable on 10](https://bugs.sogo.nu/view.php?id=6118). Z-Push is unavailable.
+AlmaLinux | 9, 10 | SOGo is [unavailable on 10](https://bugs.sogo.nu/view.php?id=6118). Z-Push is unavailable.
+Debian | 11, 12, 13 | Z-Push is unavailable on 13.
+Ubuntu | 20.04, 22.04, 24.04, 26.04 | [SOGo](https://bugs.sogo.nu/view.php?id=6203) and Z-Push are unavailable on 26.04.
 
 If you need to install iRedMail on FreeBSD, please use the [downloadable
 installer](https://www.iredmail.org/download.html) instead.
 
 Notes:
 
-- [SOGo Groupware is not available on CentOS/Rocky/AlmaLinux 10](https://bugs.sogo.nu/view.php?id=6118) and Ubuntu 26.04 yet.
 - Z-Push (open source ActiveSync server) is not available on
-  all CentOS/Rocky/AlmaLinux releases and Debian 13 (trixie) due to missing
-  required `php-imap` package.
+  all CentOS/Rocky/AlmaLinux releases, Debian 13 (trixie) and Ubuntu 26.04
+  (resolute) due to missing required `php-imap` package.
 
 ### Hardware Requirements
 
