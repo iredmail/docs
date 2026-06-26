@@ -104,13 +104,12 @@ systemctl stop nftables         # Debian / Ubuntu
 
 ## Download and run the installer
 
-Run commands below on the server to download iRedMail Enterprise Edition on
-Linux, both x86_64/AMD64 and ARM64 are supported:
+Run commands below on the server to download EE, both x86_64/AMD64 and ARM64 are supported:
 
 !!! attention
 
     Please download it and save to `/usr/local/bin/iredmail`. This path is
-    hard-coded in systemd service file to start iRedMail Enterprise.
+    hard-coded in systemd service file to start EE.
 
 * For Linux, x86_64 / amd64:
 
