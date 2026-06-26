@@ -1,4 +1,4 @@
-# Install iRedMail Enterprise Edition
+# Install iRedMail Enterprise Edition (`EE`)
 
 !!! attention
 
@@ -18,10 +18,10 @@
 
 ## Summary
 
-[__iRedMail Enterprise Edition__](https://www.iredmail.org/ee.html)
+[__iRedMail Enterprise Edition__](https://www.iredmail.org/ee.html) (`EE` for short)
 is a web-based, on-premises iRedMail server installer and admin panel.
 
-With iRedMail Enterprise, it's easy to deploy a full-featured email server,
+With EE, it's easy to deploy a full-featured email server,
 and keep the server up to date with just few clicks on the web UI, also manage
 or tune server settings.
 
@@ -35,13 +35,13 @@ find the installation guides here: [Install iRedMail](./index.html#install).
 
 !!! warning
 
-    * iRedMail Enterprise Edition is designed to be deployed on a fresh / clean
+    * EE is designed to be deployed on a fresh / clean
       server, or installed on an iRedMail server which was deployed with the
       downloadable iRedMail installer or iRedMail Easy platform.
       For new installation, it will install and configure required
       components, so you should not have other network services installed or
       running on the server __BEFORE__ installation.
-    * iRedMail Enterprise Edition will install and configure all required
+    * EE will install and configure all required
       software automatically.
     * Many ISPs block network port 25 by default, it's used for communication
       between mail servers and it must be open, otherwise your server may be
@@ -54,10 +54,11 @@ find the installation guides here: [Install iRedMail](./index.html#install).
           - Linode. Explained in the [blog post](https://www.linode.com/blog/linode/a-new-policy-to-help-fight-spam/),
             you can open a support ticket to request the Linode team to open it. If you [sign up to Linode with our reference](https://www.linode.com/?r=b4d04083428fb99ce452d84b57253d11692a0850), iRedMail Team's Linode account will receive a credit of $15-20.00. Thanks.
           - DigitalOcean. According to [a post in their community](https://www.digitalocean.com/community/questions/port-25-465-is-blocked-how-can-i-enable-it), __SEEMS__ impossible to unblock port 25, that means you can __NOT__ run mail server on DigitalOcean VPS.
+          - Vultr [blocks port 25 by default](https://docs.vultr.com/what-ports-are-blocked).
 
-### Supported Linux and BSD distribution releases
+### Supported Linux distributions and releases
 
-Linux/BSD distribution releases supported by __iRedMail Enterprise Edition__:
+Linux/BSD distribution releases supported by EE:
 
 Distribution | Release Versions | Note
 --- |--- |---
@@ -67,7 +68,7 @@ AlmaLinux | 9, 10 | SOGo is [unavailable on 10](https://bugs.sogo.nu/view.php?id
 Debian | 11, 12, 13 | Z-Push is unavailable on 13.
 Ubuntu | 20.04, 22.04, 24.04, 26.04 | [SOGo](https://bugs.sogo.nu/view.php?id=6203) and Z-Push are unavailable on 26.04.
 
-If you need to install iRedMail on FreeBSD, please use the [downloadable
+If you need to install iRedMail on FreeBSD or OpenBSD, please use the [downloadable
 installer](https://www.iredmail.org/download.html) instead.
 
 Notes:
@@ -78,7 +79,7 @@ Notes:
 
 ### Hardware Requirements
 
-* iRedMail requires at least `4 GB` memory for a low traffic production server
+* At least `4 GB` memory is required for a low traffic production server
   with spam/virus scanning enabled.
 * If you plan to run SOGo Groupware (which offers webmail, calendar (CalDAV),
   contacts (CardDAV) and ActiveSync), you need a lot more memory. Consider 16
@@ -86,9 +87,20 @@ Notes:
 
 ## Get a License
 
-iRedMail Enterprise Edition requires a license key, you can request a free
+EE requires a license key, you can request a free
 one-month trial license or purchase one by signing up or login to our
 [iRedMail Store](https://store.iredmail.org/).
+
+## Make sure network port `8080` is accessible
+
+EE launches the web-based installer on network port `8080`, the easily way to
+make it accessible is stopping the firewall service running on the machine.
+For example:
+```shell
+systemctl stop firewalld        # RedHat-family OS
+systemctl stop ufw              # Debian / Ubuntu
+systemctl stop nftables         # Debian / Ubuntu
+```
 
 ## Download and run the installer
 
