@@ -14,6 +14,7 @@
 
 ## Change Log
 
+- Jun 26, 2026: Set `subscriptions=no` (was `yes`) in `namespace shared {}`.
 - May 6, 2026: Fixed: not generate file `/etc/ssl/dhparam2048.pem`.
 - Apr 22, 2026: Update SOGo section.
 - Apr 8, 2026: Fixed: missing `quota_status_*` parameters.
