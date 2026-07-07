@@ -84,6 +84,7 @@ Release Notes | Date | Comment | Extra
 
 Release Notes | Date | Comment | RESTful API Document
 ---|---|---|---
+[5.9](https://forum.iredmail.org/topic21174.html) | Jul 7, 2026| Bug fix release. | [RESTful API document](./iredadmin-pro.restful.api.html)
 [5.8](https://forum.iredmail.org/topic21129.html) | Apr 14, 2026| Bug fix release. | [RESTful API document](./iredadmin-pro.restful.api.html)
 [5.7.1](https://forum.iredmail.org/topic20765.html) | Jan 25, 2025| Bug fix release. | [RESTful API document](./iredadmin-pro.restful.api.html)
 [5.7](https://forum.iredmail.org/topic20763.html) | Jan 24, 2025| Bug fix release. | [RESTful API document](./iredadmin-pro.restful.api.html)
