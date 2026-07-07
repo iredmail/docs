@@ -35,7 +35,7 @@ so that you can know which version of iRedMail you're running. For example:
     - [Roundcube 1.6.13 addressed 2 security vulnerabilities.](https://roundcube.net/news/2026/02/08/security-updates-1.6.13-and-1.5.13)
     - [Roundcube 1.6.14 addressed 3 security vulnerabilities.](https://roundcube.net/news/2026/03/18/security-updates-1.7-rc5-1.6.14-1.5.14)
     - [Roundcube 1.6.15 addressed 1 security vulnerability.](https://roundcube.net/news/2026/03/29/security-updates-1.7-rc6-1.6.15-1.5.15)
-    - [Roundcube 1.6.16, 1.7.1 addressed 8 security vulnerability.](https://roundcube.net/news/2026/05/24/security-updates-1.6.16-and-1.7.1)
+    - [Roundcube 1.6.16, 1.7.1 addressed 8 security vulnerabilities.](https://roundcube.net/news/2026/05/24/security-updates-1.6.16-and-1.7.1)
 
 !!! warning "CentOS 7: please stick to Roundcube 1.5.2"
 
