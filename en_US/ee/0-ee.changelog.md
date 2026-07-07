@@ -7,6 +7,7 @@
 
 | Version | Release Date ||
 |---|---|---|
+| [v1.7.5](#v1.7.5) | 2026-07-07 | Roundcube security fix |
 | [v1.7.4](#v1.7.4) | 2026-05-25 | Roundcube / SOGo security fix |
 | [v1.7.3](#v1.7.3) | 2026-05-08 | Golang v1.26.3 security fix |
 | [v1.7.2](#v1.7.2) | 2026-04-10 | Golang v1.26.2 security fix |
@@ -41,6 +42,11 @@
 - [Best Practice](https://docs.iredmail.org/ee.best.practice.html)
 - [Replicate mail accounts from Microsoft Active Directory](./ee.ad.html)
 - [Use a Remote MySQL/MariaDB server as backend database](./ee.remote.mysql.html)
+
+## v1.7.4, Jul 7, 2026 {: #v1.7.5 }
+
+- Updated packages:
+    - Roundcube webmail 1.7.2, addressed 6 security vulnerabilities. [Release Notes](https://roundcube.net/news/2026/07/05/security-updates-1.6.17-and-1.7.2)
 
 ## v1.7.4, May 25, 2026 {: #v1.7.4 }
 
