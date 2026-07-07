@@ -84,6 +84,11 @@ dnf module switch-to -y php:8.2</code></p>
 <p class="admonition-title">Ubuntu 18.04: please stick to Roundcube 1.5.15</p>
 <p>Ubuntu 18.04 runs old php version which is not supported by Roundcube 1.6 and 1.7.</p>
 </div>
+<p>Roundcube 1.7.0 introduces "mandatory <code>public_html/</code> entry-point for HTTP
+servers, protecting all installations better", it requires changes in Nginx
+config file. If you didn't apply those changes yet, please check <a href="./upgrade.iredmail.1.8.1-1.8.2.html">upgrade
+tutorial for iRedMail-1.8.1</a> and apply
+changes first.</p>
 <p>Download the Roundcube 1.7.2 complete package and upgrade, then restart Nginx service:</p>
 <pre><code>wget https://github.com/roundcube/roundcubemail/releases/download/1.7.2/roundcubemail-1.7.2-complete.tar.gz
 tar zxf roundcubemail-1.7.2-complete.tar.gz

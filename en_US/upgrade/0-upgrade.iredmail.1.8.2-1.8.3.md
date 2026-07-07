@@ -64,6 +64,12 @@ so that you can know which version of iRedMail you're running. For example:
 
     Ubuntu 18.04 runs old php version which is not supported by Roundcube 1.6 and 1.7.
 
+Roundcube 1.7.0 introduces "mandatory `public_html/` entry-point for HTTP
+servers, protecting all installations better", it requires changes in Nginx
+config file. If you didn't apply those changes yet, please check [upgrade
+tutorial for iRedMail-1.8.1](./upgrade.iredmail.1.8.1-1.8.2.html) and apply
+changes first.
+
 Download the Roundcube 1.7.2 complete package and upgrade, then restart Nginx service:
 ```
 wget https://github.com/roundcube/roundcubemail/releases/download/1.7.2/roundcubemail-1.7.2-complete.tar.gz
