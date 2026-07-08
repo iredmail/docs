@@ -45,7 +45,7 @@
 
 ## v1.7.5, Jul 7, 2026 {: #v1.7.5 }
 
-- Updated packages:
+- Updated package:
     - Roundcube webmail 1.7.2, addressed 6 security vulnerabilities. [Release Notes](https://roundcube.net/news/2026/07/05/security-updates-1.6.17-and-1.7.2)
 
 ## v1.7.4, May 25, 2026 {: #v1.7.4 }
