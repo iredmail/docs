@@ -73,6 +73,7 @@ installer](https://www.iredmail.org/download.html) instead.
 
 Notes:
 
+- [SOGo is not available on arm64 platform](https://bugs.sogo.nu/view.php?id=6185).
 - Z-Push (open source ActiveSync server) is not available on
   all CentOS/Rocky/AlmaLinux releases, Debian 13 (trixie) and Ubuntu 26.04
   (resolute) due to missing required `php-imap` package.
