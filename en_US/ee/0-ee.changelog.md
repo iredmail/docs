@@ -48,7 +48,7 @@
 
 - Breaking changes:
     - Whitelisting and blacklisting are now handled by milter program, syntax of
-      domain names and email addresses are slightly different.
+      domain and sub-domain names are slightly different.
         - Domain: `@domain.com` (old) -> `domain.com` (new)
         - Sub-domain: `@.domain.com` (old) -> `.domain.com` (new)
 
@@ -88,20 +88,20 @@
     - Not successfully switch to php module 8.2 on CentOS/Rocky/Alma 8 and 9.
     - Not grant apparmor permission for clamav to scan files under `/var/spool/amavisd/`.
       Thanks to Daniel Neculai.
-    - Disable SOGo 2FA for user messed up all SOGo user profiles.
+    - Disabling for SOGo user messed up all SOGo user profiles.
       Thanks to jakumpe@.
     - Not actually remove mailbox of deleted account.
-    - Incorrect xmlns of autodiscover response.
+    - [autodiscover] Incorrect xmlns in autodiscover response.
       Thanks to vlsc@.
     - MariaDB doesn't work on Ubuntu 26.04.
-    - [autodiscover] Return http status code 200 instead of 400 when request is not supported.
-      Thanks to vlsc@.
     - Not exclude external email addresses while adding per-user alias addresses.
       Thanks to traditionsllc.
     - [ad] Global admin cannot login when it's an AD user.
     - [ad] No per-domain address book in SOGo.
       Thanks to vlsc@.
-    - [ad] Incorrect xml schema URL in autodiscover XML.
+    - [autodiscover] Return http status code 200 instead of 400 when request is not supported.
+      Thanks to vlsc@.
+    - [autodiscover] Incorrect xml schema URL in autodiscover XML.
       Thanks to vlsc@.
     - Not display info of both inbound and outbound relay on domain list page.
     - Invalid characters on OTP page.

@@ -184,7 +184,7 @@
 <p>Breaking changes:</p>
 <ul>
 <li>Whitelisting and blacklisting are now handled by milter program, syntax of
-  domain names and email addresses are slightly different.<ul>
+  domain and sub-domain names are slightly different.<ul>
 <li>Domain: <code>@domain.com</code> (old) -&gt; <code>domain.com</code> (new)</li>
 <li>Sub-domain: <code>@.domain.com</code> (old) -&gt; <code>.domain.com</code> (new)</li>
 </ul>
@@ -237,20 +237,20 @@
 <li>Not successfully switch to php module 8.2 on CentOS/Rocky/Alma 8 and 9.</li>
 <li>Not grant apparmor permission for clamav to scan files under <code>/var/spool/amavisd/</code>.
   Thanks to Daniel Neculai.</li>
-<li>Disable SOGo 2FA for user messed up all SOGo user profiles.
+<li>Disabling for SOGo user messed up all SOGo user profiles.
   Thanks to jakumpe@.</li>
 <li>Not actually remove mailbox of deleted account.</li>
-<li>Incorrect xmlns of autodiscover response.
+<li>[autodiscover] Incorrect xmlns in autodiscover response.
   Thanks to vlsc@.</li>
 <li>MariaDB doesn't work on Ubuntu 26.04.</li>
-<li>[autodiscover] Return http status code 200 instead of 400 when request is not supported.
-  Thanks to vlsc@.</li>
 <li>Not exclude external email addresses while adding per-user alias addresses.
   Thanks to traditionsllc.</li>
 <li>[ad] Global admin cannot login when it's an AD user.</li>
 <li>[ad] No per-domain address book in SOGo.
   Thanks to vlsc@.</li>
-<li>[ad] Incorrect xml schema URL in autodiscover XML.
+<li>[autodiscover] Return http status code 200 instead of 400 when request is not supported.
+  Thanks to vlsc@.</li>
+<li>[autodiscover] Incorrect xml schema URL in autodiscover XML.
   Thanks to vlsc@.</li>
 <li>Not display info of both inbound and outbound relay on domain list page.</li>
 <li>Invalid characters on OTP page.</li>
