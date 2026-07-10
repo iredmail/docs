@@ -1,4 +1,4 @@
-# SSL Certificate Management
+# Request and manage (free) SSL certificate
 
 [TOC]
 

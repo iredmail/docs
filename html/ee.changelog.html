@@ -33,6 +33,11 @@
 </thead>
 <tbody>
 <tr>
+<td><a href="#v1.8.0">v1.8.0</a></td>
+<td>2026-07-10</td>
+<td></td>
+</tr>
+<tr>
 <td><a href="#v1.7.5">v1.7.5</a></td>
 <td>2026-07-07</td>
 <td>Roundcube security fix</td>
@@ -172,6 +177,98 @@
 <li><a href="https://docs.iredmail.org/ee.best.practice.html">Best Practice</a></li>
 <li><a href="./ee.ad.html">Replicate mail accounts from Microsoft Active Directory</a></li>
 <li><a href="./ee.remote.mysql.html">Use a Remote MySQL/MariaDB server as backend database</a></li>
+</ul>
+<h2 id="v1.8.0">v1.8.0, Jul 10, 2026</h2>
+<ul>
+<li>
+<p>Breaking changes:</p>
+<ul>
+<li>Whitelisting and blacklisting are now handled by milter program, syntax of
+  domain names and email addresses are slightly different.<ul>
+<li>Domain: <code>@domain.com</code> (old) -&gt; <code>domain.com</code> (new)</li>
+<li>Sub-domain: <code>@.domain.com</code> (old) -&gt; <code>.domain.com</code> (new)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>New features:</p>
+<ul>
+<li>API endpoints for managing DKIM keys.</li>
+<li>Able to create DKIM key while creating new domain or adding alias domains.
+  API parameter <code>create_dkim_key</code>, <code>dkim_key_selector</code>, <code>dkim_key_length</code>.</li>
+<li>Able to view DNS records of alias domains on domain profile page, under
+  <code>Alias Domains</code> section.</li>
+<li>[openldap] Able to manage access policy and moderators of mail alias account.</li>
+<li>New milter plugins (available on <code>Server Settings</code> -&gt; <code>Milter</code>):<ul>
+<li><code>force_change_password</code>: used to force users to change password
+  periodically. Admin can set the password to never expire on the user
+  profile page. Disabled by default. iRedAPD plugin <code>force_change_password</code>
+  will be disabled.</li>
+<li><code>acl</code>: used to strictly enforce access policies on mailing lists and
+  mail alias accounts. Enabled by default. iRedAPD plugins
+  <code>ldap_maillist_access_policy</code>, <code>sql_alias_access_policy</code>,
+  and <code>sql_ml_access_policy</code> will be disabled.</li>
+<li><code>wblist</code>: whitelisting and blacklisting. Based on IP addresses,
+  domain names and email addresses. Enabled by default. iRedAPD plugins
+  <code>amavisd_wblist</code> will be disabled.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>Improvements:</p>
+<ul>
+<li>Add custom (bash) shell script (<code>/opt/iredmail/custom/bind/custom.sh</code>)
+  used to customize ISC BIND config file.</li>
+<li>Send an email to postmaster when failed to remove mailbox of deleted
+  account.</li>
+<li>Display relay info on user list page.</li>
+<li>Display SQL database names and size on Dashboard page for PostgreSQL backend.</li>
+<li>[ad] Supports replicating from Samba (Active Directory Domain Controller)
+  and OpenLDAP.</li>
+<li>[ad] More robust and simplified account replication.</li>
+<li>[ad] Indicate whether groups are replicated on Account Resources list page.</li>
+</ul>
+</li>
+<li>
+<p>Fixed issues:</p>
+<ul>
+<li>Not successfully switch to php module 8.2 on CentOS/Rocky/Alma 8 and 9.</li>
+<li>Not grant apparmor permission for clamav to scan files under <code>/var/spool/amavisd/</code>.
+  Thanks to Daniel Neculai.</li>
+<li>Disable SOGo 2FA for user messed up all SOGo user profiles.
+  Thanks to jakumpe@.</li>
+<li>Not actually remove mailbox of deleted account.</li>
+<li>Incorrect xmlns of autodiscover response.
+  Thanks to vlsc@.</li>
+<li>MariaDB doesn't work on Ubuntu 26.04.</li>
+<li>[autodiscover] Return http status code 200 instead of 400 when request is not supported.
+  Thanks to vlsc@.</li>
+<li>Not exclude external email addresses while adding per-user alias addresses.
+  Thanks to traditionsllc.</li>
+<li>[ad] Global admin cannot login when it's an AD user.</li>
+<li>[ad] No per-domain address book in SOGo.
+  Thanks to vlsc@.</li>
+<li>[ad] Incorrect xml schema URL in autodiscover XML.
+  Thanks to vlsc@.</li>
+<li>Not display info of both inbound and outbound relay on domain list page.</li>
+<li>Invalid characters on OTP page.</li>
+</ul>
+</li>
+<li>
+<p>Updated packages:</p>
+<ul>
+<li>milter v1.6.0. Introduces 3 new plugins which replace iRedAPD plugins.</li>
+<li>adminer 5.4.3</li>
+</ul>
+</li>
+<li>
+<p>New translations:</p>
+<ul>
+<li>zh_CN (Traditional Chinese). Thanks to Eric@aoetek.</li>
+</ul>
+</li>
 </ul>
 <h2 id="v1.7.5">v1.7.5, Jul 7, 2026</h2>
 <ul>
