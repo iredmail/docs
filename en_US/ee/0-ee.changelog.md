@@ -108,7 +108,7 @@
 
 - Updated packages:
     - milter v1.6.0. Introduces 3 new plugins which replace iRedAPD plugins.
-    - adminer 5.4.3
+    - [adminer v5.4.3](https://github.com/vrana/adminer/releases/tag/v5.4.3)
 
 - New translations:
     - zh_CN (Traditional Chinese). Thanks to Eric@aoetek.
