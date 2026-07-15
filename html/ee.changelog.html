@@ -33,6 +33,11 @@
 </thead>
 <tbody>
 <tr>
+<td><a href="#v1.8.1">v1.8.1</a></td>
+<td>2026-07-15</td>
+<td></td>
+</tr>
+<tr>
 <td><a href="#v1.8.0">v1.8.0</a></td>
 <td>2026-07-10</td>
 <td></td>
@@ -177,6 +182,37 @@
 <li><a href="https://docs.iredmail.org/ee.best.practice.html">Best Practice</a></li>
 <li><a href="./ee.ad.html">Replicate mail accounts from Microsoft Active Directory</a></li>
 <li><a href="./ee.remote.mysql.html">Use a Remote MySQL/MariaDB server as backend database</a></li>
+</ul>
+<h2 id="v1.8.1">v1.8.1, Jul 15, 2026</h2>
+<ul>
+<li>
+<p>Improvements:</p>
+<ul>
+<li>Able to whitelist / blacklist sender, recipients and client IP address
+  on <code>SMTP Sessions</code> page.</li>
+<li>Disallow domain admin to set mailbox quota size lower than current
+  mailbox size.</li>
+</ul>
+</li>
+<li>
+<p>Fixed issues:</p>
+<ul>
+<li>Domain admin cannot view any data on <code>SMTP Sessions</code> page.</li>
+<li>Error while migrating iRedAPD plugins to milter.</li>
+<li>Error while blacklisting an address on Quarantined Mails page.
+  Thanks to Robert and Dheeren Johri.</li>
+</ul>
+</li>
+<li>
+<p>Updated packages:</p>
+<ul>
+<li>adminer 5.4.4</li>
+<li>milter v1.6.1. Fixed issues:<ul>
+<li>Not recognize global whitelists and blacklists.</li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 <h2 id="v1.8.0">v1.8.0, Jul 10, 2026</h2>
 <ul>

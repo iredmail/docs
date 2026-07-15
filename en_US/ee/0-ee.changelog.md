@@ -7,6 +7,7 @@
 
 | Version | Release Date ||
 |---|---|---|
+| [v1.8.1](#v1.8.1) | 2026-07-15 | |
 | [v1.8.0](#v1.8.0) | 2026-07-10 | |
 | [v1.7.5](#v1.7.5) | 2026-07-07 | Roundcube security fix |
 | [v1.7.4](#v1.7.4) | 2026-05-25 | Roundcube / SOGo security fix |
@@ -43,6 +44,25 @@
 - [Best Practice](https://docs.iredmail.org/ee.best.practice.html)
 - [Replicate mail accounts from Microsoft Active Directory](./ee.ad.html)
 - [Use a Remote MySQL/MariaDB server as backend database](./ee.remote.mysql.html)
+
+## v1.8.1, Jul 15, 2026 {: #v1.8.1 }
+
+- Improvements:
+    - Able to whitelist / blacklist sender, recipients and client IP address
+      on `SMTP Sessions` page.
+    - Disallow domain admin to set mailbox quota size lower than current
+      mailbox size.
+
+- Fixed issues:
+    - Domain admin cannot view any data on `SMTP Sessions` page.
+    - Error while migrating iRedAPD plugins to milter.
+    - Error while blacklisting an address on Quarantined Mails page.
+      Thanks to Robert and Dheeren Johri.
+
+- Updated packages:
+    - adminer 5.4.4
+    - milter v1.6.1. Fixed issues:
+        - Not recognize global whitelists and blacklists.
 
 ## v1.8.0, Jul 10, 2026 {: #v1.8.0 }
 
