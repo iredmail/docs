@@ -64,6 +64,9 @@
     - milter v1.6.1. Fixed issues:
         - Not recognize global whitelists and blacklists.
 
+- Updated translation:
+    - pl_PL (Polski). Thanks to Kordian Sawikowski.
+
 ## v1.8.0, Jul 10, 2026 {: #v1.8.0 }
 
 - Breaking changes:
