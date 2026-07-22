@@ -55,7 +55,10 @@ so that you can know which version of iRedMail you're running. For example:</p>
 <h3 id="incorrect-sieve-configuration-for-dovecot-24-on-debian-13-trixie-and-ubuntu-2604-resolute">Incorrect sieve configuration for Dovecot 2.4 on Debian 13 (trixie) and Ubuntu 26.04 (resolute)</h3>
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>
-<p>This issue only affects Debian 13 (trixie) and Ubuntu 26.04 (resolute).</p>
+<ul>
+<li>This issue only affects Debian 13 (trixie) and Ubuntu 26.04 (resolute).</li>
+<li>It's <a href="https://github.com/iredmail/docs/blob/master/html/files/dovecot/dovecot-2.4-mariadb.conf#L727">NOT affected</a> if you upgraded Debian OS from 12 to 13 by following <a href="./upgrade.debian.12-13.html">this tutorial</a>.</li>
+</ul>
 </div>
 <p>The configuration for personal Sieve rules in Dovecot 2.4 is incorrect on
 Debian 13 (trixie) and Ubuntu 26.04 (resolute), causing Sieve rules to fail to

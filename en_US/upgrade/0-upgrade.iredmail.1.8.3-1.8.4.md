@@ -31,7 +31,8 @@ so that you can know which version of iRedMail you're running. For example:
 
 !!! attention
 
-    This issue only affects Debian 13 (trixie) and Ubuntu 26.04 (resolute).
+    - This issue only affects Debian 13 (trixie) and Ubuntu 26.04 (resolute).
+    - It's [NOT affected](https://github.com/iredmail/docs/blob/master/html/files/dovecot/dovecot-2.4-mariadb.conf#L727) if you upgraded Debian OS from 12 to 13 by following [this tutorial](./upgrade.debian.12-13.html).
 
 The configuration for personal Sieve rules in Dovecot 2.4 is incorrect on
 Debian 13 (trixie) and Ubuntu 26.04 (resolute), causing Sieve rules to fail to
