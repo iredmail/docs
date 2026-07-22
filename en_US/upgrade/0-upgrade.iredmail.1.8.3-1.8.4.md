@@ -31,10 +31,10 @@ so that you can know which version of iRedMail you're running. For example:
 
 !!! attention
 
-    This issue only affects Debian 13 (Trixie) and Ubuntu 26.04 (Resolute).
+    This issue only affects Debian 13 (trixie) and Ubuntu 26.04 (resolute).
 
 The configuration for personal Sieve rules in Dovecot 2.4 is incorrect on
-Debian 13 (Trixie) and Ubuntu 26.04 (Resolute), causing Sieve rules to fail to
+Debian 13 (trixie) and Ubuntu 26.04 (resolute), causing Sieve rules to fail to
 save. Please follow the steps below to fix the issue.
 
 - Open the file `/etc/dovecot/dovecot.conf` and locate the `sieve_script personal`
