@@ -225,11 +225,19 @@
 <li>
 <p>Breaking changes:</p>
 <ul>
-<li>Whitelisting and blacklisting are now handled by milter program, syntax of
-  domain and sub-domain names are slightly different.<ul>
+<li>
+<p>Whitelisting and blacklisting are now handled by milter program, syntax of
+  domain and sub-domain names are slightly different:</p>
+<ul>
 <li>Domain: <code>@domain.com</code> (old) -&gt; <code>domain.com</code> (new)</li>
 <li>Sub-domain: <code>@.domain.com</code> (old) -&gt; <code>.domain.com</code> (new)</li>
 </ul>
+<p>All existing blacklists and whitelists will be migrated to milter
+automatically during upgrade. If failed, you can still migrate manually
+with commands below:</p>
+<pre><code>cd /opt/iredapd
+python3 migrate_to_milter.py
+</code></pre>
 </li>
 </ul>
 </li>

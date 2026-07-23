@@ -71,9 +71,16 @@
 
 - Breaking changes:
     - Whitelisting and blacklisting are now handled by milter program, syntax of
-      domain and sub-domain names are slightly different.
+      domain and sub-domain names are slightly different:
         - Domain: `@domain.com` (old) -> `domain.com` (new)
         - Sub-domain: `@.domain.com` (old) -> `.domain.com` (new)
+
+        All existing blacklists and whitelists will be migrated to milter
+        automatically during upgrade. If failed, you can still migrate manually
+        with commands below:
+
+            cd /opt/iredapd
+            python3 migrate_to_milter.py
 
 - New features:
     - API endpoints for managing DKIM keys.
