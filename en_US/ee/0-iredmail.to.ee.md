@@ -293,6 +293,17 @@ to install it.
 
 ## Post-migration tasks
 
+### Copy trusted clients from iRedAPD config file
+
+Please copy trust clients defined in file `/opt/iredapd/settings.py`, parameter
+`MYNETWORKS` manually, then paste them on EE web UI: `Server Settings` -> `Trusted Clients`.
+
+If you don't have this parameter, it's ok to skip this step.
+
+```
+MYNETWORKS = [...]
+```
+
 ### Remove duplicate cron jobs
 
 There might be duplicate cron jobs for `root` and `sogo` users, please check
