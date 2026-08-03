@@ -12,6 +12,7 @@ server after initial setup.__
 ## Requirements
 
 - A working remote MySQL or MariaDB server.
+    - __Requires MySQL 8.0.13+ / Percona 8.4 / MariaDB 10.2.1+.__
     - A valid ssl cert for secure connection on server side is highly
       recommended for security concern.
 - Dovecot 2.3.21 and later releases support secure MySQL connection, so iRedMail
