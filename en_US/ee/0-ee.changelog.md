@@ -7,6 +7,7 @@
 
 | Version | Release Date ||
 |---|---|---|
+| [v1.8.2](#v1.8.2) | 2026-08-04 | |
 | [v1.8.1](#v1.8.1) | 2026-07-15 | |
 | [v1.8.0](#v1.8.0) | 2026-07-10 | |
 | [v1.7.5](#v1.7.5) | 2026-07-07 | Roundcube security fix |
@@ -44,6 +45,62 @@
 - [Best Practice](https://docs.iredmail.org/ee.best.practice.html)
 - [Replicate mail accounts from Microsoft Active Directory](./ee.ad.html)
 - [Use a Remote MySQL/MariaDB server as backend database](./ee.remote.mysql.html)
+
+## v1.8.2, Aug 4, 2026 {: #v1.8.2 }
+
+- Breaking changes:
+    - Greylisting is now handled by milter program instead of iRedAPD. The syntax
+      of domain and sub-domain names has changed slightly:
+
+          | Type       | Old Format     | New Format      |
+          |------------|----------------|-----------------|
+          | Domain     | `@domain.com`  | `domain.com`    |
+          | Sub-domain | `@.domain.com` | `.domain.com`   |
+
+          Greylisting settings and tracking data will be migrated automatically
+          during upgrade. If migration fails, you can run the following command
+          to migrate manually:
+
+              cd /opt/iredapd/
+              python3 migrate_greylisting_to_milter.py
+
+- Improvements:
+    - SQL statements are now compatible with MySQL 8.0.13+. If you're deploying
+      with a remote MySQL/MariaDB server, the minimum supported versions are:
+      MySQL 8.0.13+, Percona 8.4, or MariaDB 10.2.1.
+      Thanks to Jeff (jmproulx@).
+    - Notification emails are now always sent to the server admin after
+      mailboxes of deleted accounts are removed.
+      Thanks to Robert@kuakawa.
+    - Added a new configuration option to control whether mail aliases and
+      mailing list accounts are displayed in the global or per-domain address
+      book of SOGo Groupware.
+      Thanks to vlsc@.
+
+- Fixed issues:
+    - Roundcube entry point not enabled in Nginx when redeploying or
+      re-enabling Roundcube as the default web application of the website
+      homepage.
+    - Symbolic links not created for Roundcube third-party skins and plugins.
+    - Duplicate MariaDB log file entries in logrotate configuration files.
+      Thanks to Robert.
+    - Unused logrotate config files left behind after OS upgrade not being
+      removed.
+      Thanks to Robert.
+    - DKIM key for the server hostname always reported as mismatched.
+      Thanks to Kordian Sawikowski for the report.
+    - Minor web UI tweaks and fixes.
+
+- Updated packages:
+    - [Adminer v5.5.1](https://github.com/vrana/adminer/releases/tag/v5.5.1)
+    - Milter v1.7.0
+        - New plugin: `greylisting`. It replaces the `greylisting` plugin of iRedAPD.
+        - Fixed issues:
+            - Emails sent to mailing lists for subscription (`+subscribe`)
+              and unsubscription (`+unsubscribe`), or to owner of mailing list
+              (`+owner`) were incorrectly rejected.
+            - DKIM signing was not applied for alias domains.
+            - Null sender was not handled properly when applying plugins.
 
 ## v1.8.1, Jul 15, 2026 {: #v1.8.1 }
 
