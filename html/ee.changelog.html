@@ -33,6 +33,11 @@
 </thead>
 <tbody>
 <tr>
+<td><a href="#v1.8.3">v1.8.3</a></td>
+<td>2026-08-10</td>
+<td>Roundcube security fix.</td>
+</tr>
+<tr>
 <td><a href="#v1.8.2">v1.8.2</a></td>
 <td>2026-08-04</td>
 <td></td>
@@ -50,37 +55,37 @@
 <tr>
 <td><a href="#v1.7.5">v1.7.5</a></td>
 <td>2026-07-07</td>
-<td>Roundcube security fix</td>
+<td>Roundcube security fix.</td>
 </tr>
 <tr>
 <td><a href="#v1.7.4">v1.7.4</a></td>
 <td>2026-05-25</td>
-<td>Roundcube / SOGo security fix</td>
+<td>Roundcube / SOGo security fix.</td>
 </tr>
 <tr>
 <td><a href="#v1.7.3">v1.7.3</a></td>
 <td>2026-05-08</td>
-<td>Golang v1.26.3 security fix</td>
+<td>Golang v1.26.3 security fix.</td>
 </tr>
 <tr>
 <td><a href="#v1.7.2">v1.7.2</a></td>
 <td>2026-04-10</td>
-<td>Golang v1.26.2 security fix</td>
+<td>Golang v1.26.2 security fix.</td>
 </tr>
 <tr>
 <td><a href="#v1.7.1">v1.7.1</a></td>
 <td>2026-03-30</td>
-<td>Roundcube security fix</td>
+<td>Roundcube security fix.</td>
 </tr>
 <tr>
 <td><a href="#v1.7.0">v1.7.0</a></td>
 <td>2026-03-26</td>
-<td>Roundcube security fix</td>
+<td>Roundcube security fix.</td>
 </tr>
 <tr>
 <td><a href="#v1.6.2">v1.6.2</a></td>
 <td>2026-02-09</td>
-<td>Roundcube security fix</td>
+<td>Roundcube security fix.</td>
 </tr>
 <tr>
 <td><a href="#v1.6.1">v1.6.1</a></td>
@@ -90,7 +95,7 @@
 <tr>
 <td><a href="#v1.6.0">v1.6.0</a></td>
 <td>2025-12-29</td>
-<td>Roundcube security fix</td>
+<td>Roundcube security fix.</td>
 </tr>
 <tr>
 <td><a href="#v1.5.1">v1.5.1</a></td>
@@ -100,7 +105,7 @@
 <tr>
 <td><a href="#v1.5.0">v1.5.0</a></td>
 <td>2025-09-08</td>
-<td>Z-Push security fix</td>
+<td>Z-Push security fix.</td>
 </tr>
 <tr>
 <td><a href="#v1.4.0">v1.4.0</a></td>
@@ -110,7 +115,7 @@
 <tr>
 <td><a href="#v1.3.1">v1.3.1</a></td>
 <td>2025-06-03</td>
-<td>Roundcube security fix</td>
+<td>Roundcube security fix.</td>
 </tr>
 <tr>
 <td><a href="#v1.3.0">v1.3.0</a></td>
@@ -187,6 +192,45 @@
 <li><a href="https://docs.iredmail.org/ee.best.practice.html">Best Practice</a></li>
 <li><a href="./ee.ad.html">Replicate mail accounts from Microsoft Active Directory</a></li>
 <li><a href="./ee.remote.mysql.html">Use a Remote MySQL/MariaDB server as backend database</a></li>
+</ul>
+<h2 id="v1.8.3">v1.8.3, Aug 10, 2026</h2>
+<ul>
+<li>
+<p>Improvements:</p>
+<ul>
+<li>Able to whitelist/blacklist senders of <code>MAIL FROM:</code> and header <code>From:</code>
+  on <code>SMTP Sessions</code> page.</li>
+<li>Able to filter by action "Greylisted" on <code>SMTP Sessions</code> page.</li>
+<li>Show brief greylisting tracking data when it's set to inherit setting.</li>
+<li>Able to disable pop3/pop3s/imap/imaps services separately
+  (<code>Server Settings</code> -&gt; <code>IMAP / POP3 Services</code>).</li>
+</ul>
+</li>
+<li>
+<p>Fixed issues:</p>
+<ul>
+<li>mlmmj-maintd was ran as <code>root</code> user (should be <code>mlmmj</code> user).
+  Thanks to Мороз Олег Олександрович.</li>
+<li>Minor web UI tweaks and fixes.</li>
+</ul>
+</li>
+<li>
+<p>Updated packages:</p>
+<ul>
+<li><a href="https://roundcube.net/news/2026/08/09/security-updates-1.6.18-and-1.7.3">Roundcube webmail 1.7.3, addresses 11 security vulnerabilities.</a></li>
+<li><a href="https://github.com/vrana/adminer/releases/tag/v6.0.0">Adminer 6.0.0</a></li>
+<li>milter v1.7.1. Fixed issues:<ul>
+<li>Not correctly handle priority of whitelists and blacklists.</li>
+<li>Not correctly handle catch-all addresses while applying whitelists and
+  blacklists.
+  Thanks to 247report@.</li>
+<li>Not correctly handle whitelists/blacklists sent to per-account alias addresses.
+  Thanks to Dan (dansenie@).</li>
+<li>Not handle emails sent to mailing list with additional address extensions.</li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 <h2 id="v1.8.2">v1.8.2, Aug 4, 2026</h2>
 <ul>

@@ -7,22 +7,23 @@
 
 | Version | Release Date ||
 |---|---|---|
+| [v1.8.3](#v1.8.3) | 2026-08-10 | Roundcube security fix. |
 | [v1.8.2](#v1.8.2) | 2026-08-04 | |
 | [v1.8.1](#v1.8.1) | 2026-07-15 | |
 | [v1.8.0](#v1.8.0) | 2026-07-10 | |
-| [v1.7.5](#v1.7.5) | 2026-07-07 | Roundcube security fix |
-| [v1.7.4](#v1.7.4) | 2026-05-25 | Roundcube / SOGo security fix |
-| [v1.7.3](#v1.7.3) | 2026-05-08 | Golang v1.26.3 security fix |
-| [v1.7.2](#v1.7.2) | 2026-04-10 | Golang v1.26.2 security fix |
-| [v1.7.1](#v1.7.1) | 2026-03-30 | Roundcube security fix |
-| [v1.7.0](#v1.7.0) | 2026-03-26 | Roundcube security fix |
-| [v1.6.2](#v1.6.2) | 2026-02-09 | Roundcube security fix |
+| [v1.7.5](#v1.7.5) | 2026-07-07 | Roundcube security fix. |
+| [v1.7.4](#v1.7.4) | 2026-05-25 | Roundcube / SOGo security fix. |
+| [v1.7.3](#v1.7.3) | 2026-05-08 | Golang v1.26.3 security fix. |
+| [v1.7.2](#v1.7.2) | 2026-04-10 | Golang v1.26.2 security fix. |
+| [v1.7.1](#v1.7.1) | 2026-03-30 | Roundcube security fix. |
+| [v1.7.0](#v1.7.0) | 2026-03-26 | Roundcube security fix. |
+| [v1.6.2](#v1.6.2) | 2026-02-09 | Roundcube security fix. |
 | [v1.6.1](#v1.6.1) | 2026-01-16 ||
-| [v1.6.0](#v1.6.0) | 2025-12-29 | Roundcube security fix |
+| [v1.6.0](#v1.6.0) | 2025-12-29 | Roundcube security fix. |
 | [v1.5.1](#v1.5.1) | 2025-09-29 ||
-| [v1.5.0](#v1.5.0) | 2025-09-08 | Z-Push security fix |
+| [v1.5.0](#v1.5.0) | 2025-09-08 | Z-Push security fix. |
 | [v1.4.0](#v1.4.0) | 2025-07-11 ||
-| [v1.3.1](#v1.3.1) | 2025-06-03 | Roundcube security fix |
+| [v1.3.1](#v1.3.1) | 2025-06-03 | Roundcube security fix. |
 | [v1.3.0](#v1.3.0) | 2025-05-22 ||
 | [v1.2.1](#v1.2.1) | 2025-04-04 ||
 | [v1.2.0](#v1.2.0) | 2025-04-03 ||
@@ -45,6 +46,33 @@
 - [Best Practice](https://docs.iredmail.org/ee.best.practice.html)
 - [Replicate mail accounts from Microsoft Active Directory](./ee.ad.html)
 - [Use a Remote MySQL/MariaDB server as backend database](./ee.remote.mysql.html)
+
+## v1.8.3, Aug 10, 2026 {: #v1.8.3 }
+
+- Improvements:
+    - Able to whitelist/blacklist senders of `MAIL FROM:` and header `From:`
+      on `SMTP Sessions` page.
+    - Able to filter by action "Greylisted" on `SMTP Sessions` page.
+    - Show brief greylisting tracking data when it's set to inherit setting.
+    - Able to disable pop3/pop3s/imap/imaps services separately
+      (`Server Settings` -> `IMAP / POP3 Services`).
+
+- Fixed issues:
+    - mlmmj-maintd was ran as `root` user (should be `mlmmj` user).
+      Thanks to Мороз Олег Олександрович.
+    - Minor web UI tweaks and fixes.
+
+- Updated packages:
+    - [Roundcube webmail 1.7.3, addresses 11 security vulnerabilities.](https://roundcube.net/news/2026/08/09/security-updates-1.6.18-and-1.7.3)
+    - [Adminer 6.0.0](https://github.com/vrana/adminer/releases/tag/v6.0.0)
+    - milter v1.7.1. Fixed issues:
+        - Not correctly handle priority of whitelists and blacklists.
+        - Not correctly handle catch-all addresses while applying whitelists and
+          blacklists.
+          Thanks to 247report@.
+        - Not correctly handle whitelists/blacklists sent to per-account alias addresses.
+          Thanks to Dan (dansenie@).
+        - Not handle emails sent to mailing list with additional address extensions.
 
 ## v1.8.2, Aug 4, 2026 {: #v1.8.2 }
 
