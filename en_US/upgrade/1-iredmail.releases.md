@@ -39,14 +39,14 @@
 
 Release Notes | Date | Upgrade tutorial | Comment
 ---|---|---|---
-[1.8.6](https://forum.iredmail.org/topic21206.html) | Aug 27, 2026 | [Upgrade from iRedMail-1.8.5](./upgrade.iredmail.1.8.5-1.8.6.html) ||
-[1.8.5](https://forum.iredmail.org/topic21202.html) | Aug 20, 2026 | [Upgrade from iRedMail-1.8.4](./upgrade.iredmail.1.8.4-1.8.5.html) ||
+[1.8.6](https://forum.iredmail.org/topic21206.html) | Aug 27, 2026 | [Upgrade from iRedMail-1.8.5](./upgrade.iredmail.1.8.5-1.8.6.html) |iRedAPD 6.2 addresses one security vulnerability.|
+[1.8.5](https://forum.iredmail.org/topic21202.html) | Aug 20, 2026 | [Upgrade from iRedMail-1.8.4](./upgrade.iredmail.1.8.4-1.8.5.html) | Roundcube 1.7.3 addresses 11 security vulnerabilities.|
 [1.8.4](https://forum.iredmail.org/topic21188.html) | Jul 22, 2026 | [Upgrade from iRedMail-1.8.3](./upgrade.iredmail.1.8.3-1.8.4.html) ||
 [1.8.3](https://forum.iredmail.org/topic21173.html) | Jul 7, 2026 | [Upgrade from iRedMail-1.8.2](./upgrade.iredmail.1.8.2-1.8.3.html) |Roundcube 1.7.2 addresses 6 security vulnerabilities.|
-[1.8.2](https://forum.iredmail.org/topic21151.html) | May 25, 2026 | [Upgrade from iRedMail-1.8.1](./upgrade.iredmail.1.8.1-1.8.2.html) |Roundcube security fix.|
-[1.8.1](https://forum.iredmail.org/topic21144.html) | May 14, 2026 | [Upgrade from iRedMail-1.8.0](./upgrade.iredmail.1.8.0-1.8.1.html) |SOGo security fix.|
-[1.8.0](https://forum.iredmail.org/topic21127.html) | Apr 13, 2026 | [Upgrade from iRedMail-1.7.4](./upgrade.iredmail.1.7.4-1.8.0.html) |Roundcube security fix.|
-[1.7.4](https://forum.iredmail.org/topic20900.html) | Jun 3, 2025 | [Upgrade from iRedMail-1.7.3](./upgrade.iredmail.1.7.3-1.7.4.html) |Roundcube security fix.|
+[1.8.2](https://forum.iredmail.org/topic21151.html) | May 25, 2026 | [Upgrade from iRedMail-1.8.1](./upgrade.iredmail.1.8.1-1.8.2.html) |Roundcube 1.7.1 addresses 8 security vulnerabilities.|
+[1.8.1](https://forum.iredmail.org/topic21144.html) | May 14, 2026 | [Upgrade from iRedMail-1.8.0](./upgrade.iredmail.1.8.0-1.8.1.html) |SOGo security fix. Nginx configuration changes required by Roundcube 1.7.0.|
+[1.8.0](https://forum.iredmail.org/topic21127.html) | Apr 13, 2026 | [Upgrade from iRedMail-1.7.4](./upgrade.iredmail.1.7.4-1.8.0.html) |Roundcube 1.6.15 addresses one security vulnerability.|
+[1.7.4](https://forum.iredmail.org/topic20900.html) | Jun 3, 2025 | [Upgrade from iRedMail-1.7.3](./upgrade.iredmail.1.7.3-1.7.4.html) |Roundcube 1.6.11 addresses one security vulnerability.|
 [1.7.3](https://forum.iredmail.org/topic20846.html) | Apr 4, 2025 | [Upgrade from iRedMail-1.7.2](./upgrade.iredmail.1.7.2-1.7.3.html) |LDAP schema change.|
 [1.7.2](https://forum.iredmail.org/topic20760.html) | Jan 24, 2025 | [Upgrade from iRedMail-1.7.1](./upgrade.iredmail.1.7.1-1.7.2.html) |LDAP schema change.|
 [1.7.1](https://forum.iredmail.org/topic20547.html) | Aug 5, 2024 | [Upgrade from iRedMail-1.7.0](./upgrade.iredmail.1.7.0-1.7.1.html) ||
