@@ -60,6 +60,7 @@
   Scanning`, `Whitelists and Blacklists`, `Greylisting`, `Throttling`.
 
 - Improvements:
+    - Allows setting passwords to never expire for all users in the domain.
     - Log and display detailed info of removed mailbox on `Activities` page,
       including mailbox size, number of messages, scheduled date, mailbox path.
     - Display MariaDB/MySQL database names and sizes on `Dashboard` page.
