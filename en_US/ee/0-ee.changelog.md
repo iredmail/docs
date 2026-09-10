@@ -7,7 +7,8 @@
 
 | Version | Release Date ||
 |---|---|---|
-| [v1.8.3](#v1.8.3) | 2026-08-10 | Roundcube security fix. |
+| [v1.8.4](#v1.8.4) | 2026-09-10 | Roundcube 1.7.4 security fix. |
+| [v1.8.3](#v1.8.3) | 2026-08-10 | Roundcube 1.7.3 security fix. |
 | [v1.8.2](#v1.8.2) | 2026-08-04 | |
 | [v1.8.1](#v1.8.1) | 2026-07-15 | |
 | [v1.8.0](#v1.8.0) | 2026-07-10 | |
@@ -46,6 +47,54 @@
 - [Best Practice](https://docs.iredmail.org/ee.best.practice.html)
 - [Replicate mail accounts from Microsoft Active Directory](./ee.ad.html)
 - [Use a Remote MySQL/MariaDB server as backend database](./ee.remote.mysql.html)
+
+## v1.8.4, Sep 10, 2026 {: #v1.8.4 }
+
+- Breaking changes:
+    - Throttling is now handled by milter program instead of iRedAPD. RESTful
+      API interface for managing throttle settings has been changed too, please
+      read [API doc](https://www.iredmail.org/ee/api/#/Throttle) for more details.
+
+- Web UI: Several anti-spam related configurations have been moved to new menu
+  `Anti Spam/Virus` on left sidebar, including `Spam Policy`, `Spam/Virus
+  Scanning`, `Whitelists and Blacklists`, `Greylisting`, `Throttling`.
+
+- Improvements:
+    - Log and display detailed info of removed mailbox on `Activities` page,
+      including mailbox size, number of messages, scheduled date, mailbox path.
+    - Display MariaDB/MySQL database names and sizes on `Dashboard` page.
+    - ISC BIND now loads extra config snippet file: `/opt/iredmail/custom/bind/named.conf.local`.
+      Thanks to Marc Adank.
+    - Searching now queries per-account alias addresses too, returns the
+      primary accounts.
+      Thanks to Valentin.
+    - Count discarded smtp sessions on `Dashboard` -> `Statistics`.
+      Thanks to Robert@kuakawa.
+    - Count smtp sessions and total recipients of sent emails on `Dashboard` -> `Statistics`.
+    - Translate filter terms on `Activities` page.
+
+- Fixed issues:
+    - [playbook] Not create DKIM key for first mail domain for PostgreSQL backend.
+    - [playbook] SOGo password policies (`Server Settings` -> `SOGo Groupware`) were not
+      actually applied in SOGo config file.
+      Thanks to preiss@.
+    - [playbook] Not create SQL columns `alias.show_in_address_book` and
+      `maillists.show_in_address_book` for SQL backends.
+    - [playbook] Not create SQL columns `deleted_mailboxes.bytes` and
+      `deleted_mailboxes.messages` for OpenLDAP backend.
+    - [playbook] Not escape MySQL/MariaDB perserved keywords (`system`) in one SQL command.
+    - [playbook] Not enable firewall service after enabled Firewall component.
+      Thanks to Dan (daniel.neculai@).
+    - Inconsistent DNS query results. Thanks to Dan (daniel.neculai@).
+    - Minor web UI tweaks and fixes.
+
+- Updated packages:
+    - [Roundcube webmail 1.7.4](https://roundcube.net/news/2026/09/06/security-updates-1.6.19-and-1.7.4),
+      addresses 12 security vulnerabilities.
+    - [Adminer 6.0.2](https://github.com/vrana/adminer/releases/tag/v6.0.2)
+    - Milter v1.8.0
+        - New plugin: `throttle`. It replaces the `throttle` plugin of iRedAPD.
+    - iRedAPD 6.3
 
 ## v1.8.3, Aug 10, 2026 {: #v1.8.3 }
 

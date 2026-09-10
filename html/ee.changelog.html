@@ -33,9 +33,14 @@
 </thead>
 <tbody>
 <tr>
+<td><a href="#v1.8.4">v1.8.4</a></td>
+<td>2026-09-10</td>
+<td>Roundcube 1.7.4 security fix.</td>
+</tr>
+<tr>
 <td><a href="#v1.8.3">v1.8.3</a></td>
 <td>2026-08-10</td>
-<td>Roundcube security fix.</td>
+<td>Roundcube 1.7.3 security fix.</td>
 </tr>
 <tr>
 <td><a href="#v1.8.2">v1.8.2</a></td>
@@ -192,6 +197,70 @@
 <li><a href="https://docs.iredmail.org/ee.best.practice.html">Best Practice</a></li>
 <li><a href="./ee.ad.html">Replicate mail accounts from Microsoft Active Directory</a></li>
 <li><a href="./ee.remote.mysql.html">Use a Remote MySQL/MariaDB server as backend database</a></li>
+</ul>
+<h2 id="v1.8.4">v1.8.4, Sep 10, 2026</h2>
+<ul>
+<li>
+<p>Breaking changes:</p>
+<ul>
+<li>Throttling is now handled by milter program instead of iRedAPD. RESTful
+  API interface for managing throttle settings has been changed too, please
+  read <a href="https://www.iredmail.org/ee/api/#/Throttle">API doc</a> for more details.</li>
+</ul>
+</li>
+<li>
+<p>Web UI: Several anti-spam related configurations have been moved to new menu
+  <code>Anti Spam/Virus</code> on left sidebar, including <code>Spam Policy</code>, <code>Spam/Virus
+  Scanning</code>, <code>Whitelists and Blacklists</code>, <code>Greylisting</code>, <code>Throttling</code>.</p>
+</li>
+<li>
+<p>Improvements:</p>
+<ul>
+<li>Log and display detailed info of removed mailbox on <code>Activities</code> page,
+  including mailbox size, number of messages, scheduled date, mailbox path.</li>
+<li>Display MariaDB/MySQL database names and sizes on <code>Dashboard</code> page.</li>
+<li>ISC BIND now loads extra config snippet file: <code>/opt/iredmail/custom/bind/named.conf.local</code>.
+  Thanks to Marc Adank.</li>
+<li>Searching now queries per-account alias addresses too, returns the
+  primary accounts.
+  Thanks to Valentin.</li>
+<li>Count discarded smtp sessions on <code>Dashboard</code> -&gt; <code>Statistics</code>.
+  Thanks to Robert@kuakawa.</li>
+<li>Count smtp sessions and total recipients of sent emails on <code>Dashboard</code> -&gt; <code>Statistics</code>.</li>
+<li>Translate filter terms on <code>Activities</code> page.</li>
+</ul>
+</li>
+<li>
+<p>Fixed issues:</p>
+<ul>
+<li>[playbook] Not create DKIM key for first mail domain for PostgreSQL backend.</li>
+<li>[playbook] SOGo password policies (<code>Server Settings</code> -&gt; <code>SOGo Groupware</code>) were not
+  actually applied in SOGo config file.
+  Thanks to preiss@.</li>
+<li>[playbook] Not create SQL columns <code>alias.show_in_address_book</code> and
+  <code>maillists.show_in_address_book</code> for SQL backends.</li>
+<li>[playbook] Not create SQL columns <code>deleted_mailboxes.bytes</code> and
+  <code>deleted_mailboxes.messages</code> for OpenLDAP backend.</li>
+<li>[playbook] Not escape MySQL/MariaDB perserved keywords (<code>system</code>) in one SQL command.</li>
+<li>[playbook] Not enable firewall service after enabled Firewall component.
+  Thanks to Dan (daniel.neculai@).</li>
+<li>Inconsistent DNS query results. Thanks to Dan (daniel.neculai@).</li>
+<li>Minor web UI tweaks and fixes.</li>
+</ul>
+</li>
+<li>
+<p>Updated packages:</p>
+<ul>
+<li><a href="https://roundcube.net/news/2026/09/06/security-updates-1.6.19-and-1.7.4">Roundcube webmail 1.7.4</a>,
+  addresses 12 security vulnerabilities.</li>
+<li><a href="https://github.com/vrana/adminer/releases/tag/v6.0.2">Adminer 6.0.2</a></li>
+<li>Milter v1.8.0<ul>
+<li>New plugin: <code>throttle</code>. It replaces the <code>throttle</code> plugin of iRedAPD.</li>
+</ul>
+</li>
+<li>iRedAPD 6.3</li>
+</ul>
+</li>
 </ul>
 <h2 id="v1.8.3">v1.8.3, Aug 10, 2026</h2>
 <ul>
