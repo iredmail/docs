@@ -27,9 +27,9 @@ Run commands below on your iRedMail server:
 
 ```
 cd /root
-wget -O iRedAPD-6.2.tar.gz https://github.com/iredmail/iRedAPD/archive/6.2.tar.gz
-tar zxf iRedAPD-6.2.tar.gz
-cd iRedAPD-6.2/tools/
+wget -O iRedAPD-6.3.tar.gz https://github.com/iredmail/iRedAPD/archive/6.3.tar.gz
+tar zxf iRedAPD-6.3.tar.gz
+cd iRedAPD-6.3/tools/
 bash upgrade_iredapd.sh
 ```
 
