@@ -45,6 +45,16 @@ Since AD uses different LDAP schema, you will lose some iRedMail special feature
 To integrate Microsoft Active Directory with iRedMail, you should have:
 
 * A working Linux/BSD server with iRedMail (OpenLDAP backend) installed.
+
+    This tutorial works with Dovecot 2.3, but not Dovecot 2.4 since 2.4 has
+    incompatible config syntax. Unfortunately we have no plan to update this
+    tutorial with Dovecot 2.4 support.
+
+    If you need better Active Directory integration, please try [iRedMail
+    Enterprise Edition](https://www.iredmail.org/ee.html) instead, it supports
+    [replicating mail accounts from Microsoft Active Directory](./ee.ad.html),
+    Samba (Active Directory Domain Controller), and OpenLDAP.
+
 * A working Microsoft Windows (2000/2003) server, with Active Directory
   installed and working properly, listen on port `389` (ldap://) or `636`
   (ldaps://), and allow LDAP connections from iRedMail server.
