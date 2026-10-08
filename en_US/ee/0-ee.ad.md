@@ -97,6 +97,9 @@ Click __`Replication`__ tab:
     - Group members will be replicated too. You can manage members on AD, and view
       the members on mail alias profile page on iRedMail server.
     - If this option is not toggled on, the tab `Groups` will be hidden and invisible.
+- __`Show accounts in the global address book on the webmails`__: Replicated
+  accounts will be displayed in global address book on the webmails. This
+  affects newly replicated accounts.
 - __`Delete accounts locally when they were removed from Active Directory`__:
   delete mail accounts and their application data (e.g. webmail preferences,
   calendar, contacts, per-user whitelists / blacklists, etc) on iRedMail server
