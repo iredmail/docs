@@ -23,232 +23,239 @@
 <table>
 <thead>
 <tr>
-<th>Port</th>
-<th>Service</th>
-<th>Software</th>
-<th>Comment</th>
-<th>Allow Public Access?</th>
+<th style="text-align: right;">Port</th>
+<th style="text-align: left;">Service</th>
+<th style="text-align: left;">Software</th>
+<th style="text-align: left;">Comment</th>
+<th style="text-align: left;">Allow Public Access?</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>25</td>
-<td>smtp</td>
-<td>Postfix</td>
-<td>Used for communication betweem mail servers. <strong>WARNING</strong>: This port <strong>MUST</strong> be open, otherwise you cannot receive email sent by other mail servers.</td>
-<td><strong class="red">YES (REQUIRED)</strong></td>
+<td style="text-align: right;">25</td>
+<td style="text-align: left;">smtp</td>
+<td style="text-align: left;">Postfix</td>
+<td style="text-align: left;">Used for server-to-server mail delivery. <strong>WARNING</strong>: this port <strong>MUST</strong> be open, otherwise you cannot receive email sent by other mail servers.</td>
+<td style="text-align: left;"><strong class="red">YES (REQUIRED)</strong></td>
 </tr>
 <tr>
-<td>465</td>
-<td>smtps (submissions)</td>
-<td>Postfix</td>
-<td>implicit TLS</td>
-<td>SMTP submission — end users send and submit mail</td>
+<td style="text-align: right;">24</td>
+<td style="text-align: left;">lmtp</td>
+<td style="text-align: left;">Dovecot</td>
+<td style="text-align: left;">Local delivery to mailboxes via LMTP.</td>
+<td style="text-align: left;">NO (127.0.0.1 only)</td>
 </tr>
 <tr>
-<td>587</td>
-<td>submission</td>
-<td>Postfix</td>
-<td>STARTTLS</td>
-<td>SMTP submission — end users send and submit mail (preferred)</td>
+<td style="text-align: right;">80</td>
+<td style="text-align: left;">http</td>
+<td style="text-align: left;">Apache/Nginx</td>
+<td style="text-align: left;">HTTP; redirects to HTTPS by default.</td>
+<td style="text-align: left;">YES (webmail users)</td>
 </tr>
 <tr>
-<td>110</td>
-<td>pop3</td>
-<td>Dovecot</td>
-<td>STARTTLS (enforced)</td>
-<td>POP3 retrieval</td>
+<td style="text-align: right;">110</td>
+<td style="text-align: left;">pop3</td>
+<td style="text-align: left;">Dovecot</td>
+<td style="text-align: left;">POP3 retrieval. STARTTLS is enforced.</td>
+<td style="text-align: left;">YES (end users)</td>
 </tr>
 <tr>
-<td>995</td>
-<td>pop3s</td>
-<td>Dovecot</td>
-<td>implicit TLS</td>
-<td>POP3 retrieval</td>
+<td style="text-align: right;">143</td>
+<td style="text-align: left;">imap</td>
+<td style="text-align: left;">Dovecot</td>
+<td style="text-align: left;">IMAP retrieval. STARTTLS is enforced.</td>
+<td style="text-align: left;">YES (end users)</td>
 </tr>
 <tr>
-<td>143</td>
-<td>imap</td>
-<td>Dovecot</td>
-<td>STARTTLS (enforced)</td>
-<td>IMAP retrieval</td>
+<td style="text-align: right;">389</td>
+<td style="text-align: left;">ldap</td>
+<td style="text-align: left;">OpenLDAP (or OpenBSD ldapd)</td>
+<td style="text-align: left;">LDAP directory service; STARTTLS is available for a secure connection.</td>
+<td style="text-align: left;">NO (127.0.0.1 only)</td>
 </tr>
 <tr>
-<td>993</td>
-<td>imaps</td>
-<td>Dovecot</td>
-<td>implicit TLS</td>
-<td>IMAP retrieval</td>
+<td style="text-align: right;">443</td>
+<td style="text-align: left;">https</td>
+<td style="text-align: left;">Apache/Nginx</td>
+<td style="text-align: left;">HTTPS for webmail and ActiveSync.</td>
+<td style="text-align: left;">YES (webmail and ActiveSync users)</td>
 </tr>
 <tr>
-<td>24</td>
-<td>lmtp</td>
-<td>Dovecot</td>
-<td>Used to deliver email to local mailboxes via LMTP protocol.</td>
-<td>NO (listen on <code>127.0.0.1</code> by default)</td>
+<td style="text-align: right;">465</td>
+<td style="text-align: left;">smtps (submissions)</td>
+<td style="text-align: left;">Postfix</td>
+<td style="text-align: left;">SMTP submission with implicit TLS. End users use it to submit outgoing mail.</td>
+<td style="text-align: left;">YES (end users)</td>
 </tr>
 <tr>
-<td>4190</td>
-<td>managesieve</td>
-<td>Dovecot</td>
-<td>Sieve service used by end users to manage mail filters. Note: in old iRedMail releases, it's port 2000 (deprecated and not even listed in <code>/etc/services</code> file).</td>
-<td>NO (disabled by default and users are forced to manage mail filters with webmail)</td>
+<td style="text-align: right;">587</td>
+<td style="text-align: left;">submission</td>
+<td style="text-align: left;">Postfix</td>
+<td style="text-align: left;">SMTP submission with STARTTLS. End users use it to submit outgoing mail.</td>
+<td style="text-align: left;">YES (end users)</td>
 </tr>
 <tr>
-<td>80</td>
-<td>http</td>
-<td>Apache/Nginx</td>
-<td>Web service. Redirect to https by default.</td>
-<td>YES (open to your webmail users)</td>
+<td style="text-align: right;">636</td>
+<td style="text-align: left;">ldaps</td>
+<td style="text-align: left;">OpenLDAP (or OpenBSD ldapd)</td>
+<td style="text-align: left;">LDAP with implicit TLS (LDAPS). Not enabled by default; STARTTLS on port 389 is recommended instead.</td>
+<td style="text-align: left;">NO (not enabled by default)</td>
 </tr>
 <tr>
-<td>443</td>
-<td>https</td>
-<td>Nginx</td>
-<td>implicit TLS</td>
-<td>HTTPS — webmail and ActiveSync</td>
+<td style="text-align: right;">993</td>
+<td style="text-align: left;">imaps</td>
+<td style="text-align: left;">Dovecot</td>
+<td style="text-align: left;">IMAP retrieval with implicit TLS.</td>
+<td style="text-align: left;">YES (end users)</td>
 </tr>
 <tr>
-<td>3306</td>
-<td>mysql</td>
-<td>MySQL/MariaDB</td>
-<td>MySQL/MariaDB database service</td>
-<td>NO (listen on <code>127.0.0.1</code> by default)</td>
+<td style="text-align: right;">995</td>
+<td style="text-align: left;">pop3s</td>
+<td style="text-align: left;">Dovecot</td>
+<td style="text-align: left;">POP3 retrieval with implicit TLS.</td>
+<td style="text-align: left;">YES (end users)</td>
 </tr>
 <tr>
-<td>5432</td>
-<td>postgresql</td>
-<td>PostgreSQL</td>
-<td>PostgreSQL database service</td>
-<td>NO (listen on <code>127.0.0.1</code> by default)</td>
+<td style="text-align: right;">3306</td>
+<td style="text-align: left;">mysql</td>
+<td style="text-align: left;">MySQL/MariaDB</td>
+<td style="text-align: left;">Database service.</td>
+<td style="text-align: left;">NO (127.0.0.1 only)</td>
 </tr>
 <tr>
-<td>389</td>
-<td>ldap</td>
-<td>OpenLDAP (or OpenBSD ldapd)</td>
-<td>LDAP service, STARTTLS is available for secure connection.</td>
-<td>NO (listen on <code>127.0.0.1</code> by default)</td>
+<td style="text-align: right;">4190</td>
+<td style="text-align: left;">managesieve</td>
+<td style="text-align: left;">Dovecot</td>
+<td style="text-align: left;">ManageSieve: end users manage mail filters. Old releases used port 2000 (deprecated, not listed in <code>/etc/services</code>).</td>
+<td style="text-align: left;">NO (disabled by default; filters are managed in webmail)</td>
 </tr>
 <tr>
-<td>636</td>
-<td>ldaps</td>
-<td>OpenLDAP (or OpenBSD ldapd)</td>
-<td>LDAP service over SSL. Deprecated, port 389 with STARTTLS is recommended.</td>
-<td>NO (Not enabled by default)</td>
+<td style="text-align: right;">5432</td>
+<td style="text-align: left;">postgresql</td>
+<td style="text-align: left;">PostgreSQL</td>
+<td style="text-align: left;">Database service.</td>
+<td style="text-align: left;">NO (127.0.0.1 only)</td>
 </tr>
 <tr>
-<td>10024</td>
-<td></td>
-<td>Amavisd-new</td>
-<td>Used to scan inbound messages, includes spam/virus scanning, DKIM verification, applying spam policy.</td>
-<td>NO (listen on <code>127.0.0.1</code> by default)</td>
+<td style="text-align: right;">7777</td>
+<td style="text-align: left;">—</td>
+<td style="text-align: left;">iRedAPD</td>
+<td style="text-align: left;">Postfix policy service: greylisting, whitelisting, blacklists, throttling, etc.</td>
+<td style="text-align: left;">NO (127.0.0.1 only)</td>
 </tr>
 <tr>
-<td>10025</td>
-<td>smtp</td>
-<td>Postfix</td>
-<td>Used by Amavisd to inject scanned emails back to Postfix queue.</td>
-<td>NO (listen on <code>127.0.0.1</code> by default)</td>
+<td style="text-align: right;">7778</td>
+<td style="text-align: left;">—</td>
+<td style="text-align: left;">iRedAPD</td>
+<td style="text-align: left;">SRS sender address rewriting.</td>
+<td style="text-align: left;">NO (127.0.0.1 only)</td>
 </tr>
 <tr>
-<td>10026</td>
-<td></td>
-<td>Amavisd-new</td>
-<td>Used to scan outbound messages, includes spam/virus scanning, DKIM signing, applying spam policy.</td>
-<td>NO (listen on <code>127.0.0.1</code> by default)</td>
+<td style="text-align: right;">7779</td>
+<td style="text-align: left;">—</td>
+<td style="text-align: left;">iRedAPD</td>
+<td style="text-align: left;">SRS recipient address rewriting.</td>
+<td style="text-align: left;">NO (127.0.0.1 only)</td>
 </tr>
 <tr>
-<td>10027</td>
-<td></td>
-<td>Amavisd-new</td>
-<td>Used by mlmmj mailing list manager, it bypasses spam/virus/header/banned checks by default, but have DKIM signing enabled.</td>
-<td>NO (listen on <code>127.0.0.1</code> by default)</td>
+<td style="text-align: right;">7790</td>
+<td style="text-align: left;">http</td>
+<td style="text-align: left;">mlmmjadmin</td>
+<td style="text-align: left;">RESTful API for managing mlmmj mailing lists (since iRedMail-0.9.8).</td>
+<td style="text-align: left;">NO (127.0.0.1 only)</td>
 </tr>
 <tr>
-<td>10028</td>
-<td></td>
-<td>Postfix</td>
-<td>Used by Amavisd-new to handle email message sent by mlmmj mailing list manager. Introduced in iRedMail-0.9.9.</td>
-<td>NO (listen on <code>127.0.0.1</code> by default)</td>
+<td style="text-align: right;">7791</td>
+<td style="text-align: left;">http</td>
+<td style="text-align: left;">iRedAdmin</td>
+<td style="text-align: left;">iRedAdmin standalone uWSGI instance (since iRedMail-0.9.9).</td>
+<td style="text-align: left;">NO (127.0.0.1 only)</td>
 </tr>
 <tr>
-<td>9998</td>
-<td></td>
-<td>Amavisd-new</td>
-<td>Used to manage quarantined emails.</td>
-<td>NO (listen on <code>127.0.0.1</code> by default)</td>
+<td style="text-align: right;">9998</td>
+<td style="text-align: left;">—</td>
+<td style="text-align: left;">Amavisd-new</td>
+<td style="text-align: left;">Quarantine management.</td>
+<td style="text-align: left;">NO (127.0.0.1 only)</td>
 </tr>
 <tr>
-<td>7777</td>
-<td></td>
-<td>iRedAPD</td>
-<td>Postfix policy service for greylisting, whitelisting, blacklists, throttling, etc</td>
-<td>NO (listen on <code>127.0.0.1</code> by default)</td>
+<td style="text-align: right;">10024</td>
+<td style="text-align: left;">—</td>
+<td style="text-align: left;">Amavisd-new</td>
+<td style="text-align: left;">Scans inbound messages: spam/virus scanning, DKIM verification, spam policy.</td>
+<td style="text-align: left;">NO (127.0.0.1 only)</td>
 </tr>
 <tr>
-<td>7778</td>
-<td></td>
-<td>iRedAPD</td>
-<td><a href="https://en.wikipedia.org/wiki/Sender_Rewriting_Scheme">SRS</a> sender address rewritting.</td>
-<td>NO (listen on <code>127.0.0.1</code> by default)</td>
+<td style="text-align: right;">10025</td>
+<td style="text-align: left;">smtp</td>
+<td style="text-align: left;">Postfix</td>
+<td style="text-align: left;">Amavisd re-injects scanned inbound messages into the Postfix queue.</td>
+<td style="text-align: left;">NO (127.0.0.1 only)</td>
 </tr>
 <tr>
-<td>7779</td>
-<td></td>
-<td>iRedAPD</td>
-<td><a href="https://en.wikipedia.org/wiki/Sender_Rewriting_Scheme">SRS</a> recipient address rewritting.</td>
-<td>NO (listen on <code>127.0.0.1</code> by default)</td>
+<td style="text-align: right;">10026</td>
+<td style="text-align: left;">—</td>
+<td style="text-align: left;">Amavisd-new</td>
+<td style="text-align: left;">Scans outbound messages: spam/virus scanning, DKIM signing, spam policy.</td>
+<td style="text-align: left;">NO (127.0.0.1 only)</td>
 </tr>
 <tr>
-<td>7790</td>
-<td>http</td>
-<td>mlmmjadmin</td>
-<td>RESTful API server used to manage mlmmj mailing lists. Introduced in iRedMail-0.9.8.</td>
-<td>NO (listen on <code>127.0.0.1</code> by default)</td>
+<td style="text-align: right;">10027</td>
+<td style="text-align: left;">—</td>
+<td style="text-align: left;">Amavisd-new</td>
+<td style="text-align: left;">Amavisd listener used by mlmmj; bypasses spam/virus/header/banned checks by default, but has DKIM signing enabled.</td>
+<td style="text-align: left;">NO (127.0.0.1 only)</td>
 </tr>
 <tr>
-<td>7791</td>
-<td>http</td>
-<td>iredadmin</td>
-<td>iRedAdmin (standalone uwsgi instance). Introduced in iRedMail-0.9.9.</td>
-<td>NO (listen on <code>127.0.0.1</code> by default)</td>
+<td style="text-align: right;">10028</td>
+<td style="text-align: left;">—</td>
+<td style="text-align: left;">Amavisd-new</td>
+<td style="text-align: left;">Amavisd listener for mail sent by the mlmmj mailing list manager (since iRedMail-0.9.9).</td>
+<td style="text-align: left;">NO (127.0.0.1 only)</td>
 </tr>
 <tr>
-<td>20000</td>
-<td></td>
-<td>SOGo</td>
-<td>SOGo groupware</td>
-<td>NO (listen on <code>127.0.0.1</code> by default)</td>
+<td style="text-align: right;">11211</td>
+<td style="text-align: left;">—</td>
+<td style="text-align: left;">Memcached</td>
+<td style="text-align: left;">Memory object cache; currently used only by SOGo.</td>
+<td style="text-align: left;">NO (127.0.0.1 only)</td>
 </tr>
 <tr>
-<td>11211</td>
-<td></td>
-<td>Memcached</td>
-<td>A distributed, high performance memory object caching system. Currently used by only SOGo Groupware.</td>
-<td>NO (listen on <code>127.0.0.1</code> by default)</td>
+<td style="text-align: right;">12340</td>
+<td style="text-align: left;">—</td>
+<td style="text-align: left;">Dovecot</td>
+<td style="text-align: left;">Dovecot quota status (since iRedMail-1.0).</td>
+<td style="text-align: left;">NO (127.0.0.1 only)</td>
 </tr>
 <tr>
-<td>12340</td>
-<td></td>
-<td>Dovecot</td>
-<td>Dovecot quota status. Introduced in iRedMail-1.0.</td>
-<td>NO (listen on <code>127.0.0.1</code> by default)</td>
+<td style="text-align: right;">19999</td>
+<td style="text-align: left;">—</td>
+<td style="text-align: left;">Netdata</td>
+<td style="text-align: left;">Netdata monitoring (since iRedMail-0.9.8).</td>
+<td style="text-align: left;">NO (127.0.0.1 only)</td>
 </tr>
 <tr>
-<td>24242</td>
-<td></td>
-<td>Dovecot</td>
-<td>Dovecot service status. Introduced in iRedMail-0.9.8.</td>
-<td>NO (listen on <code>127.0.0.1</code> by default)</td>
+<td style="text-align: right;">20000</td>
+<td style="text-align: left;">—</td>
+<td style="text-align: left;">SOGo</td>
+<td style="text-align: left;">SOGo groupware.</td>
+<td style="text-align: left;">NO (127.0.0.1 only)</td>
 </tr>
 <tr>
-<td>19999</td>
-<td></td>
-<td>Netdata</td>
-<td>Netdata monitor. Introduced in iRedMail-0.9.8.</td>
-<td>NO (listen on <code>127.0.0.1</code> by default)</td>
+<td style="text-align: right;">24242</td>
+<td style="text-align: left;">—</td>
+<td style="text-align: left;">Dovecot</td>
+<td style="text-align: left;">Dovecot service status (since iRedMail-0.9.8).</td>
+<td style="text-align: left;">NO (127.0.0.1 only)</td>
 </tr>
 </tbody>
-</table><div class="footer">
+</table>
+<p><strong>Notes</strong></p>
+<ul>
+<li><strong>YES</strong> ports must be reachable from the Internet for your users. Port 25 must be reachable by any mail server; the submission and retrieval ports can be restricted by firewall if your users connect from known networks.</li>
+<li><strong>NO (127.0.0.1 only)</strong> means the service listens on the loopback interface in the default configuration. Open it to the network only if you know why.</li>
+<li><strong>TLS</strong> terminology: <em>implicit TLS</em> means the TLS handshake starts immediately on that port (443, 465, 636, 993, 995); <em>STARTTLS</em> means a plaintext connection is upgraded to TLS (110, 143, 389, 587). TLS 1.2 or newer is required on all encrypted ports.</li>
+<li>Empty Service means the port has no IANA or <code>/etc/services</code> name; it is a product-specific port.</li>
+</ul><div class="footer">
     <p style="text-align: center; color: grey;">All documents are available in <a href="https://github.com/iredmail/docs/">GitHub repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://github.com/iredmail/docs/archive/master.zip">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
 </div></body></html>
