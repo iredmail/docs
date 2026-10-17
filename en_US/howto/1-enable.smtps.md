@@ -11,19 +11,6 @@
 
     Since iRedMail-1.5.0, smtps is enabled by default.
 
-### Why iRedMail doesn't enable SMTPS (SMTP over SSL) by default
-
-SMTPS is deprecated, so iRedMail disable it by default.
-Quote from [wikipedia.org](http://en.wikipedia.org/wiki/SMTPS)
-
-> Originally, in early 1997, the Internet Assigned Numbers Authority registered 465 for SMTPS. By the end of 1998, this was revoked when STARTTLS has been specified. With STARTTLS, the same port can be used with or without TLS. SMTP was seen as particularly important, because clients of this protocol are often other mail servers, which can not know whether a server they wish to communicate with will have a separate port for TLS. The port 465 is now registered for Source-Specific Multicast audio and video.
-
-### Why enable SMTPS since it's depreciated
-
-Unfortunately, there're some popular mail clients don't support submission (SMTP over STARTTLS, port 587), the famous one is Microsoft Outlook. Quote from wikipedia.org:
-
-> Even in 2013, there are still services that continue to offer the deprecated SMTPS interface on port 465 in addition to (or instead of!) the RFC-compliant message submission interface on the port 587 defined by RFC 6409. Service providers that maintain port 465 do so because older Microsoft applications (including Entourage v10.0) do not support STARTTLS, and thus not the smtp-submission standard (ESMTPS on port 587). The only way for service providers to offer those clients an encrypted connection is to maintain port 465.
-
 ### How to enable SMTPS
 
 To enable SMTPS, you should configure Postfix to listen on port 465 first, then open port 465 in iptables.

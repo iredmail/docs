@@ -3,6 +3,7 @@
 Port | Service | Software | Comment | Allow Public Access?
 --- |--- |--- |--- |---
 25 | smtp | Postfix | Used for communication betweem mail servers. __WARNING__: This port __MUST__ be open, otherwise you cannot receive email sent by other mail servers. | __YES (REQUIRED)__{: .red }
+465 | smtps | Postfix | SMTP over SSL. Used by end users to send/submit email. | YES (open to your end users)
 587 | submission | Postfix | SMTP over TLS. Used by end users to send/submit email. | YES (open to your end users)
 110 | pop3 | Dovecot | Used by end users to retrieve emails via POP3 protocol, secure connection over STARTTLS is enforced by default. | YES (open to your end users)
 995 | pop3s | Dovecot | Used by end users to retrieve emails via POP3 protocol over SSL. | YES (open to your end users)
