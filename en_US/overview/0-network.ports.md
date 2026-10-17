@@ -3,16 +3,16 @@
 Port | Service | Software | Comment | Allow Public Access?
 --- |--- |--- |--- |---
 25 | smtp | Postfix | Used for communication betweem mail servers. __WARNING__: This port __MUST__ be open, otherwise you cannot receive email sent by other mail servers. | __YES (REQUIRED)__{: .red }
-465 | smtps | Postfix | SMTP over SSL. Used by end users to send/submit email. | YES (open to your end users)
-587 | submission | Postfix | SMTP over TLS. Used by end users to send/submit email. | YES (open to your end users)
-110 | pop3 | Dovecot | Used by end users to retrieve emails via POP3 protocol, secure connection over STARTTLS is enforced by default. | YES (open to your end users)
-995 | pop3s | Dovecot | Used by end users to retrieve emails via POP3 protocol over SSL. | YES (open to your end users)
-143 | imap |Dovecot | Used by end users to retrieve emails via IMAP protocol, secure connection over STARTTLS is enforced by default. | YES (open to your end users)
-993 | imaps | Dovecot | Used by end users to retrieve emails via IMAP protocol over SSL. | YES (open to your end users)
+465 | smtps (submissions) | Postfix | implicit TLS | SMTP submission — end users send and submit mail | Yes — end users |
+587 | submission | Postfix | STARTTLS | SMTP submission — end users send and submit mail (preferred) | Yes — end users |
+110 | pop3 | Dovecot | STARTTLS (enforced) | POP3 retrieval | Yes — end users |
+995 | pop3s | Dovecot | implicit TLS | POP3 retrieval | Yes — end users |
+143 | imap | Dovecot | STARTTLS (enforced) | IMAP retrieval | Yes — end users |
+993 | imaps | Dovecot | implicit TLS | IMAP retrieval | Yes — end users |
 24 | lmtp | Dovecot | Used to deliver email to local mailboxes via LMTP protocol. | NO (listen on `127.0.0.1` by default)
 4190 | managesieve | Dovecot | Sieve service used by end users to manage mail filters. Note: in old iRedMail releases, it's port 2000 (deprecated and not even listed in `/etc/services` file). | NO (disabled by default and users are forced to manage mail filters with webmail)
 80 | http | Apache/Nginx | Web service. Redirect to https by default. | YES (open to your webmail users)
-443 | https | Apache/Nginx | Web service over over SSL, secure connection. | YES (open to your webmail and ActiveSync users)
+443 | https | Nginx | implicit TLS | HTTPS — webmail and ActiveSync | Yes — webmail/ActiveSync users |
 3306 | mysql | MySQL/MariaDB | MySQL/MariaDB database service | NO (listen on `127.0.0.1` by default)
 5432 | postgresql | PostgreSQL | PostgreSQL database service | NO (listen on `127.0.0.1` by default)
 389 | ldap | OpenLDAP (or OpenBSD ldapd) | LDAP service, STARTTLS is available for secure connection. | NO (listen on `127.0.0.1` by default)

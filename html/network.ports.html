@@ -40,45 +40,45 @@
 </tr>
 <tr>
 <td>465</td>
-<td>smtps</td>
+<td>smtps (submissions)</td>
 <td>Postfix</td>
-<td>SMTP over SSL. Used by end users to send/submit email.</td>
-<td>YES (open to your end users)</td>
+<td>implicit TLS</td>
+<td>SMTP submission — end users send and submit mail</td>
 </tr>
 <tr>
 <td>587</td>
 <td>submission</td>
 <td>Postfix</td>
-<td>SMTP over TLS. Used by end users to send/submit email.</td>
-<td>YES (open to your end users)</td>
+<td>STARTTLS</td>
+<td>SMTP submission — end users send and submit mail (preferred)</td>
 </tr>
 <tr>
 <td>110</td>
 <td>pop3</td>
 <td>Dovecot</td>
-<td>Used by end users to retrieve emails via POP3 protocol, secure connection over STARTTLS is enforced by default.</td>
-<td>YES (open to your end users)</td>
+<td>STARTTLS (enforced)</td>
+<td>POP3 retrieval</td>
 </tr>
 <tr>
 <td>995</td>
 <td>pop3s</td>
 <td>Dovecot</td>
-<td>Used by end users to retrieve emails via POP3 protocol over SSL.</td>
-<td>YES (open to your end users)</td>
+<td>implicit TLS</td>
+<td>POP3 retrieval</td>
 </tr>
 <tr>
 <td>143</td>
 <td>imap</td>
 <td>Dovecot</td>
-<td>Used by end users to retrieve emails via IMAP protocol, secure connection over STARTTLS is enforced by default.</td>
-<td>YES (open to your end users)</td>
+<td>STARTTLS (enforced)</td>
+<td>IMAP retrieval</td>
 </tr>
 <tr>
 <td>993</td>
 <td>imaps</td>
 <td>Dovecot</td>
-<td>Used by end users to retrieve emails via IMAP protocol over SSL.</td>
-<td>YES (open to your end users)</td>
+<td>implicit TLS</td>
+<td>IMAP retrieval</td>
 </tr>
 <tr>
 <td>24</td>
@@ -104,9 +104,9 @@
 <tr>
 <td>443</td>
 <td>https</td>
-<td>Apache/Nginx</td>
-<td>Web service over over SSL, secure connection.</td>
-<td>YES (open to your webmail and ActiveSync users)</td>
+<td>Nginx</td>
+<td>implicit TLS</td>
+<td>HTTPS — webmail and ActiveSync</td>
 </tr>
 <tr>
 <td>3306</td>
