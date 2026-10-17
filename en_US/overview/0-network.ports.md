@@ -32,12 +32,3 @@ Port | Service | Software | Comment | Allow Public Access?
 12340 | | Dovecot | Dovecot quota status. Introduced in iRedMail-1.0. | NO (listen on `127.0.0.1` by default)
 24242 | | Dovecot | Dovecot service status. Introduced in iRedMail-0.9.8. | NO (listen on `127.0.0.1` by default)
 19999 | | Netdata | Netdata monitor. Introduced in iRedMail-0.9.8. | NO (listen on `127.0.0.1` by default)
-
-!!! note
-
-    * In iRedMail-0.9.2 and earlier releases, Policyd or Cluebringer listens on
-      port 10031. They have been removed in iRedMail-0.9.3, and replaced by
-      iRedAPD.
-
-    * Port 465, a.k.a. SMTP over SSL, has been deprecated for years. Please use
-      port 587 instead.
