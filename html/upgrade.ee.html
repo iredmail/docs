@@ -34,10 +34,9 @@ service iredmail stop
 mv /tmp/iredmail /usr/local/bin/iredmail
 service iredmail start
 </code></pre>
-<p>After upgraded binary, please <strong>empty the web browser cache first</strong>, then login to
-the web UI as global admin. If there's some update for deployed software like
-Postfix, Dovecot, Nginx, etc, it will show a banner with <code>Upgrade</code> button,
-click it to finish the upgrade.</p>
+<p>After upgraded binary, login to the web UI as global admin. If there's some
+update for deployed software like Postfix, Dovecot, Nginx, etc, it will show a
+banner with <code>Upgrade</code> button, click it to finish the upgrade.</p>
 <p><img alt="" src="./images/ee/dashboard-upgrade.png" width="400px" /></p>
 <p>Since EE v1.7.2, if a later version contains security fixes, it will show you
 additional warning message like below:</p>

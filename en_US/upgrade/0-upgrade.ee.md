@@ -22,10 +22,9 @@ mv /tmp/iredmail /usr/local/bin/iredmail
 service iredmail start
 ```
 
-After upgraded binary, please __empty the web browser cache first__, then login to
-the web UI as global admin. If there's some update for deployed software like
-Postfix, Dovecot, Nginx, etc, it will show a banner with `Upgrade` button,
-click it to finish the upgrade.
+After upgraded binary, login to the web UI as global admin. If there's some
+update for deployed software like Postfix, Dovecot, Nginx, etc, it will show a
+banner with `Upgrade` button, click it to finish the upgrade.
 
 ![](./images/ee/dashboard-upgrade.png){: width="400px" }
 
