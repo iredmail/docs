@@ -54,6 +54,7 @@
 - Updated packages:
     - [Roundcube webmail 1.7.5](https://roundcube.net/news/2026/10/19/security-updates-1.6.20-and-1.7.5),
       addresses 20 security vulnerabilities.
+    - [SOGo v5.12.12](https://www.sogo.nu/news/2026/sogo-v51212-released.html), fixes one security vulnerability.
     - [Adminer 6.1.2](https://github.com/vrana/adminer/releases/tag/v6.1.2)
     - iRedAPD 6.4
 
