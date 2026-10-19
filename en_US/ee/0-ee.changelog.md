@@ -7,6 +7,7 @@
 
 | Version | Release Date ||
 |---|---|---|
+| [v1.8.5](#v1.8.5) | 2026-10-19 | Roundcube 1.7.5 security fix. |
 | [v1.8.4](#v1.8.4) | 2026-09-10 | Roundcube 1.7.4 security fix. |
 | [v1.8.3](#v1.8.3) | 2026-08-10 | Roundcube 1.7.3 security fix. |
 | [v1.8.2](#v1.8.2) | 2026-08-04 | |
@@ -47,6 +48,14 @@
 - [Best Practice](https://docs.iredmail.org/ee.best.practice.html)
 - [Replicate mail accounts from Microsoft Active Directory](./ee.ad.html)
 - [Use a Remote MySQL/MariaDB server as backend database](./ee.remote.mysql.html)
+
+## v1.8.5, Oct 19, 2026 {: #v1.8.5 }
+
+- Updated packages:
+    - [Roundcube webmail 1.7.5](https://roundcube.net/news/2026/10/19/security-updates-1.6.20-and-1.7.5),
+      addresses 20 security vulnerabilities.
+    - [Adminer 6.1.2](https://github.com/vrana/adminer/releases/tag/v6.1.2)
+    - iRedAPD 6.4
 
 ## v1.8.4, Sep 10, 2026 {: #v1.8.4 }
 
