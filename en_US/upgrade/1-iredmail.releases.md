@@ -39,6 +39,7 @@
 
 Release Notes | Date | Upgrade tutorial | Comment
 ---|---|---|---
+[1.8.9](https://forum.iredmail.org/) | Oct 28, 2026 | [Upgrade from iRedMail-1.8.8](./upgrade.iredmail.1.8.8-1.8.9.html) |Roundcube 1.7.5 addresses 20 security vulnerabilities.|
 [1.8.8](https://forum.iredmail.org/topic21216.html) | Sep 8, 2026 | [Upgrade from iRedMail-1.8.7](./upgrade.iredmail.1.8.7-1.8.8.html) |Roundcube 1.7.4 addresses 12 security vulnerabilities.|
 [1.8.7](https://forum.iredmail.org/topic21211.html) | Aug 30, 2026 | [Upgrade from iRedMail-1.8.6](./upgrade.iredmail.1.8.6-1.8.7.html) ||
 [1.8.6](https://forum.iredmail.org/topic21206.html) | Aug 27, 2026 | [Upgrade from iRedMail-1.8.5](./upgrade.iredmail.1.8.5-1.8.6.html) |iRedAPD 6.2 addresses one security vulnerability.|
