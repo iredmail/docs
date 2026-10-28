@@ -27,6 +27,30 @@ so that you can know which version of iRedMail you're running. For example:
 1.8.9
 ```
 
+### Update script `/usr/local/bin/fail2ban_banned_db`
+
+Fail2ban script (`/usr/local/bin/fail2ban_banned_db`) failed to store
+banned IP address if the country name or reverse DNS name contains a
+single quote, e.g. "Lao People's Democratic Republic". Please follow
+steps below to fix it.
+
+Download hardened version and override the one on your server:
+
+```
+wget -O /usr/local/bin/fail2ban_banned_db \
+    https://raw.githubusercontent.com/iredmail/iRedMail/refs/tags/1.8.9/samples/fail2ban/bin/fail2ban_banned_db
+chown root:root /usr/local/bin/fail2ban_banned_db
+chmod 0550 /usr/local/bin/fail2ban_banned_db
+```
+
+If you're running __FreeBSD or OpenBSD__, please replace the shabang line with
+command below:
+```
+perl -pi -e 's#/usr/bin/env bash#/usr/local/bin/bash#g' /usr/local/bin/fail2ban_banned_db
+```
+
+No service restart required.
+
 ### Upgrade Roundcube webmail to the latest release (1.7.5)
 
 !!! warning "Roundcube Security Fixes"
