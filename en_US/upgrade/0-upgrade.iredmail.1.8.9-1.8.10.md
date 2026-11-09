@@ -76,7 +76,7 @@ changes first.
 
 Download the Roundcube 1.7.6 complete package and upgrade, then restart Nginx service:
 ```
-wget https://github.com/roundcube/roundcubemail/releases/download/1.7.5/roundcubemail-1.7.6-complete.tar.gz
+wget https://github.com/roundcube/roundcubemail/releases/download/1.7.6/roundcubemail-1.7.6-complete.tar.gz
 tar zxf roundcubemail-1.7.6-complete.tar.gz
 cd roundcubemail-1.7.6
 ./bin/installto.sh /opt/www/roundcubemail
