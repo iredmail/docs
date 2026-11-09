@@ -7,6 +7,7 @@
 
 | Version | Release Date ||
 |---|---|---|
+| [v1.8.6](#v1.8.6) | 2026-11-09 | Security fixes: Golang v1.27.3, Roundcube v1.7.6, SOGo 5.12.13. |
 | [v1.8.5](#v1.8.5) | 2026-10-19 | Roundcube 1.7.5 security fix. |
 | [v1.8.4](#v1.8.4) | 2026-09-10 | Roundcube 1.7.4 security fix. |
 | [v1.8.3](#v1.8.3) | 2026-08-10 | Roundcube 1.7.3 security fix. |
@@ -48,6 +49,16 @@
 - [Best Practice](https://docs.iredmail.org/ee.best.practice.html)
 - [Replicate mail accounts from Microsoft Active Directory](./ee.ad.html)
 - [Use a Remote MySQL/MariaDB server as backend database](./ee.remote.mysql.html)
+
+## v1.8.6, Nov 9, 2026 {: #v1.8.6 }
+
+- Security update: golang (1.27.3), Roundcube (1.7.6), SOGo (5.12.13).
+- Updated packages:
+    - [Roundcube webmail 1.7.6](https://roundcube.net/news/2026/11/09/security-updates-1.6.21-and-1.7.6),
+      fixes 17 security vulnerabilities.
+    - [SOGo v5.12.13](https://www.sogo.nu/news/2026/sogo-v51213-released.html),
+      fixes 7 security vulnerabilities.
+    - [Adminer 6.3.0](https://github.com/vrana/adminer/releases/tag/v6.3.0)
 
 ## v1.8.5, Oct 19, 2026 {: #v1.8.5 }
 
