@@ -531,9 +531,27 @@ Store custom rules in `/opt/iredmail/custom/spamassassin/custom.cf`.
 
 ### Fail2ban
 
-- `/opt/iredmail/custom/fail2ban/jail.local`: used to override settings in
-  `[DEFAULT]` section of main fail2ban config file. For example, `maxretry`, `findtime`, `bantime`,
-  `ignoreip`.
+- `/opt/iredmail/custom/fail2ban/jail.local`:
+    - Override global settings defined in `[DEFAULT]` section of main
+      fail2ban config file (`/etc/fail2ban/fail2ban.conf` and `/etc/fail2ban/jail.local`).
+      For example, `maxretry`, `findtime`, `bantime`, `ignoreip`.
+    - Also add new jails.
+
+```
+# File /opt/iredmail/custom/fail2ban/jail.local.
+
+[DEFAULT]
+bantime = 7200
+
+[sshd2]
+backend      = polling
+journalmatch =
+enabled      = true
+filter       = sshd
+logpath      = /var/log/auth.log tail
+action       = nftables-multiport[name=sshd, port="22", protocol=tcp]
+```
+
 - `/opt/iredmail/custom/fail2ban/custom.sh`: used for advanced customization.
   for example, if you have some new jails, you can write jail config files under
   `/opt/iredmail/custom/fail2ban/` too (you're free to create sub-folder to

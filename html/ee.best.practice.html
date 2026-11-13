@@ -625,9 +625,28 @@ EE deployment or upgrade.</p>
 <p>Store custom rules in <code>/opt/iredmail/custom/spamassassin/custom.cf</code>.</p>
 <h3 id="fail2ban">Fail2ban</h3>
 <ul>
-<li><code>/opt/iredmail/custom/fail2ban/jail.local</code>: used to override settings in
-  <code>[DEFAULT]</code> section of main fail2ban config file. For example, <code>maxretry</code>, <code>findtime</code>, <code>bantime</code>,
-  <code>ignoreip</code>.</li>
+<li><code>/opt/iredmail/custom/fail2ban/jail.local</code>:<ul>
+<li>Override global settings defined in <code>[DEFAULT]</code> section of main
+  fail2ban config file (<code>/etc/fail2ban/fail2ban.conf</code> and <code>/etc/fail2ban/jail.local</code>).
+  For example, <code>maxretry</code>, <code>findtime</code>, <code>bantime</code>, <code>ignoreip</code>.</li>
+<li>Also add new jails.</li>
+</ul>
+</li>
+</ul>
+<pre><code># File /opt/iredmail/custom/fail2ban/jail.local.
+
+[DEFAULT]
+bantime = 7200
+
+[sshd2]
+backend      = polling
+journalmatch =
+enabled      = true
+filter       = sshd
+logpath      = /var/log/auth.log tail
+action       = nftables-multiport[name=sshd, port=&quot;22&quot;, protocol=tcp]
+</code></pre>
+<ul>
 <li><code>/opt/iredmail/custom/fail2ban/custom.sh</code>: used for advanced customization.
   for example, if you have some new jails, you can write jail config files under
   <code>/opt/iredmail/custom/fail2ban/</code> too (you're free to create sub-folder to
