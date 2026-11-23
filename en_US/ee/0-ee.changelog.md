@@ -7,7 +7,8 @@
 
 | Version | Release Date ||
 |---|---|---|
-| [v1.8.6](#v1.8.6) | 2026-11-09 | Security fixes: Golang v1.27.3, Roundcube v1.7.6, SOGo 5.12.13. |
+| [v1.8.7](#v1.8.7) | 2026-11-23 | Security fixes: Roundcube v1.7.7, Golang v1.27.4. |
+| [v1.8.6](#v1.8.6) | 2026-11-09 | Security fixes: Roundcube v1.7.6, SOGo 5.12.13, Golang v1.27.3. |
 | [v1.8.5](#v1.8.5) | 2026-10-19 | Roundcube 1.7.5 security fix. |
 | [v1.8.4](#v1.8.4) | 2026-09-10 | Roundcube 1.7.4 security fix. |
 | [v1.8.3](#v1.8.3) | 2026-08-10 | Roundcube 1.7.3 security fix. |
@@ -50,9 +51,16 @@
 - [Replicate mail accounts from Microsoft Active Directory](./ee.ad.html)
 - [Use a Remote MySQL/MariaDB server as backend database](./ee.remote.mysql.html)
 
+## v1.8.7, Nov 23, 2026 {: #v1.8.7 }
+
+- Security update: Golang (1.27.4), Roundcube (1.7.7).
+- Updated packages:
+    - [Roundcube webmail 1.7.7](https://roundcube.net/news/2026/11/23/security-updates-1.6.22-and-1.7.7),
+      fixes 12 security vulnerabilities.
+
 ## v1.8.6, Nov 9, 2026 {: #v1.8.6 }
 
-- Security update: golang (1.27.3), Roundcube (1.7.6), SOGo (5.12.13).
+- Security update: Golang (1.27.3), Roundcube (1.7.6), SOGo (5.12.13).
 - Updated packages:
     - [Roundcube webmail 1.7.6](https://roundcube.net/news/2026/11/09/security-updates-1.6.21-and-1.7.6),
       fixes 17 security vulnerabilities.
