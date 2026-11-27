@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <title>Upgrade iRedMail from 1.8.11 to 1.8.12</title>
+        <link rel="stylesheet" type="text/css" href="./css/markdown.css" />
+    </head>
+    <body>
+
+    <div id="navigation">
+    <a href="https://www.iredmail.org" target="_blank">
+        <img alt="iRedMail web site"
+             src="./images/logo-iredmail.png"
+             style="vertical-align: middle; height: 30px;"
+             />&nbsp;
+        <span>iRedMail</span>
+    </a>
+    &nbsp;&nbsp;//&nbsp;&nbsp;<a href="./index.html">Document Index</a></div><h1 id="upgrade-iredmail-from-1811-to-1812">Upgrade iRedMail from 1.8.11 to 1.8.12</h1>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<ul>
+<li>iRedMail team recommends <a href="https://www.iredmail.org/ee.html">iRedMail Enterprise Edition</a> for deploying new email server.</li>
+<li>Check out the lightweight on-premises email archiving software developed by iRedMail team: <a href="https://spiderd.io/">Spider Email Archiver</a>.</li>
+</ul>
+</div>
+<div class="toc">
+<ul>
+<li><a href="#upgrade-iredmail-from-1811-to-1812">Upgrade iRedMail from 1.8.11 to 1.8.12</a><ul>
+<li><a href="#changelog">ChangeLog</a></li>
+<li><a href="#general-all-backends-should-apply-these-changes">General (All backends should apply these changes)</a><ul>
+<li><a href="#update-etciredmail-release-with-new-iredmail-version-number">Update /etc/iredmail-release with new iRedMail version number</a></li>
+<li><a href="#security-fix-nginx-config-files-for-roundcube-webmail">[SECURITY] Fix Nginx config files for Roundcube webmail</a><ul>
+<li><a href="#update-etcnginxtemplatesroundcubetmpl">Update /etc/nginx/templates/roundcube.tmpl</a></li>
+<li><a href="#update-etcnginxtemplatesroundcube-subdomaintmpl">Update /etc/nginx/templates/roundcube-subdomain.tmpl</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Remote Upgrade Assistance</p>
+<p>Check out our <a href="https://www.iredmail.org/support.html">remote upgrade support</a> if you need assistance.</p>
+</div>
+<h2 id="changelog">ChangeLog</h2>
+<ul>
+<li>Nov 27, 2026: initial publish.</li>
+</ul>
+<h2 id="general-all-backends-should-apply-these-changes">General (All backends should apply these changes)</h2>
+<h3 id="update-etciredmail-release-with-new-iredmail-version-number">Update <code>/etc/iredmail-release</code> with new iRedMail version number</h3>
+<p>iRedMail stores the release version in <code>/etc/iredmail-release</code> after
+installation, it's recommended to update this file after you upgraded iRedMail,
+so that you can know which version of iRedMail you're running. For example:</p>
+<pre><code>1.8.12
+</code></pre>
+<h3 id="security-fix-nginx-config-files-for-roundcube-webmail">[SECURITY] Fix Nginx config files for Roundcube webmail</h3>
+<p>Nginx config files shipped in iRedMail 1.8.11 and earlier releases allow
+clients to download arbitrary files (including PHP source code) under
+Roundcube's installation directory by accessing URL <code>/mail/static.php/&lt;path&gt;</code>
+(<code>/static.php/&lt;path&gt;</code> for the subdomain setup). Please follow steps below to
+fix it.</p>
+<p>With default iRedMail configuration, only Roundcube's own application files
+(PHP source code, templates, localization files, etc.) could be downloaded; no
+user data, email messages, credentials, or other privacy or confidential
+information were exposed.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<ul>
+<li>If you use a custom Roundcube base URI (<code>/mail/</code> by default) or
+  installation directory, please adjust the blocks below.</li>
+<li>On FreeBSD, the Nginx config files are under
+  <code>/usr/local/etc/nginx/templates/</code>, and Roundcube is installed under
+  <code>/usr/local/www/roundcube</code>.</li>
+</ul>
+</div>
+<p>Backup the config files before modifying:</p>
+<pre><code>cp /etc/nginx/templates/roundcube.tmpl{,.bak}
+cp /etc/nginx/templates/roundcube-subdomain.tmpl{,.bak}
+</code></pre>
+<p>The <code>composer.*</code> deny rule in these config files is incorrect in iRedMail
+1.8.11 and earlier: <code>composer\.*</code> matches <code>composer</code> followed by zero or more
+dots, so <code>composer.json</code> and <code>composer.lock</code> are not blocked by Nginx.
+Roundcube's <code>static.php</code> already rejects these files, but the rule should be
+fixed for defense in depth.</p>
+<p>The <code>static.php</code> <code>location</code> block must also be replaced so Nginx no longer
+serves files under the installation directory directly.</p>
+<h4 id="update-etcnginxtemplatesroundcubetmpl">Update <code>/etc/nginx/templates/roundcube.tmpl</code></h4>
+<p>Find the two <code>location</code> lines below:</p>
+<pre><code>location ~ ^/mail/(.*\.md|composer\.*|INSTALL|LICENSE|Makefile|UPGRADING)$ { deny all; }
+location ~ ^/mail/static.php/(.*\.md|composer\.*|INSTALL|LICENSE|Makefile|UPGRADING)$ { deny all; }
+</code></pre>
+<p>Replace them with the two lines below (the <code>composer</code> rule is fixed):</p>
+<pre><code>location ~ ^/mail/(.*\.md|composer\..*|INSTALL|LICENSE|Makefile|UPGRADING)$ { deny all; }
+location ~ ^/mail/static.php/(.*\.md|composer\..*|INSTALL|LICENSE|Makefile|UPGRADING)$ { deny all; }
+</code></pre>
+<p>Then find the <code>location</code> block below:</p>
+<pre><code>location ~ ^/mail/static.php/(.*) {
+    include /etc/nginx/templates/hsts.tmpl;
+    alias /opt/www/roundcubemail/$1;
+}
+</code></pre>
+<p>Replace it by the block below:</p>
+<pre><code># Serve static content through PHP: `static.php` validates requested paths, files
+# under the installation directory must not be served by Nginx directly.
+location ~ ^/mail/static\.php(/|$) {
+    include /etc/nginx/templates/hsts.tmpl;
+    include /etc/nginx/templates/fastcgi_php.tmpl;
+
+    fastcgi_split_path_info ^(.+?\.php)(/.+)$;
+    fastcgi_param SCRIPT_FILENAME /opt/www/roundcubemail/public_html/static.php;
+    fastcgi_param PATH_INFO $fastcgi_path_info;
+}
+</code></pre>
+<h4 id="update-etcnginxtemplatesroundcube-subdomaintmpl">Update <code>/etc/nginx/templates/roundcube-subdomain.tmpl</code></h4>
+<p>Find the two <code>location</code> lines below:</p>
+<pre><code>location ~ ^/(.*\.md|composer\.*|INSTALL|LICENSE|Makefile|UPGRADING)$ { deny all; }
+location ~ ^/static.php/(.*\.md|composer\.*|INSTALL|LICENSE|Makefile|UPGRADING)$ { deny all; }
+</code></pre>
+<p>Replace them with the two lines below (the <code>composer</code> rule is fixed):</p>
+<pre><code>location ~ ^/(.*\.md|composer\..*|INSTALL|LICENSE|Makefile|UPGRADING)$ { deny all; }
+location ~ ^/static.php/(.*\.md|composer\..*|INSTALL|LICENSE|Makefile|UPGRADING)$ { deny all; }
+</code></pre>
+<p>Then find the <code>location</code> block below:</p>
+<pre><code>location ~ ^/static.php/(.*) {
+    include /etc/nginx/templates/hsts.tmpl;
+    alias /opt/www/roundcubemail/$1;
+}
+</code></pre>
+<p>Replace it by the block below:</p>
+<pre><code># Serve static content through PHP: `static.php` validates requested paths, files
+# under the installation directory must not be served by Nginx directly.
+location ~ ^/static\.php(/|$) {
+    include /etc/nginx/templates/hsts.tmpl;
+    include /etc/nginx/templates/fastcgi_php.tmpl;
+
+    fastcgi_split_path_info ^(.+?\.php)(/.+)$;
+    fastcgi_param SCRIPT_FILENAME /opt/www/roundcubemail/public_html/static.php;
+    fastcgi_param PATH_INFO $fastcgi_path_info;
+}
+</code></pre>
+<p>Test the Nginx config and restart Nginx service:</p>
+<pre><code>nginx -t
+systemctl restart nginx
+</code></pre>
+<p>On FreeBSD, run <code>service nginx restart</code> instead. On OpenBSD, run
+<code>rcctl restart nginx</code>.</p>
+<p>After restarting Nginx, accessing
+<code>https://&lt;server&gt;/mail/static.php/program/include/rcmail.php</code> should return
+<code>404 Not Found</code> instead of the PHP source code, and
+<code>https://&lt;server&gt;/mail/static.php/composer.json</code> should return <code>403 Forbidden</code>.
+For the subdomain setup, use the corresponding URLs without the <code>/mail/</code>
+prefix.</p><div class="footer">
+    <p style="text-align: center; color: grey;">All documents are available in <a href="https://github.com/iredmail/docs/">GitHub repository</a>, and published under <a href="http://creativecommons.org/licenses/by-nd/3.0/us/" target="_blank">Creative Commons</a> license. You can <a href="https://github.com/iredmail/docs/archive/master.zip">download the latest version</a> for offline reading. If you found something wrong, please do <a href="https://www.iredmail.org/contact.html">contact us</a> to fix it.</p>
+</div></body></html>
